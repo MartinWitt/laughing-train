@@ -1,0 +1,58 @@
+
+plugins {
+	// Apply the application plugin to add support for building a CLI application in Java.
+	id 'application'
+	id "com.diffplug.spotless" version "6.0.4"
+}
+
+repositories {
+	// Use Maven Central for resolving dependencies.
+	mavenCentral()
+}
+
+dependencies {
+	// Use JUnit Jupiter for testing.
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
+
+	// This dependency is used by the application.
+	implementation 'com.google.guava:guava:30.1.1-jre'
+	// implementation 'fr.inria.gforge.spoon:spoon-core:10.0.1-beta-2'
+	implementation 'org.eclipse.jgit:org.eclipse.jgit:+'
+	implementation 'com.github.MartinWitt:Spoon:59fa98b3f8f83b2b566dc876ffabb26ba31ce2e3' // code solver branch
+	implementation 'com.google.flogger:flogger:0.7.4'
+	implementation 'com.google.flogger:flogger-system-backend:0.7.4'
+	implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.3.0-alpha12'
+}
+
+application {
+	// Define the main class for the application.
+	mainClass = 'xyz.keksdose.spoon.code_solver.TransformationEngine'
+}
+
+tasks.named('test') {
+	// Use JUnit Platform for unit tests.
+	useJUnitPlatform()
+}
+spotless {
+	format 'misc', {
+		// define the files to apply `misc` to
+		target "*.md", '.gitignore'
+
+		trimTrailingWhitespace()
+		indentWithTabs()
+		endWithNewline()
+	}
+
+	groovyGradle {
+		target '*.gradle' // default target of groovyGradle
+		greclipse()
+	}
+	java {
+		eclipse().configFile('/src/main/resources/formatter-settings.xml')
+	}
+	allprojects {
+		repositories {
+			maven { url 'https://jitpack.io' }
+		}
+	}
+}
