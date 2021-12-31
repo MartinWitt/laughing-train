@@ -3,13 +3,22 @@ plugins {
 	// Apply the application plugin to add support for building a CLI application in Java.
 	id 'application'
 	id "com.diffplug.spotless" version "6.0.4"
+	id 'org.jreleaser' version '0.10.0'
 }
-
+version = "0.0.1"
 repositories {
 	// Use Maven Central for resolving dependencies.
 	mavenCentral()
 }
-
+jar {
+	manifest {
+		attributes "Main-Class": "xyz.keksdose.spoon.code_solver.TransformationEngine"
+	}
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
 dependencies {
 	// Use JUnit Jupiter for testing.
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
@@ -53,6 +62,31 @@ spotless {
 	allprojects {
 		repositories {
 			maven { url 'https://jitpack.io' }
+		}
+	}
+}
+
+jreleaser {
+	gitRootSearch = true
+	project {
+		name = 'laughing-train'
+		license = 'MIT'
+		docsUrl = "https://github.com/MartinWitt/laughing-train"
+		website = "https://github.com/MartinWitt/laughing-train"
+		description = "A code refactoring tool for java created with jgit and spoon for small diffs."
+		authors = List.of("MartinWitt")
+	}
+	release {
+		github {
+			owner = 'MartinWitt'
+			overwrite = true
+		}
+	}
+	distributions {
+		app {
+			artifact {
+				path = 'build/distributions/code-transformation-{{projectVersion}}.zip'
+			}
 		}
 	}
 }
