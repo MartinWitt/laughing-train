@@ -21,6 +21,8 @@ The following refactorings are currently supported:
   * Replace Junit 4 Asserts with Junit 5 Assertions
   * Replace Junit 4 expected exceptions with Junit 5 `assertThrows`
   * Replace Junit 4 Timeout value with Junit 5 Timeout annotation
+  * Replace Junit 4 `Ignore` with Junit 5 `@Disabled` Annotation
+  * Replace Junit 4 assertThat with Junit 5 `org.hamcrest.MatcherAssert.assertThat`
   ### Qodana Smell Refactoring
   * Replacement of `String.equals("")` with `String.isEmpty()`
   * Replacement of `Collection.size()==0` with `Collection.isEmpty()`

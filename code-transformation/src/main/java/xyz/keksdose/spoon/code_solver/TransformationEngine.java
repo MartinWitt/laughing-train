@@ -1,7 +1,6 @@
 
 package xyz.keksdose.spoon.code_solver;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Collection;
 import java.util.List;
@@ -26,20 +25,19 @@ import xyz.keksdose.spoon.code_solver.spoon.ImportCleaner;
 import xyz.keksdose.spoon.code_solver.spoon.ImportComparator;
 import xyz.keksdose.spoon.code_solver.spoon.ImportGrouper;
 import xyz.keksdose.spoon.code_solver.spoon.SelectiveForceImport;
+import xyz.keksdose.spoon.code_solver.transformations.junit.AssertThatTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertionsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.ExpectedExceptionRemoval;
-import xyz.keksdose.spoon.code_solver.transformations.junit.Junit4AnnotationsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.TestAnnotation;
 
 public class TransformationEngine {
 
 	private static final FluentLogger LOGGER = FluentLogger.forEnclosingClass();
-
 	private TransformationEngine() {
 
 	}
 
-	public static Changelog applyToGivenPath(String path) throws IOException {
+	public static Changelog applyToGivenPath(String path) {
 		LOGGER.atInfo().log("Applying transformations to %s", path);
 		Launcher launcher = new Launcher();
 		Environment environment = setEnvironmentOptions(launcher);
@@ -50,9 +48,7 @@ public class TransformationEngine {
 		ChangeListener listener = new ChangeListener();
 		do {
 			listener.reset();
-			pm.addProcessor(new TestAnnotation(listener));
-			pm.addProcessor(new ExpectedExceptionRemoval(listener));
-			pm.addProcessor(new AssertionsTransformation(listener));
+			addProcessors(pm, listener);
 			pm.process(model.getAllTypes());
 		} while (listener.isChanged());
 		Collection<CtType<?>> newTypes = model.getAllTypes();
@@ -60,7 +56,14 @@ public class TransformationEngine {
 		return listener.getChangelog();
 	}
 
-	public static Changelog applyToGivenPath(String path, String typeName) throws IOException {
+	private static void addProcessors(ProcessingManager pm, ChangeListener listener) {
+		pm.addProcessor(new AssertThatTransformation(listener));
+		pm.addProcessor(new TestAnnotation(listener));
+		pm.addProcessor(new ExpectedExceptionRemoval(listener));
+		pm.addProcessor(new AssertionsTransformation(listener));
+	}
+
+	public static Changelog applyToGivenPath(String path, String typeName) {
 		LOGGER.atInfo().log("Applying transformations to %s", path);
 		Launcher launcher = new Launcher();
 		Environment environment = setEnvironmentOptions(launcher);
@@ -69,15 +72,13 @@ public class TransformationEngine {
 		setPrettyPrinter(environment, model);
 		ProcessingManager pm = new QueueProcessingManager(launcher.getFactory());
 		ChangeListener listener = new ChangeListener();
+		Collection<CtType<?>> newTypes = getTypesWithName(typeName, model);
+
 		do {
 			listener.reset();
-			pm.addProcessor(new TestAnnotation(listener));
-			pm.addProcessor(new ExpectedExceptionRemoval(listener));
-			pm.addProcessor(new AssertionsTransformation(listener));
-			pm.addProcessor(new Junit4AnnotationsTransformation(listener));
-			pm.process(model.getAllTypes());
+			addProcessors(pm, listener);
+			pm.process(newTypes);
 		} while (listener.isChanged());
-		Collection<CtType<?>> newTypes = getTypesWithName(typeName, model);
 
 		printChangedTypes(environment.createPrettyPrinter(), listener, newTypes);
 		return listener.getChangelog();
@@ -88,7 +89,7 @@ public class TransformationEngine {
 	}
 
 	private static void printChangedTypes(PrettyPrinter prettyPrinter, ChangeListener listener,
-			Collection<CtType<?>> newTypes) {
+			Iterable<CtType<?>> newTypes) {
 		for (CtType<?> type : newTypes) {
 			if (type.getPosition().getFile() == null || !listener.isChanged(type)) {
 				continue;
