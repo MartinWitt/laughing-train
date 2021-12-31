@@ -24,7 +24,7 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
 	// This dependency is used by the application.
-	implementation 'com.google.guava:guava:30.1.1-jre'
+	implementation 'com.google.guava:guava:31.0.1-jre'
 	// implementation 'fr.inria.gforge.spoon:spoon-core:10.0.1-beta-2'
 	implementation 'org.eclipse.jgit:org.eclipse.jgit:+'
 	implementation 'com.github.MartinWitt:Spoon:59fa98b3f8f83b2b566dc876ffabb26ba31ce2e3' // code solver branch
