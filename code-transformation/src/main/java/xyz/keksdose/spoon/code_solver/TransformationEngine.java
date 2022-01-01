@@ -34,7 +34,7 @@ public class TransformationEngine {
 
 	private static final FluentLogger LOGGER = FluentLogger.forEnclosingClass();
 
-	public Changelog applyToGivenPath(String path) {
+	public Changelog applyToGivenPath(String path, RunState runState) {
 		LOGGER.atInfo().log("Applying transformations to %s", path);
 		Launcher launcher = new Launcher();
 		Environment environment = setEnvironmentOptions(launcher);
@@ -49,7 +49,9 @@ public class TransformationEngine {
 			pm.process(model.getAllTypes());
 		} while (listener.isChanged());
 		Collection<CtType<?>> newTypes = model.getAllTypes();
-		printChangedTypes(environment.createPrettyPrinter(), listener, newTypes);
+		if (runState == RunState.DRY_RUN) {
+			printChangedTypes(environment.createPrettyPrinter(), listener, newTypes);
+		}
 		return listener.getChangelog();
 	}
 
@@ -60,7 +62,7 @@ public class TransformationEngine {
 		pm.addProcessor(new AssertionsTransformation(listener));
 	}
 
-	public Changelog applyToGivenPath(String path, String typeName) {
+	public Changelog applyToGivenPath(String path, String typeName, RunState runState) {
 		LOGGER.atInfo().log("Applying transformations to %s", path);
 		Launcher launcher = new Launcher();
 		Environment environment = setEnvironmentOptions(launcher);
@@ -76,8 +78,9 @@ public class TransformationEngine {
 			addProcessors(pm, listener);
 			pm.process(newTypes);
 		} while (listener.isChanged());
-
-		printChangedTypes(environment.createPrettyPrinter(), listener, newTypes);
+		if (runState == RunState.DRY_RUN) {
+			printChangedTypes(environment.createPrettyPrinter(), listener, newTypes);
+		}
 		return listener.getChangelog();
 	}
 
