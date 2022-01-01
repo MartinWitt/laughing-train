@@ -21,9 +21,9 @@ public class RedundantInterface extends TransformationProcessor<CtType<?>> {
 			return;
 		}
 		Set<CtTypeReference<?>> superClass = element.getSuperInterfaces();
-		superClass.stream().filter(
-			intrface -> superClass.stream().filter(inner -> inner.isSubtypeOf(intrface)).count() > 1).forEach(
-				intrface -> {
+		superClass.stream()
+				.filter(intrface -> superClass.stream().filter(inner -> inner.isSubtypeOf(intrface)).count() > 1)
+				.forEach(intrface -> {
 					element.removeSuperInterface(intrface);
 					setChanged(element,
 						new Change(

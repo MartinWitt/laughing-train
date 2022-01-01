@@ -13,7 +13,7 @@ public class TransformationHelper {
 	static class Builder {
 		private String path;
 		private String className;
-		private Iterable<Function<ChangeListener, TransformationProcessor<?>>> processors;
+		private Iterable<TransformationCreator> processors;
 
 		public Builder path(String path) {
 			this.path = path;
@@ -25,7 +25,7 @@ public class TransformationHelper {
 			return this;
 		}
 
-		public Builder processors(Iterable<Function<ChangeListener, TransformationProcessor<?>>> processors) {
+		public Builder processors(Iterable<TransformationCreator> processors) {
 			this.processors = processors;
 			return this;
 		}
@@ -37,10 +37,10 @@ public class TransformationHelper {
 
 	private static class TestTransformationEngine extends TransformationEngine {
 
-		private List<Function<ChangeListener, TransformationProcessor<?>>> currentProcessors = new ArrayList<>();
+		private List<TransformationCreator> currentProcessors = new ArrayList<>();
 
 		public void applyWithGivenProcessors(String path, String className,
-				Iterable<Function<ChangeListener, TransformationProcessor<?>>> processors) {
+				Iterable<TransformationCreator> processors) {
 			currentProcessors.clear();
 			processors.forEach(currentProcessors::add);
 			applyToGivenPath(path, className);

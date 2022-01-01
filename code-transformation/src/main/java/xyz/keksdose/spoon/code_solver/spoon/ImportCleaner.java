@@ -156,8 +156,10 @@ public class ImportCleaner extends ImportAnalyzer<ImportCleaner.Context> {
 			if (pckg != null) {
 				this.packageQName = pckg.getReference().getQualifiedName();
 			}
-			this.typeRefQNames = cu.getDeclaredTypeReferences().stream().map(CtTypeReference::getQualifiedName).collect(
-				Collectors.toSet());
+			this.typeRefQNames = cu.getDeclaredTypeReferences()
+					.stream()
+					.map(CtTypeReference::getQualifiedName)
+					.collect(Collectors.toSet());
 			computedImports = new HashMap<>();
 		}
 
@@ -229,8 +231,10 @@ public class ImportCleaner extends ImportAnalyzer<ImportCleaner.Context> {
 		}
 
 		private boolean isReferencePresentInImports(CtReference ref) {
-			return compilationUnit.getImports().stream().anyMatch(ctImport -> ctImport.getReference() != null
-					&& isEqualAfterSkippingRole(ctImport.getReference(), ref, CtRole.TYPE_ARGUMENT));
+			return compilationUnit.getImports()
+					.stream()
+					.anyMatch(ctImport -> ctImport.getReference() != null
+							&& isEqualAfterSkippingRole(ctImport.getReference(), ref, CtRole.TYPE_ARGUMENT));
 		}
 
 		/**

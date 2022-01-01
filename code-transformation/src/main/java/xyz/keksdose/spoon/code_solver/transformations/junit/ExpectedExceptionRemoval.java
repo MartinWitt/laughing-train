@@ -51,18 +51,23 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 	}
 
 	private void removeExpectedValue(Optional<CtAnnotation<?>> testAnnotation) {
-		testAnnotation.get().setValues(
-			testAnnotation.get().getValues().entrySet().stream().filter(v -> !v.getKey().equals("expected")).collect(
-				Collectors.toMap(Entry::getKey, Entry::getValue)));
+		testAnnotation.get()
+				.setValues(testAnnotation.get()
+						.getValues()
+						.entrySet()
+						.stream()
+						.filter(v -> !v.getKey().equals("expected"))
+						.collect(Collectors.toMap(Entry::getKey, Entry::getValue)));
 	}
 
 	private CtInvocation<?> createAssertThrows(CtExpression<?> exceptionClass, CtStatement body) {
 		CtTypeReference<?> typeRef = getFactory().Type().createReference("org.junit.jupiter.api.Assertions");
 		CtTypeReference<?> clazzRef = getFactory().Type().createReference("java.lang.Class");
-		CtTypeReference<?> executableJunit = getFactory().Type().createReference(
-			"org.junit.jupiter.api.function.Executable");
-		CtExecutableReference<?> assertThrows = getFactory().Executable().createReference(typeRef,
-			getFactory().Type().voidType(), "assertThrows", List.of(clazzRef, executableJunit));
+		CtTypeReference<?> executableJunit = getFactory().Type()
+				.createReference("org.junit.jupiter.api.function.Executable");
+		CtExecutableReference<?> assertThrows = getFactory().Executable()
+				.createReference(typeRef, getFactory().Type().voidType(), "assertThrows",
+					List.of(clazzRef, executableJunit));
 		CtLambda<?> lambda = getFactory().createLambda();
 		lambda.setType((CtTypeReference) getFactory().Type().voidType());
 		lambda.setBody(body);

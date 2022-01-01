@@ -28,8 +28,11 @@ public class CommitBuilder {
 			git.checkout().setName(config.getGitDefaultBranchName()).call();
 			git.checkout().setForced(true).setCreateBranch(true).setName(config.getGitBranchPrefix() + file).call();
 			Changelog changelog = transformation.apply(sourceFiles, file);
-			git.commit().setAll(true).setAuthor(config.getGitAuthor(), config.getGitEmail()).setMessage(
-				"refactor(" + file + "): \n " + getRelevantChangeLog(file, changelog)).call();
+			git.commit()
+					.setAll(true)
+					.setAuthor(config.getGitAuthor(), config.getGitEmail())
+					.setMessage("refactor(" + file + "): \n " + getRelevantChangeLog(file, changelog))
+					.call();
 			git.close();
 		}
 		catch (IOException | GitAPIException e) {
