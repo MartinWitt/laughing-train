@@ -7,10 +7,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import xyz.keksdose.spoon.code_solver.transformations.junit.TestAnnotation;
 
+@DisplayNameGeneration(CamelCaseToSpaceDisplayNames.class)
 class JunitTests {
 
 	@Test
