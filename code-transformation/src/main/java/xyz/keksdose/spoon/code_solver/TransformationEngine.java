@@ -33,11 +33,8 @@ import xyz.keksdose.spoon.code_solver.transformations.junit.TestAnnotation;
 public class TransformationEngine {
 
 	private static final FluentLogger LOGGER = FluentLogger.forEnclosingClass();
-	private TransformationEngine() {
 
-	}
-
-	public static Changelog applyToGivenPath(String path) {
+	public Changelog applyToGivenPath(String path) {
 		LOGGER.atInfo().log("Applying transformations to %s", path);
 		Launcher launcher = new Launcher();
 		Environment environment = setEnvironmentOptions(launcher);
@@ -56,14 +53,14 @@ public class TransformationEngine {
 		return listener.getChangelog();
 	}
 
-	private static void addProcessors(ProcessingManager pm, ChangeListener listener) {
+	protected void addProcessors(ProcessingManager pm, ChangeListener listener) {
 		pm.addProcessor(new AssertThatTransformation(listener));
 		pm.addProcessor(new TestAnnotation(listener));
 		pm.addProcessor(new ExpectedExceptionRemoval(listener));
 		pm.addProcessor(new AssertionsTransformation(listener));
 	}
 
-	public static Changelog applyToGivenPath(String path, String typeName) {
+	public Changelog applyToGivenPath(String path, String typeName) {
 		LOGGER.atInfo().log("Applying transformations to %s", path);
 		Launcher launcher = new Launcher();
 		Environment environment = setEnvironmentOptions(launcher);

@@ -31,15 +31,17 @@ public class CollectionEmptyCheck extends TransformationProcessor<CtBinaryOperat
 	private boolean leftHandIsSizeCheck(CtBinaryOperator<?> element) {
 		CtExpression<?> leftHand = element.getLeftHandOperand();
 		List<CtInvocation<?>> innvocation = leftHand.getElements(new TypeFilter<>(CtInvocation.class));
-		innvocation.stream().filter(
-			outer -> innvocation.stream().anyMatch(inner -> outer.hasParent(inner))).toList().forEach(
-				innvocation::remove);
+		innvocation.stream()
+				.filter(outer -> innvocation.stream().anyMatch(inner -> outer.hasParent(inner)))
+				.toList()
+				.forEach(innvocation::remove);
 		if (innvocation.isEmpty()) {
 			return false;
 		}
 		CtInvocation<?> invocation = innvocation.get(innvocation.size() - 1);
-		if (invocation.getTarget() != null && invocation.getTarget().getType().isSubtypeOf(
-			getFactory().Type().createReference(Collection.class))) {
+		if (invocation.getTarget() != null && invocation.getTarget()
+				.getType()
+				.isSubtypeOf(getFactory().Type().createReference(Collection.class))) {
 			if (invocation.getExecutable().getSimpleName().equals("size")) {
 				if (invocation.getArguments().isEmpty()) {
 					return true;
@@ -57,9 +59,9 @@ public class CollectionEmptyCheck extends TransformationProcessor<CtBinaryOperat
 			ref.setDeclaringType(getFactory().createCtTypeReference(Collection.class));
 			setChanged(element.getParent(CtType.class),
 				new Change("EmptyCollectionCheck", "EmptyCollectionCheck", element.getParent(CtType.class)));
-			CtInvocation<Boolean> innvocation = getFactory().Code().createInvocation(
-				element.getElements(new TypeFilter<>(CtInvocation.class)).get(0).getTarget(), ref,
-				new ArrayList<CtExpression<?>>());
+			CtInvocation<Boolean> innvocation = getFactory().Code()
+					.createInvocation(element.getElements(new TypeFilter<>(CtInvocation.class)).get(0).getTarget(), ref,
+						new ArrayList<CtExpression<?>>());
 			element.replace(innvocation);
 		}
 	}

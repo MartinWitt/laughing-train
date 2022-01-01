@@ -21,10 +21,12 @@ public class MissingOverride extends TransformationProcessor<CtMethod<?>> {
 	public void process(CtMethod<?> element) {
 		if (element.getTopDefinitions().size() == 1) {
 			if (element.getAnnotations().stream().noneMatch(v -> v.getName().equals("Override"))) {
-				if (element.getTopDefinitions().stream().filter(v -> v.getBody() != null).anyMatch(
-					v -> !v.getBody().getStatements().isEmpty() || !v.isAbstract())) {
-					CtAnnotation<?> overrideAnnotation = getFactory().createAnnotation(
-						getFactory().Type().createReference(Override.class));
+				if (element.getTopDefinitions()
+						.stream()
+						.filter(v -> v.getBody() != null)
+						.anyMatch(v -> !v.getBody().getStatements().isEmpty() || !v.isAbstract())) {
+					CtAnnotation<?> overrideAnnotation = getFactory()
+							.createAnnotation(getFactory().Type().createReference(Override.class));
 					overrideAnnotation.setComments(element.getComments());
 					overrideAnnotation.setDocComment(element.getDocComment());
 					element.setComments(List.of());
