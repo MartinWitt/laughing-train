@@ -1,10 +1,12 @@
 
 package xyz.keksdose.spoon.code_solver.transformations;
 
+import java.util.ArrayList;
 import java.util.List;
 import spoon.experimental.CtUnresolvedImport;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtImport;
+import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.CtAbstractImportVisitor;
 
 public class ImportHelper {
@@ -25,6 +27,22 @@ public class ImportHelper {
 
 	public static void removeImport(String importString, boolean isStatic, CtCompilationUnit unit) {
 		List<CtImport> imports = unit.getImports();
+		List<CtImport> removalableImports = new ArrayList<>();
+		for (CtImport ctImport : imports) {
+			if (ctImport.getReference() instanceof CtTypeReference) {
+				CtTypeReference<?> typeReference = (CtTypeReference<?>) ctImport.getReference();
+				if (typeReference.getQualifiedName().equals(importString)) {
+					removalableImports.add(ctImport);
+				}
+			}
+		}
+		removalableImports.forEach(imports::remove);
+		removalableImports.forEach(CtImport::delete);
+		imports.clear();
+		unit.setImports(imports);
+		ImportVisitor visitor = new ImportVisitor(importString);
+		imports.forEach(i -> i.accept(visitor));
+		imports.remove(visitor.getResult());
 		imports.remove(createImport(importString, isStatic, unit));
 	}
 
@@ -51,7 +69,7 @@ public class ImportHelper {
 		}
 
 		private String importString;
-		private CtUnresolvedImport result;
+		private CtImport result;
 
 		// all junit imports are unresolved imports
 		@Override
@@ -61,7 +79,7 @@ public class ImportHelper {
 			}
 		}
 
-		public CtUnresolvedImport getResult() {
+		public CtImport getResult() {
 			return result;
 		}
 	}

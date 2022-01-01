@@ -24,8 +24,10 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 			CtElement element = annotation.getAnnotatedElement();
 			refactorTimeoutAnnotation(annotation, element);
 			adjustImports(annotation, element);
+			annotation.setType(getFactory().createReference("org.junit.jupiter.api.Test"));
 			annotation.setAnnotationType(getFactory().createReference("org.junit.jupiter.api.Test"));
 			CtType<?> type = annotation.getParent(CtType.class);
+			type.getReferencedTypes();
 			setChanged(type,
 				new Change(
 					String.format("Replaced junit 4 test annotation with junit 5 test annotation in %s",
