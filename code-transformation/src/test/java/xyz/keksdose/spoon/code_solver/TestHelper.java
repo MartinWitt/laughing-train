@@ -6,11 +6,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Supplier;
+
 import com.google.common.io.Files;
-import xyz.keksdose.spoon.code_solver.history.ChangeListener;
-import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class TestHelper {
 
@@ -23,7 +20,7 @@ public class TestHelper {
 	}
 
 	public static File createCopy(File root, String resourcePath, String filename) throws IOException {
-		File copy = new File(root, "filename");
+		File copy = new File(root, filename);
 		File source = TestHelper.getResouces(Path.of(resourcePath));
 		TestHelper.copyFile(source, copy);
 		return copy;
