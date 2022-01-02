@@ -34,11 +34,11 @@ public class ConfigStore {
 	}
 
 	public String getGitEmail() {
-		return property.getProperty("git.email");
+		return property.getProperty("git.mail");
 	}
 
 	public String getGitDefaultBranchName() {
-		return property.getProperty("git.defaultBranchName");
+		return property.getProperty("git.default_branch");
 	}
 
 	public String getGitBranchPrefix() {

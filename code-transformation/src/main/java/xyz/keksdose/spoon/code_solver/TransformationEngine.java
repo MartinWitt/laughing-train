@@ -34,7 +34,7 @@ public class TransformationEngine {
 
 	private static final FluentLogger LOGGER = FluentLogger.forEnclosingClass();
 
-	public Changelog applyToGivenPath(String path, RunState runState) {
+	public Changelog applyToGivenPath(String path, RunMode runState) {
 		LOGGER.atInfo().log("Applying transformations to %s", path);
 		Launcher launcher = new Launcher();
 		Environment environment = setEnvironmentOptions(launcher);
@@ -49,7 +49,7 @@ public class TransformationEngine {
 			pm.process(model.getAllTypes());
 		} while (listener.isChanged());
 		Collection<CtType<?>> newTypes = model.getAllTypes();
-		if (runState == RunState.DRY_RUN) {
+		if (runState != RunMode.DRY_RUN) {
 			printChangedTypes(environment.createPrettyPrinter(), listener, newTypes);
 		}
 		return listener.getChangelog();
@@ -62,7 +62,7 @@ public class TransformationEngine {
 		pm.addProcessor(new AssertionsTransformation(listener));
 	}
 
-	public Changelog applyToGivenPath(String path, String typeName, RunState runState) {
+	public Changelog applyToGivenPath(String path, String typeName, RunMode runState) {
 		LOGGER.atInfo().log("Applying transformations to %s", path);
 		Launcher launcher = new Launcher();
 		Environment environment = setEnvironmentOptions(launcher);
@@ -78,7 +78,7 @@ public class TransformationEngine {
 			addProcessors(pm, listener);
 			pm.process(newTypes);
 		} while (listener.isChanged());
-		if (runState == RunState.DRY_RUN) {
+		if (runState != RunMode.DRY_RUN) {
 			printChangedTypes(environment.createPrettyPrinter(), listener, newTypes);
 		}
 		return listener.getChangelog();
@@ -123,7 +123,7 @@ public class TransformationEngine {
 		Collection<CtTypeReference<?>> existingReferences = model.getElements(e -> true);
 		List<Processor<CtElement>> preprocessors = List.of(//new ImportCleaning()
 			new SelectiveForceImport(existingReferences), new ImportConflictDetector(),
-			new ImportCleaner().setImportComparator(new ImportComparator()), new ImportGrouper()
+			new ImportCleaner().setImportComparator(new ImportComparator()).setCanAddImports(false), new ImportGrouper()
 		// )
 		);
 		return () -> {
