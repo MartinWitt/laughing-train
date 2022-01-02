@@ -59,7 +59,7 @@ class JunitTests {
 		String resourcePath = "projects/bugs/AnnotationValuesTest.java";
 		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
 		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
-				v -> new AssertionsTransformation(v));
+			v -> new AssertionsTransformation(v));
 		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
 				.className("AnnotationValuesTest")
 				.processors(transformations)
@@ -77,7 +77,7 @@ class JunitTests {
 		String resourcePath = "projects/bugs/WhiteSpaces.java";
 		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
 		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
-				v -> new AssertionsTransformation(v));
+			v -> new AssertionsTransformation(v));
 		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
 				.className("WhiteSpaces")
 				.processors(transformations)
