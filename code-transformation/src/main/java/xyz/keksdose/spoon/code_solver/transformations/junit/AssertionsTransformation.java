@@ -8,9 +8,10 @@ import spoon.experimental.CtUnresolvedImport;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtTypeAccess;
+import spoon.reflect.cu.SourcePosition;
+import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtImport;
 import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtReference;
@@ -62,7 +63,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 			if (parameters.size() == 3) {
 				if (parameters.get(0).getType().getSimpleName().equals("String")) {
 					List<CtExpression<?>> newParameters = new ArrayList<>();
-					newParameters.add(parameters.get(1));
+					newParameters.add(parameters.get(1).clone());
 					newParameters.add(parameters.get(2));
 					newParameters.add(parameters.get(0));
 					junit4Assert.setArguments(newParameters);
@@ -71,7 +72,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 			if (parameters.size() == 2 && junit4Assert.getExecutable().getSimpleName().equals("assertTrue")) {
 				if (parameters.get(0).getType().getSimpleName().equals("String")) {
 					List<CtExpression<?>> newParameters = new ArrayList<>();
-					newParameters.add(parameters.get(1));
+					newParameters.add(parameters.get(1).clone());
 					newParameters.add(parameters.get(0));
 					junit4Assert.setArguments(newParameters);
 				}

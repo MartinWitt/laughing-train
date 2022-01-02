@@ -59,13 +59,33 @@ class JunitTests {
 		String resourcePath = "projects/bugs/AnnotationValuesTest.java";
 		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
 		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
-			v -> new AssertionsTransformation(v));
+				v -> new AssertionsTransformation(v));
 		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
 				.className("AnnotationValuesTest")
 				.processors(transformations)
 				.apply();
 		String result = Files.readString(copy.toPath());
 		assertThat(result).contains("@Test");
+		assertThat(result).contains("import org.junit.jupiter.api.Test;");
+		assertThat(result).doesNotContain("import org.junit.Test;");
+		assertThat(result).doesNotContain("import org.junit.Assert.");
+	}
+
+	@Test
+	public void printerDoesNotIncludeWhiteSpaceInInvocations(@TempDir File tempRoot) throws IOException {
+		String fileName = "WhiteSpaces.java";
+		String resourcePath = "projects/bugs/WhiteSpaces.java";
+		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
+		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
+				v -> new AssertionsTransformation(v));
+		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
+				.className("WhiteSpaces")
+				.processors(transformations)
+				.apply();
+		String result = Files.readString(copy.toPath());
+		assertThat(result).contains("@Test");
+		// no whitespace should be printed for the first argument.
+		assertThat(result).doesNotContain(" 1");
 		assertThat(result).contains("import org.junit.jupiter.api.Test;");
 		assertThat(result).doesNotContain("import org.junit.Test;");
 		assertThat(result).doesNotContain("import org.junit.Assert.");
