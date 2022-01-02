@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import spoon.experimental.CtUnresolvedImport;
+import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtTypeAccess;
 import spoon.reflect.declaration.CtImport;
 import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtReference;
@@ -56,6 +58,24 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 			junit4Assert.setTarget(null);
 			junit4Assert.getExecutable()
 					.setDeclaringType(getFactory().Type().createReference("org.junit.jupiter.api.Assertions"));
+			List<CtExpression<?>> parameters = junit4Assert.getArguments();
+			if (parameters.size() == 3) {
+				if (parameters.get(0).getType().getSimpleName().equals("String")) {
+					List<CtExpression<?>> newParameters = new ArrayList<>();
+					newParameters.add(parameters.get(1));
+					newParameters.add(parameters.get(2));
+					newParameters.add(parameters.get(0));
+					junit4Assert.setArguments(newParameters);
+				}
+			}
+			if (parameters.size() == 2 && junit4Assert.getExecutable().getSimpleName().equals("assertTrue")) {
+				if (parameters.get(0).getType().getSimpleName().equals("String")) {
+					List<CtExpression<?>> newParameters = new ArrayList<>();
+					newParameters.add(parameters.get(1));
+					newParameters.add(parameters.get(0));
+					junit4Assert.setArguments(newParameters);
+				}
+			}
 		}
 	}
 
@@ -68,6 +88,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 				.filter(v -> ((CtTypeAccess<?>) v.getTarget()).getAccessedType()
 						.getQualifiedName()
 						.equals("org.junit.Assert"))
+				.filter(v -> !v.getExecutable().getSimpleName().equals("assertThat"))
 				.toList();
 	}
 
@@ -81,9 +102,11 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 			public <T> void visitUnresolvedImport(CtUnresolvedImport ctUnresolvedImport) {
 				if (ctUnresolvedImport.getUnresolvedReference().startsWith("org.junit.Assert.")) {
 					imports.add(ctUnresolvedImport);
-					newImports.add(getFactory().createUnresolvedImport(ctUnresolvedImport.getUnresolvedReference()
-							.replace("org.junit.Assert.", "org.junit.jupiter.api.Assertions."),
-						true));
+					if (!ctUnresolvedImport.getUnresolvedReference().endsWith("assertThat")) {
+						newImports.add(getFactory().createUnresolvedImport(ctUnresolvedImport.getUnresolvedReference()
+								.replace("org.junit.Assert.", "org.junit.jupiter.api.Assertions."),
+							true));
+					}
 				}
 			}
 
@@ -91,8 +114,10 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 			public <T> void visitMethodImport(CtExecutableReference<T> executableReference) {
 				if (executableReference.getDeclaringType().getQualifiedName().equals("org.junit.Assert")) {
 					references.add(executableReference);
-					newImports.add(getFactory().createUnresolvedImport(
-						"org.junit.jupiter.api.Assertions." + executableReference.getSimpleName(), true));
+					if (!executableReference.getSimpleName().equals("assertThat")) {
+						newImports.add(getFactory().createUnresolvedImport(
+							"org.junit.jupiter.api.Assertions." + executableReference.getSimpleName(), true));
+					}
 				}
 			}
 		}));

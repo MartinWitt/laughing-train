@@ -51,13 +51,11 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 	}
 
 	private void removeExpectedValue(CtAnnotation<?> testAnnotation) {
-		testAnnotation
-				.setValues(testAnnotation
-						.getValues()
-						.entrySet()
-						.stream()
-						.filter(v -> !v.getKey().equals("expected"))
-						.collect(Collectors.toMap(Entry::getKey, Entry::getValue)));
+		testAnnotation.setValues(testAnnotation.getValues()
+				.entrySet()
+				.stream()
+				.filter(v -> !v.getKey().equals("expected"))
+				.collect(Collectors.toMap(Entry::getKey, Entry::getValue)));
 	}
 
 	private CtInvocation<?> createAssertThrows(CtExpression<?> exceptionClass, CtStatement body) {
