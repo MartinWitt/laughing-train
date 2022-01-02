@@ -2,9 +2,10 @@
 package xyz.keksdose.spoon.code_solver.transformations.junit;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtFieldRead;
 import spoon.reflect.code.CtInvocation;
@@ -12,7 +13,6 @@ import spoon.reflect.code.CtLambda;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtCompilationUnit;
-import spoon.reflect.declaration.CtImport;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
@@ -40,7 +40,7 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 				var assertThrows = createAssertThrows(value, method.getBody());
 				method.setBody(assertThrows);
 				CtCompilationUnit compilationUnit = method.getPosition().getCompilationUnit();
-				removeExpectedValue(testAnnotation);
+				removeExpectedValue(testAnnotation.get());
 				ImportHelper.addImport("org.junit.jupiter.api.Assertions.assertThrows", true, compilationUnit);
 
 				setChanged(method.getParent(CtType.class),
@@ -50,9 +50,9 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 		}
 	}
 
-	private void removeExpectedValue(Optional<CtAnnotation<?>> testAnnotation) {
-		testAnnotation.get()
-				.setValues(testAnnotation.get()
+	private void removeExpectedValue(CtAnnotation<?> testAnnotation) {
+		testAnnotation
+				.setValues(testAnnotation
 						.getValues()
 						.entrySet()
 						.stream()

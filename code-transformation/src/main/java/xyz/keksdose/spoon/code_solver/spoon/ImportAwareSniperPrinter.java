@@ -35,29 +35,4 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
 	private boolean endsWithNewline(String s) {
 		return s.endsWith("\n") || s.endsWith("\r\n");
 	}
-
-	@Override
-	public <T> void visitCtLambda(CtLambda<T> lambda) {
-		enterCtExpression(lambda);
-		getElementPrinterHelper().printList(lambda.getParameters(), null, false, "(", false, false, ",", false, false,
-			")", parameter -> scan(parameter));
-		getPrinterTokenWriter().writeSpace();
-		getPrinterTokenWriter().writeSeparator("->");
-		getPrinterTokenWriter().writeSpace();
-
-		if (lambda.getBody() != null) {
-			scan(lambda.getBody());
-		}
-		else {
-			scan(lambda.getExpression());
-		}
-		exitCtExpression(lambda);
-	}
-
-	@Override
-	public <R> void visitCtBlock(CtBlock<R> block) {
-		// TODO Auto-generated method stub
-		super.visitCtBlock(block);
-	}
-
 }
