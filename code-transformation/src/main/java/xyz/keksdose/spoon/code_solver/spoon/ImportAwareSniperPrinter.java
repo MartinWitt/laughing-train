@@ -2,8 +2,6 @@
 package xyz.keksdose.spoon.code_solver.spoon;
 
 import spoon.compiler.Environment;
-import spoon.reflect.code.CtBlock;
-import spoon.reflect.code.CtLambda;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtImport;
 import spoon.support.sniper.SniperJavaPrettyPrinter;
