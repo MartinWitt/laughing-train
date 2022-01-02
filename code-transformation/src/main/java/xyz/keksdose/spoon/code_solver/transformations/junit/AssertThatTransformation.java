@@ -42,7 +42,7 @@ public class AssertThatTransformation extends TransformationProcessor<CtInvocati
 	}
 
 	private boolean isInJunit4Assert(CtExecutableReference<?> exec) {
-		return exec.getDeclaringType().getQualifiedName().equals("org.junit.Assert");
+		return exec.getDeclaringType() != null && exec.getDeclaringType().getQualifiedName().equals("org.junit.Assert");
 	}
 
 	private boolean isAssertThat(CtExecutableReference<?> exec) {
