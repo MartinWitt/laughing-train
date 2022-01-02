@@ -22,6 +22,7 @@ import xyz.keksdose.spoon.code_solver.formatting.ImportGrouper;
 import xyz.keksdose.spoon.code_solver.formatting.NewLineImportGroups;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
+import xyz.keksdose.spoon.code_solver.spoon.FragmentAwareChangeCollector;
 import xyz.keksdose.spoon.code_solver.spoon.ImportAwareSniperPrinter;
 import xyz.keksdose.spoon.code_solver.spoon.ImportCleaner;
 import xyz.keksdose.spoon.code_solver.spoon.ImportComparator;
@@ -29,6 +30,7 @@ import xyz.keksdose.spoon.code_solver.spoon.SelectiveForceImport;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertThatTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertionsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.ExpectedExceptionRemoval;
+import xyz.keksdose.spoon.code_solver.transformations.junit.Junit4AnnotationsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.TestAnnotation;
 
 public class TransformationEngine {
@@ -58,6 +60,7 @@ public class TransformationEngine {
 
 	protected void addProcessors(ProcessingManager pm, ChangeListener listener) {
 		pm.addProcessor(new AssertThatTransformation(listener));
+		pm.addProcessor(new Junit4AnnotationsTransformation(listener));
 		pm.addProcessor(new TestAnnotation(listener));
 		pm.addProcessor(new ExpectedExceptionRemoval(listener));
 		pm.addProcessor(new AssertionsTransformation(listener));
@@ -114,6 +117,7 @@ public class TransformationEngine {
 	}
 
 	private static void setPrettyPrinter(Environment env, CtModel model) {
+		new FragmentAwareChangeCollector().attachTo(env);
 		Supplier<? extends DefaultJavaPrettyPrinter> basePrinterCreator = createSniperPrinter(env);
 		Supplier<PrettyPrinter> configuredPrinterCreator = applyCommonPrinterOptions(basePrinterCreator, model);
 		env.setPrettyPrinterCreator(configuredPrinterCreator);
@@ -124,7 +128,9 @@ public class TransformationEngine {
 		Collection<CtTypeReference<?>> existingReferences = model.getElements(e -> true);
 		List<Processor<CtElement>> preprocessors = List.of(//new ImportCleaning()
 			new SelectiveForceImport(existingReferences), new ImportConflictDetector(),
-			new ImportCleaner().setImportComparator(new ImportComparator()).setCanAddImports(false),
+			new ImportCleaner().setImportComparator(new ImportComparator())
+					.setCanAddImports(false)
+					.setCanRemoveImports(false),
 			new ImportGrouper(new NewLineImportGroups())
 		// )
 		);
