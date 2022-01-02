@@ -43,7 +43,7 @@ public class TransformationHelper {
 				Iterable<TransformationCreator> processors) {
 			currentProcessors.clear();
 			processors.forEach(currentProcessors::add);
-			applyToGivenPath(path, className, RunState.FULL);
+			applyToGivenPath(path, className, RunMode.FULL);
 		}
 
 		@Override

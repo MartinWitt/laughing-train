@@ -1,6 +1,6 @@
 
 package xyz.keksdose.spoon.code_solver;
 
-public enum RunState {
+public enum RunMode {
 	FULL, DRY_RUN;
 }

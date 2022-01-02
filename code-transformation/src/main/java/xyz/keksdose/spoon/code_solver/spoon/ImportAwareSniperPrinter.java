@@ -24,12 +24,16 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
 	public void visitCtImport(CtImport ctImport) {
 		if (ctImport instanceof NewlineImport) {
 			String s = getPrinterTokenWriter().getPrinterHelper().toString();
-			if (!s.endsWith("\n") || !s.endsWith("\r\n")) {
+			if (!endsWithNewline(s)) {
 				getPrinterTokenWriter().writeln();
 			}
 			return;
 		}
 		super.visitCtImport(ctImport);
+	}
+
+	private boolean endsWithNewline(String s) {
+		return s.endsWith("\n") || s.endsWith("\r\n");
 	}
 
 	@Override

@@ -26,6 +26,8 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 			adjustImports(annotation, element);
 			annotation.setType(getFactory().createReference("org.junit.jupiter.api.Test"));
 			annotation.setAnnotationType(getFactory().createReference("org.junit.jupiter.api.Test"));
+			annotation.getAnnotationType().setSimplyQualified(true);
+			annotation.getType().setSimplyQualified(true);
 			CtType<?> type = annotation.getParent(CtType.class);
 			type.getReferencedTypes();
 			setChanged(type,

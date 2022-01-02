@@ -26,7 +26,7 @@ public class ImportHelper {
 	}
 
 	public static void removeImport(String importString, boolean isStatic, CtCompilationUnit unit) {
-		List<CtImport> imports = unit.getImports();
+		List<CtImport> imports = new ArrayList<>(unit.getImports());
 		List<CtImport> removalableImports = new ArrayList<>();
 		for (CtImport ctImport : imports) {
 			if (ctImport.getReference() instanceof CtTypeReference) {
@@ -38,7 +38,6 @@ public class ImportHelper {
 		}
 		removalableImports.forEach(imports::remove);
 		removalableImports.forEach(CtImport::delete);
-		imports.clear();
 		unit.setImports(imports);
 		ImportVisitor visitor = new ImportVisitor(importString);
 		imports.forEach(i -> i.accept(visitor));
