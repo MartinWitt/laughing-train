@@ -60,7 +60,7 @@ spotless {
 		greclipse()
 	}
 	java {
-		eclipse().configFile('/src/main/resources/formatter-settings.xml')
+		eclipse().configFile(projectDir.toString() +'/src/main/resources/formatter-settings.xml')
 	}
 	allprojects {
 		repositories {
