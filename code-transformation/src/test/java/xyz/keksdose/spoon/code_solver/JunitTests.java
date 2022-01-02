@@ -52,4 +52,22 @@ class JunitTests {
 		assertThat(result).doesNotContain("import org.junit.Test;");
 		assertThat(result).doesNotContain("import org.junit.Assert.");
 	}
+
+	@Test
+	public void printerDoesNotCrash(@TempDir File tempRoot) throws IOException {
+		String fileName = "AnnotationValuesTest.java";
+		String resourcePath = "projects/bugs/AnnotationValuesTest.java";
+		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
+		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
+			v -> new AssertionsTransformation(v));
+		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
+				.className("AnnotationValuesTest")
+				.processors(transformations)
+				.apply();
+		String result = Files.readString(copy.toPath());
+		assertThat(result).contains("@Test");
+		assertThat(result).contains("import org.junit.jupiter.api.Test;");
+		assertThat(result).doesNotContain("import org.junit.Test;");
+		assertThat(result).doesNotContain("import org.junit.Assert.");
+	}
 }
