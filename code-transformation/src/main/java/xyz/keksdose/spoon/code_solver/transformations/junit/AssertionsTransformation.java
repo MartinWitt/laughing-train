@@ -86,9 +86,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 				.filter(v -> v.getTarget() instanceof CtTypeAccess)
 				.filter(v -> v.getTarget().getType() != null)
 				.filter(v -> ((CtTypeAccess<?>) v.getTarget()).getAccessedType() != null)
-				.filter(v -> ((CtTypeAccess<?>) v.getTarget()).getAccessedType()
-						.getQualifiedName()
-						.equals("org.junit.Assert"))
+				.filter(v -> ((CtTypeAccess<?>) v.getTarget()).getAccessedType().getSimpleName().equals("Assert"))
 				.filter(v -> !v.getExecutable().getSimpleName().equals("assertThat"))
 				.toList();
 	}
@@ -102,7 +100,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 			@Override
 			public <T> void visitUnresolvedImport(CtUnresolvedImport ctUnresolvedImport) {
 				if (ctUnresolvedImport.getUnresolvedReference().startsWith("org.junit.Assert.")) {
-					imports.add(ctUnresolvedImport);
+					imports.remove(ctUnresolvedImport);
 					if (!ctUnresolvedImport.getUnresolvedReference().endsWith("assertThat")) {
 						newImports.add(getFactory().createUnresolvedImport(ctUnresolvedImport.getUnresolvedReference()
 								.replace("org.junit.Assert.", "org.junit.jupiter.api.Assertions."),
@@ -122,12 +120,10 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 				}
 			}
 		}));
-		getImports(method).stream()
-				.filter(v -> references.contains(v.getReference()))
-				.toList()
-				.forEach(getImports(method)::remove);
-		newImports.stream().filter(v -> !getImports(method).contains(v)).forEach(getImports(method)::add);
-		var filteredImports = new ArrayList<>(getImports(method));
+		imports.removeIf(v -> references.contains(v.getReference()));
+		imports.addAll(newImports);
+		newImports.stream().filter(v -> !imports.contains(v)).forEach(imports::add);
+		var filteredImports = new ArrayList<>(imports);
 		getImports(method).clear();
 		getImports(method).set(filteredImports);
 	}
