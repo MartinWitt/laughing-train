@@ -3,10 +3,9 @@ package xyz.keksdose.spoon.code_solver;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
+
 import spoon.processing.ProcessingManager;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
-import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class TransformationHelper {
 
