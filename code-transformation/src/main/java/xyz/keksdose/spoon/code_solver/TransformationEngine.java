@@ -32,6 +32,8 @@ import xyz.keksdose.spoon.code_solver.transformations.junit.AssertionsTransforma
 import xyz.keksdose.spoon.code_solver.transformations.junit.ExpectedExceptionRemoval;
 import xyz.keksdose.spoon.code_solver.transformations.junit.Junit4AnnotationsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.TestAnnotation;
+import xyz.keksdose.spoon.code_solver.transformations.qodana.UnusedAssignment;
+import xyz.keksdose.spoon.code_solver.transformations.qodana.UnusedLocalVariable;
 
 public class TransformationEngine {
 
@@ -63,6 +65,8 @@ public class TransformationEngine {
 	}
 
 	protected void addProcessors(ProcessingManager pm, ChangeListener listener) {
+		pm.addProcessor(new UnusedAssignment(listener));
+		pm.addProcessor(new UnusedLocalVariable(listener));
 		pm.addProcessor(new AssertThatTransformation(listener));
 		pm.addProcessor(new Junit4AnnotationsTransformation(listener));
 		pm.addProcessor(new TestAnnotation(listener));

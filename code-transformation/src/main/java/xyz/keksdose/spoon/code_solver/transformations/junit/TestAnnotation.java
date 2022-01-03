@@ -69,5 +69,4 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 		ImportHelper.addImport("org.junit.jupiter.api.Test", false, element.getPosition().getCompilationUnit());
 	}
 
-
 }
