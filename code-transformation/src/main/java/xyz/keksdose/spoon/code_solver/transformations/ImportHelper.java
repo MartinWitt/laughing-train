@@ -38,11 +38,11 @@ public class ImportHelper {
 		}
 		removalableImports.forEach(imports::remove);
 		removalableImports.forEach(CtImport::delete);
-		unit.setImports(imports);
 		ImportVisitor visitor = new ImportVisitor(importString);
 		imports.forEach(i -> i.accept(visitor));
 		imports.remove(visitor.getResult());
 		imports.remove(createImport(importString, isStatic, unit));
+		unit.setImports(imports);
 	}
 
 	public static void removeImport(String importString, CtCompilationUnit unit) {

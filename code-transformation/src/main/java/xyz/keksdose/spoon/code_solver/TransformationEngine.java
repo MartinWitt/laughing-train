@@ -41,7 +41,7 @@ public class TransformationEngine {
 		LOGGER.atInfo().log("Applying transformations to %s", path);
 		Launcher launcher = new Launcher();
 		Environment environment = setEnvironmentOptions(launcher);
-		launcher.addInputResource(path);
+		addInput(path, launcher);
 		CtModel model = launcher.buildModel();
 		setPrettyPrinter(environment, model);
 		ProcessingManager pm = new QueueProcessingManager(launcher.getFactory());
@@ -58,6 +58,10 @@ public class TransformationEngine {
 		return listener.getChangelog();
 	}
 
+	protected void addInput(String path, Launcher launcher) {
+		launcher.addInputResource(path);
+	}
+
 	protected void addProcessors(ProcessingManager pm, ChangeListener listener) {
 		pm.addProcessor(new AssertThatTransformation(listener));
 		pm.addProcessor(new Junit4AnnotationsTransformation(listener));
@@ -70,7 +74,7 @@ public class TransformationEngine {
 		LOGGER.atInfo().log("Applying transformations to %s", path);
 		Launcher launcher = new Launcher();
 		Environment environment = setEnvironmentOptions(launcher);
-		launcher.addInputResource(path);
+		addInput(path, launcher);
 		CtModel model = launcher.buildModel();
 		setPrettyPrinter(environment, model);
 		ProcessingManager pm = new QueueProcessingManager(launcher.getFactory());
@@ -92,7 +96,7 @@ public class TransformationEngine {
 		return model.getAllTypes().stream().filter(v -> v.getSimpleName().equals(typeName)).toList();
 	}
 
-	private static void printChangedTypes(PrettyPrinter prettyPrinter, ChangeListener listener,
+	protected void printChangedTypes(PrettyPrinter prettyPrinter, ChangeListener listener,
 			Iterable<CtType<?>> newTypes) {
 		for (CtType<?> type : newTypes) {
 			if (type.getPosition().getFile() == null || !listener.isChanged(type)) {

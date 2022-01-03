@@ -9,3 +9,4 @@
 
 rootProject.name = 'spoon-code-solver'
 include('code-transformation')
+include('rest-api')
