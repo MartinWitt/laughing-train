@@ -36,4 +36,8 @@ The following refactorings are currently supported:
   * Sorting of import statements by JLS order(java, non-static, static)
 ## Setup:
   TODO
+## Try it yourself:
 
+Create a gist, copy the ID and go to:
+http://89.58.15.157:8080/refactor/`$your_GIST_ID`
+The ID of https://gist.github.com/MartinWitt/a7fb7ce3d03e6a2e0cafcaa5e2dc20d1 is `a7fb7ce3d03e6a2e0cafcaa5e2dc20d1`
