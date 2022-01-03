@@ -36,6 +36,17 @@ The following refactorings are currently supported:
   * Sorting of import statements by JLS order(java, non-static, static)
 ## Setup:
   TODO
+## Get started in 3 seconds
+
+```java
+String path = ProjectPath
+String filename = TypeToRefactorName
+String repoPath = PathToLocalGitRepo
+CommitBuilder.refactorRepo(repoPath, path, filename,
+	(v, u) -> {
+		return new TransformationEngine().applyToGivenPath(path, filename, RunMode.FULL);
+});
+```
 ## Try it yourself:
 
 Create a gist, copy the ID and go to:
