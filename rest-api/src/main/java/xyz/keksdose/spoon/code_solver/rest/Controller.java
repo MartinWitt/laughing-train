@@ -21,6 +21,7 @@ import spoon.reflect.visitor.PrettyPrinter;
 import xyz.keksdose.spoon.code_solver.RunMode;
 import xyz.keksdose.spoon.code_solver.TransformationEngine;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.history.Changelog;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertThatTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertionsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.ExpectedExceptionRemoval;
@@ -68,8 +69,8 @@ public class Controller {
 				return "Error";
 			}
 			TransformationEngineExtension engine = new TransformationEngineExtension();
-			engine.applyToGivenPath(file.toString(), RunMode.FULL);
-			return engine.result;
+			Changelog changelog = engine.applyToGivenPath(file.toString(), RunMode.FULL);
+			return engine.result + "\n\n\n\n" + changelog.toString();
 		}
 		catch (Exception e) {
 			logger.atSevere().withCause(e).log("Error");
