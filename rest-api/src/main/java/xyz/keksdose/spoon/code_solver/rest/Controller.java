@@ -78,7 +78,8 @@ public class Controller {
 		if (file != null) {
 			try {
 				Files.delete(file);
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				logger.atSevere().withCause(e).log("Error");
 			}
 		}
