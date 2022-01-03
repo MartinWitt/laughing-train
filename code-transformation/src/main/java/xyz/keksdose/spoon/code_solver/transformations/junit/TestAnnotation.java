@@ -3,6 +3,11 @@ package xyz.keksdose.spoon.code_solver.transformations.junit;
 
 import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.hasExpectedValue;
 import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.isJunit4TestAnnotation;
+
+import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
@@ -23,7 +28,7 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 		if (isJunit4TestAnnotation(annotation) && !hasExpectedValue(annotation)) {
 			CtElement element = annotation.getAnnotatedElement();
 			refactorTimeoutAnnotation(annotation, element);
-			adjustImports(annotation, element);
+			adjustImports(annotation);
 			annotation.setType(getFactory().createReference("org.junit.jupiter.api.Test"));
 			annotation.setAnnotationType(getFactory().createReference("org.junit.jupiter.api.Test"));
 			annotation.getAnnotationType().setSimplyQualified(true);
@@ -42,15 +47,27 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 	private void refactorTimeoutAnnotation(CtAnnotation<?> annotation, CtElement element) {
 		if (JunitHelper.hasTimeoutValue(annotation)) {
 			CtAnnotation<?> timeout = JunitHelper.createTimeoutAnnotation(getFactory());
-			timeout.addValue("value", annotation.getValue("timeout").toString());
-			timeout.addValue("unit", "MILLISECONDS");
+			timeout.addValue("value", Long.valueOf(annotation.getValue("timeout").toString().replace("L", "")));
+			timeout.addValue("unit", TimeUnit.MILLISECONDS);
 			element.addAnnotation(timeout);
+			removeExpectedValue(annotation);
+			ImportHelper.addImport("org.junit.jupiter.api.Timeout", false, element.getPosition().getCompilationUnit());
+			ImportHelper.addImport("java.util.concurrent.TimeUnit", false, element.getPosition().getCompilationUnit());
 		}
 	}
 
-	private void adjustImports(CtAnnotation<?> annotation, CtElement element) {
+	private void removeExpectedValue(CtAnnotation<?> testAnnotation) {
+		testAnnotation.setValues(testAnnotation.getValues()
+				.entrySet()
+				.stream()
+				.filter(v -> !v.getKey().equals("timeout"))
+				.collect(Collectors.toMap(Entry::getKey, Entry::getValue)));
+	}
+
+	private void adjustImports(CtElement element) {
 		ImportHelper.removeImport("org.junit.Test", false, element.getPosition().getCompilationUnit());
 		ImportHelper.addImport("org.junit.jupiter.api.Test", false, element.getPosition().getCompilationUnit());
 	}
+
 
 }
