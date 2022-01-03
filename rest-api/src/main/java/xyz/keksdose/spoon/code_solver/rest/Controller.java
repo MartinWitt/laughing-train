@@ -55,13 +55,14 @@ public class Controller {
 	@GetMapping(value = "/refactor/{testClass}", produces = MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
 	String refactorTests(@PathVariable String testClass) {
+		Path file = null;
 		try {
 			logger.atInfo().log("Refactoring %s", testClass);
 			GitHub github = GitHub.connectAnonymously();
 			GHGist gist = github.getGist(testClass);
 			String fileName = "Test" + UUID.randomUUID() + ".java";
 			String content = gist.getFiles().entrySet().iterator().next().getValue().getContent();
-			Path file = Files.createTempFile(fileName, ".java");
+			file = Files.createTempFile(fileName, ".java");
 			Files.write(file, content.getBytes());
 			if (content.length() > 10000) {
 				return "Error";
@@ -72,6 +73,13 @@ public class Controller {
 		}
 		catch (Exception e) {
 			logger.atSevere().withCause(e).log("Error");
+		}
+		if (file != null) {
+			try {
+				Files.delete(file);
+			} catch (Exception e) {
+				logger.atSevere().withCause(e).log("Error");
+			}
 		}
 		return "There was an error processing your gist-ID";
 	}
