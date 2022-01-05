@@ -3,9 +3,11 @@ package xyz.keksdose.spoon.code_solver.transformations;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import spoon.experimental.CtUnresolvedImport;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtImport;
+import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.CtAbstractImportVisitor;
 
@@ -32,6 +34,14 @@ public class ImportHelper {
 			if (ctImport.getReference() instanceof CtTypeReference) {
 				CtTypeReference<?> typeReference = (CtTypeReference<?>) ctImport.getReference();
 				if (typeReference.getQualifiedName().equals(importString)) {
+					removalableImports.add(ctImport);
+				}
+			}
+			if (ctImport.getReference() instanceof CtExecutableReference) {
+				CtExecutableReference<?> executableReference = (CtExecutableReference<?>) ctImport.getReference();
+				String simpleName = executableReference.getSimpleName()
+						.substring(executableReference.getSimpleName().lastIndexOf('.') + 1);
+				if (executableReference.getSimpleName().equals(simpleName)) {
 					removalableImports.add(ctImport);
 				}
 			}

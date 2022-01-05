@@ -13,6 +13,8 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import xyz.keksdose.spoon.code_solver.transformations.junit.AssertNotNullTransformation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.AssertNullTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertionsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.TestAnnotation;
 
@@ -89,5 +91,43 @@ class JunitTests {
 		assertThat(result).contains("import org.junit.jupiter.api.Test;");
 		assertThat(result).doesNotContain("import org.junit.Test;");
 		assertThat(result).doesNotContain("import org.junit.Assert.");
+	}
+
+	@Test
+	void replaceAssertTrueNotNullCheck(@TempDir File tempRoot) throws IOException {
+		String fileName = "AssertNotNull.java";
+		String resourcePath = "projects/junittests/AssertNotNull.java";
+		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
+		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
+			v -> new AssertionsTransformation(v), v -> new AssertNotNullTransformation(v));
+		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
+				.className("AssertNotNull")
+				.processors(transformations)
+				.apply();
+		String result = Files.readString(copy.toPath());
+		assertThat(result).contains("@Test");
+		assertThat(result).contains("import org.junit.jupiter.api.Test;");
+		assertThat(result).doesNotContain("import org.junit.Test;");
+		assertThat(result).doesNotContain("import org.junit.Assert.");
+		assertThat(result).doesNotContain("!= null");
+	}
+
+	@Test
+	void replaceAssertTrueNullCheck(@TempDir File tempRoot) throws IOException {
+		String fileName = "AssertNotNull.java";
+		String resourcePath = "projects/junittests/AssertNotNull.java";
+		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
+		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
+			v -> new AssertionsTransformation(v), v -> new AssertNullTransformation(v));
+		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
+				.className("AssertNotNull")
+				.processors(transformations)
+				.apply();
+		String result = Files.readString(copy.toPath());
+		assertThat(result).contains("@Test");
+		assertThat(result).contains("import org.junit.jupiter.api.Test;");
+		assertThat(result).doesNotContain("import org.junit.Test;");
+		assertThat(result).doesNotContain("import org.junit.Assert.");
+		assertThat(result).doesNotContain("== null");
 	}
 }

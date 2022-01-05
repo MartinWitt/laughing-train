@@ -5,6 +5,7 @@ import java.util.Optional;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtExecutableReference;
 
 public class JunitHelper {
 
@@ -102,5 +103,13 @@ public class JunitHelper {
 
 	public static CtAnnotation<?> createDisableAnnotation(Factory factory) {
 		return factory.createAnnotation(factory.createReference("org.junit.jupiter.api.Disabled"));
+	}
+
+	public static boolean isJunit5AssertTrue(CtExecutableReference<?> executable) {
+		if (executable != null && executable.getDeclaringType() != null) {
+			return executable.getDeclaringType().getQualifiedName().equals("org.junit.jupiter.api.Assertions")
+					&& executable.getSimpleName().equals("assertTrue");
+		}
+		return false;
 	}
 }
