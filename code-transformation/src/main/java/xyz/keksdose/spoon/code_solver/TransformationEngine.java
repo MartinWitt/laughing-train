@@ -74,7 +74,7 @@ public class TransformationEngine {
 		pm.addProcessor(new AssertNullTransformation(listener));
 		pm.addProcessor(new AssertNotNullTransformation(listener));
 		pm.addProcessor(new UnusedAssignment(listener));
-		pm.addProcessor(new UnusedLocalVariable(listener));
+		// pm.addProcessor(new UnusedLocalVariable(listener));
 		pm.addProcessor(new AssertThatTransformation(listener));
 		pm.addProcessor(new Junit4AnnotationsTransformation(listener));
 		pm.addProcessor(new TestAnnotation(listener));

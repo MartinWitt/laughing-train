@@ -36,7 +36,7 @@ public class AssertTrueEqualsCheck extends TransformationProcessor<CtInvocation<
 					junit5AssertTrue.replace(junit5AssertEquals);
 					if (invocation.getArguments().size() == 2) {
 						// readd the String if it fails argument
-						junit5AssertEquals.addArgument(invocation.getArguments().get(1));
+						junit5AssertEquals.addArgument(invocation.getArguments().get(1).clone());
 					}
 					adjustImports(invocation);
 					notifyChangeListener(invocation, junit5AssertTrue);
@@ -61,10 +61,6 @@ public class AssertTrueEqualsCheck extends TransformationProcessor<CtInvocation<
 				.stream()
 				.filter(v -> v.getExecutable() != null)
 				.anyMatch(v -> JunitHelper.isJunit5AssertTrue(v.getExecutable()));
-	}
-
-	private boolean isNullType(CtExpression<?> left) {
-		return left.getType() != null && left.getType().equals(getFactory().Type().nullType());
 	}
 
 	private CtInvocation<?> createJunit5AssertEquals(CtExpression<?> firstArgument, CtExpression<?> secondArgument) {

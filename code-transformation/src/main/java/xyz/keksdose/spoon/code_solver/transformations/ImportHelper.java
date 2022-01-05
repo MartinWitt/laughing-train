@@ -39,8 +39,7 @@ public class ImportHelper {
 			}
 			if (ctImport.getReference() instanceof CtExecutableReference) {
 				CtExecutableReference<?> executableReference = (CtExecutableReference<?>) ctImport.getReference();
-				String simpleName = executableReference.getSimpleName()
-						.substring(executableReference.getSimpleName().lastIndexOf('.') + 1);
+				String simpleName = importString.substring(importString.lastIndexOf('.') + 1);
 				if (executableReference.getSimpleName().equals(simpleName)) {
 					removalableImports.add(ctImport);
 				}

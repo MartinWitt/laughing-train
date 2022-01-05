@@ -35,13 +35,11 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 
 	@Override
 	public void process(CtMethod<?> method) {
-		if (JunitHelper.isJunit5TestMethod(method)) {
-			List<CtInvocation<?>> junit4Asserts = getJunit4Asserts(method);
-			if (!junit4Asserts.isEmpty()) {
-				convertToJunit5(junit4Asserts);
-				adjustImports(method);
-				notifyChangeListener(method);
-			}
+		List<CtInvocation<?>> junit4Asserts = getJunit4Asserts(method);
+		if (!junit4Asserts.isEmpty()) {
+			convertToJunit5(junit4Asserts);
+			adjustImports(method);
+			notifyChangeListener(method);
 		}
 	}
 
@@ -64,20 +62,26 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 				if (parameters.get(0).getType().getSimpleName().equals("String")) {
 					List<CtExpression<?>> newParameters = new ArrayList<>();
 					newParameters.add(parameters.get(1).clone());
-					newParameters.add(parameters.get(2));
-					newParameters.add(parameters.get(0));
+					newParameters.add(parameters.get(2).clone());
+					newParameters.add(parameters.get(0).clone());
 					junit4Assert.setArguments(newParameters);
 				}
 			}
-			if (parameters.size() == 2 && junit4Assert.getExecutable().getSimpleName().equals("assertTrue")) {
+			if (parameters.size() == 2 && is2ParameterAssertion(junit4Assert)) {
 				if (parameters.get(0).getType().getSimpleName().equals("String")) {
 					List<CtExpression<?>> newParameters = new ArrayList<>();
 					newParameters.add(parameters.get(1).clone());
-					newParameters.add(parameters.get(0));
+					newParameters.add(parameters.get(0).clone());
 					junit4Assert.setArguments(newParameters);
 				}
 			}
 		}
+	}
+
+	private boolean is2ParameterAssertion(CtInvocation<?> junit4Assert) {
+		String simpleName = junit4Assert.getExecutable().getSimpleName();
+		return simpleName.equals("assertTrue") || simpleName.equals("assertFalse") || simpleName.equals("assertNull")
+				|| simpleName.equals("assertNotNull");
 	}
 
 	private List<CtInvocation<?>> getJunit4Asserts(CtMethod<?> method) {

@@ -38,7 +38,7 @@ public class AssertNotNullTransformation extends TransformationProcessor<CtInvoc
 						junit5AssertTrue.replace(junit5AssertNotNull);
 						if (element.getArguments().size() == 2) {
 							// readd the String if it fails argument
-							junit5AssertNotNull.addArgument(element.getArguments().get(1));
+							junit5AssertNotNull.addArgument(element.getArguments().get(1).clone());
 						}
 						adjustImports(element);
 						notifyChangeListener(element, junit5AssertTrue);
