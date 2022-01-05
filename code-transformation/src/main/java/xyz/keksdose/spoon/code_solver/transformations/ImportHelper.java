@@ -68,7 +68,11 @@ public class ImportHelper {
 	private static boolean hasImport(String importString, CtCompilationUnit unit) {
 		ImportVisitor visitor = new ImportVisitor(importString);
 		unit.getImports().forEach(v -> v.accept(visitor));
-		return visitor.getResult() != null;
+		if (visitor.getResult() != null) {
+			return true;
+		}
+		return unit.getImports().stream().filter(v -> v.getReference() != null).anyMatch(v -> importString
+				.substring(importString.lastIndexOf('.') + 1).equals(v.getReference().getSimpleName()));
 	}
 
 	private static class ImportVisitor extends CtAbstractImportVisitor {
@@ -87,6 +91,7 @@ public class ImportHelper {
 				result = unresolvedImport;
 			}
 		}
+
 
 		public CtImport getResult() {
 			return result;

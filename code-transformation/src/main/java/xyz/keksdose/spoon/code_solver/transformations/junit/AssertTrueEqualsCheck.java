@@ -3,8 +3,6 @@ package xyz.keksdose.spoon.code_solver.transformations.junit;
 
 import java.util.List;
 
-import spoon.reflect.code.BinaryOperatorKind;
-import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtCompilationUnit;
