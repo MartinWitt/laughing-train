@@ -51,7 +51,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 	}
 
 	private String createChangeHistory(CtMethod<?> method) {
-		return String.format("Transformed junit4 assert to junt 5 assertion in %s", method.getSimpleName());
+		return String.format("Transformed junit4 assert to junit 5 assertion in %s", method.getSimpleName());
 	}
 
 	private void convertToJunit5(List<CtInvocation<?>> junit4Asserts) {
