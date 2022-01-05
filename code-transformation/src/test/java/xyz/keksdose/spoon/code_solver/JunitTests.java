@@ -15,6 +15,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertNotNullTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertNullTransformation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.AssertTrueEqualsCheck;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertionsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.TestAnnotation;
 
@@ -118,7 +119,8 @@ class JunitTests {
 		String resourcePath = "projects/junittests/AssertNotNull.java";
 		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
 		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
-			v -> new AssertionsTransformation(v), v -> new AssertNullTransformation(v));
+			v -> new AssertionsTransformation(v), v -> new AssertNullTransformation(v),
+			v -> new AssertNotNullTransformation(v));
 		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
 				.className("AssertNotNull")
 				.processors(transformations)
@@ -129,5 +131,24 @@ class JunitTests {
 		assertThat(result).doesNotContain("import org.junit.Test;");
 		assertThat(result).doesNotContain("import org.junit.Assert.");
 		assertThat(result).doesNotContain("== null");
+	}
+
+	@Test
+	void replaceAssertTrueEqualsCheck(@TempDir File tempRoot) throws IOException {
+		String fileName = "AssertTrueEquals.java";
+		String resourcePath = "projects/junittests/AssertTrueEquals.java";
+		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
+		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
+			v -> new AssertionsTransformation(v), v -> new AssertTrueEqualsCheck(v));
+		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
+				.className("AssertTrueEquals")
+				.processors(transformations)
+				.apply();
+		String result = Files.readString(copy.toPath());
+		assertThat(result).contains("@Test");
+		assertThat(result).contains("import org.junit.jupiter.api.Test;");
+		assertThat(result).doesNotContain("import org.junit.Test;");
+		assertThat(result).doesNotContain("import org.junit.Assert.");
+		assertThat(result).contains("assertEquals");
 	}
 }
