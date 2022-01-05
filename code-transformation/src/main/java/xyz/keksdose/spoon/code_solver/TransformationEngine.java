@@ -5,7 +5,9 @@ import java.nio.file.Files;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
+
 import com.google.common.flogger.FluentLogger;
+
 import spoon.Launcher;
 import spoon.compiler.Environment;
 import spoon.processing.ProcessingManager;
@@ -27,6 +29,8 @@ import xyz.keksdose.spoon.code_solver.spoon.ImportAwareSniperPrinter;
 import xyz.keksdose.spoon.code_solver.spoon.ImportCleaner;
 import xyz.keksdose.spoon.code_solver.spoon.ImportComparator;
 import xyz.keksdose.spoon.code_solver.spoon.SelectiveForceImport;
+import xyz.keksdose.spoon.code_solver.transformations.junit.AssertNotNullTransformation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.AssertNullTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertThatTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertionsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.ExpectedExceptionRemoval;
@@ -65,13 +69,15 @@ public class TransformationEngine {
 	}
 
 	protected void addProcessors(ProcessingManager pm, ChangeListener listener) {
-		pm.addProcessor(new UnusedAssignment(listener));
-		pm.addProcessor(new UnusedLocalVariable(listener));
-		pm.addProcessor(new AssertThatTransformation(listener));
-		pm.addProcessor(new Junit4AnnotationsTransformation(listener));
-		pm.addProcessor(new TestAnnotation(listener));
-		pm.addProcessor(new ExpectedExceptionRemoval(listener));
-		pm.addProcessor(new AssertionsTransformation(listener));
+		pm.addProcessor(new AssertNullTransformation(listener));
+		pm.addProcessor(new AssertNotNullTransformation(listener));
+		// pm.addProcessor(new UnusedAssignment(listener));
+		// pm.addProcessor(new UnusedLocalVariable(listener));
+		// pm.addProcessor(new AssertThatTransformation(listener));
+		// pm.addProcessor(new Junit4AnnotationsTransformation(listener));
+		// pm.addProcessor(new TestAnnotation(listener));
+		// pm.addProcessor(new ExpectedExceptionRemoval(listener));
+		// pm.addProcessor(new AssertionsTransformation(listener));
 	}
 
 	public Changelog applyToGivenPath(String path, String typeName, RunMode runState) {

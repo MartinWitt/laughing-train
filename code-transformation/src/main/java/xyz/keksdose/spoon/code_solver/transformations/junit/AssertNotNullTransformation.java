@@ -34,6 +34,7 @@ public class AssertNotNullTransformation extends TransformationProcessor<CtInvoc
 					CtExpression<?> check = findTestingExpression(binaryOperator);
 					if (check != null) {
 						CtInvocation<?> junit5AssertNotNull = createJunit5AssertNotNull(check);
+						junit5AssertNotNull.setComments(element.getComments());
 						junit5AssertTrue.replace(junit5AssertNotNull);
 						if (element.getArguments().size() == 2) {
 							// readd the String if it fails argument

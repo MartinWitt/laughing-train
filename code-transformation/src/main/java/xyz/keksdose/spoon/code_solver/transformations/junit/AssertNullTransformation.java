@@ -24,23 +24,24 @@ public class AssertNullTransformation extends TransformationProcessor<CtInvocati
 	}
 
 	@Override
-	public void process(CtInvocation<?> element) {
-		if (element.getExecutable() != null && JunitHelper.isJunit5AssertTrue(element.getExecutable())) {
-			CtInvocation<?> junit5AssertTrue = element;
-			CtExpression<?> expression = element.getArguments().iterator().next();
+	public void process(CtInvocation<?> invocation) {
+		if (invocation.getExecutable() != null && JunitHelper.isJunit5AssertTrue(invocation.getExecutable())) {
+			CtInvocation<?> junit5AssertTrue = invocation;
+			CtExpression<?> expression = invocation.getArguments().iterator().next();
 			if (expression instanceof CtBinaryOperator) {
 				CtBinaryOperator<?> binaryOperator = (CtBinaryOperator<?>) expression;
 				if (binaryOperator.getKind().equals(BinaryOperatorKind.EQ)) {
 					CtExpression<?> check = findTestingExpression(binaryOperator);
 					if (check != null) {
 						CtInvocation<?> junit5AssertNull = createJunit5AssertNull(check);
+						junit5AssertNull.setComments(invocation.getComments());
 						junit5AssertTrue.replace(junit5AssertNull);
-						if (element.getArguments().size() == 2) {
+						if (invocation.getArguments().size() == 2) {
 							// readd the String if it fails argument
-							junit5AssertNull.addArgument(element.getArguments().get(1));
+							junit5AssertNull.addArgument(invocation.getArguments().get(1));
 						}
-						adjustImports(element);
-						notifyChangeListener(element, junit5AssertTrue);
+						adjustImports(invocation);
+						notifyChangeListener(invocation, junit5AssertTrue);
 					}
 				}
 			}
