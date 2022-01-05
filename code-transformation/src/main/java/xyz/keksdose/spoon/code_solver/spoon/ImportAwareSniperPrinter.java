@@ -39,7 +39,7 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
 	public <T> void visitCtLambda(CtLambda<T> lambda) {
 		enterCtExpression(lambda);
 		// single parameter lambdas dont need to be wrapped in parentheses
-		if (lambda.getParameters().size() == 1) {
+		if (lambda.getParameters().size() == 1 && lambda.getParameters().get(0).getType() == null) {
 			getElementPrinterHelper().printList(lambda.getParameters(), null, false, "", false, false, ",", false,
 				false, "", this::scan);
 		}
