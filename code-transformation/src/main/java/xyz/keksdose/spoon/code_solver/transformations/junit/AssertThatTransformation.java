@@ -8,6 +8,7 @@ import spoon.reflect.reference.CtExecutableReference;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class AssertThatTransformation extends TransformationProcessor<CtInvocation<?>> {
@@ -47,5 +48,10 @@ public class AssertThatTransformation extends TransformationProcessor<CtInvocati
 
 	private boolean isAssertThat(CtExecutableReference<?> exec) {
 		return exec.getSimpleName().equals("assertThat");
+	}
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.JUNIT;
 	}
 }

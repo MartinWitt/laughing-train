@@ -2,12 +2,14 @@
 package xyz.keksdose.spoon.code_solver.transformations.junit;
 
 import java.util.Optional;
+
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class Junit4AnnotationsTransformation extends TransformationProcessor<CtMethod<?>> {
@@ -91,5 +93,10 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 					String.format("Replaced @Ignore annotation with @Disabled from method %s", method.getSimpleName()),
 					"Junit4AnnotationsTransformation", method.getParent(CtType.class)));
 		}
+	}
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.JUNIT;
 	}
 }

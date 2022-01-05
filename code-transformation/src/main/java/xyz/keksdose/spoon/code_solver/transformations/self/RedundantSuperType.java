@@ -1,19 +1,13 @@
 
 package xyz.keksdose.spoon.code_solver.transformations.self;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import spoon.reflect.declaration.CtElement;
+
 import spoon.reflect.declaration.CtType;
-import spoon.reflect.path.CtRole;
 import spoon.reflect.reference.CtTypeReference;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class RedundantSuperType extends TransformationProcessor<CtType<?>> {
@@ -42,5 +36,10 @@ public class RedundantSuperType extends TransformationProcessor<CtType<?>> {
 
 		}
 
+	}
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.MISC;
 	}
 }

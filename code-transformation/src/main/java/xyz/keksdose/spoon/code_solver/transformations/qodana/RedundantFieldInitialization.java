@@ -2,12 +2,14 @@
 package xyz.keksdose.spoon.code_solver.transformations.qodana;
 
 import java.util.List;
+
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.filter.TypeFilter;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class RedundantFieldInitialization extends TransformationProcessor<CtField<?>> {
@@ -67,5 +69,10 @@ public class RedundantFieldInitialization extends TransformationProcessor<CtFiel
 		String message = formatter.formatted(defaultExpression, field.getSimpleName(),
 			field.getDeclaringType().getQualifiedName());
 		return new Change(message, "Redundant Initializer", field.getDeclaringType());
+	}
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.QODANA;
 	}
 }

@@ -9,6 +9,7 @@ import spoon.reflect.code.UnaryOperatorKind;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class BooleanExpression extends TransformationProcessor<CtBinaryOperator<?>> {
@@ -35,6 +36,11 @@ public class BooleanExpression extends TransformationProcessor<CtBinaryOperator<
 					new Change("BooleanExpression", "BooleanExpression", element.getParent(CtType.class)));
 			}
 		}
+	}
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.QODANA;
 	}
 
 }

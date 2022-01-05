@@ -1,13 +1,12 @@
 
 package xyz.keksdose.spoon.code_solver.transformations.junit;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.ModifierKind;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class PublicModifierRemoval extends TransformationProcessor<CtMethod<?>> {
@@ -24,6 +23,11 @@ public class PublicModifierRemoval extends TransformationProcessor<CtMethod<?>> 
 				new Change(String.format("Removed public modifier from test method %s", element.getSimpleName()),
 					"PublicModifierRemoval", element.getParent(CtType.class)));
 		}
+	}
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.JUNIT;
 	}
 
 }

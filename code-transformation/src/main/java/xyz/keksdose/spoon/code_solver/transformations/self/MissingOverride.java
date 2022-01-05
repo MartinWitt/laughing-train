@@ -2,6 +2,7 @@
 package xyz.keksdose.spoon.code_solver.transformations.self;
 
 import java.util.List;
+
 import spoon.reflect.cu.SourcePosition;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtElement;
@@ -9,6 +10,7 @@ import spoon.reflect.declaration.CtMethod;
 import spoon.support.reflect.CtExtendedModifier;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class MissingOverride extends TransformationProcessor<CtMethod<?>> {
@@ -62,5 +64,10 @@ public class MissingOverride extends TransformationProcessor<CtMethod<?>> {
 		SourcePosition pos = element.getPosition();
 		element.setPosition(SourcePosition.NOPOSITION);
 		element.setPosition(pos);
+	}
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.MISC;
 	}
 }

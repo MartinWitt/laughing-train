@@ -15,6 +15,7 @@ import spoon.reflect.visitor.filter.TypeFilter;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class AssertNotNullTransformation extends TransformationProcessor<CtInvocation<?>> {
@@ -97,4 +98,8 @@ public class AssertNotNullTransformation extends TransformationProcessor<CtInvoc
 			"AssertTrue instead of AssertNotNull", parent));
 	}
 
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.JUNIT;
+	}
 }

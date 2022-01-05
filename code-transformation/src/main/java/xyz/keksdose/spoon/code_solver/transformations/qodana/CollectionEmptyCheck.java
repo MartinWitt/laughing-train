@@ -4,7 +4,7 @@ package xyz.keksdose.spoon.code_solver.transformations.qodana;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+
 import spoon.reflect.code.BinaryOperatorKind;
 import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtExpression;
@@ -14,6 +14,7 @@ import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.visitor.filter.TypeFilter;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class CollectionEmptyCheck extends TransformationProcessor<CtBinaryOperator<?>> {
@@ -64,5 +65,10 @@ public class CollectionEmptyCheck extends TransformationProcessor<CtBinaryOperat
 						new ArrayList<CtExpression<?>>());
 			element.replace(innvocation);
 		}
+	}
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.QODANA;
 	}
 }

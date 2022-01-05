@@ -2,6 +2,7 @@
 package xyz.keksdose.spoon.code_solver.transformations.qodana;
 
 import java.util.List;
+
 import spoon.reflect.code.CtAssignment;
 import spoon.reflect.code.CtVariableWrite;
 import spoon.reflect.declaration.CtType;
@@ -9,6 +10,7 @@ import spoon.reflect.visitor.filter.TypeFilter;
 import spoon.reflect.visitor.filter.VariableAccessFilter;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class UnusedAssignment extends TransformationProcessor<CtType<?>> {
@@ -32,4 +34,8 @@ public class UnusedAssignment extends TransformationProcessor<CtType<?>> {
 		}
 	}
 
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.QODANA;
+	}
 }

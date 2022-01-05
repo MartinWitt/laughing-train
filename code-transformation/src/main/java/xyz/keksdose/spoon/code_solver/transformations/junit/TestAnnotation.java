@@ -15,6 +15,7 @@ import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
@@ -69,4 +70,8 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 		ImportHelper.addImport("org.junit.jupiter.api.Test", false, element.getPosition().getCompilationUnit());
 	}
 
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.JUNIT;
+	}
 }

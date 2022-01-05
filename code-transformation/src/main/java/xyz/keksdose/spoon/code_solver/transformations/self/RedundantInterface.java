@@ -1,13 +1,13 @@
 
 package xyz.keksdose.spoon.code_solver.transformations.self;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Set;
+
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class RedundantInterface extends TransformationProcessor<CtType<?>> {
@@ -31,5 +31,10 @@ public class RedundantInterface extends TransformationProcessor<CtType<?>> {
 								intrface.getQualifiedName(), element.getQualifiedName()),
 							"RedundantInterface", element));
 				});
+	}
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.MISC;
 	}
 }

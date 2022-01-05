@@ -11,6 +11,7 @@ import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.visitor.filter.TypeFilter;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class InstantReturn extends TransformationProcessor<CtMethod<?>> {
@@ -57,5 +58,9 @@ public class InstantReturn extends TransformationProcessor<CtMethod<?>> {
 		}
 		//setChanged(element, new Change("Added return statement", "InstantReturn", element));
 	}
-	//setChanged(element.getDeclaringType(), new Change("Removed return statement", "InstantReturn", element.getDeclaringType()));
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.MISC;
+	}
 }

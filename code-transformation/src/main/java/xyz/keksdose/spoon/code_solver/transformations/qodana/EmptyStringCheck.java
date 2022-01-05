@@ -2,12 +2,14 @@
 package xyz.keksdose.spoon.code_solver.transformations.qodana;
 
 import java.util.ArrayList;
+
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class EmptyStringCheck extends TransformationProcessor<CtInvocation<?>> {
@@ -40,5 +42,10 @@ public class EmptyStringCheck extends TransformationProcessor<CtInvocation<?>> {
 			element.replace(
 				getFactory().Code().createInvocation(element.getTarget(), ref, new ArrayList<CtExpression<?>>()));
 		}
+	}
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.QODANA;
 	}
 }

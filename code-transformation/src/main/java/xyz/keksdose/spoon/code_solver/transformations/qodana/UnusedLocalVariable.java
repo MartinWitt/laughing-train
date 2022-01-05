@@ -11,6 +11,7 @@ import spoon.reflect.visitor.filter.TypeFilter;
 import spoon.reflect.visitor.filter.VariableAccessFilter;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class UnusedLocalVariable extends TransformationProcessor<CtType<?>> {
@@ -40,4 +41,8 @@ public class UnusedLocalVariable extends TransformationProcessor<CtType<?>> {
 		}
 	}
 
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.QODANA;
+	}
 }

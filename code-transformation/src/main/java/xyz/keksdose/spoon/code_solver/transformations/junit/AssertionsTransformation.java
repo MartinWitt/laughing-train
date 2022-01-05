@@ -20,6 +20,7 @@ import spoon.reflect.visitor.filter.TypeFilter;
 import spoon.support.util.ModelList;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class AssertionsTransformation extends TransformationProcessor<CtMethod<?>> {
@@ -130,5 +131,10 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 
 	private ModelList<CtImport> getImports(CtMethod<?> method) {
 		return method.getPosition().getCompilationUnit().getImports();
+	}
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.JUNIT;
 	}
 }

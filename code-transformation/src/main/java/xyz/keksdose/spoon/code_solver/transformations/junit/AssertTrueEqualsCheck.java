@@ -13,6 +13,7 @@ import spoon.reflect.visitor.filter.TypeFilter;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class AssertTrueEqualsCheck extends TransformationProcessor<CtInvocation<?>> {
@@ -82,4 +83,8 @@ public class AssertTrueEqualsCheck extends TransformationProcessor<CtInvocation<
 			"AssertTrue with equals instead of AssertEquals", parent));
 	}
 
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.JUNIT;
+	}
 }

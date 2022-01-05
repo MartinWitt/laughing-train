@@ -20,6 +20,7 @@ import spoon.reflect.reference.CtTypeReference;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
+import xyz.keksdose.spoon.code_solver.transformations.SmellKind;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?>> {
@@ -70,5 +71,10 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 		lambda.setType((CtTypeReference) getFactory().Type().voidType());
 		lambda.setBody(body);
 		return getFactory().createInvocation(null, assertThrows, List.of(exceptionClass, lambda));
+	}
+
+	@Override
+	public SmellKind getKind() {
+		return SmellKind.JUNIT;
 	}
 }

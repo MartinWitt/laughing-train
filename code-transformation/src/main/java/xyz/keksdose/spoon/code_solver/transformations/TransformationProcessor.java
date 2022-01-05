@@ -17,4 +17,6 @@ public abstract class TransformationProcessor<T extends CtElement> extends Abstr
 	protected TransformationProcessor(ChangeListener listener) {
 		this.listener = listener;
 	}
+
+	public abstract SmellKind getKind();
 }
