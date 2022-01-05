@@ -2,6 +2,7 @@
 package xyz.keksdose.spoon.code_solver.spoon;
 
 import spoon.compiler.Environment;
+import spoon.reflect.code.CtLambda;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtImport;
 import spoon.support.sniper.SniperJavaPrettyPrinter;
@@ -32,5 +33,29 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
 
 	private boolean endsWithNewline(String s) {
 		return s.endsWith("\n") || s.endsWith("\r\n");
+	}
+
+	@Override
+	public <T> void visitCtLambda(CtLambda<T> lambda) {
+		enterCtExpression(lambda);
+		// single parameter lambdas dont need to be wrapped in parentheses
+		if (lambda.getParameters().size() == 1) {
+			getElementPrinterHelper().printList(lambda.getParameters(), null, false, "", false, false, ",", false,
+				false, "", this::scan);
+		}
+		else {
+			getElementPrinterHelper().printList(lambda.getParameters(), null, false, "(", false, false, ",", false,
+				false, ")", this::scan);
+		}
+		getPrinterTokenWriter().writeSpace();
+		getPrinterTokenWriter().writeSeparator("->");
+		getPrinterTokenWriter().writeSpace();
+		if (lambda.getBody() != null) {
+			scan(lambda.getBody());
+		}
+		else {
+			scan(lambda.getExpression());
+		}
+		exitCtExpression(lambda);
 	}
 }
