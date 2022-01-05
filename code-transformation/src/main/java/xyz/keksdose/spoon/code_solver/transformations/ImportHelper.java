@@ -71,8 +71,11 @@ public class ImportHelper {
 		if (visitor.getResult() != null) {
 			return true;
 		}
-		return unit.getImports().stream().filter(v -> v.getReference() != null).anyMatch(v -> importString
-				.substring(importString.lastIndexOf('.') + 1).equals(v.getReference().getSimpleName()));
+		return unit.getImports()
+				.stream()
+				.filter(v -> v.getReference() != null)
+				.anyMatch(v -> importString.substring(importString.lastIndexOf('.') + 1)
+						.equals(v.getReference().getSimpleName()));
 	}
 
 	private static class ImportVisitor extends CtAbstractImportVisitor {
@@ -91,7 +94,6 @@ public class ImportHelper {
 				result = unresolvedImport;
 			}
 		}
-
 
 		public CtImport getResult() {
 			return result;
