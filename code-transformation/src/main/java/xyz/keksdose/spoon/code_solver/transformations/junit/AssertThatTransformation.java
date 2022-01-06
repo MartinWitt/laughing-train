@@ -32,7 +32,7 @@ public class AssertThatTransformation extends TransformationProcessor<CtInvocati
 		CtType<?> parentType = invocation.getParent(CtType.class);
 		setChanged(parentType,
 			new Change(String.format("Replaced Assert.assertThat with MatcherAssert.assertThat in %s",
-				invocation.getParent(CtExecutable.class)), "assertThat", parentType));
+				invocation.getParent(CtExecutable.class).getSignature()), "assertThat", parentType));
 	}
 
 	private void adjustImports(CtInvocation<?> invocation) {

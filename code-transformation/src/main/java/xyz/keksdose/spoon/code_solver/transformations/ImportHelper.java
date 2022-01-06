@@ -54,12 +54,6 @@ public class ImportHelper {
 		unit.setImports(imports);
 	}
 
-	public static void removeImport(String importString, CtCompilationUnit unit) {
-		List<CtImport> imports = unit.getImports();
-		imports.remove(createImport(importString, true, unit));
-		imports.remove(createImport(importString, false, unit));
-	}
-
 	private static CtImport createImport(String importString, boolean isStatic, CtCompilationUnit unit) {
 		return unit.getFactory().createUnresolvedImport(importString, isStatic);
 	}

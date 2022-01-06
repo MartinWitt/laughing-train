@@ -55,7 +55,7 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 	private void refactorAfter(CtMethod<?> method) {
 		Optional<CtAnnotation<?>> afterAnnotation = JunitHelper.getJunit4AfterAnnotation(method);
 		if (afterAnnotation.isPresent()) {
-			ImportHelper.removeImport("org.junit.After", method.getPosition().getCompilationUnit());
+			ImportHelper.removeImport("org.junit.After", true, method.getPosition().getCompilationUnit());
 			ImportHelper.addImport("org.junit.jupiter.api.AfterEach", false, method.getPosition().getCompilationUnit());
 			method.removeAnnotation(afterAnnotation.get());
 			method.addAnnotation(JunitHelper.createAfterEachAnnotation(getFactory()));

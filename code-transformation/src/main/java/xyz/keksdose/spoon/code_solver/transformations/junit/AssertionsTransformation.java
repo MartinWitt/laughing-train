@@ -138,10 +138,10 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 							.filter(v -> v.getExecutable() != null)
 							.filter(v -> v.getExecutable().getDeclaringType() != null)
 							.filter(
-									v -> v.getExecutable().getDeclaringType().getQualifiedName().equals("org.junit.Assert"))
+								v -> v.getExecutable().getDeclaringType().getQualifiedName().equals("org.junit.Assert"))
 							.filter(v -> !v.getExecutable().getSimpleName().equals("assertThat"))
 							.forEach(v -> newImports.add(getFactory().createUnresolvedImport(
-									"org.junit.jupiter.api.Assertions." + v.getExecutable().getSimpleName(), true)));
+								"org.junit.jupiter.api.Assertions." + v.getExecutable().getSimpleName(), true)));
 				}
 			}
 
