@@ -2,19 +2,20 @@
 package xyz.keksdose.spoon.code_solver.transformations.junit;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import spoon.experimental.CtUnresolvedImport;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtTypeAccess;
-import spoon.reflect.cu.SourcePosition;
-import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtImport;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtReference;
+import spoon.reflect.reference.CtTypeMemberWildcardImportReference;
 import spoon.reflect.visitor.CtAbstractImportVisitor;
 import spoon.reflect.visitor.filter.TypeFilter;
 import spoon.support.util.ModelList;
@@ -37,8 +38,8 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 	public void process(CtMethod<?> method) {
 		List<CtInvocation<?>> junit4Asserts = getJunit4Asserts(method);
 		if (!junit4Asserts.isEmpty()) {
-			convertToJunit5(junit4Asserts);
 			adjustImports(method);
+			convertToJunit5(junit4Asserts);
 			notifyChangeListener(method);
 		}
 	}
@@ -97,7 +98,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 
 	private void adjustImports(CtMethod<?> method) {
 		List<CtImport> imports = new ArrayList<>(getImports(method));
-		List<CtImport> newImports = new ArrayList<>();
+		Collection<CtImport> newImports = new HashSet<>();
 		List<CtReference> references = new ArrayList<>();
 
 		getImports(method).forEach(v -> v.accept(new CtAbstractImportVisitor() {
@@ -123,6 +124,27 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 					}
 				}
 			}
+
+			@Override
+			public <T> void visitAllStaticMembersImport(CtTypeMemberWildcardImportReference typeReference) {
+				if (typeReference.getDeclaration() != null
+						&& typeReference.getDeclaration().getQualifiedName().equals("org.junit.Assert")) {
+					// someone really imported org.junit.Assert.*
+					references.add(typeReference);
+					method.getDeclaringType()
+							.getTopLevelType()
+							.getElements(new TypeFilter<>(CtInvocation.class))
+							.stream()
+							.filter(v -> v.getExecutable() != null)
+							.filter(v -> v.getExecutable().getDeclaringType() != null)
+							.filter(
+									v -> v.getExecutable().getDeclaringType().getQualifiedName().equals("org.junit.Assert"))
+							.filter(v -> !v.getExecutable().getSimpleName().equals("assertThat"))
+							.forEach(v -> newImports.add(getFactory().createUnresolvedImport(
+									"org.junit.jupiter.api.Assertions." + v.getExecutable().getSimpleName(), true)));
+				}
+			}
+
 		}));
 		imports.removeIf(v -> references.contains(v.getReference()));
 		imports.addAll(newImports);
