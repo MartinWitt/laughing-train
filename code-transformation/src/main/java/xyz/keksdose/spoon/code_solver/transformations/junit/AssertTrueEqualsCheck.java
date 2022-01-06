@@ -39,7 +39,7 @@ public class AssertTrueEqualsCheck extends TransformationProcessor<CtInvocation<
 						junit5AssertEquals.addArgument(invocation.getArguments().get(1).clone());
 					}
 					adjustImports(invocation);
-					notifyChangeListener(invocation, junit5AssertTrue);
+					notifyChangeListener(junit5AssertEquals);
 				}
 			}
 		}
@@ -72,9 +72,9 @@ public class AssertTrueEqualsCheck extends TransformationProcessor<CtInvocation<
 		return getFactory().createInvocation(null, assertEquals, List.of(firstArgument, secondArgument));
 	}
 
-	private void notifyChangeListener(CtInvocation<?> oldAssert, CtInvocation<?> newAssert) {
+	private void notifyChangeListener(CtInvocation<?> newAssert) {
 		CtType<?> parent = newAssert.getParent(CtType.class);
-		setChanged(parent, new Change(String.format("Replaced %s with %s", oldAssert, newAssert),
+		setChanged(parent, new Change(String.format("Replaced assertTrue checking equals with assertEquals"),
 			"AssertTrue with equals instead of AssertEquals", parent));
 	}
 

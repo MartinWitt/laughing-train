@@ -41,7 +41,7 @@ public class AssertNullTransformation extends TransformationProcessor<CtInvocati
 							junit5AssertNull.addArgument(invocation.getArguments().get(1).clone());
 						}
 						adjustImports(invocation);
-						notifyChangeListener(invocation, junit5AssertTrue);
+						notifyChangeListener(junit5AssertNull);
 					}
 				}
 			}
@@ -91,9 +91,9 @@ public class AssertNullTransformation extends TransformationProcessor<CtInvocati
 		return getFactory().createInvocation(null, assertNull, List.of(check));
 	}
 
-	private void notifyChangeListener(CtInvocation<?> oldAssert, CtInvocation<?> newAssert) {
+	private void notifyChangeListener(CtInvocation<?> newAssert) {
 		CtType<?> parent = newAssert.getParent(CtType.class);
-		setChanged(parent, new Change(String.format("Replaced %s with %s", oldAssert, newAssert),
+		setChanged(parent, new Change(String.format("Replaced nullcheck in assertTrue with assertNull"),
 			"AssertTrue instead of AssertNull", parent));
 	}
 
