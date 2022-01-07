@@ -29,6 +29,7 @@ import xyz.keksdose.spoon.code_solver.spoon.ImportAwareSniperPrinter;
 import xyz.keksdose.spoon.code_solver.spoon.ImportCleaner;
 import xyz.keksdose.spoon.code_solver.spoon.ImportComparator;
 import xyz.keksdose.spoon.code_solver.spoon.SelectiveForceImport;
+import xyz.keksdose.spoon.code_solver.transformations.junit.AssertFalseEqualsCheck;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertNotNullTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertNullTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertThatTransformation;
@@ -71,6 +72,7 @@ public class TransformationEngine {
 
 	protected void addProcessors(ProcessingManager pm, ChangeListener listener) {
 		pm.addProcessor(new AssertTrueEqualsCheck(listener));
+		pm.addProcessor(new AssertFalseEqualsCheck(listener));
 		pm.addProcessor(new AssertNullTransformation(listener));
 		pm.addProcessor(new AssertNotNullTransformation(listener));
 		pm.addProcessor(new UnusedAssignment(listener));

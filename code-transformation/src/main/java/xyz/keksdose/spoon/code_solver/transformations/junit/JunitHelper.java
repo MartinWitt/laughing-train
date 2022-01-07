@@ -112,4 +112,12 @@ public class JunitHelper {
 		}
 		return false;
 	}
+
+	public static boolean isJunit5AssertFalse(CtExecutableReference<?> executable) {
+		if (executable != null && executable.getDeclaringType() != null) {
+			return executable.getDeclaringType().getQualifiedName().equals("org.junit.jupiter.api.Assertions")
+					&& executable.getSimpleName().equals("assertFalse");
+		}
+		return false;
+	}
 }
