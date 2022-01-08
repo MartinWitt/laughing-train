@@ -33,7 +33,7 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 		Optional<CtAnnotation<?>> testAnnotation = JunitHelper.getJunit4TestAnnotation(method);
 		if (JunitHelper.isJunit4TestMethod(method) && testAnnotation.isPresent()) {
 			CtExpression<?> value = testAnnotation.get().getValue("expected");
-			if (value != null) {
+			if (value != null && !isNoneType(value)) {
 				if (value instanceof CtFieldRead) {
 					((CtFieldRead<?>) value).setTarget(null);
 				}
@@ -48,6 +48,14 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 						"ExpectedExceptionRemoval", method.getParent(CtType.class)));
 			}
 		}
+	}
+
+	private boolean isNoneType(CtExpression<?> value) {
+		if (value instanceof CtFieldRead) {
+			CtFieldRead<?> fieldRead = (CtFieldRead<?>) value;
+			return fieldRead.getVariable().getDeclaringType().getSimpleName().equals("None");
+		}
+		return false;
 	}
 
 	private void removeExpectedValue(CtAnnotation<?> testAnnotation) {

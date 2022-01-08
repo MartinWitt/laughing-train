@@ -71,17 +71,18 @@ public class TransformationEngine {
 	}
 
 	protected void addProcessors(ProcessingManager pm, ChangeListener listener) {
+		pm.addProcessor(new ExpectedExceptionRemoval(listener));
+		pm.addProcessor(new Junit4AnnotationsTransformation(listener));
+		pm.addProcessor(new TestAnnotation(listener));
+		pm.addProcessor(new AssertThatTransformation(listener));
+		pm.addProcessor(new AssertionsTransformation(listener));
 		pm.addProcessor(new AssertTrueEqualsCheck(listener));
 		pm.addProcessor(new AssertFalseEqualsCheck(listener));
 		pm.addProcessor(new AssertNullTransformation(listener));
 		pm.addProcessor(new AssertNotNullTransformation(listener));
 		pm.addProcessor(new UnusedAssignment(listener));
 		// pm.addProcessor(new UnusedLocalVariable(listener));
-		pm.addProcessor(new AssertThatTransformation(listener));
-		pm.addProcessor(new Junit4AnnotationsTransformation(listener));
-		pm.addProcessor(new TestAnnotation(listener));
-		pm.addProcessor(new ExpectedExceptionRemoval(listener));
-		pm.addProcessor(new AssertionsTransformation(listener));
+
 	}
 
 	public Changelog applyToGivenPath(String path, String typeName, RunMode runState) {

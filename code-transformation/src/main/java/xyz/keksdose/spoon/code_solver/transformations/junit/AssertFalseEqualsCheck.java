@@ -31,7 +31,7 @@ public class AssertFalseEqualsCheck extends TransformationProcessor<CtInvocation
 				if (equalsInvocation.getExecutable().getSimpleName().equals("equals")) {
 					CtExpression<?> firstArgument = equalsInvocation.getTarget();
 					CtExpression<?> secondArgument = equalsInvocation.getArguments().iterator().next();
-					CtInvocation<?> junit5AssertEquals = createJunit5AssertEquals(firstArgument, secondArgument);
+					CtInvocation<?> junit5AssertEquals = createJunit5AssertNotEquals(firstArgument, secondArgument);
 					junit5AssertEquals.setComments(invocation.getComments());
 					junit5AssertTrue.replace(junit5AssertEquals);
 					if (invocation.getArguments().size() == 2) {
@@ -52,7 +52,7 @@ public class AssertFalseEqualsCheck extends TransformationProcessor<CtInvocation
 		if (parent != null && !hasJunit5AssertFalseLeft(parent)) {
 			ImportHelper.removeImport("org.junit.jupiter.api.Assertions.assertFalse", true, compilationUnit);
 		}
-		ImportHelper.addImport("org.junit.jupiter.api.Assertions.assertEquals", true, compilationUnit);
+		ImportHelper.addImport("org.junit.jupiter.api.Assertions.assertNotEquals", true, compilationUnit);
 
 	}
 
@@ -63,19 +63,19 @@ public class AssertFalseEqualsCheck extends TransformationProcessor<CtInvocation
 				.anyMatch(v -> JunitHelper.isJunit5AssertFalse(v.getExecutable()));
 	}
 
-	private CtInvocation<?> createJunit5AssertEquals(CtExpression<?> firstArgument, CtExpression<?> secondArgument) {
+	private CtInvocation<?> createJunit5AssertNotEquals(CtExpression<?> firstArgument, CtExpression<?> secondArgument) {
 		CtTypeReference<?> typeRef = getFactory().Type().createReference("org.junit.jupiter.api.Assertions");
 		CtTypeReference<?> voidType = getFactory().Type().voidPrimitiveType();
 		CtTypeReference<Object> objectType = getFactory().Type().objectType();
 		CtExecutableReference<?> assertEquals = getFactory().Executable()
-				.createReference(typeRef, voidType, "assertEquals", List.of(objectType, objectType));
+				.createReference(typeRef, voidType, "assertNotEquals", List.of(objectType, objectType));
 		return getFactory().createInvocation(null, assertEquals, List.of(firstArgument, secondArgument));
 	}
 
 	private void notifyChangeListener(CtInvocation<?> newAssert) {
 		CtType<?> parent = newAssert.getParent(CtType.class);
-		setChanged(parent, new Change(String.format("Replaced assertFalse checking equals with assertEquals"),
-			"AssertTrue with equals instead of AssertEquals", parent));
+		setChanged(parent, new Change(String.format("Replaced assertFalse checking equals with assertNotEquals"),
+			"assertFalse with equals instead of assertNotEquals", parent));
 	}
 
 }
