@@ -30,10 +30,12 @@ import xyz.keksdose.spoon.code_solver.spoon.ImportCleaner;
 import xyz.keksdose.spoon.code_solver.spoon.ImportComparator;
 import xyz.keksdose.spoon.code_solver.spoon.SelectiveForceImport;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertFalseEqualsCheck;
+import xyz.keksdose.spoon.code_solver.transformations.junit.AssertFalseSameCheck;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertNotNullTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertNullTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertThatTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertTrueEqualsCheck;
+import xyz.keksdose.spoon.code_solver.transformations.junit.AssertTrueSameCheck;
 import xyz.keksdose.spoon.code_solver.transformations.junit.AssertionsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.ExpectedExceptionRemoval;
 import xyz.keksdose.spoon.code_solver.transformations.junit.Junit4AnnotationsTransformation;
@@ -80,6 +82,8 @@ public class TransformationEngine {
 		pm.addProcessor(new AssertFalseEqualsCheck(listener));
 		pm.addProcessor(new AssertNullTransformation(listener));
 		pm.addProcessor(new AssertNotNullTransformation(listener));
+		pm.addProcessor(new AssertTrueSameCheck(listener));
+		pm.addProcessor(new AssertFalseSameCheck(listener));
 		pm.addProcessor(new UnusedAssignment(listener));
 		// pm.addProcessor(new UnusedLocalVariable(listener));
 
