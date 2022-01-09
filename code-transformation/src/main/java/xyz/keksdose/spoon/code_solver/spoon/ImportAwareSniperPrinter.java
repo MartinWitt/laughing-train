@@ -74,9 +74,11 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
 		if (parameter.isVarArgs()) {
 			scan(((CtArrayTypeReference<T>) parameter.getType()).getComponentType());
 			getPrinterTokenWriter().writeSeparator("...");
-		} else if (parameter.isInferred() && this.env.getComplianceLevel() >= 11) {
+		}
+		else if (parameter.isInferred() && this.env.getComplianceLevel() >= 11) {
 			getPrinterTokenWriter().writeKeyword("var");
-		} else {
+		}
+		else {
 			scan(parameter.getType());
 		}
 		// dont write spaces if the type is implicit
