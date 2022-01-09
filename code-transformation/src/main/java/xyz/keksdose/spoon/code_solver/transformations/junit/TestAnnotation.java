@@ -1,6 +1,7 @@
 
 package xyz.keksdose.spoon.code_solver.transformations.junit;
 
+import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.getJunit5TestReference;
 import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.hasExpectedValue;
 import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.isJunit4TestAnnotation;
 
@@ -19,6 +20,11 @@ import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 
+	private static final String JUNIT4_TEST = "org.junit.Test";
+	private static final String JUNIT5_TEST = "org.junit.jupiter.api.Test";
+	private static final String JUNIT5_TIMEOUT = "org.junit.jupiter.api.Timeout";
+	private static final String JAVA_UTIL_CONCURRENT_TIME_UNIT = "java.util.concurrent.TimeUnit";
+
 	public TestAnnotation(ChangeListener listener) {
 		super(listener);
 	}
@@ -26,22 +32,23 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 	@Override
 	public void process(CtAnnotation<?> annotation) {
 		if (isJunit4TestAnnotation(annotation) && !hasExpectedValue(annotation)) {
-			CtElement element = annotation.getAnnotatedElement();
-			refactorTimeoutAnnotation(annotation, element);
+			refactorTimeoutAnnotation(annotation, annotation.getAnnotatedElement());
 			adjustImports(annotation);
-			annotation.setType(getFactory().createReference("org.junit.jupiter.api.Test"));
-			annotation.setAnnotationType(getFactory().createReference("org.junit.jupiter.api.Test"));
-			annotation.getAnnotationType().setSimplyQualified(true);
-			annotation.getType().setSimplyQualified(true);
-			CtType<?> type = annotation.getParent(CtType.class);
-			type.getReferencedTypes();
-			setChanged(type,
-				new Change(
-					String.format("Replaced junit 4 test annotation with junit 5 test annotation in %s",
-						((CtMethod<?>) annotation.getAnnotatedElement()).getSimpleName()),
-					"Junit4 TestAnnotation", type));
+			adjustAnnotationType(annotation);
+			notifiyChangeListener(annotation, annotation.getParent(CtType.class));
 		}
+	}
 
+	private void adjustAnnotationType(CtAnnotation<?> annotation) {
+		annotation.setType(getJunit5TestReference(getFactory()));
+		annotation.setAnnotationType(getJunit5TestReference(getFactory()));
+		annotation.getAnnotationType().setSimplyQualified(true);
+		annotation.getType().setSimplyQualified(true);
+	}
+
+	private void notifiyChangeListener(CtAnnotation<?> annotation, CtType<?> type) {
+		setChanged(type, new Change(String.format("Replaced junit 4 test annotation with junit 5 test annotation in %s",
+			((CtMethod<?>) annotation.getAnnotatedElement()).getSimpleName()), "Junit4 TestAnnotation", type));
 	}
 
 	private void refactorTimeoutAnnotation(CtAnnotation<?> annotation, CtElement element) {
@@ -50,13 +57,13 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 			timeout.addValue("value", Long.valueOf(annotation.getValue("timeout").toString().replace("L", "")));
 			timeout.addValue("unit", TimeUnit.MILLISECONDS);
 			element.addAnnotation(timeout);
-			removeExpectedValue(annotation);
-			ImportHelper.addImport("org.junit.jupiter.api.Timeout", false, element.getPosition().getCompilationUnit());
-			ImportHelper.addImport("java.util.concurrent.TimeUnit", false, element.getPosition().getCompilationUnit());
+			removeTimeoutValue(annotation);
+			ImportHelper.addImport(JUNIT5_TIMEOUT, false, element.getPosition().getCompilationUnit());
+			ImportHelper.addImport(JAVA_UTIL_CONCURRENT_TIME_UNIT, false, element.getPosition().getCompilationUnit());
 		}
 	}
 
-	private void removeExpectedValue(CtAnnotation<?> testAnnotation) {
+	private void removeTimeoutValue(CtAnnotation<?> testAnnotation) {
 		testAnnotation.setValues(testAnnotation.getValues()
 				.entrySet()
 				.stream()
@@ -65,8 +72,8 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 	}
 
 	private void adjustImports(CtElement element) {
-		ImportHelper.removeImport("org.junit.Test", false, element.getPosition().getCompilationUnit());
-		ImportHelper.addImport("org.junit.jupiter.api.Test", false, element.getPosition().getCompilationUnit());
+		ImportHelper.removeImport(JUNIT4_TEST, false, element.getPosition().getCompilationUnit());
+		ImportHelper.addImport(JUNIT5_TEST, false, element.getPosition().getCompilationUnit());
 	}
 
 }

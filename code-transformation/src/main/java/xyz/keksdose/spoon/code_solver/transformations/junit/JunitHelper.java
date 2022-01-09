@@ -6,6 +6,7 @@ import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtExecutableReference;
+import spoon.reflect.reference.CtTypeReference;
 
 public class JunitHelper {
 
@@ -119,5 +120,9 @@ public class JunitHelper {
 					&& executable.getSimpleName().equals("assertFalse");
 		}
 		return false;
+	}
+
+	public static <T> CtTypeReference<T> getJunit5TestReference(Factory factory) {
+		return factory.createReference("org.junit.jupiter.api.Test");
 	}
 }
