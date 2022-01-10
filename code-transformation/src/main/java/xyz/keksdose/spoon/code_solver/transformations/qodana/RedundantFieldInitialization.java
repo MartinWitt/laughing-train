@@ -64,7 +64,7 @@ public class RedundantFieldInitialization extends TransformationProcessor<CtFiel
 
 	private Change createChange(CtField<?> field, CtExpression<?> defaultExpression) {
 		String formatter = "Field Initializer  %s for field %s in type %s was redundant and was removed.";
-		String message = formatter.formatted(defaultExpression, field.getSimpleName(),
+		String message = String.format(formatter, defaultExpression, field.getSimpleName(),
 			field.getDeclaringType().getQualifiedName());
 		return new Change(message, "Redundant Initializer", field.getDeclaringType());
 	}

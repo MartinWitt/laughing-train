@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import spoon.experimental.CtUnresolvedImport;
 import spoon.reflect.code.CtExpression;
@@ -93,7 +94,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 				.filter(v -> ((CtTypeAccess<?>) v.getTarget()).getAccessedType() != null)
 				.filter(v -> ((CtTypeAccess<?>) v.getTarget()).getAccessedType().getSimpleName().equals("Assert"))
 				.filter(v -> !v.getExecutable().getSimpleName().equals("assertThat"))
-				.toList();
+				.collect(Collectors.toList());
 	}
 
 	private void adjustImports(CtMethod<?> method) {
