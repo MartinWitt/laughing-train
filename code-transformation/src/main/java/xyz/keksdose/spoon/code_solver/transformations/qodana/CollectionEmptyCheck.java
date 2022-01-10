@@ -33,7 +33,7 @@ public class CollectionEmptyCheck extends TransformationProcessor<CtBinaryOperat
 		List<CtInvocation<?>> innvocation = leftHand.getElements(new TypeFilter<>(CtInvocation.class));
 		innvocation.stream()
 				.filter(outer -> innvocation.stream().anyMatch(inner -> outer.hasParent(inner)))
-				.toList()
+				.collect(Collectors.toList())
 				.forEach(innvocation::remove);
 		if (innvocation.isEmpty()) {
 			return false;
