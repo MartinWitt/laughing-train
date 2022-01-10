@@ -37,17 +37,13 @@ The following refactorings are currently supported:
 ## Setup:
   TODO
 ## Get started in 3 seconds
+1. Checkout the repo
+2. Open the repo inside your favorite IDE
+3. https://github.com/MartinWitt/laughing-train/blob/9ffbb1abf75f999604a28a36c7989684f863d1a9/code-transformation/src/main/resources/app.properties insert your desired values here
+4. Open https://github.com/MartinWitt/laughing-train/blob/78bde9fd069c9888ed87ce877916b993dbb35764/code-transformation/src/test/java/xyz/keksdose/spoon/code_solver/API.java
+And try it yourself. If you want to change the used processor edit them here https://github.com/MartinWitt/laughing-train/blob/master/code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/TransformationEngine.java#L68
 
-```java
-String path = ProjectPath
-String filename = TypeToRefactorName
-String repoPath = PathToLocalGitRepo
-CommitBuilder.refactorRepo(repoPath, path, filename,
-	(v, u) -> {
-		return new TransformationEngine().applyToGivenPath(path, filename, RunMode.FULL);
-});
-```
-## Try it yourself:
+## Try it yourself(often out of date):
 
 Create a gist, copy the ID and go to:
 http://89.58.15.157:8080/refactor/`$your_GIST_ID`
