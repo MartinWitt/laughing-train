@@ -83,7 +83,7 @@ jreleaser {
 		docsUrl = "https://github.com/MartinWitt/laughing-train"
 		website = "https://github.com/MartinWitt/laughing-train"
 		description = "A code refactoring tool for java created with jgit and spoon for small diffs."
-		authors = List.of("MartinWitt")
+		authors = ["MartinWitt"]
 	}
 	release {
 		github {
