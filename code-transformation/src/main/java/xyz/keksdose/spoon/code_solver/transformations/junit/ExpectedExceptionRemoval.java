@@ -20,6 +20,7 @@ import spoon.reflect.reference.CtTypeReference;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
+import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
@@ -27,7 +28,20 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 
 	private static final String CHANGE_TEXT_RAW = "Removed expected annotation from test method %s";
 	private static final String CHANGE_TEXT_MARKDOWN = "Removed expected annotation from test method `%s`";
+	private static final BadSmell EXPECTED_EXCEPTION_BADSMELL = new BadSmell() {
 
+		@Override
+		public MarkdownString getDescription() {
+			String rawText = "The expected annotation value should be removed from test methods, and replaced with JUnit 5 assertThrows.";
+			String markdownText = "The expected annotation value should be removed from test methods, and replaced with JUnit 5 `assertThrows`.";
+			return MarkdownString.fromMarkdown(rawText, markdownText);
+		}
+
+		@Override
+		public MarkdownString getName() {
+			return MarkdownString.fromRaw("ExpectedException");
+		}
+	};
 	public ExpectedExceptionRemoval(ChangeListener listener) {
 		super(listener);
 	}
@@ -46,12 +60,11 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 				CtCompilationUnit compilationUnit = method.getPosition().getCompilationUnit();
 				removeExpectedValue(testAnnotation.get());
 				ImportHelper.addImport("org.junit.jupiter.api.Assertions.assertThrows", true, compilationUnit);
-
 				setChanged(method.getParent(CtType.class),
-					new Change(
+					new Change(EXPECTED_EXCEPTION_BADSMELL,
 						MarkdownString.fromMarkdown(String.format(CHANGE_TEXT_RAW, method.getSimpleName()),
 							String.format(CHANGE_TEXT_MARKDOWN, method.getSimpleName())),
-						"ExpectedExceptionRemoval", method.getParent(CtType.class)));
+						method.getParent(CtType.class)));
 			}
 		}
 	}
