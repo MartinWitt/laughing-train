@@ -5,17 +5,23 @@ import spoon.reflect.declaration.CtType;
 
 public class Change {
 
-	private String text;
+	private MarkdownString text;
 	private String issue;
 	private CtType<?> affectedType;
 
 	public Change(String text, String issue, CtType<?> affectedType) {
+		this.text = MarkdownString.fromRaw(text);
+		this.issue = issue;
+		this.affectedType = affectedType;
+	}
+
+	public Change(MarkdownString text, String issue, CtType<?> affectedType) {
 		this.text = text;
 		this.issue = issue;
 		this.affectedType = affectedType;
 	}
 
-	public String getText() {
+	public MarkdownString getChangeText() {
 		return text;
 	}
 

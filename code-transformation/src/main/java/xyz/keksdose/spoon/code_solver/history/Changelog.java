@@ -28,7 +28,7 @@ public class Changelog {
 		StringBuilder builder = new StringBuilder();
 		builder.append("The following has changed in the code:\n");
 		for (Change change : changes) {
-			builder.append(change.getText() + "\n");
+			builder.append(change.getChangeText() + "\n");
 		}
 		return builder.toString();
 	}

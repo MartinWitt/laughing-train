@@ -45,4 +45,11 @@ public class ConfigStore {
 		return property.getProperty("git.branch_prefix");
 	}
 
+	public boolean getPrintMarkdown() {
+		return Boolean.valueOf(property.getProperty("changelog.markdown"));
+	}
+
+	public String getMarkdownChangeLogFile() {
+		return property.getProperty("changelog.markdown.file");
+	}
 }

@@ -19,10 +19,14 @@ import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.reference.CtTypeReference;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.history.MarkdownString;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?>> {
+
+	private static final String CHANGE_TEXT_RAW = "Removed expected annotation from test method %s";
+	private static final String CHANGE_TEXT_MARKDOWN = "Removed expected annotation from test method `%s`";
 
 	public ExpectedExceptionRemoval(ChangeListener listener) {
 		super(listener);
@@ -44,7 +48,9 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 				ImportHelper.addImport("org.junit.jupiter.api.Assertions.assertThrows", true, compilationUnit);
 
 				setChanged(method.getParent(CtType.class),
-					new Change(String.format("Removed expected annotation from test method %s", method.getSimpleName()),
+					new Change(
+						MarkdownString.fromMarkdown(String.format(CHANGE_TEXT_RAW, method.getSimpleName()),
+							String.format(CHANGE_TEXT_MARKDOWN, method.getSimpleName())),
 						"ExpectedExceptionRemoval", method.getParent(CtType.class)));
 			}
 		}
