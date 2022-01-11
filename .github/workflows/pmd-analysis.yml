@@ -18,7 +18,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
       - name: Run PMD
         id: pmd
         uses: pmd/pmd-github-action@6d98898be0d59f46ec37dafcea33d8f8f55acfd1
@@ -29,3 +28,6 @@ jobs:
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: pmd-report.sarif
+      - name: Fail build if there a violations
+        if: steps.pmd.outputs.violations != 0
+        run: exit 1
