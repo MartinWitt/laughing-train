@@ -1,5 +1,5 @@
 
-package xyz.keksdose.spoon.code_solver.transformations.junit;
+package xyz.keksdose.spoon.code_solver.transformations.junit.migration;
 
 import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.getJunit5TestReference;
 import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.hasExpectedValue;
@@ -21,6 +21,7 @@ import xyz.keksdose.spoon.code_solver.history.MarkdownString;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
+import xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper;
 
 public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 
@@ -45,6 +46,7 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 			return MarkdownString.fromRaw("JUnit4-@Test");
 		}
 	};
+
 	public TestAnnotation(ChangeListener listener) {
 		super(listener);
 	}
@@ -68,9 +70,9 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 
 	private void notifiyChangeListener(CtAnnotation<?> annotation, CtType<?> type) {
 		setChanged(type, new Change(TEST_RULE,
-			MarkdownString.fromMarkdown(String.format(CHANGE_TEXT_RAW, getNameOfAnnotatedMethod(annotation)),
-				String.format(CHANGE_TEXT_MARKDOWN, ((CtMethod<?>) annotation.getAnnotatedElement()).getSimpleName())),
-			type));
+				MarkdownString.fromMarkdown(String.format(CHANGE_TEXT_RAW, getNameOfAnnotatedMethod(annotation)),
+						String.format(CHANGE_TEXT_MARKDOWN, ((CtMethod<?>) annotation.getAnnotatedElement()).getSimpleName())),
+				type));
 	}
 
 	private String getNameOfAnnotatedMethod(CtAnnotation<?> annotation) {

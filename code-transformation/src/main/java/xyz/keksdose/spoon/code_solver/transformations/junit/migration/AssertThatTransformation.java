@@ -1,5 +1,5 @@
 
-package xyz.keksdose.spoon.code_solver.transformations.junit;
+package xyz.keksdose.spoon.code_solver.transformations.junit.migration;
 
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtExecutable;
@@ -30,6 +30,7 @@ public class AssertThatTransformation extends TransformationProcessor<CtInvocati
 		}
 
 	};
+
 	public AssertThatTransformation(ChangeListener listener) {
 		super(listener);
 	}
@@ -47,19 +48,19 @@ public class AssertThatTransformation extends TransformationProcessor<CtInvocati
 	private void notifyChangeListener(CtInvocation<?> invocation) {
 		CtType<?> parentType = invocation.getParent(CtType.class);
 		setChanged(parentType,
-			new Change(ASSERT_THAT_BAD_SMELL,
-				MarkdownString.fromMarkdown(
-					String.format("Replaced Assert.assertThat with MatcherAssert.assertThat in %s",
-						invocation.getParent(CtExecutable.class).getSimpleName()),
-					String.format("Replaced `Assert.assertThat` with `MatcherAssert.assertThat` in `%s`",
-						invocation.getParent(CtExecutable.class).getSimpleName())),
-				parentType));
+				new Change(ASSERT_THAT_BAD_SMELL,
+						MarkdownString.fromMarkdown(
+								String.format("Replaced Assert.assertThat with MatcherAssert.assertThat in %s",
+										invocation.getParent(CtExecutable.class).getSimpleName()),
+								String.format("Replaced `Assert.assertThat` with `MatcherAssert.assertThat` in `%s`",
+										invocation.getParent(CtExecutable.class).getSimpleName())),
+						parentType));
 	}
 
 	private void adjustImports(CtInvocation<?> invocation) {
 		ImportHelper.removeImport("org.junit.Assert.assertThat", true, invocation.getPosition().getCompilationUnit());
 		ImportHelper.addImport("org.hamcrest.MatcherAssert.assertThat", true,
-			invocation.getPosition().getCompilationUnit());
+				invocation.getPosition().getCompilationUnit());
 	}
 
 	private boolean isInJunit4Assert(CtExecutableReference<?> exec) {

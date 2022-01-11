@@ -1,5 +1,5 @@
 
-package xyz.keksdose.spoon.code_solver.transformations.junit;
+package xyz.keksdose.spoon.code_solver.transformations.junit.simplification;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -9,6 +9,7 @@ import spoon.reflect.declaration.ModifierKind;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
+import xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper;
 
 public class PublicModifierRemoval extends TransformationProcessor<CtMethod<?>> {
 
@@ -21,8 +22,8 @@ public class PublicModifierRemoval extends TransformationProcessor<CtMethod<?>> 
 		if (element.isPublic() && JunitHelper.isJunit5TestMethod(element)) {
 			element.removeModifier(ModifierKind.PUBLIC);
 			setChanged(element.getParent(CtType.class),
-				new Change(String.format("Removed public modifier from test method %s", element.getSimpleName()),
-					"PublicModifierRemoval", element.getParent(CtType.class)));
+					new Change(String.format("Removed public modifier from test method %s", element.getSimpleName()),
+							"PublicModifierRemoval", element.getParent(CtType.class)));
 		}
 	}
 

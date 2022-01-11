@@ -22,11 +22,11 @@ import xyz.keksdose.spoon.code_solver.RunMode;
 import xyz.keksdose.spoon.code_solver.TransformationEngine;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
-import xyz.keksdose.spoon.code_solver.transformations.junit.AssertThatTransformation;
-import xyz.keksdose.spoon.code_solver.transformations.junit.AssertionsTransformation;
-import xyz.keksdose.spoon.code_solver.transformations.junit.ExpectedExceptionRemoval;
-import xyz.keksdose.spoon.code_solver.transformations.junit.Junit4AnnotationsTransformation;
-import xyz.keksdose.spoon.code_solver.transformations.junit.TestAnnotation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.migration.AssertThatTransformation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.migration.AssertionsTransformation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.migration.ExpectedExceptionRemoval;
+import xyz.keksdose.spoon.code_solver.transformations.junit.migration.Junit4AnnotationsTransformation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.migration.TestAnnotation;
 
 @RestController
 public class Controller {

@@ -30,11 +30,11 @@ import xyz.keksdose.spoon.code_solver.spoon.ImportAwareSniperPrinter;
 import xyz.keksdose.spoon.code_solver.spoon.ImportCleaner;
 import xyz.keksdose.spoon.code_solver.spoon.ImportComparator;
 import xyz.keksdose.spoon.code_solver.spoon.SelectiveForceImport;
-import xyz.keksdose.spoon.code_solver.transformations.junit.AssertThatTransformation;
-import xyz.keksdose.spoon.code_solver.transformations.junit.AssertionsTransformation;
-import xyz.keksdose.spoon.code_solver.transformations.junit.ExpectedExceptionRemoval;
-import xyz.keksdose.spoon.code_solver.transformations.junit.Junit4AnnotationsTransformation;
-import xyz.keksdose.spoon.code_solver.transformations.junit.TestAnnotation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.migration.AssertThatTransformation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.migration.AssertionsTransformation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.migration.ExpectedExceptionRemoval;
+import xyz.keksdose.spoon.code_solver.transformations.junit.migration.Junit4AnnotationsTransformation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.migration.TestAnnotation;
 
 public class TransformationEngine {
 

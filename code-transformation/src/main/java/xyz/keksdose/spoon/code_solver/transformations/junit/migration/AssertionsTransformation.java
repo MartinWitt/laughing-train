@@ -1,5 +1,5 @@
 
-package xyz.keksdose.spoon.code_solver.transformations.junit;
+package xyz.keksdose.spoon.code_solver.transformations.junit.migration;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,14 +23,24 @@ import spoon.support.util.ModelList;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
+import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class AssertionsTransformation extends TransformationProcessor<CtMethod<?>> {
 
-	/**
-	 *
-	 */
-	private static final String TRANSFORMATION_NAME = "AssertionsTransformation";
+	private static final BadSmell JUNIT4_ASSERTION = new BadSmell() {
+		@Override
+		public MarkdownString getName() {
+			return MarkdownString.fromRaw("JUnit4Assertion");
+		}
+
+		@Override
+		public MarkdownString getDescription() {
+			String rawText = "The JUnit4 assertion should be replaced with JUnit5 Assertions.";
+			String markdownText = "The JUnit4 assertion should be replaced with JUnit5 Assertions.";
+			return MarkdownString.fromMarkdown(rawText, markdownText);
+		}
+	};
 
 	public AssertionsTransformation(ChangeListener listener) {
 		super(listener);
@@ -48,18 +58,20 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 
 	private void notifyChangeListener(CtMethod<?> method) {
 		CtType<?> declaringType = method.getDeclaringType();
-		setChanged(declaringType, new Change(createChangeHistory(method), TRANSFORMATION_NAME, declaringType));
+		setChanged(declaringType, new Change(
+				JUNIT4_ASSERTION, createChangeHistory(method), declaringType));
 	}
 
 	private MarkdownString createChangeHistory(CtMethod<?> method) {
 		return MarkdownString.fromMarkdown(
-			String.format("Transformed junit4 assert to junit 5 assertion in %s", method.getSimpleName()),
-			String.format("Transformed junit4 assert to junit 5 assertion in `%s`", method.getSimpleName()));
+				String.format("Transformed junit4 assert to junit 5 assertion in %s", method.getSimpleName()),
+				String.format("Transformed junit4 assert to junit 5 assertion in `%s`", method.getSimpleName()));
 	}
 
 	private void convertToJunit5(List<CtInvocation<?>> junit4Asserts) {
 		for (CtInvocation<?> junit4Assert : junit4Asserts) {
-			junit4Assert.setTarget(null);
+			junit4Assert.getTarget().getType().setSimplyQualified(true);
+			junit4Assert.getTarget().getType().setImplicit(true);
 			junit4Assert.getExecutable()
 					.setDeclaringType(getFactory().Type().createReference("org.junit.jupiter.api.Assertions"));
 			List<CtExpression<?>> parameters = junit4Assert.getArguments();
@@ -113,7 +125,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 					if (!ctUnresolvedImport.getUnresolvedReference().endsWith("assertThat")) {
 						newImports.add(getFactory().createUnresolvedImport(ctUnresolvedImport.getUnresolvedReference()
 								.replace("org.junit.Assert.", "org.junit.jupiter.api.Assertions."),
-							true));
+								true));
 					}
 				}
 			}
@@ -124,7 +136,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 					references.add(executableReference);
 					if (!executableReference.getSimpleName().equals("assertThat")) {
 						newImports.add(getFactory().createUnresolvedImport(
-							"org.junit.jupiter.api.Assertions." + executableReference.getSimpleName(), true));
+								"org.junit.jupiter.api.Assertions." + executableReference.getSimpleName(), true));
 					}
 				}
 			}
@@ -142,10 +154,10 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 							.filter(v -> v.getExecutable() != null)
 							.filter(v -> v.getExecutable().getDeclaringType() != null)
 							.filter(
-								v -> v.getExecutable().getDeclaringType().getQualifiedName().equals("org.junit.Assert"))
+									v -> v.getExecutable().getDeclaringType().getQualifiedName().equals("org.junit.Assert"))
 							.filter(v -> !v.getExecutable().getSimpleName().equals("assertThat"))
 							.forEach(v -> newImports.add(getFactory().createUnresolvedImport(
-								"org.junit.jupiter.api.Assertions." + v.getExecutable().getSimpleName(), true)));
+									"org.junit.jupiter.api.Assertions." + v.getExecutable().getSimpleName(), true)));
 				}
 			}
 

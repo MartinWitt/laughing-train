@@ -1,5 +1,5 @@
 
-package xyz.keksdose.spoon.code_solver.transformations.junit;
+package xyz.keksdose.spoon.code_solver.transformations.junit.migration;
 
 import static xyz.keksdose.spoon.code_solver.history.MarkdownString.fromMarkdown;
 import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.createAfterAllAnnotation;
@@ -20,6 +20,7 @@ import xyz.keksdose.spoon.code_solver.history.MarkdownString;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
+import xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper;
 
 public class Junit4AnnotationsTransformation extends TransformationProcessor<CtMethod<?>> {
 
@@ -33,6 +34,7 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 	private static final BadSmell JUNIT4_AFTER_BADSMELL = new AfterBadSmell();
 	private static final BadSmell JUNIT4_AFTER_CLASS_BADSMELL = new AfterClassBadSmell();
 	private static final BadSmell JUNIT4_IGNORE_BADSMELL = new IgnoreBadSmell();
+
 	public Junit4AnnotationsTransformation(ChangeListener listener) {
 		super(listener);
 	}
@@ -52,11 +54,11 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 			adjustImportsBeforeClass(method);
 			replaceAnnotation(method, beforeClassAnnotation.get(), createBeforeAllAnnotation(getFactory()));
 			String changeText = String.format("Replaced @BeforeClass annotation with @BeforeAll at method %s",
-				method.getSimpleName());
+					method.getSimpleName());
 			String markdownText = String.format("Replaced `@BeforeClass` annotation with `@BeforeAll` at method `%s`",
-				method.getSimpleName());
+					method.getSimpleName());
 			notifyChangeListener(method.getTopLevelType(), fromMarkdown(changeText, markdownText),
-				JUNIT4_BEFORE_CLASS_BADSMELL);
+					JUNIT4_BEFORE_CLASS_BADSMELL);
 		}
 	}
 
@@ -81,11 +83,11 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 			adjustImportsBefore(compilationUnit);
 			replaceAnnotation(method, beforeAnnotation.get(), createBeforeEachAnnotation(getFactory()));
 			String changeText = String.format("Replaced @Before annotation with @BeforeEach at method %s",
-				method.getSimpleName());
+					method.getSimpleName());
 			String markdownText = String.format("Replaced `@Before` annotation with `@BeforeEach` at method `%s`",
-				method.getSimpleName());
+					method.getSimpleName());
 			notifyChangeListener(method.getTopLevelType(), fromMarkdown(changeText, markdownText),
-				JUNIT4_BEFORE_BADSMELL);
+					JUNIT4_BEFORE_BADSMELL);
 		}
 	}
 
@@ -100,11 +102,11 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 			adjustImportsAfter(method);
 			replaceAnnotation(method, afterAnnotation.get(), JunitHelper.createAfterEachAnnotation(getFactory()));
 			String changeText = String.format("Replaced @After annotation with @AfterEach at method %s",
-				method.getSimpleName());
+					method.getSimpleName());
 			String markdownText = String.format("Replaced `@After` annotation with `@AfterEach` at method `%s`",
-				method.getSimpleName());
+					method.getSimpleName());
 			notifyChangeListener(method.getTopLevelType(), fromMarkdown(changeText, markdownText),
-				JUNIT4_AFTER_BADSMELL);
+					JUNIT4_AFTER_BADSMELL);
 		}
 	}
 
@@ -119,11 +121,11 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 			adjustImportsAfterClass(method);
 			replaceAnnotation(method, afterClassAnnotation.get(), createAfterAllAnnotation(getFactory()));
 			String changeText = String.format("Replaced @After annotation with @AfterEach at method %s",
-				method.getSimpleName());
+					method.getSimpleName());
 			String markdownText = String.format("Replaced `@After` annotation with `@AfterEach` at method `%s`",
-				method.getSimpleName());
+					method.getSimpleName());
 			notifyChangeListener(method.getTopLevelType(), fromMarkdown(changeText, markdownText),
-				JUNIT4_AFTER_CLASS_BADSMELL);
+					JUNIT4_AFTER_CLASS_BADSMELL);
 		}
 	}
 
@@ -138,11 +140,11 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 			adjustImportsIgnore(method);
 			replaceAnnotation(method, ignoreAnnotation.get(), createDisableAnnotation(getFactory()));
 			String changeText = String.format("Replaced @Ignore annotation with @Disabled at method %s",
-				method.getSimpleName());
+					method.getSimpleName());
 			String markdownText = String.format("Replaced `@Ignore` annotation with `@Disabled` at method `%s`",
-				method.getSimpleName());
+					method.getSimpleName());
 			notifyChangeListener(method.getTopLevelType(), fromMarkdown(changeText, markdownText),
-				JUNIT4_IGNORE_BADSMELL);
+					JUNIT4_IGNORE_BADSMELL);
 		}
 	}
 

@@ -1,5 +1,5 @@
 
-package xyz.keksdose.spoon.code_solver.transformations.junit;
+package xyz.keksdose.spoon.code_solver.transformations.junit.simplification;
 
 import java.util.List;
 
@@ -16,32 +16,33 @@ import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
+import xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper;
 
-public class AssertNotNullTransformation extends TransformationProcessor<CtInvocation<?>> {
+public class AssertNullTransformation extends TransformationProcessor<CtInvocation<?>> {
 
-	public AssertNotNullTransformation(ChangeListener listener) {
+	public AssertNullTransformation(ChangeListener listener) {
 		super(listener);
 	}
 
 	@Override
-	public void process(CtInvocation<?> element) {
-		if (element.getExecutable() != null && JunitHelper.isJunit5AssertTrue(element.getExecutable())) {
-			CtInvocation<?> junit5AssertTrue = element;
-			CtExpression<?> expression = element.getArguments().iterator().next();
+	public void process(CtInvocation<?> invocation) {
+		if (invocation.getExecutable() != null && JunitHelper.isJunit5AssertTrue(invocation.getExecutable())) {
+			CtInvocation<?> junit5AssertTrue = invocation;
+			CtExpression<?> expression = invocation.getArguments().iterator().next();
 			if (expression instanceof CtBinaryOperator) {
 				CtBinaryOperator<?> binaryOperator = (CtBinaryOperator<?>) expression;
-				if (binaryOperator.getKind().equals(BinaryOperatorKind.NE)) {
+				if (binaryOperator.getKind().equals(BinaryOperatorKind.EQ)) {
 					CtExpression<?> check = findTestingExpression(binaryOperator);
 					if (check != null) {
-						CtInvocation<?> junit5AssertNotNull = createJunit5AssertNotNull(check);
-						junit5AssertNotNull.setComments(element.getComments());
-						junit5AssertTrue.replace(junit5AssertNotNull);
-						if (element.getArguments().size() == 2) {
+						CtInvocation<?> junit5AssertNull = createJunit5AssertNull(check);
+						junit5AssertNull.setComments(invocation.getComments());
+						junit5AssertTrue.replace(junit5AssertNull);
+						if (invocation.getArguments().size() == 2) {
 							// readd the String if it fails argument
-							junit5AssertNotNull.addArgument(element.getArguments().get(1).clone());
+							junit5AssertNull.addArgument(invocation.getArguments().get(1).clone());
 						}
-						adjustImports(element);
-						notifyChangeListener(junit5AssertTrue);
+						adjustImports(invocation);
+						notifyChangeListener(junit5AssertNull);
 					}
 				}
 			}
@@ -68,7 +69,7 @@ public class AssertNotNullTransformation extends TransformationProcessor<CtInvoc
 		if (parent != null && !hasJunit5AsserTrueLeft(parent)) {
 			ImportHelper.removeImport("org.junit.jupiter.api.Assertions.assertTrue", true, compilationUnit);
 		}
-		ImportHelper.addImport("org.junit.jupiter.api.Assertions.assertNotNull", true, compilationUnit);
+		ImportHelper.addImport("org.junit.jupiter.api.Assertions.assertNull", true, compilationUnit);
 
 	}
 
@@ -83,18 +84,18 @@ public class AssertNotNullTransformation extends TransformationProcessor<CtInvoc
 		return left.getType() != null && left.getType().equals(getFactory().Type().nullType());
 	}
 
-	private CtInvocation<?> createJunit5AssertNotNull(CtExpression<?> check) {
+	private CtInvocation<?> createJunit5AssertNull(CtExpression<?> check) {
 		CtTypeReference<?> typeRef = getFactory().Type().createReference("org.junit.jupiter.api.Assertions");
 		CtTypeReference<?> voidType = getFactory().Type().voidPrimitiveType();
-		CtExecutableReference<?> assertNotNull = getFactory().Executable()
-				.createReference(typeRef, voidType, "assertNotNull", List.of(getFactory().Type().objectType()));
-		return getFactory().createInvocation(null, assertNotNull, List.of(check));
+		CtExecutableReference<?> assertNull = getFactory().Executable()
+				.createReference(typeRef, voidType, "assertNull", List.of(getFactory().Type().objectType()));
+		return getFactory().createInvocation(null, assertNull, List.of(check));
 	}
 
 	private void notifyChangeListener(CtInvocation<?> newAssert) {
 		CtType<?> parent = newAssert.getParent(CtType.class);
-		setChanged(parent, new Change(String.format("Replaced not nullcheck in assertTrue with assertNotNull"),
-			"AssertTrue instead of AssertNotNull", parent));
+		setChanged(parent, new Change(String.format("Replaced nullcheck in assertTrue with assertNull"),
+				"AssertTrue instead of AssertNull", parent));
 	}
 
 }

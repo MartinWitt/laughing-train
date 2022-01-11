@@ -1,5 +1,5 @@
 
-package xyz.keksdose.spoon.code_solver.transformations.junit;
+package xyz.keksdose.spoon.code_solver.transformations.junit.simplification;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
+import xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper;
 
 public class AssertFalseEqualsCheck extends TransformationProcessor<CtInvocation<?>> {
 
@@ -75,7 +76,7 @@ public class AssertFalseEqualsCheck extends TransformationProcessor<CtInvocation
 	private void notifyChangeListener(CtInvocation<?> newAssert) {
 		CtType<?> parent = newAssert.getParent(CtType.class);
 		setChanged(parent, new Change(String.format("Replaced assertFalse checking equals with assertNotEquals"),
-			"assertFalse with equals instead of assertNotEquals", parent));
+				"assertFalse with equals instead of assertNotEquals", parent));
 	}
 
 }
