@@ -23,7 +23,6 @@ jobs:
         uses: pmd/pmd-github-action@6d98898be0d59f46ec37dafcea33d8f8f55acfd1
         with:
           rulesets: 'rulesets/java/quickstart.xml'
-          sourcePath: 'src/main/java'
           analyzeModifiedFilesOnly: false
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v1
