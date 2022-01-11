@@ -64,7 +64,8 @@ public class CommitBuilder {
 		appendChanges(changesByType, sb);
 		try {
 			Files.writeString(path, sb);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			logger.atSevere().withCause(e).log("Could not write markdown changelog" + path);
 		}
 	}
