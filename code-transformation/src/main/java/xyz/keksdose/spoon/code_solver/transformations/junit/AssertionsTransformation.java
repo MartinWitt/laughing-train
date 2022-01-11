@@ -22,6 +22,7 @@ import spoon.reflect.visitor.filter.TypeFilter;
 import spoon.support.util.ModelList;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.history.MarkdownString;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class AssertionsTransformation extends TransformationProcessor<CtMethod<?>> {
@@ -50,8 +51,10 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 		setChanged(declaringType, new Change(createChangeHistory(method), TRANSFORMATION_NAME, declaringType));
 	}
 
-	private String createChangeHistory(CtMethod<?> method) {
-		return String.format("Transformed junit4 assert to junit 5 assertion in %s", method.getSimpleName());
+	private MarkdownString createChangeHistory(CtMethod<?> method) {
+		return MarkdownString.fromMarkdown(
+			String.format("Transformed junit4 assert to junit 5 assertion in %s", method.getSimpleName()),
+			String.format("Transformed junit4 assert to junit 5 assertion in `%s`", method.getSimpleName()));
 	}
 
 	private void convertToJunit5(List<CtInvocation<?>> junit4Asserts) {

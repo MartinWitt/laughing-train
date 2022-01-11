@@ -11,6 +11,7 @@ import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.history.MarkdownString;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
@@ -58,9 +59,13 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 	}
 
 	private void notifyChangeListenerBeforeClass(CtMethod<?> method) {
-		setChanged(method.getParent(CtType.class), new Change(
-			String.format("Replaced @BeforeClass annotation with @BeforeAll from method %s", method.getSimpleName()),
-			PROCESSOR_NAME, method.getParent(CtType.class)));
+		CtType<?> declaringType = method.getParent(CtType.class);
+		String changeText = String.format("Replaced `@BeforeClass` annotation with `@BeforeAll` from method `%s`",
+			method.getSimpleName());
+		setChanged(declaringType, new Change(
+
+			MarkdownString.fromMarkdown(removeMarkdownBackticks(changeText), changeText), PROCESSOR_NAME,
+			declaringType));
 	}
 
 	private void refactorBefore(CtMethod<?> method) {
@@ -84,10 +89,12 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 	}
 
 	private void notifyChangeListenerBefore(CtMethod<?> method) {
-		setChanged(method.getParent(CtType.class),
-			new Change(
-				String.format("Replaced @Before annotation with @BeforeEach from method %s", method.getSimpleName()),
-				PROCESSOR_NAME, method.getParent(CtType.class)));
+		CtType<?> declaringType = method.getParent(CtType.class);
+		String changeText = String.format("Replaced `@Before` annotation with @BeforeEach from method `%s`",
+			method.getSimpleName());
+		setChanged(declaringType,
+			new Change(MarkdownString.fromMarkdown(removeMarkdownBackticks(changeText), changeText), PROCESSOR_NAME,
+				declaringType));
 	}
 
 	private void refactorAfter(CtMethod<?> method) {
@@ -105,10 +112,13 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 	}
 
 	private void notifyChangeListenerAfter(CtMethod<?> method) {
-		setChanged(method.getParent(CtType.class),
-			new Change(
-				String.format("Replaced @After annotation with @AfterEach from method %s", method.getSimpleName()),
-				PROCESSOR_NAME, method.getParent(CtType.class)));
+		CtType<?> declaringType = method.getParent(CtType.class);
+		String changeText = String.format("Replaced `@After` annotation with `@AfterEach` from method `%s`",
+			method.getSimpleName());
+
+		setChanged(declaringType,
+			new Change(MarkdownString.fromMarkdown(removeMarkdownBackticks(changeText), changeText), PROCESSOR_NAME,
+				declaringType));
 	}
 
 	private void adjustImportsAfter(CtMethod<?> method) {
@@ -131,10 +141,12 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 	}
 
 	private void notifyChangeListenerAfterClass(CtMethod<?> method) {
-		setChanged(method.getParent(CtType.class),
-			new Change(
-				String.format("Replaced @AfterClass annotation with @AfterAll from method %s", method.getSimpleName()),
-				PROCESSOR_NAME, method.getParent(CtType.class)));
+		CtType<?> declaringType = method.getParent(CtType.class);
+		String changeText = String.format("Replaced `@AfterClass` annotation with `@AfterAll` from method `%s`",
+			method.getSimpleName());
+		setChanged(declaringType,
+			new Change(MarkdownString.fromMarkdown(removeMarkdownBackticks(changeText), changeText), PROCESSOR_NAME,
+				declaringType));
 	}
 
 	private void adjustImportsAfterClass(CtMethod<?> method) {
@@ -157,14 +169,20 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 	}
 
 	private void notifyChangeListenerIgnore(CtMethod<?> method) {
-		setChanged(method.getParent(CtType.class),
-			new Change(
-				String.format("Replaced @Ignore annotation with @Disabled from method %s", method.getSimpleName()),
-				PROCESSOR_NAME, method.getParent(CtType.class)));
+		String changeText = String.format("Replaced `@Ignore` annotation with `@Disabled` from method `%s`",
+			method.getSimpleName());
+		CtType<?> declaringType = method.getParent(CtType.class);
+		setChanged(declaringType,
+			new Change(MarkdownString.fromMarkdown(removeMarkdownBackticks(changeText), changeText), PROCESSOR_NAME,
+				declaringType));
 	}
 
 	private void adjustImportsIgnore(CtMethod<?> method) {
 		ImportHelper.removeImport("org.junit.Ignore", false, method.getPosition().getCompilationUnit());
 		ImportHelper.addImport("org.junit.jupiter.api.Disabled", false, method.getPosition().getCompilationUnit());
+	}
+
+	private String removeMarkdownBackticks(String text) {
+		return text.replace("`", "");
 	}
 }

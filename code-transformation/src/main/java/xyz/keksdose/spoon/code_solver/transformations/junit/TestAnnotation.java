@@ -15,11 +15,15 @@ import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.history.MarkdownString;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 
+	private static final String CHANGE_TEXT_MARKDOWN = "Replaced junit 4 test annotation with junit 5 test annotation in `%s`";
+	private static final String CHANGE_TEXT_RAW = "Replaced junit 4 test annotation with junit 5 test annotation in %s";
+	private static final String RULE_NAME = "Junit4 @Test Annotation";
 	private static final String JUNIT4_TEST = "org.junit.Test";
 	private static final String JUNIT5_TEST = "org.junit.jupiter.api.Test";
 	private static final String JUNIT5_TIMEOUT = "org.junit.jupiter.api.Timeout";
@@ -47,8 +51,14 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 	}
 
 	private void notifiyChangeListener(CtAnnotation<?> annotation, CtType<?> type) {
-		setChanged(type, new Change(String.format("Replaced junit 4 test annotation with junit 5 test annotation in %s",
-			((CtMethod<?>) annotation.getAnnotatedElement()).getSimpleName()), "Junit4 TestAnnotation", type));
+		setChanged(type,
+			new Change(MarkdownString.fromMarkdown(String.format(CHANGE_TEXT_RAW, getNameOfAnnotatedMethod(annotation)),
+				String.format(CHANGE_TEXT_MARKDOWN, ((CtMethod<?>) annotation.getAnnotatedElement()).getSimpleName())),
+				RULE_NAME, type));
+	}
+
+	private String getNameOfAnnotatedMethod(CtAnnotation<?> annotation) {
+		return ((CtMethod<?>) annotation.getAnnotatedElement()).getSimpleName();
 	}
 
 	private void refactorTimeoutAnnotation(CtAnnotation<?> annotation, CtElement element) {

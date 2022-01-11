@@ -31,8 +31,8 @@ public class AssertThatTransformation extends TransformationProcessor<CtInvocati
 	private void notifyChangeListener(CtInvocation<?> invocation) {
 		CtType<?> parentType = invocation.getParent(CtType.class);
 		setChanged(parentType,
-			new Change(String.format("Replaced Assert.assertThat with MatcherAssert.assertThat in %s",
-				invocation.getParent(CtExecutable.class).getSignature()), "assertThat", parentType));
+			new Change(String.format("Replaced `Assert.assertThat` with `MatcherAssert.assertThat` in `%s`",
+				invocation.getParent(CtExecutable.class).getSimpleName()), "assertThat", parentType));
 	}
 
 	private void adjustImports(CtInvocation<?> invocation) {
