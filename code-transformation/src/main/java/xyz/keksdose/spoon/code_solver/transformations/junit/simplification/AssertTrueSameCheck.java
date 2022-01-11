@@ -33,7 +33,7 @@ public class AssertTrueSameCheck extends TransformationProcessor<CtInvocation<?>
 				CtBinaryOperator<?> binaryOperator = (CtBinaryOperator<?>) expression;
 				if (binaryOperator.getKind().equals(BinaryOperatorKind.EQ)) {
 					CtInvocation<?> junit5AssertNotNull = createJunit5AssertSame(binaryOperator.getLeftHandOperand(),
-							binaryOperator.getRightHandOperand());
+						binaryOperator.getRightHandOperand());
 					junit5AssertNotNull.setComments(invocation.getComments());
 					junit5AssertTrue.replace(junit5AssertNotNull);
 					if (invocation.getArguments().size() == 3) {
@@ -77,7 +77,7 @@ public class AssertTrueSameCheck extends TransformationProcessor<CtInvocation<?>
 	private void notifyChangeListener(CtInvocation<?> newAssert) {
 		CtType<?> parent = newAssert.getParent(CtType.class);
 		setChanged(parent, new Change(String.format("Replaced assertTrue checking same with assertSame"),
-				"assertTrue with equals instead of assertSame", parent));
+			"assertTrue with equals instead of assertSame", parent));
 	}
 
 }

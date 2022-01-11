@@ -58,14 +58,13 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 
 	private void notifyChangeListener(CtMethod<?> method) {
 		CtType<?> declaringType = method.getDeclaringType();
-		setChanged(declaringType, new Change(
-				JUNIT4_ASSERTION, createChangeHistory(method), declaringType));
+		setChanged(declaringType, new Change(JUNIT4_ASSERTION, createChangeHistory(method), declaringType));
 	}
 
 	private MarkdownString createChangeHistory(CtMethod<?> method) {
 		return MarkdownString.fromMarkdown(
-				String.format("Transformed junit4 assert to junit 5 assertion in %s", method.getSimpleName()),
-				String.format("Transformed junit4 assert to junit 5 assertion in `%s`", method.getSimpleName()));
+			String.format("Transformed junit4 assert to junit 5 assertion in %s", method.getSimpleName()),
+			String.format("Transformed junit4 assert to junit 5 assertion in `%s`", method.getSimpleName()));
 	}
 
 	private void convertToJunit5(List<CtInvocation<?>> junit4Asserts) {
@@ -125,7 +124,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 					if (!ctUnresolvedImport.getUnresolvedReference().endsWith("assertThat")) {
 						newImports.add(getFactory().createUnresolvedImport(ctUnresolvedImport.getUnresolvedReference()
 								.replace("org.junit.Assert.", "org.junit.jupiter.api.Assertions."),
-								true));
+							true));
 					}
 				}
 			}
@@ -136,7 +135,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 					references.add(executableReference);
 					if (!executableReference.getSimpleName().equals("assertThat")) {
 						newImports.add(getFactory().createUnresolvedImport(
-								"org.junit.jupiter.api.Assertions." + executableReference.getSimpleName(), true));
+							"org.junit.jupiter.api.Assertions." + executableReference.getSimpleName(), true));
 					}
 				}
 			}
@@ -154,10 +153,10 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 							.filter(v -> v.getExecutable() != null)
 							.filter(v -> v.getExecutable().getDeclaringType() != null)
 							.filter(
-									v -> v.getExecutable().getDeclaringType().getQualifiedName().equals("org.junit.Assert"))
+								v -> v.getExecutable().getDeclaringType().getQualifiedName().equals("org.junit.Assert"))
 							.filter(v -> !v.getExecutable().getSimpleName().equals("assertThat"))
 							.forEach(v -> newImports.add(getFactory().createUnresolvedImport(
-									"org.junit.jupiter.api.Assertions." + v.getExecutable().getSimpleName(), true)));
+								"org.junit.jupiter.api.Assertions." + v.getExecutable().getSimpleName(), true)));
 				}
 			}
 

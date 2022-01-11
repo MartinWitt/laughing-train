@@ -63,10 +63,10 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 				removeExpectedValue(testAnnotation.get());
 				ImportHelper.addImport("org.junit.jupiter.api.Assertions.assertThrows", true, compilationUnit);
 				setChanged(method.getParent(CtType.class),
-						new Change(EXPECTED_EXCEPTION_BADSMELL,
-								MarkdownString.fromMarkdown(String.format(CHANGE_TEXT_RAW, method.getSimpleName()),
-										String.format(CHANGE_TEXT_MARKDOWN, method.getSimpleName())),
-								method.getParent(CtType.class)));
+					new Change(EXPECTED_EXCEPTION_BADSMELL,
+						MarkdownString.fromMarkdown(String.format(CHANGE_TEXT_RAW, method.getSimpleName()),
+							String.format(CHANGE_TEXT_MARKDOWN, method.getSimpleName())),
+						method.getParent(CtType.class)));
 			}
 		}
 	}
@@ -94,7 +94,7 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 				.createReference("org.junit.jupiter.api.function.Executable");
 		CtExecutableReference<?> assertThrows = getFactory().Executable()
 				.createReference(typeRef, getFactory().Type().voidType(), "assertThrows",
-						List.of(clazzRef, executableJunit));
+					List.of(clazzRef, executableJunit));
 		CtLambda<?> lambda = getFactory().createLambda();
 		lambda.setType((CtTypeReference) getFactory().Type().voidType());
 		lambda.setBody(body);

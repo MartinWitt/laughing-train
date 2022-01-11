@@ -76,7 +76,7 @@ public class AssertFalseEqualsCheck extends TransformationProcessor<CtInvocation
 	private void notifyChangeListener(CtInvocation<?> newAssert) {
 		CtType<?> parent = newAssert.getParent(CtType.class);
 		setChanged(parent, new Change(String.format("Replaced assertFalse checking equals with assertNotEquals"),
-				"assertFalse with equals instead of assertNotEquals", parent));
+			"assertFalse with equals instead of assertNotEquals", parent));
 	}
 
 }

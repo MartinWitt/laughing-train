@@ -95,7 +95,7 @@ public class AssertNotNullTransformation extends TransformationProcessor<CtInvoc
 	private void notifyChangeListener(CtInvocation<?> newAssert) {
 		CtType<?> parent = newAssert.getParent(CtType.class);
 		setChanged(parent, new Change(String.format("Replaced not nullcheck in assertTrue with assertNotNull"),
-				"AssertTrue instead of AssertNotNull", parent));
+			"AssertTrue instead of AssertNotNull", parent));
 	}
 
 }

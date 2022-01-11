@@ -70,9 +70,9 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 
 	private void notifiyChangeListener(CtAnnotation<?> annotation, CtType<?> type) {
 		setChanged(type, new Change(TEST_RULE,
-				MarkdownString.fromMarkdown(String.format(CHANGE_TEXT_RAW, getNameOfAnnotatedMethod(annotation)),
-						String.format(CHANGE_TEXT_MARKDOWN, ((CtMethod<?>) annotation.getAnnotatedElement()).getSimpleName())),
-				type));
+			MarkdownString.fromMarkdown(String.format(CHANGE_TEXT_RAW, getNameOfAnnotatedMethod(annotation)),
+				String.format(CHANGE_TEXT_MARKDOWN, ((CtMethod<?>) annotation.getAnnotatedElement()).getSimpleName())),
+			type));
 	}
 
 	private String getNameOfAnnotatedMethod(CtAnnotation<?> annotation) {
