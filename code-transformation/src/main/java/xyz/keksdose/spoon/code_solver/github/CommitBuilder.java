@@ -54,11 +54,22 @@ public class CommitBuilder {
 	}
 
 	private static void createMarkdown(Changelog changelog, Path path) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("## The following has changed in the code:\n");
 		Map<String, List<Change>> changesByType = changelog.getChanges()
 				.stream()
 				.collect(Collectors.groupingBy(Change::getIssue));
+		StringBuilder sb = new StringBuilder();
+		sb.append("# Change Log\n");
+		appendBadSmells(changelog, sb);
+		sb.append("## The following has changed in the code:\n");
+		appendChanges(changesByType, sb);
+		try {
+			Files.writeString(path, sb);
+		} catch (IOException e) {
+			logger.atSevere().withCause(e).log("Could not write markdown changelog" + path);
+		}
+	}
+
+	private static void appendChanges(Map<String, List<Change>> changesByType, StringBuilder sb) {
 		for (Entry<String, List<Change>> entry : changesByType.entrySet()) {
 			sb.append("### " + entry.getKey() + "\n");
 			sb.append(entry.getValue()
@@ -67,12 +78,17 @@ public class CommitBuilder {
 					.collect(Collectors.joining("\n")));
 			sb.append("\n");
 		}
-		try {
-			Files.writeString(path, sb);
-		}
-		catch (IOException e) {
-			logger.atSevere().withCause(e).log("Could not write markdown changelog" + path);
-		}
+	}
+
+	private static void appendBadSmells(Changelog changelog, StringBuilder sb) {
+		sb.append("The following bad smells are refactored:\n");
+		changelog.getChanges()
+				.stream()
+				.map(Change::getBadSmell)
+				.filter(v -> !v.isEmptyRule())
+				.distinct()
+				.forEach(v -> sb.append("## " + v.getName().asText() + "\n" + v.getDescription().asMarkdown() + "\n"));
+		sb.append("\n");
 	}
 
 	private static String getRelevantChangeLog(String name, Changelog log) {

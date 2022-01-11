@@ -9,6 +9,8 @@ import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import org.checkerframework.checker.units.qual.m;
+
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
@@ -16,6 +18,7 @@ import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
+import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
@@ -23,12 +26,25 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 
 	private static final String CHANGE_TEXT_MARKDOWN = "Replaced junit 4 test annotation with junit 5 test annotation in `%s`";
 	private static final String CHANGE_TEXT_RAW = "Replaced junit 4 test annotation with junit 5 test annotation in %s";
-	private static final String RULE_NAME = "Junit4 @Test Annotation";
 	private static final String JUNIT4_TEST = "org.junit.Test";
 	private static final String JUNIT5_TEST = "org.junit.jupiter.api.Test";
 	private static final String JUNIT5_TIMEOUT = "org.junit.jupiter.api.Timeout";
 	private static final String JAVA_UTIL_CONCURRENT_TIME_UNIT = "java.util.concurrent.TimeUnit";
 
+	private static final BadSmell TEST_RULE = new BadSmell() {
+
+		@Override
+		public MarkdownString getDescription() {
+			String rawText = "The JUnit 4 @Test annotation should be replaced JUnit junit 5 Test annotation.";
+			String markdownText = "The JUnit 4 `@Test` annotation should be replaced with JUnit 5 `@Test` annotation.";
+			return MarkdownString.fromMarkdown(rawText, markdownText);
+		}
+
+		@Override
+		public MarkdownString getName() {
+			return MarkdownString.fromRaw("JUnit4-@Test");
+		}
+	};
 	public TestAnnotation(ChangeListener listener) {
 		super(listener);
 	}
@@ -51,10 +67,10 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 	}
 
 	private void notifiyChangeListener(CtAnnotation<?> annotation, CtType<?> type) {
-		setChanged(type,
-			new Change(MarkdownString.fromMarkdown(String.format(CHANGE_TEXT_RAW, getNameOfAnnotatedMethod(annotation)),
+		setChanged(type, new Change(TEST_RULE,
+			MarkdownString.fromMarkdown(String.format(CHANGE_TEXT_RAW, getNameOfAnnotatedMethod(annotation)),
 				String.format(CHANGE_TEXT_MARKDOWN, ((CtMethod<?>) annotation.getAnnotatedElement()).getSimpleName())),
-				RULE_NAME, type));
+			type));
 	}
 
 	private String getNameOfAnnotatedMethod(CtAnnotation<?> annotation) {
