@@ -69,8 +69,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 
 	private void convertToJunit5(List<CtInvocation<?>> junit4Asserts) {
 		for (CtInvocation<?> junit4Assert : junit4Asserts) {
-			junit4Assert.getTarget().getType().setSimplyQualified(true);
-			junit4Assert.getTarget().getType().setImplicit(true);
+			junit4Assert.setTarget(null);
 			junit4Assert.getExecutable()
 					.setDeclaringType(getFactory().Type().createReference("org.junit.jupiter.api.Assertions"));
 			List<CtExpression<?>> parameters = junit4Assert.getArguments();
