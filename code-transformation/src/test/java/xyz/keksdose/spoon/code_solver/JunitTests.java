@@ -13,11 +13,11 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import xyz.keksdose.spoon.code_solver.transformations.junit.AssertNotNullTransformation;
-import xyz.keksdose.spoon.code_solver.transformations.junit.AssertNullTransformation;
-import xyz.keksdose.spoon.code_solver.transformations.junit.AssertTrueEqualsCheck;
-import xyz.keksdose.spoon.code_solver.transformations.junit.AssertionsTransformation;
-import xyz.keksdose.spoon.code_solver.transformations.junit.TestAnnotation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.migration.AssertionsTransformation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.migration.TestAnnotation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.simplification.AssertNotNullTransformation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.simplification.AssertNullTransformation;
+import xyz.keksdose.spoon.code_solver.transformations.junit.simplification.AssertTrueEqualsCheck;
 
 @DisplayNameGeneration(CamelCaseToSpaceDisplayNames.class)
 class JunitTests {

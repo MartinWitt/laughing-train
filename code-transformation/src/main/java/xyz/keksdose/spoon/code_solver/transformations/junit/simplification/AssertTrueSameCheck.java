@@ -1,5 +1,5 @@
 
-package xyz.keksdose.spoon.code_solver.transformations.junit;
+package xyz.keksdose.spoon.code_solver.transformations.junit.simplification;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
+import xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper;
 
 public class AssertTrueSameCheck extends TransformationProcessor<CtInvocation<?>> {
 

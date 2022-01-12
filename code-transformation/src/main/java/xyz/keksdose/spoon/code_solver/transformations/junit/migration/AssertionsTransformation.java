@@ -1,5 +1,5 @@
 
-package xyz.keksdose.spoon.code_solver.transformations.junit;
+package xyz.keksdose.spoon.code_solver.transformations.junit.migration;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,14 +23,24 @@ import spoon.support.util.ModelList;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
+import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class AssertionsTransformation extends TransformationProcessor<CtMethod<?>> {
 
-	/**
-	 *
-	 */
-	private static final String TRANSFORMATION_NAME = "AssertionsTransformation";
+	private static final BadSmell JUNIT4_ASSERTION = new BadSmell() {
+		@Override
+		public MarkdownString getName() {
+			return MarkdownString.fromRaw("JUnit4Assertion");
+		}
+
+		@Override
+		public MarkdownString getDescription() {
+			String rawText = "The JUnit4 assertion should be replaced with JUnit5 Assertions.";
+			String markdownText = "The JUnit4 assertion should be replaced with JUnit5 Assertions.";
+			return MarkdownString.fromMarkdown(rawText, markdownText);
+		}
+	};
 
 	public AssertionsTransformation(ChangeListener listener) {
 		super(listener);
@@ -48,7 +58,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 
 	private void notifyChangeListener(CtMethod<?> method) {
 		CtType<?> declaringType = method.getDeclaringType();
-		setChanged(declaringType, new Change(createChangeHistory(method), TRANSFORMATION_NAME, declaringType));
+		setChanged(declaringType, new Change(JUNIT4_ASSERTION, createChangeHistory(method), declaringType));
 	}
 
 	private MarkdownString createChangeHistory(CtMethod<?> method) {
