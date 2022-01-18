@@ -1,6 +1,9 @@
 
 package xyz.keksdose.spoon.code_solver.transformations;
 
+import java.util.List;
+
+import xyz.keksdose.spoon.code_solver.history.Link;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
 
 /**
@@ -51,5 +54,9 @@ public abstract class BadSmell {
 	 */
 	public boolean isEmptyRule() {
 		return this instanceof EmptyBadSmell;
+	}
+
+	public List<Link> getLinks() {
+		return List.of();
 	}
 }

@@ -23,6 +23,7 @@ import spoon.reflect.visitor.PrettyPrinter;
 import spoon.support.QueueProcessingManager;
 import xyz.keksdose.spoon.code_solver.formatting.ImportGrouper;
 import xyz.keksdose.spoon.code_solver.formatting.NewLineImportGroups;
+import xyz.keksdose.spoon.code_solver.formatting.SpoonStyle;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
 import xyz.keksdose.spoon.code_solver.spoon.FragmentAwareChangeCollector;
@@ -36,6 +37,7 @@ import xyz.keksdose.spoon.code_solver.transformations.junit.migration.ExpectedEx
 import xyz.keksdose.spoon.code_solver.transformations.junit.migration.Junit4AnnotationsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.migration.TestAnnotation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.simplification.TempoaryFolderAsParameter;
+import xyz.keksdose.spoon.code_solver.transformations.qodana.ArraysToString;
 
 public class TransformationEngine {
 
@@ -73,6 +75,7 @@ public class TransformationEngine {
 		pm.addProcessor(new AssertThatTransformation(listener));
 		pm.addProcessor(new AssertionsTransformation(listener));
 		pm.addProcessor(new TempoaryFolderAsParameter(listener));
+		pm.addProcessor(new ArraysToString(listener));
 		// pm.addProcessor(new AssertTrueEqualsCheck(listener));
 		// pm.addProcessor(new AssertFalseEqualsCheck(listener));
 		// pm.addProcessor(new AssertNullTransformation(listener));
@@ -152,7 +155,7 @@ public class TransformationEngine {
 			new ImportCleaner().setImportComparator(new ImportComparator())
 					.setCanAddImports(false)
 					.setCanRemoveImports(false),
-			new ImportGrouper(new NewLineImportGroups())
+			new ImportGrouper(new SpoonStyle())
 		// )
 		);
 		return () -> {

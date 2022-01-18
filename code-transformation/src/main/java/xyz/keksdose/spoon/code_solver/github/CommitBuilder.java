@@ -20,6 +20,8 @@ import org.eclipse.jgit.lib.Repository;
 import xyz.keksdose.spoon.code_solver.config.ConfigStore;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
+import xyz.keksdose.spoon.code_solver.history.Link;
+import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class CommitBuilder {
 
@@ -83,12 +85,21 @@ public class CommitBuilder {
 
 	private static void appendBadSmells(Changelog changelog, StringBuilder sb) {
 		sb.append("The following bad smells are refactored:\n");
-		changelog.getChanges()
+		List<BadSmell> badSmells = changelog.getChanges()
 				.stream()
 				.map(Change::getBadSmell)
 				.filter(v -> !v.isEmptyRule())
 				.distinct()
-				.forEach(v -> sb.append("## " + v.getName().asText() + "\n" + v.getDescription().asMarkdown() + "\n"));
+				.sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
+				.collect(Collectors.toList());
+		for (BadSmell badSmell : badSmells) {
+			sb.append("## " + badSmell.getName().asText() + "\n");
+			sb.append(badSmell.getDescription().asMarkdown() + "\n");
+			for (Link link : badSmell.getLinks()) {
+				sb.append("- " + link + "\n");
+			}
+
+		}
 		sb.append("\n");
 	}
 

@@ -34,7 +34,7 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
 			}
 			return;
 		}
-		super.visitCtImport(ctImport.clone());
+		super.visitCtImport(ctImport);
 	}
 
 	private boolean endsWithNewline(String s) {
