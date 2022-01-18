@@ -3,10 +3,14 @@ package xyz.keksdose.spoon.code_solver.spoon;
 
 import spoon.compiler.Environment;
 import spoon.reflect.code.CtLambda;
+import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtCompilationUnit;
+import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtImport;
 import spoon.reflect.declaration.CtParameter;
+import spoon.reflect.declaration.CtTypedElement;
 import spoon.reflect.reference.CtArrayTypeReference;
+import spoon.reflect.reference.CtTypeReference;
 import spoon.support.sniper.SniperJavaPrettyPrinter;
 import spoon.support.util.ModelList;
 
@@ -30,7 +34,7 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
 			}
 			return;
 		}
-		super.visitCtImport(ctImport);
+		super.visitCtImport(ctImport.clone());
 	}
 
 	private boolean endsWithNewline(String s) {
@@ -66,10 +70,11 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
 				|| lambda.getParameters().get(0).getType().isImplicit());
 	}
 
+	// Fix for newline after annotation on parameters
 	@Override
 	public <T> void visitCtParameter(CtParameter<T> parameter) {
 		getElementPrinterHelper().writeComment(parameter);
-		getElementPrinterHelper().writeAnnotations(parameter);
+		writeAnnotations(parameter);
 		getElementPrinterHelper().writeModifiers(parameter);
 		if (parameter.isVarArgs()) {
 			scan(((CtArrayTypeReference<T>) parameter.getType()).getComponentType());
@@ -86,5 +91,32 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
 			getPrinterTokenWriter().writeSpace();
 		}
 		getPrinterTokenWriter().writeIdentifier(parameter.getSimpleName());
+	}
+
+	/**
+	* Writes the annotations for the given element.
+	*/
+	private void writeAnnotations(CtElement element) {
+		for (CtAnnotation<?> annotation : element.getAnnotations()) {
+
+			// if element is a type reference and the parent is a typed element
+			// which contains exactly the same annotation, then we are certainly in this case:
+			// @myAnnotation String myField
+			// in which case the annotation is attached to the type and the variable
+			// in that case, we only print the annotation once.
+			if (element.isParentInitialized() && element instanceof CtTypeReference
+					&& (element.getParent() instanceof CtTypedElement)
+					&& element.getParent().getAnnotations().contains(annotation)) {
+				continue;
+			}
+
+			this.scan(annotation);
+			if (element instanceof CtParameter) {
+				getPrinterTokenWriter().writeSpace();
+			}
+			else {
+				getPrinterTokenWriter().writeln();
+			}
+		}
 	}
 }
