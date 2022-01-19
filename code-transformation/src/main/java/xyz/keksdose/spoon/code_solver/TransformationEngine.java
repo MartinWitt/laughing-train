@@ -40,6 +40,7 @@ import xyz.keksdose.spoon.code_solver.transformations.junit.simplification.Tempo
 import xyz.keksdose.spoon.code_solver.transformations.qodana.ArraysToString;
 import xyz.keksdose.spoon.code_solver.transformations.qodana.EmptyStringCheck;
 import xyz.keksdose.spoon.code_solver.transformations.self.StringBuilderDirectUse;
+import xyz.keksdose.spoon.code_solver.transformations.self.ThreadLocalWithInitial;
 
 public class TransformationEngine {
 
@@ -80,6 +81,7 @@ public class TransformationEngine {
 		pm.addProcessor(new ArraysToString(listener));
 		pm.addProcessor(new EmptyStringCheck(listener));
 		pm.addProcessor(new StringBuilderDirectUse(listener));
+		pm.addProcessor(new ThreadLocalWithInitial(listener));
 		// pm.addProcessor(new AssertTrueEqualsCheck(listener));
 		// pm.addProcessor(new AssertFalseEqualsCheck(listener));
 		// pm.addProcessor(new AssertNullTransformation(listener));
@@ -138,8 +140,9 @@ public class TransformationEngine {
 	private static Environment setEnvironmentOptions(Launcher launcher) {
 		Environment environment = launcher.getEnvironment();
 		environment.setNoClasspath(true);
+		environment.setComplianceLevel(11);
 		environment.setIgnoreDuplicateDeclarations(true);
-		environment.setIgnoreSyntaxErrors(true);
+		environment.setPreserveLineNumbers(true);
 		environment.setPrettyPrinterCreator(() -> new ImportAwareSniperPrinter(environment));
 		return environment;
 	}
