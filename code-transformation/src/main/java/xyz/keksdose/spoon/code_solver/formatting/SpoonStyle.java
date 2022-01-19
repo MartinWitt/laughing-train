@@ -25,11 +25,11 @@ public class SpoonStyle implements ImportGrouping {
 			}
 		}
 		LinkedList<CtImport> newImports = new LinkedList<>();
-		newImports.addAll(staticImports);
-		newImports.add(getNewLineImport());
 		newImports.addAll(nonStaticImports);
 		newImports.add(getNewLineImport());
 		newImports.addAll(javaImports);
+		newImports.add(getNewLineImport());
+		newImports.addAll(staticImports);
 		return newImports;
 	}
 }
