@@ -39,6 +39,7 @@ import xyz.keksdose.spoon.code_solver.transformations.junit.migration.TestAnnota
 import xyz.keksdose.spoon.code_solver.transformations.junit.simplification.TempoaryFolderAsParameter;
 import xyz.keksdose.spoon.code_solver.transformations.qodana.ArraysToString;
 import xyz.keksdose.spoon.code_solver.transformations.qodana.EmptyStringCheck;
+import xyz.keksdose.spoon.code_solver.transformations.self.StringBuilderDirectUse;
 
 public class TransformationEngine {
 
@@ -78,6 +79,7 @@ public class TransformationEngine {
 		pm.addProcessor(new TempoaryFolderAsParameter(listener));
 		pm.addProcessor(new ArraysToString(listener));
 		pm.addProcessor(new EmptyStringCheck(listener));
+		pm.addProcessor(new StringBuilderDirectUse(listener));
 		// pm.addProcessor(new AssertTrueEqualsCheck(listener));
 		// pm.addProcessor(new AssertFalseEqualsCheck(listener));
 		// pm.addProcessor(new AssertNullTransformation(listener));
