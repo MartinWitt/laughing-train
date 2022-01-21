@@ -54,13 +54,10 @@ public class TransformationEngine {
 		addInput(path, launcher);
 		CtModel model = launcher.buildModel();
 		setPrettyPrinter(environment, model);
-		ProcessingManager pm = new QueueProcessingManager(launcher.getFactory());
 		ChangeListener listener = new ChangeListener();
-		do {
-			listener.reset();
-			addProcessors(pm, listener);
-			pm.process(model.getAllTypes());
-		} while (listener.isChanged());
+		ProcessingManager pm = new RepeatingProcessingManager(launcher.getFactory(), listener);
+		addProcessors(pm, listener);
+		pm.process(model.getAllTypes());
 		Collection<CtType<?>> newTypes = model.getAllTypes();
 		if (runState != RunMode.DRY_RUN) {
 			printChangedTypes(environment.createPrettyPrinter(), listener, newTypes);
@@ -102,15 +99,11 @@ public class TransformationEngine {
 		addInput(path, launcher);
 		CtModel model = launcher.buildModel();
 		setPrettyPrinter(environment, model);
-		ProcessingManager pm = new QueueProcessingManager(launcher.getFactory());
 		ChangeListener listener = new ChangeListener();
+		ProcessingManager pm = new RepeatingProcessingManager(launcher.getFactory(), listener);
 		Collection<CtType<?>> newTypes = getTypesWithName(typeName, model);
-
-		do {
-			listener.reset();
-			addProcessors(pm, listener);
-			pm.process(newTypes);
-		} while (listener.isChanged());
+		addProcessors(pm, listener);
+		pm.process(newTypes);
 		if (runState != RunMode.DRY_RUN) {
 			printChangedTypes(environment.createPrettyPrinter(), listener, newTypes);
 		}
