@@ -23,10 +23,10 @@ public class RepeatingProcessingManager extends QueueProcessingManager {
 
 	@Override
 	public void process(Collection<? extends CtElement> elements) {
-		while (listener.isChanged()) {
+		do {
 			listener.reset();
 			super.process(elements);
-		}
+		} while (listener.isChanged());
 
 	}
 }
