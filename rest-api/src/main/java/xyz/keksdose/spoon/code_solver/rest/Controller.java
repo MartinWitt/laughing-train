@@ -50,13 +50,15 @@ public class Controller {
 
 				Changelog changelog = engine.applyToGivenPath(file.toString());
 				return engine.result + "\n\n\n\n" + changelog.toString();
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				logger.atSevere().withCause(e).log("Error");
 			}
 			if (file != null) {
 				try {
 					Files.delete(file);
-				} catch (Exception e) {
+				}
+				catch (Exception e) {
 					logger.atSevere().withCause(e).log("Error");
 				}
 			}
