@@ -12,6 +12,7 @@ import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
+import xyz.keksdose.spoon.code_solver.util.Nullsafe;
 
 public class StringBuilderDirectUse extends TransformationProcessor<CtInvocation<?>> {
 
@@ -53,12 +54,12 @@ public class StringBuilderDirectUse extends TransformationProcessor<CtInvocation
 	}
 
 	private boolean targetIsStringType(CtInvocation<?> element) {
-		return element.getTarget() != null
-				&& element.getTarget().getType().equals(element.getFactory().Type().stringType());
+		return Nullsafe.get(() -> element.getTarget().getType().equals(element.getFactory().Type().stringType()),
+			false);
 	}
 
 	private boolean targetIsStringBuilder(CtInvocation<?> element) {
-		return element.getTarget() != null && element.getTarget().getType().getSimpleName().equals("StringBuilder");
+		return Nullsafe.get(() -> element.getTarget().getType().getSimpleName().equals("StringBuilder"), false);
 	}
 
 	private boolean stringBuilderHasMethod(CtInvocation<?> element) {

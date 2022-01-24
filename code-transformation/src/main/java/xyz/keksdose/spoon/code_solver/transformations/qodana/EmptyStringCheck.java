@@ -15,6 +15,7 @@ import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
+import xyz.keksdose.spoon.code_solver.util.Nullsafe;
 
 public class EmptyStringCheck extends TransformationProcessor<CtInvocation<?>> {
 
@@ -113,6 +114,6 @@ public class EmptyStringCheck extends TransformationProcessor<CtInvocation<?>> {
 	}
 
 	private boolean isStringType(CtExpression<?> target) {
-		return target.getType().equals(getFactory().Type().stringType());
+		return Nullsafe.get(() -> target.getType().equals(getFactory().Type().stringType()), false);
 	}
 }
