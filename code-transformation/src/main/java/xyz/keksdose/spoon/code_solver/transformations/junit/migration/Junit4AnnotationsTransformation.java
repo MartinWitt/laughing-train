@@ -138,7 +138,9 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 		Optional<CtAnnotation<?>> ignoreAnnotation = JunitHelper.getIgnoreAnnotation(method);
 		if (ignoreAnnotation.isPresent()) {
 			adjustImportsIgnore(method);
-			replaceAnnotation(method, ignoreAnnotation.get(), createDisableAnnotation(getFactory()));
+			CtAnnotation<?> disableAnnotation = createDisableAnnotation(getFactory());
+			disableAnnotation.setValues(ignoreAnnotation.get().getValues());
+			replaceAnnotation(method, ignoreAnnotation.get(), disableAnnotation);
 			String changeText = String.format("Replaced @Ignore annotation with @Disabled at method %s",
 				method.getSimpleName());
 			String markdownText = String.format("Replaced `@Ignore` annotation with `@Disabled` at method `%s`",

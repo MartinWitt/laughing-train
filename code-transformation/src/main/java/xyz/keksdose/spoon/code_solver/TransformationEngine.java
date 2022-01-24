@@ -154,9 +154,6 @@ public class TransformationEngine {
 		Collection<CtTypeReference<?>> existingReferences = model.getElements(e -> true);
 		List<Processor<CtElement>> preprocessors = List.of(//new ImportCleaning()
 			new SelectiveForceImport(existingReferences), new ImportConflictDetector(),
-			new ImportCleaner().setImportComparator(new ImportComparator())
-					.setCanAddImports(false)
-					.setCanRemoveImports(false),
 			new ImportGrouper(new SpoonStyle())
 		// )
 		);

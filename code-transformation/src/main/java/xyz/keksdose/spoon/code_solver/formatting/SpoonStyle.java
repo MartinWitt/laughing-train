@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import spoon.reflect.declaration.CtImport;
+import xyz.keksdose.spoon.code_solver.spoon.ImportComparator;
 
 public class SpoonStyle implements ImportGrouping {
 
@@ -24,7 +25,11 @@ public class SpoonStyle implements ImportGrouping {
 				nonStaticImports.add(ctImport);
 			}
 		}
+		staticImports.sort(new ImportComparator());
+		javaImports.sort(new ImportComparator());
+		nonStaticImports.sort(new ImportComparator());
 		LinkedList<CtImport> newImports = new LinkedList<>();
+		newImports.add(getNewLineImport());
 		newImports.addAll(nonStaticImports);
 		newImports.add(getNewLineImport());
 		newImports.addAll(javaImports);
