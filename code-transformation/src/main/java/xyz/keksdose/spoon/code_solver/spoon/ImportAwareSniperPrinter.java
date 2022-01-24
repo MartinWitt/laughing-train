@@ -2,7 +2,6 @@
 package xyz.keksdose.spoon.code_solver.spoon;
 
 import spoon.compiler.Environment;
-import spoon.reflect.code.CtLambda;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
@@ -39,35 +38,6 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
 
 	private boolean endsWithNewline(String s) {
 		return s.endsWith("\n") || s.endsWith("\r\n");
-	}
-
-	@Override
-	public <T> void visitCtLambda(CtLambda<T> lambda) {
-		enterCtExpression(lambda);
-		// single parameter lambdas dont need to be wrapped in parentheses
-		if (isSingleParameterWithoutExplicitType(lambda)) {
-			getElementPrinterHelper().printList(lambda.getParameters(), null, false, "", false, false, ",", false,
-				false, "", this::scan);
-		}
-		else {
-			getElementPrinterHelper().printList(lambda.getParameters(), null, false, "(", false, false, ",", false,
-				false, ")", this::scan);
-		}
-		getPrinterTokenWriter().writeSpace();
-		getPrinterTokenWriter().writeSeparator("->");
-		getPrinterTokenWriter().writeSpace();
-		if (lambda.getBody() != null) {
-			scan(lambda.getBody());
-		}
-		else {
-			scan(lambda.getExpression());
-		}
-		exitCtExpression(lambda);
-	}
-
-	private <T> boolean isSingleParameterWithoutExplicitType(CtLambda<T> lambda) {
-		return lambda.getParameters().size() == 1 && (lambda.getParameters().get(0).getType() == null
-				|| lambda.getParameters().get(0).getType().isImplicit());
 	}
 
 	// Fix for newline after annotation on parameters

@@ -11,6 +11,8 @@ version = "0.0.1"
 repositories {
 	// Use Maven Central for resolving dependencies.
 	mavenCentral()
+	maven { url 'https://repository.ow2.org/nexus/content/repositories/snapshots/' }
+
 }
 jar {
 	manifest {
@@ -57,11 +59,6 @@ spotless {
 	}
 	java {
 		eclipse().configFile(projectDir.toString() +'/src/main/resources/formatter-settings.xml')
-	}
-	allprojects {
-		repositories {
-			maven { url 'https://jitpack.io' }
-		}
 	}
 }
 java {
