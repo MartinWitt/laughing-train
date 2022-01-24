@@ -16,6 +16,7 @@ import xyz.keksdose.spoon.code_solver.transformations.junit.simplification.Tempo
 import xyz.keksdose.spoon.code_solver.transformations.qodana.CollectionEmptyCheck;
 import xyz.keksdose.spoon.code_solver.transformations.qodana.RedundantFieldInitialization;
 import xyz.keksdose.spoon.code_solver.transformations.qodana.StaticAccess;
+import xyz.keksdose.spoon.code_solver.transformations.self.ProtectedMemberInFinalType;
 import xyz.keksdose.spoon.code_solver.transformations.self.StringBuilderDirectUse;
 import xyz.keksdose.spoon.code_solver.transformations.self.ThreadLocalWithInitial;
 
@@ -37,7 +38,7 @@ public enum DefaultRefactorings implements Supplier<List<Function<ChangeListener
 		@Override
 		public List<Function<ChangeListener, TransformationProcessor<?>>> get() {
 			return List.of(CollectionEmptyCheck::new, RedundantFieldInitialization::new, StaticAccess::new,
-				StringBuilderDirectUse::new, ThreadLocalWithInitial::new);
+				StringBuilderDirectUse::new, ThreadLocalWithInitial::new, ProtectedMemberInFinalType::new);
 		}
 	};
 
