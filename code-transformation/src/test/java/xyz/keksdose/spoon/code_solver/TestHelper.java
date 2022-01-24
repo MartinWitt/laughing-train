@@ -6,8 +6,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import com.google.common.io.Files;
+
+import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class TestHelper {
 
@@ -27,9 +31,10 @@ public class TestHelper {
 	}
 
 	@SafeVarargs
-	public static List<TransformationCreator> createProcessorSupplier(TransformationCreator... processors) {
-		List<TransformationCreator> transformations = new ArrayList<>();
-		for (TransformationCreator processor : processors) {
+	public static List<Function<ChangeListener, TransformationProcessor<?>>> createProcessorSupplier(
+			Function<ChangeListener, TransformationProcessor<?>>... processors) {
+		List<Function<ChangeListener, TransformationProcessor<?>>> transformations = new ArrayList<>();
+		for (Function<ChangeListener, TransformationProcessor<?>> processor : processors) {
 			transformations.add(v -> processor.apply(v));
 		}
 		return transformations;

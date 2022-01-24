@@ -1,10 +1,9 @@
 
 package xyz.keksdose.spoon.code_solver;
 
-import java.nio.file.Files;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.google.common.flogger.FluentLogger;
@@ -12,25 +11,15 @@ import com.google.common.flogger.FluentLogger;
 import spoon.Launcher;
 import spoon.compiler.Environment;
 import spoon.processing.ProcessingManager;
-import spoon.processing.Processor;
 import spoon.reflect.CtModel;
-import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtType;
-import spoon.reflect.reference.CtTypeReference;
-import spoon.reflect.visitor.DefaultJavaPrettyPrinter;
-import spoon.reflect.visitor.ImportConflictDetector;
-import spoon.reflect.visitor.PrettyPrinter;
-import spoon.support.QueueProcessingManager;
-import xyz.keksdose.spoon.code_solver.formatting.ImportGrouper;
-import xyz.keksdose.spoon.code_solver.formatting.NewLineImportGroups;
-import xyz.keksdose.spoon.code_solver.formatting.SpoonStyle;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
-import xyz.keksdose.spoon.code_solver.spoon.FragmentAwareChangeCollector;
-import xyz.keksdose.spoon.code_solver.spoon.ImportAwareSniperPrinter;
-import xyz.keksdose.spoon.code_solver.spoon.ImportCleaner;
-import xyz.keksdose.spoon.code_solver.spoon.ImportComparator;
-import xyz.keksdose.spoon.code_solver.spoon.SelectiveForceImport;
+import xyz.keksdose.spoon.code_solver.printing.ChangedTypePrinting;
+import xyz.keksdose.spoon.code_solver.printing.EnvironmentOptions;
+import xyz.keksdose.spoon.code_solver.printing.IPrinting;
+import xyz.keksdose.spoon.code_solver.printing.PrinterCreation;
+import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 import xyz.keksdose.spoon.code_solver.transformations.junit.migration.AssertThatTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.migration.AssertionsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.migration.ExpectedExceptionRemoval;
@@ -46,22 +35,40 @@ import xyz.keksdose.spoon.code_solver.transformations.self.ThreadLocalWithInitia
 public class TransformationEngine {
 
 	private static final FluentLogger LOGGER = FluentLogger.forEnclosingClass();
+	private List<Function<ChangeListener, TransformationProcessor<?>>> processors;
+	private IPrinting printing;
+	public TransformationEngine(List<Function<ChangeListener, TransformationProcessor<?>>> processors) {
+		this.processors = processors;
+	}
 
-	public Changelog applyToGivenPath(String path, RunMode runState) {
+	public TransformationEngine() {
+		this.processors = List.of(LambdaToExecutableReference::new, StringBuilderDirectUse::new,
+			ThreadLocalWithInitial::new, TempoaryFolderAsParameter::new, EmptyStringCheck::new, ArraysToString::new,
+			Junit4AnnotationsTransformation::new, TestAnnotation::new, AssertionsTransformation::new,
+			AssertThatTransformation::new, ExpectedExceptionRemoval::new);
+	}
+
+	public TransformationEngine setPrinting(IPrinting printing) {
+		this.printing = printing;
+		return this;
+	}
+
+	public Changelog applyToGivenPath(String path) {
 		LOGGER.atInfo().log("Applying transformations to %s", path);
 		Launcher launcher = new Launcher();
-		Environment environment = setEnvironmentOptions(launcher);
+		Environment environment = EnvironmentOptions.setEnvironmentOptions(launcher);
 		addInput(path, launcher);
 		CtModel model = launcher.buildModel();
-		setPrettyPrinter(environment, model);
+		if (printing == null) {
+			printing = new ChangedTypePrinting(environment.createPrettyPrinter());
+		}
+		PrinterCreation.setPrettyPrinter(environment, model);
 		ChangeListener listener = new ChangeListener();
 		ProcessingManager pm = new RepeatingProcessingManager(launcher.getFactory(), listener);
 		addProcessors(pm, listener);
 		pm.process(model.getAllTypes());
 		Collection<CtType<?>> newTypes = model.getAllTypes();
-		if (runState != RunMode.DRY_RUN) {
-			printChangedTypes(environment.createPrettyPrinter(), listener, newTypes);
-		}
+		printing.printChangedTypes(listener, newTypes);
 		return listener.getChangelog();
 	}
 
@@ -69,44 +76,26 @@ public class TransformationEngine {
 		launcher.addInputResource(path);
 	}
 
-	protected void addProcessors(ProcessingManager pm, ChangeListener listener) {
-		pm.addProcessor(new ExpectedExceptionRemoval(listener));
-		pm.addProcessor(new Junit4AnnotationsTransformation(listener));
-		pm.addProcessor(new TestAnnotation(listener));
-		pm.addProcessor(new AssertThatTransformation(listener));
-		pm.addProcessor(new AssertionsTransformation(listener));
-		pm.addProcessor(new TempoaryFolderAsParameter(listener));
-		pm.addProcessor(new ArraysToString(listener));
-		pm.addProcessor(new EmptyStringCheck(listener));
-		pm.addProcessor(new StringBuilderDirectUse(listener));
-		pm.addProcessor(new ThreadLocalWithInitial(listener));
-		pm.addProcessor(new LambdaToExecutableReference(listener));
-		// pm.addProcessor(new AssertTrueEqualsCheck(listener));
-		// pm.addProcessor(new AssertFalseEqualsCheck(listener));
-		// pm.addProcessor(new AssertNullTransformation(listener));
-		// pm.addProcessor(new AssertNotNullTransformation(listener));
-		// pm.addProcessor(new AssertTrueSameCheck(listener));
-		// pm.addProcessor(new AssertFalseSameCheck(listener));
-		// pm.addProcessor(new UnusedAssignment(listener));
-		// pm.addProcessor(new UnusedLocalVariable(listener));
-
+	private void addProcessors(ProcessingManager pm, ChangeListener listener) {
+		processors.forEach(p -> pm.addProcessor(p.apply(listener)));
 	}
 
-	public Changelog applyToGivenPath(String path, String typeName, RunMode runState) {
+	public Changelog applyToGivenPath(String path, String typeName) {
 		LOGGER.atInfo().log("Applying transformations to %s", path);
 		Launcher launcher = new Launcher();
-		Environment environment = setEnvironmentOptions(launcher);
+		Environment environment = EnvironmentOptions.setEnvironmentOptions(launcher);
 		addInput(path, launcher);
 		CtModel model = launcher.buildModel();
-		setPrettyPrinter(environment, model);
+		PrinterCreation.setPrettyPrinter(environment, model);
+		if (printing == null) {
+			printing = new ChangedTypePrinting(environment.createPrettyPrinter());
+		}
 		ChangeListener listener = new ChangeListener();
 		ProcessingManager pm = new RepeatingProcessingManager(launcher.getFactory(), listener);
 		Collection<CtType<?>> newTypes = getTypesWithName(typeName, model);
 		addProcessors(pm, listener);
 		pm.process(newTypes);
-		if (runState != RunMode.DRY_RUN) {
-			printChangedTypes(environment.createPrettyPrinter(), listener, newTypes);
-		}
+		printing.printChangedTypes(listener, newTypes);
 		return listener.getChangelog();
 	}
 
@@ -117,59 +106,4 @@ public class TransformationEngine {
 				.collect(Collectors.toList());
 	}
 
-	protected void printChangedTypes(PrettyPrinter prettyPrinter, ChangeListener listener,
-			Iterable<CtType<?>> newTypes) {
-		for (CtType<?> type : newTypes) {
-			if (type.getPosition().getFile() == null || !listener.isChanged(type)) {
-				continue;
-			}
-			try {
-				Files.writeString(type.getPosition().getFile().toPath(), prettyPrinter.printTypes(type));
-			}
-			catch (Throwable e) {
-				LOGGER.atSevere().withCause(e).log("Could not write file %s", type.getQualifiedName());
-			}
-		}
-	}
-
-	private static Environment setEnvironmentOptions(Launcher launcher) {
-		Environment environment = launcher.getEnvironment();
-		environment.setNoClasspath(true);
-		environment.setComplianceLevel(11);
-		environment.setIgnoreDuplicateDeclarations(true);
-		environment.setPreserveLineNumbers(true);
-		environment.setPrettyPrinterCreator(() -> new ImportAwareSniperPrinter(environment));
-		return environment;
-	}
-
-	private static void setPrettyPrinter(Environment env, CtModel model) {
-		new FragmentAwareChangeCollector().attachTo(env);
-		Supplier<? extends DefaultJavaPrettyPrinter> basePrinterCreator = createSniperPrinter(env);
-		Supplier<PrettyPrinter> configuredPrinterCreator = applyCommonPrinterOptions(basePrinterCreator, model);
-		env.setPrettyPrinterCreator(configuredPrinterCreator);
-	}
-
-	private static Supplier<PrettyPrinter> applyCommonPrinterOptions(
-			Supplier<? extends DefaultJavaPrettyPrinter> prettyPrinterCreator, CtModel model) {
-		Collection<CtTypeReference<?>> existingReferences = model.getElements(e -> true);
-		List<Processor<CtElement>> preprocessors = List.of(//new ImportCleaning()
-			new SelectiveForceImport(existingReferences), new ImportConflictDetector(),
-			new ImportGrouper(new SpoonStyle())
-		// )
-		);
-		return () -> {
-			DefaultJavaPrettyPrinter printer = prettyPrinterCreator.get();
-			printer.setIgnoreImplicit(false);
-			printer.setPreprocessors(preprocessors);
-			return printer;
-		};
-	}
-
-	private static Supplier<? extends DefaultJavaPrettyPrinter> createSniperPrinter(Environment env) {
-		env.setCommentEnabled(true);
-		env.useTabulations(true);
-		env.setTabulationSize(4);
-		env.setPreserveLineNumbers(false);
-		return () -> new ImportAwareSniperPrinter(env);
-	}
 }

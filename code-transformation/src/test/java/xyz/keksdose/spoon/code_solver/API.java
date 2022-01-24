@@ -18,7 +18,7 @@ public class API {
 		String typeToRefactorName = "";
 		String pathToLocalGitRepo = "";
 		CommitBuilder.refactorRepo(pathToLocalGitRepo, projectPath, typeToRefactorName, (v, u) -> {
-			return new TransformationEngine().applyToGivenPath(projectPath, typeToRefactorName, RunMode.FULL);
+			return new TransformationEngine().applyToGivenPath(projectPath, typeToRefactorName);
 		});
 	}
 
@@ -26,6 +26,6 @@ public class API {
 	void applyWithoutGit() {
 		String projectPath = "";
 		String typeToRefactorName = "";
-		new TransformationEngine().applyToGivenPath(projectPath, typeToRefactorName, RunMode.FULL);
+		new TransformationEngine().applyToGivenPath(projectPath, typeToRefactorName);
 	}
 }
