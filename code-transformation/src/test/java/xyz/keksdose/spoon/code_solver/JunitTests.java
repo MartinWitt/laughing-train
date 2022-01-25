@@ -8,11 +8,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 import xyz.keksdose.spoon.code_solver.transformations.junit.migration.AssertionsTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.migration.TestAnnotation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.simplification.AssertNotNullTransformation;
@@ -27,7 +30,8 @@ class JunitTests {
 		String fileName = "TestAnnotation.java";
 		String resourcePath = "projects/junittests/TestAnnotation.java";
 		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
-		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v));
+		List<Function<ChangeListener, TransformationProcessor<?>>> transformations = createProcessorSupplier(
+			v -> new TestAnnotation(v));
 		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
 				.className("TestAnnotation")
 				.processors(transformations)
@@ -43,8 +47,8 @@ class JunitTests {
 		String fileName = "TestAssertions.java";
 		String resourcePath = "projects/junittests/TestAssertions.java";
 		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
-		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
-			v -> new AssertionsTransformation(v));
+		List<Function<ChangeListener, TransformationProcessor<?>>> transformations = createProcessorSupplier(
+			v -> new TestAnnotation(v), v -> new AssertionsTransformation(v));
 		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
 				.className("TestAssertions")
 				.processors(transformations)
@@ -61,8 +65,8 @@ class JunitTests {
 		String fileName = "AnnotationValuesTest.java";
 		String resourcePath = "projects/bugs/AnnotationValuesTest.java";
 		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
-		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
-			v -> new AssertionsTransformation(v));
+		List<Function<ChangeListener, TransformationProcessor<?>>> transformations = createProcessorSupplier(
+			v -> new TestAnnotation(v), v -> new AssertionsTransformation(v));
 		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
 				.className("AnnotationValuesTest")
 				.processors(transformations)
@@ -79,8 +83,8 @@ class JunitTests {
 		String fileName = "WhiteSpaces.java";
 		String resourcePath = "projects/bugs/WhiteSpaces.java";
 		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
-		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
-			v -> new AssertionsTransformation(v));
+		List<Function<ChangeListener, TransformationProcessor<?>>> transformations = createProcessorSupplier(
+			v -> new TestAnnotation(v), v -> new AssertionsTransformation(v));
 		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
 				.className("WhiteSpaces")
 				.processors(transformations)
@@ -99,8 +103,8 @@ class JunitTests {
 		String fileName = "AssertNotNull.java";
 		String resourcePath = "projects/junittests/AssertNotNull.java";
 		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
-		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
-			v -> new AssertionsTransformation(v), v -> new AssertNotNullTransformation(v));
+		List<Function<ChangeListener, TransformationProcessor<?>>> transformations = createProcessorSupplier(
+			v -> new TestAnnotation(v), v -> new AssertionsTransformation(v), v -> new AssertNotNullTransformation(v));
 		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
 				.className("AssertNotNull")
 				.processors(transformations)
@@ -118,8 +122,8 @@ class JunitTests {
 		String fileName = "AssertNotNull.java";
 		String resourcePath = "projects/junittests/AssertNotNull.java";
 		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
-		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
-			v -> new AssertionsTransformation(v), v -> new AssertNullTransformation(v),
+		List<Function<ChangeListener, TransformationProcessor<?>>> transformations = createProcessorSupplier(
+			v -> new TestAnnotation(v), v -> new AssertionsTransformation(v), v -> new AssertNullTransformation(v),
 			v -> new AssertNotNullTransformation(v));
 		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
 				.className("AssertNotNull")
@@ -138,8 +142,8 @@ class JunitTests {
 		String fileName = "AssertTrueEquals.java";
 		String resourcePath = "projects/junittests/AssertTrueEquals.java";
 		File copy = TestHelper.createCopy(tempRoot, resourcePath, fileName);
-		List<TransformationCreator> transformations = createProcessorSupplier(v -> new TestAnnotation(v),
-			v -> new AssertionsTransformation(v), v -> new AssertTrueEqualsCheck(v));
+		List<Function<ChangeListener, TransformationProcessor<?>>> transformations = createProcessorSupplier(
+			v -> new TestAnnotation(v), v -> new AssertionsTransformation(v), v -> new AssertTrueEqualsCheck(v));
 		new TransformationHelper.Builder().path(tempRoot.getAbsolutePath())
 				.className("AssertTrueEquals")
 				.processors(transformations)

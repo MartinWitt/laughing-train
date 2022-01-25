@@ -8,10 +8,27 @@ import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.filter.TypeFilter;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
+import xyz.keksdose.spoon.code_solver.history.MarkdownString;
+import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class RedundantFieldInitialization extends TransformationProcessor<CtField<?>> {
 
+	private static final BadSmell REDUNDANT_FIELD_INITIALIZATION = new BadSmell() {
+
+		@Override
+		public MarkdownString getDescription() {
+
+			return MarkdownString
+					.fromRaw("Primitive types have default values and setting them to the same value is redundant.");
+		}
+
+		@Override
+		public MarkdownString getName() {
+			return MarkdownString.fromRaw("RedundantFieldInitialization");
+		}
+
+	};
 	public RedundantFieldInitialization(ChangeListener listener) {
 		super(listener);
 	}
@@ -63,9 +80,12 @@ public class RedundantFieldInitialization extends TransformationProcessor<CtFiel
 	}
 
 	private Change createChange(CtField<?> field, CtExpression<?> defaultExpression) {
-		String formatter = "Field Initializer  %s for field %s in type %s was redundant and was removed.";
-		String message = String.format(formatter, defaultExpression, field.getSimpleName(),
-			field.getDeclaringType().getQualifiedName());
-		return new Change(message, "Redundant Initializer", field.getDeclaringType());
+		String raw = "Field Initializer  %s for field %s in type %s was redundant and was removed.";
+		String markdown = "Field Initializer  `%s` for field `%s` in type `%s` was redundant and was removed.";
+		MarkdownString changelog = MarkdownString.fromMarkdown(
+			String.format(raw, defaultExpression, field.getSimpleName(), field.getDeclaringType().getQualifiedName()),
+			String.format(markdown, defaultExpression, field.getSimpleName(),
+				field.getDeclaringType().getQualifiedName()));
+		return new Change(REDUNDANT_FIELD_INITIALIZATION, changelog, field.getDeclaringType().getTopLevelType());
 	}
 }

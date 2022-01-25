@@ -50,7 +50,7 @@ public class ArraysToString extends TransformationProcessor<CtInvocation<?>> {
 	}
 
 	private void replaceToStringCall(CtInvocation<?> invocation) {
-		CtTypeReference<?> arraysType = getFactory().createReference("java.util.Arrays");
+		CtTypeReference<?> arraysType = getFactory().createSimplyQualifiedReference("java.util.Arrays");
 		CtTypeReference<String> stringType = getFactory().Type().stringType();
 		CtArrayTypeReference<?> objectArray = getFactory().createArrayReference(getFactory().Type().objectType(), 1);
 		var arraysToString = getFactory().Executable()
