@@ -28,8 +28,8 @@ import xyz.keksdose.spoon.code_solver.transformations.junit.migration.TestAnnota
 import xyz.keksdose.spoon.code_solver.transformations.junit.simplification.TempoaryFolderAsParameter;
 import xyz.keksdose.spoon.code_solver.transformations.qodana.ArraysToString;
 import xyz.keksdose.spoon.code_solver.transformations.qodana.EmptyStringCheck;
+import xyz.keksdose.spoon.code_solver.transformations.qodana.InnerClassStatic;
 import xyz.keksdose.spoon.code_solver.transformations.qodana.StaticAccess;
-import xyz.keksdose.spoon.code_solver.transformations.self.LambdaToExecutableReference;
 import xyz.keksdose.spoon.code_solver.transformations.self.StringBuilderDirectUse;
 import xyz.keksdose.spoon.code_solver.transformations.self.ThreadLocalWithInitial;
 
@@ -46,7 +46,7 @@ public class TransformationEngine {
 		this.processors = List.of(StringBuilderDirectUse::new, ThreadLocalWithInitial::new,
 			TempoaryFolderAsParameter::new, EmptyStringCheck::new, ArraysToString::new,
 			Junit4AnnotationsTransformation::new, TestAnnotation::new, AssertionsTransformation::new,
-			AssertThatTransformation::new, ExpectedExceptionRemoval::new, StaticAccess::new);
+			AssertThatTransformation::new, ExpectedExceptionRemoval::new, StaticAccess::new, InnerClassStatic::new);
 	}
 
 	public TransformationEngine setPrinting(IPrinting printing) {
