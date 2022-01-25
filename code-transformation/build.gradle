@@ -5,7 +5,7 @@ plugins {
 	id "com.diffplug.spotless" version "6.2.0"
 	id 'org.jreleaser' version '0.10.0'
 }
-version = "0.0.4"
+version = "0.0.5"
 repositories {
 	// Use Maven Central for resolving dependencies.
 	mavenCentral()
