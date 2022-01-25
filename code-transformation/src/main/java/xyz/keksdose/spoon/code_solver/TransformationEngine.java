@@ -29,6 +29,7 @@ import xyz.keksdose.spoon.code_solver.transformations.junit.simplification.Tempo
 import xyz.keksdose.spoon.code_solver.transformations.qodana.ArraysToString;
 import xyz.keksdose.spoon.code_solver.transformations.qodana.EmptyStringCheck;
 import xyz.keksdose.spoon.code_solver.transformations.qodana.InnerClassStatic;
+import xyz.keksdose.spoon.code_solver.transformations.qodana.PrimitiveToString;
 import xyz.keksdose.spoon.code_solver.transformations.qodana.StaticAccess;
 import xyz.keksdose.spoon.code_solver.transformations.self.StringBuilderDirectUse;
 import xyz.keksdose.spoon.code_solver.transformations.self.ThreadLocalWithInitial;
@@ -46,7 +47,8 @@ public class TransformationEngine {
 		this.processors = List.of(StringBuilderDirectUse::new, ThreadLocalWithInitial::new,
 			TempoaryFolderAsParameter::new, EmptyStringCheck::new, ArraysToString::new,
 			Junit4AnnotationsTransformation::new, TestAnnotation::new, AssertionsTransformation::new,
-			AssertThatTransformation::new, ExpectedExceptionRemoval::new, StaticAccess::new, InnerClassStatic::new);
+			AssertThatTransformation::new, ExpectedExceptionRemoval::new, StaticAccess::new, InnerClassStatic::new,
+			PrimitiveToString::new);
 	}
 
 	public TransformationEngine setPrinting(IPrinting printing) {
