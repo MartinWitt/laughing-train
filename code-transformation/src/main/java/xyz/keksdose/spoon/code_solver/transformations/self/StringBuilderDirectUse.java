@@ -70,4 +70,10 @@ public class StringBuilderDirectUse extends TransformationProcessor<CtInvocation
 				.stream()
 				.anyMatch(method -> method.getParameters().size() == parameter.size());
 	}
+
+	@Override
+
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(directStringBuilderUse);
+	}
 }

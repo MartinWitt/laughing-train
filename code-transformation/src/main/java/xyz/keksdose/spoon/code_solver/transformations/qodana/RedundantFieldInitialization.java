@@ -2,6 +2,7 @@
 package xyz.keksdose.spoon.code_solver.transformations.qodana;
 
 import java.util.List;
+
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.reference.CtTypeReference;
@@ -87,5 +88,11 @@ public class RedundantFieldInitialization extends TransformationProcessor<CtFiel
 			String.format(markdown, defaultExpression, field.getSimpleName(),
 				field.getDeclaringType().getQualifiedName()));
 		return new Change(REDUNDANT_FIELD_INITIALIZATION, changelog, field.getDeclaringType().getTopLevelType());
+	}
+
+	@Override
+
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(REDUNDANT_FIELD_INITIALIZATION);
 	}
 }

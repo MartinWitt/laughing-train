@@ -123,4 +123,10 @@ public class ThreadLocalWithInitial extends TransformationProcessor<CtNewClass<?
 	private boolean hasNoFields(CtClass<?> innerClass) {
 		return innerClass.getDeclaredFields().isEmpty();
 	}
+
+	@Override
+
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(threadLocalWithInitalValue);
+	}
 }

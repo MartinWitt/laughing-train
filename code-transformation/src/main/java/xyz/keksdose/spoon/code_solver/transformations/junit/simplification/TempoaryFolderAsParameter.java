@@ -91,4 +91,8 @@ public class TempoaryFolderAsParameter extends TransformationProcessor<CtType<?>
 		return v1.getType().getSimpleName().equals("TempDir");
 	}
 
+	@Override
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(BAD_SMELL);
+	}
 }

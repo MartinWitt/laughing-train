@@ -5,11 +5,10 @@ import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.g
 import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.hasExpectedValue;
 import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.isJunit4TestAnnotation;
 
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-
-import org.checkerframework.checker.units.qual.m;
 
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtElement;
@@ -104,4 +103,8 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
 		ImportHelper.addImport(JUNIT5_TEST, false, element.getPosition().getCompilationUnit());
 	}
 
+	@Override
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(TEST_RULE);
+	}
 }
