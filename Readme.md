@@ -13,6 +13,7 @@ Project is created with:
  - spoon
 
 ## Features:
+See https://github.com/MartinWitt/laughing-train/blob/gh-pages/BadSmells.md
 The following refactorings are currently supported:
 
   ### Junit4 Refactoring
