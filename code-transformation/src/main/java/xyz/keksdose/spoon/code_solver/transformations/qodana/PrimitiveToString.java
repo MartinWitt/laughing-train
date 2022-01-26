@@ -2,7 +2,6 @@
 package xyz.keksdose.spoon.code_solver.transformations.qodana;
 
 import java.util.List;
-
 import spoon.reflect.code.BinaryOperatorKind;
 import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtExpression;
@@ -79,4 +78,5 @@ public class PrimitiveToString extends TransformationProcessor<CtBinaryOperator<
 	public List<BadSmell> getHandledBadSmells() {
 		return List.of(STRING_VALUE_OF);
 	}
+
 }
