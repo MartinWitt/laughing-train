@@ -1,0 +1,99 @@
+
+plugins {
+	// Apply the application plugin to add support for building a CLI application in Java.
+	id 'application'
+	id "com.diffplug.spotless" version "6.2.0"
+	id 'org.jreleaser' version '0.10.0'
+}
+version = "0.0.5"
+repositories {
+	// Use Maven Central for resolving dependencies.
+	mavenCentral()
+	maven { url 'https://repository.ow2.org/nexus/content/repositories/snapshots/' }
+
+}
+
+jar {
+	manifest {
+		// attributes "Main-Class": "xyz.keksdose.spoon.code_solver.TransformationEngine"
+	}
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+	exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+dependencies {
+	// Use JUnit Jupiter for testing.
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+
+	// This dependency is used by the application.
+	implementation 'com.google.guava:guava:31.0.1-jre'
+	// implementation 'fr.inria.gforge.spoon:spoon-core:10.0.1-beta-2'
+	implementation 'org.eclipse.jgit:org.eclipse.jgit:+'
+	// implementation 'com.github.MartinWitt:Spoon:59fa98b3f8f83b2b566dc876ffabb26ba31ce2e3' // code solver branch
+	implementation 'fr.inria.gforge.spoon:spoon-core:10.0.1-SNAPSHOT'
+	implementation 'com.google.flogger:flogger:0.7.4'
+	implementation 'com.google.flogger:flogger-system-backend:0.7.4'
+	implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.3.0-alpha12'
+	testImplementation "com.google.truth:truth:1.1.3"
+
+}
+
+application {
+	// Define the main class for the application.
+	mainClass = 'xyz.keksdose.spoon.code_solver.TransformationEngine'
+}
+
+tasks.named('test') {
+	// Use JUnit Platform for unit tests.
+	useJUnitPlatform()
+}
+spotless {
+	format 'misc', {
+		// define the files to apply `misc` to
+		target "*.md", '.gitignore'
+
+		trimTrailingWhitespace()
+		indentWithTabs()
+		endWithNewline()
+	}
+
+	groovyGradle {
+		target '*.gradle' // default target of groovyGradle
+		greclipse()
+	}
+	java {
+		eclipse().configFile(projectDir.toString() +'/src/main/resources/formatter-settings.xml')
+	}
+}
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(11)
+	}
+}
+
+jreleaser {
+	gitRootSearch = true
+	project {
+		name = 'laughing-train'
+		license = 'MIT'
+		docsUrl = "https://github.com/MartinWitt/laughing-train"
+		website = "https://github.com/MartinWitt/laughing-train"
+		description = "A code refactoring tool for java created with jgit and spoon for small diffs."
+		authors = ["MartinWitt"]
+	}
+	release {
+		github {
+			owner = 'MartinWitt'
+			overwrite = true
+		}
+	}
+	distributions {
+		app {
+			artifact {
+				path = 'build/distributions/code-transformation-{{projectVersion}}.zip'
+			}
+		}
+	}
+}
