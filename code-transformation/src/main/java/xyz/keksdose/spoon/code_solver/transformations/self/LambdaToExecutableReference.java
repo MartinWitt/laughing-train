@@ -77,4 +77,9 @@ public class LambdaToExecutableReference extends TransformationProcessor<CtLambd
 		return (CtTypeReference<T>) typedElement.getType();
 	}
 
+	@Override
+
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(lambdaInsteadOfExecutableReference);
+	}
 }

@@ -1,6 +1,8 @@
 
 package xyz.keksdose.spoon.code_solver.transformations;
 
+import java.util.List;
+
 import spoon.processing.AbstractProcessor;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtType;
@@ -16,5 +18,9 @@ public abstract class TransformationProcessor<T extends CtElement> extends Abstr
 
 	protected TransformationProcessor(ChangeListener listener) {
 		this.listener = listener;
+	}
+
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of();
 	}
 }

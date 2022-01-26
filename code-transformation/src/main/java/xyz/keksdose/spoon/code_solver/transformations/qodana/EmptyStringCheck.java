@@ -116,4 +116,9 @@ public class EmptyStringCheck extends TransformationProcessor<CtInvocation<?>> {
 	private boolean isStringType(CtExpression<?> target) {
 		return Nullsafe.get(() -> target.getType().equals(getFactory().Type().stringType()), false);
 	}
+
+	@Override
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(badSmell);
+	}
 }
