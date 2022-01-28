@@ -8,6 +8,7 @@ import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.c
 import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.createDisableAnnotation;
 import static xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper.getJunit4AfterClassAnnotation;
 
+import java.util.List;
 import java.util.Optional;
 
 import spoon.reflect.declaration.CtAnnotation;
@@ -225,5 +226,11 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
 			return MarkdownString.fromRaw("Junit4-@Ignore");
 		}
 
+	}
+
+	@Override
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(JUNIT4_BEFORE_CLASS_BADSMELL, JUNIT4_BEFORE_BADSMELL, JUNIT4_AFTER_BADSMELL,
+			JUNIT4_AFTER_CLASS_BADSMELL, JUNIT4_IGNORE_BADSMELL);
 	}
 }

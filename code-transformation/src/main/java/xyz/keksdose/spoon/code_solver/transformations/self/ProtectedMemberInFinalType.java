@@ -52,4 +52,10 @@ public class ProtectedMemberInFinalType extends TransformationProcessor<CtType<?
 		}
 	}
 
+	@Override
+
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(badSmell);
+	}
+
 }

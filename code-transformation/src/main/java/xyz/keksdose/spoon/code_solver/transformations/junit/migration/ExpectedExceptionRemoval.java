@@ -100,4 +100,9 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
 		lambda.setBody(body);
 		return getFactory().createInvocation(null, assertThrows, List.of(exceptionClass, lambda));
 	}
+
+	@Override
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(EXPECTED_EXCEPTION_BADSMELL);
+	}
 }

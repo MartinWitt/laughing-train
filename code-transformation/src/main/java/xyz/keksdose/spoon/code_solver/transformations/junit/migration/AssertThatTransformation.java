@@ -1,6 +1,8 @@
 
 package xyz.keksdose.spoon.code_solver.transformations.junit.migration;
 
+import java.util.List;
+
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtType;
@@ -69,5 +71,10 @@ public class AssertThatTransformation extends TransformationProcessor<CtInvocati
 
 	private boolean isAssertThat(CtExecutableReference<?> exec) {
 		return exec.getSimpleName().equals("assertThat");
+	}
+
+	@Override
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(ASSERT_THAT_BAD_SMELL);
 	}
 }

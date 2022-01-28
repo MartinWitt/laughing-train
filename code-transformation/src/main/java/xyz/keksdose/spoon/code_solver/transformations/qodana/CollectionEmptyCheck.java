@@ -104,4 +104,9 @@ public class CollectionEmptyCheck extends TransformationProcessor<CtBinaryOperat
 		ref.setDeclaringType(getFactory().createCtTypeReference(Collection.class));
 		return ref;
 	}
+
+	@Override
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(COLLECTION_EMPTY_CHECK);
+	}
 }

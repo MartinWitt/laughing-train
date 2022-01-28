@@ -2,6 +2,7 @@
 package xyz.keksdose.spoon.code_solver.transformations.qodana;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import spoon.reflect.code.CtConstructorCall;
@@ -96,4 +97,9 @@ public class InnerClassStatic extends TransformationProcessor<CtClass<?>> {
 		return innerClasses;
 	}
 
+	@Override
+
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(STATIC_INNER_CLASS);
+	}
 }

@@ -171,4 +171,9 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
 	private ModelList<CtImport> getImports(CtMethod<?> method) {
 		return method.getPosition().getCompilationUnit().getImports();
 	}
+
+	@Override
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(JUNIT4_ASSERTION);
+	}
 }

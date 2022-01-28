@@ -3,6 +3,8 @@ package xyz.keksdose.spoon.code_solver.transformations.qodana;
 
 import static java.lang.String.format;
 
+import java.util.List;
+
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtTypeAccess;
 import spoon.reflect.declaration.CtType;
@@ -66,4 +68,9 @@ public class StaticAccess extends TransformationProcessor<CtInvocation<?>> {
 		return Nullsafe.get(() -> invocation.getExecutable().isStatic(), false);
 	}
 
+	@Override
+
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(NON_STATIC_ACCESS);
+	}
 }

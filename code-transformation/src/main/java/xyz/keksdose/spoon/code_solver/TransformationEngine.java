@@ -21,6 +21,7 @@ import xyz.keksdose.spoon.code_solver.printing.ChangedTypePrinting;
 import xyz.keksdose.spoon.code_solver.printing.EnvironmentOptions;
 import xyz.keksdose.spoon.code_solver.printing.IPrinting;
 import xyz.keksdose.spoon.code_solver.printing.PrinterCreation;
+import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 import xyz.keksdose.spoon.code_solver.transformations.junit.migration.AssertThatTransformation;
 import xyz.keksdose.spoon.code_solver.transformations.junit.migration.AssertionsTransformation;

@@ -83,4 +83,8 @@ public class ArraysToString extends TransformationProcessor<CtInvocation<?>> {
 		return Nullsafe.get(() -> invocation.getTarget() != null && invocation.getTarget().getType().isArray(), false);
 	}
 
+	@Override
+	public List<BadSmell> getHandledBadSmells() {
+		return List.of(BAD_SMELL);
+	}
 }
