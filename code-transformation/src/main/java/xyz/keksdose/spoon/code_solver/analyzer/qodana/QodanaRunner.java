@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
@@ -55,8 +56,14 @@ public class QodanaRunner {
 			if (qodana.isPresent()) {
 				Volume sourceFile = new Volume("/data/project/");
 				Volume targetFile = new Volume("/data/results/");
-				if (sourceRoot.toFile().toPath().endsWith("/src/main/java")) {
-					sourceRoot = sourceRoot.subpath(0, sourceRoot.getNameCount() - 3);
+				if (sourceRoot.toFile().toPath().toString().endsWith(Path.of("/src/main/java").toString())) {
+					if (sourceRoot.getRoot() == null) {
+						sourceRoot = sourceRoot.subpath(0, sourceRoot.getNameCount() - 3);
+					}
+					else {
+						sourceRoot = Paths.get(sourceRoot.getRoot().toString(),
+							sourceRoot.subpath(0, sourceRoot.getNameCount() - 3).toString());
+					}
 				}
 				Bind bind = new Bind(sourceRoot.toFile().getAbsolutePath(), sourceFile);
 				Bind resultsBind = new Bind(new File("./results").getAbsolutePath(), targetFile);

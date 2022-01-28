@@ -28,10 +28,9 @@ public class UnnecessaryReturn extends AbstractRefactoring {
 				.getCompilationUnit()
 				.getFile()
 				.toPath()
-            .endsWith(Path.of(result.getLocations().get(0).getPhysicalLocation().getArtifactLocation().getUri()))) {
-          return;
-        }
-        var test = result.getRule();
+				.endsWith(Path.of(result.getLocations().get(0).getPhysicalLocation().getArtifactLocation().getUri()))) {
+			return;
+		}
 		for (CtReturn<?> returnStatement : returns) {
 			if (returnStatement.getPosition().getSourceStart() == result.getLocations()
 					.get(0)
