@@ -71,7 +71,8 @@ public class TransformationEngine {
 		ChangeListener listener = new ChangeListener();
 		ProcessingManager pm = new RepeatingProcessingManager(launcher.getFactory(), listener);
 		addProcessors(pm, listener);
-		QodanaRefactor refactor = new QodanaRefactor(listener, Path.of(path));
+		QodanaRefactor refactor = new QodanaRefactor(listener);
+		refactor.run(Path.of(path));
 		pm.addProcessor(refactor);
 		pm.process(model.getAllTypes());
 		Collection<CtType<?>> newTypes = model.getAllTypes();

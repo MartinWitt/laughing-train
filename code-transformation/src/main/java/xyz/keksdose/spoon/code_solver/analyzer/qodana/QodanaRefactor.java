@@ -24,13 +24,16 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 	private Map<String, Function<Result, AbstractRefactoring>> ruleParser;
 	private List<AbstractRefactoring> refactorings;
 
-	public QodanaRefactor(ChangeListener listener, Path sourceFiles) {
+	public QodanaRefactor(ChangeListener listener) {
 		super(listener);
 		this.listener = listener;
 		refactorings = new ArrayList<>();
-		List<Result> results = new QodanaRunner().runQodana(sourceFiles);
 		ruleParser = new HashMap<>();
 		ruleParser.put("UnnecessaryReturn", UnnecessaryReturn::new);
+	}
+
+	public void run(Path sourceFiles) {
+		List<Result> results = new QodanaRunner().runQodana(sourceFiles);
 		for (Result result : results) {
 			var parser = ruleParser.get(result.getRuleId());
 			if (parser != null) {
@@ -46,4 +49,5 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 		}
 	}
 
+	
 }
