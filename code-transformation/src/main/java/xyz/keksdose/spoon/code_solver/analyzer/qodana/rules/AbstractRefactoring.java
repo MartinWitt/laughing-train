@@ -1,6 +1,7 @@
 
 package xyz.keksdose.spoon.code_solver.analyzer.qodana.rules;
 
+import java.nio.file.Path;
 import java.util.List;
 
 import com.contrastsecurity.sarif.Result;
@@ -22,7 +23,7 @@ public abstract class AbstractRefactoring {
 	 * Creates a new refactoring with a given result.
 	 * @param result  the result of an analysis run.
 	 */
-	public AbstractRefactoring(Result result) {
+	protected AbstractRefactoring(Result result) {
 		this.result = result;
 	}
 
@@ -38,4 +39,14 @@ public abstract class AbstractRefactoring {
 	 * @return  A list of all {@link BadSmell}s which are refactored by this refactoring. Never null.
 	 */
 	public abstract List<BadSmell> getHandledBadSmells();
+
+	/**
+	 * Checks if the given {@link CtType} is the type which contains the reported bad smell.
+	 * @param type  The type which should be checked.
+	 * @param resultPath  The path of the file which contains the reported bad smell.
+	 * @return  True if the given {@link CtType} is the type which contains the reported bad smell.
+	 */
+	protected boolean isSameType(CtType<?> type, Path resultPath) {
+		return type.getPosition().getCompilationUnit().getFile().toPath().toString().endsWith(resultPath.toString());
+	}
 }

@@ -34,18 +34,11 @@ public class UnnecessaryReturn extends AbstractRefactoring {
 
 	@Override
 	public void refactor(ChangeListener listener, CtType<?> type) {
-		List<CtReturn<?>> returns = type.getElements(new TypeFilter<>(CtReturn.class));
-		if (type.isAnonymous()) {
+		if (type.isAnonymous() || !isSameType(type,
+			Path.of(result.getLocations().get(0).getPhysicalLocation().getArtifactLocation().getUri()))) {
 			return;
 		}
-		if (!type.getPosition()
-				.getCompilationUnit()
-				.getFile()
-				.toPath()
-				.endsWith(Path.of(result.getLocations().get(0).getPhysicalLocation().getArtifactLocation().getUri()))) {
-			return;
-		}
-		for (CtReturn<?> returnStatement : returns) {
+		for (CtReturn<?> returnStatement : type.getElements(new TypeFilter<>(CtReturn.class))) {
 			if (returnStatement.getPosition().getSourceStart() == result.getLocations()
 					.get(0)
 					.getPhysicalLocation()
