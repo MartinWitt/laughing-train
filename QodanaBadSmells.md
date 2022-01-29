@@ -2,6 +2,9 @@
 ## Non-Protected-Constructor-in-Abstract-Class
 A non-protected constructor in an abstract class is not needed, because only subclasses can be instantiated
 
+## ParameterNameDiffersFromOverriddenParameter
+The parameter name differs from the overridden parameter.
+
 ## Unnecessary Return
 `return` is unnecessary as the last statement in a `void` method
 
