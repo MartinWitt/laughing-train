@@ -13,6 +13,7 @@ import com.contrastsecurity.sarif.Result;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.AbstractRefactoring;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.NonProtectedConstructorInAbstractClass;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.ParameterNameDiffersFromOverriddenParameter;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryInterfaceModifier;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryReturn;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryToStringCall;
@@ -39,6 +40,7 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 		ruleParser.put("UnnecessaryToStringCall", UnnecessaryToStringCall::new);
 		ruleParser.put("NonProtectedConstructorInAbstractClass", NonProtectedConstructorInAbstractClass::new);
 		ruleParser.put("UnnecessaryInterfaceModifier", UnnecessaryInterfaceModifier::new);
+		ruleParser.put("ParameterNameDiffersFromOverriddenParameter", ParameterNameDiffersFromOverriddenParameter::new);
 	}
 
 	/**

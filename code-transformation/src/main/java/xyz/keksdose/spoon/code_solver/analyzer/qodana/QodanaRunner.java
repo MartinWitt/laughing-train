@@ -33,11 +33,15 @@ import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import com.google.common.flogger.FluentLogger;
 
+import org.apache.commons.io.FileUtils;
+
 class QodanaRunner {
 
+	private static final String RESULTS_PATH = "./.results/";
+	private static final String CACHE_PATH = "./.laughing/";
 	private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 	private String qodanaImageName = "jetbrains/qodana-jvm-community:2021.3";
-	private String resultPathString = "./results/qodana.sarif.json";
+	private String resultPathString = RESULTS_PATH + "qodana.sarif.json";
 
 	public List<Result> runQodana(Path sourceRoot) {
 		logger.atInfo().log("Running Qodana on %s", sourceRoot);
@@ -65,8 +69,10 @@ class QodanaRunner {
 				CreateContainerResponse container = createQodanaContainer(dockerClient, qodana, hostConfig);
 				startQodanaContainer(dockerClient, container);
 				cleanUpContainer(dockerClient, container);
+				List<Result> results = parseSarif(resultPath);
+				FileUtils.deleteDirectory(Path.of(CACHE_PATH).toFile());
 				Files.deleteIfExists(Path.of(sourceRoot.toString(), "qodana.yaml"));
-				return parseSarif(resultPath);
+				return results;
 			}
 		}
 		catch (Exception e) {
@@ -100,9 +106,11 @@ class QodanaRunner {
 	private HostConfig createHostConfig(Path sourceRoot) {
 		Volume sourceFile = new Volume("/data/project/");
 		Volume targetFile = new Volume("/data/results/");
+		Volume cacheDir = new Volume("/data/cache/");
 		Bind bind = new Bind(sourceRoot.toFile().getAbsolutePath(), sourceFile);
-		Bind resultsBind = new Bind(new File("./results").getAbsolutePath(), targetFile);
-		return HostConfig.newHostConfig().withBinds(bind, resultsBind);
+		Bind resultsBind = new Bind(new File(RESULTS_PATH).getAbsolutePath(), targetFile);
+		Bind cacheBind = new Bind(new File(CACHE_PATH).getAbsolutePath(), cacheDir);
+		return HostConfig.newHostConfig().withBinds(bind, resultsBind, cacheBind);
 	}
 
 	private Optional<Image> findQodanaImage(DockerClient dockerClient) {
