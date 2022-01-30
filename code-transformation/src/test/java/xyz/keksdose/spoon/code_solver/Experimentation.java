@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -38,7 +39,7 @@ public class Experimentation {
 	private void mineRepo(String repoName, String path) {
 		logger.atInfo().log("Mining %s", repoName);
 		try {
-			File file = new File(repoName);
+			File file = Files.createTempDirectory("./"+repoName, new FileAttribute[0]).toFile();
 			file.mkdir();
 			Git.cloneRepository().setURI(path).setDirectory(file).call();
 			var transformationEngine = new TransformationEngine();
