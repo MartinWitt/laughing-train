@@ -27,7 +27,7 @@ public class PrimitiveToString extends TransformationProcessor<CtBinaryOperator<
 		public MarkdownString getDescription() {
 			String raw = "Primitive types are converted to String using concationation with `\"\"`"
 					+ "String.valueOf(primitive) is the preferred way to convert a primitive to a String.";
-			String markdown = "Primitive types are converted to String using concationation with `\"\"`"
+			String markdown = "Primitive types are converted to String using concationation with `\"\"`.  "
 					+ "`String.valueOf(primitive)` is the preferred way to convert a primitive to a String.";
 			return MarkdownString.fromMarkdown(raw, markdown);
 		}
@@ -67,8 +67,8 @@ public class PrimitiveToString extends TransformationProcessor<CtBinaryOperator<
 	}
 
 	private void notifyChangeListener(CtBinaryOperator<?> op, CtExpression<?> primitive) {
-		String raw = "Replaced " + op + " with String.valueOf(" + primitive + ")";
-		String markdown = "Replaced `" + op + "` with `String.valueOf(" + primitive + ")`";
+		String raw = "Replaced " + op + " with" + primitive;
+		String markdown = "Replaced `" + op + "` with`"+ primitive+"`";
 		CtType<?> parent = op.getParent(CtType.class).getTopLevelType();
 		setChanged(parent, new Change(STRING_VALUE_OF, MarkdownString.fromMarkdown(raw, markdown), parent));
 	}

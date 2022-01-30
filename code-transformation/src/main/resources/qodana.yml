@@ -32,5 +32,10 @@ include:
   - name: UnnecessaryToStringCall
   - name: UnnecessaryUnboxing
   - name: UNUSED_IMPORT
+  - name: GroovyUnnecessaryReturn
+  - name: JoinDeclarationAndAssignmentJava
+  - name: MethodMayBeStatic
+  - name: UnnecessaryCallToStringValueOf
+  - name: UnnecessaryToStringCall
 exclude:
   - name: UseOfClone
