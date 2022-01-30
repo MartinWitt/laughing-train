@@ -33,7 +33,7 @@ public class Experimentation {
 		mineRepo("sorald", "https://github.com/SpoonLabs/sorald");
 		mineRepo("spoon", "https://github.com/INRIA/spoon");
 		mineRepo("assertJ", "https://github.com/assertj/assertj-core");
-		mineRepo("rxJava", "https://github.com/ReactiveX/RxJava");
+		// mineRepo("rxJava", "https://github.com/ReactiveX/RxJava"); heap space problem
 
 	}
 
@@ -78,8 +78,8 @@ public class Experimentation {
 			sb.append("### " + entry.getKey() + "\n");
 			sb.append(entry.getValue()
 					.stream()
-					.map(
-						c -> "- " + c.getChangeText().asMarkdown() + "`" + c.getAffectedType().getQualifiedName() + "`")
+					.map(c -> "- " + c.getChangeText().asMarkdown() + "in `" + c.getAffectedType().getQualifiedName()
+							+ "`")
 					.collect(Collectors.joining("\n")));
 			sb.append("\n");
 		}
