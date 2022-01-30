@@ -68,7 +68,7 @@ public class PrimitiveToString extends TransformationProcessor<CtBinaryOperator<
 
 	private void notifyChangeListener(CtBinaryOperator<?> op, CtExpression<?> primitive) {
 		String raw = "Replaced " + op + " with" + primitive;
-		String markdown = "Replaced `" + op + "` with`"+ primitive+"`";
+		String markdown = "Replaced `" + op + "` with`" + primitive + "`";
 		CtType<?> parent = op.getParent(CtType.class).getTopLevelType();
 		setChanged(parent, new Change(STRING_VALUE_OF, MarkdownString.fromMarkdown(raw, markdown), parent));
 	}
