@@ -1,8 +1,8 @@
 # Change Log
 ## The following bad smells are found in the code:
 ### String-ValueOf-Primitive
-- Replaced `spoon.support.StandardEnvironment.DEFAULT_CODE_COMPLIANCE_LEVEL + ""` with `String.valueOf(java.lang.String.valueOf(spoon.support.StandardEnvironment.DEFAULT_CODE_COMPLIANCE_LEVEL))``spoon.Launcher`
-- Replaced `index + ""` with `String.valueOf(java.lang.String.valueOf(index))``spoon.reflect.path.CtElementPathBuilder`
+- Replaced `spoon.support.StandardEnvironment.DEFAULT_CODE_COMPLIANCE_LEVEL + ""` with`java.lang.String.valueOf(spoon.support.StandardEnvironment.DEFAULT_CODE_COMPLIANCE_LEVEL)``spoon.Launcher`
+- Replaced `index + ""` with`java.lang.String.valueOf(index)``spoon.reflect.path.CtElementPathBuilder`
 ### Static inner class
 - Added static modifier to inner class `spoon.support.gui.SpoonObjectFieldsTable$SpoonObjectTableModel``spoon.support.gui.SpoonObjectFieldsTable`
 - Added static modifier to inner class `spoon.support.reflect.declaration.CtClassImpl$NewInstanceClassloader``spoon.support.reflect.declaration.CtClassImpl`
