@@ -31,9 +31,10 @@ public class Experimentation {
 	@Test
 	public void mine() {
 		mineRepo("sorald", "https://github.com/SpoonLabs/sorald");
-		mineRepo("flacoco", "https://github.com/SpoonLabs/flacoco");
 		mineRepo("spoon", "https://github.com/INRIA/spoon");
-		mineRepo("gumtree", "https://github.com/SpoonLabs/gumtree-spoon-ast-diff");
+		mineRepo("assertJ", "https://github.com/assertj/assertj-core");
+		mineRepo("rxJava", "https://github.com/ReactiveX/RxJava");
+
 	}
 
 	private void mineRepo(String repoName, String path) {
@@ -61,8 +62,8 @@ public class Experimentation {
 				.collect(Collectors.groupingBy(Change::getIssue));
 		StringBuilder sb = new StringBuilder();
 		sb.append("# Change Log\n");
-		appendBadSmells(changelog, sb);
-		sb.append("## The following has changed in the code:\n");
+		// appendBadSmells(changelog, sb);
+		sb.append("## The following bad smells are found in the code:\n");
 		appendChanges(changesByType, sb);
 		try {
 			Files.writeString(path, sb);
@@ -77,7 +78,7 @@ public class Experimentation {
 			sb.append("### " + entry.getKey() + "\n");
 			sb.append(entry.getValue()
 					.stream()
-					.map(c -> "- " + c.getChangeText().asMarkdown())
+					.map(c -> "- " + c.getChangeText().asMarkdown() + "`" + c.getAffectedType().getQualifiedName() + "`")
 					.collect(Collectors.joining("\n")));
 			sb.append("\n");
 		}
