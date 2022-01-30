@@ -78,7 +78,8 @@ public class Experimentation {
 			sb.append("### " + entry.getKey() + "\n");
 			sb.append(entry.getValue()
 					.stream()
-					.map(c -> "- " + c.getChangeText().asMarkdown() + "`" + c.getAffectedType().getQualifiedName() + "`")
+					.map(
+						c -> "- " + c.getChangeText().asMarkdown() + "`" + c.getAffectedType().getQualifiedName() + "`")
 					.collect(Collectors.joining("\n")));
 			sb.append("\n");
 		}
