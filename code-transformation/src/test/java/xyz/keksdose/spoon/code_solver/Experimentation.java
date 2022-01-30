@@ -28,7 +28,7 @@ public class Experimentation {
 
 	@Tag("Mining")
 	@Test
-    public void mine() {
+	public void mine() {
 		mineRepo("sorald", "https://github.com/SpoonLabs/sorald");
 		mineRepo("flacoco", "https://github.com/SpoonLabs/flacoco");
 		mineRepo("spoon", "https://github.com/INRIA/spoon");
