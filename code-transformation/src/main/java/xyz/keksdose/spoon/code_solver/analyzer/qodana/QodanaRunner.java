@@ -6,12 +6,11 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -32,8 +31,6 @@ import com.github.dockerjava.core.DockerClientImpl;
 import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import com.google.common.flogger.FluentLogger;
-
-import org.apache.commons.io.FileUtils;
 
 class QodanaRunner {
 
@@ -68,11 +65,11 @@ class QodanaRunner {
 				HostConfig hostConfig = createHostConfig(sourceRoot);
 				CreateContainerResponse container = createQodanaContainer(dockerClient, qodana, hostConfig);
 				startQodanaContainer(dockerClient, container);
-				cleanUpContainer(dockerClient, container);
 				List<Result> results = parseSarif(resultPath);
-				FileUtils.deleteDirectory(Path.of(CACHE_PATH).toFile());
+				cleanUpContainer(dockerClient, container);
+				//FileUtils.deleteDirectory(Path.of(CACHE_PATH).toFile());
 				Files.deleteIfExists(Path.of(sourceRoot.toString(), "qodana.yaml"));
-				FileUtils.deleteDirectory(Path.of(RESULTS_PATH).toFile());
+				// FileUtils.deleteDirectory(Path.of(RESULTS_PATH).toFile());
 				return results;
 			}
 		}
@@ -83,7 +80,7 @@ class QodanaRunner {
 	}
 
 	private void cleanUpContainer(DockerClient dockerClient, CreateContainerResponse container) {
-		dockerClient.removeContainerCmd(container.getId()).exec();
+		dockerClient.removeContainerCmd(container.getId()).withRemoveVolumes(true).exec();
 	}
 
 	private void startQodanaContainer(DockerClient dockerClient, CreateContainerResponse container)
