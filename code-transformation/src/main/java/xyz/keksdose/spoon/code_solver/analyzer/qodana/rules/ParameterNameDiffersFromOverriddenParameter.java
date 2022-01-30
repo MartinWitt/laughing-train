@@ -56,7 +56,7 @@ public class ParameterNameDiffersFromOverriddenParameter extends AbstractRefacto
 							.forEach(v -> v.setSimpleName(newName));
 					parameter.setSimpleName(newName);
 					listener.setChanged(type.getTopLevelType(),
-						new Change(result.getRuleId(), result.getMessage().getText(), type.getTopLevelType()));
+						new Change(result.getMessage().getMarkdown(), result.getRuleId(), type.getTopLevelType()));
 				}
 			}
 		}

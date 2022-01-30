@@ -45,7 +45,8 @@ public class UnnecessaryReturn extends AbstractRefactoring {
 					.getRegion()
 					.getCharOffset()) {
 				returnStatement.delete();
-				listener.setChanged(type, new Change(result.getRuleId(), result.getMessage().getText(), type));
+				listener.setChanged(type.getTopLevelType(),
+					new Change(result.getMessage().getMarkdown(), result.getRuleId(), type.getTopLevelType()));
 			}
 		}
 	}

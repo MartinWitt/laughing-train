@@ -32,7 +32,7 @@ public class Experimentation {
 		mineRepo("sorald", "https://github.com/SpoonLabs/sorald");
 		mineRepo("flacoco", "https://github.com/SpoonLabs/flacoco");
 		mineRepo("spoon", "https://github.com/INRIA/spoon");
-		mineRepo("gentle", "https://github.com/Firmwehr/gentle");
+		mineRepo("gumtree", "https://github.com/SpoonLabs/gumtree-spoon-ast-diff");
 	}
 
 	private void mineRepo(String repoName, String path) {

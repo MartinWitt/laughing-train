@@ -52,7 +52,8 @@ public class UnnecessaryInterfaceModifier extends AbstractRefactoring {
 				SourcePosition position = member.getPosition();
 				member.setPosition(SourcePosition.NOPOSITION);
 				member.setPosition(position);
-				listener.setChanged(type, new Change(result.getRuleId(), result.getMessage().getText(), type));
+				listener.setChanged(type.getTopLevelType(),
+					new Change(result.getMessage().getMarkdown(), result.getRuleId(), type.getTopLevelType()));
 			}
 		}
 
