@@ -39,7 +39,7 @@ public class Experimentation {
 	private void mineRepo(String repoName, String path) {
 		logger.atInfo().log("Mining %s", repoName);
 		try {
-			File file = Files.createTempDirectory("./"+repoName, new FileAttribute[0]).toFile();
+			File file = Files.createTempDirectory(repoName, new FileAttribute[0]).toFile();
 			file.mkdir();
 			Git.cloneRepository().setURI(path).setDirectory(file).call();
 			var transformationEngine = new TransformationEngine();
