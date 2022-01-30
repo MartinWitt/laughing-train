@@ -72,6 +72,7 @@ class QodanaRunner {
 				List<Result> results = parseSarif(resultPath);
 				FileUtils.deleteDirectory(Path.of(CACHE_PATH).toFile());
 				Files.deleteIfExists(Path.of(sourceRoot.toString(), "qodana.yaml"));
+				FileUtils.deleteDirectory(Path.of(RESULTS_PATH).toFile());
 				return results;
 			}
 		}

@@ -41,7 +41,11 @@ public class UnnecessaryToStringCall extends AbstractRefactoring {
 			Path.of(result.getLocations().get(0).getPhysicalLocation().getArtifactLocation().getUri()))) {
 			return;
 		}
-		CtMethod<?> toStringMethod = type.getAllMethods()
+		CtMethod<?> toStringMethod = type.getFactory()
+				.Type()
+				.createReference(Object.class)
+				.getTypeDeclaration()
+				.getAllMethods()
 				.stream()
 				.filter(method -> method.getSimpleName().equals("toString"))
 				.findFirst()

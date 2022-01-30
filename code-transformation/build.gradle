@@ -47,10 +47,7 @@ application {
 	mainClass = 'xyz.keksdose.spoon.code_solver.TransformationEngine'
 }
 
-tasks.named('test') {
-	// Use JUnit Platform for unit tests.
-	useJUnitPlatform()
-}
+
 spotless {
 	format 'misc', {
 		// define the files to apply `misc` to
@@ -96,6 +93,18 @@ jreleaser {
 			artifact {
 				path = 'build/distributions/code-transformation-{{projectVersion}}.zip'
 			}
+		}
+	}
+
+	def test = tasks.named("test") {
+		useJUnitPlatform {
+			excludeTags "Mining"
+		}
+	}
+
+	def mining = tasks.register("mining", Test) {
+		useJUnitPlatform {
+			includeTags "Mining"
 		}
 	}
 }

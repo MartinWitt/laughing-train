@@ -1,14 +1,16 @@
 
 package xyz.keksdose.spoon.code_solver.analyzer.qodana.rules;
 
+import java.lang.annotation.Annotation;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.contrastsecurity.sarif.Result;
 
-import spoon.reflect.cu.SourcePosition;
+import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtConstructor;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.ModifierKind;
@@ -17,6 +19,7 @@ import spoon.support.reflect.CtExtendedModifier;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
+import xyz.keksdose.spoon.code_solver.spoon.NewLineAnnotation;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class NonProtectedConstructorInAbstractClass extends AbstractRefactoring {
@@ -48,12 +51,17 @@ public class NonProtectedConstructorInAbstractClass extends AbstractRefactoring 
 			if (constructor.getModifiers().contains(ModifierKind.PUBLIC)) {
 				Set<CtExtendedModifier> modifiers = new HashSet<>(constructor.getExtendedModifiers());
 				modifiers.removeIf(v -> v.getKind() == ModifierKind.PUBLIC);
-				modifiers.add(CtExtendedModifier.explicit(ModifierKind.PROTECTED));
+				CtExtendedModifier protectedModifier = CtExtendedModifier.explicit(ModifierKind.PROTECTED);
+				modifiers.add(protectedModifier);
 				constructor.setExtendedModifiers(modifiers);
-				SourcePosition position = constructor.getPosition();
-				constructor.setPosition(SourcePosition.NOPOSITION);
-				constructor.setPosition(position);
-				listener.setChanged(type, new Change(result.getRuleId(), result.getMessage().getText(), type));
+				List<CtAnnotation<? extends Annotation>> annotations = constructor.getAnnotations()
+						.stream()
+						.map(CtAnnotation::clone)
+						.collect(Collectors.toList());
+				annotations.add(new NewLineAnnotation<>());
+				constructor.setAnnotations(annotations);
+				listener.setChanged(type.getTopLevelType(),
+					new Change(result.getRuleId(), result.getMessage().getText(), type.getTopLevelType()));
 			}
 		}
 	}
