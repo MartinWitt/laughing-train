@@ -45,10 +45,10 @@ public class Experimentation {
 					.applyToGivenPath(Path.of(file.getAbsolutePath(), "/src/main/java").toString());
 			File output = new File("../mining/" + repoName + ".md");
 			createMarkdown(changes, output.toPath());
-			FileUtils.deleteDirectory(output);
+			FileUtils.deleteDirectory(file);
 		}
 		catch (Throwable e) {
-			logger.atSevere().withCause(e).log("Could not mine repo");
+			logger.atSevere().withCause(e).log("Could not mine repo %s" + repoName);
 		}
 	}
 
