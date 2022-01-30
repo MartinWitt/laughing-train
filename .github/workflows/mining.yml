@@ -1,14 +1,14 @@
+name: mine repos
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
+  schedule:
+    - cron: '17 15 * * 3'
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout 🛎️
     - uses: actions/checkout@v2
