@@ -36,6 +36,7 @@ public class Experimentation {
 	}
 
 	private void mineRepo(String repoName, String path) {
+		logger.atInfo().log("Mining %s", repoName);
 		try {
 			File file = new File(repoName);
 			file.mkdir();
@@ -46,6 +47,7 @@ public class Experimentation {
 			File output = new File("../mining/" + repoName + ".md");
 			createMarkdown(changes, output.toPath());
 			FileUtils.deleteDirectory(file);
+			logger.atInfo().log("Finished mining %s", repoName);
 		}
 		catch (Throwable e) {
 			logger.atSevere().withCause(e).log("Could not mine repo %s" + repoName);
