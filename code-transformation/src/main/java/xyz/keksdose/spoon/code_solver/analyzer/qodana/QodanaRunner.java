@@ -116,6 +116,7 @@ class QodanaRunner {
 				.withAttachStderr(true)
 				.withAttachStdout(true)
 				.withCmd("-d", "./src/main/java")
+				.withUser(System.getProperty("user.name"))
 				.exec();
 	}
 
