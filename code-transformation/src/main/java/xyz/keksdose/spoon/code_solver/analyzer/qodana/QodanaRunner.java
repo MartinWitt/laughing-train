@@ -66,9 +66,8 @@ class QodanaRunner {
 			if (qodana.isPresent()) {
 				HostConfig hostConfig = createHostConfig(sourceRoot);
 				CreateContainerResponse container = createQodanaContainer(dockerClient, qodana, hostConfig);
-				startQodanaContainer(dockerClient, container);
-				List<Result> results = parseSarif(resultPath);
-				cleanUpContainer(dockerClient, container);
+				List<Result> results = startQodanaContainer(dockerClient, container);
+				// cleanUpContainer(dockerClient, container);
 				Files.deleteIfExists(Path.of(sourceRoot.toString(), "qodana.yaml"));
 				return results;
 			}
