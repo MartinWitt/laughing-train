@@ -1,10 +1,10 @@
 # Change Log
 ## The following bad smells are found in the code:
-### UnnecessaryInterfaceModifier
-- Modifier `public` is redundant for interface methodsin `sorald.annotations.ProcessorAnnotation`
-- Modifier `public` is redundant for interface methodsin `sorald.annotations.ProcessorAnnotation`
-### NonProtectedConstructorInAbstractClass
+### Non-Protected-Constructor-in-Abstract-Class
 - Constructor `SoraldAbstractProcessor()` of an abstract class should not be declared 'public'in `sorald.processor.SoraldAbstractProcessor`
+### Unnecessary-Interface-Modifier
+- Modifier `public` is redundant for interface methodsin `sorald.annotations.ProcessorAnnotation`
+- Modifier `public` is redundant for interface methodsin `sorald.annotations.ProcessorAnnotation`
 ### ParameterNameDiffersFromOverriddenParameter
 - Parameter name `element` is different from parameter 'e' overriddenin `sorald.processor.SoraldAbstractProcessor`
 - Parameter name `element` is different from parameter 'candidate' overriddenin `sorald.processor.SoraldAbstractProcessor`

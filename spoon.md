@@ -6,17 +6,7 @@
 ### Static inner class
 - Added static modifier to inner class `spoon.support.gui.SpoonObjectFieldsTable$SpoonObjectTableModel`in `spoon.support.gui.SpoonObjectFieldsTable`
 - Added static modifier to inner class `spoon.support.reflect.declaration.CtClassImpl$NewInstanceClassloader`in `spoon.support.reflect.declaration.CtClassImpl`
-### UnnecessaryReturn
-- `return` is unnecessary as the last statement in a 'void' methodin `spoon.support.sniper.SniperJavaPrettyPrinter`
-- `return` is unnecessary as the last statement in a 'void' methodin `spoon.support.sniper.SniperJavaPrettyPrinter`
-### ArraysToString
-- Replaced `str.toString()` with `Arrays.toString(str)`.in `spoon.support.sniper.internal.ElementSourceFragment`
-### UnnecessaryToStringCall
-- Unnecessary `toString()` callin `spoon.ContractVerifier`
-- Unnecessary `toString()` callin `spoon.experimental.SpoonifierVisitor`
-- Unnecessary `toString()` callin `spoon.metamodel.MetamodelProperty`
-- Unnecessary `toString()` callin `spoon.support.sniper.internal.ElementSourceFragment`
-### NonProtectedConstructorInAbstractClass
+### Non-Protected-Constructor-in-Abstract-Class
 - Constructor `Options()` of an abstract class should not be declared 'public'in `spoon.compiler.builder.Options`
 - Constructor `ResultHolder()` of an abstract class should not be declared 'public'in `spoon.pattern.internal.ResultHolder`
 - Constructor `ResultHolder()` of an abstract class should not be declared 'public'in `spoon.pattern.internal.ResultHolder`
@@ -48,6 +38,16 @@
 - Constructor `ExpressionTemplate()` of an abstract class should not be declared 'public'in `spoon.template.ExpressionTemplate`
 - Constructor `StatementTemplate()` of an abstract class should not be declared 'public'in `spoon.template.StatementTemplate`
 - Constructor `AbstractFileAssert()` of an abstract class should not be declared 'public'in `spoon.testing.AbstractFileAssert`
+### ArraysToString
+- Replaced `str.toString()` with `Arrays.toString(str)`.in `spoon.support.sniper.internal.ElementSourceFragment`
+### UnnecessaryToStringCall
+- Unnecessary `toString()` callin `spoon.ContractVerifier`
+- Unnecessary `toString()` callin `spoon.experimental.SpoonifierVisitor`
+- Unnecessary `toString()` callin `spoon.metamodel.MetamodelProperty`
+- Unnecessary `toString()` callin `spoon.support.sniper.internal.ElementSourceFragment`
+### Unnecessary Return
+- `return` is unnecessary as the last statement in a 'void' methodin `spoon.support.sniper.SniperJavaPrettyPrinter`
+- `return` is unnecessary as the last statement in a 'void' methodin `spoon.support.sniper.SniperJavaPrettyPrinter`
 ### NonStaticAccess
 - Method `getLogger` was accessed via the instance variable `this.jdtTreeBuilder`.in `spoon.support.compiler.jdt.ContextBuilder`
 - Method `getLogger` was accessed via the instance variable `this.jdtTreeBuilder`.in `spoon.support.compiler.jdt.ContextBuilder`
@@ -57,9 +57,9 @@
 - Method `handleImplicit` was accessed via the instance variable `jdtTreeBuilder.getHelper()`.in `spoon.support.compiler.jdt.ReferenceBuilder`
 ### ParameterNameDiffersFromOverriddenParameter
 - Parameter name `path` is different from parameter 'file' overriddenin `spoon.Launcher`
+- Parameter name `element` is different from parameter 's' overriddenin `spoon.experimental.SpoonifierVisitor`
 - Parameter name `element` is different from parameter 'e' overriddenin `spoon.experimental.SpoonifierVisitor`
 - Parameter name `element` is different from parameter 'labelledFlowBreak' overriddenin `spoon.experimental.SpoonifierVisitor`
-- Parameter name `element` is different from parameter 's' overriddenin `spoon.experimental.SpoonifierVisitor`
 - Parameter name `element` is different from parameter 'm' overriddenin `spoon.experimental.SpoonifierVisitor`
 - Parameter name `element` is different from parameter 'e' overriddenin `spoon.experimental.SpoonifierVisitor`
 - Parameter name `element` is different from parameter 'reference' overriddenin `spoon.experimental.SpoonifierVisitor`
@@ -85,80 +85,80 @@
 - Parameter name `e` is different from parameter 'element' overriddenin `spoon.reflect.meta.impl.SingleHandler`
 - Parameter name `unresolvedImport` is different from parameter 'ctUnresolvedImport' overriddenin `spoon.reflect.visitor.CtAbstractImportVisitor`
 - Parameter name `javadoc` is different from parameter 'comment' overriddenin `spoon.reflect.visitor.CtAbstractVisitor`
-- Parameter name `recordType` is different from parameter 'recordComponent' overriddenin `spoon.reflect.visitor.CtBiScannerDefault`
 - Parameter name `javaDoc` is different from parameter 'javadoc' overriddenin `spoon.reflect.visitor.CtBiScannerDefault`
 - Parameter name `literal` is different from parameter 'ctTextBlock' overriddenin `spoon.reflect.visitor.CtBiScannerDefault`
-- Parameter name `e` is different from parameter 'breakStatement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'continueStatement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'asserted' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'intrface' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'variableRead' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `recordType` is different from parameter 'recordComponent' overriddenin `spoon.reflect.visitor.CtBiScannerDefault`
 - Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'parameter' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'thisAccess' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'ctEnum' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'comment' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'switchExpression' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'm' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'annotation' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'operator' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'literal' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'expression' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'returnStatement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'forLoop' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'f' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'whileLoop' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'operator' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'lambda' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'ctConstructorCall' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'assignment' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'catchVariable' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'invocation' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'doLoop' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'anonymousExec' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'c' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'conditional' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'ctTextBlock' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'variableWrite' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'localVariable' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'comment' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'assignement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'ctClass' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'annotationFieldAccess' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
 - Parameter name `e` is different from parameter 'tryBlock' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
 - Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'synchro' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'newArray' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'foreach' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'docTag' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'statement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'ifElement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'newClass' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'throwStatement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'expression' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'statement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'catchBlock' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
 - Parameter name `e` is different from parameter 'tryWithResource' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'ctPackage' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'throwStatement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'c' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'ctClass' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'statement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'asserted' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'returnStatement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
 - Parameter name `e` is different from parameter 'block' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'thisAccess' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'ctTextBlock' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'localVariable' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'doLoop' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'variableWrite' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'docTag' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'assignement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'conditional' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'newArray' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'annotation' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'breakStatement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'statement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'literal' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'synchro' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'lambda' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'ifElement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'operator' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'forLoop' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'whileLoop' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
 - Parameter name `e` is different from parameter 'statements' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'ref' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `e` is different from parameter 'annotationType' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'catchVariable' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'foreach' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'expression' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'parameter' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'expression' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'ctConstructorCall' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'm' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'assignment' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'f' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
 - Parameter name `e` is different from parameter 'typeAccess' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
-- Parameter name `javaDoc` is different from parameter 'comment' overriddenin `spoon.reflect.visitor.CtScanner`
+- Parameter name `e` is different from parameter 'catchBlock' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'annotationType' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'invocation' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'ctEnum' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'operator' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'annotationFieldAccess' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'ref' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'newClass' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'continueStatement' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'switchExpression' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'comment' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'comment' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'ctPackage' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'variableRead' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'intrface' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
+- Parameter name `e` is different from parameter 'anonymousExec' overriddenin `spoon.reflect.visitor.CtInheritanceScanner`
 - Parameter name `recordType` is different from parameter 'recordComponent' overriddenin `spoon.reflect.visitor.CtScanner`
 - Parameter name `literal` is different from parameter 'ctTextBlock' overriddenin `spoon.reflect.visitor.CtScanner`
-- Parameter name `constructor` is different from parameter 'c' overriddenin `spoon.reflect.visitor.DefaultJavaPrettyPrinter`
+- Parameter name `javaDoc` is different from parameter 'comment' overriddenin `spoon.reflect.visitor.CtScanner`
 - Parameter name `ref` is different from parameter 'reference' overriddenin `spoon.reflect.visitor.DefaultJavaPrettyPrinter`
 - Parameter name `e` is different from parameter 'ctElement' overriddenin `spoon.reflect.visitor.DefaultJavaPrettyPrinter`
 - Parameter name `impl` is different from parameter 'anonymousExec' overriddenin `spoon.reflect.visitor.DefaultJavaPrettyPrinter`
+- Parameter name `constructor` is different from parameter 'c' overriddenin `spoon.reflect.visitor.DefaultJavaPrettyPrinter`
 - Parameter name `reference` is different from parameter 'element' overriddenin `spoon.reflect.visitor.ForceFullyQualifiedProcessor`
 - Parameter name `reference` is different from parameter 'element' overriddenin `spoon.reflect.visitor.ForceImportProcessor`
 - Parameter name `reference` is different from parameter 'element' overriddenin `spoon.reflect.visitor.ImportCleaner`
@@ -172,62 +172,62 @@
 - Parameter name `variableAccess` is different from parameter 'element' overriddenin `spoon.reflect.visitor.filter.VariableAccessFilter`
 - Parameter name `field` is different from parameter 'f' overriddenin `spoon.reflect.visitor.filter.VariableReferenceFunction`
 - Parameter name `field` is different from parameter 'f' overriddenin `spoon.reflect.visitor.filter.VariableScopeFunction`
-- Parameter name `object` is different from parameter 'element' overriddenin `spoon.support.DefaultCoreFactory`
 - Parameter name `nameStart` is different from parameter 'nameSource' overriddenin `spoon.support.DefaultCoreFactory`
-- Parameter name `tabulationSize` is different from parameter 'size' overriddenin `spoon.support.StandardEnvironment`
+- Parameter name `object` is different from parameter 'element' overriddenin `spoon.support.DefaultCoreFactory`
 - Parameter name `defaultFileGenerator` is different from parameter 'generator' overriddenin `spoon.support.StandardEnvironment`
+- Parameter name `tabulationSize` is different from parameter 'size' overriddenin `spoon.support.StandardEnvironment`
+- Parameter name `aClassLoader` is different from parameter 'classLoader' overriddenin `spoon.support.StandardEnvironment`
 - Parameter name `tabulation` is different from parameter 'b' overriddenin `spoon.support.StandardEnvironment`
 - Parameter name `s` is different from parameter 'directory' overriddenin `spoon.support.StandardEnvironment`
 - Parameter name `previewFeaturesEnabled` is different from parameter 'enabled' overriddenin `spoon.support.StandardEnvironment`
-- Parameter name `aClassLoader` is different from parameter 'classLoader' overriddenin `spoon.support.StandardEnvironment`
 - Parameter name `o` is different from parameter 'source' overriddenin `spoon.support.compiler.VirtualFolder`
 - Parameter name `o` is different from parameter 'source' overriddenin `spoon.support.compiler.VirtualFolder`
 - Parameter name `qualifiedThisRef` is different from parameter 'qualifiedThisReference' overriddenin `spoon.support.compiler.jdt.JDTTreeBuilder`
 - Parameter name `qualifiedNameRef` is different from parameter 'qualifiedNameReference' overriddenin `spoon.support.compiler.jdt.JDTTreeBuilder`
 - Parameter name `annotationMethodDeclaration` is different from parameter 'annotationTypeDeclaration' overriddenin `spoon.support.compiler.jdt.JDTTreeBuilder`
-- Parameter name `qualifiedsuperReference` is different from parameter 'qualifiedSuperReference' overriddenin `spoon.support.compiler.jdt.JDTTreeBuilder`
 - Parameter name `moduleDeclaration` is different from parameter 'module' overriddenin `spoon.support.compiler.jdt.JDTTreeBuilder`
-- Parameter name `superAccess` is different from parameter 'f' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `operator` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `tryBlock` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `asserted` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `tryWithResource` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `synchro` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `caseStatement` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `e` is different from parameter 'wildcardReference' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `lambda` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `switchExpression` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `operator` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `qualifiedsuperReference` is different from parameter 'qualifiedSuperReference' overriddenin `spoon.support.compiler.jdt.JDTTreeBuilder`
 - Parameter name `returnStatement` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `annotation` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `whileLoop` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `ifElement` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `switchStatement` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `invocation` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `conditional` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `throwStatement` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `newClass` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `ctPackage` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `block` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `forLoop` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
 - Parameter name `doLoop` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `b` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `foreach` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `expression` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `catchBlock` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `superAccess` is different from parameter 'f' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `lambda` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `whileLoop` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `synchro` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `ifElement` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `block` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `throwStatement` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `ctPackage` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
 - Parameter name `assignement` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `ctConstructorCall` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
-- Parameter name `newArray` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `switchExpression` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `caseStatement` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `operator` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `operator` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
 - Parameter name `ctClass` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `expression` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `newClass` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `invocation` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `tryWithResource` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `b` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `catchBlock` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `tryBlock` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `conditional` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `switchStatement` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `newArray` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `asserted` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `foreach` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `e` is different from parameter 'wildcardReference' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `ctConstructorCall` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `annotation` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
+- Parameter name `forLoop` is different from parameter 'e' overriddenin `spoon.support.compiler.jdt.ParentExiter`
 - Parameter name `result` is different from parameter 'compilationResult' overriddenin `spoon.support.compiler.jdt.TreeBuilderRequestor`
 - Parameter name `e` is different from parameter 'mouseEvent' overriddenin `spoon.support.gui.SpoonModelTree`
+- Parameter name `e` is different from parameter 'mouseEvent' overriddenin `spoon.support.gui.SpoonModelTree`
+- Parameter name `e` is different from parameter 'mouseEvent' overriddenin `spoon.support.gui.SpoonModelTree`
 - Parameter name `e` is different from parameter 'keyEvent' overriddenin `spoon.support.gui.SpoonModelTree`
 - Parameter name `e` is different from parameter 'mouseEvent' overriddenin `spoon.support.gui.SpoonModelTree`
-- Parameter name `e` is different from parameter 'mouseEvent' overriddenin `spoon.support.gui.SpoonModelTree`
-- Parameter name `e` is different from parameter 'mouseEvent' overriddenin `spoon.support.gui.SpoonModelTree`
-- Parameter name `e` is different from parameter 'keyEvent' overriddenin `spoon.support.gui.SpoonModelTree`
 - Parameter name `e` is different from parameter 'keyEvent' overriddenin `spoon.support.gui.SpoonModelTree`
 - Parameter name `e` is different from parameter 'mouseEvent' overriddenin `spoon.support.gui.SpoonModelTree`
+- Parameter name `e` is different from parameter 'keyEvent' overriddenin `spoon.support.gui.SpoonModelTree`
 - Parameter name `rowIndex` is different from parameter 'i' overriddenin `spoon.support.gui.SpoonObjectFieldsTable`
 - Parameter name `columnIndex` is different from parameter 'i1' overriddenin `spoon.support.gui.SpoonObjectFieldsTable`
 - Parameter name `element` is different from parameter 'e' overriddenin `spoon.support.gui.SpoonTreeBuilder`
@@ -239,15 +239,15 @@
 - Parameter name `defaultExpression` is different from parameter 'assignedExpression' overriddenin `spoon.support.reflect.code.CtCatchVariableImpl`
 - Parameter name `type` is different from parameter 'ref' overriddenin `spoon.support.reflect.code.CtCatchVariableImpl`
 - Parameter name `casts` is different from parameter 'types' overriddenin `spoon.support.reflect.code.CtExpressionImpl`
-- Parameter name `statements` is different from parameter 'forUpdate' overriddenin `spoon.support.reflect.code.CtForImpl`
 - Parameter name `statements` is different from parameter 'forInit' overriddenin `spoon.support.reflect.code.CtForImpl`
+- Parameter name `statements` is different from parameter 'forUpdate' overriddenin `spoon.support.reflect.code.CtForImpl`
 - Parameter name `condition` is different from parameter 'expression' overriddenin `spoon.support.reflect.code.CtIfImpl`
 - Parameter name `params` is different from parameter 'parameters' overriddenin `spoon.support.reflect.code.CtLambdaImpl`
 - Parameter name `statement` is different from parameter 'body' overriddenin `spoon.support.reflect.code.CtLambdaImpl`
 - Parameter name `defaultExpression` is different from parameter 'assignedExpression' overriddenin `spoon.support.reflect.code.CtLocalVariableImpl`
 - Parameter name `statement` is different from parameter 'body' overriddenin `spoon.support.reflect.code.CtLoopImpl`
-- Parameter name `expressions` is different from parameter 'expression' overriddenin `spoon.support.reflect.code.CtNewArrayImpl`
 - Parameter name `dimensionExpressions` is different from parameter 'dimensions' overriddenin `spoon.support.reflect.code.CtNewArrayImpl`
+- Parameter name `expressions` is different from parameter 'expression' overriddenin `spoon.support.reflect.code.CtNewArrayImpl`
 - Parameter name `expression` is different from parameter 'returnedExpression' overriddenin `spoon.support.reflect.code.CtReturnImpl`
 - Parameter name `stmts` is different from parameter 'statements' overriddenin `spoon.support.reflect.code.CtStatementListImpl`
 - Parameter name `expression` is different from parameter 'thrownExpression' overriddenin `spoon.support.reflect.code.CtThrowImpl`
@@ -257,22 +257,22 @@
 - Parameter name `annotationType` is different from parameter 'type' overriddenin `spoon.support.reflect.declaration.CtAnnotationImpl`
 - Parameter name `v` is different from parameter 'visitor' overriddenin `spoon.support.reflect.declaration.CtAnnotationTypeImpl`
 - Parameter name `s` is different from parameter 'name' overriddenin `spoon.support.reflect.declaration.CtClassImpl`
-- Parameter name `anonymousExecutables` is different from parameter 'e' overriddenin `spoon.support.reflect.declaration.CtClassImpl`
 - Parameter name `v` is different from parameter 'visitor' overriddenin `spoon.support.reflect.declaration.CtClassImpl`
-- Parameter name `o` is different from parameter 'obj' overriddenin `spoon.support.reflect.declaration.CtElementImpl`
+- Parameter name `anonymousExecutables` is different from parameter 'e' overriddenin `spoon.support.reflect.declaration.CtClassImpl`
 - Parameter name `implicit` is different from parameter 'b' overriddenin `spoon.support.reflect.declaration.CtElementImpl`
+- Parameter name `o` is different from parameter 'obj' overriddenin `spoon.support.reflect.declaration.CtElementImpl`
 - Parameter name `annotations` is different from parameter 'annotation' overriddenin `spoon.support.reflect.declaration.CtElementImpl`
 - Parameter name `visitor` is different from parameter 'v' overriddenin `spoon.support.reflect.declaration.CtEnumImpl`
 - Parameter name `statement` is different from parameter 'body' overriddenin `spoon.support.reflect.declaration.CtExecutableImpl`
 - Parameter name `defaultExpression` is different from parameter 'assignedExpression' overriddenin `spoon.support.reflect.declaration.CtFieldImpl`
 - Parameter name `v` is different from parameter 'visitor' overriddenin `spoon.support.reflect.declaration.CtFieldImpl`
 - Parameter name `v` is different from parameter 'visitor' overriddenin `spoon.support.reflect.declaration.CtMethodImpl`
-- Parameter name `consumedServices` is different from parameter 'usedServices' overriddenin `spoon.support.reflect.declaration.CtModuleImpl`
 - Parameter name `consumedService` is different from parameter 'usedService' overriddenin `spoon.support.reflect.declaration.CtModuleImpl`
+- Parameter name `consumedServices` is different from parameter 'usedServices' overriddenin `spoon.support.reflect.declaration.CtModuleImpl`
 - Parameter name `targetExports` is different from parameter 'targetExport' overriddenin `spoon.support.reflect.declaration.CtPackageExportImpl`
+- Parameter name `packs` is different from parameter 'pack' overriddenin `spoon.support.reflect.declaration.CtPackageImpl`
 - Parameter name `v` is different from parameter 'visitor' overriddenin `spoon.support.reflect.declaration.CtPackageImpl`
 - Parameter name `simpleName` is different from parameter 'name' overriddenin `spoon.support.reflect.declaration.CtPackageImpl`
-- Parameter name `packs` is different from parameter 'pack' overriddenin `spoon.support.reflect.declaration.CtPackageImpl`
 - Parameter name `defaultExpression` is different from parameter 'assignedExpression' overriddenin `spoon.support.reflect.declaration.CtParameterImpl`
 - Parameter name `v` is different from parameter 'visitor' overriddenin `spoon.support.reflect.declaration.CtParameterImpl`
 - Parameter name `superTypeRef` is different from parameter 'type' overriddenin `spoon.support.reflect.declaration.CtTypeParameterImpl`
@@ -285,8 +285,8 @@
 - Parameter name `declaringType` is different from parameter 'type' overriddenin `spoon.support.reflect.reference.CtTypeReferenceImpl`
 - Parameter name `compilationUnit` is different from parameter 'sourceCompilationUnit' overriddenin `spoon.support.sniper.SniperJavaPrettyPrinter`
 - Parameter name `element` is different from parameter 'e' overriddenin `spoon.support.sniper.SniperJavaPrettyPrinter`
-- Parameter name `obj` is different from parameter 'o' overriddenin `spoon.support.util.EmptyClearableList`
 - Parameter name `index` is different from parameter 'i' overriddenin `spoon.support.util.EmptyClearableList`
+- Parameter name `obj` is different from parameter 'o' overriddenin `spoon.support.util.EmptyClearableList`
 - Parameter name `obj` is different from parameter 'o' overriddenin `spoon.support.util.EmptyClearableSet`
 - Parameter name `index` is different from parameter 'i' overriddenin `spoon.support.util.ModelList`
 - Parameter name `o` is different from parameter 'e' overriddenin `spoon.support.util.SortedList`

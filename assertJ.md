@@ -1,9 +1,6 @@
 # Change Log
 ## The following bad smells are found in the code:
-### EmptyStringCheck
-- Empty String check was written as `c.getSimpleName().equals("")` and refactored to `c.getSimpleName().isEmpty()`in `org.assertj.core.presentation.StandardRepresentation`
-- Empty String check was written as `extension.equals("")` and refactored to `extension.isEmpty()`in `org.assertj.core.util.Files`
-### NonProtectedConstructorInAbstractClass
+### Non-Protected-Constructor-in-Abstract-Class
 - Constructor `AbstractDoubleAssert()` of an abstract class should not be declared 'public'in `org.assertj.core.api.AbstractDoubleAssert`
 - Constructor `AbstractFloatAssert()` of an abstract class should not be declared 'public'in `org.assertj.core.api.AbstractFloatAssert`
 - Constructor `AbstractObjectAssert()` of an abstract class should not be declared 'public'in `org.assertj.core.api.AbstractObjectAssert`
@@ -17,72 +14,75 @@
 - Constructor `TypeHolder()` of an abstract class should not be declared 'public'in `org.assertj.core.internal.TypeHolder`
 - Constructor `Delta()` of an abstract class should not be declared 'public'in `org.assertj.core.util.diff.Delta`
 - Constructor `PathNode()` of an abstract class should not be declared 'public'in `org.assertj.core.util.diff.myers.PathNode`
+### EmptyStringCheck
+- Empty String check was written as `c.getSimpleName().equals("")` and refactored to `c.getSimpleName().isEmpty()`in `org.assertj.core.presentation.StandardRepresentation`
+- Empty String check was written as `extension.equals("")` and refactored to `extension.isEmpty()`in `org.assertj.core.util.Files`
 ### ParameterNameDiffersFromOverriddenParameter
+- Parameter name `expected` is different from parameter 'boundary' overriddenin `org.assertj.core.api.AbstractCharSequenceAssert`
+- Parameter name `expected` is different from parameter 'boundary' overriddenin `org.assertj.core.api.AbstractCharSequenceAssert`
 - Parameter name `expected` is different from parameter 'boundary' overriddenin `org.assertj.core.api.AbstractCharSequenceAssert`
 - Parameter name `other` is different from parameter 'array' overriddenin `org.assertj.core.api.AbstractCharSequenceAssert`
 - Parameter name `expected` is different from parameter 'boundary' overriddenin `org.assertj.core.api.AbstractCharSequenceAssert`
-- Parameter name `expected` is different from parameter 'boundary' overriddenin `org.assertj.core.api.AbstractCharSequenceAssert`
-- Parameter name `expected` is different from parameter 'boundary' overriddenin `org.assertj.core.api.AbstractCharSequenceAssert`
 - Parameter name `other` is different from parameter 'array' overriddenin `org.assertj.core.api.AbstractEnumerableAssert`
 - Parameter name `instantAsString` is different from parameter 'temporalAsString' overriddenin `org.assertj.core.api.AbstractInstantAssert`
-- Parameter name `subsequence` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractIterableAssert`
-- Parameter name `types` is different from parameter 'expectedTypes' overriddenin `org.assertj.core.api.AbstractIterableAssert`
 - Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractIterableAssert`
 - Parameter name `requirements` is different from parameter 'allRequirements' overriddenin `org.assertj.core.api.AbstractIterableAssert`
-- Parameter name `requirements` is different from parameter 'allRequirements' overriddenin `org.assertj.core.api.AbstractIterableAssert`
+- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractIterableAssert`
 - Parameter name `other` is different from parameter 'array' overriddenin `org.assertj.core.api.AbstractIterableAssert`
+- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractIterableAssert`
+- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractIterableAssert`
+- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractIterableAssert`
+- Parameter name `types` is different from parameter 'expectedTypes' overriddenin `org.assertj.core.api.AbstractIterableAssert`
 - Parameter name `requirements` is different from parameter 'allRequirements' overriddenin `org.assertj.core.api.AbstractIterableAssert`
-- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractIterableAssert`
-- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractIterableAssert`
+- Parameter name `requirements` is different from parameter 'allRequirements' overriddenin `org.assertj.core.api.AbstractIterableAssert`
 - Parameter name `subsequence` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractIterableAssert`
-- Parameter name `requirements` is different from parameter 'allRequirements' overriddenin `org.assertj.core.api.AbstractIterableAssert`
 - Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractIterableAssert`
 - Parameter name `elementComparator` is different from parameter 'customComparator' overriddenin `org.assertj.core.api.AbstractIterableAssert`
 - Parameter name `rest` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractIterableAssert`
 - Parameter name `subsequence` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractIterableAssert`
-- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractIterableAssert`
-- Parameter name `subsequence` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractIterableAssert`
 - Parameter name `types` is different from parameter 'expectedTypes' overriddenin `org.assertj.core.api.AbstractIterableAssert`
-- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractIterableAssert`
+- Parameter name `subsequence` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractIterableAssert`
+- Parameter name `requirements` is different from parameter 'allRequirements' overriddenin `org.assertj.core.api.AbstractIterableAssert`
+- Parameter name `subsequence` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractIterableAssert`
 - Parameter name `customComparator` is different from parameter 'elementComparator' overriddenin `org.assertj.core.api.AbstractListAssert`
 - Parameter name `localDateAsString` is different from parameter 'temporalAsString' overriddenin `org.assertj.core.api.AbstractLocalDateAssert`
-- Parameter name `localDateTimeAsString` is different from parameter 'temporalAsString' overriddenin `org.assertj.core.api.AbstractLocalDateTimeAssert`
 - Parameter name `other` is different from parameter 'expected' overriddenin `org.assertj.core.api.AbstractLocalDateTimeAssert`
+- Parameter name `localDateTimeAsString` is different from parameter 'temporalAsString' overriddenin `org.assertj.core.api.AbstractLocalDateTimeAssert`
 - Parameter name `localTimeAsString` is different from parameter 'temporalAsString' overriddenin `org.assertj.core.api.AbstractLocalTimeAssert`
 - Parameter name `other` is different from parameter 'array' overriddenin `org.assertj.core.api.AbstractMapAssert`
+- Parameter name `type` is different from parameter 'expectedType' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
+- Parameter name `subsequence` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
+- Parameter name `requirements` is different from parameter 'allRequirements' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
 - Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
+- Parameter name `type` is different from parameter 'expectedType' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
+- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
+- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
+- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
+- Parameter name `subsequence` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
+- Parameter name `requirements` is different from parameter 'allRequirements' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
 - Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
 - Parameter name `elementComparator` is different from parameter 'customComparator' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
-- Parameter name `requirements` is different from parameter 'allRequirements' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
-- Parameter name `type` is different from parameter 'expectedType' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
-- Parameter name `subsequence` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
-- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
 - Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
 - Parameter name `subsequence` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
 - Parameter name `requirements` is different from parameter 'allRequirements' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
-- Parameter name `requirements` is different from parameter 'allRequirements' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
 - Parameter name `subsequence` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
-- Parameter name `other` is different from parameter 'array' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
 - Parameter name `requirements` is different from parameter 'allRequirements' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
-- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
-- Parameter name `type` is different from parameter 'expectedType' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
-- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
-- Parameter name `subsequence` is different from parameter 'sequence' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
 - Parameter name `types` is different from parameter 'expectedTypes' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
+- Parameter name `other` is different from parameter 'array' overriddenin `org.assertj.core.api.AbstractObjectArrayAssert`
 - Parameter name `offsetDateTimeAsString` is different from parameter 'temporalAsString' overriddenin `org.assertj.core.api.AbstractOffsetDateTimeAssert`
 - Parameter name `other` is different from parameter 'expected' overriddenin `org.assertj.core.api.AbstractOffsetDateTimeAssert`
 - Parameter name `offsetTimeAsString` is different from parameter 'temporalAsString' overriddenin `org.assertj.core.api.AbstractOffsetTimeAssert`
-- Parameter name `expected` is different from parameter 'other' overriddenin `org.assertj.core.api.AbstractZonedDateTimeAssert`
 - Parameter name `dateTimeAsString` is different from parameter 'temporalAsString' overriddenin `org.assertj.core.api.AbstractZonedDateTimeAssert`
+- Parameter name `expected` is different from parameter 'other' overriddenin `org.assertj.core.api.AbstractZonedDateTimeAssert`
 - Parameter name `expectedValue` is different from parameter 'expectedReference' overriddenin `org.assertj.core.api.AtomicMarkableReferenceAssert`
-- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AtomicReferenceArrayAssert`
-- Parameter name `types` is different from parameter 'expectedTypes' overriddenin `org.assertj.core.api.AtomicReferenceArrayAssert`
 - Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AtomicReferenceArrayAssert`
 - Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AtomicReferenceArrayAssert`
 - Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AtomicReferenceArrayAssert`
 - Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AtomicReferenceArrayAssert`
 - Parameter name `other` is different from parameter 'array' overriddenin `org.assertj.core.api.AtomicReferenceArrayAssert`
 - Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AtomicReferenceArrayAssert`
+- Parameter name `times` is different from parameter 'n' overriddenin `org.assertj.core.api.AtomicReferenceArrayAssert`
+- Parameter name `types` is different from parameter 'expectedTypes' overriddenin `org.assertj.core.api.AtomicReferenceArrayAssert`
 - Parameter name `expectedValue` is different from parameter 'expectedReference' overriddenin `org.assertj.core.api.AtomicStampedReferenceAssert`
 - Parameter name `types` is different from parameter 'map' overriddenin `org.assertj.core.api.ClassLoadingStrategyFactory`
 - Parameter name `newDescription` is different from parameter 'description' overriddenin `org.assertj.core.api.Condition`
@@ -90,8 +90,8 @@
 - Parameter name `expected` is different from parameter 'other' overriddenin `org.assertj.core.api.ListAssert`
 - Parameter name `base` is different from parameter 'statement' overriddenin `org.assertj.core.api.SoftAssertionsRule`
 - Parameter name `input` is different from parameter 't' overriddenin `org.assertj.core.api.ThrowingConsumer`
-- Parameter name `assertionErrorCollector` is different from parameter 'delegate' overriddenin `org.assertj.core.api.junit.jupiter.SoftAssertionsExtension`
 - Parameter name `assertionError` is different from parameter 'error' overriddenin `org.assertj.core.api.junit.jupiter.SoftAssertionsExtension`
+- Parameter name `assertionErrorCollector` is different from parameter 'delegate' overriddenin `org.assertj.core.api.junit.jupiter.SoftAssertionsExtension`
 - Parameter name `context` is different from parameter 'extensionContext' overriddenin `org.assertj.core.api.junit.jupiter.SoftAssertionsExtension`
 - Parameter name `testInstance` is different from parameter 'o' overriddenin `org.assertj.core.api.junit.jupiter.SoftAssertionsExtension`
 - Parameter name `context` is different from parameter 'extensionContext' overriddenin `org.assertj.core.api.junit.jupiter.SoftAssertionsExtension`
@@ -100,8 +100,8 @@
 - Parameter name `other` is different from parameter 'obj' overriddenin `org.assertj.core.api.recursive.comparison.DualValue`
 - Parameter name `o` is different from parameter 'obj' overriddenin `org.assertj.core.api.recursive.comparison.FieldHolder`
 - Parameter name `objectUnderTest` is different from parameter 'value' overriddenin `org.assertj.core.condition.VerboseCondition`
-- Parameter name `value` is different from parameter 'v' overriddenin `org.assertj.core.data.MapEntry`
 - Parameter name `object` is different from parameter 'obj' overriddenin `org.assertj.core.data.MapEntry`
+- Parameter name `value` is different from parameter 'v' overriddenin `org.assertj.core.data.MapEntry`
 - Parameter name `start` is different from parameter 'i' overriddenin `org.assertj.core.description.JoinDescription`
 - Parameter name `end` is different from parameter 'i1' overriddenin `org.assertj.core.description.JoinDescription`
 - Parameter name `o` is different from parameter 'obj' overriddenin `org.assertj.core.description.JoinDescription`
