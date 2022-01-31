@@ -61,7 +61,9 @@ public class NonProtectedConstructorInAbstractClass extends AbstractRefactoring 
 				annotations.add(new NewLineAnnotation<>());
 				constructor.setAnnotations(annotations);
 				listener.setChanged(type.getTopLevelType(),
-					new Change(result.getMessage().getMarkdown(), result.getRuleId(), type.getTopLevelType()));
+					new Change(NON_PROTECTED_CONSTRUCTOR_IN_ABSTRACT_CLASS,
+						MarkdownString.fromMarkdown(result.getMessage().getText(), result.getMessage().getMarkdown()),
+						type.getTopLevelType()));
 			}
 		}
 	}

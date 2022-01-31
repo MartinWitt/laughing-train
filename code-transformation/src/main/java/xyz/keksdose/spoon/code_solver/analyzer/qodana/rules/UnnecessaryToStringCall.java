@@ -57,7 +57,9 @@ public class UnnecessaryToStringCall extends AbstractRefactoring {
 				toStringInvocations.replace(toStringInvocations.getTarget());
 				toStringInvocations.getParent().replace(toStringInvocations.getParent().clone());
 				listener.setChanged(type.getTopLevelType(),
-					new Change(result.getMessage().getMarkdown(), result.getRuleId(), type.getTopLevelType()));
+					new Change(UNNECESSARY_TO_STRING_CALL,
+						MarkdownString.fromMarkdown(result.getMessage().getText(), result.getMessage().getMarkdown()),
+						type.getTopLevelType()));
 
 			}
 		}
