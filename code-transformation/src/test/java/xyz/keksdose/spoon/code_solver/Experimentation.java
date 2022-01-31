@@ -48,7 +48,7 @@ public class Experimentation {
 					.applyToGivenPath(Path.of(file.getAbsolutePath(), "/src/main/java").toString());
 			File output = new File("../mining/" + repoName + ".md");
 			createMarkdown(changes, output.toPath());
-			FileUtils.deleteDirectory(file);
+			// FileUtils.deleteDirectory(file);
 			logger.atInfo().log("Finished mining %s", repoName);
 		}
 		catch (Throwable e) {
