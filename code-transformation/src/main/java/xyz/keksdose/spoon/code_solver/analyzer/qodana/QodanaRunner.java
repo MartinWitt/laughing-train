@@ -34,6 +34,8 @@ import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import com.google.common.flogger.FluentLogger;
 
+import org.apache.commons.io.FileUtils;
+
 class QodanaRunner {
 
 	private static final String RESULTS_PATH = "./.results/";
@@ -68,6 +70,8 @@ class QodanaRunner {
 				CreateContainerResponse container = createQodanaContainer(dockerClient, qodana, hostConfig);
 				List<Result> results = startQodanaContainer(dockerClient, container);
 				// cleanUpContainer(dockerClient, container);
+				FileUtils.deleteDirectory(Path.of(RESULTS_PATH).toFile());
+				FileUtils.deleteDirectory(Path.of(CACHE_PATH).toFile());
 				Files.deleteIfExists(Path.of(sourceRoot.toString(), "qodana.yaml"));
 				return results;
 			}
