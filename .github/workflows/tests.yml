@@ -1,4 +1,4 @@
-name: Java CI with Gradle
+name: Test
 
 on:
   push:
@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
@@ -20,6 +18,5 @@ jobs:
         distribution: 'adopt'
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
-
     - name: Execute Gradle build
       run: ./gradlew build

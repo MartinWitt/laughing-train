@@ -14,6 +14,7 @@ import xyz.keksdose.spoon.code_solver.history.MarkdownString;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
+import xyz.keksdose.spoon.code_solver.util.Nullsafe;
 
 public class ArraysToString extends TransformationProcessor<CtInvocation<?>> {
 
@@ -79,7 +80,7 @@ public class ArraysToString extends TransformationProcessor<CtInvocation<?>> {
 	}
 
 	private boolean isArrayTarget(CtInvocation<?> invocation) {
-		return invocation.getTarget() != null && invocation.getTarget().getType().isArray();
+		return Nullsafe.get(() -> invocation.getTarget() != null && invocation.getTarget().getType().isArray(), false);
 	}
 
 	@Override

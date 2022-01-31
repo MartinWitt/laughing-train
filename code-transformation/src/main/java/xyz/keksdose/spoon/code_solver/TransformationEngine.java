@@ -1,6 +1,7 @@
 
 package xyz.keksdose.spoon.code_solver;
 
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -13,6 +14,7 @@ import spoon.compiler.Environment;
 import spoon.processing.ProcessingManager;
 import spoon.reflect.CtModel;
 import spoon.reflect.declaration.CtType;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
 import xyz.keksdose.spoon.code_solver.printing.ChangedTypePrinting;
@@ -70,6 +72,9 @@ public class TransformationEngine {
 		ChangeListener listener = new ChangeListener();
 		ProcessingManager pm = new RepeatingProcessingManager(launcher.getFactory(), listener);
 		addProcessors(pm, listener);
+		QodanaRefactor refactor = new QodanaRefactor(listener);
+		refactor.run(Path.of(path));
+		pm.addProcessor(refactor);
 		pm.process(model.getAllTypes());
 		Collection<CtType<?>> newTypes = model.getAllTypes();
 		printing.printChangedTypes(listener, newTypes);

@@ -1,6 +1,8 @@
 
 package xyz.keksdose.spoon.code_solver.spoon;
 
+import java.lang.annotation.Annotation;
+
 import spoon.compiler.Environment;
 import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtCompilationUnit;
@@ -68,7 +70,6 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
 	*/
 	private void writeAnnotations(CtElement element) {
 		for (CtAnnotation<?> annotation : element.getAnnotations()) {
-
 			// if element is a type reference and the parent is a typed element
 			// which contains exactly the same annotation, then we are certainly in this case:
 			// @myAnnotation String myField
@@ -87,6 +88,13 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
 			else {
 				getPrinterTokenWriter().writeln();
 			}
+		}
+	}
+
+	@Override
+	public <A extends Annotation> void visitCtAnnotation(CtAnnotation<A> annotation) {
+		if (!(annotation instanceof NewLineAnnotation)) {
+			super.visitCtAnnotation(annotation);
 		}
 	}
 }

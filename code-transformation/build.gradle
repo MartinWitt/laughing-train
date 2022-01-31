@@ -37,7 +37,9 @@ dependencies {
 	implementation 'com.google.flogger:flogger-system-backend:0.7.4'
 	implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.3.0-alpha12'
 	testImplementation "com.google.truth:truth:1.1.3"
-
+	implementation "com.github.docker-java:docker-java-core:+"
+	implementation "com.github.docker-java:docker-java-transport-httpclient5:+"
+	implementation "com.contrastsecurity:java-sarif:+"
 }
 
 application {
@@ -45,10 +47,7 @@ application {
 	mainClass = 'xyz.keksdose.spoon.code_solver.TransformationEngine'
 }
 
-tasks.named('test') {
-	// Use JUnit Platform for unit tests.
-	useJUnitPlatform()
-}
+
 spotless {
 	format 'misc', {
 		// define the files to apply `misc` to
@@ -94,6 +93,18 @@ jreleaser {
 			artifact {
 				path = 'build/distributions/code-transformation-{{projectVersion}}.zip'
 			}
+		}
+	}
+
+	def test = tasks.named("test") {
+		useJUnitPlatform {
+			excludeTags "Mining"
+		}
+	}
+
+	def mining = tasks.register("mining", Test) {
+		useJUnitPlatform {
+			includeTags "Mining"
 		}
 	}
 }

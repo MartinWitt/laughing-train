@@ -6,6 +6,7 @@ import static java.lang.String.format;
 import java.util.List;
 
 import spoon.reflect.code.CtInvocation;
+import spoon.reflect.code.CtLambda;
 import spoon.reflect.code.CtTypeAccess;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.history.Change;
@@ -37,7 +38,7 @@ public class StaticAccess extends TransformationProcessor<CtInvocation<?>> {
 
 	@Override
 	public void process(CtInvocation<?> invocation) {
-		if (invocation.getTarget() == null) {
+		if (invocation.getTarget() == null || invocation.getExecutable().getDeclaringType() == null) {
 			return;
 		}
 		if (isStaticInvocation(invocation) && !isTypeAccess(invocation)) {
@@ -65,7 +66,8 @@ public class StaticAccess extends TransformationProcessor<CtInvocation<?>> {
 	}
 
 	private boolean isStaticInvocation(CtInvocation<?> invocation) {
-		return Nullsafe.get(() -> invocation.getExecutable().isStatic(), false);
+		return Nullsafe.get(() -> invocation.getExecutable().isStatic(), false)
+				&& invocation.getParent(CtLambda.class) == null;
 	}
 
 	@Override
