@@ -10,9 +10,9 @@
 - Parameter name `element` is different from parameter 'e' overriddenin `sorald.processor.SoraldAbstractProcessor`
 - Parameter name `metricKey` is different from parameter 's' overriddenin `sorald.sonar.RuleVerifier`
 - Parameter name `line` is different from parameter 'i' overriddenin `sorald.sonar.RuleVerifier`
-- Parameter name `value` is different from parameter 'i1' overriddenin `sorald.sonar.RuleVerifier`
+- Parameter name `value` is different from parameter 's1' overriddenin `sorald.sonar.RuleVerifier`
 - Parameter name `metricKey` is different from parameter 's' overriddenin `sorald.sonar.RuleVerifier`
 - Parameter name `line` is different from parameter 'i' overriddenin `sorald.sonar.RuleVerifier`
-- Parameter name `value` is different from parameter 's1' overriddenin `sorald.sonar.RuleVerifier`
+- Parameter name `value` is different from parameter 'i1' overriddenin `sorald.sonar.RuleVerifier`
 - Parameter name `o` is different from parameter 'obj' overriddenin `sorald.sonar.SonarRule`
 - Parameter name `rules` is different from parameter 'rule' overriddenin `sorald.sonar.SonarStaticAnalyzer`
