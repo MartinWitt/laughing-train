@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -18,14 +19,14 @@ import com.contrastsecurity.sarif.Result;
 import com.contrastsecurity.sarif.SarifSchema210;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.async.ResultCallbackTemplate;
 import com.github.dockerjava.api.command.CreateContainerResponse;
-import com.github.dockerjava.api.command.CreateVolumeResponse;
 import com.github.dockerjava.api.command.WaitContainerResultCallback;
 import com.github.dockerjava.api.model.Bind;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Image;
-import com.github.dockerjava.api.model.Mount;
 import com.github.dockerjava.api.model.Volume;
+import com.github.dockerjava.api.model.WaitResponse;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.core.DockerClientImpl;
@@ -82,12 +83,26 @@ class QodanaRunner {
 		dockerClient.removeContainerCmd(container.getId()).withRemoveVolumes(true).exec();
 	}
 
-	private void startQodanaContainer(DockerClient dockerClient, CreateContainerResponse container)
+	private List<Result> startQodanaContainer(DockerClient dockerClient, CreateContainerResponse container)
 			throws InterruptedException {
 		dockerClient.startContainerCmd(container.getId()).exec();
-		WaitContainerResultCallback exec = dockerClient.waitContainerCmd(container.getId())
-				.exec(new WaitContainerResultCallback());
-		exec.awaitCompletion();
+		// WaitContainerResultCallback exec = dockerClient.waitContainerCmd(container.getId())
+		// 		.exec(new WaitContainerResultCallback());
+		List<Result> results = new ArrayList<>();
+		dockerClient.waitContainerCmd(container.getId())
+				.exec(new ResultCallbackTemplate<WaitContainerResultCallback, WaitResponse>() {
+					@Override
+					public void onNext(WaitResponse object) {
+						try {
+							results.addAll(parseSarif(Path.of(resultPathString)));
+						}
+						catch (IOException e) {
+							logger.atSevere().withCause(e).log("Could not parse sarif");
+						}
+					}
+				})
+				.awaitCompletion();
+		return results;
 	}
 
 	private CreateContainerResponse createQodanaContainer(DockerClient dockerClient, Optional<Image> qodana,
@@ -107,8 +122,7 @@ class QodanaRunner {
 		Bind bind = new Bind(sourceRoot.toFile().getAbsolutePath(), sourceFile);
 		Bind resultsBind = new Bind(new File(RESULTS_PATH).getAbsolutePath(), targetFile);
 		Bind cacheBind = new Bind(new File(CACHE_PATH).getAbsolutePath(), cacheDir);
-		Mount mount = new Mount().withSource(new File(RESULTS_PATH).getAbsolutePath()).withTarget("/data/results/");
-		return HostConfig.newHostConfig().withBinds(bind, cacheBind).withMounts(List.of(mount));
+		return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind);
 	}
 
 	private Optional<Image> findQodanaImage(DockerClient dockerClient) {
