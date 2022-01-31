@@ -20,8 +20,8 @@ jobs:
         distribution: 'adopt'
     - name: docker pull
       run: docker pull jetbrains/qodana-jvm-community:2021.3
-    - name: Setup Gradle
-      run: cd code-transformation && ../gradlew mining -i
+    - name: mine projects
+      run: cd code-transformation && sudo  ../gradlew mining -i
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4.2.2
       with:
