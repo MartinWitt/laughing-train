@@ -86,17 +86,18 @@ class QodanaRunner {
 	private List<Result> startQodanaContainer(DockerClient dockerClient, CreateContainerResponse container)
 			throws InterruptedException {
 		dockerClient.startContainerCmd(container.getId()).exec();
-		// WaitContainerResultCallback exec = dockerClient.waitContainerCmd(container.getId())
-		// 		.exec(new WaitContainerResultCallback());
+		WaitContainerResultCallback exec = dockerClient.waitContainerCmd(container.getId())
+				.exec(new WaitContainerResultCallback());
 		List<Result> results = new ArrayList<>();
 		dockerClient.waitContainerCmd(container.getId())
 				.exec(new ResultCallbackTemplate<WaitContainerResultCallback, WaitResponse>() {
 					@Override
 					public void onNext(WaitResponse object) {
 						try {
+							exec.awaitCompletion();
 							results.addAll(parseSarif(Path.of(resultPathString)));
 						}
-						catch (IOException e) {
+						catch (IOException | InterruptedException e) {
 							logger.atSevere().withCause(e).log("Could not parse sarif");
 						}
 					}
