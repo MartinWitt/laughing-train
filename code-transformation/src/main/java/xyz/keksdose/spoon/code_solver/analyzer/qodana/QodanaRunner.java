@@ -10,7 +10,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -20,10 +19,12 @@ import com.contrastsecurity.sarif.SarifSchema210;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.CreateContainerResponse;
+import com.github.dockerjava.api.command.CreateVolumeResponse;
 import com.github.dockerjava.api.command.WaitContainerResultCallback;
 import com.github.dockerjava.api.model.Bind;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Image;
+import com.github.dockerjava.api.model.Mount;
 import com.github.dockerjava.api.model.Volume;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientConfig;
@@ -67,9 +68,7 @@ class QodanaRunner {
 				startQodanaContainer(dockerClient, container);
 				List<Result> results = parseSarif(resultPath);
 				cleanUpContainer(dockerClient, container);
-				//FileUtils.deleteDirectory(Path.of(CACHE_PATH).toFile());
 				Files.deleteIfExists(Path.of(sourceRoot.toString(), "qodana.yaml"));
-				// FileUtils.deleteDirectory(Path.of(RESULTS_PATH).toFile());
 				return results;
 			}
 		}
@@ -108,7 +107,8 @@ class QodanaRunner {
 		Bind bind = new Bind(sourceRoot.toFile().getAbsolutePath(), sourceFile);
 		Bind resultsBind = new Bind(new File(RESULTS_PATH).getAbsolutePath(), targetFile);
 		Bind cacheBind = new Bind(new File(CACHE_PATH).getAbsolutePath(), cacheDir);
-		return HostConfig.newHostConfig().withBinds(bind, resultsBind, cacheBind);
+		Mount mount = new Mount().withSource(new File(RESULTS_PATH).getAbsolutePath()).withTarget("/data/results/");
+		return HostConfig.newHostConfig().withBinds(bind, cacheBind).withMounts(List.of(mount));
 	}
 
 	private Optional<Image> findQodanaImage(DockerClient dockerClient) {
