@@ -97,7 +97,7 @@ class QodanaRunner {
 				.withHostConfig(hostConfig)
 				.withAttachStderr(true)
 				.withAttachStdout(true)
-				.withCmd("-d", "./src/main/java")
+				.withCmd("-d", "./src/main/java", "-it", "--rm")
 				.exec();
 	}
 
