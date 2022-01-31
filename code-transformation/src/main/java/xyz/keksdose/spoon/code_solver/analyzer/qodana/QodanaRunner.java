@@ -112,7 +112,7 @@ class QodanaRunner {
 				.withHostConfig(hostConfig)
 				.withAttachStderr(true)
 				.withAttachStdout(true)
-				.withCmd("-d", "./src/main/java", "-it", "--rm")
+				.withCmd("-d", "./src/main/java")
 				.exec();
 	}
 
@@ -123,7 +123,7 @@ class QodanaRunner {
 		Bind bind = new Bind(sourceRoot.toFile().getAbsolutePath(), sourceFile);
 		Bind resultsBind = new Bind(new File(RESULTS_PATH).getAbsolutePath(), targetFile);
 		Bind cacheBind = new Bind(new File(CACHE_PATH).getAbsolutePath(), cacheDir);
-		return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind);
+		return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind).withAutoRemove(true);
 	}
 
 	private Optional<Image> findQodanaImage(DockerClient dockerClient) {
