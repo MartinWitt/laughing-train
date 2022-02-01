@@ -12,6 +12,7 @@ import com.contrastsecurity.sarif.Result;
 
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.AbstractRefactoring;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.MethodMayBeStatic;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.NonProtectedConstructorInAbstractClass;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.ParameterNameDiffersFromOverriddenParameter;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryInterfaceModifier;
@@ -41,6 +42,7 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 		ruleParser.put("NonProtectedConstructorInAbstractClass", NonProtectedConstructorInAbstractClass::new);
 		ruleParser.put("UnnecessaryInterfaceModifier", UnnecessaryInterfaceModifier::new);
 		ruleParser.put("ParameterNameDiffersFromOverriddenParameter", ParameterNameDiffersFromOverriddenParameter::new);
+		ruleParser.put("MethodMayBeStatic", MethodMayBeStatic::new);
 	}
 
 	/**
@@ -63,5 +65,4 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 			refactoring.refactor(listener, type);
 		}
 	}
-
 }
