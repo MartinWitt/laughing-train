@@ -6,8 +6,8 @@
 - Modifier `public` is redundant for interface methodsin `sorald.annotations.ProcessorAnnotation`
 - Modifier `public` is redundant for interface methodsin `sorald.annotations.ProcessorAnnotation`
 ### ParameterNameDiffersFromOverriddenParameter
-- Parameter name `element` is different from parameter 'candidate' overriddenin `sorald.processor.SoraldAbstractProcessor`
 - Parameter name `element` is different from parameter 'e' overriddenin `sorald.processor.SoraldAbstractProcessor`
+- Parameter name `element` is different from parameter 'candidate' overriddenin `sorald.processor.SoraldAbstractProcessor`
 - Parameter name `metricKey` is different from parameter 's' overriddenin `sorald.sonar.RuleVerifier`
 - Parameter name `line` is different from parameter 'i' overriddenin `sorald.sonar.RuleVerifier`
 - Parameter name `value` is different from parameter 's1' overriddenin `sorald.sonar.RuleVerifier`
