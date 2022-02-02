@@ -82,7 +82,7 @@ class QodanaRunner {
 		return List.of();
 	}
 
-	private void cleanUpContainer(DockerClient dockerClient, CreateContainerResponse container) {
+	private static void cleanUpContainer(DockerClient dockerClient, CreateContainerResponse container) {
 		dockerClient.removeContainerCmd(container.getId()).withRemoveVolumes(true).exec();
 	}
 
@@ -109,7 +109,7 @@ class QodanaRunner {
 		return results;
 	}
 
-	private CreateContainerResponse createQodanaContainer(DockerClient dockerClient, Optional<Image> qodana,
+	private static CreateContainerResponse createQodanaContainer(DockerClient dockerClient, Optional<Image> qodana,
 			HostConfig hostConfig) {
 		return dockerClient.createContainerCmd(qodana.get().getId())
 				.withHostConfig(hostConfig)
@@ -119,7 +119,7 @@ class QodanaRunner {
 				.exec();
 	}
 
-	private HostConfig createHostConfig(Path sourceRoot) {
+	private static HostConfig createHostConfig(Path sourceRoot) {
 		Volume sourceFile = new Volume("/data/project/");
 		Volume targetFile = new Volume("/data/results/");
 		Volume cacheDir = new Volume("/data/cache/");
@@ -134,7 +134,7 @@ class QodanaRunner {
 		return images.stream().filter(v -> Arrays.asList(v.getRepoTags()).contains(qodanaImageName)).findFirst();
 	}
 
-	private ApacheDockerHttpClient createHttpClient(DockerClientConfig standard) {
+	private static ApacheDockerHttpClient createHttpClient(DockerClientConfig standard) {
 		return new ApacheDockerHttpClient.Builder().dockerHost(standard.getDockerHost())
 				.sslConfig(standard.getSSLConfig())
 				.maxConnections(100)
@@ -143,7 +143,7 @@ class QodanaRunner {
 				.build();
 	}
 
-	private Path fixWindowsPath(Path sourceRoot) {
+	private static Path fixWindowsPath(Path sourceRoot) {
 		if (sourceRoot.toFile().toPath().toString().endsWith(Path.of("/src/main/java").toString())) {
 			if (sourceRoot.getRoot() == null) {
 				sourceRoot = sourceRoot.subpath(0, sourceRoot.getNameCount() - 3);
@@ -156,7 +156,7 @@ class QodanaRunner {
 		return sourceRoot;
 	}
 
-	private List<Result> parseSarif(Path resultPath) throws IOException {
+	private static List<Result> parseSarif(Path resultPath) throws IOException {
 		StringReader reader = new StringReader(Files.readString(resultPath));
 		ObjectMapper mapper = new ObjectMapper();
 		SarifSchema210 sarif = mapper.readValue(reader, SarifSchema210.class);
