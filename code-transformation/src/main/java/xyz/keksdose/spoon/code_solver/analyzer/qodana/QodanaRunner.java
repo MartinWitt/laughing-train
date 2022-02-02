@@ -38,25 +38,27 @@ import org.apache.commons.io.FileUtils;
 
 class QodanaRunner {
 
-	private static final String RESULTS_PATH = "./.results/";
-	private static final String CACHE_PATH = "./.laughing/";
 	private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-	private String qodanaImageName = "jetbrains/qodana-jvm-community:2021.3";
-	private String resultPathString = RESULTS_PATH + "qodana.sarif.json";
+	private String resultFolder;
+	private String cacheFolder;
+	private String qodanaImageName;
+	private String resultPathString;
+	private boolean removeResultDir = true;
+	private String sourceFileRoot = "./src/main/java";
+
+	private QodanaRunner(Builder builder) {
+		this.resultFolder = builder.resultFolder;
+		this.cacheFolder = builder.cacheFolder;
+		this.qodanaImageName = builder.qodanaImageName;
+		this.resultPathString = builder.resultPathString;
+		this.removeResultDir = builder.removeResultDir;
+		this.sourceFileRoot = builder.sourceFileRoot;
+	}
 
 	public List<Result> runQodana(Path sourceRoot) {
+		sourceRoot = fixWindowsPath(sourceRoot);
 		logger.atInfo().log("Running Qodana on %s", sourceRoot);
-		try {
-			sourceRoot = fixWindowsPath(sourceRoot);
-			File qodanaRules = new File(this.getClass().getResource("/qodana.yml").toURI());
-			File copyQodanaRules = new File(sourceRoot.toString(), "qodana.yaml");
-			Files.writeString(copyQodanaRules.toPath(), Files.readString(qodanaRules.toPath()),
-				StandardOpenOption.CREATE);
-
-		}
-		catch (URISyntaxException | IOException e1) {
-			logger.atSevere().withCause(e1).log("Could not write qodana.yaml");
-		}
+		copyQodanaRules(sourceRoot);
 		DockerClientConfig standard = DefaultDockerClientConfig.createDefaultConfigBuilder().build();
 		DockerHttpClient httpClient = createHttpClient(standard);
 		try (DockerClient dockerClient = DockerClientImpl.getInstance(standard, httpClient);) {
@@ -66,14 +68,7 @@ class QodanaRunner {
 			}
 			Optional<Image> qodana = findQodanaImage(dockerClient);
 			if (qodana.isPresent()) {
-				HostConfig hostConfig = createHostConfig(sourceRoot);
-				CreateContainerResponse container = createQodanaContainer(dockerClient, qodana, hostConfig);
-				List<Result> results = startQodanaContainer(dockerClient, container);
-				// cleanUpContainer(dockerClient, container);
-				FileUtils.deleteDirectory(Path.of(RESULTS_PATH).toFile());
-				FileUtils.deleteDirectory(Path.of(CACHE_PATH).toFile());
-				Files.deleteIfExists(Path.of(sourceRoot.toString(), "qodana.yaml"));
-				return results;
+				return executeQodana(sourceRoot, dockerClient, qodana);
 			}
 		}
 		catch (Exception e) {
@@ -82,8 +77,42 @@ class QodanaRunner {
 		return List.of();
 	}
 
-	private void cleanUpContainer(DockerClient dockerClient, CreateContainerResponse container) {
-		dockerClient.removeContainerCmd(container.getId()).withRemoveVolumes(true).exec();
+	private List<Result> executeQodana(Path sourceRoot, DockerClient dockerClient, Optional<Image> qodana)
+			throws InterruptedException, IOException {
+		HostConfig hostConfig = createHostConfig(sourceRoot);
+		CreateContainerResponse container = createQodanaContainer(dockerClient, qodana.get(), hostConfig);
+		List<Result> results = startQodanaContainer(dockerClient, container);
+		cleanCaches(sourceRoot);
+		return results;
+	}
+
+	private void cleanCaches(Path sourceRoot) throws IOException {
+		if (removeResultDir) {
+			FileUtils.deleteDirectory(stringToFile(resultFolder));
+		}
+		FileUtils.deleteDirectory(stringToFile(cacheFolder));
+		Files.deleteIfExists(Path.of(sourceRoot.toString(), "qodana.yaml"));
+	}
+
+	/**
+	 * Converts the given path as string to a file object
+	 * @param path  the path as string
+	 * @return  	the file object
+	 */
+	private File stringToFile(String path) {
+		return Path.of(path).toFile();
+	}
+
+	private void copyQodanaRules(Path sourceRoot) {
+		try {
+			File qodanaRules = new File(this.getClass().getResource("/qodana.yml").toURI());
+			File copyQodanaRules = new File(sourceRoot.toString(), "qodana.yaml");
+			Files.writeString(copyQodanaRules.toPath(), Files.readString(qodanaRules.toPath()),
+				StandardOpenOption.CREATE);
+		}
+		catch (URISyntaxException | IOException e) {
+			logger.atSevere().withCause(e).log("Could not write qodana.yaml");
+		}
 	}
 
 	private List<Result> startQodanaContainer(DockerClient dockerClient, CreateContainerResponse container)
@@ -109,13 +138,13 @@ class QodanaRunner {
 		return results;
 	}
 
-	private CreateContainerResponse createQodanaContainer(DockerClient dockerClient, Optional<Image> qodana,
+	private CreateContainerResponse createQodanaContainer(DockerClient dockerClient, Image qodana,
 			HostConfig hostConfig) {
-		return dockerClient.createContainerCmd(qodana.get().getId())
+		return dockerClient.createContainerCmd(qodana.getId())
 				.withHostConfig(hostConfig)
 				.withAttachStderr(true)
 				.withAttachStdout(true)
-				.withCmd("-d", "./src/main/java")
+				.withCmd("-d", sourceFileRoot)
 				.exec();
 	}
 
@@ -124,8 +153,8 @@ class QodanaRunner {
 		Volume targetFile = new Volume("/data/results/");
 		Volume cacheDir = new Volume("/data/cache/");
 		Bind bind = new Bind(sourceRoot.toFile().getAbsolutePath(), sourceFile);
-		Bind resultsBind = new Bind(new File(RESULTS_PATH).getAbsolutePath(), targetFile);
-		Bind cacheBind = new Bind(new File(CACHE_PATH).getAbsolutePath(), cacheDir);
+		Bind resultsBind = new Bind(new File(resultFolder).getAbsolutePath(), targetFile);
+		Bind cacheBind = new Bind(new File(cacheFolder).getAbsolutePath(), cacheDir);
 		return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind).withAutoRemove(true);
 	}
 
@@ -161,5 +190,46 @@ class QodanaRunner {
 		ObjectMapper mapper = new ObjectMapper();
 		SarifSchema210 sarif = mapper.readValue(reader, SarifSchema210.class);
 		return sarif.getRuns().get(0).getResults();
+	}
+
+	static class Builder {
+
+		private String resultFolder = "./.results/";
+		private String cacheFolder = "./.laughing/";
+		private String qodanaImageName = "jetbrains/qodana-jvm-community:2021.3";
+		private String resultPathString = resultFolder + "qodana.sarif.json";
+		private boolean removeResultDir = true;
+		private String sourceFileRoot = "./src/main/java";
+
+		public Builder withResultFolder(String resultFolder) {
+			this.resultFolder = resultFolder;
+			this.resultPathString = resultFolder + "qodana.sarif.json";
+			return this;
+		}
+
+		public Builder withCacheFolder(String cacheFolder) {
+			this.cacheFolder = cacheFolder;
+			return this;
+		}
+
+		public Builder withQodanaImageName(String qodanaImageName) {
+			this.qodanaImageName = qodanaImageName;
+			return this;
+		}
+
+		public Builder withRemoveResultDir(boolean removeResultDir) {
+			this.removeResultDir = removeResultDir;
+			return this;
+		}
+
+		public Builder withSourceFileRoot(String sourceFileRoot) {
+			this.sourceFileRoot = sourceFileRoot;
+			return this;
+		}
+
+		public QodanaRunner build() {
+			return new QodanaRunner(this);
+		}
+
 	}
 }

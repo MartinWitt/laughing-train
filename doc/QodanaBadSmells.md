@@ -1,4 +1,7 @@
 # Qodana Rules
+## Method-may-be-static
+Method can be static. This increases the performance of the application.
+
 ## Non-Protected-Constructor-in-Abstract-Class
 A non-protected constructor in an abstract class is not needed, because only subclasses can be instantiated
 
