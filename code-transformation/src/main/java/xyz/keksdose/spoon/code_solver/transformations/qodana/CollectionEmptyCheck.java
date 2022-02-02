@@ -85,8 +85,8 @@ public class CollectionEmptyCheck extends TransformationProcessor<CtBinaryOperat
 
 	private void notifyChangeListener(CtBinaryOperator<?> element, CtInvocation<Boolean> innvocation) {
 		CtType<?> parent = element.getParent(CtType.class).getTopLevelType();
-		String raw = "Replaced " + element.toString() + " with " + innvocation.toString();
-		String markdown = "Replaced `" + element.toString() + "` with `" + innvocation.toString() + "`";
+		String raw = "Replaced " + element + " with " + innvocation.toString();
+		String markdown = "Replaced `" + element + "` with `" + innvocation.toString() + "`";
 		setChanged(parent, new Change(COLLECTION_EMPTY_CHECK, MarkdownString.fromMarkdown(raw, markdown), parent));
 	}
 
