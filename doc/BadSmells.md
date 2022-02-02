@@ -52,7 +52,7 @@ Primitive types have default values and setting them to the same value is redund
 Inner classes should be static if possible
 
 ## String-ValueOf-Primitive
-Primitive types are converted to String using concationation with `""``String.valueOf(primitive)` is the preferred way to convert a primitive to a String.
+Primitive types are converted to String using concationation with `""`.  `String.valueOf(primitive)` is the preferred way to convert a primitive to a String.
 
 ## StringBuilderDirectUse
 `StringBuilder` offers a lot of methods directly and `toString` is not everytime needed

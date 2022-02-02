@@ -32,6 +32,13 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 	private Map<String, Function<Result, AbstractRefactoring>> ruleParser;
 	private List<AbstractRefactoring> refactorings;
 
+	private QodanaRefactor(Builder builder) {
+		super(builder.listener);
+		refactorings = new ArrayList<>();
+		this.listener = builder.listener;
+		this.ruleParser = builder.ruleParser;
+	}
+
 	public QodanaRefactor(ChangeListener listener) {
 		super(listener);
 		this.listener = listener;
@@ -50,7 +57,23 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 	 * @param projectRoot  The root of the project which should be analysed.
 	 */
 	public void run(Path projectRoot) {
-		List<Result> results = new QodanaRunner().runQodana(projectRoot);
+		QodanaRunner runner = new QodanaRunner.Builder().build();
+		List<Result> results = runner.runQodana(projectRoot);
+		for (Result result : results) {
+			var parser = ruleParser.get(result.getRuleId());
+			if (parser != null) {
+				refactorings.add(parser.apply(result));
+			}
+		}
+	}
+
+	/**
+	* Analyses the source code in the given source root 
+	* @param projectRoot  The root of the project which should be analysed.
+	*/
+	public void run(Path projectRoot, String srcPath) {
+		QodanaRunner runner = new QodanaRunner.Builder().withSourceFileRoot(srcPath).build();
+		List<Result> results = runner.runQodana(projectRoot);
 		for (Result result : results) {
 			var parser = ruleParser.get(result.getRuleId());
 			if (parser != null) {
@@ -65,4 +88,50 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 			refactoring.refactor(listener, type);
 		}
 	}
+
+	public static class Builder {
+
+		private ChangeListener listener;
+		private Map<String, Function<Result, AbstractRefactoring>> ruleParser = new HashMap<>();
+		public Builder(ChangeListener listener) {
+			this.listener = listener;
+		}
+
+		public Builder withUnnecessaryReturn() {
+			ruleParser.put("UnnecessaryReturn", UnnecessaryReturn::new);
+			return this;
+		}
+
+		public Builder withUnnecessaryToStringCall() {
+			ruleParser.put("UnnecessaryToStringCall", UnnecessaryToStringCall::new);
+			return this;
+		}
+
+		public Builder withNonProtectedConstructorInAbstractClass() {
+			ruleParser.put("NonProtectedConstructorInAbstractClass", NonProtectedConstructorInAbstractClass::new);
+			return this;
+		}
+
+		public Builder withUnnecessaryInterfaceModifier() {
+			ruleParser.put("UnnecessaryInterfaceModifier", UnnecessaryInterfaceModifier::new);
+			return this;
+		}
+
+		public Builder withParameterNameDiffersFromOverriddenParameter() {
+			ruleParser.put("ParameterNameDiffersFromOverriddenParameter",
+				ParameterNameDiffersFromOverriddenParameter::new);
+			return this;
+		}
+
+		public Builder withMethodMayBeStatic() {
+			ruleParser.put("MethodMayBeStatic", MethodMayBeStatic::new);
+			return this;
+		}
+
+		public QodanaRefactor build() {
+			return new QodanaRefactor(this);
+		}
+
+	}
+
 }
