@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import com.contrastsecurity.sarif.Result;
@@ -16,6 +17,7 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.MethodMayBeStatic;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.NonProtectedConstructorInAbstractClass;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.ParameterNameDiffersFromOverriddenParameter;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryInterfaceModifier;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryLocalVariable;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryReturn;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryToStringCall;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
@@ -31,12 +33,14 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 	private ChangeListener listener;
 	private Map<String, Function<Result, AbstractRefactoring>> ruleParser;
 	private List<AbstractRefactoring> refactorings;
+	private List<Consumer<QodanaRunner.Builder>> settings = new ArrayList<>();
 
 	private QodanaRefactor(Builder builder) {
 		super(builder.listener);
 		refactorings = new ArrayList<>();
 		this.listener = builder.listener;
 		this.ruleParser = builder.ruleParser;
+		this.settings.addAll(builder.settings);
 	}
 
 	public QodanaRefactor(ChangeListener listener) {
@@ -50,6 +54,7 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 		ruleParser.put("UnnecessaryInterfaceModifier", UnnecessaryInterfaceModifier::new);
 		ruleParser.put("ParameterNameDiffersFromOverriddenParameter", ParameterNameDiffersFromOverriddenParameter::new);
 		ruleParser.put("MethodMayBeStatic", MethodMayBeStatic::new);
+
 	}
 
 	/**
@@ -57,7 +62,9 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 	 * @param projectRoot  The root of the project which should be analysed.
 	 */
 	public void run(Path projectRoot) {
-		QodanaRunner runner = new QodanaRunner.Builder().build();
+		var runnerBuilder = new QodanaRunner.Builder();
+		settings.forEach(s -> s.accept(runnerBuilder));
+		QodanaRunner runner = runnerBuilder.build();
 		List<Result> results = runner.runQodana(projectRoot);
 		for (Result result : results) {
 			var parser = ruleParser.get(result.getRuleId());
@@ -93,6 +100,7 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 
 		private ChangeListener listener;
 		private Map<String, Function<Result, AbstractRefactoring>> ruleParser = new HashMap<>();
+		private List<Consumer<QodanaRunner.Builder>> settings = new ArrayList<>();
 		public Builder(ChangeListener listener) {
 			this.listener = listener;
 		}
@@ -125,6 +133,36 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 
 		public Builder withMethodMayBeStatic() {
 			ruleParser.put("MethodMayBeStatic", MethodMayBeStatic::new);
+			return this;
+		}
+
+		public Builder withUnnecessaryLocalVariable() {
+			ruleParser.put("UnnecessaryLocalVariable", UnnecessaryLocalVariable::new);
+			return this;
+		}
+
+		public Builder withResultFolder(String resultFolder) {
+			settings.add(builder -> builder.withResultFolder(resultFolder));
+			return this;
+		}
+
+		public Builder withCacheFolder(String cacheFolder) {
+			settings.add(builder -> builder.withCacheFolder(cacheFolder));
+			return this;
+		}
+
+		public Builder withQodanaImageName(String qodanaImageName) {
+			settings.add(builder -> builder.withQodanaImageName(qodanaImageName));
+			return this;
+		}
+
+		public Builder withRemoveResultDir(boolean removeResultDir) {
+			settings.add(builder -> builder.withRemoveResultDir(removeResultDir));
+			return this;
+		}
+
+		public Builder withSourceFileRoot(String sourceFileRoot) {
+			settings.add(builder -> builder.withSourceFileRoot(sourceFileRoot));
 			return this;
 		}
 

@@ -44,8 +44,7 @@ class QodanaRunner {
 	private String qodanaImageName;
 	private String resultPathString;
 	private boolean removeResultDir = true;
-	private String sourceFileRoot = "./src/main/java";
-
+	private String sourceFileRoot;
 	private QodanaRunner(Builder builder) {
 		this.resultFolder = builder.resultFolder;
 		this.cacheFolder = builder.cacheFolder;
@@ -155,7 +154,7 @@ class QodanaRunner {
 		Bind bind = new Bind(sourceRoot.toFile().getAbsolutePath(), sourceFile);
 		Bind resultsBind = new Bind(new File(resultFolder).getAbsolutePath(), targetFile);
 		Bind cacheBind = new Bind(new File(cacheFolder).getAbsolutePath(), cacheDir);
-		return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind).withAutoRemove(true);
+		return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind);//.withAutoRemove(true);
 	}
 
 	private Optional<Image> findQodanaImage(DockerClient dockerClient) {

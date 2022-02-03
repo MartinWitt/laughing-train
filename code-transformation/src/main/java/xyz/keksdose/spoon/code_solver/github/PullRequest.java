@@ -18,14 +18,7 @@ import java.util.stream.Collectors;
 import com.google.common.flogger.FluentLogger;
 
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.AbortedByHookException;
-import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.NoHeadException;
-import org.eclipse.jgit.api.errors.NoMessageException;
-import org.eclipse.jgit.api.errors.ServiceUnavailableException;
-import org.eclipse.jgit.api.errors.UnmergedPathsException;
-import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.transport.SshSessionFactory;
 import org.eclipse.jgit.transport.sshd.SshdSessionFactory;
@@ -77,7 +70,6 @@ public class PullRequest {
 		catch (IOException | GitAPIException e) {
 			logger.atSevere().withCause(e).log("Could not create temp directory");
 		}
-
 	}
 
 	private static void setUpSshSession() {
@@ -95,9 +87,7 @@ public class PullRequest {
 		}
 	}
 
-	private static void createCommit(ConfigStore config, Git git, Changelog changelog)
-			throws GitAPIException, AbortedByHookException, ConcurrentRefUpdateException, NoHeadException,
-			NoMessageException, ServiceUnavailableException, UnmergedPathsException, WrongRepositoryStateException {
+	private static void createCommit(ConfigStore config, Git git, Changelog changelog) throws GitAPIException {
 		git.commit()
 				.setAuthor(config.getGitAuthor(), config.getGitEmail())
 				.setMessage("refactor: \n " + getFixedIssues(changelog))
@@ -126,7 +116,13 @@ public class PullRequest {
 
 	private static Function<ChangeListener, TransformationProcessor<?>> setUpQodana(String sourceDirectory,
 			File tempRepoFolder, ChangeListener changeListener) {
-		QodanaRefactor qodanaRefactor = new QodanaRefactor.Builder(changeListener).withMethodMayBeStatic().build();
+		QodanaRefactor qodanaRefactor = new QodanaRefactor.Builder(changeListener)
+				// .withUnnecessaryToStringCall()
+				// .withNonProtectedConstructorInAbstractClass()
+				//.withUnnecessaryInterfaceModifier()
+				// .withUnnecessaryReturn()
+				.withUnnecessaryLocalVariable()
+				.build();
 		qodanaRefactor.run(tempRepoFolder.getAbsoluteFile().toPath(), sourceDirectory);
 		return listener -> qodanaRefactor;
 	}
