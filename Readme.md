@@ -1,6 +1,6 @@
 # Laughing-train - java code refactoring tool
 
-A code refactoring tool for java created with jgit and spoon for small diffs.
+A code refactoring tool for java created with jgit, spoon and qodana for small diffs.
 
 ## General Info
 
@@ -11,8 +11,11 @@ This project is a java refactoring tool. It refactors multiple code smells in a 
 Project is created with:
  - jgit 
  - spoon
+ - qodana
+ - docker
 
 ## Features:
+
 See https://github.com/MartinWitt/laughing-train/blob/gh-pages/BadSmells.md  
 The following refactorings are currently supported:
 
@@ -41,9 +44,23 @@ The following refactorings are currently supported:
 1. Checkout the repo
 2. Open the repo inside your favorite IDE
 3. https://github.com/MartinWitt/laughing-train/blob/9ffbb1abf75f999604a28a36c7989684f863d1a9/code-transformation/src/main/resources/app.properties insert your desired values here
-4. Open https://github.com/MartinWitt/laughing-train/blob/78bde9fd069c9888ed87ce877916b993dbb35764/code-transformation/src/test/java/xyz/keksdose/spoon/code_solver/API.java
-And try it yourself. If you want to change the used processor edit them here https://github.com/MartinWitt/laughing-train/blob/master/code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/TransformationEngine.java#L68
-
+4. Create a Refactoring using the `API` with your desired steps and rules.
+For example
+```java
+		GitCheckout checkout = new GitCheckout("https://github.com/MartinWitt/laughing-train", "master",
+			Path.of("./fooo"));
+		String repoUrl = "git@github.com:MartinWitt/laughing-train.git";
+		var qodana = new QodanaBuilder().withSourceFileRoot("./code-transformation/src/main/java")
+				.withNonProtectedConstructorInAbstractClass()
+				.build();
+		GitPushSsh gitPushSsh = new SingleChangeGitPushSsh(repoUrl);
+		new Refactoring.Builder(qodana, checkout).withAfterRefactorStep(gitPushSsh)
+				.withAfterRefactorStep(new CleanRepo())
+				.build()
+				.apply();
+  ```
+  This checks the given repo to the given path and with the given branch out. Refactors a public constructor in abstract class smell.
+  Afterwards it commits the change and pushes it to github via ssh. at the end the folder is deleted.
 ## Try it yourself(often out of date):
 
 Create a gist, copy the ID and go to:
