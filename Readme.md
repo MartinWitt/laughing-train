@@ -48,7 +48,7 @@ The following refactorings are currently supported:
 For example
 ```java
 		GitCheckout checkout = new GitCheckout("https://github.com/MartinWitt/laughing-train", "master",
-			Path.of("./fooo"));
+			Path.of("./tempFolder"));
 		String repoUrl = "git@github.com:MartinWitt/laughing-train.git";
 		var qodana = new QodanaBuilder().withSourceFileRoot("./code-transformation/src/main/java")
 				.withNonProtectedConstructorInAbstractClass()
