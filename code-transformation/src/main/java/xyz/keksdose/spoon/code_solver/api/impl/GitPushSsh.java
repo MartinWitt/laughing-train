@@ -1,31 +1,23 @@
 
 package xyz.keksdose.spoon.code_solver.api.impl;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileVisitOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.stream.Collectors;
-
-import com.google.common.flogger.FluentLogger;
-
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.transport.SshSessionFactory;
-import org.eclipse.jgit.transport.sshd.SshdSessionFactory;
-import org.eclipse.jgit.transport.sshd.SshdSessionFactoryBuilder;
-import org.eclipse.jgit.util.FS;
-
-import xyz.keksdose.spoon.code_solver.api.AfterRefactorStep;
-import xyz.keksdose.spoon.code_solver.config.ConfigStore;
+import java.io.IOException;
 import xyz.keksdose.spoon.code_solver.history.Change;
-import xyz.keksdose.spoon.code_solver.history.Changelog;
-import xyz.keksdose.spoon.code_solver.history.MarkdownString;
+import xyz.keksdose.spoon.code_solver.config.ConfigStore;
+import org.eclipse.jgit.transport.SshSessionFactory;
+import org.eclipse.jgit.util.FS;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.lib.Repository;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import org.eclipse.jgit.transport.sshd.SshdSessionFactory;
+import java.util.Objects;
+import xyz.keksdose.spoon.code_solver.history.Changelog;
+import java.io.File;
+import org.eclipse.jgit.transport.sshd.SshdSessionFactoryBuilder;
+import xyz.keksdose.spoon.code_solver.api.AfterRefactorStep;
+import xyz.keksdose.spoon.code_solver.history.MarkdownString;
+import com.google.common.flogger.FluentLogger;
+import org.eclipse.jgit.api.errors.GitAPIException;
 
 /**
  * This class adds a new commit to the git repository adding all changes in the repo.
