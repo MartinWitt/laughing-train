@@ -72,11 +72,6 @@ public class GitPushSsh implements AfterRefactorStep {
 		ConfigStore config = new ConfigStore();
 		try (Repository repository = Git.open(projectRoot).getRepository()) {
 			Git git = new Git(repository);
-			git.checkout()
-					.setForced(true)
-					.setCreateBranch(true)
-					.setName(config.getGitBranchPrefix() + LocalDateTime.now().getNano())
-					.call();
 			addFileToGit(projectRoot, git, changelog);
 			git.commit()
 					.setAuthor(config.getGitAuthor(), config.getGitEmail())

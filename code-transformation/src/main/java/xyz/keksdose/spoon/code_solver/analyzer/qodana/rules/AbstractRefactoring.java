@@ -47,6 +47,11 @@ public abstract class AbstractRefactoring {
 	 * @return  True if the given {@link CtType} is the type which contains the reported bad smell.
 	 */
 	protected boolean isSameType(CtType<?> type, Path resultPath) {
-		return type.getPosition().getCompilationUnit().getFile().toPath().toString().endsWith(resultPath.toString());
+		return type.getPosition().isValidPosition() && type.getPosition()
+				.getCompilationUnit()
+				.getFile()
+				.toPath()
+				.toString()
+				.endsWith(resultPath.toString());
 	}
 }

@@ -31,8 +31,8 @@ public class SingleChangeGitPushSsh extends GitPushSsh {
 	protected void addFileToGit(File projectRoot, Git git, Changelog changelog) throws GitAPIException {
 		var changes = changelog.getChanges();
 		Collections.shuffle(changes);
-		Change change = changes.iterator().next();
-		File changedFile = change.getAffectedType().getPosition().getFile();
+		selectedChange = changes.iterator().next();
+		File changedFile = selectedChange.getAffectedType().getPosition().getFile();
 		try (Stream<Path> changedFiles = Files.find(projectRoot.toPath(), Integer.MAX_VALUE,
 			(path, attributes) -> path.getName(path.getNameCount() - 1).toString().equals(changedFile.getName()),
 			FileVisitOption.FOLLOW_LINKS)) {
