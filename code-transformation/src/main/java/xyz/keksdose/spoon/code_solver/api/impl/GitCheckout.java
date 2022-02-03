@@ -3,6 +3,7 @@ package xyz.keksdose.spoon.code_solver.api.impl;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 
 import com.google.common.flogger.FluentLogger;
 
@@ -10,6 +11,7 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
 import xyz.keksdose.spoon.code_solver.api.RepoCheckout;
+import xyz.keksdose.spoon.code_solver.config.ConfigStore;
 
 /**
  * This is the implementation of the {@link RepoCheckout} interface.
@@ -31,7 +33,18 @@ public class GitCheckout implements RepoCheckout {
 	@Override
 	public File prepareRepo() {
 		try {
-			Git.cloneRepository().setBranch(branch).setURI(repoUrl).setDirectory(outputDirectory.toFile()).call();
+			ConfigStore config = new ConfigStore();
+			Git git = Git.cloneRepository()
+					.setBranch(branch)
+					.setURI(repoUrl)
+					.setDirectory(outputDirectory.toFile())
+					.call();
+			git.checkout()
+					.setForced(true)
+					.setCreateBranch(true)
+					.setName(config.getGitBranchPrefix() + LocalDateTime.now().getNano())
+					.call();
+			git.close();
 			return outputDirectory.toFile();
 		}
 		catch (GitAPIException e) {

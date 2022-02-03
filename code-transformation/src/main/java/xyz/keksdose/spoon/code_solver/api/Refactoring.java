@@ -18,13 +18,14 @@ public class Refactoring {
 	private List<AfterRefactorStep> afterRefactorSteps;
 	private ChangeListener listener;
 	private IPrinting printing;
-
+	private String subProjectSuffix;
 	private Refactoring(Refactoring.Builder builder) {
 		this.repoCheckout = builder.repoCheckout;
 		this.qodanaRefactor = builder.qodanaRefactor;
 		this.afterRefactorSteps = builder.afterRefactorStep;
 		this.listener = builder.listener;
 		this.printing = builder.printing;
+		this.subProjectSuffix = builder.subProjectSuffix;
 	}
 
 	public void apply() {
@@ -33,7 +34,7 @@ public class Refactoring {
 		TransformationEngine transformationEngine = new TransformationEngine(List.of(v -> qodanaRefactor));
 		transformationEngine.setPrinting(printing);
 		transformationEngine.setChangeListener(listener);
-		Changelog changelog = transformationEngine.applyToGivenPath(project.getAbsolutePath());
+		Changelog changelog = transformationEngine.applyToGivenPath(project.getAbsolutePath() + subProjectSuffix);
 		afterRefactorSteps.forEach(v -> v.apply(changelog, project));
 	}
 
@@ -43,7 +44,7 @@ public class Refactoring {
 		private List<AfterRefactorStep> afterRefactorStep = new ArrayList<>();
 		private ChangeListener listener = new ChangeListener();
 		private IPrinting printing = null;
-
+		private String subProjectSuffix = "";
 		public Builder(QodanaRefactor qodana, RepoCheckout repoCheckout) {
 			this.qodanaRefactor = qodana;
 			this.repoCheckout = repoCheckout;
@@ -61,6 +62,11 @@ public class Refactoring {
 
 		public Builder withAfterRefactorStep(AfterRefactorStep afterRefactorStep) {
 			this.afterRefactorStep.add(afterRefactorStep);
+			return this;
+		}
+
+		public Builder withSubProject(String subProjectSuffix) {
+			this.subProjectSuffix = subProjectSuffix;
 			return this;
 		}
 
