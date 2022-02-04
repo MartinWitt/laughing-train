@@ -70,10 +70,10 @@ public class TransformationEngine {
 		Environment environment = EnvironmentOptions.setEnvironmentOptions(launcher);
 		addInput(path, launcher);
 		CtModel model = launcher.buildModel();
+		PrinterCreation.setPrettyPrinter(environment, model);
 		if (printing == null) {
 			printing = new ChangedTypePrinting(environment.createPrettyPrinter());
 		}
-		PrinterCreation.setPrettyPrinter(environment, model);
 		if (changeListener == null) {
 			changeListener = new ChangeListener();
 		}
