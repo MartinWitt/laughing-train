@@ -20,6 +20,7 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryInterface
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryLocalVariable;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryReturn;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryToStringCall;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedImport;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
@@ -138,6 +139,11 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 
 		public Builder withUnnecessaryLocalVariable() {
 			ruleParser.put("UnnecessaryLocalVariable", UnnecessaryLocalVariable::new);
+			return this;
+		}
+
+		public Builder withUnusedImport() {
+			ruleParser.put("UNUSED_IMPORT", UnusedImport::new);
 			return this;
 		}
 
