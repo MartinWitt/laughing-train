@@ -14,6 +14,12 @@ The parameter name differs from the overridden parameter.
 ## Unnecessary-Interface-Modifier
 An public modifier on methods is not needed, because all methods in interfaces are already public
 
+## UnnecessaryLocalVariable
+A local variable is declared and in the next line returned. This can be replaced by an instant return.
+
 ## UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion.
+
+## UnusedImport
+Unused imports have no effect on the code and should be removed.
 
