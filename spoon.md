@@ -6,8 +6,6 @@
 ### Static inner class
 - Added static modifier to inner class `spoon.support.gui.SpoonObjectFieldsTable$SpoonObjectTableModel`in `spoon.support.gui.SpoonObjectFieldsTable`
 - Added static modifier to inner class `spoon.support.reflect.declaration.CtClassImpl$NewInstanceClassloader`in `spoon.support.reflect.declaration.CtClassImpl`
-### ArraysToString
-- Replaced `str.toString()` with `Arrays.toString(str)`.in `spoon.support.sniper.internal.ElementSourceFragment`
 ### NonStaticAccess
 - Method `getLogger` was accessed via the instance variable `this.jdtTreeBuilder`.in `spoon.support.compiler.jdt.ContextBuilder`
 - Method `getLogger` was accessed via the instance variable `this.jdtTreeBuilder`.in `spoon.support.compiler.jdt.ContextBuilder`
