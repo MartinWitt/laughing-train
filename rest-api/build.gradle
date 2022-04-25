@@ -35,7 +35,7 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot', version: '2.6.3'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.6.3'
 	implementation project(":code-transformation")
-	implementation group: 'org.kohsuke', name: 'github-api', version: '1.301'
+	implementation group: 'org.kohsuke', name: 'github-api', version: '1.306'
 }
 
 
