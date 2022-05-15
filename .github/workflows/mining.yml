@@ -21,7 +21,7 @@ jobs:
     - name: mine projects
       run: cd code-transformation && sudo  ../gradlew mining -i
     - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@v4.2.3
+      uses: JamesIves/github-pages-deploy-action@v4.3.3
       with:
           branch: gh-mining # The branch the action should deploy to.
           folder: mining
