@@ -2,8 +2,8 @@
 plugins {
 	// Apply the application plugin to add support for building a CLI application in Java.
 	id 'application'
-	id "com.diffplug.spotless" version "6.2.1"
-	id 'org.jreleaser' version '0.10.0'
+	id 'xyz.keksdose.spoon.code_solver.java-common-conventions'
+
 }
 version = "0.0.5"
 repositories {
@@ -33,7 +33,7 @@ dependencies {
 	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.0.0.202111291000-r'
 	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.ssh.apache', version: '6.0.0.202111291000-r'
 	// implementation 'com.github.MartinWitt:Spoon:59fa98b3f8f83b2b566dc876ffabb26ba31ce2e3' // code solver branch
-	implementation 'fr.inria.gforge.spoon:spoon-core:10.0.1-SNAPSHOT'
+	implementation 'fr.inria.gforge.spoon:spoon-core:+'
 	implementation 'com.google.flogger:flogger:0.7.4'
 	implementation 'com.google.flogger:flogger-system-backend:0.7.4'
 	implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.3.0-alpha13'
@@ -49,63 +49,18 @@ application {
 }
 
 
-spotless {
-	format 'misc', {
-		// define the files to apply `misc` to
-		target "*.md", '.gitignore'
 
-		trimTrailingWhitespace()
-		indentWithTabs()
-		endWithNewline()
-	}
 
-	groovyGradle {
-		target '*.gradle' // default target of groovyGradle
-		greclipse()
-	}
-	java {
-		eclipse().configFile(projectDir.toString() +'/src/main/resources/formatter-settings.xml')
-	}
-}
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(11)
+def test = tasks.named("test") {
+	useJUnitPlatform {
+		excludeTags "Mining"
 	}
 }
 
-jreleaser {
-	gitRootSearch = true
-	project {
-		name = 'laughing-train'
-		license = 'MIT'
-		docsUrl = "https://github.com/MartinWitt/laughing-train"
-		website = "https://github.com/MartinWitt/laughing-train"
-		description = "A code refactoring tool for java created with jgit and spoon for small diffs."
-		authors = ["MartinWitt"]
-	}
-	release {
-		github {
-			owner = 'MartinWitt'
-			overwrite = true
-		}
-	}
-	distributions {
-		app {
-			artifact {
-				path = 'build/distributions/code-transformation-{{projectVersion}}.zip'
-			}
-		}
-	}
-
-	def test = tasks.named("test") {
-		useJUnitPlatform {
-			excludeTags "Mining"
-		}
-	}
-
-	def mining = tasks.register("mining", Test) {
-		useJUnitPlatform {
-			includeTags "Mining"
-		}
+def mining = tasks.register("mining", Test) {
+	useJUnitPlatform {
+		includeTags "Mining"
 	}
 }
+
+

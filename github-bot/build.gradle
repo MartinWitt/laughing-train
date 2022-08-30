@@ -1,0 +1,34 @@
+plugins {
+	id 'java'
+	id "io.quarkus" version "2.12.0.Final"
+	id 'xyz.keksdose.spoon.code_solver.java-common-conventions'
+}
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	gradlePluginPortal()
+}
+
+dependencies {
+	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.308.0'
+	implementation 'io.quarkiverse.githubapp:quarkus-github-app:1.11.0'
+	implementation 'io.quarkiverse.githubapp:quarkus-github-app-command-airline:1.11.0'
+	implementation 'io.quarkus:quarkus-arc'
+	testImplementation 'io.quarkus:quarkus-junit5'
+	implementation project(":code-transformation")
+}
+
+group 'io.github.martinwitt'
+version '0.0.1'
+
+
+compileJava {
+	options.encoding = 'UTF-8'
+	options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+	options.encoding = 'UTF-8'
+}

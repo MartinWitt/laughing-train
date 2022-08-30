@@ -1,9 +1,7 @@
-
 package xyz.keksdose.spoon.code_solver;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
 import xyz.keksdose.spoon.code_solver.github.CommitBuilder;
 
 /**
@@ -12,20 +10,20 @@ import xyz.keksdose.spoon.code_solver.github.CommitBuilder;
 @Disabled
 public class API {
 
-	@Test
-	void applyWithGitSettings() {
-		String projectPath = "";
-		String typeToRefactorName = "";
-		String pathToLocalGitRepo = "";
-		CommitBuilder.refactorRepo(pathToLocalGitRepo, projectPath, typeToRefactorName, (v, u) -> {
-			return new TransformationEngine().applyToGivenPath(projectPath, typeToRefactorName);
-		});
-	}
+    @Test
+    void applyWithGitSettings() {
+        String projectPath = "";
+        String typeToRefactorName = "";
+        String pathToLocalGitRepo = "";
+        CommitBuilder.refactorRepo(pathToLocalGitRepo, projectPath, typeToRefactorName, (v, u) -> {
+            return new TransformationEngine().applyToGivenPath(projectPath, typeToRefactorName);
+        });
+    }
 
-	@Test
-	void applyWithoutGit() {
-		String projectPath = "";
-		String typeToRefactorName = "";
-		new TransformationEngine().applyToGivenPath(projectPath, typeToRefactorName);
-	}
+    @Test
+    void applyWithoutGit() {
+        String projectPath = "";
+        String typeToRefactorName = "";
+        new TransformationEngine().applyToGivenPath(projectPath, typeToRefactorName);
+    }
 }
