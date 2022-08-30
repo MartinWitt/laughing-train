@@ -2,13 +2,8 @@ package io.github.martinwitt.laughing_train;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-
-import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.history.Change;
 
 @ApplicationScoped
@@ -21,8 +16,7 @@ public class ChangelogPrinter {
         StringBuilder sb = new StringBuilder();
         sb.append("## Changes: \n");
         for (var fix : changes) {
-            sb.append("* " + fix.getChangeText().asMarkdown())
-                    .append("\n");
+            sb.append("* " + fix.getChangeText().asMarkdown()).append("\n");
         }
         return sb.toString();
     }

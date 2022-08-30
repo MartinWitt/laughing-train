@@ -42,7 +42,7 @@ public class UnnecessaryToStringCall extends AbstractRefactoring {
         }
         for (CtInvocation<?> toStringInvocations : type.getElements(new InvocationFilter(toStringMethod))) {
             if (isAlmostMatch(toStringInvocations)) {
-                String oldInvocation = ""+toStringInvocations.toString();
+                String oldInvocation = "" + toStringInvocations.toString();
                 toStringInvocations.replace(toStringInvocations.getTarget());
                 toStringInvocations
                         .getParent()
@@ -51,9 +51,9 @@ public class UnnecessaryToStringCall extends AbstractRefactoring {
                         type.getTopLevelType(),
                         new Change(
                                 UNNECESSARY_TO_STRING_CALL,
-                                MarkdownString.fromMarkdown("Removed unnecessary toString() call in " + oldInvocation, 
-                                        "Removed unnecessary `toString()` call in `"
-                                                + oldInvocation+"`"),
+                                MarkdownString.fromMarkdown(
+                                        "Removed unnecessary toString() call in " + oldInvocation,
+                                        "Removed unnecessary `toString()` call in `" + oldInvocation + "`"),
                                 type.getTopLevelType()));
             }
         }

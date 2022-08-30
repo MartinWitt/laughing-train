@@ -35,19 +35,20 @@ public record QodanaAnalyzerResult(
     }
 
     private static Position fromResult(Result result) {
-      Region region = result.getLocations().get(0).getPhysicalLocation().getRegion();
-      return new Position(
-          nullToZero(region.getStartLine()),
-          nullToZero(region.getEndLine()),
-          nullToZero(region.getStartColumn()),
-          nullToZero(region.getEndColumn()),
-          nullToZero(region.getCharOffset()),
-          nullToZero(region.getCharLength()));
+        Region region = result.getLocations().get(0).getPhysicalLocation().getRegion();
+        return new Position(
+                nullToZero(region.getStartLine()),
+                nullToZero(region.getEndLine()),
+                nullToZero(region.getStartColumn()),
+                nullToZero(region.getEndColumn()),
+                nullToZero(region.getCharOffset()),
+                nullToZero(region.getCharLength()));
     }
 
     private static int nullToZero(Integer value) {
         return value == null ? 0 : value;
     }
+
     public String getAnalyzer() {
         return "Qodana";
     }

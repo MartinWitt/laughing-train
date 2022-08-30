@@ -229,9 +229,8 @@ public class App {
         var results = runQodana(repoUrl, dir);
         System.out.println(config.getActiveRules());
         ChangeListener changeListener = new ChangeListener();
-        Function<ChangeListener, TransformationProcessor<?>> function = (v -> 
-             new QodanaRefactor(config.getActiveRules(), v, results)
-        );
+        Function<ChangeListener, TransformationProcessor<?>> function =
+                (v -> new QodanaRefactor(config.getActiveRules(), v, results));
         TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
         transformationEngine.setChangeListener(changeListener);
         System.out.println("refactorRepo: " + dir.toString() + "/" + config.getSrcFolder());

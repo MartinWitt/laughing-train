@@ -105,9 +105,9 @@ public class SizeReplaceableByIsEmpty extends AbstractRefactoring {
                     type,
                     new Change(
                             badSmell,
-                            MarkdownString.fromMarkdown(String.format(raw, invocationString, ctBinaryOperator, isEmpty),
-                                    String.format(markdown, invocationString,
-                                            ctBinaryOperator, isEmpty)),
+                            MarkdownString.fromMarkdown(
+                                    String.format(raw, invocationString, ctBinaryOperator, isEmpty),
+                                    String.format(markdown, invocationString, ctBinaryOperator, isEmpty)),
                             type));
         } else {
             var invocation = findLengthInvocation(ctBinaryOperator.getLeftHandOperand());
@@ -123,10 +123,9 @@ public class SizeReplaceableByIsEmpty extends AbstractRefactoring {
                     type,
                     new Change(
                             badSmell,
-                            MarkdownString.fromMarkdown(String.format(raw, invocationString,ctBinaryOperator, isEmpty),
-                                    String.format(markdown, invocationString,
-                                            ctBinaryOperator, isEmpty
-                                            )),
+                            MarkdownString.fromMarkdown(
+                                    String.format(raw, invocationString, ctBinaryOperator, isEmpty),
+                                    String.format(markdown, invocationString, ctBinaryOperator, isEmpty)),
                             type));
         }
     }
