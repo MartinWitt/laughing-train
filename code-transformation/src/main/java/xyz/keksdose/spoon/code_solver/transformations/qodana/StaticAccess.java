@@ -1,10 +1,8 @@
-
 package xyz.keksdose.spoon.code_solver.transformations.qodana;
 
 import static java.lang.String.format;
 
 import java.util.List;
-
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtLambda;
 import spoon.reflect.code.CtTypeAccess;
@@ -18,61 +16,62 @@ import xyz.keksdose.spoon.code_solver.util.Nullsafe;
 
 public class StaticAccess extends TransformationProcessor<CtInvocation<?>> {
 
-	private static final String RAW_CHANGE_LOG = "Method %s was accessed via the instance variable %s.";
-	private static final String MARKDOWN_CHANGE_LOG = "Method `%s` was accessed via the instance variable `%s`.";
-	private static final BadSmell NON_STATIC_ACCESS = new BadSmell() {
-		@Override
-		public MarkdownString getName() {
-			return MarkdownString.fromRaw("NonStaticAccess");
-		}
+    private static final String RAW_CHANGE_LOG = "Method %s was accessed via the instance variable %s.";
+    private static final String MARKDOWN_CHANGE_LOG = "Method `%s` was accessed via the instance variable `%s`.";
+    private static final BadSmell NON_STATIC_ACCESS = new BadSmell() {
+        @Override
+        public MarkdownString getName() {
+            return MarkdownString.fromRaw("NonStaticAccess");
+        }
 
-		@Override
-		public MarkdownString getDescription() {
-			String rawText = "Static methods should be access via the class name, not the instance variable.";
-			return MarkdownString.fromRaw(rawText);
-		}
-	};
-	public StaticAccess(ChangeListener listener) {
-		super(listener);
-	}
+        @Override
+        public MarkdownString getDescription() {
+            String rawText = "Static methods should be access via the class name, not the instance variable.";
+            return MarkdownString.fromRaw(rawText);
+        }
+    };
 
-	@Override
-	public void process(CtInvocation<?> invocation) {
-		if (invocation.getTarget() == null || invocation.getExecutable().getDeclaringType() == null) {
-			return;
-		}
-		if (isStaticInvocation(invocation) && !isTypeAccess(invocation)) {
-			notifyChangeListener(invocation);
-			replaceTarget(invocation);
-		}
-	}
+    public StaticAccess(ChangeListener listener) {
+        super(listener);
+    }
 
-	private void replaceTarget(CtInvocation<?> invocation) {
-		CtTypeAccess<?> typeAccess = getFactory().createTypeAccess(invocation.getExecutable().getDeclaringType());
-		typeAccess.getAccessedType().setSimplyQualified(true);
-		invocation.setTarget(typeAccess);
-	}
+    @Override
+    public void process(CtInvocation<?> invocation) {
+        if (invocation.getTarget() == null || invocation.getExecutable().getDeclaringType() == null) {
+            return;
+        }
+        if (isStaticInvocation(invocation) && !isTypeAccess(invocation)) {
+            notifyChangeListener(invocation);
+            replaceTarget(invocation);
+        }
+    }
 
-	private void notifyChangeListener(CtInvocation<?> invocation) {
-		String raw = format(RAW_CHANGE_LOG, invocation.getExecutable().getSimpleName(), invocation.getTarget());
-		String markdown = format(MARKDOWN_CHANGE_LOG, invocation.getExecutable().getSimpleName(),
-			invocation.getTarget());
-		CtType<?> parent = invocation.getParent(CtType.class).getTopLevelType();
-		setChanged(parent, new Change(NON_STATIC_ACCESS, MarkdownString.fromMarkdown(raw, markdown), parent));
-	}
+    private void replaceTarget(CtInvocation<?> invocation) {
+        CtTypeAccess<?> typeAccess =
+                getFactory().createTypeAccess(invocation.getExecutable().getDeclaringType());
+        typeAccess.getAccessedType().setSimplyQualified(true);
+        invocation.setTarget(typeAccess);
+    }
 
-	private boolean isTypeAccess(CtInvocation<?> invocation) {
-		return invocation.getTarget() instanceof CtTypeAccess;
-	}
+    private void notifyChangeListener(CtInvocation<?> invocation) {
+        String raw = format(RAW_CHANGE_LOG, invocation.getExecutable().getSimpleName(), invocation.getTarget());
+        String markdown =
+                format(MARKDOWN_CHANGE_LOG, invocation.getExecutable().getSimpleName(), invocation.getTarget());
+        CtType<?> parent = invocation.getParent(CtType.class).getTopLevelType();
+        setChanged(parent, new Change(NON_STATIC_ACCESS, MarkdownString.fromMarkdown(raw, markdown), parent));
+    }
 
-	private boolean isStaticInvocation(CtInvocation<?> invocation) {
-		return Nullsafe.get(() -> invocation.getExecutable().isStatic(), false)
-				&& invocation.getParent(CtLambda.class) == null;
-	}
+    private boolean isTypeAccess(CtInvocation<?> invocation) {
+        return invocation.getTarget() instanceof CtTypeAccess;
+    }
 
-	@Override
+    private boolean isStaticInvocation(CtInvocation<?> invocation) {
+        return Nullsafe.get(() -> invocation.getExecutable().isStatic(), false)
+                && invocation.getParent(CtLambda.class) == null;
+    }
 
-	public List<BadSmell> getHandledBadSmells() {
-		return List.of(NON_STATIC_ACCESS);
-	}
+    @Override
+    public List<BadSmell> getHandledBadSmells() {
+        return List.of(NON_STATIC_ACCESS);
+    }
 }

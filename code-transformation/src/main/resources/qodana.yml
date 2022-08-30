@@ -37,5 +37,7 @@ include:
   - name: MethodMayBeStatic
   - name: UnnecessaryCallToStringValueOf
   - name: UnnecessaryToStringCall
+  - name: NonStrictComparisonCanBeEquality
+  - name : SizeReplaceableByIsEmpty 
 exclude:
   - name: UseOfClone

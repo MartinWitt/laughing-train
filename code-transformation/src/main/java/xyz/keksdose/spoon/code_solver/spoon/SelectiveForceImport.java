@@ -1,33 +1,31 @@
-
 package xyz.keksdose.spoon.code_solver.spoon;
 
 import java.util.Collection;
 import java.util.IdentityHashMap;
-
 import spoon.reflect.path.CtRole;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.ForceImportProcessor;
 import spoon.reflect.visitor.LexicalScope;
 
 public class SelectiveForceImport extends ForceImportProcessor {
-	// use identity rather than equality to identify existing references to avoid
-	// mistaking clones
-	// for originals
-	private final IdentityHashMap<CtTypeReference<?>, Boolean> excludedReferences;
+    // use identity rather than equality to identify existing references to avoid
+    // mistaking clones
+    // for originals
+    private final IdentityHashMap<CtTypeReference<?>, Boolean> excludedReferences;
 
-	/**
-	 * @param referencesToIgnore
-	 *            A collection of references to ignore when force-importing.
-	 */
-	public SelectiveForceImport(Collection<CtTypeReference<?>> referencesToIgnore) {
-		excludedReferences = new IdentityHashMap<>();
-		referencesToIgnore.forEach(ref -> excludedReferences.put(ref, true));
-	}
+    /**
+     * @param referencesToIgnore
+     *            A collection of references to ignore when force-importing.
+     */
+    public SelectiveForceImport(Collection<CtTypeReference<?>> referencesToIgnore) {
+        excludedReferences = new IdentityHashMap<>();
+        referencesToIgnore.forEach(ref -> excludedReferences.put(ref, true));
+    }
 
-	@Override
-	protected void handleTypeReference(CtTypeReference<?> reference, LexicalScope nameScope, CtRole role) {
-		if (!excludedReferences.containsKey(reference)) {
-			super.handleTypeReference(reference, nameScope, role);
-		}
-	}
+    @Override
+    protected void handleTypeReference(CtTypeReference<?> reference, LexicalScope nameScope, CtRole role) {
+        if (!excludedReferences.containsKey(reference)) {
+            super.handleTypeReference(reference, nameScope, role);
+        }
+    }
 }

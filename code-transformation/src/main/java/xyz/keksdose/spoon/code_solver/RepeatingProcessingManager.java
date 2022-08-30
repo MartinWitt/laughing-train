@@ -1,8 +1,6 @@
-
 package xyz.keksdose.spoon.code_solver;
 
 import java.util.Collection;
-
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.factory.Factory;
 import spoon.support.QueueProcessingManager;
@@ -15,18 +13,18 @@ import xyz.keksdose.spoon.code_solver.history.ChangeListener;
  */
 public class RepeatingProcessingManager extends QueueProcessingManager {
 
-	private final ChangeListener listener;
-	public RepeatingProcessingManager(Factory factory, ChangeListener listener) {
-		super(factory);
-		this.listener = listener;
-	}
+    private final ChangeListener listener;
 
-	@Override
-	public void process(Collection<? extends CtElement> elements) {
-		do {
-			listener.reset();
-			super.process(elements);
-		} while (listener.isChanged());
+    public RepeatingProcessingManager(Factory factory, ChangeListener listener) {
+        super(factory);
+        this.listener = listener;
+    }
 
-	}
+    @Override
+    public void process(Collection<? extends CtElement> elements) {
+        do {
+            listener.reset();
+            super.process(elements);
+        } while (listener.isChanged());
+    }
 }

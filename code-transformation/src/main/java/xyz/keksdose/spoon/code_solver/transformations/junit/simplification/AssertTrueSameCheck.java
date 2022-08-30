@@ -1,8 +1,6 @@
-
 package xyz.keksdose.spoon.code_solver.transformations.junit.simplification;
 
 import java.util.List;
-
 import spoon.reflect.code.BinaryOperatorKind;
 import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtExpression;
@@ -20,64 +18,67 @@ import xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper;
 
 public class AssertTrueSameCheck extends TransformationProcessor<CtInvocation<?>> {
 
-	public AssertTrueSameCheck(ChangeListener listener) {
-		super(listener);
-	}
+    public AssertTrueSameCheck(ChangeListener listener) {
+        super(listener);
+    }
 
-	@Override
-	public void process(CtInvocation<?> invocation) {
-		if (invocation.getExecutable() != null && JunitHelper.isJunit5AssertTrue(invocation.getExecutable())) {
-			CtInvocation<?> junit5AssertTrue = invocation;
-			CtExpression<?> expression = invocation.getArguments().iterator().next();
-			if (expression instanceof CtBinaryOperator) {
-				CtBinaryOperator<?> binaryOperator = (CtBinaryOperator<?>) expression;
-				if (binaryOperator.getKind().equals(BinaryOperatorKind.EQ)) {
-					CtInvocation<?> junit5AssertNotNull = createJunit5AssertSame(binaryOperator.getLeftHandOperand(),
-						binaryOperator.getRightHandOperand());
-					junit5AssertNotNull.setComments(invocation.getComments());
-					junit5AssertTrue.replace(junit5AssertNotNull);
-					if (invocation.getArguments().size() == 3) {
-						// readd the String if it fails argument
-						junit5AssertNotNull.addArgument(invocation.getArguments().get(2).clone());
-					}
-					adjustImports(invocation);
-					notifyChangeListener(junit5AssertTrue);
-				}
-			}
-		}
-	}
+    @Override
+    public void process(CtInvocation<?> invocation) {
+        if (invocation.getExecutable() != null && JunitHelper.isJunit5AssertTrue(invocation.getExecutable())) {
+            CtInvocation<?> junit5AssertTrue = invocation;
+            CtExpression<?> expression = invocation.getArguments().iterator().next();
+            if (expression instanceof CtBinaryOperator) {
+                CtBinaryOperator<?> binaryOperator = (CtBinaryOperator<?>) expression;
+                if (binaryOperator.getKind().equals(BinaryOperatorKind.EQ)) {
+                    CtInvocation<?> junit5AssertNotNull = createJunit5AssertSame(
+                            binaryOperator.getLeftHandOperand(), binaryOperator.getRightHandOperand());
+                    junit5AssertNotNull.setComments(invocation.getComments());
+                    junit5AssertTrue.replace(junit5AssertNotNull);
+                    if (invocation.getArguments().size() == 3) {
+                        // readd the String if it fails argument
+                        junit5AssertNotNull.addArgument(
+                                invocation.getArguments().get(2).clone());
+                    }
+                    adjustImports(invocation);
+                    notifyChangeListener(junit5AssertTrue);
+                }
+            }
+        }
+    }
 
-	private void adjustImports(CtInvocation<?> element) {
-		CtType<?> parent = element.getParent(CtType.class);
-		CtCompilationUnit compilationUnit = element.getPosition().getCompilationUnit();
+    private void adjustImports(CtInvocation<?> element) {
+        CtType<?> parent = element.getParent(CtType.class);
+        CtCompilationUnit compilationUnit = element.getPosition().getCompilationUnit();
 
-		if (parent != null && !hasJunit5AssertTrueLeft(parent)) {
-			ImportHelper.removeImport("org.junit.jupiter.api.Assertions.assertTrue", true, compilationUnit);
-		}
-		ImportHelper.addImport("org.junit.jupiter.api.Assertions.assertSame", true, compilationUnit);
+        if (parent != null && !hasJunit5AssertTrueLeft(parent)) {
+            ImportHelper.removeImport("org.junit.jupiter.api.Assertions.assertTrue", true, compilationUnit);
+        }
+        ImportHelper.addImport("org.junit.jupiter.api.Assertions.assertSame", true, compilationUnit);
+    }
 
-	}
+    private boolean hasJunit5AssertTrueLeft(CtType<?> parent) {
+        return parent.getElements(new TypeFilter<>(CtInvocation.class)).stream()
+                .filter(v -> v.getExecutable() != null)
+                .anyMatch(v -> JunitHelper.isJunit5AssertTrue(v.getExecutable()));
+    }
 
-	private boolean hasJunit5AssertTrueLeft(CtType<?> parent) {
-		return parent.getElements(new TypeFilter<>(CtInvocation.class))
-				.stream()
-				.filter(v -> v.getExecutable() != null)
-				.anyMatch(v -> JunitHelper.isJunit5AssertTrue(v.getExecutable()));
-	}
+    private CtInvocation<?> createJunit5AssertSame(CtExpression<?> firstArgument, CtExpression<?> secondArgument) {
+        CtTypeReference<?> typeRef = getFactory().Type().createReference("org.junit.jupiter.api.Assertions");
+        CtTypeReference<?> voidType = getFactory().Type().voidPrimitiveType();
+        CtTypeReference<Object> objectType = getFactory().Type().objectType();
+        CtExecutableReference<?> assertEquals = getFactory()
+                .Executable()
+                .createReference(typeRef, voidType, "assertSame", List.of(objectType, objectType));
+        return getFactory().createInvocation(null, assertEquals, List.of(firstArgument, secondArgument));
+    }
 
-	private CtInvocation<?> createJunit5AssertSame(CtExpression<?> firstArgument, CtExpression<?> secondArgument) {
-		CtTypeReference<?> typeRef = getFactory().Type().createReference("org.junit.jupiter.api.Assertions");
-		CtTypeReference<?> voidType = getFactory().Type().voidPrimitiveType();
-		CtTypeReference<Object> objectType = getFactory().Type().objectType();
-		CtExecutableReference<?> assertEquals = getFactory().Executable()
-				.createReference(typeRef, voidType, "assertSame", List.of(objectType, objectType));
-		return getFactory().createInvocation(null, assertEquals, List.of(firstArgument, secondArgument));
-	}
-
-	private void notifyChangeListener(CtInvocation<?> newAssert) {
-		CtType<?> parent = newAssert.getParent(CtType.class);
-		setChanged(parent, new Change(String.format("Replaced assertTrue checking same with assertSame"),
-			"assertTrue with equals instead of assertSame", parent));
-	}
-
+    private void notifyChangeListener(CtInvocation<?> newAssert) {
+        CtType<?> parent = newAssert.getParent(CtType.class);
+        setChanged(
+                parent,
+                new Change(
+                        String.format("Replaced assertTrue checking same with assertSame"),
+                        "assertTrue with equals instead of assertSame",
+                        parent));
+    }
 }
