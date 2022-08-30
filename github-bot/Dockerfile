@@ -1,15 +1,11 @@
-FROM registry.access.redhat.com/ubi8/openjdk-17:1.11
-
-ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
-
-
-# We make four distinct layers so if there are application changes the library layers can be re-used
-COPY --chown=185 build/quarkus-app/lib/ /deployments/lib/
-COPY --chown=185 build/quarkus-app/*.jar /deployments/
-COPY --chown=185 build/quarkus-app/app/ /deployments/app/
-COPY --chown=185 build/quarkus-app/quarkus/ /deployments/quarkus/
+FROM quay.io/quarkus/quarkus-micro-image:1.0
+WORKDIR /work/
+RUN chown 1001 /work \
+  && chmod "g+rwX" /work \
+  && chown 1001:root /work
+COPY --chown=1001:root build/*-runner /work/application
 
 EXPOSE 8080
-USER 185
-ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
-ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
+USER 1001
+
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
