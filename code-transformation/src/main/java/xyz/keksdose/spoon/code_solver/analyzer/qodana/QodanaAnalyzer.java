@@ -210,7 +210,7 @@ public class QodanaAnalyzer {
     }
 
     private List<AnalyzerResult> parseSarif(Path resultPath) throws IOException {
-        //TODO: remove
+        // TODO: remove
         Files.find(Path.of("."), 999, (p, bfa) -> bfa.isRegularFile()).forEach(System.out::println);
         StringReader reader = new StringReader(Files.readString(resultPath));
         ObjectMapper mapper = new ObjectMapper();
