@@ -83,8 +83,10 @@ public class QodanaAnalyzer {
         try (DockerClient dockerClient = DockerClientImpl.getInstance(standard, httpClient)) {
             Optional<Image> qodana = findQodanaImage(dockerClient);
             if (qodana.isPresent()) {
+                logger.atInfo().log("Found qodana image %s", qodana.get());
                 return executeQodana(sourceRoot, dockerClient, qodana);
             }
+            logger.atSevere().log("Could not find qodana image");
         } catch (Exception e) {
             logger.atSevere().withCause(e).log("Error running qodana");
         }
@@ -208,6 +210,8 @@ public class QodanaAnalyzer {
     }
 
     private List<AnalyzerResult> parseSarif(Path resultPath) throws IOException {
+        //TODO: remove
+        Files.find(Path.of("."), 999, (p, bfa) -> bfa.isRegularFile()).forEach(System.out::println);
         StringReader reader = new StringReader(Files.readString(resultPath));
         ObjectMapper mapper = new ObjectMapper();
         SarifSchema210 sarif = mapper.readValue(reader, SarifSchema210.class);
