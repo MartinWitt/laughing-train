@@ -315,7 +315,7 @@ public class App {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            FileUtils.deleteDirectory(tempDir.toFile());
+            // FileUtils.deleteDirectory(tempDir.toFile());
         }
         return List.of();
     }
@@ -326,6 +326,7 @@ public class App {
             Path file = Files.createTempDirectory("laughing-qodana");
             analyzer = new QodanaAnalyzer.Builder()
                     .withResultFolder(file.toAbsolutePath().toString())
+                    .withRemoveResultDir(false)
                     .build();
         } catch (Exception e) {
             analyzer = new QodanaAnalyzer.Builder().build();
