@@ -321,7 +321,15 @@ public class App {
     }
 
     private List<AnalyzerResult> runQodana(String gitUrl, Path dir) {
-        QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder().build();
+        QodanaAnalyzer analyzer;
+        try {
+            Path file = Files.createTempDirectory("laughing-qodana");
+            analyzer = new QodanaAnalyzer.Builder()
+                    .withResultFolder(file.toAbsolutePath().toString())
+                    .build();
+        } catch (Exception e) {
+            analyzer = new QodanaAnalyzer.Builder().build();
+        }
         try (Git git =
                 Git.cloneRepository().setURI(gitUrl).setDirectory(dir.toFile()).call()) {
             return analyzer.runQodana(dir);

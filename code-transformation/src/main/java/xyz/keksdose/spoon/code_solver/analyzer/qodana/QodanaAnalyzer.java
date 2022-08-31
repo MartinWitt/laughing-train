@@ -177,7 +177,6 @@ public class QodanaAnalyzer {
 
     private Optional<Image> findQodanaImage(DockerClient dockerClient) {
         List<Image> images = dockerClient.listImagesCmd().exec();
-        System.out.println(images);
         return images.stream()
                 .filter(v -> v.getRepoTags() != null)
                 .filter(v -> Arrays.stream(v.getRepoTags()).anyMatch(q -> q.contains(qodanaImageName)))
