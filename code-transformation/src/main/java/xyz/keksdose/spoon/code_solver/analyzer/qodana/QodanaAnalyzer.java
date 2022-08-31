@@ -64,6 +64,7 @@ public class QodanaAnalyzer {
             }
             Optional<Image> qodana = findQodanaImage(dockerClient);
             if (qodana.isPresent()) {
+                logger.atInfo().log("Found qodana image %s", qodana.get());
                 return executeQodana(sourceRoot, dockerClient, qodana);
             }
         } catch (Exception e) {
@@ -83,7 +84,6 @@ public class QodanaAnalyzer {
         try (DockerClient dockerClient = DockerClientImpl.getInstance(standard, httpClient)) {
             Optional<Image> qodana = findQodanaImage(dockerClient);
             if (qodana.isPresent()) {
-                logger.atInfo().log("Found qodana image %s", qodana.get());
                 return executeQodana(sourceRoot, dockerClient, qodana);
             }
             logger.atSevere().log("Could not find qodana image");
@@ -98,7 +98,7 @@ public class QodanaAnalyzer {
         HostConfig hostConfig = createHostConfig(sourceRoot);
         CreateContainerResponse container = createQodanaContainer(dockerClient, qodana.get(), hostConfig);
         List<AnalyzerResult> results = startQodanaContainer(dockerClient, container);
-        cleanCaches(sourceRoot);
+        // cleanCaches(sourceRoot);
         return results;
     }
 
@@ -170,9 +170,9 @@ public class QodanaAnalyzer {
         Bind bind = new Bind(sourceRoot.toFile().getAbsolutePath(), sourceFile);
         Bind resultsBind = new Bind(new File(resultFolder).getAbsolutePath(), targetFile);
         Bind cacheBind = new Bind(new File(cacheFolder).getAbsolutePath(), cacheDir);
-        return HostConfig.newHostConfig()
-                .withBinds(bind, cacheBind, resultsBind)
-                .withAutoRemove(true);
+        return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind)
+        // .withAutoRemove(true)
+        ;
     }
 
     private Optional<Image> findQodanaImage(DockerClient dockerClient) {
