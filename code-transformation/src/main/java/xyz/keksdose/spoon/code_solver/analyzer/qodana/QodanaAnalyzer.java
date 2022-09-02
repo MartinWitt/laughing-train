@@ -8,6 +8,7 @@ import com.github.dockerjava.api.async.ResultCallbackTemplate;
 import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.WaitContainerResultCallback;
 import com.github.dockerjava.api.model.Bind;
+import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Image;
 import com.github.dockerjava.api.model.Volume;
@@ -15,6 +16,7 @@ import com.github.dockerjava.api.model.WaitResponse;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.core.DockerClientImpl;
+import com.github.dockerjava.core.command.LogContainerResultCallback;
 import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import com.google.common.flogger.FluentLogger;
@@ -132,7 +134,14 @@ public class QodanaAnalyzer {
 
     private List<AnalyzerResult> startQodanaContainer(DockerClient dockerClient, CreateContainerResponse container)
             throws InterruptedException {
+        dockerClient.logContainerCmd(container.getId()).exec(new LogContainerResultCallback() {
+            @Override
+            public void onNext(Frame frame) {
+                logger.atInfo().log("%s", frame.toString());
+            }
+        });
         dockerClient.startContainerCmd(container.getId()).exec();
+
         WaitContainerResultCallback exec =
                 dockerClient.waitContainerCmd(container.getId()).exec(new WaitContainerResultCallback());
         List<AnalyzerResult> results = new ArrayList<>();
@@ -164,7 +173,7 @@ public class QodanaAnalyzer {
                 .withHostConfig(hostConfig)
                 .withAttachStderr(true)
                 .withAttachStdout(true)
-                .withCmd("-d", sourceFileRoot)
+                // .withCmd("-d", sourceFileRoot)
                 .exec();
     }
 
@@ -176,6 +185,8 @@ public class QodanaAnalyzer {
         Bind resultsBind = new Bind(new File(resultFolder).getAbsolutePath(), targetFile);
         Bind cacheBind = new Bind(new File(cacheFolder).getAbsolutePath(), cacheDir);
         logger.atInfo().log("Bind %s", bind);
+        logger.atInfo().log("Bind %s", resultsBind);
+        logger.atInfo().log("Bind %s", cacheBind);
         return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind)
         // .withAutoRemove(true)
         ;

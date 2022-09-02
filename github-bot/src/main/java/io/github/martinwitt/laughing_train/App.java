@@ -343,8 +343,6 @@ public class App {
                     .withRemoveResultDir(false)
                     .build();
             logger.atInfo().log("Running qodana %s to %s", gitUrl, dir);
-            logger.atInfo().log("Content of temp clone Folder");
-            Files.walk(dir).forEach(System.out::println);
             return analyzer.runQodana(dir);
         } catch (Exception e) {
             e.printStackTrace();
