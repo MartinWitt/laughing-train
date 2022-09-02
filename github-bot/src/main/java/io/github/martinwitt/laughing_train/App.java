@@ -167,6 +167,10 @@ public class App {
                     .comment(printResults(runQodana(issueComment.getRepository().getHttpTransportUrl())));
             return;
         }
+        if (comment.contains("@laughing-train checkout")) {
+            checkoutRepo(issueComment.getRepository().getHttpTransportUrl());
+            return;
+        }
         if (comment.contains("@laughing-train close")) {
             closePullRequestsWithLabelName(getOpenPullRequests(issueComment), LABEL_NAME);
             return;
@@ -319,12 +323,24 @@ public class App {
         return List.of();
     }
 
+    private void checkoutRepo(String gitUrl) throws IOException {
+        Path file = Files.createTempDirectory("laughing-qodana");
+        try (Git git =
+                Git.cloneRepository().setURI(gitUrl).setDirectory(file.toFile()).call()) {
+            logger.atInfo().log("Running qodana %s to %s", gitUrl, file);
+            logger.atInfo().log("Content of temp clone Folder");
+            Files.walk(file).forEach(System.out::println);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private List<AnalyzerResult> runQodana(String gitUrl, Path dir) {
         try (Git git =
                 Git.cloneRepository().setURI(gitUrl).setDirectory(dir.toFile()).call()) {
             Path file = Files.createTempDirectory("laughing-qodana");
             QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
-                    // .withResultFolder(file.toAbsolutePath().toString())
+                    .withResultFolder(file.toAbsolutePath().toString())
                     .withRemoveResultDir(false)
                     .build();
             logger.atInfo().log("Running qodana %s to %s", gitUrl, dir);
