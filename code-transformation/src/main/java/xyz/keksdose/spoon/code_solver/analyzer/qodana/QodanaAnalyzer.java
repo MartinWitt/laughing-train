@@ -54,11 +54,6 @@ public class QodanaAnalyzer {
         sourceRoot = fixWindowsPath(sourceRoot);
         logger.atInfo().log("Running Qodana on %s", sourceRoot);
         copyQodanaRules(sourceRoot);
-        try {
-            Files.walk(sourceRoot).forEach(System.out::println);
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
         DockerClientConfig standard =
                 DefaultDockerClientConfig.createDefaultConfigBuilder().build();
         DockerHttpClient httpClient = createHttpClient(standard);
@@ -149,8 +144,7 @@ public class QodanaAnalyzer {
                             exec.awaitCompletion();
 
                             // TODO: remove
-                            Files.find(Path.of("."), 999, (p, bfa) -> bfa.isRegularFile())
-                                    .forEach(System.out::println);
+
                             results.addAll(parseSarif(Path.of(resultPathString)));
                         } catch (IOException | InterruptedException e) {
                             logger.atSevere().withCause(e).log("Could not parse sarif");
@@ -221,7 +215,11 @@ public class QodanaAnalyzer {
 
     private List<AnalyzerResult> parseSarif(Path resultPath) throws IOException {
         // TODO: remove
-        Files.find(Path.of("."), 999, (p, bfa) -> bfa.isRegularFile()).forEach(System.out::println);
+        try {
+            Files.walk(resultPath).forEach(System.out::println);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
         StringReader reader = new StringReader(Files.readString(resultPath));
         ObjectMapper mapper = new ObjectMapper();
         SarifSchema210 sarif = mapper.readValue(reader, SarifSchema210.class);
@@ -243,7 +241,7 @@ public class QodanaAnalyzer {
 
         public Builder withResultFolder(String resultFolder) {
             this.resultFolder = resultFolder;
-            this.resultPathString = resultFolder + "qodana.sarif.json";
+            this.resultPathString = resultFolder + "/qodana.sarif.json";
             return this;
         }
 
