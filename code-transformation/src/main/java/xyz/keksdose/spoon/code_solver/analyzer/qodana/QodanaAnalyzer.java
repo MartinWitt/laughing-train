@@ -8,7 +8,6 @@ import com.github.dockerjava.api.async.ResultCallbackTemplate;
 import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.WaitContainerResultCallback;
 import com.github.dockerjava.api.model.Bind;
-import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Image;
 import com.github.dockerjava.api.model.Volume;
@@ -16,7 +15,6 @@ import com.github.dockerjava.api.model.WaitResponse;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.core.DockerClientImpl;
-import com.github.dockerjava.core.command.LogContainerResultCallback;
 import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import com.google.common.flogger.FluentLogger;
@@ -155,12 +153,6 @@ public class QodanaAnalyzer {
                     }
                 })
                 .awaitCompletion();
-        dockerClient.logContainerCmd(container.getId()).exec(new LogContainerResultCallback() {
-            @Override
-            public void onNext(Frame item) {
-                System.out.println(new String(item.getPayload()));
-            }
-        });
         return results;
     }
 
@@ -179,9 +171,10 @@ public class QodanaAnalyzer {
         Volume sourceFile = new Volume("/data/project/");
         Volume targetFile = new Volume("/data/results/");
         Volume cacheDir = new Volume("/data/cache/");
-        Bind bind = new Bind(sourceRoot.toFile().getAbsolutePath(), sourceFile);
+        Bind bind = new Bind(sourceRoot.toAbsolutePath().toString(), sourceFile);
         Bind resultsBind = new Bind(new File(resultFolder).getAbsolutePath(), targetFile);
         Bind cacheBind = new Bind(new File(cacheFolder).getAbsolutePath(), cacheDir);
+        logger.atInfo().log("Bind %s", bind);
         return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind)
         // .withAutoRemove(true)
         ;
@@ -251,6 +244,8 @@ public class QodanaAnalyzer {
         public Builder withResultFolder(String resultFolder) {
             this.resultFolder = resultFolder;
             this.resultPathString = resultFolder + "/qodana.sarif.json";
+            logger.atInfo().log("Result folder set to " + resultFolder);
+            logger.atInfo().log("Result path set to " + resultPathString);
             return this;
         }
 
