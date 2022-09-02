@@ -324,7 +324,7 @@ public class App {
     }
 
     private void checkoutRepo(String gitUrl) throws IOException {
-        Path file = Files.createTempDirectory("laughing-qodana");
+        Path file = Files.createDirectory(Path.of("/laughing-train/" + System.nanoTime()));
         try (Git git =
                 Git.cloneRepository().setURI(gitUrl).setDirectory(file.toFile()).call()) {
             logger.atInfo().log("Running qodana %s to %s", gitUrl, file);
@@ -338,7 +338,7 @@ public class App {
     private List<AnalyzerResult> runQodana(String gitUrl, Path dir) {
         try (Git git =
                 Git.cloneRepository().setURI(gitUrl).setDirectory(dir.toFile()).call()) {
-            Path file = Files.createTempDirectory("laughing-qodana");
+            Path file = Files.createDirectory(Path.of("/laughing-train/" + System.nanoTime()));
             QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
                     .withResultFolder(file.toAbsolutePath().toString())
                     .withRemoveResultDir(false)
