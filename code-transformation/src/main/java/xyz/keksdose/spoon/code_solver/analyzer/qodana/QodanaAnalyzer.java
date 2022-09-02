@@ -161,8 +161,11 @@ public class QodanaAnalyzer {
                 .withHostConfig(hostConfig)
                 .withAttachStderr(true)
                 .withAttachStdout(true)
-                .withCmd("-d", sourceFileRoot)
-                .withCmd("-o", Path.of(resultFolder).toAbsolutePath().toString())
+                .withCmd(List.of(
+                        "-d",
+                        sourceFileRoot,
+                        "-o",
+                        Path.of(resultFolder).toAbsolutePath().toString()))
                 .exec();
     }
 
