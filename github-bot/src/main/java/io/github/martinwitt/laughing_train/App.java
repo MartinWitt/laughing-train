@@ -311,10 +311,10 @@ public class App {
     }
 
     private List<AnalyzerResult> runQodana(String gitUrl) throws IOException {
-        Path tempDir = Files.createTempDirectory(TEMP_FOLDER_PREFIX);
+        Path file = Files.createDirectory(Path.of("/laughing-train/" + System.nanoTime()));
         try {
-            logger.atInfo().log("Cloning %s to %s", gitUrl, tempDir);
-            return runQodana(gitUrl, tempDir);
+            logger.atInfo().log("Cloning %s to %s", gitUrl, file);
+            return runQodana(gitUrl, file);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -338,9 +338,8 @@ public class App {
     private List<AnalyzerResult> runQodana(String gitUrl, Path dir) {
         try (Git git =
                 Git.cloneRepository().setURI(gitUrl).setDirectory(dir.toFile()).call()) {
-            Path file = Files.createDirectory(Path.of("/laughing-train/" + System.nanoTime()));
             QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
-                    .withResultFolder(file.toAbsolutePath().toString())
+                    .withResultFolder(dir.toAbsolutePath().toString())
                     .withRemoveResultDir(false)
                     .build();
             logger.atInfo().log("Running qodana %s to %s", gitUrl, dir);
