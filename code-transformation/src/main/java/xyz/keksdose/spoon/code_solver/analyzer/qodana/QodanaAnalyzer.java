@@ -60,12 +60,13 @@ public class QodanaAnalyzer {
         try (DockerClient dockerClient = DockerClientImpl.getInstance(standard, httpClient)) {
             Path resultPath = Path.of(resultPathString);
             if (Files.exists(resultPath)) {
+                logger.atInfo().log("Found old result dir %s", resultPath);
                 return parseSarif(resultPath);
             }
             Optional<Image> qodana = findQodanaImage(dockerClient);
             if (qodana.isPresent()) {
-                logger.atInfo().log("Found qodana image %s", qodana.get());
-                return executeQodana(sourceRoot, dockerClient, qodana);
+                logger.atInfo().log("Found qodana image %s", qodana.get().getId());
+                return executeQodana(sourceRoot, dockerClient, qodana.get());
             }
         } catch (Exception e) {
             logger.atSevere().withCause(e).log("Error running qodana");
@@ -84,7 +85,7 @@ public class QodanaAnalyzer {
         try (DockerClient dockerClient = DockerClientImpl.getInstance(standard, httpClient)) {
             Optional<Image> qodana = findQodanaImage(dockerClient);
             if (qodana.isPresent()) {
-                return executeQodana(sourceRoot, dockerClient, qodana);
+                return executeQodana(sourceRoot, dockerClient, qodana.get());
             }
             logger.atSevere().log("Could not find qodana image");
         } catch (Exception e) {
@@ -93,10 +94,10 @@ public class QodanaAnalyzer {
         return List.of();
     }
 
-    private List<AnalyzerResult> executeQodana(Path sourceRoot, DockerClient dockerClient, Optional<Image> qodana)
+    private List<AnalyzerResult> executeQodana(Path sourceRoot, DockerClient dockerClient, Image qodana)
             throws InterruptedException, IOException {
         HostConfig hostConfig = createHostConfig(sourceRoot);
-        CreateContainerResponse container = createQodanaContainer(dockerClient, qodana.get(), hostConfig);
+        CreateContainerResponse container = createQodanaContainer(dockerClient, qodana, hostConfig);
         List<AnalyzerResult> results = startQodanaContainer(dockerClient, container);
         // cleanCaches(sourceRoot);
         return results;
@@ -142,9 +143,7 @@ public class QodanaAnalyzer {
                     public void onNext(WaitResponse object) {
                         try {
                             exec.awaitCompletion();
-
                             // TODO: remove
-
                             results.addAll(parseSarif(Path.of(resultPathString)));
                         } catch (IOException | InterruptedException e) {
                             logger.atSevere().withCause(e).log("Could not parse sarif");
@@ -163,6 +162,7 @@ public class QodanaAnalyzer {
                 .withAttachStderr(true)
                 .withAttachStdout(true)
                 .withCmd("-d", sourceFileRoot)
+                .withCmd("-o", Path.of(resultFolder).toAbsolutePath().toString())
                 .exec();
     }
 
