@@ -54,6 +54,11 @@ public class QodanaAnalyzer {
         sourceRoot = fixWindowsPath(sourceRoot);
         logger.atInfo().log("Running Qodana on %s", sourceRoot);
         copyQodanaRules(sourceRoot);
+        try {
+            Files.walk(sourceRoot).forEach(System.out::println);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
         DockerClientConfig standard =
                 DefaultDockerClientConfig.createDefaultConfigBuilder().build();
         DockerHttpClient httpClient = createHttpClient(standard);
@@ -142,6 +147,10 @@ public class QodanaAnalyzer {
                     public void onNext(WaitResponse object) {
                         try {
                             exec.awaitCompletion();
+
+                            // TODO: remove
+                            Files.find(Path.of("."), 999, (p, bfa) -> bfa.isRegularFile())
+                                    .forEach(System.out::println);
                             results.addAll(parseSarif(Path.of(resultPathString)));
                         } catch (IOException | InterruptedException e) {
                             logger.atSevere().withCause(e).log("Could not parse sarif");
