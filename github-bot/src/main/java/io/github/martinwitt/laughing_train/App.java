@@ -339,7 +339,6 @@ public class App {
         try (Git git =
                 Git.cloneRepository().setURI(gitUrl).setDirectory(dir.toFile()).call()) {
             QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
-                    .withSourceFileRoot(dir.toAbsolutePath().toString())
                     .withResultFolder(dir.toAbsolutePath().toString())
                     .withRemoveResultDir(false)
                     .build();

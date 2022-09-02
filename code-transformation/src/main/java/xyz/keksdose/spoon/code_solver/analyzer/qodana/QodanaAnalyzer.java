@@ -144,6 +144,7 @@ public class QodanaAnalyzer {
                         try {
                             exec.awaitCompletion();
                             System.out.println(object.getStatusCode());
+                            System.out.println(object.getRawValues());
                             System.out.println("Qodana finished: " + Files.exists(Path.of(resultPathString)));
                             // TODO: remove
                             results.addAll(parseSarif(Path.of(resultPathString)));
