@@ -8,6 +8,7 @@ import com.github.dockerjava.api.async.ResultCallbackTemplate;
 import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.WaitContainerResultCallback;
 import com.github.dockerjava.api.model.Bind;
+import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Image;
 import com.github.dockerjava.api.model.Volume;
@@ -15,6 +16,7 @@ import com.github.dockerjava.api.model.WaitResponse;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.core.DockerClientImpl;
+import com.github.dockerjava.core.command.LogContainerResultCallback;
 import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import com.google.common.flogger.FluentLogger;
@@ -143,6 +145,7 @@ public class QodanaAnalyzer {
                     public void onNext(WaitResponse object) {
                         try {
                             exec.awaitCompletion();
+                            System.out.println(object.getStatusCode());
                             System.out.println("Qodana finished: " + Files.exists(Path.of(resultPathString)));
                             // TODO: remove
                             results.addAll(parseSarif(Path.of(resultPathString)));
@@ -152,6 +155,12 @@ public class QodanaAnalyzer {
                     }
                 })
                 .awaitCompletion();
+        dockerClient.logContainerCmd(container.getId()).exec(new LogContainerResultCallback() {
+            @Override
+            public void onNext(Frame item) {
+                System.out.println(new String(item.getPayload()));
+            }
+        });
         return results;
     }
 
@@ -235,7 +244,7 @@ public class QodanaAnalyzer {
         private String resultFolder = "laughing-cache";
         private String cacheFolder = "laughing-cache";
         private String qodanaImageName = "jetbrains/qodana";
-        private String resultPathString = resultFolder + "qodana.sarif.json";
+        private String resultPathString = resultFolder + "/qodana.sarif.json";
         private boolean removeResultDir = true;
         private String sourceFileRoot = "./src/main/java";
 
