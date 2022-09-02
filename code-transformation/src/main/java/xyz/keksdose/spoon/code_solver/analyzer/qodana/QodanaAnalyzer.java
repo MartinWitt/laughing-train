@@ -216,7 +216,7 @@ public class QodanaAnalyzer {
     private List<AnalyzerResult> parseSarif(Path resultPath) throws IOException {
         // TODO: remove
         try {
-            Files.walk(resultPath).forEach(System.out::println);
+            Files.walk(resultPath.getParent()).forEach(System.out::println);
         } catch (IOException e1) {
             e1.printStackTrace();
         }
