@@ -7,7 +7,6 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import com.google.common.flogger.FluentLogger;
 import io.quarkiverse.githubapp.event.Issue;
 import io.quarkiverse.githubapp.event.IssueComment;
-import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -18,7 +17,6 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
-import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
 import org.kohsuke.github.GHEventPayload;
 import org.kohsuke.github.GHIssue;
@@ -100,13 +98,13 @@ public class App {
 
     private void createFixes(GHEventPayload.Issue issueComment) throws IOException {
         Path dir = Files.createTempDirectory(TEMP_FOLDER_PREFIX);
-        try (Closeable closeable = () -> FileUtils.deleteDirectory(dir.toFile())) {
-            Map<CtType<?>, List<Change>> changesByType =
-                    groupChangesByType(refactorRepo(issueComment.getRepository().getHttpTransportUrl(), dir));
-            GHRepository repo = issueComment.getRepository();
-            createLabelIfMissing(repo);
-            createPullRequestForAffectedType(repo, dir, changesByType);
-        }
+        // try (Closeable closeable = () -> FileUtils.deleteDirectory(dir.toFile())) {
+        Map<CtType<?>, List<Change>> changesByType =
+                groupChangesByType(refactorRepo(issueComment.getRepository().getHttpTransportUrl(), dir));
+        GHRepository repo = issueComment.getRepository();
+        createLabelIfMissing(repo);
+        createPullRequestForAffectedType(repo, dir, changesByType);
+        // }
     }
 
     private void refreshConfig(GHEventPayload.Issue issueComment) throws JsonProcessingException {
