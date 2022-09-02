@@ -56,7 +56,6 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
     @Deprecated
     public QodanaRefactor(ChangeListener listener) {
         super(listener);
-        this.listener = listener;
         refactorings = new ArrayList<>();
         ruleParser = new HashMap<>();
         // ruleParser.put("UnnecessaryReturn", UnnecessaryReturn::new);

@@ -143,6 +143,7 @@ public class QodanaAnalyzer {
                     public void onNext(WaitResponse object) {
                         try {
                             exec.awaitCompletion();
+                            System.out.println("Qodana finished: " + Files.exists(Path.of(resultPathString)));
                             // TODO: remove
                             results.addAll(parseSarif(Path.of(resultPathString)));
                         } catch (IOException | InterruptedException e) {
@@ -161,11 +162,7 @@ public class QodanaAnalyzer {
                 .withHostConfig(hostConfig)
                 .withAttachStderr(true)
                 .withAttachStdout(true)
-                .withCmd(List.of(
-                        "-d",
-                        sourceFileRoot,
-                        "-o",
-                        Path.of(resultFolder).toAbsolutePath().toString()))
+                .withCmd("-d", sourceFileRoot)
                 .exec();
     }
 
@@ -235,8 +232,8 @@ public class QodanaAnalyzer {
 
     public static class Builder {
 
-        private String resultFolder = "./.results/";
-        private String cacheFolder = "./.laughing/";
+        private String resultFolder = "laughing-cache";
+        private String cacheFolder = "laughing-cache";
         private String qodanaImageName = "jetbrains/qodana";
         private String resultPathString = resultFolder + "qodana.sarif.json";
         private boolean removeResultDir = true;

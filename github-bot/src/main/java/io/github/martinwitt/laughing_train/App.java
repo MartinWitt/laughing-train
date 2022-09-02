@@ -326,7 +326,7 @@ public class App {
                 Git.cloneRepository().setURI(gitUrl).setDirectory(dir.toFile()).call()) {
             Path file = Files.createTempDirectory("laughing-qodana");
             QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
-                    .withResultFolder(file.toAbsolutePath().toString())
+                    // .withResultFolder(file.toAbsolutePath().toString())
                     .withRemoveResultDir(false)
                     .build();
             logger.atInfo().log("Running qodana %s to %s", gitUrl, dir);
