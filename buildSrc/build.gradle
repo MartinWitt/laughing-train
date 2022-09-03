@@ -17,7 +17,7 @@ repositories {
 
 }
     dependencies {
-        implementation "com.diffplug.spotless:spotless-plugin-gradle:6.9.1"
+        implementation "com.diffplug.spotless:spotless-plugin-gradle:6.10.0"
         implementation "org.kordamp.gradle:jandex-gradle-plugin:0.13.2"
         implementation 'com.palantir.baseline:gradle-baseline-java:4.161.0'
 
