@@ -79,8 +79,9 @@ public class Config {
      * @param maximumNumberOfPrs the maximumNumberOfPrs to set
      */
     public void setMaximumNumberOfPrs(int maximumNumberOfPrs) {
-      this.maximumNumberOfPrs = maximumNumberOfPrs;
+        this.maximumNumberOfPrs = maximumNumberOfPrs;
     }
+
     @JsonIgnore
     public List<QodanaRules> getActiveRules() {
         return rules.entrySet().stream()
