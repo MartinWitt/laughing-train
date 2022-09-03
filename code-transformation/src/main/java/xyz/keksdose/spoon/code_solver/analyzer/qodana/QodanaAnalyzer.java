@@ -101,7 +101,7 @@ public class QodanaAnalyzer {
         HostConfig hostConfig = createHostConfig(sourceRoot);
         CreateContainerResponse container = createQodanaContainer(dockerClient, qodana, hostConfig);
         List<AnalyzerResult> results = startQodanaContainer(dockerClient, container);
-        cleanCaches(sourceRoot);
+        // cleanCaches(sourceRoot);
         return results;
     }
 
@@ -152,6 +152,7 @@ public class QodanaAnalyzer {
                     }
                 })
                 .awaitCompletion();
+        logger.atInfo().log("Qodana finished with %s results", results.size());
         return results;
     }
 
