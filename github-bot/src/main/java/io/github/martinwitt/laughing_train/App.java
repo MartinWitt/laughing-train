@@ -27,9 +27,9 @@ import org.kohsuke.github.GHRef;
 import org.kohsuke.github.GHRepository;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.TransformationEngine;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaAnalyzer;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
@@ -70,9 +70,7 @@ public class App {
             issueComment.getIssue().setBody(regenerateConfig());
             return;
         }
-
         refreshConfig(issueComment);
-
         if (containsFlag(issueComment.getIssue(), CREATE_FIXES_BUTTON)) {
             issueComment.getIssue().setBody(refreshFlag(issueComment.getIssue().getBody(), CREATE_FIXES_BUTTON));
             createFixes(issueComment);
@@ -198,7 +196,7 @@ public class App {
     private void createPullRequestForAffectedType(
             GHRepository repo, Path dir, Map<CtType<?>, List<Change>> changesByType) throws IOException {
         GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
-        if (changesByType.size() > 10) {
+        if (changesByType.size() > config.getMaximumNumberOfPrs()) {
             System.out.println("Too many changes, not creating PRs");
             return;
         }

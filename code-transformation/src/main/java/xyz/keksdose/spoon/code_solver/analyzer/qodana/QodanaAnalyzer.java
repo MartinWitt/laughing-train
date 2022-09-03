@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import org.apache.commons.io.FileUtils;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 public class QodanaAnalyzer {
 

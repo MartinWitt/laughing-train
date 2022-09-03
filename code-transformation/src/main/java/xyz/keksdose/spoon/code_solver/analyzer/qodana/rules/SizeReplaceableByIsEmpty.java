@@ -12,7 +12,7 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.reference.CtExecutableReference;
 import spoon.reflect.visitor.filter.TypeFilter;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -72,7 +72,8 @@ public class SizeReplaceableByIsEmpty extends AbstractRefactoring {
                     new Change(
                             badSmell,
                             MarkdownString.fromRaw("Replaced collection.size empty check with collection.isEmpty"),
-                            type));
+                            type,
+                            result));
         } else {
             var invocation = findSizeInvocation(ctBinaryOperator.getLeftHandOperand());
             if (invocation == null) {
@@ -85,7 +86,8 @@ public class SizeReplaceableByIsEmpty extends AbstractRefactoring {
                     new Change(
                             badSmell,
                             MarkdownString.fromRaw("Replaced collection.size empty check with collection.isEmpty"),
-                            type));
+                            type,
+                            result));
         }
     }
 
@@ -108,7 +110,8 @@ public class SizeReplaceableByIsEmpty extends AbstractRefactoring {
                             MarkdownString.fromMarkdown(
                                     String.format(raw, invocationString, ctBinaryOperator, isEmpty),
                                     String.format(markdown, invocationString, ctBinaryOperator, isEmpty)),
-                            type));
+                            type,
+                            result));
         } else {
             var invocation = findLengthInvocation(ctBinaryOperator.getLeftHandOperand());
             if (invocation == null) {
@@ -126,7 +129,8 @@ public class SizeReplaceableByIsEmpty extends AbstractRefactoring {
                             MarkdownString.fromMarkdown(
                                     String.format(raw, invocationString, ctBinaryOperator, isEmpty),
                                     String.format(markdown, invocationString, ctBinaryOperator, isEmpty)),
-                            type));
+                            type,
+                            result));
         }
     }
 

@@ -20,6 +20,7 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryLocalVari
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryReturn;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryToStringCall;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedImport;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
@@ -53,24 +54,6 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
         splitResults(results);
     }
 
-    @Deprecated
-    public QodanaRefactor(ChangeListener listener) {
-        super(listener);
-        refactorings = new ArrayList<>();
-        ruleParser = new HashMap<>();
-        // ruleParser.put("UnnecessaryReturn", UnnecessaryReturn::new);
-        ruleParser.put("UnnecessaryToStringCall", UnnecessaryToStringCall::new);
-        ruleParser.put("NonProtectedConstructorInAbstractClass", NonProtectedConstructorInAbstractClass::new);
-        ruleParser.put("UnnecessaryInterfaceModifier", UnnecessaryInterfaceModifier::new);
-        // ruleParser.put("ParameterNameDiffersFromOverriddenParameter",
-        // ParameterNameDiffersFromOverriddenParameter::new);
-        // ruleParser.put("MethodMayBeStatic", MethodMayBeStatic::new);
-        ruleParser.put("NonStrictComparisonCanBeEquality", NonStrictComparisonCanBeEquality::new);
-        ruleParser.put("SizeReplaceableByIsEmpty", SizeReplaceableByIsEmpty::new);
-        ruleParser.put("UnnecessaryLocalVariable", UnnecessaryLocalVariable::new);
-        ruleParser.put("UnusedImport", UnusedImport::new);
-    }
-
     /**
      * Analyses the source code in the given source root
      * @param projectRoot  The root of the project which should be analysed.
@@ -84,9 +67,7 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
         splitResults(results);
     }
 
-    @Deprecated
-    // TODO: privat machen
-    public void splitResults(List<AnalyzerResult> results) {
+    private void splitResults(List<AnalyzerResult> results) {
         for (AnalyzerResult result : results) {
             Optional.ofNullable(ruleParser.get(result.ruleID())).ifPresent(v -> refactorings.add(v.apply(result)));
         }

@@ -6,8 +6,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 
 @ApplicationScoped
@@ -24,6 +24,9 @@ public class ChangelogPrinter {
         sb.append("## Changes: \n");
         for (var fix : changes) {
             sb.append("* " + fix.getChangeText().asMarkdown()).append("\n");
+            if (fix.getAnalyzerResult() != null) {
+                sb.append("<-- ").append(fix.getAnalyzerResult()).append(" -->");
+            }
         }
         return sb.toString();
     }

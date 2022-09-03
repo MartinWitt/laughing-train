@@ -5,7 +5,7 @@ import java.util.List;
 import spoon.reflect.declaration.CtImport;
 import spoon.reflect.declaration.CtType;
 import spoon.support.util.ModelList;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -44,7 +44,8 @@ public class UnusedImport extends AbstractRefactoring {
                         new Change(
                                 UNUSED_IMPORT,
                                 MarkdownString.fromRaw("The import " + ctImport + " is not used and can be removed."),
-                                type.getTopLevelType()));
+                                type.getTopLevelType(),
+                                result));
                 break;
             }
         }

@@ -14,7 +14,7 @@ import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.filter.TypeFilter;
 import spoon.support.reflect.CtExtendedModifier;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -61,7 +61,8 @@ public class MethodMayBeStatic extends AbstractRefactoring {
                         new Change(
                                 METHOD_MAY_BE_STATIC,
                                 MarkdownString.fromMarkdown(result.message(), result.message()),
-                                type.getTopLevelType()));
+                                type.getTopLevelType(),
+                                result));
             }
         }
     }

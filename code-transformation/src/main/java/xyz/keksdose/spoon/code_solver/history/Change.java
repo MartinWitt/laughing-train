@@ -1,7 +1,9 @@
 package xyz.keksdose.spoon.code_solver.history;
 
 import java.util.Objects;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import spoon.reflect.declaration.CtType;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class Change {
@@ -10,16 +12,10 @@ public class Change {
     private String issue;
     private CtType<?> affectedType;
     private BadSmell badsmell = BadSmell.emptyRule();
+    private AnalyzerResult analyzerResult;
 
     public Change(String text, String issue, CtType<?> affectedType) {
         this.text = MarkdownString.fromRaw(text);
-        this.issue = issue;
-        this.affectedType = affectedType;
-    }
-
-    @Deprecated
-    public Change(MarkdownString text, String issue, CtType<?> affectedType) {
-        this.text = text;
         this.issue = issue;
         this.affectedType = affectedType;
     }
@@ -29,6 +25,11 @@ public class Change {
         this.issue = badSmell.getName().asText();
         this.badsmell = badSmell;
         this.affectedType = affectedType;
+    }
+
+    public Change(BadSmell badSmell, MarkdownString text, CtType<?> affectedType, AnalyzerResult analyzerResult) {
+        this(badSmell, text, affectedType);
+        this.analyzerResult = analyzerResult;
     }
 
     public MarkdownString getChangeText() {
@@ -76,5 +77,12 @@ public class Change {
                 && Objects.equals(badsmell, other.badsmell)
                 && Objects.equals(issue, other.issue)
                 && Objects.equals(text, other.text);
+    }
+
+    /**
+     * @return the analyzerResult
+     */
+    public @Nullable AnalyzerResult getAnalyzerResult() {
+        return analyzerResult;
     }
 }
