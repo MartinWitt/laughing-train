@@ -7,8 +7,8 @@ import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallbackTemplate;
 import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.WaitContainerResultCallback;
+import com.github.dockerjava.api.model.AccessMode;
 import com.github.dockerjava.api.model.Bind;
-import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Image;
 import com.github.dockerjava.api.model.Volume;
@@ -16,7 +16,6 @@ import com.github.dockerjava.api.model.WaitResponse;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.core.DockerClientImpl;
-import com.github.dockerjava.core.command.LogContainerResultCallback;
 import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import com.google.common.flogger.FluentLogger;
@@ -32,6 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import org.apache.commons.io.FileUtils;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 public class QodanaAnalyzer {
 
@@ -101,7 +101,7 @@ public class QodanaAnalyzer {
         HostConfig hostConfig = createHostConfig(sourceRoot);
         CreateContainerResponse container = createQodanaContainer(dockerClient, qodana, hostConfig);
         List<AnalyzerResult> results = startQodanaContainer(dockerClient, container);
-        // cleanCaches(sourceRoot);
+        cleanCaches(sourceRoot);
         return results;
     }
 
@@ -145,9 +145,6 @@ public class QodanaAnalyzer {
                     public void onNext(WaitResponse object) {
                         try {
                             exec.awaitCompletion();
-                            System.out.println(object.getStatusCode());
-                            System.out.println("Qodana finished: " + Files.exists(Path.of(resultPathString)));
-                            // TODO: remove
                             results.addAll(parseSarif(Path.of(resultPathString)));
                         } catch (IOException | InterruptedException e) {
                             logger.atSevere().withCause(e).log("Could not parse sarif");
@@ -155,12 +152,6 @@ public class QodanaAnalyzer {
                     }
                 })
                 .awaitCompletion();
-        dockerClient.logContainerCmd(container.getId()).exec(new LogContainerResultCallback() {
-            @Override
-            public void onNext(Frame item) {
-                System.out.println(new String(item.getPayload()));
-            }
-        });
         return results;
     }
 
@@ -178,13 +169,11 @@ public class QodanaAnalyzer {
     private HostConfig createHostConfig(Path sourceRoot) {
         Volume sourceFile = new Volume("/data/project/");
         Volume targetFile = new Volume("/data/results/");
-        Volume cacheDir = new Volume("/data/cache/");
-        Bind bind = new Bind(sourceRoot.toFile().getAbsolutePath(), sourceFile);
-        Bind resultsBind = new Bind(new File(resultFolder).getAbsolutePath(), targetFile);
-        Bind cacheBind = new Bind(new File(cacheFolder).getAbsolutePath(), cacheDir);
-        return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind)
-        // .withAutoRemove(true)
-        ;
+        Bind bind = new Bind(sourceRoot.toAbsolutePath().toString(), sourceFile, AccessMode.rw);
+        Bind resultsBind = new Bind(Path.of(resultFolder).toAbsolutePath().toString(), targetFile, AccessMode.rw);
+        logger.atInfo().log("Bind %s", bind);
+        logger.atInfo().log("Bind %s", resultsBind);
+        return HostConfig.newHostConfig().withBinds(bind, resultsBind).withAutoRemove(true);
     }
 
     private Optional<Image> findQodanaImage(DockerClient dockerClient) {
@@ -223,12 +212,6 @@ public class QodanaAnalyzer {
     }
 
     private List<AnalyzerResult> parseSarif(Path resultPath) throws IOException {
-        // TODO: remove
-        try {
-            Files.walk(resultPath.getParent()).forEach(System.out::println);
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
         StringReader reader = new StringReader(Files.readString(resultPath));
         ObjectMapper mapper = new ObjectMapper();
         SarifSchema210 sarif = mapper.readValue(reader, SarifSchema210.class);
@@ -251,6 +234,8 @@ public class QodanaAnalyzer {
         public Builder withResultFolder(String resultFolder) {
             this.resultFolder = resultFolder;
             this.resultPathString = resultFolder + "/qodana.sarif.json";
+            logger.atInfo().log("Result folder set to " + resultFolder);
+            logger.atInfo().log("Result path set to " + resultPathString);
             return this;
         }
 

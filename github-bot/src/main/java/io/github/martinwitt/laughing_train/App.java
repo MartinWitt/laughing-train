@@ -7,16 +7,17 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import com.google.common.flogger.FluentLogger;
 import io.quarkiverse.githubapp.event.Issue;
 import io.quarkiverse.githubapp.event.IssueComment;
+import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
 import org.kohsuke.github.GHEventPayload;
 import org.kohsuke.github.GHIssue;
@@ -26,10 +27,9 @@ import org.kohsuke.github.GHRef;
 import org.kohsuke.github.GHRepository;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.TransformationEngine;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaAnalyzer;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
@@ -40,35 +40,25 @@ public class App {
             new ObjectMapper(new YAMLFactory().disable(Feature.WRITE_DOC_START_MARKER));
 
     private static final String CONFIG_ISSUE_NAME = "[Config] Laughing-train";
-
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-
     private static final String BOT_NAME = "laughing-train[bot]";
-
     private static final String TEMP_FOLDER_PREFIX = "laughing-train";
-
-    private static final String RESET_CONFIG_BUTTON = "- [x] <!-- reset --> Force refresh config";
-
-    private static final String CREATE_FIXES_BUTTON = "- [x] <!-- createPRs --> Create fixes with given config";
-
-    private static final String DISABLE_ALL_RULES_BUTTON = "- [x] <!-- disableAllRules --> Disables all rules";
-
-    /**
-     *
-     */
+    private static final String RESET_CONFIG_BUTTON = "- [x] <!-- reset -->";
+    private static final String CREATE_FIXES_BUTTON = "- [x] <!-- createPRs -->";
+    private static final String DISABLE_ALL_RULES_BUTTON = "- [x] <!-- disableAllRules -->";
     private static final String LABEL_NAME = "laughing-train-repair";
 
     @Inject
-    private BranchNameSupplier branchNameSupplier;
+    BranchNameSupplier branchNameSupplier;
 
     @Inject
-    private ChangelogPrinter changelogPrinter;
+    ChangelogPrinter changelogPrinter;
 
     @Inject
-    private MarkdownPrinter markdownPrinter;
+    MarkdownPrinter markdownPrinter;
 
     @Inject
-    private Config config;
+    Config config;
 
     void onConfigEdit(@Issue.Edited GHEventPayload.Issue issueComment) throws IOException {
         System.out.println("onEditConfig");
@@ -80,12 +70,11 @@ public class App {
             issueComment.getIssue().setBody(regenerateConfig());
             return;
         }
-
         refreshConfig(issueComment);
-
         if (containsFlag(issueComment.getIssue(), CREATE_FIXES_BUTTON)) {
             issueComment.getIssue().setBody(refreshFlag(issueComment.getIssue().getBody(), CREATE_FIXES_BUTTON));
             createFixes(issueComment);
+            logger.atInfo().log("Fixes created");
             return;
         }
         if (containsFlag(issueComment.getIssue(), DISABLE_ALL_RULES_BUTTON)) {
@@ -98,13 +87,13 @@ public class App {
 
     private void createFixes(GHEventPayload.Issue issueComment) throws IOException {
         Path dir = Files.createTempDirectory(TEMP_FOLDER_PREFIX);
-        // try (Closeable closeable = () -> FileUtils.deleteDirectory(dir.toFile())) {
-        Map<CtType<?>, List<Change>> changesByType =
-                groupChangesByType(refactorRepo(issueComment.getRepository().getHttpTransportUrl(), dir));
-        GHRepository repo = issueComment.getRepository();
-        createLabelIfMissing(repo);
-        createPullRequestForAffectedType(repo, dir, changesByType);
-        // }
+        try (Closeable closeable = () -> FileUtils.deleteDirectory(dir.toFile())) {
+            Map<CtType<?>, List<Change>> changesByType =
+                    groupChangesByType(refactorRepo(issueComment.getRepository().getHttpTransportUrl(), dir));
+            GHRepository repo = issueComment.getRepository();
+            createLabelIfMissing(repo);
+            createPullRequestForAffectedType(repo, dir, changesByType);
+        }
     }
 
     private void refreshConfig(GHEventPayload.Issue issueComment) throws JsonProcessingException {
@@ -141,7 +130,7 @@ public class App {
         return !issueComment.getIssue().getTitle().equals(CONFIG_ISSUE_NAME);
     }
 
-    void mentionList(@IssueComment GHEventPayload.IssueComment issueComment) throws IOException {
+    void mentionCommands(@IssueComment GHEventPayload.IssueComment issueComment) throws IOException {
         if (isSelf(issueComment) || isNotMartin(issueComment)) {
             return;
         }
@@ -152,7 +141,6 @@ public class App {
                     .filter(v -> v.getTitle().contains(CONFIG_ISSUE_NAME))
                     .filter(v -> !v.isLocked())
                     .collect(Collectors.toList());
-            System.out.println(issues);
             if (issues.isEmpty()) {
                 createConfigIssue(issueComment.getRepository());
                 return;
@@ -164,7 +152,8 @@ public class App {
         if (comment.contains("@laughing-train list")) {
             issueComment
                     .getIssue()
-                    .comment(printResults(runQodana(issueComment.getRepository().getHttpTransportUrl())));
+                    .comment(changelogPrinter.printResults(
+                            runQodana(issueComment.getRepository().getHttpTransportUrl())));
             return;
         }
         if (comment.contains("@laughing-train close")) {
@@ -207,7 +196,7 @@ public class App {
     private void createPullRequestForAffectedType(
             GHRepository repo, Path dir, Map<CtType<?>, List<Change>> changesByType) throws IOException {
         GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
-        if (changesByType.size() > 10) {
+        if (changesByType.size() > config.getMaximumNumberOfPrs()) {
             System.out.println("Too many changes, not creating PRs");
             return;
         }
@@ -307,14 +296,12 @@ public class App {
     }
 
     private List<AnalyzerResult> runQodana(String gitUrl) throws IOException {
-        Path tempDir = Files.createTempDirectory(TEMP_FOLDER_PREFIX);
-        try {
-            logger.atInfo().log("Cloning %s to %s", gitUrl, tempDir);
-            return runQodana(gitUrl, tempDir);
+        Path file = Files.createTempDirectory(TEMP_FOLDER_PREFIX);
+        try (Closeable closeable = () -> FileUtils.deleteDirectory(file.toFile())) {
+            logger.atInfo().log("Cloning %s to %s", gitUrl, file);
+            return runQodana(gitUrl, file);
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            // FileUtils.deleteDirectory(tempDir.toFile());
+            logger.atSevere().withCause(e).log("Error while running qodana");
         }
         return List.of();
     }
@@ -322,43 +309,14 @@ public class App {
     private List<AnalyzerResult> runQodana(String gitUrl, Path dir) {
         try (Git git =
                 Git.cloneRepository().setURI(gitUrl).setDirectory(dir.toFile()).call()) {
-            Path file = Files.createTempDirectory("laughing-qodana");
             QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
-                    // .withResultFolder(file.toAbsolutePath().toString())
-                    .withRemoveResultDir(false)
+                    .withResultFolder(dir.toAbsolutePath().toString())
                     .build();
             logger.atInfo().log("Running qodana %s to %s", gitUrl, dir);
-            logger.atInfo().log("Content of temp clone Folder");
-            Files.walk(dir).forEach(System.out::println);
             return analyzer.runQodana(dir);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return List.of();
-    }
-
-    private String printResults(List<AnalyzerResult> results) {
-        Set<String> ruleIds =
-                config.getActiveRules().stream().map(QodanaRules::getRuleId).collect(Collectors.toSet());
-        List<AnalyzerResult> activeRuleResults =
-                results.stream().filter(v -> ruleIds.contains(v.ruleID())).collect(Collectors.toList());
-        StringBuilder sb = new StringBuilder();
-        sb.append("# Bad smells\n");
-        sb.append(String.format("I found %s bad smells:", activeRuleResults.size()))
-                .append("\n");
-        for (AnalyzerResult result : activeRuleResults) {
-
-            sb.append("## " + result.ruleID())
-                    .append("\n")
-                    .append(result.messageMarkdown())
-                    .append("\n")
-                    .append("in ")
-                    .append(markdownPrinter.toMarkdown(result.filePath()))
-                    .append("\n")
-                    .append("### Snippet")
-                    .append("\n")
-                    .append(markdownPrinter.toJavaMarkdownBlock(result.snippet()));
-        }
-        return sb.toString();
     }
 }

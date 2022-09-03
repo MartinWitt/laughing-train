@@ -6,7 +6,7 @@ import spoon.reflect.code.BinaryOperatorKind;
 import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.visitor.filter.TypeFilter;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -45,7 +45,8 @@ public class NonStrictComparisonCanBeEquality extends AbstractRefactoring {
                         new Change(
                                 NON_STRICT_COMPARISON_CAN_BE_EQUALITY,
                                 MarkdownString.fromRaw("Replaced inequality with simpler equality"),
-                                type));
+                                type,
+                                result));
             }
         }
     }

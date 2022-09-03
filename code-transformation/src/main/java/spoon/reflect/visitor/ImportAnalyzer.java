@@ -212,7 +212,7 @@ public abstract class ImportAnalyzer<U> extends AbstractProcessor<CtElement> {
     protected abstract void handleTargetedExpression(CtTargetedExpression<?, ?> targetedExpression, U context);
 
     /**
-     * @return parent of `element`, but only if it's type is `type`
+     * {@return parent of `element`, but only if it's type is `type`}
      */
     protected static <T extends CtElement> T getParentIfType(CtElement element, Class<T> type) {
         if (element == null || !element.isParentInitialized()) {

@@ -11,7 +11,7 @@ import spoon.reflect.code.CtStatement;
 import spoon.reflect.code.CtVariableRead;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.visitor.filter.TypeFilter;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -60,7 +60,8 @@ public class UnnecessaryLocalVariable extends AbstractRefactoring {
                                     new Change(
                                             UNNECCESSARY_LOCAL_VARIABLE,
                                             MarkdownString.fromRaw("Inlined return statement " + ctReturn),
-                                            type.getTopLevelType()));
+                                            type.getTopLevelType(),
+                                            result));
                         }
                     }
                 }

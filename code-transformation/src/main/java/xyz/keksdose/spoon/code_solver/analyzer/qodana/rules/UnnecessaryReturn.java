@@ -5,7 +5,7 @@ import java.util.List;
 import spoon.reflect.code.CtReturn;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.visitor.filter.TypeFilter;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -45,7 +45,8 @@ public class UnnecessaryReturn extends AbstractRefactoring {
                         new Change(
                                 UNNECESSARY_RETURN,
                                 MarkdownString.fromMarkdown(result.message(), result.messageMarkdown()),
-                                type.getTopLevelType()));
+                                type.getTopLevelType(),
+                                result));
             }
         }
     }

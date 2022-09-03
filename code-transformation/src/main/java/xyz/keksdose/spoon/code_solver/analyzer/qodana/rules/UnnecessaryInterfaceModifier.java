@@ -9,7 +9,7 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtTypeMember;
 import spoon.reflect.declaration.ModifierKind;
 import spoon.support.reflect.CtExtendedModifier;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -52,7 +52,8 @@ public class UnnecessaryInterfaceModifier extends AbstractRefactoring {
                         new Change(
                                 UNNECESSARY_INTERFACE_MODIFIER,
                                 MarkdownString.fromMarkdown(result.message(), result.messageMarkdown()),
-                                type.getTopLevelType()));
+                                type.getTopLevelType(),
+                                result));
             }
         }
     }

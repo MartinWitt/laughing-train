@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ import org.eclipse.jgit.util.FS;
 import xyz.keksdose.spoon.code_solver.TransformationEngine;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaAnalyzer;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 import xyz.keksdose.spoon.code_solver.config.ConfigStore;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
@@ -109,12 +111,11 @@ public class PullRequest {
         if (keepCache) {
             builder.withRemoveResultDir(false);
         }
-        QodanaAnalyzer qodanaRunner = builder.build();
         ChangeListener listener = new ChangeListener();
         TransformationEngine transformationEngine = new TransformationEngine(List.of(v -> {
-            QodanaRefactor qodanaRefactor = new QodanaRefactor(v);
-            qodanaRefactor.splitResults(qodanaRunner.runQodanaNoCacheDelete(tempRepoFolder.toPath()));
-            return qodanaRefactor;
+            QodanaAnalyzer qodanaAnalyzer = new QodanaAnalyzer.Builder().build();
+            return new QodanaRefactor(
+                    Arrays.asList(QodanaRules.values()), v, qodanaAnalyzer.runQodana(tempRepoFolder.toPath()));
         }));
         transformationEngine.setChangeListener(listener);
         return transformationEngine.applyToGivenPath(tempRepoFolder.getAbsolutePath() + sourceDirectory);

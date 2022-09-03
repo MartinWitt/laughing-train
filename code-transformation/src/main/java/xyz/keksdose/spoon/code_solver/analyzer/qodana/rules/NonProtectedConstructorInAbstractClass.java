@@ -12,7 +12,7 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.visitor.filter.TypeFilter;
 import spoon.support.reflect.CtExtendedModifier;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -68,7 +68,8 @@ public class NonProtectedConstructorInAbstractClass extends AbstractRefactoring 
                         new Change(
                                 NON_PROTECTED_CONSTRUCTOR_IN_ABSTRACT_CLASS,
                                 MarkdownString.fromMarkdown(message, markdown),
-                                type.getTopLevelType()));
+                                type.getTopLevelType(),
+                                result));
             }
         }
     }

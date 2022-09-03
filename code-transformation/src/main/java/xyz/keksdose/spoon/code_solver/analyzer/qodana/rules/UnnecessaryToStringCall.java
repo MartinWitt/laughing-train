@@ -8,7 +8,7 @@ import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.factory.Factory;
 import spoon.reflect.visitor.filter.InvocationFilter;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -54,7 +54,8 @@ public class UnnecessaryToStringCall extends AbstractRefactoring {
                                 MarkdownString.fromMarkdown(
                                         "Removed unnecessary toString() call in " + oldInvocation,
                                         "Removed unnecessary `toString()` call in `" + oldInvocation + "`"),
-                                type.getTopLevelType()));
+                                type.getTopLevelType(),
+                                result));
             }
         }
     }

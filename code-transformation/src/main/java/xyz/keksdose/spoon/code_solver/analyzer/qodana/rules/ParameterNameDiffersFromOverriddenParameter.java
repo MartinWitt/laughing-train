@@ -9,7 +9,7 @@ import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtParameterReference;
 import spoon.reflect.visitor.filter.TypeFilter;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -56,7 +56,8 @@ public class ParameterNameDiffersFromOverriddenParameter extends AbstractRefacto
                             new Change(
                                     PARAMETER_NAME_DIFFERS_FROM_OVERRIDDEN_PARAMETER,
                                     MarkdownString.fromMarkdown(result.message(), result.messageMarkdown()),
-                                    type.getTopLevelType()));
+                                    type.getTopLevelType(),
+                                    result));
                 }
             }
         }
