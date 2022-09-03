@@ -11,7 +11,6 @@ import com.github.dockerjava.api.model.Bind;
 import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Image;
-import com.github.dockerjava.api.model.Mount;
 import com.github.dockerjava.api.model.Volume;
 import com.github.dockerjava.api.model.WaitResponse;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
