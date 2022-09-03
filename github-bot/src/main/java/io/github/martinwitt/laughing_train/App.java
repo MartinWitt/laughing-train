@@ -311,7 +311,7 @@ public class App {
     }
 
     private List<AnalyzerResult> runQodana(String gitUrl) throws IOException {
-        Path file = Files.createDirectory(Path.of("/laughing-train/" + System.nanoTime()));
+        Path file = Files.createTempDirectory("/laughing-train/" + System.nanoTime());
         try {
             logger.atInfo().log("Cloning %s to %s", gitUrl, file);
             return runQodana(gitUrl, file);
