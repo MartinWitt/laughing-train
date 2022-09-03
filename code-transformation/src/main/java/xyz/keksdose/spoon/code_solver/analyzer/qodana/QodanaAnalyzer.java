@@ -7,6 +7,7 @@ import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallbackTemplate;
 import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.WaitContainerResultCallback;
+import com.github.dockerjava.api.model.AccessMode;
 import com.github.dockerjava.api.model.Bind;
 import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
@@ -145,7 +146,6 @@ public class QodanaAnalyzer {
                     }
                 });
         dockerClient.startContainerCmd(container.getId()).exec();
-        dockerClient.copyArchiveFromContainerCmd("/", "/laughing-train");
         WaitContainerResultCallback exec =
                 dockerClient.waitContainerCmd(container.getId()).exec(new WaitContainerResultCallback());
         List<AnalyzerResult> results = new ArrayList<>();
@@ -184,15 +184,11 @@ public class QodanaAnalyzer {
     private HostConfig createHostConfig(Path sourceRoot) {
         Volume sourceFile = new Volume("/data/project/");
         Volume targetFile = new Volume("/data/results/");
-        Volume cacheDir = new Volume("/data/cache/");
-        Bind bind = new Bind(sourceRoot.toAbsolutePath().toString(), sourceFile);
-        Bind resultsBind = new Bind(new File(resultFolder).getAbsolutePath(), targetFile);
-        Bind cacheBind = new Bind(new File(cacheFolder).getAbsolutePath(), cacheDir);
+        Bind bind = new Bind(sourceRoot.toAbsolutePath().toString(), sourceFile, AccessMode.rw);
+        Bind resultsBind = new Bind(Path.of(resultFolder).toAbsolutePath().toString(), targetFile, AccessMode.rw);
         logger.atInfo().log("Bind %s", bind);
         logger.atInfo().log("Bind %s", resultsBind);
-        logger.atInfo().log("Bind %s", cacheBind);
-        return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind);
-        // .withAutoRemove(true)
+        return HostConfig.newHostConfig().withBinds(bind, resultsBind).withAutoRemove(true);
     }
 
     private Optional<Image> findQodanaImage(DockerClient dockerClient) {

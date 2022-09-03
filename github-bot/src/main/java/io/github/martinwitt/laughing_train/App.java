@@ -324,7 +324,7 @@ public class App {
     }
 
     private void checkoutRepo(String gitUrl) throws IOException {
-        Path file = Files.createDirectory(Path.of("/laughing-train/" + System.nanoTime()));
+        Path file = Files.createTempDirectory("/laughing-train/" + System.nanoTime());
         try (Git git =
                 Git.cloneRepository().setURI(gitUrl).setDirectory(file.toFile()).call()) {
             logger.atInfo().log("Running qodana %s to %s", gitUrl, file);
