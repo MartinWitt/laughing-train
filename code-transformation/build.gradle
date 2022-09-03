@@ -28,7 +28,7 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
 
 	// This dependency is used by the application.
-	implementation 'com.google.guava:guava:31.0.1-jre'
+	implementation 'com.google.guava:guava:31.1-jre'
 	// implementation 'fr.inria.gforge.spoon:spoon-core:10.0.1-beta-2'
 	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.2.0.202206071550-r'
 	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.ssh.apache', version: '6.2.0.202206071550-r'
