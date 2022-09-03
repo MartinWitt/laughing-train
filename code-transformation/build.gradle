@@ -31,7 +31,7 @@ dependencies {
 	implementation 'com.google.guava:guava:31.0.1-jre'
 	// implementation 'fr.inria.gforge.spoon:spoon-core:10.0.1-beta-2'
 	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.2.0.202206071550-r'
-	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.ssh.apache', version: '6.0.0.202111291000-r'
+	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.ssh.apache', version: '6.2.0.202206071550-r'
 	// implementation 'com.github.MartinWitt:Spoon:59fa98b3f8f83b2b566dc876ffabb26ba31ce2e3' // code solver branch
 	implementation 'fr.inria.gforge.spoon:spoon-core:+'
 	implementation 'com.google.flogger:flogger:0.7.4'
