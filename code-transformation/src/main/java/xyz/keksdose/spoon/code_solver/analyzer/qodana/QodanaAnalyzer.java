@@ -11,6 +11,7 @@ import com.github.dockerjava.api.model.Bind;
 import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Image;
+import com.github.dockerjava.api.model.Mount;
 import com.github.dockerjava.api.model.Volume;
 import com.github.dockerjava.api.model.WaitResponse;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
@@ -145,7 +146,7 @@ public class QodanaAnalyzer {
                     }
                 });
         dockerClient.startContainerCmd(container.getId()).exec();
-
+        dockerClient.copyArchiveFromContainerCmd("/", "/laughing-train");
         WaitContainerResultCallback exec =
                 dockerClient.waitContainerCmd(container.getId()).exec(new WaitContainerResultCallback());
         List<AnalyzerResult> results = new ArrayList<>();
@@ -177,7 +178,7 @@ public class QodanaAnalyzer {
                 .withHostConfig(hostConfig)
                 .withAttachStderr(true)
                 .withAttachStdout(true)
-                .withCmd("-d", sourceFileRoot)
+                // .withCmd("-d", sourceFileRoot)
                 .exec();
     }
 
@@ -191,9 +192,8 @@ public class QodanaAnalyzer {
         logger.atInfo().log("Bind %s", bind);
         logger.atInfo().log("Bind %s", resultsBind);
         logger.atInfo().log("Bind %s", cacheBind);
-        return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind)
+        return HostConfig.newHostConfig().withBinds(bind, cacheBind, resultsBind);
         // .withAutoRemove(true)
-        ;
     }
 
     private Optional<Image> findQodanaImage(DockerClient dockerClient) {
