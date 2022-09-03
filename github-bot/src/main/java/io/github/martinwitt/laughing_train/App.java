@@ -196,8 +196,11 @@ public class App {
     private void createPullRequestForAffectedType(
             GHRepository repo, Path dir, Map<CtType<?>, List<Change>> changesByType) throws IOException {
         GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
-        if (changesByType.size() > config.getMaximumNumberOfPrs()) {
-            System.out.println("Too many changes, not creating PRs");
+        logger.atInfo().log(
+                "Found changes for %s types", changesByType.entrySet().size());
+        if (changesByType.entrySet().size() > config.getMaximumNumberOfPrs()) {
+            logger.atInfo().log(
+                    "Too many changes, skipping, %s", changesByType.entrySet().size());
             return;
         }
         for (var entry : changesByType.entrySet()) {
