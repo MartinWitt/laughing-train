@@ -134,12 +134,16 @@ public class QodanaAnalyzer {
 
     private List<AnalyzerResult> startQodanaContainer(DockerClient dockerClient, CreateContainerResponse container)
             throws InterruptedException {
-        dockerClient.logContainerCmd(container.getId()).exec(new LogContainerResultCallback() {
-            @Override
-            public void onNext(Frame frame) {
-                logger.atInfo().log("%s", frame.toString());
-            }
-        });
+        dockerClient
+                .logContainerCmd(container.getId())
+                .withStdOut(true)
+                .withStdErr(true)
+                .exec(new LogContainerResultCallback() {
+                    @Override
+                    public void onNext(Frame frame) {
+                        logger.atInfo().log("%s", frame.toString());
+                    }
+                });
         dockerClient.startContainerCmd(container.getId()).exec();
 
         WaitContainerResultCallback exec =
