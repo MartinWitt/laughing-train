@@ -31,10 +31,10 @@ public class ChangelogPrinter {
         for (var fix : changes) {
             sb.append("* " + fix.getChangeText().asMarkdown()).append("\n");
             if (fix.getAnalyzerResult() != null) {
-                sb.append("<-- ").append(toYaml(fix.getAnalyzerResult())).append(" -->");
-                sb.append("<-- fingerprint:")
+                sb.append("<!-- ").append(toYaml(fix.getAnalyzerResult())).append(" -->\n");
+                sb.append("<!-- fingerprint:")
                         .append(fix.getAnalyzerResult().hashCode())
-                        .append(" -->");
+                        .append(" -->\n");
             }
         }
         return sb.toString();
