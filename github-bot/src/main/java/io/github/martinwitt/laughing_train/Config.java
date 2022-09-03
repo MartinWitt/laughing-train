@@ -44,6 +44,7 @@ public class Config {
 
     public void fromConfig(Config config) {
         this.srcFolder = config.getSrcFolder();
+        this.maximumNumberOfPrs = config.getMaximumNumberOfPrs();
         this.rules = new EnumMap<>(config.rules);
     }
 
