@@ -22,7 +22,7 @@ public class Config {
             new ObjectMapper(new YAMLFactory().disable(Feature.WRITE_DOC_START_MARKER));
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private String srcFolder = "src/main/java";
-    private int maxNumberPRs = 10;
+    private int maximumNumberOfPrs = 10;
     private Map<QodanaRules, Boolean> rules = new EnumMap<>(QodanaRules.class);
 
     public Config() {
@@ -44,6 +44,7 @@ public class Config {
 
     public void fromConfig(Config config) {
         this.srcFolder = config.getSrcFolder();
+        this.maximumNumberOfPrs = config.getMaximumNumberOfPrs();
         this.rules = new EnumMap<>(config.rules);
     }
 
@@ -72,7 +73,14 @@ public class Config {
      * {@return the maxNumberPRs}
      */
     public int getMaximumNumberOfPrs() {
-        return maxNumberPRs;
+        return maximumNumberOfPrs;
+    }
+
+    /**
+     * @param maximumNumberOfPrs the maximumNumberOfPrs to set
+     */
+    public void setMaximumNumberOfPrs(int maximumNumberOfPrs) {
+        this.maximumNumberOfPrs = maximumNumberOfPrs;
     }
 
     @JsonIgnore
