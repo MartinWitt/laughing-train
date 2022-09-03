@@ -9,6 +9,7 @@ plugins {
     id 'java'
     id "com.diffplug.spotless"
 		id 'org.kordamp.gradle.jandex'
+		// id "net.ltgt.errorprone"
 }
 
 repositories {
@@ -49,4 +50,7 @@ spotless {
 	java {
         palantirJavaFormat()
 	}
+}
+dependencies {
+	  // errorprone("com.google.errorprone:error_prone_core:2.15.0")
 }
