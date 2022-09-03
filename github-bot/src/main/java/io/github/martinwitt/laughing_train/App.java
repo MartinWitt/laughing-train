@@ -313,7 +313,6 @@ public class App {
                 Git.cloneRepository().setURI(gitUrl).setDirectory(dir.toFile()).call()) {
             QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
                     .withResultFolder(dir.toAbsolutePath().toString())
-                    .withRemoveResultDir(false)
                     .build();
             logger.atInfo().log("Running qodana %s to %s", gitUrl, dir);
             return analyzer.runQodana(dir);

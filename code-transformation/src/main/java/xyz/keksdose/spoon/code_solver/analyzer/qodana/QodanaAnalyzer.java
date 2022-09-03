@@ -9,7 +9,6 @@ import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.WaitContainerResultCallback;
 import com.github.dockerjava.api.model.AccessMode;
 import com.github.dockerjava.api.model.Bind;
-import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Image;
 import com.github.dockerjava.api.model.Volume;
@@ -17,7 +16,6 @@ import com.github.dockerjava.api.model.WaitResponse;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.core.DockerClientImpl;
-import com.github.dockerjava.core.command.LogContainerResultCallback;
 import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import com.google.common.flogger.FluentLogger;
@@ -102,7 +100,7 @@ public class QodanaAnalyzer {
         HostConfig hostConfig = createHostConfig(sourceRoot);
         CreateContainerResponse container = createQodanaContainer(dockerClient, qodana, hostConfig);
         List<AnalyzerResult> results = startQodanaContainer(dockerClient, container);
-        // cleanCaches(sourceRoot);
+        cleanCaches(sourceRoot);
         return results;
     }
 
@@ -135,16 +133,6 @@ public class QodanaAnalyzer {
 
     private List<AnalyzerResult> startQodanaContainer(DockerClient dockerClient, CreateContainerResponse container)
             throws InterruptedException {
-        dockerClient
-                .logContainerCmd(container.getId())
-                .withStdOut(true)
-                .withStdErr(true)
-                .exec(new LogContainerResultCallback() {
-                    @Override
-                    public void onNext(Frame frame) {
-                        logger.atInfo().log("%s", frame.toString());
-                    }
-                });
         dockerClient.startContainerCmd(container.getId()).exec();
         WaitContainerResultCallback exec =
                 dockerClient.waitContainerCmd(container.getId()).exec(new WaitContainerResultCallback());
@@ -156,10 +144,6 @@ public class QodanaAnalyzer {
                     public void onNext(WaitResponse object) {
                         try {
                             exec.awaitCompletion();
-                            System.out.println(object.getStatusCode());
-                            System.out.println(object.getRawValues());
-                            System.out.println("Qodana finished: " + Files.exists(Path.of(resultPathString)));
-                            // TODO: remove
                             results.addAll(parseSarif(Path.of(resultPathString)));
                         } catch (IOException | InterruptedException e) {
                             logger.atSevere().withCause(e).log("Could not parse sarif");
@@ -177,7 +161,7 @@ public class QodanaAnalyzer {
                 .withHostConfig(hostConfig)
                 .withAttachStderr(true)
                 .withAttachStdout(true)
-                // .withCmd("-d", sourceFileRoot)
+                .withCmd("-d", sourceFileRoot)
                 .exec();
     }
 
@@ -227,12 +211,6 @@ public class QodanaAnalyzer {
     }
 
     private List<AnalyzerResult> parseSarif(Path resultPath) throws IOException {
-        // TODO: remove
-        try {
-            Files.walk(resultPath.getParent()).forEach(System.out::println);
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
         StringReader reader = new StringReader(Files.readString(resultPath));
         ObjectMapper mapper = new ObjectMapper();
         SarifSchema210 sarif = mapper.readValue(reader, SarifSchema210.class);
