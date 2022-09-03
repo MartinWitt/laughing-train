@@ -177,7 +177,7 @@ public class QodanaAnalyzer {
                 .withHostConfig(hostConfig)
                 .withAttachStderr(true)
                 .withAttachStdout(true)
-                // .withCmd("-d", sourceFileRoot)
+                .withCmd("-d", sourceFileRoot)
                 .exec();
     }
 
