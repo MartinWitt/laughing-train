@@ -312,6 +312,7 @@ public class App {
     private List<AnalyzerResult> runQodana(String gitUrl, Path dir) {
         try (Git git =
                 Git.cloneRepository().setURI(gitUrl).setDirectory(dir.toFile()).call()) {
+                    Files.list(dir).forEach(System.out::println);
             QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
                     .withSourceFileRoot(dir.toString() + "/" + config.getSrcFolder())
                     .withResultFolder(dir.toAbsolutePath().toString())
