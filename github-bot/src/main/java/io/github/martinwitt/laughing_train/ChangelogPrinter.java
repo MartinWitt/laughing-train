@@ -1,5 +1,8 @@
 package io.github.martinwitt.laughing_train;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +16,9 @@ import xyz.keksdose.spoon.code_solver.history.Change;
 @ApplicationScoped
 public class ChangelogPrinter {
 
+    private static final ObjectMapper MAPPER =
+            new ObjectMapper(new YAMLFactory().disable(Feature.WRITE_DOC_START_MARKER));
+
     @Inject
     MarkdownPrinter markdownPrinter;
 
@@ -25,10 +31,21 @@ public class ChangelogPrinter {
         for (var fix : changes) {
             sb.append("* " + fix.getChangeText().asMarkdown()).append("\n");
             if (fix.getAnalyzerResult() != null) {
-                sb.append("<-- ").append(fix.getAnalyzerResult()).append(" -->");
+                sb.append("<-- ").append(toYaml(fix.getAnalyzerResult())).append(" -->");
+                sb.append("<-- fingerprint:")
+                        .append(fix.getAnalyzerResult().hashCode())
+                        .append(" -->");
             }
         }
         return sb.toString();
+    }
+
+    private String toYaml(AnalyzerResult analyzerResult) {
+        try {
+            return MAPPER.writeValueAsString(analyzerResult);
+        } catch (Exception e) {
+            return "Could not serialize AnalyzerResult";
+        }
     }
 
     String printRepairedIssues(Collection<Change> changes) {
