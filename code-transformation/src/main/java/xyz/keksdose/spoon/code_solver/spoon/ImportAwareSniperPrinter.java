@@ -6,6 +6,7 @@ import spoon.reflect.declaration.CtAnnotation;
 import spoon.reflect.declaration.CtCompilationUnit;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtImport;
+import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtTypedElement;
 import spoon.reflect.reference.CtArrayTypeReference;
@@ -83,7 +84,7 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
             if (element instanceof CtParameter) {
                 getPrinterTokenWriter().writeSpace();
             } else {
-                getPrinterTokenWriter().writeln();
+                getPrinterTokenWriter().writeSpace();
             }
         }
     }
