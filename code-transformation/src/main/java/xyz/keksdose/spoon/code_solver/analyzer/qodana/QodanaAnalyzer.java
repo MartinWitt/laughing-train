@@ -216,7 +216,6 @@ public class QodanaAnalyzer {
         private String resultPathString = resultFolder + "/qodana.sarif.json";
         private String sourceFileRoot = "./src/main/java";
 
-
         public Builder withResultFolder(String resultFolder) {
             this.resultFolder = resultFolder;
             this.resultPathString = resultFolder + "/qodana.sarif.json";
@@ -233,6 +232,7 @@ public class QodanaAnalyzer {
             this.qodanaImageName = qodanaImageName;
             return this;
         }
+
         @Deprecated
         public Builder withRemoveResultDir(boolean removeResultDir) {
             return this;
