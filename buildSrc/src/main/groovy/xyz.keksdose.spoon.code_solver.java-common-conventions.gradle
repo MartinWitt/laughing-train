@@ -56,5 +56,6 @@ dependencies {
 }
 tasks.withType(JavaCompile).configureEach {
     options.errorprone.disableWarningsInGeneratedCode = true
+		options.errorprone.enabled = false
     options.errorprone.allDisabledChecksAsWarnings = false // change it to true to enable
 }
