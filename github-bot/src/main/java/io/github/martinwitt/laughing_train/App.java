@@ -60,7 +60,7 @@ public class App {
     void onConfigEdit(@Issue.Edited GHEventPayload.Issue issueComment) throws IOException {
         System.out.println("onEditConfig");
         if (isNotConfigIssue(issueComment)
-                || userWhitelist.isWhitelisted(GitHubUtils.getLogin(issueComment))
+                || !userWhitelist.isWhitelisted(GitHubUtils.getLogin(issueComment))
                 || GitHubUtils.isClosed(issueComment)) {
             logger.atInfo().log("Ignoring config edit because it is not a config issue or it is from self");
             return;
