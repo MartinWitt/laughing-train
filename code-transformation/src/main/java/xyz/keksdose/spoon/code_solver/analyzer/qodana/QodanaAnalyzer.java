@@ -37,18 +37,14 @@ public class QodanaAnalyzer {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private String resultFolder;
-    private String cacheFolder;
     private String qodanaImageName;
     private String resultPathString;
-    private boolean removeResultDir = true;
     private String sourceFileRoot;
 
     private QodanaAnalyzer(Builder builder) {
         this.resultFolder = builder.resultFolder;
-        this.cacheFolder = builder.cacheFolder;
         this.qodanaImageName = builder.qodanaImageName;
         this.resultPathString = builder.resultPathString;
-        this.removeResultDir = builder.removeResultDir;
         this.sourceFileRoot = builder.sourceFileRoot;
     }
 
@@ -100,17 +96,7 @@ public class QodanaAnalyzer {
             throws InterruptedException, IOException {
         HostConfig hostConfig = createHostConfig(sourceRoot);
         CreateContainerResponse container = createQodanaContainer(dockerClient, qodana, hostConfig);
-        List<AnalyzerResult> results = startQodanaContainer(dockerClient, container);
-        // cleanCaches(sourceRoot);
-        return results;
-    }
-
-    private void cleanCaches(Path sourceRoot) throws IOException {
-        if (removeResultDir) {
-            FileUtils.deleteDirectory(stringToFile(resultFolder));
-        }
-        FileUtils.deleteDirectory(stringToFile(cacheFolder));
-        Files.deleteIfExists(Path.of(sourceRoot.toString(), "qodana.yaml"));
+        return startQodanaContainer(dockerClient, container);
     }
 
     /**
@@ -226,22 +212,20 @@ public class QodanaAnalyzer {
     public static class Builder {
 
         private String resultFolder = "laughing-cache";
-        private String cacheFolder = "laughing-cache";
         private String qodanaImageName = "jetbrains/qodana";
         private String resultPathString = resultFolder + "/qodana.sarif.json";
-        private boolean removeResultDir = true;
         private String sourceFileRoot = "./src/main/java";
+
 
         public Builder withResultFolder(String resultFolder) {
             this.resultFolder = resultFolder;
             this.resultPathString = resultFolder + "/qodana.sarif.json";
-            logger.atInfo().log("Result folder set to " + resultFolder);
-            logger.atInfo().log("Result path set to " + resultPathString);
+            logger.atInfo().log("Result folder set to %s", resultFolder);
+            logger.atInfo().log("Result path set to %s", resultPathString);
             return this;
         }
 
         public Builder withCacheFolder(String cacheFolder) {
-            this.cacheFolder = cacheFolder;
             return this;
         }
 
@@ -249,9 +233,8 @@ public class QodanaAnalyzer {
             this.qodanaImageName = qodanaImageName;
             return this;
         }
-
+        @Deprecated
         public Builder withRemoveResultDir(boolean removeResultDir) {
-            this.removeResultDir = removeResultDir;
             return this;
         }
 
