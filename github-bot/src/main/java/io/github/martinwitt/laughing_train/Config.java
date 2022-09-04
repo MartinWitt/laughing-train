@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import com.google.common.flogger.FluentLogger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 
 @ApplicationScoped
@@ -24,8 +26,13 @@ public class Config {
     private String srcFolder = "src/main/java";
     private int maximumNumberOfPrs = 10;
     private Map<QodanaRules, Boolean> rules = new EnumMap<>(QodanaRules.class);
+    private List<String> allowedUsers = new ArrayList<>();
+
+    @Inject
+    MarkdownPrinter markdownPrinter;
 
     public Config() {
+        allowedUsers.add("MartinWitt");
         Arrays.stream(QodanaRules.values()).forEach(v -> rules.put(v, true));
     }
 
@@ -45,6 +52,7 @@ public class Config {
     public void fromConfig(Config config) {
         this.srcFolder = config.getSrcFolder();
         this.maximumNumberOfPrs = config.getMaximumNumberOfPrs();
+        this.allowedUsers = config.getAllowedUsers();
         this.rules = new EnumMap<>(config.rules);
     }
 
@@ -77,6 +85,12 @@ public class Config {
     }
 
     /**
+     * @return the allowedUsers
+     */
+    public List<String> getAllowedUsers() {
+        return allowedUsers;
+    }
+    /**
      * @param maximumNumberOfPrs the maximumNumberOfPrs to set
      */
     public void setMaximumNumberOfPrs(int maximumNumberOfPrs) {
@@ -89,5 +103,31 @@ public class Config {
                 .filter(Entry::getValue)
                 .map(Entry::getKey)
                 .collect(Collectors.toList());
+    }
+
+    @JsonIgnore
+    public String regenerateConfig() {
+        String options = "";
+        try {
+            options = markdownPrinter.toYamlMarkdown(MAPPER.writeValueAsString(this));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        String configString =
+                """
+                ## Configure your repository
+                ---
+                ### Config
+                <!-- config-start -->
+                %s
+                <!-- config-end -->
+                ---
+                ### Action Buttons
+                 - [ ] <!-- reset --> Force refresh config
+                 - [ ] <!-- createPRs --> Create fixes with given config
+                 - [ ] <!-- disableAllRules --> Disables all rules
+                """;
+        return "Hi, In this issue you can configure laughing-train. The config uses yaml syntax. \n"
+                + String.format(configString, options);
     }
 }
