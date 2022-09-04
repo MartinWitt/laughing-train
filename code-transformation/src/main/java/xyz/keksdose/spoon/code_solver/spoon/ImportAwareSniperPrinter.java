@@ -83,7 +83,7 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
             if (element instanceof CtParameter) {
                 getPrinterTokenWriter().writeSpace();
             } else {
-                getPrinterTokenWriter().writeln();
+                getPrinterTokenWriter().writeSpace();
             }
         }
     }

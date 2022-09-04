@@ -1,7 +1,11 @@
 package xyz.keksdose.spoon.code_solver.analyzer.qodana.rules;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import spoon.reflect.cu.SourcePosition;
+import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtTypeMember;
 import spoon.reflect.declaration.ModifierKind;
@@ -36,9 +40,15 @@ public class ProtectedMemberInFinalClass extends AbstractRefactoring {
         if (type.isAnonymous() || !isSameType(type, Path.of(result.filePath()))) {
             return;
         }
-        for (CtTypeMember member : type.getTypeMembers()) {
+        for (CtTypeMember member : new ArrayList<>(type.getTypeMembers())) {
             if (member.isProtected() && member.getDeclaringType().isFinal()) {
-                member.removeModifier(ModifierKind.PROTECTED);
+                var modifiers = new LinkedHashSet<>(member.getModifiers());
+                modifiers.removeIf(m -> m == ModifierKind.PROTECTED);
+                member.setModifiers(modifiers);
+                member.replace(member.clone());
+                if (!member.getAnnotations().isEmpty()) {
+                    // member.getAnnotations().forEach(v -> v.setPosition(SourcePosition.NOPOSITION));
+                }
                 String raw = "Removed protected modifier from member " + member.getSimpleName() + " in final class "
                         + type.getSimpleName();
                 String markdown = "Removed protected modifier from member `" + member.getSimpleName()
@@ -52,5 +62,15 @@ public class ProtectedMemberInFinalClass extends AbstractRefactoring {
     @Override
     public List<BadSmell> getHandledBadSmells() {
         return List.of(badSmell);
+    }
+
+    /**
+     * Modify an element such that the sniper printer detects it as modified, without changing its final content. This
+     * forces it to be sniper-printed "as-is".
+     */
+    private static void markElementForSniperPrinting(CtElement element) {
+        SourcePosition pos = element.getPosition();
+        element.setPosition(SourcePosition.NOPOSITION);
+        element.setPosition(pos);
     }
 }

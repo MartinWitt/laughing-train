@@ -52,6 +52,6 @@ public abstract class AbstractRefactoring {
                         .getFile()
                         .toPath()
                         .toString()
-                        .endsWith(resultPath.toString());
+                        .endsWith(resultPath.normalize().toString());
     }
 }
