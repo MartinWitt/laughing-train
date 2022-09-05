@@ -9,10 +9,13 @@ import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtTypeMember;
 import spoon.reflect.declaration.ModifierKind;
+import spoon.support.reflect.CtExtendedModifier;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
+import xyz.keksdose.spoon.code_solver.spoon.EmptyModifier;
+import xyz.keksdose.spoon.code_solver.spoon.NewLineAnnotation;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class ProtectedMemberInFinalClass extends AbstractRefactoring {
@@ -42,13 +45,11 @@ public class ProtectedMemberInFinalClass extends AbstractRefactoring {
         }
         for (CtTypeMember member : new ArrayList<>(type.getTypeMembers())) {
             if (member.isProtected() && member.getDeclaringType().isFinal()) {
-                var modifiers = new LinkedHashSet<>(member.getModifiers());
-                modifiers.removeIf(m -> m == ModifierKind.PROTECTED);
-                member.setModifiers(modifiers);
-                member.replace(member.clone());
-                if (!member.getAnnotations().isEmpty()) {
-                    // member.getAnnotations().forEach(v -> v.setPosition(SourcePosition.NOPOSITION));
-                }
+                LinkedHashSet<CtExtendedModifier> modifiers = new LinkedHashSet<>(member.getExtendedModifiers());
+                modifiers.removeIf(v -> v.getKind() == ModifierKind.PROTECTED);
+                modifiers.add(EmptyModifier.empty());
+                member.addAnnotation(new NewLineAnnotation<>());
+                member.setExtendedModifiers(modifiers);
                 String raw = "Removed protected modifier from member " + member.getSimpleName() + " in final class "
                         + type.getSimpleName();
                 String markdown = "Removed protected modifier from member `" + member.getSimpleName()
