@@ -38,7 +38,7 @@ public class QodanaService {
                     .withSourceFileRoot(config.getSrcFolder())
                     .withResultFolder(dir.toAbsolutePath().toString())
                     .build();
-            logger.atInfo().log("Running qodana %s to %s", gitUrl, dir);
+            logger.atInfo().log("Running qodana %s to %s with srcfolder %s", gitUrl, dir, config.getSrcFolder());
             return analyzer.runQodana(dir);
         } catch (Exception e) {
             e.printStackTrace();
