@@ -54,15 +54,13 @@ public class MiningCommand {
                 repoUrls.removeIf(String::isEmpty);
                 config.setSrcFolder(repos);
                 for (String url : repoUrls) {
-                    String folderPath = url.substring(url.lastIndexOf(':') + 1);
-                    config.setSrcFolder(folderPath);
-                    String repoUrl = url.split("\\s")[0];
-                    logger.atInfo().log("Mining %s", repoUrl);
-                    List<AnalyzerResult> results = qodanaService.runQodana(repoUrl);
+                    config.setSrcFolder(".");
+                    logger.atInfo().log("Mining %s", url);
+                    List<AnalyzerResult> results = qodanaService.runQodana(url);
                     results.removeIf(v -> v.ruleID().equals("MethodMayBeStatic"));
                     results.removeIf(v -> v.ruleID().equals("ParameterNameDiffersFromOverriddenParameter"));
                     StringBuilder builder = new StringBuilder();
-                    String repoName = StringUtils.substringBetween(repoUrl, "/");
+                    String repoName = StringUtils.substringBetween(url, "/");
                     builder.append("## ").append(repoName);
                     var resultsById = results.stream().collect(Collectors.groupingBy(AnalyzerResult::ruleID));
                     for (var analyzerResult : resultsById.entrySet()) {
