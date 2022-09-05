@@ -86,7 +86,7 @@ public class MiningCommand {
                             .commit();
                     repo.createRef(
                             "refs/heads/" + branchName, mainRef.getObject().getSha());
-                    repo.createPullRequest("Mining results", branchName, mainRef.toString(), builder.toString());
+                    repo.createPullRequest("Mining results", branchName, repo.getDefaultBranch(), builder.toString());
                 }
             } catch (Exception e) {
                 FileUtils.deleteDirectory(folder.toFile());
