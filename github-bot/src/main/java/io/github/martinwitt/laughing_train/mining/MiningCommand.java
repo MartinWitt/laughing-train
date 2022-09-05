@@ -60,7 +60,7 @@ public class MiningCommand {
                     results.removeIf(v -> v.ruleID().equals("MethodMayBeStatic"));
                     results.removeIf(v -> v.ruleID().equals("ParameterNameDiffersFromOverriddenParameter"));
                     StringBuilder builder = new StringBuilder();
-                    String repoName = StringUtils.substringBetween(url, "/");
+                    String repoName = StringUtils.substringAfterLast(url, "/");
                     builder.append("## ").append(repoName);
                     var resultsById = results.stream().collect(Collectors.groupingBy(AnalyzerResult::ruleID));
                     for (var analyzerResult : resultsById.entrySet()) {
