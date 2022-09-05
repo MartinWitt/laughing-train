@@ -81,7 +81,7 @@ public class MiningCommand {
                     GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
                     repo.createContent()
                             .content(builder.toString())
-                            .path("/mining/" + repoName)
+                            .path("mining/" + repoName)
                             .message("mining " + repoName)
                             .commit();
                     repo.createRef(
