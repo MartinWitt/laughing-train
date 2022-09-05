@@ -83,6 +83,7 @@ public class MiningCommand {
                             .content(builder.toString())
                             .path("mining/" + repoName)
                             .message("mining " + repoName)
+                            .sha(repo.getFileContent("mining/" + repoName).getSha())
                             .commit();
                     repo.createRef(
                             "refs/heads/" + branchName, mainRef.getObject().getSha());
