@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.mining;
 
+import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.BranchNameSupplier;
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.QodanaService;
@@ -20,6 +21,8 @@ import org.kohsuke.github.GHRepository;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 public class MiningCommand {
+
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     @Inject
     UserWhitelist whitelist;
@@ -49,16 +52,17 @@ public class MiningCommand {
                         Files.readString(miningFile), "<!-- repoStart -->", "<!-- reposEnd -->");
                 List<String> repoUrls = repos.lines().collect(Collectors.toList());
                 repoUrls.removeIf(String::isEmpty);
-                System.out.println(repoUrls.size());
-                System.out.println(Files.readString(miningFile));
-                System.out.println(repoUrls);
+                config.setSrcFolder(repos);
                 for (String url : repoUrls) {
-                    System.out.println("Mining " + url);
-                    List<AnalyzerResult> results = qodanaService.runQodana(url);
+                    logger.atInfo().log("Mining %s", url);
+                    String folderPath = url.substring(url.lastIndexOf(':') + 1);
+                    config.setSrcFolder(folderPath);
+                    String repoUrl = url.split(" ")[0];
+                    List<AnalyzerResult> results = qodanaService.runQodana(repoUrl);
                     results.removeIf(v -> v.ruleID().equals("MethodMayBeStatic"));
                     results.removeIf(v -> v.ruleID().equals("ParameterNameDiffersFromOverriddenParameter"));
                     StringBuilder builder = new StringBuilder();
-                    String repoName = StringUtils.substringBetween(url, "/");
+                    String repoName = StringUtils.substringBetween(repoUrl, "/");
                     builder.append("## ").append(repoName);
                     var resultsById = results.stream().collect(Collectors.groupingBy(AnalyzerResult::ruleID));
                     for (var analyzerResult : resultsById.entrySet()) {
@@ -79,7 +83,7 @@ public class MiningCommand {
                     GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
                     repo.createContent()
                             .content(builder.toString())
-                            .path("mining/" + repoName)
+                            .path("/mining/" + repoName)
                             .message("mining " + repoName)
                             .commit();
                     repo.createRef(
