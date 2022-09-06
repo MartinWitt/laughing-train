@@ -51,7 +51,7 @@ public class MiningCommand {
                 Path miningFile = folder.resolve("Mining.md");
                 String repos = StringUtils.substringBetween(
                         Files.readString(miningFile), "<!-- repoStart -->", "<!-- reposEnd -->");
-                List<String> repoUrls = repos.lines().collect(Collectors.toList());
+                List<String> repoUrls = repos.lines().map(String::trim).collect(Collectors.toList());
                 repoUrls.removeIf(String::isEmpty);
                 logger.atInfo().log("Mining %d repos", repoUrls.size());
                 logger.atInfo().log("Mining %s", repoUrls);
