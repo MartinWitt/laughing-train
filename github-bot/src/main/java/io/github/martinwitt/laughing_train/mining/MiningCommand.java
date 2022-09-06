@@ -43,6 +43,7 @@ public class MiningCommand {
             return;
         }
         if (issueComment.getComment().getBody().contains("@laughing-train mining")) {
+            config.setSrcFolder(".");
             Path folder = Files.createTempDirectory("laughing-wiki");
             try (Git git = Git.cloneRepository()
                     .setURI("https://github.com/MartinWitt/laughing-train.wiki.git")
@@ -62,10 +63,15 @@ public class MiningCommand {
                     results.removeIf(v -> v.ruleID().equals("ParameterNameDiffersFromOverriddenParameter"));
                     GHRepository repo = issueComment.getRepository();
                     String repoName = StringUtils.substringAfterLast("/", url);
+                    logger.atInfo().log("RepoName %s", repoName);
+                    if (repoName.isEmpty()) {
+                        return;
+                    }
                     repo.createContent()
                             .content(changelogPrinter.printResults(results))
-                            .path("mining/" + repoName +".md")
+                            .path("mining/" + repoName + ".md")
                             .message("mining " + repoName)
+                            .branch("gh-mining")
                             .commit();
                 }
             } catch (Exception e) {
