@@ -64,7 +64,7 @@ public class MiningCommand {
                     String repoName = StringUtils.substringAfterLast("/", url);
                     repo.createContent()
                             .content(changelogPrinter.printResults(results))
-                            .path("mining/" + repoName)
+                            .path("mining/" + repoName +".md")
                             .message("mining " + repoName)
                             .commit();
                 }
