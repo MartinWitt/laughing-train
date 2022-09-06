@@ -78,7 +78,7 @@ public class MiningCommand {
                     }
                     String branchName = branchNameSupplier.createBranchName();
                     GHRepository repo = issueComment.getRepository();
-                    GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
+                    GHRef mainRef = repo.getRef("heads/" + "gh-mining");
                     repo.createContent()
                             .content(builder.toString())
                             .path("mining/" + repoName)
