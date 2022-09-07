@@ -3,6 +3,7 @@ package io.github.martinwitt.laughing_train;
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
+import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.quarkiverse.githubapp.event.IssueComment;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
@@ -110,7 +111,6 @@ public class MentionCommands {
         @Override
         public void handle(AsyncResult<Message<QodanaResult>> v) {
             logger.atInfo().log("list command handler result %s", v);
-            // logger.atInfo().log("list command handler body %s", v.result().body());
             try {
                 if (v.succeeded()) {
                     if (v.result().body() instanceof QodanaResult.Success success) {

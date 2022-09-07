@@ -1,6 +1,9 @@
-package io.github.martinwitt.laughing_train;
+package io.github.martinwitt.laughing_train.services;
 
 import com.google.common.flogger.FluentLogger;
+
+import io.github.martinwitt.laughing_train.Config;
+import io.github.martinwitt.laughing_train.Constants;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.quarkus.vertx.ConsumeEvent;
@@ -55,10 +58,11 @@ public class QodanaService {
                 return new QodanaResult.Success(runQodana(urlOnly.gitUrl()));
             } else if (request instanceof AnalyzerRequest.WithFolder urlAndPath) {
                 return new QodanaResult.Success(runQodana(urlAndPath.gitUrl(), urlAndPath.folder()));
+            } else {
+                return new QodanaResult.Failure("Unknown request type");
             }
         } catch (Exception e) {
             return new QodanaResult.Failure(e.getMessage());
         }
-        return new QodanaResult.Failure("Unknown request type");
     }
 }

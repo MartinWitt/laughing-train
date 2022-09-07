@@ -3,13 +3,23 @@ package io.github.martinwitt.laughing_train.mining;
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.ChangelogPrinter;
 import io.github.martinwitt.laughing_train.Config;
-import io.github.martinwitt.laughing_train.QodanaService;
+import io.github.martinwitt.laughing_train.GitHubUtils;
 import io.github.martinwitt.laughing_train.UserWhitelist;
+import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
+import io.github.martinwitt.laughing_train.data.QodanaResult;
+import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.quarkiverse.githubapp.event.IssueComment;
+import io.quarkus.vertx.ConsumeEvent;
+import io.vertx.core.AsyncResult;
+import io.vertx.core.Handler;
+import io.vertx.core.eventbus.DeliveryOptions;
+import io.vertx.core.eventbus.EventBus;
+import io.vertx.core.eventbus.Message;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.apache.commons.io.FileUtils;
@@ -35,6 +45,8 @@ public class MiningCommand {
     @Inject
     ChangelogPrinter changelogPrinter;
 
+    @Inject
+    EventBus eventBus;
     void mining(@IssueComment GHEventPayload.IssueComment issueComment) throws IOException {
         if (!whitelist.isWhitelisted(issueComment.getComment().getUser().getLogin())) {
             logger.atInfo().log(
@@ -57,26 +69,71 @@ public class MiningCommand {
                 logger.atInfo().log("Mining %d repos", repoUrls.size());
                 logger.atInfo().log("Mining %s", repoUrls);
                 for (String url : repoUrls) {
-                    logger.atInfo().log("Mining %s", url);
-                    List<AnalyzerResult> results = qodanaService.runQodana(url);
-                    results.removeIf(v -> v.ruleID().equals("MethodMayBeStatic"));
-                    results.removeIf(v -> v.ruleID().equals("ParameterNameDiffersFromOverriddenParameter"));
-                    GHRepository repo = issueComment.getRepository();
                     String repoName = StringUtils.substringAfterLast(url, "/");
-                    logger.atInfo().log("RepoName %s", repoName);
-                    if (repoName.isEmpty()) {
-                        return;
-                    }
+                    GHRepository repo = issueComment.getRepository();
+                    eventBus.<QodanaResult>request(
+                            "qodana.analyzer.request",
+                            new AnalyzerRequest.UrlOnly(GitHubUtils.getTransportUrl(issueComment)),
+                            new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(30)),
+                            new MiningCommandResultHandler(repo, repoName));
+                }
+            } catch (Exception e) {
+                FileUtils.deleteDirectory(folder.toFile());
+                logger.atSevere().withCause(e).log("Error while mining");
+            }
+        }
+    }
+
+    private final class MiningCommandResultHandler implements Handler<AsyncResult<Message<QodanaResult>>> {
+        private final GHRepository repo;
+        private final String repoName;
+
+        private MiningCommandResultHandler(GHRepository repo, String repoName) {
+            this.repo = repo;
+            this.repoName = repoName;
+        }
+
+        private void updateOrCreateContent(GHRepository repo, String repoName, List<AnalyzerResult> results) {
+            try {
+                repo.getFileContent(
+                                "mining/" + repoName + ".md",
+                                repo.getRef("heads/gh-mining").toString())
+                        .update(changelogPrinter.printResults(results), "Update mining results for " + repoName);
+            } catch (Exception ignore) {
+                try {
                     repo.createContent()
                             .content(changelogPrinter.printResults(results))
                             .path("mining/" + repoName + ".md")
                             .message("mining " + repoName)
                             .branch("gh-mining")
                             .commit();
+                } catch (Exception e) {
+                    logger.atSevere().withCause(e).log("Error while creating mining file");
+                }
+            }
+        }
+
+        @Override
+        public void handle(AsyncResult<Message<QodanaResult>> v) {
+            logger.atInfo().log("mining command handler result %s", v);
+            try {
+                if (v.succeeded()) {
+                    if (v.result().body() instanceof QodanaResult.Success success) {
+                        var results = success.result();
+                        results.removeIf(list -> list.ruleID().equals("MethodMayBeStatic"));
+                        results.removeIf(list -> list.ruleID().equals("ParameterNameDiffersFromOverriddenParameter"));
+                        updateOrCreateContent(repo, repoName, results);
+                    } else if (v.result().body() instanceof QodanaResult.Failure error) {
+                        logger.atSevere().log("Error while mining %s", error.message());
+                    } else {
+                        logger.atSevere().withCause(v.cause()).log("error while analyzing");
+                    }
+                }
+                if (v.failed()) {
+                    logger.atSevere().withCause(v.cause()).log("error while analyzing");
                 }
             } catch (Exception e) {
-                FileUtils.deleteDirectory(folder.toFile());
-                logger.atSevere().withCause(e).log("Error while mining");
+                logger.atSevere().withCause(e).log("error while handling ming command");
             }
         }
     }

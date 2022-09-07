@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import com.google.common.flogger.FluentLogger;
+
+import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.quarkiverse.githubapp.event.Issue;
 import java.io.Closeable;
 import java.io.IOException;
