@@ -47,7 +47,7 @@ public class QodanaService {
         }
     }
 
-    @ConsumeEvent(value = "qodana.analyzerRequest", blocking = true)
+    @ConsumeEvent(value = "qodana.analyzer.request", blocking = true)
     public QodanaResult analyze(AnalyzerRequest request) {
 
         logger.atInfo().log("Received request %s", request);

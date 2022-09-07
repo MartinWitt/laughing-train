@@ -54,7 +54,8 @@ public class MentionCommands {
         }
         if (comment.contains("@laughing-train list")) {
             eventBus.<QodanaResult>request(
-                            "qodana.analyzer", new AnalyzerRequest.UrlOnly(GitHubUtils.getTransportUrl(issueComment)))
+                            "qodana.analyzer.request",
+                            new AnalyzerRequest.UrlOnly(GitHubUtils.getTransportUrl(issueComment)))
                     .onComplete(new ListCommandHandler(issueComment));
             return;
         }
