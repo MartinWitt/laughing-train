@@ -9,7 +9,6 @@ import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.quarkiverse.githubapp.event.IssueComment;
-import io.quarkus.vertx.ConsumeEvent;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.eventbus.DeliveryOptions;
@@ -47,6 +46,7 @@ public class MiningCommand {
 
     @Inject
     EventBus eventBus;
+
     void mining(@IssueComment GHEventPayload.IssueComment issueComment) throws IOException {
         if (!whitelist.isWhitelisted(issueComment.getComment().getUser().getLogin())) {
             logger.atInfo().log(

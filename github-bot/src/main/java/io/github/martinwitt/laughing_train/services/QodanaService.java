@@ -1,7 +1,6 @@
 package io.github.martinwitt.laughing_train.services;
 
 import com.google.common.flogger.FluentLogger;
-
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.Constants;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;

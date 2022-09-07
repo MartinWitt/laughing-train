@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import com.google.common.flogger.FluentLogger;
-
 import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.quarkiverse.githubapp.event.Issue;
 import java.io.Closeable;
@@ -69,20 +68,17 @@ public class App {
         }
         if (containsFlag(issueComment.getIssue(), RESET_CONFIG_BUTTON)) {
             issueComment.getIssue().setBody(config.regenerateConfig());
-            return;
         }
         refreshConfig(issueComment);
         if (containsFlag(issueComment.getIssue(), CREATE_FIXES_BUTTON)) {
             issueComment.getIssue().setBody(refreshFlag(issueComment.getIssue().getBody(), CREATE_FIXES_BUTTON));
             createFixes(issueComment);
             logger.atInfo().log("Fixes created");
-            return;
         }
         if (containsFlag(issueComment.getIssue(), DISABLE_ALL_RULES_BUTTON)) {
             issueComment.getIssue().setBody(refreshFlag(issueComment.getIssue().getBody(), DISABLE_ALL_RULES_BUTTON));
             disableAllRules();
             issueComment.getIssue().setBody(config.regenerateConfig());
-            return;
         }
     }
 
