@@ -83,4 +83,30 @@ public class ChangelogPrinter {
         }
         return sb.toString();
     }
+
+    public String printAllResults(List<AnalyzerResult> results) {
+        StringBuilder sb = new StringBuilder();
+        Set<String> ruleIds =
+                config.getActiveRules().stream().map(QodanaRules::getRuleId).collect(Collectors.toSet());
+        long fixableRules =
+                results.stream().filter(v -> ruleIds.contains(v.ruleID())).count();
+        sb.append("# Bad smells\n");
+        sb.append(String.format("I found %s bad smells with %s repairable:", results.size(), fixableRules))
+                .append("\n");
+        for (AnalyzerResult result : results) {
+
+            sb.append("## ")
+                    .append(result.ruleID())
+                    .append("\n")
+                    .append(result.messageMarkdown())
+                    .append("\n")
+                    .append("in ")
+                    .append(markdownPrinter.toMarkdown(result.filePath()))
+                    .append("\n")
+                    .append("### Snippet")
+                    .append("\n")
+                    .append(markdownPrinter.toJavaMarkdownBlock(result.snippet()));
+        }
+        return sb.toString();
+    }
 }

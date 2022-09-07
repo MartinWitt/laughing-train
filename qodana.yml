@@ -39,6 +39,7 @@ include:
   - name: NonStrictComparisonCanBeEquality
   - name: SizeReplaceableByIsEmpty 
   - name: SimplifyBooleanWithConstants
+  - name: ProtectedMemberInFinalClass
 exclude:
   - name: UseOfClone
   - name: JavaAnnotator

@@ -96,14 +96,14 @@ public class MiningCommand {
             try {
                 repo.getFileContent("mining/" + repoName + ".md", "gh-mining")
                         .update(
-                                changelogPrinter.printResults(results),
+                                changelogPrinter.printAllResults(results),
                                 "Update mining results for " + repoName,
                                 "gh-mining");
             } catch (Exception ignore) {
                 logger.atSevere().withCause(ignore).log("Error while updating mining results");
                 try {
                     repo.createContent()
-                            .content(changelogPrinter.printResults(results))
+                            .content(changelogPrinter.printAllResults(results))
                             .path("mining/" + repoName + ".md")
                             .message("mining " + repoName)
                             .branch("gh-mining")

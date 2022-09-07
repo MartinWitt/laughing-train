@@ -1,5 +1,6 @@
 profile:
   name: qodana.recommended
+version: "1.0"
 include:
   - name: Anonymous2MethodRef
   - name: AssignmentToCatchBlockParameter
@@ -15,7 +16,6 @@ include:
   - name: NestedAssignment
   - name: NonProtectedConstructorInAbstractClass
   - name: NonShortCircuitBoolean
-  - name: ParameterNameDiffersFromOverriddenParameter
   - name: RedundantFieldInitialization
   - name: RedundantImplements
   - name: RedundantMethodOverride
@@ -29,7 +29,6 @@ include:
   - name: UnnecessaryFullyQualifiedName
   - name: UnnecessaryLocalVariable
   - name: UnnecessarySuperQualifier
-  - name: UnnecessaryToStringCall
   - name: UnnecessaryUnboxing
   - name: UNUSED_IMPORT
   - name: GroovyUnnecessaryReturn
@@ -43,3 +42,4 @@ include:
   - name: ProtectedMemberInFinalClass
 exclude:
   - name: UseOfClone
+  - name: JavaAnnotator
