@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.apache.commons.io.FileUtils;
@@ -25,6 +29,9 @@ public class QodanaService {
 
     @Inject
     Config config;
+
+    @Inject
+    ThreadPoolManager threadPoolManager;
 
     public List<AnalyzerResult> runQodana(String gitUrl) throws IOException {
         Path file = Files.createTempDirectory(Constants.TEMP_FOLDER_PREFIX);
@@ -54,14 +61,39 @@ public class QodanaService {
         logger.atInfo().log("Received request %s", request);
         try {
             if (request instanceof AnalyzerRequest.UrlOnly urlOnly) {
-                return new QodanaResult.Success(runQodana(urlOnly.gitUrl()));
+                return threadPoolManager
+                        .getService()
+                        .submit(() -> new QodanaResult.Success(runQodana(urlOnly.gitUrl())))
+                        .get();
             } else if (request instanceof AnalyzerRequest.WithFolder urlAndPath) {
-                return new QodanaResult.Success(runQodana(urlAndPath.gitUrl(), urlAndPath.folder()));
+                return threadPoolManager
+                        .getService()
+                        .submit(() -> new QodanaResult.Success(runQodana(urlAndPath.gitUrl(), urlAndPath.folder())))
+                        .get();
             } else {
                 return new QodanaResult.Failure("Unknown request type");
             }
         } catch (Exception e) {
             return new QodanaResult.Failure(e.getMessage());
+        }
+    }
+
+    @ApplicationScoped
+    static class ThreadPoolManager {
+        ExecutorService service;
+
+        @PostConstruct
+        void setup() {
+            service = Executors.newFixedThreadPool(1);
+        }
+
+        @PreDestroy
+        void close() {
+            service.shutdown();
+        }
+
+        public ExecutorService getService() {
+            return service;
         }
     }
 }
