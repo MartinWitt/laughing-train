@@ -102,8 +102,8 @@ public class MentionCommands {
 
         @Override
         public void handle(AsyncResult<Message<QodanaResult>> v) {
-            logger.atInfo().log("list command handler result %s", v.result());
-            logger.atInfo().log("list command handler body %s", v.result().body());
+            logger.atInfo().log("list command handler result %s", v);
+            // logger.atInfo().log("list command handler body %s", v.result().body());
             try {
                 if (v.succeeded()) {
                     if (v.result().body() instanceof QodanaResult.Success success) {
