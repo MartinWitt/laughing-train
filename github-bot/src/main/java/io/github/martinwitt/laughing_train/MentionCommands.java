@@ -54,9 +54,9 @@ public class MentionCommands {
         }
         if (comment.contains("@laughing-train list")) {
             eventBus.<QodanaResult>request(
-                            "qodana.analyzer.request",
-                            new AnalyzerRequest.UrlOnly(GitHubUtils.getTransportUrl(issueComment)), new ListCommandHandler(
-                            issueComment));
+                    "qodana.analyzer.request",
+                    new AnalyzerRequest.UrlOnly(GitHubUtils.getTransportUrl(issueComment)),
+                    new ListCommandHandler(issueComment));
             return;
         }
         if (comment.contains("@laughing-train close")) {
@@ -113,6 +113,9 @@ public class MentionCommands {
                     } else {
                         logger.atSevere().withCause(v.cause()).log("error while analyzing");
                     }
+                }
+                if (v.failed()) {
+                    logger.atSevere().withCause(v.cause()).log("error while analyzing");
                 }
             } catch (Exception e) {
                 logger.atSevere().withCause(e).log("error while handling list command");

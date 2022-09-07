@@ -49,7 +49,6 @@ public class QodanaService {
 
     @ConsumeEvent(value = "qodana.analyzer.request", blocking = true)
     public QodanaResult analyze(AnalyzerRequest request) {
-
         logger.atInfo().log("Received request %s", request);
         try {
             if (request instanceof AnalyzerRequest.UrlOnly urlOnly) {
