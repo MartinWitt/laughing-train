@@ -40,12 +40,14 @@ public class QodanaAnalyzer {
     private String qodanaImageName;
     private String resultPathString;
     private String sourceFileRoot;
+    private Optional<String> qodanaCache;
 
     private QodanaAnalyzer(Builder builder) {
         this.resultFolder = builder.resultFolder;
         this.qodanaImageName = builder.qodanaImageName;
         this.resultPathString = builder.resultPathString;
         this.sourceFileRoot = builder.sourceFileRoot;
+        this.qodanaCache = builder.cacheFolder;
     }
 
     public List<AnalyzerResult> runQodana(Path sourceRoot) {
@@ -93,7 +95,7 @@ public class QodanaAnalyzer {
     }
 
     private List<AnalyzerResult> executeQodana(Path sourceRoot, DockerClient dockerClient, Image qodana)
-            throws InterruptedException, IOException {
+            throws InterruptedException {
         HostConfig hostConfig = createHostConfig(sourceRoot);
         CreateContainerResponse container = createQodanaContainer(dockerClient, qodana, hostConfig);
         return startQodanaContainer(dockerClient, container);
@@ -158,6 +160,10 @@ public class QodanaAnalyzer {
         Volume targetFile = new Volume("/data/results/");
         Bind bind = new Bind(sourceRoot.toAbsolutePath().toString(), sourceFile, AccessMode.rw);
         Bind resultsBind = new Bind(Path.of(resultFolder).toAbsolutePath().toString(), targetFile, AccessMode.rw);
+        if (this.qodanaCache.isPresent()) {
+            Bind cacheBind = new Bind(qodanaCache.get(), new Volume("/data/cache/"), AccessMode.rw);
+            return new HostConfig().withBinds(bind, resultsBind, cacheBind).withAutoRemove(true);
+        }
         return HostConfig.newHostConfig().withBinds(bind, resultsBind).withAutoRemove(true);
     }
 
@@ -213,16 +219,13 @@ public class QodanaAnalyzer {
         private String qodanaImageName = "jetbrains/qodana";
         private String resultPathString = resultFolder + "/qodana.sarif.json";
         private String sourceFileRoot = "./src/main/java";
+        private Optional<String> cacheFolder = Optional.empty();
 
         public Builder withResultFolder(String resultFolder) {
             this.resultFolder = resultFolder;
             this.resultPathString = resultFolder + "/qodana.sarif.json";
             logger.atInfo().log("Result folder set to %s", resultFolder);
             logger.atInfo().log("Result path set to %s", resultPathString);
-            return this;
-        }
-
-        public Builder withCacheFolder(String cacheFolder) {
             return this;
         }
 
@@ -238,6 +241,11 @@ public class QodanaAnalyzer {
 
         public Builder withSourceFileRoot(String sourceFileRoot) {
             this.sourceFileRoot = sourceFileRoot;
+            return this;
+        }
+
+        public Builder withCacheVolume(String volumeName) {
+            this.cacheFolder = Optional.of(volumeName);
             return this;
         }
 
