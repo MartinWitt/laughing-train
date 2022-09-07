@@ -95,9 +95,7 @@ public class MiningCommand {
 
         private void updateOrCreateContent(GHRepository repo, String repoName, List<AnalyzerResult> results) {
             try {
-                repo.getFileContent(
-                                "mining/" + repoName + ".md",
-                                "gh-mining")
+                repo.getFileContent("mining/" + repoName + ".md", "gh-mining")
                         .update(changelogPrinter.printResults(results), "Update mining results for " + repoName);
             } catch (Exception ignore) {
                 logger.atSevere().withCause(ignore).log("Error while updating mining results");
