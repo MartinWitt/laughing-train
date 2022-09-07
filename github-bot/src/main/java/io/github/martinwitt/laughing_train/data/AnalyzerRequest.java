@@ -1,8 +1,9 @@
 package io.github.martinwitt.laughing_train.data;
 
+import java.io.Serializable;
 import java.nio.file.Path;
 
-public sealed interface AnalyzerRequest permits AnalyzerRequest.UrlOnly, AnalyzerRequest.WithFolder {
+public sealed interface AnalyzerRequest extends Serializable {
 
     record WithFolder(String gitUrl, Path folder) implements AnalyzerRequest {}
 
