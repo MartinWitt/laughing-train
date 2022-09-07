@@ -69,7 +69,6 @@ public class MentionCommands {
         }
         if (comment.contains("@laughing-train hi")) {
             issueComment.getIssue().comment("Hi, I'm a bot. I'm here to help you with your code quality.");
-            return;
         }
     }
 
