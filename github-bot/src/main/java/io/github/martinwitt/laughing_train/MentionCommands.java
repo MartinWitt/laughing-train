@@ -55,8 +55,8 @@ public class MentionCommands {
         if (comment.contains("@laughing-train list")) {
             eventBus.<QodanaResult>request(
                             "qodana.analyzer.request",
-                            new AnalyzerRequest.UrlOnly(GitHubUtils.getTransportUrl(issueComment)))
-                    .onComplete(new ListCommandHandler(issueComment));
+                            new AnalyzerRequest.UrlOnly(GitHubUtils.getTransportUrl(issueComment)), new ListCommandHandler(
+                            issueComment));
             return;
         }
         if (comment.contains("@laughing-train close")) {
@@ -102,6 +102,8 @@ public class MentionCommands {
 
         @Override
         public void handle(AsyncResult<Message<QodanaResult>> v) {
+            logger.atInfo().log("list command handler result %s", v.result());
+            logger.atInfo().log("list command handler body %s", v.result().body());
             try {
                 if (v.succeeded()) {
                     if (v.result().body() instanceof QodanaResult.Success success) {
