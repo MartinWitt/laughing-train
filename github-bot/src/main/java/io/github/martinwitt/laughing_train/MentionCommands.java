@@ -6,10 +6,12 @@ import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.quarkiverse.githubapp.event.IssueComment;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
+import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.kohsuke.github.GHEventPayload;
@@ -56,11 +58,16 @@ public class MentionCommands {
             eventBus.<QodanaResult>request(
                     "qodana.analyzer.request",
                     new AnalyzerRequest.UrlOnly(GitHubUtils.getTransportUrl(issueComment)),
+                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(30)),
                     new ListCommandHandler(issueComment));
             return;
         }
         if (comment.contains("@laughing-train close")) {
             closePullRequestsWithLabelName(GitHubUtils.getOpenPullRequests(issueComment), Constants.LABEL_NAME);
+            return;
+        }
+        if (comment.contains("@laughing-train hi")) {
+            issueComment.getIssue().comment("Hi, I'm a bot. I'm here to help you with your code quality.");
             return;
         }
     }
