@@ -16,6 +16,7 @@ import io.vertx.core.eventbus.Message;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -120,7 +121,7 @@ public class MiningCommand {
             try {
                 if (v.succeeded()) {
                     if (v.result().body() instanceof QodanaResult.Success success) {
-                        var results = success.result();
+                        var results = new ArrayList<>(success.result());
                         results.removeIf(list -> list.ruleID().equals("MethodMayBeStatic"));
                         results.removeIf(list -> list.ruleID().equals("ParameterNameDiffersFromOverriddenParameter"));
                         updateOrCreateContent(repo, repoName, results);
