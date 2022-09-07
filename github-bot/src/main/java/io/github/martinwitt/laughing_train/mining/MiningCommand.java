@@ -97,7 +97,7 @@ public class MiningCommand {
             try {
                 repo.getFileContent(
                                 "mining/" + repoName + ".md",
-                                repo.getRef("heads/gh-mining").toString())
+                                "gh-mining")
                         .update(changelogPrinter.printResults(results), "Update mining results for " + repoName);
             } catch (Exception ignore) {
                 logger.atSevere().withCause(ignore).log("Error while updating mining results");

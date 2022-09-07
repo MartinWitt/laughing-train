@@ -59,7 +59,7 @@ public class MentionCommands {
             eventBus.<QodanaResult>request(
                     "qodana.analyzer.request",
                     new AnalyzerRequest.UrlOnly(GitHubUtils.getTransportUrl(issueComment)),
-                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(30)),
+                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
                     new ListCommandHandler(issueComment));
             return;
         }
