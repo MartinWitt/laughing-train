@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.quarkiverse.githubapp.event.Issue;
 import java.io.Closeable;
 import java.io.IOException;
@@ -67,20 +68,17 @@ public class App {
         }
         if (containsFlag(issueComment.getIssue(), RESET_CONFIG_BUTTON)) {
             issueComment.getIssue().setBody(config.regenerateConfig());
-            return;
         }
         refreshConfig(issueComment);
         if (containsFlag(issueComment.getIssue(), CREATE_FIXES_BUTTON)) {
             issueComment.getIssue().setBody(refreshFlag(issueComment.getIssue().getBody(), CREATE_FIXES_BUTTON));
             createFixes(issueComment);
             logger.atInfo().log("Fixes created");
-            return;
         }
         if (containsFlag(issueComment.getIssue(), DISABLE_ALL_RULES_BUTTON)) {
             issueComment.getIssue().setBody(refreshFlag(issueComment.getIssue().getBody(), DISABLE_ALL_RULES_BUTTON));
             disableAllRules();
             issueComment.getIssue().setBody(config.regenerateConfig());
-            return;
         }
     }
 
@@ -143,15 +141,19 @@ public class App {
     }
 
     private ChangeListener refactorRepo(String repoUrl, Path dir) {
-        var results = qodanaService.runQodana(repoUrl, dir);
-        System.out.println(config.getActiveRules());
         ChangeListener changeListener = new ChangeListener();
-        Function<ChangeListener, TransformationProcessor<?>> function =
-                (v -> new QodanaRefactor(config.getActiveRules(), v, results));
-        TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
-        transformationEngine.setChangeListener(changeListener);
-        System.out.println("refactorRepo: " + dir.toString() + "/" + config.getSrcFolder());
-        transformationEngine.applyToGivenPath(dir.toString() + "/" + config.getSrcFolder());
+        try {
+            var results = qodanaService.runQodana(repoUrl, dir);
+            System.out.println(config.getActiveRules());
+            Function<ChangeListener, TransformationProcessor<?>> function =
+                    (v -> new QodanaRefactor(config.getActiveRules(), v, results));
+            TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
+            transformationEngine.setChangeListener(changeListener);
+            System.out.println("refactorRepo: " + dir.toString() + "/" + config.getSrcFolder());
+            transformationEngine.applyToGivenPath(dir.toString() + "/" + config.getSrcFolder());
+        } catch (Exception e) {
+            logger.atSevere().withCause(e).log("Failed to refactor repo");
+        }
         return changeListener;
     }
 

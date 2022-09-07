@@ -13,12 +13,21 @@ plugins {
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
     mavenCentral()
     gradlePluginPortal()
     maven { url "https://plugins.gradle.org/m2/" }
 }
+dependencies {
+		// Use JUnit Jupiter for testing.
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
+	implementation 'com.google.guava:guava:31.1-jre'
+	implementation 'fr.inria.gforge.spoon:spoon-core:+'
+	implementation 'com.google.flogger:flogger:0.7.4'
+	implementation 'com.google.flogger:flogger-system-backend:0.7.4'
+	implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.4.0'
+	errorprone("com.google.errorprone:error_prone_core:2.15.0")
 
+}
 testing {
     suites {
         // Configure the built-in test suite
@@ -51,11 +60,17 @@ spotless {
         palantirJavaFormat()
 	}
 }
-dependencies {
-	  errorprone("com.google.errorprone:error_prone_core:2.15.0")
-}
+
 tasks.withType(JavaCompile).configureEach {
     options.errorprone.disableWarningsInGeneratedCode = true
 		options.errorprone.enabled = false
     options.errorprone.allDisabledChecksAsWarnings = false // change it to true to enable
+}
+compileJava {
+	options.encoding = 'UTF-8'
+	options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+	options.encoding = 'UTF-8'
 }

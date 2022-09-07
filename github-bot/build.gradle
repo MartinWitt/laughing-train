@@ -23,13 +23,3 @@ dependencies {
 
 group 'io.github.martinwitt'
 version '0.0.1'
-
-
-compileJava {
-	options.encoding = 'UTF-8'
-	options.compilerArgs << '-parameters'
-}
-
-compileTestJava {
-	options.encoding = 'UTF-8'
-}
