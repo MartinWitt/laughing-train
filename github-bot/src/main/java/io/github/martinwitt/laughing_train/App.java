@@ -143,15 +143,19 @@ public class App {
     }
 
     private ChangeListener refactorRepo(String repoUrl, Path dir) {
-        var results = qodanaService.runQodana(repoUrl, dir);
-        System.out.println(config.getActiveRules());
         ChangeListener changeListener = new ChangeListener();
-        Function<ChangeListener, TransformationProcessor<?>> function =
-                (v -> new QodanaRefactor(config.getActiveRules(), v, results));
-        TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
-        transformationEngine.setChangeListener(changeListener);
-        System.out.println("refactorRepo: " + dir.toString() + "/" + config.getSrcFolder());
-        transformationEngine.applyToGivenPath(dir.toString() + "/" + config.getSrcFolder());
+        try {
+            var results = qodanaService.runQodana(repoUrl, dir);
+            System.out.println(config.getActiveRules());
+            Function<ChangeListener, TransformationProcessor<?>> function =
+                    (v -> new QodanaRefactor(config.getActiveRules(), v, results));
+            TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
+            transformationEngine.setChangeListener(changeListener);
+            System.out.println("refactorRepo: " + dir.toString() + "/" + config.getSrcFolder());
+            transformationEngine.applyToGivenPath(dir.toString() + "/" + config.getSrcFolder());
+        } catch (Exception e) {
+            logger.atSevere().withCause(e).log("Failed to refactor repo");
+        }
         return changeListener;
     }
 

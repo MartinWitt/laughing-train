@@ -62,7 +62,7 @@ public class MiningCommand {
                     results.removeIf(v -> v.ruleID().equals("MethodMayBeStatic"));
                     results.removeIf(v -> v.ruleID().equals("ParameterNameDiffersFromOverriddenParameter"));
                     GHRepository repo = issueComment.getRepository();
-                    String repoName = StringUtils.substringAfterLast(url,"/");
+                    String repoName = StringUtils.substringAfterLast(url, "/");
                     logger.atInfo().log("RepoName %s", repoName);
                     if (repoName.isEmpty()) {
                         return;
