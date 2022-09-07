@@ -147,8 +147,8 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
             return this;
         }
 
+        @Deprecated
         public Builder withCacheFolder(String cacheFolder) {
-            settings.add(builder -> builder.withCacheFolder(cacheFolder));
             return this;
         }
 
