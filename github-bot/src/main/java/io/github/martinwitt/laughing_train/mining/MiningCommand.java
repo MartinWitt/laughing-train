@@ -3,7 +3,6 @@ package io.github.martinwitt.laughing_train.mining;
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.ChangelogPrinter;
 import io.github.martinwitt.laughing_train.Config;
-import io.github.martinwitt.laughing_train.GitHubUtils;
 import io.github.martinwitt.laughing_train.UserWhitelist;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
@@ -73,8 +72,8 @@ public class MiningCommand {
                     GHRepository repo = issueComment.getRepository();
                     eventBus.<QodanaResult>request(
                             "qodana.analyzer.request",
-                            new AnalyzerRequest.UrlOnly(GitHubUtils.getTransportUrl(issueComment)),
-                            new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(30)),
+                            new AnalyzerRequest.UrlOnly(url),
+                            new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
                             new MiningCommandResultHandler(repo, repoName));
                 }
             } catch (Exception e) {
