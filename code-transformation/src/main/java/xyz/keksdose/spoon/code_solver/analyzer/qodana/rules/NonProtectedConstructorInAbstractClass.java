@@ -56,11 +56,6 @@ public class NonProtectedConstructorInAbstractClass extends AbstractRefactoring 
                 List<CtAnnotation<? extends Annotation>> annotations = constructor.getAnnotations().stream()
                         .map(CtAnnotation::clone)
                         .collect(Collectors.toList());
-                // annotations.add(new NewLineAnnotation<>());
-                constructor.setAnnotations(annotations);
-                if (!constructor.getDocComment().isBlank()) {
-                    constructor.setDocComment(constructor.getDocComment());
-                }
                 String message = "Constructor " + constructor.getSignature() + " is now protected instead of public";
                 String markdown = "Constructor `" + constructor.getSignature() + "` is now protected instead of public";
                 listener.setChanged(
