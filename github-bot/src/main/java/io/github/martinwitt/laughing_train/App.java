@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -131,10 +133,11 @@ public class App {
         }
         for (var entry : changesByType.entrySet()) {
             String branchName = branchNameSupplier.createBranchName();
-            repo.createRef("refs/heads/" + branchName, mainRef.getObject().getSha());
+            GHRef ref = repo.createRef(
+                    "refs/heads/" + branchName, mainRef.getObject().getSha());
             StringBuilder body = new StringBuilder();
             body.append(changelogPrinter.printRepairedIssues(entry.getValue()));
-            createCommit(repo, dir, entry.getKey(), branchName);
+            createCommit(repo, dir, entry.getKey(), ref);
             body.append(changelogPrinter.printChangeLog(entry.getValue()));
             createPullRequest(repo, entry.getKey().getQualifiedName(), branchName, body.toString());
         }
@@ -168,14 +171,23 @@ public class App {
                 .addLabels(LABEL_NAME);
     }
 
-    private void createCommit(GHRepository repo, Path dir, CtType<?> entry, String branchName) throws IOException {
-        repo.createContent()
-                .branch(branchName)
-                .message("Repair code style issues in " + entry.getQualifiedName())
-                .path(relativize(dir, getFileForType(entry)))
-                .content(Files.readString(getFileForType(entry)).replace("\r\n", "\n"))
-                .sha(repo.getFileContent(relativize(dir, getFileForType(entry))).getSha())
-                .commit();
+    private void createCommit(GHRepository repo, Path dir, CtType<?> entry, GHRef ref) throws IOException {
+        var tree = repo.createTree()
+                .baseTree(ref.getObject().getSha())
+                .add(
+                        relativize(dir, getFileForType(entry)),
+                        Files.readString(getFileForType(entry)).replace("\r\n", "\n"),
+                        false)
+                .create();
+
+        var commit = repo.createCommit()
+                .message("fix Bad Smells in " + entry.getQualifiedName())
+                .author("MartinWitt", "wittlinger.martin@gmail.com", Date.from(Instant.now()))
+                .tree(tree.getSha())
+                .parent(ref.getObject().getSha())
+                .create();
+        ref.updateTo(commit.getSHA1());
+        logger.atInfo().log("Created commit %s", commit.getHtmlUrl());
     }
 
     private Path getFileForType(CtType<?> type) {
