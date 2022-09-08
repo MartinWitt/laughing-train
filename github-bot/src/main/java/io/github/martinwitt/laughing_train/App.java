@@ -186,14 +186,17 @@ public class App {
                 .tree(tree.getSha())
                 .parent(ref.getObject().getSha())
                 .create();
+        ref.updateTo(commit.getSHA1());
         logger.atInfo().log("Created commit %s", commit.getHtmlUrl());
+
         /*
+        
         .content(new String(Files.readAllBytes(dir.resolve(entry.getPosition().getFile().getPath()))))
         .path(entry.getPosition().getFile().getPath())
         .branch(branchName)
         .message("fix Bad Smells in " + entry.getQualifiedName())
         .commit();
-
+        
         repo.createContent()
         .branch(branchName)
         .message("Repair code style issues in " + entry.getQualifiedName())
