@@ -133,10 +133,11 @@ public class App {
         }
         for (var entry : changesByType.entrySet()) {
             String branchName = branchNameSupplier.createBranchName();
-            repo.createRef("refs/heads/" + branchName, mainRef.getObject().getSha());
+            GHRef ref = repo.createRef(
+                    "refs/heads/" + branchName, mainRef.getObject().getSha());
             StringBuilder body = new StringBuilder();
             body.append(changelogPrinter.printRepairedIssues(entry.getValue()));
-            createCommit(repo, dir, entry.getKey(), branchName);
+            createCommit(repo, dir, entry.getKey(), ref);
             body.append(changelogPrinter.printChangeLog(entry.getValue()));
             createPullRequest(repo, entry.getKey().getQualifiedName(), branchName, body.toString());
         }
@@ -170,10 +171,7 @@ public class App {
                 .addLabels(LABEL_NAME);
     }
 
-    private void createCommit(GHRepository repo, Path dir, CtType<?> entry, String branchName) throws IOException {
-        String sha = repo.getRef("heads/" + repo.getDefaultBranch()).getObject().getSha();
-        GHRef ref = repo.createRef(branchName, sha);
-
+    private void createCommit(GHRepository repo, Path dir, CtType<?> entry, GHRef ref) throws IOException {
         var tree = repo.createTree()
                 .baseTree(ref.getObject().getSha())
                 .add(
