@@ -39,7 +39,6 @@ public class NewLineAnnotation<A extends Annotation> extends CtAnnotationImpl<A>
     /** (non-Javadoc)
      * @see java.lang.Object#toString()
      */
-
     @Override
     public String toString() {
         return "";
