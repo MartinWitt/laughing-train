@@ -97,7 +97,7 @@ public class ChangelogPrinter {
         sb.append(generateTable(results, ruleIds));
         var grouped = results.stream().collect(Collectors.groupingBy(AnalyzerResult::ruleID));
         for (var groupedResult : grouped.entrySet()) {
-            sb.append("## ").append(groupedResult.getKey()).append("\n").append("<details>");
+            sb.append("## ").append(groupedResult.getKey()).append("\n");
             for (AnalyzerResult result : groupedResult.getValue()) {
                 sb.append("### ")
                         .append(result.ruleID())
@@ -111,18 +111,17 @@ public class ChangelogPrinter {
                         .append("\n")
                         .append(markdownPrinter.toJavaMarkdownBlock(result.snippet()));
             }
-            sb.append("</details>");
         }
         return sb.toString();
     }
 
     private String generateTable(List<AnalyzerResult> results, Set<String> ruleIds) {
         StringBuilder sb = new StringBuilder();
+        sb.append("| ruleID | number | fixable |\n");
+        sb.append("| --- | --- | --- |\n");
         for (var result : results.stream()
                 .collect(Collectors.groupingBy(AnalyzerResult::ruleID))
                 .entrySet()) {
-            sb.append("| ruleID | number | fixable |\n");
-            sb.append("| --- | --- | --- |\n");
             sb.append(generateTableLine(ruleIds, result));
         }
         return sb.toString();
