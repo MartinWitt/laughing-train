@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -169,13 +171,38 @@ public class App {
     }
 
     private void createCommit(GHRepository repo, Path dir, CtType<?> entry, String branchName) throws IOException {
+        var tree = repo.createTree()
+                .baseTree(repo.getRef("heads/" + repo.getDefaultBranch())
+                        .getObject()
+                        .getSha())
+                .add(
+                        relativize(dir, getFileForType(entry)),
+                        Files.readString(getFileForType(entry)).replace("\r\n", "\n"),
+                        false)
+                .create();
+        repo.createCommit()
+                .message("fix Bad Smells in " + entry.getQualifiedName())
+                .author("MartinWitt", "wittlinger.martin@gmail.com", Date.from(Instant.now()))
+                .tree(tree.getSha())
+                .parent(repo.getRef("heads/" + repo.getDefaultBranch())
+                        .getObject()
+                        .getSha())
+                .create();
+        /*
+        .content(new String(Files.readAllBytes(dir.resolve(entry.getPosition().getFile().getPath()))))
+        .path(entry.getPosition().getFile().getPath())
+        .branch(branchName)
+        .message("fix Bad Smells in " + entry.getQualifiedName())
+        .commit();
+
         repo.createContent()
-                .branch(branchName)
-                .message("Repair code style issues in " + entry.getQualifiedName())
-                .path(relativize(dir, getFileForType(entry)))
-                .content(Files.readString(getFileForType(entry)).replace("\r\n", "\n"))
-                .sha(repo.getFileContent(relativize(dir, getFileForType(entry))).getSha())
-                .commit();
+        .branch(branchName)
+        .message("Repair code style issues in " + entry.getQualifiedName())
+        .path(relativize(dir, getFileForType(entry)))
+        .content(Files.readString(getFileForType(entry)).replace("\r\n", "\n"))
+        .sha(repo.getFileContent(relativize(dir, getFileForType(entry))).getSha())
+        .commit();
+                        */
     }
 
     private Path getFileForType(CtType<?> type) {
