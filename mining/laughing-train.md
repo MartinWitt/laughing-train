@@ -2,7 +2,8 @@
 I found 106 bad smells with 10 repairable:
 
 ## SimplifyStreamApiCallChains
-<details>### SimplifyStreamApiCallChains
+<details>
+### SimplifyStreamApiCallChains
 'collect(toList())' can be replaced with 'toList()'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/CollectionEmptyCheck.java`
 #### Snippet
