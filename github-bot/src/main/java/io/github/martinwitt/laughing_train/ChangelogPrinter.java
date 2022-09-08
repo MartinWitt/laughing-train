@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
@@ -93,20 +94,42 @@ public class ChangelogPrinter {
         sb.append("# Bad smells\n");
         sb.append(String.format("I found %s bad smells with %s repairable:", results.size(), fixableRules))
                 .append("\n");
-        for (AnalyzerResult result : results) {
-
-            sb.append("## ")
-                    .append(result.ruleID())
-                    .append("\n")
-                    .append(result.messageMarkdown())
-                    .append("\n")
-                    .append("in ")
-                    .append(markdownPrinter.toMarkdown(result.filePath()))
-                    .append("\n")
-                    .append("### Snippet")
-                    .append("\n")
-                    .append(markdownPrinter.toJavaMarkdownBlock(result.snippet()));
+        sb.append(generateTable(results, ruleIds));
+        var grouped = results.stream().collect(Collectors.groupingBy(AnalyzerResult::ruleID));
+        for (var groupedResult : grouped.entrySet()) {
+            sb.append("## ").append(groupedResult.getKey()).append("\n").append("<details>");
+            for (AnalyzerResult result : groupedResult.getValue()) {
+                sb.append("### ")
+                        .append(result.ruleID())
+                        .append("\n")
+                        .append(result.messageMarkdown())
+                        .append("\n")
+                        .append("in ")
+                        .append(markdownPrinter.toMarkdown(result.filePath()))
+                        .append("\n")
+                        .append("#### Snippet")
+                        .append("\n")
+                        .append(markdownPrinter.toJavaMarkdownBlock(result.snippet()));
+            }
+            sb.append("</details>");
         }
         return sb.toString();
+    }
+
+    private String generateTable(List<AnalyzerResult> results, Set<String> ruleIds) {
+        StringBuilder sb = new StringBuilder();
+        for (var result : results.stream()
+                .collect(Collectors.groupingBy(AnalyzerResult::ruleID))
+                .entrySet()) {
+            sb.append("| ruleID | number | fixable |\n");
+            sb.append("| --- | --- | --- |\n");
+            sb.append(generateTableLine(ruleIds, result));
+        }
+        return sb.toString();
+    }
+
+    private String generateTableLine(Set<String> ruleIds, Entry<String, List<AnalyzerResult>> result) {
+        return "| " + result.getKey() + " | " + result.getValue().size() + " | "
+                + result.getValue().stream().anyMatch(v -> ruleIds.contains(v.ruleID())) + " |\n";
     }
 }
