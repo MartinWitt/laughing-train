@@ -188,23 +188,6 @@ public class App {
                 .create();
         ref.updateTo(commit.getSHA1());
         logger.atInfo().log("Created commit %s", commit.getHtmlUrl());
-
-        /*
-        
-        .content(new String(Files.readAllBytes(dir.resolve(entry.getPosition().getFile().getPath()))))
-        .path(entry.getPosition().getFile().getPath())
-        .branch(branchName)
-        .message("fix Bad Smells in " + entry.getQualifiedName())
-        .commit();
-        
-        repo.createContent()
-        .branch(branchName)
-        .message("Repair code style issues in " + entry.getQualifiedName())
-        .path(relativize(dir, getFileForType(entry)))
-        .content(Files.readString(getFileForType(entry)).replace("\r\n", "\n"))
-        .sha(repo.getFileContent(relativize(dir, getFileForType(entry))).getSha())
-        .commit();
-                        */
     }
 
     private Path getFileForType(CtType<?> type) {
