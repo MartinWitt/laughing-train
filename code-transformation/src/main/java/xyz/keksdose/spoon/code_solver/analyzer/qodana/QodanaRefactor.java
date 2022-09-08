@@ -70,6 +70,9 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
     private void splitResults(List<AnalyzerResult> results) {
         for (AnalyzerResult result : results) {
             Optional.ofNullable(ruleParser.get(result.ruleID())).ifPresent(v -> refactorings.add(v.apply(result)));
+            if (ruleParser.get(result.ruleID()) == null) {
+                System.out.println("No refactoring for rule " + result.ruleID() + " found");
+            }
         }
     }
 
