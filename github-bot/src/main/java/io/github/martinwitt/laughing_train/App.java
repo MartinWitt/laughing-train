@@ -180,12 +180,13 @@ public class App {
                         false)
                 .create();
 
-        repo.createCommit()
+        var commit = repo.createCommit()
                 .message("fix Bad Smells in " + entry.getQualifiedName())
                 .author("MartinWitt", "wittlinger.martin@gmail.com", Date.from(Instant.now()))
                 .tree(tree.getSha())
                 .parent(ref.getObject().getSha())
                 .create();
+        logger.atInfo().log("Created commit %s", commit.getHtmlUrl());
         /*
         .content(new String(Files.readAllBytes(dir.resolve(entry.getPosition().getFile().getPath()))))
         .path(entry.getPosition().getFile().getPath())
