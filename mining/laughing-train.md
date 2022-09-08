@@ -70,7 +70,8 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/Pull
                 // 	sourceDirectory, tempRepoFolder, changeListener);
                 // Changelog changelog = refactorFolderWithQodana(tempRepoFolder, changeListener,
 ```
-</details>## DeprecatedIsStillUsed
+</details>
+## DeprecatedIsStillUsed
 <details>### DeprecatedIsStillUsed
 Deprecated member 'withCacheFolder' is still used
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRefactor.java`
