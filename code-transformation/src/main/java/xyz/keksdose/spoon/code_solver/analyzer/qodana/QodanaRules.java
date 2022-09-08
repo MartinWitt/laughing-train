@@ -27,7 +27,7 @@ public enum QodanaRules {
     UNNECESSARY_LOCAL_VARIABLE("UnnecessaryLocalVariable", UnnecessaryLocalVariable::new),
     UNNECESSARY_RETURN("UnnecessaryReturn", UnnecessaryReturn::new),
     UNNECESSARY_TO_STRING_CALL("UnnecessaryToStringCall", UnnecessaryToStringCall::new),
-    UNUSED_IMPORT("UnusedImport", UnusedImport::new),
+    UNUSED_IMPORT("UNUSED_IMPORT", UnusedImport::new),
     PROTECTED_MEMBER_IN_FINAL_CLASS("ProtectedMemberInFinalClass", ProtectedMemberInFinalClass::new);
     private final String ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
