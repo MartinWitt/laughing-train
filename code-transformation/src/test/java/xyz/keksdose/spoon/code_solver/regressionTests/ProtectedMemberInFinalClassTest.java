@@ -1,4 +1,4 @@
-package xyz.keksdose.spoon.code_solver.regression;
+package xyz.keksdose.spoon.code_solver.regressionTests;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 

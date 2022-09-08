@@ -1,5 +1,6 @@
 package xyz.keksdose.spoon.code_solver.analyzer.qodana.rules;
 
+import java.lang.annotation.Annotation;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -13,6 +14,7 @@ import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
+import xyz.keksdose.spoon.code_solver.spoon.NewLineAnnotation;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class ProtectedMemberInFinalClass extends AbstractRefactoring {
@@ -43,11 +45,13 @@ public class ProtectedMemberInFinalClass extends AbstractRefactoring {
         for (CtTypeMember member : new ArrayList<>(type.getTypeMembers())) {
             if (member.isProtected() && member.getDeclaringType().isFinal()) {
                 var modifiers = new LinkedHashSet<>(member.getModifiers());
+                // member.removeModifier(ModifierKind.PROTECTED);
                 modifiers.removeIf(m -> m == ModifierKind.PROTECTED);
                 member.setModifiers(modifiers);
-                member.replace(member.clone());
                 if (!member.getAnnotations().isEmpty()) {
-                    // member.getAnnotations().forEach(v -> v.setPosition(SourcePosition.NOPOSITION));
+                    NewLineAnnotation<Annotation> annotation = new NewLineAnnotation<>();
+                    annotation.setFactory(member.getFactory());
+                    member.addAnnotation(annotation);
                 }
                 String raw = "Removed protected modifier from member " + member.getSimpleName() + " in final class "
                         + type.getSimpleName();

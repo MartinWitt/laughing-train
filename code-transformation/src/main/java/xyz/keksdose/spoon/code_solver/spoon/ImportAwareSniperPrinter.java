@@ -92,6 +92,8 @@ public class ImportAwareSniperPrinter extends SniperJavaPrettyPrinter {
     public <A extends Annotation> void visitCtAnnotation(CtAnnotation<A> annotation) {
         if (!(annotation instanceof NewLineAnnotation)) {
             super.visitCtAnnotation(annotation);
+            return;
         }
+        scan(annotation.getAnnotationType());
     }
 }

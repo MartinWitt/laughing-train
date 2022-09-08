@@ -18,8 +18,7 @@ public class NewLineAnnotation<A extends Annotation> extends CtAnnotationImpl<A>
     }
 
     private CtTypeReference<A> generateType() {
-        return (CtTypeReference)
-                getFactory().Type().createReference(this.getClass().getCanonicalName());
+        return (CtTypeReference) getFactory().Type().createReference("");
     }
 
     @Override
@@ -29,6 +28,20 @@ public class NewLineAnnotation<A extends Annotation> extends CtAnnotationImpl<A>
 
     @Override
     public boolean isImplicit() {
-        return true;
+        return false;
+    }
+
+    @Override
+    public NewLineAnnotation<A> clone() {
+        return (NewLineAnnotation<A>) new NewLineAnnotation<>();
+    }
+
+    /** (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+
+    @Override
+    public String toString() {
+        return "";
     }
 }
