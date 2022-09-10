@@ -4,7 +4,6 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.Project;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
-import io.github.martinwitt.laughing_train.services.QodanaService.ThreadPoolManager;
 import io.quarkus.vertx.ConsumeEvent;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,6 +18,7 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jgit.api.Git;
 
+@ApplicationScoped
 public class ProjectService {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
