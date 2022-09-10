@@ -16,7 +16,7 @@ public class ProjectService {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @ConsumeEvent(ServiceAdresses.PROJECT_REQUEST)
+    @ConsumeEvent(value = ServiceAdresses.PROJECT_REQUEST, blocking = true)
     public ProjectResult handleProjectRequest(ProjectRequest request) {
         if (request instanceof ProjectRequest.WithUrl url) {
             try {
