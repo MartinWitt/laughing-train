@@ -28,6 +28,7 @@ public class ProjectService {
 
     @ConsumeEvent(value = ServiceAdresses.PROJECT_REQUEST, blocking = true)
     public ProjectResult handleProjectRequest(ProjectRequest request) {
+        logger.atInfo().log("Received project request %s", request);
         if (request instanceof ProjectRequest.WithUrl url) {
             try {
                 String repoName = StringUtils.substringAfterLast(url.url(), "/");

@@ -49,8 +49,10 @@ public class PeriodicMiner {
             logger.atInfo().log("Mining %s", repoUrls);
             for (String url : repoUrls) {
                 String repoName = StringUtils.substringAfterLast(url, "/");
-                eventBus.<ProjectResult>request(ServiceAdresses.PROJECT_REQUEST, new ProjectRequest.WithUrl(url))
-                        .onComplete(result -> mineProject(repoName, result));
+                eventBus.<ProjectResult>request(
+                        ServiceAdresses.PROJECT_REQUEST,
+                        new ProjectRequest.WithUrl(url),
+                        result -> mineProject(repoName, result));
             }
         } catch (Exception e) {
             logger.atSevere().withCause(e).log("Error while mining");
@@ -67,7 +69,7 @@ public class PeriodicMiner {
                                 new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)))
                         .onSuccess(new ProjectMiningResultHandler());
         } else {
-            logger.atSevere().log("Mining %s failed with error %s", repoName, message.cause());
+            logger.atSevere().log("Mining periodic %s failed with error %s", repoName, message.cause());
         }
     }
 
