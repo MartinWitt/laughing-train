@@ -69,7 +69,7 @@ public class QodanaService {
         return analyzer.runQodana(dir);
     }
 
-    @ConsumeEvent(value = ServiceAdresses.QODANA_ANALYZER_RESPONSE, blocking = true)
+    @ConsumeEvent(value = ServiceAdresses.QODANA_ANALYZER_REQUEST, blocking = true)
     public QodanaResult analyze(AnalyzerRequest request) {
         logger.atInfo().log("Received request %s", request);
         try {
