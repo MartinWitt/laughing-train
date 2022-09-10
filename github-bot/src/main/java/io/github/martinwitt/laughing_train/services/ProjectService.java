@@ -41,7 +41,7 @@ public class ProjectService {
                                 .call())
                         .get();
                 logger.atInfo().log("Cloning %s to %s", url.url(), dir);
-                return new ProjectResult.Success(new Project(repoName, url.url(), dir.toFile()));
+                return new ProjectResult.Success(new Project(repoName, url.url(), dir.toFile(), "."));
             } catch (IOException | InterruptedException | ExecutionException e) {
                 logger.atSevere().withCause(e).log("Error cloning repository");
                 return new ProjectResult.Error(e.getMessage());

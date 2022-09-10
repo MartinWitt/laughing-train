@@ -99,11 +99,16 @@ public class PeriodicMiner {
                 Project projectQodana = success.project();
                 StringBuilder builder = new StringBuilder();
                 var blame = miningPrinter.calculateGtBlameForIssues(results, projectQodana);
-                builder.append("# ").append(projectQodana.name()).append(miningPrinter.printAllResults(results, blame));
+                builder.append("# ")
+                        .append(projectQodana.getOwnerRepoName())
+                        .append(miningPrinter.printAllResults(results, blame));
                 try {
                     var laughingRepo = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
-                            .getRepository(projectQodana.name());
-                    updateOrCreateContent(laughingRepo, projectQodana.name(), builder.toString());
+                            .getRepository(projectQodana.getOwnerRepoName());
+                    updateOrCreateContent(
+                            laughingRepo,
+                            StringUtils.substringAfterLast(projectQodana.name(), "/"),
+                            builder.toString());
                 } catch (IOException e) {
                     logger.atSevere().withCause(e).log("Error while updating content");
                 }

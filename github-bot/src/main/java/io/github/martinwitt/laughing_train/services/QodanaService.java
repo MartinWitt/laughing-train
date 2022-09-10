@@ -77,7 +77,10 @@ public class QodanaService {
                 var result = threadPoolManager
                         .getService()
                         .submit(() -> new QodanaResult.Success(
-                                runQodana(project.project().folder().toPath()), project.project()))
+                                runQodana(
+                                        project.project().folder().toPath(),
+                                        project.project().sourceFolder()),
+                                project.project()))
                         .get();
                 eventBus.publish(ServiceAdresses.QODANA_ANALYZER_RESPONSE, result);
                 return result;
@@ -87,6 +90,14 @@ public class QodanaService {
         } catch (Exception e) {
             return new QodanaResult.Failure(e.getMessage());
         }
+    }
+
+    private List<AnalyzerResult> runQodana(Path path, String sourceFolder) {
+        QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
+                .withSourceFileRoot(sourceFolder)
+                .withResultFolder(path.toAbsolutePath().toString())
+                .build();
+        return analyzer.runQodana(path);
     }
 
     @ApplicationScoped
