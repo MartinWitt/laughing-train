@@ -62,12 +62,15 @@ public class PeriodicMiner {
     private void mineProject(String repoName, AsyncResult<Message<ProjectResult>> message) {
         if (message.succeeded()) {
             logger.atInfo().log("Mining periodic %s", repoName);
-            if (message.result().body() instanceof ProjectResult.Success project)
+            if (message.result().body() instanceof ProjectResult.Success project) {
                 eventBus.<QodanaResult>request(
                                 ServiceAdresses.QODANA_ANALYZER_REQUEST,
                                 new AnalyzerRequest.WithProject(project.project()),
                                 new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)))
                         .onSuccess(new ProjectMiningResultHandler());
+            } else {
+                logger.atWarning().log("Mining periodic %s failed", repoName);
+            }
         } else {
             logger.atSevere().log("Mining periodic %s failed with error %s", repoName, message.cause());
         }
