@@ -4,17 +4,26 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.Project;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
+import io.github.martinwitt.laughing_train.services.QodanaService.ThreadPoolManager;
 import io.quarkus.vertx.ConsumeEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 
 public class ProjectService {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
+    @Inject
+    ThreadPoolManager threadPoolManager;
 
     @ConsumeEvent(value = ServiceAdresses.PROJECT_REQUEST, blocking = true)
     public ProjectResult handleProjectRequest(ProjectRequest request) {
@@ -22,17 +31,36 @@ public class ProjectService {
             try {
                 String repoName = StringUtils.substringAfterLast(url.url(), "/");
                 Path dir = Files.createTempDirectory("laughing-train-" + repoName);
-                Git.cloneRepository()
+                threadPoolManager.getService().submit(() -> Git.cloneRepository()
                         .setURI(url.url())
                         .setDirectory(dir.toFile())
-                        .call();
+                        .call());
+                logger.atInfo().log("Cloning %s to %s", url.url(), dir);
                 return new ProjectResult.Success(new Project(repoName, url.url(), dir.toFile()));
-
-            } catch (GitAPIException | IOException e) {
+            } catch (IOException e) {
                 logger.atSevere().withCause(e).log("Error cloning repository");
                 return new ProjectResult.Error(e.getMessage());
             }
         }
         return new ProjectResult.Error("Unknown request");
+    }
+
+    @ApplicationScoped
+    static class ThreadPoolManager {
+        ExecutorService service;
+
+        @PostConstruct
+        void setup() {
+            service = Executors.newFixedThreadPool(1);
+        }
+
+        @PreDestroy
+        void close() {
+            service.shutdown();
+        }
+
+        public ExecutorService getService() {
+            return service;
+        }
     }
 }
