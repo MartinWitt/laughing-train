@@ -66,7 +66,7 @@ public class PeriodicMiner {
                                 new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)))
                         .onSuccess(new ProjectMiningResultHandler());
         } else {
-            logger.atSevere().log("Mining %s failed", repoName);
+            logger.atSevere().log("Mining %s failed with error", repoName, message.cause());
         }
     }
 
