@@ -4,6 +4,7 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.services.QodanaService;
+import io.github.martinwitt.laughing_train.services.ServiceAdresses;
 import io.quarkiverse.githubapp.event.IssueComment;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
@@ -57,7 +58,7 @@ public class MentionCommands {
         }
         if (comment.contains("@laughing-train list")) {
             eventBus.<QodanaResult>request(
-                    "qodana.analyzer.request",
+                    ServiceAdresses.QODANA_ANALYZER_REQUEST,
                     new AnalyzerRequest.UrlOnly(GitHubUtils.getTransportUrl(issueComment)),
                     new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
                     new ListCommandHandler(issueComment));
