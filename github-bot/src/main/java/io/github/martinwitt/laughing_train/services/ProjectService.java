@@ -9,6 +9,7 @@ import io.quarkus.vertx.ConsumeEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.annotation.PostConstruct;
@@ -31,13 +32,16 @@ public class ProjectService {
             try {
                 String repoName = StringUtils.substringAfterLast(url.url(), "/");
                 Path dir = Files.createTempDirectory("laughing-train-" + repoName);
-                threadPoolManager.getService().submit(() -> Git.cloneRepository()
-                        .setURI(url.url())
-                        .setDirectory(dir.toFile())
-                        .call());
+                threadPoolManager
+                        .getService()
+                        .submit(() -> Git.cloneRepository()
+                                .setURI(url.url())
+                                .setDirectory(dir.toFile())
+                                .call())
+                        .get();
                 logger.atInfo().log("Cloning %s to %s", url.url(), dir);
                 return new ProjectResult.Success(new Project(repoName, url.url(), dir.toFile()));
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException | ExecutionException e) {
                 logger.atSevere().withCause(e).log("Error cloning repository");
                 return new ProjectResult.Error(e.getMessage());
             }
