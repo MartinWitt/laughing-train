@@ -108,8 +108,8 @@ public class PeriodicMiner {
             try {
                 repo.getFileContent("mining/" + repoName + ".md", "gh-mining")
                         .update(content, "Update mining results for " + repoName, "gh-mining");
-            } catch (Exception ignore) {
-                logger.atSevere().withCause(ignore).log("Error while updating mining results");
+            } catch (Exception logged) {
+                logger.atSevere().withCause(logged).log("Error while updating mining results");
                 try {
                     repo.createContent()
                             .content(content)

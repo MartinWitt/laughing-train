@@ -1,6 +1,8 @@
 package io.github.martinwitt.laughing_train.data;
 
-public sealed interface ProjectResult {
+import java.io.Serializable;
+
+public sealed interface ProjectResult extends Serializable {
 
     record Success(Project project) implements ProjectResult {}
 
