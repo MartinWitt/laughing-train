@@ -45,7 +45,7 @@ public class PeriodicMiner {
         try (Git git = getWiki(dir)) {
             Path miningFile = dir.resolve("Mining.md");
             List<String> repoUrls = getRepoUrls(miningFile);
-            logger.atInfo().log("Mining %d repos", repoUrls.size());
+            logger.atInfo().log("Mining %s repos", repoUrls.size());
             logger.atInfo().log("Mining %s", repoUrls);
             for (String url : repoUrls) {
                 String repoName = StringUtils.substringAfterLast(url, "/");
@@ -66,7 +66,7 @@ public class PeriodicMiner {
                                 new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)))
                         .onSuccess(new ProjectMiningResultHandler());
         } else {
-            logger.atSevere().log("Mining %s failed with error", repoName, message.cause());
+            logger.atSevere().log("Mining %s failed with error %s", repoName, message.cause());
         }
     }
 
