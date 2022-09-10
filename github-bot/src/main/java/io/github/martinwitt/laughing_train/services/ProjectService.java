@@ -26,7 +26,7 @@ public class ProjectService {
                         .setURI(url.url())
                         .setDirectory(dir.toFile())
                         .call();
-                return new ProjectResult.Success(new Project(repoName, url.url(), dir));
+                return new ProjectResult.Success(new Project(repoName, url.url(), dir.toFile()));
 
             } catch (GitAPIException | IOException e) {
                 logger.atSevere().withCause(e).log("Error cloning repository");

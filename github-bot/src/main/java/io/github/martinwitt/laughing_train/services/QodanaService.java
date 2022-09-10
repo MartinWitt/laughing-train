@@ -77,7 +77,7 @@ public class QodanaService {
                 var result = threadPoolManager
                         .getService()
                         .submit(() -> new QodanaResult.Success(
-                                runQodana(project.project().folder()), project.project()))
+                                runQodana(project.project().folder().toPath()), project.project()))
                         .get();
                 eventBus.publish(ServiceAdresses.QODANA_ANALYZER_RESPONSE, result);
                 return result;

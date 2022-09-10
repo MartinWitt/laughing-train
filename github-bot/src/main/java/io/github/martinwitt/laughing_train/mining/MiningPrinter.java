@@ -106,7 +106,7 @@ public class MiningPrinter {
             List<AnalyzerResult> results, Project projectQodana) {
         PeriodicMiner.logger.atInfo().log("Calculating blame for %d issues", results.size());
         Map<AnalyzerResult, PersonAndCommit> blameMap = new HashMap<>();
-        try (Git git = Git.open(projectQodana.folder().toFile())) {
+        try (Git git = Git.open(projectQodana.folder())) {
             for (AnalyzerResult analyzerResult : results) {
                 var gitBlame =
                         git.blame().setFilePath(analyzerResult.filePath()).call();
