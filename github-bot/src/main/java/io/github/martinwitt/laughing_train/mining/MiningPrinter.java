@@ -35,7 +35,7 @@ public class MiningPrinter {
                 config.getRules().keySet().stream().map(QodanaRules::getRuleId).collect(Collectors.toSet());
         long fixableRules =
                 results.stream().filter(v -> ruleIds.contains(v.ruleID())).count();
-        sb.append("# Bad smells\n");
+        sb.append("\n# Bad smells\n");
         sb.append(String.format("I found %s bad smells with %s repairable:", results.size(), fixableRules))
                 .append("\n");
         sb.append(generateTableBadSmells(results, ruleIds));
