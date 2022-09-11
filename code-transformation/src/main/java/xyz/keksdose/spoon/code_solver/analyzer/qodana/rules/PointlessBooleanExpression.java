@@ -46,11 +46,16 @@ public class PointlessBooleanExpression extends AbstractRefactoring {
                 if (splitted.size() == 3) {
                     String oldExpression = splitted.get(0);
                     String newExpression = splitted.get(2);
-                    ctExpression.replace(createNewExpression(ctExpression, newExpression));
+                    if (ctExpression.toString().equals(newExpression)) {
+                        return;
+                    }
+                    ctExpression.replace(
+                            createNewExpression(ctExpression, newExpression).clone());
+                    ctExpression.setParent(null);
                     MarkdownString md = MarkdownString.fromMarkdown(
                             "Replaced %s with %s".formatted(oldExpression, newExpression),
                             "Replaced `%s` with `%s`".formatted(oldExpression, newExpression));
-                    Change change = new Change(POINTLESS_BOOLEAN_EXPRESSION, md, type.getTopLevelType());
+                    Change change = new Change(POINTLESS_BOOLEAN_EXPRESSION, md, type.getTopLevelType(), result);
                     listener.setChanged(type.getTopLevelType(), change);
                 }
             }
