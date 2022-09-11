@@ -70,10 +70,13 @@ public class PointlessBooleanExpression extends AbstractRefactoring {
     }
 
     private boolean isBooleanType(CtExpression<?> ctExpression) {
-        return ctExpression.getType().equals(ctExpression.getFactory().Type().booleanType())
-                || ctExpression
-                        .getType()
-                        .equals(ctExpression.getFactory().Type().booleanPrimitiveType());
+        return ctExpression.getType() != null
+                && (ctExpression
+                                .getType()
+                                .equals(ctExpression.getFactory().Type().booleanType())
+                        || ctExpression
+                                .getType()
+                                .equals(ctExpression.getFactory().Type().booleanPrimitiveType()));
     }
 
     @Override
