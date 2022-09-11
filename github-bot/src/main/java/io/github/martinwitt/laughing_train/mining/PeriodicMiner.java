@@ -17,6 +17,7 @@ import io.vertx.core.eventbus.Message;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -51,6 +52,7 @@ public class PeriodicMiner {
             List<String> repoUrls = getRepoUrls(miningFile);
             logger.atInfo().log("Mining %s repos", repoUrls.size());
             logger.atInfo().log("Mining %s", repoUrls);
+            Collections.shuffle(repoUrls);
             for (String url : repoUrls) {
                 String repoName = StringUtils.substringAfterLast(url, "/");
                 eventBus.<ProjectResult>request(
