@@ -31,7 +31,7 @@ public class ProjectService {
         if (request instanceof ProjectRequest.WithUrl url) {
             try {
                 String repoName = StringUtils.substringAfterLast(url.url(), "/");
-                Path dir = Files.createTempDirectory("laughing-train-" + repoName);
+                Path dir = Files.createTempDirectory("laughing-train-" + repoName + System.currentTimeMillis());
                 threadPoolManager.getService().execute(() -> checkoutRepo(url, dir));
                 logger.atInfo().log("Cloning %s to %s", url.url(), dir);
                 return new ProjectResult.Success(new Project(repoName, url.url(), dir.toFile(), "."));
