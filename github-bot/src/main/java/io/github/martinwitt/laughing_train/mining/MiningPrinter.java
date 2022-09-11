@@ -60,7 +60,7 @@ public class MiningPrinter {
                                     .get(result)
                                     .commit()
                                     .abbreviate(7)
-                                    .toString())
+                                    .name())
                             .append(" ")
                             .append(blameTable.get(result).person().getName())
                             .append("\n");
@@ -76,10 +76,11 @@ public class MiningPrinter {
         sb.append("Bad smells by person and commit(**DO NOT SEE THIS AS ANY ATTACK**):\n");
         sb.append("| Person | Bad Smells | \n");
         sb.append("| --- | --- | \n");
-        var grouped = map.values().stream().collect(Collectors.groupingBy(PersonAndCommit::person));
+        var grouped = map.values().stream()
+                .collect(Collectors.groupingBy(v -> v.person().getName()));
         for (var groupedResult : grouped.entrySet()) {
             sb.append("| ")
-                    .append(groupedResult.getKey().getName())
+                    .append(groupedResult.getKey())
                     .append(" | ")
                     .append(groupedResult.getValue().size())
                     .append(" | \n");

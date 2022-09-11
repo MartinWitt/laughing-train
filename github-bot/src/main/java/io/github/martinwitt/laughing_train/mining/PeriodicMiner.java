@@ -9,7 +9,6 @@ import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.services.ServiceAdresses;
 import io.quarkus.scheduler.Scheduled;
 import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;
@@ -70,10 +69,10 @@ public class PeriodicMiner {
             logger.atInfo().log("Mining periodic %s", repoName);
             if (message.result().body() instanceof ProjectResult.Success project) {
                 eventBus.<QodanaResult>request(
-                                ServiceAdresses.QODANA_ANALYZER_REQUEST,
-                                new AnalyzerRequest.WithProject(project.project()),
-                                new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)))
-                        .onSuccess(new ProjectMiningResultHandler());
+                        ServiceAdresses.QODANA_ANALYZER_REQUEST,
+                        new AnalyzerRequest.WithProject(project.project()),
+                        new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
+                        result -> vertx.executeBlocking(v -> handle(result.result())));
             } else {
                 logger.atWarning().log("Mining periodic %s failed", message);
             }
@@ -98,42 +97,40 @@ public class PeriodicMiner {
                 .call();
     }
 
-    private final class ProjectMiningResultHandler implements Handler<Message<QodanaResult>> {
-        @Override
-        public void handle(Message<QodanaResult> message) {
-            if (message.body() instanceof QodanaResult.Success success) {
-                List<AnalyzerResult> results = success.result();
-                Project projectQodana = success.project();
-                StringBuilder builder = new StringBuilder();
-                builder.append("# ")
-                        .append(projectQodana.getOwnerRepoName())
-                        .append(miningPrinter.printAllResults(results, projectQodana));
-                try {
-                    var laughingRepo = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
-                            .getRepository("MartinWitt/laughing-train");
-                    updateOrCreateContent(laughingRepo, projectQodana.name(), builder.toString());
-                } catch (IOException e) {
-                    logger.atSevere().withCause(e).log("Error while updating content");
-                }
+    private Promise<Void> handle(Message<QodanaResult> message) {
+        if (message.body() instanceof QodanaResult.Success success) {
+            List<AnalyzerResult> results = success.result();
+            Project projectQodana = success.project();
+            StringBuilder builder = new StringBuilder();
+            builder.append("# ")
+                    .append(projectQodana.getOwnerRepoName())
+                    .append(miningPrinter.printAllResults(results, projectQodana));
+            try {
+                var laughingRepo = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+                        .getRepository("MartinWitt/laughing-train");
+                updateOrCreateContent(laughingRepo, projectQodana.name(), builder.toString());
+            } catch (IOException e) {
+                logger.atSevere().withCause(e).log("Error while updating content");
             }
         }
+        return Promise.promise();
+    }
 
-        private void updateOrCreateContent(GHRepository repo, String repoName, String content) {
+    private void updateOrCreateContent(GHRepository repo, String repoName, String content) {
+        try {
+            repo.getFileContent("mining/" + repoName + ".md", "gh-mining")
+                    .update(content, "Update mining results for " + repoName, "gh-mining");
+        } catch (Exception logged) {
+            logger.atSevere().withCause(logged).log("Error while updating mining results");
             try {
-                repo.getFileContent("mining/" + repoName + ".md", "gh-mining")
-                        .update(content, "Update mining results for " + repoName, "gh-mining");
-            } catch (Exception logged) {
-                logger.atSevere().withCause(logged).log("Error while updating mining results");
-                try {
-                    repo.createContent()
-                            .content(content)
-                            .path("mining/" + repoName + ".md")
-                            .message("mining " + repoName)
-                            .branch("gh-mining")
-                            .commit();
-                } catch (Exception e) {
-                    logger.atSevere().withCause(e).log("Error while creating mining file");
-                }
+                repo.createContent()
+                        .content(content)
+                        .path("mining/" + repoName + ".md")
+                        .message("mining " + repoName)
+                        .branch("gh-mining")
+                        .commit();
+            } catch (Exception e) {
+                logger.atSevere().withCause(e).log("Error while creating mining file");
             }
         }
     }
