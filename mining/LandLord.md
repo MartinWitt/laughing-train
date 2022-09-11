@@ -40,64 +40,16 @@ I found 207 bad smells with 41 repairable:
 Bad smells by person and commit(**DO NOT SEE THIS AS ANY ATTACK**):
 | Person | Bad Smells | 
 | --- | --- | 
-| Alexander Daichendt | 41 | 
-| Lilly Tempest | 2 | 
-| SpatiumPrinceps | 1 | 
-| Spatium Princeps | 1 | 
-| Alexander Daichendt | 2 | 
-| Aur?lien | 6 | 
-| Spatium Princeps | 3 | 
-| SpatiumPrinceps | 1 | 
-| SpatiumPrinceps | 1 | 
-| Alexander Daichendt | 7 | 
-| Aur?lien | 14 | 
-| Alexander Daichendt | 1 | 
-| Aur?lien | 16 | 
-| SpatiumPrinceps | 2 | 
-| Aur?lien | 1 | 
-| Aurelien30000 | 1 | 
-| Alexander Daichendt | 4 | 
-| SpatiumPrinceps | 1 | 
-| Alexander Daichendt | 7 | 
-| Aur?lien | 5 | 
-| Alexander Daichendt | 2 | 
-| Alexander Daichendt | 1 | 
-| Alexander Daichendt | 2 | 
-| Alexander Daichendt | 1 | 
-| Aurelien30000 | 6 | 
-| Alexander Daichendt | 2 | 
-| Hannes Greule | 5 | 
-| Alexander Daichendt | 1 | 
-| SpatiumPrinceps | 2 | 
-| SpatiumPrinceps | 1 | 
-| SpatiumPrinceps | 1 | 
-| Aurelien30000 | 1 | 
-| Alexander Daichendt | 3 | 
-| SpatiumPrinceps | 3 | 
-| SirYwell | 1 | 
-| Alexander Daichendt | 1 | 
-| Alexander Daichendt | 10 | 
-| Alexander Daichendt | 1 | 
-| SpatiumPrinceps | 1 | 
 | Florian F?lling | 1 | 
-| Alexander Daichendt | 1 | 
-| Alexander Daichendt | 3 | 
-| Spatium Princeps | 1 | 
+| SpatiumPrinceps | 14 | 
+| Alexander Daichendt | 119 | 
+| Hannes Greule | 6 | 
+| Aur?lien | 45 | 
+| Aurelien30000 | 12 | 
 | BuildTools | 1 | 
-| Aurelien30000 | 2 | 
-| Alexander Daichendt | 4 | 
-| Alexander Daichendt | 2 | 
-| Alexander Daichendt | 4 | 
-| Alexander Daichendt | 2 | 
-| Alexander Daichendt | 2 | 
-| Aurelien30000 | 2 | 
-| Alexander Daichendt | 2 | 
-| Hannes Greule | 1 | 
-| Alexander Daichendt | 7 | 
-| Alexander Daichendt | 6 | 
-| Aur?lien | 2 | 
-| Spatium Princeps | 1 | 
-| Aur?lien | 1 | 
+| SirYwell | 1 | 
+| Spatium Princeps | 6 | 
+| Lilly Tempest | 2 | 
 
 ## EnumSwitchStatementWhichMissesCases
 ### EnumSwitchStatementWhichMissesCases
@@ -125,7 +77,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.jav
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
 ### EnumSwitchStatementWhichMissesCases
 `switch (blockFace) { case NORTH: for (int z = zCenter; z >= zCen...` statement on enum type 'org.bukkit.block.BlockFace' misses cases: 'UP', 'DOWN', 'NORTH_EAST', 'NORTH_WEST', ...
 in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiMode.java`
@@ -160,7 +112,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiMode.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[5a0ab82] Aurelien30000
+5a0ab82 Aurelien30000
 ## SuspiciousNameCombination
 ### SuspiciousNameCombination
 'minHeight' should probably not be passed as parameter 'left'
@@ -175,7 +127,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
 ```
 
 #### Blame
-AbbreviatedObjectId[36f2379] Aur?lien
+36f2379 Aur?lien
 ### SuspiciousNameCombination
 'maxHeight' should probably not be passed as parameter 'right'
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardManager.java`
@@ -189,7 +141,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
 ```
 
 #### Blame
-AbbreviatedObjectId[36f2379] Aur?lien
+36f2379 Aur?lien
 ### SuspiciousNameCombination
 'bottomY' should probably not be passed as parameter 'left'
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardManager.java`
@@ -203,7 +155,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
 ### SuspiciousNameCombination
 'topY' should probably not be passed as parameter 'right'
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardManager.java`
@@ -217,7 +169,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
 ## StaticCallOnSubclass
 ### StaticCallOnSubclass
 Static method `toBlockPoint()` declared in class 'com.sk89q.worldedit.Vector' but referenced via subclass 'com.sk89q.worldedit.BlockVector'
@@ -232,7 +184,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[a4e7481] Alexander Daichendt
+a4e7481 Alexander Daichendt
 ### StaticCallOnSubclass
 Static method `toBlockPoint()` declared in class 'com.sk89q.worldedit.Vector' but referenced via subclass 'com.sk89q.worldedit.BlockVector'
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -246,7 +198,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[a4e7481] Alexander Daichendt
+a4e7481 Alexander Daichendt
 ### StaticCallOnSubclass
 Static method `toBlockPoint()` declared in class 'com.sk89q.worldedit.Vector' but referenced via subclass 'com.sk89q.worldedit.BlockVector'
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -260,7 +212,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[a4e7481] Alexander Daichendt
+a4e7481 Alexander Daichendt
 ## CommentedOutCode
 ### CommentedOutCode
 Commented out code (39 lines)
@@ -275,7 +227,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/placeholderapi/LLFeatherBo
 ```
 
 #### Blame
-AbbreviatedObjectId[d5cc607] Spatium Princeps
+d5cc607 Spatium Princeps
 ### CommentedOutCode
 Commented out code (16 lines)
 in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
@@ -289,7 +241,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### CommentedOutCode
 Commented out code (2 lines)
 in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
@@ -303,7 +255,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### CommentedOutCode
 Commented out code (2 lines)
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
@@ -317,7 +269,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java
 ```
 
 #### Blame
-AbbreviatedObjectId[049c381] Alexander Daichendt
+049c381 Alexander Daichendt
 ## PatternVariableCanBeUsed
 ### PatternVariableCanBeUsed
 Variable 'player' can be replaced with pattern variable
@@ -332,7 +284,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ## SizeReplaceableByIsEmpty
 ### SizeReplaceableByIsEmpty
 `lands.size() == 0` can be replaced with 'lands.isEmpty()'
@@ -347,7 +299,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/MultiM
 ```
 
 #### Blame
-AbbreviatedObjectId[5a0ab82] Aurelien30000
+5a0ab82 Aurelien30000
 ### SizeReplaceableByIsEmpty
 `lands.size() == 0` can be replaced with 'lands.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/ManageAll.java`
@@ -361,7 +313,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage
 ```
 
 #### Blame
-AbbreviatedObjectId[f34da31] SpatiumPrinceps
+f34da31 SpatiumPrinceps
 ### SizeReplaceableByIsEmpty
 `land.getFriends().size() > 0` can be replaced with '!land.getFriends().isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/friends/ListFriends.java`
@@ -375,7 +327,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/friends/ListFrien
 ```
 
 #### Blame
-AbbreviatedObjectId[e29605e] Aurelien30000
+e29605e Aurelien30000
 ### SizeReplaceableByIsEmpty
 `lands.size() > 0` can be replaced with '!lands.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/AdminTeleport.java`
@@ -389,7 +341,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/AdminTelepo
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### SizeReplaceableByIsEmpty
 `toClaim.size() == 0` can be replaced with 'toClaim.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiClaim.java`
@@ -403,7 +355,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiCla
 ```
 
 #### Blame
-AbbreviatedObjectId[0df21ad] Alexander Daichendt
+0df21ad Alexander Daichendt
 ### SizeReplaceableByIsEmpty
 `region.getFlags().size() == 0` can be replaced with 'region.getFlags().isEmpty()'
 in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
@@ -417,7 +369,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[30f9d53] Alexander Daichendt
+30f9d53 Alexander Daichendt
 ### SizeReplaceableByIsEmpty
 `applicableRegions.getRegions().size() > 0` can be replaced with '!applicableRegions.getRegions().isEmpty()'
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -431,7 +383,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[cb3a514] Alexander Daichendt
+cb3a514 Alexander Daichendt
 ### SizeReplaceableByIsEmpty
 `applicableRegions.getRegions().size() > 0` can be replaced with '!applicableRegions.getRegions().isEmpty()'
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -445,7 +397,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### SizeReplaceableByIsEmpty
 `region.getFlags().size() == 0` can be replaced with 'region.getFlags().isEmpty()'
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
@@ -459,7 +411,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[a4e7481] Alexander Daichendt
+a4e7481 Alexander Daichendt
 ### SizeReplaceableByIsEmpty
 `lands.size() == 0` can be replaced with 'lands.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage.java`
@@ -473,7 +425,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage
 ```
 
 #### Blame
-AbbreviatedObjectId[da3a031] Aurelien30000
+da3a031 Aurelien30000
 ### SizeReplaceableByIsEmpty
 `lands.size() == 0` can be replaced with 'lands.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage.java`
@@ -487,7 +439,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage
 ```
 
 #### Blame
-AbbreviatedObjectId[335a83a] SpatiumPrinceps
+335a83a SpatiumPrinceps
 ### SizeReplaceableByIsEmpty
 `lands.size() == 0` can be replaced with 'lands.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/MultiListLands.java`
@@ -501,7 +453,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/MultiL
 ```
 
 #### Blame
-AbbreviatedObjectId[5a0ab82] Aurelien30000
+5a0ab82 Aurelien30000
 ### SizeReplaceableByIsEmpty
 `lands.size() == 0` can be replaced with 'lands.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/ListLands.java`
@@ -515,7 +467,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/ListLa
 ```
 
 #### Blame
-AbbreviatedObjectId[e62014d] Alexander Daichendt
+e62014d Alexander Daichendt
 ### SizeReplaceableByIsEmpty
 `permissions.size() == 0` can be replaced with 'permissions.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
@@ -529,7 +481,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ## EnhancedSwitchMigration
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
@@ -544,7 +496,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/listener/LandChangeListene
 ```
 
 #### Blame
-AbbreviatedObjectId[37e0398] Hannes Greule
+37e0398 Hannes Greule
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
@@ -558,7 +510,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[52fec7d] Alexander Daichendt
+52fec7d Alexander Daichendt
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
@@ -572,7 +524,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[52fec7d] Alexander Daichendt
+52fec7d Alexander Daichendt
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-api/src/main/java/biz/princeps/landlord/api/IMaterialsManager.java`
@@ -586,7 +538,7 @@ in `LandLord-api/src/main/java/biz/princeps/landlord/api/IMaterialsManager.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[bfc0f7d] Alexander Daichendt
+bfc0f7d Alexander Daichendt
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.java`
@@ -600,7 +552,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.jav
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/lib/manager/ConfirmationManager.java`
@@ -614,7 +566,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/manager/ConfirmationManager.jav
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/util/Skulls.java`
@@ -628,7 +580,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/util/Skulls.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[f7fe6a2] Spatium Princeps
+f7fe6a2 Spatium Princeps
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage.java`
@@ -642,7 +594,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage
 ```
 
 #### Blame
-AbbreviatedObjectId[d178844] Alexander Daichendt
+d178844 Alexander Daichendt
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/Update.java`
@@ -656,7 +608,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/Update.java
 ```
 
 #### Blame
-AbbreviatedObjectId[521f4ef] SpatiumPrinceps
+521f4ef SpatiumPrinceps
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/MultiListLands.java`
@@ -670,7 +622,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/MultiL
 ```
 
 #### Blame
-AbbreviatedObjectId[5a0ab82] Aurelien30000
+5a0ab82 Aurelien30000
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
@@ -684,7 +636,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[79681fe] SpatiumPrinceps
+79681fe SpatiumPrinceps
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiClearTask.java`
@@ -698,7 +650,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiClearTask.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.java`
@@ -712,7 +664,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.
 ```
 
 #### Blame
-AbbreviatedObjectId[d0fe1a0] Aurelien30000
+d0fe1a0 Aurelien30000
 ## AssignmentToForLoopParameter
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
@@ -727,7 +679,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java
 ```
 
 #### Blame
-AbbreviatedObjectId[666f5f9] Lilly Tempest
+666f5f9 Lilly Tempest
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -741,7 +693,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
 ```
 
 #### Blame
-AbbreviatedObjectId[08dc086] Aurelien30000
+08dc086 Aurelien30000
 ## ConstantConditions
 ### ConstantConditions
 Argument `a` might be null
@@ -756,7 +708,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/ConfigurationManag
 ```
 
 #### Blame
-AbbreviatedObjectId[36f2379] Aur?lien
+36f2379 Aur?lien
 ### ConstantConditions
 Value `sourceFile` is always 'null'
 in `LandLord-core/src/main/java/biz/princeps/lib/ConfigUpdater.java`
@@ -770,7 +722,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/ConfigUpdater.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### ConstantConditions
 Argument `target` might be null
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/LLItem.java`
@@ -784,7 +736,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/LLItem
 ```
 
 #### Blame
-AbbreviatedObjectId[e62014d] Alexander Daichendt
+e62014d Alexander Daichendt
 ### ConstantConditions
 Argument `target` might be null
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/LLItem.java`
@@ -798,7 +750,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/LLItem
 ```
 
 #### Blame
-AbbreviatedObjectId[e62014d] Alexander Daichendt
+e62014d Alexander Daichendt
 ### ConstantConditions
 Method invocation `setHealth` may produce `NullPointerException`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerator.java`
@@ -812,7 +764,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerat
 ```
 
 #### Blame
-AbbreviatedObjectId[b7b3a31] SirYwell
+b7b3a31 SirYwell
 ### ConstantConditions
 Method invocation `setHealth` may produce `NullPointerException`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerator.java`
@@ -826,21 +778,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerat
 ```
 
 #### Blame
-AbbreviatedObjectId[60cdbc6] Alexander Daichendt
-### ConstantConditions
-Method invocation `charAt` may produce `NullPointerException`
-in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
-#### Snippet
-```java
-            String s = type.getName();
-            StringBuilder sb = new StringBuilder();
-            sb.append(Character.toUpperCase(s.charAt(0)));
-            for (int i = 1; i < s.length(); i++) {
-                char c = s.charAt(i);
-```
-
-#### Blame
-AbbreviatedObjectId[666f5f9] Lilly Tempest
+60cdbc6 Alexander Daichendt
 ### ConstantConditions
 Method invocation `toUpperCase` may produce `NullPointerException`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -854,7 +792,21 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
+### ConstantConditions
+Method invocation `charAt` may produce `NullPointerException`
+in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
+#### Snippet
+```java
+            String s = type.getName();
+            StringBuilder sb = new StringBuilder();
+            sb.append(Character.toUpperCase(s.charAt(0)));
+            for (int i = 1; i < s.length(); i++) {
+                char c = s.charAt(i);
+```
+
+#### Blame
+666f5f9 Lilly Tempest
 ### ConstantConditions
 Argument `flag` might be null
 in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
@@ -868,7 +820,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[30f9d53] Alexander Daichendt
+30f9d53 Alexander Daichendt
 ### ConstantConditions
 Argument `flag` might be null
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
@@ -882,7 +834,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[a4e7481] Alexander Daichendt
+a4e7481 Alexander Daichendt
 ### ConstantConditions
 Method invocation `setOwningPlayer` may produce `NullPointerException`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MaterialsManager.java`
@@ -896,7 +848,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MaterialsManager
 ```
 
 #### Blame
-AbbreviatedObjectId[bfc0f7d] Alexander Daichendt
+bfc0f7d Alexander Daichendt
 ## TrivialStringConcatenation
 ### TrivialStringConcatenation
 Empty string used in concatenation
@@ -911,7 +863,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
 ```
 
 #### Blame
-AbbreviatedObjectId[30f9d53] Alexander Daichendt
+30f9d53 Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardManager.java`
@@ -925,7 +877,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
 ```
 
 #### Blame
-AbbreviatedObjectId[30f9d53] Alexander Daichendt
+30f9d53 Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/listener/SecureWorldListener.java`
@@ -939,7 +891,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/listener/SecureWorldListen
 ```
 
 #### Blame
-AbbreviatedObjectId[e7622bf] SpatiumPrinceps
+e7622bf SpatiumPrinceps
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/listener/SecureWorldListener.java`
@@ -953,7 +905,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/listener/SecureWorldListen
 ```
 
 #### Blame
-AbbreviatedObjectId[e7622bf] SpatiumPrinceps
+e7622bf SpatiumPrinceps
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedMessage.java`
@@ -967,7 +919,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedMessage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedMessage.java`
@@ -981,7 +933,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedMessage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
@@ -995,7 +947,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
@@ -1009,7 +961,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.java`
@@ -1023,7 +975,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.jav
 ```
 
 #### Blame
-AbbreviatedObjectId[3221332] Aur?lien
+3221332 Aur?lien
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.java`
@@ -1037,7 +989,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.jav
 ```
 
 #### Blame
-AbbreviatedObjectId[3221332] Aur?lien
+3221332 Aur?lien
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Shop.java`
@@ -1051,7 +1003,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Shop.jav
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Shop.java`
@@ -1065,7 +1017,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Shop.jav
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.java`
@@ -1079,7 +1031,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.j
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.java`
@@ -1093,7 +1045,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.j
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.java`
@@ -1107,7 +1059,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.j
 ```
 
 #### Blame
-AbbreviatedObjectId[e62014d] Alexander Daichendt
+e62014d Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.java`
@@ -1121,21 +1073,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.j
 ```
 
 #### Blame
-AbbreviatedObjectId[e62014d] Alexander Daichendt
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
-#### Snippet
-```java
-                        lm.sendMessage(player, lm.getString(player, "Commands.Claim.notYetInactive")
-                                .replace("%owner%", ol.getOwnersString())
-                                .replace("%days%", "" + inactiveDays));
-                    }
-                });
-```
-
-#### Blame
-AbbreviatedObjectId[4bdd3cd] BuildTools
+e62014d Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
@@ -1149,7 +1087,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.ja
 ```
 
 #### Blame
-AbbreviatedObjectId[5b428d3] Alexander Daichendt
+5b428d3 Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
@@ -1163,7 +1101,21 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.ja
 ```
 
 #### Blame
-AbbreviatedObjectId[5b428d3] Alexander Daichendt
+5b428d3 Alexander Daichendt
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
+#### Snippet
+```java
+                        lm.sendMessage(player, lm.getString(player, "Commands.Claim.notYetInactive")
+                                .replace("%owner%", ol.getOwnersString())
+                                .replace("%days%", "" + inactiveDays));
+                    }
+                });
+```
+
+#### Blame
+4bdd3cd BuildTools
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
@@ -1177,7 +1129,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.ja
 ```
 
 #### Blame
-AbbreviatedObjectId[049c381] Alexander Daichendt
+049c381 Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiClaim.java`
@@ -1191,7 +1143,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiCla
 ```
 
 #### Blame
-AbbreviatedObjectId[0df21ad] Alexander Daichendt
+0df21ad Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiClaim.java`
@@ -1205,7 +1157,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiCla
 ```
 
 #### Blame
-AbbreviatedObjectId[e3218f0] Alexander Daichendt
+e3218f0 Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiClaim.java`
@@ -1219,7 +1171,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiCla
 ```
 
 #### Blame
-AbbreviatedObjectId[e3218f0] Alexander Daichendt
+e3218f0 Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiClaim.java`
@@ -1233,7 +1185,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiCla
 ```
 
 #### Blame
-AbbreviatedObjectId[e62014d] Alexander Daichendt
+e62014d Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
@@ -1247,7 +1199,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[5c15215] Spatium Princeps
+5c15215 Spatium Princeps
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiUnclaim.java`
@@ -1261,7 +1213,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiUnc
 ```
 
 #### Blame
-AbbreviatedObjectId[5a0ab82] Aurelien30000
+5a0ab82 Aurelien30000
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/adv/Advertise.java`
@@ -1275,7 +1227,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/adv/Adve
 ```
 
 #### Blame
-AbbreviatedObjectId[e62014d] Alexander Daichendt
+e62014d Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.java`
@@ -1289,7 +1241,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.
 ```
 
 #### Blame
-AbbreviatedObjectId[e62014d] Alexander Daichendt
+e62014d Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.java`
@@ -1303,7 +1255,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.
 ```
 
 #### Blame
-AbbreviatedObjectId[8f69432] Alexander Daichendt
+8f69432 Alexander Daichendt
 ## InnerClassMayBeStatic
 ### InnerClassMayBeStatic
 Inner class `Confirm` may be 'static'
@@ -1318,22 +1270,8 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/Landlordbase.java
 ```
 
 #### Blame
-AbbreviatedObjectId[e62014d] Alexander Daichendt
+e62014d Alexander Daichendt
 ## MissortedModifiers
-### MissortedModifiers
-Missorted modifiers `synchronized static`
-in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
-#### Snippet
-```java
-        }
-
-        public synchronized static void removePlayer(UUID uniqueId) {
-            openDialogs.remove(uniqueId);
-        }
-```
-
-#### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### MissortedModifiers
 Missorted modifiers `synchronized static`
 in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
@@ -1347,7 +1285,21 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
+### MissortedModifiers
+Missorted modifiers `synchronized static`
+in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
+#### Snippet
+```java
+        }
+
+        public synchronized static void removePlayer(UUID uniqueId) {
+            openDialogs.remove(uniqueId);
+        }
+```
+
+#### Blame
+591b84f Alexander Daichendt
 ### MissortedModifiers
 Missorted modifiers `synchronized static`
 in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
@@ -1361,7 +1313,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ## IgnoreResultOfCall
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
@@ -1376,7 +1328,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
 ```
 
 #### Blame
-AbbreviatedObjectId[7984f76] Alexander Daichendt
+7984f76 Alexander Daichendt
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
@@ -1390,7 +1342,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
 ```
 
 #### Blame
-AbbreviatedObjectId[049c381] Alexander Daichendt
+049c381 Alexander Daichendt
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
@@ -1404,7 +1356,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
 in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
@@ -1418,7 +1370,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### IgnoreResultOfCall
 Result of `File.mkdir()` is ignored
 in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -1432,7 +1384,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[30f9d53] Alexander Daichendt
+30f9d53 Alexander Daichendt
 ### IgnoreResultOfCall
 Result of `File.mkdir()` is ignored
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LangManager.java`
@@ -1446,7 +1398,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LangManager.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[502c405] Alexander Daichendt
+502c405 Alexander Daichendt
 ## ClassNameSameAsAncestorName
 ### ClassNameSameAsAncestorName
 Class name `Factory` is the same as one of its superclass' names
@@ -1461,7 +1413,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[37e0398] Hannes Greule
+37e0398 Hannes Greule
 ### ClassNameSameAsAncestorName
 Class name `Factory` is the same as one of its superclass' names
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
@@ -1475,7 +1427,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[37e0398] Hannes Greule
+37e0398 Hannes Greule
 ## RedundantMethodOverride
 ### RedundantMethodOverride
 Method `getTitle()` is identical to its super method
@@ -1490,7 +1442,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/MainMenuGUI.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### RedundantMethodOverride
 Method `onDisable()` only delegates to its super method
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -1504,7 +1456,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandLord.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[f9b347b] Alexander Daichendt
+f9b347b Alexander Daichendt
 ### RedundantMethodOverride
 Method `onDisable()` only delegates to its super method
 in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -1518,7 +1470,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[dfb6f2f] Alexander Daichendt
+dfb6f2f Alexander Daichendt
 ## UnnecessarySuperQualifier
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
@@ -1533,7 +1485,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -1547,7 +1499,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ## UnnecessaryFullyQualifiedName
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.bukkit` is unnecessary and can be removed
@@ -1562,7 +1514,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/MultiPagedGUI.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ## UNUSED_IMPORT
 ### UNUSED_IMPORT
 Unused import `import java.util.logging.Level;`
@@ -1577,7 +1529,7 @@ import java.util.logging.Level;
 ```
 
 #### Blame
-AbbreviatedObjectId[b199a92] SpatiumPrinceps
+b199a92 SpatiumPrinceps
 ## NestedAssignment
 ### NestedAssignment
 Result of assignment expression used
@@ -1592,7 +1544,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/placeholderapi/LLExpansion
 ```
 
 #### Blame
-AbbreviatedObjectId[f64b085] Aur?lien
+f64b085 Aur?lien
 ## ThrowablePrintStackTrace
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -1607,21 +1559,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/ConfigurationManag
 ```
 
 #### Blame
-AbbreviatedObjectId[36f2379] Aur?lien
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
-#### Snippet
-```java
-            customConfig.save(customConfigFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-#### Blame
-AbbreviatedObjectId[7984f76] Alexander Daichendt
+36f2379 Aur?lien
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
@@ -1635,7 +1573,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
 ```
 
 #### Blame
-AbbreviatedObjectId[7984f76] Alexander Daichendt
+7984f76 Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
@@ -1649,7 +1587,21 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
 ```
 
 #### Blame
-AbbreviatedObjectId[7984f76] Alexander Daichendt
+7984f76 Alexander Daichendt
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
+#### Snippet
+```java
+            customConfig.save(customConfigFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+#### Blame
+7984f76 Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/ConfigUpdater.java`
@@ -1663,7 +1615,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/ConfigUpdater.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/command/CommandManager.java`
@@ -1677,7 +1629,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/CommandManager.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
@@ -1691,7 +1643,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
@@ -1705,7 +1657,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
@@ -1719,7 +1671,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
@@ -1733,7 +1685,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerator.java`
@@ -1747,7 +1699,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerat
 ```
 
 #### Blame
-AbbreviatedObjectId[60cdbc6] Alexander Daichendt
+60cdbc6 Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
@@ -1761,7 +1713,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java
 ```
 
 #### Blame
-AbbreviatedObjectId[049c381] Alexander Daichendt
+049c381 Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-latest/src/main/java/biz/princeps/landlord/listener/WGRegenListener.java`
@@ -1775,7 +1727,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/listener/WGRegenListener
 ```
 
 #### Blame
-AbbreviatedObjectId[60cdbc6] Alexander Daichendt
+60cdbc6 Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-latest/src/main/java/biz/princeps/landlord/listener/WGRegenListener.java`
@@ -1789,7 +1741,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/listener/WGRegenListener
 ```
 
 #### Blame
-AbbreviatedObjectId[60cdbc6] Alexander Daichendt
+60cdbc6 Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -1803,7 +1755,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[44483ae] Alexander Daichendt
+44483ae Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -1817,7 +1769,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[a4e7481] Alexander Daichendt
+a4e7481 Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/landlord/util/Skulls.java`
@@ -1831,7 +1783,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/util/Skulls.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[f7fe6a2] Spatium Princeps
+f7fe6a2 Spatium Princeps
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LangManager.java`
@@ -1845,7 +1797,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LangManager.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[da3a031] Aurelien30000
+da3a031 Aurelien30000
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
@@ -1859,7 +1811,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[3221332] Aur?lien
+3221332 Aur?lien
 ## ReplaceNullCheck
 ### ReplaceNullCheck
 Replace condition with Objects.requireNonNullElseGet
@@ -1874,7 +1826,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[3221332] Aur?lien
+3221332 Aur?lien
 ## NonProtectedConstructorInAbstractClass
 ### NonProtectedConstructorInAbstractClass
 Constructor `AOwnedLand()` of an abstract class should not be declared 'public'
@@ -1889,7 +1841,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AOwnedLand.java
 ```
 
 #### Blame
-AbbreviatedObjectId[30f9d53] Alexander Daichendt
+30f9d53 Alexander Daichendt
 ### NonProtectedConstructorInAbstractClass
 Constructor `AWorldGuardManager()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardManager.java`
@@ -1903,7 +1855,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
 ### NonProtectedConstructorInAbstractClass
 Constructor `ACostManager()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/cost/ACostManager.java`
@@ -1917,7 +1869,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/cost/ACostManager.
 ```
 
 #### Blame
-AbbreviatedObjectId[d0cde0b] Spatium Princeps
+d0cde0b Spatium Princeps
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractGUI()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
@@ -1931,7 +1883,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractGUI()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
@@ -1945,7 +1897,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### NonProtectedConstructorInAbstractClass
 Constructor `AMultiTask()` of an abstract class should not be declared 'public'
 in `LandLord-api/src/main/java/biz/princeps/landlord/api/AMultiTask.java`
@@ -1959,7 +1911,7 @@ in `LandLord-api/src/main/java/biz/princeps/landlord/api/AMultiTask.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[3221332] Aur?lien
+3221332 Aur?lien
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractItem()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/lib/item/AbstractItem.java`
@@ -1973,7 +1925,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/item/AbstractItem.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### NonProtectedConstructorInAbstractClass
 Constructor `BasicListener()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/landlord/listener/BasicListener.java`
@@ -1987,7 +1939,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/listener/BasicListener.jav
 ```
 
 #### Blame
-AbbreviatedObjectId[e62014d] Alexander Daichendt
+e62014d Alexander Daichendt
 ### NonProtectedConstructorInAbstractClass
 Constructor `MainCommand()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
@@ -2001,7 +1953,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### NonProtectedConstructorInAbstractClass
 Constructor `LandlordCommand()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/LandlordCommand.java`
@@ -2015,7 +1967,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/LandlordCommand.j
 ```
 
 #### Blame
-AbbreviatedObjectId[521f4ef] SpatiumPrinceps
+521f4ef SpatiumPrinceps
 ## FieldAccessedSynchronizedAndUnsynchronized
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `customConfigFile` is accessed in both synchronized and unsynchronized contexts
@@ -2030,7 +1982,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
 ```
 
 #### Blame
-AbbreviatedObjectId[7984f76] Alexander Daichendt
+7984f76 Alexander Daichendt
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `customConfig` is accessed in both synchronized and unsynchronized contexts
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
@@ -2044,7 +1996,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
 ```
 
 #### Blame
-AbbreviatedObjectId[7984f76] Alexander Daichendt
+7984f76 Alexander Daichendt
 ## EmptyMethod
 ### EmptyMethod
 The method is empty
@@ -2059,7 +2011,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[502c405] Alexander Daichendt
+502c405 Alexander Daichendt
 ### EmptyMethod
 The method is empty
 in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemActionListener.java`
@@ -2073,7 +2025,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemActionListener.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### EmptyMethod
 The method is empty
 in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemActionListener.java`
@@ -2087,7 +2039,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemActionListener.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### EmptyMethod
 Method only calls its super
 in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -2101,7 +2053,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[dfb6f2f] Alexander Daichendt
+dfb6f2f Alexander Daichendt
 ### EmptyMethod
 Method only calls its super
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -2115,7 +2067,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandLord.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[f9b347b] Alexander Daichendt
+f9b347b Alexander Daichendt
 ## RedundantFieldInitialization
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
@@ -2130,7 +2082,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[7d32f5e] Alexander Daichendt
+7d32f5e Alexander Daichendt
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
@@ -2144,7 +2096,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `LandLord-core/src/main/java/biz/princeps/lib/gui/MultiPagedGUI.java`
@@ -2158,7 +2110,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/MultiPagedGUI.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
@@ -2172,7 +2124,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[b199a92] SpatiumPrinceps
+b199a92 SpatiumPrinceps
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
@@ -2186,7 +2138,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[b199a92] SpatiumPrinceps
+b199a92 SpatiumPrinceps
 ## AssignmentToMethodParameter
 ### AssignmentToMethodParameter
 Assignment to method parameter `text`
@@ -2201,7 +2153,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/util/SimpleScoreboard.java
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### AssignmentToMethodParameter
 Assignment to method parameter `text`
 in `LandLord-core/src/main/java/biz/princeps/landlord/util/SimpleScoreboard.java`
@@ -2215,7 +2167,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/util/SimpleScoreboard.java
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### AssignmentToMethodParameter
 Assignment to method parameter `chunkname`
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Unclaim.java`
@@ -2229,7 +2181,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Unclaim.
 ```
 
 #### Blame
-AbbreviatedObjectId[fa70d1e] Aur?lien
+fa70d1e Aur?lien
 ### AssignmentToMethodParameter
 Assignment to method parameter `location`
 in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
@@ -2243,7 +2195,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[791ffd8] SpatiumPrinceps
+791ffd8 SpatiumPrinceps
 ## RedundantImplements
 ### RedundantImplements
 Redundant interface declaration `Listener`
@@ -2258,7 +2210,7 @@ public class LandLord extends ALandLord implements Listener {
 ```
 
 #### Blame
-AbbreviatedObjectId[45fbeb1] Hannes Greule
+45fbeb1 Hannes Greule
 ## ReturnNull
 ### ReturnNull
 Return of `null`
@@ -2273,21 +2225,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
 ```
 
 #### Blame
-AbbreviatedObjectId[7984f76] Alexander Daichendt
-### ReturnNull
-Return of `null`
-in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AOwnedLand.java`
-#### Snippet
-```java
-        World world = wg.getWorld(name);
-        if (world == null)
-            return null;
-
-        return new Location(world, chunkX << 4, world.getHighestBlockYAt(chunkX << 4, chunkZ << 4) + 1, chunkZ << 4);
-```
-
-#### Blame
-AbbreviatedObjectId[9162f73] Aur?lien
+7984f76 Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AOwnedLand.java`
@@ -2301,7 +2239,21 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AOwnedLand.java
 ```
 
 #### Blame
-AbbreviatedObjectId[7220d1b] Alexander Daichendt
+7220d1b Alexander Daichendt
+### ReturnNull
+Return of `null`
+in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AOwnedLand.java`
+#### Snippet
+```java
+        World world = wg.getWorld(name);
+        if (world == null)
+            return null;
+
+        return new Location(world, chunkX << 4, world.getHighestBlockYAt(chunkX << 4, chunkZ << 4) + 1, chunkZ << 4);
+```
+
+#### Blame
+9162f73 Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardManager.java`
@@ -2315,7 +2267,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/DelimitationManager.java`
@@ -2329,7 +2281,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/DelimitationManage
 ```
 
 #### Blame
-AbbreviatedObjectId[924da55] Alexander Daichendt
+924da55 Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/DelimitationManager.java`
@@ -2343,21 +2295,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/DelimitationManage
 ```
 
 #### Blame
-AbbreviatedObjectId[924da55] Alexander Daichendt
-### ReturnNull
-Return of `null`
-in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemManager.java`
-#### Snippet
-```java
-            return new ItemStack(material);
-        } catch (NumberFormatException ex) {
-            return null;
-        }
-    }
-```
-
-#### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+924da55 Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemManager.java`
@@ -2371,7 +2309,21 @@ in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemManager.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
+### ReturnNull
+Return of `null`
+in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemManager.java`
+#### Snippet
+```java
+            return new ItemStack(material);
+        } catch (NumberFormatException ex) {
+            return null;
+        }
+    }
+```
+
+#### Blame
+591b84f Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LPlayerManager.java`
@@ -2385,7 +2337,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LPlayerManager.jav
 ```
 
 #### Blame
-AbbreviatedObjectId[502c405] Alexander Daichendt
+502c405 Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/util/TimeUtil.java`
@@ -2399,7 +2351,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/TimeUtil.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/command/CommandManager.java`
@@ -2413,7 +2365,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/CommandManager.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -2427,7 +2379,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java
 ```
 
 #### Blame
-AbbreviatedObjectId[212a8b0] Alexander Daichendt
+212a8b0 Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -2441,7 +2393,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java
 ```
 
 #### Blame
-AbbreviatedObjectId[212a8b0] Alexander Daichendt
+212a8b0 Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
@@ -2455,7 +2407,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
@@ -2469,7 +2421,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
@@ -2483,7 +2435,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[37e0398] Hannes Greule
+37e0398 Hannes Greule
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
@@ -2497,7 +2449,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java
 ```
 
 #### Blame
-AbbreviatedObjectId[049c381] Alexander Daichendt
+049c381 Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
@@ -2511,7 +2463,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java
 ```
 
 #### Blame
-AbbreviatedObjectId[049c381] Alexander Daichendt
+049c381 Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-api/src/main/java/biz/princeps/landlord/api/ClaimHeightDefinition.java`
@@ -2525,7 +2477,7 @@ in `LandLord-api/src/main/java/biz/princeps/landlord/api/ClaimHeightDefinition.j
 ```
 
 #### Blame
-AbbreviatedObjectId[0ee73ed] Florian F?lling
+0ee73ed Florian F?lling
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
@@ -2539,7 +2491,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[36f2379] Aur?lien
+36f2379 Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
@@ -2553,7 +2505,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[502c405] Alexander Daichendt
+502c405 Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -2567,7 +2519,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandLord.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[f9b347b] Alexander Daichendt
+f9b347b Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -2581,7 +2533,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -2595,7 +2547,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
@@ -2609,7 +2561,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[44483ae] Alexander Daichendt
+44483ae Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -2623,7 +2575,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[0c8e476] Alexander Daichendt
+0c8e476 Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -2637,7 +2589,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[cb3a514] Alexander Daichendt
+cb3a514 Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -2651,7 +2603,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[9162f73] Aur?lien
+9162f73 Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
@@ -2665,7 +2617,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[a4e7481] Alexander Daichendt
+a4e7481 Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -2679,7 +2631,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[36f2379] Aur?lien
+36f2379 Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/util/SpigotUtil.java`
@@ -2693,7 +2645,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/SpigotUtil.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
@@ -2707,7 +2659,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[37e0398] Hannes Greule
+37e0398 Hannes Greule
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
@@ -2721,7 +2673,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ## AssignmentToLambdaParameter
 ### AssignmentToLambdaParameter
 Assignment to lambda parameter `offline`
@@ -2736,7 +2688,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/listener/JoinListener.java
 ```
 
 #### Blame
-AbbreviatedObjectId[0e39126] SpatiumPrinceps
+0e39126 SpatiumPrinceps
 ## ClassCanBeRecord
 ### ClassCanBeRecord
 Class can be a record
@@ -2751,7 +2703,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/ConfigUpdater.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### ClassCanBeRecord
 Class can be a record
 in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
@@ -2765,7 +2717,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[306a19e] SpatiumPrinceps
+306a19e SpatiumPrinceps
 ## NullArgumentToVariableArgMethod
 ### NullArgumentToVariableArgMethod
 Confusing argument `null`, unclear if a varargs or non-varargs call is desired
@@ -2780,7 +2732,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[7c51520] Aur?lien
+7c51520 Aur?lien
 ## NonExceptionNameEndsWithException
 ### NonExceptionNameEndsWithException
 Non-exception class name `PlayerNotFoundException` ends with 'Exception'
@@ -2795,7 +2747,7 @@ public class PlayerNotFoundException extends Throwable {
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ## UnusedAssignment
 ### UnusedAssignment
 The value changed at `position++` is never used
@@ -2810,7 +2762,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[212a8b0] Alexander Daichendt
+212a8b0 Alexander Daichendt
 ### UnusedAssignment
 The value changed at `pos++` is never used
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ClearGUI.java`
@@ -2824,7 +2776,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ClearGUI.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[7321666] Alexander Daichendt
+7321666 Alexander Daichendt
 ## MethodMayBeStatic
 ### MethodMayBeStatic
 Method `registerPlaceholders()` may be 'static'
@@ -2839,7 +2791,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/placeholderapi/LLFeatherBo
 ```
 
 #### Blame
-AbbreviatedObjectId[d0fe1a0] Aurelien30000
+d0fe1a0 Aurelien30000
 ### MethodMayBeStatic
 Method `format()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedComponentMessage.java`
@@ -2853,7 +2805,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedComponentMessage
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### MethodMayBeStatic
 Method `format()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
@@ -2867,7 +2819,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### MethodMayBeStatic
 Method `format()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedMessage.java`
@@ -2881,21 +2833,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedMessage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
-### MethodMayBeStatic
-Method `setGlowing()` may be 'static'
-in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
-#### Snippet
-```java
-    }
-
-    private void setGlowing(ItemStack stack, boolean glowing) {
-        ItemMeta itemMeta = stack.getItemMeta();
-        if (glowing) {
-```
-
-#### Blame
-AbbreviatedObjectId[ef39594] Alexander Daichendt
+591b84f Alexander Daichendt
 ### MethodMayBeStatic
 Method `formatList()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
@@ -2909,7 +2847,21 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[5a0ab82] Aurelien30000
+5a0ab82 Aurelien30000
+### MethodMayBeStatic
+Method `setGlowing()` may be 'static'
+in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
+#### Snippet
+```java
+    }
+
+    private void setGlowing(ItemStack stack, boolean glowing) {
+        ItemMeta itemMeta = stack.getItemMeta();
+        if (glowing) {
+```
+
+#### Blame
+ef39594 Alexander Daichendt
 ### MethodMayBeStatic
 Method `evalutePrepStmt()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
@@ -2923,7 +2875,7 @@ in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[591b84f] Alexander Daichendt
+591b84f Alexander Daichendt
 ### MethodMayBeStatic
 Method `executeUpgrade()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
@@ -2937,49 +2889,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java
 ```
 
 #### Blame
-AbbreviatedObjectId[049c381] Alexander Daichendt
-### MethodMayBeStatic
-Method `register1_14Entities()` may be 'static'
-in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
-#### Snippet
-```java
-    }
-
-    private void register1_14Entities() {
-        // 1.14's entities
-        Mob CAT = new Mob(EntityType.CAT, Material.CAT_SPAWN_EGG);
-```
-
-#### Blame
-AbbreviatedObjectId[0669776] Aur?lien
-### MethodMayBeStatic
-Method `register1_15Entities()` may be 'static'
-in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
-#### Snippet
-```java
-    }
-
-    private void register1_15Entities() {
-        // 1.15's entities
-        Mob BEE = new Mob(EntityType.BEE, Material.BEE_SPAWN_EGG);
-```
-
-#### Blame
-AbbreviatedObjectId[0669776] Aur?lien
-### MethodMayBeStatic
-Method `register1_16Entities()` may be 'static'
-in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
-#### Snippet
-```java
-    }
-
-    private void register1_16Entities() {
-        // 1.16's entities
-        Mob HOGLIN = new Mob(EntityType.HOGLIN, Material.HOGLIN_SPAWN_EGG);
-```
-
-#### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+049c381 Alexander Daichendt
 ### MethodMayBeStatic
 Method `register1_16_2Entities()` may be 'static'
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -2993,7 +2903,21 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
+### MethodMayBeStatic
+Method `register1_16Entities()` may be 'static'
+in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
+#### Snippet
+```java
+    }
+
+    private void register1_16Entities() {
+        // 1.16's entities
+        Mob HOGLIN = new Mob(EntityType.HOGLIN, Material.HOGLIN_SPAWN_EGG);
+```
+
+#### Blame
+0669776 Aur?lien
 ### MethodMayBeStatic
 Method `register1_17Entities()` may be 'static'
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -3007,7 +2931,35 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
 ```
 
 #### Blame
-AbbreviatedObjectId[0669776] Aur?lien
+0669776 Aur?lien
+### MethodMayBeStatic
+Method `register1_15Entities()` may be 'static'
+in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
+#### Snippet
+```java
+    }
+
+    private void register1_15Entities() {
+        // 1.15's entities
+        Mob BEE = new Mob(EntityType.BEE, Material.BEE_SPAWN_EGG);
+```
+
+#### Blame
+0669776 Aur?lien
+### MethodMayBeStatic
+Method `register1_14Entities()` may be 'static'
+in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
+#### Snippet
+```java
+    }
+
+    private void register1_14Entities() {
+        // 1.14's entities
+        Mob CAT = new Mob(EntityType.CAT, Material.CAT_SPAWN_EGG);
+```
+
+#### Blame
+0669776 Aur?lien
 ### MethodMayBeStatic
 Method `replaceLore()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
@@ -3021,7 +2973,7 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
 ```
 
 #### Blame
-AbbreviatedObjectId[f7fe6a2] Spatium Princeps
+f7fe6a2 Spatium Princeps
 ### MethodMayBeStatic
 Method `locationToVec()` may be 'static'
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -3035,7 +2987,7 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[cb3a514] Alexander Daichendt
+cb3a514 Alexander Daichendt
 ### MethodMayBeStatic
 Method `locationToVec()` may be 'static'
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -3049,7 +3001,7 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 #### Blame
-AbbreviatedObjectId[cb3a514] Alexander Daichendt
+cb3a514 Alexander Daichendt
 ### MethodMayBeStatic
 Method `replaceInMessage()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Info.java`
@@ -3063,4 +3015,4 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Info.j
 ```
 
 #### Blame
-AbbreviatedObjectId[2f4ce41] SpatiumPrinceps
+2f4ce41 SpatiumPrinceps
