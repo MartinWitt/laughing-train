@@ -108,15 +108,15 @@ in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifi
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `resolver` is accessed in both synchronized and unsynchronized contexts
+Field `twitter` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifier.java`
 #### Snippet
 ```java
 	
-	private Chrisliebot bot;
-	private ContextResolver resolver;
-	private List<TimelineSubscription> subscriptions;
+	private Config cfg;
+	private Twitter twitter;
 	
+	private ScheduledFuture<?> pollTask;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -132,18 +132,6 @@ in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifi
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `twitter` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifier.java`
-#### Snippet
-```java
-	
-	private Config cfg;
-	private Twitter twitter;
-	
-	private ScheduledFuture<?> pollTask;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `bot` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifier.java`
 #### Snippet
@@ -156,15 +144,15 @@ in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifi
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `jda` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/DiscordService.java`
+Field `resolver` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifier.java`
 #### Snippet
 ```java
 	
-	@Getter private Chrisliebot bot;
-	@Getter private JDA jda;
-	@Getter private String identifier;
-	private boolean updateSlashCommands;
+	private Chrisliebot bot;
+	private ContextResolver resolver;
+	private List<TimelineSubscription> subscriptions;
+	
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -179,29 +167,29 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/DiscordService.ja
 	// keeps track of which guilds we have already registered our commands
 ```
 
-## RedundantFieldInitialization
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/chrisliebaer/chrisliebot/command/timer/TimerCommand.java`
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `jda` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/DiscordService.java`
 #### Snippet
 ```java
-		private Instant snooze;
-		
-		private int snoozeCount = 0;
-		private boolean deleted = false;
-		
+	
+	@Getter private Chrisliebot bot;
+	@Getter private JDA jda;
+	@Getter private String identifier;
+	private boolean updateSlashCommands;
 ```
 
+## RedundantFieldInitialization
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/chrisliebaer/chrisliebot/command/timer/TimerCommand.java`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/AbstractDiscordOutput.java`
 #### Snippet
 ```java
-		
-		private int snoozeCount = 0;
-		private boolean deleted = false;
-		
-		private Instant nextDue() {
+	 * since we need the proper call stack for this, we have to store the color in the constructor
+	 */
+	private boolean colorSet = false;
+	
+	private URL imageUrl = null; // ideally, embed builder would allow us to just access the god damn thing
 ```
 
 ### RedundantFieldInitialization
@@ -218,14 +206,26 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/AbstractDiscordOu
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/AbstractDiscordOutput.java`
+in `src/main/java/chrisliebaer/chrisliebot/command/timer/TimerCommand.java`
 #### Snippet
 ```java
-	 * since we need the proper call stack for this, we have to store the color in the constructor
-	 */
-	private boolean colorSet = false;
-	
-	private URL imageUrl = null; // ideally, embed builder would allow us to just access the god damn thing
+		
+		private int snoozeCount = 0;
+		private boolean deleted = false;
+		
+		private Instant nextDue() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/chrisliebaer/chrisliebot/command/timer/TimerCommand.java`
+#### Snippet
+```java
+		private Instant snooze;
+		
+		private int snoozeCount = 0;
+		private boolean deleted = false;
+		
 ```
 
 ### RedundantFieldInitialization
@@ -254,15 +254,15 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/irc/IrcFormatter.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `s`
-in `src/main/java/chrisliebaer/chrisliebot/command/timer/TimerCommand.java`
+Assignment to method parameter `guilds`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/irc/IrcBootstrap.java`
 #### Snippet
 ```java
-	
-	private static long decodeTimer(String s) throws IdParseException {
-		s = s.toLowerCase();
+	private static Multimap<String, Pattern> buildGuildMap(Map<String, List<String>> guilds) {
+		if (guilds == null)
+			guilds = Map.of();
 		
-		int out = 0;
+		Multimap<String, Pattern> guildMap = HashMultimap.create();
 ```
 
 ### AssignmentToMethodParameter
@@ -278,15 +278,15 @@ in `src/main/java/chrisliebaer/chrisliebot/command/timer/TimerCommand.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `guilds`
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/irc/IrcBootstrap.java`
+Assignment to method parameter `s`
+in `src/main/java/chrisliebaer/chrisliebot/command/timer/TimerCommand.java`
 #### Snippet
 ```java
-	private static Multimap<String, Pattern> buildGuildMap(Map<String, List<String>> guilds) {
-		if (guilds == null)
-			guilds = Map.of();
+	
+	private static long decodeTimer(String s) throws IdParseException {
+		s = s.toLowerCase();
 		
-		Multimap<String, Pattern> guildMap = HashMultimap.create();
+		int out = 0;
 ```
 
 ### AssignmentToMethodParameter
@@ -593,18 +593,6 @@ in `src/main/java/chrisliebaer/chrisliebot/config/AliasSet.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/SerializedOutput.java`
-#### Snippet
-```java
-	public ChrislieOutput apply(ChrislieOutput output, Function<String, String> transform) {
-		// we don't want caller to handle null values, so instead we simply handle these with our own lambda
-		Function<String, String> fn = (s) -> s == null ? null : transform.apply(s);
-		
-		Optional.ofNullable(title).ifPresent(title -> output.title(fn.apply(title), fn.apply(url)));
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/chrisliebaer/chrisliebot/command/mensa/api/MensaApiService.java`
 #### Snippet
 ```java
@@ -617,14 +605,14 @@ in `src/main/java/chrisliebaer/chrisliebot/command/mensa/api/MensaApiService.jav
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/chrisliebaer/chrisliebot/C.java`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/SerializedOutput.java`
 #### Snippet
 ```java
-	public static String squashFormatting(String s) {
-		if (s == null)
-			return null;
+	public ChrislieOutput apply(ChrislieOutput output, Function<String, String> transform) {
+		// we don't want caller to handle null values, so instead we simply handle these with our own lambda
+		Function<String, String> fn = (s) -> s == null ? null : transform.apply(s);
 		
-		// TODO: takes the input string and attempts to reduce the amount of format codes by merging overlapping or unused definitions
+		Optional.ofNullable(title).ifPresent(title -> output.title(fn.apply(title), fn.apply(url)));
 ```
 
 ### ReturnNull
@@ -639,17 +627,78 @@ in `src/main/java/chrisliebaer/chrisliebot/C.java`
 	}
 ```
 
+### ReturnNull
+Return of `null`
+in `src/main/java/chrisliebaer/chrisliebot/C.java`
+#### Snippet
+```java
+	public static String squashFormatting(String s) {
+		if (s == null)
+			return null;
+		
+		// TODO: takes the input string and attempts to reduce the amount of format codes by merging overlapping or unused definitions
+```
+
 ## UnnecessaryReturn
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
 in `src/main/java/chrisliebaer/chrisliebot/command/discord/ExplainCommand.java`
 #### Snippet
 ```java
-			ErrorOutputBuilder.generic("Ich konnte diese Nachricht leider nicht finden. Sie wurde entweder gelöscht oder du bist nicht berechtigt" +
-					" Informationen über diese Nachricht abzufragen.").write(invc).send();
+			ErrorOutputBuilder.generic("Ich konnte diese Nachricht leider nicht finden. Sie wurde entweder gel?scht oder du bist nicht berechtigt" +
+					" Informationen ?ber diese Nachricht abzufragen.").write(invc).send();
 			return;
 		}
 	}
+```
+
+## UnnecessaryToStringCall
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/chrisliebaer/chrisliebot/util/OutOfBandTransmission.java`
+#### Snippet
+```java
+	public String send(String content) throws IOException {
+		var uuid = UUID.randomUUID();
+		var file = new File(path, uuid.toString() + ".txt");
+		FileUtils.writeStringToFile(file, content, StandardCharsets.UTF_8);
+		return generator.replace("${file}", file.getName());
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/LimiterConfig.java`
+#### Snippet
+```java
+					
+					// commit current string buffer to output
+					out.add(prefix + sb.toString());
+					sb.setLength(0);
+				} else {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/LimiterConfig.java`
+#### Snippet
+```java
+			// append pending string builer, if not empty
+			if (sb.length() != 0)
+				out.add(prefix + sb.toString());
+		}
+		
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/chrisliebaer/chrisliebot/command/string/FlipCommand.java`
+#### Snippet
+```java
+				sb.append(LOOKUP_FLIP.charAt(idx));
+		}
+		invc.reply("(?????? " + sb.reverse().toString());
+	}
+	
 ```
 
 ## ConstantConditions
@@ -725,55 +774,6 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/DiscordChannelOut
 			
 ```
 
-## UnnecessaryToStringCall
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/chrisliebaer/chrisliebot/util/OutOfBandTransmission.java`
-#### Snippet
-```java
-	public String send(String content) throws IOException {
-		var uuid = UUID.randomUUID();
-		var file = new File(path, uuid.toString() + ".txt");
-		FileUtils.writeStringToFile(file, content, StandardCharsets.UTF_8);
-		return generator.replace("${file}", file.getName());
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/LimiterConfig.java`
-#### Snippet
-```java
-					
-					// commit current string buffer to output
-					out.add(prefix + sb.toString());
-					sb.setLength(0);
-				} else {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/LimiterConfig.java`
-#### Snippet
-```java
-			// append pending string builer, if not empty
-			if (sb.length() != 0)
-				out.add(prefix + sb.toString());
-		}
-		
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/chrisliebaer/chrisliebot/command/string/FlipCommand.java`
-#### Snippet
-```java
-				sb.append(LOOKUP_FLIP.charAt(idx));
-		}
-		invc.reply("(╯°□°）╯ " + sb.reverse().toString());
-	}
-	
-```
-
 ## NullableProblems
 ### NullableProblems
 Overridden methods are not annotated
@@ -843,6 +843,18 @@ in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
 
 ## UnstableApiUsage
 ### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/chrisliebaer/chrisliebot/command/mensa/MensaCommand.java`
+#### Snippet
+```java
+		//noinspection UnnecessaryCodeBlock
+		{ // scope fuckery to hide type fuckery, the perfect crime
+			Optional<Set<String>> maybeIgnoreLines = flex.get(FLEX_FILTER, new TypeToken<Set<String>>() {}.getType());
+			ignoreLines = maybeIgnoreLines.orElse(Set.of());
+		}
+```
+
+### UnstableApiUsage
 'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `src/main/java/chrisliebaer/chrisliebot/command/mensa/MensaCommand.java`
 #### Snippet
@@ -866,19 +878,19 @@ in `src/main/java/chrisliebaer/chrisliebot/command/mensa/MensaCommand.java`
 		}
 ```
 
-### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/chrisliebaer/chrisliebot/command/mensa/MensaCommand.java`
+## MethodMayBeStatic
+### MethodMayBeStatic
+Method `loadGenerator()` may be 'static'
+in `src/main/java/chrisliebaer/chrisliebot/command/generator/GeneratorCommand.java`
 #### Snippet
 ```java
-		//noinspection UnnecessaryCodeBlock
-		{ // scope fuckery to hide type fuckery, the perfect crime
-			Optional<Set<String>> maybeIgnoreLines = flex.get(FLEX_FILTER, new TypeToken<Set<String>>() {}.getType());
-			ignoreLines = maybeIgnoreLines.orElse(Set.of());
-		}
+	}
+	
+	private Generator loadGenerator(GsonValidator gson, GeneratorConfig cfg) throws ListenerException {
+		try {
+			return switch (cfg.type) {
 ```
 
-## MethodMayBeStatic
 ### MethodMayBeStatic
 Method `long2byte()` may be 'static'
 in `src/main/java/chrisliebaer/chrisliebot/command/attachment/AttachmenViewerCommand.java`
@@ -904,15 +916,15 @@ in `src/main/java/chrisliebaer/chrisliebot/command/attachment/AttachmenViewerCom
 ```
 
 ### MethodMayBeStatic
-Method `loadGenerator()` may be 'static'
-in `src/main/java/chrisliebaer/chrisliebot/command/generator/GeneratorCommand.java`
+Method `handleLookup()` may be 'static'
+in `src/main/java/chrisliebaer/chrisliebot/command/dns/DnsCommand.java`
 #### Snippet
 ```java
 	}
 	
-	private Generator loadGenerator(GsonValidator gson, GeneratorConfig cfg) throws ListenerException {
-		try {
-			return switch (cfg.type) {
+	private void handleLookup(Lookup lookup, ChrislieOutput reply, String host) {
+		ForkJoinPool.commonPool().execute(() -> {
+			Record[] records = lookup.run();
 ```
 
 ### MethodMayBeStatic
@@ -928,39 +940,15 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/DiscordPlainOutpu
 ```
 
 ### MethodMayBeStatic
-Method `handleLookup()` may be 'static'
-in `src/main/java/chrisliebaer/chrisliebot/command/dns/DnsCommand.java`
+Method `verboseLogging()` may be 'static'
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/irc/IrcBootstrap.java`
 #### Snippet
 ```java
 	}
 	
-	private void handleLookup(Lookup lookup, ChrislieOutput reply, String host) {
-		ForkJoinPool.commonPool().execute(() -> {
-			Record[] records = lookup.run();
-```
-
-### MethodMayBeStatic
-Method `parse()` may be 'static'
-in `src/main/java/chrisliebaer/chrisliebot/command/timer/TimerCommand.java`
-#### Snippet
-```java
-	}
-	
-	private Optional<Instant> parse(String arg, ZoneId zoneId) {
-		var parser = new Parser(TimeZone.getTimeZone(zoneId));
-		var parse = parser.parse(arg);
-```
-
-### MethodMayBeStatic
-Method `createTimerInfo()` may be 'static'
-in `src/main/java/chrisliebaer/chrisliebot/command/timer/TimerCommand.java`
-#### Snippet
-```java
-	}
-	
-	private TimerInfo createTimerInfo(ResultSet rs) throws SQLException {
-		TimerInfo timerInfo = new TimerInfo();
-		timerInfo.id = rs.getLong("id");
+	private void verboseLogging(Client.Builder builder) {
+		builder.listeners().input(IrcBootstrap::inLogger);
+		builder.listeners().output(IrcBootstrap::outLogger);
 ```
 
 ### MethodMayBeStatic
@@ -976,18 +964,6 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/irc/IrcBootstrap.java`
 ```
 
 ### MethodMayBeStatic
-Method `verboseLogging()` may be 'static'
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/irc/IrcBootstrap.java`
-#### Snippet
-```java
-	}
-	
-	private void verboseLogging(Client.Builder builder) {
-		builder.listeners().input(IrcBootstrap::inLogger);
-		builder.listeners().output(IrcBootstrap::outLogger);
-```
-
-### MethodMayBeStatic
 Method `target()` may be 'static'
 in `src/main/java/chrisliebaer/chrisliebot/command/wrapper/TransformCommand.java`
 #### Snippet
@@ -997,6 +973,30 @@ in `src/main/java/chrisliebaer/chrisliebot/command/wrapper/TransformCommand.java
 	private ListenerReference target(ChrislieContext ctx, FlexConf flex) throws ListenerException {
 		var target = flex.getStringOrFail(TRANSFORM_TARGET);
 		var ref = ctx.listener(target)
+```
+
+### MethodMayBeStatic
+Method `createTimerInfo()` may be 'static'
+in `src/main/java/chrisliebaer/chrisliebot/command/timer/TimerCommand.java`
+#### Snippet
+```java
+	}
+	
+	private TimerInfo createTimerInfo(ResultSet rs) throws SQLException {
+		TimerInfo timerInfo = new TimerInfo();
+		timerInfo.id = rs.getLong("id");
+```
+
+### MethodMayBeStatic
+Method `parse()` may be 'static'
+in `src/main/java/chrisliebaer/chrisliebot/command/timer/TimerCommand.java`
+#### Snippet
+```java
+	}
+	
+	private Optional<Instant> parse(String arg, ZoneId zoneId) {
+		var parser = new Parser(TimeZone.getTimeZone(zoneId));
+		var parse = parser.parse(arg);
 ```
 
 ### MethodMayBeStatic
@@ -1024,6 +1024,18 @@ in `src/main/java/chrisliebaer/chrisliebot/command/basic/RecruitCommand.java`
 ```
 
 ### MethodMayBeStatic
+Method `detail()` may be 'static'
+in `src/main/java/chrisliebaer/chrisliebot/command/help/HelpCommand.java`
+#### Snippet
+```java
+	}
+	
+	private void detail(Invocation invc, String alias) throws ListenerException {
+		var ctx = invc.ctx();
+		var maybeRef = ctx.alias(alias);
+```
+
+### MethodMayBeStatic
 Method `enumerate()` may be 'static'
 in `src/main/java/chrisliebaer/chrisliebot/command/help/HelpCommand.java`
 #### Snippet
@@ -1033,30 +1045,6 @@ in `src/main/java/chrisliebaer/chrisliebot/command/help/HelpCommand.java`
 	private void enumerate(Invocation invc) throws ListenerException {
 		var ctx = invc.ctx();
 		
-```
-
-### MethodMayBeStatic
-Method `reset()` may be 'static'
-in `src/main/java/chrisliebaer/chrisliebot/command/manage/LogConfigCommand.java`
-#### Snippet
-```java
-	}
-	
-	private void reset() {
-		// TODO: find out if this also reloads it
-		Configurator.reconfigure();
-```
-
-### MethodMayBeStatic
-Method `changeIrcNick()` may be 'static'
-in `src/main/java/chrisliebaer/chrisliebot/command/basic/NickCommand.java`
-#### Snippet
-```java
-	}
-	
-	private void changeIrcNick(Invocation invc) {
-		var service = (IrcService) invc.service();
-		service.client().setNick(invc.arg());
 ```
 
 ### MethodMayBeStatic
@@ -1072,15 +1060,15 @@ in `src/main/java/chrisliebaer/chrisliebot/command/basic/NickCommand.java`
 ```
 
 ### MethodMayBeStatic
-Method `detail()` may be 'static'
-in `src/main/java/chrisliebaer/chrisliebot/command/help/HelpCommand.java`
+Method `changeIrcNick()` may be 'static'
+in `src/main/java/chrisliebaer/chrisliebot/command/basic/NickCommand.java`
 #### Snippet
 ```java
 	}
 	
-	private void detail(Invocation invc, String alias) throws ListenerException {
-		var ctx = invc.ctx();
-		var maybeRef = ctx.alias(alias);
+	private void changeIrcNick(Invocation invc) {
+		var service = (IrcService) invc.service();
+		service.client().setNick(invc.arg());
 ```
 
 ### MethodMayBeStatic
@@ -1108,15 +1096,15 @@ in `src/main/java/chrisliebaer/chrisliebot/command/external/ShellCommand.java`
 ```
 
 ### MethodMayBeStatic
-Method `warnInvalidGraph()` may be 'static'
-in `src/main/java/chrisliebaer/chrisliebot/command/kit/finals2021/escaperoutes/KitEscapeRoutesCommand.java`
+Method `reset()` may be 'static'
+in `src/main/java/chrisliebaer/chrisliebot/command/manage/LogConfigCommand.java`
 #### Snippet
 ```java
 	}
 	
-	private ChrislieOutput warnInvalidGraph(FlowGraph graph, ChrislieOutput out) {
-		var outOnly = new HashSet<>(graph.nodes());
-		var inOnly = new HashSet<>(graph.nodes());
+	private void reset() {
+		// TODO: find out if this also reloads it
+		Configurator.reconfigure();
 ```
 
 ### MethodMayBeStatic
@@ -1129,6 +1117,18 @@ in `src/main/java/chrisliebaer/chrisliebot/command/kit/finals2021/escaperoutes/K
 	private ChrislieOutput simpleOutput(ChrislieOutput out, String title, String specOutput) {
 		return out
 				.thumbnail("https://chrisliebot.chrisliebaer.de/notausgang.png")
+```
+
+### MethodMayBeStatic
+Method `warnInvalidGraph()` may be 'static'
+in `src/main/java/chrisliebaer/chrisliebot/command/kit/finals2021/escaperoutes/KitEscapeRoutesCommand.java`
+#### Snippet
+```java
+	}
+	
+	private ChrislieOutput warnInvalidGraph(FlowGraph graph, ChrislieOutput out) {
+		var outOnly = new HashSet<>(graph.nodes());
+		var inOnly = new HashSet<>(graph.nodes());
 ```
 
 ### MethodMayBeStatic
