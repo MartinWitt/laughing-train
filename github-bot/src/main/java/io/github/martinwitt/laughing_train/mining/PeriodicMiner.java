@@ -10,6 +10,8 @@ import io.github.martinwitt.laughing_train.services.ServiceAdresses;
 import io.quarkus.scheduler.Scheduled;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
+import io.vertx.core.Promise;
+import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
@@ -39,6 +41,9 @@ public class PeriodicMiner {
     @Inject
     MiningPrinter miningPrinter;
 
+    @Inject
+    Vertx vertx;
+
     @Scheduled(every = "2h")
     void mineRepos() throws IOException {
         Path dir = Files.createTempDirectory("laughing-wiki");
@@ -53,14 +58,14 @@ public class PeriodicMiner {
                         ServiceAdresses.PROJECT_REQUEST,
                         new ProjectRequest.WithUrl(url),
                         new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
-                        result -> mineProject(repoName, result));
+                        result -> vertx.executeBlocking(v -> mineProject(repoName, result)));
             }
         } catch (Exception e) {
             logger.atSevere().withCause(e).log("Error while mining");
         }
     }
 
-    private void mineProject(String repoName, AsyncResult<Message<ProjectResult>> message) {
+    private Promise<Void> mineProject(String repoName, AsyncResult<Message<ProjectResult>> message) {
         if (message.succeeded()) {
             logger.atInfo().log("Mining periodic %s", repoName);
             if (message.result().body() instanceof ProjectResult.Success project) {
@@ -75,6 +80,7 @@ public class PeriodicMiner {
         } else {
             logger.atSevere().log("Mining periodic %s failed with error %s", repoName, message.cause());
         }
+        return Promise.promise();
     }
 
     private List<String> getRepoUrls(Path miningFile) throws IOException {
