@@ -2,6 +2,30 @@
 I found 207 bad smells with 41 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
+| ReturnNull | 33 | false |
+| TrivialStringConcatenation | 29 | false |
+| ThrowablePrintStackTrace | 19 | false |
+| MethodMayBeStatic | 17 | true |
+| SizeReplaceableByIsEmpty | 14 | true |
+| EnhancedSwitchMigration | 13 | false |
+| ConstantConditions | 11 | false |
+| NonProtectedConstructorInAbstractClass | 10 | true |
+| IgnoreResultOfCall | 6 | false |
+| EmptyMethod | 5 | false |
+| RedundantFieldInitialization | 5 | false |
+| SuspiciousNameCombination | 4 | false |
+| CommentedOutCode | 4 | false |
+| AssignmentToMethodParameter | 4 | false |
+| StaticCallOnSubclass | 3 | false |
+| MissortedModifiers | 3 | false |
+| RedundantMethodOverride | 3 | false |
+| EnumSwitchStatementWhichMissesCases | 2 | false |
+| AssignmentToForLoopParameter | 2 | false |
+| ClassNameSameAsAncestorName | 2 | false |
+| UnnecessarySuperQualifier | 2 | false |
+| FieldAccessedSynchronizedAndUnsynchronized | 2 | false |
+| ClassCanBeRecord | 2 | false |
+| UnusedAssignment | 2 | false |
 | PatternVariableCanBeUsed | 1 | false |
 | InnerClassMayBeStatic | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
@@ -12,92 +36,68 @@ I found 207 bad smells with 41 repairable:
 | AssignmentToLambdaParameter | 1 | false |
 | NullArgumentToVariableArgMethod | 1 | false |
 | NonExceptionNameEndsWithException | 1 | false |
-| EnumSwitchStatementWhichMissesCases | 2 | false |
-| AssignmentToForLoopParameter | 2 | false |
-| ClassNameSameAsAncestorName | 2 | false |
-| UnnecessarySuperQualifier | 2 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 2 | false |
-| ClassCanBeRecord | 2 | false |
-| UnusedAssignment | 2 | false |
-| StaticCallOnSubclass | 3 | false |
-| MissortedModifiers | 3 | false |
-| RedundantMethodOverride | 3 | false |
-| SuspiciousNameCombination | 4 | false |
-| CommentedOutCode | 4 | false |
-| AssignmentToMethodParameter | 4 | false |
-| EmptyMethod | 5 | false |
-| RedundantFieldInitialization | 5 | false |
-| IgnoreResultOfCall | 6 | false |
-| NonProtectedConstructorInAbstractClass | 10 | true |
-| ConstantConditions | 11 | false |
-| EnhancedSwitchMigration | 13 | false |
-| SizeReplaceableByIsEmpty | 14 | true |
-| MethodMayBeStatic | 17 | true |
-| ThrowablePrintStackTrace | 19 | false |
-| TrivialStringConcatenation | 29 | false |
-| ReturnNull | 33 | false |
 ## Blame
 Bad smells by person and commit(**DO NOT SEE THIS AS ANY ATTACK**):
 | Person | Bad Smells | 
 | --- | --- | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Thu Jan 7 17:09:36 2021 +0100] | 41 | 
-| PersonIdent[Lilly Tempest, 46890129+RainbowDashLabs@users.noreply.github.com, Mon Jun 14 16:15:34 2021 +0200] | 2 | 
-| PersonIdent[SpatiumPrinceps, spatium@princeps.biz, Wed Nov 22 23:48:58 2017 +0100] | 1 | 
-| PersonIdent[Spatium Princeps, spatium@princeps.biz, Thu Jun 13 21:36:45 2019 +0200] | 1 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Fri May 17 07:52:35 2019 +0200] | 2 | 
-| PersonIdent[Aur?lien, 43724816+Aurelien30000@users.noreply.github.com, Sat Dec 18 23:08:01 2021 +0100] | 6 | 
-| PersonIdent[Spatium Princeps, spatium@princeps.biz, Thu Jun 13 15:23:18 2019 +0200] | 3 | 
-| PersonIdent[SpatiumPrinceps, spatium@princeps.biz, Thu Nov 23 18:56:33 2017 +0100] | 1 | 
-| PersonIdent[SpatiumPrinceps, spatium@princeps.biz, Tue Jul 25 10:32:48 2017 +0200] | 1 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Sat May 18 11:47:35 2019 +0200] | 7 | 
-| PersonIdent[Aur?lien, 43724816+Aurelien30000@users.noreply.github.com, Mon Nov 15 17:28:18 2021 +0100] | 14 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Sun Nov 18 18:13:19 2018 +0100] | 1 | 
-| PersonIdent[Aur?lien, 43724816+Aurelien30000@users.noreply.github.com, Thu Jul 8 17:35:23 2021 +0100] | 16 | 
-| PersonIdent[SpatiumPrinceps, spatium@princeps.biz, Sun Apr 8 20:08:10 2018 +0200] | 2 | 
-| PersonIdent[Aur?lien, aurelien.domino@gmail.com, Sat Jan 9 22:05:39 2021 +0000] | 1 | 
-| PersonIdent[Aurelien30000, aurelien.domino@gmail.com, Fri Jun 26 19:26:14 2020 +0200] | 1 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Thu May 16 13:57:56 2019 +0200] | 4 | 
-| PersonIdent[SpatiumPrinceps, spatium@princeps.biz, Thu Feb 15 16:26:29 2018 +0100] | 1 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Thu May 30 20:39:28 2019 +0200] | 7 | 
-| PersonIdent[Aur?lien, 43724816+Aurelien30000@users.noreply.github.com, Thu Sep 2 16:59:02 2021 +0100] | 5 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Fri May 10 19:01:38 2019 +0200] | 2 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Sat May 11 17:06:26 2019 +0200] | 1 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Tue May 7 21:22:17 2019 +0200] | 2 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Wed May 20 15:19:59 2020 +0200] | 1 | 
-| PersonIdent[Aurelien30000, aurelien.domino@gmail.com, Thu Oct 22 22:49:10 2020 +0200] | 6 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Sat May 18 12:22:12 2019 +0200] | 2 | 
-| PersonIdent[Hannes Greule, hannesgreule@outlook.de, Sat Jan 9 22:21:12 2021 +0000] | 5 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Mon May 13 13:00:42 2019 +0200] | 1 | 
-| PersonIdent[SpatiumPrinceps, spatium@princeps.biz, Sun Dec 3 15:34:58 2017 +0100] | 2 | 
-| PersonIdent[SpatiumPrinceps, spatium@princeps.biz, Thu Apr 5 11:16:33 2018 +0200] | 1 | 
-| PersonIdent[SpatiumPrinceps, spatium@princeps.biz, Wed Nov 22 09:02:42 2017 +0100] | 1 | 
-| PersonIdent[Aurelien30000, aurelien.domino@gmail.com, Sun Oct 6 21:20:31 2019 +0200] | 1 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Fri May 10 21:58:18 2019 +0200] | 3 | 
-| PersonIdent[SpatiumPrinceps, spatium@princeps.biz, Tue Jul 25 13:09:42 2017 +0200] | 3 | 
-| PersonIdent[SirYwell, hannesgreule@outlook.de, Sat Jan 22 19:09:39 2022 +0100] | 1 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Thu Jan 16 16:30:44 2020 +0100] | 1 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Thu May 9 10:56:49 2019 +0200] | 10 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Thu Nov 22 12:13:56 2018 +0100] | 1 | 
-| PersonIdent[SpatiumPrinceps, spatium@princeps.biz, Thu Apr 5 12:58:08 2018 +0200] | 1 | 
-| PersonIdent[Florian F?lling, account@code-fox.de, Sat Jan 9 22:25:48 2021 +0000] | 1 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Sat May 16 13:21:56 2020 +0200] | 1 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Fri May 17 22:07:15 2019 +0200] | 3 | 
-| PersonIdent[Spatium Princeps, spatium@princeps.biz, Mon Jun 24 08:09:16 2019 +0200] | 1 | 
-| PersonIdent[BuildTools, unconfigured@null.spigotmc.org, Tue Jun 4 21:54:43 2019 +0200] | 1 | 
-| PersonIdent[Aurelien30000, aurelien.domino@gmail.com, Wed May 27 23:44:07 2020 +0200] | 2 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Wed May 8 17:22:53 2019 +0200] | 4 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Thu Nov 22 15:30:52 2018 +0100] | 2 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Thu May 14 19:34:40 2020 +0200] | 4 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Tue May 7 19:06:59 2019 +0200] | 2 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Tue Sep 18 11:41:25 2018 +0200] | 2 | 
-| PersonIdent[Aurelien30000, aurelien.domino@gmail.com, Sat Jan 23 01:04:31 2021 +0100] | 2 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Sun Nov 18 16:17:30 2018 +0100] | 2 | 
-| PersonIdent[Hannes Greule, hannesgreule@outlook.de, Sat Feb 15 23:08:08 2020 +0100] | 1 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Thu May 9 13:31:58 2019 +0200] | 7 | 
-| PersonIdent[Alexander Daichendt, alexander.daichendt@tum.de, Mon May 6 23:03:43 2019 +0200] | 6 | 
-| PersonIdent[Aur?lien, 43724816+Aurelien30000@users.noreply.github.com, Sun Jul 18 21:45:14 2021 +0100] | 2 | 
-| PersonIdent[Spatium Princeps, spatium@princeps.biz, Tue Jun 11 20:31:17 2019 +0200] | 1 | 
-| PersonIdent[Aur?lien, 43724816+Aurelien30000@users.noreply.github.com, Wed Jun 30 11:07:57 2021 +0200] | 1 | 
+| Alexander Daichendt | 41 | 
+| Lilly Tempest | 2 | 
+| SpatiumPrinceps | 1 | 
+| Spatium Princeps | 1 | 
+| Alexander Daichendt | 2 | 
+| Aur?lien | 6 | 
+| Spatium Princeps | 3 | 
+| SpatiumPrinceps | 1 | 
+| SpatiumPrinceps | 1 | 
+| Alexander Daichendt | 7 | 
+| Aur?lien | 14 | 
+| Alexander Daichendt | 1 | 
+| Aur?lien | 16 | 
+| SpatiumPrinceps | 2 | 
+| Aur?lien | 1 | 
+| Aurelien30000 | 1 | 
+| Alexander Daichendt | 4 | 
+| SpatiumPrinceps | 1 | 
+| Alexander Daichendt | 7 | 
+| Aur?lien | 5 | 
+| Alexander Daichendt | 2 | 
+| Alexander Daichendt | 1 | 
+| Alexander Daichendt | 2 | 
+| Alexander Daichendt | 1 | 
+| Aurelien30000 | 6 | 
+| Alexander Daichendt | 2 | 
+| Hannes Greule | 5 | 
+| Alexander Daichendt | 1 | 
+| SpatiumPrinceps | 2 | 
+| SpatiumPrinceps | 1 | 
+| SpatiumPrinceps | 1 | 
+| Aurelien30000 | 1 | 
+| Alexander Daichendt | 3 | 
+| SpatiumPrinceps | 3 | 
+| SirYwell | 1 | 
+| Alexander Daichendt | 1 | 
+| Alexander Daichendt | 10 | 
+| Alexander Daichendt | 1 | 
+| SpatiumPrinceps | 1 | 
+| Florian F?lling | 1 | 
+| Alexander Daichendt | 1 | 
+| Alexander Daichendt | 3 | 
+| Spatium Princeps | 1 | 
+| BuildTools | 1 | 
+| Aurelien30000 | 2 | 
+| Alexander Daichendt | 4 | 
+| Alexander Daichendt | 2 | 
+| Alexander Daichendt | 4 | 
+| Alexander Daichendt | 2 | 
+| Alexander Daichendt | 2 | 
+| Aurelien30000 | 2 | 
+| Alexander Daichendt | 2 | 
+| Hannes Greule | 1 | 
+| Alexander Daichendt | 7 | 
+| Alexander Daichendt | 6 | 
+| Aur?lien | 2 | 
+| Spatium Princeps | 1 | 
+| Aur?lien | 1 | 
 
 ## EnumSwitchStatementWhichMissesCases
 ### EnumSwitchStatementWhichMissesCases
@@ -123,6 +123,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.jav
 
         new BukkitRunnable() {
 ```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
 ### EnumSwitchStatementWhichMissesCases
 `switch (blockFace) { case NORTH: for (int z = zCenter; z >= zCen...` statement on enum type 'org.bukkit.block.BlockFace' misses cases: 'UP', 'DOWN', 'NORTH_EAST', 'NORTH_WEST', ...
 in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiMode.java`
@@ -155,6 +158,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiMode.java`
 
             return landsLocations;
 ```
+
+#### Blame
+AbbreviatedObjectId[5a0ab82] Aurelien30000
 ## SuspiciousNameCombination
 ### SuspiciousNameCombination
 'minHeight' should probably not be passed as parameter 'left'
@@ -167,6 +173,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
         }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[36f2379] Aur?lien
 ### SuspiciousNameCombination
 'maxHeight' should probably not be passed as parameter 'right'
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardManager.java`
@@ -178,6 +187,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
         }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[36f2379] Aur?lien
 ### SuspiciousNameCombination
 'bottomY' should probably not be passed as parameter 'left'
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardManager.java`
@@ -189,6 +201,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
 ### SuspiciousNameCombination
 'topY' should probably not be passed as parameter 'right'
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardManager.java`
@@ -200,6 +215,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
 ## StaticCallOnSubclass
 ### StaticCallOnSubclass
 Static method `toBlockPoint()` declared in class 'com.sk89q.worldedit.Vector' but referenced via subclass 'com.sk89q.worldedit.BlockVector'
@@ -212,6 +230,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
         BlockVector b2 = BlockVector.toBlockPoint(v2.getX(), v2.getY(), v2.getZ());
 
 ```
+
+#### Blame
+AbbreviatedObjectId[a4e7481] Alexander Daichendt
 ### StaticCallOnSubclass
 Static method `toBlockPoint()` declared in class 'com.sk89q.worldedit.Vector' but referenced via subclass 'com.sk89q.worldedit.BlockVector'
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -223,6 +244,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 
         CuboidRegion region = new CuboidRegion(weWorld, b1, b2);
 ```
+
+#### Blame
+AbbreviatedObjectId[a4e7481] Alexander Daichendt
 ### StaticCallOnSubclass
 Static method `toBlockPoint()` declared in class 'com.sk89q.worldedit.Vector' but referenced via subclass 'com.sk89q.worldedit.BlockVector'
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -234,6 +258,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
         } catch (RegionOperationException e) {
             e.printStackTrace();
 ```
+
+#### Blame
+AbbreviatedObjectId[a4e7481] Alexander Daichendt
 ## CommentedOutCode
 ### CommentedOutCode
 Commented out code (39 lines)
@@ -246,6 +273,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/placeholderapi/LLFeatherBo
         PlaceholderAPI.registerPlaceholder(plugin, "ownedlands",
                 e -> {
 ```
+
+#### Blame
+AbbreviatedObjectId[d5cc607] Spatium Princeps
 ### CommentedOutCode
 Commented out code (16 lines)
 in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
@@ -257,6 +287,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
     public void sendCountdown(final Player p, final int delay) {
         new BukkitRunnable() {
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### CommentedOutCode
 Commented out code (2 lines)
 in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
@@ -268,6 +301,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
         //   System.out.println("found command: " + command);
         if (this.isDelayedCommand(command.toLowerCase())) {
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### CommentedOutCode
 Commented out code (2 lines)
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
@@ -279,6 +315,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java
         //        sanitize(obj.toString()) + "'");
         try {
 ```
+
+#### Blame
+AbbreviatedObjectId[049c381] Alexander Daichendt
 ## PatternVariableCanBeUsed
 ### PatternVariableCanBeUsed
 Variable 'player' can be replaced with pattern variable
@@ -291,6 +330,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
                     ItemStack itemStack = event.getCurrentItem();
                     if (itemStack == null || itemStack.getType() == Material.AIR)
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ## SizeReplaceableByIsEmpty
 ### SizeReplaceableByIsEmpty
 `lands.size() == 0` can be replaced with 'lands.isEmpty()'
@@ -303,6 +345,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/MultiM
             lm.sendMessage(player, plugin.getLangManager().getString("Commands.ListLands.noLands"));
             return;
 ```
+
+#### Blame
+AbbreviatedObjectId[5a0ab82] Aurelien30000
 ### SizeReplaceableByIsEmpty
 `lands.size() == 0` can be replaced with 'lands.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/ManageAll.java`
@@ -314,6 +359,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage
             lm.sendMessage(player, plugin.getLangManager().getString("Commands.ListLands.noLands"));
             return;
 ```
+
+#### Blame
+AbbreviatedObjectId[f34da31] SpatiumPrinceps
 ### SizeReplaceableByIsEmpty
 `land.getFriends().size() > 0` can be replaced with '!land.getFriends().isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/friends/ListFriends.java`
@@ -325,6 +373,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/friends/ListFrien
             lm.sendMessage(player, lm.getString(player, "Commands.Listfriends.friends")
                     .replace("%friends%", land.getMembersString()));
 ```
+
+#### Blame
+AbbreviatedObjectId[e29605e] Aurelien30000
 ### SizeReplaceableByIsEmpty
 `lands.size() > 0` can be replaced with '!lands.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/AdminTeleport.java`
@@ -336,6 +387,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/AdminTelepo
                     MultiPagedGUI landGui = new MultiPagedGUI(plugin, sender, 5,
                             lm.getRawString("Commands.AdminTp.guiHeader").replace("%player%", target));
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### SizeReplaceableByIsEmpty
 `toClaim.size() == 0` can be replaced with 'toClaim.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiClaim.java`
@@ -347,6 +401,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiCla
             lm.sendMessage(player, lm.getString(player, "Commands.MultiClaim.noLands"));
             return;
 ```
+
+#### Blame
+AbbreviatedObjectId[0df21ad] Alexander Daichendt
 ### SizeReplaceableByIsEmpty
 `region.getFlags().size() == 0` can be replaced with 'region.getFlags().isEmpty()'
 in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
@@ -358,6 +415,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
             initFlags(owner);
             initRegionPriority();
 ```
+
+#### Blame
+AbbreviatedObjectId[30f9d53] Alexander Daichendt
 ### SizeReplaceableByIsEmpty
 `applicableRegions.getRegions().size() > 0` can be replaced with '!applicableRegions.getRegions().isEmpty()'
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -369,6 +429,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
             for (ProtectedRegion protectedRegion : applicableRegions.getRegions()) {
                 if (protectedRegion.isMember(localPlayer) || protectedRegion.isOwner(localPlayer)) {
 ```
+
+#### Blame
+AbbreviatedObjectId[cb3a514] Alexander Daichendt
 ### SizeReplaceableByIsEmpty
 `applicableRegions.getRegions().size() > 0` can be replaced with '!applicableRegions.getRegions().isEmpty()'
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -380,6 +443,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
             for (ProtectedRegion protectedRegion : applicableRegions.getRegions()) {
                 if (protectedRegion.isMember(localPlayer) || protectedRegion.isOwner(localPlayer)) {
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### SizeReplaceableByIsEmpty
 `region.getFlags().size() == 0` can be replaced with 'region.getFlags().isEmpty()'
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
@@ -391,17 +457,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
             initFlags(owner);
             initRegionPriority();
 ```
-### SizeReplaceableByIsEmpty
-`lands.size() == 0` can be replaced with 'lands.isEmpty()'
-in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage.java`
-#### Snippet
-```java
 
-    private void setFarewell(Player player, String[] args, List<IOwnedLand> lands, int casy) {
-        if (lands.size() == 0 || lands.get(0) == null) {
-            lm.sendMessage(player, lm.getString(player, "Commands.Manage.notOwnFreeLand"));
-            return;
-```
+#### Blame
+AbbreviatedObjectId[a4e7481] Alexander Daichendt
 ### SizeReplaceableByIsEmpty
 `lands.size() == 0` can be replaced with 'lands.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage.java`
@@ -413,6 +471,23 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage
             lm.sendMessage(player, lm.getString(player, "Commands.Manage.notOwnFreeLand"));
             return;
 ```
+
+#### Blame
+AbbreviatedObjectId[da3a031] Aurelien30000
+### SizeReplaceableByIsEmpty
+`lands.size() == 0` can be replaced with 'lands.isEmpty()'
+in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage.java`
+#### Snippet
+```java
+
+    private void setFarewell(Player player, String[] args, List<IOwnedLand> lands, int casy) {
+        if (lands.size() == 0 || lands.get(0) == null) {
+            lm.sendMessage(player, lm.getString(player, "Commands.Manage.notOwnFreeLand"));
+            return;
+```
+
+#### Blame
+AbbreviatedObjectId[335a83a] SpatiumPrinceps
 ### SizeReplaceableByIsEmpty
 `lands.size() == 0` can be replaced with 'lands.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/MultiListLands.java`
@@ -424,6 +499,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/MultiL
                     lm.sendMessage(sender, plugin.getLangManager().getString("Commands.MultiListLands.noLands"));
                     return;
 ```
+
+#### Blame
+AbbreviatedObjectId[5a0ab82] Aurelien30000
 ### SizeReplaceableByIsEmpty
 `lands.size() == 0` can be replaced with 'lands.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/ListLands.java`
@@ -435,6 +513,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/ListLa
                     lm.sendMessage(sender, plugin.getLangManager().getString("Commands.ListLands.noLands"));
                     return;
 ```
+
+#### Blame
+AbbreviatedObjectId[e62014d] Alexander Daichendt
 ### SizeReplaceableByIsEmpty
 `permissions.size() == 0` can be replaced with 'permissions.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
@@ -446,6 +527,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
             return true;
         }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ## EnhancedSwitchMigration
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
@@ -458,6 +542,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/listener/LandChangeListene
             case ActionBar:
                 sendMessage = (message, player) -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
 ```
+
+#### Blame
+AbbreviatedObjectId[37e0398] Hannes Greule
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
@@ -469,6 +556,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
                     case ALL:
                         builder.event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, managecmd + " setgreetall "));
 ```
+
+#### Blame
+AbbreviatedObjectId[52fec7d] Alexander Daichendt
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
@@ -480,6 +570,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
                     case ALL:
                         builder.event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, managecmd + " setfarewellall "));
 ```
+
+#### Blame
+AbbreviatedObjectId[52fec7d] Alexander Daichendt
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-api/src/main/java/biz/princeps/landlord/api/IMaterialsManager.java`
@@ -491,6 +584,9 @@ in `LandLord-api/src/main/java/biz/princeps/landlord/api/IMaterialsManager.java`
             case NORMAL:
                 return getGrass();
 ```
+
+#### Blame
+AbbreviatedObjectId[bfc0f7d] Alexander Daichendt
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.java`
@@ -502,6 +598,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.jav
             case MULTI:
                 lgManager.sendMessage(player, lgManager.getString(player, "Commands.MultiUnclaim.success")
 ```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/lib/manager/ConfirmationManager.java`
@@ -513,6 +612,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/manager/ConfirmationManager.jav
 
             case GUI:
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/util/Skulls.java`
@@ -524,6 +626,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/util/Skulls.java`
                 case '1':
                     list.add(BLACK1);
 ```
+
+#### Blame
+AbbreviatedObjectId[f7fe6a2] Spatium Princeps
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage.java`
@@ -535,6 +640,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage
                             case "setgreet":
                                 setGreet(player, args, Collections.singletonList(target), 2);
 ```
+
+#### Blame
+AbbreviatedObjectId[d178844] Alexander Daichendt
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/Update.java`
@@ -546,6 +654,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/Update.java
                 case "-u":
                     onUpdateLands(properties.getCommandSender());
 ```
+
+#### Blame
+AbbreviatedObjectId[521f4ef] SpatiumPrinceps
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/MultiListLands.java`
@@ -557,6 +668,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/MultiL
                     case 4:
                         target = arguments.get(2);
 ```
+
+#### Blame
+AbbreviatedObjectId[5a0ab82] Aurelien30000
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
@@ -568,6 +682,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
             case INFO:
                 plugin.getServer().dispatchCommand(p, "ll info");
 ```
+
+#### Blame
+AbbreviatedObjectId[79681fe] SpatiumPrinceps
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiClearTask.java`
@@ -579,6 +696,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiClearTask.java`
             case PLAYER:
                 plugin.getPlayerManager().getOffline(targetName, lPlayer -> {
 ```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.java`
@@ -590,6 +710,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.
             case 3:
                 // ll giveclaims name price amount
 ```
+
+#### Blame
+AbbreviatedObjectId[d0fe1a0] Aurelien30000
 ## AssignmentToForLoopParameter
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
@@ -602,6 +725,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java
                 } else {
                     sb.append(c);
 ```
+
+#### Blame
+AbbreviatedObjectId[666f5f9] Lilly Tempest
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -613,6 +739,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
                 } else {
                     sb.append(c);
 ```
+
+#### Blame
+AbbreviatedObjectId[08dc086] Aurelien30000
 ## ConstantConditions
 ### ConstantConditions
 Argument `a` might be null
@@ -625,6 +754,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/ConfigurationManag
                 }
                 plugin.getLogger().warning(pathToExisting + " config file is not up-to-date! " +
 ```
+
+#### Blame
+AbbreviatedObjectId[36f2379] Aur?lien
 ### ConstantConditions
 Value `sourceFile` is always 'null'
 in `LandLord-core/src/main/java/biz/princeps/lib/ConfigUpdater.java`
@@ -636,6 +768,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/ConfigUpdater.java`
 
 
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### ConstantConditions
 Argument `target` might be null
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/LLItem.java`
@@ -647,6 +782,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/LLItem
             } else {
                 properties.sendMessage(lm.getString(properties.getPlayer(), "Commands.Item.noPlayer").replace("%player%", target));
 ```
+
+#### Blame
+AbbreviatedObjectId[e62014d] Alexander Daichendt
 ### ConstantConditions
 Argument `target` might be null
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/LLItem.java`
@@ -658,6 +796,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/LLItem
             }
             return;
 ```
+
+#### Blame
+AbbreviatedObjectId[e62014d] Alexander Daichendt
 ### ConstantConditions
 Method invocation `setHealth` may produce `NullPointerException`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerator.java`
@@ -669,6 +810,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerat
                 }
             }
 ```
+
+#### Blame
+AbbreviatedObjectId[b7b3a31] SirYwell
 ### ConstantConditions
 Method invocation `setHealth` may produce `NullPointerException`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerator.java`
@@ -680,6 +824,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerat
                     PaperLib.teleportAsync(p, world.getHighestBlockAt(p.getLocation().add(0, 3, 0)).getLocation());
                 }
 ```
+
+#### Blame
+AbbreviatedObjectId[60cdbc6] Alexander Daichendt
 ### ConstantConditions
 Method invocation `charAt` may produce `NullPointerException`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -691,6 +838,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
             for (int i = 1; i < s.length(); i++) {
                 char c = s.charAt(i);
 ```
+
+#### Blame
+AbbreviatedObjectId[666f5f9] Lilly Tempest
 ### ConstantConditions
 Method invocation `toUpperCase` may produce `NullPointerException`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -702,6 +852,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
         }
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
 ### ConstantConditions
 Argument `flag` might be null
 in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
@@ -713,6 +866,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[30f9d53] Alexander Daichendt
 ### ConstantConditions
 Argument `flag` might be null
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
@@ -724,6 +880,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[a4e7481] Alexander Daichendt
 ### ConstantConditions
 Method invocation `setOwningPlayer` may produce `NullPointerException`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MaterialsManager.java`
@@ -735,6 +894,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MaterialsManager
         skull.setItemMeta(itemMeta);
         return skull;
 ```
+
+#### Blame
+AbbreviatedObjectId[bfc0f7d] Alexander Daichendt
 ## TrivialStringConcatenation
 ### TrivialStringConcatenation
 Empty string used in concatenation
@@ -747,6 +909,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
         configString = configString.replace("%z%", z + "");
 
 ```
+
+#### Blame
+AbbreviatedObjectId[30f9d53] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardManager.java`
@@ -758,6 +923,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
 
         return ChatColor.translateAlternateColorCodes('&', configString);
 ```
+
+#### Blame
+AbbreviatedObjectId[30f9d53] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/listener/SecureWorldListener.java`
@@ -769,6 +937,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/listener/SecureWorldListen
             if (display == MessageDisplay.ActionBar) {
                 PrincepsLib.getStuffManager().sendActionBar(p, rawString);
 ```
+
+#### Blame
+AbbreviatedObjectId[e7622bf] SpatiumPrinceps
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/listener/SecureWorldListener.java`
@@ -780,6 +951,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/listener/SecureWorldListen
             } else if (display == MessageDisplay.Title) {
                 p.sendTitle(rawString, null, 10, 70, 20);
 ```
+
+#### Blame
+AbbreviatedObjectId[e7622bf] SpatiumPrinceps
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedMessage.java`
@@ -791,6 +965,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedMessage.java`
                 .replace("%maxsite%", (int) Math.ceil((double) elements.size() / (double) perSite) + "");
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedMessage.java`
@@ -802,17 +979,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedMessage.java`
     }
 
 ```
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
-#### Snippet
-```java
-                int delay = this.getDelay(command.toLowerCase());
-                e.setCancelled(true);
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', this.getDontMove()).replace("%time%", "" + delay));
-                // Utils.displayHelix(p, delay);
 
-```
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
@@ -824,6 +993,23 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
 
                             if (spawnParticles) {
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
+#### Snippet
+```java
+                int delay = this.getDelay(command.toLowerCase());
+                e.setCancelled(true);
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', this.getDontMove()).replace("%time%", "" + delay));
+                // Utils.displayHelix(p, delay);
+
+```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.java`
@@ -835,6 +1021,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.jav
                         .replace("%money%", (Options.isVaultEnabled() ? plugin.getVaultManager().format(totalPayBack) : "-eco disabled-")));
                 break;
 ```
+
+#### Blame
+AbbreviatedObjectId[3221332] Aur?lien
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.java`
@@ -846,6 +1035,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.jav
                         .replace("%world%", world.getName())
                         .replace("%money%", (Options.isVaultEnabled() ? plugin.getVaultManager().format(totalPayBack) : "-eco disabled-")));
 ```
+
+#### Blame
+AbbreviatedObjectId[3221332] Aur?lien
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Shop.java`
@@ -857,6 +1049,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Shop.jav
                     .replace("%claims%", claims + ""));
             gui.display();
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Shop.java`
@@ -868,6 +1063,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Shop.jav
             gui.display();
         }
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.java`
@@ -879,6 +1077,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.j
                         .replace("%claims%", claimcount + ""));
             } else {
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.java`
@@ -890,6 +1091,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.j
             } else {
                 BaseComponent[] text = TextComponent.fromLegacyText(lm.getString(player, "Commands.Claims.noClaims"));
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.java`
@@ -901,6 +1105,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.j
                     .replace("%claims%", (highestAllowedLandCount == Integer.MAX_VALUE ? "?" : highestAllowedLandCount <= 0 ? "?" : highestAllowedLandCount + "")));
         }
 ```
+
+#### Blame
+AbbreviatedObjectId[e62014d] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.java`
@@ -912,39 +1119,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.j
         }
     }
 ```
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
-#### Snippet
-```java
-        if (regionCount >= highestAllowedLandCount) {
-            lm.sendMessage(player, lm.getString(player, "Commands.Claim.hardcap").replace("%regions%",
-                    highestAllowedLandCount + ""));
-            return false;
-        }
-```
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
-#### Snippet
-```java
-            if (regionCount >= claims) {
-                ComponentBuilder builder = new ComponentBuilder(lm.getString(player, "Commands.Claim.limit")
-                        .replace("%regions%", regionCount + "")
-                        .replace("%claims%", claims + ""))
-                        .color(ChatColor.YELLOW)
-```
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
-#### Snippet
-```java
-                ComponentBuilder builder = new ComponentBuilder(lm.getString(player, "Commands.Claim.limit")
-                        .replace("%regions%", regionCount + "")
-                        .replace("%claims%", claims + ""))
-                        .color(ChatColor.YELLOW)
-                        .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, PrincepsLib.getCommandManager()
-```
+
+#### Blame
+AbbreviatedObjectId[e62014d] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
@@ -956,6 +1133,51 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.ja
                     }
                 });
 ```
+
+#### Blame
+AbbreviatedObjectId[4bdd3cd] BuildTools
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
+#### Snippet
+```java
+            if (regionCount >= claims) {
+                ComponentBuilder builder = new ComponentBuilder(lm.getString(player, "Commands.Claim.limit")
+                        .replace("%regions%", regionCount + "")
+                        .replace("%claims%", claims + ""))
+                        .color(ChatColor.YELLOW)
+```
+
+#### Blame
+AbbreviatedObjectId[5b428d3] Alexander Daichendt
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
+#### Snippet
+```java
+                ComponentBuilder builder = new ComponentBuilder(lm.getString(player, "Commands.Claim.limit")
+                        .replace("%regions%", regionCount + "")
+                        .replace("%claims%", claims + ""))
+                        .color(ChatColor.YELLOW)
+                        .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, PrincepsLib.getCommandManager()
+```
+
+#### Blame
+AbbreviatedObjectId[5b428d3] Alexander Daichendt
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
+#### Snippet
+```java
+        if (regionCount >= highestAllowedLandCount) {
+            lm.sendMessage(player, lm.getString(player, "Commands.Claim.hardcap").replace("%regions%",
+                    highestAllowedLandCount + ""));
+            return false;
+        }
+```
+
+#### Blame
+AbbreviatedObjectId[049c381] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiClaim.java`
@@ -967,6 +1189,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiCla
             return;
         }
 ```
+
+#### Blame
+AbbreviatedObjectId[0df21ad] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiClaim.java`
@@ -978,6 +1203,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiCla
                             .replace("%cost%", formattedCost),
                     lm.getString(player, "Commands.MultiClaim.chatMessage")
 ```
+
+#### Blame
+AbbreviatedObjectId[e3218f0] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiClaim.java`
@@ -989,6 +1217,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiCla
                             .replace("%cost%", formattedCost),
                     (p) -> {
 ```
+
+#### Blame
+AbbreviatedObjectId[e3218f0] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiClaim.java`
@@ -1000,6 +1231,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiCla
                         p.closeInventory();
                     }, confirmcmd);
 ```
+
+#### Blame
+AbbreviatedObjectId[e62014d] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
@@ -1011,6 +1245,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
             ));
             error.addClickAction((p) -> lm.sendMessage(player, lm.getString(player, "Shop.notEnoughMoney")
 ```
+
+#### Blame
+AbbreviatedObjectId[5c15215] Spatium Princeps
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiUnclaim.java`
@@ -1022,6 +1259,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/MultiUnc
             return;
         }
 ```
+
+#### Blame
+AbbreviatedObjectId[5a0ab82] Aurelien30000
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/adv/Advertise.java`
@@ -1033,6 +1273,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/adv/Adve
     }
 }
 ```
+
+#### Blame
+AbbreviatedObjectId[e62014d] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.java`
@@ -1044,6 +1287,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.
                                     .replace("%cost%", vault.format(cost)));
                             player.closeInventory();
 ```
+
+#### Blame
+AbbreviatedObjectId[e62014d] Alexander Daichendt
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.java`
@@ -1055,6 +1301,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.
                                     .replace("%cost%", vault.format(cost)));
                             player.closeInventory();
 ```
+
+#### Blame
+AbbreviatedObjectId[8f69432] Alexander Daichendt
 ## InnerClassMayBeStatic
 ### InnerClassMayBeStatic
 Inner class `Confirm` may be 'static'
@@ -1067,6 +1316,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/Landlordbase.java
 
         public Confirm() {
 ```
+
+#### Blame
+AbbreviatedObjectId[e62014d] Alexander Daichendt
 ## MissortedModifiers
 ### MissortedModifiers
 Missorted modifiers `synchronized static`
@@ -1079,17 +1331,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
             openDialogs.remove(uniqueId);
         }
 ```
-### MissortedModifiers
-Missorted modifiers `synchronized static`
-in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
-#### Snippet
-```java
-        }
 
-        public synchronized static void addPlayer(UUID uniqueId, ConfirmationDialog confirmationDialog) {
-            openDialogs.put(uniqueId, confirmationDialog);
-        }
-```
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### MissortedModifiers
 Missorted modifiers `synchronized static`
 in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
@@ -1101,6 +1345,23 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
             return openDialogs.containsKey(uuid);
         }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
+### MissortedModifiers
+Missorted modifiers `synchronized static`
+in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
+#### Snippet
+```java
+        }
+
+        public synchronized static void addPlayer(UUID uniqueId, ConfirmationDialog confirmationDialog) {
+            openDialogs.put(uniqueId, confirmationDialog);
+        }
+```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ## IgnoreResultOfCall
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
@@ -1113,6 +1374,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
             try {
                 customConfigFile.createNewFile();
 ```
+
+#### Blame
+AbbreviatedObjectId[7984f76] Alexander Daichendt
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
@@ -1124,6 +1388,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
             } catch (IOException e) {
                 e.printStackTrace();
 ```
+
+#### Blame
+AbbreviatedObjectId[049c381] Alexander Daichendt
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
@@ -1135,6 +1402,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
                 file.createNewFile();
             } catch (IOException e) {
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
 in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
@@ -1146,6 +1416,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
             } catch (IOException e) {
                 e.printStackTrace();
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### IgnoreResultOfCall
 Result of `File.mkdir()` is ignored
 in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -1157,6 +1430,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
             this.regenerationManager = new WGRegenerator(this);
             new WGRegenListener(this);
 ```
+
+#### Blame
+AbbreviatedObjectId[30f9d53] Alexander Daichendt
 ### IgnoreResultOfCall
 Result of `File.mkdir()` is ignored
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LangManager.java`
@@ -1168,6 +1444,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LangManager.java`
 
             if (!f.exists())
 ```
+
+#### Blame
+AbbreviatedObjectId[502c405] Alexander Daichendt
 ## ClassNameSameAsAncestorName
 ### ClassNameSameAsAncestorName
 Class name `Factory` is the same as one of its superclass' names
@@ -1180,6 +1459,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
 
         private final ILandLord plugin;
 ```
+
+#### Blame
+AbbreviatedObjectId[37e0398] Hannes Greule
 ### ClassNameSameAsAncestorName
 Class name `Factory` is the same as one of its superclass' names
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
@@ -1191,6 +1473,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
 
         private final ILandLord plugin;
 ```
+
+#### Blame
+AbbreviatedObjectId[37e0398] Hannes Greule
 ## RedundantMethodOverride
 ### RedundantMethodOverride
 Method `getTitle()` is identical to its super method
@@ -1203,6 +1488,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/MainMenuGUI.java`
         return title;
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### RedundantMethodOverride
 Method `onDisable()` only delegates to its super method
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -1214,6 +1502,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandLord.java`
         super.onDisable();
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[f9b347b] Alexander Daichendt
 ### RedundantMethodOverride
 Method `onDisable()` only delegates to its super method
 in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -1225,6 +1516,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
         super.onDisable();
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[dfb6f2f] Alexander Daichendt
 ## UnnecessarySuperQualifier
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
@@ -1237,6 +1531,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -1248,6 +1545,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ## UnnecessaryFullyQualifiedName
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.bukkit` is unnecessary and can be removed
@@ -1260,6 +1560,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/MultiPagedGUI.java`
                             .addClickAction((p) -> mainMenu.display()));
         }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ## UNUSED_IMPORT
 ### UNUSED_IMPORT
 Unused import `import java.util.logging.Level;`
@@ -1272,6 +1575,9 @@ import java.util.logging.Level;
 
 /**
 ```
+
+#### Blame
+AbbreviatedObjectId[b199a92] SpatiumPrinceps
 ## NestedAssignment
 ### NestedAssignment
 Result of assignment expression used
@@ -1284,6 +1590,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/placeholderapi/LLExpansion
                     return members;
                 }
 ```
+
+#### Blame
+AbbreviatedObjectId[f64b085] Aur?lien
 ## ThrowablePrintStackTrace
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -1296,28 +1605,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/ConfigurationManag
         }
     }
 ```
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
-#### Snippet
-```java
-                customConfigFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-```
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
-#### Snippet
-```java
-            customConfig.load(customConfigFile);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
-    }
-```
+
+#### Blame
+AbbreviatedObjectId[36f2379] Aur?lien
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
@@ -1329,6 +1619,37 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
         }
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[7984f76] Alexander Daichendt
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
+#### Snippet
+```java
+                customConfigFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+```
+
+#### Blame
+AbbreviatedObjectId[7984f76] Alexander Daichendt
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
+#### Snippet
+```java
+            customConfig.load(customConfigFile);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+#### Blame
+AbbreviatedObjectId[7984f76] Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/ConfigUpdater.java`
@@ -1340,6 +1661,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/ConfigUpdater.java`
         }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/command/CommandManager.java`
@@ -1351,6 +1675,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/CommandManager.java`
         }
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
@@ -1362,6 +1689,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
             }
         }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
@@ -1373,6 +1703,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
             }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
@@ -1384,6 +1717,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
         }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
@@ -1395,6 +1731,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/PrincepsLib.java`
         }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerator.java`
@@ -1406,6 +1745,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerat
                 }
             }
 ```
+
+#### Blame
+AbbreviatedObjectId[60cdbc6] Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
@@ -1417,6 +1759,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java
             plugin.getLogger().warning("Error while handling upgrade!\nError:" + e.getMessage());
         }
 ```
+
+#### Blame
+AbbreviatedObjectId[049c381] Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-latest/src/main/java/biz/princeps/landlord/listener/WGRegenListener.java`
@@ -1428,6 +1773,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/listener/WGRegenListener
         }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[60cdbc6] Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-latest/src/main/java/biz/princeps/landlord/listener/WGRegenListener.java`
@@ -1439,6 +1787,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/listener/WGRegenListener
         }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[60cdbc6] Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -1450,6 +1801,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
         }
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[44483ae] Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -1461,6 +1815,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
         }
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[a4e7481] Alexander Daichendt
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/landlord/util/Skulls.java`
@@ -1472,6 +1829,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/util/Skulls.java`
         }
         head.setItemMeta(headMeta);
 ```
+
+#### Blame
+AbbreviatedObjectId[f7fe6a2] Spatium Princeps
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LangManager.java`
@@ -1483,6 +1843,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LangManager.java`
         }
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[da3a031] Aurelien30000
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
@@ -1494,6 +1857,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
                 }
             }
 ```
+
+#### Blame
+AbbreviatedObjectId[3221332] Aur?lien
 ## ReplaceNullCheck
 ### ReplaceNullCheck
 Replace condition with Objects.requireNonNullElseGet
@@ -1506,6 +1872,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
                     this.getPlayerManager().add(new LPlayer(onlinePlayer.getUniqueId()));
                 } else {
 ```
+
+#### Blame
+AbbreviatedObjectId[3221332] Aur?lien
 ## NonProtectedConstructorInAbstractClass
 ### NonProtectedConstructorInAbstractClass
 Constructor `AOwnedLand()` of an abstract class should not be declared 'public'
@@ -1518,6 +1887,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AOwnedLand.java
         this.plugin = plugin;
         this.world = world;
 ```
+
+#### Blame
+AbbreviatedObjectId[30f9d53] Alexander Daichendt
 ### NonProtectedConstructorInAbstractClass
 Constructor `AWorldGuardManager()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardManager.java`
@@ -1529,6 +1901,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
         this.plugin = plugin;
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
 ### NonProtectedConstructorInAbstractClass
 Constructor `ACostManager()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/cost/ACostManager.java`
@@ -1540,17 +1915,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/cost/ACostManager.
         this.plugin = plugin;
         this.free = free;
 ```
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractGUI()` of an abstract class should not be declared 'public'
-in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
-#### Snippet
-```java
-     * @param mainMenu The superior menu
-     */
-    public AbstractGUI(Plugin plugin, Player player, int size, String title, AbstractGUI mainMenu) {
-        this.plugin = plugin;
-        this.player = player;
-```
+
+#### Blame
+AbbreviatedObjectId[d0cde0b] Spatium Princeps
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractGUI()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
@@ -1562,6 +1929,23 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
         this(plugin, player, size, title, null);
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractGUI()` of an abstract class should not be declared 'public'
+in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
+#### Snippet
+```java
+     * @param mainMenu The superior menu
+     */
+    public AbstractGUI(Plugin plugin, Player player, int size, String title, AbstractGUI mainMenu) {
+        this.plugin = plugin;
+        this.player = player;
+```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### NonProtectedConstructorInAbstractClass
 Constructor `AMultiTask()` of an abstract class should not be declared 'public'
 in `LandLord-api/src/main/java/biz/princeps/landlord/api/AMultiTask.java`
@@ -1573,6 +1957,9 @@ in `LandLord-api/src/main/java/biz/princeps/landlord/api/AMultiTask.java`
         this.plugin = plugin;
         this.queue = new ArrayDeque<>(operations);
 ```
+
+#### Blame
+AbbreviatedObjectId[3221332] Aur?lien
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractItem()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/lib/item/AbstractItem.java`
@@ -1584,6 +1971,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/item/AbstractItem.java`
         this.name = name;
         this.stack = PrincepsLib.crossVersion().addNBTTag(stack, "customItem", "true");
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### NonProtectedConstructorInAbstractClass
 Constructor `BasicListener()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/landlord/listener/BasicListener.java`
@@ -1595,6 +1985,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/listener/BasicListener.jav
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
 ```
+
+#### Blame
+AbbreviatedObjectId[e62014d] Alexander Daichendt
 ### NonProtectedConstructorInAbstractClass
 Constructor `MainCommand()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
@@ -1606,6 +1999,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
         super(name, description, usageMessage, Arrays.asList(aliases));
         this.subCommandMap = new HashMap<>();
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### NonProtectedConstructorInAbstractClass
 Constructor `LandlordCommand()` of an abstract class should not be declared 'public'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/LandlordCommand.java`
@@ -1617,18 +2013,10 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/LandlordCommand.j
         super(name, usage, permissions, aliases);
         this.plugin = plugin;
 ```
+
+#### Blame
+AbbreviatedObjectId[521f4ef] SpatiumPrinceps
 ## FieldAccessedSynchronizedAndUnsynchronized
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `customConfig` is accessed in both synchronized and unsynchronized contexts
-in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
-#### Snippet
-```java
-
-    private File customConfigFile;
-    private FileConfiguration customConfig;
-
-    public FlatFileStorage(Plugin plugin) {
-```
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `customConfigFile` is accessed in both synchronized and unsynchronized contexts
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
@@ -1640,6 +2028,23 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
     private FileConfiguration customConfig;
 
 ```
+
+#### Blame
+AbbreviatedObjectId[7984f76] Alexander Daichendt
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `customConfig` is accessed in both synchronized and unsynchronized contexts
+in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
+#### Snippet
+```java
+
+    private File customConfigFile;
+    private FileConfiguration customConfig;
+
+    public FlatFileStorage(Plugin plugin) {
+```
+
+#### Blame
+AbbreviatedObjectId[7984f76] Alexander Daichendt
 ## EmptyMethod
 ### EmptyMethod
 The method is empty
@@ -1652,6 +2057,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
         //PrincepsLib.getItemManager().registerItem(Maitem.NAME, Maitem.class);
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[502c405] Alexander Daichendt
 ### EmptyMethod
 The method is empty
 in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemActionListener.java`
@@ -1663,6 +2071,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemActionListener.java`
 /*TODO reimplement
 
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### EmptyMethod
 The method is empty
 in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemActionListener.java`
@@ -1674,6 +2085,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemActionListener.java`
         //TODO replace with new method. Dunno and to lazy to google it
         /* TODO reimplement
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### EmptyMethod
 Method only calls its super
 in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -1685,6 +2099,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
         super.onDisable();
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[dfb6f2f] Alexander Daichendt
 ### EmptyMethod
 Method only calls its super
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -1696,6 +2113,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandLord.java`
         super.onDisable();
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[f9b347b] Alexander Daichendt
 ## RedundantFieldInitialization
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
@@ -1708,6 +2128,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
 
     AManage(ILandLord plugin, Player player, String header, List<IOwnedLand> land, ManageMode manageMode, MultiMode multiMode, int radius) {
 ```
+
+#### Blame
+AbbreviatedObjectId[7d32f5e] Alexander Daichendt
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
@@ -1719,6 +2142,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
 
                     @Override
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `LandLord-core/src/main/java/biz/princeps/lib/gui/MultiPagedGUI.java`
@@ -1730,17 +2156,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/MultiPagedGUI.java`
 
     /**
 ```
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
-#### Snippet
-```java
 
-    private int delta = 0;
-    private double cost = 0;
-
-    public ShopGUI(ILandLord plugin, Player player, String title) {
-```
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
@@ -1752,6 +2170,23 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
     private double cost = 0;
 
 ```
+
+#### Blame
+AbbreviatedObjectId[b199a92] SpatiumPrinceps
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
+#### Snippet
+```java
+
+    private int delta = 0;
+    private double cost = 0;
+
+    public ShopGUI(ILandLord plugin, Player player, String title) {
+```
+
+#### Blame
+AbbreviatedObjectId[b199a92] SpatiumPrinceps
 ## AssignmentToMethodParameter
 ### AssignmentToMethodParameter
 Assignment to method parameter `text`
@@ -1764,6 +2199,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/util/SimpleScoreboard.java
         if (text.length() > 48)
             text = text.substring(0, 47);
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### AssignmentToMethodParameter
 Assignment to method parameter `text`
 in `LandLord-core/src/main/java/biz/princeps/landlord/util/SimpleScoreboard.java`
@@ -1775,6 +2213,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/util/SimpleScoreboard.java
         return text;
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### AssignmentToMethodParameter
 Assignment to method parameter `chunkname`
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Unclaim.java`
@@ -1786,6 +2227,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Unclaim.
         } else {
             if (!wg.isLLRegion(chunkname)) {
 ```
+
+#### Blame
+AbbreviatedObjectId[fa70d1e] Aur?lien
 ### AssignmentToMethodParameter
 Assignment to method parameter `location`
 in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
@@ -1797,6 +2241,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
 
         IOwnedLand landAtLoc = plugin.getWGManager().getRegion(location);
 ```
+
+#### Blame
+AbbreviatedObjectId[791ffd8] SpatiumPrinceps
 ## RedundantImplements
 ### RedundantImplements
 Redundant interface declaration `Listener`
@@ -1809,6 +2256,9 @@ public class LandLord extends ALandLord implements Listener {
 
     @Override
 ```
+
+#### Blame
+AbbreviatedObjectId[45fbeb1] Hannes Greule
 ## ReturnNull
 ### ReturnNull
 Return of `null`
@@ -1821,6 +2271,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
         }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[7984f76] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AOwnedLand.java`
@@ -1832,6 +2285,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AOwnedLand.java
 
         return new Location(world, chunkX << 4, world.getHighestBlockYAt(chunkX << 4, chunkZ << 4) + 1, chunkZ << 4);
 ```
+
+#### Blame
+AbbreviatedObjectId[9162f73] Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AOwnedLand.java`
@@ -1843,6 +2299,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AOwnedLand.java
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[7220d1b] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardManager.java`
@@ -1854,6 +2313,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/protection/AWorldGuardMana
         }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/DelimitationManager.java`
@@ -1865,6 +2327,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/DelimitationManage
                 }
                 varToMaterial.put(var, mat);
 ```
+
+#### Blame
+AbbreviatedObjectId[924da55] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/DelimitationManager.java`
@@ -1876,6 +2341,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/DelimitationManage
             }
         }
 ```
+
+#### Blame
+AbbreviatedObjectId[924da55] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemManager.java`
@@ -1887,6 +2355,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemManager.java`
         }
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemManager.java`
@@ -1898,6 +2369,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemManager.java`
     }
 }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LPlayerManager.java`
@@ -1909,6 +2383,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LPlayerManager.jav
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[502c405] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/util/TimeUtil.java`
@@ -1920,6 +2397,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/TimeUtil.java`
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(s, formatter);
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/command/CommandManager.java`
@@ -1931,6 +2411,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/CommandManager.java`
     }
 }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -1942,6 +2425,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[212a8b0] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -1953,17 +2439,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java
     }
 
 ```
-### ReturnNull
-Return of `null`
-in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
-#### Snippet
-```java
-        } catch (SQLException e) {
-            plugin.getLogger().warning("Error while trying to pull a new connection: " + e.getMessage());
-            return null;
-        }
-    }
-```
+
+#### Blame
+AbbreviatedObjectId[212a8b0] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
@@ -1975,6 +2453,23 @@ in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
+### ReturnNull
+Return of `null`
+in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
+#### Snippet
+```java
+        } catch (SQLException e) {
+            plugin.getLogger().warning("Error while trying to pull a new connection: " + e.getMessage());
+            return null;
+        }
+    }
+```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
@@ -1986,6 +2481,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[37e0398] Hannes Greule
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
@@ -1997,6 +2495,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java
             } else {
                 return new LPlayer(UUID.fromString(res.getString("uuid")),
 ```
+
+#### Blame
+AbbreviatedObjectId[049c381] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
@@ -2008,6 +2509,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[049c381] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-api/src/main/java/biz/princeps/landlord/api/ClaimHeightDefinition.java`
@@ -2019,6 +2523,9 @@ in `LandLord-api/src/main/java/biz/princeps/landlord/api/ClaimHeightDefinition.j
     }
 }
 ```
+
+#### Blame
+AbbreviatedObjectId[0ee73ed] Florian F?lling
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
@@ -2030,6 +2537,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
 ```
+
+#### Blame
+AbbreviatedObjectId[36f2379] Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
@@ -2041,6 +2551,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[502c405] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -2052,6 +2565,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandLord.java`
         }
         return (WorldGuardPlugin) plugin;
 ```
+
+#### Blame
+AbbreviatedObjectId[f9b347b] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -2063,6 +2579,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -2074,6 +2593,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
@@ -2085,6 +2607,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
         } else {
             return uniqueIds.iterator().next();
 ```
+
+#### Blame
+AbbreviatedObjectId[44483ae] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -2096,6 +2621,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[0c8e476] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -2107,6 +2635,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[cb3a514] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -2118,6 +2649,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[9162f73] Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
@@ -2129,6 +2663,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
         } else {
             return uniqueIds.iterator().next();
 ```
+
+#### Blame
+AbbreviatedObjectId[a4e7481] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
@@ -2140,6 +2677,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
         }
         return (WorldGuardPlugin) plugin;
 ```
+
+#### Blame
+AbbreviatedObjectId[36f2379] Aur?lien
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/util/SpigotUtil.java`
@@ -2151,6 +2691,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/SpigotUtil.java`
         String[] split = s.split(":");
         Location loc;
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### ReturnNull
 Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
@@ -2162,6 +2705,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
     }
 
 ```
+
+#### Blame
+AbbreviatedObjectId[37e0398] Hannes Greule
 ### ReturnNull
 Return of `null`
 in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
@@ -2173,6 +2719,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
     }
 }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ## AssignmentToLambdaParameter
 ### AssignmentToLambdaParameter
 Assignment to lambda parameter `offline`
@@ -2185,6 +2734,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/listener/JoinListener.java
             }
             plugin.getPlayerManager().add(offline);
 ```
+
+#### Blame
+AbbreviatedObjectId[0e39126] SpatiumPrinceps
 ## ClassCanBeRecord
 ### ClassCanBeRecord
 Class can be a record
@@ -2197,6 +2749,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/ConfigUpdater.java`
         final Entry superior;
 
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### ClassCanBeRecord
 Class can be a record
 in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
@@ -2208,6 +2763,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
 
         private final ClickedAtCondition activation;
 ```
+
+#### Blame
+AbbreviatedObjectId[306a19e] SpatiumPrinceps
 ## NullArgumentToVariableArgMethod
 ### NullArgumentToVariableArgMethod
 Confusing argument `null`, unclear if a varargs or non-varargs call is desired
@@ -2220,6 +2778,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
             }
         }.runTaskAsynchronously(plugin);
 ```
+
+#### Blame
+AbbreviatedObjectId[7c51520] Aur?lien
 ## NonExceptionNameEndsWithException
 ### NonExceptionNameEndsWithException
 Non-exception class name `PlayerNotFoundException` ends with 'Exception'
@@ -2232,6 +2793,9 @@ public class PlayerNotFoundException extends Throwable {
 
     public PlayerNotFoundException(String string) {
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ## UnusedAssignment
 ### UnusedAssignment
 The value changed at `position++` is never used
@@ -2244,6 +2808,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
         }
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[212a8b0] Alexander Daichendt
 ### UnusedAssignment
 The value changed at `pos++` is never used
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ClearGUI.java`
@@ -2255,6 +2822,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ClearGUI.java`
         }
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[7321666] Alexander Daichendt
 ## MethodMayBeStatic
 ### MethodMayBeStatic
 Method `registerPlaceholders()` may be 'static'
@@ -2267,6 +2837,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/placeholderapi/LLFeatherBo
         plugin.getLogger().warning("Featherboard Placeholders do not work. Please tell Maxim from Featherboard to take a look at the MVdWPlaceholderAPI repo.");
         /*
 ```
+
+#### Blame
+AbbreviatedObjectId[d0fe1a0] Aurelien30000
 ### MethodMayBeStatic
 Method `format()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedComponentMessage.java`
@@ -2278,6 +2851,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedComponentMessage
         return ChatColor.translateAlternateColorCodes('&', header);
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### MethodMayBeStatic
 Method `format()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
@@ -2289,6 +2865,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/gui/simple/AbstractGUI.java`
         return ChatColor.translateAlternateColorCodes('&', toFormat);
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### MethodMayBeStatic
 Method `format()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedMessage.java`
@@ -2300,17 +2879,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/MultiPagedMessage.java`
         return ChatColor.translateAlternateColorCodes('&', header);
     }
 ```
-### MethodMayBeStatic
-Method `formatList()` may be 'static'
-in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
-#### Snippet
-```java
-    }
 
-    private List<String> formatList(List<String> list, String toReplace, String newValue) {
-        List<String> newList = new ArrayList<>();
-        for (String s : list) {
-```
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### MethodMayBeStatic
 Method `setGlowing()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
@@ -2322,6 +2893,23 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
         ItemMeta itemMeta = stack.getItemMeta();
         if (glowing) {
 ```
+
+#### Blame
+AbbreviatedObjectId[ef39594] Alexander Daichendt
+### MethodMayBeStatic
+Method `formatList()` may be 'static'
+in `LandLord-core/src/main/java/biz/princeps/landlord/guis/AManage.java`
+#### Snippet
+```java
+    }
+
+    private List<String> formatList(List<String> list, String toReplace, String newValue) {
+        List<String> newList = new ArrayList<>();
+        for (String s : list) {
+```
+
+#### Blame
+AbbreviatedObjectId[5a0ab82] Aurelien30000
 ### MethodMayBeStatic
 Method `evalutePrepStmt()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
@@ -2333,6 +2921,9 @@ in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
         for (int i = 0; i < args.length; i++) {
             Object obj = args[i];
 ```
+
+#### Blame
+AbbreviatedObjectId[591b84f] Alexander Daichendt
 ### MethodMayBeStatic
 Method `executeUpgrade()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
@@ -2344,50 +2935,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java
         switch (localVersion) {
             case 3:
 ```
-### MethodMayBeStatic
-Method `register1_16_2Entities()` may be 'static'
-in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
-#### Snippet
-```java
-    }
 
-    private void register1_16_2Entities() {
-        // 1.16.2's entities
-        Mob PIGLIN_BRUTE = new Mob(EntityType.PIGLIN_BRUTE, Material.PIGLIN_BRUTE_SPAWN_EGG);
-```
-### MethodMayBeStatic
-Method `register1_15Entities()` may be 'static'
-in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
-#### Snippet
-```java
-    }
-
-    private void register1_15Entities() {
-        // 1.15's entities
-        Mob BEE = new Mob(EntityType.BEE, Material.BEE_SPAWN_EGG);
-```
-### MethodMayBeStatic
-Method `register1_17Entities()` may be 'static'
-in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
-#### Snippet
-```java
-    }
-
-    private void register1_17Entities() {
-        // 1.17's entities
-        Mob AXOLOTL = new Mob(EntityType.AXOLOTL, Material.AXOLOTL_SPAWN_EGG);
-```
-### MethodMayBeStatic
-Method `register1_16Entities()` may be 'static'
-in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
-#### Snippet
-```java
-    }
-
-    private void register1_16Entities() {
-        // 1.16's entities
-        Mob HOGLIN = new Mob(EntityType.HOGLIN, Material.HOGLIN_SPAWN_EGG);
-```
+#### Blame
+AbbreviatedObjectId[049c381] Alexander Daichendt
 ### MethodMayBeStatic
 Method `register1_14Entities()` may be 'static'
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
@@ -2399,6 +2949,65 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
         // 1.14's entities
         Mob CAT = new Mob(EntityType.CAT, Material.CAT_SPAWN_EGG);
 ```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
+### MethodMayBeStatic
+Method `register1_15Entities()` may be 'static'
+in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
+#### Snippet
+```java
+    }
+
+    private void register1_15Entities() {
+        // 1.15's entities
+        Mob BEE = new Mob(EntityType.BEE, Material.BEE_SPAWN_EGG);
+```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
+### MethodMayBeStatic
+Method `register1_16Entities()` may be 'static'
+in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
+#### Snippet
+```java
+    }
+
+    private void register1_16Entities() {
+        // 1.16's entities
+        Mob HOGLIN = new Mob(EntityType.HOGLIN, Material.HOGLIN_SPAWN_EGG);
+```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
+### MethodMayBeStatic
+Method `register1_16_2Entities()` may be 'static'
+in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
+#### Snippet
+```java
+    }
+
+    private void register1_16_2Entities() {
+        // 1.16.2's entities
+        Mob PIGLIN_BRUTE = new Mob(EntityType.PIGLIN_BRUTE, Material.PIGLIN_BRUTE_SPAWN_EGG);
+```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
+### MethodMayBeStatic
+Method `register1_17Entities()` may be 'static'
+in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
+#### Snippet
+```java
+    }
+
+    private void register1_17Entities() {
+        // 1.17's entities
+        Mob AXOLOTL = new Mob(EntityType.AXOLOTL, Material.AXOLOTL_SPAWN_EGG);
+```
+
+#### Blame
+AbbreviatedObjectId[0669776] Aur?lien
 ### MethodMayBeStatic
 Method `replaceLore()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
@@ -2410,6 +3019,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/guis/ShopGUI.java`
         List<String> newList = new ArrayList<>();
         for (String s : list) {
 ```
+
+#### Blame
+AbbreviatedObjectId[f7fe6a2] Spatium Princeps
 ### MethodMayBeStatic
 Method `locationToVec()` may be 'static'
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -2421,6 +3033,9 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
         return BlockVector3.at(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[cb3a514] Alexander Daichendt
 ### MethodMayBeStatic
 Method `locationToVec()` may be 'static'
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
@@ -2432,6 +3047,9 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
         return new BlockVector(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
     }
 ```
+
+#### Blame
+AbbreviatedObjectId[cb3a514] Alexander Daichendt
 ### MethodMayBeStatic
 Method `replaceInMessage()` may be 'static'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Info.java`
@@ -2443,3 +3061,6 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Info.j
                                     String price) {
         return original.replace("%landid%", landID)
 ```
+
+#### Blame
+AbbreviatedObjectId[2f4ce41] SpatiumPrinceps
