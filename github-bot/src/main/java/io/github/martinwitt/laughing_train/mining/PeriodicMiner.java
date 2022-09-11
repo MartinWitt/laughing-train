@@ -101,17 +101,17 @@ public class PeriodicMiner {
 
     private Promise<Void> handle(Message<QodanaResult> message) {
         if (message.body() instanceof QodanaResult.Success success) {
-            List<AnalyzerResult> results = success.result();
-            Project projectQodana = success.project();
-            StringBuilder builder = new StringBuilder();
-            builder.append("# ")
-                    .append(projectQodana.getOwnerRepoName())
-                    .append(miningPrinter.printAllResults(results, projectQodana));
-            try {
+            try (Project projectQodana = success.project()) {
+                List<AnalyzerResult> results = success.result();
+                StringBuilder builder = new StringBuilder();
+                builder.append("# ")
+                        .append(projectQodana.getOwnerRepoName())
+                        .append(miningPrinter.printAllResults(results, projectQodana));
+
                 var laughingRepo = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
                         .getRepository("MartinWitt/laughing-train");
                 updateOrCreateContent(laughingRepo, projectQodana.name(), builder.toString());
-            } catch (IOException e) {
+            } catch (Exception e) {
                 logger.atSevere().withCause(e).log("Error while updating content");
             }
         }
