@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.diff.RawTextComparator;
+
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
@@ -123,20 +125,16 @@ public class MiningPrinter {
         try (Git git = Git.open(projectQodana.folder())) {
             for (AnalyzerResult analyzerResult : results) {
                 var gitBlame =
-                        git.blame().setFilePath(analyzerResult.filePath()).call();
+                        git.blame().setFilePath(analyzerResult.filePath()).setTextComparator(RawTextComparator.WS_IGNORE_ALL).call();
                 if (gitBlame == null) {
                     logger.atSevere().log("Git blame is null for %s", analyzerResult.filePath());
                     continue;
                 }
-                int medianLine = analyzerResult.position().startLine()
-                        + (analyzerResult.position().endLine()
-                                        - analyzerResult.position().startLine())
-                                / 2;
                 gitBlame.computeRange(
                         analyzerResult.position().startLine(),
                         analyzerResult.position().endLine());
-                var person = gitBlame.getSourceAuthor(medianLine);
-                var commit = gitBlame.getSourceCommit(medianLine);
+                var person = gitBlame.getSourceAuthor(analyzerResult.position().startLine());
+                var commit = gitBlame.getSourceCommit(analyzerResult.position().startLine());
                 if (person != null && commit != null) {
                     blameMap.put(analyzerResult, new PersonAndCommit(person, commit));
                 }
