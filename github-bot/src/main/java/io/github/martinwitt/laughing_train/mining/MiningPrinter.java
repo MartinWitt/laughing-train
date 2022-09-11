@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.mining;
 
+import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.MarkdownPrinter;
 import io.github.martinwitt.laughing_train.data.Project;
@@ -19,6 +20,8 @@ import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 @ApplicationScoped
 public class MiningPrinter {
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
     @Inject
     MarkdownPrinter markdownPrinter;
 
@@ -115,14 +118,14 @@ public class MiningPrinter {
 
     private Map<AnalyzerResult, PersonAndCommit> calculateGtBlameForIssues(
             List<AnalyzerResult> results, Project projectQodana) {
-        PeriodicMiner.logger.atInfo().log("Calculating blame for %d issues", results.size());
+        logger.atInfo().log("Calculating blame for %d issues", results.size());
         Map<AnalyzerResult, PersonAndCommit> blameMap = new HashMap<>();
         try (Git git = Git.open(projectQodana.folder())) {
             for (AnalyzerResult analyzerResult : results) {
                 var gitBlame =
                         git.blame().setFilePath(analyzerResult.filePath()).call();
                 if (gitBlame == null) {
-                    PeriodicMiner.logger.atSevere().log("Git blame is null for %s", analyzerResult.filePath());
+                    logger.atSevere().log("Git blame is null for %s", analyzerResult.filePath());
                     continue;
                 }
                 int medianLine = analyzerResult.position().startLine()
@@ -139,7 +142,7 @@ public class MiningPrinter {
                 }
             }
         } catch (Exception e) {
-            PeriodicMiner.logger.atSevere().withCause(e).log("Error while calculating blame");
+            logger.atSevere().withCause(e).log("Error while calculating blame");
         }
         return blameMap;
     }
