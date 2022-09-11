@@ -1,13 +1,15 @@
 package io.github.martinwitt.laughing_train;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
+import io.github.martinwitt.laughing_train.data.ProjectRequest;
+import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.github.martinwitt.laughing_train.services.ServiceAdresses;
 import io.quarkiverse.githubapp.event.IssueComment;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
+import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
@@ -40,6 +42,9 @@ public class MentionCommands {
     @Inject
     EventBus eventBus;
 
+    @Inject
+    Vertx vertx;
+
     void mentionCommands(@IssueComment GHEventPayload.IssueComment issueComment) throws IOException {
         if (!whitelist.isWhitelisted(issueComment.getComment().getUser().getLogin())) {
             return;
@@ -57,11 +62,12 @@ public class MentionCommands {
             }
         }
         if (comment.contains("@laughing-train list")) {
-            eventBus.<QodanaResult>request(
-                    ServiceAdresses.QODANA_ANALYZER_REQUEST,
-                    new AnalyzerRequest.UrlOnly(GitHubUtils.getTransportUrl(issueComment)),
-                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
-                    new ListCommandHandler(issueComment));
+            eventBus.<ProjectResult>request(
+                            ServiceAdresses.PROJECT_REQUEST,
+                            new ProjectRequest.WithUrl(GitHubUtils.getTransportUrl(issueComment)),
+                            new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)))
+                    .onComplete(v -> runQodanaOnRepo(issueComment, v));
+
             return;
         }
         if (comment.contains("@laughing-train close")) {
@@ -70,6 +76,15 @@ public class MentionCommands {
         }
         if (comment.contains("@laughing-train hi")) {
             issueComment.getIssue().comment("Hi, I'm a bot. I'm here to help you with your code quality.");
+        }
+    }
+
+    private void runQodanaOnRepo(GHEventPayload.IssueComment issueComment, AsyncResult<Message<ProjectResult>> v) {
+        if (v.succeeded()) {
+            vertx.executeBlocking(project -> eventBus.<QodanaResult>request(
+                    ServiceAdresses.QODANA_ANALYZER_REQUEST, v.result().body(), new ListCommandHandler(issueComment)));
+        } else {
+            logger.atSevere().withCause(v.cause()).log("Failed to get project");
         }
     }
 
