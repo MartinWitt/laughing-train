@@ -6,6 +6,7 @@ import io.github.martinwitt.laughing_train.Constants;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.quarkus.vertx.ConsumeEvent;
+import io.vertx.core.eventbus.EventBus;
 import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,6 +34,9 @@ public class QodanaService {
     @Inject
     ThreadPoolManager threadPoolManager;
 
+    @Inject
+    EventBus eventBus;
+
     public List<AnalyzerResult> runQodana(String gitUrl) throws IOException {
         Path file = Files.createTempDirectory(Constants.TEMP_FOLDER_PREFIX);
         try (Closeable closeable = () -> FileUtils.deleteDirectory(file.toFile())) {
@@ -57,26 +61,43 @@ public class QodanaService {
         }
     }
 
-    @ConsumeEvent(value = "qodana.analyzer.request", blocking = true)
+    public List<AnalyzerResult> runQodana(Path dir) throws GitAPIException {
+        QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
+                .withSourceFileRoot(config.getSrcFolder())
+                .withResultFolder(dir.toAbsolutePath().toString())
+                .build();
+        return analyzer.runQodana(dir);
+    }
+
+    @ConsumeEvent(value = ServiceAdresses.QODANA_ANALYZER_REQUEST, blocking = true)
     public QodanaResult analyze(AnalyzerRequest request) {
         logger.atInfo().log("Received request %s", request);
         try {
-            if (request instanceof AnalyzerRequest.UrlOnly urlOnly) {
-                return threadPoolManager
+            if (request instanceof AnalyzerRequest.WithProject project) {
+                var result = threadPoolManager
                         .getService()
-                        .submit(() -> new QodanaResult.Success(runQodana(urlOnly.gitUrl())))
+                        .submit(() -> new QodanaResult.Success(
+                                runQodana(
+                                        project.project().folder().toPath(),
+                                        project.project().sourceFolder()),
+                                project.project()))
                         .get();
-            } else if (request instanceof AnalyzerRequest.WithFolder urlAndPath) {
-                return threadPoolManager
-                        .getService()
-                        .submit(() -> new QodanaResult.Success(runQodana(urlAndPath.gitUrl(), urlAndPath.folder())))
-                        .get();
+                eventBus.publish(ServiceAdresses.QODANA_ANALYZER_RESPONSE, result);
+                return result;
             } else {
                 return new QodanaResult.Failure("Unknown request type");
             }
         } catch (Exception e) {
             return new QodanaResult.Failure(e.getMessage());
         }
+    }
+
+    private List<AnalyzerResult> runQodana(Path path, String sourceFolder) {
+        QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
+                .withSourceFileRoot(sourceFolder)
+                .withResultFolder(path.toAbsolutePath().toString())
+                .build();
+        return analyzer.runQodana(path);
     }
 
     @ApplicationScoped

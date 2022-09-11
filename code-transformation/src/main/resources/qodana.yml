@@ -3,19 +3,39 @@ profile:
 version: "1.0"
 include:
   - name: Anonymous2MethodRef
+  - name: AnonymousHasLambdaAlternative
+  - name: ArrayEquality
   - name: AssignmentToCatchBlockParameter
   - name: AssignmentToLambdaParameter
   - name: AssignmentToMethodParameter
+  - name: BoundedWildcard
   - name: CallToStringConcatCanBeReplacedByOperator
+  - name: CodeBlock2Expr
+  - name: ConstantMathCall
   - name: Convert2Lambda
+  - name: Convert2MethodRef
   - name: DoubleBraceInitialization
+  - name: DynamicRegexReplaceableByCompiledPattern
   - name: EmptyMethod
   - name: EqualsAndHashcode
+  - name: GroovyUnnecessaryContinue
+  - name: GroovyUnnecessaryReturn
+  - name: GroovyUnusedAssignment
+  - name: Java8ListReplaceAll
+  - name: Java8MapApi
   - name: JavaLangImport
+  - name: JoinDeclarationAndAssignmentJava
+  - name: KeySetIterationMayUseEntrySet
   - name: MissortedModifiers
   - name: NestedAssignment
+  - name: NonFinalFieldOfException
   - name: NonProtectedConstructorInAbstractClass
+  - name: NonSerializableFieldInSerializableClass
   - name: NonShortCircuitBoolean
+  - name: NonStrictComparisonCanBeEquality
+  - name: OptionalContainsCollection
+  - name: ProtectedMemberInFinalClass
+  - name: RandomDoubleForRandomInteger
   - name: RedundantFieldInitialization
   - name: RedundantImplements
   - name: RedundantMethodOverride
@@ -23,23 +43,22 @@ include:
   - name: Reformat
   - name: ReturnNull
   - name: SamePackageImport
+  - name: SimplifyBooleanWithConstants
+  - name: SizeReplaceableByIsEmpty
   - name: StaticCallOnSubclass
+  - name: StaticPseudoFunctionalStyleMethod
   - name: StringEquality
+  - name: ToArrayCallWithZeroLengthArrayArgument
   - name: UnnecessaryBoxing
+  - name: UnnecessaryCallToStringValueOf
   - name: UnnecessaryFullyQualifiedName
   - name: UnnecessaryLocalVariable
+  - name: UnnecessaryModifier
   - name: UnnecessarySuperQualifier
+  - name: UnnecessaryToStringCall
   - name: UnnecessaryUnboxing
   - name: UNUSED_IMPORT
-  - name: GroovyUnnecessaryReturn
-  - name: JoinDeclarationAndAssignmentJava
-  - name: MethodMayBeStatic
-  - name: UnnecessaryCallToStringValueOf
-  - name: UnnecessaryToStringCall
-  - name: NonStrictComparisonCanBeEquality
-  - name: SizeReplaceableByIsEmpty 
-  - name: SimplifyBooleanWithConstants
-  - name: ProtectedMemberInFinalClass
 exclude:
   - name: UseOfClone
   - name: JavaAnnotator
+  - name: MethodMayBeStatic
