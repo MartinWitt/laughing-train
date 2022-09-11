@@ -8,8 +8,6 @@ include:
   - name: AssignmentToCatchBlockParameter
   - name: AssignmentToLambdaParameter
   - name: AssignmentToMethodParameter
-  - name: AutoBoxing
-  - name: AutoUnboxing
   - name: BoundedWildcard
   - name: CallToStringConcatCanBeReplacedByOperator
   - name: CodeBlock2Expr
