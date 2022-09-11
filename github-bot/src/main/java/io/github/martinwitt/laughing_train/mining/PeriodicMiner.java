@@ -106,10 +106,7 @@ public class PeriodicMiner {
                 try {
                     var laughingRepo = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
                             .getRepository("MartinWitt/laughing-train");
-                    updateOrCreateContent(
-                            laughingRepo,
-                            StringUtils.substringAfterLast(projectQodana.name(), "/"),
-                            builder.toString());
+                    updateOrCreateContent(laughingRepo, projectQodana.name(), builder.toString());
                 } catch (IOException e) {
                     logger.atSevere().withCause(e).log("Error while updating content");
                 }
