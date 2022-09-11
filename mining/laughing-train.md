@@ -140,20 +140,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 #### Blame
 7f5a83e MartinWitt
 ### DeprecatedIsStillUsed
-Deprecated member 'Builder' is still used
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRefactor.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static class Builder {
-
-        private ChangeListener listener;
-```
-
-#### Blame
-7f5a83e MartinWitt
-### DeprecatedIsStillUsed
 Deprecated member 'withCacheFolder' is still used
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRefactor.java`
 #### Snippet
@@ -181,6 +167,20 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 
 #### Blame
 fcfed1e MartinWitt
+### DeprecatedIsStillUsed
+Deprecated member 'Builder' is still used
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRefactor.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static class Builder {
+
+        private ChangeListener listener;
+```
+
+#### Blame
+7f5a83e MartinWitt
 ## CommentedOutCode
 ### CommentedOutCode
 Commented out code (5 lines)
@@ -841,20 +841,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/config/Conf
 7f5a83e MartinWitt
 ## OptionalUsedAsFieldOrParameterType
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'cacheFolder'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
-#### Snippet
-```java
-        private String resultPathString = resultFolder + "/qodana.sarif.json";
-        private String sourceFileRoot = "./src/main/java";
-        private Optional<String> cacheFolder = Optional.empty();
-
-        public Builder withResultFolder(String resultFolder) {
-```
-
-#### Blame
-7f5a83e MartinWitt
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'qodanaCache'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
 #### Snippet
@@ -864,6 +850,20 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
     private Optional<String> qodanaCache;
 
     private QodanaAnalyzer(Builder builder) {
+```
+
+#### Blame
+7f5a83e MartinWitt
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'cacheFolder'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
+#### Snippet
+```java
+        private String resultPathString = resultFolder + "/qodana.sarif.json";
+        private String sourceFileRoot = "./src/main/java";
+        private Optional<String> cacheFolder = Optional.empty();
+
+        public Builder withResultFolder(String resultFolder) {
 ```
 
 #### Blame
@@ -916,6 +916,20 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
 #### Snippet
 ```java
+
+    void onConfigEdit(@Issue.Edited GHEventPayload.Issue issueComment) throws IOException {
+        System.out.println("onEditConfig");
+        if (isNotConfigIssue(issueComment)
+                || !userWhitelist.isWhitelisted(GitHubUtils.getLogin(issueComment))
+```
+
+#### Blame
+7f5a83e MartinWitt
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
+#### Snippet
+```java
         try {
             var results = qodanaService.runQodana(repoUrl, dir);
             System.out.println(config.getActiveRules());
@@ -935,20 +949,6 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
             System.out.println("refactorRepo: " + dir.toString() + "/" + config.getSrcFolder());
             transformationEngine.applyToGivenPath(dir.toString() + "/" + config.getSrcFolder());
         } catch (Exception e) {
-```
-
-#### Blame
-7f5a83e MartinWitt
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
-#### Snippet
-```java
-
-    void onConfigEdit(@Issue.Edited GHEventPayload.Issue issueComment) throws IOException {
-        System.out.println("onEditConfig");
-        if (isNotConfigIssue(issueComment)
-                || !userWhitelist.isWhitelisted(GitHubUtils.getLogin(issueComment))
 ```
 
 #### Blame
@@ -1089,6 +1089,20 @@ Assignment to method parameter `sourceRoot`
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
 #### Snippet
 ```java
+
+    public List<AnalyzerResult> runQodana(Path sourceRoot) {
+        sourceRoot = fixWindowsPath(sourceRoot);
+        logger.atInfo().log("Running Qodana on %s", sourceRoot);
+        copyQodanaRules(sourceRoot);
+```
+
+#### Blame
+7f5a83e MartinWitt
+### AssignmentToMethodParameter
+Assignment to method parameter `sourceRoot`
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
+#### Snippet
+```java
                 .endsWith(Path.of("/src/main/java").toString())) {
             if (sourceRoot.getRoot() == null) {
                 sourceRoot = sourceRoot.subpath(0, sourceRoot.getNameCount() - 3);
@@ -1112,20 +1126,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 
 #### Blame
 a3bdd03 Martin Wittlinger
-### AssignmentToMethodParameter
-Assignment to method parameter `sourceRoot`
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
-#### Snippet
-```java
-
-    public List<AnalyzerResult> runQodana(Path sourceRoot) {
-        sourceRoot = fixWindowsPath(sourceRoot);
-        logger.atInfo().log("Running Qodana on %s", sourceRoot);
-        copyQodanaRules(sourceRoot);
-```
-
-#### Blame
-7f5a83e MartinWitt
 ## ReturnNull
 ### ReturnNull
 Return of `null`
@@ -1389,34 +1389,6 @@ String concatenation as argument to `StringBuilder.append()` call
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
 #### Snippet
 ```java
-        for (Change change : log.getChanges()) {
-            if (change.getAffectedType().getSimpleName().equals(name)) {
-                sb.append(change.getChangeText().asText() + "\n");
-            }
-        }
-```
-
-#### Blame
-7f5a83e MartinWitt
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-    private static void appendChanges(Map<String, List<Change>> changesByType, StringBuilder sb) {
-        for (Entry<String, List<Change>> entry : changesByType.entrySet()) {
-            sb.append("### " + entry.getKey() + "\n");
-            sb.append(entry.getValue().stream()
-                    .map(c -> "- " + c.getChangeText().asMarkdown())
-```
-
-#### Blame
-7f5a83e MartinWitt
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
                 .collect(Collectors.toList());
         for (BadSmell badSmell : badSmells) {
             sb.append("## " + badSmell.getName().asText() + "\n");
@@ -1498,6 +1470,34 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/Pull
 7f5a83e MartinWitt
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+        for (Change change : log.getChanges()) {
+            if (change.getAffectedType().getSimpleName().equals(name)) {
+                sb.append(change.getChangeText().asText() + "\n");
+            }
+        }
+```
+
+#### Blame
+7f5a83e MartinWitt
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+    private static void appendChanges(Map<String, List<Change>> changesByType, StringBuilder sb) {
+        for (Entry<String, List<Change>> entry : changesByType.entrySet()) {
+            sb.append("### " + entry.getKey() + "\n");
+            sb.append(entry.getValue().stream()
+                    .map(c -> "- " + c.getChangeText().asMarkdown())
+```
+
+#### Blame
+7f5a83e MartinWitt
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/ChangelogPrinter.java`
 #### Snippet
 ```java
@@ -1520,6 +1520,20 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/ChangelogPrinte
         changes.stream().map(Change::getBadSmell).distinct().forEach(v -> sb.append(
                         "## " + v.getName().asText() + "\n")
                 .append(v.getDescription().asMarkdown())
+```
+
+#### Blame
+7f5a83e MartinWitt
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
+#### Snippet
+```java
+    private static void appendChanges(Map<String, List<Change>> changesByType, StringBuilder sb) {
+        for (Entry<String, List<Change>> entry : changesByType.entrySet()) {
+            sb.append("### " + entry.getKey() + "\n");
+            sb.append(entry.getValue().stream()
+                    .map(c -> "- " + c.getChangeText().asMarkdown())
 ```
 
 #### Blame
@@ -1580,35 +1594,7 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/Comm
 
 #### Blame
 7f5a83e MartinWitt
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
-#### Snippet
-```java
-    private static void appendChanges(Map<String, List<Change>> changesByType, StringBuilder sb) {
-        for (Entry<String, List<Change>> entry : changesByType.entrySet()) {
-            sb.append("### " + entry.getKey() + "\n");
-            sb.append(entry.getValue().stream()
-                    .map(c -> "- " + c.getChangeText().asMarkdown())
-```
-
-#### Blame
-7f5a83e MartinWitt
 ## MethodMayBeStatic
-### MethodMayBeStatic
-Method `createChange()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/RedundantFieldInitialization.java`
-#### Snippet
-```java
-    }
-
-    private Change createChange(CtField<?> field, CtExpression<?> defaultExpression) {
-        String raw = "Field Initializer  %s for field %s in type %s was redundant and was removed.";
-        String markdown = "Field Initializer  `%s` for field `%s` in type `%s` was redundant and was removed.";
-```
-
-#### Blame
-7f5a83e MartinWitt
 ### MethodMayBeStatic
 Method `hasDefaultExpression()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/RedundantFieldInitialization.java`
@@ -1619,6 +1605,20 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
     private boolean hasDefaultExpression(CtField<?> ctField, String defaultExpression) {
         return ctField.getDefaultExpression() != null
                 && ctField.getDefaultExpression().toString().equals(defaultExpression);
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `createChange()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/RedundantFieldInitialization.java`
+#### Snippet
+```java
+    }
+
+    private Change createChange(CtField<?> field, CtExpression<?> defaultExpression) {
+        String raw = "Field Initializer  %s for field %s in type %s was redundant and was removed.";
+        String markdown = "Field Initializer  `%s` for field `%s` in type `%s` was redundant and was removed.";
 ```
 
 #### Blame
@@ -1680,6 +1680,20 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
+Method `usesNonStaticOuterConstructors()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/InnerClassStatic.java`
+#### Snippet
+```java
+    }
+
+    private boolean usesNonStaticOuterConstructors(CtClass<?> clazz, Set<CtType<?>> innerClasses) {
+        return clazz.getElements(new TypeFilter<>(CtConstructorCall.class)).stream()
+                .anyMatch(v -> Nullsafe.get(
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
 Method `usesNonStaticOuterMethod()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/InnerClassStatic.java`
 #### Snippet
@@ -1708,20 +1722,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
-Method `usesNonStaticOuterConstructors()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/InnerClassStatic.java`
-#### Snippet
-```java
-    }
-
-    private boolean usesNonStaticOuterConstructors(CtClass<?> clazz, Set<CtType<?>> innerClasses) {
-        return clazz.getElements(new TypeFilter<>(CtConstructorCall.class)).stream()
-                .anyMatch(v -> Nullsafe.get(
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
 Method `getNestedClasses()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/InnerClassStatic.java`
 #### Snippet
@@ -1731,6 +1731,48 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
     private Set<CtType<?>> getNestedClasses(CtClass<?> clazz) {
         Set<CtType<?>> innerClasses = new HashSet<>(clazz.getTopLevelType().getNestedTypes());
         innerClasses.remove(clazz);
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `isEmptyStringArgument()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/EmptyStringCheck.java`
+#### Snippet
+```java
+    }
+
+    private boolean isEmptyStringArgument(List<CtLiteral<?>> literals) {
+        return literals.get(0).getValue().equals("");
+    }
+```
+
+#### Blame
+bba9f4e Martin Wittlinger
+### MethodMayBeStatic
+Method `isSingleArgumentAndEmptyString()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/EmptyStringCheck.java`
+#### Snippet
+```java
+    }
+
+    private boolean isSingleArgumentAndEmptyString(List<CtLiteral<?>> literals) {
+        return literals.size() == 1 && literals.get(0).getValue().equals("");
+    }
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `createChange()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/EmptyStringCheck.java`
+#### Snippet
+```java
+    }
+
+    private Change createChange(CtInvocation<?> invocation, String rawText, String markdown) {
+        return new Change(badSmell, MarkdownString.fromMarkdown(rawText, markdown), invocation.getParent(CtType.class));
+    }
 ```
 
 #### Blame
@@ -1763,48 +1805,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 
 #### Blame
 7f5a83e MartinWitt
-### MethodMayBeStatic
-Method `createChange()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/EmptyStringCheck.java`
-#### Snippet
-```java
-    }
-
-    private Change createChange(CtInvocation<?> invocation, String rawText, String markdown) {
-        return new Change(badSmell, MarkdownString.fromMarkdown(rawText, markdown), invocation.getParent(CtType.class));
-    }
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
-Method `isSingleArgumentAndEmptyString()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/EmptyStringCheck.java`
-#### Snippet
-```java
-    }
-
-    private boolean isSingleArgumentAndEmptyString(List<CtLiteral<?>> literals) {
-        return literals.size() == 1 && literals.get(0).getValue().equals("");
-    }
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
-Method `isEmptyStringArgument()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/EmptyStringCheck.java`
-#### Snippet
-```java
-    }
-
-    private boolean isEmptyStringArgument(List<CtLiteral<?>> literals) {
-        return literals.get(0).getValue().equals("");
-    }
-```
-
-#### Blame
-bba9f4e Martin Wittlinger
 ### MethodMayBeStatic
 Method `isStaticInvocation()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/StaticAccess.java`
@@ -1876,6 +1876,20 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/UserWhitelist.j
 #### Blame
 30442df MartinWitt
 ### MethodMayBeStatic
+Method `hasNoFields()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/ThreadLocalWithInitial.java`
+#### Snippet
+```java
+    }
+
+    private boolean hasNoFields(CtClass<?> innerClass) {
+        return innerClass.getDeclaredFields().isEmpty();
+    }
+```
+
+#### Blame
+bba9f4e Martin Wittlinger
+### MethodMayBeStatic
 Method `findInitalValueMethod()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/ThreadLocalWithInitial.java`
 #### Snippet
@@ -1903,20 +1917,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 
 #### Blame
 7f5a83e MartinWitt
-### MethodMayBeStatic
-Method `hasNoFields()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/ThreadLocalWithInitial.java`
-#### Snippet
-```java
-    }
-
-    private boolean hasNoFields(CtClass<?> innerClass) {
-        return innerClass.getDeclaredFields().isEmpty();
-    }
-```
-
-#### Blame
-bba9f4e Martin Wittlinger
 ### MethodMayBeStatic
 Method `hasOnlyConstructorAndSingleMethod()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/ThreadLocalWithInitial.java`
@@ -2030,20 +2030,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/Impor
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
-Method `targetIsStringBuilder()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/StringBuilderDirectUse.java`
-#### Snippet
-```java
-    }
-
-    private boolean targetIsStringBuilder(CtInvocation<?> element) {
-        return Nullsafe.get(() -> element.getTarget().getType().getSimpleName().equals("StringBuilder"), false);
-    }
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
 Method `targetIsStringType()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/StringBuilderDirectUse.java`
 #### Snippet
@@ -2053,6 +2039,20 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
     private boolean targetIsStringType(CtInvocation<?> element) {
         return Nullsafe.get(
                 () -> element.getTarget()
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `targetIsStringBuilder()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/StringBuilderDirectUse.java`
+#### Snippet
+```java
+    }
+
+    private boolean targetIsStringBuilder(CtInvocation<?> element) {
+        return Nullsafe.get(() -> element.getTarget().getType().getSimpleName().equals("StringBuilder"), false);
+    }
 ```
 
 #### Blame
@@ -2086,20 +2086,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
-Method `adjustImports()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/AssertThatTransformation.java`
-#### Snippet
-```java
-    }
-
-    private void adjustImports(CtInvocation<?> invocation) {
-        ImportHelper.removeImport(
-                "org.junit.Assert.assertThat", true, invocation.getPosition().getCompilationUnit());
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
 Method `isInJunit4Assert()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/AssertThatTransformation.java`
 #### Snippet
@@ -2109,6 +2095,20 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
     private boolean isInJunit4Assert(CtExecutableReference<?> exec) {
         return exec.getDeclaringType() != null
                 && exec.getDeclaringType().getQualifiedName().equals("org.junit.Assert");
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `adjustImports()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/AssertThatTransformation.java`
+#### Snippet
+```java
+    }
+
+    private void adjustImports(CtInvocation<?> invocation) {
+        ImportHelper.removeImport(
+                "org.junit.Assert.assertThat", true, invocation.getPosition().getCompilationUnit());
 ```
 
 #### Blame
@@ -2128,15 +2128,15 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
-Method `getJunit4Asserts()` may be 'static'
+Method `getImports()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/AssertionsTransformation.java`
 #### Snippet
 ```java
     }
 
-    private List<CtInvocation<?>> getJunit4Asserts(CtMethod<?> method) {
-        return method.getElements(new TypeFilter<CtInvocation<?>>(CtInvocation.class)).stream()
-                .filter(v -> v.getTarget() instanceof CtTypeAccess)
+    private ModelList<CtImport> getImports(CtMethod<?> method) {
+        return method.getPosition().getCompilationUnit().getImports();
+    }
 ```
 
 #### Blame
@@ -2156,20 +2156,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
-Method `getImports()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/AssertionsTransformation.java`
-#### Snippet
-```java
-    }
-
-    private ModelList<CtImport> getImports(CtMethod<?> method) {
-        return method.getPosition().getCompilationUnit().getImports();
-    }
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
 Method `createChangeHistory()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/AssertionsTransformation.java`
 #### Snippet
@@ -2179,6 +2165,20 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
     private MarkdownString createChangeHistory(CtMethod<?> method) {
         return MarkdownString.fromMarkdown(
                 String.format("Transformed junit4 assert to junit 5 assertion in %s", method.getSimpleName()),
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `getJunit4Asserts()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/AssertionsTransformation.java`
+#### Snippet
+```java
+    }
+
+    private List<CtInvocation<?>> getJunit4Asserts(CtMethod<?> method) {
+        return method.getElements(new TypeFilter<CtInvocation<?>>(CtInvocation.class)).stream()
+                .filter(v -> v.getTarget() instanceof CtTypeAccess)
 ```
 
 #### Blame
@@ -2198,20 +2198,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
-Method `getNameOfAnnotatedMethod()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/TestAnnotation.java`
-#### Snippet
-```java
-    }
-
-    private String getNameOfAnnotatedMethod(CtAnnotation<?> annotation) {
-        return ((CtMethod<?>) annotation.getAnnotatedElement()).getSimpleName();
-    }
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
 Method `adjustImports()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/TestAnnotation.java`
 #### Snippet
@@ -2226,15 +2212,15 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
-Method `removeExpectedValue()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/ExpectedExceptionRemoval.java`
+Method `getNameOfAnnotatedMethod()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/TestAnnotation.java`
 #### Snippet
 ```java
     }
 
-    private void removeExpectedValue(CtAnnotation<?> testAnnotation) {
-        testAnnotation.setValues(testAnnotation.getValues().entrySet().stream()
-                .filter(v -> !v.getKey().equals("expected"))
+    private String getNameOfAnnotatedMethod(CtAnnotation<?> annotation) {
+        return ((CtMethod<?>) annotation.getAnnotatedElement()).getSimpleName();
+    }
 ```
 
 #### Blame
@@ -2254,71 +2240,15 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 #### Blame
 bba9f4e Martin Wittlinger
 ### MethodMayBeStatic
-Method `createNewInvocation()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/SizeReplaceableByIsEmpty.java`
+Method `removeExpectedValue()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/ExpectedExceptionRemoval.java`
 #### Snippet
 ```java
     }
 
-    private CtInvocation<Boolean> createNewInvocation(CtExpression<?> target, CtExecutableReference<Boolean> ref) {
-        return target.getFactory().Code().createInvocation(target, ref, new ArrayList<CtExpression<?>>());
-    }
-```
-
-#### Blame
-e91ee68 MartinWitt
-### MethodMayBeStatic
-Method `createIsEmptyMethod()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/SizeReplaceableByIsEmpty.java`
-#### Snippet
-```java
-    }
-
-    private CtExecutableReference<Boolean> createIsEmptyMethod(Factory factory) {
-        CtExecutableReference<Boolean> ref = factory.createExecutableReference();
-        ref.setSimpleName("isEmpty");
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
-Method `findLengthInvocation()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/SizeReplaceableByIsEmpty.java`
-#### Snippet
-```java
-    }
-
-    private <T> CtInvocation<T> findLengthInvocation(CtExpression<?> expression) {
-        return expression.getElements(new TypeFilter<CtInvocation<T>>(CtInvocation.class)).stream()
-                .filter(invocation -> invocation.getExecutable().getSimpleName().equals("length"))
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
-Method `findSizeInvocation()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/SizeReplaceableByIsEmpty.java`
-#### Snippet
-```java
-    }
-
-    private <T> CtInvocation<T> findSizeInvocation(CtExpression<?> expression) {
-        return expression.getElements(new TypeFilter<CtInvocation<T>>(CtInvocation.class)).stream()
-                .filter(invocation -> invocation.getExecutable().getSimpleName().equals("size"))
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
-Method `isEquals()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/SizeReplaceableByIsEmpty.java`
-#### Snippet
-```java
-    }
-
-    private boolean isEquals(CtBinaryOperator<?> ctBinaryOperator) {
-        return ctBinaryOperator.getKind() == BinaryOperatorKind.EQ;
-    }
+    private void removeExpectedValue(CtAnnotation<?> testAnnotation) {
+        testAnnotation.setValues(testAnnotation.getValues().entrySet().stream()
+                .filter(v -> !v.getKey().equals("expected"))
 ```
 
 #### Blame
@@ -2338,6 +2268,20 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
+Method `createNewInvocation()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/SizeReplaceableByIsEmpty.java`
+#### Snippet
+```java
+    }
+
+    private CtInvocation<Boolean> createNewInvocation(CtExpression<?> target, CtExecutableReference<Boolean> ref) {
+        return target.getFactory().Code().createInvocation(target, ref, new ArrayList<CtExpression<?>>());
+    }
+```
+
+#### Blame
+e91ee68 MartinWitt
+### MethodMayBeStatic
 Method `isConstant()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/SizeReplaceableByIsEmpty.java`
 #### Snippet
@@ -2347,6 +2291,62 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
     private boolean isConstant(CtExpression<?> expression) {
         return expression instanceof CtLiteral;
     }
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `createIsEmptyMethod()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/SizeReplaceableByIsEmpty.java`
+#### Snippet
+```java
+    }
+
+    private CtExecutableReference<Boolean> createIsEmptyMethod(Factory factory) {
+        CtExecutableReference<Boolean> ref = factory.createExecutableReference();
+        ref.setSimpleName("isEmpty");
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `isEquals()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/SizeReplaceableByIsEmpty.java`
+#### Snippet
+```java
+    }
+
+    private boolean isEquals(CtBinaryOperator<?> ctBinaryOperator) {
+        return ctBinaryOperator.getKind() == BinaryOperatorKind.EQ;
+    }
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `findSizeInvocation()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/SizeReplaceableByIsEmpty.java`
+#### Snippet
+```java
+    }
+
+    private <T> CtInvocation<T> findSizeInvocation(CtExpression<?> expression) {
+        return expression.getElements(new TypeFilter<CtInvocation<T>>(CtInvocation.class)).stream()
+                .filter(invocation -> invocation.getExecutable().getSimpleName().equals("size"))
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `findLengthInvocation()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/SizeReplaceableByIsEmpty.java`
+#### Snippet
+```java
+    }
+
+    private <T> CtInvocation<T> findLengthInvocation(CtExpression<?> expression) {
+        return expression.getElements(new TypeFilter<CtInvocation<T>>(CtInvocation.class)).stream()
+                .filter(invocation -> invocation.getExecutable().getSimpleName().equals("length"))
 ```
 
 #### Blame
@@ -2366,6 +2366,34 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
+Method `adjustImportsBeforeClass()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/Junit4AnnotationsTransformation.java`
+#### Snippet
+```java
+    }
+
+    private void adjustImportsBeforeClass(CtMethod<?> method) {
+        ImportHelper.removeImport(
+                JUNIT4_BEFORE_CLASS, false, method.getPosition().getCompilationUnit());
+```
+
+#### Blame
+bba9f4e Martin Wittlinger
+### MethodMayBeStatic
+Method `adjustImportsBefore()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/Junit4AnnotationsTransformation.java`
+#### Snippet
+```java
+    }
+
+    private void adjustImportsBefore(CtCompilationUnit compilationUnit) {
+        ImportHelper.removeImport(JUNIT4_BEFORE, false, compilationUnit);
+        ImportHelper.addImport(JUNIT5_BEFORE_EACH, false, compilationUnit);
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
 Method `adjustImportsAfterClass()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/Junit4AnnotationsTransformation.java`
 #### Snippet
@@ -2380,15 +2408,15 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 #### Blame
 bba9f4e Martin Wittlinger
 ### MethodMayBeStatic
-Method `adjustImportsIgnore()` may be 'static'
+Method `adjustImportsAfter()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/Junit4AnnotationsTransformation.java`
 #### Snippet
 ```java
     }
 
-    private void adjustImportsIgnore(CtMethod<?> method) {
-        ImportHelper.removeImport(
-                "org.junit.Ignore", false, method.getPosition().getCompilationUnit());
+    private void adjustImportsAfter(CtMethod<?> method) {
+        ImportHelper.removeImport("org.junit.After", true, method.getPosition().getCompilationUnit());
+        ImportHelper.addImport(
 ```
 
 #### Blame
@@ -2408,47 +2436,19 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
-Method `adjustImportsAfter()` may be 'static'
+Method `adjustImportsIgnore()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/Junit4AnnotationsTransformation.java`
 #### Snippet
 ```java
     }
 
-    private void adjustImportsAfter(CtMethod<?> method) {
-        ImportHelper.removeImport("org.junit.After", true, method.getPosition().getCompilationUnit());
-        ImportHelper.addImport(
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
-Method `adjustImportsBefore()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/Junit4AnnotationsTransformation.java`
-#### Snippet
-```java
-    }
-
-    private void adjustImportsBefore(CtCompilationUnit compilationUnit) {
-        ImportHelper.removeImport(JUNIT4_BEFORE, false, compilationUnit);
-        ImportHelper.addImport(JUNIT5_BEFORE_EACH, false, compilationUnit);
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
-Method `adjustImportsBeforeClass()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/Junit4AnnotationsTransformation.java`
-#### Snippet
-```java
-    }
-
-    private void adjustImportsBeforeClass(CtMethod<?> method) {
+    private void adjustImportsIgnore(CtMethod<?> method) {
         ImportHelper.removeImport(
-                JUNIT4_BEFORE_CLASS, false, method.getPosition().getCompilationUnit());
+                "org.junit.Ignore", false, method.getPosition().getCompilationUnit());
 ```
 
 #### Blame
-bba9f4e Martin Wittlinger
+7f5a83e MartinWitt
 ### MethodMayBeStatic
 Method `getSourceStart()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/MethodMayBeStatic.java`
@@ -2506,19 +2506,19 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/ChangelogPrinte
 #### Blame
 e91ee68 MartinWitt
 ### MethodMayBeStatic
-Method `isNotConfigIssue()` may be 'static'
+Method `getFileForType()` may be 'static'
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
 #### Snippet
 ```java
     }
 
-    private boolean isNotConfigIssue(GHEventPayload.Issue issueComment) {
-        return !issueComment.getIssue().getTitle().equals(Constants.CONFIG_ISSUE_NAME);
+    private Path getFileForType(CtType<?> type) {
+        return type.getPosition().getFile().toPath();
     }
 ```
 
 #### Blame
-30442df MartinWitt
+7f5a83e MartinWitt
 ### MethodMayBeStatic
 Method `relativize()` may be 'static'
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
@@ -2534,6 +2534,34 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
+Method `groupChangesByType()` may be 'static'
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
+#### Snippet
+```java
+    }
+
+    private Map<CtType<?>, List<Change>> groupChangesByType(ChangeListener changeListener) {
+        return changeListener.getChangelog().getChanges().stream()
+                .collect(Collectors.groupingBy(Change::getAffectedType));
+```
+
+#### Blame
+30442df MartinWitt
+### MethodMayBeStatic
+Method `isNotConfigIssue()` may be 'static'
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
+#### Snippet
+```java
+    }
+
+    private boolean isNotConfigIssue(GHEventPayload.Issue issueComment) {
+        return !issueComment.getIssue().getTitle().equals(Constants.CONFIG_ISSUE_NAME);
+    }
+```
+
+#### Blame
+30442df MartinWitt
+### MethodMayBeStatic
 Method `refreshFlag()` may be 'static'
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
 #### Snippet
@@ -2542,6 +2570,20 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
 
     private String refreshFlag(String body, String flag) {
         return body.replace(flag, flag.replace("[x]", "[ ]"));
+    }
+```
+
+#### Blame
+30442df MartinWitt
+### MethodMayBeStatic
+Method `containsFlag()` may be 'static'
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
+#### Snippet
+```java
+    }
+
+    private boolean containsFlag(GHIssue issue, String flag) {
+        return issue.getBody().contains(flag);
     }
 ```
 
@@ -2561,48 +2603,6 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
 
 #### Blame
 7f5a83e MartinWitt
-### MethodMayBeStatic
-Method `containsFlag()` may be 'static'
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
-#### Snippet
-```java
-    }
-
-    private boolean containsFlag(GHIssue issue, String flag) {
-        return issue.getBody().contains(flag);
-    }
-```
-
-#### Blame
-30442df MartinWitt
-### MethodMayBeStatic
-Method `getFileForType()` may be 'static'
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
-#### Snippet
-```java
-    }
-
-    private Path getFileForType(CtType<?> type) {
-        return type.getPosition().getFile().toPath();
-    }
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
-Method `groupChangesByType()` may be 'static'
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
-#### Snippet
-```java
-    }
-
-    private Map<CtType<?>, List<Change>> groupChangesByType(ChangeListener changeListener) {
-        return changeListener.getChangelog().getChanges().stream()
-                .collect(Collectors.groupingBy(Change::getAffectedType));
-```
-
-#### Blame
-30442df MartinWitt
 ### MethodMayBeStatic
 Method `getType()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/LambdaToExecutableReference.java`
@@ -2632,34 +2632,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
-Method `createHttpClient()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
-#### Snippet
-```java
-    }
-
-    private ApacheDockerHttpClient createHttpClient(DockerClientConfig standard) {
-        return new ApacheDockerHttpClient.Builder()
-                .dockerHost(standard.getDockerHost())
-```
-
-#### Blame
-156b93b MartinWitt
-### MethodMayBeStatic
-Method `stringToFile()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
-#### Snippet
-```java
-     * @return  	the file object
-     */
-    private File stringToFile(String path) {
-        return Path.of(path).toFile();
-    }
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
 Method `parseSarif()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
 #### Snippet
@@ -2674,6 +2646,20 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
+Method `createHttpClient()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
+#### Snippet
+```java
+    }
+
+    private ApacheDockerHttpClient createHttpClient(DockerClientConfig standard) {
+        return new ApacheDockerHttpClient.Builder()
+                .dockerHost(standard.getDockerHost())
+```
+
+#### Blame
+156b93b MartinWitt
+### MethodMayBeStatic
 Method `fixWindowsPath()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
 #### Snippet
@@ -2683,6 +2669,20 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
     private Path fixWindowsPath(Path sourceRoot) {
         if (sourceRoot
                 .toFile()
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `stringToFile()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
+#### Snippet
+```java
+     * @return  	the file object
+     */
+    private File stringToFile(String path) {
+        return Path.of(path).toFile();
+    }
 ```
 
 #### Blame
@@ -2716,20 +2716,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/Impor
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
-Method `isStaticImport()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportComparator.java`
-#### Snippet
-```java
-    }
-
-    private boolean isStaticImport(CtImport imp) {
-        if (imp.getImportKind() == CtImportKind.UNRESOLVED) {
-            return ((CtUnresolvedImport) imp).isStatic();
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
 Method `analyseUnresolvedImport()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportComparator.java`
 #### Snippet
@@ -2739,6 +2725,20 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/Impor
     private int analyseUnresolvedImport(CtUnresolvedImport imp1) {
         if (imp1.isStatic() && imp1.getUnresolvedReference().contains("*")) {
             return 3;
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `isStaticImport()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportComparator.java`
+#### Snippet
+```java
+    }
+
+    private boolean isStaticImport(CtImport imp) {
+        if (imp.getImportKind() == CtImportKind.UNRESOLVED) {
+            return ((CtUnresolvedImport) imp).isStatic();
 ```
 
 #### Blame
@@ -2758,20 +2758,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 #### Blame
 7f5a83e MartinWitt
 ### MethodMayBeStatic
-Method `isToString()` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/ArraysToString.java`
-#### Snippet
-```java
-    }
-
-    private boolean isToString(CtInvocation<?> invocation) {
-        return invocation.getExecutable().getSimpleName().equals("toString");
-    }
-```
-
-#### Blame
-7f5a83e MartinWitt
-### MethodMayBeStatic
 Method `adjustImports()` may be 'static'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/ArraysToString.java`
 #### Snippet
@@ -2781,6 +2767,20 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
     private void adjustImports(CtInvocation<?> invocation) {
         ImportHelper.addImport(
                 "java.util.Arrays", false, invocation.getPosition().getCompilationUnit());
+```
+
+#### Blame
+7f5a83e MartinWitt
+### MethodMayBeStatic
+Method `isToString()` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/ArraysToString.java`
+#### Snippet
+```java
+    }
+
+    private boolean isToString(CtInvocation<?> invocation) {
+        return invocation.getExecutable().getSimpleName().equals("toString");
+    }
 ```
 
 #### Blame
