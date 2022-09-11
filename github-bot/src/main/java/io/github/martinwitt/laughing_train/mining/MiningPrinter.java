@@ -16,7 +16,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.diff.RawTextComparator;
-
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
@@ -40,8 +39,8 @@ public class MiningPrinter {
         sb.append(String.format("I found %s bad smells with %s repairable:", results.size(), fixableRules))
                 .append("\n");
         sb.append(generateTableBadSmells(results, ruleIds));
-        var blameTable = calculateGtBlameForIssues(results, project);
-        sb.append(generateBlameTable(blameTable));
+        // var blameTable = calculateGtBlameForIssues(results, project);
+        // sb.append(generateBlameTable(blameTable));
         var grouped = results.stream().collect(Collectors.groupingBy(AnalyzerResult::ruleID));
         for (var groupedResult : grouped.entrySet()) {
             sb.append("## ").append(groupedResult.getKey()).append("\n");
@@ -58,18 +57,18 @@ public class MiningPrinter {
                         .append("\n")
                         .append(markdownPrinter.toJavaMarkdownBlock(result.snippet()))
                         .append("\n");
-                if (blameTable.containsKey(result)) {
-                    sb.append("#### Blame")
-                            .append("\n")
-                            .append(blameTable
-                                    .get(result)
-                                    .commit()
-                                    .abbreviate(7)
-                                    .name())
-                            .append(" ")
-                            .append(blameTable.get(result).person().getName())
-                            .append("\n");
-                }
+                // sb.append("#### Blame");
+                // if (blameTable.containsKey(result)) {
+                //    .append("\n")
+                //    .append(blameTable
+                //            .get(result)
+                //            .commit()
+                //            .abbreviate(7)
+                //            .name())
+                //    .append(" ")
+                //    .append(blameTable.get(result).person().getName())
+                //    .append("\n");
+                // }
             }
         }
         return sb.toString();
@@ -124,8 +123,10 @@ public class MiningPrinter {
         Map<AnalyzerResult, PersonAndCommit> blameMap = new HashMap<>();
         try (Git git = Git.open(projectQodana.folder())) {
             for (AnalyzerResult analyzerResult : results) {
-                var gitBlame =
-                        git.blame().setFilePath(analyzerResult.filePath()).setTextComparator(RawTextComparator.WS_IGNORE_ALL).call();
+                var gitBlame = git.blame()
+                        .setFilePath(analyzerResult.filePath())
+                        .setTextComparator(RawTextComparator.WS_IGNORE_ALL)
+                        .call();
                 if (gitBlame == null) {
                     logger.atSevere().log("Git blame is null for %s", analyzerResult.filePath());
                     continue;

@@ -4,6 +4,5 @@ import java.io.Serializable;
 
 public sealed interface AnalyzerRequest extends Serializable {
 
-
     record WithProject(Project project) implements AnalyzerRequest {}
 }
