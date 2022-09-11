@@ -5,7 +5,6 @@ import io.github.martinwitt.laughing_train.MarkdownPrinter;
 import io.github.martinwitt.laughing_train.data.Project;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,7 @@ public class MiningPrinter {
     @Inject
     Config config;
 
-    public String printAllResults(List<AnalyzerResult> results, Map<AnalyzerResult, PersonAndCommit> map) {
+    public String printAllResults(List<AnalyzerResult> results, Project project) {
         StringBuilder sb = new StringBuilder();
         Set<String> ruleIds =
                 config.getRules().keySet().stream().map(QodanaRules::getRuleId).collect(Collectors.toSet());
@@ -36,7 +35,8 @@ public class MiningPrinter {
         sb.append(String.format("I found %s bad smells with %s repairable:", results.size(), fixableRules))
                 .append("\n");
         sb.append(generateTableBadSmells(results, ruleIds));
-        sb.append(generateBlameTable(map));
+        var blameTable = calculateGtBlameForIssues(results, project);
+        sb.append(generateBlameTable(blameTable));
         var grouped = results.stream().collect(Collectors.groupingBy(AnalyzerResult::ruleID));
         for (var groupedResult : grouped.entrySet()) {
             sb.append("## ").append(groupedResult.getKey()).append("\n");
@@ -51,7 +51,20 @@ public class MiningPrinter {
                         .append("\n")
                         .append("#### Snippet")
                         .append("\n")
-                        .append(markdownPrinter.toJavaMarkdownBlock(result.snippet()));
+                        .append(markdownPrinter.toJavaMarkdownBlock(result.snippet()))
+                        .append("\n");
+                if (blameTable.containsKey(result)) {
+                    sb.append("#### Blame")
+                            .append("\n")
+                            .append(blameTable
+                                    .get(result)
+                                    .commit()
+                                    .abbreviate(7)
+                                    .toString())
+                            .append(" ")
+                            .append(blameTable.get(result).person().getName())
+                            .append("\n");
+                }
             }
         }
         return sb.toString();
@@ -66,7 +79,7 @@ public class MiningPrinter {
         var grouped = map.values().stream().collect(Collectors.groupingBy(PersonAndCommit::person));
         for (var groupedResult : grouped.entrySet()) {
             sb.append("| ")
-                    .append(groupedResult.getKey())
+                    .append(groupedResult.getKey().getName())
                     .append(" | ")
                     .append(groupedResult.getValue().size())
                     .append(" | \n");
@@ -89,11 +102,8 @@ public class MiningPrinter {
         var result = new ArrayList<>(results.stream()
                 .collect(Collectors.groupingBy(AnalyzerResult::ruleID))
                 .entrySet());
-        Collections.sort(
-                result,
-                ((Comparator<? super Entry<String, List<AnalyzerResult>>>)
-                                (a, b) -> (b.getValue().size() - a.getValue().size()))
-                        .reversed());
+        Collections.sort(result, (a, b) -> (b.getValue().size() - a.getValue().size()));
+
         return result;
     }
 
@@ -102,7 +112,7 @@ public class MiningPrinter {
                 + result.getValue().stream().anyMatch(v -> ruleIds.contains(v.ruleID())) + " |\n";
     }
 
-    Map<AnalyzerResult, PersonAndCommit> calculateGtBlameForIssues(
+    private Map<AnalyzerResult, PersonAndCommit> calculateGtBlameForIssues(
             List<AnalyzerResult> results, Project projectQodana) {
         PeriodicMiner.logger.atInfo().log("Calculating blame for %d issues", results.size());
         Map<AnalyzerResult, PersonAndCommit> blameMap = new HashMap<>();
@@ -125,8 +135,6 @@ public class MiningPrinter {
                 var commit = gitBlame.getSourceCommit(medianLine);
                 if (person != null && commit != null) {
                     blameMap.put(analyzerResult, new PersonAndCommit(person, commit));
-                    System.out.println(person);
-                    System.out.println(commit);
                 }
             }
         } catch (Exception e) {

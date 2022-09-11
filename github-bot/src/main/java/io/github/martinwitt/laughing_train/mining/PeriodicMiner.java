@@ -99,10 +99,9 @@ public class PeriodicMiner {
                 List<AnalyzerResult> results = success.result();
                 Project projectQodana = success.project();
                 StringBuilder builder = new StringBuilder();
-                var blame = miningPrinter.calculateGtBlameForIssues(results, projectQodana);
                 builder.append("# ")
                         .append(projectQodana.getOwnerRepoName())
-                        .append(miningPrinter.printAllResults(results, blame));
+                        .append(miningPrinter.printAllResults(results, projectQodana));
                 try {
                     var laughingRepo = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
                             .getRepository("MartinWitt/laughing-train");
