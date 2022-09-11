@@ -52,6 +52,7 @@ public class PeriodicMiner {
                 eventBus.<ProjectResult>request(
                         ServiceAdresses.PROJECT_REQUEST,
                         new ProjectRequest.WithUrl(url),
+                        new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
                         result -> mineProject(repoName, result));
             }
         } catch (Exception e) {
@@ -104,7 +105,7 @@ public class PeriodicMiner {
                         .append(miningPrinter.printAllResults(results, blame));
                 try {
                     var laughingRepo = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
-                            .getRepository(projectQodana.getOwnerRepoName());
+                            .getRepository("MartinWitt/laughing-train");
                     updateOrCreateContent(
                             laughingRepo,
                             StringUtils.substringAfterLast(projectQodana.name(), "/"),
