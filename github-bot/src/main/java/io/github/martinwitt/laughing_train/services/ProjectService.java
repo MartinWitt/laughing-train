@@ -8,6 +8,7 @@ import io.quarkus.vertx.ConsumeEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.annotation.PostConstruct;
@@ -21,6 +22,7 @@ import org.eclipse.jgit.api.Git;
 public class ProjectService {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+    private static final Random random = new Random();
 
     @Inject
     ThreadPoolManager threadPoolManager;
@@ -31,7 +33,8 @@ public class ProjectService {
         if (request instanceof ProjectRequest.WithUrl url) {
             try {
                 String repoName = StringUtils.substringAfterLast(url.url(), "/");
-                Path dir = Files.createTempDirectory("laughing-train-" + repoName + System.currentTimeMillis());
+
+                Path dir = Files.createTempDirectory("laughing-train-" + repoName + random.nextLong());
                 threadPoolManager.getService().execute(() -> checkoutRepo(url, dir));
                 logger.atInfo().log("Cloning %s to %s", url.url(), dir);
                 return new ProjectResult.Success(new Project(repoName, url.url(), dir.toFile(), "."));
