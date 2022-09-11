@@ -66,18 +66,6 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianFactoryArgumentsPr
 
 ## SystemOutErr
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
-#### Snippet
-```java
-
-	private void storeStdOut(ExtensionContext context) {
-		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
-	}
-
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -85,6 +73,18 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 
 	private void storeStdErr(ExtensionContext context) {
 		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
+#### Snippet
+```java
+
+	private void storeStdOut(ExtensionContext context) {
+		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
 	}
 
 ```
@@ -116,6 +116,42 @@ in `src/main/java/org/junitpioneer/jupiter/StdIn.java`
 
 ## UnnecessaryFullyQualifiedName
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
+#### Snippet
+```java
+		 * Creates a single set of distinct objects (according to
+		 * {@link Object#equals(Object)}) for a CartesianProductTest
+		 * from the elements of the passed {@link java.util.stream.Stream}.
+		 *
+		 * @param entries the objects we want to include in a single set
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
+#### Snippet
+```java
+ * <a href="https://junit-pioneer.org/docs/cartesian-product/" target="_top">the documentation on <code>@CartesianProductTest</code></a>.
+ * </p>
+ * @see org.junitpioneer.jupiter.CartesianValueSource
+ *
+ * @deprecated has been superseded by CartesianTest, scheduled to be removed in 2.0
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
+#### Snippet
+```java
+		 * Creates a single set of distinct objects (according to
+		 * {@link Object#equals(Object)}) for a CartesianProductTest
+		 * from the elements of the passed {@link java.util.Collection}.
+		 *
+		 * The passed argument does not have to be an instance of {@link java.util.Set}.
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
 #### Snippet
@@ -137,42 +173,6 @@ in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
 	 * - {@link org.junitpioneer.jupiter.RetryingTest#INDEX_PLACEHOLDER}
 	 *
 	 * <p>You may use {@link java.text.MessageFormat} patterns
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
-		 * Creates a single set of distinct objects (according to
-		 * {@link Object#equals(Object)}) for a CartesianProductTest
-		 * from the elements of the passed {@link java.util.stream.Stream}.
-		 *
-		 * @param entries the objects we want to include in a single set
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
-		 * Creates a single set of distinct objects (according to
-		 * {@link Object#equals(Object)}) for a CartesianProductTest
-		 * from the elements of the passed {@link java.util.Collection}.
-		 *
-		 * The passed argument does not have to be an instance of {@link java.util.Set}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
- * <a href="https://junit-pioneer.org/docs/cartesian-product/" target="_top">the documentation on <code>@CartesianProductTest</code></a>.
- * </p>
- * @see org.junitpioneer.jupiter.CartesianValueSource
- *
- * @deprecated has been superseded by CartesianTest, scheduled to be removed in 2.0
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -252,6 +252,18 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
+
+	/**
+	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
+	 *
+	 * @return IssueId the test belongs to
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
+#### Snippet
+```java
 	 * Constructor with all attributes.
 	 *
 	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
@@ -269,18 +281,6 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
  * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
  *
  * Once Pioneer baselines against Java 17, this will be a record.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
-	 *
-	 * @return IssueId the test belongs to
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -541,27 +541,15 @@ in `src/main/java/org/junitpioneer/vintage/TimeoutExtension.java`
 ```
 
 ### MethodMayBeStatic
-Method `findParameterIndexFromName()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/params/DisableIfArgumentExtension.java`
+Method `storeStdErr()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
 ```java
 	}
 
-	private int findParameterIndexFromName(Method testMethod, String name) {
-		Parameter[] parameters = testMethod.getParameters();
-		for (int i = 0; i < parameters.length; i++)
-```
-
-### MethodMayBeStatic
-Method `verifyValidIndex()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/params/DisableIfArgumentExtension.java`
-#### Snippet
-```java
+	private void storeStdErr(ExtensionContext context) {
+		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
 	}
-
-	private void verifyValidIndex(List<Object> arguments, int index) {
-		if (index > arguments.size())
-			throw new ExtensionConfigurationException(
 ```
 
 ### MethodMayBeStatic
@@ -601,18 +589,6 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 ```
 
 ### MethodMayBeStatic
-Method `storeStdErr()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
-#### Snippet
-```java
-	}
-
-	private void storeStdErr(ExtensionContext context) {
-		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
-	}
-```
-
-### MethodMayBeStatic
 Method `createErr()` may be 'static'
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -625,15 +601,27 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 ```
 
 ### MethodMayBeStatic
-Method `getStoreKey()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+Method `verifyValidIndex()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/params/DisableIfArgumentExtension.java`
 #### Snippet
 ```java
 	}
 
-	private Object getStoreKey(ExtensionContext context) {
-		return context.getUniqueId();
+	private void verifyValidIndex(List<Object> arguments, int index) {
+		if (index > arguments.size())
+			throw new ExtensionConfigurationException(
+```
+
+### MethodMayBeStatic
+Method `findParameterIndexFromName()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/params/DisableIfArgumentExtension.java`
+#### Snippet
+```java
 	}
+
+	private int findParameterIndexFromName(Method testMethod, String name) {
+		Parameter[] parameters = testMethod.getParameters();
+		for (int i = 0; i < parameters.length; i++)
 ```
 
 ### MethodMayBeStatic
@@ -649,39 +637,15 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 ```
 
 ### MethodMayBeStatic
-Method `provideArguments()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTestExtension.java`
-#### Snippet
-```java
-
-	@SuppressWarnings("unchecked")
-	private List<Object> provideArguments(ExtensionContext context, Annotation source, ArgumentsProvider provider)
-			throws Exception {
-		if (provider instanceof CartesianAnnotationConsumer) {
-```
-
-### MethodMayBeStatic
-Method `initializeArgumentsProvider()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTestExtension.java`
+Method `getStoreKey()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 #### Snippet
 ```java
 	}
 
-	private ArgumentsProvider initializeArgumentsProvider(Annotation source) {
-		ArgumentsSource providerAnnotation = AnnotationSupport
-				.findAnnotation(source.annotationType(), ArgumentsSource.class)
-```
-
-### MethodMayBeStatic
-Method `getExplicitOrImplicitClass()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTestExtension.java`
-#### Snippet
-```java
+	private Object getStoreKey(ExtensionContext context) {
+		return context.getUniqueId();
 	}
-
-	private Class<?> getExplicitOrImplicitClass(Method testMethod, String factoryMethodName) {
-		if (factoryMethodName.contains("#")) {
-			String className = factoryMethodName.substring(0, factoryMethodName.indexOf('#'));
 ```
 
 ### MethodMayBeStatic
@@ -694,18 +658,6 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTestExtension.java`
 	private TestNameFormatter createNameFormatter(ExtensionContext context) {
 		CartesianProductTest annotation = findAnnotation(context.getRequiredTestMethod(), CartesianProductTest.class)
 				.orElseThrow(() -> new ExtensionConfigurationException("@CartesianProductTest not found."));
-```
-
-### MethodMayBeStatic
-Method `getFactoryMethodName()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTestExtension.java`
-#### Snippet
-```java
-	}
-
-	private String getFactoryMethodName(String factoryMethodName) {
-		if (factoryMethodName.contains("("))
-			factoryMethodName = factoryMethodName.substring(0, factoryMethodName.indexOf('('));
 ```
 
 ### MethodMayBeStatic
@@ -733,6 +685,54 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTestExtension.java`
 ```
 
 ### MethodMayBeStatic
+Method `provideArguments()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTestExtension.java`
+#### Snippet
+```java
+
+	@SuppressWarnings("unchecked")
+	private List<Object> provideArguments(ExtensionContext context, Annotation source, ArgumentsProvider provider)
+			throws Exception {
+		if (provider instanceof CartesianAnnotationConsumer) {
+```
+
+### MethodMayBeStatic
+Method `initializeArgumentsProvider()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTestExtension.java`
+#### Snippet
+```java
+	}
+
+	private ArgumentsProvider initializeArgumentsProvider(Annotation source) {
+		ArgumentsSource providerAnnotation = AnnotationSupport
+				.findAnnotation(source.annotationType(), ArgumentsSource.class)
+```
+
+### MethodMayBeStatic
+Method `getFactoryMethodName()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTestExtension.java`
+#### Snippet
+```java
+	}
+
+	private String getFactoryMethodName(String factoryMethodName) {
+		if (factoryMethodName.contains("("))
+			factoryMethodName = factoryMethodName.substring(0, factoryMethodName.indexOf('('));
+```
+
+### MethodMayBeStatic
+Method `getExplicitOrImplicitClass()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTestExtension.java`
+#### Snippet
+```java
+	}
+
+	private Class<?> getExplicitOrImplicitClass(Method testMethod, String factoryMethodName) {
+		if (factoryMethodName.contains("#")) {
+			String className = factoryMethodName.substring(0, factoryMethodName.indexOf('#'));
+```
+
+### MethodMayBeStatic
 Method `invokeMethodFactory()` may be 'static'
 in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianFactoryArgumentsProvider.java`
 #### Snippet
@@ -742,30 +742,6 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianFactoryArgumentsPr
 	private ArgumentSets invokeMethodFactory(Method testMethod, Method factory, Object testInstance) {
 		Object target = factory.getDeclaringClass().isInstance(testInstance) ? testInstance : null;
 		ArgumentSets argumentSets = (ArgumentSets) invokeMethod(factory, target);
-```
-
-### MethodMayBeStatic
-Method `parseDate()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/DisabledUntilExtension.java`
-#### Snippet
-```java
-	}
-
-	private LocalDate parseDate(String dateString) {
-		try {
-			return LocalDate.parse(dateString, ISO_8601);
-```
-
-### MethodMayBeStatic
-Method `evaluateUntilDate()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/DisabledUntilExtension.java`
-#### Snippet
-```java
-	}
-
-	private ConditionEvaluationResult evaluateUntilDate(ExtensionContext context, LocalDate untilDate) {
-		LocalDate today = LocalDate.now();
-		boolean disabled = today.isBefore(untilDate);
 ```
 
 ### MethodMayBeStatic
@@ -793,27 +769,27 @@ in `src/main/java/org/junitpioneer/jupiter/DefaultTimeZoneExtension.java`
 ```
 
 ### MethodMayBeStatic
-Method `findAnnotations()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/ReportEntryExtension.java`
+Method `evaluateUntilDate()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/DisabledUntilExtension.java`
 #### Snippet
 ```java
 	}
 
-	private Stream<ReportEntry> findAnnotations(ExtensionContext context) {
-		return PioneerAnnotationUtils.findAllEnclosingRepeatableAnnotations(context, ReportEntry.class);
-	}
+	private ConditionEvaluationResult evaluateUntilDate(ExtensionContext context, LocalDate untilDate) {
+		LocalDate today = LocalDate.now();
+		boolean disabled = today.isBefore(untilDate);
 ```
 
 ### MethodMayBeStatic
-Method `parseVariables()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/ReportEntryExtension.java`
+Method `parseDate()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/DisabledUntilExtension.java`
 #### Snippet
 ```java
 	}
 
-	private String parseVariables(String value, ExtensionContext context) {
-		if (!hasTestParameterVariables(value))
-			return value;
+	private LocalDate parseDate(String dateString) {
+		try {
+			return LocalDate.parse(dateString, ISO_8601);
 ```
 
 ### MethodMayBeStatic
@@ -841,15 +817,27 @@ in `src/main/java/org/junitpioneer/jupiter/DefaultLocaleExtension.java`
 ```
 
 ### MethodMayBeStatic
-Method `suspendFor()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/RetryingTestExtension.java`
+Method `parseVariables()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/ReportEntryExtension.java`
 #### Snippet
 ```java
-		}
+	}
 
-		private void suspendFor(int millis) {
-			if (millis < 1) {
-				return;
+	private String parseVariables(String value, ExtensionContext context) {
+		if (!hasTestParameterVariables(value))
+			return value;
+```
+
+### MethodMayBeStatic
+Method `findAnnotations()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/ReportEntryExtension.java`
+#### Snippet
+```java
+	}
+
+	private Stream<ReportEntry> findAnnotations(ExtensionContext context) {
+		return PioneerAnnotationUtils.findAllEnclosingRepeatableAnnotations(context, ReportEntry.class);
+	}
 ```
 
 ### MethodMayBeStatic
@@ -865,18 +853,6 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTestExtension.java
 ```
 
 ### MethodMayBeStatic
-Method `createNameFormatter()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTestExtension.java`
-#### Snippet
-```java
-	}
-
-	private TestNameFormatter createNameFormatter(ExtensionContext context) {
-		CartesianTest annotation = findAnnotation(context.getRequiredTestMethod(), CartesianTest.class)
-				.orElseThrow(() -> new ExtensionConfigurationException("@CartesianTest not found."));
-```
-
-### MethodMayBeStatic
 Method `provideArguments()` may be 'static'
 in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTestExtension.java`
 #### Snippet
@@ -886,6 +862,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTestExtension.java
 	private List<?> provideArguments(ExtensionContext context, Parameter source,
 			CartesianParameterArgumentsProvider<?> provider) throws Exception {
 		return provider
+```
+
+### MethodMayBeStatic
+Method `createNameFormatter()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTestExtension.java`
+#### Snippet
+```java
+	}
+
+	private TestNameFormatter createNameFormatter(ExtensionContext context) {
+		CartesianTest annotation = findAnnotation(context.getRequiredTestMethod(), CartesianTest.class)
+				.orElseThrow(() -> new ExtensionConfigurationException("@CartesianTest not found."));
 ```
 
 ### MethodMayBeStatic
@@ -901,6 +889,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTestExtension.java
 ```
 
 ### MethodMayBeStatic
+Method `disableIfMatches()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/params/DisableIfNameExtension.java`
+#### Snippet
+```java
+	}
+
+	private ConditionEvaluationResult disableIfMatches(String displayName, String[] regExps) {
+		//@formatter:off
+		String matches = Stream
+```
+
+### MethodMayBeStatic
 Method `disableIfContains()` may be 'static'
 in `src/main/java/org/junitpioneer/jupiter/params/DisableIfNameExtension.java`
 #### Snippet
@@ -913,14 +913,14 @@ in `src/main/java/org/junitpioneer/jupiter/params/DisableIfNameExtension.java`
 ```
 
 ### MethodMayBeStatic
-Method `disableIfMatches()` may be 'static'
-in `src/main/java/org/junitpioneer/jupiter/params/DisableIfNameExtension.java`
+Method `suspendFor()` may be 'static'
+in `src/main/java/org/junitpioneer/jupiter/RetryingTestExtension.java`
 #### Snippet
 ```java
-	}
+		}
 
-	private ConditionEvaluationResult disableIfMatches(String displayName, String[] regExps) {
-		//@formatter:off
-		String matches = Stream
+		private void suspendFor(int millis) {
+			if (millis < 1) {
+				return;
 ```
 
