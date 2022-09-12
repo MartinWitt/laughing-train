@@ -8,7 +8,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Test;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaAnalyzer;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 import xyz.keksdose.spoon.code_solver.api.QodanaBuilder;
 import xyz.keksdose.spoon.code_solver.api.Refactoring;
 import xyz.keksdose.spoon.code_solver.api.RepoCheckout;
@@ -49,6 +53,22 @@ public class QodanaRefactoringsTest {
                 .build()
                 .apply();
         // TODO: add checker with Qodana rerun
+    }
+
+    @Test
+    void pointlessBooleanExpression() throws IOException {
+        ChangeListener changeListener = new ChangeListener();
+        var analyzer = new QodanaAnalyzer.Builder().build();
+        var results = analyzer.runQodana(Path.of("projects/qodana/PointlessBooleanExpression"));
+        FileCheckout repoCheckout = new FileCheckout("projects/qodana/PointlessBooleanExpression");
+        new Refactoring.Builder(
+                        new QodanaRefactor(List.of(QodanaRules.POINTLESS_BOOLEAN_EXPRESSION), changeListener, results),
+                        repoCheckout)
+                .withAfterRefactorStep(new CleanRepo())
+                .withChangeListener(changeListener)
+                .withSubProject("/src/main/java")
+                .build()
+                .apply();
     }
 
     @Test

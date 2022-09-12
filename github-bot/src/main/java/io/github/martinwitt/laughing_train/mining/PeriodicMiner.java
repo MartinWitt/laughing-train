@@ -44,7 +44,7 @@ public class PeriodicMiner {
     @Inject
     Vertx vertx;
 
-    @Scheduled(every = "2h")
+    @Scheduled(every = "4h", delay = 10, delayUnit = TimeUnit.MINUTES)
     void mineRepos() throws IOException {
         Path dir = Files.createTempDirectory("laughing-wiki");
         try (Git git = getWiki(dir)) {
