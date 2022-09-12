@@ -103,6 +103,10 @@ public class PeriodicMiner {
         if (message.body() instanceof QodanaResult.Success success) {
             try (Project projectQodana = success.project()) {
                 List<AnalyzerResult> results = success.result();
+                if (results.isEmpty()) {
+                    logger.atInfo().log("No results for %s", projectQodana);
+                    return Promise.promise();
+                }
                 StringBuilder builder = new StringBuilder();
                 builder.append("# ")
                         .append(projectQodana.getOwnerRepoName())
