@@ -67,12 +67,13 @@ public class IssueRequestService {
     private FindIssueResult toResult() {
         try {
             var result = findSummaryIssue();
+            logger.atInfo().log("Found summary issue %s", result);
             if (result.isPresent()) {
                 return new FindIssueResult.SingleResult(result.get());
             }
-            return new FindIssueResult.NoResult();
         } catch (Exception e) {
-            return new FindIssueResult.NoResult();
+            logger.atSevere().withCause(e).log("Error finding summary issue");
         }
+        return new FindIssueResult.NoResult();
     }
 }
