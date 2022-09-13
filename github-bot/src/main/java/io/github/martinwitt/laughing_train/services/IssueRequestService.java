@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.services;
 
+import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.Constants;
 import io.github.martinwitt.laughing_train.data.FindIssueRequest;
 import io.github.martinwitt.laughing_train.data.FindIssueResult;
@@ -16,6 +17,8 @@ import org.kohsuke.github.GitHub;
 
 @ApplicationScoped
 public class IssueRequestService {
+
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     @ConsumeEvent(value = ServiceAdresses.FIND_ISSUE_REQUEST, blocking = true)
     public Uni<FindPrResult> findPullRequests(FindIssueRequest request) {
@@ -40,12 +43,14 @@ public class IssueRequestService {
 
     @ConsumeEvent(value = ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST)
     public Uni<FindIssueResult> getSummaryIssue(Object ignored) {
+        logger.atInfo().log("Finding summary issue");
         return Uni.createFrom().item(Unchecked.supplier(() -> new FindIssueResult.SingleResult(findSummaryIssue())));
     }
 
     private GHIssue findSummaryIssue() throws IOException {
         GHRepository repo =
                 GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN")).getRepository("MartinWitt/laughing-train");
+        logger.atInfo().log("Found repo %s", repo);
         return repo.queryIssues()
                 .pageSize(1)
                 .label("laughing-train-summary")

@@ -32,6 +32,8 @@ public class PeriodicSummary {
                         v -> {
                             if (v.body() instanceof FindIssueResult.SingleResult summary) {
                                 updateContent(Uni.createFrom().item(summary.issue()));
+                            } else {
+                                logger.atWarning().log("No summary issue found %s", v);
                             }
                         },
                         e -> {
@@ -56,6 +58,7 @@ public class PeriodicSummary {
                         ServiceAdresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
                 .subscribe()
                 .with(result -> {
+                    logger.atInfo().log("Result %s", result);
                     if (result.body() instanceof FindPrResult.Success success) {
                         try {
                             var prsByGHRepo = success.pullRequest().stream()
