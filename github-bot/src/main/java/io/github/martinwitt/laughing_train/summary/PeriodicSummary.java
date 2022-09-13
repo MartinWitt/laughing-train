@@ -6,6 +6,8 @@ import io.github.martinwitt.laughing_train.data.FindIssueResult;
 import io.github.martinwitt.laughing_train.data.FindPrResult;
 import io.github.martinwitt.laughing_train.services.ServiceAdresses;
 import io.quarkus.scheduler.Scheduled;
+import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.unchecked.Unchecked;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import java.io.IOException;
 import java.util.Collections;
@@ -29,26 +31,27 @@ public class PeriodicSummary {
                 .with(
                         v -> {
                             if (v.body() instanceof FindIssueResult.SingleResult summary) {
-                                updateContent(summary.issue());
+                                updateContent(Uni.createFrom().item(summary.issue()));
                             }
                         },
                         e -> {
                             try {
                                 updateContent(createIssue());
                             } catch (Exception e2) {
+                                logger.atSevere().withCause(e).log("Could not create summary issue");
                                 logger.atSevere().withCause(e2).log("Error while creating summary");
                             }
                         });
     }
 
-    private GHIssue createIssue() throws IOException {
+    private Uni<GHIssue> createIssue() throws IOException {
         GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
-        return github.getRepository("martinwitt/laughing-train")
+        return Uni.createFrom().item(Unchecked.supplier(() -> github.getRepository("martinwitt/laughing-train")
                 .createIssue("laughing-train-summary")
-                .create();
+                .create()));
     }
 
-    private void updateContent(GHIssue issue) {
+    private void updateContent(Uni<GHIssue> issue) {
         eventBus.<FindPrResult>request(
                         ServiceAdresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
                 .subscribe()
@@ -70,7 +73,7 @@ public class PeriodicSummary {
                                             .formatted(findRuleID(pr.getBody()), pr.getHtmlUrl(), pr.getState()));
                                 }
                             }
-                            issue.setBody(sb.toString());
+                            issue.subscribe().with(Unchecked.consumer(v -> v.setBody(sb.toString())));
                         } catch (Exception e) {
                             logger.atSevere().withCause(e).log("Error while creating summary");
                         }
