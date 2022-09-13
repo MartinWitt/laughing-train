@@ -9,6 +9,7 @@ import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.unchecked.Unchecked;
 import java.io.IOException;
+import java.util.Optional;
 import javax.enterprise.context.ApplicationScoped;
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHIssueState;
@@ -44,16 +45,10 @@ public class IssueRequestService {
     @ConsumeEvent(value = ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST, blocking = true)
     public Uni<FindIssueResult> getSummaryIssue(String ignored) {
         logger.atInfo().log("Finding summary issue");
-        try {
-            findSummaryIssue();
-
-        } catch (Exception e) {
-            logger.atSevere().withCause(e).log("Could not find summary issue");
-        }
-        return Uni.createFrom().item(Unchecked.supplier(() -> new FindIssueResult.SingleResult(findSummaryIssue())));
+        return Uni.createFrom().item(this::toResult);
     }
 
-    private GHIssue findSummaryIssue() throws IOException {
+    private Optional<GHIssue> findSummaryIssue() throws IOException {
         GHRepository repo =
                 GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN")).getRepository("MartinWitt/laughing-train");
         logger.atInfo().log("Found repo %s", repo);
@@ -62,9 +57,22 @@ public class IssueRequestService {
                 .label("laughing-train-summary")
                 .state(GHIssueState.OPEN)
                 .list()
-                .toList()
-                .get(0);
-        logger.atInfo().log("Found issue %s", foo);
-        return foo;
+                .toList();
+        if (foo.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(foo.get(0));
+    }
+
+    private FindIssueResult toResult() {
+        try {
+            var result = findSummaryIssue();
+            if (result.isPresent()) {
+                return new FindIssueResult.SingleResult(result.get());
+            }
+            return new FindIssueResult.NoResult();
+        } catch (Exception e) {
+            return new FindIssueResult.NoResult();
+        }
     }
 }

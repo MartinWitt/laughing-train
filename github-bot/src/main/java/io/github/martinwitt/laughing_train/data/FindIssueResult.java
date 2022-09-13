@@ -9,4 +9,6 @@ public sealed interface FindIssueResult extends Serializable {
     record SingleResult(GHIssue issue) implements FindIssueResult {}
 
     record MultipleResults(List<GHIssue> issues) implements FindIssueResult {}
+
+    record NoResult() implements FindIssueResult {}
 }

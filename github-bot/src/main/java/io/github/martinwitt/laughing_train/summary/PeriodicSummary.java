@@ -32,18 +32,21 @@ public class PeriodicSummary {
                         v -> {
                             if (v.body() instanceof FindIssueResult.SingleResult summary) {
                                 updateContent(Uni.createFrom().item(summary.issue()));
+                            } else if (v.body() instanceof FindIssueResult.NoResult) {
+                                createNewSummary();
                             } else {
                                 logger.atWarning().log("No summary issue found %s", v);
                             }
                         },
-                        e -> {
-                            try {
-                                updateContent(createIssue());
-                            } catch (Exception e2) {
-                                logger.atSevere().withCause(e).log("Could not create summary issue");
-                                logger.atSevere().withCause(e2).log("Error while creating summary");
-                            }
-                        });
+                        e -> logger.atWarning().withCause(e).log("Error while finding summary issue"));
+    }
+
+    private void createNewSummary() {
+        try {
+            updateContent(createIssue());
+        } catch (Exception e) {
+            logger.atSevere().withCause(e).log("Failed to create summary issue");
+        }
     }
 
     private Uni<GHIssue> createIssue() throws IOException {
