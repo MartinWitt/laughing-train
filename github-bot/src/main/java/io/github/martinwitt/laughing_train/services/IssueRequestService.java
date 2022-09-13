@@ -28,7 +28,7 @@ public class IssueRequestService {
     private Uni<FindPrResult> getOpenIssuesWithFixes(FindIssueRequest.WithUserName userName) {
         return Uni.createFrom()
                 .item(Unchecked.supplier(
-                        () -> new FindPrResult.Success(GitHub.connectUsingOAuth(System.getProperty("GITHUB_TOKEN"))
+                        () -> new FindPrResult.Success(GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
                                 .searchIssues()
                                 .q("is:pr")
                                 .q("author:" + userName.userName())
@@ -45,7 +45,7 @@ public class IssueRequestService {
 
     private GHIssue findSummaryIssue() throws IOException {
         GHRepository repo =
-                GitHub.connectUsingOAuth(System.getProperty("GITHUB_TOKEN")).getRepository("MartinWitt/laughing-train");
+                GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN")).getRepository("MartinWitt/laughing-train");
         return repo.queryIssues()
                 .pageSize(1)
                 .label("laughing-train-summary")
