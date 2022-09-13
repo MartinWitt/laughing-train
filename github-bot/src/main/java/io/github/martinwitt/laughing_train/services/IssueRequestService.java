@@ -51,12 +51,14 @@ public class IssueRequestService {
         GHRepository repo =
                 GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN")).getRepository("MartinWitt/laughing-train");
         logger.atInfo().log("Found repo %s", repo);
-        return repo.queryIssues()
+        var foo = repo.queryIssues()
                 .pageSize(1)
                 .label("laughing-train-summary")
                 .state(GHIssueState.OPEN)
                 .list()
                 .toList()
                 .get(0);
+        logger.atInfo().log("Found issue %s", foo);
+        return foo;
     }
 }

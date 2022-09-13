@@ -55,9 +55,9 @@ public class PeriodicSummary {
 
     private void updateContent(Uni<GHIssue> issue) {
         eventBus.<FindPrResult>request(
-            ServiceAdresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
-            .log()
-            .subscribe()
+                        ServiceAdresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
+                .log()
+                .subscribe()
                 .with(result -> {
                     logger.atInfo().log("Result %s", result);
                     if (result.body() instanceof FindPrResult.Success success) {
