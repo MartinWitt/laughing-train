@@ -44,6 +44,12 @@ public class IssueRequestService {
     @ConsumeEvent(value = ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST, blocking = true)
     public Uni<FindIssueResult> getSummaryIssue(String ignored) {
         logger.atInfo().log("Finding summary issue");
+        try {
+            findSummaryIssue();
+
+        } catch (Exception e) {
+            logger.atSevere().withCause(e).log("Could not find summary issue");
+        }
         return Uni.createFrom().item(Unchecked.supplier(() -> new FindIssueResult.SingleResult(findSummaryIssue())));
     }
 
