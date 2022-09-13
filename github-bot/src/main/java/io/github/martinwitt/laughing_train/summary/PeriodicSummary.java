@@ -30,9 +30,11 @@ public class PeriodicSummary {
                 .subscribe()
                 .with(
                         v -> {
+                            logger.atInfo().log("Got result %s", v);
                             if (v.body() instanceof FindIssueResult.SingleResult summary) {
                                 updateContent(Uni.createFrom().item(summary.issue()));
-                            } else if (v.body() instanceof FindIssueResult.NoResult) {
+                            } else if (v.body() instanceof FindIssueResult.NoResult noResult) {
+                                logger.atInfo().log("No summary issue found, creating one");
                                 createNewSummary();
                             } else {
                                 logger.atWarning().log("No summary issue found %s", v);
@@ -57,6 +59,7 @@ public class PeriodicSummary {
     }
 
     private void updateContent(Uni<GHIssue> issue) {
+        logger.atInfo().log("Updating summary issue");
         eventBus.<FindPrResult>request(
                         ServiceAdresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
                 .log()
