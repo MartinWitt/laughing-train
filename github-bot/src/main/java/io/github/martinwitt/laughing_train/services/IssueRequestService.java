@@ -39,7 +39,7 @@ public class IssueRequestService {
     }
 
     @ConsumeEvent(value = ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST)
-    public Uni<FindIssueResult> getSummaryIssue() {
+    public Uni<FindIssueResult> getSummaryIssue(Object ignored) {
         return Uni.createFrom().item(Unchecked.supplier(() -> new FindIssueResult.SingleResult(findSummaryIssue())));
     }
 
