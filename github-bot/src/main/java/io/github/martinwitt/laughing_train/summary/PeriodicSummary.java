@@ -64,33 +64,38 @@ public class PeriodicSummary {
                         ServiceAdresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
                 .log()
                 .subscribe()
-                .with(result -> {
-                    logger.atInfo().log("Result %s", result);
-                    if (result.body() instanceof FindPrResult.Success success) {
-                        try {
-                            var prsByGHRepo = success.pullRequest().stream()
-                                    .collect(Collectors.groupingBy(GHIssue::getRepository));
-                            var sb = new StringBuilder();
-                            sb.append("# Summary\n");
-                            for (var entry : prsByGHRepo.entrySet()) {
-                                sb.append("## %s%n".formatted(entry.getKey().getName()));
-                                sb.append("| Rule | PR | State | %n");
-                                sb.append("|------|------|------| %n");
-                                var prs = entry.getValue();
-                                Collections.sort(prs, (a, b) -> a.getState().compareTo(b.getState()));
-                                for (var pr : prs) {
-                                    sb.append("| %s | %s | %s | %n"
-                                            .formatted(findRuleID(pr.getBody()), pr.getHtmlUrl(), pr.getState()));
+                .with(
+                        result -> {
+                            logger.atInfo().log("Result %s", result);
+                            if (result.body() instanceof FindPrResult.Success success) {
+                                try {
+                                    var prsByGHRepo = success.pullRequest().stream()
+                                            .collect(Collectors.groupingBy(GHIssue::getRepository));
+                                    var sb = new StringBuilder();
+                                    sb.append("# Summary\n");
+                                    for (var entry : prsByGHRepo.entrySet()) {
+                                        sb.append("## %s%n"
+                                                .formatted(entry.getKey().getName()));
+                                        sb.append("| Rule | PR | State | %n");
+                                        sb.append("|------|------|------| %n");
+                                        var prs = entry.getValue();
+                                        Collections.sort(
+                                                prs, (a, b) -> a.getState().compareTo(b.getState()));
+                                        for (var pr : prs) {
+                                            sb.append("| %s | %s | %s | %n"
+                                                    .formatted(
+                                                            findRuleID(pr.getBody()), pr.getHtmlUrl(), pr.getState()));
+                                        }
+                                    }
+                                    issue.subscribe().with(Unchecked.consumer(v -> v.setBody(sb.toString())));
+                                } catch (Exception e) {
+                                    logger.atSevere().withCause(e).log("Error while creating summary");
                                 }
+                            } else {
+                                logger.atSevere().log("Could not find PRs %s", result);
                             }
-                            issue.subscribe().with(Unchecked.consumer(v -> v.setBody(sb.toString())));
-                        } catch (Exception e) {
-                            logger.atSevere().withCause(e).log("Error while creating summary");
-                        }
-                    } else {
-                        logger.atSevere().log("Could not find PRs %s", result);
-                    }
-                });
+                        },
+                        e -> logger.atSevere().withCause(e).log("Error while finding PRs"));
     }
 
     private String findRuleID(String body) {

@@ -23,6 +23,7 @@ public class IssueRequestService {
 
     @ConsumeEvent(value = ServiceAdresses.FIND_ISSUE_REQUEST, blocking = true)
     public Uni<FindPrResult> findPullRequests(FindIssueRequest request) {
+        logger.atInfo().log("Got request %s", request);
         if (request instanceof FindIssueRequest.WithUserName userName) {
             return getOpenIssuesWithFixes(userName);
         }
