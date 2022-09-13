@@ -17,7 +17,7 @@ import org.kohsuke.github.GitHub;
 @ApplicationScoped
 public class IssueRequestService {
 
-    @ConsumeEvent(value = ServiceAdresses.FIND_ISSUE_REQUEST)
+    @ConsumeEvent(value = ServiceAdresses.FIND_ISSUE_REQUEST, blocking = true)
     public Uni<FindPrResult> findPullRequests(FindIssueRequest request) {
         if (request instanceof FindIssueRequest.WithUserName userName) {
             return getOpenIssuesWithFixes(userName);

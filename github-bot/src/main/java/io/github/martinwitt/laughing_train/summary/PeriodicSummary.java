@@ -77,6 +77,8 @@ public class PeriodicSummary {
                         } catch (Exception e) {
                             logger.atSevere().withCause(e).log("Error while creating summary");
                         }
+                    } else {
+                        logger.atSevere().log("Could not find PRs %s", result);
                     }
                 });
     }
