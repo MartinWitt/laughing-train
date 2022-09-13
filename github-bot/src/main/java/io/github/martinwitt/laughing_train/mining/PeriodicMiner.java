@@ -2,7 +2,6 @@ package io.github.martinwitt.laughing_train.mining;
 
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
-import io.github.martinwitt.laughing_train.data.Project;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
@@ -14,6 +13,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
+import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -101,20 +102,21 @@ public class PeriodicMiner {
 
     private Promise<Void> handle(Message<QodanaResult> message) {
         if (message.body() instanceof QodanaResult.Success success) {
-            try (Project projectQodana = success.project()) {
+            try (Closeable closeable =
+                    () -> FileUtils.deleteQuietly(success.project().folder())) {
                 List<AnalyzerResult> results = success.result();
                 if (results.isEmpty()) {
-                    logger.atInfo().log("No results for %s", projectQodana);
+                    logger.atInfo().log("No results for %s", success);
                     return Promise.promise();
                 }
                 StringBuilder builder = new StringBuilder();
                 builder.append("# ")
-                        .append(projectQodana.getOwnerRepoName())
-                        .append(miningPrinter.printAllResults(results, projectQodana));
+                        .append(success.project().getOwnerRepoName())
+                        .append(miningPrinter.printAllResults(results, success.project()));
 
                 var laughingRepo = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
                         .getRepository("MartinWitt/laughing-train");
-                updateOrCreateContent(laughingRepo, projectQodana.name(), builder.toString());
+                updateOrCreateContent(laughingRepo, success.project().name(), builder.toString());
             } catch (Exception e) {
                 logger.atSevere().withCause(e).log("Error while updating content");
             }
