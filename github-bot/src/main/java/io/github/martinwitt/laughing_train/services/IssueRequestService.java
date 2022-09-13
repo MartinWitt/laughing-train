@@ -32,15 +32,21 @@ public class IssueRequestService {
 
     private Uni<FindPrResult> getOpenIssuesWithFixes(FindIssueRequest.WithUserName userName) {
         return Uni.createFrom()
-                .item(Unchecked.supplier(
-                        () -> new FindPrResult.Success(GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
-                                .searchIssues()
-                                .q("is:pr")
-                                .q("author:" + userName.userName())
-                                .q("-label:" + Constants.LABEL_NAME)
-                                .q("ruleID in:body")
-                                .list()
-                                .toList())));
+                .item(
+                        () -> {
+                            try {
+                                return new FindPrResult.Success(GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+                                        .searchIssues()
+                                        .q("is:pr")
+                                        .q("author:" + userName.userName())
+                                        .q("-label:" + Constants.LABEL_NAME)
+                                        .q("ruleID in:body")
+                                        .list()
+                                        .toList());
+                            } catch (Exception e) {
+                                return new FindPrResult.Error(e.getMessage());
+                            }
+                        });
     }
 
     @ConsumeEvent(value = ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST, blocking = true)
