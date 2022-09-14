@@ -155,7 +155,8 @@ public class SizeReplaceableByIsEmpty extends AbstractRefactoring {
     private boolean matchesPosition(CtBinaryOperator<?> op, int line, int column) {
         return op.getPosition().getLine() == line
                 && op.getPosition().getColumn() <= column
-                && op.getPosition().getEndColumn() >= column;
+                && (op.getPosition().getEndColumn() >= column
+                        || op.getPosition().getEndColumn() == 0);
     }
 
     public boolean isSizeReplaceableByIsEmpty(CtBinaryOperator<?> op) {
