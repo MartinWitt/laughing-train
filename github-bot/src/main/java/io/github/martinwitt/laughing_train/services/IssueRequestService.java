@@ -5,11 +5,14 @@ import io.github.martinwitt.laughing_train.Constants;
 import io.github.martinwitt.laughing_train.data.FindIssueRequest;
 import io.github.martinwitt.laughing_train.data.FindIssueResult;
 import io.github.martinwitt.laughing_train.data.FindPrResult;
+import io.github.martinwitt.laughing_train.data.PullRequest;
+import io.github.martinwitt.laughing_train.data.PullRequest.PullRequestState;
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.unchecked.Unchecked;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHIssueState;
@@ -32,29 +35,33 @@ public class IssueRequestService {
     }
 
     private Uni<FindPrResult> getOpenIssuesWithFixes(FindIssueRequest.WithUserName userName) {
-        try {
-            var result = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
-                    .searchIssues()
-                    .q("is:pr")
-                    .q("author:" + userName.userName())
-                    .q("-label:" + Constants.LABEL_NAME)
-                    .q("ruleID in:body")
-                    .list()
-                    .toList();
-            logger.atInfo().log("Got result %s", result);
-        } catch (Exception e) {
-            logger.atSevere().withCause(e).log("Failed to find PRs");
-        }
         return Uni.createFrom()
-                .item(Unchecked.supplier(
-                        () -> new FindPrResult.Success(GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
-                                .searchIssues()
-                                .q("is:pr")
-                                .q("author:" + userName.userName())
-                                .q("-label:" + Constants.LABEL_NAME)
-                                .q("ruleID in:body")
-                                .list()
-                                .toList())));
+                .item(Unchecked.supplier(() -> GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+                        .searchIssues()
+                        .q("is:pr")
+                        .q("author:" + userName.userName())
+                        .q("-label:" + Constants.LABEL_NAME)
+                        .q("ruleID in:body")
+                        .list()
+                        .toList()))
+                .onItem()
+                .transform(v -> new FindPrResult.Success(
+                        v.stream().map(this::toPullRequest).collect(Collectors.toList())));
+    }
+
+    private PullRequest toPullRequest(GHIssue issue) {
+        String title = issue.getTitle();
+        String body = issue.getBody();
+        String owner = issue.getRepository().getOwnerName();
+        String repo = issue.getRepository().getName();
+        int number = issue.getNumber();
+        String url = issue.getHtmlUrl().toString();
+        PullRequest.PullRequestState state = toPullRequestState(issue.getState());
+        return new PullRequest(state, title, body, owner, repo, number, url);
+    }
+
+    private PullRequestState toPullRequestState(GHIssueState state) {
+        return Enum.valueOf(PullRequest.PullRequestState.class, state.name());
     }
 
     @ConsumeEvent(value = ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST, blocking = true)

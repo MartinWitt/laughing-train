@@ -4,6 +4,7 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.FindIssueRequest;
 import io.github.martinwitt.laughing_train.data.FindIssueResult;
 import io.github.martinwitt.laughing_train.data.FindPrResult;
+import io.github.martinwitt.laughing_train.data.PullRequest;
 import io.github.martinwitt.laughing_train.services.ServiceAdresses;
 import io.quarkus.scheduler.Scheduled;
 import io.smallrye.mutiny.Uni;
@@ -73,21 +74,19 @@ public class PeriodicSummary {
                             if (result.body() instanceof FindPrResult.Success success) {
                                 try {
                                     var prsByGHRepo = success.pullRequest().stream()
-                                            .collect(Collectors.groupingBy(GHIssue::getRepository));
+                                            .collect(Collectors.groupingBy(PullRequest::repo));
                                     var sb = new StringBuilder();
                                     sb.append("# Summary\n");
                                     for (var entry : prsByGHRepo.entrySet()) {
-                                        sb.append("## %s%n"
-                                                .formatted(entry.getKey().getName()));
+                                        sb.append("## %s%n".formatted(entry.getKey()));
                                         sb.append("| Rule | PR | State | %n");
                                         sb.append("|------|------|------| %n");
                                         var prs = entry.getValue();
                                         Collections.sort(
-                                                prs, (a, b) -> a.getState().compareTo(b.getState()));
+                                                prs, (a, b) -> a.state().compareTo(b.state()));
                                         for (var pr : prs) {
                                             sb.append("| %s | %s | %s | %n"
-                                                    .formatted(
-                                                            findRuleID(pr.getBody()), pr.getHtmlUrl(), pr.getState()));
+                                                    .formatted(findRuleID(pr.body()), pr.getHtmlUrl(), pr.state()));
                                         }
                                     }
                                     issue.subscribe().with(Unchecked.consumer(v -> v.setBody(sb.toString())));
