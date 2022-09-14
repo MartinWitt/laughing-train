@@ -21,7 +21,7 @@ public class IssueRequestService {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @ConsumeEvent(value = ServiceAdresses.FIND_ISSUE_REQUEST, blocking = true)
+    @ConsumeEvent(value = ServiceAdresses.FIND_ISSUE_REQUEST, blocking = true, local = true)
     public Uni<FindPrResult> findPullRequests(FindIssueRequest request) {
         logger.atInfo().log("Got request %s", request);
         if (request instanceof FindIssueRequest.WithUserName userName) {

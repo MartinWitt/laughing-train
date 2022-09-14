@@ -8,6 +8,7 @@ import io.github.martinwitt.laughing_train.services.ServiceAdresses;
 import io.quarkus.scheduler.Scheduled;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.unchecked.Unchecked;
+import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import java.io.IOException;
 import java.util.Collections;
@@ -61,7 +62,9 @@ public class PeriodicSummary {
     private void updateContent(Uni<GHIssue> issue) {
         logger.atInfo().log("Updating summary issue");
         eventBus.<FindPrResult>request(
-                        ServiceAdresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
+                        ServiceAdresses.FIND_ISSUE_REQUEST,
+                        new FindIssueRequest.WithUserName("MartinWitt"),
+                        new DeliveryOptions().setLocalOnly(true))
                 .log()
                 .subscribe()
                 .with(
