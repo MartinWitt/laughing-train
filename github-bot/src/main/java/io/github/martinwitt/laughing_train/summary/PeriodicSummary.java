@@ -3,6 +3,7 @@ package io.github.martinwitt.laughing_train.summary;
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.FindIssueRequest;
 import io.github.martinwitt.laughing_train.data.FindIssueResult;
+import io.github.martinwitt.laughing_train.data.FindPullRequestResult;
 import io.github.martinwitt.laughing_train.data.PullRequest;
 import io.github.martinwitt.laughing_train.services.ServiceAdresses;
 import io.quarkus.scheduler.Scheduled;
@@ -11,7 +12,6 @@ import io.smallrye.mutiny.unchecked.Unchecked;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
@@ -65,32 +65,37 @@ public class PeriodicSummary {
 
     private void updateContent(Uni<GHIssue> issue) {
         logger.atInfo().log("Updating summary issue");
-        eventBus.<List<PullRequest>>request(
+        eventBus.<FindPullRequestResult>request(
                         ServiceAdresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
                 .log()
                 .subscribe()
                 .with(
                         result -> {
                             logger.atInfo().log("Result %s", result);
-                            try {
-                                var prsByGHRepo =
-                                        result.body().stream().collect(Collectors.groupingBy(PullRequest::repo));
-                                var sb = new StringBuilder();
-                                sb.append("# Summary\n");
-                                for (var entry : prsByGHRepo.entrySet()) {
-                                    sb.append("## %s%n".formatted(entry.getKey()));
-                                    sb.append("| Rule | PR | State | \n");
-                                    sb.append("|------|------|------| \n");
-                                    var prs = entry.getValue();
-                                    Collections.sort(prs, (a, b) -> a.state().compareTo(b.state()));
-                                    for (var pr : prs) {
-                                        sb.append("| %s | %s | %s | %n"
-                                                .formatted(findRuleID(pr.body()), pr.url(), pr.state()));
+                            if (result.body() instanceof FindPullRequestResult.MultipleResults multipleResults) {
+                                try {
+                                    var prsByGHRepo = multipleResults.pullRequests().stream()
+                                            .collect(Collectors.groupingBy(PullRequest::repo));
+                                    var sb = new StringBuilder();
+                                    sb.append("# Summary\n");
+                                    for (var entry : prsByGHRepo.entrySet()) {
+                                        sb.append("## %s%n".formatted(entry.getKey()));
+                                        sb.append("| Rule | PR | State | \n");
+                                        sb.append("|------|------|------| \n");
+                                        var prs = entry.getValue();
+                                        Collections.sort(
+                                                prs, (a, b) -> a.state().compareTo(b.state()));
+                                        for (var pr : prs) {
+                                            sb.append("| %s | %s | %s | %n"
+                                                    .formatted(findRuleID(pr.body()), pr.url(), pr.state()));
+                                        }
                                     }
+                                    issue.subscribe().with(Unchecked.consumer(v -> v.setBody(sb.toString())));
+                                } catch (Exception e) {
+                                    logger.atSevere().withCause(e).log("Error while creating summary");
                                 }
-                                issue.subscribe().with(Unchecked.consumer(v -> v.setBody(sb.toString())));
-                            } catch (Exception e) {
-                                logger.atSevere().withCause(e).log("Error while creating summary");
+                            } else {
+                                logger.atWarning().log("No pull requests found %s", result);
                             }
                         },
                         e -> logger.atSevere().withCause(e).log("Error while finding PRs"));
