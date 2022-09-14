@@ -59,6 +59,18 @@ public class ChangelogPrinter {
         return sb.toString();
     }
 
+    public String printChangeLogShort(Collection<Change> changes) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("# Repairing Code Style Issues\n");
+        var changesByBadSmell = changes.stream().collect(Collectors.groupingBy(Change::getBadSmell));
+        for (var change : changesByBadSmell.entrySet()) {
+            sb.append("* " + change.getKey().getName().asText() + " ("
+                            + change.getValue().size() + "x)")
+                    .append("\n");
+        }
+        return sb.toString();
+    }
+
     public String printResults(List<AnalyzerResult> results) {
         Set<String> ruleIds =
                 config.getActiveRules().stream().map(QodanaRules::getRuleId).collect(Collectors.toSet());

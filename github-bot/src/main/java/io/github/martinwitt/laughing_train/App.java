@@ -162,8 +162,8 @@ public class App {
                 repo.createRef("refs/heads/" + branchName, mainRef.getObject().getSha());
         StringBuilder body = new StringBuilder();
         body.append(changelogPrinter.printRepairedIssues(changes));
-        createCommit(repo, dir, changes.stream().map(v -> v.getAffectedType()).collect(Collectors.toList()), ref);
-        body.append(changelogPrinter.printChangeLog(changes));
+        createCommit(repo, dir, changes.stream().map(Change::getAffectedType).collect(Collectors.toList()), ref);
+        body.append(changelogPrinter.printChangeLogShort(changes));
         createPullRequest(repo, branchName, body.toString());
     }
 
