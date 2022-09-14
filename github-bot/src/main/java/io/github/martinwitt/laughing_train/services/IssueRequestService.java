@@ -7,12 +7,11 @@ import io.github.martinwitt.laughing_train.data.FindIssueResult;
 import io.github.martinwitt.laughing_train.data.PullRequest;
 import io.github.martinwitt.laughing_train.data.PullRequest.PullRequestState;
 import io.quarkus.vertx.ConsumeEvent;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.unchecked.Unchecked;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHIssueState;
@@ -25,7 +24,7 @@ public class IssueRequestService {
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     @ConsumeEvent(value = ServiceAdresses.FIND_ISSUE_REQUEST, blocking = true)
-    public Uni<List<PullRequest>> findPullRequests(FindIssueRequest request) {
+    public Multi<PullRequest> findPullRequests(FindIssueRequest request) {
         logger.atInfo().log("Got request %s", request);
         if (request instanceof FindIssueRequest.WithUserName userName) {
             logger.atInfo().log("Got user name %s", userName);
@@ -34,18 +33,19 @@ public class IssueRequestService {
         throw new IllegalArgumentException("Unknown request type %s".formatted(request));
     }
 
-    private Uni<List<PullRequest>> getOpenIssuesWithFixes(FindIssueRequest.WithUserName userName) {
-        return Uni.createFrom()
-                .item(Unchecked.supplier(() -> GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+    private Multi<PullRequest> getOpenIssuesWithFixes(FindIssueRequest.WithUserName userName) {
+        return Multi.createFrom()
+                .items(Unchecked.supplier(() -> GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
                         .searchIssues()
                         .q("is:pr")
                         .q("author:" + userName.userName())
                         .q("-label:" + Constants.LABEL_NAME)
                         .q("ruleID in:body")
                         .list()
-                        .toList()))
+                        .toList()
+                        .stream()))
                 .onItem()
-                .transform(v -> v.stream().map(this::toPullRequest).collect(Collectors.toList()));
+                .transform(v -> toPullRequest(v));
     }
 
     private PullRequest toPullRequest(GHIssue issue) {

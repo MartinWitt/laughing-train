@@ -11,7 +11,6 @@ import io.smallrye.mutiny.unchecked.Unchecked;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
@@ -65,16 +64,20 @@ public class PeriodicSummary {
 
     private void updateContent(Uni<GHIssue> issue) {
         logger.atInfo().log("Updating summary issue");
-        eventBus.<List<PullRequest>>request(
+        eventBus.<PullRequest>request(
                         ServiceAdresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
                 .log()
+                .toMulti()
+                .collect()
+                .asList()
                 .subscribe()
                 .with(
                         result -> {
                             logger.atInfo().log("Result %s", result);
                             try {
-                                var prsByGHRepo =
-                                        result.body().stream().collect(Collectors.groupingBy(PullRequest::repo));
+                                var prsByGHRepo = result.stream()
+                                        .map(v -> v.body())
+                                        .collect(Collectors.groupingBy(PullRequest::repo));
                                 var sb = new StringBuilder();
                                 sb.append("# Summary\n");
                                 for (var entry : prsByGHRepo.entrySet()) {
