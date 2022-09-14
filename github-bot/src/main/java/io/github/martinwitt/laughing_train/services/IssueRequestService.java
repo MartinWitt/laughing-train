@@ -7,6 +7,7 @@ import io.github.martinwitt.laughing_train.data.FindIssueResult;
 import io.github.martinwitt.laughing_train.data.FindPrResult;
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.unchecked.Unchecked;
 import java.io.IOException;
 import java.util.Optional;
 import javax.enterprise.context.ApplicationScoped;
@@ -30,20 +31,28 @@ public class IssueRequestService {
     }
 
     private Uni<FindPrResult> getOpenIssuesWithFixes(FindIssueRequest.WithUserName userName) {
-        return Uni.createFrom().item(() -> {
-            try {
-                return new FindPrResult.Success(GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
-                        .searchIssues()
-                        .q("is:pr")
-                        .q("author:" + userName.userName())
-                        .q("-label:" + Constants.LABEL_NAME)
-                        .q("ruleID in:body")
-                        .list()
-                        .toList());
-            } catch (Exception e) {
-                return new FindPrResult.Error(e.getMessage());
-            }
-        });
+        try {
+            GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+                    .searchIssues()
+                    .q("is:pr")
+                    .q("author:" + userName.userName())
+                    .q("-label:" + Constants.LABEL_NAME)
+                    .q("ruleID in:body")
+                    .list()
+                    .toList();
+        } catch (Exception e) {
+            logger.atSevere().withCause(e).log("Failed to find PRs");
+        }
+        return Uni.createFrom()
+                .item(Unchecked.supplier(
+                        () -> new FindPrResult.Success(GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+                                .searchIssues()
+                                .q("is:pr")
+                                .q("author:" + userName.userName())
+                                .q("-label:" + Constants.LABEL_NAME)
+                                .q("ruleID in:body")
+                                .list()
+                                .toList())));
     }
 
     @ConsumeEvent(value = ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST, blocking = true)
