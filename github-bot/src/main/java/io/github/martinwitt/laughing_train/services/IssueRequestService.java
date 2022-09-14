@@ -29,19 +29,19 @@ public class IssueRequestService {
         logger.atFine().log("Got request %s", request);
         if (request instanceof FindIssueRequest.WithUserName userName) {
             logger.atFine().log("Got user name %s", userName);
-            return getOpenIssuesWithFixes(userName).log("openIssuesWithFixes");
+            return getIssuesWithFixes(userName).log("openIssuesWithFixes");
         }
         throw new IllegalArgumentException("Unknown request type %s".formatted(request));
     }
 
-    private Uni<FindPullRequestResult> getOpenIssuesWithFixes(FindIssueRequest.WithUserName userName) {
+    private Uni<FindPullRequestResult> getIssuesWithFixes(FindIssueRequest.WithUserName userName) {
         return Uni.createFrom()
                 .item(Unchecked.supplier(() -> searchPrs(userName)))
                 .onItem()
                 .transform(v -> new FindPullRequestResult.MultipleResults(convertGHIssueToPullRequest(v)));
     }
 
-    private List<PullRequest> convertGHIssueToPullRequest(List<GHIssue> issues) {
+    private List<PullRequest> convertGHIssueToPullRequest(List<? extends GHIssue> issues) {
         return issues.stream().map(this::toPullRequest).collect(Collectors.toList());
     }
 
@@ -88,11 +88,11 @@ public class IssueRequestService {
                 .transform(FindIssueResult.SingleResult::new);
     }
 
-    private Issue emptyToFailure(List<GHIssue> v) {
-        if (v.isEmpty()) {
+    private Issue emptyToFailure(List<? extends GHIssue> list) {
+        if (list.isEmpty()) {
             throw new IllegalStateException("No summary issue found");
         }
-        return (toIssue(v.get(0)));
+        return (toIssue(list.get(0)));
     }
 
     private List<GHIssue> searchSummaryIssueOnGithub() throws IOException {

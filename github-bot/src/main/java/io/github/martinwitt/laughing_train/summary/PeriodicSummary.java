@@ -14,6 +14,7 @@ import io.smallrye.mutiny.unchecked.Unchecked;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -109,7 +110,8 @@ public class PeriodicSummary {
             sb.append("| Rule | PR | State | \n");
             sb.append("|------|------|------| \n");
             var prs = entry.getValue();
-            Collections.sort(prs, (a, b) -> a.state().compareTo(b.state()));
+
+            Collections.sort(prs, Comparator.comparing(PullRequest::state));
             for (var pr : prs) {
                 sb.append("| %s | %s | %s | %n".formatted(findRuleID(pr.body()), pr.url(), pr.state()));
             }
