@@ -4,11 +4,4 @@ import java.io.Serializable;
 
 public record PullRequest(
         PullRequestState state, String title, String body, String owner, String repo, int number, String url)
-        implements Serializable {
-
-    public enum PullRequestState {
-        OPEN,
-        CLOSED,
-        MERGED
-    }
-}
+        implements Serializable {}

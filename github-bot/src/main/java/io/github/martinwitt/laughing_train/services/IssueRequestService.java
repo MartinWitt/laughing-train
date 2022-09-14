@@ -5,7 +5,7 @@ import io.github.martinwitt.laughing_train.Constants;
 import io.github.martinwitt.laughing_train.data.FindIssueRequest;
 import io.github.martinwitt.laughing_train.data.FindIssueResult;
 import io.github.martinwitt.laughing_train.data.PullRequest;
-import io.github.martinwitt.laughing_train.data.PullRequest.PullRequestState;
+import io.github.martinwitt.laughing_train.data.PullRequestState;
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
@@ -24,11 +24,11 @@ public class IssueRequestService {
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     @ConsumeEvent(value = ServiceAdresses.FIND_ISSUE_REQUEST, blocking = true)
-    public Multi<PullRequest> findPullRequests(FindIssueRequest request) {
+    public Uni<PullRequest> findPullRequests(FindIssueRequest request) {
         logger.atInfo().log("Got request %s", request);
         if (request instanceof FindIssueRequest.WithUserName userName) {
             logger.atInfo().log("Got user name %s", userName);
-            return getOpenIssuesWithFixes(userName).log("openIssuesWithFixes");
+            return getOpenIssuesWithFixes(userName).log("openIssuesWithFixes").toUni();
         }
         throw new IllegalArgumentException("Unknown request type %s".formatted(request));
     }
@@ -60,7 +60,7 @@ public class IssueRequestService {
     }
 
     private PullRequestState toPullRequestState(GHIssueState state) {
-        return Enum.valueOf(PullRequest.PullRequestState.class, state.name());
+        return Enum.valueOf(PullRequestState.class, state.name());
     }
 
     @ConsumeEvent(value = ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST, blocking = true)
