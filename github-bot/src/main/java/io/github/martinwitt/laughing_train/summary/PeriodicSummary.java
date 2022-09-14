@@ -82,8 +82,8 @@ public class PeriodicSummary {
                                 sb.append("# Summary\n");
                                 for (var entry : prsByGHRepo.entrySet()) {
                                     sb.append("## %s%n".formatted(entry.getKey()));
-                                    sb.append("| Rule | PR | State | %n");
-                                    sb.append("|------|------|------| %n");
+                                    sb.append("| Rule | PR | State | \n");
+                                    sb.append("|------|------|------| \n");
                                     var prs = entry.getValue();
                                     Collections.sort(prs, (a, b) -> a.state().compareTo(b.state()));
                                     for (var pr : prs) {

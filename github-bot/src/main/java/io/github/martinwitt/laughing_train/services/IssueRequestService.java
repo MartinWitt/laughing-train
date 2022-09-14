@@ -24,11 +24,11 @@ public class IssueRequestService {
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     @ConsumeEvent(value = ServiceAdresses.FIND_ISSUE_REQUEST, blocking = true)
-    public Uni<PullRequest> findPullRequests(FindIssueRequest request) {
+    public Multi<PullRequest> findPullRequests(FindIssueRequest request) {
         logger.atInfo().log("Got request %s", request);
         if (request instanceof FindIssueRequest.WithUserName userName) {
             logger.atInfo().log("Got user name %s", userName);
-            return getOpenIssuesWithFixes(userName).log("openIssuesWithFixes").toUni();
+            return getOpenIssuesWithFixes(userName).log("openIssuesWithFixes");
         }
         throw new IllegalArgumentException("Unknown request type %s".formatted(request));
     }
