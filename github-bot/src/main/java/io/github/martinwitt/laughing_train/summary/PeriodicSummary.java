@@ -57,7 +57,7 @@ public class PeriodicSummary {
         }
     }
 
-    private Uni<Issue> createIssue() throws IOException {
+    private Uni<Issue> createIssue() {
         return Uni.createFrom()
                 .item(Unchecked.supplier(this::createNewIssue))
                 .onItem()
@@ -120,6 +120,7 @@ public class PeriodicSummary {
     private String findRuleID(String body) {
         return StringUtils.substringBetween(body, "ruleID:", "\n")
                 .replace("\n", "")
+                .replace("\"", "")
                 .trim();
     }
 
