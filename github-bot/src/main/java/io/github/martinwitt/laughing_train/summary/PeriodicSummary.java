@@ -27,6 +27,10 @@ public class PeriodicSummary {
 
     @Scheduled(every = "2h")
     public void createSummary() {
+        eventBus.addOutboundInterceptor(event -> {
+            logger.atInfo().log("Sending event %s", event);
+            event.next();
+        });
         eventBus.<FindIssueResult>request(ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST, "message")
                 .subscribe()
                 .with(
