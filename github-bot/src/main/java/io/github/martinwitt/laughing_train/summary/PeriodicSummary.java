@@ -86,7 +86,7 @@ public class PeriodicSummary {
                                                 prs, (a, b) -> a.state().compareTo(b.state()));
                                         for (var pr : prs) {
                                             sb.append("| %s | %s | %s | %n"
-                                                    .formatted(findRuleID(pr.body()), pr.getHtmlUrl(), pr.state()));
+                                                    .formatted(findRuleID(pr.body()), pr.url(), pr.state()));
                                         }
                                     }
                                     issue.subscribe().with(Unchecked.consumer(v -> v.setBody(sb.toString())));
