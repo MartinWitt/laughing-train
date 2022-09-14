@@ -29,7 +29,7 @@ public class IssueRequestService {
         logger.atFine().log("Got request %s", request);
         if (request instanceof FindIssueRequest.WithUserName userName) {
             logger.atFine().log("Got user name %s", userName);
-            return getIssuesWithFixes(userName).log("openIssuesWithFixes");
+            return getIssuesWithFixes(userName);
         }
         throw new IllegalArgumentException("Unknown request type %s".formatted(request));
     }
