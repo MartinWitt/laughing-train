@@ -102,6 +102,8 @@ public class PeriodicSummary {
     }
 
     private String findRuleID(String body) {
-        return StringUtils.substringBetween(body, "ruleID:", "\n");
+        return StringUtils.substringBetween(body, "ruleID:", "\n")
+                .replace("\n", "")
+                .trim();
     }
 }
