@@ -19,7 +19,7 @@ public class PointlessBooleanExpression extends AbstractRefactoring {
 
         @Override
         public MarkdownString getDescription() {
-            return MarkdownString.fromRaw("Boolean expressions should be overcomplex ");
+            return MarkdownString.fromRaw("Boolean expressions shouldn't be overcomplex. ");
         }
 
         @Override
@@ -46,9 +46,11 @@ public class PointlessBooleanExpression extends AbstractRefactoring {
                 if (splitted.size() == 3) {
                     String oldExpression = splitted.get(0);
                     String newExpression = splitted.get(2);
-                    if (ctExpression.toString().equals(newExpression)) {
+                    if (isAlreadyFixed(listener)) {
+                        // allready fixed the issue
                         return;
                     }
+
                     ctExpression.replace(
                             createNewExpression(ctExpression, newExpression).clone());
                     ctExpression.setParent(null);
@@ -60,6 +62,11 @@ public class PointlessBooleanExpression extends AbstractRefactoring {
                 }
             }
         }
+    }
+
+    private boolean isAlreadyFixed(ChangeListener listener) {
+        return listener.getChangelog().getChanges().stream()
+                .anyMatch(v -> v.getAnalyzerResult().equals(result));
     }
 
     private CtExpression<Object> createNewExpression(CtExpression<?> ctExpression, String newExpression) {
