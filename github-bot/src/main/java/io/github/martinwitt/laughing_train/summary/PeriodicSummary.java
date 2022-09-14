@@ -14,6 +14,8 @@ import io.smallrye.mutiny.unchecked.Unchecked;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
@@ -30,10 +32,6 @@ public class PeriodicSummary {
 
     @Scheduled(every = "2h")
     public void createSummary() {
-        eventBus.addOutboundInterceptor(event -> {
-            logger.atInfo().log("Sending event %s", event);
-            event.next();
-        });
         eventBus.<FindIssueResult>request(ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST, "message")
                 .subscribe()
                 .with(
@@ -60,13 +58,17 @@ public class PeriodicSummary {
     }
 
     private Uni<Issue> createIssue() throws IOException {
-        GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
         return Uni.createFrom()
-                .item(Unchecked.supplier(() -> github.getRepository("martinwitt/laughing-train")
-                        .createIssue("laughing-train-summary")
-                        .create()))
+                .item(Unchecked.supplier(this::createNewIssue))
                 .onItem()
                 .transform(this::toIssue);
+    }
+
+    private GHIssue createNewIssue() throws IOException {
+        return GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+                .getRepository("martinwitt/laughing-train")
+                .createIssue("laughing-train-summary")
+                .create();
     }
 
     private void updateContent(Uni<Issue> issue) {
@@ -79,38 +81,40 @@ public class PeriodicSummary {
                         result -> {
                             logger.atInfo().log("Result %s", result);
                             if (result.body() instanceof FindPullRequestResult.MultipleResults multipleResults) {
-                                try {
-                                    var prsByGHRepo = multipleResults.pullRequests().stream()
-                                            .collect(Collectors.groupingBy(PullRequest::repo));
-                                    var sb = new StringBuilder();
-                                    sb.append("# Summary\n");
-                                    for (var entry : prsByGHRepo.entrySet()) {
-                                        sb.append("## %s%n".formatted(entry.getKey()));
-                                        sb.append("| Rule | PR | State | \n");
-                                        sb.append("|------|------|------| \n");
-                                        var prs = entry.getValue();
-                                        Collections.sort(
-                                                prs, (a, b) -> a.state().compareTo(b.state()));
-                                        for (var pr : prs) {
-                                            sb.append("| %s | %s | %s | %n"
-                                                    .formatted(findRuleID(pr.body()), pr.url(), pr.state()));
-                                        }
-                                    }
-
-                                    issue.subscribe().with(Unchecked.consumer(v -> {
-                                        GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
-                                                .getRepository("martinwitt/laughing-train")
-                                                .getIssue(v.number())
-                                                .setBody(sb.toString());
-                                    }));
-                                } catch (Exception e) {
-                                    logger.atSevere().withCause(e).log("Error while creating summary");
-                                }
+                                updateBody(issue, multipleResults);
                             } else {
                                 logger.atWarning().log("No pull requests found %s", result);
                             }
                         },
                         e -> logger.atSevere().withCause(e).log("Error while finding PRs"));
+    }
+
+    private void updateBody(Uni<Issue> issue, FindPullRequestResult.MultipleResults multipleResults) {
+        try {
+            issue.subscribe().with(Unchecked.consumer(v -> GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+                    .getRepository("martinwitt/laughing-train")
+                    .getIssue(v.number())
+                    .setBody(createSummaryBody(multipleResults.pullRequests().stream()
+                            .collect(Collectors.groupingBy(PullRequest::repo))))));
+        } catch (Exception e) {
+            logger.atSevere().withCause(e).log("Error while creating summary");
+        }
+    }
+
+    private String createSummaryBody(Map<String, List<PullRequest>> prsByGHRepo) {
+        var sb = new StringBuilder();
+        sb.append("# Summary\n");
+        for (var entry : prsByGHRepo.entrySet()) {
+            sb.append("## %s%n".formatted(entry.getKey()));
+            sb.append("| Rule | PR | State | \n");
+            sb.append("|------|------|------| \n");
+            var prs = entry.getValue();
+            Collections.sort(prs, (a, b) -> a.state().compareTo(b.state()));
+            for (var pr : prs) {
+                sb.append("| %s | %s | %s | %n".formatted(findRuleID(pr.body()), pr.url(), pr.state()));
+            }
+        }
+        return sb.toString();
     }
 
     private String findRuleID(String body) {
