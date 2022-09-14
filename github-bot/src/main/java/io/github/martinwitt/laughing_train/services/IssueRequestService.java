@@ -81,7 +81,7 @@ public class IssueRequestService {
         return Uni.createFrom()
                 .item(Unchecked.supplier(this::searchSummaryIssueOnGithub))
                 .onItem()
-                .transform(v -> emptyToFailure(v))
+                .transform(this::emptyToFailure)
                 .onFailure()
                 .call(v -> Uni.createFrom().item(new FindIssueResult.NoResult()))
                 .onItem()
