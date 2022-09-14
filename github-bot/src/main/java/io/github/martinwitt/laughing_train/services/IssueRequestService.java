@@ -25,6 +25,7 @@ public class IssueRequestService {
     public Uni<FindPrResult> findPullRequests(FindIssueRequest request) {
         logger.atInfo().log("Got request %s", request);
         if (request instanceof FindIssueRequest.WithUserName userName) {
+            logger.atInfo().log("Got user name %s", userName);
             return getOpenIssuesWithFixes(userName);
         }
         return Uni.createFrom().item(() -> new FindPrResult.Error("Unknown request type %s".formatted(request)));
@@ -32,7 +33,7 @@ public class IssueRequestService {
 
     private Uni<FindPrResult> getOpenIssuesWithFixes(FindIssueRequest.WithUserName userName) {
         try {
-            GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+            var result = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
                     .searchIssues()
                     .q("is:pr")
                     .q("author:" + userName.userName())
@@ -40,6 +41,7 @@ public class IssueRequestService {
                     .q("ruleID in:body")
                     .list()
                     .toList();
+            logger.atInfo().log("Got result %s", result);
         } catch (Exception e) {
             logger.atSevere().withCause(e).log("Failed to find PRs");
         }
