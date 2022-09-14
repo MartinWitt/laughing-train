@@ -2,13 +2,12 @@ package io.github.martinwitt.laughing_train.data;
 
 import java.io.Serializable;
 import java.util.List;
-import org.kohsuke.github.GHIssue;
 
 public sealed interface FindIssueResult extends Serializable {
 
-    record SingleResult(GHIssue issue) implements FindIssueResult {}
+    record SingleResult(Issue issue) implements FindIssueResult {}
 
-    record MultipleResults(List<GHIssue> issues) implements FindIssueResult {}
+    record MultipleResults(List<Issue> issues) implements FindIssueResult {}
 
     record NoResult() implements FindIssueResult {}
 }

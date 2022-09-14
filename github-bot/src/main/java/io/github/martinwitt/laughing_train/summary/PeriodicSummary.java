@@ -4,6 +4,8 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.FindIssueRequest;
 import io.github.martinwitt.laughing_train.data.FindIssueResult;
 import io.github.martinwitt.laughing_train.data.FindPullRequestResult;
+import io.github.martinwitt.laughing_train.data.GitHubState;
+import io.github.martinwitt.laughing_train.data.Issue;
 import io.github.martinwitt.laughing_train.data.PullRequest;
 import io.github.martinwitt.laughing_train.services.ServiceAdresses;
 import io.quarkus.scheduler.Scheduled;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.kohsuke.github.GHIssue;
+import org.kohsuke.github.GHIssueState;
 import org.kohsuke.github.GitHub;
 
 public class PeriodicSummary {
@@ -56,14 +59,17 @@ public class PeriodicSummary {
         }
     }
 
-    private Uni<GHIssue> createIssue() throws IOException {
+    private Uni<Issue> createIssue() throws IOException {
         GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
-        return Uni.createFrom().item(Unchecked.supplier(() -> github.getRepository("martinwitt/laughing-train")
-                .createIssue("laughing-train-summary")
-                .create()));
+        return Uni.createFrom()
+                .item(Unchecked.supplier(() -> github.getRepository("martinwitt/laughing-train")
+                        .createIssue("laughing-train-summary")
+                        .create()))
+                .onItem()
+                .transform(this::toIssue);
     }
 
-    private void updateContent(Uni<GHIssue> issue) {
+    private void updateContent(Uni<Issue> issue) {
         logger.atInfo().log("Updating summary issue");
         eventBus.<FindPullRequestResult>request(
                         ServiceAdresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
@@ -90,7 +96,13 @@ public class PeriodicSummary {
                                                     .formatted(findRuleID(pr.body()), pr.url(), pr.state()));
                                         }
                                     }
-                                    issue.subscribe().with(Unchecked.consumer(v -> v.setBody(sb.toString())));
+
+                                    issue.subscribe().with(Unchecked.consumer(v -> {
+                                        GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+                                                .getRepository("martinwitt/laughing-train")
+                                                .getIssue(v.number())
+                                                .setBody(sb.toString());
+                                    }));
                                 } catch (Exception e) {
                                     logger.atSevere().withCause(e).log("Error while creating summary");
                                 }
@@ -105,5 +117,20 @@ public class PeriodicSummary {
         return StringUtils.substringBetween(body, "ruleID:", "\n")
                 .replace("\n", "")
                 .trim();
+    }
+
+    private Issue toIssue(GHIssue issue) {
+        return new Issue(
+                toPullRequestState(issue.getState()),
+                issue.getTitle(),
+                issue.getBody(),
+                issue.getRepository().getOwnerName(),
+                issue.getRepository().getName(),
+                issue.getNumber(),
+                issue.getHtmlUrl().toString());
+    }
+
+    private GitHubState toPullRequestState(GHIssueState state) {
+        return Enum.valueOf(GitHubState.class, state.name());
     }
 }

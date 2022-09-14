@@ -1,6 +1,6 @@
 package io.github.martinwitt.laughing_train.data;
 
-public enum PullRequestState {
+public enum GitHubState {
     OPEN,
     CLOSED,
     MERGED
