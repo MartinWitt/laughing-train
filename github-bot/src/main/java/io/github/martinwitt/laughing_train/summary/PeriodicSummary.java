@@ -76,7 +76,6 @@ public class PeriodicSummary {
         logger.atInfo().log("Updating summary issue");
         eventBus.<FindPullRequestResult>request(
                         ServiceAdresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
-                .log()
                 .subscribe()
                 .with(
                         result -> {
