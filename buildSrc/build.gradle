@@ -17,7 +17,7 @@ repositories {
 
 }
     dependencies {
-        implementation "com.diffplug.spotless:spotless-plugin-gradle:6.10.0"
+        implementation "com.diffplug.spotless:spotless-plugin-gradle:6.11.0"
         implementation "org.kordamp.gradle:jandex-gradle-plugin:0.13.2"
         implementation "net.ltgt.gradle:gradle-errorprone-plugin:2.0.2"
         implementation 'io.smallrye:jandex:3.0.0'
