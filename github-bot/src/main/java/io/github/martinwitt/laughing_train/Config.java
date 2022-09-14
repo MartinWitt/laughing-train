@@ -27,6 +27,7 @@ public class Config {
     private int maximumNumberOfPrs = 10;
     private Map<QodanaRules, Boolean> rules = new EnumMap<>(QodanaRules.class);
     private List<String> allowedUsers = new ArrayList<>();
+    private boolean groupyByType = true;
 
     @Inject
     MarkdownPrinter markdownPrinter;
@@ -54,6 +55,7 @@ public class Config {
         this.maximumNumberOfPrs = config.getMaximumNumberOfPrs();
         this.allowedUsers = config.getAllowedUsers();
         this.rules = new EnumMap<>(config.rules);
+        this.groupyByType = config.groupyByType;
     }
 
     /* (non-Javadoc)
@@ -129,5 +131,18 @@ public class Config {
                 """;
         return "Hi, In this issue you can configure laughing-train. The config uses yaml syntax. \n"
                 + String.format(configString, options);
+    }
+    /**
+     * @return the groupyByType
+     */
+    public boolean isGroupyByType() {
+        return groupyByType;
+    }
+
+    /**
+     * @param groupyByType the groupyByType to set
+     */
+    public void setGroupyByType(boolean groupyByType) {
+        this.groupyByType = groupyByType;
     }
 }

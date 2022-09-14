@@ -86,12 +86,23 @@ public class App {
 
     private void createFixes(GHEventPayload.Issue issueComment) throws IOException {
         Path dir = Files.createTempDirectory(Constants.TEMP_FOLDER_PREFIX);
-        try (Closeable closeable = () -> FileUtils.deleteDirectory(dir.toFile())) {
-            Map<CtType<?>, List<Change>> changesByType =
-                    groupChangesByType(refactorRepo(issueComment.getRepository().getHttpTransportUrl(), dir));
-            GHRepository repo = issueComment.getRepository();
-            GitHubUtils.createLabelIfMissing(repo);
-            createPullRequestForAffectedType(repo, dir, changesByType);
+        if (config.isGroupyByType()) {
+            try (Closeable closeable = () -> FileUtils.deleteDirectory(dir.toFile())) {
+                Map<CtType<?>, List<Change>> changesByType = groupChangesByType(
+                        refactorRepo(issueComment.getRepository().getHttpTransportUrl(), dir));
+                GHRepository repo = issueComment.getRepository();
+                GitHubUtils.createLabelIfMissing(repo);
+                createPullRequestForAffectedType(repo, dir, changesByType);
+            }
+        } else {
+            try (Closeable closeable = () -> FileUtils.deleteDirectory(dir.toFile())) {
+                List<Change> changes = refactorRepo(issueComment.getRepository().getHttpTransportUrl(), dir)
+                        .getChangelog()
+                        .getChanges();
+                GHRepository repo = issueComment.getRepository();
+                GitHubUtils.createLabelIfMissing(repo);
+                createSinglePullRequest(repo, dir, changes);
+            }
         }
     }
 
@@ -143,6 +154,19 @@ public class App {
         }
     }
 
+    private void createSinglePullRequest(GHRepository repo, Path dir, List<Change> changes) throws IOException {
+        GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
+        logger.atInfo().log("Found changes for %s types", changes.size());
+        String branchName = branchNameSupplier.createBranchName();
+        GHRef ref =
+                repo.createRef("refs/heads/" + branchName, mainRef.getObject().getSha());
+        StringBuilder body = new StringBuilder();
+        body.append(changelogPrinter.printRepairedIssues(changes));
+        createCommit(repo, dir, changes.stream().map(v -> v.getAffectedType()).collect(Collectors.toList()), ref);
+        body.append(changelogPrinter.printChangeLog(changes));
+        createPullRequest(repo, branchName, body.toString());
+    }
+
     private ChangeListener refactorRepo(String repoUrl, Path dir) {
         ChangeListener changeListener = new ChangeListener();
         try {
@@ -171,6 +195,11 @@ public class App {
                 .addLabels(LABEL_NAME);
     }
 
+    private void createPullRequest(GHRepository repo, String branchName, String body) throws IOException {
+        repo.createPullRequest("fix Bad Smells", branchName, repo.getDefaultBranch(), body)
+                .addLabels(LABEL_NAME);
+    }
+
     private void createCommit(GHRepository repo, Path dir, CtType<?> entry, GHRef ref) throws IOException {
         var tree = repo.createTree()
                 .baseTree(ref.getObject().getSha())
@@ -182,6 +211,25 @@ public class App {
 
         var commit = repo.createCommit()
                 .message("fix Bad Smells in " + entry.getQualifiedName())
+                .author("MartinWitt", "wittlinger.martin@gmail.com", Date.from(Instant.now()))
+                .tree(tree.getSha())
+                .parent(ref.getObject().getSha())
+                .create();
+        ref.updateTo(commit.getSHA1());
+        logger.atInfo().log("Created commit %s", commit.getHtmlUrl());
+    }
+
+    private void createCommit(GHRepository repo, Path dir, List<CtType<?>> types, GHRef ref) throws IOException {
+        var treeBuilder = repo.createTree().baseTree(ref.getObject().getSha());
+        for (CtType<?> ctType : types) {
+            treeBuilder.add(
+                    relativize(dir, getFileForType(ctType)),
+                    Files.readString(getFileForType(ctType)).replace("\r\n", "\n"),
+                    false);
+        }
+        var tree = treeBuilder.create();
+        var commit = repo.createCommit()
+                .message("fix Bad Smells in multiple files")
                 .author("MartinWitt", "wittlinger.martin@gmail.com", Date.from(Instant.now()))
                 .tree(tree.getSha())
                 .parent(ref.getObject().getSha())
