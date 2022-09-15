@@ -86,21 +86,15 @@ public class App {
 
     private void createFixes(GHEventPayload.Issue issueComment) throws IOException {
         Path dir = Files.createTempDirectory(Constants.TEMP_FOLDER_PREFIX);
-        if (config.isGroupyByType()) {
-            try (Closeable closeable = () -> FileUtils.deleteDirectory(dir.toFile())) {
-                Map<CtType<?>, List<Change>> changesByType = groupChangesByType(
-                        refactorRepo(issueComment.getRepository().getHttpTransportUrl(), dir));
-                GHRepository repo = issueComment.getRepository();
-                GitHubUtils.createLabelIfMissing(repo);
-                createPullRequestForAffectedType(repo, dir, changesByType);
-            }
-        } else {
-            try (Closeable closeable = () -> FileUtils.deleteDirectory(dir.toFile())) {
-                List<Change> changes = refactorRepo(issueComment.getRepository().getHttpTransportUrl(), dir)
-                        .getChangelog()
-                        .getChanges();
-                GHRepository repo = issueComment.getRepository();
-                GitHubUtils.createLabelIfMissing(repo);
+        try (Closeable closeable = () -> FileUtils.deleteDirectory(dir.toFile())) {
+            List<Change> changes = refactorRepo(issueComment.getRepository().getHttpTransportUrl(), dir)
+                    .getChangelog()
+                    .getChanges();
+            GHRepository repo = issueComment.getRepository();
+            GitHubUtils.createLabelIfMissing(repo);
+            if (config.isGroupyByType()) {
+                createPullRequestForAffectedType(repo, dir, groupChangesByType(changes));
+            } else {
                 createSinglePullRequest(repo, dir, changes);
             }
         }
@@ -184,9 +178,8 @@ public class App {
         return changeListener;
     }
 
-    private Map<CtType<?>, List<Change>> groupChangesByType(ChangeListener changeListener) {
-        return changeListener.getChangelog().getChanges().stream()
-                .collect(Collectors.groupingBy(Change::getAffectedType));
+    private Map<CtType<?>, List<Change>> groupChangesByType(List<Change> changes) {
+        return changes.stream().collect(Collectors.groupingBy(Change::getAffectedType));
     }
 
     private void createPullRequest(GHRepository repo, String typeName, String branchName, String body)
