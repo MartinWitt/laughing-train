@@ -1,6 +1,7 @@
 package io.github.martinwitt.laughing_train;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
@@ -80,9 +81,11 @@ public class MentionCommands {
     }
 
     private void runQodanaOnRepo(GHEventPayload.IssueComment issueComment, AsyncResult<Message<ProjectResult>> v) {
-        if (v.succeeded()) {
+        if (v.succeeded() && v.result().body() instanceof ProjectResult.Success success) {
             vertx.executeBlocking(project -> eventBus.<QodanaResult>request(
-                    ServiceAdresses.QODANA_ANALYZER_REQUEST, v.result().body(), new ListCommandHandler(issueComment)));
+                    ServiceAdresses.QODANA_ANALYZER_REQUEST,
+                    new AnalyzerRequest.WithProject(success.project()),
+                    new ListCommandHandler(issueComment)));
         } else {
             logger.atSevere().withCause(v.cause()).log("Failed to get project");
         }
