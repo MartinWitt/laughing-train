@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +32,7 @@ public class PeriodicSummary {
     @Inject
     EventBus eventBus;
 
-    @Scheduled(every = "2h")
+    @Scheduled(every = "2h", delay = 10, delayUnit = TimeUnit.MINUTES)
     public void createSummary() {
         eventBus.<FindIssueResult>request(ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST, "message")
                 .subscribe()

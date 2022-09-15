@@ -26,7 +26,7 @@ public class ChangelogPrinter {
     @Inject
     Config config;
 
-    String printChangeLog(List<Change> changes) {
+    String printChangeLog(List<? extends Change> changes) {
         StringBuilder sb = new StringBuilder();
         sb.append("## Changes: \n");
         for (var fix : changes) {
@@ -49,13 +49,24 @@ public class ChangelogPrinter {
         }
     }
 
-    String printRepairedIssues(Collection<Change> changes) {
+    String printRepairedIssues(Collection<? extends Change> changes) {
         StringBuilder sb = new StringBuilder();
         sb.append("# Repairing Code Style Issues\n");
         changes.stream().map(Change::getBadSmell).distinct().forEach(v -> sb.append(
                         "## " + v.getName().asText() + "\n")
                 .append(v.getDescription().asMarkdown())
                 .append("\n"));
+        return sb.toString();
+    }
+
+    public String printChangeLogShort(Collection<? extends Change> changes) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("# Repairing Code Style Issues\n");
+        var changesByBadSmell = changes.stream().collect(Collectors.groupingBy(Change::getBadSmell));
+        for (var change : changesByBadSmell.entrySet()) {
+            sb.append("* %s".formatted(change.getKey().getName().asMarkdown())
+                    + " (%s)%n".formatted(change.getValue().size()));
+        }
         return sb.toString();
     }
 
