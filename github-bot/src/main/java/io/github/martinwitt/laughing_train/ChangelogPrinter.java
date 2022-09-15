@@ -64,7 +64,7 @@ public class ChangelogPrinter {
         sb.append("# Repairing Code Style Issues\n");
         var changesByBadSmell = changes.stream().collect(Collectors.groupingBy(Change::getBadSmell));
         for (var change : changesByBadSmell.entrySet()) {
-            sb.append("* " + change.getKey().getName().asText()
+            sb.append("* %s".formatted(change.getKey().getName().asMarkdown())
                     + " (%s)%n".formatted(change.getValue().size()));
         }
         return sb.toString();

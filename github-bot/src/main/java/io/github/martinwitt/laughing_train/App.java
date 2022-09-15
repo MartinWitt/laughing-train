@@ -148,7 +148,8 @@ public class App {
         }
     }
 
-    private void createSinglePullRequest(GHRepository repo, Path dir, List<Change> changes) throws IOException {
+    private void createSinglePullRequest(GHRepository repo, Path dir, List<? extends Change> changes)
+            throws IOException {
         GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
         logger.atInfo().log("Found changes for %s types", changes.size());
         String branchName = branchNameSupplier.createBranchName();
@@ -178,7 +179,7 @@ public class App {
         return changeListener;
     }
 
-    private Map<CtType<?>, List<Change>> groupChangesByType(List<Change> changes) {
+    private Map<CtType<?>, List<Change>> groupChangesByType(List<? extends Change> changes) {
         return changes.stream().collect(Collectors.groupingBy(Change::getAffectedType));
     }
 
