@@ -212,7 +212,8 @@ public class App {
         logger.atInfo().log("Created commit %s", commit.getHtmlUrl());
     }
 
-    private void createCommit(GHRepository repo, Path dir, List<CtType<?>> types, GHRef ref) throws IOException {
+    private void createCommit(GHRepository repo, Path dir, List<? extends CtType<?>> types, GHRef ref)
+            throws IOException {
         var treeBuilder = repo.createTree().baseTree(ref.getObject().getSha());
         for (CtType<?> ctType : types) {
             treeBuilder.add(
