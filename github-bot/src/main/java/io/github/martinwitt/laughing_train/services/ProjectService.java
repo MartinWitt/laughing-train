@@ -55,7 +55,11 @@ public class ProjectService {
                 .setDirectory(dir.toFile())
                 .call()));
         git.onFailure().retry().atMost(3).subscribe().with(Git::close, e -> {
-            FileUtils.deleteQuietly(dir.toFile());
+            try {
+                FileUtils.deleteDirectory(dir.toFile());
+            } catch (IOException e1) {
+                logger.atSevere().withCause(e1).log("Error deleting directory %s", dir);
+            }
             logger.atSevere().withCause(e).log("Error cloning repository");
         });
     }
