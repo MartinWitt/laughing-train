@@ -20,6 +20,9 @@ dependencies {
 	implementation 'io.quarkus:quarkus-smallrye-health'
 	testImplementation 'io.quarkus:quarkus-junit5'
 	implementation project(":code-transformation")
+	implementation 'io.quarkus:quarkus-mongodb-panache:2.13.0.CR1'
+	annotationProcessor("io.quarkus:quarkus-panache-common")
+	implementation("io.quarkus:quarkus-smallrye-graphql")
 }
 
 group 'io.github.martinwitt'
