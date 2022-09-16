@@ -5,6 +5,8 @@ import io.github.martinwitt.laughing_train.data.Project;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.quarkus.vertx.ConsumeEvent;
+import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.unchecked.Unchecked;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jgit.api.Git;
 
@@ -47,14 +50,14 @@ public class ProjectService {
     }
 
     private void checkoutRepo(ProjectRequest.WithUrl url, Path dir) {
-        try (Git git = Git.cloneRepository()
+        Uni<Git> git = Uni.createFrom().item(Unchecked.supplier(() -> Git.cloneRepository()
                 .setURI(url.url())
                 .setDirectory(dir.toFile())
-                .call()) {
-            // nothing to do
-        } catch (Exception e) {
+                .call()));
+        git.onFailure().retry().atMost(3).subscribe().with(Git::close, e -> {
+            FileUtils.deleteQuietly(dir.toFile());
             logger.atSevere().withCause(e).log("Error cloning repository");
-        }
+        });
     }
 
     @ApplicationScoped
