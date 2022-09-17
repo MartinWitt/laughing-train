@@ -38,6 +38,7 @@ public class ProjectService {
                     .onItemOrFailure()
                     .<ProjectResult>transform((v, error) -> {
                         if (error == null) {
+                            v.close();
                             return new ProjectResult.Success(new Project(repoName, url.url(), dir.toFile(), "."));
                         } else {
                             v.close();

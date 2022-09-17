@@ -164,7 +164,8 @@ public class QodanaAnalyzer {
             Bind cacheBind = new Bind(qodanaCache.get(), new Volume("/data/cache/"), AccessMode.rw);
             return new HostConfig().withBinds(bind, resultsBind, cacheBind).withAutoRemove(true);
         }
-        return HostConfig.newHostConfig().withBinds(bind, resultsBind).withAutoRemove(true);
+        return HostConfig.newHostConfig().withBinds(bind, resultsBind);
+        // .withAutoRemove(true);
     }
 
     private Optional<Image> findQodanaImage(DockerClient dockerClient) {
