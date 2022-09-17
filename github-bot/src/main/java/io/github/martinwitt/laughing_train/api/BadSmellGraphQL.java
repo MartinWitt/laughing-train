@@ -13,14 +13,26 @@ import org.eclipse.microprofile.graphql.Query;
 public class BadSmellGraphQL {
 
     @Query("allBadSmells")
-    @Description("Gets all badsmells from the database")
+    @Description("Gets all bad smells from the database")
     public List<BadSmell> getAllBadSmells() {
         return BadSmell.<BadSmell>listAll();
     }
 
     @Query("byRuleID")
-    @Description("Gets all badsmells from the database by ruleID")
+    @Description("Gets all bad smells from the database by ruleID")
     public List<BadSmell> getAllBadSmellsByRuleID(@Name("ruleID") String ruleID) {
         return BadSmell.findByRuleID(ruleID);
+    }
+
+    @Query("byProjectName")
+    @Description("Gets all bad smells from the database by projectName")
+    public List<BadSmell> getAllBadSmellsByProjectName(@Name("projectName") String projectName) {
+        return BadSmell.findByProjectName(projectName);
+    }
+
+    @Query("byCommitHash")
+    @Description("Gets all bad smells from the database by commitHash")
+    public List<BadSmell> getAllBadSmellsByCommitHash(@Name("commitHash") String commitHash) {
+        return BadSmell.findByCommitHash(commitHash);
     }
 }

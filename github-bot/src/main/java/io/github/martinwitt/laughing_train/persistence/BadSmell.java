@@ -13,6 +13,14 @@ public class BadSmell extends PanacheMongoEntity {
         return list("ruleID", ruleID);
     }
 
+    public static List<BadSmell> findByProjectName(String projectName) {
+        return list("projectName", projectName);
+    }
+
+    public static List<BadSmell> findByCommitHash(String commitHash) {
+        return list("commitHash", commitHash);
+    }
+
     private String ruleID;
     private String filePath;
     private int startLine;
@@ -26,7 +34,6 @@ public class BadSmell extends PanacheMongoEntity {
     private String snippet;
     private String projectName;
     private String projectUrl;
-
     private String commitHash;
 
     public BadSmell() {
