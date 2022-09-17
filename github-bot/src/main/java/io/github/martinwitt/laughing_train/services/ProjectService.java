@@ -15,6 +15,7 @@ import javax.enterprise.context.ApplicationScoped;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 
 @ApplicationScoped
 public class ProjectService {
@@ -36,19 +37,29 @@ public class ProjectService {
                     .onFailure()
                     .invoke(e -> FileUtils.deleteQuietly(dir.toFile()))
                     .onItemOrFailure()
-                    .<ProjectResult>transform((v, error) -> {
-                        if (error == null) {
-                            v.close();
-                            return new ProjectResult.Success(new Project(repoName, url.url(), dir.toFile(), "."));
-                        } else {
-                            v.close();
-                            return new ProjectResult.Error(error.getMessage());
-                        }
-                    })
+                    .<ProjectResult>transform((git, error) -> toResult(url, repoName, dir, git, error))
                     .await()
                     .indefinitely();
         }
         return new ProjectResult.Error("Unknown request");
+    }
+
+    private ProjectResult toResult(ProjectRequest.WithUrl url, String repoName, Path dir, Git git, Throwable error) {
+        if (error == null) {
+            String commitHash = getHash(git);
+            return new ProjectResult.Success(new Project(repoName, url.url(), dir.toFile(), ".", commitHash));
+        } else {
+            git.close();
+            return new ProjectResult.Error(error.getMessage());
+        }
+    }
+
+    private String getHash(Git git) {
+        try {
+            return git.log().call().iterator().next().getId().toString();
+        } catch (GitAPIException e) {
+            return "Error while getting hash";
+        }
     }
 
     private Uni<Git> checkoutRepo(ProjectRequest.WithUrl url, Path dir) {
