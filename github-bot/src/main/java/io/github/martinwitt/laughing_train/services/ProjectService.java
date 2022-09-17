@@ -35,7 +35,7 @@ public class ProjectService {
         logger.atInfo().log("Received project request %s", request);
         if (request instanceof ProjectRequest.WithUrl url) {
             try {
-                String repoName = StringUtils.substringAfterLast(url.url(), "/");
+                String repoName = StringUtils.substringAfterLast(url.url(), "/").replace(".git", "");
 
                 Path dir = Files.createTempDirectory("laughing-train-" + repoName + random.nextLong());
                 threadPoolManager.getService().execute(() -> checkoutRepo(url, dir));
@@ -56,6 +56,7 @@ public class ProjectService {
                 .subscribe()
                 .with(Git::close, e -> {
                     try {
+                        Files.list(dir).forEach(System.out::println);
                         FileUtils.deleteDirectory(dir.toFile());
                     } catch (IOException e1) {
                         logger.atSevere().withCause(e1).log("Error deleting directory %s", dir);
@@ -65,6 +66,12 @@ public class ProjectService {
     }
 
     private Uni<Git> createAsyncRepo(ProjectRequest.WithUrl url, Path dir) {
+        try {
+            Files.list(dir).forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return Uni.createFrom().item(Unchecked.supplier(() -> {
             FileUtils.deleteDirectory(dir.toFile());
             Files.createDirectories(dir);
