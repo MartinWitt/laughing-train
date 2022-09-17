@@ -54,24 +54,27 @@ public class ProjectService {
         git.onFailure()
                 .recoverWithItem(createAsyncRepo(url, dir).await().indefinitely())
                 .subscribe()
-                .with(Git::close, e -> {
-                    try {
-                        Files.list(dir).forEach(System.out::println);
-                        FileUtils.deleteDirectory(dir.toFile());
-                    } catch (IOException e1) {
-                        logger.atSevere().withCause(e1).log("Error deleting directory %s", dir);
-                    }
-                    logger.atSevere().withCause(e).log("Error cloning repository");
-                });
+                .with(
+                        v -> {
+                            v.close();
+                            System.out.println("Clone successfull");
+                            try {
+                                Files.list(dir).forEach(System.out::println);
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
+                        },
+                        e -> {
+                            try {
+                                FileUtils.deleteDirectory(dir.toFile());
+                            } catch (IOException e1) {
+                                logger.atSevere().withCause(e1).log("Error deleting directory %s", dir);
+                            }
+                            logger.atSevere().withCause(e).log("Error cloning repository");
+                        });
     }
 
     private Uni<Git> createAsyncRepo(ProjectRequest.WithUrl url, Path dir) {
-        try {
-            Files.list(dir).forEach(System.out::println);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         return Uni.createFrom().item(Unchecked.supplier(() -> {
             FileUtils.deleteDirectory(dir.toFile());
             Files.createDirectories(dir);
