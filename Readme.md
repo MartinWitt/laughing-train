@@ -18,6 +18,8 @@ For this, we leverage many existing tools and libraries, like quarkus, Hub4J, sp
 - See [Qodana-Rules](https://github.com/MartinWitt/laughing-train/blob/master/code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRules.java#L22)
 ## GraphQL
 Use `http://89.58.49.108:8080/graphql/` to get mining results by GraphQL. See http://89.58.49.108:8080/graphql/schema.graphql for the schema.
+The schema is <b>not</b> final and <b>can change</b> anytime. 
+
 ## FAQ:
 ### Why would you ever write something already solved?
 TL;DR; This project is currently a nice, refreshing side project while writing my master thesis.
