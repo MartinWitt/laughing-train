@@ -50,18 +50,25 @@ public class ProjectService {
     }
 
     private void checkoutRepo(ProjectRequest.WithUrl url, Path dir) {
-        Uni<Git> git = Uni.createFrom().item(Unchecked.supplier(() -> Git.cloneRepository()
+        Uni<Git> git = createAsyncRepo(url, dir);
+        git.onFailure()
+                .recoverWithItem(createAsyncRepo(url, dir).await().indefinitely())
+                .subscribe()
+                .with(Git::close, e -> {
+                    try {
+                        FileUtils.deleteDirectory(dir.toFile());
+                    } catch (IOException e1) {
+                        logger.atSevere().withCause(e1).log("Error deleting directory %s", dir);
+                    }
+                    logger.atSevere().withCause(e).log("Error cloning repository");
+                });
+    }
+
+    private Uni<Git> createAsyncRepo(ProjectRequest.WithUrl url, Path dir) {
+        return Uni.createFrom().item(Unchecked.supplier(() -> Git.cloneRepository()
                 .setURI(url.url())
                 .setDirectory(dir.toFile())
                 .call()));
-        git.onFailure().retry().atMost(3).subscribe().with(Git::close, e -> {
-            try {
-                FileUtils.deleteDirectory(dir.toFile());
-            } catch (IOException e1) {
-                logger.atSevere().withCause(e1).log("Error deleting directory %s", dir);
-            }
-            logger.atSevere().withCause(e).log("Error cloning repository");
-        });
     }
 
     @ApplicationScoped
