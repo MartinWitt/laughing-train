@@ -16,6 +16,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.lib.ObjectId;
 
 @ApplicationScoped
 public class ProjectService {
@@ -56,7 +57,7 @@ public class ProjectService {
 
     private String getHash(Git git) {
         try {
-            return git.log().call().iterator().next().getId().toString();
+            return ObjectId.toString(git.log().call().iterator().next().getId());
         } catch (GitAPIException e) {
             return "Error while getting hash";
         }
