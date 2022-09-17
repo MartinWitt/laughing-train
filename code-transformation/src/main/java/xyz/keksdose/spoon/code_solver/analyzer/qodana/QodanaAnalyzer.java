@@ -160,8 +160,10 @@ public class QodanaAnalyzer {
         Volume targetFile = new Volume("/data/results/");
         Bind bind = new Bind(sourceRoot.toAbsolutePath().toString(), sourceFile, AccessMode.rw);
         Bind resultsBind = new Bind(Path.of(resultFolder).toAbsolutePath().toString(), targetFile, AccessMode.rw);
-        return HostConfig.newHostConfig().withBinds(bind, resultsBind).withPrivileged(true);
-        // .withAutoRemove(true);
+        return HostConfig.newHostConfig()
+                .withBinds(bind, resultsBind)
+                .withPrivileged(true)
+                .withAutoRemove(true);
     }
 
     private Optional<Image> findQodanaImage(DockerClient dockerClient) {

@@ -85,6 +85,7 @@ public class MentionCommands {
             vertx.executeBlocking(project -> eventBus.<QodanaResult>request(
                     ServiceAdresses.QODANA_ANALYZER_REQUEST,
                     new AnalyzerRequest.WithProject(success.project()),
+                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
                     new ListCommandHandler(issueComment)));
         } else {
             logger.atSevere().withCause(v.cause()).log("Failed to get project");
