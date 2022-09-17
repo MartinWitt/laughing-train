@@ -16,6 +16,10 @@ For this, we leverage many existing tools and libraries, like quarkus, Hub4J, sp
 - See [mining](https://github.com/MartinWitt/laughing-train/wiki/Mining) for bad smell examples.
 - See [refactoring](https://github.com/MartinWitt/laughing-train/wiki/Created-pullrequests) for created pull requests.
 - See [Qodana-Rules](https://github.com/MartinWitt/laughing-train/blob/master/code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRules.java#L22)
+## GraphQL
+Use [http://www.keksdose.xyz:8080/graphql/](http://www.keksdose.xyz:8080/graphql/)to get mining results by GraphQL. See 
+[http://www.keksdose.xyz:8080/graphql/schema.graphql](http://www.keksdose.xyz:8080/graphql/schema.graphql) for the schema.
+The schema is <b>not</b> final and <b>can change</b> anytime. 
 
 ## FAQ:
 ### Why would you ever write something already solved?
