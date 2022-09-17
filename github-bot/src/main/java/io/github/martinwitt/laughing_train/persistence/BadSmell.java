@@ -1,14 +1,17 @@
 package io.github.martinwitt.laughing_train.persistence;
 
+import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
-import io.quarkus.mongodb.panache.reactive.ReactivePanacheMongoEntity;
-import io.smallrye.mutiny.Uni;
 import java.util.List;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 @MongoEntity(database = "AnalyzerResults")
-public class BadSmell extends ReactivePanacheMongoEntity {
+public class BadSmell extends PanacheMongoEntity {
+
+    public static List<BadSmell> findByRuleID(String ruleID) {
+        return list("ruleID", ruleID);
+    }
 
     private String ruleID;
     private String filePath;
@@ -23,6 +26,7 @@ public class BadSmell extends ReactivePanacheMongoEntity {
     private String snippet;
     private String projectName;
     private String projectUrl;
+
     private String commitHash;
 
     public BadSmell() {
@@ -62,10 +66,6 @@ public class BadSmell extends ReactivePanacheMongoEntity {
         this.projectName = projectName;
         this.projectUrl = projectUrl;
         this.commitHash = commitHash;
-    }
-
-    public static Uni<List<BadSmell>> findByRuleID(String ruleID) {
-        return list("ruleID", ruleID);
     }
 
     /**
@@ -164,5 +164,103 @@ public class BadSmell extends ReactivePanacheMongoEntity {
      */
     public String getCommitHash() {
         return commitHash;
+    }
+
+    /**
+     * @param ruleID the ruleID to set
+     */
+    public void setRuleID(String ruleID) {
+        this.ruleID = ruleID;
+    }
+
+    /**
+     * @param filePath the filePath to set
+     */
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    /**
+     * @param startLine the startLine to set
+     */
+    public void setStartLine(int startLine) {
+        this.startLine = startLine;
+    }
+
+    /**
+     * @param endLine the endLine to set
+     */
+    public void setEndLine(int endLine) {
+        this.endLine = endLine;
+    }
+
+    /**
+     * @param startColumn the startColumn to set
+     */
+    public void setStartColumn(int startColumn) {
+        this.startColumn = startColumn;
+    }
+
+    /**
+     * @param endColumn the endColumn to set
+     */
+    public void setEndColumn(int endColumn) {
+        this.endColumn = endColumn;
+    }
+
+    /**
+     * @param charOffset the charOffset to set
+     */
+    public void setCharOffset(int charOffset) {
+        this.charOffset = charOffset;
+    }
+
+    /**
+     * @param charLength the charLength to set
+     */
+    public void setCharLength(int charLength) {
+        this.charLength = charLength;
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
+     * @param messageMarkdown the messageMarkdown to set
+     */
+    public void setMessageMarkdown(String messageMarkdown) {
+        this.messageMarkdown = messageMarkdown;
+    }
+
+    /**
+     * @param snippet the snippet to set
+     */
+    public void setSnippet(String snippet) {
+        this.snippet = snippet;
+    }
+
+    /**
+     * @param projectName the projectName to set
+     */
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    /**
+     * @param projectUrl the projectUrl to set
+     */
+    public void setProjectUrl(String projectUrl) {
+        this.projectUrl = projectUrl;
+    }
+
+    /**
+     * @param commitHash the commitHash to set
+     */
+    public void setCommitHash(String commitHash) {
+        this.commitHash = commitHash;
     }
 }
