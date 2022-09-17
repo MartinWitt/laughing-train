@@ -18,8 +18,10 @@ public class AnalyzerResultPersistenceService {
                 // TODO: convert to multi creation
                 new BadSmell(badSmell, project.name(), project.url(), project.commitHash())
                         .persistOrUpdate()
-                        .await()
-                        .indefinitely();
+                        .subscribe()
+                        .with(
+                                item -> System.out.println("persisted " + item),
+                                failure -> System.out.println("failed to persist " + failure));
             }
         }
     }
