@@ -65,10 +65,13 @@ public class ProjectService {
     }
 
     private Uni<Git> createAsyncRepo(ProjectRequest.WithUrl url, Path dir) {
-        return Uni.createFrom().item(Unchecked.supplier(() -> Git.cloneRepository()
-                .setURI(url.url())
-                .setDirectory(dir.toFile())
-                .call()));
+        return Uni.createFrom().item(Unchecked.supplier(() -> {
+            FileUtils.deleteDirectory(dir.toFile());
+            return Git.cloneRepository()
+                    .setURI(url.url())
+                    .setDirectory(dir.toFile())
+                    .call();
+        }));
     }
 
     @ApplicationScoped
