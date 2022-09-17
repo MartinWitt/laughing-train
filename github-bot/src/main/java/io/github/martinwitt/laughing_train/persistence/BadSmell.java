@@ -4,7 +4,6 @@ import io.quarkus.mongodb.panache.common.MongoEntity;
 import io.quarkus.mongodb.panache.reactive.ReactivePanacheMongoEntity;
 import io.smallrye.mutiny.Uni;
 import java.util.List;
-import java.util.Objects;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
@@ -24,6 +23,7 @@ public class BadSmell extends ReactivePanacheMongoEntity {
     private String snippet;
     private String projectName;
     private String projectUrl;
+    private String commitHash;
 
     public BadSmell() {
         // default constructor for mongodb
@@ -45,7 +45,7 @@ public class BadSmell extends ReactivePanacheMongoEntity {
         this.snippet = snippet;
     }
 
-    public BadSmell(AnalyzerResult result, String projectName, String projectUrl) {
+    public BadSmell(AnalyzerResult result, String projectName, String projectUrl, String commitHash) {
         this();
         Position position = result.position();
         this.ruleID = result.ruleID();
@@ -61,6 +61,7 @@ public class BadSmell extends ReactivePanacheMongoEntity {
         this.snippet = result.snippet();
         this.projectName = projectName;
         this.projectUrl = projectUrl;
+        this.commitHash = commitHash;
     }
 
     public static Uni<List<BadSmell>> findByRuleID(String ruleID) {
@@ -158,51 +159,10 @@ public class BadSmell extends ReactivePanacheMongoEntity {
         return projectUrl;
     }
 
-    /** (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+    /**
+     * @return the commitHash
      */
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-                charLength,
-                charOffset,
-                endColumn,
-                endLine,
-                filePath,
-                message,
-                messageMarkdown,
-                projectName,
-                projectUrl,
-                ruleID,
-                snippet,
-                startColumn,
-                startLine);
-    }
-
-    /** (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof BadSmell)) {
-            return false;
-        }
-        BadSmell other = (BadSmell) obj;
-        return charLength == other.charLength
-                && charOffset == other.charOffset
-                && endColumn == other.endColumn
-                && endLine == other.endLine
-                && Objects.equals(filePath, other.filePath)
-                && Objects.equals(message, other.message)
-                && Objects.equals(messageMarkdown, other.messageMarkdown)
-                && Objects.equals(projectName, other.projectName)
-                && Objects.equals(projectUrl, other.projectUrl)
-                && Objects.equals(ruleID, other.ruleID)
-                && Objects.equals(snippet, other.snippet)
-                && startColumn == other.startColumn
-                && startLine == other.startLine;
+    public String getCommitHash() {
+        return commitHash;
     }
 }
