@@ -67,6 +67,8 @@ public class ProjectService {
     private Uni<Git> createAsyncRepo(ProjectRequest.WithUrl url, Path dir) {
         return Uni.createFrom().item(Unchecked.supplier(() -> {
             FileUtils.deleteDirectory(dir.toFile());
+            Files.createDirectories(dir);
+            Files.list(dir).forEach(System.out::println);
             return Git.cloneRepository()
                     .setURI(url.url())
                     .setDirectory(dir.toFile())
