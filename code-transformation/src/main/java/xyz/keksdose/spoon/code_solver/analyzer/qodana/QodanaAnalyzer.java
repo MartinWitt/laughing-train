@@ -160,11 +160,7 @@ public class QodanaAnalyzer {
         Volume targetFile = new Volume("/data/results/");
         Bind bind = new Bind(sourceRoot.toAbsolutePath().toString(), sourceFile, AccessMode.rw);
         Bind resultsBind = new Bind(Path.of(resultFolder).toAbsolutePath().toString(), targetFile, AccessMode.rw);
-        if (this.qodanaCache.isPresent()) {
-            Bind cacheBind = new Bind(qodanaCache.get(), new Volume("/data/cache/"), AccessMode.rw);
-            return new HostConfig().withBinds(bind, resultsBind, cacheBind).withAutoRemove(true);
-        }
-        return HostConfig.newHostConfig().withBinds(bind, resultsBind);
+        return HostConfig.newHostConfig().withBinds(bind, resultsBind).withPrivileged(true);
         // .withAutoRemove(true);
     }
 
