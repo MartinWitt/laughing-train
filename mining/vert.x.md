@@ -126,33 +126,6 @@ in `src/main/java/io/vertx/core/datagram/impl/DatagramSocketImpl.java`
 
 ## EnumSwitchStatementWhichMissesCases
 ### EnumSwitchStatementWhichMissesCases
-`switch(frame.type()) { case CLOSE: Handler` endHandler = endHandler(); if... statement on enum type 'io.vertx.core.http.WebSocketFrameType' misses cases: 'PING', and 'PONG'
-in `src/main/java/io/vertx/core/http/impl/WebSocketImplBase.java`
-#### Snippet
-```java
-      context.dispatch(frame, frameHandler);
-    }
-    switch(frame.type()) {
-      case CLOSE:
-        Handler<Void> endHandler = endHandler();
-        if (endHandler != null) {
-          context.dispatch(endHandler);
-        }
-        break;
-      case TEXT:
-      case BINARY:
-      case CONTINUATION:
-        Handler<Buffer> handler = handler();
-        if (handler != null) {
-          context.dispatch(frame.binaryData(), handler);
-        }
-        break;
-    }
-  }
-
-```
-
-### EnumSwitchStatementWhichMissesCases
 `switch (frame.type()) { case PING: // Echo back the content of the PING frame as PONG ...` statement on enum type 'io.vertx.core.http.WebSocketFrameType' misses cases: 'CONTINUATION', 'TEXT', and 'BINARY'
 in `src/main/java/io/vertx/core/http/impl/WebSocketImplBase.java`
 #### Snippet
@@ -205,24 +178,29 @@ in `src/main/java/io/vertx/core/http/impl/WebSocketImplBase.java`
 ```
 
 ### EnumSwitchStatementWhichMissesCases
-`switch (event.type()) { case START_ARRAY: // Start the array break; ...` statement on enum type 'io.vertx.core.parsetools.JsonEventType' misses cases: 'START_OBJECT', and 'END_OBJECT'
-in `src/main/java/examples/ParseToolsExamples.java`
+`switch(frame.type()) { case CLOSE: Handler` endHandler = endHandler(); if... statement on enum type 'io.vertx.core.http.WebSocketFrameType' misses cases: 'PING', and 'PONG'
+in `src/main/java/io/vertx/core/http/impl/WebSocketImplBase.java`
 #### Snippet
 ```java
-
-    parser.handler(event -> {
-      switch (event.type()) {
-        case START_ARRAY:
-          // Start the array
-          break;
-        case END_ARRAY:
-          // End the array
-          break;
-        case VALUE:
-          // Handle each object
-          break;
-      }
-    });
+      context.dispatch(frame, frameHandler);
+    }
+    switch(frame.type()) {
+      case CLOSE:
+        Handler<Void> endHandler = endHandler();
+        if (endHandler != null) {
+          context.dispatch(endHandler);
+        }
+        break;
+      case TEXT:
+      case BINARY:
+      case CONTINUATION:
+        Handler<Buffer> handler = handler();
+        if (handler != null) {
+          context.dispatch(frame.binaryData(), handler);
+        }
+        break;
+    }
+  }
 
 ```
 
@@ -273,6 +251,28 @@ in `src/main/java/examples/ParseToolsExamples.java`
         case END_OBJECT:
           // Set the object event mode so the parser emits start/end object events again
           parser.objectEventMode();
+          break;
+      }
+    });
+
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (event.type()) { case START_ARRAY: // Start the array break; ...` statement on enum type 'io.vertx.core.parsetools.JsonEventType' misses cases: 'START_OBJECT', and 'END_OBJECT'
+in `src/main/java/examples/ParseToolsExamples.java`
+#### Snippet
+```java
+
+    parser.handler(event -> {
+      switch (event.type()) {
+        case START_ARRAY:
+          // Start the array
+          break;
+        case END_ARRAY:
+          // End the array
+          break;
+        case VALUE:
+          // Handle each object
           break;
       }
     });
@@ -517,18 +517,6 @@ in `src/main/java/io/vertx/core/http/impl/WebSocketHandshakeInboundHandler.java`
 ```
 
 ### UnnecessaryQualifierForThis
-Qualifier `VertxHttp2Stream` on 'this' is unnecessary in this context
-in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
-#### Snippet
-```java
-    context.emit(null, v -> {
-      boolean w;
-      synchronized (VertxHttp2Stream.this) {
-        writable = !writable;
-        w = writable;
-```
-
-### UnnecessaryQualifierForThis
 Qualifier `Http2ClientConnection` on 'this' is unnecessary in this context
 in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
 #### Snippet
@@ -541,15 +529,15 @@ in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
 ```
 
 ### UnnecessaryQualifierForThis
-Qualifier `HttpServerFileUploadImpl` on 'this' is unnecessary in this context
-in `src/main/java/io/vertx/core/http/impl/HttpServerFileUploadImpl.java`
+Qualifier `VertxHttp2Stream` on 'this' is unnecessary in this context
+in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
 #### Snippet
 ```java
-      Future<Void> to = pipe.to(f);
-      return to.compose(v -> {
-        synchronized (HttpServerFileUploadImpl.this) {
-          if (!cancelled) {
-            file = f;
+    context.emit(null, v -> {
+      boolean w;
+      synchronized (VertxHttp2Stream.this) {
+        writable = !writable;
+        w = writable;
 ```
 
 ### UnnecessaryQualifierForThis
@@ -562,6 +550,18 @@ in `src/main/java/io/vertx/core/http/impl/HttpServerFileUploadImpl.java`
     synchronized (HttpServerFileUploadImpl.this) {
       handler = dataHandler;
       if (lazyCalculateSize) {
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `HttpServerFileUploadImpl` on 'this' is unnecessary in this context
+in `src/main/java/io/vertx/core/http/impl/HttpServerFileUploadImpl.java`
+#### Snippet
+```java
+      Future<Void> to = pipe.to(f);
+      return to.compose(v -> {
+        synchronized (HttpServerFileUploadImpl.this) {
+          if (!cancelled) {
+            file = f;
 ```
 
 ### UnnecessaryQualifierForThis
@@ -601,18 +601,6 @@ in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
 ```
 
 ### UnnecessaryQualifierForThis
-Qualifier `Http1xClientConnection` on 'this' is unnecessary in this context
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-          WebSocketImpl w = new WebSocketImpl(
-            context,
-            Http1xClientConnection.this,
-            version != WebSocketVersion.V00,
-            options.getWebSocketClosingTimeout(),
-```
-
-### UnnecessaryQualifierForThis
 Qualifier `HttpClientImpl` on 'this' is unnecessary in this context
 in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
 #### Snippet
@@ -622,6 +610,18 @@ in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
             HttpClientImpl.this.options.getMaxWebSocketFrameSize(),
             promise);
         } else {
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `Http1xClientConnection` on 'this' is unnecessary in this context
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+          WebSocketImpl w = new WebSocketImpl(
+            context,
+            Http1xClientConnection.this,
+            version != WebSocketVersion.V00,
+            options.getWebSocketClosingTimeout(),
 ```
 
 ### UnnecessaryQualifierForThis
@@ -637,18 +637,6 @@ in `src/main/java/io/vertx/core/impl/DeploymentManager.java`
 ```
 
 ### UnnecessaryQualifierForThis
-Qualifier `PipeImpl` on 'this' is unnecessary in this context
-in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
-#### Snippet
-```java
-    boolean endOnSuccess;
-    boolean endOnFailure;
-    synchronized (PipeImpl.this) {
-      if (dst != null) {
-        throw new IllegalStateException();
-```
-
-### UnnecessaryQualifierForThis
 Qualifier `PacketWriteStreamImpl` on 'this' is unnecessary in this context
 in `src/main/java/io/vertx/core/datagram/impl/PacketWriteStreamImpl.java`
 #### Snippet
@@ -658,6 +646,18 @@ in `src/main/java/io/vertx/core/datagram/impl/PacketWriteStreamImpl.java`
       PacketWriteStreamImpl.this.handle(ar);
       if (handler != null) {
         handler.handle(ar.mapEmpty());
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `PipeImpl` on 'this' is unnecessary in this context
+in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
+#### Snippet
+```java
+    boolean endOnSuccess;
+    boolean endOnFailure;
+    synchronized (PipeImpl.this) {
+      if (dst != null) {
+        throw new IllegalStateException();
 ```
 
 ### UnnecessaryQualifierForThis
@@ -711,18 +711,6 @@ in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
 
 ## SizeReplaceableByIsEmpty
 ### SizeReplaceableByIsEmpty
-`argName.length() == 0` can be replaced with 'argName.isEmpty()'
-in `src/main/java/io/vertx/core/cli/UsageMessageFormatter.java`
-#### Snippet
-```java
-      } else if (option.acceptValue()) {
-        String argName = option.getArgName();
-        if (argName != null && argName.length() == 0) {
-          // if the option has a blank argname
-          buf.append(' ');
-```
-
-### SizeReplaceableByIsEmpty
 `cli.getSummary().trim().length() > 0` can be replaced with '!cli.getSummary().trim().isEmpty()'
 in `src/main/java/io/vertx/core/cli/UsageMessageFormatter.java`
 #### Snippet
@@ -747,15 +735,15 @@ in `src/main/java/io/vertx/core/cli/UsageMessageFormatter.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`option.getArgName().length() != 0` can be replaced with '!option.getArgName().isEmpty()'
+`s.trim().length() == 0` can be replaced with 's.trim().isEmpty()'
 in `src/main/java/io/vertx/core/cli/UsageMessageFormatter.java`
 #### Snippet
 ```java
-    } else {
-      // if the Option accepts values and a non blank argname
-      if (option.acceptValue() && (option.getArgName() == null || option.getArgName().length() != 0)) {
-        buff.append(isNullOrEmpty(option.getShortName()) ? getLongOptionSeparator() : " ");
-        buff.append("<").append(option.getArgName() != null ? option.getArgName() : getArgName()).append(">");
+
+  public static boolean isNullOrEmpty(String s) {
+    return s == null || s.trim().length() == 0;
+  }
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -771,15 +759,27 @@ in `src/main/java/io/vertx/core/cli/UsageMessageFormatter.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`s.trim().length() == 0` can be replaced with 's.trim().isEmpty()'
+`argName.length() == 0` can be replaced with 'argName.isEmpty()'
 in `src/main/java/io/vertx/core/cli/UsageMessageFormatter.java`
 #### Snippet
 ```java
+      } else if (option.acceptValue()) {
+        String argName = option.getArgName();
+        if (argName != null && argName.length() == 0) {
+          // if the option has a blank argname
+          buf.append(' ');
+```
 
-  public static boolean isNullOrEmpty(String s) {
-    return s == null || s.trim().length() == 0;
-  }
-
+### SizeReplaceableByIsEmpty
+`option.getArgName().length() != 0` can be replaced with '!option.getArgName().isEmpty()'
+in `src/main/java/io/vertx/core/cli/UsageMessageFormatter.java`
+#### Snippet
+```java
+    } else {
+      // if the Option accepts values and a non blank argname
+      if (option.acceptValue() && (option.getArgName() == null || option.getArgName().length() != 0)) {
+        buff.append(isNullOrEmpty(option.getShortName()) ? getLongOptionSeparator() : " ");
+        buff.append("<").append(option.getArgName() != null ? option.getArgName() : getArgName()).append(">");
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -807,18 +807,6 @@ in `src/main/java/io/vertx/core/net/impl/SSLHelper.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`content.length() == 0` can be replaced with 'content.isEmpty()'
-in `src/main/java/io/vertx/core/net/impl/KeyStoreHelper.java`
-#### Snippet
-```java
-          String content = pem.substring(beginMatcher.end(), endMatcher.start());
-          content = content.replaceAll("\\s", "");
-          if (content.length() == 0) {
-            throw new RuntimeException("Empty pem file");
-          }
-```
-
-### SizeReplaceableByIsEmpty
 `records.size() > 0` can be replaced with '!records.isEmpty()'
 in `src/main/java/io/vertx/core/dns/impl/DnsClientImpl.java`
 #### Snippet
@@ -828,6 +816,18 @@ in `src/main/java/io/vertx/core/dns/impl/DnsClientImpl.java`
         if (records.size() > 0 && (records.get(0) instanceof MxRecordImpl || records.get(0) instanceof SrvRecordImpl)) {
           Collections.sort((List) records);
         }
+```
+
+### SizeReplaceableByIsEmpty
+`content.length() == 0` can be replaced with 'content.isEmpty()'
+in `src/main/java/io/vertx/core/net/impl/KeyStoreHelper.java`
+#### Snippet
+```java
+          String content = pem.substring(beginMatcher.end(), endMatcher.start());
+          content = content.replaceAll("\\s", "");
+          if (content.length() == 0) {
+            throw new RuntimeException("Empty pem file");
+          }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -867,6 +867,18 @@ in `src/main/java/io/vertx/core/spi/tls/DefaultSslContextFactory.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`pendingPushes.size() > 0` can be replaced with '!pendingPushes.isEmpty()'
+in `src/main/java/io/vertx/core/http/impl/Http2ServerConnection.java`
+#### Snippet
+```java
+        concurrentStreams--;
+        int maxConcurrentStreams = handler.maxConcurrentStreams();
+        while (concurrentStreams < maxConcurrentStreams && pendingPushes.size() > 0) {
+          Push push = pendingPushes.pop();
+          concurrentStreams++;
+```
+
+### SizeReplaceableByIsEmpty
 `connection.length() > 0` can be replaced with '!connection.isEmpty()'
 in `src/main/java/io/vertx/core/http/impl/Http1xUpgradeToH2CHandler.java`
 #### Snippet
@@ -879,15 +891,27 @@ in `src/main/java/io/vertx/core/http/impl/Http1xUpgradeToH2CHandler.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`pendingPushes.size() > 0` can be replaced with '!pendingPushes.isEmpty()'
-in `src/main/java/io/vertx/core/http/impl/Http2ServerConnection.java`
+`uri.length() == 0` can be replaced with 'uri.isEmpty()'
+in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
 #### Snippet
 ```java
-        concurrentStreams--;
-        int maxConcurrentStreams = handler.maxConcurrentStreams();
-        while (concurrentStreams < maxConcurrentStreams && pendingPushes.size() > 0) {
-          Push push = pendingPushes.pop();
-          concurrentStreams++;
+   */
+  static String parsePath(String uri) {
+    if (uri.length() == 0) {
+      return "";
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`pathname.length() == 0` can be replaced with 'pathname.isEmpty()'
+in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
+#### Snippet
+```java
+
+    // add trailing slash if not set
+    if (pathname.length() == 0) {
+      return "/";
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -912,30 +936,6 @@ in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
             if (base.getAuthority() != null && basePath.length() == 0) {
               mergedPath = "/" + _ref.getRawPath();
             } else {
-```
-
-### SizeReplaceableByIsEmpty
-`pathname.length() == 0` can be replaced with 'pathname.isEmpty()'
-in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
-#### Snippet
-```java
-
-    // add trailing slash if not set
-    if (pathname.length() == 0) {
-      return "/";
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`uri.length() == 0` can be replaced with 'uri.isEmpty()'
-in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
-#### Snippet
-```java
-   */
-  static String parsePath(String uri) {
-    if (uri.length() == 0) {
-      return "";
-    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1113,11 +1113,11 @@ Dereference of `pool.waiters.poll()` may produce `NullPointerException`
 in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
 #### Snippet
 ```java
-            extra = new LeaseImpl[m];
-            for (int i = 0;i < m;i++) {
-              extra[i] = new LeaseImpl<>(slot, pool.waiters.poll().handler);
-            }
-            slot.usage += m;
+          leases = new LeaseImpl[m];
+          for (int i = 0;i < m;i++) {
+            leases[i] = new LeaseImpl<>(slot, pool.waiters.poll().handler);
+          }
+        } else {
 ```
 
 ### ConstantConditions
@@ -1125,11 +1125,11 @@ Dereference of `pool.waiters.poll()` may produce `NullPointerException`
 in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
 #### Snippet
 ```java
-          leases = new LeaseImpl[m];
-          for (int i = 0;i < m;i++) {
-            leases[i] = new LeaseImpl<>(slot, pool.waiters.poll().handler);
-          }
-        } else {
+            extra = new LeaseImpl[m];
+            for (int i = 0;i < m;i++) {
+              extra[i] = new LeaseImpl<>(slot, pool.waiters.poll().handler);
+            }
+            slot.usage += m;
 ```
 
 ### ConstantConditions
@@ -1157,30 +1157,6 @@ in `src/main/java/io/vertx/core/http/impl/ClientHttpEndpointBase.java`
 ```
 
 ### ConstantConditions
-Argument `buff` might be null
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-        }
-      } else {
-        msg = new DefaultHttpContent(buff);
-      }
-      writeToChannel(msg, listener);
-```
-
-### ConstantConditions
-Condition `response.statusCode != 100` is always `true`
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-
-        //
-        if (response.statusCode != 100 && request.method != HttpMethod.CONNECT) {
-          // See https://tools.ietf.org/html/rfc7230#section-6.3
-          String responseConnectionHeader = response.headers.get(HttpHeaderNames.CONNECTION);
-```
-
-### ConstantConditions
 Condition `ssl == Boolean.TRUE` is always `false`
 in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
 #### Snippet
@@ -1205,6 +1181,30 @@ in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
 ```
 
 ### ConstantConditions
+Condition `response.statusCode != 100` is always `true`
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+
+        //
+        if (response.statusCode != 100 && request.method != HttpMethod.CONNECT) {
+          // See https://tools.ietf.org/html/rfc7230#section-6.3
+          String responseConnectionHeader = response.headers.get(HttpHeaderNames.CONNECTION);
+```
+
+### ConstantConditions
+Argument `buff` might be null
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+        }
+      } else {
+        msg = new DefaultHttpContent(buff);
+      }
+      writeToChannel(msg, listener);
+```
+
+### ConstantConditions
 Dereference of `files` may produce `NullPointerException`
 in `src/main/java/io/vertx/core/file/impl/FileSystemImpl.java`
 #### Snippet
@@ -1214,18 +1214,6 @@ in `src/main/java/io/vertx/core/file/impl/FileSystemImpl.java`
             List<String> ret = new ArrayList<>(files.length);
             for (File f : files) {
               ret.add(f.getCanonicalPath());
-```
-
-### ConstantConditions
-Method invocation `toString` may produce `NullPointerException`
-in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
-#### Snippet
-```java
-          @Override
-          public String getKey() {
-            return next.key.toString();
-          }
-          @Override
 ```
 
 ### ConstantConditions
@@ -1250,6 +1238,18 @@ in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
       encoderHeader(current.key, current.value, buf);
       current = current.after;
     }
+```
+
+### ConstantConditions
+Method invocation `toString` may produce `NullPointerException`
+in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
+#### Snippet
+```java
+          @Override
+          public String getKey() {
+            return next.key.toString();
+          }
+          @Override
 ```
 
 ### ConstantConditions
@@ -1306,9 +1306,9 @@ Empty string used in concatenation
 in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
 #### Snippet
 ```java
-    public String value(HttpServerResponse resp, int index) {
+    public String value(HttpResponseHead resp, int index) {
       if (index == 0) {
-        return "" + resp.getStatusCode();
+        return "" + resp.statusCode;
       }
       throw new IndexOutOfBoundsException("Invalid tag index " + index);
 ```
@@ -1318,9 +1318,9 @@ Empty string used in concatenation
 in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
 #### Snippet
 ```java
-    public String value(HttpResponseHead resp, int index) {
+    public String value(HttpServerResponse resp, int index) {
       if (index == 0) {
-        return "" + resp.statusCode;
+        return "" + resp.getStatusCode();
       }
       throw new IndexOutOfBoundsException("Invalid tag index " + index);
 ```
@@ -1352,18 +1352,6 @@ in `src/main/java/io/vertx/core/Future.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/vertx/core/Future.java`
-#### Snippet
-```java
-   */
-  @GenIgnore
-  static <T> Future<T> fromCompletionStage(CompletionStage<T> completionStage) {
-    Promise<T> promise = Promise.promise();
-    completionStage.whenComplete((value, err) -> {
-```
-
-### BoundedWildcard
 Can generalize to `? super Throwable`
 in `src/main/java/io/vertx/core/Future.java`
 #### Snippet
@@ -1373,18 +1361,6 @@ in `src/main/java/io/vertx/core/Future.java`
   default Future<T> onFailure(Handler<Throwable> handler) {
     return onComplete(ar -> {
       if (ar.failed()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/io/vertx/core/Future.java`
-#### Snippet
-```java
-   */
-  @Fluent
-  default Future<T> onSuccess(Handler<T> handler) {
-    return onComplete(ar -> {
-      if (ar.succeeded()) {
 ```
 
 ### BoundedWildcard
@@ -1409,6 +1385,30 @@ in `src/main/java/io/vertx/core/Future.java`
   static <T> Future<T> fromCompletionStage(CompletionStage<T> completionStage, Context context) {
     Promise<T> promise = ((ContextInternal) context).promise();
     completionStage.whenComplete((value, err) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/vertx/core/Future.java`
+#### Snippet
+```java
+   */
+  @GenIgnore
+  static <T> Future<T> fromCompletionStage(CompletionStage<T> completionStage) {
+    Promise<T> promise = Promise.promise();
+    completionStage.whenComplete((value, err) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/io/vertx/core/Future.java`
+#### Snippet
+```java
+   */
+  @Fluent
+  default Future<T> onSuccess(Handler<T> handler) {
+    return onComplete(ar -> {
+      if (ar.succeeded()) {
 ```
 
 ### BoundedWildcard
@@ -1460,15 +1460,15 @@ in `src/main/java/io/vertx/core/cli/converters/ValueOfBasedConverter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Option`
-in `src/main/java/io/vertx/core/cli/impl/DefaultCLI.java`
+Can generalize to `? extends T`
+in `src/main/java/io/vertx/core/cli/impl/DefaultCommandLine.java`
 #### Snippet
 ```java
 
-  @Override
-  public CLI addOptions(List<Option> options) {
-    Objects.requireNonNull(options);
-    options.forEach(this::addOption);
+
+  public static <T> List<T> createFromList(String raw, TypedOption<T> option) {
+    if (raw == null) {
+      return Collections.emptyList();
 ```
 
 ### BoundedWildcard
@@ -1496,15 +1496,15 @@ in `src/main/java/io/vertx/core/cli/impl/DefaultCLI.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/vertx/core/cli/impl/DefaultCommandLine.java`
+Can generalize to `? extends Option`
+in `src/main/java/io/vertx/core/cli/impl/DefaultCLI.java`
 #### Snippet
 ```java
 
-
-  public static <T> List<T> createFromList(String raw, TypedOption<T> option) {
-    if (raw == null) {
-      return Collections.emptyList();
+  @Override
+  public CLI addOptions(List<Option> options) {
+    Objects.requireNonNull(options);
+    options.forEach(this::addOption);
 ```
 
 ### BoundedWildcard
@@ -1526,9 +1526,9 @@ in `src/main/java/io/vertx/core/net/PemKeyCertOptions.java`
 ```java
    * @return a reference to this, so the API can be used fluently
    */
-  public PemKeyCertOptions setCertValues(List<Buffer> certValues) {
-    this.certValues.clear();
-    this.certValues.addAll(certValues);
+  public PemKeyCertOptions setKeyValues(List<Buffer> keyValues) {
+    this.keyValues.clear();
+    this.keyValues.addAll(keyValues);
 ```
 
 ### BoundedWildcard
@@ -1538,9 +1538,9 @@ in `src/main/java/io/vertx/core/net/PemKeyCertOptions.java`
 ```java
    * @return a reference to this, so the API can be used fluently
    */
-  public PemKeyCertOptions setKeyValues(List<Buffer> keyValues) {
-    this.keyValues.clear();
-    this.keyValues.addAll(keyValues);
+  public PemKeyCertOptions setCertValues(List<Buffer> certValues) {
+    this.certValues.clear();
+    this.certValues.addAll(certValues);
 ```
 
 ### BoundedWildcard
@@ -1553,18 +1553,6 @@ in `src/main/java/io/vertx/core/net/impl/HAProxyMessageCompletionHandler.java`
   public HAProxyMessageCompletionHandler(Promise<Channel> promise) {
     this.promise = promise;
   }
-```
-
-### BoundedWildcard
-Can generalize to `? super C`
-in `src/main/java/io/vertx/core/net/impl/VertxHandler.java`
-#### Snippet
-```java
-   * @return this
-   */
-  public VertxHandler<C> addHandler(Handler<C> handler) {
-    this.addHandler = handler;
-    return this;
 ```
 
 ### BoundedWildcard
@@ -1592,15 +1580,15 @@ in `src/main/java/io/vertx/core/net/impl/VertxHandler.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Void`
-in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
+Can generalize to `? super C`
+in `src/main/java/io/vertx/core/net/impl/VertxHandler.java`
 #### Snippet
 ```java
-   * @param promise the promise receiving the completion event
+   * @return this
    */
-  private void writeClose(PromiseInternal<Void> promise) {
-    if (closed) {
-      promise.complete();
+  public VertxHandler<C> addHandler(Handler<C> handler) {
+    this.addHandler = handler;
+    return this;
 ```
 
 ### BoundedWildcard
@@ -1628,15 +1616,15 @@ in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CRL`
-in `src/main/java/io/vertx/core/net/impl/SSLHelper.java`
+Can generalize to `? super Void`
+in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
 #### Snippet
 ```java
-  against the Certificate Revocation List (crl) before delegating to the original trust managers.
+   * @param promise the promise receiving the completion event
    */
-  private static TrustManager[] createUntrustRevokedCertTrustManager(TrustManager[] trustMgrs, ArrayList<CRL> crls) {
-    trustMgrs = trustMgrs.clone();
-    for (int i = 0;i < trustMgrs.length;i++) {
+  private void writeClose(PromiseInternal<Void> promise) {
+    if (closed) {
+      promise.complete();
 ```
 
 ### BoundedWildcard
@@ -1649,6 +1637,18 @@ in `src/main/java/io/vertx/core/net/impl/pool/ConnectionManager.java`
   public void forEach(Consumer<Endpoint<C>> consumer) {
     endpointMap.values().forEach(consumer);
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends CRL`
+in `src/main/java/io/vertx/core/net/impl/SSLHelper.java`
+#### Snippet
+```java
+  against the Certificate Revocation List (crl) before delegating to the original trust managers.
+   */
+  private static TrustManager[] createUntrustRevokedCertTrustManager(TrustManager[] trustMgrs, ArrayList<CRL> crls) {
+    trustMgrs = trustMgrs.clone();
+    for (int i = 0;i < trustMgrs.length;i++) {
 ```
 
 ### BoundedWildcard
@@ -1673,6 +1673,18 @@ in `src/main/java/io/vertx/core/net/impl/pool/SemaphoreExecutor.java`
   public void submit(Action<S> action) {
     lock.lock();
     Task post = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `src/main/java/io/vertx/core/dns/impl/DnsClientImpl.java`
+#### Snippet
+```java
+
+  // Testing purposes
+  public void inProgressQueries(Handler<Integer> handler) {
+    actualCtx.runOnContext(v -> {
+      handler.handle(inProgressMap.size());
 ```
 
 ### BoundedWildcard
@@ -1724,42 +1736,6 @@ in `src/main/java/io/vertx/core/net/impl/NetClientImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Integer`
-in `src/main/java/io/vertx/core/dns/impl/DnsClientImpl.java`
-#### Snippet
-```java
-
-  // Testing purposes
-  public void inProgressQueries(Handler<Integer> handler) {
-    actualCtx.runOnContext(v -> {
-      handler.handle(inProgressMap.size());
-```
-
-### BoundedWildcard
-Can generalize to `? super Channel`
-in `src/main/java/io/vertx/core/net/impl/ChannelProvider.java`
-#### Snippet
-```java
-   * @param channelHandler the channel handler
-   */
-  private void connected(Handler<Channel> handler, Channel channel, boolean ssl, Promise<Channel> channelHandler) {
-    if (!ssl) {
-      // No handshake
-```
-
-### BoundedWildcard
-Can generalize to `? super Channel`
-in `src/main/java/io/vertx/core/net/impl/ChannelProvider.java`
-#### Snippet
-```java
-   * @param channelHandler the channel handler
-   */
-  private void connected(Handler<Channel> handler, Channel channel, boolean ssl, Promise<Channel> channelHandler) {
-    if (!ssl) {
-      // No handshake
-```
-
-### BoundedWildcard
 Can generalize to `? super Channel`
 in `src/main/java/io/vertx/core/net/impl/ChannelProvider.java`
 #### Snippet
@@ -1784,15 +1760,27 @@ in `src/main/java/io/vertx/core/net/impl/ChannelProvider.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Iterable`
-in `src/main/java/io/vertx/core/spi/cluster/impl/DefaultNodeSelector.java`
+Can generalize to `? super Channel`
+in `src/main/java/io/vertx/core/net/impl/ChannelProvider.java`
 #### Snippet
 ```java
+   * @param channelHandler the channel handler
+   */
+  private void connected(Handler<Channel> handler, Channel channel, boolean ssl, Promise<Channel> channelHandler) {
+    if (!ssl) {
+      // No handshake
+```
 
-  @Override
-  public void selectForPublish(Message<?> message, Promise<Iterable<String>> promise) {
-    Arguments.require(!message.isSend(), "selectForPublish used for sending");
-    selectors.withSelector(message, promise, (prom, selector) -> {
+### BoundedWildcard
+Can generalize to `? super Channel`
+in `src/main/java/io/vertx/core/net/impl/ChannelProvider.java`
+#### Snippet
+```java
+   * @param channelHandler the channel handler
+   */
+  private void connected(Handler<Channel> handler, Channel channel, boolean ssl, Promise<Channel> channelHandler) {
+    if (!ssl) {
+      // No handshake
 ```
 
 ### BoundedWildcard
@@ -1808,51 +1796,15 @@ in `src/main/java/io/vertx/core/spi/cluster/impl/DefaultNodeSelector.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/io/vertx/core/spi/tracing/TagExtractor.java`
+Can generalize to `? super Iterable`
+in `src/main/java/io/vertx/core/spi/cluster/impl/DefaultNodeSelector.java`
 #### Snippet
 ```java
-   * @param consumer the consumer populated with the tags extracted from the object
-   */
-  default void extractTo(T obj, BiConsumer<String, String> consumer) {
-    int len = len(obj);
-    for (int idx = 0;idx < len;idx++) {
-```
 
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/io/vertx/core/spi/tracing/TagExtractor.java`
-#### Snippet
-```java
-   * @param consumer the consumer populated with the tags extracted from the object
-   */
-  default void extractTo(T obj, BiConsumer<String, String> consumer) {
-    int len = len(obj);
-    for (int idx = 0;idx < len;idx++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/io/vertx/core/spi/tracing/TagExtractor.java`
-#### Snippet
-```java
-   * @param tags the map populated with the tags extracted from the object
-   */
-  default void extractTo(T obj, Map<String, String> tags) {
-    int len = len(obj);
-    for (int idx = 0;idx < len;idx++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/io/vertx/core/spi/tracing/TagExtractor.java`
-#### Snippet
-```java
-   * @param tags the map populated with the tags extracted from the object
-   */
-  default void extractTo(T obj, Map<String, String> tags) {
-    int len = len(obj);
-    for (int idx = 0;idx < len;idx++) {
+  @Override
+  public void selectForPublish(Message<?> message, Promise<Iterable<String>> promise) {
+    Arguments.require(!message.isSend(), "selectForPublish used for sending");
+    selectors.withSelector(message, promise, (prom, selector) -> {
 ```
 
 ### BoundedWildcard
@@ -1877,6 +1829,18 @@ in `src/main/java/io/vertx/core/net/impl/NetServerImpl.java`
     NetServerWorker(ContextInternal context, SSLHelper sslHelper, Handler<NetSocket> connectionHandler, Handler<Throwable> exceptionHandler) {
       this.context = context;
       this.sslHelper = sslHelper;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Weight`
+in `src/main/java/io/vertx/core/spi/cluster/impl/selector/SelectorEntry.java`
+#### Snippet
+```java
+  }
+
+  private boolean isEvenlyDistributed(Map<String, Weight> weights) {
+    if (weights.size() > 1) {
+      Weight previous = null;
 ```
 
 ### BoundedWildcard
@@ -1916,15 +1880,51 @@ in `src/main/java/io/vertx/core/spi/cluster/impl/selector/Selectors.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Weight`
-in `src/main/java/io/vertx/core/spi/cluster/impl/selector/SelectorEntry.java`
+Can generalize to `? super String`
+in `src/main/java/io/vertx/core/spi/tracing/TagExtractor.java`
 #### Snippet
 ```java
-  }
+   * @param consumer the consumer populated with the tags extracted from the object
+   */
+  default void extractTo(T obj, BiConsumer<String, String> consumer) {
+    int len = len(obj);
+    for (int idx = 0;idx < len;idx++) {
+```
 
-  private boolean isEvenlyDistributed(Map<String, Weight> weights) {
-    if (weights.size() > 1) {
-      Weight previous = null;
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/io/vertx/core/spi/tracing/TagExtractor.java`
+#### Snippet
+```java
+   * @param consumer the consumer populated with the tags extracted from the object
+   */
+  default void extractTo(T obj, BiConsumer<String, String> consumer) {
+    int len = len(obj);
+    for (int idx = 0;idx < len;idx++) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/io/vertx/core/spi/tracing/TagExtractor.java`
+#### Snippet
+```java
+   * @param tags the map populated with the tags extracted from the object
+   */
+  default void extractTo(T obj, Map<String, String> tags) {
+    int len = len(obj);
+    for (int idx = 0;idx < len;idx++) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/io/vertx/core/spi/tracing/TagExtractor.java`
+#### Snippet
+```java
+   * @param tags the map populated with the tags extracted from the object
+   */
+  default void extractTo(T obj, Map<String, String> tags) {
+    int len = len(obj);
+    for (int idx = 0;idx < len;idx++) {
 ```
 
 ### BoundedWildcard
@@ -1968,6 +1968,18 @@ Can generalize to `? super AsyncResult`>
 in `src/main/java/io/vertx/core/http/impl/SharedClientHttpStreamEndpoint.java`
 #### Snippet
 ```java
+    private long timerID;
+
+    Request(ContextInternal context, HttpVersion protocol, long timeout, Handler<AsyncResult<Lease<HttpClientConnection>>> handler) {
+      this.context = context;
+      this.protocol = protocol;
+```
+
+### BoundedWildcard
+Can generalize to `? super AsyncResult`>
+in `src/main/java/io/vertx/core/http/impl/SharedClientHttpStreamEndpoint.java`
+#### Snippet
+```java
 
   @Override
   public void connect(EventLoopContext context, Listener listener, Handler<AsyncResult<ConnectResult<HttpClientConnection>>> handler) {
@@ -1976,15 +1988,15 @@ in `src/main/java/io/vertx/core/http/impl/SharedClientHttpStreamEndpoint.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super AsyncResult`>
-in `src/main/java/io/vertx/core/http/impl/SharedClientHttpStreamEndpoint.java`
+Can generalize to `? super AsyncResult`
+in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 #### Snippet
 ```java
-    private long timerID;
+  }
 
-    Request(ContextInternal context, HttpVersion protocol, long timeout, Handler<AsyncResult<Lease<HttpClientConnection>>> handler) {
-      this.context = context;
-      this.protocol = protocol;
+  private synchronized void doWrite(Buffer buffer, long position, Handler<AsyncResult<Void>> handler) {
+    Objects.requireNonNull(buffer, "buffer");
+    Arguments.require(position >= 0, "position must be >= 0");
 ```
 
 ### BoundedWildcard
@@ -2000,18 +2012,6 @@ in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Buffer`
-in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
-#### Snippet
-```java
-  }
-
-  private void doRead(Buffer writeBuff, int offset, ByteBuffer buff, long position, Promise<Buffer> promise) {
-
-    ch.read(buff, position, null, new java.nio.channels.CompletionHandler<Integer, Object>() {
-```
-
-### BoundedWildcard
 Can generalize to `? super AsyncResult`
 in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 #### Snippet
@@ -2024,6 +2024,18 @@ in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Buffer`
+in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
+#### Snippet
+```java
+  }
+
+  private void doRead(Buffer writeBuff, int offset, ByteBuffer buff, long position, Promise<Buffer> promise) {
+
+    ch.read(buff, position, null, new java.nio.channels.CompletionHandler<Integer, Object>() {
+```
+
+### BoundedWildcard
 Can generalize to `? super Throwable`
 in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 #### Snippet
@@ -2033,18 +2045,6 @@ in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
   public synchronized AsyncFile exceptionHandler(Handler<Throwable> handler) {
     check();
     this.exceptionHandler = handler;
-```
-
-### BoundedWildcard
-Can generalize to `? super AsyncResult`
-in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
-#### Snippet
-```java
-  }
-
-  private synchronized void doWrite(Buffer buffer, long position, Handler<AsyncResult<Void>> handler) {
-    Objects.requireNonNull(buffer, "buffer");
-    Arguments.require(position >= 0, "position must be >= 0");
 ```
 
 ### BoundedWildcard
@@ -2097,38 +2097,14 @@ in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
 
 ### BoundedWildcard
 Can generalize to `? super AsyncResult`
-in `src/main/java/io/vertx/core/net/impl/NetSocketImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public NetSocket upgradeToSsl(String serverName, Handler<AsyncResult<Void>> handler) {
-    ChannelHandler sslHandler = chctx.pipeline().get("ssl");
-    if (sslHandler == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super AsyncResult`
-in `src/main/java/io/vertx/core/net/impl/NetSocketImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public NetSocket sendFile(String filename, long offset, long length, final Handler<AsyncResult<Void>> resultHandler) {
-    File f = vertx.resolveFile(filename);
-    if (f.isDirectory()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super AsyncResult`>>
 in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
 #### Snippet
 ```java
-    private final Handler<AsyncResult<List<Future<C>>>> handler;
+    private boolean cancelled;
 
-    private Close(Handler<AsyncResult<List<Future<C>>>> handler) {
+    public Cancel(PoolWaiter<C> waiter, Handler<AsyncResult<Boolean>> handler) {
+      this.waiter = waiter;
       this.handler = handler;
-    }
 ```
 
 ### BoundedWildcard
@@ -2168,27 +2144,27 @@ in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super AsyncResult`
+Can generalize to `? super AsyncResult`>>
 in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
 #### Snippet
 ```java
-    private boolean cancelled;
+    private final Handler<AsyncResult<List<Future<C>>>> handler;
 
-    public Cancel(PoolWaiter<C> waiter, Handler<AsyncResult<Boolean>> handler) {
-      this.waiter = waiter;
+    private Close(Handler<AsyncResult<List<Future<C>>>> handler) {
       this.handler = handler;
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super HttpFrame`
-in `src/main/java/io/vertx/core/http/impl/HttpClientResponseImpl.java`
+Can generalize to `? super Long`
+in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
 #### Snippet
 ```java
 
   @Override
-  public HttpClientResponse customFrameHandler(Handler<HttpFrame> handler) {
-    synchronized (conn) {
-      if (handler != null) {
+  public Http2ClientConnection concurrencyChangeHandler(Handler<Long> handler) {
+    concurrencyChangeHandler = handler;
+    return this;
 ```
 
 ### BoundedWildcard
@@ -2216,15 +2192,39 @@ in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Long`
-in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
+Can generalize to `? super AsyncResult`
+in `src/main/java/io/vertx/core/net/impl/NetSocketImpl.java`
 #### Snippet
 ```java
 
   @Override
-  public Http2ClientConnection concurrencyChangeHandler(Handler<Long> handler) {
-    concurrencyChangeHandler = handler;
-    return this;
+  public NetSocket upgradeToSsl(String serverName, Handler<AsyncResult<Void>> handler) {
+    ChannelHandler sslHandler = chctx.pipeline().get("ssl");
+    if (sslHandler == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super AsyncResult`
+in `src/main/java/io/vertx/core/net/impl/NetSocketImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public NetSocket sendFile(String filename, long offset, long length, final Handler<AsyncResult<Void>> resultHandler) {
+    File f = vertx.resolveFile(filename);
+    if (f.isDirectory()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super HttpFrame`
+in `src/main/java/io/vertx/core/http/impl/HttpClientResponseImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public HttpClientResponse customFrameHandler(Handler<HttpFrame> handler) {
+    synchronized (conn) {
+      if (handler != null) {
 ```
 
 ### BoundedWildcard
@@ -2264,6 +2264,18 @@ in `src/main/java/io/vertx/core/http/impl/VertxHttp2ConnectionHandler.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Void`
+in `src/main/java/io/vertx/core/http/impl/VertxHttp2ConnectionHandler.java`
+#### Snippet
+```java
+  //
+
+  void writeHeaders(Http2Stream stream, Http2Headers headers, boolean end, int streamDependency, short weight, boolean exclusive, FutureListener<Void> listener) {
+    ChannelPromise promise = listener == null ? chctx.voidPromise() : chctx.newPromise().addListener(listener);
+    encoder().writeHeaders(chctx, stream.id(), headers, streamDependency, weight, exclusive, 0, end, promise);
+```
+
+### BoundedWildcard
 Can generalize to `? super C`
 in `src/main/java/io/vertx/core/http/impl/VertxHttp2ConnectionHandler.java`
 #### Snippet
@@ -2285,18 +2297,6 @@ in `src/main/java/io/vertx/core/http/impl/VertxHttp2ConnectionHandler.java`
   public VertxHttp2ConnectionHandler<C> addHandler(Handler<C> handler) {
     this.addHandler = handler;
     return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Void`
-in `src/main/java/io/vertx/core/http/impl/VertxHttp2ConnectionHandler.java`
-#### Snippet
-```java
-  //
-
-  void writeHeaders(Http2Stream stream, Http2Headers headers, boolean end, int streamDependency, short weight, boolean exclusive, FutureListener<Void> listener) {
-    ChannelPromise promise = listener == null ? chctx.voidPromise() : chctx.newPromise().addListener(listener);
-    encoder().writeHeaders(chctx, stream.id(), headers, streamDependency, weight, exclusive, 0, end, promise);
 ```
 
 ### BoundedWildcard
@@ -2354,8 +2354,8 @@ in `src/main/java/io/vertx/core/http/impl/HttpNetSocket.java`
 ```java
 
   @Override
-  public NetSocket upgradeToSsl(Handler<AsyncResult<Void>> handler) {
-    handler.handle(upgradeToSsl());
+  public NetSocket upgradeToSsl(String serverName, Handler<AsyncResult<Void>> handler) {
+    handler.handle(upgradeToSsl(serverName));
     return this;
 ```
 
@@ -2366,8 +2366,8 @@ in `src/main/java/io/vertx/core/http/impl/HttpNetSocket.java`
 ```java
 
   @Override
-  public NetSocket upgradeToSsl(String serverName, Handler<AsyncResult<Void>> handler) {
-    handler.handle(upgradeToSsl(serverName));
+  public NetSocket upgradeToSsl(Handler<AsyncResult<Void>> handler) {
+    handler.handle(upgradeToSsl());
     return this;
 ```
 
@@ -2420,6 +2420,18 @@ in `src/main/java/io/vertx/core/http/impl/WebSocketEndpoint.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Throwable`
+in `src/main/java/io/vertx/core/http/impl/HttpServerWorker.java`
+#### Snippet
+```java
+                          boolean disableH2C,
+                          Handler<HttpServerConnection> connectionHandler,
+                          Handler<Throwable> exceptionHandler) {
+
+    CompressionOptions[] compressionOptions = null;
+```
+
+### BoundedWildcard
 Can generalize to `? super HttpServerConnection`
 in `src/main/java/io/vertx/core/http/impl/HttpServerWorker.java`
 #### Snippet
@@ -2432,15 +2444,39 @@ in `src/main/java/io/vertx/core/http/impl/HttpServerWorker.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Throwable`
-in `src/main/java/io/vertx/core/http/impl/HttpServerWorker.java`
+Can generalize to `? super HttpClientRequest`
+in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
 #### Snippet
 ```java
-                          boolean disableH2C,
-                          Handler<HttpServerConnection> connectionHandler,
-                          Handler<Throwable> exceptionHandler) {
+    ProxyOptions proxyOptions,
+    EndpointKey key,
+    PromiseInternal<HttpClientRequest> requestPromise) {
+    ContextInternal ctx = requestPromise.context();
+    EndpointProvider<Lease<HttpClientConnection>> provider = new EndpointProvider<Lease<HttpClientConnection>>() {
+```
 
-    CompressionOptions[] compressionOptions = null;
+### BoundedWildcard
+Can generalize to `? super AsyncResult`
+in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
+#### Snippet
+```java
+
+  @Override
+  public HttpServerResponse sendFile(String filename, long offset, long length, Handler<AsyncResult<Void>> resultHandler) {
+    synchronized (conn) {
+      checkValid();
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+
+    @Override
+    public StreamImpl exceptionHandler(Handler<Throwable> handler) {
+      exceptionHandler = handler;
+      return this;
 ```
 
 ### BoundedWildcard
@@ -2468,18 +2504,6 @@ in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Throwable`
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-
-    @Override
-    public StreamImpl exceptionHandler(Handler<Throwable> handler) {
-      exceptionHandler = handler;
-      return this;
-```
-
-### BoundedWildcard
 Can generalize to `? super CloseFuture`
 in `src/main/java/io/vertx/core/impl/SharedClientHolder.java`
 #### Snippet
@@ -2489,42 +2513,6 @@ class SharedClientHolder<C> implements Shareable {
   static <C> C createSharedClient(Vertx vertx, String clientKey, String clientName, CloseFuture closeFuture, Function<CloseFuture, C> supplier) {
     LocalMap<String, SharedClientHolder<C>> localMap = vertx.sharedData().getLocalMap(clientKey);
     SharedClientHolder<C> v = localMap.compute(clientName, (key, value) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super AsyncResult`
-in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
-#### Snippet
-```java
-
-  @Override
-  public HttpServerResponse sendFile(String filename, long offset, long length, Handler<AsyncResult<Void>> resultHandler) {
-    synchronized (conn) {
-      checkValid();
-```
-
-### BoundedWildcard
-Can generalize to `? super Promise`
-in `src/main/java/io/vertx/core/impl/ContextBase.java`
-#### Snippet
-```java
-  }
-
-  static <T> Future<T> executeBlocking(ContextInternal context, Handler<Promise<T>> blockingCodeHandler,
-      WorkerPool workerPool, TaskQueue queue) {
-    PoolMetrics metrics = workerPool.metrics();
-```
-
-### BoundedWildcard
-Can generalize to `? super VertxServiceProvider`
-in `src/main/java/io/vertx/core/impl/VertxBuilder.java`
-#### Snippet
-```java
-  }
-
-  private static void initTracing(VertxOptions options, Collection<VertxServiceProvider> providers) {
-    TracingOptions tracingOptions = options.getTracingOptions();
-    if (tracingOptions != null) {
 ```
 
 ### BoundedWildcard
@@ -2564,15 +2552,27 @@ in `src/main/java/io/vertx/core/impl/VertxBuilder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super HttpClientRequest`
-in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
+Can generalize to `? super VertxServiceProvider`
+in `src/main/java/io/vertx/core/impl/VertxBuilder.java`
 #### Snippet
 ```java
-    ProxyOptions proxyOptions,
-    EndpointKey key,
-    PromiseInternal<HttpClientRequest> requestPromise) {
-    ContextInternal ctx = requestPromise.context();
-    EndpointProvider<Lease<HttpClientConnection>> provider = new EndpointProvider<Lease<HttpClientConnection>>() {
+  }
+
+  private static void initTracing(VertxOptions options, Collection<VertxServiceProvider> providers) {
+    TracingOptions tracingOptions = options.getTracingOptions();
+    if (tracingOptions != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Promise`
+in `src/main/java/io/vertx/core/impl/ContextBase.java`
+#### Snippet
+```java
+  }
+
+  static <T> Future<T> executeBlocking(ContextInternal context, Handler<Promise<T>> blockingCodeHandler,
+      WorkerPool workerPool, TaskQueue queue) {
+    PoolMetrics metrics = workerPool.metrics();
 ```
 
 ### BoundedWildcard
@@ -2600,6 +2600,18 @@ in `src/main/java/io/vertx/core/impl/HAManager.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/vertx/core/impl/future/PromiseImpl.java`
+#### Snippet
+```java
+  }
+
+  public void handle(AsyncResult<T> ar) {
+    if (ar.succeeded()) {
+      onSuccess(ar.result());
+```
+
+### BoundedWildcard
 Can generalize to `? super Throwable`
 in `src/main/java/io/vertx/core/impl/future/Otherwise.java`
 #### Snippet
@@ -2621,18 +2633,6 @@ in `src/main/java/io/vertx/core/impl/future/Otherwise.java`
   Otherwise(ContextInternal context, Function<Throwable, T> mapper) {
     super(context);
     this.mapper = mapper;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/vertx/core/impl/future/PromiseImpl.java`
-#### Snippet
-```java
-  }
-
-  public void handle(AsyncResult<T> ar) {
-    if (ar.succeeded()) {
-      onSuccess(ar.result());
 ```
 
 ### BoundedWildcard
@@ -2660,30 +2660,6 @@ in `src/main/java/io/vertx/core/impl/future/Mapping.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Throwable`
-in `src/main/java/io/vertx/core/impl/future/FailedFuture.java`
-#### Snippet
-```java
-
-  @Override
-  public Future<T> onFailure(Handler<Throwable> handler) {
-    if (context != null) {
-      context.emit(cause, handler);
-```
-
-### BoundedWildcard
-Can generalize to `? super AsyncResult`
-in `src/main/java/io/vertx/core/impl/future/FailedFuture.java`
-#### Snippet
-```java
-
-  @Override
-  public Future<T> onComplete(Handler<AsyncResult<T>> handler) {
-    if (handler instanceof Listener) {
-      emitFailure(cause, (Listener<T>) handler);
-```
-
-### BoundedWildcard
 Can generalize to `? super T`
 in `src/main/java/io/vertx/core/impl/future/SucceededFuture.java`
 #### Snippet
@@ -2705,6 +2681,30 @@ in `src/main/java/io/vertx/core/impl/future/SucceededFuture.java`
   public Future<T> onComplete(Handler<AsyncResult<T>> handler) {
     if (handler instanceof Listener) {
       emitSuccess(result ,(Listener<T>) handler);
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `src/main/java/io/vertx/core/impl/future/FailedFuture.java`
+#### Snippet
+```java
+
+  @Override
+  public Future<T> onFailure(Handler<Throwable> handler) {
+    if (context != null) {
+      context.emit(cause, handler);
+```
+
+### BoundedWildcard
+Can generalize to `? super AsyncResult`
+in `src/main/java/io/vertx/core/impl/future/FailedFuture.java`
+#### Snippet
+```java
+
+  @Override
+  public Future<T> onComplete(Handler<AsyncResult<T>> handler) {
+    if (handler instanceof Listener) {
+      emitFailure(cause, (Listener<T>) handler);
 ```
 
 ### BoundedWildcard
@@ -2744,87 +2744,15 @@ in `src/main/java/io/vertx/core/impl/future/Composition.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super CharSequence`
-in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
+Can generalize to `? super T`
+in `src/main/java/io/vertx/core/impl/future/FutureBase.java`
 #### Snippet
 ```java
   }
 
-  public HeadersMultiMap(BiConsumer<CharSequence, CharSequence> validator) {
-    this.validator = validator;
-    head.before = head.after = head;
-```
-
-### BoundedWildcard
-Can generalize to `? super CharSequence`
-in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
-#### Snippet
-```java
-  }
-
-  public HeadersMultiMap(BiConsumer<CharSequence, CharSequence> validator) {
-    this.validator = validator;
-    head.before = head.after = head;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map.Entry`
-in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
-#### Snippet
-```java
-  }
-
-  private MultiMap set0(Iterable<Map.Entry<String, String>> map) {
-    clear();
-    for (Map.Entry<String, String> entry: map) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map.Entry`
-in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
-#### Snippet
-```java
-  }
-
-  private MultiMap addAll(Iterable<Map.Entry<String, String>> headers) {
-    for (Map.Entry<String, String> entry: headers) {
-      add(entry.getKey(), entry.getValue());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
-#### Snippet
-```java
-
-  @Override
-  public void forEach(BiConsumer<String, String> action) {
-    HeadersMultiMap.MapEntry e = head.after;
-    while (e != head) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
-#### Snippet
-```java
-
-  @Override
-  public void forEach(BiConsumer<String, String> action) {
-    HeadersMultiMap.MapEntry e = head.after;
-    while (e != head) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public Future<T> onFailure(Handler<Throwable> handler) {
-    Objects.requireNonNull(handler, "No null handler accepted");
-    addListener(new Listener<T>() {
+  protected final void emitSuccess(T value, Listener<T> listener) {
+    if (context != null && !context.isRunningOnContext()) {
+      context.execute(() -> {
 ```
 
 ### BoundedWildcard
@@ -2852,15 +2780,15 @@ in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/io/vertx/core/impl/future/FutureBase.java`
+Can generalize to `? super Throwable`
+in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
 #### Snippet
 ```java
-  }
 
-  protected final void emitSuccess(T value, Listener<T> listener) {
-    if (context != null && !context.isRunningOnContext()) {
-      context.execute(() -> {
+  @Override
+  public Future<T> onFailure(Handler<Throwable> handler) {
+    Objects.requireNonNull(handler, "No null handler accepted");
+    addListener(new Listener<T>() {
 ```
 
 ### BoundedWildcard
@@ -2873,6 +2801,90 @@ in `src/main/java/io/vertx/core/impl/future/Transformation.java`
   Transformation(ContextInternal context, Future<T> future, Function<AsyncResult<T>, Future<U>> mapper) {
     super(context);
     this.future = future;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map.Entry`
+in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
+#### Snippet
+```java
+  }
+
+  private MultiMap set0(Iterable<Map.Entry<String, String>> map) {
+    clear();
+    for (Map.Entry<String, String> entry: map) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
+#### Snippet
+```java
+
+  @Override
+  public void forEach(BiConsumer<String, String> action) {
+    HeadersMultiMap.MapEntry e = head.after;
+    while (e != head) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
+#### Snippet
+```java
+
+  @Override
+  public void forEach(BiConsumer<String, String> action) {
+    HeadersMultiMap.MapEntry e = head.after;
+    while (e != head) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map.Entry`
+in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
+#### Snippet
+```java
+  }
+
+  private MultiMap addAll(Iterable<Map.Entry<String, String>> headers) {
+    for (Map.Entry<String, String> entry: headers) {
+      add(entry.getKey(), entry.getValue());
+```
+
+### BoundedWildcard
+Can generalize to `? super CharSequence`
+in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
+#### Snippet
+```java
+  }
+
+  public HeadersMultiMap(BiConsumer<CharSequence, CharSequence> validator) {
+    this.validator = validator;
+    head.before = head.after = head;
+```
+
+### BoundedWildcard
+Can generalize to `? super CharSequence`
+in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
+#### Snippet
+```java
+  }
+
+  public HeadersMultiMap(BiConsumer<CharSequence, CharSequence> validator) {
+    this.validator = validator;
+    head.before = head.after = head;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/io/vertx/core/impl/launcher/commands/ExecUtils.java`
+#### Snippet
+```java
+   * @param argument the argument to add
+   */
+  public static void addArgument(List<String> args, String argument) {
+    args.add(quoteArgument(argument));
+  }
 ```
 
 ### BoundedWildcard
@@ -2924,15 +2936,15 @@ in `src/main/java/io/vertx/core/impl/DeploymentManager.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/io/vertx/core/impl/launcher/commands/ExecUtils.java`
+Can generalize to `? super AsyncResult`
+in `src/main/java/io/vertx/core/impl/launcher/commands/VertxIsolatedDeployer.java`
 #### Snippet
 ```java
-   * @param argument the argument to add
-   */
-  public static void addArgument(List<String> args, String argument) {
-    args.add(quoteArgument(argument));
-  }
+
+  private Handler<AsyncResult<String>> createHandler(final String message,
+                                                   final Handler<AsyncResult<String>>
+                                                       completionHandler) {
+    return res -> {
 ```
 
 ### BoundedWildcard
@@ -2948,18 +2960,6 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/VertxIsolatedDeployer.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? super AsyncResult`
-in `src/main/java/io/vertx/core/impl/launcher/commands/VertxIsolatedDeployer.java`
-#### Snippet
-```java
-
-  private Handler<AsyncResult<String>> createHandler(final String message,
-                                                   final Handler<AsyncResult<String>>
-                                                       completionHandler) {
-    return res -> {
-```
-
-### BoundedWildcard
 Can generalize to `? extends File`
 in `src/main/java/io/vertx/core/impl/launcher/commands/Watcher.java`
 #### Snippet
@@ -2972,15 +2972,15 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/Watcher.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super AsyncResult`
+Can generalize to `? super Long`
 in `src/main/java/io/vertx/core/impl/VertxImpl.java`
 #### Snippet
 ```java
-  }
 
-  private void closeClusterManager(Handler<AsyncResult<Void>> completionHandler) {
-    Promise<Void> leavePromise = getOrCreateContext().promise();
-    if (clusterManager != null) {
+    @Override
+    public synchronized TimeoutStream handler(Handler<Long> handler) {
+      if (handler != null) {
+        if (id != null) {
 ```
 
 ### BoundedWildcard
@@ -2993,18 +2993,6 @@ in `src/main/java/io/vertx/core/impl/VertxImpl.java`
   private void deleteCacheDirAndShutdown(Handler<AsyncResult<Void>> completionHandler) {
     executeBlockingInternal(fut -> {
       try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Verticle`
-in `src/main/java/io/vertx/core/impl/VertxImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public Future<String> deployVerticle(Supplier<Verticle> verticleSupplier, DeploymentOptions options) {
-    return deployVerticle((Callable<Verticle>) verticleSupplier::get, options);
-  }
 ```
 
 ### BoundedWildcard
@@ -3032,27 +3020,27 @@ in `src/main/java/io/vertx/core/impl/VertxImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Long`
+Can generalize to `? super AsyncResult`
+in `src/main/java/io/vertx/core/impl/VertxImpl.java`
+#### Snippet
+```java
+  }
+
+  private void closeClusterManager(Handler<AsyncResult<Void>> completionHandler) {
+    Promise<Void> leavePromise = getOrCreateContext().promise();
+    if (clusterManager != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Verticle`
 in `src/main/java/io/vertx/core/impl/VertxImpl.java`
 #### Snippet
 ```java
 
-    @Override
-    public synchronized TimeoutStream handler(Handler<Long> handler) {
-      if (handler != null) {
-        if (id != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends E`
-in `src/main/java/io/vertx/core/streams/impl/InboundBuffer.java`
-#### Snippet
-```java
-   * @return {@code false} when the producer should stop writing
-   */
-  public boolean write(Iterable<E> elements) {
-    checkThread();
-    synchronized (this) {
+  @Override
+  public Future<String> deployVerticle(Supplier<Verticle> verticleSupplier, DeploymentOptions options) {
+    return deployVerticle((Callable<Verticle>) verticleSupplier::get, options);
+  }
 ```
 
 ### BoundedWildcard
@@ -3068,39 +3056,27 @@ in `src/main/java/io/vertx/core/json/JsonObject.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
+Can generalize to `? extends E`
+in `src/main/java/io/vertx/core/streams/impl/InboundBuffer.java`
+#### Snippet
+```java
+   * @return {@code false} when the producer should stop writing
+   */
+  public boolean write(Iterable<E> elements) {
+    checkThread();
+    synchronized (this) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `src/main/java/io/vertx/core/datagram/impl/PacketWriteStreamImpl.java`
 #### Snippet
 ```java
 
   @Override
-  public void to(WriteStream<T> ws, Handler<AsyncResult<Void>> completionHandler) {
-    if (ws == null) {
-      throw new NullPointerException();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
-#### Snippet
-```java
-  private WriteStream<T> dst;
-
-  public PipeImpl(ReadStream<T> src) {
-    this.src = src;
-    this.result = Promise.promise();
-```
-
-### BoundedWildcard
-Can generalize to `? super AsyncResult`
-in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
-#### Snippet
-```java
-  }
-
-  private void handleFailure(Throwable cause, Handler<AsyncResult<Void>> completionHandler) {
-    Future<Void> res = Future.failedFuture(cause);
-    if (endOnFailure){
+  public PacketWriteStreamImpl exceptionHandler(Handler<Throwable> handler) {
+    exceptionHandler = handler;
+    return this;
 ```
 
 ### BoundedWildcard
@@ -3116,15 +3092,39 @@ in `src/main/java/io/vertx/core/datagram/impl/PacketWriteStreamImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Throwable`
-in `src/main/java/io/vertx/core/datagram/impl/PacketWriteStreamImpl.java`
+Can generalize to `? extends T`
+in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
+#### Snippet
+```java
+  private WriteStream<T> dst;
+
+  public PipeImpl(ReadStream<T> src) {
+    this.src = src;
+    this.result = Promise.promise();
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
 #### Snippet
 ```java
 
   @Override
-  public PacketWriteStreamImpl exceptionHandler(Handler<Throwable> handler) {
-    exceptionHandler = handler;
-    return this;
+  public void to(WriteStream<T> ws, Handler<AsyncResult<Void>> completionHandler) {
+    if (ws == null) {
+      throw new NullPointerException();
+```
+
+### BoundedWildcard
+Can generalize to `? super AsyncResult`
+in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
+#### Snippet
+```java
+  }
+
+  private void handleFailure(Throwable cause, Handler<AsyncResult<Void>> completionHandler) {
+    Future<Void> res = Future.failedFuture(cause);
+    if (endOnFailure){
 ```
 
 ### BoundedWildcard
@@ -3200,6 +3200,18 @@ in `src/main/java/io/vertx/core/parsetools/impl/JsonParserImpl.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Lock`
+in `src/main/java/io/vertx/core/shareddata/impl/LocalAsyncLocks.java`
+#### Snippet
+```java
+    final Long timerId;
+
+    LockWaiter(ContextInternal context, String lockName, long timeout, Promise<Lock> promise) {
+      this.lockName = lockName;
+      this.promise = promise;
+```
+
+### BoundedWildcard
 Can generalize to `? super AsyncResult`
 in `src/main/java/io/vertx/core/eventbus/impl/EventBusImpl.java`
 #### Snippet
@@ -3209,6 +3221,18 @@ in `src/main/java/io/vertx/core/eventbus/impl/EventBusImpl.java`
   protected void callCompletionHandlerAsync(Handler<AsyncResult<Void>> completionHandler) {
     if (completionHandler != null) {
       vertx.runOnContext(v -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super EventBusImpl`
+in `src/main/java/io/vertx/core/eventbus/impl/EventBusImpl.java`
+#### Snippet
+```java
+  }
+
+  private void removeInterceptor(AtomicReferenceFieldUpdater<EventBusImpl, Handler[]> updater, Handler interceptor) {
+    while (true) {
+      Handler[] interceptors = updater.get(this);
 ```
 
 ### BoundedWildcard
@@ -3236,54 +3260,6 @@ in `src/main/java/io/vertx/core/eventbus/impl/EventBusImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super EventBusImpl`
-in `src/main/java/io/vertx/core/eventbus/impl/EventBusImpl.java`
-#### Snippet
-```java
-  }
-
-  private void removeInterceptor(AtomicReferenceFieldUpdater<EventBusImpl, Handler[]> updater, Handler interceptor) {
-    while (true) {
-      Handler[] interceptors = updater.get(this);
-```
-
-### BoundedWildcard
-Can generalize to `? super Lock`
-in `src/main/java/io/vertx/core/shareddata/impl/LocalAsyncLocks.java`
-#### Snippet
-```java
-    final Long timerId;
-
-    LockWaiter(ContextInternal context, String lockName, long timeout, Promise<Lock> promise) {
-      this.lockName = lockName;
-      this.promise = promise;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/examples/SharedDataExamples.java`
-#### Snippet
-```java
-  }
-
-  public void example3(AsyncMap<String, String> map) {
-    map.put("foo", "bar", resPut -> {
-      if (resPut.succeeded()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/examples/SharedDataExamples.java`
-#### Snippet
-```java
-  }
-
-  public void example3(AsyncMap<String, String> map) {
-    map.put("foo", "bar", resPut -> {
-      if (resPut.succeeded()) {
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/examples/SharedDataExamples.java`
 #### Snippet
@@ -3293,6 +3269,30 @@ in `src/main/java/examples/SharedDataExamples.java`
   public void example4(AsyncMap<String, String> map) {
     map.get("foo", resGet -> {
       if (resGet.succeeded()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/examples/SharedDataExamples.java`
+#### Snippet
+```java
+  }
+
+  public void example3(AsyncMap<String, String> map) {
+    map.put("foo", "bar", resPut -> {
+      if (resPut.succeeded()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/examples/SharedDataExamples.java`
+#### Snippet
+```java
+  }
+
+  public void example3(AsyncMap<String, String> map) {
+    map.put("foo", "bar", resPut -> {
+      if (resPut.succeeded()) {
 ```
 
 ### BoundedWildcard
@@ -3308,27 +3308,27 @@ in `src/main/java/io/vertx/core/parsetools/impl/RecordParserImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/dns/DnsClientOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DnsClientOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/dns/DnsClientOptionsConverter.java`
+in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
 #### Snippet
 ```java
   }
 
-  public static void toJson(DnsClientOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getActivityLogFormat() != null) {
-      json.put("activityLogFormat", obj.getActivityLogFormat().name());
+   static void toJson(DeploymentOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getConfig() != null) {
+      json.put("config", obj.getConfig());
+```
+
+### BoundedWildcard
+Can generalize to `? extends java.util.Map.Entry`
+in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DeploymentOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
 ```
 
 ### BoundedWildcard
@@ -3357,26 +3357,26 @@ in `src/main/generated/io/vertx/core/cli/ArgumentConverter.java`
 
 ### BoundedWildcard
 Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
+in `src/main/generated/io/vertx/core/dns/DnsClientOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DeploymentOptions obj) {
+  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DnsClientOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
+in `src/main/generated/io/vertx/core/dns/DnsClientOptionsConverter.java`
 #### Snippet
 ```java
   }
 
-   static void toJson(DeploymentOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getConfig() != null) {
-      json.put("config", obj.getConfig());
+  public static void toJson(DnsClientOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getActivityLogFormat() != null) {
+      json.put("activityLogFormat", obj.getActivityLogFormat().name());
 ```
 
 ### BoundedWildcard
@@ -3401,114 +3401,6 @@ in `src/main/generated/io/vertx/core/cli/OptionConverter.java`
    static void toJson(Option obj, java.util.Map<String, Object> json) {
     if (obj.getArgName() != null) {
       json.put("argName", obj.getArgName());
-```
-
-### BoundedWildcard
-Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/VertxOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, VertxOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/VertxOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(VertxOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getAddressResolverOptions() != null) {
-      json.put("addressResolverOptions", obj.getAddressResolverOptions().toJson());
-```
-
-### BoundedWildcard
-Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetworkOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(NetworkOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getActivityLogDataFormat() != null) {
-      json.put("activityLogDataFormat", obj.getActivityLogDataFormat().name());
-```
-
-### BoundedWildcard
-Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, AddressResolverOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(AddressResolverOptions obj, java.util.Map<String, Object> json) {
-    json.put("cacheMaxTimeToLive", obj.getCacheMaxTimeToLive());
-    json.put("cacheMinTimeToLive", obj.getCacheMinTimeToLive());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(PfxOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getAlias() != null) {
-      json.put("alias", obj.getAlias());
-```
-
-### BoundedWildcard
-Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PfxOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/tracing/TracingOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, TracingOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
 ```
 
 ### BoundedWildcard
@@ -3537,26 +3429,14 @@ in `src/main/generated/io/vertx/core/metrics/MetricsOptionsConverter.java`
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
+in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
 #### Snippet
 ```java
   }
 
-   static void toJson(DatagramSocketOptions obj, java.util.Map<String, Object> json) {
-    json.put("broadcast", obj.isBroadcast());
-    json.put("ipV6", obj.isIpV6());
-```
-
-### BoundedWildcard
-Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DatagramSocketOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
+   static void toJson(GoAway obj, java.util.Map<String, Object> json) {
+    if (obj.getDebugData() != null) {
+      json.put("debugData", BASE64_ENCODER.encodeToString(obj.getDebugData().getBytes()));
 ```
 
 ### BoundedWildcard
@@ -3573,14 +3453,26 @@ in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
+in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
 #### Snippet
 ```java
   }
 
-   static void toJson(GoAway obj, java.util.Map<String, Object> json) {
-    if (obj.getDebugData() != null) {
-      json.put("debugData", BASE64_ENCODER.encodeToString(obj.getDebugData().getBytes()));
+   static void toJson(FileSystemOptions obj, java.util.Map<String, Object> json) {
+    json.put("classPathResolvingEnabled", obj.isClassPathResolvingEnabled());
+    if (obj.getFileCacheDir() != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends java.util.Map.Entry`
+in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, FileSystemOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
 ```
 
 ### BoundedWildcard
@@ -3608,6 +3500,18 @@ in `src/main/generated/io/vertx/core/http/Http2SettingsConverter.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+  public static void toJson(WebSocketConnectOptions obj, java.util.Map<String, Object> json) {
+    json.put("allowOriginHeader", obj.getAllowOriginHeader());
+    if (obj.getSubProtocols() != null) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends java.util.Map.Entry`
 in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
 #### Snippet
@@ -3621,48 +3525,24 @@ in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
+in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
 #### Snippet
 ```java
   }
 
-  public static void toJson(WebSocketConnectOptions obj, java.util.Map<String, Object> json) {
-    json.put("allowOriginHeader", obj.getAllowOriginHeader());
-    if (obj.getSubProtocols() != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(OpenSSLEngineOptions obj, java.util.Map<String, Object> json) {
-    json.put("sessionCacheEnabled", obj.isSessionCacheEnabled());
-  }
+   static void toJson(OpenOptions obj, java.util.Map<String, Object> json) {
+    json.put("append", obj.isAppend());
+    json.put("create", obj.isCreate());
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
+in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, OpenSSLEngineOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, RequestOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, OpenOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
@@ -3681,38 +3561,62 @@ in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
 
 ### BoundedWildcard
 Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/net/ClientOptionsBaseConverter.java`
+in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, ClientOptionsBase obj) {
+  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, RequestOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends java.util.Map.Entry`
+in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PfxOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/net/ClientOptionsBaseConverter.java`
+in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
 #### Snippet
 ```java
   }
 
-   static void toJson(ClientOptionsBase obj, java.util.Map<String, Object> json) {
-    json.put("connectTimeout", obj.getConnectTimeout());
-    if (obj.getLocalAddress() != null) {
+   static void toJson(PfxOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getAlias() != null) {
+      json.put("alias", obj.getAlias());
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, HttpServerOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, AddressResolverOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(AddressResolverOptions obj, java.util.Map<String, Object> json) {
+    json.put("cacheMaxTimeToLive", obj.getCacheMaxTimeToLive());
+    json.put("cacheMinTimeToLive", obj.getCacheMinTimeToLive());
 ```
 
 ### BoundedWildcard
@@ -3728,25 +3632,85 @@ in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(CopyOptions obj, java.util.Map<String, Object> json) {
-    json.put("atomicMove", obj.isAtomicMove());
-    json.put("copyAttributes", obj.isCopyAttributes());
-```
-
-### BoundedWildcard
 Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, CopyOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, HttpServerOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends java.util.Map.Entry`
+in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetworkOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(NetworkOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getActivityLogDataFormat() != null) {
+      json.put("activityLogDataFormat", obj.getActivityLogDataFormat().name());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(HttpClientOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getAlpnVersions() != null) {
+      JsonArray array = new JsonArray();
+```
+
+### BoundedWildcard
+Can generalize to `? extends java.util.Map.Entry`
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, HttpClientOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(PemKeyCertOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getCertPaths() != null) {
+      JsonArray array = new JsonArray();
+```
+
+### BoundedWildcard
+Can generalize to `? extends java.util.Map.Entry`
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PemKeyCertOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
@@ -3777,26 +3741,26 @@ in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
 
 ### BoundedWildcard
 Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PemKeyCertOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, OpenSSLEngineOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
 #### Snippet
 ```java
   }
 
-   static void toJson(PemKeyCertOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getCertPaths() != null) {
-      JsonArray array = new JsonArray();
+   static void toJson(OpenSSLEngineOptions obj, java.util.Map<String, Object> json) {
+    json.put("sessionCacheEnabled", obj.isSessionCacheEnabled());
+  }
 ```
 
 ### BoundedWildcard
@@ -3819,6 +3783,114 @@ in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
    static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PemTrustOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends java.util.Map.Entry`
+in `src/main/generated/io/vertx/core/VertxOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, VertxOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/generated/io/vertx/core/VertxOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(VertxOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getAddressResolverOptions() != null) {
+      json.put("addressResolverOptions", obj.getAddressResolverOptions().toJson());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(NetServerOptions obj, java.util.Map<String, Object> json) {
+    json.put("acceptBacklog", obj.getAcceptBacklog());
+    if (obj.getClientAuth() != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends java.util.Map.Entry`
+in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetServerOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(ProxyOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getHost() != null) {
+      json.put("host", obj.getHost());
+```
+
+### BoundedWildcard
+Can generalize to `? extends java.util.Map.Entry`
+in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, ProxyOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends java.util.Map.Entry`
+in `src/main/generated/io/vertx/core/net/ClientOptionsBaseConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, ClientOptionsBase obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/generated/io/vertx/core/net/ClientOptionsBaseConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(ClientOptionsBase obj, java.util.Map<String, Object> json) {
+    json.put("connectTimeout", obj.getConnectTimeout());
+    if (obj.getLocalAddress() != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends java.util.Map.Entry`
+in `src/main/generated/io/vertx/core/tracing/TracingOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, TracingOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
@@ -3849,14 +3921,26 @@ in `src/main/generated/io/vertx/core/net/JksOptionsConverter.java`
 
 ### BoundedWildcard
 Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
+in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetClientOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, CopyOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(CopyOptions obj, java.util.Map<String, Object> json) {
+    json.put("atomicMove", obj.isAtomicMove());
+    json.put("copyAttributes", obj.isCopyAttributes());
 ```
 
 ### BoundedWildcard
@@ -3872,135 +3956,39 @@ in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(NetServerOptions obj, java.util.Map<String, Object> json) {
-    json.put("acceptBacklog", obj.getAcceptBacklog());
-    if (obj.getClientAuth() != null) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetServerOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(OpenOptions obj, java.util.Map<String, Object> json) {
-    json.put("append", obj.isAppend());
-    json.put("create", obj.isCreate());
-```
-
-### BoundedWildcard
-Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, OpenOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetClientOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
+in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, FileSystemOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DatagramSocketOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
+in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
 #### Snippet
 ```java
   }
 
-   static void toJson(FileSystemOptions obj, java.util.Map<String, Object> json) {
-    json.put("classPathResolvingEnabled", obj.isClassPathResolvingEnabled());
-    if (obj.getFileCacheDir() != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(HttpClientOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getAlpnVersions() != null) {
-      JsonArray array = new JsonArray();
-```
-
-### BoundedWildcard
-Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, HttpClientOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends java.util.Map.Entry`
-in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, ProxyOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(ProxyOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getHost() != null) {
-      json.put("host", obj.getHost());
-```
-
-### BoundedWildcard
-Can generalize to `? super AsyncResult`
-in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
-#### Snippet
-```java
-  }
-
-  private void doSendFile(String filename, long offset, long length, Handler<AsyncResult<Void>> resultHandler) {
-    synchronized (conn) {
-      checkValid();
+   static void toJson(DatagramSocketOptions obj, java.util.Map<String, Object> json) {
+    json.put("broadcast", obj.isBroadcast());
+    json.put("ipV6", obj.isIpV6());
 ```
 
 ### BoundedWildcard
@@ -4028,6 +4016,18 @@ in `src/main/generated/io/vertx/core/net/TCPSSLOptionsConverter.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/generated/io/vertx/core/eventbus/EventBusOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(EventBusOptions obj, java.util.Map<String, Object> json) {
+    json.put("acceptBacklog", obj.getAcceptBacklog());
+    if (obj.getActivityLogDataFormat() != null) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends java.util.Map.Entry`
 in `src/main/generated/io/vertx/core/eventbus/EventBusOptionsConverter.java`
 #### Snippet
@@ -4040,15 +4040,15 @@ in `src/main/generated/io/vertx/core/eventbus/EventBusOptionsConverter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/generated/io/vertx/core/eventbus/EventBusOptionsConverter.java`
+Can generalize to `? super AsyncResult`
+in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
 #### Snippet
 ```java
   }
 
-   static void toJson(EventBusOptions obj, java.util.Map<String, Object> json) {
-    json.put("acceptBacklog", obj.getAcceptBacklog());
-    if (obj.getActivityLogDataFormat() != null) {
+  private void doSendFile(String filename, long offset, long length, Handler<AsyncResult<Void>> resultHandler) {
+    synchronized (conn) {
+      checkValid();
 ```
 
 ## MissortedModifiers
@@ -4057,130 +4057,10 @@ Missorted modifiers `final static`
 in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
 #### Snippet
 ```java
-    private final static int ENUMERATED = 0x0a;
-
-    private final static int SEQUENCE = 0x10;
-    private final static int SET = 0x11;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int VIDEOTEX_STRING = 0x15;
     private final static int IA5_STRING = 0x16;
     private final static int GRAPHIC_STRING = 0x19;
     private final static int ISO646_STRING = 0x1A;
     private final static int GENERAL_STRING = 0x1B;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int INTEGER = 0x02;
-    private final static int BIT_STRING = 0x03;
-    private final static int OCTET_STRING = 0x04;
-    private final static int NULL = 0x05;
-    private final static int OBJECT_IDENTIFIER = 0x06;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-
-    // Tag and data types
-    private final static int ANY = 0x00;
-    private final static int BOOLEAN = 0x01;
-    private final static int INTEGER = 0x02;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int GENERAL_STRING = 0x1B;
-
-    private final static int UTF8_STRING = 0x0C;
-    private final static int UNIVERSAL_STRING = 0x1C;
-    private final static int BMP_STRING = 0x1E;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int OCTET_STRING = 0x04;
-    private final static int NULL = 0x05;
-    private final static int OBJECT_IDENTIFIER = 0x06;
-    private final static int REAL = 0x09;
-    private final static int ENUMERATED = 0x0a;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-
-    private final static int NUMERIC_STRING = 0x12;
-    private final static int PRINTABLE_STRING = 0x13;
-    private final static int VIDEOTEX_STRING = 0x15;
-    private final static int IA5_STRING = 0x16;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int NULL = 0x05;
-    private final static int OBJECT_IDENTIFIER = 0x06;
-    private final static int REAL = 0x09;
-    private final static int ENUMERATED = 0x0a;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int NUMERIC_STRING = 0x12;
-    private final static int PRINTABLE_STRING = 0x13;
-    private final static int VIDEOTEX_STRING = 0x15;
-    private final static int IA5_STRING = 0x16;
-    private final static int GRAPHIC_STRING = 0x19;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-
-    // Classes
-    private final static int UNIVERSAL = 0x00;
-    private final static int APPLICATION = 0x40;
-    private final static int CONTEXT = 0x80;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-
-    private final static int UTF8_STRING = 0x0C;
-    private final static int UNIVERSAL_STRING = 0x1C;
-    private final static int BMP_STRING = 0x1E;
 
 ```
 
@@ -4194,150 +4074,6 @@ in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
     private final static int SET = 0x11;
 
     private final static int NUMERIC_STRING = 0x12;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int ANY = 0x00;
-    private final static int BOOLEAN = 0x01;
-    private final static int INTEGER = 0x02;
-    private final static int BIT_STRING = 0x03;
-    private final static int OCTET_STRING = 0x04;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int BOOLEAN = 0x01;
-    private final static int INTEGER = 0x02;
-    private final static int BIT_STRING = 0x03;
-    private final static int OCTET_STRING = 0x04;
-    private final static int NULL = 0x05;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int PRINTABLE_STRING = 0x13;
-    private final static int VIDEOTEX_STRING = 0x15;
-    private final static int IA5_STRING = 0x16;
-    private final static int GRAPHIC_STRING = 0x19;
-    private final static int ISO646_STRING = 0x1A;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int BIT_STRING = 0x03;
-    private final static int OCTET_STRING = 0x04;
-    private final static int NULL = 0x05;
-    private final static int OBJECT_IDENTIFIER = 0x06;
-    private final static int REAL = 0x09;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    // Tag and data types
-    private final static int ANY = 0x00;
-    private final static int BOOLEAN = 0x01;
-    private final static int INTEGER = 0x02;
-    private final static int BIT_STRING = 0x03;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int APPLICATION = 0x40;
-    private final static int CONTEXT = 0x80;
-    private final static int PRIVATE = 0xC0;
-
-    // Constructed Flag
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int UNIVERSAL = 0x00;
-    private final static int APPLICATION = 0x40;
-    private final static int CONTEXT = 0x80;
-    private final static int PRIVATE = 0xC0;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int GRAPHIC_STRING = 0x19;
-    private final static int ISO646_STRING = 0x1A;
-    private final static int GENERAL_STRING = 0x1B;
-
-    private final static int UTF8_STRING = 0x0C;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int OBJECT_IDENTIFIER = 0x06;
-    private final static int REAL = 0x09;
-    private final static int ENUMERATED = 0x0a;
-
-    private final static int SEQUENCE = 0x10;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-
-    // Constructed Flag
-    private final static int CONSTRUCTED = 0x20;
-
-    // Tag and data types
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int SET = 0x11;
-
-    private final static int NUMERIC_STRING = 0x12;
-    private final static int PRINTABLE_STRING = 0x13;
-    private final static int VIDEOTEX_STRING = 0x15;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
-#### Snippet
-```java
-    private final static int IA5_STRING = 0x16;
-    private final static int GRAPHIC_STRING = 0x19;
-    private final static int ISO646_STRING = 0x1A;
-    private final static int GENERAL_STRING = 0x1B;
-
 ```
 
 ### MissortedModifiers
@@ -4350,6 +4086,66 @@ in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
     private final static int BMP_STRING = 0x1E;
 
     private final static int UTC_TIME = 0x17;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int OCTET_STRING = 0x04;
+    private final static int NULL = 0x05;
+    private final static int OBJECT_IDENTIFIER = 0x06;
+    private final static int REAL = 0x09;
+    private final static int ENUMERATED = 0x0a;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+
+    private final static int UTF8_STRING = 0x0C;
+    private final static int UNIVERSAL_STRING = 0x1C;
+    private final static int BMP_STRING = 0x1E;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+
+    private final static int NUMERIC_STRING = 0x12;
+    private final static int PRINTABLE_STRING = 0x13;
+    private final static int VIDEOTEX_STRING = 0x15;
+    private final static int IA5_STRING = 0x16;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int INTEGER = 0x02;
+    private final static int BIT_STRING = 0x03;
+    private final static int OCTET_STRING = 0x04;
+    private final static int NULL = 0x05;
+    private final static int OBJECT_IDENTIFIER = 0x06;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int PRINTABLE_STRING = 0x13;
+    private final static int VIDEOTEX_STRING = 0x15;
+    private final static int IA5_STRING = 0x16;
+    private final static int GRAPHIC_STRING = 0x19;
+    private final static int ISO646_STRING = 0x1A;
 ```
 
 ### MissortedModifiers
@@ -4369,11 +4165,215 @@ Missorted modifiers `final static`
 in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
 #### Snippet
 ```java
+    private final static int NUMERIC_STRING = 0x12;
+    private final static int PRINTABLE_STRING = 0x13;
+    private final static int VIDEOTEX_STRING = 0x15;
+    private final static int IA5_STRING = 0x16;
+    private final static int GRAPHIC_STRING = 0x19;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int ANY = 0x00;
+    private final static int BOOLEAN = 0x01;
+    private final static int INTEGER = 0x02;
+    private final static int BIT_STRING = 0x03;
+    private final static int OCTET_STRING = 0x04;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int UNIVERSAL = 0x00;
+    private final static int APPLICATION = 0x40;
+    private final static int CONTEXT = 0x80;
+    private final static int PRIVATE = 0xC0;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int OBJECT_IDENTIFIER = 0x06;
+    private final static int REAL = 0x09;
+    private final static int ENUMERATED = 0x0a;
+
+    private final static int SEQUENCE = 0x10;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int NULL = 0x05;
+    private final static int OBJECT_IDENTIFIER = 0x06;
+    private final static int REAL = 0x09;
+    private final static int ENUMERATED = 0x0a;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int VIDEOTEX_STRING = 0x15;
+    private final static int IA5_STRING = 0x16;
+    private final static int GRAPHIC_STRING = 0x19;
+    private final static int ISO646_STRING = 0x1A;
+    private final static int GENERAL_STRING = 0x1B;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int BIT_STRING = 0x03;
+    private final static int OCTET_STRING = 0x04;
+    private final static int NULL = 0x05;
+    private final static int OBJECT_IDENTIFIER = 0x06;
+    private final static int REAL = 0x09;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    // Tag and data types
+    private final static int ANY = 0x00;
+    private final static int BOOLEAN = 0x01;
+    private final static int INTEGER = 0x02;
+    private final static int BIT_STRING = 0x03;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int GENERAL_STRING = 0x1B;
+
+    private final static int UTF8_STRING = 0x0C;
+    private final static int UNIVERSAL_STRING = 0x1C;
+    private final static int BMP_STRING = 0x1E;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+
+    // Tag and data types
+    private final static int ANY = 0x00;
+    private final static int BOOLEAN = 0x01;
+    private final static int INTEGER = 0x02;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int SET = 0x11;
+
+    private final static int NUMERIC_STRING = 0x12;
+    private final static int PRINTABLE_STRING = 0x13;
+    private final static int VIDEOTEX_STRING = 0x15;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int BOOLEAN = 0x01;
+    private final static int INTEGER = 0x02;
+    private final static int BIT_STRING = 0x03;
+    private final static int OCTET_STRING = 0x04;
+    private final static int NULL = 0x05;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+
+    // Constructed Flag
+    private final static int CONSTRUCTED = 0x20;
+
+    // Tag and data types
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int GRAPHIC_STRING = 0x19;
+    private final static int ISO646_STRING = 0x1A;
+    private final static int GENERAL_STRING = 0x1B;
+
+    private final static int UTF8_STRING = 0x0C;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int APPLICATION = 0x40;
+    private final static int CONTEXT = 0x80;
+    private final static int PRIVATE = 0xC0;
+
+    // Constructed Flag
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+    private final static int ENUMERATED = 0x0a;
+
+    private final static int SEQUENCE = 0x10;
+    private final static int SET = 0x11;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
     // Classes
     private final static int UNIVERSAL = 0x00;
     private final static int APPLICATION = 0x40;
     private final static int CONTEXT = 0x80;
     private final static int PRIVATE = 0xC0;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/net/impl/pkcs1/PrivateKeyParser.java`
+#### Snippet
+```java
+
+    // Classes
+    private final static int UNIVERSAL = 0x00;
+    private final static int APPLICATION = 0x40;
+    private final static int CONTEXT = 0x80;
 ```
 
 ### MissortedModifiers
@@ -4386,18 +4386,6 @@ in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
   static abstract class Stream extends VertxHttp2Stream<Http2ClientConnection> {
 
     private final boolean push;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/impl/launcher/commands/Watcher.java`
-#### Snippet
-```java
-public class Watcher implements Runnable {
-
-  private final static Logger LOGGER = LoggerFactory.getLogger(Watcher.class);
-
-  private final long gracePeriod;
 ```
 
 ### MissortedModifiers
@@ -4417,6 +4405,18 @@ Missorted modifiers `final static`
 in `src/main/java/io/vertx/core/impl/launcher/commands/ListCommand.java`
 #### Snippet
 ```java
+  private final static Pattern FAT_JAR_EXTRACTION = Pattern.compile("-jar (\\S*)");
+
+  private final static Pattern VERTICLE_EXTRACTION = Pattern.compile("run (\\S*)");
+
+  // Note about stack traces - the stack trace are printed on the stream passed to the command.
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/io/vertx/core/impl/launcher/commands/ListCommand.java`
+#### Snippet
+```java
   private final static Pattern PS = Pattern.compile("-Dvertx.id=(.*)\\s*");
 
   private final static Pattern FAT_JAR_EXTRACTION = Pattern.compile("-jar (\\S*)");
@@ -4426,14 +4426,14 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/ListCommand.java`
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `src/main/java/io/vertx/core/impl/launcher/commands/ListCommand.java`
+in `src/main/java/io/vertx/core/impl/launcher/commands/Watcher.java`
 #### Snippet
 ```java
-  private final static Pattern FAT_JAR_EXTRACTION = Pattern.compile("-jar (\\S*)");
+public class Watcher implements Runnable {
 
-  private final static Pattern VERTICLE_EXTRACTION = Pattern.compile("run (\\S*)");
+  private final static Logger LOGGER = LoggerFactory.getLogger(Watcher.class);
 
-  // Note about stack traces - the stack trace are printed on the stream passed to the command.
+  private final long gracePeriod;
 ```
 
 ### MissortedModifiers
@@ -4503,18 +4503,6 @@ Result of `File.mkdirs()` is ignored
 in `src/main/java/io/vertx/core/file/impl/FileCache.java`
 #### Snippet
 ```java
-    File cacheFile = new File(getCacheDir(), fileName);
-    fileNameCheck(cacheFile);
-    cacheFile.getParentFile().mkdirs();
-    if (!overwrite) {
-      try {
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/io/vertx/core/file/impl/FileCache.java`
-#### Snippet
-```java
     boolean isDirectory = resource.isDirectory();
     if (!isDirectory) {
       cacheFile.getParentFile().mkdirs();
@@ -4532,6 +4520,18 @@ in `src/main/java/io/vertx/core/file/impl/FileCache.java`
       cacheFile.mkdirs();
     }
     return cacheFile;
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/io/vertx/core/file/impl/FileCache.java`
+#### Snippet
+```java
+    File cacheFile = new File(getCacheDir(), fileName);
+    fileNameCheck(cacheFile);
+    cacheFile.getParentFile().mkdirs();
+    if (!overwrite) {
+      try {
 ```
 
 ### IgnoreResultOfCall
@@ -4670,6 +4670,18 @@ in `src/main/java/io/vertx/core/http/impl/VertxHttpResponseEncoder.java`
 ```
 
 ### RedundantMethodOverride
+Method `getTrafficClass()` only delegates to its super method
+in `src/main/java/io/vertx/core/datagram/DatagramSocketOptions.java`
+#### Snippet
+```java
+
+  @Override
+  public int getTrafficClass() {
+    return super.getTrafficClass();
+  }
+```
+
+### RedundantMethodOverride
 Method `getReceiveBufferSize()` only delegates to its super method
 in `src/main/java/io/vertx/core/datagram/DatagramSocketOptions.java`
 #### Snippet
@@ -4690,18 +4702,6 @@ in `src/main/java/io/vertx/core/datagram/DatagramSocketOptions.java`
   @Override
   public int getSendBufferSize() {
     return super.getSendBufferSize();
-  }
-```
-
-### RedundantMethodOverride
-Method `getTrafficClass()` only delegates to its super method
-in `src/main/java/io/vertx/core/datagram/DatagramSocketOptions.java`
-#### Snippet
-```java
-
-  @Override
-  public int getTrafficClass() {
-    return super.getTrafficClass();
   }
 ```
 
@@ -6971,11 +6971,23 @@ Result of assignment expression used
 in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
 #### Snippet
 ```java
-      this.forEach(lst::add);
-      size = 0;
+      if (!pool.closed && slot.connection != null) {
+        PoolWaiter<C> waiter;
+        if (slot.usage <= slot.concurrency && (waiter = pool.waiters.poll()) != null) {
+          LeaseImpl<C> lease = new LeaseImpl<>(slot, waiter.handler);
+          return new Task() {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
+#### Snippet
+```java
+    public Waiters() {
+      head = new PoolWaiter<>(null, null, 0, null);
       head.next = head.prev = head;
-      return lst;
     }
+
 ```
 
 ### NestedAssignment
@@ -6995,23 +7007,11 @@ Result of assignment expression used
 in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
 #### Snippet
 ```java
-      if (!pool.closed && slot.connection != null) {
-        PoolWaiter<C> waiter;
-        if (slot.usage <= slot.concurrency && (waiter = pool.waiters.poll()) != null) {
-          LeaseImpl<C> lease = new LeaseImpl<>(slot, waiter.handler);
-          return new Task() {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
-#### Snippet
-```java
-    public Waiters() {
-      head = new PoolWaiter<>(null, null, 0, null);
+      this.forEach(lst::add);
+      size = 0;
       head.next = head.prev = head;
+      return lst;
     }
-
 ```
 
 ### NestedAssignment
@@ -7034,7 +7034,7 @@ in `src/main/java/io/vertx/core/http/impl/Http2UpgradedClientConnection.java`
             buffered = null;
             Object msg;
             while ((msg = messages.poll()) != null) {
-              super.channelRead(ctx, msg);
+              ReferenceCountUtil.release(msg);
             }
 ```
 
@@ -7046,7 +7046,7 @@ in `src/main/java/io/vertx/core/http/impl/Http2UpgradedClientConnection.java`
             buffered = null;
             Object msg;
             while ((msg = messages.poll()) != null) {
-              ReferenceCountUtil.release(msg);
+              super.channelRead(ctx, msg);
             }
 ```
 
@@ -7067,11 +7067,11 @@ Result of assignment expression used
 in `src/main/java/io/vertx/core/http/impl/HttpServerWorker.java`
 #### Snippet
 ```java
-      ch.pipeline().addLast(new HAProxyMessageDecoder());
-      if (options.getProxyProtocolTimeout() > 0) {
-        ch.pipeline().addLast("idle", idle = new IdleStateHandler(0, 0, options.getProxyProtocolTimeout(), options.getProxyProtocolTimeoutUnit()));
-      } else {
-        idle = null;
+        int writeIdleTimeout = options.getWriteIdleTimeout();
+        if (idleTimeout > 0 || readIdleTimeout > 0 || writeIdleTimeout > 0) {
+          pipeline.addLast("idle", idle = new IdleStateHandler(readIdleTimeout, writeIdleTimeout, idleTimeout, options.getIdleTimeoutUnit()));
+        } else {
+          idle = null;
 ```
 
 ### NestedAssignment
@@ -7079,11 +7079,11 @@ Result of assignment expression used
 in `src/main/java/io/vertx/core/http/impl/HttpServerWorker.java`
 #### Snippet
 ```java
-        int writeIdleTimeout = options.getWriteIdleTimeout();
-        if (idleTimeout > 0 || readIdleTimeout > 0 || writeIdleTimeout > 0) {
-          pipeline.addLast("idle", idle = new IdleStateHandler(readIdleTimeout, writeIdleTimeout, idleTimeout, options.getIdleTimeoutUnit()));
-        } else {
-          idle = null;
+      ch.pipeline().addLast(new HAProxyMessageDecoder());
+      if (options.getProxyProtocolTimeout() > 0) {
+        ch.pipeline().addLast("idle", idle = new IdleStateHandler(0, 0, options.getProxyProtocolTimeout(), options.getProxyProtocolTimeoutUnit()));
+      } else {
+        idle = null;
 ```
 
 ### NestedAssignment
@@ -7139,18 +7139,6 @@ Result of assignment expression used
 in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
 #### Snippet
 ```java
-  public HeadersMultiMap(BiConsumer<CharSequence, CharSequence> validator) {
-    this.validator = validator;
-    head.before = head.after = head;
-  }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
-#### Snippet
-```java
   public HeadersMultiMap clear() {
     Arrays.fill(entries, null);
     head.before = head.after = head;
@@ -7160,14 +7148,14 @@ in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/io/vertx/core/impl/launcher/commands/VersionCommand.java`
+in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
 #### Snippet
 ```java
-      }
-      try (Scanner scanner = new Scanner(is, "UTF-8").useDelimiter("\\A")) {
-        return version = scanner.hasNext() ? scanner.next().trim() : "";
-      }
-    } catch (IOException e) {
+  public HeadersMultiMap(BiConsumer<CharSequence, CharSequence> validator) {
+    this.validator = validator;
+    head.before = head.after = head;
+  }
+
 ```
 
 ### NestedAssignment
@@ -7180,6 +7168,18 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/StopCommand.java`
         while ((line = reader.readLine()) != null) {
           final Matcher matcher = PS.matcher(line);
           if (matcher.find()) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/io/vertx/core/impl/launcher/commands/VersionCommand.java`
+#### Snippet
+```java
+      }
+      try (Scanner scanner = new Scanner(is, "UTF-8").useDelimiter("\\A")) {
+        return version = scanner.hasNext() ? scanner.next().trim() : "";
+      }
+    } catch (IOException e) {
 ```
 
 ### NestedAssignment
@@ -7268,6 +7268,42 @@ in `src/main/java/io/vertx/core/eventbus/impl/clustered/ConnectionHolder.java`
 
 ### NestedAssignment
 Result of assignment expression used
+in `src/main/java/io/vertx/core/eventbus/impl/MessageConsumerImpl.java`
+#### Snippet
+```java
+        Handler<Message<T>> theHandler;
+        synchronized (MessageConsumerImpl.this) {
+          if (demand == 0L || (message = pending.poll()) == null) {
+            return;
+          }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/io/vertx/core/eventbus/impl/clustered/ClusteredEventBus.java`
+#### Snippet
+```java
+  private String getClusterHost() {
+    String host;
+    if ((host = options.getHost()) != null) {
+      return host;
+    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/io/vertx/core/eventbus/impl/clustered/ClusteredEventBus.java`
+#### Snippet
+```java
+      return host;
+    }
+    if ((host = clusterManager.clusterHost()) != null) {
+      return host;
+    }
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `src/main/java/io/vertx/core/eventbus/impl/clustered/ClusteredEventBus.java`
 #### Snippet
 ```java
@@ -7300,42 +7336,6 @@ in `src/main/java/io/vertx/core/eventbus/impl/clustered/ClusteredEventBus.java`
     if ((publicHost = clusterManager.clusterPublicHost()) != null) {
       return publicHost;
     }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/io/vertx/core/eventbus/impl/clustered/ClusteredEventBus.java`
-#### Snippet
-```java
-  private String getClusterHost() {
-    String host;
-    if ((host = options.getHost()) != null) {
-      return host;
-    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/io/vertx/core/eventbus/impl/clustered/ClusteredEventBus.java`
-#### Snippet
-```java
-      return host;
-    }
-    if ((host = clusterManager.clusterHost()) != null) {
-      return host;
-    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/io/vertx/core/eventbus/impl/MessageConsumerImpl.java`
-#### Snippet
-```java
-        Handler<Message<T>> theHandler;
-        synchronized (MessageConsumerImpl.this) {
-          if (demand == 0L || (message = pending.poll()) == null) {
-            return;
-          }
 ```
 
 ### NestedAssignment
@@ -7392,18 +7392,6 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/io/vertx/core/dns/impl/DnsClientImpl.java`
 #### Snippet
 ```java
-  // Testing purposes
-  public void inProgressQueries(Handler<Integer> handler) {
-    actualCtx.runOnContext(v -> {
-      handler.handle(inProgressMap.size());
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/io/vertx/core/dns/impl/DnsClientImpl.java`
-#### Snippet
-```java
       timerID = vertx.setTimer(options.getQueryTimeout(), id -> {
         timerID = -1;
         actualCtx.runOnContext(v -> {
@@ -7413,13 +7401,13 @@ in `src/main/java/io/vertx/core/dns/impl/DnsClientImpl.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/io/vertx/core/spi/cluster/impl/DefaultNodeSelector.java`
+in `src/main/java/io/vertx/core/dns/impl/DnsClientImpl.java`
 #### Snippet
 ```java
-  public void selectForPublish(Message<?> message, Promise<Iterable<String>> promise) {
-    Arguments.require(!message.isSend(), "selectForPublish used for sending");
-    selectors.withSelector(message, promise, (prom, selector) -> {
-      prom.tryComplete(selector.selectForPublish());
+  // Testing purposes
+  public void inProgressQueries(Handler<Integer> handler) {
+    actualCtx.runOnContext(v -> {
+      handler.handle(inProgressMap.size());
     });
 ```
 
@@ -7432,6 +7420,18 @@ in `src/main/java/io/vertx/core/spi/cluster/impl/DefaultNodeSelector.java`
     Arguments.require(message.isSend(), "selectForSend used for publishing");
     selectors.withSelector(message, promise, (prom, selector) -> {
       prom.tryComplete(selector.selectForSend());
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/io/vertx/core/spi/cluster/impl/DefaultNodeSelector.java`
+#### Snippet
+```java
+  public void selectForPublish(Message<?> message, Promise<Iterable<String>> promise) {
+    Arguments.require(!message.isSend(), "selectForPublish used for sending");
+    selectors.withSelector(message, promise, (prom, selector) -> {
+      prom.tryComplete(selector.selectForPublish());
     });
 ```
 
@@ -7488,18 +7488,6 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 #### Snippet
 ```java
-  public Future<AsyncFileLock> lock(long position, long size, boolean shared) {
-    PromiseInternal<AsyncFileLock> promise = vertx.promise();
-    vertx.executeBlockingInternal(prom -> {
-      ch.lock(position, size, shared, promise, LOCK_COMPLETION);
-    }, ar -> {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
-#### Snippet
-```java
             Handler<Void> h = drainHandler;
             if (h != null) {
               action = () -> {
@@ -7512,11 +7500,11 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 #### Snippet
 ```java
-  @Override
-  public Future<Long> size() {
-    return vertx.getOrCreateContext().executeBlockingInternal(prom -> {
-      prom.complete(sizeBlocking());
-    });
+  public Future<AsyncFileLock> lock(long position, long size, boolean shared) {
+    PromiseInternal<AsyncFileLock> promise = vertx.promise();
+    vertx.executeBlockingInternal(prom -> {
+      ch.lock(position, size, shared, promise, LOCK_COMPLETION);
+    }, ar -> {
 ```
 
 ### CodeBlock2Expr
@@ -7528,6 +7516,18 @@ in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
     });
     queue.drainHandler(v -> {
       doRead();
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
+#### Snippet
+```java
+  @Override
+  public Future<Long> size() {
+    return vertx.getOrCreateContext().executeBlockingInternal(prom -> {
+      prom.complete(sizeBlocking());
     });
 ```
 
@@ -7620,22 +7620,10 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/io/vertx/core/http/impl/VertxHttp2ConnectionHandler.java`
 #### Snippet
 ```java
-      _writeSettings(settingsUpdate, promise);
+      _writeGoAway(errorCode, lastStreamId, debugData);
     } else {
       executor.execute(() -> {
-        _writeSettings(settingsUpdate, promise);
-      });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/io/vertx/core/http/impl/VertxHttp2ConnectionHandler.java`
-#### Snippet
-```java
-      _writePriority(stream, streamDependency, weight, exclusive);
-    } else {
-      executor.execute(() -> {
-        _writePriority(stream, streamDependency, weight, exclusive);
+        _writeGoAway(errorCode, lastStreamId, debugData);
       });
 ```
 
@@ -7656,10 +7644,22 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/io/vertx/core/http/impl/VertxHttp2ConnectionHandler.java`
 #### Snippet
 ```java
-      _writeGoAway(errorCode, lastStreamId, debugData);
+      _writePriority(stream, streamDependency, weight, exclusive);
     } else {
       executor.execute(() -> {
-        _writeGoAway(errorCode, lastStreamId, debugData);
+        _writePriority(stream, streamDependency, weight, exclusive);
+      });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/io/vertx/core/http/impl/VertxHttp2ConnectionHandler.java`
+#### Snippet
+```java
+      _writeSettings(settingsUpdate, promise);
+    } else {
+      executor.execute(() -> {
+        _writeSettings(settingsUpdate, promise);
       });
 ```
 
@@ -7725,6 +7725,42 @@ in `src/main/java/io/vertx/core/impl/CloseFuture.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
+#### Snippet
+```java
+          if (ar2.succeeded()) {
+            HttpClientStream stream = ar2.result();
+            stream.closeHandler(v -> {
+              lease.recycle();
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
+#### Snippet
+```java
+    if (resultHandler != null) {
+      Context resultCtx = stream.vertx.getOrCreateContext();
+      h = ar -> {
+        resultCtx.runOnContext((v) -> {
+          resultHandler.handle(ar);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
+#### Snippet
+```java
+      Context resultCtx = stream.vertx.getOrCreateContext();
+      h = ar -> {
+        resultCtx.runOnContext((v) -> {
+          resultHandler.handle(ar);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 #### Snippet
 ```java
@@ -7761,30 +7797,6 @@ in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
-#### Snippet
-```java
-    if (resultHandler != null) {
-      Context resultCtx = stream.vertx.getOrCreateContext();
-      h = ar -> {
-        resultCtx.runOnContext((v) -> {
-          resultHandler.handle(ar);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
-#### Snippet
-```java
-      Context resultCtx = stream.vertx.getOrCreateContext();
-      h = ar -> {
-        resultCtx.runOnContext((v) -> {
-          resultHandler.handle(ar);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `src/main/java/io/vertx/core/impl/ConversionHelper.java`
 #### Snippet
 ```java
@@ -7793,18 +7805,6 @@ in `src/main/java/io/vertx/core/impl/ConversionHelper.java`
     map.entrySet().forEach(entry -> {
       entry.setValue(fromObject(entry.getValue()));
     });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
-#### Snippet
-```java
-          if (ar2.succeeded()) {
-            HttpClientStream stream = ar2.result();
-            stream.closeHandler(v -> {
-              lease.recycle();
-            });
 ```
 
 ### CodeBlock2Expr
@@ -7836,6 +7836,30 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/io/vertx/core/impl/HAManager.java`
 #### Snippet
 ```java
+              } else {
+                // Remove any context we have here (from the timer) otherwise will screw things up when verticles are deployed
+                ((VertxImpl)vertx).executeIsolated(v -> {
+                  checkQuorumWhenAdded(nodeID, start);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/io/vertx/core/impl/HAManager.java`
+#### Snippet
+```java
+      if (dep != null) {
+        if (dep.deploymentOptions().isHa()) {
+          ((VertxImpl)vertx).executeIsolated(v -> {
+            deploymentManager.undeployVerticle(deploymentID).onComplete(result -> {
+              if (result.succeeded()) {
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/io/vertx/core/impl/HAManager.java`
+#### Snippet
+```java
   private void addToHADeployList(final String verticleName, final DeploymentOptions deploymentOptions,
                                  final Handler<AsyncResult<String>> doneHandler) {
     toDeployOnQuorum.add(() -> {
@@ -7860,35 +7884,11 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/io/vertx/core/impl/HAManager.java`
 #### Snippet
 ```java
-              } else {
-                // Remove any context we have here (from the timer) otherwise will screw things up when verticles are deployed
-                ((VertxImpl)vertx).executeIsolated(v -> {
-                  checkQuorumWhenAdded(nodeID, start);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/io/vertx/core/impl/HAManager.java`
-#### Snippet
-```java
   private void doDeployVerticle(final String verticleName, DeploymentOptions deploymentOptions,
                                 final Handler<AsyncResult<String>> doneHandler) {
     final Handler<AsyncResult<String>> wrappedHandler = ar1 -> {
       vertx.<String>executeBlocking(fut -> {
         if (ar1.succeeded()) {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/io/vertx/core/impl/HAManager.java`
-#### Snippet
-```java
-      if (dep != null) {
-        if (dep.deploymentOptions().isHa()) {
-          ((VertxImpl)vertx).executeIsolated(v -> {
-            deploymentManager.undeployVerticle(deploymentID).onComplete(result -> {
-              if (result.succeeded()) {
 ```
 
 ### CodeBlock2Expr
@@ -7901,18 +7901,6 @@ in `src/main/java/io/vertx/core/impl/resolver/DnsResolverProvider.java`
       return nameServerAddresses.stream();
     };
 
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/io/vertx/core/impl/VertxImpl.java`
-#### Snippet
-```java
-
-              if (completionHandler != null) {
-                eventLoopThreadFactory.newThread(() -> {
-                  completionHandler.handle(Future.succeededFuture());
-                }).start();
 ```
 
 ### CodeBlock2Expr
@@ -7953,6 +7941,18 @@ in `src/main/java/io/vertx/core/impl/VertxImpl.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `src/main/java/io/vertx/core/impl/VertxImpl.java`
+#### Snippet
+```java
+
+              if (completionHandler != null) {
+                eventLoopThreadFactory.newThread(() -> {
+                  completionHandler.handle(Future.succeededFuture());
+                }).start();
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
 #### Snippet
 ```java
@@ -7973,18 +7973,6 @@ in `src/main/java/io/vertx/core/eventbus/impl/clustered/ConnectionHolder.java`
     socket.exceptionHandler(err -> {
       close(err);
     });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/io/vertx/core/eventbus/impl/EventBusImpl.java`
-#### Snippet
-```java
-  protected void callCompletionHandlerAsync(Handler<AsyncResult<Void>> completionHandler) {
-    if (completionHandler != null) {
-      vertx.runOnContext(v -> {
-        completionHandler.handle(Future.succeededFuture());
-      });
 ```
 
 ### CodeBlock2Expr
@@ -8013,6 +8001,18 @@ in `src/main/java/examples/CompletionStageInteropExamples.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `src/main/java/io/vertx/core/eventbus/impl/EventBusImpl.java`
+#### Snippet
+```java
+  protected void callCompletionHandlerAsync(Handler<AsyncResult<Void>> completionHandler) {
+    if (completionHandler != null) {
+      vertx.runOnContext(v -> {
+        completionHandler.handle(Future.succeededFuture());
+      });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `src/main/java/examples/DatagramExamples.java`
 #### Snippet
 ```java
@@ -8028,35 +8028,11 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/examples/DatagramExamples.java`
 #### Snippet
 ```java
-    Buffer buffer = Buffer.buffer("content");
-    // Send a Buffer to a multicast address
-    socket.send(buffer, 1234, "230.0.0.1", asyncResult -> {
-      System.out.println("Send succeeded? " + asyncResult.succeeded());
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/DatagramExamples.java`
-#### Snippet
-```java
                 // do some work
 
                 socket.unlistenMulticastGroup("230.0.0.1", asyncResult3 -> {
                   System.out.println("Unlisten succeeded? " + asyncResult3.succeeded());
                 });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/DatagramExamples.java`
-#### Snippet
-```java
-
-        // join the multicast group
-        socket.listenMulticastGroup("230.0.0.1", asyncResult2 -> {
-            System.out.println("Listen succeeded? " + asyncResult2.succeeded());
-        });
 ```
 
 ### CodeBlock2Expr
@@ -8085,38 +8061,26 @@ in `src/main/java/examples/DatagramExamples.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/CoreExamples.java`
+in `src/main/java/examples/DatagramExamples.java`
 #### Snippet
 ```java
-      String result = someAPI.blockingMethod("hello");
-      promise.complete(result);
-    }, res -> {
-      System.out.println("The result is: " + res.result());
+    Buffer buffer = Buffer.buffer("content");
+    // Send a Buffer to a multicast address
+    socket.send(buffer, 1234, "230.0.0.1", asyncResult -> {
+      System.out.println("Send succeeded? " + asyncResult.succeeded());
     });
 ```
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/CoreExamples.java`
+in `src/main/java/examples/DatagramExamples.java`
 #### Snippet
 ```java
 
-  public void example16(Vertx vertx) {
-    long timerID = vertx.setPeriodic(1000, id -> {
-      System.out.println("And every second this is printed");
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/CoreExamples.java`
-#### Snippet
-```java
-      String result = someAPI.blockingMethod("hello");
-      promise.complete(result);
-    }, res -> {
-      System.out.println("The result is: " + res.result());
-    });
+        // join the multicast group
+        socket.listenMulticastGroup("230.0.0.1", asyncResult2 -> {
+            System.out.println("Listen succeeded? " + asyncResult2.succeeded());
+        });
 ```
 
 ### CodeBlock2Expr
@@ -8137,9 +8101,9 @@ in `src/main/java/examples/CoreExamples.java`
 #### Snippet
 ```java
 
-  public void example15(Vertx vertx) {
-    long timerID = vertx.setTimer(1000, id -> {
-      System.out.println("And one second later this is printed");
+  public void example16(Vertx vertx) {
+    long timerID = vertx.setPeriodic(1000, id -> {
+      System.out.println("And every second this is printed");
     });
 ```
 
@@ -8157,6 +8121,42 @@ in `src/main/java/examples/CoreExamples.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/CoreExamples.java`
+#### Snippet
+```java
+      String result = someAPI.blockingMethod("hello");
+      promise.complete(result);
+    }, res -> {
+      System.out.println("The result is: " + res.result());
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/CoreExamples.java`
+#### Snippet
+```java
+      String result = someAPI.blockingMethod("hello");
+      promise.complete(result);
+    }, res -> {
+      System.out.println("The result is: " + res.result());
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/CoreExamples.java`
+#### Snippet
+```java
+
+  public void example15(Vertx vertx) {
+    long timerID = vertx.setTimer(1000, id -> {
+      System.out.println("And one second later this is printed");
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `src/main/java/examples/StreamsExamples.java`
 #### Snippet
 ```java
@@ -8164,7 +8164,7 @@ in `src/main/java/examples/StreamsExamples.java`
     );
     server.connectHandler(sock -> {
       sock.handler(buffer -> {
-        // Write the data straight back
+        if (!sock.writeQueueFull()) {
 ```
 
 ### CodeBlock2Expr
@@ -8196,23 +8196,11 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/examples/StreamsExamples.java`
 #### Snippet
 ```java
-      new NetServerOptions().setPort(1234).setHost("localhost")
-    );
-    server.connectHandler(sock -> {
-      sock.pipeTo(sock);
-    }).listen();
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/StreamsExamples.java`
-#### Snippet
-```java
         new NetServerOptions().setPort(1234).setHost("localhost")
     );
     server.connectHandler(sock -> {
       sock.handler(buffer -> {
-        if (!sock.writeQueueFull()) {
+        // Write the data straight back
 ```
 
 ### CodeBlock2Expr
@@ -8225,6 +8213,198 @@ in `src/main/java/examples/StreamsExamples.java`
     server.connectHandler(sock -> {
       sock.handler(buffer -> {
         sock.write(buffer);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/StreamsExamples.java`
+#### Snippet
+```java
+      new NetServerOptions().setPort(1234).setHost("localhost")
+    );
+    server.connectHandler(sock -> {
+      sock.pipeTo(sock);
+    }).listen();
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/ParseToolsExamples.java`
+#### Snippet
+```java
+
+  public void recordParserExample2() {
+    RecordParser.newFixed(4, h -> {
+      System.out.println(h.toString());
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/ParseToolsExamples.java`
+#### Snippet
+```java
+
+  public void recordParserExample1() {
+    final RecordParser parser = RecordParser.newDelimited("\n", h -> {
+      System.out.println(h.toString());
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/EventBusExamples.java`
+#### Snippet
+```java
+    EventBus eb = vertx.eventBus();
+
+    eb.consumer("news.uk.sport", message -> {
+      System.out.println("I have received a message: " + message.body());
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/EventBusExamples.java`
+#### Snippet
+```java
+
+    MessageConsumer<String> consumer = eb.consumer("news.uk.sport");
+    consumer.handler(message -> {
+      System.out.println("I have received a message: " + message.body());
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/FileSystemExamples.java`
+#### Snippet
+```java
+    vertx.fileSystem().exists("target/classes/junk.txt", result -> {
+      if (result.succeeded() && result.result()) {
+        vertx.fileSystem().delete("target/classes/junk.txt", r -> {
+          System.out.println("File deleted");
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTP2Examples.java`
+#### Snippet
+```java
+
+  public void example24(HttpConnection connection) {
+    connection.pingHandler(ping -> {
+      System.out.println("Got pinged by remote side");
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTP2Examples.java`
+#### Snippet
+```java
+
+  public void example15(HttpClientResponse response) {
+    response.customFrameHandler(frame -> {
+
+      System.out.println("Received a frame type=" + frame.type() +
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTP2Examples.java`
+#### Snippet
+```java
+    HttpServer server = vertx.createHttpServer(http2Options);
+
+    server.connectionHandler(connection -> {
+      System.out.println("A client connected");
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTP2Examples.java`
+#### Snippet
+```java
+
+  public void example19(HttpClient client) {
+    client.connectionHandler(connection -> {
+      System.out.println("Connected to the server");
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTP2Examples.java`
+#### Snippet
+```java
+  public void example1(HttpServerRequest request) {
+
+    request.customFrameHandler(frame -> {
+
+      System.out.println("Received a frame type=" + frame.type() +
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTP2Examples.java`
+#### Snippet
+```java
+
+  public void example27(HttpConnection connection) {
+    connection.goAwayHandler(goAway -> {
+      System.out.println("Received a go away frame");
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTP2Examples.java`
+#### Snippet
+```java
+
+  public void example22(HttpConnection connection) {
+    connection.remoteSettingsHandler(settings -> {
+      System.out.println("Received new settings");
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTP2Examples.java`
+#### Snippet
+```java
+      data.appendByte(i);
+    }
+    connection.ping(data, pong -> {
+      System.out.println("Remote side replied");
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTP2Examples.java`
+#### Snippet
+```java
+
+          // Set an handler for the response
+          pushedRequest.response().onComplete(pushedResponse -> {
+            System.out.println("The response for the pushed request");
+          });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+      public void start() throws Exception {
+        server = vertx.createNetServer();
+        server.connectHandler(socket -> {
+          socket.handler(buffer -> {
+            // Just echo back the data
 ```
 
 ### CodeBlock2Expr
@@ -8265,181 +8445,25 @@ in `src/main/java/examples/NetExamples.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/NetExamples.java`
+in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-      public void start() throws Exception {
-        server = vertx.createNetServer();
-        server.connectHandler(socket -> {
-          socket.handler(buffer -> {
-            // Just echo back the data
-```
+  public void example15(HttpServerRequest request) {
 
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/ParseToolsExamples.java`
-#### Snippet
-```java
-
-  public void recordParserExample1() {
-    final RecordParser parser = RecordParser.newDelimited("\n", h -> {
-      System.out.println(h.toString());
+    request.uploadHandler(upload -> {
+      upload.streamToFileSystem("myuploads_directory/" + upload.filename());
     });
 ```
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/ParseToolsExamples.java`
+in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-
-  public void recordParserExample2() {
-    RecordParser.newFixed(4, h -> {
-      System.out.println(h.toString());
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/EventBusExamples.java`
-#### Snippet
-```java
-
-    MessageConsumer<String> consumer = eb.consumer("news.uk.sport");
-    consumer.handler(message -> {
-      System.out.println("I have received a message: " + message.body());
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/EventBusExamples.java`
-#### Snippet
-```java
-    EventBus eb = vertx.eventBus();
-
-    eb.consumer("news.uk.sport", message -> {
-      System.out.println("I have received a message: " + message.body());
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/FileSystemExamples.java`
-#### Snippet
-```java
-    vertx.fileSystem().exists("target/classes/junk.txt", result -> {
-      if (result.succeeded() && result.result()) {
-        vertx.fileSystem().delete("target/classes/junk.txt", r -> {
-          System.out.println("File deleted");
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTP2Examples.java`
-#### Snippet
-```java
-
-  public void example27(HttpConnection connection) {
-    connection.goAwayHandler(goAway -> {
-      System.out.println("Received a go away frame");
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTP2Examples.java`
-#### Snippet
-```java
-
-  public void example24(HttpConnection connection) {
-    connection.pingHandler(ping -> {
-      System.out.println("Got pinged by remote side");
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTP2Examples.java`
-#### Snippet
-```java
-
-  public void example19(HttpClient client) {
-    client.connectionHandler(connection -> {
-      System.out.println("Connected to the server");
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTP2Examples.java`
-#### Snippet
-```java
-    HttpServer server = vertx.createHttpServer(http2Options);
-
-    server.connectionHandler(connection -> {
-      System.out.println("A client connected");
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTP2Examples.java`
-#### Snippet
-```java
-  public void example1(HttpServerRequest request) {
-
-    request.customFrameHandler(frame -> {
-
-      System.out.println("Received a frame type=" + frame.type() +
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTP2Examples.java`
-#### Snippet
-```java
-      data.appendByte(i);
-    }
-    connection.ping(data, pong -> {
-      System.out.println("Remote side replied");
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTP2Examples.java`
-#### Snippet
-```java
-
-  public void example22(HttpConnection connection) {
-    connection.remoteSettingsHandler(settings -> {
-      System.out.println("Received new settings");
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTP2Examples.java`
-#### Snippet
-```java
-
-  public void example15(HttpClientResponse response) {
-    response.customFrameHandler(frame -> {
-
-      System.out.println("Received a frame type=" + frame.type() +
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTP2Examples.java`
-#### Snippet
-```java
-
-          // Set an handler for the response
-          pushedRequest.response().onComplete(pushedResponse -> {
-            System.out.println("The response for the pushed request");
+        request.send(ar2 -> {
+          HttpClientResponse response = ar2.result();
+          response.handler(buffer -> {
+            System.out.println("Received a part of the response body: " + buffer);
           });
 ```
 
@@ -8460,35 +8484,59 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-        request.send(ar2 -> {
-          HttpClientResponse response = ar2.result();
-          response.handler(buffer -> {
-            System.out.println("Received a part of the response body: " + buffer);
-          });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-  public void example57(WebSocket webSocket) {
-
-    webSocket.frameHandler(frame -> {
-      System.out.println("Received a frame of size!");
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
     });
 
     request.endHandler(v -> {
       System.out.println("Full body received, length = " + totalBuffer.length());
     });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+  public void example51(HttpServer server) {
+
+    server.webSocketHandler(webSocket -> {
+      System.out.println("Connected!");
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+
+  public void randomServersharing(Vertx vertx) {
+    vertx.createHttpServer().requestHandler(request -> {
+      request.response().end("Hello from server " + this);
+    }).listen(-1);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+  public void setRequestExceptionHandler(HttpClientRequest request) {
+
+    request.exceptionHandler(err -> {
+      System.out.println("Write failure " + err.getMessage());
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+        .send()
+        .compose(HttpClientResponse::body))
+      .onSuccess(body -> {
+        System.out.println("Received response");
+      });
 ```
 
 ### CodeBlock2Expr
@@ -8520,114 +8568,6 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-    server.requestHandler(request -> {
-      request.setExpectMultipart(true);
-      request.uploadHandler(upload -> {
-        System.out.println("Got a file upload " + upload.name());
-      });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-  public void example7_1(Vertx vertx) {
-
-    vertx.createHttpServer().requestHandler(request -> {
-      request.response().end("Hello world");
-    }).listen(8080);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-
-  public void serversharing(Vertx vertx) {
-    vertx.createHttpServer().requestHandler(request -> {
-      request.response().end("Hello from server " + this);
-    }).listen(8080);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-  public void example9(HttpServerRequest request) {
-
-    request.handler(buffer -> {
-      System.out.println("I have received a chunk of the body of length " + buffer.length());
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-  public void example51(HttpServer server) {
-
-    server.webSocketHandler(webSocket -> {
-      System.out.println("Connected!");
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-
-    // Listen to the composed final json result
-    future.onSuccess(json -> {
-      System.out.println("Received json result " + json);
-    }).onFailure(err -> {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-    future.onSuccess(json -> {
-      System.out.println("Received json result " + json);
-    }).onFailure(err -> {
-      System.out.println("Something went wrong " + err.getMessage());
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-  public void setRequestExceptionHandler(HttpClientRequest request) {
-
-    request.exceptionHandler(err -> {
-      System.out.println("Write failure " + err.getMessage());
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-  public void example15(HttpServerRequest request) {
-
-    request.uploadHandler(upload -> {
-      upload.streamToFileSystem("myuploads_directory/" + upload.filename());
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
 
   public void serversharingclient(Vertx vertx) {
     vertx.setPeriodic(100, (l) -> {
@@ -8652,35 +8592,35 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-
-  public void randomServersharing(Vertx vertx) {
-    vertx.createHttpServer().requestHandler(request -> {
-      request.response().end("Hello from server " + this);
-    }).listen(-1);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-        .send()
-        .compose(HttpClientResponse::body))
-      .onSuccess(body -> {
-        System.out.println("Received response");
-      });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
   public void example11(HttpServerRequest request) {
 
     request.bodyHandler(totalBuffer -> {
       System.out.println("Full body received, length = " + totalBuffer.length());
     });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+  public void example7_1(Vertx vertx) {
+
+    vertx.createHttpServer().requestHandler(request -> {
+      request.response().end("Hello world");
+    }).listen(8080);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+
+  public void serversharing(Vertx vertx) {
+    vertx.createHttpServer().requestHandler(request -> {
+      request.response().end("Hello from server " + this);
+    }).listen(8080);
 ```
 
 ### CodeBlock2Expr
@@ -8721,6 +8661,66 @@ in `src/main/java/examples/HTTPExamples.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+  public void example9(HttpServerRequest request) {
+
+    request.handler(buffer -> {
+      System.out.println("I have received a chunk of the body of length " + buffer.length());
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+    server.requestHandler(request -> {
+      request.setExpectMultipart(true);
+      request.uploadHandler(upload -> {
+        System.out.println("Got a file upload " + upload.name());
+      });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+
+    // Listen to the composed final json result
+    future.onSuccess(json -> {
+      System.out.println("Received json result " + json);
+    }).onFailure(err -> {
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+    future.onSuccess(json -> {
+      System.out.println("Received json result " + json);
+    }).onFailure(err -> {
+      System.out.println("Something went wrong " + err.getMessage());
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+  public void example57(WebSocket webSocket) {
+
+    webSocket.frameHandler(frame -> {
+      System.out.println("Received a frame of size!");
+    });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
 #### Snippet
 ```java
@@ -8746,15 +8746,27 @@ in `src/main/java/io/vertx/core/net/impl/TCPServerBase.java`
 
 ## FieldAccessedSynchronizedAndUnsynchronized
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `actualServer` is accessed in both synchronized and unsynchronized contexts
+Field `metric` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
+#### Snippet
+```java
+  private Handler<Void> closeHandler;
+  private int writeInProgress;
+  private Object metric;
+  private SocketAddress remoteAddress;
+  private SocketAddress realRemoteAddress;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `channelBalancer` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/net/impl/TCPServerBase.java`
 #### Snippet
 ```java
-  private volatile boolean listening;
-  private ContextInternal listenContext;
-  private TCPServerBase actualServer;
-
   // Main
+  private SSLHelper sslHelper;
+  private ServerChannelLoadBalancer channelBalancer;
+  private Future<Channel> bindFuture;
+  private Set<TCPServerBase> servers;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -8782,27 +8794,15 @@ in `src/main/java/io/vertx/core/net/impl/TCPServerBase.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `eventLoop` is accessed in both synchronized and unsynchronized contexts
+Field `actualServer` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/net/impl/TCPServerBase.java`
 #### Snippet
 ```java
-
-  // Per server
-  private EventLoop eventLoop;
-  private Handler<Channel> worker;
   private volatile boolean listening;
-```
+  private ContextInternal listenContext;
+  private TCPServerBase actualServer;
 
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `metrics` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/net/impl/TCPServerBase.java`
-#### Snippet
-```java
-  private Future<Channel> bindFuture;
-  private Set<TCPServerBase> servers;
-  private TCPMetrics<?> metrics;
-  private volatile int actualPort;
-
+  // Main
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -8818,27 +8818,27 @@ in `src/main/java/io/vertx/core/net/impl/TCPServerBase.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `channelBalancer` is accessed in both synchronized and unsynchronized contexts
+Field `metrics` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/net/impl/TCPServerBase.java`
 #### Snippet
 ```java
-  // Main
-  private SSLHelper sslHelper;
-  private ServerChannelLoadBalancer channelBalancer;
   private Future<Channel> bindFuture;
   private Set<TCPServerBase> servers;
+  private TCPMetrics<?> metrics;
+  private volatile int actualPort;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `metric` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
+Field `eventLoop` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/net/impl/TCPServerBase.java`
 #### Snippet
 ```java
-  private Handler<Void> closeHandler;
-  private int writeInProgress;
-  private Object metric;
-  private SocketAddress remoteAddress;
-  private SocketAddress realRemoteAddress;
+
+  // Per server
+  private EventLoop eventLoop;
+  private Handler<Channel> worker;
+  private volatile boolean listening;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -8890,27 +8890,15 @@ in `src/main/java/io/vertx/core/file/impl/FileCache.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `queue` is accessed in both synchronized and unsynchronized contexts
+Field `closed` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 #### Snippet
 ```java
-  private int lwm = maxWrites / 2;
-  private int readBufferSize = DEFAULT_READ_BUFFER_SIZE;
-  private InboundBuffer<Buffer> queue;
-  private Handler<Buffer> handler;
-  private Handler<Void> endHandler;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `readPos` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
-#### Snippet
-```java
-  private Handler<Buffer> handler;
-  private Handler<Void> endHandler;
-  private long readPos;
-  private long readLength = Long.MAX_VALUE;
-
+  private final AsynchronousFileChannel ch;
+  private final ContextInternal context;
+  private boolean closed;
+  private Runnable closedDeferred;
+  private long writesOutstanding;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -8938,15 +8926,27 @@ in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `closed` is accessed in both synchronized and unsynchronized contexts
+Field `queue` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 #### Snippet
 ```java
-  private final AsynchronousFileChannel ch;
-  private final ContextInternal context;
-  private boolean closed;
-  private Runnable closedDeferred;
-  private long writesOutstanding;
+  private int lwm = maxWrites / 2;
+  private int readBufferSize = DEFAULT_READ_BUFFER_SIZE;
+  private InboundBuffer<Buffer> queue;
+  private Handler<Buffer> handler;
+  private Handler<Void> endHandler;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `readPos` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
+#### Snippet
+```java
+  private Handler<Buffer> handler;
+  private Handler<Void> endHandler;
+  private long readPos;
+  private long readLength = Long.MAX_VALUE;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -8962,15 +8962,15 @@ in `src/main/java/io/vertx/core/http/impl/Http2ServerConnection.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `exceptionHandler` is accessed in both synchronized and unsynchronized contexts
+Field `demand` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
 #### Snippet
 ```java
-  private Handler<HttpConnection> connectionHandler;
 
-  private Handler<Throwable> exceptionHandler;
+    private Handler<C> handler;
+    private long demand = Long.MAX_VALUE;
+    private Handler<Void> endHandler;
 
-  public HttpServerImpl(VertxInternal vertx, HttpServerOptions options) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -8986,27 +8986,15 @@ in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `demand` is accessed in both synchronized and unsynchronized contexts
+Field `exceptionHandler` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
 #### Snippet
 ```java
+  private Handler<HttpConnection> connectionHandler;
 
-    private Handler<C> handler;
-    private long demand = Long.MAX_VALUE;
-    private Handler<Void> endHandler;
+  private Handler<Throwable> exceptionHandler;
 
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `stream` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
-#### Snippet
-```java
-  protected final VertxInternal vertx;
-  protected final ContextInternal context;
-  protected Http2Stream stream;
-
-  // Client context
+  public HttpServerImpl(VertxInternal vertx, HttpServerOptions options) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9022,15 +9010,15 @@ in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `trailers` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/HttpClientResponseImpl.java`
+Field `stream` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
 #### Snippet
 ```java
-  // Cache these for performance
-  private MultiMap headers;
-  private MultiMap trailers;
-  private List<String> cookies;
-  private NetSocket netSocket;
+  protected final VertxInternal vertx;
+  protected final ContextInternal context;
+  protected Http2Stream stream;
+
+  // Client context
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9043,6 +9031,18 @@ in `src/main/java/io/vertx/core/http/impl/HttpClientResponseImpl.java`
   private HttpEventHandler eventHandler;
   private Handler<HttpFrame> customFrameHandler;
   private Handler<StreamPriority> priorityHandler;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `trailers` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/HttpClientResponseImpl.java`
+#### Snippet
+```java
+  // Cache these for performance
+  private MultiMap headers;
+  private MultiMap trailers;
+  private List<String> cookies;
+  private NetSocket netSocket;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9094,15 +9094,27 @@ in `src/main/java/io/vertx/core/http/impl/NettyFileUpload.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `uploadHandler` is accessed in both synchronized and unsynchronized contexts
+Field `pipe` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/HttpServerFileUploadImpl.java`
+#### Snippet
+```java
+  private boolean lazyCalculateSize;
+  private AsyncFile file;
+  private Pipe<Buffer> pipe;
+  private boolean cancelled;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `request` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/http/impl/Http1xServerRequest.java`
 #### Snippet
 ```java
+  final ContextInternal context;
 
-  private HttpEventHandler eventHandler;
-  private Handler<HttpServerFileUpload> uploadHandler;
-  private MultiMap attributes;
-  private HttpPostRequestDecoder decoder;
+  private HttpRequest request;
+  private io.vertx.core.http.HttpVersion version;
+  private io.vertx.core.http.HttpMethod method;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9115,6 +9127,18 @@ in `src/main/java/io/vertx/core/http/impl/Http1xServerRequest.java`
   Object trace;
 
   private Http1xServerResponse response;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `response` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http1xServerRequest.java`
+#### Snippet
+```java
+  Object trace;
+
+  private Http1xServerResponse response;
+
+  // Cache this for performance
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9142,27 +9166,15 @@ in `src/main/java/io/vertx/core/http/impl/Http1xServerRequest.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `request` is accessed in both synchronized and unsynchronized contexts
+Field `uploadHandler` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/http/impl/Http1xServerRequest.java`
 #### Snippet
 ```java
-  final ContextInternal context;
 
-  private HttpRequest request;
-  private io.vertx.core.http.HttpVersion version;
-  private io.vertx.core.http.HttpMethod method;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `response` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http1xServerRequest.java`
-#### Snippet
-```java
-  Object trace;
-
-  private Http1xServerResponse response;
-
-  // Cache this for performance
+  private HttpEventHandler eventHandler;
+  private Handler<HttpServerFileUpload> uploadHandler;
+  private MultiMap attributes;
+  private HttpPostRequestDecoder decoder;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9178,15 +9190,15 @@ in `src/main/java/io/vertx/core/http/impl/Http1xServerRequest.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `pipe` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/HttpServerFileUploadImpl.java`
+Field `maxConcurrentStreams` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
 #### Snippet
 ```java
-  private boolean lazyCalculateSize;
-  private AsyncFile file;
-  private Pipe<Buffer> pipe;
-  private boolean cancelled;
+  private GoAway goAwayStatus;
+  private int windowSize;
+  private long maxConcurrentStreams;
 
+  public Http2ConnectionBase(EventLoopContext context, VertxHttp2ConnectionHandler handler) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9202,18 +9214,6 @@ in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxConcurrentStreams` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
-#### Snippet
-```java
-  private GoAway goAwayStatus;
-  private int windowSize;
-  private long maxConcurrentStreams;
-
-  public Http2ConnectionBase(EventLoopContext context, VertxHttp2ConnectionHandler handler) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `pingHandler` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
 #### Snippet
@@ -9226,15 +9226,15 @@ in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `chunked` is accessed in both synchronized and unsynchronized contexts
+Field `followRedirects` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
 #### Snippet
 ```java
-  private final Promise<Void> endPromise;
-  private final Future<Void> endFuture;
-  private boolean chunked;
-  private Handler<Void> continueHandler;
-  private Handler<Void> drainHandler;
+  private boolean ended;
+  private Throwable reset;
+  private int followRedirects;
+  private HeadersMultiMap headers;
+  private StreamPriority priority;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9262,30 +9262,6 @@ in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `followRedirects` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
-#### Snippet
-```java
-  private boolean ended;
-  private Throwable reset;
-  private int followRedirects;
-  private HeadersMultiMap headers;
-  private StreamPriority priority;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `ended` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
-#### Snippet
-```java
-  private Handler<Void> drainHandler;
-  private Handler<Throwable> exceptionHandler;
-  private boolean ended;
-  private Throwable reset;
-  private int followRedirects;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `priority` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
 #### Snippet
@@ -9295,6 +9271,18 @@ in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
   private StreamPriority priority;
   private boolean headWritten;
   private boolean isConnect;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `chunked` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
+#### Snippet
+```java
+  private final Promise<Void> endPromise;
+  private final Future<Void> endFuture;
+  private boolean chunked;
+  private Handler<Void> continueHandler;
+  private Handler<Void> drainHandler;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9310,27 +9298,27 @@ in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `path` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/HttpClientRequestBase.java`
+Field `ended` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
 #### Snippet
 ```java
-  private int port;
-  private String uri;
-  private String path;
-  private String query;
-  private final PromiseInternal<HttpClientResponse> responsePromise;
+  private Handler<Void> drainHandler;
+  private Handler<Throwable> exceptionHandler;
+  private boolean ended;
+  private Throwable reset;
+  private int followRedirects;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `uri` is accessed in both synchronized and unsynchronized contexts
+Field `port` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/http/impl/HttpClientRequestBase.java`
 #### Snippet
 ```java
+  private io.vertx.core.http.HttpMethod method;
   private String host;
   private int port;
   private String uri;
   private String path;
-  private String query;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9343,6 +9331,18 @@ in `src/main/java/io/vertx/core/http/impl/HttpClientRequestBase.java`
   private String query;
   private final PromiseInternal<HttpClientResponse> responsePromise;
   private Handler<HttpClientRequest> pushHandler;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `path` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/HttpClientRequestBase.java`
+#### Snippet
+```java
+  private int port;
+  private String uri;
+  private String path;
+  private String query;
+  private final PromiseInternal<HttpClientResponse> responsePromise;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9370,87 +9370,39 @@ in `src/main/java/io/vertx/core/http/impl/HttpClientRequestBase.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `port` is accessed in both synchronized and unsynchronized contexts
+Field `uri` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/http/impl/HttpClientRequestBase.java`
 #### Snippet
 ```java
-  private io.vertx.core.http.HttpMethod method;
   private String host;
   private int port;
   private String uri;
   private String path;
+  private String query;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `params` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
+Field `binaryHandlerRegistration` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/WebSocketImplBase.java`
 #### Snippet
 ```java
-  // Accessed on context thread
-  private Charset paramsCharset = StandardCharsets.UTF_8;
-  private MultiMap params;
-  private String absoluteURI;
-  private MultiMap attributes;
+  private ChannelHandlerContext chctx;
+  protected final ContextInternal context;
+  private MessageConsumer binaryHandlerRegistration;
+  private MessageConsumer textHandlerRegistration;
+  private String subProtocol;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `postRequestDecoder` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
+Field `textHandlerRegistration` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/WebSocketImplBase.java`
 #### Snippet
 ```java
-  private boolean ended;
-  private Handler<HttpServerFileUpload> uploadHandler;
-  private HttpPostRequestDecoder postRequestDecoder;
-  private Handler<HttpFrame> customFrameHandler;
-  private Handler<StreamPriority> streamPriorityHandler;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `eventHandler` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
-#### Snippet
-```java
-  private String absoluteURI;
-  private MultiMap attributes;
-  private HttpEventHandler eventHandler;
-  private boolean streamEnded;
-  private boolean ended;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `uploadHandler` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
-#### Snippet
-```java
-  private boolean streamEnded;
-  private boolean ended;
-  private Handler<HttpServerFileUpload> uploadHandler;
-  private HttpPostRequestDecoder postRequestDecoder;
-  private Handler<HttpFrame> customFrameHandler;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `customFrameHandler` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
-#### Snippet
-```java
-  private Handler<HttpServerFileUpload> uploadHandler;
-  private HttpPostRequestDecoder postRequestDecoder;
-  private Handler<HttpFrame> customFrameHandler;
-  private Handler<StreamPriority> streamPriorityHandler;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `paramsCharset` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
-#### Snippet
-```java
-
-  // Accessed on context thread
-  private Charset paramsCharset = StandardCharsets.UTF_8;
-  private MultiMap params;
-  private String absoluteURI;
+  protected final ContextInternal context;
+  private MessageConsumer binaryHandlerRegistration;
+  private MessageConsumer textHandlerRegistration;
+  private String subProtocol;
+  private Object metric;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9478,123 +9430,99 @@ in `src/main/java/io/vertx/core/http/impl/WebSocketImplBase.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `textHandlerRegistration` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/WebSocketImplBase.java`
+Field `paramsCharset` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
 #### Snippet
 ```java
-  protected final ContextInternal context;
-  private MessageConsumer binaryHandlerRegistration;
-  private MessageConsumer textHandlerRegistration;
-  private String subProtocol;
-  private Object metric;
+
+  // Accessed on context thread
+  private Charset paramsCharset = StandardCharsets.UTF_8;
+  private MultiMap params;
+  private String absoluteURI;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `binaryHandlerRegistration` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/WebSocketImplBase.java`
+Field `eventHandler` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
 #### Snippet
 ```java
-  private ChannelHandlerContext chctx;
-  protected final ContextInternal context;
-  private MessageConsumer binaryHandlerRegistration;
-  private MessageConsumer textHandlerRegistration;
-  private String subProtocol;
+  private String absoluteURI;
+  private MultiMap attributes;
+  private HttpEventHandler eventHandler;
+  private boolean streamEnded;
+  private boolean ended;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `shutdownTimerID` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+Field `customFrameHandler` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
 #### Snippet
 ```java
-  private boolean close;
-  private boolean shutdown;
-  private long shutdownTimerID = -1L;
-  private boolean isConnect;
-  private int keepAliveTimeout;
+  private Handler<HttpServerFileUpload> uploadHandler;
+  private HttpPostRequestDecoder postRequestDecoder;
+  private Handler<HttpFrame> customFrameHandler;
+  private Handler<StreamPriority> streamPriorityHandler;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `requests` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+Field `params` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
 #### Snippet
 ```java
-  private final long highWaterMark;
+  // Accessed on context thread
+  private Charset paramsCharset = StandardCharsets.UTF_8;
+  private MultiMap params;
+  private String absoluteURI;
+  private MultiMap attributes;
+```
 
-  private Deque<Stream> requests = new ArrayDeque<>();
-  private Deque<Stream> responses = new ArrayDeque<>();
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `postRequestDecoder` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
+#### Snippet
+```java
+  private boolean ended;
+  private Handler<HttpServerFileUpload> uploadHandler;
+  private HttpPostRequestDecoder postRequestDecoder;
+  private Handler<HttpFrame> customFrameHandler;
+  private Handler<StreamPriority> streamPriorityHandler;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `uploadHandler` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
+#### Snippet
+```java
+  private boolean streamEnded;
+  private boolean ended;
+  private Handler<HttpServerFileUpload> uploadHandler;
+  private HttpPostRequestDecoder postRequestDecoder;
+  private Handler<HttpFrame> customFrameHandler;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `headersEndHandler` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
+#### Snippet
+```java
+  private Handler<Void> drainHandler;
+  private Handler<Throwable> exceptionHandler;
+  private Handler<Void> headersEndHandler;
+  private Handler<Void> bodyEndHandler;
+  private Handler<Void> closeHandler;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `headWritten` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
+#### Snippet
+```java
+  private Http2HeadersAdaptor trailedMap;
+  private boolean chunked;
+  private boolean headWritten;
+  private boolean ended;
   private boolean closed;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `keepAliveTimeout` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-  private long shutdownTimerID = -1L;
-  private boolean isConnect;
-  private int keepAliveTimeout;
-  private long expirationTimestamp;
-  private int seq = 1;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `responses` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-
-  private Deque<Stream> requests = new ArrayDeque<>();
-  private Deque<Stream> responses = new ArrayDeque<>();
-  private boolean closed;
-  private boolean evicted;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `close` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-  private Handler<Void> evictionHandler = DEFAULT_EVICTION_HANDLER;
-  private Handler<Object> invalidMessageHandler = INVALID_MSG_HANDLER;
-  private boolean close;
-  private boolean shutdown;
-  private long shutdownTimerID = -1L;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `drainHandler` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-    private Handler<Buffer> chunkHandler;
-    private Handler<MultiMap> endHandler;
-    private Handler<Void> drainHandler;
-    private Handler<Void> continueHandler;
-    private Handler<Throwable> exceptionHandler;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `closed` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-  private Deque<Stream> requests = new ArrayDeque<>();
-  private Deque<Stream> responses = new ArrayDeque<>();
-  private boolean closed;
-  private boolean evicted;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `shutdown` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-  private Handler<Object> invalidMessageHandler = INVALID_MSG_HANDLER;
-  private boolean close;
-  private boolean shutdown;
-  private long shutdownTimerID = -1L;
-  private boolean isConnect;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9610,15 +9538,27 @@ in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `headWritten` is accessed in both synchronized and unsynchronized contexts
+Field `drainHandler` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
 #### Snippet
 ```java
-  private Http2HeadersAdaptor trailedMap;
+  private HttpResponseStatus status = HttpResponseStatus.OK;
+  private String statusMessage; // Not really used but we keep the message for the getStatusMessage()
+  private Handler<Void> drainHandler;
+  private Handler<Throwable> exceptionHandler;
+  private Handler<Void> headersEndHandler;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `ended` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
+#### Snippet
+```java
   private boolean chunked;
   private boolean headWritten;
   private boolean ended;
   private boolean closed;
+  private CookieJar cookies;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9646,39 +9586,99 @@ in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `drainHandler` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
+Field `shutdownTimerID` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 #### Snippet
 ```java
-  private HttpResponseStatus status = HttpResponseStatus.OK;
-  private String statusMessage; // Not really used but we keep the message for the getStatusMessage()
-  private Handler<Void> drainHandler;
-  private Handler<Throwable> exceptionHandler;
-  private Handler<Void> headersEndHandler;
+  private boolean close;
+  private boolean shutdown;
+  private long shutdownTimerID = -1L;
+  private boolean isConnect;
+  private int keepAliveTimeout;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `headersEndHandler` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
+Field `closed` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 #### Snippet
 ```java
-  private Handler<Void> drainHandler;
-  private Handler<Throwable> exceptionHandler;
-  private Handler<Void> headersEndHandler;
-  private Handler<Void> bodyEndHandler;
-  private Handler<Void> closeHandler;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `ended` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
-#### Snippet
-```java
-  private boolean chunked;
-  private boolean headWritten;
-  private boolean ended;
+  private Deque<Stream> requests = new ArrayDeque<>();
+  private Deque<Stream> responses = new ArrayDeque<>();
   private boolean closed;
-  private CookieJar cookies;
+  private boolean evicted;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `requests` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+  private final long highWaterMark;
+
+  private Deque<Stream> requests = new ArrayDeque<>();
+  private Deque<Stream> responses = new ArrayDeque<>();
+  private boolean closed;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `drainHandler` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+    private Handler<Buffer> chunkHandler;
+    private Handler<MultiMap> endHandler;
+    private Handler<Void> drainHandler;
+    private Handler<Void> continueHandler;
+    private Handler<Throwable> exceptionHandler;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `close` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+  private Handler<Void> evictionHandler = DEFAULT_EVICTION_HANDLER;
+  private Handler<Object> invalidMessageHandler = INVALID_MSG_HANDLER;
+  private boolean close;
+  private boolean shutdown;
+  private long shutdownTimerID = -1L;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `responses` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+
+  private Deque<Stream> requests = new ArrayDeque<>();
+  private Deque<Stream> responses = new ArrayDeque<>();
+  private boolean closed;
+  private boolean evicted;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `shutdown` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+  private Handler<Object> invalidMessageHandler = INVALID_MSG_HANDLER;
+  private boolean close;
+  private boolean shutdown;
+  private long shutdownTimerID = -1L;
+  private boolean isConnect;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `keepAliveTimeout` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+  private long shutdownTimerID = -1L;
+  private boolean isConnect;
+  private int keepAliveTimeout;
+  private long expirationTimestamp;
+  private int seq = 1;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9694,6 +9694,18 @@ in `src/main/java/io/vertx/core/impl/HAManager.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `classpath` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/impl/launcher/commands/ClasspathHandler.java`
+#### Snippet
+```java
+  protected final Logger log = LoggerFactory.getLogger(this.getClass());
+
+  protected List<String> classpath;
+
+  protected Object manager;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `classloader` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/impl/launcher/commands/ClasspathHandler.java`
 #### Snippet
@@ -9706,15 +9718,15 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/ClasspathHandler.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `classpath` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/impl/launcher/commands/ClasspathHandler.java`
+Field `redeployTerminationPeriod` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
 #### Snippet
 ```java
-  protected final Logger log = LoggerFactory.getLogger(this.getClass());
+  private long redeployScanPeriod;
+  private long redeployGracePeriod;
+  private long redeployTerminationPeriod;
 
-  protected List<String> classpath;
-
-  protected Object manager;
+  /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9730,14 +9742,14 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `redeployGracePeriod` is accessed in both synchronized and unsynchronized contexts
+Field `redeploy` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
 #### Snippet
 ```java
-  protected Watcher watcher;
-  private long redeployScanPeriod;
-  private long redeployGracePeriod;
-  private long redeployTerminationPeriod;
+
+  protected String mainVerticle;
+  protected List<String> redeploy;
+
 
 ```
 
@@ -9754,6 +9766,18 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `redeployGracePeriod` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
+#### Snippet
+```java
+  protected Watcher watcher;
+  private long redeployScanPeriod;
+  private long redeployGracePeriod;
+  private long redeployTerminationPeriod;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `onRedeployCommand` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
 #### Snippet
@@ -9763,30 +9787,6 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
   protected String onRedeployCommand;
   protected Watcher watcher;
   private long redeployScanPeriod;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `redeploy` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
-#### Snippet
-```java
-
-  protected String mainVerticle;
-  protected List<String> redeploy;
-
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `redeployTerminationPeriod` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
-#### Snippet
-```java
-  private long redeployScanPeriod;
-  private long redeployGracePeriod;
-  private long redeployTerminationPeriod;
-
-  /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9934,15 +9934,15 @@ in `src/main/java/io/vertx/core/datagram/impl/DatagramSocketImpl.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `trailingHeaders` is accessed in both synchronized and unsynchronized contexts
+Field `netSocket` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
 #### Snippet
 ```java
-  private CookieJar cookies;
-  private MultiMap trailers;
-  private io.netty.handler.codec.http.HttpHeaders trailingHeaders = EmptyHttpHeaders.INSTANCE;
   private String statusMessage;
   private long bytesWritten;
+  private Future<NetSocket> netSocket;
+
+  Http1xServerResponse(VertxInternal vertx,
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9958,6 +9958,18 @@ in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `trailingHeaders` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
+#### Snippet
+```java
+  private CookieJar cookies;
+  private MultiMap trailers;
+  private io.netty.handler.codec.http.HttpHeaders trailingHeaders = EmptyHttpHeaders.INSTANCE;
+  private String statusMessage;
+  private long bytesWritten;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `status` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
 #### Snippet
@@ -9967,18 +9979,6 @@ in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
   private HttpResponseStatus status;
   private final HttpVersion version;
   private final boolean keepAlive;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `netSocket` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
-#### Snippet
-```java
-  private String statusMessage;
-  private long bytesWritten;
-  private Future<NetSocket> netSocket;
-
-  Http1xServerResponse(VertxInternal vertx,
 ```
 
 ## EmptyMethod
@@ -10301,24 +10301,24 @@ public class JULLogDelegate implements LogDelegate {
 ## DuplicateThrows
 ### DuplicateThrows
 There is a more general exception, 'java.io.IOException', in the throws list already.
-in `src/main/java/io/vertx/core/json/jackson/BufferDeserializer.java`
-#### Snippet
-```java
-
-  @Override
-  public Buffer deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-    String text = p.getText();
-    try {
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
 in `src/main/java/io/vertx/core/json/jackson/InstantDeserializer.java`
 #### Snippet
 ```java
 class InstantDeserializer extends JsonDeserializer<Instant> {
   @Override
   public Instant deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    String text = p.getText();
+    try {
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `src/main/java/io/vertx/core/json/jackson/BufferDeserializer.java`
+#### Snippet
+```java
+
+  @Override
+  public Buffer deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
     String text = p.getText();
     try {
 ```
@@ -10341,11 +10341,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
 #### Snippet
 ```java
-    context.emit(t, err -> {
-      Handler<Throwable> handler;
-      synchronized (ConnectionBase.this) {
-        handler = exceptionHandler;
-      }
+        flush = true;
+      } else {
+        synchronized (this) {
+          flush = --writeInProgress == 0;
+        }
 ```
 
 ### SynchronizeOnThis
@@ -10353,11 +10353,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
 #### Snippet
 ```java
-        flush = true;
-      } else {
-        synchronized (this) {
-          flush = --writeInProgress == 0;
-        }
+    context.emit(t, err -> {
+      Handler<Throwable> handler;
+      synchronized (ConnectionBase.this) {
+        handler = exceptionHandler;
+      }
 ```
 
 ### SynchronizeOnThis
@@ -10389,18 +10389,6 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/net/impl/pool/Endpoint.java`
 #### Snippet
 ```java
-
-  protected boolean incRefCount() {
-    synchronized (this) {
-      refCount++;
-      return !closed;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/net/impl/pool/Endpoint.java`
-#### Snippet
-```java
    */
   protected void close() {
     synchronized (this) {
@@ -10413,11 +10401,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/net/impl/pool/Endpoint.java`
 #### Snippet
 ```java
-  protected boolean decRefCount() {
-    // CHECK SHOULD CLOSE
+
+  protected boolean incRefCount() {
     synchronized (this) {
-      refCount--;
-      if (!checkDispose()) {
+      refCount++;
+      return !closed;
 ```
 
 ### SynchronizeOnThis
@@ -10446,6 +10434,18 @@ in `src/main/java/io/vertx/core/net/impl/pool/Endpoint.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/net/impl/pool/Endpoint.java`
+#### Snippet
+```java
+  protected boolean decRefCount() {
+    // CHECK SHOULD CLOSE
+    synchronized (this) {
+      refCount--;
+      if (!checkDispose()) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/net/impl/NetServerImpl.java`
 #### Snippet
 ```java
@@ -10461,11 +10461,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/file/impl/FileCache.java`
 #### Snippet
 ```java
-  void close() throws IOException {
-    final Thread hook;
+  private void deleteCacheDir() throws IOException {
+    final File dir;
     synchronized (this) {
-      hook = shutdownHook;
-      // disable the shutdown hook thread
+      if (cacheDir == null) {
+        return;
 ```
 
 ### SynchronizeOnThis
@@ -10485,11 +10485,23 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/file/impl/FileCache.java`
 #### Snippet
 ```java
-  private void deleteCacheDir() throws IOException {
-    final File dir;
+  void close() throws IOException {
+    final Thread hook;
     synchronized (this) {
-      if (cacheDir == null) {
-        return;
+      hook = shutdownHook;
+      // disable the shutdown hook thread
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
+#### Snippet
+```java
+        if (exc instanceof Exception) {
+          context.runOnContext((v) -> {
+            synchronized (AsyncFileImpl.this) {
+              writesOutstanding -= buff.limit();
+            }
 ```
 
 ### SynchronizeOnThis
@@ -10509,18 +10521,6 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 #### Snippet
 ```java
-          // It's been fully written
-          context.runOnContext((v) -> {
-            synchronized (AsyncFileImpl.this) {
-              writesOutstanding -= buff.limit();
-            }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
-#### Snippet
-```java
       checkContext();
       Runnable action;
       synchronized (AsyncFileImpl.this) {
@@ -10533,7 +10533,19 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 #### Snippet
 ```java
-        if (exc instanceof Exception) {
+  private void doWrite(ByteBuffer buff, long position, long toWrite, Handler<AsyncResult<Void>> handler) {
+    if (toWrite > 0) {
+      synchronized (this) {
+        writesOutstanding += toWrite;
+        overflow |= writesOutstanding >= maxWrites;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
+#### Snippet
+```java
+          // It's been fully written
           context.runOnContext((v) -> {
             synchronized (AsyncFileImpl.this) {
               writesOutstanding -= buff.limit();
@@ -10554,18 +10566,6 @@ in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
-#### Snippet
-```java
-  private void doWrite(ByteBuffer buff, long position, long toWrite, Handler<AsyncResult<Void>> handler) {
-    if (toWrite > 0) {
-      synchronized (this) {
-        writesOutstanding += toWrite;
-        overflow |= writesOutstanding >= maxWrites;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/Http2ServerConnection.java`
 #### Snippet
 ```java
@@ -10578,14 +10578,14 @@ in `src/main/java/io/vertx/core/http/impl/Http2ServerConnection.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/net/impl/NetSocketImpl.java`
+in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
 #### Snippet
 ```java
-  protected void handleEvent(Object evt) {
-    Handler<Object> handler;
-    synchronized (this) {
-      handler = eventHandler;
-    }
+
+    Handler<Void> endHandler() {
+      synchronized (HttpServerImpl.this) {
+        return endHandler;
+      }
 ```
 
 ### SynchronizeOnThis
@@ -10594,22 +10594,10 @@ in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
 #### Snippet
 ```java
     @Override
-    public ReadStream endHandler(Handler<Void> endHandler) {
+    public ReadStream pause() {
       synchronized (HttpServerImpl.this) {
-        this.endHandler = endHandler;
+        demand = 0L;
         return this;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
-#### Snippet
-```java
-    @Override
-    public ReadStream handler(Handler<C> handler) {
-      synchronized (HttpServerImpl.this) {
-        if (isListening()) {
-          throw new IllegalStateException("Please set handler before server is listening");
 ```
 
 ### SynchronizeOnThis
@@ -10630,10 +10618,10 @@ in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
 #### Snippet
 ```java
     @Override
-    public ReadStream pause() {
+    public ReadStream handler(Handler<C> handler) {
       synchronized (HttpServerImpl.this) {
-        demand = 0L;
-        return this;
+        if (isListening()) {
+          throw new IllegalStateException("Please set handler before server is listening");
 ```
 
 ### SynchronizeOnThis
@@ -10654,18 +10642,6 @@ in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
 #### Snippet
 ```java
 
-    Handler<Void> endHandler() {
-      synchronized (HttpServerImpl.this) {
-        return endHandler;
-      }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
-#### Snippet
-```java
-
     Handler<C> handler() {
       synchronized (HttpServerImpl.this) {
         return handler;
@@ -10674,38 +10650,14 @@ in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
+in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
 #### Snippet
 ```java
-    context.emit(null, v -> {
-      boolean w;
-      synchronized (VertxHttp2Stream.this) {
-        writable = !writable;
-        w = writable;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
-#### Snippet
-```java
-
-  void init(Http2Stream stream) {
-    synchronized (this) {
-      this.stream = stream;
-      this.writable = this.conn.handler.encoder().flowController().isWritable(stream);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
-#### Snippet
-```java
-  private void doWriteReset(long code) {
-    int streamId;
-    synchronized (this) {
-      streamId = stream != null ? stream.id() : -1;
-    }
+    @Override
+    public ReadStream endHandler(Handler<Void> endHandler) {
+      synchronized (HttpServerImpl.this) {
+        this.endHandler = endHandler;
+        return this;
 ```
 
 ### SynchronizeOnThis
@@ -10758,6 +10710,66 @@ in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/net/impl/NetSocketImpl.java`
+#### Snippet
+```java
+  protected void handleEvent(Object evt) {
+    Handler<Object> handler;
+    synchronized (this) {
+      handler = eventHandler;
+    }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
+#### Snippet
+```java
+
+  void init(Http2Stream stream) {
+    synchronized (this) {
+      this.stream = stream;
+      this.writable = this.conn.handler.encoder().flowController().isWritable(stream);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
+#### Snippet
+```java
+  private void doWriteReset(long code) {
+    int streamId;
+    synchronized (this) {
+      streamId = stream != null ? stream.id() : -1;
+    }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
+#### Snippet
+```java
+    context.emit(null, v -> {
+      boolean w;
+      synchronized (VertxHttp2Stream.this) {
+        writable = !writable;
+        w = writable;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/Http1xServerConnection.java`
+#### Snippet
+```java
+    Http1xServerRequest requestInProgress;
+    ServerWebSocketImpl ws;
+    synchronized (this) {
+      ws = this.webSocket;
+      requestInProgress = this.requestInProgress;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/Http1xServerConnection.java`
 #### Snippet
 ```java
@@ -10806,18 +10818,6 @@ in `src/main/java/io/vertx/core/http/impl/Http1xServerConnection.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/Http1xServerConnection.java`
-#### Snippet
-```java
-    Http1xServerRequest requestInProgress;
-    ServerWebSocketImpl ws;
-    synchronized (this) {
-      ws = this.webSocket;
-      requestInProgress = this.requestInProgress;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/NettyFileUpload.java`
 #### Snippet
 ```java
@@ -10833,11 +10833,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/HttpServerFileUploadImpl.java`
 #### Snippet
 ```java
-  private void handleEnd() {
-    Handler<Void> handler;
+  private void handleException(Throwable cause) {
+    Handler<Throwable> handler;
     synchronized (this) {
-      lazyCalculateSize = false;
-      handler = endHandler;
+      handler = exceptionHandler;
+    }
 ```
 
 ### SynchronizeOnThis
@@ -10845,11 +10845,23 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/HttpServerFileUploadImpl.java`
 #### Snippet
 ```java
-  @Override
-  public boolean cancelStreamToFileSystem() {
+  private void handleData(Buffer data) {
+    Handler<Buffer> handler;
+    synchronized (HttpServerFileUploadImpl.this) {
+      handler = dataHandler;
+      if (lazyCalculateSize) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/HttpServerFileUploadImpl.java`
+#### Snippet
+```java
+  private void handleEnd() {
+    Handler<Void> handler;
     synchronized (this) {
-      if (pipe == null) {
-        throw new IllegalStateException("Not a streaming upload");
+      lazyCalculateSize = false;
+      handler = endHandler;
 ```
 
 ### SynchronizeOnThis
@@ -10881,23 +10893,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/HttpServerFileUploadImpl.java`
 #### Snippet
 ```java
-  private void handleException(Throwable cause) {
-    Handler<Throwable> handler;
+  @Override
+  public boolean cancelStreamToFileSystem() {
     synchronized (this) {
-      handler = exceptionHandler;
-    }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/HttpServerFileUploadImpl.java`
-#### Snippet
-```java
-  private void handleData(Buffer data) {
-    Handler<Buffer> handler;
-    synchronized (HttpServerFileUploadImpl.this) {
-      handler = dataHandler;
-      if (lazyCalculateSize) {
+      if (pipe == null) {
+        throw new IllegalStateException("Not a streaming upload");
 ```
 
 ### SynchronizeOnThis
@@ -10917,6 +10917,18 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
 #### Snippet
 ```java
+    boolean changed;
+    Handler<io.vertx.core.http.Http2Settings> handler;
+    synchronized (this) {
+      Long val = settings.maxConcurrentStreams();
+      if (val != null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
+#### Snippet
+```java
     handler.writePing(data.getLong(0)).addListener(fut -> {
       if (fut.isSuccess()) {
         synchronized (Http2ConnectionBase.this) {
@@ -10929,11 +10941,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
 #### Snippet
 ```java
-  boolean onGoAwayReceived(GoAway goAway) {
-    Handler<GoAway> handler;
+  public void onSettingsAckRead(ChannelHandlerContext ctx) {
+    Handler<Void> handler;
     synchronized (this) {
-      if (this.goAwayStatus != null) {
-        return false;
+      handler = updateSettingsHandlers.poll();
+    }
 ```
 
 ### SynchronizeOnThis
@@ -10965,11 +10977,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
 #### Snippet
 ```java
-  public void onSettingsAckRead(ChannelHandlerContext ctx) {
-    Handler<Void> handler;
+  boolean onGoAwayReceived(GoAway goAway) {
+    Handler<GoAway> handler;
     synchronized (this) {
-      handler = updateSettingsHandlers.poll();
-    }
+      if (this.goAwayStatus != null) {
+        return false;
 ```
 
 ### SynchronizeOnThis
@@ -10986,38 +10998,14 @@ in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
-#### Snippet
-```java
-    boolean changed;
-    Handler<io.vertx.core.http.Http2Settings> handler;
-    synchronized (this) {
-      Long val = settings.maxConcurrentStreams();
-      if (val != null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
 #### Snippet
 ```java
-  @Override
-  boolean reset(Throwable cause) {
+    boolean writeHead;
+    boolean writeEnd;
     synchronized (this) {
-      if (reset != null) {
-        return false;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
-#### Snippet
-```java
-  @Override
-  public HttpClientRequest writeCustomFrame(int type, int flags, Buffer payload) {
-    synchronized (this) {
-      checkEnded();
-    }
+      if (ended) {
+        completionHandler.handle(Future.failedFuture(new IllegalStateException("Request already complete")));
 ```
 
 ### SynchronizeOnThis
@@ -11049,11 +11037,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
 #### Snippet
 ```java
-    boolean writeHead;
-    boolean writeEnd;
+  @Override
+  boolean reset(Throwable cause) {
     synchronized (this) {
-      if (ended) {
-        completionHandler.handle(Future.failedFuture(new IllegalStateException("Request already complete")));
+      if (reset != null) {
+        return false;
 ```
 
 ### SynchronizeOnThis
@@ -11065,6 +11053,18 @@ in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
     Handler<Void> handler;
     synchronized (this) {
       handler = continueHandler;
+    }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/HttpClientRequestImpl.java`
+#### Snippet
+```java
+  @Override
+  public HttpClientRequest writeCustomFrame(int type, int flags, Buffer payload) {
+    synchronized (this) {
+      checkEnded();
     }
 ```
 
@@ -11121,10 +11121,10 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/Http1xConnectionBase.java`
 #### Snippet
 ```java
-    WebSocketFrameInternal frame = decodeFrame(msg);
-    WebSocketImplBase<?> w;
+  public Future<Void> close() {
+    S sock;
     synchronized (this) {
-      w = webSocket;
+      sock = webSocket;
     }
 ```
 
@@ -11133,10 +11133,10 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/Http1xConnectionBase.java`
 #### Snippet
 ```java
-  public Future<Void> close() {
-    S sock;
+    WebSocketFrameInternal frame = decodeFrame(msg);
+    WebSocketImplBase<?> w;
     synchronized (this) {
-      sock = webSocket;
+      w = webSocket;
     }
 ```
 
@@ -11150,6 +11150,30 @@ in `src/main/java/io/vertx/core/impl/CloseFuture.java`
     synchronized (this) {
       close = !closed;
       if (weakHooks != null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
+#### Snippet
+```java
+  @Override
+  public void close(Promise<Void> completion) {
+    synchronized (this) {
+      if (timerID >= 0) {
+        vertx.cancelTimer(timerID);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
+#### Snippet
+```java
+  private void checkExpired(Handler<Long> checker) {
+    httpCM.forEach(EXPIRED_CHECKER);
+    synchronized (this) {
+      if (!closeFuture.isClosed()) {
+        timerID = vertx.setTimer(options.getPoolCleanerPeriod(), checker);
 ```
 
 ### SynchronizeOnThis
@@ -11169,11 +11193,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 #### Snippet
 ```java
-    List<Stream> allocatedStreams;
-    List<Stream> sentStreams;
+    WebSocketImpl ws;
+    LinkedHashSet<Stream> allStreams = new LinkedHashSet<>();
     synchronized (this) {
       ws = webSocket;
-      sentStreams = new ArrayList<>(responses);
+      allStreams.addAll(requests);
 ```
 
 ### SynchronizeOnThis
@@ -11181,47 +11205,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 #### Snippet
 ```java
-  private void handleHttpMessage(HttpObject obj) {
-    Stream stream;
+  private boolean reset(Stream stream) {
+    boolean isInflight;
     synchronized (this) {
-      stream = responses.peekFirst();
-    }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-  private void handleChunk(ByteBuf chunk) {
-    Stream stream;
-    synchronized (this) {
-      stream = responses.peekFirst();
-      if (stream == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-
-  protected void handleIdle(IdleStateEvent event) {
-    synchronized (this) {
-      if (webSocket == null && responses.isEmpty() && requests.isEmpty()) {
-        return;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-    if (eventLoop.inEventLoop()) {
-      StreamImpl stream;
-      synchronized (this) {
-        if (closed) {
-          stream = null;
+      isInflight = responses.remove(stream) || (requests.remove(stream) && stream.responseEnded);
+      close = isInflight;
 ```
 
 ### SynchronizeOnThis
@@ -11265,47 +11253,35 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 #### Snippet
 ```java
+    if (eventLoop.inEventLoop()) {
+      StreamImpl stream;
+      synchronized (this) {
+        if (closed) {
+          stream = null;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+  private void handleHttpMessage(HttpObject obj) {
+    Stream stream;
+    synchronized (this) {
+      stream = responses.peekFirst();
+    }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
     ContextInternal context;
     Handler<Boolean> handler;
     synchronized (this) {
       Stream current = requests.peek();
       if (current != null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-    stream.bytesWritten += buf != null ? buf.readableBytes() : 0L;
-    HttpRequest nettyRequest = createRequest(request.method, request.uri, request.headers, request.authority, chunked, buf, end);
-    synchronized (this) {
-      responses.add(stream);
-      this.isConnect = connect;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-  private boolean reset(Stream stream) {
-    boolean isInflight;
-    synchronized (this) {
-      isInflight = responses.remove(stream) || (requests.remove(stream) && stream.responseEnded);
-      close = isInflight;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-    WebSocketImpl ws;
-    LinkedHashSet<Stream> allStreams = new LinkedHashSet<>();
-    synchronized (this) {
-      ws = webSocket;
-      allStreams.addAll(requests);
 ```
 
 ### SynchronizeOnThis
@@ -11325,11 +11301,59 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 #### Snippet
 ```java
+  private void handleChunk(ByteBuf chunk) {
+    Stream stream;
+    synchronized (this) {
+      stream = responses.peekFirst();
+      if (stream == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
     Stream next;
     boolean checkLifecycle;
     synchronized (this) {
       requests.pop();
       next = requests.peek();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+
+  protected void handleIdle(IdleStateEvent event) {
+    synchronized (this) {
+      if (webSocket == null && responses.isEmpty() && requests.isEmpty()) {
+        return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+    stream.bytesWritten += buf != null ? buf.readableBytes() : 0L;
+    HttpRequest nettyRequest = createRequest(request.method, request.uri, request.headers, request.authority, chunked, buf, end);
+    synchronized (this) {
+      responses.add(stream);
+      this.isConnect = connect;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+    List<Stream> allocatedStreams;
+    List<Stream> sentStreams;
+    synchronized (this) {
+      ws = webSocket;
+      sentStreams = new ArrayList<>(responses);
 ```
 
 ### SynchronizeOnThis
@@ -11358,26 +11382,14 @@ in `src/main/java/io/vertx/core/impl/LoaderManager.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
-#### Snippet
-```java
-  private void checkExpired(Handler<Long> checker) {
-    httpCM.forEach(EXPIRED_CHECKER);
-    synchronized (this) {
-      if (!closeFuture.isClosed()) {
-        timerID = vertx.setTimer(options.getPoolCleanerPeriod(), checker);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
+in `src/main/java/io/vertx/core/impl/WorkerExecutorImpl.java`
 #### Snippet
 ```java
   @Override
-  public void close(Promise<Void> completion) {
+  public <T> Future<@Nullable T> executeBlocking(Handler<Promise<T>> blockingCodeHandler, boolean ordered) {
     synchronized (this) {
-      if (timerID >= 0) {
-        vertx.cancelTimer(timerID);
+      if (closed) {
+        throw new IllegalStateException("Worker executor closed");
 ```
 
 ### SynchronizeOnThis
@@ -11390,18 +11402,6 @@ in `src/main/java/io/vertx/core/impl/WorkerExecutorImpl.java`
     synchronized (this) {
       closed = true;
     }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/impl/WorkerExecutorImpl.java`
-#### Snippet
-```java
-  @Override
-  public <T> Future<@Nullable T> executeBlocking(Handler<Promise<T>> blockingCodeHandler, boolean ordered) {
-    synchronized (this) {
-      if (closed) {
-        throw new IllegalStateException("Worker executor closed");
 ```
 
 ### SynchronizeOnThis
@@ -11445,6 +11445,18 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
 #### Snippet
 ```java
+  public void addListener(Listener<T> listener) {
+    Object v;
+    synchronized (this) {
+      v = value;
+      if (v == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
+#### Snippet
+```java
   @Override
   public String toString() {
     synchronized (this) {
@@ -11474,18 +11486,6 @@ in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
     synchronized (this) {
       if (value != null) {
         return false;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
-#### Snippet
-```java
-  public void addListener(Listener<T> listener) {
-    Object v;
-    synchronized (this) {
-      v = value;
-      if (v == null) {
 ```
 
 ### SynchronizeOnThis
@@ -11541,11 +11541,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/streams/impl/InboundBuffer.java`
 #### Snippet
 ```java
-  private void handleException(Throwable err) {
-    Handler<Throwable> handler;
+    checkThread();
+    Handler<E> handler;
     synchronized (this) {
-      if ((handler = exceptionHandler) == null) {
-        return;
+      if (demand == 0L || emitting) {
+        pending.add(element);
 ```
 
 ### SynchronizeOnThis
@@ -11589,23 +11589,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/streams/impl/InboundBuffer.java`
 #### Snippet
 ```java
-    checkThread();
-    Handler<E> handler;
+  private void handleException(Throwable err) {
+    Handler<Throwable> handler;
     synchronized (this) {
-      if (demand == 0L || emitting) {
-        pending.add(element);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/streams/impl/InboundBuffer.java`
-#### Snippet
-```java
-   */
-  public E read() {
-    synchronized (this) {
-      return pending.poll();
-    }
+      if ((handler = exceptionHandler) == null) {
+        return;
 ```
 
 ### SynchronizeOnThis
@@ -11622,14 +11610,14 @@ in `src/main/java/io/vertx/core/streams/impl/InboundBuffer.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
+in `src/main/java/io/vertx/core/streams/impl/InboundBuffer.java`
 #### Snippet
 ```java
-    boolean endOnSuccess;
-    boolean endOnFailure;
-    synchronized (PipeImpl.this) {
-      if (dst != null) {
-        throw new IllegalStateException();
+   */
+  public E read() {
+    synchronized (this) {
+      return pending.poll();
+    }
 ```
 
 ### SynchronizeOnThis
@@ -11642,6 +11630,18 @@ in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
     synchronized (this) {
       src.exceptionHandler(null);
       src.handler(null);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
+#### Snippet
+```java
+    boolean endOnSuccess;
+    boolean endOnFailure;
+    synchronized (PipeImpl.this) {
+      if (dst != null) {
+        throw new IllegalStateException();
 ```
 
 ### SynchronizeOnThis
@@ -11685,6 +11685,18 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/eventbus/impl/MessageConsumerImpl.java`
 #### Snippet
 ```java
+        Message<T> message;
+        Handler<Message<T>> theHandler;
+        synchronized (MessageConsumerImpl.this) {
+          if (demand == 0L || (message = pending.poll()) == null) {
+            return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/vertx/core/eventbus/impl/MessageConsumerImpl.java`
+#### Snippet
+```java
     List<Message<T>> discarded;
     Handler<Message<T>> discardHandler;
     synchronized (this) {
@@ -11718,18 +11730,6 @@ in `src/main/java/io/vertx/core/eventbus/impl/MessageConsumerImpl.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/vertx/core/eventbus/impl/MessageConsumerImpl.java`
-#### Snippet
-```java
-        Message<T> message;
-        Handler<Message<T>> theHandler;
-        synchronized (MessageConsumerImpl.this) {
-          if (demand == 0L || (message = pending.poll()) == null) {
-            return;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/datagram/impl/DatagramSocketImpl.java`
 #### Snippet
 ```java
@@ -11745,11 +11745,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/datagram/impl/DatagramSocketImpl.java`
 #### Snippet
 ```java
-      super.handleException(t);
-      Handler<Throwable> handler;
+      Handler<Void> handler;
+      DatagramSocketMetrics metrics;
       synchronized (DatagramSocketImpl.this) {
-        handler = exceptionHandler;
-      }
+        handler = endHandler;
+        metrics = DatagramSocketImpl.this.metrics;
 ```
 
 ### SynchronizeOnThis
@@ -11757,11 +11757,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/vertx/core/datagram/impl/DatagramSocketImpl.java`
 #### Snippet
 ```java
-      Handler<Void> handler;
-      DatagramSocketMetrics metrics;
+      super.handleException(t);
+      Handler<Throwable> handler;
       synchronized (DatagramSocketImpl.this) {
-        handler = endHandler;
-        metrics = DatagramSocketImpl.this.metrics;
+        handler = exceptionHandler;
+      }
 ```
 
 ## CastConflictsWithInstanceof
@@ -11803,6 +11803,18 @@ in `src/main/java/io/vertx/core/dns/impl/decoder/RecordDecoder.java`
 ```
 
 ### UnusedAssignment
+Variable `clientAuth` initializer `DEFAULT_CLIENT_AUTH` is redundant
+in `src/main/java/io/vertx/core/eventbus/EventBusOptions.java`
+#### Snippet
+```java
+  private String host;
+  private int acceptBacklog;
+  private ClientAuth clientAuth = DEFAULT_CLIENT_AUTH;
+
+  // Attributes used to configure the client of the event bus when the event bus is clustered.
+```
+
+### UnusedAssignment
 The value `this.endOnSuccess` assigned to `endOnSuccess` is never used
 in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
 #### Snippet
@@ -11824,18 +11836,6 @@ in `src/main/java/io/vertx/core/streams/impl/PipeImpl.java`
       endOnFailure = this.endOnFailure;
     }
     Handler<Void> drainHandler = v -> src.resume();
-```
-
-### UnusedAssignment
-Variable `clientAuth` initializer `DEFAULT_CLIENT_AUTH` is redundant
-in `src/main/java/io/vertx/core/eventbus/EventBusOptions.java`
-#### Snippet
-```java
-  private String host;
-  private int acceptBacklog;
-  private ClientAuth clientAuth = DEFAULT_CLIENT_AUTH;
-
-  // Attributes used to configure the client of the event bus when the event bus is clustered.
 ```
 
 ### UnusedAssignment
@@ -11889,9 +11889,9 @@ in `src/main/java/io/vertx/core/json/jackson/DatabindCodec.java`
 ```java
   }
 
-  public static JsonParser createParser(Buffer buf) {
+  public static JsonParser createParser(String str) {
     try {
-      return DatabindCodec.mapper.getFactory().createParser((InputStream) new ByteBufInputStream(buf.getByteBuf()));
+      return DatabindCodec.mapper.getFactory().createParser(str);
 ```
 
 ### MethodOverridesStaticMethod
@@ -11913,9 +11913,9 @@ in `src/main/java/io/vertx/core/json/jackson/DatabindCodec.java`
 ```java
   }
 
-  public static JsonParser createParser(String str) {
+  public static JsonParser createParser(Buffer buf) {
     try {
-      return DatabindCodec.mapper.getFactory().createParser(str);
+      return DatabindCodec.mapper.getFactory().createParser((InputStream) new ByteBufInputStream(buf.getByteBuf()));
 ```
 
 ## IOResource
@@ -12047,11 +12047,11 @@ Can be replaced with 'Collectors.joining'
 in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
 #### Snippet
 ```java
-      return "";
-    else
-      return "/" + String.join("/", decodedTokens.stream().map(this::escape).collect(Collectors.toList()));
+      return replaceFragment(
+          this.startingUri,
+          "/" + String.join("/", decodedTokens.stream().map(this::escape).collect(Collectors.toList()))
+      );
   }
-
 ```
 
 ### SimplifyStreamApiCallChains
@@ -12059,11 +12059,11 @@ Can be replaced with 'Collectors.joining'
 in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
 #### Snippet
 ```java
-      return replaceFragment(
-          this.startingUri,
-          "/" + String.join("/", decodedTokens.stream().map(this::escape).collect(Collectors.toList()))
-      );
+      return "";
+    else
+      return "/" + String.join("/", decodedTokens.stream().map(this::escape).collect(Collectors.toList()));
   }
+
 ```
 
 ## StringOperationCanBeSimplified
@@ -12117,18 +12117,6 @@ in `src/main/java/io/vertx/core/http/impl/MimeMapping.java`
 
 ## DeprecatedIsStillUsed
 ### DeprecatedIsStillUsed
-Deprecated member 'getIsolatedClasses' is still used
-in `src/main/java/io/vertx/core/DeploymentOptions.java`
-#### Snippet
-```java
-  @GenIgnore
-  @Deprecated
-  public List<String> getIsolatedClasses() {
-    return isolatedClasses;
-  }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'setIsolationGroup' is still used
 in `src/main/java/io/vertx/core/DeploymentOptions.java`
 #### Snippet
@@ -12141,14 +12129,26 @@ in `src/main/java/io/vertx/core/DeploymentOptions.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getIsolationGroup' is still used
+Deprecated member 'setIsolatedClasses' is still used
 in `src/main/java/io/vertx/core/DeploymentOptions.java`
 #### Snippet
 ```java
   @GenIgnore
   @Deprecated
-  public String getIsolationGroup() {
-    return isolationGroup;
+  public DeploymentOptions setIsolatedClasses(List<String> isolatedClasses) {
+    this.isolatedClasses = isolatedClasses;
+    return this;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getIsolatedClasses' is still used
+in `src/main/java/io/vertx/core/DeploymentOptions.java`
+#### Snippet
+```java
+  @GenIgnore
+  @Deprecated
+  public List<String> getIsolatedClasses() {
+    return isolatedClasses;
   }
 ```
 
@@ -12177,15 +12177,15 @@ in `src/main/java/io/vertx/core/DeploymentOptions.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setIsolatedClasses' is still used
+Deprecated member 'getIsolationGroup' is still used
 in `src/main/java/io/vertx/core/DeploymentOptions.java`
 #### Snippet
 ```java
   @GenIgnore
   @Deprecated
-  public DeploymentOptions setIsolatedClasses(List<String> isolatedClasses) {
-    this.isolatedClasses = isolatedClasses;
-    return this;
+  public String getIsolationGroup() {
+    return isolationGroup;
+  }
 ```
 
 ### DeprecatedIsStillUsed
@@ -12266,11 +12266,11 @@ Lambda can be replaced with method reference
 in `src/main/java/examples/NetExamples.java`
 #### Snippet
 ```java
-    client.connect(1234, "localhost", ar -> {
-      if (ar.succeeded()) {
-        ar.result().handler(buffer -> System.out.println(buffer));
-      } else {
-        System.err.println("Woops: " + ar.cause().getMessage());
+          socket.handler(buffer -> {
+            // Just echo back the data
+            socket.write(buffer);
+          });
+        });
 ```
 
 ### Convert2MethodRef
@@ -12278,11 +12278,11 @@ Lambda can be replaced with method reference
 in `src/main/java/examples/NetExamples.java`
 #### Snippet
 ```java
-          socket.handler(buffer -> {
-            // Just echo back the data
-            socket.write(buffer);
-          });
-        });
+    client.connect(1234, "localhost", ar -> {
+      if (ar.succeeded()) {
+        ar.result().handler(buffer -> System.out.println(buffer));
+      } else {
+        System.err.println("Woops: " + ar.cause().getMessage());
 ```
 
 ### Convert2MethodRef
@@ -12294,6 +12294,42 @@ in `src/main/generated/io/vertx/core/cli/OptionConverter.java`
       JsonArray array = new JsonArray();
       obj.getChoices().forEach(item -> array.add(item));
       json.put("choices", array);
+    }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+            return response
+              .body()
+              .map(buffer -> buffer.toJsonObject());
+          } else {
+            return Future.failedFuture("Incorrect HTTP response");
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+              .open("/some/large/file", new OpenOptions().setWrite(true))
+              .onFailure(err -> pipe.close())
+              .compose(file -> pipe.to(file));
+          } else {
+            return Future.failedFuture("Incorrect HTTP response");
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
+#### Snippet
+```java
+    if (obj.getSubProtocols() != null) {
+      JsonArray array = new JsonArray();
+      obj.getSubProtocols().forEach(item -> array.add(item));
+      json.put("subProtocols", array);
     }
 ```
 
@@ -12318,30 +12354,6 @@ in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
       JsonArray array = new JsonArray();
       obj.getServers().forEach(item -> array.add(item));
       json.put("servers", array);
-    }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
-#### Snippet
-```java
-    if (obj.getSubProtocols() != null) {
-      JsonArray array = new JsonArray();
-      obj.getSubProtocols().forEach(item -> array.add(item));
-      json.put("subProtocols", array);
-    }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/main/generated/io/vertx/core/net/ClientOptionsBaseConverter.java`
-#### Snippet
-```java
-    if (obj.getNonProxyHosts() != null) {
-      JsonArray array = new JsonArray();
-      obj.getNonProxyHosts().forEach(item -> array.add(item));
-      json.put("nonProxyHosts", array);
     }
 ```
 
@@ -12395,6 +12407,18 @@ in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
+in `src/main/generated/io/vertx/core/net/ClientOptionsBaseConverter.java`
+#### Snippet
+```java
+    if (obj.getNonProxyHosts() != null) {
+      JsonArray array = new JsonArray();
+      obj.getNonProxyHosts().forEach(item -> array.add(item));
+      json.put("nonProxyHosts", array);
+    }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
 in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
 #### Snippet
 ```java
@@ -12403,30 +12427,6 @@ in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
       obj.getApplicationLayerProtocols().forEach(item -> array.add(item));
       json.put("applicationLayerProtocols", array);
     }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-            return response
-              .body()
-              .map(buffer -> buffer.toJsonObject());
-          } else {
-            return Future.failedFuture("Incorrect HTTP response");
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-              .open("/some/large/file", new OpenOptions().setWrite(true))
-              .onFailure(err -> pipe.close())
-              .compose(file -> pipe.to(file));
-          } else {
-            return Future.failedFuture("Incorrect HTTP response");
 ```
 
 ### Convert2MethodRef
@@ -12529,27 +12529,15 @@ in `src/main/java/io/vertx/core/impl/VerticleManager.java`
 
 ## NonSynchronizedMethodOverridesSynchronizedMethod
 ### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `exceptionHandler()` overrides synchronized method
-in `src/main/java/io/vertx/core/net/impl/NetSocketImpl.java`
-#### Snippet
-```java
-  }
-
-  public NetSocketImpl exceptionHandler(Handler<Throwable> handler) {
-    return (NetSocketImpl) super.exceptionHandler(handler);
-  }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `closeHandler()` overrides synchronized method
-in `src/main/java/io/vertx/core/net/impl/NetSocketImpl.java`
+Unsynchronized method `updatePriority()` overrides synchronized method
+in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
 #### Snippet
 ```java
 
-  @Override
-  public NetSocketImpl closeHandler(Handler<Void> handler) {
-    return (NetSocketImpl) super.closeHandler(handler);
-  }
+    @Override
+    public void updatePriority(StreamPriority streamPriority) {
+      super.updatePriority(streamPriority);
+    }
 ```
 
 ### NonSynchronizedMethodOverridesSynchronizedMethod
@@ -12565,26 +12553,26 @@ in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
 ```
 
 ### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `updatePriority()` overrides synchronized method
-in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
-#### Snippet
-```java
-
-    @Override
-    public void updatePriority(StreamPriority streamPriority) {
-      super.updatePriority(streamPriority);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `closeHandler()` overrides synchronized method
-in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
+in `src/main/java/io/vertx/core/net/impl/NetSocketImpl.java`
 #### Snippet
 ```java
 
   @Override
-  public Http2ConnectionBase closeHandler(Handler<Void> handler) {
-    return (Http2ConnectionBase) super.closeHandler(handler);
+  public NetSocketImpl closeHandler(Handler<Void> handler) {
+    return (NetSocketImpl) super.closeHandler(handler);
+  }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `exceptionHandler()` overrides synchronized method
+in `src/main/java/io/vertx/core/net/impl/NetSocketImpl.java`
+#### Snippet
+```java
+  }
+
+  public NetSocketImpl exceptionHandler(Handler<Throwable> handler) {
+    return (NetSocketImpl) super.exceptionHandler(handler);
   }
 ```
 
@@ -12602,13 +12590,13 @@ in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
 
 ### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `closeHandler()` overrides synchronized method
-in `src/main/java/io/vertx/core/http/impl/Http1xConnectionBase.java`
+in `src/main/java/io/vertx/core/http/impl/Http2ConnectionBase.java`
 #### Snippet
 ```java
 
   @Override
-  public Http1xConnectionBase closeHandler(Handler<Void> handler) {
-    return (Http1xConnectionBase) super.closeHandler(handler);
+  public Http2ConnectionBase closeHandler(Handler<Void> handler) {
+    return (Http2ConnectionBase) super.closeHandler(handler);
   }
 ```
 
@@ -12621,6 +12609,18 @@ in `src/main/java/io/vertx/core/http/impl/Http1xConnectionBase.java`
   @Override
   public Http1xConnectionBase exceptionHandler(Handler<Throwable> handler) {
     return (Http1xConnectionBase) super.exceptionHandler(handler);
+  }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `closeHandler()` overrides synchronized method
+in `src/main/java/io/vertx/core/http/impl/Http1xConnectionBase.java`
+#### Snippet
+```java
+
+  @Override
+  public Http1xConnectionBase closeHandler(Handler<Void> handler) {
+    return (Http1xConnectionBase) super.closeHandler(handler);
   }
 ```
 
@@ -12936,18 +12936,6 @@ in `src/main/java/examples/cli/TypedCLIExamples.java`
 in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
 #### Snippet
 ```java
-
-  private ArrayList<String> parse(String pointer) {
-    if (pointer == null || "".equals(pointer)) {
-      return new ArrayList<>();
-    }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
-#### Snippet
-```java
     for (int i = 0; i < decodedTokens.size() - 1; i++) {
       String k = decodedTokens.get(i);
       if (i == 0 && "".equals(k)) {
@@ -12955,55 +12943,19 @@ in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
       } else if (iterator.isObject(value)) {
 ```
 
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
+#### Snippet
+```java
+
+  private ArrayList<String> parse(String pointer) {
+    if (pointer == null || "".equals(pointer)) {
+      return new ArrayList<>();
+    }
+```
+
 ## PublicFieldAccessedInSynchronizedContext
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `stream` accessed in synchronized context
-in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
-#### Snippet
-```java
-    if (!this.priority.equals(priority)) {
-      this.priority = priority;
-      if (stream != null) {
-        writePriorityFrame(priority);
-      }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.stream` accessed in synchronized context
-in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
-#### Snippet
-```java
-  void init(Http2Stream stream) {
-    synchronized (this) {
-      this.stream = stream;
-      this.writable = this.conn.handler.encoder().flowController().isWritable(stream);
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `stream` accessed in synchronized context
-in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
-#### Snippet
-```java
-    int streamId;
-    synchronized (this) {
-      streamId = stream != null ? stream.id() : -1;
-    }
-    if (streamId != -1) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `stream` accessed in synchronized context
-in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
-#### Snippet
-```java
-    int streamId;
-    synchronized (this) {
-      streamId = stream != null ? stream.id() : -1;
-    }
-    if (streamId != -1) {
-```
-
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `writeWindow` accessed in synchronized context
 in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
@@ -13077,6 +13029,66 @@ in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.stream` accessed in synchronized context
+in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
+#### Snippet
+```java
+  void init(Http2Stream stream) {
+    synchronized (this) {
+      this.stream = stream;
+      this.writable = this.conn.handler.encoder().flowController().isWritable(stream);
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `stream` accessed in synchronized context
+in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
+#### Snippet
+```java
+    if (!this.priority.equals(priority)) {
+      this.priority = priority;
+      if (stream != null) {
+        writePriorityFrame(priority);
+      }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `stream` accessed in synchronized context
+in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
+#### Snippet
+```java
+    int streamId;
+    synchronized (this) {
+      streamId = stream != null ? stream.id() : -1;
+    }
+    if (streamId != -1) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `stream` accessed in synchronized context
+in `src/main/java/io/vertx/core/http/impl/VertxHttp2Stream.java`
+#### Snippet
+```java
+    int streamId;
+    synchronized (this) {
+      streamId = stream != null ? stream.id() : -1;
+    }
+    if (streamId != -1) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.webSocket` accessed in synchronized context
+in `src/main/java/io/vertx/core/http/impl/Http1xServerConnection.java`
+#### Snippet
+```java
+    ServerWebSocketImpl ws;
+    synchronized (this) {
+      ws = this.webSocket;
+      requestInProgress = this.requestInProgress;
+      responseInProgress = this.responseInProgress;
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `this.webSocket` accessed in synchronized context
 in `src/main/java/io/vertx/core/http/impl/Http1xServerConnection.java`
 #### Snippet
@@ -13125,15 +13137,15 @@ in `src/main/java/io/vertx/core/http/impl/Http1xServerConnection.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.webSocket` accessed in synchronized context
-in `src/main/java/io/vertx/core/http/impl/Http1xServerConnection.java`
+Non-private field `webSocket` accessed in synchronized context
+in `src/main/java/io/vertx/core/http/impl/Http1xConnectionBase.java`
 #### Snippet
 ```java
-    ServerWebSocketImpl ws;
+    S sock;
     synchronized (this) {
-      ws = this.webSocket;
-      requestInProgress = this.requestInProgress;
-      responseInProgress = this.responseInProgress;
+      sock = webSocket;
+    }
+    if (sock == null) {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -13150,26 +13162,14 @@ in `src/main/java/io/vertx/core/http/impl/Http1xConnectionBase.java`
 
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `webSocket` accessed in synchronized context
-in `src/main/java/io/vertx/core/http/impl/Http1xConnectionBase.java`
-#### Snippet
-```java
-    S sock;
-    synchronized (this) {
-      sock = webSocket;
-    }
-    if (sock == null) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `webSocket` accessed in synchronized context
 in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 #### Snippet
 ```java
-    List<Stream> sentStreams;
+    LinkedHashSet<Stream> allStreams = new LinkedHashSet<>();
     synchronized (this) {
       ws = webSocket;
-      sentStreams = new ArrayList<>(responses);
-      allocatedStreams = new ArrayList<>(requests);
+      allStreams.addAll(requests);
+      allStreams.addAll(responses);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -13213,18 +13213,6 @@ Non-private field `webSocket` accessed in synchronized context
 in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 #### Snippet
 ```java
-    LinkedHashSet<Stream> allStreams = new LinkedHashSet<>();
-    synchronized (this) {
-      ws = webSocket;
-      allStreams.addAll(requests);
-      allStreams.addAll(responses);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `webSocket` accessed in synchronized context
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
   protected void handleIdle(IdleStateEvent event) {
     synchronized (this) {
       if (webSocket == null && responses.isEmpty() && requests.isEmpty()) {
@@ -13233,27 +13221,15 @@ in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `classpath` accessed in synchronized context
-in `src/main/java/io/vertx/core/impl/launcher/commands/ClasspathHandler.java`
+Non-private field `webSocket` accessed in synchronized context
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 #### Snippet
 ```java
-  protected synchronized Object newInstance() {
-    try {
-      classloader = (classpath == null || classpath.isEmpty()) ?
-          ClasspathHandler.class.getClassLoader() : createClassloader();
-      Class<?> clazz = classloader.loadClass("io.vertx.core.impl.launcher.commands.VertxIsolatedDeployer");
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `classpath` accessed in synchronized context
-in `src/main/java/io/vertx/core/impl/launcher/commands/ClasspathHandler.java`
-#### Snippet
-```java
-  protected synchronized Object newInstance() {
-    try {
-      classloader = (classpath == null || classpath.isEmpty()) ?
-          ClasspathHandler.class.getClassLoader() : createClassloader();
-      Class<?> clazz = classloader.loadClass("io.vertx.core.impl.launcher.commands.VertxIsolatedDeployer");
+    List<Stream> sentStreams;
+    synchronized (this) {
+      ws = webSocket;
+      sentStreams = new ArrayList<>(responses);
+      allocatedStreams = new ArrayList<>(requests);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -13341,27 +13317,63 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/ClasspathHandler.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `executionContext` accessed in synchronized context
-in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
+Non-private field `classpath` accessed in synchronized context
+in `src/main/java/io/vertx/core/impl/launcher/commands/ClasspathHandler.java`
 #### Snippet
 ```java
-   */
-  protected synchronized void stopBackgroundApplication(Handler<Void> onCompletion) {
-    executionContext.execute("stop", vertxApplicationBackgroundId, "--redeploy");
-    if (redeployTerminationPeriod > 0) {
-      try {
+  protected synchronized Object newInstance() {
+    try {
+      classloader = (classpath == null || classpath.isEmpty()) ?
+          ClasspathHandler.class.getClassLoader() : createClassloader();
+      Class<?> clazz = classloader.loadClass("io.vertx.core.impl.launcher.commands.VertxIsolatedDeployer");
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `vertxApplicationBackgroundId` accessed in synchronized context
+Non-private field `classpath` accessed in synchronized context
+in `src/main/java/io/vertx/core/impl/launcher/commands/ClasspathHandler.java`
+#### Snippet
+```java
+  protected synchronized Object newInstance() {
+    try {
+      classloader = (classpath == null || classpath.isEmpty()) ?
+          ClasspathHandler.class.getClassLoader() : createClassloader();
+      Class<?> clazz = classloader.loadClass("io.vertx.core.impl.launcher.commands.VertxIsolatedDeployer");
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `watcher` accessed in synchronized context
 in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
 #### Snippet
 ```java
    */
-  protected synchronized void stopBackgroundApplication(Handler<Void> onCompletion) {
-    executionContext.execute("stop", vertxApplicationBackgroundId, "--redeploy");
-    if (redeployTerminationPeriod > 0) {
-      try {
+  protected synchronized void shutdownRedeployment() {
+    if (watcher != null) {
+      watcher.close();
+      watcher = null;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `watcher` accessed in synchronized context
+in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
+#### Snippet
+```java
+  protected synchronized void shutdownRedeployment() {
+    if (watcher != null) {
+      watcher.close();
+      watcher = null;
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `watcher` accessed in synchronized context
+in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
+#### Snippet
+```java
+    if (watcher != null) {
+      watcher.close();
+      watcher = null;
+    }
+  }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -13437,39 +13449,27 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `watcher` accessed in synchronized context
+Non-private field `executionContext` accessed in synchronized context
 in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
 #### Snippet
 ```java
    */
-  protected synchronized void shutdownRedeployment() {
-    if (watcher != null) {
-      watcher.close();
-      watcher = null;
+  protected synchronized void stopBackgroundApplication(Handler<Void> onCompletion) {
+    executionContext.execute("stop", vertxApplicationBackgroundId, "--redeploy");
+    if (redeployTerminationPeriod > 0) {
+      try {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `watcher` accessed in synchronized context
+Non-private field `vertxApplicationBackgroundId` accessed in synchronized context
 in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
 #### Snippet
 ```java
-  protected synchronized void shutdownRedeployment() {
-    if (watcher != null) {
-      watcher.close();
-      watcher = null;
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `watcher` accessed in synchronized context
-in `src/main/java/io/vertx/core/impl/launcher/commands/RunCommand.java`
-#### Snippet
-```java
-    if (watcher != null) {
-      watcher.close();
-      watcher = null;
-    }
-  }
+   */
+  protected synchronized void stopBackgroundApplication(Handler<Void> onCompletion) {
+    executionContext.execute("stop", vertxApplicationBackgroundId, "--redeploy");
+    if (redeployTerminationPeriod > 0) {
+      try {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -13559,30 +13559,6 @@ in `src/main/java/io/vertx/core/logging/SLF4JLogDelegateFactory.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/CompletionStageInteropExamples.java`
-#### Snippet
-```java
-      })
-      .onSuccess(str -> {
-        System.out.println("We have a result: " + str);
-      })
-      .onFailure(err -> {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/examples/CompletionStageInteropExamples.java`
-#### Snippet
-```java
-      })
-      .onFailure(err -> {
-        System.err.println("We have a problem");
-        err.printStackTrace();
-      });
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/examples/CompletionStageInteropExamples.java`
 #### Snippet
@@ -13608,6 +13584,30 @@ in `src/main/java/examples/CompletionStageInteropExamples.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/CompletionStageInteropExamples.java`
+#### Snippet
+```java
+      })
+      .onSuccess(str -> {
+        System.out.println("We have a result: " + str);
+      })
+      .onFailure(err -> {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/examples/CompletionStageInteropExamples.java`
+#### Snippet
+```java
+      })
+      .onFailure(err -> {
+        System.err.println("We have a problem");
+        err.printStackTrace();
+      });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/DatagramExamples.java`
 #### Snippet
 ```java
@@ -13616,30 +13616,6 @@ in `src/main/java/examples/DatagramExamples.java`
       System.out.println("block succeeded? " + asyncResult.succeeded());
     });
   }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/DatagramExamples.java`
-#### Snippet
-```java
-    // Send a Buffer to a multicast address
-    socket.send(buffer, 1234, "230.0.0.1", asyncResult -> {
-      System.out.println("Send succeeded? " + asyncResult.succeeded());
-    });
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/DatagramExamples.java`
-#### Snippet
-```java
-        });
-      } else {
-        System.out.println("Listen failed" + asyncResult.cause());
-      }
-    });
 ```
 
 ### SystemOutErr
@@ -13683,6 +13659,42 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/DatagramExamples.java`
 #### Snippet
 ```java
+    // Send a Buffer
+    socket.send(buffer, 1234, "10.0.0.1", asyncResult -> {
+      System.out.println("Send succeeded? " + asyncResult.succeeded());
+    });
+    // Send a String
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/DatagramExamples.java`
+#### Snippet
+```java
+    // Send a String
+    socket.send("A string used as content", 1234, "10.0.0.1", asyncResult -> {
+      System.out.println("Send succeeded? " + asyncResult.succeeded());
+    });
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/DatagramExamples.java`
+#### Snippet
+```java
+    // Send a Buffer to a multicast address
+    socket.send(buffer, 1234, "230.0.0.1", asyncResult -> {
+      System.out.println("Send succeeded? " + asyncResult.succeeded());
+    });
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/DatagramExamples.java`
+#### Snippet
+```java
         // join the multicast group
         socket.listenMulticastGroup("230.0.0.1", asyncResult2 -> {
             System.out.println("Listen succeeded? " + asyncResult2.succeeded());
@@ -13707,35 +13719,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/DatagramExamples.java`
 #### Snippet
 ```java
-    // Send a Buffer
-    socket.send(buffer, 1234, "10.0.0.1", asyncResult -> {
-      System.out.println("Send succeeded? " + asyncResult.succeeded());
+        });
+      } else {
+        System.out.println("Listen failed" + asyncResult.cause());
+      }
     });
-    // Send a String
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/DatagramExamples.java`
-#### Snippet
-```java
-    // Send a String
-    socket.send("A string used as content", 1234, "10.0.0.1", asyncResult -> {
-      System.out.println("Send succeeded? " + asyncResult.succeeded());
-    });
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/CoreExamples.java`
-#### Snippet
-```java
-      promise.complete(result);
-    }, res -> {
-      System.out.println("The result is: " + res.result());
-    });
-  }
 ```
 
 ### SystemOutErr
@@ -13767,9 +13755,69 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/CoreExamples.java`
 #### Snippet
 ```java
-    vertx.setPeriodic(1000, id -> {
-      // This handler will get called every second
-      System.out.println("timer fired!");
+    vertx.deployVerticle("com.mycompany.MyOrderProcessorVerticle", res -> {
+      if (res.succeeded()) {
+        System.out.println("Deployment id is: " + res.result());
+      } else {
+        System.out.println("Deployment failed!");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/CoreExamples.java`
+#### Snippet
+```java
+        System.out.println("Deployment id is: " + res.result());
+      } else {
+        System.out.println("Deployment failed!");
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/CoreExamples.java`
+#### Snippet
+```java
+    vertx.undeploy(deploymentID, res -> {
+      if (res.succeeded()) {
+        System.out.println("Undeployed ok");
+      } else {
+        System.out.println("Undeploy failed!");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/CoreExamples.java`
+#### Snippet
+```java
+        System.out.println("Undeployed ok");
+      } else {
+        System.out.println("Undeploy failed!");
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/CoreExamples.java`
+#### Snippet
+```java
+  public void runInContext(Vertx vertx) {
+    vertx.getOrCreateContext().runOnContext( (v) -> {
+      System.out.println("This will be executed asynchronously in the same context");
+    });
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/CoreExamples.java`
+#### Snippet
+```java
+      promise.complete(result);
+    }, res -> {
+      System.out.println("The result is: " + res.result());
     });
   }
 ```
@@ -13815,11 +13863,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/CoreExamples.java`
 #### Snippet
 ```java
-    vertx.deployVerticle("com.mycompany.MyOrderProcessorVerticle", res -> {
-      if (res.succeeded()) {
-        System.out.println("Deployment id is: " + res.result());
+      if (ar.succeeded()) {
+        FileProps props = ar.result();
+        System.out.println("File size = " + props.size());
       } else {
-        System.out.println("Deployment failed!");
+        System.out.println("Failure: " + ar.cause().getMessage());
 ```
 
 ### SystemOutErr
@@ -13827,9 +13875,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/CoreExamples.java`
 #### Snippet
 ```java
-        System.out.println("Deployment id is: " + res.result());
+        System.out.println("File size = " + props.size());
       } else {
-        System.out.println("Deployment failed!");
+        System.out.println("Failure: " + ar.cause().getMessage());
       }
     });
 ```
@@ -13839,21 +13887,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/CoreExamples.java`
 #### Snippet
 ```java
-  public void example15(Vertx vertx) {
-    long timerID = vertx.setTimer(1000, id -> {
-      System.out.println("And one second later this is printed");
-    });
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/CoreExamples.java`
-#### Snippet
-```java
-    });
-
-    System.out.println("First this is printed");
+    // True when native is available
+    boolean usingNative = vertx.isNativeTransportEnabled();
+    System.out.println("Running with native: " + usingNative);
   }
 
 ```
@@ -13899,57 +13935,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/CoreExamples.java`
 #### Snippet
 ```java
-    vertx.undeploy(deploymentID, res -> {
-      if (res.succeeded()) {
-        System.out.println("Undeployed ok");
-      } else {
-        System.out.println("Undeploy failed!");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/CoreExamples.java`
-#### Snippet
-```java
-        System.out.println("Undeployed ok");
-      } else {
-        System.out.println("Undeploy failed!");
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/CoreExamples.java`
-#### Snippet
-```java
-      if (ar.succeeded()) {
-        FileProps props = ar.result();
-        System.out.println("File size = " + props.size());
-      } else {
-        System.out.println("Failure: " + ar.cause().getMessage());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/CoreExamples.java`
-#### Snippet
-```java
-        System.out.println("File size = " + props.size());
-      } else {
-        System.out.println("Failure: " + ar.cause().getMessage());
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/CoreExamples.java`
-#### Snippet
-```java
-  public void runInContext(Vertx vertx) {
-    vertx.getOrCreateContext().runOnContext( (v) -> {
-      System.out.println("This will be executed asynchronously in the same context");
+    vertx.setPeriodic(1000, id -> {
+      // This handler will get called every second
+      System.out.println("timer fired!");
     });
   }
 ```
@@ -13959,9 +13947,21 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/CoreExamples.java`
 #### Snippet
 ```java
-    // True when native is available
-    boolean usingNative = vertx.isNativeTransportEnabled();
-    System.out.println("Running with native: " + usingNative);
+  public void example15(Vertx vertx) {
+    long timerID = vertx.setTimer(1000, id -> {
+      System.out.println("And one second later this is printed");
+    });
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/CoreExamples.java`
+#### Snippet
+```java
+    });
+
+    System.out.println("First this is printed");
   }
 
 ```
@@ -14004,198 +14004,6 @@ in `src/main/java/examples/ConfigurableVerticleExamples.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-    client.connect(4321, "localhost", res -> {
-      if (res.succeeded()) {
-        System.out.println("Connected!");
-        NetSocket socket = res.result();
-      } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-        NetSocket socket = res.result();
-      } else {
-        System.out.println("Failed to connect: " + res.cause().getMessage());
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-    server.connectHandler(so -> {
-      // Print the actual client address provided by the HA proxy protocol instead of the proxy address
-      System.out.println(so.remoteAddress());
-
-      // Print the address of the proxy
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-
-      // Print the address of the proxy
-      System.out.println(so.localAddress());
-    });
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-    client.connect(1234, "localhost", "server.name", res -> {
-      if (res.succeeded()) {
-        System.out.println("Connected!");
-        NetSocket socket = res.result();
-      } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-        NetSocket socket = res.result();
-      } else {
-        System.out.println("Failed to connect: " + res.cause().getMessage());
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-    server.close(res -> {
-      if (res.succeeded()) {
-        System.out.println("Server is now closed");
-      } else {
-        System.out.println("close failed");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-        System.out.println("Server is now closed");
-      } else {
-        System.out.println("close failed");
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-
-    socket.closeHandler(v -> {
-      System.out.println("The socket has been closed");
-    });
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-    server.connectHandler(socket -> {
-      socket.handler(buffer -> {
-        System.out.println("I received some bytes: " + buffer.length());
-      });
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-    server.listen(0, "localhost", res -> {
-      if (res.succeeded()) {
-        System.out.println("Server is now listening on actual port: " + server.actualPort());
-      } else {
-        System.out.println("Failed to bind!");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-        System.out.println("Server is now listening on actual port: " + server.actualPort());
-      } else {
-        System.out.println("Failed to bind!");
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-    client.connect(1234, "localhost", ar -> {
-      if (ar.succeeded()) {
-        ar.result().handler(buffer -> System.out.println(buffer));
-      } else {
-        System.err.println("Woops: " + ar.cause().getMessage());
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-        ar.result().handler(buffer -> System.out.println(buffer));
-      } else {
-        System.err.println("Woops: " + ar.cause().getMessage());
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-    server.listen(1234, "localhost", res -> {
-      if (res.succeeded()) {
-        System.out.println("Server is now listening!");
-      } else {
-        System.out.println("Failed to bind!");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/NetExamples.java`
-#### Snippet
-```java
-        System.out.println("Server is now listening!");
-      } else {
-        System.out.println("Failed to bind!");
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/BufferExamples.java`
 #### Snippet
 ```java
@@ -14223,11 +14031,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/ParseToolsExamples.java`
 #### Snippet
 ```java
-  public void recordParserExample1() {
-    final RecordParser parser = RecordParser.newDelimited("\n", h -> {
+  public void recordParserExample2() {
+    RecordParser.newFixed(4, h -> {
       System.out.println(h.toString());
     });
-
+  }
 ```
 
 ### SystemOutErr
@@ -14238,18 +14046,6 @@ in `src/main/java/examples/ParseToolsExamples.java`
       String id = event.fieldName();
       User user = event.mapTo(User.class);
       System.out.println("User with id " + id + " : " + user.firstName + " " + user.lastName);
-    });
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/ParseToolsExamples.java`
-#### Snippet
-```java
-  public void recordParserExample2() {
-    RecordParser.newFixed(4, h -> {
-      System.out.println(h.toString());
     });
   }
 ```
@@ -14280,14 +14076,14 @@ in `src/main/java/examples/ParseToolsExamples.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/EventBusExamples.java`
+in `src/main/java/examples/ParseToolsExamples.java`
 #### Snippet
 ```java
-    MessageConsumer<String> consumer = eb.consumer("news.uk.sport");
-    consumer.handler(message -> {
-      System.out.println("I have received a message: " + message.body());
+  public void recordParserExample1() {
+    final RecordParser parser = RecordParser.newDelimited("\n", h -> {
+      System.out.println(h.toString());
     });
-  }
+
 ```
 
 ### SystemOutErr
@@ -14295,11 +14091,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/EventBusExamples.java`
 #### Snippet
 ```java
-    consumer.completionHandler(res -> {
-      if (res.succeeded()) {
-        System.out.println("The handler registration has reached all nodes");
+        Vertx vertx = res.result();
+        EventBus eventBus = vertx.eventBus();
+        System.out.println("We now have a clustered event bus: " + eventBus);
       } else {
-        System.out.println("Registration failed!");
+        System.out.println("Failed: " + res.cause());
 ```
 
 ### SystemOutErr
@@ -14307,9 +14103,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/EventBusExamples.java`
 #### Snippet
 ```java
-        System.out.println("The handler registration has reached all nodes");
+        System.out.println("We now have a clustered event bus: " + eventBus);
       } else {
-        System.out.println("Registration failed!");
+        System.out.println("Failed: " + res.cause());
       }
     });
 ```
@@ -14379,18 +14175,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/EventBusExamples.java`
 #### Snippet
 ```java
-
-    eb.consumer("news.uk.sport", message -> {
-      System.out.println("I have received a message: " + message.body());
-    });
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/EventBusExamples.java`
-#### Snippet
-```java
     consumer.unregister(res -> {
       if (res.succeeded()) {
         System.out.println("The handler un-registration has reached all nodes");
@@ -14415,6 +14199,42 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/EventBusExamples.java`
 #### Snippet
 ```java
+
+    eb.consumer("news.uk.sport", message -> {
+      System.out.println("I have received a message: " + message.body());
+    });
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/EventBusExamples.java`
+#### Snippet
+```java
+    consumer.completionHandler(res -> {
+      if (res.succeeded()) {
+        System.out.println("The handler registration has reached all nodes");
+      } else {
+        System.out.println("Registration failed!");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/EventBusExamples.java`
+#### Snippet
+```java
+        System.out.println("The handler registration has reached all nodes");
+      } else {
+        System.out.println("Registration failed!");
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/EventBusExamples.java`
+#### Snippet
+```java
     MessageConsumer<String> consumer = eventBus.consumer("news.uk.sport");
     consumer.handler(message -> {
       System.out.println("I have received a message: " + message.body());
@@ -14427,23 +14247,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/EventBusExamples.java`
 #### Snippet
 ```java
-        Vertx vertx = res.result();
-        EventBus eventBus = vertx.eventBus();
-        System.out.println("We now have a clustered event bus: " + eventBus);
-      } else {
-        System.out.println("Failed: " + res.cause());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/EventBusExamples.java`
-#### Snippet
-```java
-        System.out.println("We now have a clustered event bus: " + eventBus);
-      } else {
-        System.out.println("Failed: " + res.cause());
-      }
+    MessageConsumer<String> consumer = eb.consumer("news.uk.sport");
+    consumer.handler(message -> {
+      System.out.println("I have received a message: " + message.body());
     });
+  }
 ```
 
 ### SystemOutErr
@@ -14456,6 +14264,78 @@ in `src/main/java/examples/cli/MyCommand.java`
     System.out.println("Hello " + name);
   }
 }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/FileSystemExamples.java`
+#### Snippet
+```java
+          file.write(buff, buff.length() * i, ar -> {
+            if (ar.succeeded()) {
+              System.out.println("Written ok!");
+              // etc
+            } else {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/examples/FileSystemExamples.java`
+#### Snippet
+```java
+              // etc
+            } else {
+              System.err.println("Failed to write: " + ar.cause());
+            }
+          });
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/examples/FileSystemExamples.java`
+#### Snippet
+```java
+        }
+      } else {
+        System.err.println("Cannot open file " + result.cause());
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/FileSystemExamples.java`
+#### Snippet
+```java
+          file.read(buff, i * 100, i * 100, 100, ar -> {
+            if (ar.succeeded()) {
+              System.out.println("Read ok!");
+            } else {
+              System.err.println("Failed to write: " + ar.cause());
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/examples/FileSystemExamples.java`
+#### Snippet
+```java
+              System.out.println("Read ok!");
+            } else {
+              System.err.println("Failed to write: " + ar.cause());
+            }
+          });
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/examples/FileSystemExamples.java`
+#### Snippet
+```java
+        }
+      } else {
+        System.err.println("Cannot open file " + result.cause());
+      }
+    });
 ```
 
 ### SystemOutErr
@@ -14559,78 +14439,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/FileSystemExamples.java`
 #### Snippet
 ```java
-          file.read(buff, i * 100, i * 100, 100, ar -> {
-            if (ar.succeeded()) {
-              System.out.println("Read ok!");
-            } else {
-              System.err.println("Failed to write: " + ar.cause());
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/examples/FileSystemExamples.java`
-#### Snippet
-```java
-              System.out.println("Read ok!");
-            } else {
-              System.err.println("Failed to write: " + ar.cause());
-            }
-          });
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/examples/FileSystemExamples.java`
-#### Snippet
-```java
-        }
-      } else {
-        System.err.println("Cannot open file " + result.cause());
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/FileSystemExamples.java`
-#### Snippet
-```java
-          file.write(buff, buff.length() * i, ar -> {
-            if (ar.succeeded()) {
-              System.out.println("Written ok!");
-              // etc
-            } else {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/examples/FileSystemExamples.java`
-#### Snippet
-```java
-              // etc
-            } else {
-              System.err.println("Failed to write: " + ar.cause());
-            }
-          });
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/examples/FileSystemExamples.java`
-#### Snippet
-```java
-        }
-      } else {
-        System.err.println("Cannot open file " + result.cause());
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/FileSystemExamples.java`
-#### Snippet
-```java
           .onComplete(v -> {
             file.close();
             System.out.println("Copy done");
@@ -14652,42 +14460,6 @@ in `src/main/java/examples/FileSystemExamples.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/docoverride/dns/Examples.java`
-#### Snippet
-```java
-      if (ar.succeeded()) {
-        String record = ar.result();
-        System.out.println(record);
-      } else {
-        Throwable cause = ar.cause();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/docoverride/dns/Examples.java`
-#### Snippet
-```java
-          // ...
-        } else {
-          System.out.println("Failed to resolve entry" + ar.cause());
-        }
-      }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTP2Examples.java`
-#### Snippet
-```java
-  public void example27(HttpConnection connection) {
-    connection.goAwayHandler(goAway -> {
-      System.out.println("Received a go away frame");
-    });
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTP2Examples.java`
 #### Snippet
 ```java
@@ -14703,11 +14475,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTP2Examples.java`
 #### Snippet
 ```java
-  public void example19(HttpClient client) {
-    client.connectionHandler(connection -> {
-      System.out.println("Connected to the server");
+    response.customFrameHandler(frame -> {
+
+      System.out.println("Received a frame type=" + frame.type() +
+          " payload" + frame.payload().toString());
     });
-  }
 ```
 
 ### SystemOutErr
@@ -14715,9 +14487,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTP2Examples.java`
 #### Snippet
 ```java
-            end("alert(\"Push response hello\")");
-      } else {
-        System.out.println("Could not push client resource " + ar.cause());
+      if (err instanceof StreamResetException) {
+        StreamResetException reset = (StreamResetException) err;
+        System.out.println("Stream reset " + reset.getCode());
       }
     });
 ```
@@ -14739,11 +14511,23 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTP2Examples.java`
 #### Snippet
 ```java
-      if (err instanceof StreamResetException) {
-        StreamResetException reset = (StreamResetException) err;
-        System.out.println("Stream reset " + reset.getCode());
+            end("alert(\"Push response hello\")");
+      } else {
+        System.out.println("Could not push client resource " + ar.cause());
       }
     });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTP2Examples.java`
+#### Snippet
+```java
+  public void example19(HttpClient client) {
+    client.connectionHandler(connection -> {
+      System.out.println("Connected to the server");
+    });
+  }
 ```
 
 ### SystemOutErr
@@ -14763,9 +14547,21 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTP2Examples.java`
 #### Snippet
 ```java
-    }
-    connection.ping(data, pong -> {
-      System.out.println("Remote side replied");
+      if (err instanceof StreamResetException) {
+        StreamResetException reset = (StreamResetException) err;
+        System.out.println("Stream reset " + reset.getCode());
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTP2Examples.java`
+#### Snippet
+```java
+  public void example27(HttpConnection connection) {
+    connection.goAwayHandler(goAway -> {
+      System.out.println("Received a go away frame");
     });
   }
 ```
@@ -14787,11 +14583,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTP2Examples.java`
 #### Snippet
 ```java
-    connection.updateSettings(new Http2Settings().setMaxConcurrentStreams(100), ar -> {
-      if (ar.succeeded()) {
-        System.out.println("The settings update has been acknowledged ");
-      }
+    }
+    connection.ping(data, pong -> {
+      System.out.println("Remote side replied");
     });
+  }
 ```
 
 ### SystemOutErr
@@ -14799,10 +14595,10 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTP2Examples.java`
 #### Snippet
 ```java
-    response.customFrameHandler(frame -> {
-
-      System.out.println("Received a frame type=" + frame.type() +
-          " payload" + frame.payload().toString());
+    connection.updateSettings(new Http2Settings().setMaxConcurrentStreams(100), ar -> {
+      if (ar.succeeded()) {
+        System.out.println("The settings update has been acknowledged ");
+      }
     });
 ```
 
@@ -14832,119 +14628,35 @@ in `src/main/java/examples/HTTP2Examples.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTP2Examples.java`
-#### Snippet
-```java
-      if (err instanceof StreamResetException) {
-        StreamResetException reset = (StreamResetException) err;
-        System.out.println("Stream reset " + reset.getCode());
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/DNSExamples.java`
-#### Snippet
-```java
-        List<String> records = ar.result();
-        for (String record : records) {
-          System.out.println(record);
-        }
-      } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/DNSExamples.java`
-#### Snippet
-```java
-        }
-      } else {
-        System.out.println("Failed to resolve entry" + ar.cause());
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/DNSExamples.java`
-#### Snippet
-```java
-    client.lookup("vertx.io", ar -> {
-      if (ar.succeeded()) {
-        System.out.println(ar.result());
-      } else {
-        System.out.println("Failed to resolve entry" + ar.cause());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/DNSExamples.java`
-#### Snippet
-```java
-        System.out.println(ar.result());
-      } else {
-        System.out.println("Failed to resolve entry" + ar.cause());
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/DNSExamples.java`
-#### Snippet
-```java
-        List<SrvRecord> records = ar.result();
-        for (SrvRecord record: records) {
-          System.out.println(record);
-        }
-      } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/DNSExamples.java`
-#### Snippet
-```java
-        }
-      } else {
-        System.out.println("Failed to resolve entry" + ar.cause());
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/DNSExamples.java`
-#### Snippet
-```java
-        List<String> records = ar.result();
-        for (String record : records) {
-          System.out.println(record);
-        }
-      } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/DNSExamples.java`
-#### Snippet
-```java
-        }
-      } else {
-        System.out.println("Failed to resolve entry" + ar.cause());
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/DNSExamples.java`
 #### Snippet
 ```java
         List<String> records = ar.result();
         for (String record: records) {
+          System.out.println(record);
+        }
+      } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/DNSExamples.java`
+#### Snippet
+```java
+        }
+      } else {
+        System.out.println("Failed to resolve entry" + ar.cause());
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/DNSExamples.java`
+#### Snippet
+```java
+        List<String> records = ar.result();
+        for (String record : records) {
           System.out.println(record);
         }
       } else {
@@ -14991,6 +14703,30 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/DNSExamples.java`
 #### Snippet
 ```java
+    client.lookup("vertx.io", ar -> {
+      if (ar.succeeded()) {
+        System.out.println(ar.result());
+      } else {
+        System.out.println("Failed to resolve entry" + ar.cause());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/DNSExamples.java`
+#### Snippet
+```java
+        System.out.println(ar.result());
+      } else {
+        System.out.println("Failed to resolve entry" + ar.cause());
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/DNSExamples.java`
+#### Snippet
+```java
     client.lookup6("vertx.io", ar -> {
       if (ar.succeeded()) {
         System.out.println(ar.result());
@@ -15015,8 +14751,32 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/DNSExamples.java`
 #### Snippet
 ```java
-        List<String> records = ar.result();
-        for (String record : records) {
+      if (ar.succeeded()) {
+        String record = ar.result();
+        System.out.println(record);
+      } else {
+        System.out.println("Failed to resolve entry" + ar.cause());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/DNSExamples.java`
+#### Snippet
+```java
+        System.out.println(record);
+      } else {
+        System.out.println("Failed to resolve entry" + ar.cause());
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/DNSExamples.java`
+#### Snippet
+```java
+        List<SrvRecord> records = ar.result();
+        for (SrvRecord record: records) {
           System.out.println(record);
         }
       } else {
@@ -15087,11 +14847,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/DNSExamples.java`
 #### Snippet
 ```java
-      if (ar.succeeded()) {
-        String record = ar.result();
-        System.out.println(record);
+        List<String> records = ar.result();
+        for (String record : records) {
+          System.out.println(record);
+        }
       } else {
-        System.out.println("Failed to resolve entry" + ar.cause());
 ```
 
 ### SystemOutErr
@@ -15099,7 +14859,31 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/DNSExamples.java`
 #### Snippet
 ```java
-        System.out.println(record);
+        }
+      } else {
+        System.out.println("Failed to resolve entry" + ar.cause());
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/DNSExamples.java`
+#### Snippet
+```java
+        List<String> records = ar.result();
+        for (String record : records) {
+          System.out.println(record);
+        }
+      } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/DNSExamples.java`
+#### Snippet
+```java
+        }
       } else {
         System.out.println("Failed to resolve entry" + ar.cause());
       }
@@ -15132,14 +14916,218 @@ in `src/main/java/examples/DNSExamples.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+
+    socket.closeHandler(v -> {
+      System.out.println("The socket has been closed");
+    });
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+    server.connectHandler(so -> {
+      // Print the actual client address provided by the HA proxy protocol instead of the proxy address
+      System.out.println(so.remoteAddress());
+
+      // Print the address of the proxy
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+
+      // Print the address of the proxy
+      System.out.println(so.localAddress());
+    });
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+    client.connect(1234, "localhost", "server.name", res -> {
+      if (res.succeeded()) {
+        System.out.println("Connected!");
+        NetSocket socket = res.result();
+      } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+        NetSocket socket = res.result();
+      } else {
+        System.out.println("Failed to connect: " + res.cause().getMessage());
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+    server.connectHandler(socket -> {
+      socket.handler(buffer -> {
+        System.out.println("I received some bytes: " + buffer.length());
+      });
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+    client.connect(4321, "localhost", res -> {
+      if (res.succeeded()) {
+        System.out.println("Connected!");
+        NetSocket socket = res.result();
+      } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+        NetSocket socket = res.result();
+      } else {
+        System.out.println("Failed to connect: " + res.cause().getMessage());
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+    server.listen(1234, "localhost", res -> {
+      if (res.succeeded()) {
+        System.out.println("Server is now listening!");
+      } else {
+        System.out.println("Failed to bind!");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+        System.out.println("Server is now listening!");
+      } else {
+        System.out.println("Failed to bind!");
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+    client.connect(1234, "localhost", ar -> {
+      if (ar.succeeded()) {
+        ar.result().handler(buffer -> System.out.println(buffer));
+      } else {
+        System.err.println("Woops: " + ar.cause().getMessage());
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+        ar.result().handler(buffer -> System.out.println(buffer));
+      } else {
+        System.err.println("Woops: " + ar.cause().getMessage());
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+    server.close(res -> {
+      if (res.succeeded()) {
+        System.out.println("Server is now closed");
+      } else {
+        System.out.println("close failed");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+        System.out.println("Server is now closed");
+      } else {
+        System.out.println("close failed");
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+    server.listen(0, "localhost", res -> {
+      if (res.succeeded()) {
+        System.out.println("Server is now listening on actual port: " + server.actualPort());
+      } else {
+        System.out.println("Failed to bind!");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/NetExamples.java`
+#### Snippet
+```java
+        System.out.println("Server is now listening on actual port: " + server.actualPort());
+      } else {
+        System.out.println("Failed to bind!");
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/docoverride/dns/Examples.java`
 #### Snippet
 ```java
       if (ar.succeeded()) {
-        HttpClientResponse response = ar.result();
-        System.out.println("Received response with status code " + response.statusCode());
+        String record = ar.result();
+        System.out.println(record);
       } else {
-        System.out.println("Something went wrong " + ar.cause().getMessage());
+        Throwable cause = ar.cause();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/docoverride/dns/Examples.java`
+#### Snippet
+```java
+          // ...
+        } else {
+          System.out.println("Failed to resolve entry" + ar.cause());
+        }
+      }
 ```
 
 ### SystemOutErr
@@ -15147,9 +15135,21 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-        System.out.println("Received response with status code " + response.statusCode());
-      } else {
-        System.out.println("Something went wrong " + ar.cause().getMessage());
+          HttpClientResponse response = ar2.result();
+          response.handler(buffer -> {
+            System.out.println("Received a part of the response body: " + buffer);
+          });
+        });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+      if (res.succeeded()) {
+        WebSocket ws = res.result();
+        System.out.println("Connected!");
       }
     });
 ```
@@ -15183,42 +15183,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-
-    request.handler(buffer -> {
-      System.out.println("I have received a chunk of the body of length " + buffer.length());
-      totalBuffer.appendBuffer(buffer);
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-
-    request.endHandler(v -> {
-      System.out.println("Full body received, length = " + totalBuffer.length());
-    });
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-      if (res.succeeded()) {
-        WebSocket ws = res.result();
-        System.out.println("Connected!");
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
       .onSuccess(request -> {
         request.response().onSuccess(response -> {
           System.out.println("Received response with status code " + response.statusCode());
@@ -15231,11 +15195,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-            if (ar.succeeded()) {
-              HttpClientResponse response = ar.result();
-              System.out.println("Received response with status code " + response.statusCode());
-            }
-          })
+      if (ar.succeeded()) {
+        HttpClientResponse response = ar.result();
+        System.out.println("Received response with status code " + response.statusCode());
+      } else {
+        System.out.println("Something went wrong " + ar.cause().getMessage());
 ```
 
 ### SystemOutErr
@@ -15243,11 +15207,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-
-            HttpClientResponse response = ar2.result();
-            System.out.println("Received response with status code " + response.statusCode());
-          }
-        });
+        System.out.println("Received response with status code " + response.statusCode());
+      } else {
+        System.out.println("Something went wrong " + ar.cause().getMessage());
+      }
+    });
 ```
 
 ### SystemOutErr
@@ -15279,10 +15243,10 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-      request.setExpectMultipart(true);
-      request.uploadHandler(upload -> {
-        System.out.println("Got a file upload " + upload.name());
-      });
+
+    request.handler(buffer -> {
+      System.out.println("I have received a chunk of the body of length " + buffer.length());
+      totalBuffer.appendBuffer(buffer);
     });
 ```
 
@@ -15292,8 +15256,8 @@ in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
 
-    request.handler(buffer -> {
-      System.out.println("I have received a chunk of the body of length " + buffer.length());
+    request.endHandler(v -> {
+      System.out.println("Full body received, length = " + totalBuffer.length());
     });
   }
 ```
@@ -15351,95 +15315,35 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-              HttpClientResponse resp = ar2.result();
-              resp.bodyHandler(body -> {
-                System.out.println(body.toString("ISO-8859-1"));
-              });
-            }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-          request.send(ar2 -> {
-            HttpClientResponse response = ar2.result();
-            System.out.println("Received response with status code " + response.statusCode());
-          });
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-
-    request.bodyHandler(totalBuffer -> {
-      System.out.println("Full body received, length = " + totalBuffer.length());
-    });
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-          if (ar2.succeeded()) {
-            HttpClientResponse response = ar2.result();
-            System.out.println("Received response with status code " + response.statusCode());
-          }
-        });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-          if (ar2.succeeded()) {
-            HttpClientResponse response = ar2.result();
-            System.out.println("Received response with status code " + response.statusCode());
-          }
-        });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-    request.uploadHandler(upload -> {
-      upload.handler(chunk -> {
-        System.out.println("Received a chunk of the upload of length " + chunk.length());
-      });
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-      if (ar.succeeded()) {
-        HttpClientResponse response = ar.result();
-        System.out.println("Received response with status code " + response.statusCode());
-      } else {
-        System.out.println("Something went wrong " + ar.cause().getMessage());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-        System.out.println("Received response with status code " + response.statusCode());
-      } else {
-        System.out.println("Something went wrong " + ar.cause().getMessage());
+      if (res.succeeded()) {
+        WebSocket ws = res.result();
+        System.out.println("Connected!");
       }
     });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+            Buffer body = ar2.result();
+            // Now all the body has been read
+            System.out.println("Total response body length is " + body.length());
+          }
+        });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+        .compose(HttpClientResponse::body))
+      .onSuccess(body -> {
+        System.out.println("Received response");
+      });
+  }
 ```
 
 ### SystemOutErr
@@ -15459,11 +15363,23 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-          HttpClientResponse response = ar2.result();
-          response.handler(buffer -> {
-            System.out.println("Received a part of the response body: " + buffer);
-          });
-        });
+            if (ar.succeeded()) {
+              HttpClientResponse response = ar.result();
+              System.out.println("Received response with status code " + response.statusCode());
+            }
+          })
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+              HttpClientResponse resp = ar2.result();
+              resp.bodyHandler(body -> {
+                System.out.println(body.toString("ISO-8859-1"));
+              });
+            }
 ```
 
 ### SystemOutErr
@@ -15472,10 +15388,58 @@ in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
 
-    webSocket.frameHandler(frame -> {
-      System.out.println("Received a frame of size!");
+    request.bodyHandler(totalBuffer -> {
+      System.out.println("Full body received, length = " + totalBuffer.length());
     });
+  }
+```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+    request.uploadHandler(upload -> {
+      upload.handler(chunk -> {
+        System.out.println("Received a chunk of the upload of length " + chunk.length());
+      });
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+
+    request.handler(buffer -> {
+      System.out.println("I have received a chunk of the body of length " + buffer.length());
+    });
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+      request.setExpectMultipart(true);
+      request.uploadHandler(upload -> {
+        System.out.println("Got a file upload " + upload.name());
+      });
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+
+            HttpClientResponse response = ar2.result();
+            System.out.println("Received response with status code " + response.statusCode());
+          }
+        });
 ```
 
 ### SystemOutErr
@@ -15507,6 +15471,78 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
+          request.send(ar2 -> {
+            HttpClientResponse response = ar2.result();
+            System.out.println("Received response with status code " + response.statusCode());
+          });
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+          if (ar.succeeded()) {
+            HttpClientResponse response = ar.result();
+            System.out.println("Received response with status code " + response.statusCode());
+          } else {
+            System.out.println("Something went wrong " + ar.cause().getMessage());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+            System.out.println("Received response with status code " + response.statusCode());
+          } else {
+            System.out.println("Something went wrong " + ar.cause().getMessage());
+          }
+        });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+    server.listen(8080, "myhost.com", res -> {
+      if (res.succeeded()) {
+        System.out.println("Server is now listening!");
+      } else {
+        System.out.println("Failed to bind!");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+        System.out.println("Server is now listening!");
+      } else {
+        System.out.println("Failed to bind!");
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+      if (res.succeeded()) {
+        WebSocket ws = res.result();
+        System.out.println("Connected!");
+      }
+    });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
 
             HttpClientResponse response = ar2.result();
             System.out.println("Received response with status code " + response.statusCode());
@@ -15531,11 +15567,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
-      if (res.succeeded()) {
-        WebSocket ws = res.result();
-        System.out.println("Connected!");
-      }
+
+    server.webSocketHandler(webSocket -> {
+      System.out.println("Connected!");
     });
+  }
 ```
 
 ### SystemOutErr
@@ -15544,10 +15580,82 @@ in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
 
-    server.webSocketHandler(webSocket -> {
-      System.out.println("Connected!");
+    request.exceptionHandler(err -> {
+      System.out.println("Write failure " + err.getMessage());
     });
   }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+    server.requestHandler(request -> {
+      // Print the actual client address provided by the HA proxy protocol instead of the proxy address
+      System.out.println(request.remoteAddress());
+
+      // Print the address of the proxy
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+
+      // Print the address of the proxy
+      System.out.println(request.localAddress());
+    });
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+          if (ar2.succeeded()) {
+            HttpClientResponse response = ar2.result();
+            System.out.println("Received response with status code " + response.statusCode());
+          }
+        });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+          if (ar2.succeeded()) {
+            HttpClientResponse response = ar2.result();
+            System.out.println("Received response with status code " + response.statusCode());
+          }
+        });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+      if (ar.succeeded()) {
+        HttpClientResponse response = ar.result();
+        System.out.println("Received response with status code " + response.statusCode());
+      } else {
+        System.out.println("Something went wrong " + ar.cause().getMessage());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+        System.out.println("Received response with status code " + response.statusCode());
+      } else {
+        System.out.println("Something went wrong " + ar.cause().getMessage());
+      }
+    });
 ```
 
 ### SystemOutErr
@@ -15580,118 +15688,10 @@ in `src/main/java/examples/HTTPExamples.java`
 #### Snippet
 ```java
 
-    request.exceptionHandler(err -> {
-      System.out.println("Write failure " + err.getMessage());
+    webSocket.frameHandler(frame -> {
+      System.out.println("Received a frame of size!");
     });
-  }
-```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-    server.listen(8080, "myhost.com", res -> {
-      if (res.succeeded()) {
-        System.out.println("Server is now listening!");
-      } else {
-        System.out.println("Failed to bind!");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-        System.out.println("Server is now listening!");
-      } else {
-        System.out.println("Failed to bind!");
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-        .compose(HttpClientResponse::body))
-      .onSuccess(body -> {
-        System.out.println("Received response");
-      });
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-          if (ar.succeeded()) {
-            HttpClientResponse response = ar.result();
-            System.out.println("Received response with status code " + response.statusCode());
-          } else {
-            System.out.println("Something went wrong " + ar.cause().getMessage());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-            System.out.println("Received response with status code " + response.statusCode());
-          } else {
-            System.out.println("Something went wrong " + ar.cause().getMessage());
-          }
-        });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-      if (res.succeeded()) {
-        WebSocket ws = res.result();
-        System.out.println("Connected!");
-      }
-    });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-    server.requestHandler(request -> {
-      // Print the actual client address provided by the HA proxy protocol instead of the proxy address
-      System.out.println(request.remoteAddress());
-
-      // Print the address of the proxy
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-
-      // Print the address of the proxy
-      System.out.println(request.localAddress());
-    });
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-            Buffer body = ar2.result();
-            // Now all the body has been read
-            System.out.println("Total response body length is " + body.length());
-          }
-        });
 ```
 
 ## MissingDeprecatedAnnotation
@@ -15733,18 +15733,6 @@ in `src/main/java/io/vertx/core/net/impl/ProxyFilter.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/io/vertx/core/net/impl/KeyStoreHelper.java`
-#### Snippet
-```java
-        } else {
-          String content = pem.substring(beginMatcher.end(), endMatcher.start());
-          content = content.replaceAll("\\s", "");
-          if (content.length() == 0) {
-            throw new RuntimeException("Empty pem file");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/io/vertx/core/net/impl/KeyStoreHelper.java`
 #### Snippet
@@ -15754,6 +15742,18 @@ in `src/main/java/io/vertx/core/net/impl/KeyStoreHelper.java`
       String [] rdns = dn.trim().split("[,;]");
       for(String rdn : rdns) {
         String [] nvp = rdn.trim().split("=");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/io/vertx/core/net/impl/KeyStoreHelper.java`
+#### Snippet
+```java
+        } else {
+          String content = pem.substring(beginMatcher.end(), endMatcher.start());
+          content = content.replaceAll("\\s", "");
+          if (content.length() == 0) {
+            throw new RuntimeException("Empty pem file");
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -15821,35 +15821,35 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/BareCommand.java`
 in `src/main/java/io/vertx/core/impl/verticle/PackageHelper.java`
 #### Snippet
 ```java
-        String name = jarEntry.getName();
-        if (name.startsWith(rootEntryName) && name.indexOf('/', rootEnd) == -1 && name.endsWith(CLASS_FILE)) {
-          String binaryName = name.replaceAll("/", ".").replaceAll(CLASS_FILE + "$", "");
-          result.add(new CustomJavaFileObject(URI.create(jarUri + "!/" + name), JavaFileObject.Kind.CLASS, binaryName));
-        }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/io/vertx/core/impl/verticle/PackageHelper.java`
-#### Snippet
-```java
-        String name = jarEntry.getName();
-        if (name.startsWith(rootEntryName) && name.indexOf('/', rootEnd) == -1 && name.endsWith(CLASS_FILE)) {
-          String binaryName = name.replaceAll("/", ".").replaceAll(CLASS_FILE + "$", "");
-          result.add(new CustomJavaFileObject(URI.create(jarUri + "!/" + name), JavaFileObject.Kind.CLASS, binaryName));
-        }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/io/vertx/core/impl/verticle/PackageHelper.java`
-#### Snippet
-```java
     for (File childFile : directory.listFiles()) {
       if (childFile.isFile() && childFile.getName().endsWith(CLASS_FILE)) {
         String binaryName = packageName + "." + childFile.getName().replaceAll(CLASS_FILE + "$", "");
         result.add(new CustomJavaFileObject(childFile.toURI(), JavaFileObject.Kind.CLASS, binaryName));
       }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/io/vertx/core/impl/verticle/PackageHelper.java`
+#### Snippet
+```java
+        String name = jarEntry.getName();
+        if (name.startsWith(rootEntryName) && name.indexOf('/', rootEnd) == -1 && name.endsWith(CLASS_FILE)) {
+          String binaryName = name.replaceAll("/", ".").replaceAll(CLASS_FILE + "$", "");
+          result.add(new CustomJavaFileObject(URI.create(jarUri + "!/" + name), JavaFileObject.Kind.CLASS, binaryName));
+        }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/io/vertx/core/impl/verticle/PackageHelper.java`
+#### Snippet
+```java
+        String name = jarEntry.getName();
+        if (name.startsWith(rootEntryName) && name.indexOf('/', rootEnd) == -1 && name.endsWith(CLASS_FILE)) {
+          String binaryName = name.replaceAll("/", ".").replaceAll(CLASS_FILE + "$", "");
+          result.add(new CustomJavaFileObject(URI.create(jarUri + "!/" + name), JavaFileObject.Kind.CLASS, binaryName));
+        }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -15894,30 +15894,6 @@ in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
 #### Snippet
 ```java
 
-  private String escape(String path) {
-    return path.replace("~", "~0")
-        .replace("/", "~1");
-  }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
-#### Snippet
-```java
-  private String escape(String path) {
-    return path.replace("~", "~0")
-        .replace("/", "~1");
-  }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
-#### Snippet
-```java
-
   private String unescape(String path) {
     return path.replace("~1", "/") // https://tools.ietf.org/html/rfc6901#section-4
         .replace("~0", "~");
@@ -15932,23 +15908,35 @@ in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
   private String unescape(String path) {
     return path.replace("~1", "/") // https://tools.ietf.org/html/rfc6901#section-4
         .replace("~0", "~");
+  }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
+#### Snippet
+```java
+
+  private String escape(String path) {
+    return path.replace("~", "~0")
+        .replace("/", "~1");
+  }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
+#### Snippet
+```java
+  private String escape(String path) {
+    return path.replace("~", "~0")
+        .replace("/", "~1");
   }
 
 ```
 
 ## UnnecessaryFullyQualifiedName
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.codegen.annotations` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/package-info.java`
-#### Snippet
-```java
- */
-
-@io.vertx.codegen.annotations.ModuleGen(name = "vertx", groupPackage = "io.vertx")
-package io.vertx.core;
-
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/TimeoutStream.java`
@@ -16022,75 +16010,63 @@ in `src/main/java/io/vertx/core/WorkerExecutor.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Verticle.java`
+Qualifier `io.vertx.codegen.annotations` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/package-info.java`
 #### Snippet
 ```java
-   * <p>
-   * A promise is passed into the method, and when un-deployment is complete the verticle should either call
-   * {@link io.vertx.core.Promise#complete} or {@link io.vertx.core.Promise#fail} the future.
-   *
-   * @param stopPromise  the future
+ */
+
+@io.vertx.codegen.annotations.ModuleGen(name = "vertx", groupPackage = "io.vertx")
+package io.vertx.core;
+
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Verticle.java`
+in `src/main/java/io/vertx/core/Context.java`
 #### Snippet
 ```java
+   * Is the current context an event loop context?
    * <p>
-   * A promise is passed into the method, and when un-deployment is complete the verticle should either call
-   * {@link io.vertx.core.Promise#complete} or {@link io.vertx.core.Promise#fail} the future.
-   *
-   * @param stopPromise  the future
+   * NOTE! when running blocking code using {@link io.vertx.core.Vertx#executeBlocking(Handler, Handler)} from a
+   * standard (not worker) verticle, the context will still an event loop context and this {@link this#isEventLoopContext()}
+   * will return true.
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Verticle.java`
+in `src/main/java/io/vertx/core/Context.java`
 #### Snippet
 ```java
+   * Is the current context a worker context?
    * <p>
-   * A promise is passed into the method, and when deployment is complete the verticle should either call
-   * {@link io.vertx.core.Promise#complete} or {@link io.vertx.core.Promise#fail} the future.
-   *
-   * @param startPromise  the future
+   * NOTE! when running blocking code using {@link io.vertx.core.Vertx#executeBlocking(Handler, Handler)} from a
+   * standard (not worker) verticle, the context will still an event loop context and this {@link this#isWorkerContext()}
+   * will return false.
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Verticle.java`
-#### Snippet
-```java
-   * <p>
-   * A promise is passed into the method, and when deployment is complete the verticle should either call
-   * {@link io.vertx.core.Promise#complete} or {@link io.vertx.core.Promise#fail} the future.
-   *
-   * @param startPromise  the future
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/VertxOptions.java`
+in `src/main/java/io/vertx/core/Context.java`
 #### Snippet
 ```java
 
 /**
- * Instances of this class are used to configure {@link io.vertx.core.Vertx} instances.
- *
- * @author <a href="http://tfox.org">Tim Fox</a>
+ * The execution context of a {@link io.vertx.core.Handler} execution.
+ * <p>
+ * When Vert.x provides an event to a handler or calls the start or stop methods of a {@link io.vertx.core.Verticle},
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.json` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/VertxOptions.java`
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/Context.java`
 #### Snippet
 ```java
-
-  /**
-   * Create an instance from a {@link io.vertx.core.json.JsonObject}
-   *
-   * @param json the JsonObject to create it from
+ * The execution context of a {@link io.vertx.core.Handler} execution.
+ * <p>
+ * When Vert.x provides an event to a handler or calls the start or stop methods of a {@link io.vertx.core.Verticle},
+ * the execution is associated with a {@code Context}.
+ * <p>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16122,18 +16098,6 @@ Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/MultiMap.java`
 #### Snippet
 ```java
-   *
-   * @param name The name to search
-   * @return A immutable {@link java.util.List} of values which will be empty if no values
-   *         are found
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/MultiMap.java`
-#### Snippet
-```java
    * Returns all entries in the multi-map.
    *
    * @return A immutable {@link java.util.List} of the name-value entries, which will be
@@ -16142,15 +16106,87 @@ in `src/main/java/io/vertx/core/MultiMap.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/AsyncResult.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/MultiMap.java`
 #### Snippet
 ```java
- * Encapsulates the result of an asynchronous operation.
- * <p>
- * Many operations in Vert.x APIs provide results back by passing an instance of this in a {@link io.vertx.core.Handler}.
- * <p>
- * The result can either have failed or succeeded.
+   *
+   * @param name The name to search
+   * @return A immutable {@link java.util.List} of values which will be empty if no values
+   *         are found
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/Verticle.java`
+#### Snippet
+```java
+   * <p>
+   * A promise is passed into the method, and when deployment is complete the verticle should either call
+   * {@link io.vertx.core.Promise#complete} or {@link io.vertx.core.Promise#fail} the future.
+   *
+   * @param startPromise  the future
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/Verticle.java`
+#### Snippet
+```java
+   * <p>
+   * A promise is passed into the method, and when deployment is complete the verticle should either call
+   * {@link io.vertx.core.Promise#complete} or {@link io.vertx.core.Promise#fail} the future.
+   *
+   * @param startPromise  the future
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/Verticle.java`
+#### Snippet
+```java
+   * <p>
+   * A promise is passed into the method, and when un-deployment is complete the verticle should either call
+   * {@link io.vertx.core.Promise#complete} or {@link io.vertx.core.Promise#fail} the future.
+   *
+   * @param stopPromise  the future
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/Verticle.java`
+#### Snippet
+```java
+   * <p>
+   * A promise is passed into the method, and when un-deployment is complete the verticle should either call
+   * {@link io.vertx.core.Promise#complete} or {@link io.vertx.core.Promise#fail} the future.
+   *
+   * @param stopPromise  the future
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/VertxOptions.java`
+#### Snippet
+```java
+
+/**
+ * Instances of this class are used to configure {@link io.vertx.core.Vertx} instances.
+ *
+ * @author <a href="http://tfox.org">Tim Fox</a>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.json` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/VertxOptions.java`
+#### Snippet
+```java
+
+  /**
+   * Create an instance from a {@link io.vertx.core.json.JsonObject}
+   *
+   * @param json the JsonObject to create it from
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16167,50 +16203,14 @@ in `src/main/java/io/vertx/core/DeploymentOptions.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Context.java`
+in `src/main/java/io/vertx/core/AsyncResult.java`
 #### Snippet
 ```java
-   * Is the current context an event loop context?
-   * <p>
-   * NOTE! when running blocking code using {@link io.vertx.core.Vertx#executeBlocking(Handler, Handler)} from a
-   * standard (not worker) verticle, the context will still an event loop context and this {@link this#isEventLoopContext()}
-   * will return true.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Context.java`
-#### Snippet
-```java
-
-/**
- * The execution context of a {@link io.vertx.core.Handler} execution.
+ * Encapsulates the result of an asynchronous operation.
  * <p>
- * When Vert.x provides an event to a handler or calls the start or stop methods of a {@link io.vertx.core.Verticle},
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Context.java`
-#### Snippet
-```java
- * The execution context of a {@link io.vertx.core.Handler} execution.
+ * Many operations in Vert.x APIs provide results back by passing an instance of this in a {@link io.vertx.core.Handler}.
  * <p>
- * When Vert.x provides an event to a handler or calls the start or stop methods of a {@link io.vertx.core.Verticle},
- * the execution is associated with a {@code Context}.
- * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Context.java`
-#### Snippet
-```java
-   * Is the current context a worker context?
-   * <p>
-   * NOTE! when running blocking code using {@link io.vertx.core.Vertx#executeBlocking(Handler, Handler)} from a
-   * standard (not worker) verticle, the context will still an event loop context and this {@link this#isWorkerContext()}
-   * will return false.
+ * The result can either have failed or succeeded.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16232,9 +16232,9 @@ in `src/main/java/io/vertx/core/dns/DnsClient.java`
 ```java
    *
    * @param name  the name to resolve
-   * @param handler  the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
-   *                 The handler will get notified with a {@link java.util.List} that contains all the resolved
-   *                 {@link java.net.Inet4Address}es. If none was found an empty {@link java.util.List} will be used.
+   * @param handler the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
+   *                The handler will get notified with a {@link java.util.List} that contains all the resolved
+   *                {@link java.net.Inet6Address}es. If none was found an empty {@link java.util.List} will be used.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16244,9 +16244,9 @@ in `src/main/java/io/vertx/core/dns/DnsClient.java`
 ```java
    *
    * @param name  the name to resolve
-   * @param handler  the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
-   *                 The handler will get notified with a {@link java.util.List} that contains all the resolved
-   *                 {@link java.net.Inet4Address}es. If none was found an empty {@link java.util.List} will be used.
+   * @param handler the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
+   *                The handler will get notified with a {@link java.util.List} that contains all the resolved
+   *                {@link java.net.Inet6Address}es. If none was found an empty {@link java.util.List} will be used.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16255,10 +16255,10 @@ in `src/main/java/io/vertx/core/dns/DnsClient.java`
 #### Snippet
 ```java
    * @param name  the name to resolve
-   * @param handler  the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
-   *                 The handler will get notified with a {@link java.util.List} that contains all the resolved
-   *                 {@link java.net.Inet4Address}es. If none was found an empty {@link java.util.List} will be used.
-   *                 If an error accours it will get failed.
+   * @param handler the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
+   *                The handler will get notified with a {@link java.util.List} that contains all the resolved
+   *                {@link java.net.Inet6Address}es. If none was found an empty {@link java.util.List} will be used.
+   *                If an error accours it will get failed.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16266,47 +16266,11 @@ Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/dns/DnsClient.java`
 #### Snippet
 ```java
-   * @param handler  the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
-   *                 The handler will get notified with a {@link java.util.List} that contains all the resolved
-   *                 {@link java.net.Inet4Address}es. If none was found an empty {@link java.util.List} will be used.
-   *                 If an error accours it will get failed.
+   * @param handler the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
+   *                The handler will get notified with a {@link java.util.List} that contains all the resolved
+   *                {@link java.net.Inet6Address}es. If none was found an empty {@link java.util.List} will be used.
+   *                If an error accours it will get failed.
    * @return a reference to this, so the API can be used fluently
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/dns/DnsClient.java`
-#### Snippet
-```java
-   *
-   * @param name  the name for which the MX records should be resolved
-   * @param handler  the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
-   *                 The handler will get notified with a List that contains all resolved {@link MxRecord}s, sorted by
-   *                 their {@link MxRecord#priority()}. If non was found it will get notified with an empty
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/dns/DnsClient.java`
-#### Snippet
-```java
-   *
-   * @param name  the name for which the MX records should be resolved
-   * @param handler  the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
-   *                 The handler will get notified with a List that contains all resolved {@link MxRecord}s, sorted by
-   *                 their {@link MxRecord#priority()}. If non was found it will get notified with an empty
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/dns/DnsClient.java`
-#### Snippet
-```java
-   *                 The handler will get notified with a List that contains all resolved {@link MxRecord}s, sorted by
-   *                 their {@link MxRecord#priority()}. If non was found it will get notified with an empty
-   *                 {@link java.util.List}.  If an error accours it will get failed.
-   * @return a reference to this, so the API can be used fluently.
-   */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16319,18 +16283,6 @@ in `src/main/java/io/vertx/core/dns/DnsClient.java`
    * @param handler  the {@link Handler} to notify with the {@link io.vertx.core.AsyncResult}.
    *                 The handler will get notified with the resolved {@link java.net.Inet4Address} if a record was found.
    *                 If non was found it will get notifed with {@code null}. If an error accours it will get failed.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/dns/DnsClient.java`
-#### Snippet
-```java
-   * @param handler  the {@link Handler} to notify with the {@link AsyncResult}. The handler will get
-   *                 notified with a List that contains all resolved {@link String}s. If none was found it will
-   *                 get notified with an empty {@link java.util.List}. If an error accours it will get failed.
-   * @return a reference to this, so the API can be used fluently.
-   */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16382,15 +16334,51 @@ in `src/main/java/io/vertx/core/dns/DnsClient.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/dns/DnsClient.java`
+#### Snippet
+```java
+   * @param handler  the {@link Handler} to notify with the {@link AsyncResult}. The handler will get
+   *                 notified with a List that contains all resolved {@link String}s. If none was found it will
+   *                 get notified with an empty {@link java.util.List}. If an error accours it will get failed.
+   * @return a reference to this, so the API can be used fluently.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/dns/DnsClient.java`
 #### Snippet
 ```java
    *
-   * @param name  the name to resolve
-   * @param handler the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
-   *                The handler will get notified with a {@link java.util.List} that contains all the resolved
-   *                {@link java.net.Inet6Address}es. If none was found an empty {@link java.util.List} will be used.
+   * @param name  the name for which the MX records should be resolved
+   * @param handler  the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
+   *                 The handler will get notified with a List that contains all resolved {@link MxRecord}s, sorted by
+   *                 their {@link MxRecord#priority()}. If non was found it will get notified with an empty
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/dns/DnsClient.java`
+#### Snippet
+```java
+   *
+   * @param name  the name for which the MX records should be resolved
+   * @param handler  the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
+   *                 The handler will get notified with a List that contains all resolved {@link MxRecord}s, sorted by
+   *                 their {@link MxRecord#priority()}. If non was found it will get notified with an empty
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/dns/DnsClient.java`
+#### Snippet
+```java
+   *                 The handler will get notified with a List that contains all resolved {@link MxRecord}s, sorted by
+   *                 their {@link MxRecord#priority()}. If non was found it will get notified with an empty
+   *                 {@link java.util.List}.  If an error accours it will get failed.
+   * @return a reference to this, so the API can be used fluently.
+   */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16400,9 +16388,21 @@ in `src/main/java/io/vertx/core/dns/DnsClient.java`
 ```java
    *
    * @param name  the name to resolve
-   * @param handler the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
-   *                The handler will get notified with a {@link java.util.List} that contains all the resolved
-   *                {@link java.net.Inet6Address}es. If none was found an empty {@link java.util.List} will be used.
+   * @param handler  the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
+   *                 The handler will get notified with a {@link java.util.List} that contains all the resolved
+   *                 {@link java.net.Inet4Address}es. If none was found an empty {@link java.util.List} will be used.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/dns/DnsClient.java`
+#### Snippet
+```java
+   *
+   * @param name  the name to resolve
+   * @param handler  the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
+   *                 The handler will get notified with a {@link java.util.List} that contains all the resolved
+   *                 {@link java.net.Inet4Address}es. If none was found an empty {@link java.util.List} will be used.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16411,10 +16411,10 @@ in `src/main/java/io/vertx/core/dns/DnsClient.java`
 #### Snippet
 ```java
    * @param name  the name to resolve
-   * @param handler the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
-   *                The handler will get notified with a {@link java.util.List} that contains all the resolved
-   *                {@link java.net.Inet6Address}es. If none was found an empty {@link java.util.List} will be used.
-   *                If an error accours it will get failed.
+   * @param handler  the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
+   *                 The handler will get notified with a {@link java.util.List} that contains all the resolved
+   *                 {@link java.net.Inet4Address}es. If none was found an empty {@link java.util.List} will be used.
+   *                 If an error accours it will get failed.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16422,11 +16422,83 @@ Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/dns/DnsClient.java`
 #### Snippet
 ```java
-   * @param handler the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
-   *                The handler will get notified with a {@link java.util.List} that contains all the resolved
-   *                {@link java.net.Inet6Address}es. If none was found an empty {@link java.util.List} will be used.
-   *                If an error accours it will get failed.
+   * @param handler  the {@link io.vertx.core.Handler} to notify with the {@link io.vertx.core.AsyncResult}.
+   *                 The handler will get notified with a {@link java.util.List} that contains all the resolved
+   *                 {@link java.net.Inet4Address}es. If none was found an empty {@link java.util.List} will be used.
+   *                 If an error accours it will get failed.
    * @return a reference to this, so the API can be used fluently
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/Vertx.java`
+#### Snippet
+```java
+
+  /**
+   * Like {@link #deployVerticle(Verticle)} but {@link io.vertx.core.DeploymentOptions} are provided to configure the
+   * deployment.
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/Vertx.java`
+#### Snippet
+```java
+
+  /**
+   * Like {@link #deployVerticle(Verticle, Handler)} but {@link io.vertx.core.DeploymentOptions} are provided to configure the
+   * deployment.
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/Vertx.java`
+#### Snippet
+```java
+ * <p>
+ * To create an instance of this class you can use the static factory methods: {@link #vertx},
+ * {@link #vertx(io.vertx.core.VertxOptions)} and {@link #clusteredVertx(io.vertx.core.VertxOptions, Handler)}.
+ * <p>
+ * Please see the user manual for more detailed usage information.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/Vertx.java`
+#### Snippet
+```java
+ * <p>
+ * To create an instance of this class you can use the static factory methods: {@link #vertx},
+ * {@link #vertx(io.vertx.core.VertxOptions)} and {@link #clusteredVertx(io.vertx.core.VertxOptions, Handler)}.
+ * <p>
+ * Please see the user manual for more detailed usage information.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/Vertx.java`
+#### Snippet
+```java
+
+  /**
+   * Like {@link #deployVerticle(String, Handler)} but {@link io.vertx.core.DeploymentOptions} are provided to configure the
+   * deployment.
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/Vertx.java`
+#### Snippet
+```java
+
+  /**
+   * Like {@link #deployVerticle(Verticle)} but {@link io.vertx.core.DeploymentOptions} are provided to configure the
+   * deployment.
+   *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16466,30 +16538,6 @@ in `src/main/java/io/vertx/core/dns/DnsResponseCode.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Vertx.java`
-#### Snippet
-```java
-
-  /**
-   * Like {@link #deployVerticle(Verticle)} but {@link io.vertx.core.DeploymentOptions} are provided to configure the
-   * deployment.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Vertx.java`
-#### Snippet
-```java
- * <p>
- * To create an instance of this class you can use the static factory methods: {@link #vertx},
- * {@link #vertx(io.vertx.core.VertxOptions)} and {@link #clusteredVertx(io.vertx.core.VertxOptions, Handler)}.
- * <p>
- * Please see the user manual for more detailed usage information.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.dns` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/dns/DnsResponseCode.java`
 #### Snippet
@@ -16499,78 +16547,6 @@ in `src/main/java/io/vertx/core/dns/DnsResponseCode.java`
      * Returns the error code for this {@link io.vertx.core.dns.DnsResponseCode}.
      */
     public int code() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Vertx.java`
-#### Snippet
-```java
- * <p>
- * To create an instance of this class you can use the static factory methods: {@link #vertx},
- * {@link #vertx(io.vertx.core.VertxOptions)} and {@link #clusteredVertx(io.vertx.core.VertxOptions, Handler)}.
- * <p>
- * Please see the user manual for more detailed usage information.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Vertx.java`
-#### Snippet
-```java
-
-  /**
-   * Like {@link #deployVerticle(Verticle)} but {@link io.vertx.core.DeploymentOptions} are provided to configure the
-   * deployment.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Vertx.java`
-#### Snippet
-```java
-
-  /**
-   * Like {@link #deployVerticle(Verticle, Handler)} but {@link io.vertx.core.DeploymentOptions} are provided to configure the
-   * deployment.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/Vertx.java`
-#### Snippet
-```java
-
-  /**
-   * Like {@link #deployVerticle(String, Handler)} but {@link io.vertx.core.DeploymentOptions} are provided to configure the
-   * deployment.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/net/NetServer.java`
-#### Snippet
-```java
-
-  /**
-   * Start listening on the specified port and host, ignoring port and host configured in the {@link io.vertx.core.net.NetServerOptions} used when
-   * creating the server.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/net/NetServer.java`
-#### Snippet
-```java
-  /**
-   * Start listening on the specified port and host "0.0.0.0", ignoring port and host configured in the
-   * {@link io.vertx.core.net.NetServerOptions} used when creating the server.
-   * <p>
-   * Port {@code 0} can be specified meaning "choose an random port".
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16592,7 +16568,7 @@ in `src/main/java/io/vertx/core/net/NetServer.java`
 ```java
 
   /**
-   * Start listening on the specified local address, ignoring port and host configured in the {@link io.vertx.core.net.NetServerOptions} used when
+   * Start listening on the specified port and host, ignoring port and host configured in the {@link io.vertx.core.net.NetServerOptions} used when
    * creating the server.
    * <p>
 ```
@@ -16607,6 +16583,30 @@ in `src/main/java/io/vertx/core/net/NetServer.java`
    * connect stream {@link ReadStream#handler(io.vertx.core.Handler)}.
    *
    * @return the connect stream
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/net/NetServer.java`
+#### Snippet
+```java
+
+  /**
+   * Start listening on the specified local address, ignoring port and host configured in the {@link io.vertx.core.net.NetServerOptions} used when
+   * creating the server.
+   * <p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/net/NetServer.java`
+#### Snippet
+```java
+  /**
+   * Start listening on the specified port and host "0.0.0.0", ignoring port and host configured in the
+   * {@link io.vertx.core.net.NetServerOptions} used when creating the server.
+   * <p>
+   * Port {@code 0} can be specified meaning "choose an random port".
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16638,42 +16638,6 @@ Qualifier `javax.net.ssl` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/net/NetSocket.java`
 #### Snippet
 ```java
-   * @return an ordered array of the peer certificates. Returns null if connection is
-   *         not SSL.
-   * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
-   * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
-   * @see #sslSession()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.net.ssl` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/net/NetSocket.java`
-#### Snippet
-```java
-   *         not SSL.
-   * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
-   * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
-   * @see #sslSession()
-   * @deprecated instead use {@link #peerCertificates()} or {@link #sslSession()}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/net/NetSocket.java`
-#### Snippet
-```java
-
-  /**
-   * @return true if this {@link io.vertx.core.net.NetSocket} is encrypted via SSL/TLS.
-   */
-  boolean isSsl();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.net.ssl` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/net/NetSocket.java`
-#### Snippet
-```java
    * @return an ordered list of the peer certificates. Returns null if connection is
    *         not SSL.
    * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
@@ -16694,6 +16658,18 @@ in `src/main/java/io/vertx/core/net/NetSocket.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/net/NetSocket.java`
+#### Snippet
+```java
+
+  /**
+   * @return true if this {@link io.vertx.core.net.NetSocket} is encrypted via SSL/TLS.
+   */
+  boolean isSsl();
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `javax.net.ssl` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/net/NetSocket.java`
 #### Snippet
@@ -16703,6 +16679,30 @@ in `src/main/java/io/vertx/core/net/NetSocket.java`
    * @see javax.net.ssl.SSLSession
    */
   @GenIgnore(GenIgnore.PERMITTED_TYPE)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.net.ssl` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/net/NetSocket.java`
+#### Snippet
+```java
+   * @return an ordered array of the peer certificates. Returns null if connection is
+   *         not SSL.
+   * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
+   * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
+   * @see #sslSession()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.net.ssl` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/net/NetSocket.java`
+#### Snippet
+```java
+   *         not SSL.
+   * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
+   * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
+   * @see #sslSession()
+   * @deprecated instead use {@link #peerCertificates()} or {@link #sslSession()}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16766,6 +16766,18 @@ in `src/main/java/io/vertx/core/spi/cluster/ClusterManager.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.spi.metrics` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/spi/metrics/DatagramSocketMetrics.java`
+#### Snippet
+```java
+ * Unless specified otherwise, all the methods on this object including the methods inherited from the super interfaces are invoked
+ * with the thread of the http server and therefore are the same than the
+ * {@link io.vertx.core.spi.metrics.VertxMetrics} {@code createMetrics} method that created and returned
+ * this metrics object.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.http` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
 #### Snippet
@@ -16787,18 +16799,6 @@ in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
  * {@link io.vertx.core.http.HttpServer}, {@link io.vertx.core.spi.metrics.EventBusMetrics}, etc.
  *
  * @author <a href="mailto:nscavell@redhat.com">Nick Scavelli</a>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.spi.metrics` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/spi/metrics/DatagramSocketMetrics.java`
-#### Snippet
-```java
- * Unless specified otherwise, all the methods on this object including the methods inherited from the super interfaces are invoked
- * with the thread of the http server and therefore are the same than the
- * {@link io.vertx.core.spi.metrics.VertxMetrics} {@code createMetrics} method that created and returned
- * this metrics object.
- *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16863,11 +16863,11 @@ in `src/main/java/io/vertx/core/spi/metrics/HttpClientMetrics.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.spi.metrics` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/spi/metrics/TCPMetrics.java`
+in `src/main/java/io/vertx/core/spi/metrics/HttpServerMetrics.java`
 #### Snippet
 ```java
  * Unless specified otherwise, all the methods on this object including the methods inherited from the super interfaces are invoked
- * with the thread of the client/server and therefore are the same than the
+ * with the thread of the http server and therefore are the same than the
  * {@link io.vertx.core.spi.metrics.VertxMetrics} {@code createMetrics} method that created and returned
  * this metrics object.
  *
@@ -16875,11 +16875,11 @@ in `src/main/java/io/vertx/core/spi/metrics/TCPMetrics.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.spi.metrics` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/spi/metrics/HttpServerMetrics.java`
+in `src/main/java/io/vertx/core/spi/metrics/TCPMetrics.java`
 #### Snippet
 ```java
  * Unless specified otherwise, all the methods on this object including the methods inherited from the super interfaces are invoked
- * with the thread of the http server and therefore are the same than the
+ * with the thread of the client/server and therefore are the same than the
  * {@link io.vertx.core.spi.metrics.VertxMetrics} {@code createMetrics} method that created and returned
  * this metrics object.
  *
@@ -16898,39 +16898,15 @@ in `src/main/java/io/vertx/core/file/OpenOptions.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.streams` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/file/AsyncFile.java`
+Qualifier `io.vertx.core.file` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/file/FileSystem.java`
 #### Snippet
 ```java
 
   /**
-   * Sets the number of bytes that will be read when using the file as a {@link io.vertx.core.streams.ReadStream}.
-   *
-   * @param readLength the bytes that will be read from the file
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.streams` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/file/AsyncFile.java`
-#### Snippet
-```java
-
-  /**
-   * @return the number of bytes that will be read when using the file as a {@link io.vertx.core.streams.ReadStream}
+   * Blocking version of {@link #open(String, io.vertx.core.file.OpenOptions, Handler)}
    */
-  long getReadLength();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.streams` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/file/AsyncFile.java`
-#### Snippet
-```java
-
-  /**
-   * Sets the position from which data will be read from when using the file as a {@link io.vertx.core.streams.ReadStream}.
-   *
-   * @param readPos  the position in the file
+  AsyncFile openBlocking(String path, OpenOptions options);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16943,18 +16919,6 @@ in `src/main/java/io/vertx/core/file/AsyncFile.java`
  * This class also implements {@link io.vertx.core.streams.ReadStream} and
  * {@link io.vertx.core.streams.WriteStream}. This allows the data to be piped to and from
  * other streams, e.g. an {@link io.vertx.core.http.HttpClientRequest} instance,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.file` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/file/FileSystem.java`
-#### Snippet
-```java
-
-  /**
-   * Blocking version of {@link #open(String, io.vertx.core.file.OpenOptions, Handler)}
-   */
-  AsyncFile openBlocking(String path, OpenOptions options);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16976,9 +16940,45 @@ in `src/main/java/io/vertx/core/file/AsyncFile.java`
 ```java
 
   /**
+   * @return the number of bytes that will be read when using the file as a {@link io.vertx.core.streams.ReadStream}
+   */
+  long getReadLength();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.streams` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/file/AsyncFile.java`
+#### Snippet
+```java
+
+  /**
    * Sets the position from which data will be written when using the file as a {@link io.vertx.core.streams.WriteStream}.
    *
    * @param writePos  the position in the file
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.streams` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/file/AsyncFile.java`
+#### Snippet
+```java
+
+  /**
+   * Sets the number of bytes that will be read when using the file as a {@link io.vertx.core.streams.ReadStream}.
+   *
+   * @param readLength the bytes that will be read from the file
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.streams` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/file/AsyncFile.java`
+#### Snippet
+```java
+
+  /**
+   * Sets the position from which data will be read from when using the file as a {@link io.vertx.core.streams.ReadStream}.
+   *
+   * @param readPos  the position in the file
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16991,18 +16991,6 @@ in `src/main/java/io/vertx/core/file/AsyncFile.java`
    * Write a {@link io.vertx.core.buffer.Buffer} to the file at position {@code position} in the file, asynchronously.
    * <p>
    * If {@code position} lies outside of the current size
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/ServerWebSocket.java`
-#### Snippet
-```java
- * Represents a server side WebSocket.
- * <p>
- * Instances of this class are passed into a {@link io.vertx.core.http.HttpServer#webSocketHandler} or provided
- * when a WebSocket handshake is manually {@link HttpServerRequest#toWebSocket}ed.
- *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17019,6 +17007,90 @@ in `src/main/java/io/vertx/core/http/ServerWebSocket.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/ServerWebSocket.java`
+#### Snippet
+```java
+ * Represents a server side WebSocket.
+ * <p>
+ * Instances of this class are passed into a {@link io.vertx.core.http.HttpServer#webSocketHandler} or provided
+ * when a WebSocket handshake is manually {@link HttpServerRequest#toWebSocket}ed.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpConnection.java`
+#### Snippet
+```java
+
+  /**
+   * @return true if this {@link io.vertx.core.http.HttpConnection} is encrypted via SSL/TLS.
+   */
+  boolean isSsl();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.net.ssl` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpConnection.java`
+#### Snippet
+```java
+   * @return an ordered array of the peer certificates. Returns null if connection is
+   *         not SSL.
+   * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
+   * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
+   * @see #sslSession()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.net.ssl` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpConnection.java`
+#### Snippet
+```java
+   *         not SSL.
+   * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
+   * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
+   * @see #sslSession()
+   * @deprecated instead use {@link #peerCertificates()} or {@link #sslSession()}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.net.ssl` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpConnection.java`
+#### Snippet
+```java
+   * @return SSLSession associated with the underlying socket. Returns null if connection is
+   *         not SSL.
+   * @see javax.net.ssl.SSLSession
+   */
+  @GenIgnore(GenIgnore.PERMITTED_TYPE)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.net.ssl` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpConnection.java`
+#### Snippet
+```java
+   * @return an ordered list of the peer certificates. Returns null if connection is
+   *         not SSL.
+   * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
+   * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
+   * @see #sslSession()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.net.ssl` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpConnection.java`
+#### Snippet
+```java
+   *         not SSL.
+   * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
+   * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
+   * @see #sslSession()
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/http/HttpServer.java`
 #### Snippet
 ```java
@@ -17027,30 +17099,6 @@ in `src/main/java/io/vertx/core/http/HttpServer.java`
    * ignoring any value set in the {@link io.vertx.core.http.HttpServerOptions} that was used when creating the server.
    * <p>
    * The listen happens asynchronously and the server may not be listening until some time after the call has returned.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.streams` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpServer.java`
-#### Snippet
-```java
-  /**
-   * Return the request stream for the server. As HTTP requests are received by the server,
-   * instances of {@link HttpServerRequest} will be created and passed to the stream {@link io.vertx.core.streams.ReadStream#handler(io.vertx.core.Handler)}.
-   *
-   * @return the request stream
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpServer.java`
-#### Snippet
-```java
-  /**
-   * Return the request stream for the server. As HTTP requests are received by the server,
-   * instances of {@link HttpServerRequest} will be created and passed to the stream {@link io.vertx.core.streams.ReadStream#handler(io.vertx.core.Handler)}.
-   *
-   * @return the request stream
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17102,6 +17150,30 @@ in `src/main/java/io/vertx/core/http/HttpServer.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.streams` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpServer.java`
+#### Snippet
+```java
+  /**
+   * Return the request stream for the server. As HTTP requests are received by the server,
+   * instances of {@link HttpServerRequest} will be created and passed to the stream {@link io.vertx.core.streams.ReadStream#handler(io.vertx.core.Handler)}.
+   *
+   * @return the request stream
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpServer.java`
+#### Snippet
+```java
+  /**
+   * Return the request stream for the server. As HTTP requests are received by the server,
+   * instances of {@link HttpServerRequest} will be created and passed to the stream {@link io.vertx.core.streams.ReadStream#handler(io.vertx.core.Handler)}.
+   *
+   * @return the request stream
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.http` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/http/HttpServerOptions.java`
 #### Snippet
@@ -17115,7 +17187,7 @@ in `src/main/java/io/vertx/core/http/HttpServerOptions.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `javax.net.ssl` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpConnection.java`
+in `src/main/java/io/vertx/core/http/HttpServerRequest.java`
 #### Snippet
 ```java
    * @return SSLSession associated with the underlying socket. Returns null if connection is
@@ -17123,66 +17195,6 @@ in `src/main/java/io/vertx/core/http/HttpConnection.java`
    * @see javax.net.ssl.SSLSession
    */
   @GenIgnore(GenIgnore.PERMITTED_TYPE)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpConnection.java`
-#### Snippet
-```java
-
-  /**
-   * @return true if this {@link io.vertx.core.http.HttpConnection} is encrypted via SSL/TLS.
-   */
-  boolean isSsl();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.net.ssl` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpConnection.java`
-#### Snippet
-```java
-   * @return an ordered array of the peer certificates. Returns null if connection is
-   *         not SSL.
-   * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
-   * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
-   * @see #sslSession()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.net.ssl` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpConnection.java`
-#### Snippet
-```java
-   *         not SSL.
-   * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
-   * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
-   * @see #sslSession()
-   * @deprecated instead use {@link #peerCertificates()} or {@link #sslSession()}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.net.ssl` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpConnection.java`
-#### Snippet
-```java
-   * @return an ordered list of the peer certificates. Returns null if connection is
-   *         not SSL.
-   * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
-   * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
-   * @see #sslSession()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.net.ssl` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpConnection.java`
-#### Snippet
-```java
-   *         not SSL.
-   * @throws javax.net.ssl.SSLPeerUnverifiedException SSL peer's identity has not been verified.
-   * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
-   * @see #sslSession()
-   */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17219,18 +17231,6 @@ in `src/main/java/io/vertx/core/http/HttpServerRequest.java`
    * @see javax.net.ssl.SSLSession#getPeerCertificateChain()
    * @see #sslSession()
    */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.net.ssl` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpServerRequest.java`
-#### Snippet
-```java
-   * @return SSLSession associated with the underlying socket. Returns null if connection is
-   *         not SSL.
-   * @see javax.net.ssl.SSLSession
-   */
-  @GenIgnore(GenIgnore.PERMITTED_TYPE)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17382,11 +17382,71 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
 #### Snippet
 ```java
+   * @param chunk the data chunk
+   * @return a future completed with the result
+   * @throws java.lang.IllegalStateException when no response handler is set
+   */
+  Future<Void> end(String chunk);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
+#### Snippet
+```java
    *
    * @return a future completed with the result
    * @throws java.lang.IllegalStateException when no response handler is set
    */
   @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.streams` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
+#### Snippet
+```java
+ * This class supports both chunked and non-chunked HTTP.
+ * <p>
+ * It implements {@link io.vertx.core.streams.WriteStream} so it can be used with
+ * {@link io.vertx.core.streams.Pipe} to pipe data with flow control.
+ * <p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
+#### Snippet
+```java
+   * @param chunk the data chunk
+   * @return a future completed with the result
+   * @throws java.lang.IllegalStateException when no response handler is set
+   */
+  Future<Void> write(String chunk);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
+#### Snippet
+```java
+   *
+   * @return a future completed with the result
+   * @throws java.lang.IllegalStateException when no response handler is set
+   */
+  @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
+#### Snippet
+```java
+   * @param enc the encoding
+   * @return a future completed with the result
+   * @throws java.lang.IllegalStateException when no response handler is set
+   */
+  Future<Void> end(String chunk, String enc);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17414,66 +17474,6 @@ in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.streams` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
-#### Snippet
-```java
- * This class supports both chunked and non-chunked HTTP.
- * <p>
- * It implements {@link io.vertx.core.streams.WriteStream} so it can be used with
- * {@link io.vertx.core.streams.Pipe} to pipe data with flow control.
- * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
-#### Snippet
-```java
-   *
-   * @return a future completed with the result
-   * @throws java.lang.IllegalStateException when no response handler is set
-   */
-  @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
-#### Snippet
-```java
-   * @param chunk the data chunk
-   * @return a future completed with the result
-   * @throws java.lang.IllegalStateException when no response handler is set
-   */
-  Future<Void> write(String chunk);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
-#### Snippet
-```java
-   * @param chunk the data chunk
-   * @return a future completed with the result
-   * @throws java.lang.IllegalStateException when no response handler is set
-   */
-  Future<Void> end(String chunk);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
-#### Snippet
-```java
-   * @param enc the encoding
-   * @return a future completed with the result
-   * @throws java.lang.IllegalStateException when no response handler is set
-   */
-  Future<Void> end(String chunk, String enc);
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
 #### Snippet
@@ -17483,30 +17483,6 @@ in `src/main/java/io/vertx/core/http/HttpClientRequest.java`
    * @throws java.lang.IllegalStateException when no response handler is set
    */
   Future<Void> write(String chunk, String enc);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.channels` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
-#### Snippet
-```java
-  private void doRead(Buffer writeBuff, int offset, ByteBuffer buff, long position, Promise<Buffer> promise) {
-
-    ch.read(buff, position, null, new java.nio.channels.CompletionHandler<Integer, Object>() {
-
-      long pos = position;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.channels` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
-#### Snippet
-```java
-  private void writeInternal(ByteBuffer buff, long position, Handler<AsyncResult<Void>> handler) {
-
-    ch.write(buff, position, null, new java.nio.channels.CompletionHandler<Integer, Object>() {
-
-      public void completed(Integer bytesWritten, Object attachment) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17534,6 +17510,30 @@ in `src/main/java/io/vertx/core/http/impl/CookieJar.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.channels` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
+#### Snippet
+```java
+  private void doRead(Buffer writeBuff, int offset, ByteBuffer buff, long position, Promise<Buffer> promise) {
+
+    ch.read(buff, position, null, new java.nio.channels.CompletionHandler<Integer, Object>() {
+
+      long pos = position;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.channels` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/file/impl/AsyncFileImpl.java`
+#### Snippet
+```java
+  private void writeInternal(ByteBuffer buff, long position, Handler<AsyncResult<Void>> handler) {
+
+    ch.write(buff, position, null, new java.nio.channels.CompletionHandler<Integer, Object>() {
+
+      public void completed(Integer bytesWritten, Object attachment) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
 in `src/main/java/io/vertx/core/http/impl/Http1xUpgradeToH2CHandler.java`
 #### Snippet
@@ -17558,6 +17558,54 @@ in `src/main/java/io/vertx/core/http/impl/Http1xUpgradeToH2CHandler.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
+#### Snippet
+```java
+
+  static boolean isConnectOrUpgrade(io.vertx.core.http.HttpMethod method, MultiMap headers) {
+    return method == io.vertx.core.http.HttpMethod.CONNECT || (method == io.vertx.core.http.HttpMethod.GET && headers.contains(io.vertx.core.http.HttpHeaders.CONNECTION, io.vertx.core.http.HttpHeaders.UPGRADE, true));
+  }
+}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
+#### Snippet
+```java
+
+  static boolean isConnectOrUpgrade(io.vertx.core.http.HttpMethod method, MultiMap headers) {
+    return method == io.vertx.core.http.HttpMethod.CONNECT || (method == io.vertx.core.http.HttpMethod.GET && headers.contains(io.vertx.core.http.HttpHeaders.CONNECTION, io.vertx.core.http.HttpHeaders.UPGRADE, true));
+  }
+}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
+#### Snippet
+```java
+    if (status.code() == METHOD_NOT_ALLOWED.code()) {
+      // SockJS requires this
+      resp.headers().set(io.vertx.core.http.HttpHeaders.ALLOW, io.vertx.core.http.HttpHeaders.GET);
+    }
+    if (err != null) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
+#### Snippet
+```java
+    if (status.code() == METHOD_NOT_ALLOWED.code()) {
+      // SockJS requires this
+      resp.headers().set(io.vertx.core.http.HttpHeaders.ALLOW, io.vertx.core.http.HttpHeaders.GET);
+    }
+    if (err != null) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.streams` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/http/HttpServerResponse.java`
 #### Snippet
@@ -17567,54 +17615,6 @@ in `src/main/java/io/vertx/core/http/HttpServerResponse.java`
  * It implements {@link io.vertx.core.streams.WriteStream} so it can be used with
  * {@link io.vertx.core.streams.Pipe} to pipe data with flow control.
  *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
-#### Snippet
-```java
-
-  static boolean isConnectOrUpgrade(io.vertx.core.http.HttpMethod method, MultiMap headers) {
-    return method == io.vertx.core.http.HttpMethod.CONNECT || (method == io.vertx.core.http.HttpMethod.GET && headers.contains(io.vertx.core.http.HttpHeaders.CONNECTION, io.vertx.core.http.HttpHeaders.UPGRADE, true));
-  }
-}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
-#### Snippet
-```java
-
-  static boolean isConnectOrUpgrade(io.vertx.core.http.HttpMethod method, MultiMap headers) {
-    return method == io.vertx.core.http.HttpMethod.CONNECT || (method == io.vertx.core.http.HttpMethod.GET && headers.contains(io.vertx.core.http.HttpHeaders.CONNECTION, io.vertx.core.http.HttpHeaders.UPGRADE, true));
-  }
-}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
-#### Snippet
-```java
-    if (status.code() == METHOD_NOT_ALLOWED.code()) {
-      // SockJS requires this
-      resp.headers().set(io.vertx.core.http.HttpHeaders.ALLOW, io.vertx.core.http.HttpHeaders.GET);
-    }
-    if (err != null) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
-#### Snippet
-```java
-    if (status.code() == METHOD_NOT_ALLOWED.code()) {
-      // SockJS requires this
-      resp.headers().set(io.vertx.core.http.HttpHeaders.ALLOW, io.vertx.core.http.HttpHeaders.GET);
-    }
-    if (err != null) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17750,6 +17750,18 @@ in `src/main/java/io/vertx/core/http/impl/VertxHttp2ClientUpgradeCodec.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.netty.util.concurrent` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/HttpServerWorker.java`
+#### Snippet
+```java
+    if (HAProxyMessageCompletionHandler.canUseProxyProtocol(options.isUseProxyProtocol())) {
+      IdleStateHandler idle;
+      io.netty.util.concurrent.Promise<Channel> p = ch.eventLoop().newPromise();
+      ch.pipeline().addLast(new HAProxyMessageDecoder());
+      if (options.getProxyProtocolTimeout() > 0) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.http` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/http/impl/Http1xConnectionBase.java`
 #### Snippet
@@ -17774,135 +17786,15 @@ in `src/main/java/io/vertx/core/http/impl/Http1xConnectionBase.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.netty.util.concurrent` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/HttpServerWorker.java`
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
 #### Snippet
 ```java
-    if (HAProxyMessageCompletionHandler.canUseProxyProtocol(options.isUseProxyProtocol())) {
-      IdleStateHandler idle;
-      io.netty.util.concurrent.Promise<Channel> p = ch.eventLoop().newPromise();
-      ch.pipeline().addLast(new HAProxyMessageDecoder());
-      if (options.getProxyProtocolTimeout() > 0) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
-#### Snippet
-```java
-  @Override
-  public MultiMap add(CharSequence name, Iterable<CharSequence> values) {
-    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
-      HttpUtils.validateHeader(name, values);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
-#### Snippet
-```java
-  @Override
-  public MultiMap set(CharSequence name, Iterable<CharSequence> values) {
-    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
-      HttpUtils.validateHeader(name, values);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
-#### Snippet
-```java
-  @Override
-  public MultiMap add(String name, String value) {
-    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
-      HttpUtils.validateHeader(name, value);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
-#### Snippet
-```java
-  @Override
-  public MultiMap set(String name, String value) {
-    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
-      HttpUtils.validateHeader(name, value);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
-#### Snippet
-```java
-  @Override
-  public MultiMap set(CharSequence name, CharSequence value) {
-    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
-      HttpUtils.validateHeader(name, value);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
-#### Snippet
-```java
-  @Override
-  public MultiMap add(CharSequence name, CharSequence value) {
-    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
-      HttpUtils.validateHeader(name, value);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
-#### Snippet
-```java
-  @Override
-  public MultiMap set(String name, Iterable<String> values) {
-    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
-      HttpUtils.validateHeader(name, values);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
-#### Snippet
-```java
-  @Override
-  public MultiMap add(String name, Iterable<String> values) {
-    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
-      HttpUtils.validateHeader(name, values);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.netty.handler.codec.http` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-      if (result.isFailure()) {
-        return result.cause();
-      } else if (obj instanceof io.netty.handler.codec.http.HttpResponse) {
-        io.netty.handler.codec.http.HttpVersion version = ((io.netty.handler.codec.http.HttpResponse) obj).protocolVersion();
-        if (version != io.netty.handler.codec.http.HttpVersion.HTTP_1_0 && version != io.netty.handler.codec.http.HttpVersion.HTTP_1_1) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.netty.handler.codec.http` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-        return result.cause();
-      } else if (obj instanceof io.netty.handler.codec.http.HttpResponse) {
-        io.netty.handler.codec.http.HttpVersion version = ((io.netty.handler.codec.http.HttpResponse) obj).protocolVersion();
-        if (version != io.netty.handler.codec.http.HttpVersion.HTTP_1_0 && version != io.netty.handler.codec.http.HttpVersion.HTTP_1_1) {
-          return new IllegalStateException("Unsupported HTTP version: " + version);
+      // avoid double parsing
+      if (cookies == null) {
+        CharSequence cookieHeader = stream.headers != null ? stream.headers.get(io.vertx.core.http.HttpHeaders.COOKIE) : null;
+        if (cookieHeader == null) {
+          cookies = new CookieJar();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17942,15 +17834,123 @@ in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
+Qualifier `io.netty.handler.codec.http` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 #### Snippet
 ```java
-      // avoid double parsing
-      if (cookies == null) {
-        CharSequence cookieHeader = stream.headers != null ? stream.headers.get(io.vertx.core.http.HttpHeaders.COOKIE) : null;
-        if (cookieHeader == null) {
-          cookies = new CookieJar();
+      if (result.isFailure()) {
+        return result.cause();
+      } else if (obj instanceof io.netty.handler.codec.http.HttpResponse) {
+        io.netty.handler.codec.http.HttpVersion version = ((io.netty.handler.codec.http.HttpResponse) obj).protocolVersion();
+        if (version != io.netty.handler.codec.http.HttpVersion.HTTP_1_0 && version != io.netty.handler.codec.http.HttpVersion.HTTP_1_1) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.netty.handler.codec.http` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+        return result.cause();
+      } else if (obj instanceof io.netty.handler.codec.http.HttpResponse) {
+        io.netty.handler.codec.http.HttpVersion version = ((io.netty.handler.codec.http.HttpResponse) obj).protocolVersion();
+        if (version != io.netty.handler.codec.http.HttpVersion.HTTP_1_0 && version != io.netty.handler.codec.http.HttpVersion.HTTP_1_1) {
+          return new IllegalStateException("Unsupported HTTP version: " + version);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
+#### Snippet
+```java
+  @Override
+  public MultiMap add(CharSequence name, CharSequence value) {
+    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
+      HttpUtils.validateHeader(name, value);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
+#### Snippet
+```java
+  @Override
+  public MultiMap add(CharSequence name, Iterable<CharSequence> values) {
+    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
+      HttpUtils.validateHeader(name, values);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
+#### Snippet
+```java
+  @Override
+  public MultiMap set(CharSequence name, Iterable<CharSequence> values) {
+    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
+      HttpUtils.validateHeader(name, values);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
+#### Snippet
+```java
+  @Override
+  public MultiMap set(CharSequence name, CharSequence value) {
+    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
+      HttpUtils.validateHeader(name, value);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
+#### Snippet
+```java
+  @Override
+  public MultiMap set(String name, String value) {
+    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
+      HttpUtils.validateHeader(name, value);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
+#### Snippet
+```java
+  @Override
+  public MultiMap add(String name, Iterable<String> values) {
+    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
+      HttpUtils.validateHeader(name, values);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
+#### Snippet
+```java
+  @Override
+  public MultiMap set(String name, Iterable<String> values) {
+    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
+      HttpUtils.validateHeader(name, values);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
+#### Snippet
+```java
+  @Override
+  public MultiMap add(String name, String value) {
+    if (!io.vertx.core.http.HttpHeaders.DISABLE_HTTP_HEADERS_VALIDATION) {
+      HttpUtils.validateHeader(name, value);
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17958,11 +17958,11 @@ Qualifier `io.netty.util.concurrent` is unnecessary, and can be replaced with an
 in `src/main/java/io/vertx/core/impl/AddressResolver.java`
 #### Snippet
 ```java
-  public void resolveHostname(String hostname, Handler<AsyncResult<InetAddress>> resultHandler) {
-    ContextInternal context = (ContextInternal) vertx.getOrCreateContext();
-    io.netty.util.concurrent.Future<InetSocketAddress> fut = resolveHostname(context.nettyEventLoop(), hostname);
-    PromiseInternal<InetSocketAddress> promise = context.promise();
-    fut.addListener(promise);
+  }
+
+  public io.netty.util.concurrent.Future<List<InetSocketAddress>> resolveHostnameAll(EventLoop eventLoop, String hostname) {
+    io.netty.resolver.AddressResolver<InetSocketAddress> resolver = getResolver(eventLoop);
+    return resolver.resolveAll(InetSocketAddress.createUnresolved(hostname, 0));
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17984,9 +17984,9 @@ in `src/main/java/io/vertx/core/impl/AddressResolver.java`
 ```java
   }
 
-  public io.netty.util.concurrent.Future<List<InetSocketAddress>> resolveHostnameAll(EventLoop eventLoop, String hostname) {
+  public io.netty.util.concurrent.Future<InetSocketAddress> resolveHostname(EventLoop eventLoop, String hostname) {
     io.netty.resolver.AddressResolver<InetSocketAddress> resolver = getResolver(eventLoop);
-    return resolver.resolveAll(InetSocketAddress.createUnresolved(hostname, 0));
+    return resolver.resolve(InetSocketAddress.createUnresolved(hostname, 0));
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17994,11 +17994,11 @@ Qualifier `io.netty.util.concurrent` is unnecessary, and can be replaced with an
 in `src/main/java/io/vertx/core/impl/AddressResolver.java`
 #### Snippet
 ```java
-  }
-
-  public io.netty.util.concurrent.Future<InetSocketAddress> resolveHostname(EventLoop eventLoop, String hostname) {
-    io.netty.resolver.AddressResolver<InetSocketAddress> resolver = getResolver(eventLoop);
-    return resolver.resolve(InetSocketAddress.createUnresolved(hostname, 0));
+  public void resolveHostname(String hostname, Handler<AsyncResult<InetAddress>> resultHandler) {
+    ContextInternal context = (ContextInternal) vertx.getOrCreateContext();
+    io.netty.util.concurrent.Future<InetSocketAddress> fut = resolveHostname(context.nettyEventLoop(), hostname);
+    PromiseInternal<InetSocketAddress> promise = context.promise();
+    fut.addListener(promise);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18026,27 +18026,15 @@ public class JacksonFactory implements io.vertx.core.spi.JsonFactory {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/impl/VertxImpl.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonArray.java`
 #### Snippet
 ```java
-   * Begin the emission of a context event.
-   * <p>
-   * This is a low level interface that should not be used, instead {@link ContextInternal#dispatch(Object, io.vertx.core.Handler)}
-   * shall be used.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/impl/VertxImpl.java`
-#### Snippet
-```java
-   * End the emission of a context task.
-   * <p>
-   * This is a low level interface that should not be used, instead {@link ContextInternal#dispatch(Object, io.vertx.core.Handler)}
-   * shall be used.
-   *
+   * @param pos the position in the array
+   * @return the Float, or null if a null value present
+   * @throws java.lang.ClassCastException if the value cannot be converted to Float
+   */
+  public Float getFloat(int pos) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18067,22 +18055,10 @@ in `src/main/java/io/vertx/core/json/JsonArray.java`
 #### Snippet
 ```java
    * @param pos the position in the array
-   * @return the byte[], or null if a null value present
-   * @throws java.lang.ClassCastException       if the value cannot be converted to String
-   * @throws java.lang.IllegalArgumentException if the String value is not a legal Base64 encoded value
+   * @return the JsonObject, or null if a null value present
+   * @throws java.lang.ClassCastException if the value cannot be converted to JsonObject
    */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonArray.java`
-#### Snippet
-```java
-   * @return the byte[], or null if a null value present
-   * @throws java.lang.ClassCastException       if the value cannot be converted to String
-   * @throws java.lang.IllegalArgumentException if the String value is not a legal Base64 encoded value
-   */
-  public Buffer getBuffer(int pos) {
+  public JsonObject getJsonObject(int pos) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18091,10 +18067,10 @@ in `src/main/java/io/vertx/core/json/JsonArray.java`
 #### Snippet
 ```java
    * @param pos the position in the array
-   * @return the Number, or null if a null value present
-   * @throws java.lang.ClassCastException if the value is not a Number
+   * @return the Integer, or null if a null value present
+   * @throws java.lang.ClassCastException if the value cannot be converted to Integer
    */
-  public Number getNumber(int pos) {
+  public Integer getInteger(int pos) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18103,10 +18079,10 @@ in `src/main/java/io/vertx/core/json/JsonArray.java`
 #### Snippet
 ```java
    * @param pos the position in the array
-   * @return the Instant, or null if a null value present
-   * @throws java.lang.ClassCastException            if the value cannot be converted to String
-   * @throws java.time.format.DateTimeParseException if the String value is not a legal ISO 8601 encoded value
+   * @return the Boolean, or null if a null value present
+   * @throws java.lang.ClassCastException if the value cannot be converted to Integer
    */
+  public Boolean getBoolean(int pos) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18127,22 +18103,10 @@ in `src/main/java/io/vertx/core/json/JsonArray.java`
 #### Snippet
 ```java
    * @param pos the position in the array
-   * @return the JsonObject, or null if a null value present
-   * @throws java.lang.ClassCastException if the value cannot be converted to JsonObject
+   * @return the Instant, or null if a null value present
+   * @throws java.lang.ClassCastException            if the value cannot be converted to String
+   * @throws java.time.format.DateTimeParseException if the String value is not a legal ISO 8601 encoded value
    */
-  public JsonObject getJsonObject(int pos) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonArray.java`
-#### Snippet
-```java
-   * @param pos the position in the array
-   * @return the Float, or null if a null value present
-   * @throws java.lang.ClassCastException if the value cannot be converted to Float
-   */
-  public Float getFloat(int pos) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18175,10 +18139,10 @@ in `src/main/java/io/vertx/core/json/JsonArray.java`
 #### Snippet
 ```java
    * @param pos the position in the array
-   * @return the Integer, or null if a null value present
-   * @throws java.lang.ClassCastException if the value cannot be converted to Integer
+   * @return the Number, or null if a null value present
+   * @throws java.lang.ClassCastException if the value is not a Number
    */
-  public Integer getInteger(int pos) {
+  public Number getNumber(int pos) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18199,10 +18163,22 @@ in `src/main/java/io/vertx/core/json/JsonArray.java`
 #### Snippet
 ```java
    * @param pos the position in the array
-   * @return the Boolean, or null if a null value present
-   * @throws java.lang.ClassCastException if the value cannot be converted to Integer
+   * @return the byte[], or null if a null value present
+   * @throws java.lang.ClassCastException       if the value cannot be converted to String
+   * @throws java.lang.IllegalArgumentException if the String value is not a legal Base64 encoded value
    */
-  public Boolean getBoolean(int pos) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonArray.java`
+#### Snippet
+```java
+   * @return the byte[], or null if a null value present
+   * @throws java.lang.ClassCastException       if the value cannot be converted to String
+   * @throws java.lang.IllegalArgumentException if the String value is not a legal Base64 encoded value
+   */
+  public Buffer getBuffer(int pos) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18242,6 +18218,186 @@ in `src/main/java/io/vertx/core/buffer/impl/PartialPooledByteBufAllocator.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/impl/VertxImpl.java`
+#### Snippet
+```java
+   * End the emission of a context task.
+   * <p>
+   * This is a low level interface that should not be used, instead {@link ContextInternal#dispatch(Object, io.vertx.core.Handler)}
+   * shall be used.
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/impl/VertxImpl.java`
+#### Snippet
+```java
+   * Begin the emission of a context event.
+   * <p>
+   * This is a low level interface that should not be used, instead {@link ContextInternal#dispatch(Object, io.vertx.core.Handler)}
+   * shall be used.
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @param key the key to return the value for
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException if the value is not an Integer
+   */
+  public Integer getInteger(String key) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @param key the key to return the value for
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException if the value is not a Long
+   */
+  public Long getLong(String key) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @param key the key to return the value for
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException if the value is not a Float
+   */
+  public Float getFloat(String key) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @param key the key to return the value for
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException            if the value is not a String
+   * @throws java.time.format.DateTimeParseException if the String value is not a legal ISO 8601 encoded value
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @param key the key to return the value for
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException if the value is not a JsonObject
+   */
+  public JsonObject getJsonObject(String key) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @param key the key to return the value for
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException if the value is not a Double
+   */
+  public Double getDouble(String key) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @param key the key to return the value for
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException if the value is not a Number
+   */
+  public Number getNumber(String key) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @param key the key to return the value for
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException if the value is not a Boolean
+   */
+  public Boolean getBoolean(String key) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @param key the key to return the value for
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException if the value is not a JsonArray
+   */
+  public JsonArray getJsonArray(String key) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @param key the string to return the value for
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException       if the value is not a string
+   * @throws java.lang.IllegalArgumentException if the value is not a legal Base64 encoded string
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException       if the value is not a string
+   * @throws java.lang.IllegalArgumentException if the value is not a legal Base64 encoded string
+   */
+  public Buffer getBuffer(String key) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @param key the key to return the value for
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException       if the value is not a String
+   * @throws java.lang.IllegalArgumentException if the String value is not a legal Base64 encoded value
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+   * @return the value or null if no value for that key
+   * @throws java.lang.ClassCastException       if the value is not a String
+   * @throws java.lang.IllegalArgumentException if the String value is not a legal Base64 encoded value
+   */
+  public byte[] getBinary(String key) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.spi.logging` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/logging/JULLogDelegateFactory.java`
 #### Snippet
@@ -18278,6 +18434,18 @@ in `src/main/java/io/vertx/core/logging/Log4j2LogDelegate.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.json` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/metrics/MetricsOptions.java`
+#### Snippet
+```java
+
+  /**
+   * Create an instance from a {@link io.vertx.core.json.JsonObject}
+   *
+   * @param json the JsonObject to create it from
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.logging` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/logging/Logger.java`
 #### Snippet
@@ -18302,18 +18470,6 @@ in `src/main/java/io/vertx/core/logging/Logger.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.json` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/metrics/MetricsOptions.java`
-#### Snippet
-```java
-
-  /**
-   * Create an instance from a {@link io.vertx.core.json.JsonObject}
-   *
-   * @param json the JsonObject to create it from
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.spi.logging` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/logging/JULLogDelegate.java`
 #### Snippet
@@ -18326,114 +18482,6 @@ in `src/main/java/io/vertx/core/logging/JULLogDelegate.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/datagram/DatagramPacket.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the {@link io.vertx.core.net.SocketAddress} of the sender that sent
-   * this {@link io.vertx.core.datagram.DatagramPacket}.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.datagram` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/datagram/DatagramPacket.java`
-#### Snippet
-```java
-  /**
-   * Returns the {@link io.vertx.core.net.SocketAddress} of the sender that sent
-   * this {@link io.vertx.core.datagram.DatagramPacket}.
-   *
-   * @return the address of the sender
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.datagram` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/datagram/DatagramPacket.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the data of the {@link io.vertx.core.datagram.DatagramPacket}
-   *
-   * @return the data
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
-#### Snippet
-```java
-
-  /**
-   * Write the given {@link io.vertx.core.buffer.Buffer} to the {@link io.vertx.core.net.SocketAddress}.
-   * The {@link io.vertx.core.Handler} will be notified once the write completes.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
-#### Snippet
-```java
-
-  /**
-   * Write the given {@link io.vertx.core.buffer.Buffer} to the {@link io.vertx.core.net.SocketAddress}.
-   * The {@link io.vertx.core.Handler} will be notified once the write completes.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
-#### Snippet
-```java
-  /**
-   * Write the given {@link io.vertx.core.buffer.Buffer} to the {@link io.vertx.core.net.SocketAddress}.
-   * The {@link io.vertx.core.Handler} will be notified once the write completes.
-   *
-   * @param packet  the {@link io.vertx.core.buffer.Buffer} to write
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
-#### Snippet
-```java
-   * The {@link io.vertx.core.Handler} will be notified once the write completes.
-   *
-   * @param packet  the {@link io.vertx.core.buffer.Buffer} to write
-   * @param port  the host port of the remote peer
-   * @param host  the host address of the remote peer
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
-#### Snippet
-```java
-   * @param port  the host port of the remote peer
-   * @param host  the host address of the remote peer
-   * @param handler  the {@link io.vertx.core.Handler} to notify once the write completes.
-   * @return a reference to this, so the API can be used fluently
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
-#### Snippet
-```java
-  /**
-   * Returns a {@code WriteStream<Buffer>} able to send {@link Buffer} to the
-   * {@link io.vertx.core.net.SocketAddress}.
-   *
-   * @param port the port of the remote peer
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.datagram` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
 #### Snippet
@@ -18443,18 +18491,6 @@ in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
    * Closes the {@link io.vertx.core.datagram.DatagramSocket}. The close itself is asynchronous.
    */
   Future<Void> close();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.datagram` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
-#### Snippet
-```java
-
-  /**
-   * Closes the {@link io.vertx.core.datagram.DatagramSocket} implementation asynchronous
-   * and notifies the handler once done.
-   *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18486,6 +18522,18 @@ Qualifier `io.vertx.core.net` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
 #### Snippet
 ```java
+  /**
+   * Returns a {@code WriteStream<Buffer>} able to send {@link Buffer} to the
+   * {@link io.vertx.core.net.SocketAddress}.
+   *
+   * @param port the port of the remote peer
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
+#### Snippet
+```java
 
   /**
    * Return the {@link io.vertx.core.net.SocketAddress} to which
@@ -18503,6 +18551,18 @@ in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
    * this {@link io.vertx.core.datagram.DatagramSocket} is bound.
    *
    * @return the socket address
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.datagram` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/datagram/DatagramPacket.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the data of the {@link io.vertx.core.datagram.DatagramPacket}
+   *
+   * @return the data
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18531,6 +18591,102 @@ in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.buffer` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
+#### Snippet
+```java
+
+  /**
+   * Write the given {@link io.vertx.core.buffer.Buffer} to the {@link io.vertx.core.net.SocketAddress}.
+   * The {@link io.vertx.core.Handler} will be notified once the write completes.
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/datagram/DatagramPacket.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the {@link io.vertx.core.net.SocketAddress} of the sender that sent
+   * this {@link io.vertx.core.datagram.DatagramPacket}.
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
+#### Snippet
+```java
+
+  /**
+   * Write the given {@link io.vertx.core.buffer.Buffer} to the {@link io.vertx.core.net.SocketAddress}.
+   * The {@link io.vertx.core.Handler} will be notified once the write completes.
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
+#### Snippet
+```java
+  /**
+   * Write the given {@link io.vertx.core.buffer.Buffer} to the {@link io.vertx.core.net.SocketAddress}.
+   * The {@link io.vertx.core.Handler} will be notified once the write completes.
+   *
+   * @param packet  the {@link io.vertx.core.buffer.Buffer} to write
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
+#### Snippet
+```java
+   * The {@link io.vertx.core.Handler} will be notified once the write completes.
+   *
+   * @param packet  the {@link io.vertx.core.buffer.Buffer} to write
+   * @param port  the host port of the remote peer
+   * @param host  the host address of the remote peer
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
+#### Snippet
+```java
+   * @param port  the host port of the remote peer
+   * @param host  the host address of the remote peer
+   * @param handler  the {@link io.vertx.core.Handler} to notify once the write completes.
+   * @return a reference to this, so the API can be used fluently
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.datagram` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/datagram/DatagramSocket.java`
+#### Snippet
+```java
+
+  /**
+   * Closes the {@link io.vertx.core.datagram.DatagramSocket} implementation asynchronous
+   * and notifies the handler once done.
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.datagram` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/datagram/DatagramPacket.java`
+#### Snippet
+```java
+  /**
+   * Returns the {@link io.vertx.core.net.SocketAddress} of the sender that sent
+   * this {@link io.vertx.core.datagram.DatagramPacket}.
+   *
+   * @return the address of the sender
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/eventbus/MessageCodec.java`
 #### Snippet
 ```java
@@ -18542,159 +18698,15 @@ in `src/main/java/io/vertx/core/eventbus/MessageCodec.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
+Qualifier `io.vertx.core.eventbus` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/eventbus/DeliveryOptions.java`
 #### Snippet
 ```java
-   * @param key the key to return the value for
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException       if the value is not a String
-   * @throws java.lang.IllegalArgumentException if the String value is not a legal Base64 encoded value
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException       if the value is not a String
-   * @throws java.lang.IllegalArgumentException if the String value is not a legal Base64 encoded value
-   */
-  public byte[] getBinary(String key) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-   * @param key the key to return the value for
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException if the value is not a JsonObject
-   */
-  public JsonObject getJsonObject(String key) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-   * @param key the key to return the value for
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException if the value is not a Double
-   */
-  public Double getDouble(String key) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-   * @param key the key to return the value for
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException            if the value is not a String
-   * @throws java.time.format.DateTimeParseException if the String value is not a legal ISO 8601 encoded value
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-   * @param key the key to return the value for
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException if the value is not a JsonArray
-   */
-  public JsonArray getJsonArray(String key) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-   * @param key the key to return the value for
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException if the value is not a Boolean
-   */
-  public Boolean getBoolean(String key) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-   * @param key the key to return the value for
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException if the value is not a Long
-   */
-  public Long getLong(String key) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-   * @param key the key to return the value for
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException if the value is not an Integer
-   */
-  public Integer getInteger(String key) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-   * @param key the key to return the value for
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException if the value is not a Number
-   */
-  public Number getNumber(String key) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-   * @param key the string to return the value for
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException       if the value is not a string
-   * @throws java.lang.IllegalArgumentException if the value is not a legal Base64 encoded string
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException       if the value is not a string
-   * @throws java.lang.IllegalArgumentException if the value is not a legal Base64 encoded string
-   */
-  public Buffer getBuffer(String key) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-   * @param key the key to return the value for
-   * @return the value or null if no value for that key
-   * @throws java.lang.ClassCastException if the value is not a Float
-   */
-  public Float getFloat(String key) {
+   * Add a message header.
+   * <p>
+   * Message headers can be sent with any message and will be accessible with {@link io.vertx.core.eventbus.Message#headers}
+   * at the recipient.
+   *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18719,18 +18731,6 @@ in `src/main/java/io/vertx/core/eventbus/MessageConsumer.java`
  * {@link #handler(io.vertx.core.Handler)} with a null value..
  *
  * @author <a href="mailto:nscavell@redhat.com">Nick Scavelli</a>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.eventbus` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/eventbus/DeliveryOptions.java`
-#### Snippet
-```java
-   * Add a message header.
-   * <p>
-   * Message headers can be sent with any message and will be accessible with {@link io.vertx.core.eventbus.Message#headers}
-   * at the recipient.
-   *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18895,10 +18895,10 @@ in `src/main/java/io/vertx/core/parsetools/JsonEvent.java`
 #### Snippet
 ```java
   /**
-   * @return the {@code Boolean} value or {@code null} if the event has no JSON value
-   * @throws java.lang.ClassCastException if the value is not a {@code Boolean}
+   * @return the {@code Integer} value or {@code null} if the event has no JSON value
+   * @throws java.lang.ClassCastException if the value is not an {@code Integer}
    */
-  Boolean booleanValue();
+  Integer integerValue();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18907,10 +18907,10 @@ in `src/main/java/io/vertx/core/parsetools/JsonEvent.java`
 #### Snippet
 ```java
   /**
-   * @return the {@code Float} value or {@code null} if the event has no JSON value
-   * @throws java.lang.ClassCastException if the value is not a {@code Float}
+   * @return the JSON array value or {@code null} if the event has no JSON value
+   * @throws java.lang.ClassCastException if the value is not a JSON array
    */
-  Float floatValue();
+  JsonArray arrayValue();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18919,10 +18919,10 @@ in `src/main/java/io/vertx/core/parsetools/JsonEvent.java`
 #### Snippet
 ```java
   /**
-   * @return the {@code Double} value or {@code null} if the event has no JSON value
-   * @throws java.lang.ClassCastException if the value is not a {@code Double}
+   * @return the JSON object value or {@code null} if the event has no JSON value
+   * @throws java.lang.ClassCastException if the value is not a JSON object
    */
-  Double doubleValue();
+  JsonObject objectValue();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18954,23 +18954,11 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/parsetools/JsonEvent.java`
 #### Snippet
 ```java
-   *
-   * @return the {@code Instant} value or {@code null} if the event has no JSON value
-   * @throws java.lang.ClassCastException if the value is not a String
-   * @throws java.time.format.DateTimeParseException if the String value is not a legal ISO 8601 encoded value
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/parsetools/JsonEvent.java`
-#### Snippet
-```java
   /**
-   * @return the JSON object value or {@code null} if the event has no JSON value
-   * @throws java.lang.ClassCastException if the value is not a JSON object
+   * @return the {@code Float} value or {@code null} if the event has no JSON value
+   * @throws java.lang.ClassCastException if the value is not a {@code Float}
    */
-  JsonObject objectValue();
+  Float floatValue();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18991,6 +18979,18 @@ in `src/main/java/io/vertx/core/parsetools/JsonEvent.java`
 #### Snippet
 ```java
   /**
+   * @return the {@code Boolean} value or {@code null} if the event has no JSON value
+   * @throws java.lang.ClassCastException if the value is not a {@code Boolean}
+   */
+  Boolean booleanValue();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/parsetools/JsonEvent.java`
+#### Snippet
+```java
+  /**
    * @return the {@code Long} value or {@code null} if the event has no JSON value
    * @throws java.lang.ClassCastException if the value is not a {@code Long}
    */
@@ -19002,11 +19002,11 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/io/vertx/core/parsetools/JsonEvent.java`
 #### Snippet
 ```java
-  /**
-   * @return the {@code Integer} value or {@code null} if the event has no JSON value
-   * @throws java.lang.ClassCastException if the value is not an {@code Integer}
+   *
+   * @return the {@code Instant} value or {@code null} if the event has no JSON value
+   * @throws java.lang.ClassCastException if the value is not a String
+   * @throws java.time.format.DateTimeParseException if the String value is not a legal ISO 8601 encoded value
    */
-  Integer integerValue();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19015,10 +19015,10 @@ in `src/main/java/io/vertx/core/parsetools/JsonEvent.java`
 #### Snippet
 ```java
   /**
-   * @return the JSON array value or {@code null} if the event has no JSON value
-   * @throws java.lang.ClassCastException if the value is not a JSON array
+   * @return the {@code Double} value or {@code null} if the event has no JSON value
+   * @throws java.lang.ClassCastException if the value is not a {@code Double}
    */
-  JsonArray arrayValue();
+  Double doubleValue();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19106,27 +19106,135 @@ in `src/main/java/io/vertx/core/shareddata/AsyncMap.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.dns` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/dns/DnsClientOptionsConverter.java`
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(DeploymentOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getConfig() != null) {
+      json.put("config", obj.getConfig());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DeploymentOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DeploymentOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "config":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.concurrent` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
+#### Snippet
+```java
+        case "maxWorkerExecuteTimeUnit":
+          if (member.getValue() instanceof String) {
+            obj.setMaxWorkerExecuteTimeUnit(java.util.concurrent.TimeUnit.valueOf((String)member.getValue()));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
 #### Snippet
 ```java
 
 /**
- * Converter and mapper for {@link io.vertx.core.dns.DnsClientOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.dns.DnsClientOptions} original class using Vert.x codegen.
+ * Converter and mapper for {@link io.vertx.core.DeploymentOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.DeploymentOptions} original class using Vert.x codegen.
  */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.dns` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/dns/DnsClientOptionsConverter.java`
+Qualifier `io.vertx.core` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
 #### Snippet
 ```java
 /**
- * Converter and mapper for {@link io.vertx.core.dns.DnsClientOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.dns.DnsClientOptions} original class using Vert.x codegen.
+ * Converter and mapper for {@link io.vertx.core.DeploymentOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.DeploymentOptions} original class using Vert.x codegen.
  */
-public class DnsClientOptionsConverter {
+public class DeploymentOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/cli/ArgumentConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(Argument obj, java.util.Map<String, Object> json) {
+    if (obj.getArgName() != null) {
+      json.put("argName", obj.getArgName());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.cli` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/cli/ArgumentConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.cli.Argument}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.cli.Argument} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.cli` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/cli/ArgumentConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.cli.Argument}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.cli.Argument} original class using Vert.x codegen.
+ */
+public class ArgumentConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/cli/ArgumentConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, Argument obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/cli/ArgumentConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, Argument obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "argName":
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19178,135 +19286,27 @@ in `src/main/generated/io/vertx/core/dns/DnsClientOptionsConverter.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/cli/ArgumentConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(Argument obj, java.util.Map<String, Object> json) {
-    if (obj.getArgName() != null) {
-      json.put("argName", obj.getArgName());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/cli/ArgumentConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, Argument obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/cli/ArgumentConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, Argument obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "argName":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.cli` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/cli/ArgumentConverter.java`
+Qualifier `io.vertx.core.dns` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/dns/DnsClientOptionsConverter.java`
 #### Snippet
 ```java
 
 /**
- * Converter and mapper for {@link io.vertx.core.cli.Argument}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.cli.Argument} original class using Vert.x codegen.
+ * Converter and mapper for {@link io.vertx.core.dns.DnsClientOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.dns.DnsClientOptions} original class using Vert.x codegen.
  */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.cli` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/cli/ArgumentConverter.java`
+Qualifier `io.vertx.core.dns` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/dns/DnsClientOptionsConverter.java`
 #### Snippet
 ```java
 /**
- * Converter and mapper for {@link io.vertx.core.cli.Argument}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.cli.Argument} original class using Vert.x codegen.
+ * Converter and mapper for {@link io.vertx.core.dns.DnsClientOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.dns.DnsClientOptions} original class using Vert.x codegen.
  */
-public class ArgumentConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DeploymentOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DeploymentOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "config":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
-#### Snippet
-```java
-        case "maxWorkerExecuteTimeUnit":
-          if (member.getValue() instanceof String) {
-            obj.setMaxWorkerExecuteTimeUnit(java.util.concurrent.TimeUnit.valueOf((String)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(DeploymentOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getConfig() != null) {
-      json.put("config", obj.getConfig());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.DeploymentOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.DeploymentOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/DeploymentOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.DeploymentOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.DeploymentOptions} original class using Vert.x codegen.
- */
-public class DeploymentOptionsConverter {
+public class DnsClientOptionsConverter {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19370,18 +19370,6 @@ in `src/main/generated/io/vertx/core/cli/OptionConverter.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/cli/OptionConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(Option obj, java.util.Map<String, Object> json) {
-    if (obj.getArgName() != null) {
-      json.put("argName", obj.getArgName());
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.cli` is unnecessary and can be removed
 in `src/main/generated/io/vertx/core/cli/OptionConverter.java`
 #### Snippet
@@ -19403,6 +19391,1650 @@ in `src/main/generated/io/vertx/core/cli/OptionConverter.java`
  * NOTE: This class has been automatically generated from the {@link io.vertx.core.cli.Option} original class using Vert.x codegen.
  */
 public class OptionConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/cli/OptionConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(Option obj, java.util.Map<String, Object> json) {
+    if (obj.getArgName() != null) {
+      json.put("argName", obj.getArgName());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.netty.handler.codec.compression` is unnecessary and can be removed
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+  public static void setCompressors() {
+    new HttpServerOptions()
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.gzip())
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.deflate())
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.brotli())
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.netty.handler.codec.compression` is unnecessary and can be removed
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+    new HttpServerOptions()
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.gzip())
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.deflate())
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.brotli())
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.zstd());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.netty.handler.codec.compression` is unnecessary and can be removed
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.gzip())
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.deflate())
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.brotli())
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.zstd());
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.netty.handler.codec.compression` is unnecessary and can be removed
+in `src/main/java/examples/HTTPExamples.java`
+#### Snippet
+```java
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.deflate())
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.brotli())
+      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.zstd());
+  }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.metrics` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/metrics/MetricsOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.metrics.MetricsOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.metrics.MetricsOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.metrics` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/metrics/MetricsOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.metrics.MetricsOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.metrics.MetricsOptions} original class using Vert.x codegen.
+ */
+public class MetricsOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/metrics/MetricsOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(MetricsOptions obj, java.util.Map<String, Object> json) {
+    json.put("enabled", obj.isEnabled());
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/metrics/MetricsOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, MetricsOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/metrics/MetricsOptionsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, MetricsOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "enabled":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.http.GoAway}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.GoAway} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.http.GoAway}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.GoAway} original class using Vert.x codegen.
+ */
+public class GoAwayConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(GoAway obj, java.util.Map<String, Object> json) {
+    if (obj.getDebugData() != null) {
+      json.put("debugData", BASE64_ENCODER.encodeToString(obj.getDebugData().getBytes()));
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, GoAway obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, GoAway obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "debugData":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
+#### Snippet
+```java
+        case "debugData":
+          if (member.getValue() instanceof String) {
+            obj.setDebugData(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(FileSystemOptions obj, java.util.Map<String, Object> json) {
+    json.put("classPathResolvingEnabled", obj.isClassPathResolvingEnabled());
+    if (obj.getFileCacheDir() != null) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.file` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.file.FileSystemOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.file.FileSystemOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.file` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.file.FileSystemOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.file.FileSystemOptions} original class using Vert.x codegen.
+ */
+public class FileSystemOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, FileSystemOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, FileSystemOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "classPathResolvingEnabled":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/Http2SettingsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.http.Http2Settings}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.Http2Settings} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/Http2SettingsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.http.Http2Settings}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.Http2Settings} original class using Vert.x codegen.
+ */
+public class Http2SettingsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/Http2SettingsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, Http2Settings obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/Http2SettingsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, Http2Settings obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "headerTableSize":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/Http2SettingsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(Http2Settings obj, java.util.Map<String, Object> json) {
+    json.put("headerTableSize", obj.getHeaderTableSize());
+    json.put("initialWindowSize", obj.getInitialWindowSize());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+  public static void toJson(WebSocketConnectOptions obj, java.util.Map<String, Object> json) {
+    json.put("allowOriginHeader", obj.getAllowOriginHeader());
+    if (obj.getSubProtocols() != null) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.http.WebSocketConnectOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.WebSocketConnectOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.http.WebSocketConnectOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.WebSocketConnectOptions} original class using Vert.x codegen.
+ */
+public class WebSocketConnectOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, WebSocketConnectOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
+#### Snippet
+```java
+
+  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, WebSocketConnectOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "allowOriginHeader":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
+#### Snippet
+```java
+        case "subProtocols":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
+#### Snippet
+```java
+        case "subProtocols":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
+#### Snippet
+```java
+        case "subProtocols":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
+#### Snippet
+```java
+        case "version":
+          if (member.getValue() instanceof String) {
+            obj.setVersion(io.vertx.core.http.WebsocketVersion.valueOf((String)member.getValue()));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(OpenOptions obj, java.util.Map<String, Object> json) {
+    json.put("append", obj.isAppend());
+    json.put("create", obj.isCreate());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, OpenOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, OpenOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "append":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.file` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.file.OpenOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.file.OpenOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.file` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.file.OpenOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.file.OpenOptions} original class using Vert.x codegen.
+ */
+public class OpenOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+  public static void toJson(RequestOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getFollowRedirects() != null) {
+      json.put("followRedirects", obj.getFollowRedirects());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, RequestOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
+#### Snippet
+```java
+
+  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, RequestOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "absoluteURI":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
+#### Snippet
+```java
+        case "proxyOptions":
+          if (member.getValue() instanceof JsonObject) {
+            obj.setProxyOptions(new io.vertx.core.net.ProxyOptions((io.vertx.core.json.JsonObject)member.getValue()));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.json` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
+#### Snippet
+```java
+        case "proxyOptions":
+          if (member.getValue() instanceof JsonObject) {
+            obj.setProxyOptions(new io.vertx.core.net.ProxyOptions((io.vertx.core.json.JsonObject)member.getValue()));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.http.RequestOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.RequestOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.http.RequestOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.RequestOptions} original class using Vert.x codegen.
+ */
+public class RequestOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PfxOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PfxOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "alias":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
+#### Snippet
+```java
+        case "value":
+          if (member.getValue() instanceof String) {
+            obj.setValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.net.PfxOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.PfxOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.net.PfxOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.PfxOptions} original class using Vert.x codegen.
+ */
+public class PfxOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(PfxOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getAlias() != null) {
+      json.put("alias", obj.getAlias());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, AddressResolverOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, AddressResolverOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "cacheMaxTimeToLive":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+        case "hostsValue":
+          if (member.getValue() instanceof String) {
+            obj.setHostsValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+        case "searchDomains":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+        case "searchDomains":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+        case "searchDomains":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+        case "servers":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+        case "servers":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+        case "servers":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.dns` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.dns.AddressResolverOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.dns.AddressResolverOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.dns` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.dns.AddressResolverOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.dns.AddressResolverOptions} original class using Vert.x codegen.
+ */
+public class AddressResolverOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(AddressResolverOptions obj, java.util.Map<String, Object> json) {
+    json.put("cacheMaxTimeToLive", obj.getCacheMaxTimeToLive());
+    json.put("cacheMinTimeToLive", obj.getCacheMinTimeToLive());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.http.HttpServerOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.HttpServerOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.http.HttpServerOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.HttpServerOptions} original class using Vert.x codegen.
+ */
+public class HttpServerOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(HttpServerOptions obj, java.util.Map<String, Object> json) {
+    json.put("acceptUnmaskedFrames", obj.isAcceptUnmaskedFrames());
+    if (obj.getAlpnVersions() != null) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, HttpServerOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, HttpServerOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "acceptUnmaskedFrames":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+        case "alpnVersions":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<io.vertx.core.http.HttpVersion> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+        case "alpnVersions":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<io.vertx.core.http.HttpVersion> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.net.NetworkOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.NetworkOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.net.NetworkOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.NetworkOptions} original class using Vert.x codegen.
+ */
+public class NetworkOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetworkOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+        case "alpnVersions":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<io.vertx.core.http.HttpVersion> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+                list.add(io.vertx.core.http.HttpVersion.valueOf((String)item));
+            });
+            obj.setAlpnVersions(list);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetworkOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "activityLogDataFormat":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+        case "initialSettings":
+          if (member.getValue() instanceof JsonObject) {
+            obj.setInitialSettings(new io.vertx.core.http.Http2Settings((io.vertx.core.json.JsonObject)member.getValue()));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.json` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+        case "initialSettings":
+          if (member.getValue() instanceof JsonObject) {
+            obj.setInitialSettings(new io.vertx.core.http.Http2Settings((io.vertx.core.json.JsonObject)member.getValue()));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.netty.handler.logging` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+#### Snippet
+```java
+        case "activityLogDataFormat":
+          if (member.getValue() instanceof String) {
+            obj.setActivityLogDataFormat(io.netty.handler.logging.ByteBufFormat.valueOf((String)member.getValue()));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.tracing` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+        case "tracingPolicy":
+          if (member.getValue() instanceof String) {
+            obj.setTracingPolicy(io.vertx.core.tracing.TracingPolicy.valueOf((String)member.getValue()));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(NetworkOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getActivityLogDataFormat() != null) {
+      json.put("activityLogDataFormat", obj.getActivityLogDataFormat().name());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+        case "webSocketSubProtocols":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+        case "webSocketSubProtocols":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+#### Snippet
+```java
+        case "webSocketSubProtocols":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.http.HttpClientOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.HttpClientOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.http.HttpClientOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.HttpClientOptions} original class using Vert.x codegen.
+ */
+public class HttpClientOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(HttpClientOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getAlpnVersions() != null) {
+      JsonArray array = new JsonArray();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, HttpClientOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, HttpClientOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "alpnVersions":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+        case "alpnVersions":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<io.vertx.core.http.HttpVersion> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+        case "alpnVersions":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<io.vertx.core.http.HttpVersion> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+        case "alpnVersions":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<io.vertx.core.http.HttpVersion> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+                list.add(io.vertx.core.http.HttpVersion.valueOf((String)item));
+            });
+            obj.setAlpnVersions(list);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+        case "initialSettings":
+          if (member.getValue() instanceof JsonObject) {
+            obj.setInitialSettings(new io.vertx.core.http.Http2Settings((io.vertx.core.json.JsonObject)member.getValue()));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.json` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+        case "initialSettings":
+          if (member.getValue() instanceof JsonObject) {
+            obj.setInitialSettings(new io.vertx.core.http.Http2Settings((io.vertx.core.json.JsonObject)member.getValue()));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+        case "protocolVersion":
+          if (member.getValue() instanceof String) {
+            obj.setProtocolVersion(io.vertx.core.http.HttpVersion.valueOf((String)member.getValue()));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.tracing` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+#### Snippet
+```java
+        case "tracingPolicy":
+          if (member.getValue() instanceof String) {
+            obj.setTracingPolicy(io.vertx.core.tracing.TracingPolicy.valueOf((String)member.getValue()));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(PemKeyCertOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getCertPaths() != null) {
+      JsonArray array = new JsonArray();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.net.PemKeyCertOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.PemKeyCertOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.net.PemKeyCertOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.PemKeyCertOptions} original class using Vert.x codegen.
+ */
+public class PemKeyCertOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PemKeyCertOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PemKeyCertOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "certPath":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "certPaths":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "certPaths":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "certPaths":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "certValue":
+          if (member.getValue() instanceof String) {
+            obj.setCertValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "certValues":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<io.vertx.core.buffer.Buffer> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "certValues":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<io.vertx.core.buffer.Buffer> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "certValues":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<io.vertx.core.buffer.Buffer> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+                list.add(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)item)));
+            });
+            obj.setCertValues(list);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "keyPaths":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "keyPaths":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "keyPaths":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "keyValue":
+          if (member.getValue() instanceof String) {
+            obj.setKeyValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "keyValues":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<io.vertx.core.buffer.Buffer> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "keyValues":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<io.vertx.core.buffer.Buffer> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+        case "keyValues":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<io.vertx.core.buffer.Buffer> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
+#### Snippet
+```java
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+                list.add(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)item)));
+            });
+            obj.setKeyValues(list);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.net.KeyStoreOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.KeyStoreOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.net.KeyStoreOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.KeyStoreOptions} original class using Vert.x codegen.
+ */
+public class KeyStoreOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+  public static void toJson(KeyStoreOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getAlias() != null) {
+      json.put("alias", obj.getAlias());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, KeyStoreOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
+#### Snippet
+```java
+
+  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, KeyStoreOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "alias":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
+#### Snippet
+```java
+        case "value":
+          if (member.getValue() instanceof String) {
+            obj.setValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
+          }
+          break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, OpenSSLEngineOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, OpenSSLEngineOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "sessionCacheEnabled":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(OpenSSLEngineOptions obj, java.util.Map<String, Object> json) {
+    json.put("sessionCacheEnabled", obj.isSessionCacheEnabled());
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.net.OpenSSLEngineOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.OpenSSLEngineOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.net.OpenSSLEngineOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.OpenSSLEngineOptions} original class using Vert.x codegen.
+ */
+public class OpenSSLEngineOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(PemTrustOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getCertPaths() != null) {
+      JsonArray array = new JsonArray();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
+#### Snippet
+```java
+  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PemTrustOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
+#### Snippet
+```java
+
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PemTrustOptions obj) {
+    for (java.util.Map.Entry<String, Object> member : json) {
+      switch (member.getKey()) {
+        case "certPaths":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
+#### Snippet
+```java
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+                obj.addCertValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)item)));
+            });
+          }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.net.PemTrustOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.PemTrustOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.net.PemTrustOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.PemTrustOptions} original class using Vert.x codegen.
+ */
+public class PemTrustOptionsConverter {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19623,18 +21255,6 @@ public class VertxOptionsConverter {
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, AddressResolverOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `src/main/generated/io/vertx/core/VertxOptionsConverter.java`
 #### Snippet
 ```java
@@ -19647,914 +21267,158 @@ in `src/main/generated/io/vertx/core/VertxOptionsConverter.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(NetServerOptions obj, java.util.Map<String, Object> json) {
+    json.put("acceptBacklog", obj.getAcceptBacklog());
+    if (obj.getClientAuth() != null) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.net.NetServerOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.NetServerOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.net.NetServerOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.NetServerOptions} original class using Vert.x codegen.
+ */
+public class NetServerOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetworkOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetServerOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
 #### Snippet
 ```java
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, AddressResolverOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetServerOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
-        case "cacheMaxTimeToLive":
+        case "acceptBacklog":
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
 #### Snippet
 ```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetworkOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "activityLogDataFormat":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.netty.handler.logging` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
-#### Snippet
-```java
-        case "activityLogDataFormat":
+        case "clientAuth":
           if (member.getValue() instanceof String) {
-            obj.setActivityLogDataFormat(io.netty.handler.logging.ByteBufFormat.valueOf((String)member.getValue()));
+            obj.setClientAuth(io.vertx.core.http.ClientAuth.valueOf((String)member.getValue()));
           }
           break;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
+Qualifier `java.util.concurrent` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
 #### Snippet
 ```java
-        case "hostsValue":
+        case "proxyProtocolTimeoutUnit":
           if (member.getValue() instanceof String) {
-            obj.setHostsValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
+            obj.setProxyProtocolTimeoutUnit(java.util.concurrent.TimeUnit.valueOf((String)member.getValue()));
           }
           break;
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
 #### Snippet
 ```java
 
 /**
- * Converter and mapper for {@link io.vertx.core.net.NetworkOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.NetworkOptions} original class using Vert.x codegen.
+ * Converter and mapper for {@link io.vertx.core.net.ProxyOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.ProxyOptions} original class using Vert.x codegen.
  */
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
 #### Snippet
 ```java
 /**
- * Converter and mapper for {@link io.vertx.core.net.NetworkOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.NetworkOptions} original class using Vert.x codegen.
+ * Converter and mapper for {@link io.vertx.core.net.ProxyOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.ProxyOptions} original class using Vert.x codegen.
  */
-public class NetworkOptionsConverter {
+public class ProxyOptionsConverter {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
-#### Snippet
-```java
-        case "searchDomains":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetworkOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
 #### Snippet
 ```java
   }
 
-   static void toJson(NetworkOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getActivityLogDataFormat() != null) {
-      json.put("activityLogDataFormat", obj.getActivityLogDataFormat().name());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
-#### Snippet
-```java
-        case "searchDomains":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
+   static void toJson(ProxyOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getHost() != null) {
+      json.put("host", obj.getHost());
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
-#### Snippet
-```java
-        case "searchDomains":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
-#### Snippet
-```java
-        case "servers":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
-#### Snippet
-```java
-        case "servers":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
-#### Snippet
-```java
-        case "servers":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(AddressResolverOptions obj, java.util.Map<String, Object> json) {
-    json.put("cacheMaxTimeToLive", obj.getCacheMaxTimeToLive());
-    json.put("cacheMinTimeToLive", obj.getCacheMinTimeToLive());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.dns` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.dns.AddressResolverOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.dns.AddressResolverOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.dns` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/dns/AddressResolverOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.dns.AddressResolverOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.dns.AddressResolverOptions} original class using Vert.x codegen.
- */
-public class AddressResolverOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(PfxOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getAlias() != null) {
-      json.put("alias", obj.getAlias());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.net.PfxOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.PfxOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.net.PfxOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.PfxOptions} original class using Vert.x codegen.
- */
-public class PfxOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PfxOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, ProxyOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
 #### Snippet
 ```java
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PfxOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, ProxyOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
-        case "alias":
+        case "host":
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
 #### Snippet
 ```java
-  }
-
-  public static void toJson(KeyStoreOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getAlias() != null) {
-      json.put("alias", obj.getAlias());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PfxOptionsConverter.java`
-#### Snippet
-```java
-        case "value":
+        case "type":
           if (member.getValue() instanceof String) {
-            obj.setValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
+            obj.setType(io.vertx.core.net.ProxyType.valueOf((String)member.getValue()));
           }
           break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.net.KeyStoreOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.KeyStoreOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.net.KeyStoreOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.KeyStoreOptions} original class using Vert.x codegen.
- */
-public class KeyStoreOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, KeyStoreOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/tracing/TracingOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(TracingOptions obj, java.util.Map<String, Object> json) {
-  }
-}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/tracing/TracingOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, TracingOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/tracing/TracingOptionsConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, TracingOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-      }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.tracing` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/tracing/TracingOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.tracing.TracingOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.tracing.TracingOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.tracing` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/tracing/TracingOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.tracing.TracingOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.tracing.TracingOptions} original class using Vert.x codegen.
- */
-public class TracingOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/metrics/MetricsOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(MetricsOptions obj, java.util.Map<String, Object> json) {
-    json.put("enabled", obj.isEnabled());
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.metrics` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/metrics/MetricsOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.metrics.MetricsOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.metrics.MetricsOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.metrics` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/metrics/MetricsOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.metrics.MetricsOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.metrics.MetricsOptions} original class using Vert.x codegen.
- */
-public class MetricsOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/metrics/MetricsOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, MetricsOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/metrics/MetricsOptionsConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, MetricsOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "enabled":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(DatagramSocketOptions obj, java.util.Map<String, Object> json) {
-    json.put("broadcast", obj.isBroadcast());
-    json.put("ipV6", obj.isIpV6());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DatagramSocketOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DatagramSocketOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "broadcast":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.datagram` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.datagram.DatagramSocketOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.datagram.DatagramSocketOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.datagram` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.datagram.DatagramSocketOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.datagram.DatagramSocketOptions} original class using Vert.x codegen.
- */
-public class DatagramSocketOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.http.GoAway}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.GoAway} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.http.GoAway}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.GoAway} original class using Vert.x codegen.
- */
-public class GoAwayConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, GoAway obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, GoAway obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "debugData":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
-#### Snippet
-```java
-        case "debugData":
-          if (member.getValue() instanceof String) {
-            obj.setDebugData(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/GoAwayConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(GoAway obj, java.util.Map<String, Object> json) {
-    if (obj.getDebugData() != null) {
-      json.put("debugData", BASE64_ENCODER.encodeToString(obj.getDebugData().getBytes()));
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/Http2SettingsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, Http2Settings obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/Http2SettingsConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, Http2Settings obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "headerTableSize":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/Http2SettingsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(Http2Settings obj, java.util.Map<String, Object> json) {
-    json.put("headerTableSize", obj.getHeaderTableSize());
-    json.put("initialWindowSize", obj.getInitialWindowSize());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/Http2SettingsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.http.Http2Settings}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.Http2Settings} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/Http2SettingsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.http.Http2Settings}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.Http2Settings} original class using Vert.x codegen.
- */
-public class Http2SettingsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, WebSocketConnectOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
-#### Snippet
-```java
-
-  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, WebSocketConnectOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "allowOriginHeader":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
-#### Snippet
-```java
-        case "subProtocols":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
-#### Snippet
-```java
-        case "subProtocols":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
-#### Snippet
-```java
-        case "subProtocols":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
-#### Snippet
-```java
-        case "version":
-          if (member.getValue() instanceof String) {
-            obj.setVersion(io.vertx.core.http.WebsocketVersion.valueOf((String)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-  public static void toJson(WebSocketConnectOptions obj, java.util.Map<String, Object> json) {
-    json.put("allowOriginHeader", obj.getAllowOriginHeader());
-    if (obj.getSubProtocols() != null) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.http.WebSocketConnectOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.WebSocketConnectOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/WebSocketConnectOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.http.WebSocketConnectOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.WebSocketConnectOptions} original class using Vert.x codegen.
- */
-public class WebSocketConnectOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(OpenSSLEngineOptions obj, java.util.Map<String, Object> json) {
-    json.put("sessionCacheEnabled", obj.isSessionCacheEnabled());
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.net.OpenSSLEngineOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.OpenSSLEngineOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.net.OpenSSLEngineOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.OpenSSLEngineOptions} original class using Vert.x codegen.
- */
-public class OpenSSLEngineOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, OpenSSLEngineOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/OpenSSLEngineOptionsConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, OpenSSLEngineOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "sessionCacheEnabled":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, RequestOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
-#### Snippet
-```java
-
-  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, RequestOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "absoluteURI":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
-#### Snippet
-```java
-        case "proxyOptions":
-          if (member.getValue() instanceof JsonObject) {
-            obj.setProxyOptions(new io.vertx.core.net.ProxyOptions((io.vertx.core.json.JsonObject)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.json` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
-#### Snippet
-```java
-        case "proxyOptions":
-          if (member.getValue() instanceof JsonObject) {
-            obj.setProxyOptions(new io.vertx.core.net.ProxyOptions((io.vertx.core.json.JsonObject)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.http.RequestOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.RequestOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.http.RequestOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.RequestOptions} original class using Vert.x codegen.
- */
-public class RequestOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/RequestOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-  public static void toJson(RequestOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getFollowRedirects() != null) {
-      json.put("followRedirects", obj.getFollowRedirects());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/ClientOptionsBaseConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.net.ClientOptionsBase}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.ClientOptionsBase} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/ClientOptionsBaseConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.net.ClientOptionsBase}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.ClientOptionsBase} original class using Vert.x codegen.
- */
-public class ClientOptionsBaseConverter {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20654,252 +21518,108 @@ in `src/main/generated/io/vertx/core/net/ClientOptionsBaseConverter.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/ClientOptionsBaseConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.net.ClientOptionsBase}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.ClientOptionsBase} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.net` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/ClientOptionsBaseConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.net.ClientOptionsBase}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.ClientOptionsBase} original class using Vert.x codegen.
+ */
+public class ClientOptionsBaseConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.tracing` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/tracing/TracingOptionsConverter.java`
+#### Snippet
+```java
+
+/**
+ * Converter and mapper for {@link io.vertx.core.tracing.TracingOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.tracing.TracingOptions} original class using Vert.x codegen.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.tracing` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/tracing/TracingOptionsConverter.java`
+#### Snippet
+```java
+/**
+ * Converter and mapper for {@link io.vertx.core.tracing.TracingOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.tracing.TracingOptions} original class using Vert.x codegen.
+ */
+public class TracingOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+in `src/main/generated/io/vertx/core/tracing/TracingOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, HttpServerOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, TracingOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+in `src/main/generated/io/vertx/core/tracing/TracingOptionsConverter.java`
 #### Snippet
 ```java
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, HttpServerOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, TracingOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
-        case "acceptUnmaskedFrames":
+      }
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
-#### Snippet
-```java
-        case "alpnVersions":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<io.vertx.core.http.HttpVersion> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
-#### Snippet
-```java
-        case "alpnVersions":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<io.vertx.core.http.HttpVersion> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
-#### Snippet
-```java
-        case "alpnVersions":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<io.vertx.core.http.HttpVersion> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
-#### Snippet
-```java
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-                list.add(io.vertx.core.http.HttpVersion.valueOf((String)item));
-            });
-            obj.setAlpnVersions(list);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
-#### Snippet
-```java
-        case "initialSettings":
-          if (member.getValue() instanceof JsonObject) {
-            obj.setInitialSettings(new io.vertx.core.http.Http2Settings((io.vertx.core.json.JsonObject)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.json` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
-#### Snippet
-```java
-        case "initialSettings":
-          if (member.getValue() instanceof JsonObject) {
-            obj.setInitialSettings(new io.vertx.core.http.Http2Settings((io.vertx.core.json.JsonObject)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.tracing` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
-#### Snippet
-```java
-        case "tracingPolicy":
-          if (member.getValue() instanceof String) {
-            obj.setTracingPolicy(io.vertx.core.tracing.TracingPolicy.valueOf((String)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
-#### Snippet
-```java
-        case "webSocketSubProtocols":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
-#### Snippet
-```java
-        case "webSocketSubProtocols":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
-#### Snippet
-```java
-        case "webSocketSubProtocols":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
+in `src/main/generated/io/vertx/core/tracing/TracingOptionsConverter.java`
 #### Snippet
 ```java
   }
 
-   static void toJson(HttpServerOptions obj, java.util.Map<String, Object> json) {
-    json.put("acceptUnmaskedFrames", obj.isAcceptUnmaskedFrames());
-    if (obj.getAlpnVersions() != null) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.http.HttpServerOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.HttpServerOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpServerOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.http.HttpServerOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.HttpServerOptions} original class using Vert.x codegen.
- */
-public class HttpServerOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
-#### Snippet
-```java
+   static void toJson(TracingOptions obj, java.util.Map<String, Object> json) {
   }
-
-   static void toJson(CopyOptions obj, java.util.Map<String, Object> json) {
-    json.put("atomicMove", obj.isAtomicMove());
-    json.put("copyAttributes", obj.isCopyAttributes());
+}
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/JksOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, CopyOptions obj) {
+  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, JksOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/JksOptionsConverter.java`
 #### Snippet
 ```java
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, CopyOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "atomicMove":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.file` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.file.CopyOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.file.CopyOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.file` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.file.CopyOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.file.CopyOptions} original class using Vert.x codegen.
- */
-public class CopyOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
-#### Snippet
-```java
-
-  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, KeyStoreOptions obj) {
+  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, JksOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
         case "alias":
@@ -20907,7 +21627,7 @@ in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/JksOptionsConverter.java`
 #### Snippet
 ```java
         case "value":
@@ -20915,330 +21635,6 @@ in `src/main/generated/io/vertx/core/net/KeyStoreOptionsConverter.java`
             obj.setValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
           }
           break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PemKeyCertOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PemKeyCertOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "certPath":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "certPaths":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "certPaths":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "certPaths":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "certValue":
-          if (member.getValue() instanceof String) {
-            obj.setCertValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "certValues":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<io.vertx.core.buffer.Buffer> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "certValues":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<io.vertx.core.buffer.Buffer> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "certValues":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<io.vertx.core.buffer.Buffer> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-                list.add(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)item)));
-            });
-            obj.setCertValues(list);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "keyPaths":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "keyPaths":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "keyPaths":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "keyValue":
-          if (member.getValue() instanceof String) {
-            obj.setKeyValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "keyValues":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<io.vertx.core.buffer.Buffer> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "keyValues":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<io.vertx.core.buffer.Buffer> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-        case "keyValues":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<io.vertx.core.buffer.Buffer> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-                list.add(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)item)));
-            });
-            obj.setKeyValues(list);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(PemKeyCertOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getCertPaths() != null) {
-      JsonArray array = new JsonArray();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.net.PemKeyCertOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.PemKeyCertOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/PemKeyCertOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.net.PemKeyCertOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.PemKeyCertOptions} original class using Vert.x codegen.
- */
-public class PemKeyCertOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(PemTrustOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getCertPaths() != null) {
-      JsonArray array = new JsonArray();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.net.PemTrustOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.PemTrustOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.net.PemTrustOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.PemTrustOptions} original class using Vert.x codegen.
- */
-public class PemTrustOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PemTrustOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, PemTrustOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "certPaths":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/PemTrustOptionsConverter.java`
-#### Snippet
-```java
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-                obj.addCertValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)item)));
-            });
-          }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -21270,42 +21666,6 @@ Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `src/main/generated/io/vertx/core/net/JksOptionsConverter.java`
 #### Snippet
 ```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, JksOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/JksOptionsConverter.java`
-#### Snippet
-```java
-
-  public static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, JksOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "alias":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.buffer` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/JksOptionsConverter.java`
-#### Snippet
-```java
-        case "value":
-          if (member.getValue() instanceof String) {
-            obj.setValue(io.vertx.core.buffer.Buffer.buffer(BASE64_DECODER.decode((String)member.getValue())));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/JksOptionsConverter.java`
-#### Snippet
-```java
   }
 
   public static void toJson(JksOptions obj, java.util.Map<String, Object> json) {
@@ -21315,62 +21675,62 @@ in `src/main/generated/io/vertx/core/net/JksOptionsConverter.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
+in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetClientOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, CopyOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
+in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
 #### Snippet
 ```java
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetClientOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, CopyOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
-        case "applicationLayerProtocols":
+        case "atomicMove":
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
+in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
 #### Snippet
 ```java
-        case "applicationLayerProtocols":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
+  }
+
+   static void toJson(CopyOptions obj, java.util.Map<String, Object> json) {
+    json.put("atomicMove", obj.isAtomicMove());
+    json.put("copyAttributes", obj.isCopyAttributes());
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
+Qualifier `io.vertx.core.file` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
 #### Snippet
 ```java
-        case "applicationLayerProtocols":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
+
+/**
+ * Converter and mapper for {@link io.vertx.core.file.CopyOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.file.CopyOptions} original class using Vert.x codegen.
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
+Qualifier `io.vertx.core.file` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/file/CopyOptionsConverter.java`
 #### Snippet
 ```java
-        case "applicationLayerProtocols":
-          if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
+/**
+ * Converter and mapper for {@link io.vertx.core.file.CopyOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.file.CopyOptions} original class using Vert.x codegen.
+ */
+public class CopyOptionsConverter {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -21410,531 +21770,123 @@ in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.net.NetServerOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.NetServerOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.net.NetServerOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.NetServerOptions} original class using Vert.x codegen.
- */
-public class NetServerOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(NetServerOptions obj, java.util.Map<String, Object> json) {
-    json.put("acceptBacklog", obj.getAcceptBacklog());
-    if (obj.getClientAuth() != null) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetServerOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetClientOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
 #### Snippet
 ```java
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetServerOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, NetClientOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
-        case "acceptBacklog":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
-#### Snippet
-```java
-        case "clientAuth":
-          if (member.getValue() instanceof String) {
-            obj.setClientAuth(io.vertx.core.http.ClientAuth.valueOf((String)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/NetServerOptionsConverter.java`
-#### Snippet
-```java
-        case "proxyProtocolTimeoutUnit":
-          if (member.getValue() instanceof String) {
-            obj.setProxyProtocolTimeoutUnit(java.util.concurrent.TimeUnit.valueOf((String)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.file` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.file.OpenOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.file.OpenOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.file` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.file.OpenOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.file.OpenOptions} original class using Vert.x codegen.
- */
-public class OpenOptionsConverter {
+        case "applicationLayerProtocols":
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
 #### Snippet
 ```java
-  }
-
-   static void toJson(OpenOptions obj, java.util.Map<String, Object> json) {
-    json.put("append", obj.isAppend());
-    json.put("create", obj.isCreate());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, OpenOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/file/OpenOptionsConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, OpenOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "append":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, FileSystemOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, FileSystemOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "classPathResolvingEnabled":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.file` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.file.FileSystemOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.file.FileSystemOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.file` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.file.FileSystemOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.file.FileSystemOptions} original class using Vert.x codegen.
- */
-public class FileSystemOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(HttpClientOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getAlpnVersions() != null) {
-      JsonArray array = new JsonArray();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/file/FileSystemOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(FileSystemOptions obj, java.util.Map<String, Object> json) {
-    json.put("classPathResolvingEnabled", obj.isClassPathResolvingEnabled());
-    if (obj.getFileCacheDir() != null) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-  private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, HttpClientOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, HttpClientOptions obj) {
-    for (java.util.Map.Entry<String, Object> member : json) {
-      switch (member.getKey()) {
-        case "alpnVersions":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-        case "alpnVersions":
+        case "applicationLayerProtocols":
           if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<io.vertx.core.http.HttpVersion> list =  new java.util.ArrayList<>();
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
             ((Iterable<Object>)member.getValue()).forEach( item -> {
               if (item instanceof String)
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
 #### Snippet
 ```java
-        case "alpnVersions":
+        case "applicationLayerProtocols":
           if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<io.vertx.core.http.HttpVersion> list =  new java.util.ArrayList<>();
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
             ((Iterable<Object>)member.getValue()).forEach( item -> {
               if (item instanceof String)
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
+in `src/main/generated/io/vertx/core/net/NetClientOptionsConverter.java`
 #### Snippet
 ```java
-        case "alpnVersions":
+        case "applicationLayerProtocols":
           if (member.getValue() instanceof JsonArray) {
-            java.util.ArrayList<io.vertx.core.http.HttpVersion> list =  new java.util.ArrayList<>();
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
             ((Iterable<Object>)member.getValue()).forEach( item -> {
               if (item instanceof String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-            ((Iterable<Object>)member.getValue()).forEach( item -> {
-              if (item instanceof String)
-                list.add(io.vertx.core.http.HttpVersion.valueOf((String)item));
-            });
-            obj.setAlpnVersions(list);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-        case "initialSettings":
-          if (member.getValue() instanceof JsonObject) {
-            obj.setInitialSettings(new io.vertx.core.http.Http2Settings((io.vertx.core.json.JsonObject)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.json` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-        case "initialSettings":
-          if (member.getValue() instanceof JsonObject) {
-            obj.setInitialSettings(new io.vertx.core.http.Http2Settings((io.vertx.core.json.JsonObject)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-        case "protocolVersion":
-          if (member.getValue() instanceof String) {
-            obj.setProtocolVersion(io.vertx.core.http.HttpVersion.valueOf((String)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.tracing` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-        case "tracingPolicy":
-          if (member.getValue() instanceof String) {
-            obj.setTracingPolicy(io.vertx.core.tracing.TracingPolicy.valueOf((String)member.getValue()));
-          }
-          break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-
-/**
- * Converter and mapper for {@link io.vertx.core.http.HttpClientOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.HttpClientOptions} original class using Vert.x codegen.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/http/HttpClientOptionsConverter.java`
-#### Snippet
-```java
-/**
- * Converter and mapper for {@link io.vertx.core.http.HttpClientOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.http.HttpClientOptions} original class using Vert.x codegen.
- */
-public class HttpClientOptionsConverter {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
+in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
 #### Snippet
 ```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, ProxyOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DatagramSocketOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
+in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
 #### Snippet
 ```java
 
-   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, ProxyOptions obj) {
+   static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DatagramSocketOptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
-        case "host":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
-#### Snippet
-```java
-        case "type":
-          if (member.getValue() instanceof String) {
-            obj.setType(io.vertx.core.net.ProxyType.valueOf((String)member.getValue()));
-          }
-          break;
+        case "broadcast":
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
+in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
 #### Snippet
 ```java
   }
 
-   static void toJson(ProxyOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getHost() != null) {
-      json.put("host", obj.getHost());
+   static void toJson(DatagramSocketOptions obj, java.util.Map<String, Object> json) {
+    json.put("broadcast", obj.isBroadcast());
+    json.put("ipV6", obj.isIpV6());
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
+Qualifier `io.vertx.core.datagram` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
 #### Snippet
 ```java
 
 /**
- * Converter and mapper for {@link io.vertx.core.net.ProxyOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.ProxyOptions} original class using Vert.x codegen.
+ * Converter and mapper for {@link io.vertx.core.datagram.DatagramSocketOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.datagram.DatagramSocketOptions} original class using Vert.x codegen.
  */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.net` is unnecessary and can be removed
-in `src/main/generated/io/vertx/core/net/ProxyOptionsConverter.java`
+Qualifier `io.vertx.core.datagram` is unnecessary and can be removed
+in `src/main/generated/io/vertx/core/datagram/DatagramSocketOptionsConverter.java`
 #### Snippet
 ```java
 /**
- * Converter and mapper for {@link io.vertx.core.net.ProxyOptions}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.ProxyOptions} original class using Vert.x codegen.
+ * Converter and mapper for {@link io.vertx.core.datagram.DatagramSocketOptions}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.core.datagram.DatagramSocketOptions} original class using Vert.x codegen.
  */
-public class ProxyOptionsConverter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.netty.handler.codec.compression` is unnecessary and can be removed
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-  public static void setCompressors() {
-    new HttpServerOptions()
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.gzip())
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.deflate())
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.brotli())
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.netty.handler.codec.compression` is unnecessary and can be removed
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-    new HttpServerOptions()
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.gzip())
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.deflate())
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.brotli())
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.zstd());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.netty.handler.codec.compression` is unnecessary and can be removed
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.gzip())
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.deflate())
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.brotli())
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.zstd());
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.netty.handler.codec.compression` is unnecessary and can be removed
-in `src/main/java/examples/HTTPExamples.java`
-#### Snippet
-```java
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.deflate())
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.brotli())
-      .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.zstd());
-  }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
-#### Snippet
-```java
-    this.requestMetric = requestMetric;
-    this.writable = writable;
-    this.keepAlive = (version == HttpVersion.HTTP_1_1 && !request.headers().contains(io.vertx.core.http.HttpHeaders.CONNECTION, HttpHeaders.CLOSE, true))
-      || (version == HttpVersion.HTTP_1_0 && request.headers().contains(io.vertx.core.http.HttpHeaders.CONNECTION, HttpHeaders.KEEP_ALIVE, true));
-    this.head = request.method() == io.netty.handler.codec.http.HttpMethod.HEAD;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
-#### Snippet
-```java
-    this.writable = writable;
-    this.keepAlive = (version == HttpVersion.HTTP_1_1 && !request.headers().contains(io.vertx.core.http.HttpHeaders.CONNECTION, HttpHeaders.CLOSE, true))
-      || (version == HttpVersion.HTTP_1_0 && request.headers().contains(io.vertx.core.http.HttpHeaders.CONNECTION, HttpHeaders.KEEP_ALIVE, true));
-    this.head = request.method() == io.netty.handler.codec.http.HttpMethod.HEAD;
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vertx.core.http` is unnecessary and can be removed
-in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
-#### Snippet
-```java
-      // avoid double parsing
-      if (cookies == null) {
-        String cookieHeader = request.headers().get(io.vertx.core.http.HttpHeaders.COOKIE);
-        if (cookieHeader == null) {
-          cookies = new CookieJar();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/net/TCPSSLOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(TCPSSLOptions obj, java.util.Map<String, Object> json) {
-    if (obj.getCrlPaths() != null) {
-      JsonArray array = new JsonArray();
+public class DatagramSocketOptionsConverter {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -21959,6 +21911,18 @@ in `src/main/generated/io/vertx/core/net/TCPSSLOptionsConverter.java`
  * NOTE: This class has been automatically generated from the {@link io.vertx.core.net.TCPSSLOptions} original class using Vert.x codegen.
  */
 public class TCPSSLOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/net/TCPSSLOptionsConverter.java`
+#### Snippet
+```java
+  }
+
+   static void toJson(TCPSSLOptions obj, java.util.Map<String, Object> json) {
+    if (obj.getCrlPaths() != null) {
+      JsonArray array = new JsonArray();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -22254,6 +22218,18 @@ Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `src/main/generated/io/vertx/core/eventbus/EventBusOptionsConverter.java`
 #### Snippet
 ```java
+  }
+
+   static void toJson(EventBusOptions obj, java.util.Map<String, Object> json) {
+    json.put("acceptBacklog", obj.getAcceptBacklog());
+    if (obj.getActivityLogDataFormat() != null) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/generated/io/vertx/core/eventbus/EventBusOptionsConverter.java`
+#### Snippet
+```java
   private static final Base64.Encoder BASE64_ENCODER = JsonUtil.BASE64_ENCODER;
 
    static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, EventBusOptions obj) {
@@ -22562,18 +22538,6 @@ in `src/main/generated/io/vertx/core/eventbus/EventBusOptionsConverter.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/generated/io/vertx/core/eventbus/EventBusOptionsConverter.java`
-#### Snippet
-```java
-  }
-
-   static void toJson(EventBusOptions obj, java.util.Map<String, Object> json) {
-    json.put("acceptBacklog", obj.getAcceptBacklog());
-    if (obj.getActivityLogDataFormat() != null) {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `io.vertx.core.eventbus` is unnecessary and can be removed
 in `src/main/generated/io/vertx/core/eventbus/EventBusOptionsConverter.java`
 #### Snippet
@@ -22595,6 +22559,42 @@ in `src/main/generated/io/vertx/core/eventbus/EventBusOptionsConverter.java`
  * NOTE: This class has been automatically generated from the {@link io.vertx.core.eventbus.EventBusOptions} original class using Vert.x codegen.
  */
 public class EventBusOptionsConverter {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
+#### Snippet
+```java
+      // avoid double parsing
+      if (cookies == null) {
+        String cookieHeader = request.headers().get(io.vertx.core.http.HttpHeaders.COOKIE);
+        if (cookieHeader == null) {
+          cookies = new CookieJar();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
+#### Snippet
+```java
+    this.requestMetric = requestMetric;
+    this.writable = writable;
+    this.keepAlive = (version == HttpVersion.HTTP_1_1 && !request.headers().contains(io.vertx.core.http.HttpHeaders.CONNECTION, HttpHeaders.CLOSE, true))
+      || (version == HttpVersion.HTTP_1_0 && request.headers().contains(io.vertx.core.http.HttpHeaders.CONNECTION, HttpHeaders.KEEP_ALIVE, true));
+    this.head = request.method() == io.netty.handler.codec.http.HttpMethod.HEAD;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vertx.core.http` is unnecessary and can be removed
+in `src/main/java/io/vertx/core/http/impl/Http1xServerResponse.java`
+#### Snippet
+```java
+    this.writable = writable;
+    this.keepAlive = (version == HttpVersion.HTTP_1_1 && !request.headers().contains(io.vertx.core.http.HttpHeaders.CONNECTION, HttpHeaders.CLOSE, true))
+      || (version == HttpVersion.HTTP_1_0 && request.headers().contains(io.vertx.core.http.HttpHeaders.CONNECTION, HttpHeaders.KEEP_ALIVE, true));
+    this.head = request.method() == io.netty.handler.codec.http.HttpMethod.HEAD;
+  }
 ```
 
 ## ThrowablePrintStackTrace
@@ -22627,18 +22627,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/examples/CompletionStageInteropExamples.java`
 #### Snippet
 ```java
-      .onFailure(err -> {
-        System.err.println("We have a problem");
-        err.printStackTrace();
-      });
-  }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/examples/CompletionStageInteropExamples.java`
-#### Snippet
-```java
       if (err != null) {
         System.err.println("Could not resolve vertx.io");
         err.printStackTrace();
@@ -22648,10 +22636,22 @@ in `src/main/java/examples/CompletionStageInteropExamples.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/examples/CompletionStageInteropExamples.java`
+#### Snippet
+```java
+      .onFailure(err -> {
+        System.err.println("We have a problem");
+        err.printStackTrace();
+      });
+  }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/examples/CoreExamples.java`
 #### Snippet
 ```java
-        // Connected
+        // Bound to socket
       } else {
         ar.cause().printStackTrace();
       }
@@ -22663,7 +22663,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/examples/CoreExamples.java`
 #### Snippet
 ```java
-        // Bound to socket
+        // Connected
       } else {
         ar.cause().printStackTrace();
       }
@@ -22701,18 +22701,6 @@ Constructor `NetworkOptions()` of an abstract class should not be declared 'publ
 in `src/main/java/io/vertx/core/net/NetworkOptions.java`
 #### Snippet
 ```java
-   * @param json  the JSON
-   */
-  public NetworkOptions(JsonObject json) {
-    this();
-    NetworkOptionsConverter.fromJson(json, this);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `NetworkOptions()` of an abstract class should not be declared 'public'
-in `src/main/java/io/vertx/core/net/NetworkOptions.java`
-#### Snippet
-```java
    * @param other  the options to copy
    */
   public NetworkOptions(NetworkOptions other) {
@@ -22730,6 +22718,18 @@ in `src/main/java/io/vertx/core/net/NetworkOptions.java`
   public NetworkOptions() {
     sendBufferSize = DEFAULT_SEND_BUFFER_SIZE;
     receiveBufferSize = DEFAULT_RECEIVE_BUFFER_SIZE;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `NetworkOptions()` of an abstract class should not be declared 'public'
+in `src/main/java/io/vertx/core/net/NetworkOptions.java`
+#### Snippet
+```java
+   * @param json  the JSON
+   */
+  public NetworkOptions(JsonObject json) {
+    this();
+    NetworkOptionsConverter.fromJson(json, this);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -22773,6 +22773,18 @@ Constructor `ClientOptionsBase()` of an abstract class should not be declared 'p
 in `src/main/java/io/vertx/core/net/ClientOptionsBase.java`
 #### Snippet
 ```java
+   * @param json  the JSON
+   */
+  public ClientOptionsBase(JsonObject json) {
+    super(json);
+    init();
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ClientOptionsBase()` of an abstract class should not be declared 'public'
+in `src/main/java/io/vertx/core/net/ClientOptionsBase.java`
+#### Snippet
+```java
    * Default constructor
    */
   public ClientOptionsBase() {
@@ -22790,18 +22802,6 @@ in `src/main/java/io/vertx/core/net/ClientOptionsBase.java`
   public ClientOptionsBase(ClientOptionsBase other) {
     super(other);
     this.connectTimeout = other.getConnectTimeout();
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ClientOptionsBase()` of an abstract class should not be declared 'public'
-in `src/main/java/io/vertx/core/net/ClientOptionsBase.java`
-#### Snippet
-```java
-   * @param json  the JSON
-   */
-  public ClientOptionsBase(JsonObject json) {
-    super(json);
-    init();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -22940,15 +22940,15 @@ in `src/main/java/io/vertx/core/cli/impl/DefaultCommandLine.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `opt`
+Assignment to method parameter `str`
 in `src/main/java/io/vertx/core/cli/impl/DefaultParser.java`
 #### Snippet
 ```java
-   */
-  public Option getOption(String opt) {
-    opt = stripLeadingHyphens(opt);
-    for (Option option : cli.getOptions()) {
-      if (opt.equals(option.getShortName()) || opt.equalsIgnoreCase(option.getLongName())) {
+    int length = str.length();
+    if (length > 1 && str.startsWith("\"") && str.endsWith("\"") && str.substring(1, length - 1).indexOf('"') == -1) {
+      str = str.substring(1, length - 1);
+    }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -22964,15 +22964,15 @@ in `src/main/java/io/vertx/core/cli/impl/DefaultParser.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `str`
+Assignment to method parameter `opt`
 in `src/main/java/io/vertx/core/cli/impl/DefaultParser.java`
 #### Snippet
 ```java
-    int length = str.length();
-    if (length > 1 && str.startsWith("\"") && str.endsWith("\"") && str.substring(1, length - 1).indexOf('"') == -1) {
-      str = str.substring(1, length - 1);
-    }
-
+   */
+  public Option getOption(String opt) {
+    opt = stripLeadingHyphens(opt);
+    for (Option option : cli.getOptions()) {
+      if (opt.equals(option.getShortName()) || opt.equalsIgnoreCase(option.getLongName())) {
 ```
 
 ### AssignmentToMethodParameter
@@ -23228,18 +23228,6 @@ in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `msg`
-in `src/main/java/io/vertx/core/net/impl/NetSocketImpl.java`
-#### Snippet
-```java
-    public void handle(Object msg) {
-      if (msg instanceof ByteBuf) {
-        msg = VertxHandler.safeBuffer((ByteBuf) msg);
-        ByteBuf byteBuf = (ByteBuf) msg;
-        Buffer buffer = Buffer.buffer(byteBuf);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `listenHandler`
 in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
 #### Snippet
@@ -23249,6 +23237,18 @@ in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
       listenHandler = res -> {
         if (res.failed()) {
           // No handler - log so user can see failure
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `concurrency`
+in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
+#### Snippet
+```java
+    int limit = client.options().getHttp2MultiplexingLimit();
+    if (limit > 0) {
+      concurrency = Math.min(concurrency, limit);
+    }
+    concurrencyChangeHandler.handle(concurrency);
 ```
 
 ### AssignmentToMethodParameter
@@ -23264,15 +23264,15 @@ in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `concurrency`
-in `src/main/java/io/vertx/core/http/impl/Http2ClientConnection.java`
+Assignment to method parameter `msg`
+in `src/main/java/io/vertx/core/net/impl/NetSocketImpl.java`
 #### Snippet
 ```java
-    int limit = client.options().getHttp2MultiplexingLimit();
-    if (limit > 0) {
-      concurrency = Math.min(concurrency, limit);
-    }
-    concurrencyChangeHandler.handle(concurrency);
+    public void handle(Object msg) {
+      if (msg instanceof ByteBuf) {
+        msg = VertxHandler.safeBuffer((ByteBuf) msg);
+        ByteBuf byteBuf = (ByteBuf) msg;
+        Buffer buffer = Buffer.buffer(byteBuf);
 ```
 
 ### AssignmentToMethodParameter
@@ -23348,78 +23348,6 @@ in `src/main/java/io/vertx/core/impl/JavaVerticleFactory.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
-#### Snippet
-```java
-      HttpUtils.validateHeader(name, value);
-    }
-    name = (String) HttpUtils.toLowerCase(name);
-    if (value != null) {
-      headers.set(name, value);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
-#### Snippet
-```java
-      HttpUtils.validateHeader(name, value);
-    }
-    name = HttpUtils.toLowerCase(name);
-    if (value != null) {
-      headers.set(name, value);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `host`
-in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
-#### Snippet
-```java
-    }
-    if (host == null) {
-      host = this.host;
-    }
-    synchronized (conn) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `chunk`
-in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
-#### Snippet
-```java
-        hasBody = true;
-      } else {
-        chunk = Unpooled.EMPTY_BUFFER;
-      }
-      if (end && !headWritten && needsContentLengthHeader()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `list`
-in `src/main/java/io/vertx/core/impl/ConversionHelper.java`
-#### Snippet
-```java
-      return null;
-    }
-    list = new ArrayList<>(list);
-    for (int i = 0; i < list.size(); i++) {
-      list.set(i, toJsonElement(list.get(i)));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `map`
-in `src/main/java/io/vertx/core/impl/ConversionHelper.java`
-#### Snippet
-```java
-      return null;
-    }
-    map = new LinkedHashMap<>(map);
-    map.entrySet().forEach(e -> e.setValue(toJsonElement(e.getValue())));
-    return new JsonObject(map);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `handler`
 in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
 #### Snippet
@@ -23468,6 +23396,78 @@ in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `chunk`
+in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
+#### Snippet
+```java
+        hasBody = true;
+      } else {
+        chunk = Unpooled.EMPTY_BUFFER;
+      }
+      if (end && !headWritten && needsContentLengthHeader()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `host`
+in `src/main/java/io/vertx/core/http/impl/Http2ServerResponse.java`
+#### Snippet
+```java
+    }
+    if (host == null) {
+      host = this.host;
+    }
+    synchronized (conn) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
+#### Snippet
+```java
+      HttpUtils.validateHeader(name, value);
+    }
+    name = HttpUtils.toLowerCase(name);
+    if (value != null) {
+      headers.set(name, value);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
+#### Snippet
+```java
+      HttpUtils.validateHeader(name, value);
+    }
+    name = (String) HttpUtils.toLowerCase(name);
+    if (value != null) {
+      headers.set(name, value);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `list`
+in `src/main/java/io/vertx/core/impl/ConversionHelper.java`
+#### Snippet
+```java
+      return null;
+    }
+    list = new ArrayList<>(list);
+    for (int i = 0; i < list.size(); i++) {
+      list.set(i, toJsonElement(list.get(i)));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `map`
+in `src/main/java/io/vertx/core/impl/ConversionHelper.java`
+#### Snippet
+```java
+      return null;
+    }
+    map = new LinkedHashMap<>(map);
+    map.entrySet().forEach(e -> e.setValue(toJsonElement(e.getValue())));
+    return new JsonObject(map);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `cause`
 in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
 #### Snippet
@@ -23489,78 +23489,6 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/ClasspathHandler.java`
           verticle = executionContext.get("Default-Verticle-Factory") + ":" + verticle;
         }
       }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `inetHost`
-in `src/main/java/io/vertx/core/impl/resolver/DnsResolverProvider.java`
-#### Snippet
-```java
-      public InetAddress address(String inetHost, ResolvedAddressTypes resolvedAddressTypes) {
-        if (inetHost.endsWith(".")) {
-          inetHost = inetHost.substring(0, inetHost.length() - 1);
-        }
-        InetAddress address = lookup(inetHost, resolvedAddressTypes);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `val`
-in `src/main/java/io/vertx/core/json/impl/JsonUtil.java`
-#### Snippet
-```java
-    } else if (val instanceof CharSequence) {
-      // CharSequences are not immutable, so we force toString() to become immutable
-      val = val.toString();
-    } else if (val instanceof Shareable) {
-      // Shareable objects know how to copy themselves, this covers:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `val`
-in `src/main/java/io/vertx/core/json/impl/JsonUtil.java`
-#### Snippet
-```java
-      // Shareable objects know how to copy themselves, this covers:
-      // JsonObject, JsonArray, Buffer or any user defined type that can shared across the cluster
-      val = ((Shareable) val).copy();
-    } else if (val instanceof Map) {
-      val = (new JsonObject((Map) val)).copy(copier);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `val`
-in `src/main/java/io/vertx/core/json/impl/JsonUtil.java`
-#### Snippet
-```java
-      val = ((Shareable) val).copy();
-    } else if (val instanceof Map) {
-      val = (new JsonObject((Map) val)).copy(copier);
-    } else if (val instanceof List) {
-      val = (new JsonArray((List) val)).copy(copier);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `val`
-in `src/main/java/io/vertx/core/json/impl/JsonUtil.java`
-#### Snippet
-```java
-      val = (new JsonObject((Map) val)).copy(copier);
-    } else if (val instanceof List) {
-      val = (new JsonArray((List) val)).copy(copier);
-    } else if (val instanceof byte[]) {
-      // OK
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `val`
-in `src/main/java/io/vertx/core/json/impl/JsonUtil.java`
-#### Snippet
-```java
-      // OK
-    } else {
-      val = copier.apply(val);
-    }
-    return val;
 ```
 
 ### AssignmentToMethodParameter
@@ -23636,6 +23564,78 @@ in `src/main/java/io/vertx/core/json/impl/JsonUtil.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `val`
+in `src/main/java/io/vertx/core/json/impl/JsonUtil.java`
+#### Snippet
+```java
+    } else if (val instanceof CharSequence) {
+      // CharSequences are not immutable, so we force toString() to become immutable
+      val = val.toString();
+    } else if (val instanceof Shareable) {
+      // Shareable objects know how to copy themselves, this covers:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `val`
+in `src/main/java/io/vertx/core/json/impl/JsonUtil.java`
+#### Snippet
+```java
+      // Shareable objects know how to copy themselves, this covers:
+      // JsonObject, JsonArray, Buffer or any user defined type that can shared across the cluster
+      val = ((Shareable) val).copy();
+    } else if (val instanceof Map) {
+      val = (new JsonObject((Map) val)).copy(copier);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `val`
+in `src/main/java/io/vertx/core/json/impl/JsonUtil.java`
+#### Snippet
+```java
+      val = ((Shareable) val).copy();
+    } else if (val instanceof Map) {
+      val = (new JsonObject((Map) val)).copy(copier);
+    } else if (val instanceof List) {
+      val = (new JsonArray((List) val)).copy(copier);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `val`
+in `src/main/java/io/vertx/core/json/impl/JsonUtil.java`
+#### Snippet
+```java
+      val = (new JsonObject((Map) val)).copy(copier);
+    } else if (val instanceof List) {
+      val = (new JsonArray((List) val)).copy(copier);
+    } else if (val instanceof byte[]) {
+      // OK
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `val`
+in `src/main/java/io/vertx/core/json/impl/JsonUtil.java`
+#### Snippet
+```java
+      // OK
+    } else {
+      val = copier.apply(val);
+    }
+    return val;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `inetHost`
+in `src/main/java/io/vertx/core/impl/resolver/DnsResolverProvider.java`
+#### Snippet
+```java
+      public InetAddress address(String inetHost, ResolvedAddressTypes resolvedAddressTypes) {
+        if (inetHost.endsWith(".")) {
+          inetHost = inetHost.substring(0, inetHost.length() - 1);
+        }
+        InetAddress address = lookup(inetHost, resolvedAddressTypes);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `options`
 in `src/main/java/io/vertx/core/impl/VertxImpl.java`
 #### Snippet
@@ -23645,66 +23645,6 @@ in `src/main/java/io/vertx/core/impl/VertxImpl.java`
       options = new DnsClientOptions(options)
       .setHost(address.getAddress().getHostAddress())
       .setPort(address.getPort());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
-#### Snippet
-```java
-      return (iterator.isNull(value)) ? defaultValue : value;
-    else {
-      value = walkTillLastElement(value, iterator, false, null);
-      String lastKey = decodedTokens.get(decodedTokens.size() - 1);
-      if (iterator.isObject(value)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
-#### Snippet
-```java
-      } else if (iterator.isObject(value)) {
-        if (onNewValue != null) onNewValue.accept(value);
-        value = iterator.getObjectParameter(value, k, createOnMissing);
-      } else if (iterator.isArray(value)) {
-        if (onNewValue != null) onNewValue.accept(value);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
-#### Snippet
-```java
-        if (onNewValue != null) onNewValue.accept(value);
-        try {
-          value = iterator.getArrayElement(value, Integer.parseInt(k));
-          if (iterator.isNull(value) && createOnMissing) {
-            value = iterator.getObjectParameter(value, k, true);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
-#### Snippet
-```java
-          value = iterator.getArrayElement(value, Integer.parseInt(k));
-          if (iterator.isNull(value) && createOnMissing) {
-            value = iterator.getObjectParameter(value, k, true);
-          }
-        } catch (NumberFormatException e) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
-#### Snippet
-```java
-          }
-        } catch (NumberFormatException e) {
-          value = null;
-        }
-      } else {
 ```
 
 ### AssignmentToMethodParameter
@@ -23873,6 +23813,66 @@ in `src/main/java/io/vertx/core/json/jackson/JacksonCodec.java`
         o = number.shortValue();
       } else if (clazz == Object.class || clazz.isAssignableFrom(Number.class)) {
         // Nothing
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
+#### Snippet
+```java
+      return (iterator.isNull(value)) ? defaultValue : value;
+    else {
+      value = walkTillLastElement(value, iterator, false, null);
+      String lastKey = decodedTokens.get(decodedTokens.size() - 1);
+      if (iterator.isObject(value)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
+#### Snippet
+```java
+      } else if (iterator.isObject(value)) {
+        if (onNewValue != null) onNewValue.accept(value);
+        value = iterator.getObjectParameter(value, k, createOnMissing);
+      } else if (iterator.isArray(value)) {
+        if (onNewValue != null) onNewValue.accept(value);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
+#### Snippet
+```java
+        if (onNewValue != null) onNewValue.accept(value);
+        try {
+          value = iterator.getArrayElement(value, Integer.parseInt(k));
+          if (iterator.isNull(value) && createOnMissing) {
+            value = iterator.getObjectParameter(value, k, true);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
+#### Snippet
+```java
+          value = iterator.getArrayElement(value, Integer.parseInt(k));
+          if (iterator.isNull(value) && createOnMissing) {
+            value = iterator.getObjectParameter(value, k, true);
+          }
+        } catch (NumberFormatException e) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
+#### Snippet
+```java
+          }
+        } catch (NumberFormatException e) {
+          value = null;
+        }
+      } else {
 ```
 
 ### AssignmentToMethodParameter
@@ -24087,23 +24087,11 @@ Return of `null`
 in `src/main/java/io/vertx/core/AsyncResult.java`
 #### Snippet
 ```java
-          return mapper.apply(AsyncResult.this.result());
-        } else {
-          return null;
-        }
+      @Override
+      public Throwable cause() {
+        return null;
       }
-```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/AsyncResult.java`
-#### Snippet
-```java
-          return mapper.apply(AsyncResult.this.cause());
-        } else {
-          return null;
-        }
-      }
 ```
 
 ### ReturnNull
@@ -24123,23 +24111,23 @@ Return of `null`
 in `src/main/java/io/vertx/core/AsyncResult.java`
 #### Snippet
 ```java
-      @Override
-      public Throwable cause() {
-        return null;
+          return mapper.apply(AsyncResult.this.cause());
+        } else {
+          return null;
+        }
       }
-
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/cli/impl/ReflectionUtils.java`
+in `src/main/java/io/vertx/core/AsyncResult.java`
 #### Snippet
 ```java
-    }
-
-    return null;
-  }
-}
+          return mapper.apply(AsyncResult.this.result());
+        } else {
+          return null;
+        }
+      }
 ```
 
 ### ReturnNull
@@ -24164,6 +24152,18 @@ in `src/main/java/io/vertx/core/cli/converters/FromBasedConverter.java`
       return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/cli/impl/ReflectionUtils.java`
+#### Snippet
+```java
+    }
+
+    return null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -24240,66 +24240,6 @@ in `src/main/java/io/vertx/core/dns/DnsResponseCode.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/cli/impl/DefaultCLI.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/cli/impl/DefaultCLI.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/cli/impl/DefaultCLI.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/cli/impl/DefaultCommandLine.java`
-#### Snippet
-```java
-    Argument arg = cli.getArgument(index);
-    if (arg == null) {
-      return null;
-    }
-    if (arg instanceof TypedArgument) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/cli/impl/DefaultCommandLine.java`
-#### Snippet
-```java
-    Argument arg = cli.getArgument(name);
-    if (arg == null) {
-      return null;
-    }
-    return getArgumentValue(arg.getIndex());
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/io/vertx/core/cli/impl/DefaultCommandLine.java`
 #### Snippet
 ```java
@@ -24339,6 +24279,30 @@ Return of `null`
 in `src/main/java/io/vertx/core/cli/impl/DefaultCommandLine.java`
 #### Snippet
 ```java
+    Argument arg = cli.getArgument(index);
+    if (arg == null) {
+      return null;
+    }
+    if (arg instanceof TypedArgument) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/cli/impl/DefaultCommandLine.java`
+#### Snippet
+```java
+    Argument arg = cli.getArgument(name);
+    if (arg == null) {
+      return null;
+    }
+    return getArgumentValue(arg.getIndex());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/cli/impl/DefaultCommandLine.java`
+#### Snippet
+```java
 
     if (value == null) {
       return null;
@@ -24372,23 +24336,11 @@ in `src/main/java/io/vertx/core/cli/impl/DefaultCommandLine.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/cli/annotations/CLIConfigurator.java`
+in `src/main/java/io/vertx/core/cli/impl/DefaultCLI.java`
 #### Snippet
 ```java
-    final io.vertx.core.cli.Argument argument = commandLine.cli().getArgument(index);
-    if (argument == null) {
-      return null;
+      }
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/cli/annotations/CLIConfigurator.java`
-#### Snippet
-```java
-    }
-
     return null;
   }
 
@@ -24396,24 +24348,24 @@ in `src/main/java/io/vertx/core/cli/annotations/CLIConfigurator.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/cli/annotations/CLIConfigurator.java`
+in `src/main/java/io/vertx/core/cli/impl/DefaultCLI.java`
 #### Snippet
 ```java
-    final io.vertx.core.cli.Option option = commandLine.cli().getOption(name);
-    if (option == null) {
-      return null;
+      }
     }
-    boolean multiple = ReflectionUtils.isMultiple(method);
+    return null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/net/KeyManagerFactoryOptions.java`
+in `src/main/java/io/vertx/core/cli/impl/DefaultCLI.java`
 #### Snippet
 ```java
-  @Override
-  public Function<String, X509KeyManager> keyManagerMapper(Vertx vertx) {
-    return keyManagerFactory.getKeyManagers()[0] instanceof X509KeyManager ? serverName -> (X509KeyManager) keyManagerFactory.getKeyManagers()[0] : null;
+    }
+
+    return null;
   }
 
 ```
@@ -24444,26 +24396,74 @@ in `src/main/java/io/vertx/core/cli/impl/DefaultParser.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/net/KeyStoreOptionsBase.java`
+in `src/main/java/io/vertx/core/cli/annotations/CLIConfigurator.java`
 #### Snippet
 ```java
-  public TrustManagerFactory getTrustManagerFactory(Vertx vertx) throws Exception {
-    KeyStoreHelper helper = getHelper(vertx);
-    return helper != null ? helper.getTrustMgrFactory((VertxInternal) vertx) : null;
+    }
+
+    return null;
   }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/net/KeyStoreOptionsBase.java`
+in `src/main/java/io/vertx/core/cli/annotations/CLIConfigurator.java`
 #### Snippet
 ```java
-  public KeyManagerFactory getKeyManagerFactory(Vertx vertx) throws Exception {
-    KeyStoreHelper helper = getHelper(vertx);
-    return helper != null ? helper.getKeyMgrFactory() : null;
+    final io.vertx.core.cli.Argument argument = commandLine.cli().getArgument(index);
+    if (argument == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/cli/annotations/CLIConfigurator.java`
+#### Snippet
+```java
+    final io.vertx.core.cli.Option option = commandLine.cli().getOption(name);
+    if (option == null) {
+      return null;
+    }
+    boolean multiple = ReflectionUtils.isMultiple(method);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/KeyManagerFactoryOptions.java`
+#### Snippet
+```java
+  @Override
+  public Function<String, X509KeyManager> keyManagerMapper(Vertx vertx) {
+    return keyManagerFactory.getKeyManagers()[0] instanceof X509KeyManager ? serverName -> (X509KeyManager) keyManagerFactory.getKeyManagers()[0] : null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/dns/impl/decoder/RecordDecoder.java`
+#### Snippet
+```java
+        }
+        if (name.length() == 0) {
+            return null;
+        }
+        return name.substring(0, name.length() - 1);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/dns/impl/decoder/RecordDecoder.java`
+#### Snippet
+```java
+        }
+        if (name.length() == 0) {
+            return null;
+        }
+        return name.substring(0, name.length() - 1);
 ```
 
 ### ReturnNull
@@ -24483,9 +24483,33 @@ Return of `null`
 in `src/main/java/io/vertx/core/net/KeyStoreOptionsBase.java`
 #### Snippet
 ```java
+  public TrustManagerFactory getTrustManagerFactory(Vertx vertx) throws Exception {
+    KeyStoreHelper helper = getHelper(vertx);
+    return helper != null ? helper.getTrustMgrFactory((VertxInternal) vertx) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/KeyStoreOptionsBase.java`
+#### Snippet
+```java
   public Function<String, TrustManager[]> trustManagerMapper(Vertx vertx) throws Exception {
     KeyStoreHelper helper = getHelper(vertx);
     return helper != null ? helper::getTrustMgr : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/KeyStoreOptionsBase.java`
+#### Snippet
+```java
+  public KeyManagerFactory getKeyManagerFactory(Vertx vertx) throws Exception {
+    KeyStoreHelper helper = getHelper(vertx);
+    return helper != null ? helper.getKeyMgrFactory() : null;
   }
 
 ```
@@ -24516,26 +24540,74 @@ in `src/main/java/io/vertx/core/net/KeyStoreOptionsBase.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/dns/impl/decoder/RecordDecoder.java`
+in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
 #### Snippet
 ```java
-        }
-        if (name.length() == 0) {
-            return null;
-        }
-        return name.substring(0, name.length() - 1);
+   */
+  public PemTrustOptions getPemTrustOptions() {
+    return trustOptions instanceof PemTrustOptions ? (PemTrustOptions) trustOptions : null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/dns/impl/decoder/RecordDecoder.java`
+in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
 #### Snippet
 ```java
-        }
-        if (name.length() == 0) {
-            return null;
-        }
-        return name.substring(0, name.length() - 1);
+
+  public OpenSSLEngineOptions getOpenSslEngineOptions() {
+    return sslEngineOptions instanceof OpenSSLEngineOptions ? (OpenSSLEngineOptions) sslEngineOptions : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
+#### Snippet
+```java
+   */
+  public PfxOptions getPfxKeyCertOptions() {
+    return keyCertOptions instanceof PfxOptions ? (PfxOptions) keyCertOptions : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
+#### Snippet
+```java
+   */
+  public PfxOptions getPfxTrustOptions() {
+    return trustOptions instanceof PfxOptions ? (PfxOptions) trustOptions : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
+#### Snippet
+```java
+   */
+  public JksOptions getTrustStoreOptions() {
+    return trustOptions instanceof JksOptions ? (JksOptions) trustOptions : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
+#### Snippet
+```java
+   */
+  public JksOptions getKeyStoreOptions() {
+    return keyCertOptions instanceof JksOptions ? (JksOptions) keyCertOptions : null;
+  }
+
 ```
 
 ### ReturnNull
@@ -24564,96 +24636,12 @@ in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
-#### Snippet
-```java
-   */
-  public PfxOptions getPfxTrustOptions() {
-    return trustOptions instanceof PfxOptions ? (PfxOptions) trustOptions : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
-#### Snippet
-```java
-   */
-  public PemTrustOptions getPemTrustOptions() {
-    return trustOptions instanceof PemTrustOptions ? (PemTrustOptions) trustOptions : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
-#### Snippet
-```java
-   */
-  public PfxOptions getPfxKeyCertOptions() {
-    return keyCertOptions instanceof PfxOptions ? (PfxOptions) keyCertOptions : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
-#### Snippet
-```java
-   */
-  public JksOptions getKeyStoreOptions() {
-    return keyCertOptions instanceof JksOptions ? (JksOptions) keyCertOptions : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
-#### Snippet
-```java
-   */
-  public JksOptions getTrustStoreOptions() {
-    return trustOptions instanceof JksOptions ? (JksOptions) trustOptions : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/TCPSSLOptions.java`
-#### Snippet
-```java
-
-  public OpenSSLEngineOptions getOpenSslEngineOptions() {
-    return sslEngineOptions instanceof OpenSSLEngineOptions ? (OpenSSLEngineOptions) sslEngineOptions : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/io/vertx/core/net/PemTrustOptions.java`
 #### Snippet
 ```java
   public Function<String, TrustManager[]> trustManagerMapper(Vertx vertx) throws Exception {
     KeyStoreHelper helper = getHelper(vertx);
     return helper != null ? helper::getTrustMgr : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/PemTrustOptions.java`
-#### Snippet
-```java
-  public TrustManagerFactory getTrustManagerFactory(Vertx vertx) throws Exception {
-    KeyStoreHelper helper = getHelper(vertx);
-    return helper != null ? helper.getTrustMgrFactory((VertxInternal) vertx) : null;
   }
 
 ```
@@ -24672,12 +24660,60 @@ in `src/main/java/io/vertx/core/net/PemTrustOptions.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/io/vertx/core/net/PemTrustOptions.java`
+#### Snippet
+```java
+  public TrustManagerFactory getTrustManagerFactory(Vertx vertx) throws Exception {
+    KeyStoreHelper helper = getHelper(vertx);
+    return helper != null ? helper.getTrustMgrFactory((VertxInternal) vertx) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/io/vertx/core/net/impl/VertxEventLoopGroup.java`
 #### Snippet
 ```java
       }
     }
     return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/PemKeyCertOptions.java`
+#### Snippet
+```java
+  public Function<String, X509KeyManager> keyManagerMapper(Vertx vertx) throws Exception {
+    KeyStoreHelper helper = getHelper(vertx);
+    return helper != null ? helper::getKeyMgr : null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/PemKeyCertOptions.java`
+#### Snippet
+```java
+  public KeyManagerFactory getKeyManagerFactory(Vertx vertx) throws Exception {
+    KeyStoreHelper helper = getHelper(vertx);
+    return helper != null ? helper.getKeyMgrFactory() : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/PemKeyCertOptions.java`
+#### Snippet
+```java
+  @GenIgnore
+  public Buffer getKeyValue() {
+    return keyValues.isEmpty() ? null : keyValues.get(0);
   }
 
 ```
@@ -24712,42 +24748,6 @@ in `src/main/java/io/vertx/core/net/PemKeyCertOptions.java`
 #### Snippet
 ```java
   @GenIgnore
-  public String getKeyPath() {
-    return keyPaths.isEmpty() ? null : keyPaths.get(0);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/PemKeyCertOptions.java`
-#### Snippet
-```java
-  @GenIgnore
-  public Buffer getKeyValue() {
-    return keyValues.isEmpty() ? null : keyValues.get(0);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/PemKeyCertOptions.java`
-#### Snippet
-```java
-  public KeyManagerFactory getKeyManagerFactory(Vertx vertx) throws Exception {
-    KeyStoreHelper helper = getHelper(vertx);
-    return helper != null ? helper.getKeyMgrFactory() : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/PemKeyCertOptions.java`
-#### Snippet
-```java
-  @GenIgnore
   public Buffer getCertValue() {
     return certValues.isEmpty() ? null : certValues.get(0);
   }
@@ -24759,11 +24759,11 @@ Return of `null`
 in `src/main/java/io/vertx/core/net/PemKeyCertOptions.java`
 #### Snippet
 ```java
-  public Function<String, X509KeyManager> keyManagerMapper(Vertx vertx) throws Exception {
-    KeyStoreHelper helper = getHelper(vertx);
-    return helper != null ? helper::getKeyMgr : null;
+  @GenIgnore
+  public String getKeyPath() {
+    return keyPaths.isEmpty() ? null : keyPaths.get(0);
   }
-}
+
 ```
 
 ### ReturnNull
@@ -24804,24 +24804,12 @@ in `src/main/java/io/vertx/core/net/impl/URIDecoder.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/net/impl/TCPServerBase.java`
+in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
 #### Snippet
 ```java
-  @Override
-  public synchronized TCPMetrics<?> getMetrics() {
-    return actualServer != null ? actualServer.metrics : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/impl/TCPServerBase.java`
-#### Snippet
-```java
-
-  protected TCPMetrics<?> createMetrics(SocketAddress localAddress) {
-    return null;
+  private SocketAddress socketAdressOverride(AttributeKey<SocketAddress> key) {
+    Channel ch = chctx.channel();
+    return ch.hasAttr(key) ? ch.attr(key).getAndSet(null) : null;
   }
 
 ```
@@ -24867,6 +24855,18 @@ Return of `null`
 in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
 #### Snippet
 ```java
+      return ((InetSocketAddress)addr).getHostString();
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
+#### Snippet
+```java
       return Arrays.asList(session.getPeerCertificates());
     } else {
       return null;
@@ -24891,20 +24891,32 @@ Return of `null`
 in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
 #### Snippet
 ```java
-  private SocketAddress socketAdressOverride(AttributeKey<SocketAddress> key) {
-    Channel ch = chctx.channel();
-    return ch.hasAttr(key) ? ch.attr(key).getAndSet(null) : null;
+  private SocketAddress channelRemoteAddress() {
+    java.net.SocketAddress addr = chctx.channel().remoteAddress();
+    return addr != null ? vertx.transport().convert(addr) : null;
   }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
+in `src/main/java/io/vertx/core/net/impl/TCPServerBase.java`
 #### Snippet
 ```java
-      return ((InetSocketAddress)addr).getHostString();
-    }
+  @Override
+  public synchronized TCPMetrics<?> getMetrics() {
+    return actualServer != null ? actualServer.metrics : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/impl/TCPServerBase.java`
+#### Snippet
+```java
+
+  protected TCPMetrics<?> createMetrics(SocketAddress localAddress) {
     return null;
   }
 
@@ -24912,12 +24924,12 @@ in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/net/impl/ConnectionBase.java`
+in `src/main/java/io/vertx/core/net/impl/SSLHelper.java`
 #### Snippet
 ```java
-  private SocketAddress channelRemoteAddress() {
-    java.net.SocketAddress addr = chctx.channel().remoteAddress();
-    return addr != null ? vertx.transport().convert(addr) : null;
+
+  private KeyManagerFactory getKeyMgrFactory(VertxInternal vertx) throws Exception {
+    return keyCertOptions == null ? null : keyCertOptions.getKeyManagerFactory(vertx);
   }
 
 ```
@@ -24936,24 +24948,12 @@ in `src/main/java/io/vertx/core/net/impl/SSLHelper.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/net/impl/SSLHelper.java`
+in `src/main/java/io/vertx/core/dns/impl/DnsClientImpl.java`
 #### Snippet
 ```java
 
-  private KeyManagerFactory getKeyMgrFactory(VertxInternal vertx) throws Exception {
-    return keyCertOptions == null ? null : keyCertOptions.getKeyManagerFactory(vertx);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/impl/KeyStoreHelper.java`
-#### Snippet
-```java
-  private char[] keyPassword(String aliasPassword, String password) {
-    if (aliasPassword != null) return aliasPassword.toCharArray();
-    return (password != null) ? password.toCharArray() : null;
+  private <T> Future<T> lookupSingle(String name, DnsRecordType... types) {
+    return this.<T>lookupList(name, types).map(result -> result.isEmpty() ? null : result.get(0));
   }
 
 ```
@@ -24984,12 +24984,12 @@ in `src/main/java/io/vertx/core/net/impl/KeyStoreHelper.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/dns/impl/DnsClientImpl.java`
+in `src/main/java/io/vertx/core/net/impl/KeyStoreHelper.java`
 #### Snippet
 ```java
-
-  private <T> Future<T> lookupSingle(String name, DnsRecordType... types) {
-    return this.<T>lookupList(name, types).map(result -> result.isEmpty() ? null : result.get(0));
+  private char[] keyPassword(String aliasPassword, String password) {
+    if (aliasPassword != null) return aliasPassword.toCharArray();
+    return (password != null) ? password.toCharArray() : null;
   }
 
 ```
@@ -25011,6 +25011,18 @@ Return of `null`
 in `src/main/java/io/vertx/core/net/impl/transport/Transport.java`
 #### Snippet
 ```java
+   */
+  public Throwable unavailabilityCause() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/impl/transport/Transport.java`
+#### Snippet
+```java
       return io.vertx.core.net.SocketAddress.inetSocketAddress((InetSocketAddress) address);
     } else {
       return null;
@@ -25020,11 +25032,11 @@ in `src/main/java/io/vertx/core/net/impl/transport/Transport.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/net/impl/transport/Transport.java`
+in `src/main/java/io/vertx/core/spi/cluster/ClusterManager.java`
 #### Snippet
 ```java
    */
-  public Throwable unavailabilityCause() {
+  default String clusterHost() {
     return null;
   }
 
@@ -25040,18 +25052,6 @@ in `src/main/java/io/vertx/core/spi/cluster/ClusterManager.java`
     return null;
   }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/spi/cluster/ClusterManager.java`
-#### Snippet
-```java
-   */
-  default String clusterHost() {
-    return null;
-  }
-
 ```
 
 ### ReturnNull
@@ -25084,7 +25084,7 @@ in `src/main/java/io/vertx/core/spi/metrics/ClientMetrics.java`
 #### Snippet
 ```java
    */
-  default M requestBegin(String uri, Req request) {
+  default T enqueueRequest() {
     return null;
   }
 
@@ -25096,19 +25096,7 @@ in `src/main/java/io/vertx/core/spi/metrics/ClientMetrics.java`
 #### Snippet
 ```java
    */
-  default T enqueueRequest() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/spi/metrics/PoolMetrics.java`
-#### Snippet
-```java
-   */
-  default T submitted() {
+  default M requestBegin(String uri, Req request) {
     return null;
   }
 
@@ -25128,59 +25116,11 @@ in `src/main/java/io/vertx/core/spi/metrics/PoolMetrics.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
+in `src/main/java/io/vertx/core/spi/metrics/PoolMetrics.java`
 #### Snippet
 ```java
    */
-  default EventBusMetrics createEventBusMetrics() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
-#### Snippet
-```java
-   */
-  default TCPMetrics<?> createNetClientMetrics(NetClientOptions options) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
-#### Snippet
-```java
-   */
-  default ClientMetrics<?, ?, ?, ?> createClientMetrics(SocketAddress remoteAddress, String type, String namespace) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
-#### Snippet
-```java
-   */
-  default TCPMetrics<?> createNetServerMetrics(NetServerOptions options, SocketAddress localAddress) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
-#### Snippet
-```java
-   */
-  default DatagramSocketMetrics createDatagramSocketMetrics(DatagramSocketOptions options) {
+  default T submitted() {
     return null;
   }
 
@@ -25204,7 +25144,31 @@ in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
 #### Snippet
 ```java
    */
-  default HttpServerMetrics<?, ?, ?> createHttpServerMetrics(HttpServerOptions options, SocketAddress localAddress) {
+  default EventBusMetrics createEventBusMetrics() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
+#### Snippet
+```java
+   */
+  default DatagramSocketMetrics createDatagramSocketMetrics(DatagramSocketOptions options) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
+#### Snippet
+```java
+   */
+  default ClientMetrics<?, ?, ?, ?> createClientMetrics(SocketAddress remoteAddress, String type, String namespace) {
     return null;
   }
 
@@ -25217,6 +25181,42 @@ in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
 ```java
    */
   default PoolMetrics<?> createPoolMetrics(String poolType, String poolName, int maxPoolSize) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
+#### Snippet
+```java
+   */
+  default TCPMetrics<?> createNetClientMetrics(NetClientOptions options) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
+#### Snippet
+```java
+   */
+  default TCPMetrics<?> createNetServerMetrics(NetServerOptions options, SocketAddress localAddress) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/spi/metrics/VertxMetrics.java`
+#### Snippet
+```java
+   */
+  default HttpServerMetrics<?, ?, ?> createHttpServerMetrics(HttpServerOptions options, SocketAddress localAddress) {
     return null;
   }
 
@@ -25240,7 +25240,7 @@ in `src/main/java/io/vertx/core/spi/metrics/HttpClientMetrics.java`
 #### Snippet
 ```java
    */
-  default W connected(WebSocket webSocket) {
+  default ClientMetrics<R, T, HttpRequest, HttpResponse> createEndpointMetrics(SocketAddress remoteAddress, int maxPoolSize) {
     return null;
   }
 
@@ -25252,7 +25252,31 @@ in `src/main/java/io/vertx/core/spi/metrics/HttpClientMetrics.java`
 #### Snippet
 ```java
    */
-  default ClientMetrics<R, T, HttpRequest, HttpResponse> createEndpointMetrics(SocketAddress remoteAddress, int maxPoolSize) {
+  default W connected(WebSocket webSocket) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/spi/metrics/HttpServerMetrics.java`
+#### Snippet
+```java
+   */
+  default R requestBegin(S socketMetric, HttpRequest request) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/spi/metrics/HttpServerMetrics.java`
+#### Snippet
+```java
+   */
+  default W connected(S socketMetric, R requestMetric, ServerWebSocket serverWebSocket) {
     return null;
   }
 
@@ -25284,38 +25308,14 @@ in `src/main/java/io/vertx/core/spi/metrics/HttpServerMetrics.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/spi/metrics/HttpServerMetrics.java`
+in `src/main/java/io/vertx/core/net/impl/NetServerImpl.java`
 #### Snippet
 ```java
-   */
-  default W connected(S socketMetric, R requestMetric, ServerWebSocket serverWebSocket) {
-    return null;
+      return vertxMetrics.createNetServerMetrics(options, localAddress);
+    } else {
+      return null;
+    }
   }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/spi/metrics/HttpServerMetrics.java`
-#### Snippet
-```java
-   */
-  default R requestBegin(S socketMetric, HttpRequest request) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/spi/tracing/VertxTracer.java`
-#### Snippet
-```java
-                               Iterable<Map.Entry<String, String>> headers,
-                               TagExtractor<R> tagExtractor) {
-    return null;
-  }
-
 ```
 
 ### ReturnNull
@@ -25332,14 +25332,14 @@ in `src/main/java/io/vertx/core/spi/tracing/VertxTracer.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/net/impl/NetServerImpl.java`
+in `src/main/java/io/vertx/core/spi/tracing/VertxTracer.java`
 #### Snippet
 ```java
-      return vertxMetrics.createNetServerMetrics(options, localAddress);
-    } else {
-      return null;
-    }
+                               Iterable<Map.Entry<String, String>> headers,
+                               TagExtractor<R> tagExtractor) {
+    return null;
   }
+
 ```
 
 ### ReturnNull
@@ -25383,18 +25383,6 @@ Return of `null`
 in `src/main/java/io/vertx/core/file/impl/FileResolverImpl.java`
 #### Snippet
 ```java
-      return cache.cacheDir();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/file/impl/FileResolverImpl.java`
-#### Snippet
-```java
     URL resource = cl.getResource(fileName);
     if (resource != null && !isValidCachePath(fileName)) {
       return null;
@@ -25404,12 +25392,12 @@ in `src/main/java/io/vertx/core/file/impl/FileResolverImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/http/HttpServerRequest.java`
+in `src/main/java/io/vertx/core/file/impl/FileResolverImpl.java`
 #### Snippet
 ```java
-   */
-  default StreamPriority streamPriority() {
-      return null;
+      return cache.cacheDir();
+    }
+    return null;
   }
 
 ```
@@ -25424,6 +25412,18 @@ in `src/main/java/io/vertx/core/http/HttpClosedException.java`
     return goAway != null ? new GoAway(goAway) : null;
   }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/http/HttpServerRequest.java`
+#### Snippet
+```java
+   */
+  default StreamPriority streamPriority() {
+      return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -25503,11 +25503,11 @@ Return of `null`
 in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
 #### Snippet
 ```java
-    int i = uri.indexOf('?');
-    if (i == -1) {
+  public static String normalizePath(String pathname) {
+    if (pathname == null) {
       return null;
-    } else {
-      return uri.substring(i + 1 , uri.length());
+    }
+
 ```
 
 ### ReturnNull
@@ -25539,11 +25539,23 @@ Return of `null`
 in `src/main/java/io/vertx/core/http/impl/HttpUtils.java`
 #### Snippet
 ```java
-  public static String normalizePath(String pathname) {
-    if (pathname == null) {
+    int i = uri.indexOf('?');
+    if (i == -1) {
+      return null;
+    } else {
+      return uri.substring(i + 1 , uri.length());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
+#### Snippet
+```java
+      return vertxMetrics.createHttpServerMetrics(options, localAddress);
+    } else {
       return null;
     }
-
+  }
 ```
 
 ### ReturnNull
@@ -25551,11 +25563,35 @@ Return of `null`
 in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
 #### Snippet
 ```java
+    PoolWaiter<C> poll() {
+      if (head.next == head) {
+        return null;
       }
-    }
-    return null;
-  };
+      PoolWaiter<C> node = head.next;
+```
 
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
+#### Snippet
+```java
+            pool.waiters.addFirst(waiter);
+          }
+          return null;
+        }
+        LeaseImpl<C> lease;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
+#### Snippet
+```java
+        }
+      }
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -25568,6 +25604,18 @@ in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
           return null;
         }
       } else {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  };
+
 ```
 
 ### ReturnNull
@@ -25611,42 +25659,6 @@ Return of `null`
 in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
 #### Snippet
 ```java
-    PoolWaiter<C> poll() {
-      if (head.next == head) {
-        return null;
-      }
-      PoolWaiter<C> node = head.next;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  };
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
-#### Snippet
-```java
-        }
-      }
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
-#### Snippet
-```java
     public Task execute(SimpleConnectionPool<C> pool) {
       if (pool.closed || pool.slots[removed.index] != removed) {
         return null;
@@ -25683,23 +25695,11 @@ Return of `null`
 in `src/main/java/io/vertx/core/net/impl/pool/SimpleConnectionPool.java`
 #### Snippet
 ```java
-            pool.waiters.addFirst(waiter);
-          }
-          return null;
-        }
-        LeaseImpl<C> lease;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/http/impl/HttpServerImpl.java`
-#### Snippet
-```java
-      return vertxMetrics.createHttpServerMetrics(options, localAddress);
-    } else {
-      return null;
+      }
     }
-  }
+    return null;
+  };
+
 ```
 
 ### ReturnNull
@@ -25744,18 +25744,6 @@ in `src/main/java/io/vertx/core/http/impl/HttpNetSocket.java`
 #### Snippet
 ```java
   @Override
-  public String writeHandlerID() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/http/impl/HttpNetSocket.java`
-#### Snippet
-```java
-  @Override
   public String applicationLayerProtocol() {
     return null;
   }
@@ -25764,14 +25752,14 @@ in `src/main/java/io/vertx/core/http/impl/HttpNetSocket.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
+in `src/main/java/io/vertx/core/http/impl/HttpNetSocket.java`
 #### Snippet
 ```java
-  public String absoluteURI() {
-    if (method == HttpMethod.CONNECT) {
-      return null;
-    }
-    synchronized (conn) {
+  @Override
+  public String writeHandlerID() {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -25791,35 +25779,23 @@ Return of `null`
 in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
 #### Snippet
 ```java
+  public String absoluteURI() {
+    if (method == HttpMethod.CONNECT) {
+      return null;
+    }
+    synchronized (conn) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/http/impl/Http2ServerRequest.java`
+#### Snippet
+```java
   public String query() {
     synchronized (conn) {
       return uri != null ? HttpUtils.parseQuery(uri) : null;
     }
   }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/http/impl/MimeMapping.java`
-#### Snippet
-```java
-      return MimeMapping.getMimeTypeForExtension(ext);
-    }
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/http/impl/Http2ServerStream.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-}
 ```
 
 ### ReturnNull
@@ -25836,12 +25812,72 @@ in `src/main/java/io/vertx/core/http/impl/ServerWebSocketImpl.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/io/vertx/core/http/impl/Http2ServerStream.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/http/impl/MimeMapping.java`
+#### Snippet
+```java
+      return MimeMapping.getMimeTypeForExtension(ext);
+    }
+    return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
+#### Snippet
+```java
+          m = HttpMethod.GET;
+        } else if (m != HttpMethod.GET && m != HttpMethod.HEAD) {
+          return null;
+        }
+        URI uri = HttpUtils.resolveURIReference(resp.request().absoluteURI(), location);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
+#### Snippet
+```java
+          }
+        } else {
+          return null;
+        }
+        String requestURI = uri.getPath();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
+#### Snippet
+```java
+        return Future.succeededFuture(options);
+      }
+      return null;
+    } catch (Exception e) {
+      return Future.failedFuture(e);
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
 #### Snippet
 ```java
-      };
-    }
-    return null;
+  public String get(String name) {
+    CharSequence val = headers.get(HttpUtils.toLowerCase(name));
+    return val != null ? val.toString() : null;
   }
 
 ```
@@ -25851,7 +25887,7 @@ Return of `null`
 in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
 #### Snippet
 ```java
-  public String get(String name) {
+  public String get(CharSequence name) {
     CharSequence val = headers.get(HttpUtils.toLowerCase(name));
     return val != null ? val.toString() : null;
   }
@@ -25875,10 +25911,22 @@ Return of `null`
 in `src/main/java/io/vertx/core/http/impl/headers/Http2HeadersAdaptor.java`
 #### Snippet
 ```java
-  public String get(CharSequence name) {
-    CharSequence val = headers.get(HttpUtils.toLowerCase(name));
-    return val != null ? val.toString() : null;
+      };
+    }
+    return null;
   }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
+#### Snippet
+```java
+    @Override
+    public WriteStream<Buffer> setWriteQueueMaxSize(int maxSize) {
+      return null;
+    }
 
 ```
 
@@ -25901,18 +25949,6 @@ in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
 ```java
     @Override
     public StreamPriority priority() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/http/impl/Http1xClientConnection.java`
-#### Snippet
-```java
-    @Override
-    public WriteStream<Buffer> setWriteQueueMaxSize(int maxSize) {
       return null;
     }
 
@@ -25959,18 +25995,6 @@ Return of `null`
 in `src/main/java/io/vertx/core/impl/ConversionHelper.java`
 #### Snippet
 ```java
-  public static List<Object> fromJsonArray(JsonArray json) {
-    if (json == null) {
-      return null;
-    }
-    List<Object> list = new ArrayList<>(json.getList());
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/ConversionHelper.java`
-#### Snippet
-```java
   public static Map<String, Object> fromJsonObject(JsonObject json) {
     if (json == null) {
       return null;
@@ -25980,38 +26004,14 @@ in `src/main/java/io/vertx/core/impl/ConversionHelper.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
+in `src/main/java/io/vertx/core/impl/ConversionHelper.java`
 #### Snippet
 ```java
-          m = HttpMethod.GET;
-        } else if (m != HttpMethod.GET && m != HttpMethod.HEAD) {
-          return null;
-        }
-        URI uri = HttpUtils.resolveURIReference(resp.request().absoluteURI(), location);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
-#### Snippet
-```java
-          }
-        } else {
-          return null;
-        }
-        String requestURI = uri.getPath();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/http/impl/HttpClientImpl.java`
-#### Snippet
-```java
-        return Future.succeededFuture(options);
-      }
+  public static List<Object> fromJsonArray(JsonArray json) {
+    if (json == null) {
       return null;
-    } catch (Exception e) {
-      return Future.failedFuture(e);
+    }
+    List<Object> list = new ArrayList<>(json.getList());
 ```
 
 ### ReturnNull
@@ -26024,6 +26024,42 @@ in `src/main/java/io/vertx/core/impl/HAManager.java`
       return null;
     }
   }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/impl/utils/ConcurrentCyclicSequence.java`
+#### Snippet
+```java
+  @SuppressWarnings("unchecked")
+  public T first() {
+    return (T) (elements.length > 0 ? elements[0] : null);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/impl/future/SucceededFuture.java`
+#### Snippet
+```java
+  @Override
+  public Throwable cause() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/impl/future/FailedFuture.java`
+#### Snippet
+```java
+  @Override
+  public T result() {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -26052,36 +26088,60 @@ in `src/main/java/io/vertx/core/impl/ContextInternal.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/impl/utils/ConcurrentCyclicSequence.java`
+in `src/main/java/io/vertx/core/impl/launcher/CommandLineUtils.java`
 #### Snippet
 ```java
-  @SuppressWarnings("unchecked")
-  public T first() {
-    return (T) (elements.length > 0 ? elements[0] : null);
+      }
+    }
+    return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/impl/launcher/CommandLineUtils.java`
+#### Snippet
+```java
+    }
+
+    return null;
+
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
+#### Snippet
+```java
+   */
+  public synchronized Throwable cause() {
+    return value instanceof CauseHolder ? ((CauseHolder)value).cause : null;
   }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/impl/future/FailedFuture.java`
+in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
 #### Snippet
 ```java
-  @Override
-  public T result() {
-    return null;
+   */
+  public synchronized T result() {
+    return value instanceof CauseHolder ? null : value == NULL_VALUE ? null : (T) value;
   }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/impl/future/SucceededFuture.java`
+in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
 #### Snippet
 ```java
-  @Override
-  public Throwable cause() {
-    return null;
+   */
+  public synchronized T result() {
+    return value instanceof CauseHolder ? null : value == NULL_VALUE ? null : (T) value;
   }
 
 ```
@@ -26100,62 +26160,14 @@ in `src/main/java/io/vertx/core/http/impl/headers/HeadersMultiMap.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
+in `src/main/java/io/vertx/core/impl/launcher/commands/ClasspathHandler.java`
 #### Snippet
 ```java
-   */
-  public synchronized T result() {
-    return value instanceof CauseHolder ? null : value == NULL_VALUE ? null : (T) value;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
-#### Snippet
-```java
-   */
-  public synchronized T result() {
-    return value instanceof CauseHolder ? null : value == NULL_VALUE ? null : (T) value;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/future/FutureImpl.java`
-#### Snippet
-```java
-   */
-  public synchronized Throwable cause() {
-    return value instanceof CauseHolder ? ((CauseHolder)value).cause : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/launcher/CommandLineUtils.java`
-#### Snippet
-```java
-    }
-
-    return null;
-
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/launcher/CommandLineUtils.java`
-#### Snippet
-```java
-      }
+      Thread.currentThread().setContextClassLoader(originalClassLoader);
     }
     return null;
   }
-}
+
 ```
 
 ### ReturnNull
@@ -26172,10 +26184,22 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/StopCommand.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/impl/launcher/commands/ClasspathHandler.java`
+in `src/main/java/io/vertx/core/impl/launcher/VertxCommandLauncher.java`
 #### Snippet
 ```java
-      Thread.currentThread().setContextClassLoader(originalClassLoader);
+        return commands.get(0);
+      }
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/impl/launcher/VertxCommandLauncher.java`
+#### Snippet
+```java
+      return command;
     }
     return null;
   }
@@ -26199,104 +26223,8 @@ Return of `null`
 in `src/main/java/io/vertx/core/impl/launcher/VertxCommandLauncher.java`
 #### Snippet
 ```java
-      return command;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/launcher/VertxCommandLauncher.java`
-#### Snippet
-```java
-        return commands.get(0);
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/launcher/VertxCommandLauncher.java`
-#### Snippet
-```java
       return registration.getCommand();
     }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/verticle/CustomJavaFileObject.java`
-#### Snippet
-```java
-
-  public Modifier getAccessLevel() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/verticle/CustomJavaFileObject.java`
-#### Snippet
-```java
-
-  public NestingKind getNestingKind() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/verticle/MemoryFileManager.java`
-#### Snippet
-```java
-    ByteArrayOutputStream bytes = compiledClasses.get(name);
-    if (bytes == null) {
-      return null;
-    }
-    return bytes.toByteArray();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/launcher/commands/BareCommand.java`
-#### Snippet
-```java
-        } catch (DecodeException e) {
-          log.error("Configuration file " + sconf + " does not contain a valid JSON object");
-          return null;
-        }
-      } catch (FileNotFoundException e) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/launcher/commands/BareCommand.java`
-#### Snippet
-```java
-          // The configuration is not printed for security purpose, it can contain sensitive data.
-          log.error("The -" + argName + " argument does not point to an existing file or is not a valid JSON object", e2);
-          return null;
-        }
-      }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/launcher/commands/BareCommand.java`
-#### Snippet
-```java
-    }
-
     return null;
   }
 
@@ -26340,6 +26268,78 @@ in `src/main/java/io/vertx/core/impl/launcher/commands/BareCommand.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/io/vertx/core/impl/launcher/commands/BareCommand.java`
+#### Snippet
+```java
+    }
+
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/impl/launcher/commands/BareCommand.java`
+#### Snippet
+```java
+        } catch (DecodeException e) {
+          log.error("Configuration file " + sconf + " does not contain a valid JSON object");
+          return null;
+        }
+      } catch (FileNotFoundException e) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/impl/launcher/commands/BareCommand.java`
+#### Snippet
+```java
+          // The configuration is not printed for security purpose, it can contain sensitive data.
+          log.error("The -" + argName + " argument does not point to an existing file or is not a valid JSON object", e2);
+          return null;
+        }
+      }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/impl/verticle/CustomJavaFileObject.java`
+#### Snippet
+```java
+
+  public Modifier getAccessLevel() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/impl/verticle/CustomJavaFileObject.java`
+#### Snippet
+```java
+
+  public NestingKind getNestingKind() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/impl/verticle/MemoryFileManager.java`
+#### Snippet
+```java
+    ByteArrayOutputStream bytes = compiledClasses.get(name);
+    if (bytes == null) {
+      return null;
+    }
+    return bytes.toByteArray();
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/io/vertx/core/impl/verticle/JavaSourceContext.java`
 #### Snippet
 ```java
@@ -26372,18 +26372,6 @@ in `src/main/java/io/vertx/core/json/impl/JsonUtil.java`
       return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/impl/VertxImpl.java`
-#### Snippet
-```java
-    } else {
-      WeakReference<ContextInternal> ref = stickyContext.get();
-      return ref != null ? ref.get() : null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -26430,54 +26418,6 @@ in `src/main/java/io/vertx/core/json/JsonArray.java`
     Number number = (Number) list.get(pos);
     if (number == null) {
       return null;
-    } else if (number instanceof Double) {
-      return (Double) number; // Avoids unnecessary unbox/box
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/JsonArray.java`
-#### Snippet
-```java
-    // no-op
-    if (val == null) {
-      return null;
-    }
-    // no-op if value is already an Buffer
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/JsonArray.java`
-#### Snippet
-```java
-    // no-op
-    if (val == null) {
-      return null;
-    }
-    // no-op if value is already an Instant
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/JsonArray.java`
-#### Snippet
-```java
-    Number number = (Number) list.get(pos);
-    if (number == null) {
-      return null;
-    } else if (number instanceof Long) {
-      return (Long) number; // Avoids unnecessary unbox/box
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/JsonArray.java`
-#### Snippet
-```java
-    Number number = (Number) list.get(pos);
-    if (number == null) {
-      return null;
     } else if (number instanceof Float) {
       return (Float) number; // Avoids unnecessary unbox/box
 ```
@@ -26487,11 +26427,11 @@ Return of `null`
 in `src/main/java/io/vertx/core/json/JsonArray.java`
 #### Snippet
 ```java
-    // no-op
-    if (val == null) {
+    Number number = (Number) list.get(pos);
+    if (number == null) {
       return null;
-    }
-    // no-op if value is already an byte[]
+    } else if (number instanceof Double) {
+      return (Double) number; // Avoids unnecessary unbox/box
 ```
 
 ### ReturnNull
@@ -26511,6 +26451,42 @@ Return of `null`
 in `src/main/java/io/vertx/core/json/JsonArray.java`
 #### Snippet
 ```java
+    Number number = (Number) list.get(pos);
+    if (number == null) {
+      return null;
+    } else if (number instanceof Long) {
+      return (Long) number; // Avoids unnecessary unbox/box
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/JsonArray.java`
+#### Snippet
+```java
+    // no-op
+    if (val == null) {
+      return null;
+    }
+    // no-op if value is already an Instant
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/JsonArray.java`
+#### Snippet
+```java
+    // no-op
+    if (val == null) {
+      return null;
+    }
+    // no-op if value is already an byte[]
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/JsonArray.java`
+#### Snippet
+```java
 
     if (val == null) {
       return null;
@@ -26520,14 +26496,170 @@ in `src/main/java/io/vertx/core/json/JsonArray.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/io/vertx/core/json/JsonArray.java`
+#### Snippet
+```java
+    // no-op
+    if (val == null) {
+      return null;
+    }
+    // no-op if value is already an Buffer
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/impl/VertxImpl.java`
+#### Snippet
+```java
+    } else {
+      WeakReference<ContextInternal> ref = stickyContext.get();
+      return ref != null ? ref.get() : null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+    Number number = (Number) map.get(key);
+    if (number == null) {
+      return null;
+    } else if (number instanceof Integer) {
+      return (Integer) number;  // Avoids unnecessary unbox/box
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+    Number number = (Number) map.get(key);
+    if (number == null) {
+      return null;
+    } else if (number instanceof Long) {
+      return (Long) number;  // Avoids unnecessary unbox/box
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+    Number number = (Number) map.get(key);
+    if (number == null) {
+      return null;
+    } else if (number instanceof Float) {
+      return (Float) number;  // Avoids unnecessary unbox/box
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+    Object val = map.get(key);
+    if (val == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+    // no-op
+    if (val == null) {
+      return null;
+    }
+    // no-op if value is already an Instant
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+    Number number = (Number) map.get(key);
+    if (number == null) {
+      return null;
+    } else if (number instanceof Double) {
+      return (Double) number;  // Avoids unnecessary unbox/box
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+  public static JsonObject mapFrom(Object obj) {
+    if (obj == null) {
+      return null;
+    } else {
+      return new JsonObject((Map<String, Object>) Json.CODEC.fromValue(obj, Map.class));
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+    // no-op
+    if (val == null) {
+      return null;
+    }
+    // no-op if value is already an Buffer
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/JsonObject.java`
+#### Snippet
+```java
+    // no-op
+    if (val == null) {
+      return null;
+    }
+    // no-op if value is already an byte[]
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/jackson/JacksonCodec.java`
+#### Snippet
+```java
+      return clazz.cast(o);
+    } else if (o == null) {
+      return null;
+    } else {
+      Number number = (Number) o;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/json/jackson/JacksonCodec.java`
+#### Snippet
+```java
+         return Boolean.FALSE;
+      case JsonTokenId.ID_NULL:
+        return null;
+      default:
+        throw new DecodeException("Unexpected token"/*, parser.getCurrentLocation()*/);
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
 #### Snippet
 ```java
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-      return null;
+        }
+      } else {
+        return null;
+      }
     }
-  }
 ```
 
 ### ReturnNull
@@ -26559,35 +26691,11 @@ Return of `null`
 in `src/main/java/io/vertx/core/json/pointer/impl/JsonPointerImpl.java`
 #### Snippet
 ```java
-        }
-      } else {
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/jackson/JacksonCodec.java`
-#### Snippet
-```java
-         return Boolean.FALSE;
-      case JsonTokenId.ID_NULL:
-        return null;
-      default:
-        throw new DecodeException("Unexpected token"/*, parser.getCurrentLocation()*/);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/jackson/JacksonCodec.java`
-#### Snippet
-```java
-      return clazz.cast(o);
-    } else if (o == null) {
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
       return null;
-    } else {
-      Number number = (Number) o;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -26616,114 +26724,6 @@ in `src/main/java/io/vertx/core/eventbus/AddressHelper.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-  public static JsonObject mapFrom(Object obj) {
-    if (obj == null) {
-      return null;
-    } else {
-      return new JsonObject((Map<String, Object>) Json.CODEC.fromValue(obj, Map.class));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-    // no-op
-    if (val == null) {
-      return null;
-    }
-    // no-op if value is already an byte[]
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-    Number number = (Number) map.get(key);
-    if (number == null) {
-      return null;
-    } else if (number instanceof Double) {
-      return (Double) number;  // Avoids unnecessary unbox/box
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-    // no-op
-    if (val == null) {
-      return null;
-    }
-    // no-op if value is already an Instant
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-    Object val = map.get(key);
-    if (val == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-    Number number = (Number) map.get(key);
-    if (number == null) {
-      return null;
-    } else if (number instanceof Long) {
-      return (Long) number;  // Avoids unnecessary unbox/box
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-    Number number = (Number) map.get(key);
-    if (number == null) {
-      return null;
-    } else if (number instanceof Integer) {
-      return (Integer) number;  // Avoids unnecessary unbox/box
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-    // no-op
-    if (val == null) {
-      return null;
-    }
-    // no-op if value is already an Buffer
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/json/JsonObject.java`
-#### Snippet
-```java
-    Number number = (Number) map.get(key);
-    if (number == null) {
-      return null;
-    } else if (number instanceof Float) {
-      return (Float) number;  // Avoids unnecessary unbox/box
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/io/vertx/core/eventbus/impl/CodecManager.java`
 #### Snippet
 ```java
@@ -26740,7 +26740,7 @@ in `src/main/java/io/vertx/core/eventbus/impl/codecs/PingMessageCodec.java`
 #### Snippet
 ```java
   @Override
-  public String decodeFromWire(int pos, Buffer buffer) {
+  public String transform(String s) {
     return null;
   }
 
@@ -26752,19 +26752,7 @@ in `src/main/java/io/vertx/core/eventbus/impl/codecs/PingMessageCodec.java`
 #### Snippet
 ```java
   @Override
-  public String transform(String s) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/eventbus/impl/codecs/NullMessageCodec.java`
-#### Snippet
-```java
-  @Override
-  public String transform(String s) {
+  public String decodeFromWire(int pos, Buffer buffer) {
     return null;
   }
 
@@ -26784,23 +26772,11 @@ in `src/main/java/io/vertx/core/eventbus/impl/codecs/NullMessageCodec.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/vertx/core/parsetools/impl/JsonEventImpl.java`
+in `src/main/java/io/vertx/core/eventbus/impl/codecs/NullMessageCodec.java`
 #### Snippet
 ```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/vertx/core/parsetools/impl/JsonEventImpl.java`
-#### Snippet
-```java
-      }
-    }
+  @Override
+  public String transform(String s) {
     return null;
   }
 
@@ -26814,6 +26790,30 @@ in `src/main/java/io/vertx/core/parsetools/impl/JsonEventImpl.java`
   @Override
   public Buffer binaryValue() {
     return value != null ? Buffer.buffer(BASE64_DECODER.decode((String) value)) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/parsetools/impl/JsonEventImpl.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/vertx/core/parsetools/impl/JsonEventImpl.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
   }
 
 ```
@@ -27076,18 +27076,6 @@ in `src/main/java/io/vertx/core/net/KeyStoreOptionsBase.java`
 ```
 
 ### CopyConstructorMissesField
-Copy constructor does not copy field 'helper'
-in `src/main/java/io/vertx/core/net/PemTrustOptions.java`
-#### Snippet
-```java
-   * @param other  the options to copy
-   */
-  public PemTrustOptions(PemTrustOptions other) {
-    super();
-    this.certPaths = new ArrayList<>(other.getCertPaths());
-```
-
-### CopyConstructorMissesField
 Copy constructor does not copy field 'nonProxyHosts'
 in `src/main/java/io/vertx/core/net/ClientOptionsBase.java`
 #### Snippet
@@ -27097,6 +27085,18 @@ in `src/main/java/io/vertx/core/net/ClientOptionsBase.java`
   public ClientOptionsBase(ClientOptionsBase other) {
     super(other);
     this.connectTimeout = other.getConnectTimeout();
+```
+
+### CopyConstructorMissesField
+Copy constructor does not copy field 'helper'
+in `src/main/java/io/vertx/core/net/PemTrustOptions.java`
+#### Snippet
+```java
+   * @param other  the options to copy
+   */
+  public PemTrustOptions(PemTrustOptions other) {
+    super();
+    this.certPaths = new ArrayList<>(other.getCertPaths());
 ```
 
 ### CopyConstructorMissesField
