@@ -68,18 +68,6 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianEnumArgumentsProvider.java`
 
 ## SystemOutErr
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
-#### Snippet
-```java
-
-	private void storeStdErr(ExtensionContext context) {
-		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
-	}
-
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -87,6 +75,18 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 
 	private void storeStdOut(ExtensionContext context) {
 		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
+#### Snippet
+```java
+
+	private void storeStdErr(ExtensionContext context) {
+		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
 	}
 
 ```
@@ -171,6 +171,18 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
+	 * Constructor with all attributes.
+	 *
+	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
+	 * @param tests List of all tests, annotated with the issueId
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
+#### Snippet
+```java
 
 	/**
 	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
@@ -188,18 +200,6 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
  * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
  *
  * Once Pioneer baselines against Java 17, this will be a record.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
-#### Snippet
-```java
-	 * Constructor with all attributes.
-	 *
-	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
-	 * @param tests List of all tests, annotated with the issueId
-	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -420,18 +420,6 @@ in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Source`
-in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
-#### Snippet
-```java
-	private List<Source> sources;
-
-	protected void accept(List<Source> sources, String dataLocation) {
-		this.sources = sources;
-		this.dataLocation = dataLocation;
-```
-
-### BoundedWildcard
 Can generalize to `? extends DisableIfTestFails`
 in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 #### Snippet
@@ -441,6 +429,18 @@ in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 			List<DisableIfTestFails> annotations) {
 		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
 		if (annotations.isEmpty())
+```
+
+### BoundedWildcard
+Can generalize to `? extends Source`
+in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
+#### Snippet
+```java
+	private List<Source> sources;
+
+	protected void accept(List<Source> sources, String dataLocation) {
+		this.sources = sources;
+		this.dataLocation = dataLocation;
 ```
 
 ### BoundedWildcard
@@ -472,11 +472,11 @@ Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
-	 * Works on Windows
+	 * Works on Linux and OSX
 	 */
-	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
+	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
-		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
 ```
 
 ### BoundedWildcard
@@ -484,11 +484,11 @@ Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
-	 * Works on Linux and OSX
+	 * Works on Windows
 	 */
-	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
+	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
-		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
 ```
 
 ### BoundedWildcard
