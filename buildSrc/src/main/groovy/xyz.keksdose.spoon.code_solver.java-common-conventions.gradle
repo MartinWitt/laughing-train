@@ -19,7 +19,7 @@ repositories {
 }
 dependencies {
 		// Use JUnit Jupiter for testing.
-	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
 	implementation 'com.google.guava:guava:31.1-jre'
 	implementation 'fr.inria.gforge.spoon:spoon-core:+'
 	implementation 'com.google.flogger:flogger:0.7.4'
