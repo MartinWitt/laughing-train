@@ -18,9 +18,9 @@ import xyz.keksdose.spoon.code_solver.history.ChangeListener;
  */
 public class TransformationTestUtils {
 
-  private TransformationTestUtils() {
-    throw new IllegalStateException("Utility class");
-  }
+    private TransformationTestUtils() {
+        throw new IllegalStateException("Utility class");
+    }
     /**
      * Transforms the given resource with the given refactoring. The result is written to a temporary file
      * @param refactoring  the refactoring to apply to the resource
