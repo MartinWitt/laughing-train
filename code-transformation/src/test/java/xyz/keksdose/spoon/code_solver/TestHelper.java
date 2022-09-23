@@ -19,19 +19,19 @@ public class TestHelper {
         Files.copy(source, target);
     }
 
-    public static File getResouces(Path path) {
+    public static File getResources(Path path) {
         return Path.of("src/test/resources/").resolve(path).toFile();
     }
 
     public static File createCopy(File root, String resourcePath, String filename) throws IOException {
         File copy = new File(root, filename);
-        File source = TestHelper.getResouces(Path.of(resourcePath));
+        File source = TestHelper.getResources(Path.of(resourcePath));
         TestHelper.copyFile(source, copy);
         return copy;
     }
 
     public static File createCopyDirectory(Path target, String resourcePath) throws IOException {
-        File source = TestHelper.getResouces(Path.of(resourcePath));
+        File source = TestHelper.getResources(Path.of(resourcePath));
         copyFolder(source.toPath(), target);
         return target.toFile();
     }
