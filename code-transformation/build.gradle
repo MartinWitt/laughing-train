@@ -23,6 +23,7 @@ dependencies {
 	implementation "com.github.docker-java:docker-java-core:+"
 	implementation "com.github.docker-java:docker-java-transport-httpclient5:+"
 	implementation "com.contrastsecurity:java-sarif:+"
+	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
 }
 
 application {
