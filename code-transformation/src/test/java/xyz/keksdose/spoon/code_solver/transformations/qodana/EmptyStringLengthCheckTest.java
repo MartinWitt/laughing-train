@@ -1,7 +1,5 @@
 package xyz.keksdose.spoon.code_solver.transformations.qodana;
 
-import static org.assertj.core.api.Assertions.*;
-
 import java.io.File;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;

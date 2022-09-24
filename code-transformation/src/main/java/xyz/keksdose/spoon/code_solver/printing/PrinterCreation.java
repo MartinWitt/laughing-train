@@ -11,6 +11,8 @@ import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.DefaultJavaPrettyPrinter;
 import spoon.reflect.visitor.ImportConflictDetector;
 import spoon.reflect.visitor.PrettyPrinter;
+import xyz.keksdose.spoon.code_solver.formatting.ImportGrouper;
+import xyz.keksdose.spoon.code_solver.formatting.SpoonStyle;
 import xyz.keksdose.spoon.code_solver.spoon.FragmentAwareChangeCollector;
 import xyz.keksdose.spoon.code_solver.spoon.ImportAwareSniperPrinter;
 import xyz.keksdose.spoon.code_solver.spoon.SelectiveForceImport;
@@ -26,9 +28,10 @@ public class PrinterCreation {
     private static Supplier<PrettyPrinter> applyCommonPrinterOptions(
             Supplier<? extends DefaultJavaPrettyPrinter> prettyPrinterCreator, CtModel model) {
         Collection<CtTypeReference<?>> existingReferences = model.getElements(e -> true);
-        List<Processor<CtElement>> preprocessors = List.of( // new ImportCleaning()
-                new SelectiveForceImport(existingReferences), new ImportConflictDetector()
-                // new ImportGrouper(new SpoonStyle())
+        List<Processor<CtElement>> preprocessors = List.of( // new ImportCleaner(),
+                new SelectiveForceImport(existingReferences),
+                new ImportConflictDetector(),
+                new ImportGrouper(new SpoonStyle())
                 // )
                 );
         return () -> {

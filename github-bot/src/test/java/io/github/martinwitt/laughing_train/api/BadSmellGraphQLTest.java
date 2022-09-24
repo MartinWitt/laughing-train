@@ -40,4 +40,31 @@ public class BadSmellGraphQLTest {
         return new BadSmell(
                 ruleID, "filePath", new Position(0, 0, 0, 0, 0, 0), "message", "messageMarkdown", "snippet");
     }
+
+    @Test
+    // @Disabled
+    void getBadSmellFromLive() throws Exception {
+        client = DynamicGraphQLClientBuilder.newBuilder()
+                .url("http://89.58.49.108:8080/graphql")
+                // .url("http://localhost:8081/graphql")
+                .build();
+        createWithMessage("UnnecessaryLocalVariable").persist();
+        createWithMessage("UnnecessaryLocalVariable").persist();
+        Document document = document(Operation.operation(
+                OperationType.QUERY,
+                field(
+                        "byRuleID",
+                        Argument.args(Argument.arg("ruleID", "ComparatorCombinators")),
+                        field("ruleID"),
+                        field("message"),
+                        field("projectName"),
+                        field("filePath"),
+                        field("startLine"),
+                        field("endLine"),
+                        field("startColumn"),
+                        field("endColumn"),
+                        field("charOffset"))));
+        Response response = client.executeSync(document);
+        System.out.println(response.getData());
+    }
 }

@@ -3,6 +3,7 @@ package xyz.keksdose.spoon.code_solver.analyzer.qodana;
 import java.util.List;
 import java.util.function.Function;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.AbstractRefactoring;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.ComparatorCombinators;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.MethodMayBeStatic;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.NonProtectedConstructorInAbstractClass;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.NonStrictComparisonCanBeEquality;
@@ -32,7 +33,8 @@ public enum QodanaRules {
     UNNECESSARY_TO_STRING_CALL("UnnecessaryToStringCall", UnnecessaryToStringCall::new),
     UNUSED_IMPORT("UnusedImport", UnusedImport::new),
     PROTECTED_MEMBER_IN_FINAL_CLASS("ProtectedMemberInFinalClass", ProtectedMemberInFinalClass::new),
-    POINTLESS_BOOLEAN_EXPRESSION("PointlessBooleanExpression", PointlessBooleanExpression::new);
+    POINTLESS_BOOLEAN_EXPRESSION("PointlessBooleanExpression", PointlessBooleanExpression::new),
+    COMPARATOR_COMBINATORS("ComparatorCombinators", ComparatorCombinators::new);
     private final String ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
 

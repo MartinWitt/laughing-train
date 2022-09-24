@@ -28,6 +28,13 @@ public class TestAnalyzerResult implements AnalyzerResult {
         this.position = position;
     }
 
+    public TestAnalyzerResult(String filePath, Position position, String message) {
+        this.analyzer = "JUNIT";
+        this.filePath = filePath;
+        this.position = position;
+        this.message = message;
+    }
+
     @Override
     public String getAnalyzer() {
         return analyzer;
