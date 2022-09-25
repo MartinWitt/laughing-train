@@ -40,7 +40,7 @@ public class UnnecessaryToStringCall extends AbstractRefactoring {
         }
         for (CtInvocation<?> toStringInvocation :
                 filterMatches(PositionScanner.findLineOnly(type, result.position()))) {
-            String oldInvocation = "" + toStringInvocation.toString();
+            CtInvocation<?> oldInvocation = toStringInvocation.clone().setParent(null);
             toStringInvocation.replace(toStringInvocation.getTarget().clone());
             listener.setChanged(
                     type.getTopLevelType(),
