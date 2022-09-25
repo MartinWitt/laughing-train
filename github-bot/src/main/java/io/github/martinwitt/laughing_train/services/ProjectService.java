@@ -7,11 +7,14 @@ import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.unchecked.Unchecked;
+import io.vertx.core.Vertx;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.Random;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jgit.api.Git;
@@ -24,12 +27,16 @@ public class ProjectService {
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private static final Random random = new Random();
 
+    @Inject
+    Vertx vertx;
+
     @ConsumeEvent(value = ServiceAdresses.PROJECT_REQUEST, blocking = true)
     public ProjectResult handleProjectRequest(ProjectRequest request) throws IOException {
         logger.atInfo().log("Received project request %s", request);
         if (request instanceof ProjectRequest.WithUrl url) {
             String repoName = StringUtils.substringAfterLast(url.url(), "/").replace(".git", "");
             Path dir = Files.createTempDirectory("laughing-train-" + repoName + random.nextLong());
+            vertx.setTimer(Duration.ofMinutes(30).toMillis(), v -> FileUtils.deleteQuietly(dir.toFile()));
             return checkoutRepo(url, dir)
                     .onItem()
                     .invoke(() -> logger.atInfo().log("Cloned %s to %s", url.url(), dir))

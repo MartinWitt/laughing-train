@@ -133,8 +133,9 @@ public class QodanaAnalyzer {
                     public void onNext(WaitResponse object) {
                         try {
                             exec.awaitCompletion();
-                            results.addAll(parseSarif(Path.of(resultPathString)));
-                        } catch (IOException | InterruptedException e) {
+
+                            results.addAll(parseSarif(Paths.get(resultPathString)));
+                        } catch (Exception e) {
                             logger.atSevere().withCause(e).log("Could not parse sarif");
                         }
                     }
@@ -202,12 +203,16 @@ public class QodanaAnalyzer {
     }
 
     private List<AnalyzerResult> parseSarif(Path resultPath) throws IOException {
-        StringReader reader = new StringReader(Files.readString(resultPath));
-        ObjectMapper mapper = new ObjectMapper();
-        SarifSchema210 sarif = mapper.readValue(reader, SarifSchema210.class);
         List<AnalyzerResult> results = new ArrayList<>();
-        for (Result result : sarif.getRuns().get(0).getResults()) {
-            results.add(new QodanaAnalyzerResult(result));
+        try {
+            StringReader reader = new StringReader(Files.readString(resultPath));
+            ObjectMapper mapper = new ObjectMapper();
+            SarifSchema210 sarif = mapper.readValue(reader, SarifSchema210.class);
+            for (Result result : sarif.getRuns().get(0).getResults()) {
+                results.add(new QodanaAnalyzerResult(result));
+            }
+        } catch (Exception e) {
+            logger.atSevere().withCause(e).log("Could not parse sarif");
         }
         return results;
     }

@@ -48,7 +48,8 @@ public class PeriodicMiner {
     @Scheduled(every = "4h", delay = 10, delayUnit = TimeUnit.MINUTES)
     void mineRepos() throws IOException {
         Path dir = Files.createTempDirectory("laughing-wiki");
-        try (Git git = getWiki(dir)) {
+        try (Git git = getWiki(dir);
+                Closeable c = () -> FileUtils.deleteQuietly(dir.toFile())) {
             Path miningFile = dir.resolve("Mining.md");
             List<String> repoUrls = getRepoUrls(miningFile);
             logger.atInfo().log("Mining %s repos", repoUrls.size());
