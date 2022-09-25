@@ -13,6 +13,8 @@ import io.smallrye.graphql.client.core.Operation;
 import io.smallrye.graphql.client.core.OperationType;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClientBuilder;
+import java.util.regex.Pattern;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
@@ -39,5 +41,30 @@ public class BadSmellGraphQLTest {
     private BadSmell createWithMessage(String ruleID) {
         return new BadSmell(
                 ruleID, "filePath", new Position(0, 0, 0, 0, 0, 0), "message", "messageMarkdown", "snippet");
+    }
+
+    @Test
+    @Disabled("Only for local testing")
+    void getBadSmellFromLive() throws Exception {
+        client = DynamicGraphQLClientBuilder.newBuilder()
+                .url("http://89.58.49.108:8080/graphql")
+                // .url("http://localhost:8081/graphql")
+                .build();
+        Document document = document(Operation.operation(
+                OperationType.QUERY,
+                field(
+                        "byRuleID",
+                        Argument.args(Argument.arg("ruleID", "UnnecessaryToStringCall")),
+                        field("ruleID"),
+                        field("message"),
+                        field("projectName"),
+                        field("filePath"),
+                        field("startLine"),
+                        field("endLine"),
+                        field("startColumn"),
+                        field("endColumn"),
+                        field("charOffset"))));
+        Response response = client.executeSync(document);
+        System.out.println(response.getData().toString().replaceAll(Pattern.quote("},{"), "\n"));
     }
 }

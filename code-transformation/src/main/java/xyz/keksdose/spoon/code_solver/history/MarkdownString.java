@@ -41,6 +41,15 @@ public class MarkdownString {
     }
 
     /**
+     * Creates a markdown string from the given markdown text. The text is the same as the markdown text.
+     * All {@code `} are removed in the raw text.
+     * @param markdown  the markdown text
+     * @return  the instance
+     */
+    public static MarkdownString fromMarkdown(String markdown) {
+        return new MarkdownString(markdown.replace("`", ""), markdown);
+    }
+    /**
      * Returns the text.
      * @return  the text
      */
