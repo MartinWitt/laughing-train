@@ -203,6 +203,42 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter.cartesian` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
+#### Snippet
+```java
+	 * Supported placeholders:
+	 * <p>
+	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#DISPLAY_NAME_PLACEHOLDER}
+	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#INDEX_PLACEHOLDER}
+	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#ARGUMENTS_PLACEHOLDER}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter.cartesian` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
+#### Snippet
+```java
+	 * <p>
+	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#DISPLAY_NAME_PLACEHOLDER}
+	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#INDEX_PLACEHOLDER}
+	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#ARGUMENTS_PLACEHOLDER}
+	 * - <code>{0}</code>, <code>{1}</code>, etc.: an individual argument (0-based)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter.cartesian` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
+#### Snippet
+```java
+	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#DISPLAY_NAME_PLACEHOLDER}
+	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#INDEX_PLACEHOLDER}
+	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#ARGUMENTS_PLACEHOLDER}
+	 * - <code>{0}</code>, <code>{1}</code>, etc.: an individual argument (0-based)
+	 *
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/ReportEntry.java`
 #### Snippet
@@ -251,42 +287,6 @@ in `src/main/java/org/junitpioneer/jupiter/params/DisableIfDisplayName.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter.cartesian` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
-#### Snippet
-```java
-	 * Supported placeholders:
-	 * <p>
-	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#DISPLAY_NAME_PLACEHOLDER}
-	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#INDEX_PLACEHOLDER}
-	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#ARGUMENTS_PLACEHOLDER}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter.cartesian` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
-#### Snippet
-```java
-	 * <p>
-	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#DISPLAY_NAME_PLACEHOLDER}
-	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#INDEX_PLACEHOLDER}
-	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#ARGUMENTS_PLACEHOLDER}
-	 * - <code>{0}</code>, <code>{1}</code>, etc.: an individual argument (0-based)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter.cartesian` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
-#### Snippet
-```java
-	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#DISPLAY_NAME_PLACEHOLDER}
-	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#INDEX_PLACEHOLDER}
-	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#ARGUMENTS_PLACEHOLDER}
-	 * - <code>{0}</code>, <code>{1}</code>, etc.: an individual argument (0-based)
-	 *
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 #### Snippet
@@ -323,18 +323,6 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
-		 * Creates a single set of distinct objects (according to
-		 * {@link Object#equals(Object)}) for a CartesianProductTest
-		 * from the elements of the passed {@link java.util.stream.Stream}.
-		 *
-		 * @param entries the objects we want to include in a single set
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
@@ -348,14 +336,14 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util.stream` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
 ```java
-	 * {@link Object#equals(Object) equals}) for the first parameter of
-	 * a {@code CartesianTest} from the elements of the passed
-	 * {@link java.util.stream.Stream Stream}.
-	 *
-	 * @param arguments the objects that should be passed to the parameter
+		 * Creates a single set of distinct objects (according to
+		 * {@link Object#equals(Object)}) for a CartesianProductTest
+		 * from the elements of the passed {@link java.util.stream.Stream}.
+		 *
+		 * @param entries the objects we want to include in a single set
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -368,6 +356,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 	 * {@link java.util.Collection Collection}.
 	 * <p>
 	 * The passed argument does not have to be an instance of {@link java.util.Set Set}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
+#### Snippet
+```java
+	 * {@link Object#equals(Object) equals}) for the first parameter of
+	 * a {@code CartesianTest} from the elements of the passed
+	 * {@link java.util.stream.Stream Stream}.
+	 *
+	 * @param arguments the objects that should be passed to the parameter
 ```
 
 ## BoundedWildcard
@@ -420,6 +420,18 @@ in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.j
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Source`
+in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
+#### Snippet
+```java
+	private List<Source> sources;
+
+	protected void accept(List<Source> sources, String dataLocation) {
+		this.sources = sources;
+		this.dataLocation = dataLocation;
+```
+
+### BoundedWildcard
 Can generalize to `? extends DisableIfTestFails`
 in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 #### Snippet
@@ -429,6 +441,30 @@ in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 			List<DisableIfTestFails> annotations) {
 		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
 		if (annotations.isEmpty())
+```
+
+### BoundedWildcard
+Can generalize to `? super Map`
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
+#### Snippet
+```java
+	 * Works on Windows
+	 */
+	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
+			throws ReflectiveOperationException {
+		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+```
+
+### BoundedWildcard
+Can generalize to `? super Map`
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
+#### Snippet
+```java
+	 * Works on Linux and OSX
+	 */
+	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
+			throws ReflectiveOperationException {
+		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
 ```
 
 ### BoundedWildcard
@@ -456,39 +492,15 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Source`
-in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 #### Snippet
 ```java
-	private List<Source> sources;
+	}
 
-	protected void accept(List<Source> sources, String dataLocation) {
-		this.sources = sources;
-		this.dataLocation = dataLocation;
-```
-
-### BoundedWildcard
-Can generalize to `? super Map`
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
-#### Snippet
-```java
-	 * Works on Windows
-	 */
-	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
-			throws ReflectiveOperationException {
-		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
-```
-
-### BoundedWildcard
-Can generalize to `? super Map`
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
-#### Snippet
-```java
-	 * Works on Linux and OSX
-	 */
-	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
-			throws ReflectiveOperationException {
-		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+	private void clearEntries(Collection<K> entriesToClear) {
+		entriesToClear.forEach(this::clearEntry);
+	}
 ```
 
 ### BoundedWildcard
@@ -536,18 +548,6 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 
 	private void setEntries(Map<K, V> entriesToSet) {
 		entriesToSet.forEach(this::setEntry);
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-	}
-
-	private void clearEntries(Collection<K> entriesToClear) {
-		entriesToClear.forEach(this::clearEntry);
 	}
 ```
 
