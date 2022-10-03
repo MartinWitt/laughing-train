@@ -2,12 +2,29 @@ package io.github.martinwitt.laughing_train.persistence;
 
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
-@MongoEntity(database = "AnalyzerResults")
-public class BadSmell extends PanacheMongoEntity {
+@MongoEntity(database = "Laughing-Train")
+public class BadSmell extends PanacheMongoEntity implements Serializable {
+
+    public String ruleID;
+    public String filePath;
+    public int startLine;
+    public int endLine;
+    public int startColumn;
+    public int endColumn;
+    public int charOffset;
+    public int charLength;
+    public String message;
+    public String messageMarkdown;
+    public String snippet;
+    public String projectName;
+    public String projectUrl;
+    public String commitHash;
 
     public static List<BadSmell> findByRuleID(String ruleID) {
         return list("ruleID", ruleID);
@@ -20,21 +37,6 @@ public class BadSmell extends PanacheMongoEntity {
     public static List<BadSmell> findByCommitHash(String commitHash) {
         return list("commitHash", commitHash);
     }
-
-    private String ruleID;
-    private String filePath;
-    private int startLine;
-    private int endLine;
-    private int startColumn;
-    private int endColumn;
-    private int charOffset;
-    private int charLength;
-    private String message;
-    private String messageMarkdown;
-    private String snippet;
-    private String projectName;
-    private String projectUrl;
-    private String commitHash;
 
     public BadSmell() {
         // default constructor for mongodb
@@ -75,199 +77,55 @@ public class BadSmell extends PanacheMongoEntity {
         this.commitHash = commitHash;
     }
 
-    /**
-     * @return the ruleID
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
      */
-    public String getRuleID() {
-        return ruleID;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                ruleID,
+                filePath,
+                startLine,
+                endLine,
+                startColumn,
+                endColumn,
+                charOffset,
+                charLength,
+                message,
+                messageMarkdown,
+                snippet,
+                projectName,
+                projectUrl,
+                commitHash);
     }
 
-    /**
-     * @return the filePath
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
      */
-    public String getFilePath() {
-        return filePath;
-    }
 
-    /**
-     * @return the startLine
-     */
-    public int getStartLine() {
-        return startLine;
-    }
-
-    /**
-     * @return the endLine
-     */
-    public int getEndLine() {
-        return endLine;
-    }
-
-    /**
-     * @return the startColumn
-     */
-    public int getStartColumn() {
-        return startColumn;
-    }
-
-    /**
-     * @return the endColumn
-     */
-    public int getEndColumn() {
-        return endColumn;
-    }
-
-    /**
-     * @return the charOffset
-     */
-    public int getCharOffset() {
-        return charOffset;
-    }
-
-    /**
-     * @return the charLength
-     */
-    public int getCharLength() {
-        return charLength;
-    }
-
-    /**
-     * @return the message
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * @return the messageMarkdown
-     */
-    public String getMessageMarkdown() {
-        return messageMarkdown;
-    }
-
-    /**
-     * @return the snippet
-     */
-    public String getSnippet() {
-        return snippet;
-    }
-
-    /**
-     * @return the projectName
-     */
-    public String getProjectName() {
-        return projectName;
-    }
-
-    /**
-     * @return the projectUrl
-     */
-    public String getProjectUrl() {
-        return projectUrl;
-    }
-
-    /**
-     * @return the commitHash
-     */
-    public String getCommitHash() {
-        return commitHash;
-    }
-
-    /**
-     * @param ruleID the ruleID to set
-     */
-    public void setRuleID(String ruleID) {
-        this.ruleID = ruleID;
-    }
-
-    /**
-     * @param filePath the filePath to set
-     */
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    /**
-     * @param startLine the startLine to set
-     */
-    public void setStartLine(int startLine) {
-        this.startLine = startLine;
-    }
-
-    /**
-     * @param endLine the endLine to set
-     */
-    public void setEndLine(int endLine) {
-        this.endLine = endLine;
-    }
-
-    /**
-     * @param startColumn the startColumn to set
-     */
-    public void setStartColumn(int startColumn) {
-        this.startColumn = startColumn;
-    }
-
-    /**
-     * @param endColumn the endColumn to set
-     */
-    public void setEndColumn(int endColumn) {
-        this.endColumn = endColumn;
-    }
-
-    /**
-     * @param charOffset the charOffset to set
-     */
-    public void setCharOffset(int charOffset) {
-        this.charOffset = charOffset;
-    }
-
-    /**
-     * @param charLength the charLength to set
-     */
-    public void setCharLength(int charLength) {
-        this.charLength = charLength;
-    }
-
-    /**
-     * @param message the message to set
-     */
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    /**
-     * @param messageMarkdown the messageMarkdown to set
-     */
-    public void setMessageMarkdown(String messageMarkdown) {
-        this.messageMarkdown = messageMarkdown;
-    }
-
-    /**
-     * @param snippet the snippet to set
-     */
-    public void setSnippet(String snippet) {
-        this.snippet = snippet;
-    }
-
-    /**
-     * @param projectName the projectName to set
-     */
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
-
-    /**
-     * @param projectUrl the projectUrl to set
-     */
-    public void setProjectUrl(String projectUrl) {
-        this.projectUrl = projectUrl;
-    }
-
-    /**
-     * @param commitHash the commitHash to set
-     */
-    public void setCommitHash(String commitHash) {
-        this.commitHash = commitHash;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof BadSmell)) {
+            return false;
+        }
+        BadSmell other = (BadSmell) obj;
+        return Objects.equals(ruleID, other.ruleID)
+                && Objects.equals(filePath, other.filePath)
+                && startLine == other.startLine
+                && endLine == other.endLine
+                && startColumn == other.startColumn
+                && endColumn == other.endColumn
+                && charOffset == other.charOffset
+                && charLength == other.charLength
+                && Objects.equals(message, other.message)
+                && Objects.equals(messageMarkdown, other.messageMarkdown)
+                && Objects.equals(snippet, other.snippet)
+                && Objects.equals(projectName, other.projectName)
+                && Objects.equals(projectUrl, other.projectUrl)
+                && Objects.equals(commitHash, other.commitHash);
     }
 }

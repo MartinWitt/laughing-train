@@ -5,6 +5,7 @@ import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
+import io.github.martinwitt.laughing_train.persistence.Project;
 import io.github.martinwitt.laughing_train.services.ServiceAdresses;
 import io.quarkus.scheduler.Scheduled;
 import io.vertx.core.AsyncResult;
@@ -72,6 +73,7 @@ public class PeriodicMiner {
         if (message.succeeded()) {
             logger.atInfo().log("Mining periodic %s", repoName);
             if (message.result().body() instanceof ProjectResult.Success project) {
+                new Project(project.project().name(), project.project().url()).persistOrUpdate();
                 eventBus.<QodanaResult>request(
                         ServiceAdresses.QODANA_ANALYZER_REQUEST,
                         new AnalyzerRequest.WithProject(project.project()),
