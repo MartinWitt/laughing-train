@@ -2,8 +2,8 @@ package io.github.martinwitt.laughing_train.api;
 
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.Project;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Query;
@@ -13,10 +13,10 @@ public class ProjectGraphQL {
     @Query("getProjects")
     @Description("Gets all projects from the database")
     public List<Project> getAllProjects() {
-        return BadSmell.<BadSmell>mongoCollection()
-                .distinct("projectName", BadSmell.class)
+        return BadSmell.<BadSmell>findAll().stream()
                 .map(v -> new Project(v.getProjectName(), v.getProjectUrl()))
-                .into(new ArrayList<>());
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     @Query("getHashesForProject")
