@@ -172,6 +172,18 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
 
+/**
+ * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
+ *
+ * Once Pioneer baselines against Java 17, this will be a record.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
+#### Snippet
+```java
+
 	/**
 	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
 	 *
@@ -188,18 +200,6 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
 	 * @param tests List of all tests, annotated with the issueId
 	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
-#### Snippet
-```java
-
-/**
- * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
- *
- * Once Pioneer baselines against Java 17, this will be a record.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -420,30 +420,6 @@ in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
-#### Snippet
-```java
-		private final BiPredicate<String, Set<String>> selector;
-
-		Mode(Validator validator, BiPredicate<String, Set<String>> selector) {
-			this.validator = validator;
-			this.selector = selector;
-```
-
-### BoundedWildcard
-Can generalize to `? super Set`
-in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
-#### Snippet
-```java
-		private final BiPredicate<String, Set<String>> selector;
-
-		Mode(Validator validator, BiPredicate<String, Set<String>> selector) {
-			this.validator = validator;
-			this.selector = selector;
-```
-
-### BoundedWildcard
 Can generalize to `? extends Source`
 in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
 #### Snippet
@@ -492,6 +468,54 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
+#### Snippet
+```java
+		private final BiPredicate<String, Set<String>> selector;
+
+		Mode(Validator validator, BiPredicate<String, Set<String>> selector) {
+			this.validator = validator;
+			this.selector = selector;
+```
+
+### BoundedWildcard
+Can generalize to `? super Set`
+in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
+#### Snippet
+```java
+		private final BiPredicate<String, Set<String>> selector;
+
+		Mode(Validator validator, BiPredicate<String, Set<String>> selector) {
+			this.validator = validator;
+			this.selector = selector;
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
+```
+
+### BoundedWildcard
 Can generalize to `? extends K`
 in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 #### Snippet
@@ -525,30 +549,6 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 	private void setEntries(Map<K, V> entriesToSet) {
 		entriesToSet.forEach(this::setEntry);
 	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
 ```
 
 ## NonProtectedConstructorInAbstractClass
