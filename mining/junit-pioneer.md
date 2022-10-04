@@ -323,18 +323,6 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
- * <a href="https://junit-pioneer.org/docs/cartesian-product/" target="_top">the documentation on <code>@CartesianProductTest</code></a>.
- * </p>
- * @see org.junitpioneer.jupiter.CartesianValueSource
- *
- * @deprecated has been superseded by CartesianTest, scheduled to be removed in 2.0
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util.stream` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
@@ -344,6 +332,18 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 		 * from the elements of the passed {@link java.util.stream.Stream}.
 		 *
 		 * @param entries the objects we want to include in a single set
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
+#### Snippet
+```java
+ * <a href="https://junit-pioneer.org/docs/cartesian-product/" target="_top">the documentation on <code>@CartesianProductTest</code></a>.
+ * </p>
+ * @see org.junitpioneer.jupiter.CartesianValueSource
+ *
+ * @deprecated has been superseded by CartesianTest, scheduled to be removed in 2.0
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -444,30 +444,6 @@ in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
-#### Snippet
-```java
-		private final BiPredicate<String, Set<String>> selector;
-
-		Mode(Validator validator, BiPredicate<String, Set<String>> selector) {
-			this.validator = validator;
-			this.selector = selector;
-```
-
-### BoundedWildcard
-Can generalize to `? super Set`
-in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
-#### Snippet
-```java
-		private final BiPredicate<String, Set<String>> selector;
-
-		Mode(Validator validator, BiPredicate<String, Set<String>> selector) {
-			this.validator = validator;
-			this.selector = selector;
-```
-
-### BoundedWildcard
 Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
@@ -489,6 +465,30 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
 		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
+#### Snippet
+```java
+		private final BiPredicate<String, Set<String>> selector;
+
+		Mode(Validator validator, BiPredicate<String, Set<String>> selector) {
+			this.validator = validator;
+			this.selector = selector;
+```
+
+### BoundedWildcard
+Can generalize to `? super Set`
+in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
+#### Snippet
+```java
+		private final BiPredicate<String, Set<String>> selector;
+
+		Mode(Validator validator, BiPredicate<String, Set<String>> selector) {
+			this.validator = validator;
+			this.selector = selector;
 ```
 
 ### BoundedWildcard
