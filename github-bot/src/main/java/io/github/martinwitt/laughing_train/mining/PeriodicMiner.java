@@ -73,7 +73,18 @@ public class PeriodicMiner {
         if (message.succeeded()) {
             logger.atInfo().log("Mining periodic %s", repoName);
             if (message.result().body() instanceof ProjectResult.Success project) {
-                new Project(project.project().name(), project.project().url()).persistOrUpdate();
+                List<Project> query =
+                        Project.findByProjectName(project.project().name());
+                if (query.size() == 1) {
+                    query.get(0).addCommitHash(project.project().commitHash());
+                    query.get(0).persistOrUpdate();
+                } else {
+                    var newProject = new Project(
+                            project.project().name(), project.project().url());
+                    newProject.addCommitHash(project.project().commitHash());
+                    newProject.persistOrUpdate();
+                }
+
                 eventBus.<QodanaResult>request(
                         ServiceAdresses.QODANA_ANALYZER_REQUEST,
                         new AnalyzerRequest.WithProject(project.project()),
