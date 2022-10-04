@@ -5,6 +5,7 @@ import static io.smallrye.graphql.client.core.Field.field;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
+import io.github.martinwitt.laughing_train.persistence.Project;
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.graphql.client.Response;
 import io.smallrye.graphql.client.core.Argument;
@@ -66,5 +67,29 @@ public class BadSmellGraphQLTest {
                         field("charOffset"))));
         Response response = client.executeSync(document);
         System.out.println(response.getData().toString().replaceAll(Pattern.quote("},{"), "\n"));
+    }
+
+    @Test
+    void foo() throws Exception {
+        client = DynamicGraphQLClientBuilder.newBuilder()
+                // .url("http://www.keksdose.xyz:8080/graphql")
+                .url("http://localhost:8081/graphql")
+                .build();
+        Project project = new Project("aaa", "bbb");
+        project.persistOrUpdate();
+        project.addCommitHash("aaaa");
+        project.persistOrUpdate();
+        Project.<Project>listAll().forEach(v -> System.out.println(v.getCommitHashes()));
+        System.out.println(client.executeSync(
+                        """
+                                query getProjects {
+                                    getProjects {
+                                        projectName
+                                        projectUrl
+                                        commitHashes
+                                    }
+                                }
+                                 """)
+                .getData());
     }
 }
