@@ -68,18 +68,6 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianEnumArgumentsProvider.java`
 
 ## SystemOutErr
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
-#### Snippet
-```java
-
-	private void storeStdErr(ExtensionContext context) {
-		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
-	}
-
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -87,6 +75,18 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 
 	private void storeStdOut(ExtensionContext context) {
 		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
+#### Snippet
+```java
+
+	private void storeStdErr(ExtensionContext context) {
+		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
 	}
 
 ```
@@ -183,11 +183,11 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-
-/**
- * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
- *
- * Once Pioneer baselines against Java 17, this will be a record.
+	 * Constructor with all attributes.
+	 *
+	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
+	 * @param tests List of all tests, annotated with the issueId
+	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -195,11 +195,11 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-	 * Constructor with all attributes.
-	 *
-	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
-	 * @param tests List of all tests, annotated with the issueId
-	 */
+
+/**
+ * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
+ *
+ * Once Pioneer baselines against Java 17, this will be a record.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -311,18 +311,6 @@ class RangeSourceArgumentsProvider<N extends Number & Comparable<N>> implements 
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
-		 * Creates a single set of distinct objects (according to
-		 * {@link Object#equals(Object)}) for a CartesianProductTest
-		 * from the elements of the passed {@link java.util.Collection}.
-		 *
-		 * The passed argument does not have to be an instance of {@link java.util.Set}.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util.stream` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
@@ -347,15 +335,15 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
 ```java
-	 * {@link Object#equals(Object) equals}) for the first parameter of
-	 * a {@code CartesianTest} from the elements of the passed
-	 * {@link java.util.stream.Stream Stream}.
-	 *
-	 * @param arguments the objects that should be passed to the parameter
+		 * Creates a single set of distinct objects (according to
+		 * {@link Object#equals(Object)}) for a CartesianProductTest
+		 * from the elements of the passed {@link java.util.Collection}.
+		 *
+		 * The passed argument does not have to be an instance of {@link java.util.Set}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -368,6 +356,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 	 * {@link java.util.Collection Collection}.
 	 * <p>
 	 * The passed argument does not have to be an instance of {@link java.util.Set Set}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
+#### Snippet
+```java
+	 * {@link Object#equals(Object) equals}) for the first parameter of
+	 * a {@code CartesianTest} from the elements of the passed
+	 * {@link java.util.stream.Stream Stream}.
+	 *
+	 * @param arguments the objects that should be passed to the parameter
 ```
 
 ## BoundedWildcard
