@@ -24,6 +24,14 @@ public class ProjectGraphQL {
         return Project.<Project>findAll().list();
     }
 
+    @Query("getProjectWithName")
+    @Description("Gets project with given name from the database")
+    public Project getProject(String projectName) {
+        return Project.<Project>list("projectName", projectName).stream()
+                .findAny()
+                .orElse(null);
+    }
+
     @Query("getHashesForProject")
     @Description("Gets all commit hashes for a project from the database")
     public List<String> getHashesForProject(String projectName) {
