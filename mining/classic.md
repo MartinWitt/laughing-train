@@ -113,42 +113,6 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
 #### Snippet
 ```java
-	public static final String TYPE_WEB = "web";
-	public static final String TYPE_NEWS = "news";
-	public static final String TYPE_IMAGES = "images";
-	
-	@AllArgsConstructor
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
-#### Snippet
-```java
-	public static final String TYPE_WEB = "web";
-	public static final String TYPE_NEWS = "news";
-	public static final String TYPE_IMAGES = "images";
-	
-	@AllArgsConstructor
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
-#### Snippet
-```java
-	public static final String TYPE_WEB = "web";
-	public static final String TYPE_NEWS = "news";
-	public static final String TYPE_IMAGES = "images";
-	
-	@AllArgsConstructor
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
-#### Snippet
-```java
 public interface QwantService {
 	
 	public static final String BASE_URL = "https://api.qwant.com/";
@@ -185,11 +149,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
 #### Snippet
 ```java
-	
 	public static final String TYPE_WEB = "web";
 	public static final String TYPE_NEWS = "news";
 	public static final String TYPE_IMAGES = "images";
 	
+	@AllArgsConstructor
 ```
 
 ### UnnecessaryModifier
@@ -197,11 +161,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
 #### Snippet
 ```java
-	
 	public static final String TYPE_WEB = "web";
 	public static final String TYPE_NEWS = "news";
 	public static final String TYPE_IMAGES = "images";
 	
+	@AllArgsConstructor
 ```
 
 ### UnnecessaryModifier
@@ -209,107 +173,11 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
 #### Snippet
 ```java
-	
 	public static final String TYPE_WEB = "web";
 	public static final String TYPE_NEWS = "news";
 	public static final String TYPE_IMAGES = "images";
 	
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
-#### Snippet
-```java
-	public static final String DEFAULT_LOCALE = "de_DE";
-	
-	public static final String TYPE_WEB = "web";
-	public static final String TYPE_NEWS = "news";
-	public static final String TYPE_IMAGES = "images";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
-#### Snippet
-```java
-	public static final String DEFAULT_LOCALE = "de_DE";
-	
-	public static final String TYPE_WEB = "web";
-	public static final String TYPE_NEWS = "news";
-	public static final String TYPE_IMAGES = "images";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
-#### Snippet
-```java
-	public static final String DEFAULT_LOCALE = "de_DE";
-	
-	public static final String TYPE_WEB = "web";
-	public static final String TYPE_NEWS = "news";
-	public static final String TYPE_IMAGES = "images";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
-#### Snippet
-```java
-	
-	@Data
-	public static class QwantResponse {
-		
-		private String status;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
-#### Snippet
-```java
-	
-	@Data
-	public static class QwantResponse {
-		
-		private String status;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
-#### Snippet
-```java
-	public static final String BASE_URL = "https://api.qwant.com/";
-	
-	public static final String DEFAULT_LOCALE = "de_DE";
-	
-	public static final String TYPE_WEB = "web";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
-#### Snippet
-```java
-	public static final String BASE_URL = "https://api.qwant.com/";
-	
-	public static final String DEFAULT_LOCALE = "de_DE";
-	
-	public static final String TYPE_WEB = "web";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
-#### Snippet
-```java
-	public static final String BASE_URL = "https://api.qwant.com/";
-	
-	public static final String DEFAULT_LOCALE = "de_DE";
-	
-	public static final String TYPE_WEB = "web";
+	@AllArgsConstructor
 ```
 
 ### UnnecessaryModifier
@@ -329,6 +197,102 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
 #### Snippet
 ```java
+	
+	@Data
+	public static class QwantResponse {
+		
+		private String status;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
+#### Snippet
+```java
+	
+	@Data
+	public static class QwantResponse {
+		
+		private String status;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
+#### Snippet
+```java
+	public static final String BASE_URL = "https://api.qwant.com/";
+	
+	public static final String DEFAULT_LOCALE = "de_DE";
+	
+	public static final String TYPE_WEB = "web";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
+#### Snippet
+```java
+	public static final String BASE_URL = "https://api.qwant.com/";
+	
+	public static final String DEFAULT_LOCALE = "de_DE";
+	
+	public static final String TYPE_WEB = "web";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
+#### Snippet
+```java
+	public static final String BASE_URL = "https://api.qwant.com/";
+	
+	public static final String DEFAULT_LOCALE = "de_DE";
+	
+	public static final String TYPE_WEB = "web";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
+#### Snippet
+```java
+	
+	public static final String TYPE_WEB = "web";
+	public static final String TYPE_NEWS = "news";
+	public static final String TYPE_IMAGES = "images";
+	
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
+#### Snippet
+```java
+	
+	public static final String TYPE_WEB = "web";
+	public static final String TYPE_NEWS = "news";
+	public static final String TYPE_IMAGES = "images";
+	
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
+#### Snippet
+```java
+	
+	public static final String TYPE_WEB = "web";
+	public static final String TYPE_NEWS = "news";
+	public static final String TYPE_IMAGES = "images";
+	
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
+#### Snippet
+```java
 	@GET("v3/search/{type}?device=desktop&locale=" + DEFAULT_LOCALE)
 	@SuppressWarnings({"MissingDeprecatedAnnotation"})
 	public Call<QwantResponse> search(
@@ -338,26 +302,38 @@ in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/urbandictionary/UrbanDictionaryService.java`
+in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
 #### Snippet
 ```java
+	public static final String DEFAULT_LOCALE = "de_DE";
 	
-	@Data
-	public static class DefinitionList {
-		
-		private List<Definition> list;
+	public static final String TYPE_WEB = "web";
+	public static final String TYPE_NEWS = "news";
+	public static final String TYPE_IMAGES = "images";
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/command/urbandictionary/UrbanDictionaryService.java`
+Modifier `static` is redundant for interface fields
+in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
 #### Snippet
 ```java
+	public static final String DEFAULT_LOCALE = "de_DE";
 	
-	@Data
-	public static class DefinitionList {
-		
-		private List<Definition> list;
+	public static final String TYPE_WEB = "web";
+	public static final String TYPE_NEWS = "news";
+	public static final String TYPE_IMAGES = "images";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
+#### Snippet
+```java
+	public static final String DEFAULT_LOCALE = "de_DE";
+	
+	public static final String TYPE_WEB = "web";
+	public static final String TYPE_NEWS = "news";
+	public static final String TYPE_IMAGES = "images";
 ```
 
 ### UnnecessaryModifier
@@ -379,9 +355,9 @@ in `src/main/java/chrisliebaer/chrisliebot/command/urbandictionary/UrbanDictiona
 ```java
 	
 	@Data
-	public static class Definition {
+	public static class DefinitionList {
 		
-		private String definition, example, word;
+		private List<Definition> list;
 ```
 
 ### UnnecessaryModifier
@@ -391,9 +367,21 @@ in `src/main/java/chrisliebaer/chrisliebot/command/urbandictionary/UrbanDictiona
 ```java
 	
 	@Data
-	public static class Definition {
+	public static class DefinitionList {
 		
-		private String definition, example, word;
+		private List<Definition> list;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/urbandictionary/UrbanDictionaryService.java`
+#### Snippet
+```java
+	
+	@GET("v0/define")
+	public Call<DefinitionList> lookup(@Query("term") String term);
+	
+	@Data
 ```
 
 ### UnnecessaryModifier
@@ -438,118 +426,22 @@ in `src/main/java/chrisliebaer/chrisliebot/command/urbandictionary/UrbanDictiona
 #### Snippet
 ```java
 	
-	@GET("v0/define")
-	public Call<DefinitionList> lookup(@Query("term") String term);
+	@Data
+	public static class Definition {
+		
+		private String definition, example, word;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/chrisliebaer/chrisliebot/command/urbandictionary/UrbanDictionaryService.java`
+#### Snippet
+```java
 	
 	@Data
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
-#### Snippet
-```java
-	
-	@AllArgsConstructor(access = AccessLevel.PRIVATE)
-	public static final class NoToken implements OptionalToken {
+	public static class Definition {
 		
-		@Getter private final ParserException throwable;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
-#### Snippet
-```java
-	
-	@AllArgsConstructor(access = AccessLevel.PRIVATE)
-	public static final class NoToken implements OptionalToken {
-		
-		@Getter private final ParserException throwable;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
-#### Snippet
-```java
-	}
-	
-	public static OptionalToken of(String value) {
-		return new ValueToken(value);
-	}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
-#### Snippet
-```java
-	 *                         via the message parameter.
-	 */
-	public String expect(String msg) throws ParserException;
-	
-	@AllArgsConstructor(access = AccessLevel.PRIVATE)
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
-#### Snippet
-```java
-	}
-	
-	public static OptionalToken empty(ParserException throwable, ChrislieParser parser) {
-		return new NoToken(throwable, parser);
-	}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
-#### Snippet
-```java
-	
-	@AllArgsConstructor(access = AccessLevel.PRIVATE)
-	public static final class ValueToken implements OptionalToken {
-		
-		private final String value;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
-#### Snippet
-```java
-	
-	@AllArgsConstructor(access = AccessLevel.PRIVATE)
-	public static final class ValueToken implements OptionalToken {
-		
-		private final String value;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
-#### Snippet
-```java
-	 * @throws NoSuchElementException If the token was successfully parsed and thous no exception was raised.
-	 */
-	public ParserException throwable() throws NoSuchElementException;
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
-#### Snippet
-```java
-	 * @return Wraps the value of this class into an {@link Optional}.
-	 */
-	public Optional<String> optional();
-	
-	/**
+		private String definition, example, word;
 ```
 
 ### UnnecessaryModifier
@@ -574,6 +466,114 @@ in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
 	public boolean isSuccess();
 	
 	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
+#### Snippet
+```java
+	 * @return Wraps the value of this class into an {@link Optional}.
+	 */
+	public Optional<String> optional();
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
+#### Snippet
+```java
+	 * @throws NoSuchElementException If the token was successfully parsed and thous no exception was raised.
+	 */
+	public ParserException throwable() throws NoSuchElementException;
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
+#### Snippet
+```java
+	
+	@AllArgsConstructor(access = AccessLevel.PRIVATE)
+	public static final class ValueToken implements OptionalToken {
+		
+		private final String value;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
+#### Snippet
+```java
+	
+	@AllArgsConstructor(access = AccessLevel.PRIVATE)
+	public static final class ValueToken implements OptionalToken {
+		
+		private final String value;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
+#### Snippet
+```java
+	 *                         via the message parameter.
+	 */
+	public String expect(String msg) throws ParserException;
+	
+	@AllArgsConstructor(access = AccessLevel.PRIVATE)
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
+#### Snippet
+```java
+	}
+	
+	public static OptionalToken of(String value) {
+		return new ValueToken(value);
+	}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
+#### Snippet
+```java
+	
+	@AllArgsConstructor(access = AccessLevel.PRIVATE)
+	public static final class NoToken implements OptionalToken {
+		
+		@Getter private final ParserException throwable;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
+#### Snippet
+```java
+	
+	@AllArgsConstructor(access = AccessLevel.PRIVATE)
+	public static final class NoToken implements OptionalToken {
+		
+		@Getter private final ParserException throwable;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionalToken.java`
+#### Snippet
+```java
+	}
+	
+	public static OptionalToken empty(ParserException throwable, ChrislieParser parser) {
+		return new NoToken(throwable, parser);
+	}
 ```
 
 ### UnnecessaryModifier
@@ -617,30 +617,6 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieUser.java`
 #### Snippet
 ```java
-	 * @return The string that should be used to {@code ping} the user.
-	 */
-	public String mention();
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieUser.java`
-#### Snippet
-```java
-	 * blocked us or we are otherwise unable to contact user.
-	 */
-	public Optional<? extends ChrislieChannel> directMessage();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieUser.java`
-#### Snippet
-```java
 	 * @return The display name which should be used to talk about the user in human facing messages.
 	 */
 	public String displayName();
@@ -662,50 +638,26 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieUser.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieUser.java`
 #### Snippet
 ```java
-	 * @return The display name which should be used to refer to this channel in human facing messages.
+	 * @return The string that should be used to {@code ping} the user.
 	 */
-	public String displayName();
+	public String mention();
 	
 	/**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieUser.java`
 #### Snippet
 ```java
-	 * @return An internal identifier of this channel. Should be used when storing channel associated data.
+	 * blocked us or we are otherwise unable to contact user.
 	 */
-	public String identifier();
-	
-	/**
-```
+	public Optional<? extends ChrislieChannel> directMessage();
+}
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
-#### Snippet
-```java
-	 * @return {@code true} if this channel represents a one to one communication.
-	 */
-	public boolean isDirectMessage();
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
-#### Snippet
-```java
-	 * @return An optional guild, if this channel is part of a guild.
-	 */
-	public Optional<? extends ChrislieGuild> guild();
-	
-	/**
 ```
 
 ### UnnecessaryModifier
@@ -737,30 +689,6 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
 #### Snippet
 ```java
-	 * @return A potential user if the user can be found in this channel.
-	 */
-	public default Optional<? extends ChrislieUser> user(String identifier) {
-		return users().stream()
-				.filter(user -> user.identifier().equals(identifier))
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
-#### Snippet
-```java
-	 * @return String that will create a mention for the given channel.
-	 */
-	public default String mention() {
-		return displayName();
-	}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
-#### Snippet
-```java
 	 * @return A ChrislieOutput instance that can be used to post to this channel.
 	 */
 	public ChrislieOutput output(LimiterConfig limiterConfig);
@@ -785,11 +713,83 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
 #### Snippet
 ```java
+	 * @return An optional guild, if this channel is part of a guild.
+	 */
+	public Optional<? extends ChrislieGuild> guild();
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
+#### Snippet
+```java
+	 * @return {@code true} if this channel represents a one to one communication.
+	 */
+	public boolean isDirectMessage();
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
+#### Snippet
+```java
+	 * @return An internal identifier of this channel. Should be used when storing channel associated data.
+	 */
+	public String identifier();
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
+#### Snippet
+```java
+	 * @return The display name which should be used to refer to this channel in human facing messages.
+	 */
+	public String displayName();
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
+#### Snippet
+```java
+	 * @return String that will create a mention for the given channel.
+	 */
+	public default String mention() {
+		return displayName();
+	}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
+#### Snippet
+```java
 	 * @return {@code true} if the bot can write messages to this channel.
 	 */
 	public default boolean canTalk() {
 		return true;
 	}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieChannel.java`
+#### Snippet
+```java
+	 * @return A potential user if the user can be found in this channel.
+	 */
+	public default Optional<? extends ChrislieUser> user(String identifier) {
+		return users().stream()
+				.filter(user -> user.identifier().equals(identifier))
 ```
 
 ### UnnecessaryModifier
@@ -811,7 +811,7 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/DiscordChannel.ja
 ```java
 	
 	@Override
-	public Optional<DiscordGuild> guild();
+	public DiscordService service();
 	
 	@Override
 ```
@@ -835,7 +835,7 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/DiscordChannel.ja
 ```java
 	
 	@Override
-	public DiscordService service();
+	public Optional<DiscordGuild> guild();
 	
 	@Override
 ```
@@ -854,134 +854,266 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/DiscordChannel.ja
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionsMap.java`
 #### Snippet
 ```java
-	public PlainOutput append(String s, Object... format);
-	
-	public PlainOutput appendEscape(String s, Object... format);
-	
-	public PlainOutput newLine();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
-#### Snippet
-```java
+	private interface OptionContainer {
 		
-		@Override
-		public PlainOutputSubstituion newLine();
-		
-		@Override
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
-#### Snippet
-```java
-	
-	@SuppressWarnings("ClassReferencesSubclass")
-	public static PlainOutputSubstituion dummy() {
-		return PlainOutputDummy.DUMMY;
-	}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
-#### Snippet
-```java
-	public PlainOutput appendEscape(String s, Object... format);
-	
-	public PlainOutput newLine();
-	
-	public PlainOutput clear();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
-#### Snippet
-```java
-public interface PlainOutput {
-	
-	public PlainOutput append(String s, Object... format);
-	
-	public PlainOutput appendEscape(String s, Object... format);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
-#### Snippet
-```java
+		public void visit(ChrislieParser parser) throws OptionsMapException, ChrislieParser.ParserException;
 	}
 	
-	public static final class JoinPlainOutput implements PlainOutput {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	 * which invocations caused an exception to occur.
+	 */
+	public interface ExceptionHandler {
 		
-		private @NonNull PlainOutput out;
+		/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+		 * @throws ListenerException If accessing the help failed.
+		 */
+		public default Optional<String> help(ChrislieContext ctx, ListenerReference ref) throws ListenerException {return Optional.empty();}
+		
+		/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	 *                           will not set the dirty bit.
+	 */
+	public default void init(Chrisliebot bot, ContextResolver resolver) throws ListenerException {}
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+		 * @param e The exception that was raised during execution.
+		 */
+		public void escalateException(@NonNull ListenerException e);
+		
+		/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+		 *                           is required to resolve the problem.
+		 */
+		public void execute(Invocation invc) throws ListenerException;
+	}
+	
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	@AllArgsConstructor
+	@ToString
+	public static class Envelope {
+		
+		@Getter private final @NonNull ChrislieListener listener;
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
 #### Snippet
 ```java
-	}
-	
-	public static final class JoinPlainOutput implements PlainOutput {
+	@AllArgsConstructor
+	@ToString
+	public static class Envelope {
 		
-		private @NonNull PlainOutput out;
+		@Getter private final @NonNull ChrislieListener listener;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
 #### Snippet
 ```java
+	 *                           not set the dirty bit.
+	 */
+	public default void fromConfig(GsonValidator gson, JsonElement json) throws ListenerException {}
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	 * </p>
+	 */
+	public interface Command extends ChrislieListener {
 		
-		@Override
-		public PlainOutputSubstituion clear();
+		/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	public interface ListenerRunnable {
+		
+		public void run() throws ListenerException;
 	}
 	
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
 #### Snippet
 ```java
-	public PlainOutput newLine();
 	
-	public PlainOutput clear();
-	
-	public default JoinPlainOutput joiner(String delimiter) {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
-#### Snippet
-```java
-	}
-	
-	public static final class PlainOutputDummy implements PlainOutputSubstituion {
+	@ToString(callSuper = true)
+	public static class Invocation extends ListenerMessage {
 		
-		private static final PlainOutputDummy DUMMY = new PlainOutputDummy();
+		public Invocation(@NonNull ExceptionHandler exceptionHandler,
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
 #### Snippet
 ```java
-	}
 	
-	public static final class PlainOutputDummy implements PlainOutputSubstituion {
+	@ToString(callSuper = true)
+	public static class Invocation extends ListenerMessage {
 		
-		private static final PlainOutputDummy DUMMY = new PlainOutputDummy();
+		public Invocation(@NonNull ExceptionHandler exceptionHandler,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	 *                           anything but this exception will cause the dirty bit to be set.
+	 */
+	public default void start(Chrisliebot bot, ContextResolver resolver) throws ListenerException {}
+	
+	
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	
+	@ToString
+	public static class ListenerMessage implements ServiceAttached {
+		
+		public ListenerMessage(@NonNull ExceptionHandler exceptionHandler,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	
+	@ToString
+	public static class ListenerMessage implements ServiceAttached {
+		
+		public ListenerMessage(@NonNull ExceptionHandler exceptionHandler,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	 *                           required to resolve the problem.
+	 */
+	public default void onMessage(ListenerMessage msg, boolean isCommand) throws ListenerException {}
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	 *                           exception will cause the dirty bit to be set.
+	 */
+	public default void stop(Chrisliebot bot, ContextResolver resolver) throws ListenerException {}
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	 * Regular runnable but it can throw {@link ListenerException}.
+	 */
+	public interface ListenerRunnable {
+		
+		public void run() throws ListenerException;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	 * Thrown to indicate failure in listener.
+	 */
+	public static class ListenerException extends Exception {
+		
+		public ListenerException(String message) {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+	 * Thrown to indicate failure in listener.
+	 */
+	public static class ListenerException extends Exception {
+		
+		public ListenerException(String message) {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+#### Snippet
+```java
+		 * @param fn The function to wrap.
+		 */
+		public default void unwrap(@NonNull ListenerRunnable fn) {
+			try {
+				fn.run();
 ```
 
 ### UnnecessaryModifier
@@ -989,11 +1121,23 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
 #### Snippet
 ```java
-	public PlainOutput clear();
-	
-	public default JoinPlainOutput joiner(String delimiter) {
-		return new JoinPlainOutput(this, delimiter);
+		public PlainOutputSubstituion appendSub(String s, Object... format);
+		
+		public PlainOutputSubstituion appendEscapeSub(String s, Object... format);
+		
+		@Override
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+#### Snippet
+```java
 	}
+	
+	public interface PlainOutputSubstituion extends PlainOutput {
+		
+		public PlainOutputSubstituion appendSub(String s, Object... format);
 ```
 
 ### UnnecessaryModifier
@@ -1025,11 +1169,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
 #### Snippet
 ```java
-		public PlainOutputSubstituion appendSub(String s, Object... format);
-		
-		public PlainOutputSubstituion appendEscapeSub(String s, Object... format);
-		
-		@Override
+	public PlainOutput appendEscape(String s, Object... format);
+	
+	public PlainOutput newLine();
+	
+	public PlainOutput clear();
 ```
 
 ### UnnecessaryModifier
@@ -1039,9 +1183,69 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
 ```java
 	}
 	
-	public interface PlainOutputSubstituion extends PlainOutput {
+	public static final class PlainOutputDummy implements PlainOutputSubstituion {
 		
-		public PlainOutputSubstituion appendSub(String s, Object... format);
+		private static final PlainOutputDummy DUMMY = new PlainOutputDummy();
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+#### Snippet
+```java
+	}
+	
+	public static final class PlainOutputDummy implements PlainOutputSubstituion {
+		
+		private static final PlainOutputDummy DUMMY = new PlainOutputDummy();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+#### Snippet
+```java
+public interface PlainOutput {
+	
+	public PlainOutput append(String s, Object... format);
+	
+	public PlainOutput appendEscape(String s, Object... format);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+#### Snippet
+```java
+		
+		@Override
+		public PlainOutputSubstituion clear();
+	}
+	
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+#### Snippet
+```java
+	}
+	
+	public static final class JoinPlainOutput implements PlainOutput {
+		
+		private @NonNull PlainOutput out;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+#### Snippet
+```java
+	}
+	
+	public static final class JoinPlainOutput implements PlainOutput {
+		
+		private @NonNull PlainOutput out;
 ```
 
 ### UnnecessaryModifier
@@ -1058,290 +1262,62 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionsMap.java`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
 #### Snippet
 ```java
-	private interface OptionContainer {
-		
-		public void visit(ChrislieParser parser) throws OptionsMapException, ChrislieParser.ParserException;
+	public PlainOutput newLine();
+	
+	public PlainOutput clear();
+	
+	public default JoinPlainOutput joiner(String delimiter) {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+#### Snippet
+```java
+	
+	@SuppressWarnings("ClassReferencesSubclass")
+	public static PlainOutputSubstituion dummy() {
+		return PlainOutputDummy.DUMMY;
 	}
-	
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
 #### Snippet
 ```java
-	 *                           will not set the dirty bit.
-	 */
-	public default void init(Chrisliebot bot, ContextResolver resolver) throws ListenerException {}
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-		 * @param fn The function to wrap.
-		 */
-		public default void unwrap(@NonNull ListenerRunnable fn) {
-			try {
-				fn.run();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	 * Regular runnable but it can throw {@link ListenerException}.
-	 */
-	public interface ListenerRunnable {
 		
-		public void run() throws ListenerException;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	 *                           required to resolve the problem.
-	 */
-	public default void onMessage(ListenerMessage msg, boolean isCommand) throws ListenerException {}
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	
-	@ToString
-	public static class ListenerMessage implements ServiceAttached {
+		@Override
+		public PlainOutputSubstituion newLine();
 		
-		public ListenerMessage(@NonNull ExceptionHandler exceptionHandler,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	
-	@ToString
-	public static class ListenerMessage implements ServiceAttached {
-		
-		public ListenerMessage(@NonNull ExceptionHandler exceptionHandler,
+		@Override
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
 #### Snippet
 ```java
-		 *                           is required to resolve the problem.
-		 */
-		public void execute(Invocation invc) throws ListenerException;
+	public PlainOutput clear();
+	
+	public default JoinPlainOutput joiner(String delimiter) {
+		return new JoinPlainOutput(this, delimiter);
 	}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutput.java`
+#### Snippet
+```java
+	public PlainOutput append(String s, Object... format);
 	
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
+	public PlainOutput appendEscape(String s, Object... format);
 	
-	@ToString(callSuper = true)
-	public static class Invocation extends ListenerMessage {
-		
-		public Invocation(@NonNull ExceptionHandler exceptionHandler,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	
-	@ToString(callSuper = true)
-	public static class Invocation extends ListenerMessage {
-		
-		public Invocation(@NonNull ExceptionHandler exceptionHandler,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	 *                           not set the dirty bit.
-	 */
-	public default void fromConfig(GsonValidator gson, JsonElement json) throws ListenerException {}
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	 *                           anything but this exception will cause the dirty bit to be set.
-	 */
-	public default void start(Chrisliebot bot, ContextResolver resolver) throws ListenerException {}
-	
-	
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-		 * @param e The exception that was raised during execution.
-		 */
-		public void escalateException(@NonNull ListenerException e);
-		
-		/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	@AllArgsConstructor
-	@ToString
-	public static class Envelope {
-		
-		@Getter private final @NonNull ChrislieListener listener;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	@AllArgsConstructor
-	@ToString
-	public static class Envelope {
-		
-		@Getter private final @NonNull ChrislieListener listener;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	public interface ListenerRunnable {
-		
-		public void run() throws ListenerException;
-	}
-	
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	 * Thrown to indicate failure in listener.
-	 */
-	public static class ListenerException extends Exception {
-		
-		public ListenerException(String message) {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	 * Thrown to indicate failure in listener.
-	 */
-	public static class ListenerException extends Exception {
-		
-		public ListenerException(String message) {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-		 * @throws ListenerException If accessing the help failed.
-		 */
-		public default Optional<String> help(ChrislieContext ctx, ListenerReference ref) throws ListenerException {return Optional.empty();}
-		
-		/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	 *                           exception will cause the dirty bit to be set.
-	 */
-	public default void stop(Chrisliebot bot, ContextResolver resolver) throws ListenerException {}
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	 * </p>
-	 */
-	public interface Command extends ChrislieListener {
-		
-		/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/ChrislieListener.java`
-#### Snippet
-```java
-	 * which invocations caused an exception to occur.
-	 */
-	public interface ExceptionHandler {
-		
-		/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieGuild.java`
-#### Snippet
-```java
-	 * @return A list of all users that are currently part of this guild.
-	 */
-	public default Collection<? extends ChrislieUser> users() {
-		return channels().stream()
-				.map(ChrislieChannel::users)
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieGuild.java`
-#### Snippet
-```java
-	 * @return The display name which should be used to refer to this guild in human facing messages.
-	 */
-	public String displayName();
-	
-	/**
+	public PlainOutput newLine();
 ```
 
 ### UnnecessaryModifier
@@ -1361,11 +1337,83 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieGuild.java`
 #### Snippet
 ```java
+	 * @return The display name which should be used to refer to this guild in human facing messages.
+	 */
+	public String displayName();
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieGuild.java`
+#### Snippet
+```java
+	 * @return A list of all users that are currently part of this guild.
+	 */
+	public default Collection<? extends ChrislieUser> users() {
+		return channels().stream()
+				.map(ChrislieChannel::users)
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieGuild.java`
+#### Snippet
+```java
 	 * @return An internal identifier of this guild. Should be used when storing guild associated data.
 	 */
 	public String identifier();
 	
 	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/haskell/HaskellService.java`
+#### Snippet
+```java
+	@Data
+	@Builder
+	public static class Param {
+		private String proc;
+		private Args args;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/chrisliebaer/chrisliebot/command/haskell/HaskellService.java`
+#### Snippet
+```java
+	@Data
+	@Builder
+	public static class Param {
+		private String proc;
+		private Args args;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/haskell/HaskellService.java`
+#### Snippet
+```java
+	@Data
+	@Builder
+	public static class Args {
+		private String expression;
+		private String timelimit;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/chrisliebaer/chrisliebot/command/haskell/HaskellService.java`
+#### Snippet
+```java
+	@Data
+	@Builder
+	public static class Args {
+		private String expression;
+		private String timelimit;
 ```
 
 ### UnnecessaryModifier
@@ -1387,30 +1435,6 @@ in `src/main/java/chrisliebaer/chrisliebot/command/haskell/HaskellService.java`
 ```java
 	@Data
 	@Builder
-	public static class Args {
-		private String expression;
-		private String timelimit;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/command/haskell/HaskellService.java`
-#### Snippet
-```java
-	@Data
-	@Builder
-	public static class Args {
-		private String expression;
-		private String timelimit;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/haskell/HaskellService.java`
-#### Snippet
-```java
-	@Data
-	@Builder
 	public static class Output {
 		private int returncode;
 		private String output;
@@ -1426,30 +1450,6 @@ in `src/main/java/chrisliebaer/chrisliebot/command/haskell/HaskellService.java`
 	public static class Output {
 		private int returncode;
 		private String output;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/haskell/HaskellService.java`
-#### Snippet
-```java
-	@Data
-	@Builder
-	public static class Param {
-		private String proc;
-		private Args args;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/command/haskell/HaskellService.java`
-#### Snippet
-```java
-	@Data
-	@Builder
-	public static class Param {
-		private String proc;
-		private Args args;
 ```
 
 ### UnnecessaryModifier
@@ -1462,6 +1462,18 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieMessage.java`
 	public String message();
 	
 	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieMessage.java`
+#### Snippet
+```java
+public interface ChrislieMessage extends ServiceAttached {
+	
+	public ChrislieChannel channel();
+	
+	public ChrislieUser user();
 ```
 
 ### UnnecessaryModifier
@@ -1493,18 +1505,6 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieMessage.java`
 #### Snippet
 ```java
-	 * @return A possible {@link ChrislieDispatcher.CommandParse} object.
-	 */
-	public default Optional<ChrislieDispatcher.CommandParse> forcedInvocation() {
-		return Optional.empty();
-	}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieMessage.java`
-#### Snippet
-```java
 	 * @return An ouput instance for the channel that this message was received in.
 	 */
 	public default ChrislieOutput reply(LimiterConfig limiter) {
@@ -1517,11 +1517,311 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieMessage.java`
 #### Snippet
 ```java
-public interface ChrislieMessage extends ServiceAttached {
+	 * @return A possible {@link ChrislieDispatcher.CommandParse} object.
+	 */
+	public default Optional<ChrislieDispatcher.CommandParse> forcedInvocation() {
+		return Optional.empty();
+	}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
+#### Snippet
+```java
+	public boolean check(ChrislieGuild guild);
 	
-	public ChrislieChannel channel();
+	public default void fromJson(GsonValidator gson, JsonElement json) throws SelectorException {}
 	
-	public ChrislieUser user();
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
+#### Snippet
+```java
+	public boolean check(ChrislieMessage message);
+	
+	public boolean check(ChrislieUser user);
+	
+	public boolean check(ChrislieChannel channel);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
+#### Snippet
+```java
+	public boolean check(ChrislieService service);
+	
+	public boolean check(ChrislieGuild guild);
+	
+	public default void fromJson(GsonValidator gson, JsonElement json) throws SelectorException {}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
+#### Snippet
+```java
+	public boolean check(ChrislieChannel channel);
+	
+	public boolean check(ChrislieService service);
+	
+	public boolean check(ChrislieGuild guild);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
+#### Snippet
+```java
+	 * Thrown to indicate that the selector was unable to load the provided config.
+	 */
+	public static class SelectorException extends Exception {
+		
+		public SelectorException(String message) {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
+#### Snippet
+```java
+	 * Thrown to indicate that the selector was unable to load the provided config.
+	 */
+	public static class SelectorException extends Exception {
+		
+		public SelectorException(String message) {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
+#### Snippet
+```java
+	public boolean check(ChrislieUser user);
+	
+	public boolean check(ChrislieChannel channel);
+	
+	public boolean check(ChrislieService service);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
+#### Snippet
+```java
+public interface Selector {
+	
+	public boolean check(ChrislieMessage message);
+	
+	public boolean check(ChrislieUser user);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	}
+	
+	public void send(); // TODO: implement callback for message transmission
+	
+	private static void plainSimpleSet(String s, PlainOutput plainOutput) {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	}
+	
+	public default void markAsError() {}
+	
+	public ChrislieOutput color(Color color);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public ChrislieOutput field(String field, String value, boolean inline);
+	
+	public default ChrislieOutput field(String field, String value) {
+		return field(field, value, true);
+	}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public ChrislieOutput authorIcon(String url);
+	
+	public ChrislieOutput field(String field, String value, boolean inline);
+	
+	public default ChrislieOutput field(String field, String value) {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public ChrislieOutput author(String name);
+	
+	public ChrislieOutput authorUrl(String url);
+	
+	public ChrislieOutput authorIcon(String url);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public PlainOutput.PlainOutputSubstituion convert();
+	
+	public default ChrislieOutput convert(String s) {
+		convert().clear().appendEscapeSub(s);
+		return this;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	}
+	
+	public default ChrislieOutput plain(Consumer<PlainOutput> out) {
+		out.accept(plain());
+		return this;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	}
+	
+	public default ChrislieOutput description(Consumer<PlainOutput> out) {
+		out.accept(description());
+		return this;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public ChrislieOutput image(String url);
+	
+	public ChrislieOutput thumbnail(String url);
+	
+	public @NonNull PlainOutput description();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public default void markAsError() {}
+	
+	public ChrislieOutput color(Color color);
+	
+	public ChrislieOutput color(int color);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public ChrislieOutput color(Color color);
+	
+	public ChrislieOutput color(int color);
+	
+	public ChrislieOutput author(String name);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	}
+	
+	public PlainOutput.PlainOutputSubstituion convert();
+	
+	public default ChrislieOutput convert(String s) {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+public interface ChrislieOutput {
+	
+	public ChrislieOutput title(String title, String url);
+	
+	public default ChrislieOutput title(String title) {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public ChrislieOutput color(int color);
+	
+	public ChrislieOutput author(String name);
+	
+	public ChrislieOutput authorUrl(String url);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public @NonNull PlainOutput description();
+	
+	public default ChrislieOutput description(String s) {
+		plainSimpleSet(s, description());
+		return this;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	}
+	
+	public PlainOutput replace();
+	
+	public default ChrislieOutput replace(String s) {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	}
+	
+	public ChrislieOutput footer(String text, String iconUrl);
+	
+	public default ChrislieOutput footer(String text) {
 ```
 
 ### UnnecessaryModifier
@@ -1534,6 +1834,126 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/ServiceBootstrap.java`
 	public ChrislieService service(Chrisliebot chrisliebot, String identifier) throws Exception;
 }
 
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public ChrislieOutput title(String title, String url);
+	
+	public default ChrislieOutput title(String title) {
+		return title(title, null);
+	}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	}
+	
+	public default ChrislieOutput replace(Consumer<PlainOutput> out) {
+		out.accept(replace());
+		return this;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	}
+	
+	public PlainOutput plain();
+	
+	public default ChrislieOutput plain(String s) {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public ChrislieOutput authorUrl(String url);
+	
+	public ChrislieOutput authorIcon(String url);
+	
+	public ChrislieOutput field(String field, String value, boolean inline);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	}
+	
+	public default ChrislieOutput convert(Consumer<PlainOutput.PlainOutputSubstituion> out) {
+		out.accept(convert());
+		return this;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public PlainOutput plain();
+	
+	public default ChrislieOutput plain(String s) {
+		plainSimpleSet(s, plain());
+		return this;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public ChrislieOutput footer(String text, String iconUrl);
+	
+	public default ChrislieOutput footer(String text) {
+		return footer(text, null);
+	}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public ChrislieOutput thumbnail(String url);
+	
+	public @NonNull PlainOutput description();
+	
+	public default ChrislieOutput description(String s) {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	}
+	
+	public ChrislieOutput image(String url);
+	
+	public ChrislieOutput thumbnail(String url);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
+	public PlainOutput replace();
+	
+	public default ChrislieOutput replace(String s) {
+		plainSimpleSet(s, replace());
+		return this;
 ```
 
 ### UnnecessaryModifier
@@ -1586,66 +2006,6 @@ in `src/main/java/chrisliebaer/chrisliebot/command/reddit/RedditService.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
-#### Snippet
-```java
-		}
-		
-		public T getOrFail(FlexConf flex) throws ChrislieListener.ListenerException;
-		
-		public default T getOrFail(ChrislieListener.ListenerMessage m) throws ChrislieListener.ListenerException {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
-#### Snippet
-```java
-	}
-	
-	public static interface Provider<T> {
-		
-		public Optional<T> get(FlexConf flex);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
-#### Snippet
-```java
-		public Optional<T> get(FlexConf flex);
-		
-		public default Optional<T> get(ChrislieListener.ListenerMessage m) {
-			return get(m.ref().flexConf());
-		}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
-#### Snippet
-```java
-		public T getOrFail(FlexConf flex) throws ChrislieListener.ListenerException;
-		
-		public default T getOrFail(ChrislieListener.ListenerMessage m) throws ChrislieListener.ListenerException {
-			return getOrFail(m.ref().flexConf());
-		}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
-#### Snippet
-```java
-	public static interface Provider<T> {
-		
-		public Optional<T> get(FlexConf flex);
-		
-		public default Optional<T> get(ChrislieListener.ListenerMessage m) {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/command/memedb/MemeDbCommand.java`
 #### Snippet
 ```java
@@ -1658,446 +2018,38 @@ in `src/main/java/chrisliebaer/chrisliebot/command/memedb/MemeDbCommand.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+in `src/main/java/chrisliebaer/chrisliebot/config/flex/FlexConf.java`
 #### Snippet
 ```java
-	}
-	
-	public PlainOutput plain();
-	
-	public default ChrislieOutput plain(String s) {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public ChrislieOutput image(String url);
-	
-	public ChrislieOutput thumbnail(String url);
-	
-	public @NonNull PlainOutput description();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public default void markAsError() {}
-	
-	public ChrislieOutput color(Color color);
-	
-	public ChrislieOutput color(int color);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	}
-	
-	public PlainOutput replace();
-	
-	public default ChrislieOutput replace(String s) {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public PlainOutput.PlainOutputSubstituion convert();
-	
-	public default ChrislieOutput convert(String s) {
-		convert().clear().appendEscapeSub(s);
-		return this;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public ChrislieOutput authorUrl(String url);
-	
-	public ChrislieOutput authorIcon(String url);
-	
-	public ChrislieOutput field(String field, String value, boolean inline);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public ChrislieOutput authorIcon(String url);
-	
-	public ChrislieOutput field(String field, String value, boolean inline);
-	
-	public default ChrislieOutput field(String field, String value) {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public ChrislieOutput title(String title, String url);
-	
-	public default ChrislieOutput title(String title) {
-		return title(title, null);
-	}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	}
-	
-	public ChrislieOutput footer(String text, String iconUrl);
-	
-	public default ChrislieOutput footer(String text) {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	}
-	
-	public default void markAsError() {}
-	
-	public ChrislieOutput color(Color color);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public ChrislieOutput color(Color color);
-	
-	public ChrislieOutput color(int color);
-	
-	public ChrislieOutput author(String name);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public PlainOutput replace();
-	
-	public default ChrislieOutput replace(String s) {
-		plainSimpleSet(s, replace());
-		return this;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	}
-	
-	public void send(); // TODO: implement callback for message transmission
-	
-	private static void plainSimpleSet(String s, PlainOutput plainOutput) {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public ChrislieOutput field(String field, String value, boolean inline);
-	
-	public default ChrislieOutput field(String field, String value) {
-		return field(field, value, true);
-	}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public ChrislieOutput footer(String text, String iconUrl);
-	
-	public default ChrislieOutput footer(String text) {
-		return footer(text, null);
-	}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	}
-	
-	public PlainOutput.PlainOutputSubstituion convert();
-	
-	public default ChrislieOutput convert(String s) {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	}
-	
-	public default ChrislieOutput description(Consumer<PlainOutput> out) {
-		out.accept(description());
-		return this;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public @NonNull PlainOutput description();
-	
-	public default ChrislieOutput description(String s) {
-		plainSimpleSet(s, description());
-		return this;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public ChrislieOutput thumbnail(String url);
-	
-	public @NonNull PlainOutput description();
-	
-	public default ChrislieOutput description(String s) {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-public interface ChrislieOutput {
-	
-	public ChrislieOutput title(String title, String url);
-	
-	public default ChrislieOutput title(String title) {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public ChrislieOutput color(int color);
-	
-	public ChrislieOutput author(String name);
-	
-	public ChrislieOutput authorUrl(String url);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public ChrislieOutput author(String name);
-	
-	public ChrislieOutput authorUrl(String url);
-	
-	public ChrislieOutput authorIcon(String url);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	}
-	
-	public default ChrislieOutput plain(Consumer<PlainOutput> out) {
-		out.accept(plain());
-		return this;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	}
-	
-	public default ChrislieOutput convert(Consumer<PlainOutput.PlainOutputSubstituion> out) {
-		out.accept(convert());
-		return this;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	public PlainOutput plain();
-	
-	public default ChrislieOutput plain(String s) {
-		plainSimpleSet(s, plain());
-		return this;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	}
-	
-	public default ChrislieOutput replace(Consumer<PlainOutput> out) {
-		out.accept(replace());
-		return this;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	}
-	
-	public ChrislieOutput image(String url);
-	
-	public ChrislieOutput thumbnail(String url);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
-#### Snippet
-```java
-	public boolean check(ChrislieChannel channel);
-	
-	public boolean check(ChrislieService service);
-	
-	public boolean check(ChrislieGuild guild);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
-#### Snippet
-```java
-public interface Selector {
-	
-	public boolean check(ChrislieMessage message);
-	
-	public boolean check(ChrislieUser user);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
-#### Snippet
-```java
-	public boolean check(ChrislieUser user);
-	
-	public boolean check(ChrislieChannel channel);
-	
-	public boolean check(ChrislieService service);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
-#### Snippet
-```java
-	 * Thrown to indicate that the selector was unable to load the provided config.
-	 */
-	public static class SelectorException extends Exception {
+		}
 		
-		public SelectorException(String message) {
+		public default Optional<Object> get(String key, Type type) {
+			return Optional.empty();
+		}
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/config/flex/FlexConf.java`
 #### Snippet
 ```java
-	 * Thrown to indicate that the selector was unable to load the provided config.
-	 */
-	public static class SelectorException extends Exception {
+	public static interface Resolver {
 		
-		public SelectorException(String message) {
+		public default <V> Optional<V> get(String key, Class<V> clazz) {
+			return Optional.empty();
+		}
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
+Modifier `static` is redundant for inner interfaces
+in `src/main/java/chrisliebaer/chrisliebot/config/flex/FlexConf.java`
 #### Snippet
 ```java
-	public boolean check(ChrislieGuild guild);
-	
-	public default void fromJson(GsonValidator gson, JsonElement json) throws SelectorException {}
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
-#### Snippet
-```java
-	public boolean check(ChrislieMessage message);
-	
-	public boolean check(ChrislieUser user);
-	
-	public boolean check(ChrislieChannel channel);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/scope/Selector.java`
-#### Snippet
-```java
-	public boolean check(ChrislieService service);
-	
-	public boolean check(ChrislieGuild guild);
-	
-	public default void fromJson(GsonValidator gson, JsonElement json) throws SelectorException {}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ServiceAttached.java`
-#### Snippet
-```java
-public interface ServiceAttached {
-	
-	public ChrislieService service();
-	
-	public default Chrisliebot bot() {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ServiceAttached.java`
-#### Snippet
-```java
-	public ChrislieService service();
-	
-	public default Chrisliebot bot() {
-		return service().bot();
-	}
+	 * that multiple lookups for the same key may or may not return the same instance.
+	 */
+	public static interface Resolver {
+		
+		public default <V> Optional<V> get(String key, Class<V> clazz) {
 ```
 
 ### UnnecessaryModifier
@@ -2105,45 +2057,9 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
 #### Snippet
 ```java
-	 * @throws ServiceException If a proper shutdown is not possible.
+	 * @return An optional containing the guild if the given identifier could be resolved.
 	 */
-	public void exit() throws ServiceException;
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
-#### Snippet
-```java
-	 * @return Unique indentifier of this service.
-	 */
-	public String identifier();
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
-#### Snippet
-```java
-	 * @return An optional containing the channel if the given identifier could be resolved.
-	 */
-	public Optional<? extends ChrislieChannel> channel(String identifier);
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
-#### Snippet
-```java
-	 * @return An optional containing the user if the given identifier could be resolved.
-	 */
-	public Optional<? extends ChrislieUser> user(String identifier);
+	public Optional<? extends ChrislieGuild> guild(String identifier);
 	
 	/**
 ```
@@ -2177,6 +2093,54 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
 #### Snippet
 ```java
+	 * @param resolver The reesolver that is going to be used by this instance.
+	 */
+	public default void announceResolver(ContextResolver resolver) {}
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
+#### Snippet
+```java
+	 * Implementing service is expected to, if possible, drop connection and reconnect to network.
+	 */
+	public default void reconnect() {}
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
+#### Snippet
+```java
+	 * @return Unique indentifier of this service.
+	 */
+	public String identifier();
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
+#### Snippet
+```java
+	 * @return An optional containing the user if the given identifier could be resolved.
+	 */
+	public Optional<? extends ChrislieUser> user(String identifier);
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
+#### Snippet
+```java
 	 * @return A user that represents the online identity of this service itself.
 	 */
 	public ChrislieUser botUser();
@@ -2189,9 +2153,9 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
 #### Snippet
 ```java
-	 * @return An optional containing the guild if the given identifier could be resolved.
+	 * @return An optional containing the channel if the given identifier could be resolved.
 	 */
-	public Optional<? extends ChrislieGuild> guild(String identifier);
+	public Optional<? extends ChrislieChannel> channel(String identifier);
 	
 	/**
 ```
@@ -2225,6 +2189,18 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
 #### Snippet
 ```java
+	 * @throws ServiceException If a proper shutdown is not possible.
+	 */
+	public void exit() throws ServiceException;
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
+#### Snippet
+```java
 	 * @throws Exception If a unrecoverable error is occured that prevents the service from ever entering a fully operational state.
 	 */
 	public void awaitReady() throws Exception;
@@ -2234,26 +2210,26 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ServiceAttached.java`
 #### Snippet
 ```java
-	 * Implementing service is expected to, if possible, drop connection and reconnect to network.
-	 */
-	public default void reconnect() {}
+public interface ServiceAttached {
 	
-	/**
+	public ChrislieService service();
+	
+	public default Chrisliebot bot() {
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieService.java`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ServiceAttached.java`
 #### Snippet
 ```java
-	 * @param resolver The reesolver that is going to be used by this instance.
-	 */
-	public default void announceResolver(ContextResolver resolver) {}
+	public ChrislieService service();
 	
-	/**
+	public default Chrisliebot bot() {
+		return service().bot();
+	}
 ```
 
 ### UnnecessaryModifier
@@ -2261,23 +2237,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/command/mensa/api/MensaApiService.java`
 #### Snippet
 ```java
-	
-	@GET("general/")
-	public Call<MensaApiMeta> getMeta(@Header("Authorization") String credentials);
 	
 	@GET("canteen/")
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/command/mensa/api/MensaApiService.java`
-#### Snippet
-```java
-	 * @return Not really unfucked but still better than what it was before and actually usable.
-	 */
-	public static Map<String, Map<Long, Map<String, List<MensaApiMeal>>>> unfuck(GsonValidator gson, JsonElement json) {
-		if (json == null)
-			return null;
+	public Call<JsonElement> getCanteen(@Header("Authorization") String credentials);
+	
+	/**
 ```
 
 ### UnnecessaryModifier
@@ -2321,47 +2285,83 @@ Modifier `public` is redundant for interface members
 in `src/main/java/chrisliebaer/chrisliebot/command/mensa/api/MensaApiService.java`
 #### Snippet
 ```java
+	 * @return Not really unfucked but still better than what it was before and actually usable.
+	 */
+	public static Map<String, Map<Long, Map<String, List<MensaApiMeal>>>> unfuck(GsonValidator gson, JsonElement json) {
+		if (json == null)
+			return null;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/command/mensa/api/MensaApiService.java`
+#### Snippet
+```java
+	
+	@GET("general/")
+	public Call<MensaApiMeta> getMeta(@Header("Authorization") String credentials);
 	
 	@GET("canteen/")
-	public Call<JsonElement> getCanteen(@Header("Authorization") String credentials);
-	
-	/**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/flex/FlexConf.java`
+in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
 #### Snippet
 ```java
-		}
+		public T getOrFail(FlexConf flex) throws ChrislieListener.ListenerException;
 		
-		public default Optional<Object> get(String key, Type type) {
-			return Optional.empty();
+		public default T getOrFail(ChrislieListener.ListenerMessage m) throws ChrislieListener.ListenerException {
+			return getOrFail(m.ref().flexConf());
 		}
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/chrisliebaer/chrisliebot/config/flex/FlexConf.java`
+in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
 #### Snippet
 ```java
-	public static interface Resolver {
+	public static interface Provider<T> {
 		
-		public default <V> Optional<V> get(String key, Class<V> clazz) {
-			return Optional.empty();
-		}
+		public Optional<T> get(FlexConf flex);
+		
+		public default Optional<T> get(ChrislieListener.ListenerMessage m) {
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
-in `src/main/java/chrisliebaer/chrisliebot/config/flex/FlexConf.java`
+in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
 #### Snippet
 ```java
-	 * that multiple lookups for the same key may or may not return the same instance.
-	 */
-	public static interface Resolver {
+	}
+	
+	public static interface Provider<T> {
 		
-		public default <V> Optional<V> get(String key, Class<V> clazz) {
+		public Optional<T> get(FlexConf flex);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
+#### Snippet
+```java
+		}
+		
+		public T getOrFail(FlexConf flex) throws ChrislieListener.ListenerException;
+		
+		public default T getOrFail(ChrislieListener.ListenerMessage m) throws ChrislieListener.ListenerException {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
+#### Snippet
+```java
+		public Optional<T> get(FlexConf flex);
+		
+		public default Optional<T> get(ChrislieListener.ListenerMessage m) {
+			return get(m.ref().flexConf());
+		}
 ```
 
 ### UnnecessaryModifier
@@ -2499,32 +2499,7 @@ in `src/main/java/chrisliebaer/chrisliebot/SharedResources.java`
 		});
 ```
 
-## DeprecatedIsStillUsed
-### DeprecatedIsStillUsed
-Deprecated member 'search' is still used
-in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
-#### Snippet
-```java
-	@GET("v3/search/{type}?device=desktop&locale=" + DEFAULT_LOCALE)
-	@SuppressWarnings({"MissingDeprecatedAnnotation"})
-	public Call<QwantResponse> search(
-			@Path("type") String type,
-			@Query("t") String t,
-```
-
 ## OptionalContainsCollection
-### OptionalContainsCollection
-'Optional' contains collection `Map`
-in `src/main/java/chrisliebaer/chrisliebot/command/generator/GeneratorCommand.java`
-#### Snippet
-```java
-			
-			try {
-				Optional<Map<String, String>> outMap = cache.get(gen);
-				if (outMap.isEmpty()) {
-					generatorEmpty = true;
-```
-
 ### OptionalContainsCollection
 'Optional' contains collection `Map`
 in `src/main/java/chrisliebaer/chrisliebot/command/generator/GeneratorCommand.java`
@@ -2535,6 +2510,18 @@ in `src/main/java/chrisliebaer/chrisliebot/command/generator/GeneratorCommand.ja
 						public Optional<Map<String, String>> load(String key) throws ListenerException {
 							var generator = generators.get(key);
 							
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `Map`
+in `src/main/java/chrisliebaer/chrisliebot/command/generator/GeneratorCommand.java`
+#### Snippet
+```java
+			
+			try {
+				Optional<Map<String, String>> outMap = cache.get(gen);
+				if (outMap.isEmpty()) {
+					generatorEmpty = true;
 ```
 
 ### OptionalContainsCollection
@@ -2561,43 +2548,20 @@ in `src/main/java/chrisliebaer/chrisliebot/command/mensa/MensaCommand.java`
 		}
 ```
 
+## DeprecatedIsStillUsed
+### DeprecatedIsStillUsed
+Deprecated member 'search' is still used
+in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
+#### Snippet
+```java
+	@GET("v3/search/{type}?device=desktop&locale=" + DEFAULT_LOCALE)
+	@SuppressWarnings({"MissingDeprecatedAnnotation"})
+	public Call<QwantResponse> search(
+			@Path("type") String type,
+			@Query("t") String t,
+```
+
 ## FieldAccessedSynchronizedAndUnsynchronized
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `ctxResolver` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/DiscordService.java`
-#### Snippet
-```java
-	@Setter private Consumer<ChrislieMessage> sink;
-	
-	private ContextResolver ctxResolver;
-	
-	// keeps track of which guilds we have already registered our commands
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `jda` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/DiscordService.java`
-#### Snippet
-```java
-	
-	@Getter private Chrisliebot bot;
-	@Getter private JDA jda;
-	@Getter private String identifier;
-	private boolean updateSlashCommands;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `resolver` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifier.java`
-#### Snippet
-```java
-	
-	private Chrisliebot bot;
-	private ContextResolver resolver;
-	private List<TimelineSubscription> subscriptions;
-	
-```
-
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `twitter` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifier.java`
@@ -2611,15 +2575,15 @@ in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifi
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `bot` is accessed in both synchronized and unsynchronized contexts
+Field `subscriptions` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifier.java`
 #### Snippet
 ```java
-	private boolean shutdown;
-	
 	private Chrisliebot bot;
 	private ContextResolver resolver;
 	private List<TimelineSubscription> subscriptions;
+	
+	@Override
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2635,15 +2599,51 @@ in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifi
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `subscriptions` is accessed in both synchronized and unsynchronized contexts
+Field `resolver` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifier.java`
 #### Snippet
 ```java
+	
 	private Chrisliebot bot;
 	private ContextResolver resolver;
 	private List<TimelineSubscription> subscriptions;
 	
-	@Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `bot` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifier.java`
+#### Snippet
+```java
+	private boolean shutdown;
+	
+	private Chrisliebot bot;
+	private ContextResolver resolver;
+	private List<TimelineSubscription> subscriptions;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `jda` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/DiscordService.java`
+#### Snippet
+```java
+	
+	@Getter private Chrisliebot bot;
+	@Getter private JDA jda;
+	@Getter private String identifier;
+	private boolean updateSlashCommands;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `ctxResolver` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/DiscordService.java`
+#### Snippet
+```java
+	@Setter private Consumer<ChrislieMessage> sink;
+	
+	private ContextResolver ctxResolver;
+	
+	// keeps track of which guilds we have already registered our commands
 ```
 
 ## RedundantFieldInitialization
@@ -2672,18 +2672,6 @@ in `src/main/java/chrisliebaer/chrisliebot/command/timer/TimerCommand.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/AbstractDiscordOutput.java`
-#### Snippet
-```java
-	private boolean colorSet = false;
-	
-	private URL imageUrl = null; // ideally, embed builder would allow us to just access the god damn thing
-	
-	private final Optional<Color> stackTraceColor = colorFromCallstack();
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/AbstractDiscordOutput.java`
 #### Snippet
@@ -2693,6 +2681,18 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/AbstractDiscordOu
 	private boolean colorSet = false;
 	
 	private URL imageUrl = null; // ideally, embed builder would allow us to just access the god damn thing
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/discord/AbstractDiscordOutput.java`
+#### Snippet
+```java
+	private boolean colorSet = false;
+	
+	private URL imageUrl = null; // ideally, embed builder would allow us to just access the god damn thing
+	
+	private final Optional<Color> stackTraceColor = colorFromCallstack();
 ```
 
 ### RedundantFieldInitialization
@@ -2757,6 +2757,30 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/irc/IrcBootstrap.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `message`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/LimiterConfig.java`
+#### Snippet
+```java
+		
+		// remove illegal characters
+		message = message.replace("\0", "");
+		
+		if (stripLineBreak)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `message`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/LimiterConfig.java`
+#### Snippet
+```java
+		
+		if (stripLineBreak)
+			message = C.NEWLINE_PATTERN.matcher(message).replaceAll(" ");
+		
+		receiver.sendMultiLineMessage(message, this::split);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `limit`
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/LimiterConfig.java`
 #### Snippet
@@ -2802,30 +2826,6 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/LimiterConfig.java`
 			limit -= prefix.length();
 		}
 		
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `message`
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/LimiterConfig.java`
-#### Snippet
-```java
-		
-		// remove illegal characters
-		message = message.replace("\0", "");
-		
-		if (stripLineBreak)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `message`
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/LimiterConfig.java`
-#### Snippet
-```java
-		
-		if (stripLineBreak)
-			message = C.NEWLINE_PATTERN.matcher(message).replaceAll(" ");
-		
-		receiver.sendMultiLineMessage(message, this::split);
 ```
 
 ### AssignmentToMethodParameter
@@ -2877,15 +2877,15 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutputImpl.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `flex`
-in `src/main/java/chrisliebaer/chrisliebot/config/JsonBotConfig.java`
+Assignment to method parameter `day`
+in `src/main/java/chrisliebaer/chrisliebot/C.java`
 #### Snippet
 ```java
 	
-	private static FlexConf instanceFlexConf(GsonValidator gson, Map<String, JsonElement> flex) {
-		flex = flex == null ? Map.of() : flex;
-		return JsonFlexConfResolver.of(gson, Collections.unmodifiableMap(flex));
-	}
+	public static Optional<DayOfWeek> stringToDay(@NonNull String day) {
+		day = day.trim().toLowerCase();
+		
+		return switch (day) {
 ```
 
 ### AssignmentToMethodParameter
@@ -2937,15 +2937,15 @@ in `src/main/java/chrisliebaer/chrisliebot/C.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `day`
-in `src/main/java/chrisliebaer/chrisliebot/C.java`
+Assignment to method parameter `flex`
+in `src/main/java/chrisliebaer/chrisliebot/config/JsonBotConfig.java`
 #### Snippet
 ```java
 	
-	public static Optional<DayOfWeek> stringToDay(@NonNull String day) {
-		day = day.trim().toLowerCase();
-		
-		return switch (day) {
+	private static FlexConf instanceFlexConf(GsonValidator gson, Map<String, JsonElement> flex) {
+		flex = flex == null ? Map.of() : flex;
+		return JsonFlexConfResolver.of(gson, Collections.unmodifiableMap(flex));
+	}
 ```
 
 ## RegExpSimplifiable
@@ -2962,30 +2962,6 @@ public class SedListener implements ChrislieListener {
 ```
 
 ## ReturnNull
-### ReturnNull
-Return of `null`
-in `src/main/java/chrisliebaer/chrisliebot/command/generator/GeneratorCommand.java`
-#### Snippet
-```java
-				if (outMap.isEmpty()) {
-					generatorEmpty = true;
-					return null;
-				}
-				
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/chrisliebaer/chrisliebot/command/generator/GeneratorCommand.java`
-#### Snippet
-```java
-				return value == null ? "UNKOWN_LOOKUP(" + key + ")" : value;
-			} catch (ExecutionException e) {
-				return null;
-			}
-		}
-```
-
 ### ReturnNull
 Return of `null`
 in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
@@ -3017,6 +2993,30 @@ in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
 ```java
 				}
 				
+				return null;
+			}
+		}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/chrisliebaer/chrisliebot/command/generator/GeneratorCommand.java`
+#### Snippet
+```java
+				if (outMap.isEmpty()) {
+					generatorEmpty = true;
+					return null;
+				}
+				
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/chrisliebaer/chrisliebot/command/generator/GeneratorCommand.java`
+#### Snippet
+```java
+				return value == null ? "UNKOWN_LOOKUP(" + key + ")" : value;
+			} catch (ExecutionException e) {
 				return null;
 			}
 		}
@@ -3075,11 +3075,11 @@ Return of `null`
 in `src/main/java/chrisliebaer/chrisliebot/C.java`
 #### Snippet
 ```java
-	public static String stripHtml(String html) {
-		if (html == null)
+	public static String squashFormatting(String s) {
+		if (s == null)
 			return null;
-		return Jsoup.parse(html).text();
-	}
+		
+		// TODO: takes the input string and attempts to reduce the amount of format codes by merging overlapping or unused definitions
 ```
 
 ### ReturnNull
@@ -3087,11 +3087,11 @@ Return of `null`
 in `src/main/java/chrisliebaer/chrisliebot/C.java`
 #### Snippet
 ```java
-	public static String squashFormatting(String s) {
-		if (s == null)
+	public static String stripHtml(String html) {
+		if (html == null)
 			return null;
-		
-		// TODO: takes the input string and attempts to reduce the amount of format codes by merging overlapping or unused definitions
+		return Jsoup.parse(html).text();
+	}
 ```
 
 ### ReturnNull
@@ -3325,18 +3325,6 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/irc/IrcService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/irc/IrcOutput.java`
-#### Snippet
-```java
-	};
-	
-	public IrcOutput(@NonNull Function<String, String> escaper, @NonNull Consumer<String> sink) {
-		this.escaper = escaper;
-		this.sink = sink;
-```
-
-### BoundedWildcard
 Can generalize to `? extends Status`
 in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifier.java`
 #### Snippet
@@ -3346,6 +3334,18 @@ in `src/main/java/chrisliebaer/chrisliebot/command/twitter/TwitterTimelineNotifi
 	private void postTweets(TimelineSubscription sub, List<Status> tweets) throws ListenerException {
 		if (tweets.isEmpty())
 			return;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/irc/IrcOutput.java`
+#### Snippet
+```java
+	};
+	
+	public IrcOutput(@NonNull Function<String, String> escaper, @NonNull Consumer<String> sink) {
+		this.escaper = escaper;
+		this.sink = sink;
 ```
 
 ### BoundedWildcard
@@ -3373,15 +3373,15 @@ in `src/main/java/chrisliebaer/chrisliebot/util/parser/OptionsMap.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends User`
-in `src/main/java/chrisliebaer/chrisliebot/util/IrcToSqlLogger.java`
+Can generalize to `? super String`
+in `src/main/java/chrisliebaer/chrisliebot/config/CoreConfig.java`
 #### Snippet
 ```java
+	}
 	
-	@Handler
-	public void logChannel(ActorChannelMessageEventBase<User> ev) {
-		MessageType type = null;
-		if (ev instanceof ChannelCtcpEvent) {
+	private static void ensureDisjoint(Set<String> set, Set<String> serviceKeys) {
+		for (String s : serviceKeys) {
+			if (set.contains(s))
 ```
 
 ### BoundedWildcard
@@ -3397,15 +3397,15 @@ in `src/main/java/chrisliebaer/chrisliebot/util/IrcToSqlLogger.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/chrisliebaer/chrisliebot/config/CoreConfig.java`
+Can generalize to `? extends User`
+in `src/main/java/chrisliebaer/chrisliebot/util/IrcToSqlLogger.java`
 #### Snippet
 ```java
-	}
 	
-	private static void ensureDisjoint(Set<String> set, Set<String> serviceKeys) {
-		for (String s : serviceKeys) {
-			if (set.contains(s))
+	@Handler
+	public void logChannel(ActorChannelMessageEventBase<User> ev) {
+		MessageType type = null;
+		if (ev instanceof ChannelCtcpEvent) {
 ```
 
 ### BoundedWildcard
@@ -3433,51 +3433,15 @@ in `src/main/java/chrisliebaer/chrisliebot/config/ContextResolver.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super FlexConf`
-in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
-#### Snippet
-```java
-		private BiFunction<FlexConf, String, Optional<T>> convert;
-		
-		private ProviderImpl(@NonNull BiFunction<FlexConf, String, Optional<T>> convert, @NonNull String key) {
-			this.convert = convert;
-			this.key = key;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
-#### Snippet
-```java
-		private BiFunction<FlexConf, String, Optional<T>> convert;
-		
-		private ProviderImpl(@NonNull BiFunction<FlexConf, String, Optional<T>> convert, @NonNull String key) {
-			this.convert = convert;
-			this.key = key;
-```
-
-### BoundedWildcard
-Can generalize to `? super ProcessExecutor`
-in `src/main/java/chrisliebaer/chrisliebot/command/external/ShellCommand.java`
+Can generalize to `? extends ChrislieGroup`
+in `src/main/java/chrisliebaer/chrisliebot/config/ChrislieContext.java`
 #### Snippet
 ```java
 	}
 	
-	private void dispatch(Consumer<ProcessExecutor> fnPass, ChrislieOutput out, ExceptionHandler exceptionHandler) throws ListenerException {
-		var procExec = new ProcessExecutor()
-				.command(cfg.cmd) // TODO: check if arguments are passed via env or stdin json
-```
-
-### BoundedWildcard
-Can generalize to `? super PlainOutput`
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
+	public void addGroups(Collection<ChrislieGroup> groups) {
+		groups.forEach(this::addGroup);
 	}
-	
-	public default ChrislieOutput plain(Consumer<PlainOutput> out) {
-		out.accept(plain());
-		return this;
 ```
 
 ### BoundedWildcard
@@ -3489,18 +3453,6 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
 	
 	public default ChrislieOutput description(Consumer<PlainOutput> out) {
 		out.accept(description());
-		return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super PlainOutput.PlainOutputSubstituion`
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
-#### Snippet
-```java
-	}
-	
-	public default ChrislieOutput convert(Consumer<PlainOutput.PlainOutputSubstituion> out) {
-		out.accept(convert());
 		return this;
 ```
 
@@ -3517,39 +3469,27 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ChrislieGroup`
-in `src/main/java/chrisliebaer/chrisliebot/config/ChrislieContext.java`
+Can generalize to `? super PlainOutput`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
 #### Snippet
 ```java
 	}
 	
-	public void addGroups(Collection<ChrislieGroup> groups) {
-		groups.forEach(this::addGroup);
+	public default ChrislieOutput plain(Consumer<PlainOutput> out) {
+		out.accept(plain());
+		return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super PlainOutput.PlainOutputSubstituion`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/ChrislieOutput.java`
+#### Snippet
+```java
 	}
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutputImpl.java`
-#### Snippet
-```java
-	private List<Supplier<String>> calls = new ArrayList<>();
 	
-	public PlainOutputImpl(@NonNull Function<String, String> escaper,
-						   @NonNull BiFunction<Object, String, String> formatResolver) {
-		this.escaper = escaper;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutputImpl.java`
-#### Snippet
-```java
-	
-	public PlainOutputImpl(@NonNull Function<String, String> escaper,
-						   @NonNull BiFunction<Object, String, String> formatResolver) {
-		this.escaper = escaper;
-		this.formatResolver = formatResolver;
+	public default ChrislieOutput convert(Consumer<PlainOutput.PlainOutputSubstituion> out) {
+		out.accept(convert());
+		return this;
 ```
 
 ### BoundedWildcard
@@ -3601,51 +3541,63 @@ in `src/main/java/chrisliebaer/chrisliebot/command/discord/DiscordEmojiManagemen
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JsonElement`
-in `src/main/java/chrisliebaer/chrisliebot/config/JsonBotConfig.java`
-#### Snippet
-```java
-		}
-		
-		private JsonFlexConfResolver(GsonValidator gson, Map<String, JsonElement> map) {
-			this.gson = gson;
-			this.map = map;
-```
-
-### BoundedWildcard
-Can generalize to `? extends JsonElement`
-in `src/main/java/chrisliebaer/chrisliebot/config/JsonBotConfig.java`
+Can generalize to `? super ProcessExecutor`
+in `src/main/java/chrisliebaer/chrisliebot/command/external/ShellCommand.java`
 #### Snippet
 ```java
 	}
 	
-	private static FlexConf instanceFlexConf(GsonValidator gson, Map<String, JsonElement> flex) {
-		flex = flex == null ? Map.of() : flex;
-		return JsonFlexConfResolver.of(gson, Collections.unmodifiableMap(flex));
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `src/main/java/chrisliebaer/chrisliebot/config/JsonBotConfig.java`
-#### Snippet
-```java
-		
-		@Override
-		public <V> Optional<V> get(String key, Class<V> clazz) {
-			var val = map.get(key);
-			if (val == null)
+	private void dispatch(Consumer<ProcessExecutor> fnPass, ChrislieOutput out, ExceptionHandler exceptionHandler) throws ListenerException {
+		var procExec = new ProcessExecutor()
+				.command(cfg.cmd) // TODO: check if arguments are passed via env or stdin json
 ```
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `src/main/java/chrisliebaer/chrisliebot/config/JsonBotConfig.java`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutputImpl.java`
 #### Snippet
 ```java
-		}
+	private List<Supplier<String>> calls = new ArrayList<>();
+	
+	public PlainOutputImpl(@NonNull Function<String, String> escaper,
+						   @NonNull BiFunction<Object, String, String> formatResolver) {
+		this.escaper = escaper;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/PlainOutputImpl.java`
+#### Snippet
+```java
+	
+	public PlainOutputImpl(@NonNull Function<String, String> escaper,
+						   @NonNull BiFunction<Object, String, String> formatResolver) {
+		this.escaper = escaper;
+		this.formatResolver = formatResolver;
+```
+
+### BoundedWildcard
+Can generalize to `? super FlexConf`
+in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
+#### Snippet
+```java
+		private BiFunction<FlexConf, String, Optional<T>> convert;
 		
-		private ChrislieGroup instanceGroup(String name, Group group, List<String> includeList) throws ConfigInitializeException {
-			// check for inheritance cycle
-			if (includeList.contains(name))
+		private ProviderImpl(@NonNull BiFunction<FlexConf, String, Optional<T>> convert, @NonNull String key) {
+			this.convert = convert;
+			this.key = key;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/chrisliebaer/chrisliebot/config/flex/CommonFlex.java`
+#### Snippet
+```java
+		private BiFunction<FlexConf, String, Optional<T>> convert;
+		
+		private ProviderImpl(@NonNull BiFunction<FlexConf, String, Optional<T>> convert, @NonNull String key) {
+			this.convert = convert;
+			this.key = key;
 ```
 
 ### BoundedWildcard
@@ -3677,6 +3629,18 @@ Can generalize to `? super String`
 in `src/main/java/chrisliebaer/chrisliebot/abstraction/SerializedOutput.java`
 #### Snippet
 ```java
+	 * @return The given ChrislieOutput for method chaining.
+	 */
+	public ChrislieOutput apply(ChrislieOutput output, Function<String, String> transform) {
+		// we don't want caller to handle null values, so instead we simply handle these with our own lambda
+		Function<String, String> fn = (s) -> s == null ? null : transform.apply(s);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/chrisliebaer/chrisliebot/abstraction/SerializedOutput.java`
+#### Snippet
+```java
 		private @NotNull ChrislieFormat[] formats = EMPTY_FORMATS;
 		
 		public void apply(PlainOutput out, Function<String, String> fn) {
@@ -3685,15 +3649,51 @@ in `src/main/java/chrisliebaer/chrisliebot/abstraction/SerializedOutput.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/chrisliebaer/chrisliebot/abstraction/SerializedOutput.java`
+Can generalize to `? extends JsonElement`
+in `src/main/java/chrisliebaer/chrisliebot/config/JsonBotConfig.java`
 #### Snippet
 ```java
-	 * @return The given ChrislieOutput for method chaining.
-	 */
-	public ChrislieOutput apply(ChrislieOutput output, Function<String, String> transform) {
-		// we don't want caller to handle null values, so instead we simply handle these with our own lambda
-		Function<String, String> fn = (s) -> s == null ? null : transform.apply(s);
+	}
+	
+	private static FlexConf instanceFlexConf(GsonValidator gson, Map<String, JsonElement> flex) {
+		flex = flex == null ? Map.of() : flex;
+		return JsonFlexConfResolver.of(gson, Collections.unmodifiableMap(flex));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/chrisliebaer/chrisliebot/config/JsonBotConfig.java`
+#### Snippet
+```java
+		}
+		
+		private ChrislieGroup instanceGroup(String name, Group group, List<String> includeList) throws ConfigInitializeException {
+			// check for inheritance cycle
+			if (includeList.contains(name))
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `src/main/java/chrisliebaer/chrisliebot/config/JsonBotConfig.java`
+#### Snippet
+```java
+		
+		@Override
+		public <V> Optional<V> get(String key, Class<V> clazz) {
+			var val = map.get(key);
+			if (val == null)
+```
+
+### BoundedWildcard
+Can generalize to `? extends JsonElement`
+in `src/main/java/chrisliebaer/chrisliebot/config/JsonBotConfig.java`
+#### Snippet
+```java
+		}
+		
+		private JsonFlexConfResolver(GsonValidator gson, Map<String, JsonElement> map) {
+			this.gson = gson;
+			this.map = map;
 ```
 
 ### BoundedWildcard
@@ -3777,6 +3777,18 @@ in `src/main/java/chrisliebaer/chrisliebot/command/qwant/QwantService.java`
 
 ## UnstableApiUsage
 ### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/chrisliebaer/chrisliebot/command/mensa/MensaCommand.java`
+#### Snippet
+```java
+		//noinspection UnnecessaryCodeBlock
+		{ // scope fuckery to hide type fuckery, the perfect crime
+			Optional<Set<String>> maybeIgnoreLines = flex.get(FLEX_FILTER, new TypeToken<Set<String>>() {}.getType());
+			ignoreLines = maybeIgnoreLines.orElse(Set.of());
+		}
+```
+
+### UnstableApiUsage
 'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `src/main/java/chrisliebaer/chrisliebot/command/mensa/MensaCommand.java`
 #### Snippet
@@ -3790,18 +3802,6 @@ in `src/main/java/chrisliebaer/chrisliebot/command/mensa/MensaCommand.java`
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/chrisliebaer/chrisliebot/command/mensa/MensaCommand.java`
-#### Snippet
-```java
-		//noinspection UnnecessaryCodeBlock
-		{ // scope fuckery to hide type fuckery, the perfect crime
-			Optional<Set<String>> maybeIgnoreLines = flex.get(FLEX_FILTER, new TypeToken<Set<String>>() {}.getType());
-			ignoreLines = maybeIgnoreLines.orElse(Set.of());
-		}
-```
-
-### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `src/main/java/chrisliebaer/chrisliebot/command/mensa/MensaCommand.java`
 #### Snippet
 ```java
