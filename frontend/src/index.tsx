@@ -1,8 +1,8 @@
 import React, { Children } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+// import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from './globalStyles';
 import {
   createBrowserRouter,
@@ -12,6 +12,7 @@ import {
 import DashBoard from './pages/DashBoard';
 import Resultview from './pages/Resultview';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
+import theme from 'styled-theming';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -64,8 +65,6 @@ root.render(
   <ApolloProvider client={client}>
     <RouterProvider router={router} />
     <GlobalStyle />
-    <ThemeProvider theme={{ mode: 'light' }}>
-      </ThemeProvider>
       </ApolloProvider>
   </React.StrictMode>
 );

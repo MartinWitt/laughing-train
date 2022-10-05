@@ -34,13 +34,22 @@ export default function BadSmellList(project: Project) {
 
 function toCodeBlocks(params:BadSmell[]) {
  return params.map((badSmell: BadSmell) => {
-   return <Paper key={badSmell.id} sx={{ width: "70%", backgroundColor:"#282a36" }} elevation={10} color='#282a36'>
+   return <Paper key={badSmell.id} sx={{
+     color: "#282a36", backgroundColor: "#282a36", width: "70%",
+     boxShadow: "4px 4px 4px rgba(0, 0, 0, 0.25)",
+     borderRadius: "25px"
+   }} elevation={10} color='#282a36'>
       <h3>
-       <Typography align='center' color={"#ffb86c"} fontSize={24}>{badSmell.ruleID}</Typography>
+      <Typography align='center' color={"#ffb86c"} fontSize={24}>{badSmell.ruleID}</Typography>
      </h3>
      <Typography fontSize={18} style={{ color: "#8be9fd" }} >{badSmell.messageMarkdown}</Typography>
      <br />
      <Divider color='#ffb86c' />
+     <br />
+     <Typography fontSize={18} style={{ color: "#8be9fd" }} >In file {badSmell.filePath}</Typography>
+     <br />
+     <Divider color='#ffb86c' />
+     <br />
      <JavaCodeBlock code={badSmell.snippet} />
      <br/>
     </Paper>

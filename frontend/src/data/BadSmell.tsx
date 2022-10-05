@@ -6,4 +6,5 @@ export type BadSmell = {
   snippet: string
   ruleID: string
   commitHashes: [string]
+  filePath: string
 }
