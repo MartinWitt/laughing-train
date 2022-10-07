@@ -23,6 +23,7 @@ export const fetchBadSmellsforHashQuery = gql`
     ruleID
     messageMarkdown
     snippet
+    filePath
   }
 }
 `;
