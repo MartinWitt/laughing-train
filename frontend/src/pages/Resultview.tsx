@@ -1,4 +1,4 @@
-import { Card, Divider } from "@mui/material";
+import { Card, CircularProgress, Divider } from "@mui/material";
 import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Headline from "../component/Headline";
@@ -20,7 +20,7 @@ function Resultview() {
     }
     console.log(params);
     if (loading) {
-        return <div>Loading...</div>;
+        return <CircularProgress />;
     }
     const project : Project | undefined = filterDuplicates(data.getProjects).find((project: Project) => {
         return project.projectName === params.name;
@@ -35,6 +35,7 @@ function Resultview() {
                 <ProjectCard {...project} />
                 <br />
                 {addHashIfPresent(params.hash)}
+                <Divider />
                 <br />
                 <HashSelector {...project} />
                 <br />
@@ -61,12 +62,4 @@ function addHashIfPresent(hash: string | undefined) : string {
         return hash;
     }
     return "";
-}
-function showBadSmellsIfHashSelected(hash: string | undefined) {
-        const { data, loading, error } = useQuery(fetchBadSmellsforHashQuery, {
-            variables: {
-                hash: hash
-            }
-        });
-        return <h1>Bad Smells</h1>
 }

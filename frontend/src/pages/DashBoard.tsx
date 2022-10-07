@@ -1,10 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { Stack } from "@mui/material";
+import { CircularProgress, Grid, Stack } from "@mui/material";
 import React from "react";
-import { useLoaderData } from "react-router-dom";
-import { sys } from "typescript";
+import { DashBoardCard } from "../component/DashBoardCard";
 import Headline from "../component/Headline";
-import ProjectCard from "../component/ProjectCard";
 import { Project } from "../data/Project";
 import { fetchProjectQuery, filterDuplicates } from "../ProjectData";
 
@@ -14,7 +12,7 @@ export default function DashBoard() {
     console.error(error);
   }
   if (loading) {
-    return <div>Loading...</div>;
+    return <CircularProgress />;
   }
   return (
     <div>
@@ -44,14 +42,16 @@ function toBlock(params: ProjectListProps): JSX.Element {
 }
   
 function projectList(params: Project[]) {
-  return <Stack
-    justifyContent="space-evenly"
+  return <Grid
+    container
     alignItems="stretch"
     spacing={5}>
     {params.map((project) => {
       return (
-        <ProjectCard {...project} />
+        <Grid item> 
+          <DashBoardCard {...project} />
+          </Grid>
       );
     })}
-  </Stack>;
+  </Grid>;
 }

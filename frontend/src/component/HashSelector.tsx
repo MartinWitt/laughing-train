@@ -11,22 +11,13 @@ function HashSelector(project : Project) {
 
   return (
     <div>
-      <Paper sx={{
-        color: "#282a36", backgroundColor: "#282a36", width: "70%",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center",
-        verticalAlign: "middle",
-        boxShadow: "4px 4px 4px rgba(0, 0, 0, 0.25)",
-        borderRadius: "25px",
-        }} elevation={10} >
-        <h1>Hash Selector</h1>
-      <Typography color={"#8be9fd"} alignContent={"center"}>Choose a hash to view the results</Typography> 
-      </Paper>
+
+      <Typography align="center" alignContent={"center"} variant="h2">Hash Selector</Typography>  
+      <Typography align="center" alignContent={"center"}>Choose a hash to view the results</Typography> 
       <div><br/>
         <Stack direction="row">
           {project.commitHashes.map((hash: string) => {
-            return <Chip label={hash} key={hash} onClick={() => navigate(toLink(project, hash))} variant="outlined" sx={{ color:"#8be9fd"} } />;
+            return <Chip label={hash} key={hash} onClick={() => navigate(toLink(project, hash))} variant="outlined" />;
         })}
         </Stack>
             </div>

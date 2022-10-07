@@ -204,7 +204,7 @@ nb-configuration.xml
 
 # Local environment
 .env
-github-bot/src/main/resources/application.properties
+# github-bot/src/main/resources/application.properties
 
 # Quinoa
 node_modules/

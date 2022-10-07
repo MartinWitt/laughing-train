@@ -1,10 +1,10 @@
-import {Card, CardActionArea, CardContent, Chip, Stack, Typography } from "@mui/material";
+import {Button, Card, CardActionArea, CardContent, Chip, Stack, Typography } from "@mui/material";
 import React from "react";
 import Avatar from "react-avatar";
 import { useNavigate } from "react-router-dom";
 import { Project } from "../data/Project";
-class ProjectCard extends React.Component<Project> {
 
+class ProjectCard extends React.Component<Project> {
 
   render() {
     return (
@@ -15,24 +15,21 @@ class ProjectCard extends React.Component<Project> {
     );
   }
 }
+
 function ProjectListItem(project: Project) {
   const navigate = useNavigate();
   return <>
     <Card elevation={10} sx={{
-      color: "#282a36", backgroundColor: "#282a36", width: "70%", display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      textAlign: "center",
+      display: "flex",
       verticalAlign: "middle",
       boxShadow: "4px 4px 4px rgba(0, 0, 0, 0.25)",
-      borderRadius: "25px"
-    }} onClick={() => navigate(toLink(project))} color="#44475a">
+    }} onClick={() => navigate(toLink(project))}>
       <CardActionArea>
-        <CardContent>
-          <Stack alignSelf="center" direction="row" spacing={5} alignItems="stretch" justifyContent="space-evenly">
-            <Avatar githubHandle={urlToGitHubHandle(project.projectUrl)} size="80" round={true}/>
-            <Typography color={"#8be9fd"} fontSize={40} gutterBottom variant="h5" component="div">{urlToGitHubHandle(project.projectUrl)}/{project.projectName}</Typography>
-            <Chip label="To source code" component="a" href={project.projectUrl} clickable sx={{ color:"#8be9fd", height:"80", width:"80"}} />
+        <CardContent sx={{}}>
+          <Stack alignSelf="center" direction="row" spacing={5} alignItems="normal" justifyContent="space-evenly">
+            <Avatar githubHandle={urlToGitHubHandle(project.projectUrl)} size="100"/>
+            <Typography textAlign="center"  fontSize={40} variant="h5" component="div">{urlToGitHubHandle(project.projectUrl)}<br/>{project.projectName}</Typography>
+            <Button variant="contained" href={project.projectUrl}>To source code</Button>
           </Stack>
         </CardContent>
       </CardActionArea>

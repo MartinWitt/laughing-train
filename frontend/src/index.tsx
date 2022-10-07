@@ -1,22 +1,18 @@
-import React, { Children } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import './index.css';
 import reportWebVitals from './reportWebVitals';
-import styled, { ThemeProvider } from 'styled-components';
-import GlobalStyle from './globalStyles';
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
 } from "react-router-dom";
 import DashBoard from './pages/DashBoard';
 import Resultview from './pages/Resultview';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
-import theme from 'styled-theming';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline, Paper } from '@mui/material';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-
 
 const router = createBrowserRouter([
   {
@@ -60,12 +56,46 @@ const client = new ApolloClient({
   cache: new InMemoryCache({
   }),
 });
+const colors =
+{
+  "Minion Yellow": "#ffe74c",
+  "Coquelicot": "#eb4511",
+  "Blue Jeans": "#35a7ff",
+  "Heliotrope Gray": "#9e90a2",
+  "Cerulean Blue": "#2b59c3"
+}
+const theme = createTheme({
+  palette: {
+    mode: "dark",
+    background: {
+      default: "#111135",
+      paper: "#2369b9",
+    },
+    primary: {
+      main: "#2369b9"
+    },
+    divider: "#b92369"
+  },
+  typography: {
+    h1: {
+      color: "#b92369"
+    }
+  },
+
+  
+});
+theme.spacing(10)
+
+
 root.render(
   <React.StrictMode>
+    <ThemeProvider theme={theme} >
+
   <ApolloProvider client={client}>
-    <RouterProvider router={router} />
-    <GlobalStyle />
+        <RouterProvider router={router} />
+        <CssBaseline />
       </ApolloProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
