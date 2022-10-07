@@ -104,6 +104,12 @@ public class PeriodicMiner {
         query.stream()
                 .filter(v -> v.getCommitHashes() == null || v.getCommitHashes().isEmpty())
                 .forEach(v -> v.delete());
+        query.stream().collect(Collectors.groupingBy(v -> v.projectName)).entrySet().stream()
+                .forEach(v -> {
+                    if (v.getValue().size() > 1) {
+                        v.getValue().stream().skip(1).forEach(Project::delete);
+                    }
+                });
     }
 
     private List<String> getRepoUrls(Path miningFile) throws IOException {
