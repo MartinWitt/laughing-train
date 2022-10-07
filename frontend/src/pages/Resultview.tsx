@@ -1,10 +1,9 @@
-import { Card, CircularProgress, Divider } from "@mui/material";
-import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { CircularProgress, Divider } from "@mui/material";
+import React from "react";
 import Headline from "../component/Headline";
 import ProjectCard from "../component/ProjectCard";
 import { useParams } from "react-router-dom";
-import { fetchBadSmellsforHashQuery, fetchProjectQuery, filterDuplicates } from "../ProjectData";
+import {fetchProjectQuery, filterDuplicates } from "../ProjectData";
 import HashSelector from "../component/HashSelector";
 import { Project } from "../data/Project";
 import { useQuery } from "@apollo/client";
