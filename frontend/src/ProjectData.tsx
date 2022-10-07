@@ -24,6 +24,7 @@ export const fetchBadSmellsforHashQuery = gql`
     messageMarkdown
     snippet
     filePath
+    startLine
   }
 }
 `;

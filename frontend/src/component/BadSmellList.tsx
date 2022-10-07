@@ -1,6 +1,6 @@
 
 import { useQuery } from '@apollo/client';
-import { Accordion, AccordionDetails, AccordionSummary, CircularProgress, colors, Divider, makeStyles, Paper, Stack, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, CircularProgress, Divider, Link, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { BadSmell } from '../data/BadSmell';
 import { Project } from "../data/Project";
@@ -26,12 +26,12 @@ export default function BadSmellList(project: Project) {
       <Typography variant='h2' align='center'>Bad Smells</Typography>
       <br />
       <Typography  align="center"> Bad Smells for hash {project.commitHashes[0]}</Typography>
-      {toCodeBlocks(filterDuplicateBadSmells(data.byCommitHash))}
+      {toCodeBlocks(filterDuplicateBadSmells(data.byCommitHash),project)}
     </div>
   );
 }
 
-function toCodeBlocks(params: BadSmell[]) {
+function toCodeBlocks(params: BadSmell[], project: Project) {
  return Array.from(groupByRuleID(params)).map((badSmell) => {
     return (
      <Accordion sx={{margin:"10l"}}> 
@@ -59,7 +59,8 @@ function toCodeBlocks(params: BadSmell[]) {
               <br />
               <Divider color='#ffb86c' />
               <br />
-              <Typography fontSize={18} style={{ color: "#8be9fd" }} >In file {badSmell.filePath}</Typography>
+                <Typography fontSize={18} style={{ color: "#8be9fd" }} >In file {badSmell.filePath} at line {badSmell.startLine}</Typography>
+                <Link href={createGithubLink(badSmell, project)} underline='hover' color='#ffb86c' >See on GitHub</Link>
               <br />
               <Divider color='#ffb86c' />
               <br />
@@ -73,6 +74,10 @@ function toCodeBlocks(params: BadSmell[]) {
       </Accordion>
     )
   });
+}
+function createGithubLink(badSmell:BadSmell, project:Project) {
+  return project.projectUrl + "/tree/" + project.commitHashes[0] +"/"+ badSmell.filePath+"#L"+badSmell.startLine;
+  
 }
 
 function groupByRuleID(projects: BadSmell[]) : Map<string, BadSmell[]> {

@@ -7,4 +7,5 @@ export type BadSmell = {
   ruleID: string
   commitHashes: [string]
   filePath: string
+  startLine: number
 }
