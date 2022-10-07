@@ -68,18 +68,6 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianEnumArgumentsProvider.java`
 
 ## SystemOutErr
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
-#### Snippet
-```java
-
-	private void storeStdErr(ExtensionContext context) {
-		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
-	}
-
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -87,6 +75,18 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 
 	private void storeStdOut(ExtensionContext context) {
 		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
+#### Snippet
+```java
+
+	private void storeStdErr(ExtensionContext context) {
+		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
 	}
 
 ```
@@ -117,6 +117,18 @@ in `src/main/java/org/junitpioneer/jupiter/StdIn.java`
 ```
 
 ## DynamicRegexReplaceableByCompiledPattern
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/junitpioneer/jupiter/ReportEntryExtension.java`
+#### Snippet
+```java
+
+	private static boolean hasTestParameterVariables(String value) {
+		return value.matches(".*\\{[0-9]+}.*");
+	}
+
+```
+
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/junitpioneer/internal/TestNameFormatter.java`
@@ -150,18 +162,6 @@ in `src/main/java/org/junitpioneer/internal/TestNameFormatter.java`
 					.collect(joining(", "));
 			result = result.replace(ARGUMENTS_PLACEHOLDER, replacement);
 		}
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/junitpioneer/jupiter/ReportEntryExtension.java`
-#### Snippet
-```java
-
-	private static boolean hasTestParameterVariables(String value) {
-		return value.matches(".*\\{[0-9]+}.*");
-	}
 
 ```
 
@@ -287,6 +287,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
+#### Snippet
+```java
+	 * found or the top level class is reached.
+	 *
+	 * <p>The algorithm does not search for methods in {@link java.lang.Object}.
+	 *
+	 * @param clazz the class or interface in which to find the method; never {@code null}
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary, and can be replaced with an import
 in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
 #### Snippet
@@ -332,18 +344,6 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 		 * from the elements of the passed {@link java.util.stream.Stream}.
 		 *
 		 * @param entries the objects we want to include in a single set
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
-#### Snippet
-```java
-	 * found or the top level class is reached.
-	 *
-	 * <p>The algorithm does not search for methods in {@link java.lang.Object}.
-	 *
-	 * @param clazz the class or interface in which to find the method; never {@code null}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -396,6 +396,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends List`
+in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
+#### Snippet
+```java
+	}
+
+	public static List<List<?>> cartesianProduct(List<List<?>> lists) {
+		List<List<?>> resultLists = new ArrayList<>();
+		if (lists.isEmpty()) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends N`
 in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
 #### Snippet
@@ -429,18 +441,6 @@ in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 			List<DisableIfTestFails> annotations) {
 		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
 		if (annotations.isEmpty())
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
-#### Snippet
-```java
-	}
-
-	public static List<List<?>> cartesianProduct(List<List<?>> lists) {
-		List<List<?>> resultLists = new ArrayList<>();
-		if (lists.isEmpty()) {
 ```
 
 ### BoundedWildcard
