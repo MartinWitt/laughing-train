@@ -75,6 +75,7 @@ public class PeriodicMiner {
             if (message.result().body() instanceof ProjectResult.Success project) {
                 List<Project> query =
                         Project.findByProjectName(project.project().name());
+                removeOldDbEntry(query);
                 if (query.size() == 1) {
                     query.get(0).addCommitHash(project.project().commitHash());
                     query.get(0).persistOrUpdate();
@@ -97,6 +98,12 @@ public class PeriodicMiner {
             logger.atSevere().log("Mining periodic %s failed with error %s", repoName, message.cause());
         }
         return Promise.promise();
+    }
+
+    private void removeOldDbEntry(List<Project> query) {
+        query.stream()
+                .filter(v -> v.getCommitHashes() == null || v.getCommitHashes().isEmpty())
+                .forEach(v -> v.delete());
     }
 
     private List<String> getRepoUrls(Path miningFile) throws IOException {
