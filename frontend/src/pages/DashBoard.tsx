@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { CircularProgress, Grid, Stack } from "@mui/material";
 import React from "react";
+import { AddProjectCard } from "../component/AddProjectCard";
 import { DashBoardCard } from "../component/DashBoardCard";
 import Headline from "../component/Headline";
 import { Project } from "../data/Project";
@@ -53,5 +54,8 @@ function projectList(params: Project[]) {
           </Grid>
       );
     })}
+    <Grid item>
+      <AddProjectCard />
+    </Grid>
   </Grid>;
 }
