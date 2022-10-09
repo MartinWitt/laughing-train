@@ -23,9 +23,6 @@ export function AddProjectView() {
       projectUrl: url,
     }
   });
-  if (error) {
-    return <Alert severity="error">{error.message}</Alert>;
-  }
   
   return (
     <div>
@@ -44,7 +41,7 @@ export function AddProjectView() {
         <Typography>ProjectName: {projectname}</Typography>
         <Divider sx={{ marginTop: "40px", marginBottom: "40px" }} />
         <Button variant="contained" sx={{ marginLeft: "10px" }} onClick={() =>nagivate("/")}>Cancel</Button>
-        <Button variant="contained" onClick={() => addProject()}>Save</Button>
+        <Button variant="contained" onClick={() => addProject().catch(e=> console.log(e))}>Save</Button>
         {loading && <Typography>Loading...</Typography>}
         {data && <Alert severity="success">Project added</Alert>}
       </Paper>
