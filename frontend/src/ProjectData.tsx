@@ -31,7 +31,7 @@ export const fetchBadSmellsforHashQuery = gql`
 
 export const addprojectQuery = gql`
   mutation addProject($projectUrl: String!, $projectName: String!) {
-  addProject(projectUrl: $projectUrl, projectName: $projectName) {
+  addProject(projectName: $projectName, projectUrl: $projectUrl) {
     projectName
     projectUrl
   }
