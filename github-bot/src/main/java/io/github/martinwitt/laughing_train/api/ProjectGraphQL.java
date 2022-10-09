@@ -11,15 +11,23 @@ import io.github.martinwitt.laughing_train.persistence.Project;
 import io.quarkus.security.Authenticated;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import org.bson.BsonDocument;
 import org.bson.conversions.Bson;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Query;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 @GraphQLApi
+@RequestScoped
 public class ProjectGraphQL {
+
+    @Inject
+    JsonWebToken accessToken;
+
     @Query("getProjects")
     @Description("Gets all projects from the database")
     public List<Project> getAllProjects() {
@@ -50,6 +58,10 @@ public class ProjectGraphQL {
     @Authenticated
     @Description("Adds a project to the database")
     public Project addProject(String projectUrl, String projectName) {
+        System.out.println("User: " + accessToken.getName());
+        if (!accessToken.getName().equals("martinwitt")) {
+            return null;
+        }
         Project project = new Project(projectName, projectUrl);
         project.persistOrUpdate();
         return project;
