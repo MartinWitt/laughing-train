@@ -14,8 +14,8 @@ export function AddProjectView() {
   const onUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
     const stringArray = urlToGitHubHandle(event.target.value);
-    setOwner(stringArray[0]);
-    setProjectName(stringArray[1]);
+    setOwner(stringArray[1]);
+    setProjectName(stringArray[0]);
   }
   const [addProject, { loading, data } ] = useMutation(addprojectQuery, {
     variables: {
