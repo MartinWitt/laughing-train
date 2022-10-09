@@ -6,6 +6,7 @@ import static com.mongodb.client.model.Aggregates.sort;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Sorts.ascending;
 
+import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.Project;
 import io.quarkus.security.Authenticated;
@@ -24,6 +25,8 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 @GraphQLApi
 @RequestScoped
 public class ProjectGraphQL {
+
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     @Inject
     JsonWebToken accessToken;
@@ -60,7 +63,8 @@ public class ProjectGraphQL {
     public Project addProject(String projectUrl, String projectName) {
         System.out.println("User: " + accessToken.getName());
         if (!accessToken.getName().equals("martinwitt")) {
-            return null;
+            logger.atWarning().log("User %s is not allowed to add a project", accessToken.getName());
+            throw new RuntimeException("Not authorized");
         }
         Project project = new Project(projectName, projectUrl);
         project.persistOrUpdate();
