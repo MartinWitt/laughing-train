@@ -17,12 +17,16 @@ export function AddProjectView() {
     setOwner(stringArray[1]);
     setProjectName(stringArray[0]);
   }
-  const [addProject, { loading, data } ] = useMutation(addprojectQuery, {
+  const [addProject, { loading, data, error } ] = useMutation(addprojectQuery, {
     variables: {
       projectName: projectname,
       projectUrl: url,
     }
   });
+  if (error) {
+    return <Alert severity="error">{error.message}</Alert>;
+  }
+  
   return (
     <div>
       <Headline />

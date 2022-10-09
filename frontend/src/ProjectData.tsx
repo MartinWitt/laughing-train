@@ -34,7 +34,6 @@ export const addprojectQuery = gql`
   addProject(projectUrl: $projectUrl, projectName: $projectName) {
     projectName
     projectUrl
-    commitHashes
   }
 }
 `;
