@@ -18,7 +18,6 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -47,25 +46,13 @@ public class PeriodicMiner {
     Vertx vertx;
 
     @Scheduled(every = "4h", delay = 10, delayUnit = TimeUnit.MINUTES)
-    void mineRepos() throws IOException {
-        Path dir = Files.createTempDirectory("laughing-wiki");
-        try (Git git = getWiki(dir);
-                Closeable c = () -> FileUtils.deleteQuietly(dir.toFile())) {
-            Path miningFile = dir.resolve("Mining.md");
-            List<String> repoUrls = getRepoUrls(miningFile);
-            logger.atInfo().log("Mining %s repos", repoUrls.size());
-            logger.atInfo().log("Mining %s", repoUrls);
-            Collections.shuffle(repoUrls);
-            for (String url : repoUrls) {
-                String repoName = StringUtils.substringAfterLast(url, "/");
-                eventBus.<ProjectResult>request(
-                        ServiceAdresses.PROJECT_REQUEST,
-                        new ProjectRequest.WithUrl(url),
-                        new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
-                        result -> vertx.executeBlocking(v -> mineProject(repoName, result)));
-            }
-        } catch (Exception e) {
-            logger.atSevere().withCause(e).log("Error while mining");
+    void mineRepos() {
+        for (Project project : Project.<Project>findAll().list()) {
+            eventBus.<ProjectResult>request(
+                    ServiceAdresses.PROJECT_REQUEST,
+                    new ProjectRequest.WithUrl(project.getProjectUrl()),
+                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
+                    result -> vertx.executeBlocking(v -> mineProject(project.projectName, result)));
         }
     }
 

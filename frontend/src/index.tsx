@@ -9,7 +9,9 @@ import DashBoard from './pages/DashBoard';
 import Resultview from './pages/Resultview';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline, Paper } from '@mui/material';
+import { CssBaseline } from '@mui/material';
+import { AddProjectCard } from './component/AddProjectCard';
+import { AddProjectView } from './pages/AddProjectView';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -19,6 +21,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <DashBoard />,
     errorElement: <DashBoard />,
+  },
+  {
+    path: "/mutation/addproject",
+    element: <AddProjectView />,
   },
   {
     path: "/resultview",
@@ -90,7 +96,6 @@ theme.spacing(10)
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme} >
-
   <ApolloProvider client={client}>
         <RouterProvider router={router} />
         <CssBaseline />

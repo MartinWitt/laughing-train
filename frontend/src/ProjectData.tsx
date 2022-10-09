@@ -28,6 +28,16 @@ export const fetchBadSmellsforHashQuery = gql`
   }
 }
 `;
+
+export const addprojectQuery = gql`
+  mutation addProject($projectUrl: String!, $projectName: String!) {
+  addProject(projectUrl: $projectUrl, projectName: $projectName) {
+    projectName
+    projectUrl
+    commitHashes
+  }
+}
+`;
 export function filterDuplicates(params:Project[]) {
   params = params.filter((project) => {
     return project.commitHashes != null && project.commitHashes.length > 0;

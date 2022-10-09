@@ -8,12 +8,14 @@ import static com.mongodb.client.model.Sorts.ascending;
 
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.Project;
+import io.quarkus.security.Authenticated;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.BsonDocument;
 import org.bson.conversions.Bson;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
+import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Query;
 
 @GraphQLApi
@@ -42,5 +44,23 @@ public class ProjectGraphQL {
                 .aggregate(List.of(matchStage, groupStage, sortStage), BsonDocument.class)
                 .map(v -> v.get(v.getFirstKey()).asString().getValue())
                 .into(new ArrayList<>());
+    }
+
+    @Mutation("addProject")
+    @Authenticated
+    @Description("Adds a project to the database")
+    public Project addProject(String projectUrl, String projectName) {
+        Project project = new Project(projectName, projectUrl);
+        project.persistOrUpdate();
+        return project;
+    }
+
+    @Mutation("deleteProject")
+    @Authenticated
+    @Description("Deletes a project from the database")
+    public List<Project> removeProjectByName(String projectName) {
+        var result = Project.findByProjectName(projectName);
+        result.forEach(Project::delete);
+        return result;
     }
 }
