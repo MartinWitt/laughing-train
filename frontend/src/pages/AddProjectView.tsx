@@ -17,12 +17,14 @@ export function AddProjectView() {
     setOwner(stringArray[1]);
     setProjectName(stringArray[0]);
   }
-  const [addProject, { loading, data, error } ] = useMutation(addprojectQuery, {
-    variables: {
-      projectName: projectname,
-      projectUrl: url,
-    }
-  });
+  const [addProject, { loading, data, error } ] = useMutation(addprojectQuery
+  );
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
   
   return (
     <div>
@@ -41,7 +43,11 @@ export function AddProjectView() {
         <Typography>ProjectName: {projectname}</Typography>
         <Divider sx={{ marginTop: "40px", marginBottom: "40px" }} />
         <Button variant="contained" sx={{ marginLeft: "10px" }} onClick={() =>nagivate("/")}>Cancel</Button>
-        <Button variant="contained" onClick={() => addProject().catch(e=> console.log(e))}>Save</Button>
+        <Button variant="contained" onClick={e => {
+          e.preventDefault();
+          addProject({ variables: { projectName: projectname, projectUrl: url }
+          }).then(() => { });
+        }}>Save</Button>
         {loading && <Typography>Loading...</Typography>}
         {data && <Alert severity="success">Project added</Alert>}
       </Paper>

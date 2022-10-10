@@ -10,7 +10,6 @@ import Resultview from './pages/Resultview';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import { AddProjectCard } from './component/AddProjectCard';
 import { AddProjectView } from './pages/AddProjectView';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -70,6 +70,7 @@ public class BadSmellGraphQLTest {
     }
 
     @Test
+    @Disabled("Only for local testing")
     void foo() throws Exception {
         client = DynamicGraphQLClientBuilder.newBuilder()
                 // .url("http://www.keksdose.xyz:8080/graphql")
