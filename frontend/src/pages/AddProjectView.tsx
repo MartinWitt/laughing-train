@@ -17,14 +17,17 @@ export function AddProjectView() {
     setOwner(stringArray[1]);
     setProjectName(stringArray[0]);
   }
-  const [addProject, { loading, data, error } ] = useMutation(addprojectQuery
-  );
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+
+  const [addProject] = useMutation(
+    addprojectQuery,
+  {
+      onError: (error) => { console.log(error) },
+      onCompleted: (data) => {
+        console.log(data);
+        nagivate("/");
+      }
+    }
+  )
   
   return (
     <div>
@@ -48,8 +51,6 @@ export function AddProjectView() {
           addProject({ variables: { projectName: projectname, projectUrl: url }
           }).then(() => { });
         }}>Save</Button>
-        {loading && <Typography>Loading...</Typography>}
-        {data && <Alert severity="success">Project added</Alert>}
       </Paper>
     </div>);
 }
