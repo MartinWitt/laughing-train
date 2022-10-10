@@ -58,6 +58,7 @@ public class ProjectGraphQL {
     }
 
     @Mutation("addProject")
+    @Authenticated
     @Description("Adds a project to the database")
     public Project addProject(String projectUrl, String projectName) {
         System.out.println("User: " + accessToken.getName());
