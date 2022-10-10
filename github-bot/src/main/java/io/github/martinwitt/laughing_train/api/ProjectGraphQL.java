@@ -60,7 +60,7 @@ public class ProjectGraphQL {
     @Mutation("addProject")
     @Authenticated
     @Description("Adds a project to the database")
-    public Void addProject(String projectUrl, String projectName) {
+    public Project addProject(String projectUrl, String projectName) {
         System.out.println("User: " + accessToken.getName());
         if (!accessToken.getName().equals("martinwitt")) {
             logger.atWarning().log("User %s is not allowed to add a project", accessToken.getName());
@@ -68,15 +68,15 @@ public class ProjectGraphQL {
         }
         Project project = new Project(projectName, projectUrl);
         project.persistOrUpdate();
-        return null;
+        return project;
     }
 
     @Mutation("deleteProject")
     @Authenticated
     @Description("Deletes a project from the database")
-    public Void removeProjectByName(String projectName) {
+    public List<Project> removeProjectByName(String projectName) {
         var result = Project.findByProjectName(projectName);
         result.forEach(Project::delete);
-        return null;
+        return result;
     }
 }
