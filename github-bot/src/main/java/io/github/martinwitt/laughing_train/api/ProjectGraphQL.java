@@ -71,7 +71,7 @@ public class ProjectGraphQL {
         return result;
     }
 
-    @Mutation("login")
+    @Query("login")
     @Authenticated
     @Description("Logins the user")
     public String login(@DefaultValue("defaultValue") String notNeeded) {
