@@ -1,6 +1,7 @@
 
-import { AppBar, Box, Button, Card, Container, IconButton, Stack, Toolbar, Typography } from '@mui/material';
+import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import React from 'react';
+import { LoginButton } from './LoginButton';
 
 
 const pages = ["Laughing-Train", "DashBoard", "Settings", "Reports"]
@@ -11,6 +12,8 @@ class Headline extends React.Component {
       <AppBar position="static" sx={{backgroundColor:"#FFFFFF"}}>
         <Toolbar>
           {buttons(pages)}
+          <div />
+          <LoginButton/>
         </Toolbar>
       </AppBar>
     );

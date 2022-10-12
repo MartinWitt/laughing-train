@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Chip, Paper, Typography } from "@mui/material";
+import { Chip, Grid, Paper, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
@@ -15,11 +15,11 @@ function HashSelector(project : Project) {
       <Typography align="center" alignContent={"center"} variant="h2">Hash Selector</Typography>  
       <Typography align="center" alignContent={"center"}>Choose a hash to view the results</Typography> 
       <div><br/>
-        <Stack direction="row">
+        <Grid direction="row">
           {project.commitHashes.map((hash: string) => {
             return <Chip label={hash} key={hash} onClick={() => navigate(toLink(project, hash))} variant="outlined" />;
         })}
-        </Stack>
+        </Grid>
             </div>
           </div>
         );

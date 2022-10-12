@@ -37,7 +37,15 @@ export const addprojectQuery = gql`
   }
 }
 `;
+export const loginQuery = gql`
+  query login($notNeeded : String) {
+  login(notNeeded : $notNeeded) {
+    String
+  }
+}
+`;
 export function filterDuplicates(params:Project[]) {
+  return params;
   params = params.filter((project) => {
     return project.commitHashes != null && project.commitHashes.length > 0;
   });
