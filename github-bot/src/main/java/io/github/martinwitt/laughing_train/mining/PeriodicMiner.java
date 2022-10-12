@@ -89,7 +89,7 @@ public class PeriodicMiner {
 
     private void removeOldDbEntry(List<Project> query) {
         query.stream()
-                .filter(v -> v.getCommitHashes() == null || v.getCommitHashes().isEmpty())
+                .filter(v -> v.getCommitHashes() == null)
                 .forEach(v -> v.delete());
         query.stream().collect(Collectors.groupingBy(v -> v.projectName)).entrySet().stream()
                 .forEach(v -> {
