@@ -13,7 +13,6 @@ import io.quarkus.security.Authenticated;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import org.bson.BsonDocument;
 import org.bson.conversions.Bson;
 import org.eclipse.microprofile.graphql.Description;
@@ -26,7 +25,6 @@ import org.eclipse.microprofile.graphql.Query;
 public class ProjectGraphQL {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-
 
     @Query("getProjects")
     @Description("Gets all projects from the database")
