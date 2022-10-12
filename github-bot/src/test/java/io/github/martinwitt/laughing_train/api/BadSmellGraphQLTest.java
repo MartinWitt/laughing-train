@@ -48,7 +48,7 @@ public class BadSmellGraphQLTest {
     @Disabled("Only for local testing")
     void getBadSmellFromLive() throws Exception {
         client = DynamicGraphQLClientBuilder.newBuilder()
-                .url("http://89.58.49.108:8080/graphql")
+                .url("https://laughing-train.keksdose.xyz/graphql")
                 // .url("http://localhost:8081/graphql")
                 .build();
         Document document = document(Operation.operation(

@@ -55,7 +55,7 @@ const router = createBrowserRouter([
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://laughing-train.keksdose.xyz:8080/graphql/',
+    uri: 'https://laughing-train.keksdose.xyz/graphql',
   }),
   connectToDevTools: true,
   cache: new InMemoryCache({
