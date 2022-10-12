@@ -39,9 +39,7 @@ export const addprojectQuery = gql`
 `;
 export const loginQuery = gql`
   query login($notNeeded : String) {
-  login(notNeeded : $notNeeded) {
-    String
-  }
+  login(notNeeded : $notNeeded)
 }
 `;
 export function filterDuplicates(params:Project[]) {
