@@ -15,6 +15,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import org.bson.BsonDocument;
 import org.bson.conversions.Bson;
+import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Mutation;
@@ -68,5 +69,12 @@ public class ProjectGraphQL {
         var result = Project.findByProjectName(projectName);
         result.forEach(Project::delete);
         return result;
+    }
+
+    @Mutation("login")
+    @Authenticated
+    @Description("Logins the user")
+    public String login(@DefaultValue("defaultValue") String notNeeded) {
+        return "login successful";
     }
 }
