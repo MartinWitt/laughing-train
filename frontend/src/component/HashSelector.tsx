@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { Chip, Grid, Paper, Typography } from "@mui/material";
-import { Stack } from "@mui/system";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { Project } from "../data/Project";
