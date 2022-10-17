@@ -12,7 +12,7 @@ For this, we leverage many existing tools and libraries, like quarkus, Hub4J, sp
 - easy deployment extensionable with new analyzers
 
 ## Examples:
-
+- See [website](https://laughing-train.keksdose.xyz/) for an overview of mining results.
 - See [mining](https://github.com/MartinWitt/laughing-train/wiki/Mining) for bad smell examples.
 - See [refactoring](https://github.com/MartinWitt/laughing-train/wiki/Created-pullrequests) for created pull requests.
 - See [Qodana-Rules](https://github.com/MartinWitt/laughing-train/blob/master/code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRules.java#L22)
