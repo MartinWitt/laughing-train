@@ -13,7 +13,7 @@ function HashSelector(project : Project) {
       <Typography align="center" alignContent={"center"} variant="h2">Hash Selector</Typography>  
       <Typography align="center" alignContent={"center"}>Choose a hash to view the results</Typography> 
       <div><br/>
-        <Grid direction="row">
+        <Grid direction="row" container>
           {project.commitHashes.map((hash: string) => {
             return <Chip label={hash} key={hash} onClick={() => navigate(toLink(project, hash))} variant="outlined" />;
         })}
