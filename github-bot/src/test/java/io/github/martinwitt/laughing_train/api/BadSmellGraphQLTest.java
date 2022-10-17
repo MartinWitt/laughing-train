@@ -48,7 +48,7 @@ public class BadSmellGraphQLTest {
     @Disabled("Only for local testing")
     void getBadSmellFromLive() throws Exception {
         client = DynamicGraphQLClientBuilder.newBuilder()
-                .url("http://89.58.49.108:8080/graphql")
+                .url("https://laughing-train.keksdose.xyz/graphql")
                 // .url("http://localhost:8081/graphql")
                 .build();
         Document document = document(Operation.operation(
@@ -70,7 +70,7 @@ public class BadSmellGraphQLTest {
     }
 
     @Test
-    void foo() throws Exception {
+    void queryInsertedProject() throws Exception {
         client = DynamicGraphQLClientBuilder.newBuilder()
                 // .url("http://www.keksdose.xyz:8080/graphql")
                 .url("http://localhost:8081/graphql")
@@ -80,16 +80,18 @@ public class BadSmellGraphQLTest {
         project.addCommitHash("aaaa");
         project.persistOrUpdate();
         Project.<Project>listAll().forEach(v -> System.out.println(v.getCommitHashes()));
-        System.out.println(client.executeSync(
+        assertTrue(client.executeSync(
                         """
-                                query getProjects {
-                                    getProjects {
-                                        projectName
-                                        projectUrl
-                                        commitHashes
-                                    }
-                                }
-                                 """)
-                .getData());
+                        query getProjects {
+                            getProjects {
+                                projectName
+                                projectUrl
+                                commitHashes
+                            }
+                        }
+                         """)
+                .getData()
+                .toString()
+                .contains("aaa"));
     }
 }

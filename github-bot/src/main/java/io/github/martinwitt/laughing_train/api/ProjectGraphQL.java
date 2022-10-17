@@ -6,18 +6,27 @@ import static com.mongodb.client.model.Aggregates.sort;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Sorts.ascending;
 
+import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.Project;
+import io.quarkus.security.Authenticated;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import org.bson.BsonDocument;
 import org.bson.conversions.Bson;
+import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
+import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Query;
 
 @GraphQLApi
+@RequestScoped
 public class ProjectGraphQL {
+
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
     @Query("getProjects")
     @Description("Gets all projects from the database")
     public List<Project> getAllProjects() {
@@ -42,5 +51,30 @@ public class ProjectGraphQL {
                 .aggregate(List.of(matchStage, groupStage, sortStage), BsonDocument.class)
                 .map(v -> v.get(v.getFirstKey()).asString().getValue())
                 .into(new ArrayList<>());
+    }
+
+    @Mutation("addProject")
+    @Authenticated
+    @Description("Adds a project to the database")
+    public Project addProject(String projectUrl, String projectName) {
+        Project project = new Project(projectName, projectUrl);
+        project.persistOrUpdate();
+        return project;
+    }
+
+    @Mutation("deleteProject")
+    @Authenticated
+    @Description("Deletes a project from the database")
+    public List<Project> removeProjectByName(String projectName) {
+        var result = Project.findByProjectName(projectName);
+        result.forEach(Project::delete);
+        return result;
+    }
+
+    @Query("login")
+    @Authenticated
+    @Description("Logins the user")
+    public String login(@DefaultValue("defaultValue") String notNeeded) {
+        return "login successful";
     }
 }

@@ -45,7 +45,9 @@ public class Project extends PanacheMongoEntity implements Serializable {
      * @param commitHash the commitHash to add
      */
     public void addCommitHash(String commitHash) {
-        commitHashes.add(commitHash);
+        if (!commitHashes.contains(commitHash)) {
+            commitHashes.add(commitHash);
+        }
     }
 
     /**
