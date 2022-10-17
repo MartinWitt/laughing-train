@@ -80,18 +80,6 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableExtension.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
-#### Snippet
-```java
-
-	private void storeStdOut(ExtensionContext context) {
-		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
-	}
-
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -99,6 +87,18 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 
 	private void storeStdErr(ExtensionContext context) {
 		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
+#### Snippet
+```java
+
+	private void storeStdOut(ExtensionContext context) {
+		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
 	}
 
 ```
@@ -215,18 +215,6 @@ in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
-#### Snippet
-```java
-	 * {@link Object#equals(Object) equals}) for the first parameter of
-	 * a {@code CartesianTest} from the elements of the passed
-	 * {@link java.util.stream.Stream Stream}.
-	 *
-	 * @param arguments the objects that should be passed to the parameter
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 #### Snippet
@@ -239,15 +227,15 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 #### Snippet
 ```java
-
-	/**
-	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
+	 * {@link Object#equals(Object) equals}) for the first parameter of
+	 * a {@code CartesianTest} from the elements of the passed
+	 * {@link java.util.stream.Stream Stream}.
 	 *
-	 * @return IssueId the test belongs to
+	 * @param arguments the objects that should be passed to the parameter
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -260,6 +248,18 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
  * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
  *
  * Once Pioneer baselines against Java 17, this will be a record.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
+	 *
+	 * @return IssueId the test belongs to
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -287,30 +287,6 @@ class RangeSourceArgumentsProvider<N extends Number & Comparable<N>> implements 
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
-#### Snippet
-```java
-	 * found or the top level class is reached.
-	 *
-	 * <p>The algorithm does not search for methods in {@link java.lang.Object}.
-	 *
-	 * @param clazz the class or interface in which to find the method; never {@code null}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
- * <a href="https://junit-pioneer.org/docs/cartesian-product/" target="_top">the documentation on <code>@CartesianProductTest</code></a>.
- * </p>
- * @see org.junitpioneer.jupiter.CartesianValueSource
- *
- * @deprecated has been superseded by CartesianTest, scheduled to be removed in 2.0
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util.stream` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
@@ -332,6 +308,30 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 		 * from the elements of the passed {@link java.util.Collection}.
 		 *
 		 * The passed argument does not have to be an instance of {@link java.util.Set}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
+#### Snippet
+```java
+ * <a href="https://junit-pioneer.org/docs/cartesian-product/" target="_top">the documentation on <code>@CartesianProductTest</code></a>.
+ * </p>
+ * @see org.junitpioneer.jupiter.CartesianValueSource
+ *
+ * @deprecated has been superseded by CartesianTest, scheduled to be removed in 2.0
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
+#### Snippet
+```java
+	 * found or the top level class is reached.
+	 *
+	 * <p>The algorithm does not search for methods in {@link java.lang.Object}.
+	 *
+	 * @param clazz the class or interface in which to find the method; never {@code null}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -388,11 +388,11 @@ Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
-	 * Works on Linux and OSX
+	 * Works on Windows
 	 */
-	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
+	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
-		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
 ```
 
 ### BoundedWildcard
@@ -400,11 +400,11 @@ Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
-	 * Works on Windows
+	 * Works on Linux and OSX
 	 */
-	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
+	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
-		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
 ```
 
 ### BoundedWildcard
@@ -448,30 +448,6 @@ Can generalize to `? extends K`
 in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 #### Snippet
 ```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
 	}
 
 	private void setEntries(Map<K, V> entriesToSet) {
@@ -489,6 +465,30 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 	private void setEntries(Map<K, V> entriesToSet) {
 		entriesToSet.forEach(this::setEntry);
 	}
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
 ```
 
 ### BoundedWildcard
