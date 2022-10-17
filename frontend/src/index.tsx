@@ -61,14 +61,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache({
   }),
 });
-const colors =
-{
-  "Minion Yellow": "#ffe74c",
-  "Coquelicot": "#eb4511",
-  "Blue Jeans": "#35a7ff",
-  "Heliotrope Gray": "#9e90a2",
-  "Cerulean Blue": "#2b59c3"
-}
 const theme = createTheme({
   palette: {
     mode: "dark",
