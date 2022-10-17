@@ -44,12 +44,6 @@ export const loginQuery = gql`
 `;
 export function filterDuplicates(params:Project[]) {
   return params;
-  params = params.filter((project) => {
-    return project.commitHashes != null && project.commitHashes.length > 0;
-  });
-  const ids = params.map(o => o.projectUrl)
-  const filtered = params.filter(({ projectUrl }, index) => !ids.includes(projectUrl, index + 1));
-  return filtered;
 }
 export function filterDuplicateBadSmells(params: BadSmell[]) {
   if (params == null) {
