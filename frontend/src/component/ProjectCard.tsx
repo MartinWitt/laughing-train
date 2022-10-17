@@ -1,4 +1,4 @@
-import {Button, Card, CardActionArea, CardContent, Chip, Stack, Typography } from "@mui/material";
+import {Button, Card, CardActionArea, CardContent, Stack, Typography } from "@mui/material";
 import React from "react";
 import Avatar from "react-avatar";
 import { useNavigate } from "react-router-dom";
