@@ -1,6 +1,7 @@
 package io.github.martinwitt.laughing_train.persistence;
 
 import com.mongodb.client.model.Filters;
+import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
 import io.quarkus.runtime.StartupEvent;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -16,6 +17,14 @@ public class DataBaseMigration {
     public void onStart(@Observes StartupEvent event) {
         removeBadSmellsWithoutPosition();
         removeProjectHashesWithoutResults();
+        removeBadSmellsWithoutIdentifier();
+    }
+
+    private void removeBadSmellsWithoutIdentifier() {
+        BadSmell.mongoCollection()
+                .find(Filters.not(Filters.exists("identifier")))
+                .forEach(PanacheMongoEntityBase::delete);
+        ;
     }
 
     private void removeProjectHashesWithoutResults() {
@@ -35,6 +44,9 @@ public class DataBaseMigration {
     }
 
     private void removeBadSmellsWithoutPosition() {
-        BadSmell.mongoCollection().find(Filters.not(Filters.exists("position")));
+        BadSmell.mongoCollection()
+                .find(Filters.not(Filters.exists("position")))
+                .forEach(PanacheMongoEntityBase::delete);
+        ;
     }
 }

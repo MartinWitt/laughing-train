@@ -142,7 +142,7 @@ function BadSmellCardHeader(badSmell: BadSmell) {
   return (<>
     <OrangeDivider />
     <Typography padding="10px" variant='h4' color={"#ffb86c"} fontSize={24}>{badSmell.ruleID}</Typography>
-    <Typography color={"#8be9fd"} padding="10px" justifyContent={"flex-start"}> Qodana | {badSmell.id}</Typography>
+    <Typography color={"#8be9fd"} padding="10px" justifyContent={"flex-start"}>{badSmell.identifier}</Typography>
     <BlackDivider />  </>);
 }
 

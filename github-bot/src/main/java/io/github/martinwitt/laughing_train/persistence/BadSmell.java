@@ -53,6 +53,7 @@ public class BadSmell extends PanacheMongoEntity implements Serializable {
         this.projectName = projectName;
         this.projectUrl = projectUrl;
         this.commitHash = commitHash;
+        this.identifier = generateIdentifier(result, projectName, commitHash);
     }
 
     /* (non-Javadoc)
