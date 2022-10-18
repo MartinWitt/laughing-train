@@ -11,20 +11,16 @@ import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 @MongoEntity(database = "Laughing-Train")
 public class BadSmell extends PanacheMongoEntity implements Serializable {
 
+    public String identifier;
     public String ruleID;
     public String filePath;
-    public int startLine;
-    public int endLine;
-    public int startColumn;
-    public int endColumn;
-    public int charOffset;
-    public int charLength;
     public String message;
     public String messageMarkdown;
     public String snippet;
     public String projectName;
     public String projectUrl;
     public String commitHash;
+    public Position position;
 
     public static List<BadSmell> findByRuleID(String ruleID) {
         return list("ruleID", ruleID);
@@ -38,37 +34,19 @@ public class BadSmell extends PanacheMongoEntity implements Serializable {
         return list("commitHash", commitHash);
     }
 
+    public static List<BadSmell> findByIdentifier(String identifier) {
+        return list("identifier", identifier);
+    }
+
     public BadSmell() {
         // default constructor for mongodb
     }
 
-    public BadSmell(
-            String ruleID, String filePath, Position position, String message, String messageMarkdown, String snippet) {
-        this();
-        this.ruleID = ruleID;
-        this.filePath = filePath;
-        this.startLine = position.startLine();
-        this.endLine = position.endLine();
-        this.startColumn = position.startColumn();
-        this.endColumn = position.endColumn();
-        this.charOffset = position.charOffset();
-        this.charLength = position.charLength();
-        this.message = message;
-        this.messageMarkdown = messageMarkdown;
-        this.snippet = snippet;
-    }
-
     public BadSmell(AnalyzerResult result, String projectName, String projectUrl, String commitHash) {
         this();
-        Position position = result.position();
+        this.position = result.position();
         this.ruleID = result.ruleID();
         this.filePath = result.filePath();
-        this.startLine = position.startLine();
-        this.endLine = position.endLine();
-        this.startColumn = position.startColumn();
-        this.endColumn = position.endColumn();
-        this.charOffset = position.charOffset();
-        this.charLength = position.charLength();
         this.message = result.message();
         this.messageMarkdown = result.messageMarkdown();
         this.snippet = result.snippet();
@@ -84,20 +62,7 @@ public class BadSmell extends PanacheMongoEntity implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(
-                ruleID,
-                filePath,
-                startLine,
-                endLine,
-                startColumn,
-                endColumn,
-                charOffset,
-                charLength,
-                message,
-                messageMarkdown,
-                snippet,
-                projectName,
-                projectUrl,
-                commitHash);
+                ruleID, filePath, position, message, messageMarkdown, snippet, projectName, projectUrl, commitHash);
     }
 
     /* (non-Javadoc)
@@ -115,17 +80,16 @@ public class BadSmell extends PanacheMongoEntity implements Serializable {
         BadSmell other = (BadSmell) obj;
         return Objects.equals(ruleID, other.ruleID)
                 && Objects.equals(filePath, other.filePath)
-                && startLine == other.startLine
-                && endLine == other.endLine
-                && startColumn == other.startColumn
-                && endColumn == other.endColumn
-                && charOffset == other.charOffset
-                && charLength == other.charLength
+                && Objects.equals(position, other.position)
                 && Objects.equals(message, other.message)
                 && Objects.equals(messageMarkdown, other.messageMarkdown)
                 && Objects.equals(snippet, other.snippet)
                 && Objects.equals(projectName, other.projectName)
                 && Objects.equals(projectUrl, other.projectUrl)
                 && Objects.equals(commitHash, other.commitHash);
+    }
+
+    public static String generateIdentifier(AnalyzerResult result, String projectName, String commitHash) {
+        return "%s-%s-%s-%s".formatted(result.getAnalyzer(), projectName, result.ruleID(), commitHash);
     }
 }

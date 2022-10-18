@@ -120,7 +120,7 @@ function OrangeDivider() {
 }
 
 function createGithubLink(badSmell: BadSmell, project: Project) {
-  return project.projectUrl + "/tree/" + project.commitHashes[0] + "/" + badSmell.filePath + "#L" + badSmell.startLine;
+  return project.projectUrl + "/tree/" + project.commitHashes[0] + "/" + badSmell.filePath + "#L" + badSmell.position.startLine;
 
 }
 
@@ -151,7 +151,7 @@ function BadSmellCardFooter({ badSmell, project }: { badSmell: BadSmell; project
     <BlackDivider />
     <Typography padding="10px" fontSize={18} style={{
       color: "#8be9fd"
-    }}>In file {badSmell.filePath} at line {badSmell.startLine}</Typography>
+    }}>In file {badSmell.filePath} at line {badSmell.position.startLine}</Typography>
     {GitHubLink(badSmell, project)}
   </>);
 }

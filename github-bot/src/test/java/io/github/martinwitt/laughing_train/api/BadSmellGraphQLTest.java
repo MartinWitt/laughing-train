@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.Project;
+import io.github.martinwitt.laughing_train.utils.TestAnalyzerResult;
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.graphql.client.Response;
 import io.smallrye.graphql.client.core.Argument;
@@ -40,8 +41,9 @@ public class BadSmellGraphQLTest {
     }
 
     private BadSmell createWithMessage(String ruleID) {
-        return new BadSmell(
-                ruleID, "filePath", new Position(0, 0, 0, 0, 0, 0), "message", "messageMarkdown", "snippet");
+        TestAnalyzerResult testAnalyzerResult =
+                new TestAnalyzerResult(ruleID, "filePath", new Position(0, 0, 0, 0, 0, 0), "test");
+        return new BadSmell(testAnalyzerResult, "test", "test", "test");
     }
 
     @Test
