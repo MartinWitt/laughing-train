@@ -36,7 +36,7 @@ public class ProjectService {
         if (request instanceof ProjectRequest.WithUrl url) {
             String repoName = StringUtils.substringAfterLast(url.url(), "/").replace(".git", "");
             Path dir = Files.createTempDirectory("laughing-train-" + repoName + random.nextLong());
-            vertx.setTimer(Duration.ofMinutes(30).toMillis(), v -> FileUtils.deleteQuietly(dir.toFile()));
+            vertx.setTimer(Duration.ofMinutes(60).toMillis(), v -> FileUtils.deleteQuietly(dir.toFile()));
             return checkoutRepo(url, dir)
                     .onItem()
                     .invoke(() -> logger.atInfo().log("Cloned %s to %s", url.url(), dir))
