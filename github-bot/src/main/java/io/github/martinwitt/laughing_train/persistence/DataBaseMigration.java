@@ -3,6 +3,7 @@ package io.github.martinwitt.laughing_train.persistence;
 import com.mongodb.client.model.Filters;
 import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
 import io.quarkus.runtime.StartupEvent;
+import java.util.ArrayList;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 
@@ -30,7 +31,7 @@ public class DataBaseMigration {
     private void removeProjectHashesWithoutResults() {
         for (Project project : Project.<Project>listAll()) {
             boolean changed = false;
-            for (String hash : project.commitHashes) {
+            for (String hash : new ArrayList<>(project.commitHashes)) {
                 if (BadSmell.findByCommitHash(hash) == null
                         || BadSmell.findByCommitHash(hash).isEmpty()) {
                     project.commitHashes.remove(hash);
