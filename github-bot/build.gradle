@@ -24,7 +24,7 @@ dependencies {
 	annotationProcessor("io.quarkus:quarkus-panache-common")
 	implementation("io.quarkus:quarkus-smallrye-graphql")
 	implementation("io.quarkus:quarkus-smallrye-graphql-client")
-	implementation 'io.quarkiverse.quinoa:quarkus-quinoa:1.2.1'
+	implementation 'io.quarkiverse.quinoa:quarkus-quinoa:1.2.2'
 	implementation("io.quarkus:quarkus-oidc")
 }
 
