@@ -26,7 +26,7 @@ public class DataBaseMigration {
     private void removeBadSmellsWithWrongIdentifier() {
         BadSmell.<BadSmell>findAll().stream()
                 .filter(v -> {
-                    String hashPart = StringUtils.substringAfterLast(v.identifier, "/");
+                    String hashPart = StringUtils.substringAfterLast(v.identifier, "-");
                     if (hashPart == null) {
                         return true;
                     }
