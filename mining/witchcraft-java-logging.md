@@ -117,18 +117,6 @@ public abstract class TestReportFormattingPlugin implements Plugin<Project> {
 
 ## BoundedWildcard
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/SupplierLogVisitor.java`
-#### Snippet
-```java
-    private final Supplier<T> supplier;
-
-    SupplierLogVisitor(Supplier<T> supplier) {
-        this.supplier = supplier;
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends Pair`
 in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/idea/WitchcraftLogFilter.java`
 #### Snippet
@@ -141,6 +129,18 @@ in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/i
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/SupplierLogVisitor.java`
+#### Snippet
+```java
+    private final Supplier<T> supplier;
+
+    SupplierLogVisitor(Supplier<T> supplier) {
+        this.supplier = supplier;
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
 #### Snippet
@@ -150,6 +150,18 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     private static String interpolateParameters(String original, Function<String, Object> lookup) {
         Matcher matcher = PARAMETER_PATTERN.matcher(original);
         String current = original;
+```
+
+### BoundedWildcard
+Can generalize to `? super StringBuilder`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/Formatting.java`
+#### Snippet
+```java
+    }
+
+    static String withStringBuilder(Consumer<StringBuilder> function) {
+        StringBuilder builder = REUSABLE_STRING_BUILDER.get();
+        builder.setLength(0);
 ```
 
 ### BoundedWildcard
@@ -246,18 +258,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     CombineWithLogVisitor(LogVisitor<T> first, LogVisitor<U> second, BiFunction<T, U, R> combiner) {
         this.first = first;
         this.second = second;
-```
-
-### BoundedWildcard
-Can generalize to `? super StringBuilder`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/Formatting.java`
-#### Snippet
-```java
-    }
-
-    static String withStringBuilder(Consumer<StringBuilder> function) {
-        StringBuilder builder = REUSABLE_STRING_BUILDER.get();
-        builder.setLength(0);
 ```
 
 ### BoundedWildcard
