@@ -6,6 +6,7 @@ import io.quarkus.runtime.StartupEvent;
 import java.util.ArrayList;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class is used to migrate the database to the latest version.
@@ -19,6 +20,19 @@ public class DataBaseMigration {
         removeBadSmellsWithoutPosition();
         removeProjectHashesWithoutResults();
         removeBadSmellsWithoutIdentifier();
+        removeBadSmellsWithWrongIdentifier();
+    }
+
+    private void removeBadSmellsWithWrongIdentifier() {
+        BadSmell.<BadSmell>findAll().stream()
+                .filter(v -> {
+                    String hashPart = StringUtils.substringAfterLast(v.identifier, "/");
+                    if (hashPart == null) {
+                        return true;
+                    }
+                    return hashPart.equals(v.commitHash);
+                })
+                .forEach(PanacheMongoEntityBase::delete);
     }
 
     private void removeBadSmellsWithoutIdentifier() {
