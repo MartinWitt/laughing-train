@@ -63,7 +63,7 @@ public class RefactorService {
 
     public void refactor(List<BadSmell> badSmells) {
         logger.atInfo().log("Refactoring %d bad smells", badSmells.size());
-        var badSmellByAnalyzer = badSmells.stream().collect(Collectors.groupingBy(v -> v.getAnalyzer()));
+        var badSmellByAnalyzer = badSmells.stream().collect(Collectors.groupingBy(BadSmell::getAnalyzer));
         for (var entry : badSmellByAnalyzer.entrySet()) {
             var analyzer = entry.getKey();
             var badSmellList = entry.getValue();

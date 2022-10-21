@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Mutation;
@@ -19,6 +20,9 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 @RequestScoped
 public class RefactorGraphQL {
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
+    @Inject
+    RefactorService refactorService;
 
     @Query
     @Description("Returns a list of all available refactorings")
@@ -35,7 +39,7 @@ public class RefactorGraphQL {
             badSmells.addAll(BadSmell.findByIdentifier(identifier));
         }
         logger.atInfo().log("Refactoring %s", badSmells);
-        new RefactorService().refactor(badSmells);
+        refactorService.refactor(badSmells);
         return "Not implemented yet";
     }
 }
