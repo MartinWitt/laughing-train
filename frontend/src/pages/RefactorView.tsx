@@ -30,7 +30,7 @@ export function RefactorView() {
       }
     }
   )
-  const { data : rules, loading : loadingRules, error : errorRules } = useQuery(fetchAvailableRefactorings);
+  // const { data : rules, loading : loadingRules, error : errorRules } = useQuery(fetchAvailableRefactorings);
   const { hash, name } = useParams();
   const { data : dataBadSmell, error : errorBadSmell, loading : loadingBadSmell } = useQuery(fetchBadSmellsforHashQuery, {
     variables: {
