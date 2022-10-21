@@ -26,6 +26,7 @@ dependencies {
 	implementation("io.quarkus:quarkus-smallrye-graphql-client")
 	implementation 'io.quarkiverse.quinoa:quarkus-quinoa:1.2.2'
 	implementation("io.quarkus:quarkus-oidc")
+	implementation("io.quarkus:quarkus-keycloak-authorization")
 }
 
 group 'io.github.martinwitt'
