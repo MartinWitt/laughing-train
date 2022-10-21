@@ -13,7 +13,7 @@ repositories {
 dependencies {
 	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
 	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.313.0'
-	implementation 'io.quarkiverse.githubapp:quarkus-github-app:1.14.0'
+	implementation 'io.quarkiverse.githubapp:quarkus-github-app:1.15.0'
 	implementation 'io.quarkiverse.githubapp:quarkus-github-app-command-airline:1.14.0'
 	implementation 'io.quarkus:quarkus-arc'
 	implementation "io.quarkus:quarkus-scheduler"
