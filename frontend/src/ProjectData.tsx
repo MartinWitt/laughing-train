@@ -49,9 +49,7 @@ export const addprojectQuery = gql`
 `;
 export const refactorQuery = gql`
   mutation refactor($badSmellIdentifier: [String]) {
-  refactor(badSmellIdentifier: $badSmellIdentifier) {
-    String
-  }
+  refactor(badSmellIdentifier: $badSmellIdentifier)
 }
 `;
 export const loginQuery = gql`
