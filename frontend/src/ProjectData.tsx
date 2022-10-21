@@ -50,8 +50,7 @@ export const addprojectQuery = gql`
 export const refactorQuery = gql`
   mutation refactor($badSmellIdentifier: [String]) {
   refactor(badSmellIdentifier: $badSmellIdentifier) {
-    projectName
-    projectUrl
+    String
   }
 }
 `;
