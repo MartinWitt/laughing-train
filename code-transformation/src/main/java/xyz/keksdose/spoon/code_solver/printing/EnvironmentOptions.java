@@ -8,6 +8,7 @@ public class EnvironmentOptions {
 
     public static Environment setEnvironmentOptions(Launcher launcher) {
         Environment environment = launcher.getEnvironment();
+        environment.setIgnoreDuplicateDeclarations(true);
         environment.setNoClasspath(true);
         environment.disableConsistencyChecks();
         environment.setShouldCompile(true);

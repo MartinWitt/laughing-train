@@ -25,6 +25,9 @@ public class DataBaseMigration {
 
     private void removeBadSmellsWithWrongIdentifier() {
         BadSmell.<BadSmell>findAll().stream()
+                .filter(v -> v.identifier.contains("--"))
+                .forEach(v -> v.identifier = v.identifier.replaceAll("--", "-"));
+        BadSmell.<BadSmell>findAll().stream()
                 .filter(v -> {
                     String hashPart = StringUtils.substringAfterLast(v.identifier, "-");
                     if (hashPart == null) {

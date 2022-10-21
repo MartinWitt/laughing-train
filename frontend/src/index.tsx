@@ -11,6 +11,7 @@ import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/c
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { AddProjectView } from './pages/AddProjectView';
+import { RefactorView } from './pages/RefactorView';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/mutation/addproject",
     element: <AddProjectView />,
+  },
+  {
+    path: "/mutation/refactor/:name/:hash",
+    element: <RefactorView />,
   },
   {
     path: "/resultview",

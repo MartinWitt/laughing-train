@@ -2,14 +2,13 @@ package io.github.martinwitt.laughing_train.persistence;
 
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 @MongoEntity(database = "Laughing-Train")
-public class BadSmell extends PanacheMongoEntity implements Serializable {
+public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
 
     public String analyzer;
     public String identifier;
@@ -105,5 +104,40 @@ public class BadSmell extends PanacheMongoEntity implements Serializable {
                 && Objects.equals(projectUrl, other.projectUrl)
                 && Objects.equals(commitHash, other.commitHash)
                 && Objects.equals(position, other.position);
+    }
+
+    @Override
+    public String getAnalyzer() {
+        return analyzer;
+    }
+
+    @Override
+    public String ruleID() {
+        return ruleID;
+    }
+
+    @Override
+    public String filePath() {
+        return filePath;
+    }
+
+    @Override
+    public Position position() {
+        return position;
+    }
+
+    @Override
+    public String message() {
+        return message;
+    }
+
+    @Override
+    public String messageMarkdown() {
+        return messageMarkdown;
+    }
+
+    @Override
+    public String snippet() {
+        return snippet;
     }
 }

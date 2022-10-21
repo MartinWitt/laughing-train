@@ -1,4 +1,4 @@
-import { CircularProgress, Divider } from "@mui/material";
+import { Button, CircularProgress, Divider } from "@mui/material";
 import React from "react";
 import Headline from "../component/Headline";
 import ProjectCard from "../component/ProjectCard";
@@ -40,6 +40,7 @@ function Resultview() {
                 <br />
                 <Divider />
                 <BadSmellList {...projectWithSingleHash(project, params.hash)} />
+                <Button variant="contained" href={"/mutation/refactor/" + project.projectName+"/"+params.hash}>toRefactor</Button>
             </div>
         );
     }

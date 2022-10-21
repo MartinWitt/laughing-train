@@ -15,6 +15,13 @@ export const fetchProjectQuery = gql`
    }
 }
 `;
+export const fetchAvailableRefactorings = gql`
+  query getAvailableRefactorings {
+   availableRefactorings {
+    ruleId
+   }
+}
+`;
 
 export const fetchBadSmellsforHashQuery = gql`
   query getBadSmellsForHash($hash: String) {
@@ -35,6 +42,14 @@ export const fetchBadSmellsforHashQuery = gql`
 export const addprojectQuery = gql`
   mutation addProject($projectName: String!, $projectUrl: String!) {
   addProject(projectName: $projectName, projectUrl: $projectUrl) {
+    projectName
+    projectUrl
+  }
+}
+`;
+export const refactorQuery = gql`
+  mutation refactor($badSmellIdentifier: String[]!) {
+  refactor(badSmellIdentifier: $badSmellIdentifier) {
     projectName
     projectUrl
   }
