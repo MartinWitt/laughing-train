@@ -6,7 +6,7 @@ import React from "react";
 import { useParams } from "react-router";
 import { BadSmellTreeView } from "../component/BadSmellTree";
 import { BadSmell } from "../data/BadSmell";
-import { fetchAvailableRefactorings, fetchBadSmellsforHashQuery, refactorQuery } from "../ProjectData";
+import { fetchBadSmellsforHashQuery, refactorQuery } from "../ProjectData";
 
 export function RefactorView() {
   const [selected, addSelected] = React.useState<string[]>([]);
