@@ -67,7 +67,7 @@ public class RefactorService {
             var analyzer = entry.getKey();
             var badSmellList = entry.getValue();
             switch (analyzer) {
-                case "qodana" -> refactorQodana(badSmellList);
+                case "Qodana" -> refactorQodana(badSmellList);
                 default -> logger.atWarning().log("Unknown analyzer %s", analyzer);
             }
             logger.atInfo().log("Refactoring");
