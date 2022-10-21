@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.api;
 
+import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.services.RefactorService;
 import io.quarkus.security.Authenticated;
@@ -17,6 +18,8 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 @GraphQLApi
 @RequestScoped
 public class RefactorGraphQL {
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
     @Query
     @Description("Returns a list of all available refactorings")
     public List<? extends AnalyzerRule> getAvailableRefactorings() {
@@ -31,6 +34,7 @@ public class RefactorGraphQL {
         for (String identifier : badSmellIdentifier) {
             badSmells.addAll(BadSmell.findByIdentifier(identifier));
         }
+        logger.atInfo().log("Refactoring %s", badSmells);
         new RefactorService().refactor(badSmells);
         return "Not implemented yet";
     }

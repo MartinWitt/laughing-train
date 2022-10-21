@@ -62,6 +62,7 @@ public class RefactorService {
     ChangelogPrinter changelogPrinter;
 
     public void refactor(List<BadSmell> badSmells) {
+        logger.atInfo().log("Refactoring %d bad smells", badSmells.size());
         var badSmellByAnalyzer = badSmells.stream().collect(Collectors.groupingBy(v -> v.getAnalyzer()));
         for (var entry : badSmellByAnalyzer.entrySet()) {
             var analyzer = entry.getKey();
@@ -110,7 +111,6 @@ public class RefactorService {
                 logger.atSevere().withCause(e).log("Failed to create pull request");
                 FileUtils.deleteQuietly(success.project().folder());
             }
-            return Promise.promise();
         }
         return Promise.promise();
     }
