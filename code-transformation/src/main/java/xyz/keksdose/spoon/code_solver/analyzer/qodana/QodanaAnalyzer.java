@@ -4,11 +4,14 @@ import com.contrastsecurity.sarif.Result;
 import com.contrastsecurity.sarif.SarifSchema210;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.async.ResultCallback;
 import com.github.dockerjava.api.async.ResultCallbackTemplate;
 import com.github.dockerjava.api.command.CreateContainerResponse;
+import com.github.dockerjava.api.command.LogContainerCmd;
 import com.github.dockerjava.api.command.WaitContainerResultCallback;
 import com.github.dockerjava.api.model.AccessMode;
 import com.github.dockerjava.api.model.Bind;
+import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Image;
 import com.github.dockerjava.api.model.Volume;
@@ -19,6 +22,7 @@ import com.github.dockerjava.core.DockerClientImpl;
 import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import com.google.common.flogger.FluentLogger;
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
@@ -122,19 +126,37 @@ public class QodanaAnalyzer {
 
     private List<AnalyzerResult> startQodanaContainer(DockerClient dockerClient, CreateContainerResponse container)
             throws InterruptedException {
-        dockerClient.startContainerCmd(container.getId()).exec();
+        String containerId = container.getId();
+        if (containerId == null) {
+            logger.atSevere().log("Container id is null");
+            return List.of();
+        }
+        logger.atInfo().log("Starting qodana container %s", containerId);
+        dockerClient.startContainerCmd(containerId).exec();
         WaitContainerResultCallback exec =
-                dockerClient.waitContainerCmd(container.getId()).exec(new WaitContainerResultCallback());
+                dockerClient.waitContainerCmd(containerId).exec(new WaitContainerResultCallback());
         List<AnalyzerResult> results = new ArrayList<>();
         dockerClient
-                .waitContainerCmd(container.getId())
+                .waitContainerCmd(containerId)
                 .exec(new ResultCallbackTemplate<WaitContainerResultCallback, WaitResponse>() {
                     @Override
                     public void onNext(WaitResponse object) {
                         try {
                             exec.awaitCompletion();
-
-                            results.addAll(parseSarif(Paths.get(resultPathString)));
+                            logger.atInfo().log("Qodana finished");
+                            if (!Paths.get(resultPathString).toFile().exists()) {
+                                StringBuilder sb = new StringBuilder();
+                                LogContainerCmd logContainerCmd = dockerClient.logContainerCmd(containerId);
+                                logContainerCmd
+                                        .withStdOut(true)
+                                        .withStdErr(true)
+                                        .withTailAll()
+                                        .exec(new ResultCallbackImplementation(sb));
+                                logger.atSevere().log(sb.toString());
+                                logger.atSevere().log("Qodana did not create result file");
+                            } else {
+                                results.addAll(parseSarif(Paths.get(resultPathString)));
+                            }
                         } catch (Exception e) {
                             logger.atSevere().withCause(e).log("Could not parse sarif");
                         }
@@ -215,6 +237,33 @@ public class QodanaAnalyzer {
             logger.atSevere().withCause(e).log("Could not parse sarif");
         }
         return results;
+    }
+
+    private final class ResultCallbackImplementation implements ResultCallback<Frame> {
+        private final StringBuilder sb;
+
+        private ResultCallbackImplementation(StringBuilder sb) {
+            this.sb = sb;
+        }
+
+        @Override
+        public void close() throws IOException {}
+
+        @Override
+        public void onStart(Closeable closeable) {}
+
+        @Override
+        public void onNext(Frame object) {
+            sb.append(new String(object.getPayload()));
+        }
+
+        @Override
+        public void onError(Throwable throwable) {
+            sb.append(throwable.getMessage());
+        }
+
+        @Override
+        public void onComplete() {}
     }
 
     public static class Builder {
