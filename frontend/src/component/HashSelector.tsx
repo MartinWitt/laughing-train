@@ -15,7 +15,7 @@ function HashSelector(project : Project) {
       <div><br/>
         <Grid direction="row" container>
           {project.commitHashes.map((hash: string) => {
-            return <Chip label={hash} key={hash} onClick={() => navigate(toLink(project, hash))} variant="outlined" />;
+            return <Chip label={hash} key={hash} onClick={() => navigate(toLink(project, hash))} />;
         })}
         </Grid>
             </div>
