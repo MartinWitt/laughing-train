@@ -44,7 +44,8 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
         this.settings.addAll(builder.settings);
     }
 
-    public QodanaRefactor(List<QodanaRules> qodanaRules, ChangeListener listener, List<AnalyzerResult> results) {
+    public QodanaRefactor(
+            Iterable<QodanaRules> qodanaRules, ChangeListener listener, List<? extends AnalyzerResult> results) {
         super(listener);
         refactorings = new ArrayList<>();
         ruleParser = new HashMap<>();
@@ -67,7 +68,7 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
         splitResults(results);
     }
 
-    private void splitResults(List<AnalyzerResult> results) {
+    private void splitResults(List<? extends AnalyzerResult> results) {
         for (AnalyzerResult result : results) {
             Optional.ofNullable(ruleParser.get(result.ruleID())).ifPresent(v -> refactorings.add(v.apply(result)));
         }

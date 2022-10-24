@@ -2,6 +2,7 @@ package xyz.keksdose.spoon.code_solver.analyzer.qodana;
 
 import java.util.List;
 import java.util.function.Function;
+import xyz.keksdose.spoon.code_solver.analyzer.AnalyzerRule;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.AbstractRefactoring;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.MethodMayBeStatic;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.NonProtectedConstructorInAbstractClass;
@@ -18,7 +19,7 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedImport;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
-public enum QodanaRules {
+public enum QodanaRules implements AnalyzerRule {
     METHOD_MAY_BE_STATIC("MethodMayBeStatic", MethodMayBeStatic::new),
     NON_PROTECTED_CONSTRUCTOR_IN_ABSTRACT_CLASS(
             "NonProtectedConstructorInAbstractClass", NonProtectedConstructorInAbstractClass::new),
@@ -41,6 +42,7 @@ public enum QodanaRules {
         this.refactoring = refactoring;
     }
 
+    @Override
     public String getRuleId() {
         return ruleId;
     }

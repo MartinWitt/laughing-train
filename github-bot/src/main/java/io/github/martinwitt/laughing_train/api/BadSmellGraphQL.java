@@ -35,4 +35,10 @@ public class BadSmellGraphQL {
     public List<BadSmell> getAllBadSmellsByCommitHash(@Name("commitHash") String commitHash) {
         return BadSmell.findByCommitHash(commitHash);
     }
+
+    @Query("byIdentifier")
+    @Description("Gets all bad smells from the database by identifier")
+    public List<BadSmell> getAllBadSmellsByIdentifier(@Name("identifier") String identifier) {
+        return BadSmell.findByIdentifier(identifier);
+    }
 }

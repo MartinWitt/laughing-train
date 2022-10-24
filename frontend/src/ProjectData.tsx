@@ -15,16 +15,26 @@ export const fetchProjectQuery = gql`
    }
 }
 `;
+export const fetchAvailableRefactorings = gql`
+  query getAvailableRefactorings {
+   availableRefactorings {
+    ruleId
+   }
+}
+`;
 
 export const fetchBadSmellsforHashQuery = gql`
   query getBadSmellsForHash($hash: String) {
   byCommitHash(commitHash: $hash) {
+    identifier
     id
     ruleID
     messageMarkdown
     snippet
     filePath
-    startLine
+    position {
+      startLine
+    }
   }
 }
 `;
@@ -35,6 +45,11 @@ export const addprojectQuery = gql`
     projectName
     projectUrl
   }
+}
+`;
+export const refactorQuery = gql`
+  mutation refactor($badSmellIdentifier: [String]) {
+  refactor(badSmellIdentifier: $badSmellIdentifier)
 }
 `;
 export const loginQuery = gql`

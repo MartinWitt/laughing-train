@@ -65,7 +65,7 @@ export default function BadSmellList(project: Project) {
 
 function SelectionBox({ label, addFunction }: { label: string; addFunction: (label: string) => void; }) {
   return (<Box>
-    <FormControlLabel control={<Checkbox sx={{ color: "#b92369"}}  />}
+    <FormControlLabel control={<Checkbox  />}
       defaultChecked onClick={e => { addFunction(label); }} label={label}  />
   </Box>)
 }
@@ -89,7 +89,7 @@ function CodeBlocks(params: BadSmell[], project: Project) {
             <Typography variant="h5" align='center' alignContent={"center"} >{badSmell[0]} {badSmell[1].length}</Typography>
           </AccordionSummary>
           <Divider />
-          <AccordionDetails sx={{ justifyContent: "center", backgroundColor: "#111135" }}>
+          <AccordionDetails sx={{ justifyContent: "center"}}>
             <Stack spacing={2} direction='column' alignItems={"center"}>
               {badSmell[1].map((badSmell) => {
                 return (
@@ -97,11 +97,10 @@ function CodeBlocks(params: BadSmell[], project: Project) {
                     alignItems: "center",
                     justifyContent: "center",
                     alignContent: "center",
-                    color: "#282a36", backgroundColor: "#282a36",
-                    width: "70%",
-                  }} elevation={10} color='#282a36'>
+                    width: "100%",
+                  }} elevation={10}>
                     <BadSmellCardHeader  {...badSmell} />
-                    <Typography padding="10px" fontSize={18} style={{ color: "#8be9fd" }} >{badSmell.messageMarkdown}</Typography>
+                    <Typography padding="10px" fontSize={18} >{badSmell.messageMarkdown}</Typography>
                     <JavaCodeBlock code={badSmell.snippet} />
                     <BadSmellCardFooter badSmell={badSmell} project={project} />
                     <OrangeDivider />
@@ -116,11 +115,11 @@ function CodeBlocks(params: BadSmell[], project: Project) {
   });
 }
 function OrangeDivider() {
-  return <Divider sx={{ borderBottomWidth: 5, borderBlockColor: '#FFA500' }} />;
+  return <Divider sx={{ borderBottomWidth: 5}} />;
 }
 
 function createGithubLink(badSmell: BadSmell, project: Project) {
-  return project.projectUrl + "/tree/" + project.commitHashes[0] + "/" + badSmell.filePath + "#L" + badSmell.startLine;
+  return project.projectUrl + "/tree/" + project.commitHashes[0] + "/" + badSmell.filePath + "#L" + badSmell.position.startLine;
 
 }
 
@@ -141,28 +140,25 @@ function groupByRuleID(projects: BadSmell[]): Map<string, BadSmell[]> {
 function BadSmellCardHeader(badSmell: BadSmell) {
   return (<>
     <OrangeDivider />
-    <Typography padding="10px" variant='h4' color={"#ffb86c"} fontSize={24}>{badSmell.ruleID}</Typography>
-    <Typography color={"#8be9fd"} padding="10px" justifyContent={"flex-start"}> Qodana | {badSmell.id}</Typography>
+    <Typography padding="10px" variant='h4' fontSize={24}>{badSmell.ruleID}</Typography>
+    <Typography padding="10px" justifyContent={"flex-start"}>{badSmell.identifier}</Typography>
     <BlackDivider />  </>);
 }
 
 function BadSmellCardFooter({ badSmell, project }: { badSmell: BadSmell; project: Project; }) {
   return (<>
     <BlackDivider />
-    <Typography padding="10px" fontSize={18} style={{
-      color: "#8be9fd"
-    }}>In file {badSmell.filePath} at line {badSmell.startLine}</Typography>
+    <Typography padding="10px" fontSize={18} >In file {badSmell.filePath} at line {badSmell.position.startLine}</Typography>
     {GitHubLink(badSmell, project)}
   </>);
 }
 function GitHubLink(badSmell: BadSmell, project: Project) {
-  return <Link padding="10px" href={createGithubLink(badSmell, project)} underline='hover' color='#ffb86c'>See on GitHub</Link>;
+  return <Link padding="10px" href={createGithubLink(badSmell, project)} underline='hover'>See on GitHub</Link>;
 }
 
 
 function BlackDivider() {
   return (<Divider sx={{
     borderBottomWidth: 2,
-    borderBlockColor: '#282A36'
   }} />);
 }

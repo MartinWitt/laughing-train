@@ -8,9 +8,10 @@ import {
 import DashBoard from './pages/DashBoard';
 import Resultview from './pages/Resultview';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme, ThemeOptions } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { AddProjectView } from './pages/AddProjectView';
+import { RefactorView } from './pages/RefactorView';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/mutation/addproject",
     element: <AddProjectView />,
+  },
+  {
+    path: "/mutation/refactor/:name/:hash",
+    element: <RefactorView />,
   },
   {
     path: "/resultview",
@@ -61,27 +66,26 @@ const client = new ApolloClient({
   cache: new InMemoryCache({
   }),
 });
-const theme = createTheme({
+// https://bareynol.github.io/mui-theme-creator/#Card
+export const themeOptions: ThemeOptions = {
   palette: {
-    mode: "dark",
-    background: {
-      default: "#111135",
-      paper: "#2369b9",
-    },
+    mode: 'dark',
     primary: {
-      main: "#2369b9"
+      main: '#e64a19',
     },
-    divider: "#b92369"
+    secondary: {
+      main: '#00e676',
+    },
   },
-  typography: {
-    h1: {
-      color: "#b92369"
-    }
-  },
+  spacing: 8,
+};
+const theme = createTheme(
+  themeOptions
+  
 
   
-});
-theme.spacing(10)
+);
+
 
 
 root.render(

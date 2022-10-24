@@ -3,6 +3,7 @@ package io.github.martinwitt.laughing_train.persistence;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.github.martinwitt.laughing_train.utils.Contract;
+import io.github.martinwitt.laughing_train.utils.TestAnalyzerResult;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
@@ -36,7 +37,8 @@ public class DatabaseTest {
     }
 
     private BadSmell createWithMessage(String ruleID) {
-        return new BadSmell(
-                ruleID, "filePath", new Position(0, 0, 0, 0, 0, 0), "message", "messageMarkdown", "snippet");
+        TestAnalyzerResult testAnalyzerResult =
+                new TestAnalyzerResult(ruleID, "filePath", new Position(0, 0, 0, 0, 0, 0), "test");
+        return new BadSmell(testAnalyzerResult, "test", "test", "test");
     }
 }

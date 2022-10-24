@@ -2,29 +2,25 @@ package io.github.martinwitt.laughing_train.persistence;
 
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 @MongoEntity(database = "Laughing-Train")
-public class BadSmell extends PanacheMongoEntity implements Serializable {
+public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
 
+    public String analyzer;
+    public String identifier;
     public String ruleID;
     public String filePath;
-    public int startLine;
-    public int endLine;
-    public int startColumn;
-    public int endColumn;
-    public int charOffset;
-    public int charLength;
     public String message;
     public String messageMarkdown;
     public String snippet;
     public String projectName;
     public String projectUrl;
     public String commitHash;
+    public Position position;
 
     public static List<BadSmell> findByRuleID(String ruleID) {
         return list("ruleID", ruleID);
@@ -38,72 +34,56 @@ public class BadSmell extends PanacheMongoEntity implements Serializable {
         return list("commitHash", commitHash);
     }
 
+    public static List<BadSmell> findByIdentifier(String identifier) {
+        return list("identifier", identifier);
+    }
+
     public BadSmell() {
         // default constructor for mongodb
     }
 
-    public BadSmell(
-            String ruleID, String filePath, Position position, String message, String messageMarkdown, String snippet) {
-        this();
-        this.ruleID = ruleID;
-        this.filePath = filePath;
-        this.startLine = position.startLine();
-        this.endLine = position.endLine();
-        this.startColumn = position.startColumn();
-        this.endColumn = position.endColumn();
-        this.charOffset = position.charOffset();
-        this.charLength = position.charLength();
-        this.message = message;
-        this.messageMarkdown = messageMarkdown;
-        this.snippet = snippet;
-    }
-
     public BadSmell(AnalyzerResult result, String projectName, String projectUrl, String commitHash) {
         this();
-        Position position = result.position();
+        this.position = result.position();
         this.ruleID = result.ruleID();
         this.filePath = result.filePath();
-        this.startLine = position.startLine();
-        this.endLine = position.endLine();
-        this.startColumn = position.startColumn();
-        this.endColumn = position.endColumn();
-        this.charOffset = position.charOffset();
-        this.charLength = position.charLength();
         this.message = result.message();
         this.messageMarkdown = result.messageMarkdown();
         this.snippet = result.snippet();
         this.projectName = projectName;
         this.projectUrl = projectUrl;
         this.commitHash = commitHash;
+        this.identifier = generateIdentifier(result, projectName, commitHash);
+        this.analyzer = result.getAnalyzer();
     }
 
-    /* (non-Javadoc)
+    public static String generateIdentifier(AnalyzerResult result, String projectName, String commitHash) {
+        return "%s-%s-%s-%s"
+                .formatted(result.getAnalyzer(), projectName, result.ruleID(), Objects.hash(result, commitHash));
+    }
+
+    /** (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
-
     @Override
     public int hashCode() {
         return Objects.hash(
+                analyzer,
+                identifier,
                 ruleID,
                 filePath,
-                startLine,
-                endLine,
-                startColumn,
-                endColumn,
-                charOffset,
-                charLength,
                 message,
                 messageMarkdown,
                 snippet,
                 projectName,
                 projectUrl,
-                commitHash);
+                commitHash,
+                position);
     }
 
-    /* (non-Javadoc)
+    /** (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -113,19 +93,51 @@ public class BadSmell extends PanacheMongoEntity implements Serializable {
             return false;
         }
         BadSmell other = (BadSmell) obj;
-        return Objects.equals(ruleID, other.ruleID)
+        return Objects.equals(analyzer, other.analyzer)
+                && Objects.equals(identifier, other.identifier)
+                && Objects.equals(ruleID, other.ruleID)
                 && Objects.equals(filePath, other.filePath)
-                && startLine == other.startLine
-                && endLine == other.endLine
-                && startColumn == other.startColumn
-                && endColumn == other.endColumn
-                && charOffset == other.charOffset
-                && charLength == other.charLength
                 && Objects.equals(message, other.message)
                 && Objects.equals(messageMarkdown, other.messageMarkdown)
                 && Objects.equals(snippet, other.snippet)
                 && Objects.equals(projectName, other.projectName)
                 && Objects.equals(projectUrl, other.projectUrl)
-                && Objects.equals(commitHash, other.commitHash);
+                && Objects.equals(commitHash, other.commitHash)
+                && Objects.equals(position, other.position);
+    }
+
+    @Override
+    public String getAnalyzer() {
+        return analyzer;
+    }
+
+    @Override
+    public String ruleID() {
+        return ruleID;
+    }
+
+    @Override
+    public String filePath() {
+        return filePath;
+    }
+
+    @Override
+    public Position position() {
+        return position;
+    }
+
+    @Override
+    public String message() {
+        return message;
+    }
+
+    @Override
+    public String messageMarkdown() {
+        return messageMarkdown;
+    }
+
+    @Override
+    public String snippet() {
+        return snippet;
     }
 }

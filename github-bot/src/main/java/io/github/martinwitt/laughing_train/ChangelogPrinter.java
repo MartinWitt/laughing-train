@@ -49,7 +49,7 @@ public class ChangelogPrinter {
         }
     }
 
-    String printRepairedIssues(Collection<? extends Change> changes) {
+    public String printRepairedIssues(Collection<? extends Change> changes) {
         StringBuilder sb = new StringBuilder();
         sb.append("# Repairing Code Style Issues\n");
         changes.stream().map(Change::getBadSmell).distinct().forEach(v -> sb.append(

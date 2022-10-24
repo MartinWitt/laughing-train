@@ -15,8 +15,11 @@ public class AnalyzerResultPersistenceService {
         if (result instanceof QodanaResult.Success success) {
             Project project = success.project();
             for (AnalyzerResult badSmell : success.result()) {
-                // TODO: convert to multi creation
-                new BadSmell(badSmell, project.name(), project.url(), project.commitHash()).persistOrUpdate();
+                if (BadSmell.findByIdentifier(
+                                BadSmell.generateIdentifier(badSmell, project.name(), project.commitHash()))
+                        .isEmpty()) {
+                    BadSmell.persist(new BadSmell(badSmell, project.name(), project.url(), project.commitHash()));
+                }
             }
         }
     }
