@@ -85,6 +85,9 @@ public class TransformationEngine {
         addProcessors(pm, changeListener);
         pm.process(model.getAllTypes());
         Collection<CtType<?>> newTypes = model.getAllTypes();
+        LOGGER.atInfo().log("Applying transformations to %s done", path);
+        LOGGER.atInfo().log(
+                "%s Changes found", changeListener.getChangelog().getChanges().size());
         printing.printChangedTypes(changeListener, newTypes);
         return changeListener.getChangelog();
     }

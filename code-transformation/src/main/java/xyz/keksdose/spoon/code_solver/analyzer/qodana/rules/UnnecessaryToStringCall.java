@@ -2,6 +2,7 @@ package xyz.keksdose.spoon.code_solver.analyzer.qodana.rules;
 
 import static xyz.keksdose.spoon.code_solver.history.MarkdownString.fromMarkdown;
 
+import com.google.common.flogger.FluentLogger;
 import java.nio.file.Path;
 import java.util.List;
 import spoon.reflect.code.CtInvocation;
@@ -16,6 +17,7 @@ import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class UnnecessaryToStringCall extends AbstractRefactoring {
 
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private static final BadSmell UNNECESSARY_TO_STRING_CALL = new BadSmell() {
         @Override
         public MarkdownString getName() {
@@ -36,6 +38,7 @@ public class UnnecessaryToStringCall extends AbstractRefactoring {
     @Override
     public void refactor(ChangeListener listener, CtType<?> type) {
         if (type.isAnonymous() || !isSameType(type, Path.of(result.filePath()))) {
+            logger.atFinest().log("skipping %s", type.getQualifiedName());
             return;
         }
         for (CtInvocation<?> toStringInvocation :
