@@ -13,6 +13,7 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.ProtectedMemberInFin
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.SizeReplaceableByIsEmpty;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryInterfaceModifier;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryLocalVariable;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryModifier;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryReturn;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryToStringCall;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedImport;
@@ -33,7 +34,9 @@ public enum QodanaRules implements AnalyzerRule {
     UNNECESSARY_TO_STRING_CALL("UnnecessaryToStringCall", UnnecessaryToStringCall::new),
     UNUSED_IMPORT("UnusedImport", UnusedImport::new),
     PROTECTED_MEMBER_IN_FINAL_CLASS("ProtectedMemberInFinalClass", ProtectedMemberInFinalClass::new),
+    UNNECESSARY_MODIFIER("UnnecessaryModifier", UnnecessaryModifier::new),
     POINTLESS_BOOLEAN_EXPRESSION("PointlessBooleanExpression", PointlessBooleanExpression::new);
+
     private final String ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
 
