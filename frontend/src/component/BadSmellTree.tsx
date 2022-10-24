@@ -97,11 +97,11 @@ function CodeBlocks(params: BadSmell[], setSelected: (selected: string) => void)
                     alignItems: "center",
                     justifyContent: "center",
                     alignContent: "center",
-                    color: "#282a36", backgroundColor: "#282a36",
-                  }} elevation={10} color='#282a36'>
+                    width: "100%",
+                  }} elevation={10}>
                     <CardActionArea onClick={e => setSelected(badSmell.identifier)}>
                     <BadSmellCardHeader  {...badSmell} />
-                    <Typography padding="10px" fontSize={18} style={{ color: "#8be9fd" }} >{badSmell.messageMarkdown}</Typography>
+                    <Typography padding="10px" fontSize={18} >{badSmell.messageMarkdown}</Typography>
                       <JavaCodeBlock code={badSmell.snippet} />
                       </ CardActionArea>
                     <OrangeDivider />
@@ -115,16 +115,15 @@ function CodeBlocks(params: BadSmell[], setSelected: (selected: string) => void)
 function BadSmellCardHeader(badSmell: BadSmell) {
   return (<>
     <OrangeDivider />
-    <Typography padding="10px" variant='h4' color={"#ffb86c"} fontSize={24}>{badSmell.ruleID}</Typography>
-    <Typography color={"#8be9fd"} padding="10px" justifyContent={"flex-start"}>{badSmell.identifier}</Typography>
+    <Typography padding="10px" variant='h4' fontSize={24}>{badSmell.ruleID}</Typography>
+    <Typography padding="10px" justifyContent={"flex-start"}>{badSmell.identifier}</Typography>
     <BlackDivider />  </>);
 }
 function BlackDivider() {
   return (<Divider sx={{
     borderBottomWidth: 2,
-    borderBlockColor: '#282A36'
   }} />);
 }
 function OrangeDivider() {
-  return <Divider sx={{ borderBottomWidth: 5, borderBlockColor: '#FFA500' }} />;
+  return <Divider sx={{ borderBottomWidth: 5}} />;
 }

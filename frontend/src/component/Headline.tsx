@@ -9,7 +9,7 @@ class Headline extends React.Component {
 
   render() {
     return (
-      <AppBar position="static" sx={{backgroundColor:"#FFFFFF"}}>
+      <AppBar position="static">
         <Toolbar>
           {buttons(pages)}
           <div />
