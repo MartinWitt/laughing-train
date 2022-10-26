@@ -66,6 +66,9 @@ public class ProjectGraphQL {
     @Description("Adds a project to the database")
     public Project addProject(String projectUrl, String projectName) {
         Project project = new Project(projectName, projectUrl);
+        if (ProjectConfig.findByProjectUrl(projectUrl).isEmpty()) {
+            ProjectConfig.ofProjectUrl(projectUrl).persistOrUpdate();
+        }
         project.persistOrUpdate();
         return project;
     }

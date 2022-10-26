@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
@@ -89,14 +88,36 @@ public class QodanaService {
             if (request instanceof AnalyzerRequest.WithProject project) {
                 return vertx.<QodanaResult>executeBlocking(promise -> {
                             String projectUrl = project.project().url();
-                            promise.complete(eventBus.<FindProjectConfigResult>request(
-                                            ServiceAdresses.PROJECT_CONFIG_REQUEST,
-                                            new FindProjectConfigRequest.ByProjectUrl(projectUrl),
-                                            new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(30)))
-                                    .<ProjectConfig>transform(v -> transformToProjectResult(projectUrl, v))
-                                    .<QodanaResult>transform(projectConfig -> tryInvokeQodana(project, projectConfig))
-                                    .<QodanaResult>map(publishResults())
-                                    .result());
+                            eventBus.<FindProjectConfigResult>request(
+                                    ServiceAdresses.PROJECT_CONFIG_REQUEST,
+                                    new FindProjectConfigRequest.ByProjectUrl(projectUrl),
+                                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(30)),
+                                    handler -> {
+                                        if (handler.succeeded()) {
+                                            FindProjectConfigResult result =
+                                                    handler.result().body();
+                                            if (result instanceof FindProjectConfigResult.SingleResult found) {
+                                                ProjectConfig projectConfig = found.projectConfig();
+                                                logger.atInfo().log("Found config %s", projectConfig);
+                                                try {
+                                                    QodanaResult results = invokeQodana(project, projectConfig);
+                                                    if (results instanceof QodanaResult.Success success) {
+                                                        promise.complete(new QodanaResult.Success(
+                                                                success.result(), project.project()));
+                                                        publishResults(success);
+                                                    } else {
+                                                        promise.fail("Qodana failed");
+                                                    }
+                                                } catch (Exception e) {
+                                                    logger.atSevere().withCause(e).log("Error while running qodana");
+                                                    promise.complete(new QodanaResult.Failure(e.getMessage()));
+                                                }
+                                            } else {
+                                                logger.atSevere().log("No config found for %s", projectUrl);
+                                                promise.complete(new QodanaResult.Failure("No config found"));
+                                            }
+                                        }
+                                    });
                         })
                         .result();
             } else {
@@ -107,19 +128,8 @@ public class QodanaService {
         }
     }
 
-    private Function<QodanaResult, QodanaResult> publishResults() {
-        return result -> {
-            eventBus.publish(ServiceAdresses.QODANA_ANALYZER_RESPONSE, result);
-            return result;
-        };
-    }
-
-    private Future<QodanaResult> tryInvokeQodana(
-            AnalyzerRequest.WithProject project, AsyncResult<ProjectConfig> projectConfig) {
-        if (projectConfig.succeeded()) {
-            return Future.succeededFuture(invokeQodana(project, projectConfig.result()));
-        }
-        return Future.failedFuture(projectConfig.cause());
+    private void publishResults(QodanaResult result) {
+        eventBus.publish(ServiceAdresses.QODANA_ANALYZER_RESPONSE, result);
     }
 
     private QodanaResult invokeQodana(AnalyzerRequest.WithProject project, ProjectConfig projectConfig) {
