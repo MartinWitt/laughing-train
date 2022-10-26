@@ -21,5 +21,4 @@ repositories {
         implementation "org.kordamp.gradle:jandex-gradle-plugin:0.13.2"
         implementation "net.ltgt.gradle:gradle-errorprone-plugin:3.0.1"
         implementation 'io.smallrye:jandex:3.0.1'
-        testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
         }
