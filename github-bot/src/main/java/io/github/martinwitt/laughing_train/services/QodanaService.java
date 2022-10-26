@@ -11,6 +11,8 @@ import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
 import io.quarkus.vertx.ConsumeEvent;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
+import io.vertx.core.Vertx;
+import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
 import java.io.Closeable;
@@ -20,6 +22,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -43,6 +46,9 @@ public class QodanaService {
 
     @Inject
     EventBus eventBus;
+
+    @Inject
+    Vertx vertx;
 
     public List<AnalyzerResult> runQodana(String gitUrl) throws IOException {
         Path file = Files.createTempDirectory(Constants.TEMP_FOLDER_PREFIX);
@@ -82,12 +88,15 @@ public class QodanaService {
         try {
             if (request instanceof AnalyzerRequest.WithProject project) {
                 String projectUrl = project.project().url();
-                return eventBus.<FindProjectConfigResult>request(
-                                ServiceAdresses.PROJECT_CONFIG_REQUEST,
-                                new FindProjectConfigRequest.ByProjectUrl(projectUrl))
-                        .<ProjectConfig>transform(v -> transformToProjectResult(projectUrl, v))
-                        .<QodanaResult>transform(projectConfig -> tryInvokeQodana(project, projectConfig))
-                        .<QodanaResult>map(publishResults())
+
+                return vertx.<QodanaResult>executeBlocking(value -> eventBus.<FindProjectConfigResult>request(
+                                        ServiceAdresses.PROJECT_CONFIG_REQUEST,
+                                        new FindProjectConfigRequest.ByProjectUrl(projectUrl),
+                                        new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(30)))
+                                .<ProjectConfig>transform(v -> transformToProjectResult(projectUrl, v))
+                                .<QodanaResult>transform(projectConfig -> tryInvokeQodana(project, projectConfig))
+                                .<QodanaResult>map(publishResults())
+                                .result())
                         .result();
             } else {
                 return new QodanaResult.Failure("Unknown request type");
