@@ -87,16 +87,17 @@ public class QodanaService {
         logger.atInfo().log("Received request %s", request);
         try {
             if (request instanceof AnalyzerRequest.WithProject project) {
-                String projectUrl = project.project().url();
-
-                return vertx.<QodanaResult>executeBlocking(value -> eventBus.<FindProjectConfigResult>request(
-                                        ServiceAdresses.PROJECT_CONFIG_REQUEST,
-                                        new FindProjectConfigRequest.ByProjectUrl(projectUrl),
-                                        new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(30)))
-                                .<ProjectConfig>transform(v -> transformToProjectResult(projectUrl, v))
-                                .<QodanaResult>transform(projectConfig -> tryInvokeQodana(project, projectConfig))
-                                .<QodanaResult>map(publishResults())
-                                .result())
+                return vertx.<QodanaResult>executeBlocking(promise -> {
+                            String projectUrl = project.project().url();
+                            promise.complete(eventBus.<FindProjectConfigResult>request(
+                                            ServiceAdresses.PROJECT_CONFIG_REQUEST,
+                                            new FindProjectConfigRequest.ByProjectUrl(projectUrl),
+                                            new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(30)))
+                                    .<ProjectConfig>transform(v -> transformToProjectResult(projectUrl, v))
+                                    .<QodanaResult>transform(projectConfig -> tryInvokeQodana(project, projectConfig))
+                                    .<QodanaResult>map(publishResults())
+                                    .result());
+                        })
                         .result();
             } else {
                 return new QodanaResult.Failure("Unknown request type");

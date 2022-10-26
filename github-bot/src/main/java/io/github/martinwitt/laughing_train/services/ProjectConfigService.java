@@ -10,7 +10,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class ProjectConfigService {
-    @ConsumeEvent(value = ServiceAdresses.PROJECT_CONFIG_REQUEST)
+    @ConsumeEvent(value = ServiceAdresses.PROJECT_CONFIG_REQUEST, blocking = true)
     public FindProjectConfigResult getConfig(FindProjectConfigRequest request) {
         if (request instanceof FindProjectConfigRequest.ByProjectUrl byProjectUrl) {
             return Uni.createFrom()
