@@ -4,17 +4,14 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.Constants;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
+import io.github.martinwitt.laughing_train.data.AnalyzerRequest.WithProject;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
 import io.quarkus.vertx.ConsumeEvent;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Future;
 import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.core.eventbus.Message;
 import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,7 +19,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
@@ -48,6 +44,9 @@ public class QodanaService {
 
     @Inject
     Vertx vertx;
+
+    @Inject
+    ProjectConfigService projectConfigService;
 
     public List<AnalyzerResult> runQodana(String gitUrl) throws IOException {
         Path file = Files.createTempDirectory(Constants.TEMP_FOLDER_PREFIX);
@@ -86,46 +85,31 @@ public class QodanaService {
         logger.atInfo().log("Received request %s", request);
         try {
             if (request instanceof AnalyzerRequest.WithProject project) {
-                return vertx.<QodanaResult>executeBlocking(promise -> {
-                            String projectUrl = project.project().url();
-                            eventBus.<FindProjectConfigResult>request(
-                                    ServiceAdresses.PROJECT_CONFIG_REQUEST,
-                                    new FindProjectConfigRequest.ByProjectUrl(projectUrl),
-                                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(30)),
-                                    handler -> {
-                                        if (handler.succeeded()) {
-                                            FindProjectConfigResult result =
-                                                    handler.result().body();
-                                            if (result instanceof FindProjectConfigResult.SingleResult found) {
-                                                ProjectConfig projectConfig = found.projectConfig();
-                                                logger.atInfo().log("Found config %s", projectConfig);
-                                                try {
-                                                    QodanaResult results = invokeQodana(project, projectConfig);
-                                                    if (results instanceof QodanaResult.Success success) {
-                                                        promise.complete(new QodanaResult.Success(
-                                                                success.result(), project.project()));
-                                                        publishResults(success);
-                                                    } else {
-                                                        promise.fail("Qodana failed");
-                                                    }
-                                                } catch (Exception e) {
-                                                    logger.atSevere().withCause(e).log("Error while running qodana");
-                                                    promise.complete(new QodanaResult.Failure(e.getMessage()));
-                                                }
-                                            } else {
-                                                logger.atSevere().log("No config found for %s", projectUrl);
-                                                promise.complete(new QodanaResult.Failure("No config found"));
-                                            }
-                                        }
-                                    });
-                        })
-                        .result();
+                return runQodanaWithConfig(project);
             } else {
                 return new QodanaResult.Failure("Unknown request type");
             }
         } catch (Exception e) {
             return new QodanaResult.Failure(e.getMessage());
         }
+    }
+
+    private QodanaResult runQodanaWithConfig(AnalyzerRequest.WithProject project) {
+        var projectConfig = getProjectConfig(project);
+        if (projectConfig instanceof FindProjectConfigResult.SingleResult found) {
+            var qodanaResult = invokeQodana(project, found.projectConfig());
+            if (qodanaResult instanceof QodanaResult.Success success) {
+                publishResults(success);
+            }
+            return qodanaResult;
+        } else {
+            return new QodanaResult.Failure("No config found");
+        }
+    }
+
+    private FindProjectConfigResult getProjectConfig(WithProject item) {
+        return projectConfigService.getConfig(
+                new FindProjectConfigRequest.ByProjectUrl(item.project().url()));
     }
 
     private void publishResults(QodanaResult result) {
@@ -142,23 +126,6 @@ public class QodanaService {
                     .get();
         } catch (Exception e) {
             return new QodanaResult.Failure(e.getMessage());
-        }
-    }
-
-    private Future<ProjectConfig> transformToProjectResult(
-            String projectUrl, AsyncResult<Message<FindProjectConfigResult>> v) {
-        if (v.failed()) {
-            logger.atSevere().withCause(v.cause()).log("Error while getting project config");
-            return Future.failedFuture("Error while getting project config");
-        } else {
-            FindProjectConfigResult result = v.result().body();
-            if (result instanceof FindProjectConfigResult.SingleResult found) {
-                logger.atInfo().log("Found project config %s", found.projectConfig());
-                return Future.succeededFuture(found.projectConfig());
-            } else {
-                logger.atSevere().log("Could not find project config for %s", projectUrl);
-                return Future.failedFuture("Could not find project config for " + projectUrl);
-            }
         }
     }
 

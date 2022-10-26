@@ -45,7 +45,7 @@ public class PeriodicMiner {
     @Inject
     Vertx vertx;
 
-    @Scheduled(every = "4h", delay = 10, delayUnit = TimeUnit.MINUTES)
+    @Scheduled(every = "4h", delay = 3, delayUnit = TimeUnit.MINUTES)
     void mineRepos() {
         for (Project project : Project.<Project>findAll().list()) {
             eventBus.<ProjectResult>request(
