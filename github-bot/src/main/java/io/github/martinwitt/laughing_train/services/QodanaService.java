@@ -132,6 +132,7 @@ public class QodanaService {
     private List<AnalyzerResult> runQodana(Path path, String sourceFolder) {
         QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
                 .withSourceFileRoot(sourceFolder)
+                .withCacheVolume("lauging-train.qodana-cache")
                 .withResultFolder(path.toAbsolutePath().toString())
                 .build();
         return analyzer.runQodana(path);

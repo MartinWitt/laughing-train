@@ -183,6 +183,15 @@ public class QodanaAnalyzer {
         Volume targetFile = new Volume("/data/results/");
         Bind bind = new Bind(sourceRoot.toAbsolutePath().toString(), sourceFile, AccessMode.rw);
         Bind resultsBind = new Bind(Path.of(resultFolder).toAbsolutePath().toString(), targetFile, AccessMode.rw);
+        if (qodanaCache.isPresent()) {
+            Volume cacheFile = new Volume("/data/cache/");
+            Bind cacheBind =
+                    new Bind(Path.of(qodanaCache.get()).toAbsolutePath().toString(), cacheFile, AccessMode.rw);
+            return HostConfig.newHostConfig()
+                    .withBinds(bind, resultsBind, cacheBind)
+                    .withPrivileged(true)
+                    .withAutoRemove(true);
+        }
         return HostConfig.newHostConfig()
                 .withBinds(bind, resultsBind)
                 .withPrivileged(true)
