@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/openjdk-17:1.14-4.1665493371
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.14-4.1666624568
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 
