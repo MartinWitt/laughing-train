@@ -5,6 +5,7 @@ import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @MongoEntity(database = "Laughing-Train")
 public class ProjectConfig extends PanacheMongoEntity implements Serializable {
@@ -14,8 +15,8 @@ public class ProjectConfig extends PanacheMongoEntity implements Serializable {
     private String projectUrl;
 
     public ProjectConfig(String sourceFolder, String projectUrl) {
-        this.sourceFolder = sourceFolder;
-        this.projectUrl = projectUrl;
+        this.sourceFolder = Objects.requireNonNull(sourceFolder);
+        this.projectUrl = Objects.requireNonNull(projectUrl);
     }
 
     public static ProjectConfig ofProjectUrl(String projectUrl) {
@@ -41,6 +42,12 @@ public class ProjectConfig extends PanacheMongoEntity implements Serializable {
      */
     public void setSourceFolder(String sourceFolder) {
         this.sourceFolder = sourceFolder;
+    }
+    /**
+     * @param projectUrl the projectUrl to set
+     */
+    public void setProjectUrl(String projectUrl) {
+      this.projectUrl = projectUrl;
     }
 
     /**
