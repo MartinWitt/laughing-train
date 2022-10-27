@@ -78,6 +78,7 @@ public class DataBaseMigration {
                 logger.atInfo().log("Created config %s", ProjectConfig.findByProjectUrl(project.getProjectUrl()));
             }
         });
+        logger.atInfo().log("Created missing configs for %d projects", ProjectConfig.count());
     }
 
     private void removeBadSmellsWithWrongIdentifier() {
