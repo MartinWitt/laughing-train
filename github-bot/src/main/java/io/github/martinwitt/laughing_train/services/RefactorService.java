@@ -210,8 +210,11 @@ public class RefactorService {
 
     private String createCommitMessage(List<? extends Change> changes) {
         StringBuilder message = new StringBuilder();
-        changes.stream().map(Change::getBadSmell).distinct().forEach(v -> message.append(
-                        v.getDescription().asText())
+        message.append("Refactor bad smells:\n");
+        changes.stream().map(Change::getBadSmell).distinct().forEach(v -> message.append("- ")
+                .append(v.getName().asText())
+                .append("\n")
+                .append(v.getDescription().asText())
                 .append("\n"));
         return message.toString();
     }
