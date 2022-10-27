@@ -20,6 +20,7 @@ public class ChangedTypePrinting implements IPrinting {
                 continue;
             }
             try {
+                logger.atInfo().log("Writing file %s", type.getQualifiedName());
                 Files.writeString(type.getPosition().getFile().toPath(), prettyPrinter.printTypes(type));
             } catch (Throwable e) {
                 logger.atSevere().withCause(e).log("Could not write file %s", type.getQualifiedName());
