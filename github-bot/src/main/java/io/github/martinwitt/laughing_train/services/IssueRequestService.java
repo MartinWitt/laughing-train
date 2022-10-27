@@ -1,7 +1,6 @@
 package io.github.martinwitt.laughing_train.services;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.Constants;
 import io.github.martinwitt.laughing_train.data.FindIssueRequest;
 import io.github.martinwitt.laughing_train.data.FindIssueResult;
 import io.github.martinwitt.laughing_train.data.FindPullRequestResult;
@@ -50,8 +49,7 @@ public class IssueRequestService {
                 .searchIssues()
                 .q("is:pr")
                 .q("author:" + userName.userName())
-                .q("-label:" + Constants.LABEL_NAME)
-                .q("ruleID in:body")
+                .q("fingerprint in:body")
                 .list()
                 .toList();
     }

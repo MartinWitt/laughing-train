@@ -36,7 +36,6 @@ public class DataBaseMigration {
 
     private void migrateDataBase() {
         logger.atInfo().log("Migrating database");
-        deleteOldConfigs();
         createConfigsIfMissing();
         removeBadSmellsWithoutPosition();
         removeProjectHashesWithoutResults();
@@ -44,11 +43,6 @@ public class DataBaseMigration {
         removeBadSmellsWithWrongIdentifier();
         setDefaultSourceFolders();
         logger.atInfo().log("Finished migrating database");
-    }
-
-    private void deleteOldConfigs() {
-        logger.atInfo().log("Deleting old configs");
-        ProjectConfig.deleteAll();
     }
 
     private void setDefaultSourceFolders() {

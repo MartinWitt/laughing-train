@@ -33,7 +33,6 @@ public class ProjectConfig extends PanacheMongoEntity implements Serializable {
 
     public static List<ProjectConfig> findByProjectUrl(String projectUrl) {
         logger.atInfo().log("Searching for project config for %s", projectUrl);
-        listAll().forEach(System.out::println);
         return find("projectUrl", projectUrl).list();
     }
 
@@ -47,7 +46,7 @@ public class ProjectConfig extends PanacheMongoEntity implements Serializable {
      * @param projectUrl the projectUrl to set
      */
     public void setProjectUrl(String projectUrl) {
-      this.projectUrl = projectUrl;
+        this.projectUrl = projectUrl;
     }
 
     /**
