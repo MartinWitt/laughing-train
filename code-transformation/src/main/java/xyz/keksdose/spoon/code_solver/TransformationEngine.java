@@ -69,11 +69,12 @@ public class TransformationEngine {
     }
 
     public Changelog applyToGivenPath(String path) {
-        LOGGER.atInfo().log("Applying transformations to %s", path);
+        LOGGER.atInfo().log("Applying transformations to %s with %s processors", path, processors.size());
         Launcher launcher = new Launcher();
         Environment environment = EnvironmentOptions.setEnvironmentOptions(launcher);
         addInput(path, launcher);
         CtModel model = launcher.buildModel();
+        LOGGER.atInfo().log("Model built");
         PrinterCreation.setPrettyPrinter(environment, model);
         if (printing == null) {
             printing = new ChangedTypePrinting(environment.createPrettyPrinter());
@@ -101,7 +102,7 @@ public class TransformationEngine {
     }
 
     public Changelog applyToGivenPath(String path, String typeName) {
-        LOGGER.atInfo().log("Applying transformations to %s", path);
+        LOGGER.atInfo().log("Applying transformations to %s with %s processors", path, processors.size());
         Launcher launcher = new Launcher();
         Environment environment = EnvironmentOptions.setEnvironmentOptions(launcher);
         addInput(path, launcher);

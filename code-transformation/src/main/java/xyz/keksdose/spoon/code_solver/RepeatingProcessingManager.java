@@ -1,5 +1,6 @@
 package xyz.keksdose.spoon.code_solver;
 
+import com.google.common.flogger.FluentLogger;
 import java.util.Collection;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.factory.Factory;
@@ -13,7 +14,9 @@ import xyz.keksdose.spoon.code_solver.history.ChangeListener;
  */
 public class RepeatingProcessingManager extends QueueProcessingManager {
 
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private final ChangeListener listener;
+    private int iteration = 0;
 
     public RepeatingProcessingManager(Factory factory, ChangeListener listener) {
         super(factory);
@@ -24,7 +27,9 @@ public class RepeatingProcessingManager extends QueueProcessingManager {
     public void process(Collection<? extends CtElement> elements) {
         do {
             listener.reset();
+            logger.atInfo().log("Starting iteration %d", iteration++);
             super.process(elements);
+            logger.atInfo().log("Finished iteration %d", iteration);
         } while (listener.isChanged());
     }
 }
