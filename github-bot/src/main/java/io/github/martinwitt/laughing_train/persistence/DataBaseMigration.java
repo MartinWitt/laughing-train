@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.persistence;
 
+import com.google.common.flogger.FluentLogger;
 import com.mongodb.client.model.Filters;
 import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
 import io.quarkus.runtime.StartupEvent;
@@ -17,6 +18,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 @ApplicationScoped
 public class DataBaseMigration {
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
     @Inject
     Vertx vertx;
     /**
@@ -49,11 +52,12 @@ public class DataBaseMigration {
                         "https://github.com/assertj/assertj",
                         "assertj-core")
                 .forEach((k, v) -> {
-                    var list = ProjectConfig.findByProjectUrl(v);
+                    var list = ProjectConfig.findByProjectUrl(k);
                     if (list.size() == 1) {
                         var config = list.get(0);
-                        config.setSourceFolder(k);
+                        config.setSourceFolder(v);
                         config.update();
+                        logger.atInfo().log("Set source folder for %s to %s", k, v);
                     }
                 });
     }

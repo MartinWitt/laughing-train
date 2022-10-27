@@ -113,7 +113,7 @@ public class RefactorService {
             QodanaRefactor refactor = new QodanaRefactor(EnumSet.allOf(QodanaRules.class), listener, badSmells);
             String refactorPath = success.project().folder().getAbsolutePath() + "/"
                     + config.projectConfig().getSourceFolder();
-
+            logger.atInfo().log("Refactoring %s", refactorPath);
             Function<ChangeListener, TransformationProcessor<?>> function = (v -> refactor);
             TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
             transformationEngine.setChangeListener(listener);
