@@ -47,10 +47,7 @@ public class PeriodicMiner {
 
     @Scheduled(every = "4h", delay = 3, delayUnit = TimeUnit.MINUTES)
     void mineRepos() {
-        // for (Project project : Project.<Project>findAll().list()) {
-        for (Project project : Project.<Project>findAll().stream()
-                .filter(v -> v.getProjectUrl().toLowerCase().contains("assert"))
-                .toList()) {
+        for (Project project : Project.<Project>findAll().list()) {
             eventBus.<ProjectResult>request(
                     ServiceAdresses.PROJECT_REQUEST,
                     new ProjectRequest.WithUrl(project.getProjectUrl()),

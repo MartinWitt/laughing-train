@@ -72,3 +72,19 @@ export function filterDuplicateBadSmells(params: BadSmell[]) {
   return filtered;
 }
 
+export const fetchProjectConfigQuery = gql`
+  query getProjectConfig($projectUrl: String!) {
+  getProjectConfig(projectUrl: $projectUrl) {
+    projectUrl
+    sourceFolder 
+  }
+}
+`;
+export const addProjectConfigQuery = gql`
+  mutation addProjectConfig($projectConfig: ProjectConfig!) {
+  addProjectConfig(projectConfig: $projectConfig) {
+    projectUrl
+    sourceFolder
+  }
+}
+`;

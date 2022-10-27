@@ -12,6 +12,7 @@ import { ThemeProvider, createTheme, ThemeOptions } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { AddProjectView } from './pages/AddProjectView';
 import { RefactorView } from './pages/RefactorView';
+import { ProjectConfigview } from './pages/ProjectConfigView';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/mutation/refactor/:name/:hash",
     element: <RefactorView />,
+  },
+  {
+    path: "/mutation/projectconfig/:projectUrl",
+    element: <ProjectConfigview />,
   },
   {
     path: "/resultview",

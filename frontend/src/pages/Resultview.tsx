@@ -9,7 +9,6 @@ import { Project } from "../data/Project";
 import { useQuery } from "@apollo/client";
 import BadSmellList from "../component/BadSmellList";
 
-
 function Resultview() {
 
     let params = useParams();
@@ -40,7 +39,9 @@ function Resultview() {
                 <br />
                 <Divider />
                 <BadSmellList {...projectWithSingleHash(project, params.hash)} />
-                <Button variant="contained" href={"/mutation/refactor/" + project.projectName+"/"+params.hash}>toRefactor</Button>
+                <Divider />
+                <Button variant="contained" href={"/mutation/refactor/" + project.projectName + "/" + params.hash}>toRefactor</Button>
+                <Button variant="contained" href={generateProjectConfigLink(project)}>toProjectConfig</Button>
             </div>
         );
     }
@@ -62,4 +63,10 @@ function addHashIfPresent(hash: string | undefined) : string {
         return hash;
     }
     return "";
+}
+function toBase64(str: string) {
+    return btoa(str);
+}
+function generateProjectConfigLink(project: Project) {
+    return "/mutation/projectconfig/" + toBase64(project.projectUrl);
 }
