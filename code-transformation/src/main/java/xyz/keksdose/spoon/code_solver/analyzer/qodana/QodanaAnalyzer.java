@@ -176,7 +176,7 @@ public class QodanaAnalyzer {
                 .withHostConfig(hostConfig)
                 .withAttachStderr(true)
                 .withAttachStdout(true)
-                .withCmd("-d", sourceFileRoot)
+                .withCmd("-d", sourceFileRoot, "--cache-dir=", qodanaCache.get() + "/" + cacheSubFolder)
                 .exec();
     }
 
@@ -187,8 +187,8 @@ public class QodanaAnalyzer {
         Bind resultsBind = new Bind(Path.of(resultFolder).toAbsolutePath().toString(), targetFile, AccessMode.rw);
         if (qodanaCache.isPresent()) {
             Volume cacheFile = new Volume("/data/cache/");
-            Bind cacheBind = new Bind(
-                    Path.of(qodanaCache.get()).toAbsolutePath().toString() + cacheSubFolder, cacheFile, AccessMode.rw);
+            Bind cacheBind =
+                    new Bind(Path.of(qodanaCache.get()).toAbsolutePath().toString(), cacheFile, AccessMode.rw);
             return HostConfig.newHostConfig()
                     .withBinds(bind, resultsBind, cacheBind)
                     .withPrivileged(true)
@@ -283,7 +283,7 @@ public class QodanaAnalyzer {
         private String qodanaImageName = "jetbrains/qodana";
         private String resultPathString = resultFolder + "/qodana.sarif.json";
         private String sourceFileRoot = "./src/main/java";
-        private Optional<String> cacheFolder = Optional.empty();
+        private Optional<String> cacheFolder = Optional.of("data/cache");
         private String subFolder;
 
         public Builder withResultFolder(String resultFolder) {
