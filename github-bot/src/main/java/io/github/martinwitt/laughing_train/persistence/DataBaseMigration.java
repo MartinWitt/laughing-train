@@ -35,12 +35,20 @@ public class DataBaseMigration {
     }
 
     private void migrateDataBase() {
+        logger.atInfo().log("Migrating database");
+        deleteOldConfigs();
+        createConfigsIfMissing();
         removeBadSmellsWithoutPosition();
         removeProjectHashesWithoutResults();
         removeBadSmellsWithoutIdentifier();
         removeBadSmellsWithWrongIdentifier();
-        createConfigsIfMissing();
         setDefaultSourceFolders();
+        logger.atInfo().log("Finished migrating database");
+    }
+
+    private void deleteOldConfigs() {
+        logger.atInfo().log("Deleting old configs");
+        ProjectConfig.deleteAll();
     }
 
     private void setDefaultSourceFolders() {
@@ -66,6 +74,7 @@ public class DataBaseMigration {
         Project.<Project>streamAll().forEach(project -> {
             if (ProjectConfig.findByProjectUrl(project.getProjectUrl()).isEmpty()) {
                 ProjectConfig.ofProjectUrl(project.getProjectUrl()).persist();
+                logger.atInfo().log("Created config for %s", project.getProjectUrl());
             }
         });
     }

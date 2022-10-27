@@ -11,7 +11,7 @@ public class ProjectConfig extends PanacheMongoEntity implements Serializable {
     private String sourceFolder;
     private String projectUrl;
 
-    public ProjectConfig(String sourceFolder, String projectUrl) {
+    private ProjectConfig(String sourceFolder, String projectUrl) {
         this.sourceFolder = sourceFolder;
         this.projectUrl = projectUrl;
     }
