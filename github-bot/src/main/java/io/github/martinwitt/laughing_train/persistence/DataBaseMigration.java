@@ -3,10 +3,13 @@ package io.github.martinwitt.laughing_train.persistence;
 import com.mongodb.client.model.Filters;
 import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
 import io.quarkus.runtime.StartupEvent;
+import io.vertx.core.Vertx;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -14,10 +17,21 @@ import org.apache.commons.lang3.StringUtils;
  */
 @ApplicationScoped
 public class DataBaseMigration {
+    @Inject
+    Vertx vertx;
     /**
      * This method is called by the quarkus framework to migrate the database.
      */
     public void onStart(@Observes StartupEvent event) {
+        migrateDataBase();
+        checkPeroidic();
+    }
+
+    public void checkPeroidic() {
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(30), id -> migrateDataBase());
+    }
+
+    private void migrateDataBase() {
         removeBadSmellsWithoutPosition();
         removeProjectHashesWithoutResults();
         removeBadSmellsWithoutIdentifier();

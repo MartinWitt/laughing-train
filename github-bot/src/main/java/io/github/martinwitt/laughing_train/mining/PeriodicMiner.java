@@ -1,6 +1,7 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import com.google.common.flogger.FluentLogger;
+import com.mongodb.client.model.Aggregates;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
@@ -45,9 +46,16 @@ public class PeriodicMiner {
     @Inject
     Vertx vertx;
 
-    @Scheduled(every = "4h", delay = 3, delayUnit = TimeUnit.MINUTES)
-    void mineRepos() {
-        for (Project project : Project.<Project>findAll().list()) {
+    private Project getRandomProject() {
+        return Project.<Project>mongoCollection()
+                .aggregate(List.of(Aggregates.sample(1)))
+                .first();
+    }
+
+    @Scheduled(every = "15m", delay = 3, delayUnit = TimeUnit.MINUTES)
+    void mineRandomRepo() {
+        Project project = getRandomProject();
+        if (project != null) {
             eventBus.<ProjectResult>request(
                     ServiceAdresses.PROJECT_REQUEST,
                     new ProjectRequest.WithUrl(project.getProjectUrl()),
