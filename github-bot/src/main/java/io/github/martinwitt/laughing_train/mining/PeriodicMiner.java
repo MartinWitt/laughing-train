@@ -49,7 +49,7 @@ public class PeriodicMiner {
     void mineRepos() {
         // for (Project project : Project.<Project>findAll().list()) {
         for (Project project : Project.<Project>findAll().stream()
-                .filter(v -> v.getProjectName().contains("guava"))
+                .filter(v -> v.getProjectUrl().toLowerCase().contains("assert"))
                 .toList()) {
             eventBus.<ProjectResult>request(
                     ServiceAdresses.PROJECT_REQUEST,
