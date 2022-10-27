@@ -168,7 +168,22 @@ public class RefactorService {
         body.append(changelogPrinter.printRepairedIssues(changes));
         createCommit(repo, dir, changes.stream().map(Change::getAffectedType).collect(Collectors.toList()), ref);
         body.append(changelogPrinter.printChangeLogShort(changes));
-        createPullRequest(repo, branchName, body.toString());
+        createPullRequest(repo, branchName, body.toString(), createPullRequestTitle(changes));
+    }
+
+    private String createPullRequestTitle(List<? extends Change> changes) {
+        String title = "style: refactor bad smell %s";
+        if (changes.stream().map(Change::getBadSmell).distinct().count() == 1) {
+            title = String.format(title, changes.get(0).getBadSmell().getName().asText());
+        } else {
+            title = String.format(
+                    title,
+                    changes.stream()
+                            .map(v -> v.getBadSmell().getName().asText())
+                            .distinct()
+                            .collect(Collectors.joining(", ")));
+        }
+        return title;
     }
 
     private void createCommit(GHRepository repo, Path dir, List<? extends CtType<?>> types, GHRef ref)
@@ -206,8 +221,9 @@ public class RefactorService {
         return "";
     }
 
-    private void createPullRequest(GHRepository repo, String branchName, String body) throws IOException {
-        repo.createPullRequest("fix Bad Smells", branchName, repo.getDefaultBranch(), body)
+    private void createPullRequest(GHRepository repo, String branchName, String body, String commitNameTitle)
+            throws IOException {
+        repo.createPullRequest(commitNameTitle, branchName, repo.getDefaultBranch(), body)
                 .addLabels(LABEL_NAME);
     }
 }
