@@ -1,11 +1,13 @@
 package xyz.keksdose.spoon.code_solver.history;
 
+import com.google.common.flogger.FluentLogger;
 import java.util.HashSet;
 import java.util.Set;
 import spoon.reflect.declaration.CtType;
 
 public class ChangeListener {
 
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private boolean changed;
     private Set<CtType<?>> changedTypes = new HashSet<>();
     private Changelog changelog = new Changelog();
@@ -19,6 +21,7 @@ public class ChangeListener {
     }
 
     public void setChanged(CtType<?> changedType, Change change) {
+        logger.atInfo().log("Type %s changed", changedType.getQualifiedName());
         changed = true;
         changedTypes.add(changedType);
         changelog.addChange(change);
