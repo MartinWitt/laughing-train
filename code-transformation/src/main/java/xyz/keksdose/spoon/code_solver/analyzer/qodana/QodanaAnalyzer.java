@@ -44,16 +44,12 @@ public class QodanaAnalyzer {
     private String qodanaImageName;
     private String resultPathString;
     private String sourceFileRoot;
-    private Optional<String> qodanaCache;
-    private String cacheSubFolder;
 
     private QodanaAnalyzer(Builder builder) {
         this.resultFolder = builder.resultFolder;
         this.qodanaImageName = builder.qodanaImageName;
         this.resultPathString = builder.resultPathString;
         this.sourceFileRoot = builder.sourceFileRoot;
-        this.qodanaCache = builder.cacheFolder;
-        this.cacheSubFolder = builder.subFolder;
     }
 
     public List<AnalyzerResult> runQodana(Path sourceRoot) {
@@ -176,7 +172,7 @@ public class QodanaAnalyzer {
                 .withHostConfig(hostConfig)
                 .withAttachStderr(true)
                 .withAttachStdout(true)
-                .withCmd("-d", sourceFileRoot, "--cache-dir=", qodanaCache.get() + "/" + cacheSubFolder)
+                .withCmd("-d", sourceFileRoot)
                 .exec();
     }
 
@@ -185,15 +181,6 @@ public class QodanaAnalyzer {
         Volume targetFile = new Volume("/data/results/");
         Bind bind = new Bind(sourceRoot.toAbsolutePath().toString(), sourceFile, AccessMode.rw);
         Bind resultsBind = new Bind(Path.of(resultFolder).toAbsolutePath().toString(), targetFile, AccessMode.rw);
-        if (qodanaCache.isPresent()) {
-            Volume cacheFile = new Volume("/data/cache/");
-            Bind cacheBind =
-                    new Bind(Path.of(qodanaCache.get()).toAbsolutePath().toString(), cacheFile, AccessMode.rw);
-            return HostConfig.newHostConfig()
-                    .withBinds(bind, resultsBind, cacheBind)
-                    .withPrivileged(true)
-                    .withAutoRemove(true);
-        }
         return HostConfig.newHostConfig()
                 .withBinds(bind, resultsBind)
                 .withPrivileged(true)
