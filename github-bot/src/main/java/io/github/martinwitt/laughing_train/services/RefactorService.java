@@ -84,6 +84,7 @@ public class RefactorService {
     private void refactorQodana(List<BadSmell> badSmells) {
         String projectUrl = badSmells.get(0).projectUrl;
         var projectConfig = projectConfigService.getConfig(new FindProjectConfigRequest.ByProjectUrl(projectUrl));
+        logger.atInfo().log("Found %s config ", projectConfig);
         if (projectConfig instanceof FindProjectConfigResult.NotFound) {
             logger.atWarning().log("No config found for project %s", projectUrl);
             return;
@@ -100,11 +101,6 @@ public class RefactorService {
                         new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
                         result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells, config)));
             }
-        }
-        if (!(projectConfig instanceof FindProjectConfigResult.SingleResult
-                || projectConfig instanceof FindProjectConfigResult.MultipleResults)) {
-            logger.atWarning().log("No project config found for %s", projectUrl);
-            return;
         }
         if (projectConfig instanceof FindProjectConfigResult.SingleResult results) {
             ProjectConfig config = results.projectConfig();
