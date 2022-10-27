@@ -5,6 +5,9 @@ import io.github.martinwitt.laughing_train.BranchNameSupplier;
 import io.github.martinwitt.laughing_train.ChangelogPrinter;
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.GitHubUtils;
+import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
+import io.github.martinwitt.laughing_train.data.FindProjectConfigResult;
+import io.github.martinwitt.laughing_train.data.FindProjectConfigResult.SingleResult;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
@@ -61,6 +64,9 @@ public class RefactorService {
     @Inject
     ChangelogPrinter changelogPrinter;
 
+    @Inject
+    ProjectConfigService projectConfigService;
+
     public void refactor(List<BadSmell> badSmells) {
         logger.atInfo().log("Refactoring %d bad smells", badSmells.size());
         var badSmellByAnalyzer = badSmells.stream().collect(Collectors.groupingBy(BadSmell::getAnalyzer));
@@ -77,14 +83,22 @@ public class RefactorService {
 
     private void refactorQodana(List<BadSmell> badSmells) {
         String projectUrl = badSmells.get(0).projectUrl;
-        eventBus.<ProjectResult>request(
-                ServiceAdresses.PROJECT_REQUEST,
-                new ProjectRequest.WithUrl(projectUrl),
-                new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
-                result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells)));
+        var projectConfig = projectConfigService.getConfig(new FindProjectConfigRequest.ByProjectUrl(projectUrl));
+        if (!(projectConfig instanceof FindProjectConfigResult.SingleResult)) {
+            logger.atWarning().log("No project config found for %s", projectUrl);
+            return;
+        }
+        if (projectConfig instanceof FindProjectConfigResult.SingleResult config) {
+            eventBus.<ProjectResult>request(
+                    ServiceAdresses.PROJECT_REQUEST,
+                    new ProjectRequest.WithUrl(projectUrl),
+                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
+                    result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells, config)));
+        }
     }
 
-    private Promise<String> createPullRequest(AsyncResult<Message<ProjectResult>> message, List<BadSmell> badSmells) {
+    private Promise<String> createPullRequest(
+            AsyncResult<Message<ProjectResult>> message, List<BadSmell> badSmells, SingleResult config) {
         if (message.failed()) {
             logger.atSevere().withCause(message.cause()).log("Failed to get project");
             return Promise.promise();
@@ -97,11 +111,13 @@ public class RefactorService {
         if (projectResult instanceof ProjectResult.Success success) {
             ChangeListener listener = new ChangeListener();
             QodanaRefactor refactor = new QodanaRefactor(EnumSet.allOf(QodanaRules.class), listener, badSmells);
+            String refactorPath = success.project().folder().getAbsolutePath() + "/"
+                    + config.projectConfig().getSourceFolder();
+
             Function<ChangeListener, TransformationProcessor<?>> function = (v -> refactor);
             TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
             transformationEngine.setChangeListener(listener);
-            Changelog log = transformationEngine.applyToGivenPath(
-                    success.project().folder().getAbsolutePath());
+            Changelog log = transformationEngine.applyToGivenPath(refactorPath);
             try {
                 GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
                 GHRepository repository = createForkIfMissing(success, github);
