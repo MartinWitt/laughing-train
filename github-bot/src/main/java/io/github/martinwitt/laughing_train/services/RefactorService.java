@@ -83,6 +83,7 @@ public class RefactorService {
 
     private void refactorQodana(List<BadSmell> badSmells) {
         String projectUrl = badSmells.get(0).projectUrl;
+
         var projectConfig = projectConfigService.getConfig(new FindProjectConfigRequest.ByProjectUrl(projectUrl));
         logger.atInfo().log("Found %s config ", projectConfig);
         if (projectConfig instanceof FindProjectConfigResult.NotFound) {

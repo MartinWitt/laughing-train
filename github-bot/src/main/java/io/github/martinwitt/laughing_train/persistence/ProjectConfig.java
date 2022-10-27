@@ -47,4 +47,13 @@ public class ProjectConfig extends PanacheMongoEntity implements Serializable {
     public String getSourceFolder() {
         return sourceFolder;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+
+    @Override
+    public String toString() {
+        return "ProjectConfig [sourceFolder=" + sourceFolder + ", projectUrl=" + projectUrl + "]";
+    }
 }
