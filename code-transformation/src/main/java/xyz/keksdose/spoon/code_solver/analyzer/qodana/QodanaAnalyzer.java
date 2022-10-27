@@ -45,6 +45,7 @@ public class QodanaAnalyzer {
     private String resultPathString;
     private String sourceFileRoot;
     private Optional<String> qodanaCache;
+    private String cacheSubFolder;
 
     private QodanaAnalyzer(Builder builder) {
         this.resultFolder = builder.resultFolder;
@@ -52,6 +53,7 @@ public class QodanaAnalyzer {
         this.resultPathString = builder.resultPathString;
         this.sourceFileRoot = builder.sourceFileRoot;
         this.qodanaCache = builder.cacheFolder;
+        this.cacheSubFolder = builder.subFolder;
     }
 
     public List<AnalyzerResult> runQodana(Path sourceRoot) {
@@ -185,8 +187,8 @@ public class QodanaAnalyzer {
         Bind resultsBind = new Bind(Path.of(resultFolder).toAbsolutePath().toString(), targetFile, AccessMode.rw);
         if (qodanaCache.isPresent()) {
             Volume cacheFile = new Volume("/data/cache/");
-            Bind cacheBind =
-                    new Bind(Path.of(qodanaCache.get()).toAbsolutePath().toString(), cacheFile, AccessMode.rw);
+            Bind cacheBind = new Bind(
+                    Path.of(qodanaCache.get()).toAbsolutePath().toString() + cacheSubFolder, cacheFile, AccessMode.rw);
             return HostConfig.newHostConfig()
                     .withBinds(bind, resultsBind, cacheBind)
                     .withPrivileged(true)
@@ -282,6 +284,7 @@ public class QodanaAnalyzer {
         private String resultPathString = resultFolder + "/qodana.sarif.json";
         private String sourceFileRoot = "./src/main/java";
         private Optional<String> cacheFolder = Optional.empty();
+        private String subFolder;
 
         public Builder withResultFolder(String resultFolder) {
             this.resultFolder = resultFolder;
@@ -306,8 +309,9 @@ public class QodanaAnalyzer {
             return this;
         }
 
-        public Builder withCacheVolume(String volumeName) {
+        public Builder withCacheVolume(String volumeName, String subFolder) {
             this.cacheFolder = Optional.of(volumeName);
+            this.subFolder = subFolder;
             return this;
         }
 

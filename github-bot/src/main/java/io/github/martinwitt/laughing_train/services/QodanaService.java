@@ -121,7 +121,10 @@ public class QodanaService {
             return threadPoolManager
                     .getService()
                     .submit(() -> new QodanaResult.Success(
-                            runQodana(project.project().folder().toPath(), projectConfig.getSourceFolder()),
+                            runQodana(
+                                    project.project().folder().toPath(),
+                                    projectConfig.getSourceFolder(),
+                                    project.project().name()),
                             project.project()))
                     .get();
         } catch (Exception e) {
@@ -129,10 +132,10 @@ public class QodanaService {
         }
     }
 
-    private List<AnalyzerResult> runQodana(Path path, String sourceFolder) {
+    private List<AnalyzerResult> runQodana(Path path, String sourceFolder, String projectName) {
         QodanaAnalyzer analyzer = new QodanaAnalyzer.Builder()
                 .withSourceFileRoot(sourceFolder)
-                .withCacheVolume("lauging-train.qodana-cache")
+                .withCacheVolume("lauging-train.qodana-cache", projectName)
                 .withResultFolder(path.toAbsolutePath().toString())
                 .build();
         return analyzer.runQodana(path);
