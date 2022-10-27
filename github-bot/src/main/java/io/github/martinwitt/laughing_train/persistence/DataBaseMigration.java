@@ -4,6 +4,7 @@ import com.mongodb.client.model.Filters;
 import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
 import io.quarkus.runtime.StartupEvent;
 import java.util.ArrayList;
+import java.util.Map;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +22,34 @@ public class DataBaseMigration {
         removeProjectHashesWithoutResults();
         removeBadSmellsWithoutIdentifier();
         removeBadSmellsWithWrongIdentifier();
+        createConfigsIfMissing();
+        setDefaultSourceFolders();
+    }
+
+    private void setDefaultSourceFolders() {
+        Map.of(
+                        "https://github.com/google/guava",
+                        "guava",
+                        "https://github.com/INRIA/spoon",
+                        "src/main/java",
+                        "https://github.com/assertj/assertj",
+                        "assertj-core")
+                .forEach((k, v) -> {
+                    var list = ProjectConfig.findByProjectUrl(v);
+                    if (list.size() == 1) {
+                        var config = list.get(0);
+                        config.setSourceFolder(k);
+                        config.update();
+                    }
+                });
+    }
+
+    private void createConfigsIfMissing() {
+        Project.<Project>streamAll().forEach(project -> {
+            if (ProjectConfig.findByProjectUrl(project.getProjectUrl()).isEmpty()) {
+                ProjectConfig.ofProjectUrl(project.getProjectUrl()).persist();
+            }
+        });
     }
 
     private void removeBadSmellsWithWrongIdentifier() {

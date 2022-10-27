@@ -45,7 +45,7 @@ public class PeriodicMiner {
     @Inject
     Vertx vertx;
 
-    @Scheduled(every = "4h", delay = 10, delayUnit = TimeUnit.MINUTES)
+    @Scheduled(every = "4h", delay = 3, delayUnit = TimeUnit.MINUTES)
     void mineRepos() {
         for (Project project : Project.<Project>findAll().list()) {
             eventBus.<ProjectResult>request(
@@ -62,7 +62,6 @@ public class PeriodicMiner {
             if (message.result().body() instanceof ProjectResult.Success project) {
                 List<Project> query =
                         Project.findByProjectName(project.project().name());
-                removeOldDbEntry(query);
                 if (query.size() == 1) {
                     query.get(0).addCommitHash(project.project().commitHash());
                     query.get(0).persistOrUpdate();
@@ -85,16 +84,6 @@ public class PeriodicMiner {
             logger.atSevere().log("Mining periodic %s failed with error %s", repoName, message.cause());
         }
         return Promise.promise();
-    }
-
-    private void removeOldDbEntry(List<Project> query) {
-        query.stream().filter(v -> v.getCommitHashes() == null).forEach(v -> v.delete());
-        query.stream().collect(Collectors.groupingBy(v -> v.projectName)).entrySet().stream()
-                .forEach(v -> {
-                    if (v.getValue().size() > 1) {
-                        v.getValue().stream().skip(1).forEach(Project::delete);
-                    }
-                });
     }
 
     private List<String> getRepoUrls(Path miningFile) throws IOException {

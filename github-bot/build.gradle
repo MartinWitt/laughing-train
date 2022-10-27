@@ -27,6 +27,8 @@ dependencies {
 	implementation 'io.quarkiverse.quinoa:quarkus-quinoa:1.2.2'
 	implementation("io.quarkus:quarkus-oidc")
 	implementation("io.quarkus:quarkus-keycloak-authorization")
+	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
+	implementation 'io.vertx:vertx-junit5:+'
 }
 
 group 'io.github.martinwitt'

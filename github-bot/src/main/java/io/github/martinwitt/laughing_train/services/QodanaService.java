@@ -4,8 +4,13 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.Constants;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
+import io.github.martinwitt.laughing_train.data.AnalyzerRequest.WithProject;
+import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
+import io.github.martinwitt.laughing_train.data.FindProjectConfigResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
+import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
 import io.quarkus.vertx.ConsumeEvent;
+import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
 import java.io.Closeable;
 import java.io.IOException;
@@ -36,6 +41,12 @@ public class QodanaService {
 
     @Inject
     EventBus eventBus;
+
+    @Inject
+    Vertx vertx;
+
+    @Inject
+    ProjectConfigService projectConfigService;
 
     public List<AnalyzerResult> runQodana(String gitUrl) throws IOException {
         Path file = Files.createTempDirectory(Constants.TEMP_FOLDER_PREFIX);
@@ -74,19 +85,45 @@ public class QodanaService {
         logger.atInfo().log("Received request %s", request);
         try {
             if (request instanceof AnalyzerRequest.WithProject project) {
-                var result = threadPoolManager
-                        .getService()
-                        .submit(() -> new QodanaResult.Success(
-                                runQodana(
-                                        project.project().folder().toPath(),
-                                        project.project().sourceFolder()),
-                                project.project()))
-                        .get();
-                eventBus.publish(ServiceAdresses.QODANA_ANALYZER_RESPONSE, result);
-                return result;
+                return runQodanaWithConfig(project);
             } else {
                 return new QodanaResult.Failure("Unknown request type");
             }
+        } catch (Exception e) {
+            return new QodanaResult.Failure(e.getMessage());
+        }
+    }
+
+    private QodanaResult runQodanaWithConfig(AnalyzerRequest.WithProject project) {
+        var projectConfig = getProjectConfig(project);
+        if (projectConfig instanceof FindProjectConfigResult.SingleResult found) {
+            var qodanaResult = invokeQodana(project, found.projectConfig());
+            if (qodanaResult instanceof QodanaResult.Success success) {
+                publishResults(success);
+            }
+            return qodanaResult;
+        } else {
+            return new QodanaResult.Failure("No config found");
+        }
+    }
+
+    private FindProjectConfigResult getProjectConfig(WithProject item) {
+        return projectConfigService.getConfig(
+                new FindProjectConfigRequest.ByProjectUrl(item.project().url()));
+    }
+
+    private void publishResults(QodanaResult result) {
+        eventBus.publish(ServiceAdresses.QODANA_ANALYZER_RESPONSE, result);
+    }
+
+    private QodanaResult invokeQodana(AnalyzerRequest.WithProject project, ProjectConfig projectConfig) {
+        try {
+            return threadPoolManager
+                    .getService()
+                    .submit(() -> new QodanaResult.Success(
+                            runQodana(project.project().folder().toPath(), projectConfig.getSourceFolder()),
+                            project.project()))
+                    .get();
         } catch (Exception e) {
             return new QodanaResult.Failure(e.getMessage());
         }

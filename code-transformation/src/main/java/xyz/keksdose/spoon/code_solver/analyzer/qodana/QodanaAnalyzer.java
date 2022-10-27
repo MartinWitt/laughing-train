@@ -44,14 +44,12 @@ public class QodanaAnalyzer {
     private String qodanaImageName;
     private String resultPathString;
     private String sourceFileRoot;
-    private Optional<String> qodanaCache;
 
     private QodanaAnalyzer(Builder builder) {
         this.resultFolder = builder.resultFolder;
         this.qodanaImageName = builder.qodanaImageName;
         this.resultPathString = builder.resultPathString;
         this.sourceFileRoot = builder.sourceFileRoot;
-        this.qodanaCache = builder.cacheFolder;
     }
 
     public List<AnalyzerResult> runQodana(Path sourceRoot) {
@@ -272,7 +270,8 @@ public class QodanaAnalyzer {
         private String qodanaImageName = "jetbrains/qodana";
         private String resultPathString = resultFolder + "/qodana.sarif.json";
         private String sourceFileRoot = "./src/main/java";
-        private Optional<String> cacheFolder = Optional.empty();
+        private Optional<String> cacheFolder = Optional.of("data/cache");
+        private String subFolder;
 
         public Builder withResultFolder(String resultFolder) {
             this.resultFolder = resultFolder;
@@ -297,8 +296,9 @@ public class QodanaAnalyzer {
             return this;
         }
 
-        public Builder withCacheVolume(String volumeName) {
+        public Builder withCacheVolume(String volumeName, String subFolder) {
             this.cacheFolder = Optional.of(volumeName);
+            this.subFolder = subFolder;
             return this;
         }
 
