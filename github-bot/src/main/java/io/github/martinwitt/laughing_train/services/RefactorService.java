@@ -7,10 +7,10 @@ import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.GitHubUtils;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigResult;
-import io.github.martinwitt.laughing_train.data.FindProjectConfigResult.SingleResult;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
+import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
@@ -84,11 +84,31 @@ public class RefactorService {
     private void refactorQodana(List<BadSmell> badSmells) {
         String projectUrl = badSmells.get(0).projectUrl;
         var projectConfig = projectConfigService.getConfig(new FindProjectConfigRequest.ByProjectUrl(projectUrl));
-        if (!(projectConfig instanceof FindProjectConfigResult.SingleResult)) {
+        if (projectConfig instanceof FindProjectConfigResult.NotFound) {
+            logger.atWarning().log("No config found for project %s", projectUrl);
+            return;
+        }
+        if (projectConfig instanceof FindProjectConfigResult.MultipleResults results) {
+            if (results.projectConfigs().size() > 1) {
+                logger.atWarning().log("Multiple configs found for project %s", projectUrl);
+                return;
+            } else {
+                ProjectConfig config = results.projectConfigs().get(0);
+                eventBus.<ProjectResult>request(
+                        ServiceAdresses.PROJECT_REQUEST,
+                        new ProjectRequest.WithUrl(projectUrl),
+                        new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
+                        result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells, config)));
+            }
+        }
+        if (!(projectConfig instanceof FindProjectConfigResult.SingleResult
+                || projectConfig instanceof FindProjectConfigResult.MultipleResults)) {
             logger.atWarning().log("No project config found for %s", projectUrl);
             return;
         }
-        if (projectConfig instanceof FindProjectConfigResult.SingleResult config) {
+        if (projectConfig instanceof FindProjectConfigResult.SingleResult results) {
+            ProjectConfig config = results.projectConfig();
+
             eventBus.<ProjectResult>request(
                     ServiceAdresses.PROJECT_REQUEST,
                     new ProjectRequest.WithUrl(projectUrl),
@@ -98,7 +118,7 @@ public class RefactorService {
     }
 
     private Promise<String> createPullRequest(
-            AsyncResult<Message<ProjectResult>> message, List<BadSmell> badSmells, SingleResult config) {
+            AsyncResult<Message<ProjectResult>> message, List<BadSmell> badSmells, ProjectConfig config) {
         if (message.failed()) {
             logger.atSevere().withCause(message.cause()).log("Failed to get project");
             return Promise.promise();
@@ -111,8 +131,7 @@ public class RefactorService {
         if (projectResult instanceof ProjectResult.Success success) {
             ChangeListener listener = new ChangeListener();
             QodanaRefactor refactor = new QodanaRefactor(EnumSet.allOf(QodanaRules.class), listener, badSmells);
-            String refactorPath = success.project().folder().getAbsolutePath() + "/"
-                    + config.projectConfig().getSourceFolder();
+            String refactorPath = success.project().folder().getAbsolutePath() + "/" + config.getSourceFolder();
             logger.atInfo().log("Refactoring %s", refactorPath);
             Function<ChangeListener, TransformationProcessor<?>> function = (v -> refactor);
             TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
