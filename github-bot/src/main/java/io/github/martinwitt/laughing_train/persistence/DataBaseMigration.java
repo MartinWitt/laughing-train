@@ -73,8 +73,9 @@ public class DataBaseMigration {
     private void createConfigsIfMissing() {
         Project.<Project>streamAll().forEach(project -> {
             if (ProjectConfig.findByProjectUrl(project.getProjectUrl()).isEmpty()) {
-                ProjectConfig.ofProjectUrl(project.getProjectUrl()).persist();
-                logger.atInfo().log("Created config for %s", project.getProjectUrl());
+                var config = new ProjectConfig(project.getProjectUrl());
+                config.persist();
+                logger.atInfo().log("Created config %s", ProjectConfig.findByProjectUrl(project.getProjectUrl()));
             }
         });
     }
