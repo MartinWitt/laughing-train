@@ -166,7 +166,7 @@ public class RefactorService {
                 repo.createRef("refs/heads/" + branchName, mainRef.getObject().getSha());
         StringBuilder body = new StringBuilder();
         body.append(changelogPrinter.printRepairedIssues(changes));
-        createCommit(repo, dir, changes.stream().map(Change::getAffectedType).collect(Collectors.toList()), ref);
+        createCommit(repo, dir, changes, ref);
         body.append(changelogPrinter.printChangeLogShort(changes));
         createPullRequest(repo, branchName, body.toString(), createPullRequestTitle(changes));
     }
@@ -186,8 +186,9 @@ public class RefactorService {
         return title;
     }
 
-    private void createCommit(GHRepository repo, Path dir, List<? extends CtType<?>> types, GHRef ref)
+    private void createCommit(GHRepository repo, Path dir, List<? extends Change> changes, GHRef ref)
             throws IOException {
+        List<CtType<?>> types = changes.stream().map(Change::getAffectedType).collect(Collectors.toList());
         var treeBuilder = repo.createTree().baseTree(ref.getObject().getSha());
         for (CtType<?> ctType : types) {
             treeBuilder.add(
@@ -196,14 +197,23 @@ public class RefactorService {
                     false);
         }
         var tree = treeBuilder.create();
+        String commitMessage = createCommitMessage(changes);
         var commit = repo.createCommit()
-                .message("fix Bad Smells in multiple files")
+                .message(commitMessage)
                 .author("MartinWitt", "wittlinger.martin@gmail.com", Date.from(Instant.now()))
                 .tree(tree.getSha())
                 .parent(ref.getObject().getSha())
                 .create();
         ref.updateTo(commit.getSHA1());
         logger.atInfo().log("Created commit %s", commit.getHtmlUrl());
+    }
+
+    private String createCommitMessage(List<? extends Change> changes) {
+        StringBuilder message = new StringBuilder();
+        changes.stream().map(Change::getBadSmell).distinct().forEach(v -> message.append(
+                        v.getDescription().asText())
+                .append("\n"));
+        return message.toString();
     }
 
     private Path getFileForType(CtType<?> type) {
