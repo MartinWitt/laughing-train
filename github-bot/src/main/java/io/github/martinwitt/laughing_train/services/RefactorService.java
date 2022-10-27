@@ -172,7 +172,7 @@ public class RefactorService {
     }
 
     private String createPullRequestTitle(List<? extends Change> changes) {
-        String title = "style: refactor bad smell %s";
+        String title = "refactor: refactor bad smell %s";
         if (changes.stream().map(Change::getBadSmell).distinct().count() == 1) {
             title = String.format(title, changes.get(0).getBadSmell().getName().asText());
         } else {
