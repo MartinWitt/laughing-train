@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.summary;
 
+import com.google.common.base.Strings;
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.FindIssueRequest;
 import io.github.martinwitt.laughing_train.data.FindIssueResult;
@@ -120,7 +121,7 @@ public class PeriodicSummary {
     }
 
     private String findRuleID(String body) {
-        String result = StringUtils.substringBetween(body, "ruleID:")
+        String result = Strings.nullToEmpty(StringUtils.substringBetween(body, "ruleID:"))
                 .replace("\n", "")
                 .replace("\"", "")
                 .trim();
