@@ -31,7 +31,7 @@ public class DataBaseMigration {
     }
 
     public void checkPeroidic() {
-        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(30), id -> migrateDataBase());
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(30), id -> vertx.executeBlocking(v -> migrateDataBase()));
     }
 
     private void migrateDataBase() {

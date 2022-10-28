@@ -120,11 +120,11 @@ public class PeriodicSummary {
     }
 
     private String findRuleID(String body) {
-        String result = StringUtils.substringBetween(body, "ruleID:", "\n")
+        String result = StringUtils.substringBetween(body, "ruleID:")
                 .replace("\n", "")
                 .replace("\"", "")
                 .trim();
-        if (result.isEmpty()) {
+        if (result == null || result.isEmpty()) {
             return "Multiple rules";
         } else {
             return result;
