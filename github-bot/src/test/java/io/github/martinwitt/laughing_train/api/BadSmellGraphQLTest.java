@@ -16,6 +16,7 @@ import io.smallrye.graphql.client.core.OperationType;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClientBuilder;
 import java.util.regex.Pattern;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
@@ -46,7 +47,7 @@ public class BadSmellGraphQLTest {
     }
 
     @Test
-    // @Disabled("Only for local testing")
+    @Disabled("Only for local testing")
     void getBadSmellFromLive() throws Exception {
         client = DynamicGraphQLClientBuilder.newBuilder()
                 .url("https://laughing-train.keksdose.xyz/graphql")
@@ -56,11 +57,12 @@ public class BadSmellGraphQLTest {
                 OperationType.QUERY,
                 field(
                         "byRuleID",
-                        Argument.args(Argument.arg("ruleID", "UnnecessaryToStringCall")),
+                        Argument.args(Argument.arg("ruleID", "InnerClassMayBeStatic")),
                         field("ruleID"),
                         field("message"),
                         field("projectName"),
-                        field("filePath"))));
+                        field("filePath"),
+                        field("position", field("startLine")))));
         Response response = client.executeSync(document);
         System.out.println(response.getData().toString().replaceAll(Pattern.quote("},{"), "\n"));
     }

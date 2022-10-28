@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Function;
 import xyz.keksdose.spoon.code_solver.analyzer.AnalyzerRule;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.AbstractRefactoring;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.InnerClassMayBeStatic;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.MethodMayBeStatic;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.NonProtectedConstructorInAbstractClass;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.NonStrictComparisonCanBeEquality;
@@ -35,7 +36,8 @@ public enum QodanaRules implements AnalyzerRule {
     UNUSED_IMPORT("UnusedImport", UnusedImport::new),
     PROTECTED_MEMBER_IN_FINAL_CLASS("ProtectedMemberInFinalClass", ProtectedMemberInFinalClass::new),
     UNNECESSARY_MODIFIER("UnnecessaryModifier", UnnecessaryModifier::new),
-    POINTLESS_BOOLEAN_EXPRESSION("PointlessBooleanExpression", PointlessBooleanExpression::new);
+    POINTLESS_BOOLEAN_EXPRESSION("PointlessBooleanExpression", PointlessBooleanExpression::new),
+    INNER_CLASS_MAY_BE_STATIC("InnerClassMayBeStatic", InnerClassMayBeStatic::new);
 
     private final String ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
