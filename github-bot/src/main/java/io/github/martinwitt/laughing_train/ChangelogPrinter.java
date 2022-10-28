@@ -56,6 +56,13 @@ public class ChangelogPrinter {
                         "## " + v.getName().asText() + "\n")
                 .append(v.getDescription().asMarkdown())
                 .append("\n"));
+        for (var fix : changes) {
+            if (fix.getAnalyzerResult() != null) {
+                sb.append("<!-- fingerprint:")
+                        .append(fix.getAnalyzerResult().hashCode())
+                        .append(" -->\n");
+            }
+        }
         return sb.toString();
     }
 

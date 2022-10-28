@@ -1,25 +1,23 @@
 package io.github.martinwitt.laughing_train.services;
 
+import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigResult;
 import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
 import io.quarkus.vertx.ConsumeEvent;
-import io.smallrye.mutiny.Uni;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class ProjectConfigService {
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
     @ConsumeEvent(value = ServiceAdresses.PROJECT_CONFIG_REQUEST, blocking = true)
     public FindProjectConfigResult getConfig(FindProjectConfigRequest request) {
         if (request instanceof FindProjectConfigRequest.ByProjectUrl byProjectUrl) {
-            return Uni.createFrom()
-                    .item(ProjectConfig.findByProjectUrl(byProjectUrl.projectUrl()))
-                    .onItem()
-                    .transform(this::convertToResult)
-                    .await()
-                    .indefinitely();
+            return convertToResult(ProjectConfig.findByProjectUrl(byProjectUrl.projectUrl()));
         }
+        logger.atWarning().log("Unknown request type %s", request.getClass());
         return new FindProjectConfigResult.NotFound();
     }
 

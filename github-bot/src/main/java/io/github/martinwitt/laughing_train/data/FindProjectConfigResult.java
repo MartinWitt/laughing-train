@@ -7,7 +7,7 @@ import java.util.List;
 public sealed interface FindProjectConfigResult extends Serializable {
     record SingleResult(ProjectConfig projectConfig) implements FindProjectConfigResult {}
 
-    record MultipleResults(List<? super ProjectConfig> projectConfigs) implements FindProjectConfigResult {}
+    record MultipleResults(List<ProjectConfig> projectConfigs) implements FindProjectConfigResult {}
 
     record NotFound() implements FindProjectConfigResult {}
 }

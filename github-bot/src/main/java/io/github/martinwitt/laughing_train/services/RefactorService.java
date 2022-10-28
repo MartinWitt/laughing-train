@@ -5,9 +5,12 @@ import io.github.martinwitt.laughing_train.BranchNameSupplier;
 import io.github.martinwitt.laughing_train.ChangelogPrinter;
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.GitHubUtils;
+import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
+import io.github.martinwitt.laughing_train.data.FindProjectConfigResult;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
+import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
@@ -61,6 +64,9 @@ public class RefactorService {
     @Inject
     ChangelogPrinter changelogPrinter;
 
+    @Inject
+    ProjectConfigService projectConfigService;
+
     public void refactor(List<BadSmell> badSmells) {
         logger.atInfo().log("Refactoring %d bad smells", badSmells.size());
         var badSmellByAnalyzer = badSmells.stream().collect(Collectors.groupingBy(BadSmell::getAnalyzer));
@@ -77,14 +83,39 @@ public class RefactorService {
 
     private void refactorQodana(List<BadSmell> badSmells) {
         String projectUrl = badSmells.get(0).projectUrl;
-        eventBus.<ProjectResult>request(
-                ServiceAdresses.PROJECT_REQUEST,
-                new ProjectRequest.WithUrl(projectUrl),
-                new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
-                result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells)));
+
+        var projectConfig = projectConfigService.getConfig(new FindProjectConfigRequest.ByProjectUrl(projectUrl));
+        logger.atInfo().log("Found %s config ", projectConfig);
+        if (projectConfig instanceof FindProjectConfigResult.NotFound) {
+            logger.atWarning().log("No config found for project %s", projectUrl);
+            return;
+        }
+        if (projectConfig instanceof FindProjectConfigResult.MultipleResults results) {
+            if (results.projectConfigs().size() > 1) {
+                logger.atWarning().log("Multiple configs found for project %s", projectUrl);
+                return;
+            } else {
+                ProjectConfig config = results.projectConfigs().get(0);
+                eventBus.<ProjectResult>request(
+                        ServiceAdresses.PROJECT_REQUEST,
+                        new ProjectRequest.WithUrl(projectUrl),
+                        new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
+                        result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells, config)));
+            }
+        }
+        if (projectConfig instanceof FindProjectConfigResult.SingleResult results) {
+            ProjectConfig config = results.projectConfig();
+
+            eventBus.<ProjectResult>request(
+                    ServiceAdresses.PROJECT_REQUEST,
+                    new ProjectRequest.WithUrl(projectUrl),
+                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
+                    result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells, config)));
+        }
     }
 
-    private Promise<String> createPullRequest(AsyncResult<Message<ProjectResult>> message, List<BadSmell> badSmells) {
+    private Promise<String> createPullRequest(
+            AsyncResult<Message<ProjectResult>> message, List<BadSmell> badSmells, ProjectConfig config) {
         if (message.failed()) {
             logger.atSevere().withCause(message.cause()).log("Failed to get project");
             return Promise.promise();
@@ -97,11 +128,12 @@ public class RefactorService {
         if (projectResult instanceof ProjectResult.Success success) {
             ChangeListener listener = new ChangeListener();
             QodanaRefactor refactor = new QodanaRefactor(EnumSet.allOf(QodanaRules.class), listener, badSmells);
+            String refactorPath = success.project().folder().getAbsolutePath() + "/" + config.getSourceFolder();
+            logger.atInfo().log("Refactoring %s", refactorPath);
             Function<ChangeListener, TransformationProcessor<?>> function = (v -> refactor);
             TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
             transformationEngine.setChangeListener(listener);
-            Changelog log = transformationEngine.applyToGivenPath(
-                    success.project().folder().getAbsolutePath());
+            Changelog log = transformationEngine.applyToGivenPath(refactorPath);
             try {
                 GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
                 GHRepository repository = createForkIfMissing(success, github);
@@ -134,13 +166,29 @@ public class RefactorService {
                 repo.createRef("refs/heads/" + branchName, mainRef.getObject().getSha());
         StringBuilder body = new StringBuilder();
         body.append(changelogPrinter.printRepairedIssues(changes));
-        createCommit(repo, dir, changes.stream().map(Change::getAffectedType).collect(Collectors.toList()), ref);
+        createCommit(repo, dir, changes, ref);
         body.append(changelogPrinter.printChangeLogShort(changes));
-        createPullRequest(repo, branchName, body.toString());
+        createPullRequest(repo, branchName, body.toString(), createPullRequestTitle(changes));
     }
 
-    private void createCommit(GHRepository repo, Path dir, List<? extends CtType<?>> types, GHRef ref)
+    private String createPullRequestTitle(List<? extends Change> changes) {
+        String title = "refactor: refactor bad smell %s";
+        if (changes.stream().map(Change::getBadSmell).distinct().count() == 1) {
+            title = String.format(title, changes.get(0).getBadSmell().getName().asText());
+        } else {
+            title = String.format(
+                    title,
+                    changes.stream()
+                            .map(v -> v.getBadSmell().getName().asText())
+                            .distinct()
+                            .collect(Collectors.joining(", ")));
+        }
+        return title;
+    }
+
+    private void createCommit(GHRepository repo, Path dir, List<? extends Change> changes, GHRef ref)
             throws IOException {
+        List<CtType<?>> types = changes.stream().map(Change::getAffectedType).collect(Collectors.toList());
         var treeBuilder = repo.createTree().baseTree(ref.getObject().getSha());
         for (CtType<?> ctType : types) {
             treeBuilder.add(
@@ -149,14 +197,26 @@ public class RefactorService {
                     false);
         }
         var tree = treeBuilder.create();
+        String commitMessage = createCommitMessage(changes);
         var commit = repo.createCommit()
-                .message("fix Bad Smells in multiple files")
+                .message(commitMessage)
                 .author("MartinWitt", "wittlinger.martin@gmail.com", Date.from(Instant.now()))
                 .tree(tree.getSha())
                 .parent(ref.getObject().getSha())
                 .create();
         ref.updateTo(commit.getSHA1());
         logger.atInfo().log("Created commit %s", commit.getHtmlUrl());
+    }
+
+    private String createCommitMessage(List<? extends Change> changes) {
+        StringBuilder message = new StringBuilder();
+        message.append("Refactor bad smells:\n");
+        changes.stream().map(Change::getBadSmell).distinct().forEach(v -> message.append("- ")
+                .append(v.getName().asText())
+                .append("\n")
+                .append(v.getDescription().asText())
+                .append("\n"));
+        return message.toString();
     }
 
     private Path getFileForType(CtType<?> type) {
@@ -174,8 +234,9 @@ public class RefactorService {
         return "";
     }
 
-    private void createPullRequest(GHRepository repo, String branchName, String body) throws IOException {
-        repo.createPullRequest("fix Bad Smells", branchName, repo.getDefaultBranch(), body)
+    private void createPullRequest(GHRepository repo, String branchName, String body, String commitNameTitle)
+            throws IOException {
+        repo.createPullRequest(commitNameTitle, branchName, repo.getDefaultBranch(), body)
                 .addLabels(LABEL_NAME);
     }
 }

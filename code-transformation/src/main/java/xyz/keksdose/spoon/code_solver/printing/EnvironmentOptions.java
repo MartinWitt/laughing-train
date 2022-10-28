@@ -6,14 +6,14 @@ import xyz.keksdose.spoon.code_solver.spoon.ImportAwareSniperPrinter;
 
 public class EnvironmentOptions {
 
+    private EnvironmentOptions() {
+        // no instance needed, only static methods
+    }
+
     public static Environment setEnvironmentOptions(Launcher launcher) {
         Environment environment = launcher.getEnvironment();
-        environment.setIgnoreDuplicateDeclarations(true);
         environment.setNoClasspath(true);
-        environment.disableConsistencyChecks();
-        environment.setShouldCompile(true);
-        environment.setComplianceLevel(11);
-        environment.setIgnoreDuplicateDeclarations(true);
+        environment.setComplianceLevel(17);
         environment.setPreserveLineNumbers(true);
         environment.setPrettyPrinterCreator(() -> new ImportAwareSniperPrinter(environment));
         return environment;

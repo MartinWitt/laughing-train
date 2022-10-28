@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.persistence;
 
+import com.google.common.flogger.FluentLogger;
 import com.mongodb.client.model.Filters;
 import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
 import io.quarkus.runtime.StartupEvent;
@@ -17,6 +18,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 @ApplicationScoped
 public class DataBaseMigration {
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
     @Inject
     Vertx vertx;
     /**
@@ -28,16 +31,18 @@ public class DataBaseMigration {
     }
 
     public void checkPeroidic() {
-        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(30), id -> migrateDataBase());
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(30), id -> vertx.executeBlocking(v -> migrateDataBase()));
     }
 
     private void migrateDataBase() {
+        logger.atInfo().log("Migrating database");
+        createConfigsIfMissing();
         removeBadSmellsWithoutPosition();
         removeProjectHashesWithoutResults();
         removeBadSmellsWithoutIdentifier();
         removeBadSmellsWithWrongIdentifier();
-        createConfigsIfMissing();
         setDefaultSourceFolders();
+        logger.atInfo().log("Finished migrating database");
     }
 
     private void setDefaultSourceFolders() {
@@ -49,11 +54,12 @@ public class DataBaseMigration {
                         "https://github.com/assertj/assertj",
                         "assertj-core")
                 .forEach((k, v) -> {
-                    var list = ProjectConfig.findByProjectUrl(v);
+                    var list = ProjectConfig.findByProjectUrl(k);
                     if (list.size() == 1) {
                         var config = list.get(0);
-                        config.setSourceFolder(k);
+                        config.setSourceFolder(v);
                         config.update();
+                        logger.atInfo().log("Set source folder for %s to %s", k, v);
                     }
                 });
     }
@@ -61,9 +67,12 @@ public class DataBaseMigration {
     private void createConfigsIfMissing() {
         Project.<Project>streamAll().forEach(project -> {
             if (ProjectConfig.findByProjectUrl(project.getProjectUrl()).isEmpty()) {
-                ProjectConfig.ofProjectUrl(project.getProjectUrl()).persist();
+                var config = new ProjectConfig(project.getProjectUrl());
+                config.persist();
+                logger.atInfo().log("Created config %s", ProjectConfig.findByProjectUrl(project.getProjectUrl()));
             }
         });
+        logger.atInfo().log("Created missing configs for %d projects", ProjectConfig.count());
     }
 
     private void removeBadSmellsWithWrongIdentifier() {
