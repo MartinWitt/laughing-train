@@ -243,6 +243,18 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
+	 * Constructor with all attributes.
+	 *
+	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
+	 * @param tests List of all tests, annotated with the issueId
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
+#### Snippet
+```java
 
 /**
  * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
@@ -260,18 +272,6 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
 	 *
 	 * @return IssueId the test belongs to
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
-#### Snippet
-```java
-	 * Constructor with all attributes.
-	 *
-	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
-	 * @param tests List of all tests, annotated with the issueId
-	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -311,18 +311,6 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
- * <a href="https://junit-pioneer.org/docs/cartesian-product/" target="_top">the documentation on <code>@CartesianProductTest</code></a>.
- * </p>
- * @see org.junitpioneer.jupiter.CartesianValueSource
- *
- * @deprecated has been superseded by CartesianTest, scheduled to be removed in 2.0
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
@@ -332,6 +320,18 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 		 * from the elements of the passed {@link java.util.Collection}.
 		 *
 		 * The passed argument does not have to be an instance of {@link java.util.Set}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
+#### Snippet
+```java
+ * <a href="https://junit-pioneer.org/docs/cartesian-product/" target="_top">the documentation on <code>@CartesianProductTest</code></a>.
+ * </p>
+ * @see org.junitpioneer.jupiter.CartesianValueSource
+ *
+ * @deprecated has been superseded by CartesianTest, scheduled to be removed in 2.0
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -408,6 +408,18 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends N`
+in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
+#### Snippet
+```java
+	}
+
+	private Stream<N> asStream(Range<N> range) {
+		return StreamSupport.stream(Spliterators.spliteratorUnknownSize(range, Spliterator.ORDERED), false);
+	}
+```
+
+### BoundedWildcard
 Can generalize to `? extends DisableIfTestFails`
 in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 #### Snippet
@@ -420,15 +432,15 @@ in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends N`
-in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
+Can generalize to `? extends List`
+in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 #### Snippet
 ```java
 	}
 
-	private Stream<N> asStream(Range<N> range) {
-		return StreamSupport.stream(Spliterators.spliteratorUnknownSize(range, Spliterator.ORDERED), false);
-	}
+	public static List<List<?>> cartesianProduct(List<List<?>> lists) {
+		List<List<?>> resultLists = new ArrayList<>();
+		if (lists.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -453,18 +465,6 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
 		Mode(Validator validator, BiPredicate<String, Set<String>> selector) {
 			this.validator = validator;
 			this.selector = selector;
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
-#### Snippet
-```java
-	}
-
-	public static List<List<?>> cartesianProduct(List<List<?>> lists) {
-		List<List<?>> resultLists = new ArrayList<>();
-		if (lists.isEmpty()) {
 ```
 
 ### BoundedWildcard
