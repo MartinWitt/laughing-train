@@ -17,14 +17,14 @@ public class Change {
     public Change(String text, String issue, CtType<?> affectedType) {
         this.text = MarkdownString.fromRaw(text);
         this.issue = issue;
-        this.affectedType = affectedType;
+        this.affectedType = getMostOuterType(affectedType);
     }
 
     public Change(BadSmell badSmell, MarkdownString text, CtType<?> affectedType) {
         this.text = text;
         this.issue = badSmell.getName().asText();
         this.badsmell = badSmell;
-        this.affectedType = affectedType;
+        this.affectedType = getMostOuterType(affectedType);
     }
 
     public Change(BadSmell badSmell, MarkdownString text, CtType<?> affectedType, AnalyzerResult analyzerResult) {
@@ -84,5 +84,13 @@ public class Change {
      */
     public @Nullable AnalyzerResult getAnalyzerResult() {
         return analyzerResult;
+    }
+
+    private CtType<?> getMostOuterType(CtType<?> inner) {
+        if (inner.getDeclaringType() == null) {
+            return inner;
+        } else {
+            return getMostOuterType(inner.getDeclaringType());
+        }
     }
 }
