@@ -37,7 +37,9 @@ public enum QodanaRules implements AnalyzerRule {
     PROTECTED_MEMBER_IN_FINAL_CLASS("ProtectedMemberInFinalClass", ProtectedMemberInFinalClass::new),
     UNNECESSARY_MODIFIER("UnnecessaryModifier", UnnecessaryModifier::new),
     POINTLESS_BOOLEAN_EXPRESSION("PointlessBooleanExpression", PointlessBooleanExpression::new),
-    INNER_CLASS_MAY_BE_STATIC("InnerClassMayBeStatic", InnerClassMayBeStatic::new);
+    INNER_CLASS_MAY_BE_STATIC("InnerClassMayBeStatic", InnerClassMayBeStatic::new),
+    TO_ARRAY_CALL_WITH_ZERO_LENGTH_ARRAY_ARGUMENT("ToArrayCallWithZeroLengthArrayArgument", 
+            ToArrayCallWithZeroLengthArrayArgument::new);
 
     private final String ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
