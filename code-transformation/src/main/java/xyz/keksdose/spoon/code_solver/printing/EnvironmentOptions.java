@@ -12,6 +12,8 @@ public class EnvironmentOptions {
 
     public static Environment setEnvironmentOptions(Launcher launcher) {
         Environment environment = launcher.getEnvironment();
+        environment.setIgnoreDuplicateDeclarations(true);
+        environment.setIgnoreSyntaxErrors(true);
         environment.setNoClasspath(true);
         environment.setComplianceLevel(17);
         environment.setPreserveLineNumbers(true);
