@@ -121,6 +121,9 @@ public class PeriodicSummary {
     }
 
     private String findRuleID(String body) {
+        if (body.contains("laughing-train-refactor")) {
+            return "Multiple rules";
+        }
         String result = Strings.nullToEmpty(StringUtils.substringBetween(body, "ruleID:"))
                 .replace("\n", "")
                 .replace("\"", "")
