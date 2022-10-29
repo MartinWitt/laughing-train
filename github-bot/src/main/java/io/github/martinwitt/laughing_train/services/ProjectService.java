@@ -34,9 +34,10 @@ public class ProjectService {
     public ProjectResult handleProjectRequest(ProjectRequest request) throws IOException {
         logger.atInfo().log("Received project request %s", request);
         if (request instanceof ProjectRequest.WithUrl url) {
+
             String repoName = StringUtils.substringAfterLast(url.url(), "/").replace(".git", "");
             Path dir = Files.createTempDirectory("laughing-train-" + repoName + random.nextLong());
-            vertx.setTimer(Duration.ofMinutes(60).toMillis(), v -> FileUtils.deleteQuietly(dir.toFile()));
+            cleanAfter60min(dir);
             return checkoutRepo(url, dir)
                     .onItem()
                     .invoke(() -> logger.atInfo().log("Cloned %s to %s", url.url(), dir))
@@ -50,6 +51,14 @@ public class ProjectService {
                     .indefinitely();
         }
         return new ProjectResult.Error("Unknown request");
+    }
+
+    private void cleanAfter60min(Path dir) {
+        vertx.setTimer(Duration.ofMinutes(60).toMillis(), v -> {
+            if (Files.exists(dir)) {
+                vertx.fileSystem().deleteRecursive(dir.toAbsolutePath().toString(), true);
+            }
+        });
     }
 
     private ProjectResult toResult(ProjectRequest.WithUrl url, String repoName, Path dir, Git git, Throwable error) {
