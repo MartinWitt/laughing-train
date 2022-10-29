@@ -12,6 +12,7 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.ParameterNameDiffers
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.PointlessBooleanExpression;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.ProtectedMemberInFinalClass;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.SizeReplaceableByIsEmpty;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.ToArrayCallWithZeroLengthArrayArgument;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryInterfaceModifier;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryLocalVariable;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryModifier;
@@ -38,8 +39,8 @@ public enum QodanaRules implements AnalyzerRule {
     UNNECESSARY_MODIFIER("UnnecessaryModifier", UnnecessaryModifier::new),
     POINTLESS_BOOLEAN_EXPRESSION("PointlessBooleanExpression", PointlessBooleanExpression::new),
     INNER_CLASS_MAY_BE_STATIC("InnerClassMayBeStatic", InnerClassMayBeStatic::new),
-    TO_ARRAY_CALL_WITH_ZERO_LENGTH_ARRAY_ARGUMENT("ToArrayCallWithZeroLengthArrayArgument", 
-            ToArrayCallWithZeroLengthArrayArgument::new);
+    TO_ARRAY_CALL_WITH_ZERO_LENGTH_ARRAY_ARGUMENT(
+            "ToArrayCallWithZeroLengthArrayArgument", ToArrayCallWithZeroLengthArrayArgument::new);
 
     private final String ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
