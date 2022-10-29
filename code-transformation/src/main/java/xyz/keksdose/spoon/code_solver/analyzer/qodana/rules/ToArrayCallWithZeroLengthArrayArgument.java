@@ -7,6 +7,7 @@ import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.analyzer.PositionScanner;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -44,7 +45,8 @@ public class ToArrayCallWithZeroLengthArrayArgument extends AbstractRefactoring 
         if (!isSameType(type, Path.of(result.filePath()))) {
             return;
         }
-        for (CtNewArray<?> toArrayCall : filterMatches(PositionScanner.findLineOnly(type, result.position()))) {
+        for (CtNewArray<?> toArrayCall :
+                filterMatches(PositionScanner.findLineOnly(type, toStartLinePosition(result.position())))) {
             var dimensionExpression = toArrayCall.getDimensionExpressions().get(0);
             var zeroExpression = dimensionExpression.getFactory().createLiteral(0);
             dimensionExpression.replace(zeroExpression);
@@ -53,6 +55,10 @@ public class ToArrayCallWithZeroLengthArrayArgument extends AbstractRefactoring 
             Change change = new Change(badSmell, MarkdownString.fromMarkdown(message, markdown), type, result);
             listener.setChanged(type, change);
         }
+    }
+
+    private Position toStartLinePosition(Position position) {
+        return new Position(position.startLine(), 0, 0, 0, 0, 0);
     }
 
     @SuppressWarnings("rawtypes")
