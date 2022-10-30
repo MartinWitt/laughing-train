@@ -16,7 +16,6 @@ jar {
 	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 dependencies {
-	// implementation 'fr.inria.gforge.spoon:spoon-core:10.0.1-beta-2'
 	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.3.0.202209071007-r'
 	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.ssh.apache', version: '6.3.0.202209071007-r'
 	testImplementation "com.google.truth:truth:1.1.3"

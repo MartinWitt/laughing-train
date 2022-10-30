@@ -43,6 +43,9 @@ public class UnnecessaryModifier extends AbstractRefactoring {
         }
         for (CtElement match : PositionScanner.findLineOnly(type, result.position())) {
             if (match instanceof CtModifiable ctModifierHandler) {
+                if (!hasModifier(ctModifierHandler, modifier)) {
+                    continue;
+                }
                 var modifiers = new HashSet<>(ctModifierHandler.getModifiers());
                 modifiers.removeIf(v -> v.toString().equals(modifier.toLowerCase()));
                 ctModifierHandler.setModifiers(modifiers);
@@ -57,6 +60,11 @@ public class UnnecessaryModifier extends AbstractRefactoring {
                                 result));
             }
         }
+    }
+
+    private boolean hasModifier(CtModifiable ctModifierHandler, String modifier) {
+        return ctModifierHandler.getModifiers().stream()
+                .anyMatch(v -> v.toString().equalsIgnoreCase(modifier));
     }
 
     @Override
