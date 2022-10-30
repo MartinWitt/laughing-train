@@ -4,12 +4,6 @@ plugins {
 	id 'xyz.keksdose.spoon.code_solver.java-common-conventions'
 }
 
-repositories {
-	mavenCentral()
-	mavenLocal()
-	gradlePluginPortal()
-}
-
 dependencies {
 	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
 	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.313.1'
