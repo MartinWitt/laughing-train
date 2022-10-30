@@ -27,3 +27,6 @@ dependencies {
 
 group 'io.github.martinwitt'
 version '0.0.1'
+repositories {
+    mavenCentral()
+}

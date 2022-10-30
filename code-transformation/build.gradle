@@ -45,3 +45,6 @@ def mining = tasks.register("mining", Test) {
 		includeTags "Mining"
 	}
 }
+repositories {
+    mavenCentral()
+}
