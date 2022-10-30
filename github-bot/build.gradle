@@ -4,12 +4,6 @@ plugins {
 	id 'xyz.keksdose.spoon.code_solver.java-common-conventions'
 }
 
-repositories {
-	mavenCentral()
-	mavenLocal()
-	gradlePluginPortal()
-}
-
 dependencies {
 	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
 	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.313.1'
@@ -33,3 +27,9 @@ dependencies {
 
 group 'io.github.martinwitt'
 version '0.0.1'
+task listrepos {
+    doLast {
+        println "Repositories:"
+        project.repositories.each { println "Name: " + it.name + "; url: " + it.url }
+   }
+}
