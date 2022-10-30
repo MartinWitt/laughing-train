@@ -52,7 +52,7 @@ public class ChangelogPrinter {
     public String printRepairedIssues(Collection<? extends Change> changes) {
         StringBuilder sb = new StringBuilder();
         sb.append("# Repairing Code Style Issues\n");
-        sb.append("<!-- laughing-train-refactor -->");
+        sb.append("<!-- laughing-train-refactor -->\n");
         changes.stream().map(Change::getBadSmell).distinct().forEach(v -> sb.append(
                         "## " + v.getName().asText() + "\n")
                 .append(v.getDescription().asMarkdown())
