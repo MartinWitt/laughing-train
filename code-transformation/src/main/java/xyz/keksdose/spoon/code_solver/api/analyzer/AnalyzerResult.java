@@ -15,11 +15,11 @@ public interface AnalyzerResult extends Serializable {
 
     public String filePath();
 
-    public Position position();
+    abstractPosition position();
 
-    public String message();
+    abstractString message();
 
     public String messageMarkdown();
 
-    public String snippet();
+    abstractString snippet();
 }

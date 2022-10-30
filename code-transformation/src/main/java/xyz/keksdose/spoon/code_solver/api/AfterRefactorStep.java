@@ -5,5 +5,5 @@ import xyz.keksdose.spoon.code_solver.history.Changelog;
 
 public interface AfterRefactorStep {
 
-    public void apply(Changelog changelog, File projectRoot);
+    abstractvoid apply(Changelog changelog, File projectRoot);
 }
