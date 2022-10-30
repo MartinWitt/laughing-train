@@ -102,20 +102,43 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
             // Use the slf4j provided utility directly
 ```
 
-## AbstractClassNeverImplemented
-### AbstractClassNeverImplemented
-Abstract class `TestReportFormattingPlugin` has no concrete subclass
-in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestReportFormattingPlugin.java`
+## BoundedWildcard
+### BoundedWildcard
+Can generalize to `? super StringBuilder`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/Formatting.java`
 #### Snippet
 ```java
- * lines much like our intellij plugin.
- */
-public abstract class TestReportFormattingPlugin implements Plugin<Project> {
+    }
 
-    @Override
+    static String withStringBuilder(Consumer<StringBuilder> function) {
+        StringBuilder builder = REUSABLE_STRING_BUILDER.get();
+        builder.setLength(0);
 ```
 
-## BoundedWildcard
+### BoundedWildcard
+Can generalize to `? super String`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
+#### Snippet
+```java
+    }
+
+    private static String interpolateParameters(String original, Function<String, Object> lookup) {
+        Matcher matcher = PARAMETER_PATTERN.matcher(original);
+        String current = original;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/idea/WitchcraftLogFilter.java`
+#### Snippet
+```java
+    }
+
+    private static boolean containsWitchcraftData(List<Pair<String, ConsoleViewContentType>> lines) {
+        for (Pair<String, ConsoleViewContentType> item : lines) {
+            // The null check is likely unnecessarily defensive, the goal is to avoid breaking any non-witchcraft
+```
+
 ### BoundedWildcard
 Can generalize to `? extends T`
 in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/SupplierLogVisitor.java`
@@ -126,30 +149,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     SupplierLogVisitor(Supplier<T> supplier) {
         this.supplier = supplier;
     }
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
-#### Snippet
-```java
-
-    static void createOrUpdateXmlFile(
-            File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
-        Node rootNode;
-        if (configurationFile.isFile()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
-#### Snippet
-```java
-
-    static void createOrUpdateXmlFile(
-            File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
-        Node rootNode;
-        if (configurationFile.isFile()) {
 ```
 
 ### BoundedWildcard
@@ -189,39 +188,15 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### BoundedWildcard
-Can generalize to `? super StringBuilder`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/Formatting.java`
+Can generalize to `? extends L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
 #### Snippet
 ```java
     }
 
-    static String withStringBuilder(Consumer<StringBuilder> function) {
-        StringBuilder builder = REUSABLE_STRING_BUILDER.get();
-        builder.setLength(0);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
-#### Snippet
-```java
-    }
-
-    private static String interpolateParameters(String original, Function<String, Object> lookup) {
-        Matcher matcher = PARAMETER_PATTERN.matcher(original);
-        String current = original;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/idea/WitchcraftLogFilter.java`
-#### Snippet
-```java
-    }
-
-    private static boolean containsWitchcraftData(List<Pair<String, ConsoleViewContentType>> lines) {
-        for (Pair<String, ConsoleViewContentType> item : lines) {
-            // The null check is likely unnecessarily defensive, the goal is to avoid breaking any non-witchcraft
+    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
+        try {
+            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
 ```
 
 ### BoundedWildcard
@@ -249,15 +224,27 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+Can generalize to `? super Node`
+in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
 #### Snippet
 ```java
-    }
 
-    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
-        try {
-            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
+    static void createOrUpdateXmlFile(
+            File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
+        Node rootNode;
+        if (configurationFile.isFile()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
+#### Snippet
+```java
+
+    static void createOrUpdateXmlFile(
+            File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
+        Node rootNode;
+        if (configurationFile.isFile()) {
 ```
 
 ### BoundedWildcard
@@ -318,6 +305,19 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     CombineWithLogVisitor(LogVisitor<T> first, LogVisitor<U> second, BiFunction<T, U, R> combiner) {
         this.first = first;
         this.second = second;
+```
+
+## AbstractClassNeverImplemented
+### AbstractClassNeverImplemented
+Abstract class `TestReportFormattingPlugin` has no concrete subclass
+in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestReportFormattingPlugin.java`
+#### Snippet
+```java
+ * lines much like our intellij plugin.
+ */
+public abstract class TestReportFormattingPlugin implements Plugin<Project> {
+
+    @Override
 ```
 
 ## CodeBlock2Expr
