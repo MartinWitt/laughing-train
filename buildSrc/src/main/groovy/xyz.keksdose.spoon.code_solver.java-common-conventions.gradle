@@ -8,7 +8,6 @@ plugins {
 
 repositories {
     mavenCentral()
-    gradlePluginPortal()
 }
 dependencies {
 		// Use JUnit Jupiter for testing.
