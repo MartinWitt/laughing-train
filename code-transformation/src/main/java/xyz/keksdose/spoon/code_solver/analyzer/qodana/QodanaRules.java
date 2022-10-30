@@ -45,7 +45,7 @@ public enum QodanaRules implements AnalyzerRule {
     private final String ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
 
-    private QodanaRules(String ruleId, Function<AnalyzerResult, AbstractRefactoring> refactoring) {
+    QodanaRules(String ruleId, Function<AnalyzerResult, AbstractRefactoring> refactoring) {
         this.ruleId = ruleId;
         this.refactoring = refactoring;
     }
