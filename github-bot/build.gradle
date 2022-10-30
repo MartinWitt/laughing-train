@@ -27,9 +27,3 @@ dependencies {
 
 group 'io.github.martinwitt'
 version '0.0.1'
-task listrepos {
-	doLast {
-		println "Repositories:"
-		project.repositories.each { println "Name: " + it.name + "; url: " + it.url }
-	}
-}
