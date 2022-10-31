@@ -46,9 +46,9 @@ public class UnnecessaryModifier extends AbstractRefactoring {
                 if (!hasModifier(ctModifierHandler, modifier)) {
                     continue;
                 }
-                var modifiers = new HashSet<>(ctModifierHandler.getModifiers());
-                modifiers.removeIf(v -> v.toString().equals(modifier.toLowerCase()));
-                ctModifierHandler.setModifiers(modifiers);
+                var modifiers = new HashSet<>(ctModifierHandler.getExtendedModifiers());
+                modifiers.removeIf(v -> v.getKind().toString().equalsIgnoreCase(modifier));
+                ctModifierHandler.setExtendedModifiers(modifiers);
                 listener.setChanged(
                         type.getTopLevelType(),
                         new Change(
