@@ -1,6 +1,7 @@
 profile:
   name: qodana.recommended
 version: "1.0"
+linter: jetbrains/qodana-jvm-community:2022.3-eap
 include:
   - name: Anonymous2MethodRef
   - name: AnonymousHasLambdaAlternative
@@ -45,7 +46,6 @@ include:
   - name: SamePackageImport
   - name: SimplifyBooleanWithConstants
   - name: SizeReplaceableByIsEmpty
-  - name: StaticCallOnSubclass
   - name: StaticPseudoFunctionalStyleMethod
   - name: StringEquality
   - name: ToArrayCallWithZeroLengthArrayArgument
@@ -61,4 +61,4 @@ include:
 exclude:
   - name: UseOfClone
   - name: JavaAnnotator
-  - name: MethodMayBeStatic
+  - name: StaticCallOnSubclass

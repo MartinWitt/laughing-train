@@ -140,4 +140,11 @@ public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
     public String snippet() {
         return snippet;
     }
+
+    /**
+     * @return the identifier
+     */
+    public String getIdentifier() {
+        return identifier;
+    }
 }
