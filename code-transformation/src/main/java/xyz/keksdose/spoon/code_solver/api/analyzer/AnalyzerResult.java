@@ -10,16 +10,15 @@ public interface AnalyzerResult extends Serializable {
 
     String getAnalyzer();
 
-    @Nonnull
-    public String ruleID();
+    @NonnullString ruleID();
 
     public String filePath();
 
-    public Position position();
+    Position position();
 
-    public String message();
+    String message();
 
-    public String messageMarkdown();
+    String messageMarkdown();
 
-    public String snippet();
+    String snippet();
 }
