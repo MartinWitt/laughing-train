@@ -1,6 +1,7 @@
 package io.github.martinwitt.laughing_train.persistence;
 
 import com.google.common.flogger.FluentLogger;
+import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
 import io.quarkus.runtime.StartupEvent;
@@ -8,6 +9,7 @@ import io.vertx.core.Vertx;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -32,6 +34,7 @@ public class DataBaseMigration {
 
     public void checkPeroidic() {
         vertx.setPeriodic(TimeUnit.MINUTES.toMillis(30), id -> vertx.executeBlocking(v -> migrateDataBase()));
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(5), id -> vertx.executeBlocking(v -> removeDuplicatedBadSmells()));
     }
 
     private void migrateDataBase() {
@@ -42,7 +45,21 @@ public class DataBaseMigration {
         removeBadSmellsWithoutIdentifier();
         removeBadSmellsWithWrongIdentifier();
         setDefaultSourceFolders();
+        removeDuplicatedBadSmells();
         logger.atInfo().log("Finished migrating database");
+    }
+
+    private void removeDuplicatedBadSmells() {
+        var project =
+                Project.<Project>mongoCollection().find(Aggregates.sample(1)).first();
+        BadSmell.findByProjectName(project.getProjectName()).stream()
+                .collect(Collectors.groupingBy(BadSmell::getIdentifier))
+                .forEach((k, v) -> {
+                    if (v.size() > 1) {
+                        logger.atInfo().log("Found duplicated bad smells for identifier %s", k);
+                        v.stream().skip(1).forEach(BadSmell::delete);
+                    }
+                });
     }
 
     private void setDefaultSourceFolders() {
