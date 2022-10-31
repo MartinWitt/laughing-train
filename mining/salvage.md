@@ -19,19 +19,6 @@ I found 98 bad smells with 0 repairable:
 ### DuplicateStringLiteralInspection
 Duplicate string literal found in  
 'de.chrisliebaer.salvage.entity.SalvageTide'
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageCrane.java`
-#### Snippet
-```java
-	private static final String LABEL_SALVAGE_ENV = ".env.";
-	private static final String LABEL_SALVAGE_MOUNT = ".mount.";
-	private static final String LABEL_SALVAGE_MAX_CONCURRENT = ".maxConcurrent";
-	
-	public static SalvageCrane fromLabels(String name, String prefix, Map<String, String> labels) {
-```
-
-### DuplicateStringLiteralInspection
-Duplicate string literal found in  
-'de.chrisliebaer.salvage.entity.SalvageTide'
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageTide.java`
 #### Snippet
 ```java
@@ -109,28 +96,15 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageTide.java`
 
 ### DuplicateStringLiteralInspection
 Duplicate string literal found in  
-'de.chrisliebaer.salvage.SalvageService', 'de.chrisliebaer.salvage.BackupOperation'
-in `src/main/java/de/chrisliebaer/salvage/BackupOperation.java`
+'de.chrisliebaer.salvage.SalvageVessel'
+in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
 #### Snippet
 ```java
-							try {
-								log.info("starting backup for volume '{}' on crane '{}'", volume.name(), crane.name());
-								ThreadContext.put("volume", volume.name());
-								backupVolume(volume, crane);
-							} finally {
-```
-
-### DuplicateStringLiteralInspection
-Duplicate string literal found in  
-'de.chrisliebaer.salvage.SalvageService', 'de.chrisliebaer.salvage.BackupOperation'
-in `src/main/java/de/chrisliebaer/salvage/BackupOperation.java`
-#### Snippet
-```java
-									lock.notifyAll();
-								}
-								ThreadContext.remove("volume");
-							}
-							return null;
+			// if we succeeded to remove the container, we rethrow the original exception
+			log.debug("backup of '{}' failed but we still managed to remove crane container '{}'", volume.name(), container.getId());
+			throw new RuntimeException("backup of volume '" + volume.name() + "' failed", e);
+		}
+	}
 ```
 
 ### DuplicateStringLiteralInspection
@@ -148,15 +122,41 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
 
 ### DuplicateStringLiteralInspection
 Duplicate string literal found in  
-'de.chrisliebaer.salvage.SalvageVessel'
-in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
+'de.chrisliebaer.salvage.BackupOperation', 'de.chrisliebaer.salvage.SalvageService'
+in `src/main/java/de/chrisliebaer/salvage/BackupOperation.java`
 #### Snippet
 ```java
-			// if we succeeded to remove the container, we rethrow the original exception
-			log.debug("backup of '{}' failed but we still managed to remove crane container '{}'", volume.name(), container.getId());
-			throw new RuntimeException("backup of volume '" + volume.name() + "' failed", e);
-		}
-	}
+							try {
+								log.info("starting backup for volume '{}' on crane '{}'", volume.name(), crane.name());
+								ThreadContext.put("volume", volume.name());
+								backupVolume(volume, crane);
+							} finally {
+```
+
+### DuplicateStringLiteralInspection
+Duplicate string literal found in  
+'de.chrisliebaer.salvage.BackupOperation', 'de.chrisliebaer.salvage.SalvageService'
+in `src/main/java/de/chrisliebaer/salvage/BackupOperation.java`
+#### Snippet
+```java
+									lock.notifyAll();
+								}
+								ThreadContext.remove("volume");
+							}
+							return null;
+```
+
+### DuplicateStringLiteralInspection
+Duplicate string literal found in  
+'de.chrisliebaer.salvage.entity.SalvageTide'
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageCrane.java`
+#### Snippet
+```java
+	private static final String LABEL_SALVAGE_ENV = ".env.";
+	private static final String LABEL_SALVAGE_MOUNT = ".mount.";
+	private static final String LABEL_SALVAGE_MAX_CONCURRENT = ".maxConcurrent";
+	
+	public static SalvageCrane fromLabels(String name, String prefix, Map<String, String> labels) {
 ```
 
 ### DuplicateStringLiteralInspection
@@ -183,19 +183,6 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 						throw new IllegalStateException("container '" + container.id() + "' is paused, cannot stop");
 					}
 					log.debug("stopping container {}", container.id());
-```
-
-### DuplicateStringLiteralInspection
-Duplicate string literal found in  
-'de.chrisliebaer.salvage.BackupOperation'
-in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
-#### Snippet
-```java
-			// identify container depending to these volumes
-			var containers = docker.listContainersCmd()
-					.withFilter("volume", volumes.keySet()).exec().stream()
-					.map(c -> docker.inspectContainerCmd(c.getId()).exec())
-					.map(c -> SalvageContainer.fromContainer(c, volumes))
 ```
 
 ### DuplicateStringLiteralInspection
@@ -276,6 +263,19 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 		}
 ```
 
+### DuplicateStringLiteralInspection
+Duplicate string literal found in  
+'de.chrisliebaer.salvage.BackupOperation'
+in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
+#### Snippet
+```java
+			// identify container depending to these volumes
+			var containers = docker.listContainersCmd()
+					.withFilter("volume", volumes.keySet()).exec().stream()
+					.map(c -> docker.inspectContainerCmd(c.getId()).exec())
+					.map(c -> SalvageContainer.fromContainer(c, volumes))
+```
+
 ## UnusedReturnValue
 ### UnusedReturnValue
 Return value of the method is never used
@@ -341,27 +341,27 @@ public record SalvageConfiguration(String hostname, String ownContainerId, List<
 
 ## CollectionsMustHaveInitialCapacity
 ### CollectionsMustHaveInitialCapacity
-`new HashMap`() without initial capacity
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageCrane.java`
+`new ArrayList`() without initial capacity
+in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
 #### Snippet
 ```java
-			throw new IllegalArgumentException("tried to construct crane '" + name + "', but no image was specified");
 		
-		var env = new HashMap<String, String>();
-		var mounts = new HashMap<String, String>();
+		// WARNING: docker-java is a dumpsterfire and completly misunderstands how volumes and binds work, the following code is correct
+		var binds = new ArrayList<Bind>();
 		
+		// mount volume as ro for backup
 ```
 
 ### CollectionsMustHaveInitialCapacity
-`new HashMap`() without initial capacity
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageCrane.java`
+`new ArrayList`() without initial capacity
+in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
 #### Snippet
 ```java
-		
-		var env = new HashMap<String, String>();
-		var mounts = new HashMap<String, String>();
-		
-		for (var entry : labels.entrySet()) {
+	
+	private static List<String> prepareEnv(Map<String, String> env) {
+		var result = new ArrayList<String>();
+		for (var entry : env.entrySet())
+			result.add(entry.getKey() + "=" + entry.getValue());
 ```
 
 ### CollectionsMustHaveInitialCapacity
@@ -389,27 +389,75 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 ```
 
 ### CollectionsMustHaveInitialCapacity
-`new ArrayList`() without initial capacity
-in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
+`new IdentityHashMap<>()` without initial capacity
+in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
+#### Snippet
+```java
+	
+	private final DockerClient docker;
+	private final Map<SalvageContainer, AffectedContainer> affectedContainers = new IdentityHashMap<>();
+	
+	@Override
+```
+
+### CollectionsMustHaveInitialCapacity
+`new HashMap`() without initial capacity
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageCrane.java`
+#### Snippet
+```java
+			throw new IllegalArgumentException("tried to construct crane '" + name + "', but no image was specified");
+		
+		var env = new HashMap<String, String>();
+		var mounts = new HashMap<String, String>();
+		
+```
+
+### CollectionsMustHaveInitialCapacity
+`new HashMap`() without initial capacity
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageCrane.java`
 #### Snippet
 ```java
 		
-		// WARNING: docker-java is a dumpsterfire and completly misunderstands how volumes and binds work, the following code is correct
-		var binds = new ArrayList<Bind>();
+		var env = new HashMap<String, String>();
+		var mounts = new HashMap<String, String>();
 		
-		// mount volume as ro for backup
+		for (var entry : labels.entrySet()) {
+```
+
+### CollectionsMustHaveInitialCapacity
+`new ArrayList<>()` without initial capacity
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+	public static class Group {
+		
+		@Getter private final List<SalvageContainer> containers = new ArrayList<>();
+		@Getter private final List<SalvageVolume> volumes = new ArrayList<>();
+		
 ```
 
 ### CollectionsMustHaveInitialCapacity
 `new ArrayList`() without initial capacity
-in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
 ```java
-	
-	private static List<String> prepareEnv(Map<String, String> env) {
-		var result = new ArrayList<String>();
-		for (var entry : env.entrySet())
-			result.add(entry.getKey() + "=" + entry.getValue());
+		// traverse graph starting at volume nodes
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+```
+
+### CollectionsMustHaveInitialCapacity
+`new ArrayList<>()` without initial capacity
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		
+		@Getter private final List<SalvageContainer> containers = new ArrayList<>();
+		@Getter private final List<SalvageVolume> volumes = new ArrayList<>();
+		
+		private void addContainer(SalvageContainer container) {
 ```
 
 ### CollectionsMustHaveInitialCapacity
@@ -461,54 +509,6 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
 ```
 
 ### CollectionsMustHaveInitialCapacity
-`new IdentityHashMap<>()` without initial capacity
-in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
-#### Snippet
-```java
-	
-	private final DockerClient docker;
-	private final Map<SalvageContainer, AffectedContainer> affectedContainers = new IdentityHashMap<>();
-	
-	@Override
-```
-
-### CollectionsMustHaveInitialCapacity
-`new ArrayList<>()` without initial capacity
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-	public static class Group {
-		
-		@Getter private final List<SalvageContainer> containers = new ArrayList<>();
-		@Getter private final List<SalvageVolume> volumes = new ArrayList<>();
-		
-```
-
-### CollectionsMustHaveInitialCapacity
-`new ArrayList<>()` without initial capacity
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		
-		@Getter private final List<SalvageContainer> containers = new ArrayList<>();
-		@Getter private final List<SalvageVolume> volumes = new ArrayList<>();
-		
-		private void addContainer(SalvageContainer container) {
-```
-
-### CollectionsMustHaveInitialCapacity
-`new ArrayList`() without initial capacity
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		// traverse graph starting at volume nodes
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-```
-
-### CollectionsMustHaveInitialCapacity
 `new HashMap`() without initial capacity
 in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 #### Snippet
@@ -521,18 +521,6 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 ```
 
 ## ConstantConditions
-### ConstantConditions
-Argument `config.getEnv()` might be null
-in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
-#### Snippet
-```java
-				.withAttachStderr(true)
-				.withAttachStdin(false)
-				.withEnv(Arrays.asList(config.getEnv()))
-				.withUser(user)
-				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
-```
-
 ### ConstantConditions
 Method invocation `get` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
@@ -558,15 +546,15 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 ```
 
 ### ConstantConditions
-Method invocation `keySet` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
+Argument `config.getEnv()` might be null
+in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
 #### Snippet
 ```java
-		var tideNames = new HashSet<String>();
-		var craneNames = new HashSet<String>();
-		for (var key : labels.keySet()) {
-			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
-				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
+				.withAttachStderr(true)
+				.withAttachStdin(false)
+				.withEnv(Arrays.asList(config.getEnv()))
+				.withUser(user)
+				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
 ```
 
 ### ConstantConditions
@@ -677,19 +665,19 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 					docker.pauseContainerCmd(container.id()).exec();
 ```
 
-## LengthOneStringsInConcatenation
-### LengthOneStringsInConcatenation
-`"'"` can be replaced with '''
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
+### ConstantConditions
+Method invocation `keySet` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
 #### Snippet
 ```java
-			return CommandLineUtils.translateCommandline(command);
-		} catch (Exception e) {
-			throw new RuntimeException("failed to parse arguments in '" + command + "'", e);
-		}
-	}
+		var tideNames = new HashSet<String>();
+		var craneNames = new HashSet<String>();
+		for (var key : labels.keySet()) {
+			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
+				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
 ```
 
+## LengthOneStringsInConcatenation
 ### LengthOneStringsInConcatenation
 `"="` can be replaced with '='
 in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
@@ -704,6 +692,18 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
 
 ### LengthOneStringsInConcatenation
 `"'"` can be replaced with '''
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
+#### Snippet
+```java
+			return CommandLineUtils.translateCommandline(command);
+		} catch (Exception e) {
+			throw new RuntimeException("failed to parse arguments in '" + command + "'", e);
+		}
+	}
+```
+
+### LengthOneStringsInConcatenation
+`"'"` can be replaced with '''
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
 ```java
@@ -712,18 +712,6 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 				throw new IllegalStateException("preperation command '" + command + "' failed on container '" + container.id() + "'", e);
 			}
 			
-```
-
-### LengthOneStringsInConcatenation
-`"'"` can be replaced with '''
-in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
-#### Snippet
-```java
-			callback.awaitCompletion();
-		} catch (NotFoundException e) {
-			throw new IllegalStateException("failed to pull image '" + crane.image() + "' for crane '" + crane.name() + "'", e);
-		}
-	}
 ```
 
 ### LengthOneStringsInConcatenation
@@ -774,6 +762,18 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 			ThreadContext.remove("container");
 ```
 
+### LengthOneStringsInConcatenation
+`"'"` can be replaced with '''
+in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
+#### Snippet
+```java
+			callback.awaitCompletion();
+		} catch (NotFoundException e) {
+			throw new IllegalStateException("failed to pull image '" + crane.image() + "' for crane '" + crane.name() + "'", e);
+		}
+	}
+```
+
 ## ImplicitNumericConversion
 ### ImplicitNumericConversion
 Implicit numeric conversion of `jsonBytes.length` from 'int' to 'long'
@@ -785,6 +785,18 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
 			entry.setSize(jsonBytes.length);
 			tar.putArchiveEntry(entry);
 			tar.write(jsonBytes);
+```
+
+### ImplicitNumericConversion
+Implicit numeric conversion of `RETRY_DELAY` from 'int' to 'long'
+in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
+#### Snippet
+```java
+			if (state.getRestarting()) {
+				log.debug("container {} is restarting, waiting {}ms ({} tries remaining)", container.id(), RETRY_DELAY, remainingRetries);
+				Thread.sleep(RETRY_DELAY);
+			} else {
+				break;
 ```
 
 ### ImplicitNumericConversion
@@ -811,31 +823,7 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
 			}
 ```
 
-### ImplicitNumericConversion
-Implicit numeric conversion of `RETRY_DELAY` from 'int' to 'long'
-in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
-#### Snippet
-```java
-			if (state.getRestarting()) {
-				log.debug("container {} is restarting, waiting {}ms ({} tries remaining)", container.id(), RETRY_DELAY, remainingRetries);
-				Thread.sleep(RETRY_DELAY);
-			} else {
-				break;
-```
-
 ## TypeMayBeWeakened
-### TypeMayBeWeakened
-Type of parameter `prefix` may be weakened to 'java.lang.CharSequence'
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageCrane.java`
-#### Snippet
-```java
-	private static final String LABEL_SALVAGE_MAX_CONCURRENT = ".maxConcurrent";
-	
-	public static SalvageCrane fromLabels(String name, String prefix, Map<String, String> labels) {
-		var image = labels.get(prefix + LABEL_SALVAGE_IMAGE_SUFFIX);
-		if (image == null)
-```
-
 ### TypeMayBeWeakened
 Type of parameter `cranes` may be weakened to 'java.util.Map'
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageTide.java`
@@ -846,6 +834,42 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageTide.java`
 	public static SalvageTide fromLabels(String name, String prefix, Map<String, String> labels, HashMap<String, SalvageCrane> cranes) {
 		var cronExpression = labels.get(prefix + LABEL_TIDE_CRON_SUFFIX);
 		if (cronExpression == null)
+```
+
+### TypeMayBeWeakened
+Type of variable `binds` may be weakened to 'java.util.List'
+in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
+#### Snippet
+```java
+		
+		// WARNING: docker-java is a dumpsterfire and completly misunderstands how volumes and binds work, the following code is correct
+		var binds = new ArrayList<Bind>();
+		
+		// mount volume as ro for backup
+```
+
+### TypeMayBeWeakened
+Type of variable `env` may be weakened to 'java.util.Map'
+in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
+#### Snippet
+```java
+	
+	public void start() {
+		var env = new HashMap<>(crane.env());
+		env.put(CRANE_ENV_MACHINE_NAME, meta.hostMeta().host());
+		env.put(CRANE_ENV_CRANE_NAME, meta.crane());
+```
+
+### TypeMayBeWeakened
+Type of variable `result` may be weakened to 'java.util.List'
+in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
+#### Snippet
+```java
+	
+	private static List<String> prepareEnv(Map<String, String> env) {
+		var result = new ArrayList<String>();
+		for (var entry : env.entrySet())
+			result.add(entry.getKey() + "=" + entry.getValue());
 ```
 
 ### TypeMayBeWeakened
@@ -897,63 +921,15 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageMain.java`
 ```
 
 ### TypeMayBeWeakened
-Type of variable `binds` may be weakened to 'java.util.List'
-in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
+Type of parameter `prefix` may be weakened to 'java.lang.CharSequence'
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageCrane.java`
 #### Snippet
 ```java
-		
-		// WARNING: docker-java is a dumpsterfire and completly misunderstands how volumes and binds work, the following code is correct
-		var binds = new ArrayList<Bind>();
-		
-		// mount volume as ro for backup
-```
-
-### TypeMayBeWeakened
-Type of variable `result` may be weakened to 'java.util.List'
-in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
-#### Snippet
-```java
+	private static final String LABEL_SALVAGE_MAX_CONCURRENT = ".maxConcurrent";
 	
-	private static List<String> prepareEnv(Map<String, String> env) {
-		var result = new ArrayList<String>();
-		for (var entry : env.entrySet())
-			result.add(entry.getKey() + "=" + entry.getValue());
-```
-
-### TypeMayBeWeakened
-Type of variable `env` may be weakened to 'java.util.Map'
-in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
-#### Snippet
-```java
-	
-	public void start() {
-		var env = new HashMap<>(crane.env());
-		env.put(CRANE_ENV_MACHINE_NAME, meta.hostMeta().host());
-		env.put(CRANE_ENV_CRANE_NAME, meta.crane());
-```
-
-### TypeMayBeWeakened
-Type of variable `tideNames` may be weakened to 'java.util.Set'
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
-#### Snippet
-```java
-		
-		// index labels
-		var tideNames = new HashSet<String>();
-		var craneNames = new HashSet<String>();
-		for (var key : labels.keySet()) {
-```
-
-### TypeMayBeWeakened
-Type of variable `craneNames` may be weakened to 'java.util.Set'
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
-#### Snippet
-```java
-		// index labels
-		var tideNames = new HashSet<String>();
-		var craneNames = new HashSet<String>();
-		for (var key : labels.keySet()) {
-			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
+	public static SalvageCrane fromLabels(String name, String prefix, Map<String, String> labels) {
+		var image = labels.get(prefix + LABEL_SALVAGE_IMAGE_SUFFIX);
+		if (image == null)
 ```
 
 ### TypeMayBeWeakened
@@ -990,6 +966,30 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		var groups = new ArrayList<Group>();
 		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
 		while (!unvisited.isEmpty()) {
+```
+
+### TypeMayBeWeakened
+Type of variable `tideNames` may be weakened to 'java.util.Set'
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
+#### Snippet
+```java
+		
+		// index labels
+		var tideNames = new HashSet<String>();
+		var craneNames = new HashSet<String>();
+		for (var key : labels.keySet()) {
+```
+
+### TypeMayBeWeakened
+Type of variable `craneNames` may be weakened to 'java.util.Set'
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
+#### Snippet
+```java
+		// index labels
+		var tideNames = new HashSet<String>();
+		var craneNames = new HashSet<String>();
+		for (var key : labels.keySet()) {
+			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
 ```
 
 ### TypeMayBeWeakened
@@ -1092,18 +1092,6 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 ## CallToSuspiciousStringMethod
 ### CallToSuspiciousStringMethod
 `String.trim()` called in internationalized context
-in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
-#### Snippet
-```java
-				.withDetach(false) // always stay attached so we get to know when process exits
-				.exec(new FrameCallback(frame -> {
-					var line = new String(frame.getPayload(), StandardCharsets.UTF_8).trim();
-					log.trace("[exec] {}", line);
-				}));
-```
-
-### CallToSuspiciousStringMethod
-`String.trim()` called in internationalized context
 in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
 #### Snippet
 ```java
@@ -1111,6 +1099,18 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageVessel.java`
 				.exec(new FrameCallback(frame -> {
 					var line = new String(frame.getPayload(), StandardCharsets.UTF_8).trim();
 					log.debug("[{}@{}] {}", volume.name(), crane.name(), line);
+				}));
+```
+
+### CallToSuspiciousStringMethod
+`String.trim()` called in internationalized context
+in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
+#### Snippet
+```java
+				.withDetach(false) // always stay attached so we get to know when process exits
+				.exec(new FrameCallback(frame -> {
+					var line = new String(frame.getPayload(), StandardCharsets.UTF_8).trim();
+					log.trace("[exec] {}", line);
 				}));
 ```
 
@@ -1128,30 +1128,6 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 
 ## ClassWithoutLogger
 ### ClassWithoutLogger
-Class `SalvageVolume` does not declare a logger
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageVolume.java`
-#### Snippet
-```java
-import com.github.dockerjava.api.command.InspectVolumeResponse;
-
-public record SalvageVolume(String name, BackupMeta.VolumeMeta meta) {
-	
-	private static final String LABEL_VOLUME_TIDE_NAME = "salvage.tide";
-```
-
-### ClassWithoutLogger
-Class `ContainerCommand` does not declare a logger
-in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
-#### Snippet
-```java
- */
-@Log4j2
-public record ContainerCommand(List<String> command, String user) {
-	
-	public long run(DockerClient client, SalvageContainer container) throws Throwable {
-```
-
-### ClassWithoutLogger
 Class `FrameCallback` does not declare a logger
 in `src/main/java/de/chrisliebaer/salvage/entity/FrameCallback.java`
 #### Snippet
@@ -1161,18 +1137,6 @@ in `src/main/java/de/chrisliebaer/salvage/entity/FrameCallback.java`
 public class FrameCallback implements ResultCallback<Frame> {
 	
 	private final Consumer<Frame> consumer;
-```
-
-### ClassWithoutLogger
-Class `SalvageCrane` does not declare a logger
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageCrane.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public record SalvageCrane(String name, String image, Map<String, String> env, Map<String, String> mounts, int maxConcurrent) {
-	
-	private static final String LABEL_SALVAGE_IMAGE_SUFFIX = ".image";
 ```
 
 ### ClassWithoutLogger
@@ -1200,6 +1164,18 @@ public record SalvageContainer(String id, Optional<String> project, List<Salvage
 ```
 
 ### ClassWithoutLogger
+Class `SalvageVolume` does not declare a logger
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageVolume.java`
+#### Snippet
+```java
+import com.github.dockerjava.api.command.InspectVolumeResponse;
+
+public record SalvageVolume(String name, BackupMeta.VolumeMeta meta) {
+	
+	private static final String LABEL_VOLUME_TIDE_NAME = "salvage.tide";
+```
+
+### ClassWithoutLogger
 Class `BackupMeta` does not declare a logger
 in `src/main/java/de/chrisliebaer/salvage/entity/BackupMeta.java`
 #### Snippet
@@ -1209,6 +1185,30 @@ in `src/main/java/de/chrisliebaer/salvage/entity/BackupMeta.java`
 public record BackupMeta(HostMeta hostMeta, VolumeMeta volumeMeta, String crane, String image) {
 	
 	public record HostMeta(long timestamp, String host) {
+```
+
+### ClassWithoutLogger
+Class `ContainerCommand` does not declare a logger
+in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
+#### Snippet
+```java
+ */
+@Log4j2
+public record ContainerCommand(List<String> command, String user) {
+	
+	public long run(DockerClient client, SalvageContainer container) throws Throwable {
+```
+
+### ClassWithoutLogger
+Class `SalvageCrane` does not declare a logger
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageCrane.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public record SalvageCrane(String name, String image, Map<String, String> env, Map<String, String> mounts, int maxConcurrent) {
+	
+	private static final String LABEL_SALVAGE_IMAGE_SUFFIX = ".image";
 ```
 
 ### ClassWithoutLogger
