@@ -28,7 +28,6 @@ public class DataBaseMigration {
      * This method is called by the quarkus framework to migrate the database.
      */
     public void onStart(@Observes StartupEvent event) {
-        migrateDataBase();
         checkPeroidic();
     }
 
@@ -45,7 +44,6 @@ public class DataBaseMigration {
         removeBadSmellsWithoutIdentifier();
         removeBadSmellsWithWrongIdentifier();
         setDefaultSourceFolders();
-        removeDuplicatedBadSmells();
         logger.atInfo().log("Finished migrating database");
     }
 
