@@ -45,7 +45,6 @@ include:
   - name: SamePackageImport
   - name: SimplifyBooleanWithConstants
   - name: SizeReplaceableByIsEmpty
-  - name: StaticCallOnSubclass
   - name: StaticPseudoFunctionalStyleMethod
   - name: StringEquality
   - name: ToArrayCallWithZeroLengthArrayArgument
@@ -58,7 +57,9 @@ include:
   - name: UnnecessaryToStringCall
   - name: UnnecessaryUnboxing
   - name: UNUSED_IMPORT
+  - name: ZeroLengthArrayInitialization
+  - name: WhileCanBeForeach
 exclude:
   - name: UseOfClone
   - name: JavaAnnotator
-  - name: MethodMayBeStatic
+  - name: StaticCallOnSubclass
