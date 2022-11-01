@@ -156,6 +156,18 @@ in `src/main/java/org/junitpioneer/internal/TestNameFormatter.java`
 
 ## UnnecessaryFullyQualifiedName
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
+#### Snippet
+```java
+	 * {@link Object#equals(Object) equals}) for the first parameter of
+	 * a {@code CartesianTest} from the elements of the passed
+	 * {@link java.util.Collection Collection}.
+	 * <p>
+	 * The passed argument does not have to be an instance of {@link java.util.Set Set}.
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util.stream` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 #### Snippet
@@ -168,15 +180,15 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-	 * {@link Object#equals(Object) equals}) for the first parameter of
-	 * a {@code CartesianTest} from the elements of the passed
-	 * {@link java.util.Collection Collection}.
-	 * <p>
-	 * The passed argument does not have to be an instance of {@link java.util.Set Set}.
+	 * Constructor with all attributes.
+	 *
+	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
+	 * @param tests List of all tests, annotated with the issueId
+	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -204,27 +216,15 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
-#### Snippet
-```java
-	 * Constructor with all attributes.
-	 *
-	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
-	 * @param tests List of all tests, annotated with the issueId
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
 ```java
- * <a href="https://junit-pioneer.org/docs/cartesian-product/" target="_top">the documentation on <code>@CartesianProductTest</code></a>.
- * </p>
- * @see org.junitpioneer.jupiter.CartesianValueSource
- *
- * @deprecated has been superseded by CartesianTest, scheduled to be removed in 2.0
+		 * Creates a single set of distinct objects (according to
+		 * {@link Object#equals(Object)}) for a CartesianProductTest
+		 * from the elements of the passed {@link java.util.Collection}.
+		 *
+		 * The passed argument does not have to be an instance of {@link java.util.Set}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -240,27 +240,15 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
 ```java
-		 * Creates a single set of distinct objects (according to
-		 * {@link Object#equals(Object)}) for a CartesianProductTest
-		 * from the elements of the passed {@link java.util.Collection}.
-		 *
-		 * The passed argument does not have to be an instance of {@link java.util.Set}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary, and can be replaced with an import
-in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
-#### Snippet
-```java
-@SuppressWarnings("deprecation")
-class RangeSourceArgumentsProvider<N extends Number & Comparable<N>> implements ArgumentsProvider,
-		org.junitpioneer.jupiter.CartesianAnnotationConsumer<Annotation>, CartesianParameterArgumentsProvider<N> { //NOSONAR deprecated interface use will be removed in later release
-
-	// Once the CartesianAnnotationConsumer is removed we can make this provider stateless.
+ * <a href="https://junit-pioneer.org/docs/cartesian-product/" target="_top">the documentation on <code>@CartesianProductTest</code></a>.
+ * </p>
+ * @see org.junitpioneer.jupiter.CartesianValueSource
+ *
+ * @deprecated has been superseded by CartesianTest, scheduled to be removed in 2.0
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -297,6 +285,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#ARGUMENTS_PLACEHOLDER}
 	 * - <code>{0}</code>, <code>{1}</code>, etc.: an individual argument (0-based)
 	 *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary, and can be replaced with an import
+in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
+#### Snippet
+```java
+@SuppressWarnings("deprecation")
+class RangeSourceArgumentsProvider<N extends Number & Comparable<N>> implements ArgumentsProvider,
+		org.junitpioneer.jupiter.CartesianAnnotationConsumer<Annotation>, CartesianParameterArgumentsProvider<N> { //NOSONAR deprecated interface use will be removed in later release
+
+	// Once the CartesianAnnotationConsumer is removed we can make this provider stateless.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -424,15 +424,27 @@ in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArguments
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Map`
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
+Can generalize to `? super String`
+in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 #### Snippet
 ```java
-	 * Works on Linux and OSX
-	 */
-	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
-			throws ReflectiveOperationException {
-		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+			private final BiPredicate<String, Set<String>> selector;
+
+			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
+				this.validator = validator;
+				this.selector = selector;
+```
+
+### BoundedWildcard
+Can generalize to `? super Set`
+in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
+#### Snippet
+```java
+			private final BiPredicate<String, Set<String>> selector;
+
+			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
+				this.validator = validator;
+				this.selector = selector;
 ```
 
 ### BoundedWildcard
@@ -445,6 +457,18 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
 		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+```
+
+### BoundedWildcard
+Can generalize to `? super Map`
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
+#### Snippet
+```java
+	 * Works on Linux and OSX
+	 */
+	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
+			throws ReflectiveOperationException {
+		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
 ```
 
 ### BoundedWildcard
@@ -529,30 +553,6 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 	private void setEntries(Map<K, V> entriesToSet) {
 		entriesToSet.forEach(this::setEntry);
 	}
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
-#### Snippet
-```java
-			private final BiPredicate<String, Set<String>> selector;
-
-			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
-				this.validator = validator;
-				this.selector = selector;
-```
-
-### BoundedWildcard
-Can generalize to `? super Set`
-in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
-#### Snippet
-```java
-			private final BiPredicate<String, Set<String>> selector;
-
-			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
-				this.validator = validator;
-				this.selector = selector;
 ```
 
 ### BoundedWildcard
