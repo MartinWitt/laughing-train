@@ -113,7 +113,7 @@ public class MiningPrinter {
         return result;
     }
 
-    private String generateTableLine(Set<RuleId> ruleIds, Entry<RuleId, List<AnalyzerResult>> result) {
+    private String generateTableLine(Set<RuleId> ruleIds, Entry<RuleId, ? extends List<AnalyzerResult>> result) {
         return "| " + result.getKey() + " | " + result.getValue().size() + " | "
                 + result.getValue().stream().anyMatch(v -> ruleIds.contains(v.ruleID())) + " |\n";
     }
