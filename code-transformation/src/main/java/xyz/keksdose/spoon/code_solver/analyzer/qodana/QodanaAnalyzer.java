@@ -103,15 +103,6 @@ public class QodanaAnalyzer {
         return startQodanaContainer(dockerClient, container);
     }
 
-    /**
-     * Converts the given path as string to a file object
-     * @param path  the path as string
-     * @return  	the file object
-     */
-    private File stringToFile(String path) {
-        return Path.of(path).toFile();
-    }
-
     private void copyQodanaRules(Path sourceRoot) {
         try {
             var url = this.getClass().getResource("/qodana.yml");

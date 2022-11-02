@@ -2,6 +2,7 @@ package xyz.keksdose.spoon.code_solver.regressionTests;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,7 +27,7 @@ public class ProtectedMemberInFinalClassTest {
         File file = File.createTempFile("FlowableGroupBy", ".java");
         Files.writeString(file.toPath(), Files.readString(Path.of(filePath)));
         QodanaAnalyzerResult result = new QodanaAnalyzerResult(
-                "ProtectedMemberInFinalClass",
+                new RuleId("ProtectedMemberInFinalClass"),
                 file.getName(),
                 position,
                 "Class member declared 'protected' in 'final' class",

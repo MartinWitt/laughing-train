@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.persistence;
 
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
 import java.util.List;
@@ -22,8 +23,8 @@ public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
     public String commitHash;
     public Position position;
 
-    public static List<BadSmell> findByRuleID(String ruleID) {
-        return list("ruleID", ruleID);
+    public static List<BadSmell> findByRuleID(RuleId ruleID) {
+        return list("ruleID", ruleID.ruleID());
     }
 
     public static List<BadSmell> findByProjectName(String projectName) {
@@ -45,7 +46,7 @@ public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
     public BadSmell(AnalyzerResult result, String projectName, String projectUrl, String commitHash) {
         this();
         this.position = result.position();
-        this.ruleID = result.ruleID();
+        this.ruleID = result.ruleID().ruleID();
         this.filePath = result.filePath();
         this.message = result.message();
         this.messageMarkdown = result.messageMarkdown();
@@ -112,8 +113,8 @@ public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
     }
 
     @Override
-    public String ruleID() {
-        return ruleID;
+    public RuleId ruleID() {
+        return new RuleId(ruleID);
     }
 
     @Override

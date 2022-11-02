@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.api;
 
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -21,7 +22,7 @@ public class BadSmellGraphQL {
     @Query("byRuleID")
     @Description("Gets all bad smells from the database by ruleID")
     public List<BadSmell> getAllBadSmellsByRuleID(@Name("ruleID") String ruleID) {
-        return BadSmell.findByRuleID(ruleID);
+        return BadSmell.findByRuleID(new RuleId(ruleID));
     }
 
     @Query("byProjectName")

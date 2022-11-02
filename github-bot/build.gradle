@@ -13,6 +13,7 @@ dependencies {
 	implementation "io.quarkus:quarkus-scheduler"
 	implementation 'io.quarkus:quarkus-smallrye-health'
 	testImplementation 'io.quarkus:quarkus-junit5'
+	implementation project(":commons")
 	implementation project(":code-transformation")
 	implementation 'io.quarkus:quarkus-mongodb-panache:2.14.0.Final'
 	annotationProcessor("io.quarkus:quarkus-panache-common")
@@ -22,7 +23,6 @@ dependencies {
 	implementation("io.quarkus:quarkus-oidc")
 	implementation("io.quarkus:quarkus-keycloak-authorization")
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
-	implementation project(":commons")
 }
 
 group 'io.github.martinwitt'
