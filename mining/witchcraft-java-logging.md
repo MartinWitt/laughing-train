@@ -129,54 +129,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### BoundedWildcard
-Can generalize to `? super StringBuilder`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/Formatting.java`
-#### Snippet
-```java
-    }
-
-    static String withStringBuilder(Consumer<StringBuilder> function) {
-        StringBuilder builder = REUSABLE_STRING_BUILDER.get();
-        builder.setLength(0);
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
-#### Snippet
-```java
-     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
-     */
-    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
-        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
-            maybeOther.ifPresent(other -> effect.accept(original, other));
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
-#### Snippet
-```java
-     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
-     */
-    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
-        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
-            maybeOther.ifPresent(other -> effect.accept(original, other));
-```
-
-### BoundedWildcard
-Can generalize to `? super U`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
-#### Snippet
-```java
-     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
-     */
-    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
-        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
-            maybeOther.ifPresent(other -> effect.accept(original, other));
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
 #### Snippet
@@ -189,15 +141,39 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/CombineWithLogVisitor.java`
+Can generalize to `? extends Pair`
+in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/idea/WitchcraftLogFilter.java`
 #### Snippet
 ```java
-    private final BiFunction<T, U, R> combiner;
+    }
 
-    CombineWithLogVisitor(LogVisitor<T> first, LogVisitor<U> second, BiFunction<T, U, R> combiner) {
-        this.first = first;
-        this.second = second;
+    private static boolean containsWitchcraftData(List<Pair<String, ConsoleViewContentType>> lines) {
+        for (Pair<String, ConsoleViewContentType> item : lines) {
+            // The null check is likely unnecessarily defensive, the goal is to avoid breaking any non-witchcraft
+```
+
+### BoundedWildcard
+Can generalize to `? extends L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
+    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
+        return parseJson(logLine, clazz).flatMap(function);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
+    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
+        return parseJson(logLine, clazz).flatMap(function);
+    }
 ```
 
 ### BoundedWildcard
@@ -213,15 +189,27 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+Can generalize to `? super StringBuilder`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/Formatting.java`
 #### Snippet
 ```java
     }
 
-    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
-        return parseJson(logLine, clazz).flatMap(function);
-    }
+    static String withStringBuilder(Consumer<StringBuilder> function) {
+        StringBuilder builder = REUSABLE_STRING_BUILDER.get();
+        builder.setLength(0);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/CombineWithLogVisitor.java`
+#### Snippet
+```java
+    private final BiFunction<T, U, R> combiner;
+
+    CombineWithLogVisitor(LogVisitor<T> first, LogVisitor<U> second, BiFunction<T, U, R> combiner) {
+        this.first = first;
+        this.second = second;
 ```
 
 ### BoundedWildcard
@@ -246,18 +234,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     CombineWithLogVisitor(LogVisitor<T> first, LogVisitor<U> second, BiFunction<T, U, R> combiner) {
         this.first = first;
         this.second = second;
-```
-
-### BoundedWildcard
-Can generalize to `? super L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
-    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
-        return parseJson(logLine, clazz).flatMap(function);
-    }
 ```
 
 ### BoundedWildcard
@@ -285,18 +261,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
-in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/idea/WitchcraftLogFilter.java`
-#### Snippet
-```java
-    }
-
-    private static boolean containsWitchcraftData(List<Pair<String, ConsoleViewContentType>> lines) {
-        for (Pair<String, ConsoleViewContentType> item : lines) {
-            // The null check is likely unnecessarily defensive, the goal is to avoid breaking any non-witchcraft
-```
-
-### BoundedWildcard
 Can generalize to `? super Node`
 in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
 #### Snippet
@@ -318,6 +282,42 @@ in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/loggi
             File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
         Node rootNode;
         if (configurationFile.isFile()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
+#### Snippet
+```java
+     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
+     */
+    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
+        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
+            maybeOther.ifPresent(other -> effect.accept(original, other));
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
+#### Snippet
+```java
+     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
+     */
+    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
+        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
+            maybeOther.ifPresent(other -> effect.accept(original, other));
+```
+
+### BoundedWildcard
+Can generalize to `? super U`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
+#### Snippet
+```java
+     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
+     */
+    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
+        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
+            maybeOther.ifPresent(other -> effect.accept(original, other));
 ```
 
 ## CodeBlock2Expr
