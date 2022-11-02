@@ -1,9 +1,8 @@
 package xyz.keksdose.spoon.code_solver.api.analyzer;
 
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import java.io.Serializable;
 import javax.annotation.Nonnull;
-
-import io.github.martinwitt.laughing_train.domain.value.RuleId;
 
 /**
  * This represents a single issue of an analyzer run. It contains the position of the issue in the source file, the message and the message in markdown format.

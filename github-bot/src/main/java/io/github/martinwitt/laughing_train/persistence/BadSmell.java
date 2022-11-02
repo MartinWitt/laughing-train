@@ -13,7 +13,7 @@ public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
 
     public String analyzer;
     public String identifier;
-    public RuleId ruleID;
+    public String ruleID;
     public String filePath;
     public String message;
     public String messageMarkdown;
@@ -46,7 +46,7 @@ public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
     public BadSmell(AnalyzerResult result, String projectName, String projectUrl, String commitHash) {
         this();
         this.position = result.position();
-        this.ruleID = result.ruleID();
+        this.ruleID = result.ruleID().ruleID();
         this.filePath = result.filePath();
         this.message = result.message();
         this.messageMarkdown = result.messageMarkdown();
@@ -114,7 +114,7 @@ public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
 
     @Override
     public RuleId ruleID() {
-        return ruleID;
+        return new RuleId(ruleID);
     }
 
     @Override

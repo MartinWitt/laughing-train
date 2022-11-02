@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.persistence;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
@@ -17,6 +18,7 @@ public class DatabaseTest {
     void createASingleBadSmell() {
         cleanDB();
         createWithMessage("PointLessBoolean").persist();
+        assertThat(BadSmell.count()).isEqualTo(1);
         // assertThat(badSmell.id).isNotNull();)
         assertEquals(1, BadSmell.findByRuleID(new RuleId("PointLessBoolean")).size());
     }

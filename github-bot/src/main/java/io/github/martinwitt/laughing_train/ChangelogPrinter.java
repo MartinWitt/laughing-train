@@ -3,9 +3,7 @@ package io.github.martinwitt.laughing_train;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
-
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;

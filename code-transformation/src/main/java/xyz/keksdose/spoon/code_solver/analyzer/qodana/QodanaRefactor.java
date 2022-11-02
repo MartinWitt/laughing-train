@@ -1,5 +1,6 @@
 package xyz.keksdose.spoon.code_solver.analyzer.qodana;
 
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,8 +9,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
-
-import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.AbstractRefactoring;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.MethodMayBeStatic;

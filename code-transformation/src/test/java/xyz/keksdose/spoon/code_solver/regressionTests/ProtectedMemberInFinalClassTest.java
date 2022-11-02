@@ -2,14 +2,13 @@ package xyz.keksdose.spoon.code_solver.regressionTests;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-
-import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.TransformationEngine;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaAnalyzerResult;

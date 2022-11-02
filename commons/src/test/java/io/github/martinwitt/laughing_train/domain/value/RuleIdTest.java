@@ -5,8 +5,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 
-import io.github.martinwitt.laughing_train.domain.value.RuleId;
-
 class RuleIdTest {
     @Test
     void testRuleIDCorrect() {
