@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.function.Function;
@@ -58,5 +59,21 @@ public class TransformationTestUtils {
      */
     public static void compareContent(File actual, String pathToExpected) {
         assertThat(actual).hasSameTextualContentAs(TestHelper.getResources(Path.of(pathToExpected + ".correct")));
+    }
+
+    /**
+     * compares the content ignoring whitespaces of the given file with the content of the resource.".correct" is appended to the resource path.
+     * @param actual the file to compare with the resource
+     * @param pathToExpected  the path to the resource
+     */
+    public static void compareContentWithoutWhiteSpaces(File actual, String pathToExpected) {
+        try {
+            assertThat(Files.readString(actual.toPath()))
+                    .isEqualToIgnoringWhitespace(
+                            Files.readString(TestHelper.getResources(Path.of(pathToExpected + ".correct"))
+                                    .toPath()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
