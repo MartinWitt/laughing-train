@@ -272,15 +272,15 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 
 ## CommentedOutCode
 ### CommentedOutCode
-Commented out code (39 lines)
-in `LandLord-core/src/main/java/biz/princeps/landlord/placeholderapi/LLFeatherBoard.java`
+Commented out code (2 lines)
+in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
 #### Snippet
 ```java
-    private void registerPlaceholders(ILandLord plugin) {
-        plugin.getLogger().warning("Featherboard Placeholders do not work. Please tell Maxim from Featherboard to take a look at the MVdWPlaceholderAPI repo.");
-        /*
-        PlaceholderAPI.registerPlaceholder(plugin, "ownedlands",
-                e -> {
+
+        String command = e.getMessage();
+        //  command = command.substring(1, command.length());
+        //   System.out.println("found command: " + command);
+        if (this.isDelayedCommand(command.toLowerCase())) {
 ```
 
 ### CommentedOutCode
@@ -296,15 +296,15 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
+Commented out code (39 lines)
+in `LandLord-core/src/main/java/biz/princeps/landlord/placeholderapi/LLFeatherBoard.java`
 #### Snippet
 ```java
-
-        String command = e.getMessage();
-        //  command = command.substring(1, command.length());
-        //   System.out.println("found command: " + command);
-        if (this.isDelayedCommand(command.toLowerCase())) {
+    private void registerPlaceholders(ILandLord plugin) {
+        plugin.getLogger().warning("Featherboard Placeholders do not work. Please tell Maxim from Featherboard to take a look at the MVdWPlaceholderAPI repo.");
+        /*
+        PlaceholderAPI.registerPlaceholder(plugin, "ownedlands",
+                e -> {
 ```
 
 ### CommentedOutCode
@@ -326,9 +326,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/map/MapManager.jav
 #### Snippet
 ```java
     @Override
-    public void updateAll() {
+    public void removeAllMaps() {
         for (UUID uuid : mapList.keySet()) {
-            mapList.get(uuid).forceUpdate();
+            mapList.get(uuid).removeMap();
         }
 ```
 
@@ -338,9 +338,9 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/map/MapManager.jav
 #### Snippet
 ```java
     @Override
-    public void removeAllMaps() {
+    public void updateAll() {
         for (UUID uuid : mapList.keySet()) {
-            mapList.get(uuid).removeMap();
+            mapList.get(uuid).forceUpdate();
         }
 ```
 
@@ -371,18 +371,6 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 ```
 
 ### SizeReplaceableByIsEmpty
-`land.getFriends().size() > 0` can be replaced with '!land.getFriends().isEmpty()'
-in `LandLord-core/src/main/java/biz/princeps/landlord/commands/friends/ListFriends.java`
-#### Snippet
-```java
-            return;
-        }
-        if (land.getFriends().size() > 0)
-            lm.sendMessage(player, lm.getString(player, "Commands.Listfriends.friends")
-                    .replace("%friends%", land.getMembersString()));
-```
-
-### SizeReplaceableByIsEmpty
 `lands.size() > 0` can be replaced with '!lands.isEmpty()'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/AdminTeleport.java`
 #### Snippet
@@ -392,6 +380,18 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/AdminTelepo
                 if (lands.size() > 0) {
                     MultiPagedGUI landGui = new MultiPagedGUI(plugin, sender, 5,
                             lm.getRawString("Commands.AdminTp.guiHeader").replace("%player%", target));
+```
+
+### SizeReplaceableByIsEmpty
+`land.getFriends().size() > 0` can be replaced with '!land.getFriends().isEmpty()'
+in `LandLord-core/src/main/java/biz/princeps/landlord/commands/friends/ListFriends.java`
+#### Snippet
+```java
+            return;
+        }
+        if (land.getFriends().size() > 0)
+            lm.sendMessage(player, lm.getString(player, "Commands.Listfriends.friends")
+                    .replace("%friends%", land.getMembersString()));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -421,18 +421,6 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
 ## EnhancedSwitchMigration
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `LandLord-core/src/main/java/biz/princeps/lib/manager/ConfirmationManager.java`
-#### Snippet
-```java
-
-    public void draw(Player p, String guiMessage, String chatMessage, Action onAccept, Action onDeny, String confirmCommand, int timout, AbstractGUI main) {
-        switch (state) {
-
-            case GUI:
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/GiveClaims.java`
 #### Snippet
 ```java
@@ -453,6 +441,18 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/admin/Update.java
             switch (option) {
                 case "-u":
                     onUpdateLands(properties.getCommandSender());
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `LandLord-core/src/main/java/biz/princeps/lib/manager/ConfirmationManager.java`
+#### Snippet
+```java
+
+    public void draw(Player p, String guiMessage, String chatMessage, Action onAccept, Action onDeny, String confirmCommand, int timout, AbstractGUI main) {
+        switch (state) {
+
+            case GUI:
 ```
 
 ### EnhancedSwitchMigration
@@ -481,6 +481,18 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/listener/LandChangeListene
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
+in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/MultiListLands.java`
+#### Snippet
+```java
+            try {
+                // check arguments for different sub sub commands like /ll list <mode> <radius> <name> <pagenr>
+                switch (arguments.size()) {
+                    case 4:
+                        target = arguments.get(2);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
 #### Snippet
 ```java
@@ -489,18 +501,6 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/items/Maitem.java`
         switch (clickAction.getResult()) {
             case INFO:
                 plugin.getServer().dispatchCommand(p, "ll info");
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.java`
-#### Snippet
-```java
-    @Override
-    public void complete() {
-        switch (manageMode) {
-            case MULTI:
-                lgManager.sendMessage(player, lgManager.getString(player, "Commands.MultiUnclaim.success")
 ```
 
 ### EnhancedSwitchMigration
@@ -517,6 +517,18 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiClearTask.java`
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
+in `LandLord-core/src/main/java/biz/princeps/landlord/multi/MultiUnclaimTask.java`
+#### Snippet
+```java
+    @Override
+    public void complete() {
+        switch (manageMode) {
+            case MULTI:
+                lgManager.sendMessage(player, lgManager.getString(player, "Commands.MultiUnclaim.success")
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage.java`
 #### Snippet
 ```java
@@ -525,18 +537,6 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage
                         switch (args[1]) {
                             case "setgreet":
                                 setGreet(player, args, Collections.singletonList(target), 2);
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/MultiListLands.java`
-#### Snippet
-```java
-            try {
-                // check arguments for different sub sub commands like /ll list <mode> <radius> <name> <pagenr>
-                switch (arguments.size()) {
-                    case 4:
-                        target = arguments.get(2);
 ```
 
 ### EnhancedSwitchMigration
@@ -614,30 +614,6 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
 ```
 
 ### ConstantConditions
-Method invocation `setHealth` may produce `NullPointerException`
-in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerator.java`
-#### Snippet
-```java
-            for (Entity entity : chunk.getEntities()) {
-                if (entity.getType() == EntityType.PLAYER) {
-                    plugin.getServer().getPlayer(entity.getName()).setHealth(20);
-                }
-            }
-```
-
-### ConstantConditions
-Method invocation `setHealth` may produce `NullPointerException`
-in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerator.java`
-#### Snippet
-```java
-                if (entity.getType() == EntityType.PLAYER) {
-                    Player p = plugin.getServer().getPlayer(entity.getName());
-                    p.setHealth(20);
-                    PaperLib.teleportAsync(p, world.getHighestBlockAt(p.getLocation().add(0, 3, 0)).getLocation());
-                }
-```
-
-### ConstantConditions
 Argument `target` might be null
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/LLItem.java`
 #### Snippet
@@ -659,6 +635,30 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/LLItem
                 properties.sendMessage(lm.getString(properties.getPlayer(), "Commands.Item.noPlayer").replace("%player%", target));
             }
             return;
+```
+
+### ConstantConditions
+Method invocation `setHealth` may produce `NullPointerException`
+in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerator.java`
+#### Snippet
+```java
+            for (Entity entity : chunk.getEntities()) {
+                if (entity.getType() == EntityType.PLAYER) {
+                    plugin.getServer().getPlayer(entity.getName()).setHealth(20);
+                }
+            }
+```
+
+### ConstantConditions
+Method invocation `setHealth` may produce `NullPointerException`
+in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerator.java`
+#### Snippet
+```java
+                if (entity.getType() == EntityType.PLAYER) {
+                    Player p = plugin.getServer().getPlayer(entity.getName());
+                    p.setHealth(20);
+                    PaperLib.teleportAsync(p, world.getHighestBlockAt(p.getLocation().add(0, 3, 0)).getLocation());
+                }
 ```
 
 ### ConstantConditions
@@ -698,6 +698,18 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/OwnedLand.java`
 ```
 
 ### ConstantConditions
+Method invocation `setOwningPlayer` may produce `NullPointerException`
+in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MaterialsManager.java`
+#### Snippet
+```java
+        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta itemMeta = (SkullMeta) skull.getItemMeta();
+        itemMeta.setOwningPlayer(plugin.getServer().getOfflinePlayer(owner));
+        skull.setItemMeta(itemMeta);
+        return skull;
+```
+
+### ConstantConditions
 Method invocation `charAt` may produce `NullPointerException`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
 #### Snippet
@@ -719,18 +731,6 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MobsManager.java
             return type.getName().toUpperCase();
         }
     }
-```
-
-### ConstantConditions
-Method invocation `setOwningPlayer` may produce `NullPointerException`
-in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/MaterialsManager.java`
-#### Snippet
-```java
-        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
-        SkullMeta itemMeta = (SkullMeta) skull.getItemMeta();
-        itemMeta.setOwningPlayer(plugin.getServer().getOfflinePlayer(owner));
-        skull.setItemMeta(itemMeta);
-        return skull;
 ```
 
 ## TrivialStringConcatenation
@@ -763,6 +763,18 @@ Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
 #### Snippet
 ```java
+                int delay = this.getDelay(command.toLowerCase());
+                e.setCancelled(true);
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', this.getDontMove()).replace("%time%", "" + delay));
+                // Utils.displayHelix(p, delay);
+
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
+#### Snippet
+```java
                         } else {
                             if (countdown % 4 == 0)
                                 getStuffManager().sendActionBar(p, ChatColor.translateAlternateColorCodes('&', getCountdown()).replace("%countdown%", "" + countdown / 4));
@@ -772,14 +784,26 @@ in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `LandLord-core/src/main/java/biz/princeps/lib/util/CommandDelayManager.java`
+in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Shop.java`
 #### Snippet
 ```java
-                int delay = this.getDelay(command.toLowerCase());
-                e.setCancelled(true);
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', this.getDontMove()).replace("%time%", "" + delay));
-                // Utils.displayHelix(p, delay);
 
+            ShopGUI gui = new ShopGUI(plugin, player, plugin.getLangManager().getRawString("Shop.title")
+                    .replace("%regions%", regionCount + "")
+                    .replace("%claims%", claims + ""));
+            gui.display();
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Shop.java`
+#### Snippet
+```java
+            ShopGUI gui = new ShopGUI(plugin, player, plugin.getLangManager().getRawString("Shop.title")
+                    .replace("%regions%", regionCount + "")
+                    .replace("%claims%", claims + ""));
+            gui.display();
+        }
 ```
 
 ### TrivialStringConcatenation
@@ -828,30 +852,6 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claims.j
                     .replace("%claims%", (highestAllowedLandCount == Integer.MAX_VALUE ? "?" : highestAllowedLandCount <= 0 ? "?" : highestAllowedLandCount + "")));
         }
     }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Shop.java`
-#### Snippet
-```java
-
-            ShopGUI gui = new ShopGUI(plugin, player, plugin.getLangManager().getRawString("Shop.title")
-                    .replace("%regions%", regionCount + "")
-                    .replace("%claims%", claims + ""));
-            gui.display();
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Shop.java`
-#### Snippet
-```java
-            ShopGUI gui = new ShopGUI(plugin, player, plugin.getLangManager().getRawString("Shop.title")
-                    .replace("%regions%", regionCount + "")
-                    .replace("%claims%", claims + ""));
-            gui.display();
-        }
 ```
 
 ### TrivialStringConcatenation
@@ -1027,18 +1027,6 @@ Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
 #### Snippet
 ```java
-        if (regionCount >= highestAllowedLandCount) {
-            lm.sendMessage(player, lm.getString(player, "Commands.Claim.hardcap").replace("%regions%",
-                    highestAllowedLandCount + ""));
-            return false;
-        }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
-#### Snippet
-```java
                         lm.sendMessage(player, lm.getString(player, "Commands.Claim.notYetInactive")
                                 .replace("%owner%", ol.getOwnersString())
                                 .replace("%days%", "" + inactiveDays));
@@ -1072,6 +1060,18 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.ja
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
+in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/Claim.java`
+#### Snippet
+```java
+        if (regionCount >= highestAllowedLandCount) {
+            lm.sendMessage(player, lm.getString(player, "Commands.Claim.hardcap").replace("%regions%",
+                    highestAllowedLandCount + ""));
+            return false;
+        }
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/adv/Advertise.java`
 #### Snippet
 ```java
@@ -1097,18 +1097,6 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/Landlordbase.java
 
 ## BoundedWildcard
 ### BoundedWildcard
-Can generalize to `? super ResultSet`
-in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
-#### Snippet
-```java
-    }
-
-    public void executeQuery(String query, Consumer<ResultSet> consumer, Object... args) {
-        try (Connection con = getConnection();
-             PreparedStatement st = con.prepareStatement(query)) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends ProtectedRegion`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
 #### Snippet
@@ -1130,6 +1118,18 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LLFlag.java`
     public LLFlag(ProtectedRegion pr, Flag<StateFlag.State> flag, Material mat) {
         this.pr = pr;
         this.flag = flag;
+```
+
+### BoundedWildcard
+Can generalize to `? super ResultSet`
+in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
+#### Snippet
+```java
+    }
+
+    public void executeQuery(String query, Consumer<ResultSet> consumer, Object... args) {
+        try (Connection con = getConnection();
+             PreparedStatement st = con.prepareStatement(query)) {
 ```
 
 ### BoundedWildcard
@@ -1158,18 +1158,6 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/LLFlag.java`
 
 ### BoundedWildcard
 Can generalize to `? super IPlayer`
-in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
-#### Snippet
-```java
-
-    @Override
-    public void getPlayer(UUID id, Consumer<IPlayer> consumer) {
-        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> consumer.accept(getPlayer(id)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super IPlayer`
 in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
 #### Snippet
 ```java
@@ -1177,6 +1165,18 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
 
     public void getPlayer(UUID id, Consumer<IPlayer> consumer) {
         consumer.accept(getPlayer(id));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super IPlayer`
+in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
+#### Snippet
+```java
+
+    @Override
+    public void getPlayer(UUID id, Consumer<IPlayer> consumer) {
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> consumer.accept(getPlayer(id)));
     }
 ```
 
@@ -1197,9 +1197,9 @@ Can generalize to `? extends IOwnedLand`
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage.java`
 #### Snippet
 ```java
+    }
 
-
-    private void setGreet(Player player, String[] args, List<IOwnedLand> lands, int casy) {
+    private void setFarewell(Player player, String[] args, List<IOwnedLand> lands, int casy) {
         if (lands.isEmpty() || lands.get(0) == null) {
             lm.sendMessage(player, lm.getString(player, "Commands.Manage.notOwnFreeLand"));
 ```
@@ -1209,9 +1209,9 @@ Can generalize to `? extends IOwnedLand`
 in `LandLord-core/src/main/java/biz/princeps/landlord/commands/management/Manage.java`
 #### Snippet
 ```java
-    }
 
-    private void setFarewell(Player player, String[] args, List<IOwnedLand> lands, int casy) {
+
+    private void setGreet(Player player, String[] args, List<IOwnedLand> lands, int casy) {
         if (lands.isEmpty() || lands.get(0) == null) {
             lm.sendMessage(player, lm.getString(player, "Commands.Manage.notOwnFreeLand"));
 ```
@@ -1241,18 +1241,6 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/commands/claiming/UnclaimA
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Integer`
-in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LPlayerManager.java`
-#### Snippet
-```java
-
-    @Override
-    public void getInactiveRemainingDays(UUID owner, Consumer<Integer> consumer) {
-        long days = plugin.getConfig().getInt("BuyUpInactive.timegate");
-        this.getOffline(owner, (offline) -> {
-```
-
-### BoundedWildcard
 Can generalize to `? super Boolean`
 in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LPlayerManager.java`
 #### Snippet
@@ -1262,6 +1250,18 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LPlayerManager.jav
     public void isInactive(UUID id, Consumer<Boolean> consumer) {
         getOffline(id, (lp) -> {
             if (lp != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LPlayerManager.java`
+#### Snippet
+```java
+
+    @Override
+    public void getInactiveRemainingDays(UUID owner, Consumer<Integer> consumer) {
+        long days = plugin.getConfig().getInt("BuyUpInactive.timegate");
+        this.getOffline(owner, (offline) -> {
 ```
 
 ### BoundedWildcard
@@ -1308,6 +1308,18 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
 ```java
         }
 
+        public synchronized static void addPlayer(UUID uniqueId, ConfirmationDialog confirmationDialog) {
+            openDialogs.put(uniqueId, confirmationDialog);
+        }
+```
+
+### MissortedModifiers
+Missorted modifiers `synchronized static`
+in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
+#### Snippet
+```java
+        }
+
         public synchronized static boolean contains(UUID uuid) {
             return openDialogs.containsKey(uuid);
         }
@@ -1322,18 +1334,6 @@ in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
 
         public synchronized static void removePlayer(UUID uniqueId) {
             openDialogs.remove(uniqueId);
-        }
-```
-
-### MissortedModifiers
-Missorted modifiers `synchronized static`
-in `LandLord-core/src/main/java/biz/princeps/lib/chat/ConfirmationDialog.java`
-#### Snippet
-```java
-        }
-
-        public synchronized static void addPlayer(UUID uniqueId, ConfirmationDialog confirmationDialog) {
-            openDialogs.put(uniqueId, confirmationDialog);
         }
 ```
 
@@ -1539,18 +1539,6 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/placeholderapi/LLExpansion
 ## ThrowablePrintStackTrace
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `LandLord-core/src/main/java/biz/princeps/lib/command/CommandManager.java`
-#### Snippet
-```java
-            this.cmdMap = (CommandMap) bukkitCommandMap.get(plugin.getServer());
-        } catch (IllegalAccessException | NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
 #### Snippet
 ```java
@@ -1559,6 +1547,18 @@ in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
                     e.printStackTrace();
                 }
             }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `LandLord-core/src/main/java/biz/princeps/lib/command/CommandManager.java`
+#### Snippet
+```java
+            this.cmdMap = (CommandMap) bukkitCommandMap.get(plugin.getServer());
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -1607,30 +1607,6 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
             e.printStackTrace();
         }
     }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerator.java`
-#### Snippet
-```java
-
-                } catch (IOException | WorldEditException e) {
-                    e.printStackTrace();
-                }
-            }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
-#### Snippet
-```java
-                executeAsync("UPDATE version FROM ll_version SET version = ?", CURRENT_VERSION);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            plugin.getLogger().warning("Error while handling upgrade!\nError:" + e.getMessage());
-        }
 ```
 
 ### ThrowablePrintStackTrace
@@ -1703,6 +1679,30 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage
             e.printStackTrace();
         }
     }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java`
+#### Snippet
+```java
+                executeAsync("UPDATE version FROM ll_version SET version = ?", CURRENT_VERSION);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            plugin.getLogger().warning("Error while handling upgrade!\nError:" + e.getMessage());
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `LandLord-latest/src/main/java/biz/princeps/landlord/regenerators/WGRegenerator.java`
+#### Snippet
+```java
+
+                } catch (IOException | WorldEditException e) {
+                    e.printStackTrace();
+                }
+            }
 ```
 
 ### ThrowablePrintStackTrace
@@ -2112,54 +2112,6 @@ public class LandLord extends ALandLord implements Listener {
 ## ReturnNull
 ### ReturnNull
 Return of `null`
-in `LandLord-core/src/main/java/biz/princeps/lib/command/CommandManager.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
-#### Snippet
-```java
-        } catch (SQLException e) {
-            plugin.getLogger().warning("Error while trying to pull a new connection: " + e.getMessage());
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
-#### Snippet
-```java
-        }
-        // Connection should be closed via the result set
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
 #### Snippet
 ```java
@@ -2184,6 +2136,18 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/LandLord.java`
 
 ### ReturnNull
 Return of `null`
+in `LandLord-core/src/main/java/biz/princeps/lib/command/MainCommand.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
 in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
 #### Snippet
 ```java
@@ -2192,6 +2156,42 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/OwnedLand.java`
             return null;
         } else {
             return uniqueIds.iterator().next();
+```
+
+### ReturnNull
+Return of `null`
+in `LandLord-core/src/main/java/biz/princeps/lib/command/CommandManager.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
+#### Snippet
+```java
+        }
+        // Connection should be closed via the result set
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `LandLord-core/src/main/java/biz/princeps/lib/storage/Datastorage.java`
+#### Snippet
+```java
+        } catch (SQLException e) {
+            plugin.getLogger().warning("Error while trying to pull a new connection: " + e.getMessage());
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -2232,49 +2232,13 @@ in `LandLord-latest/src/main/java/biz/princeps/landlord/manager/WorldGuardManage
 
 ### ReturnNull
 Return of `null`
-in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemManager.java`
+in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
 #### Snippet
 ```java
-            EldoUtilities.logger().log(Level.WARNING, "Custom item must implement empty constructor: " + e);
-        }
-        return null;
-    }
-}
-```
 
-### ReturnNull
-Return of `null`
-in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemManager.java`
-#### Snippet
-```java
-            return new ItemStack(material);
-        } catch (NumberFormatException ex) {
+        if (sec == null) {
             return null;
         }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
 
 ```
 
@@ -2304,13 +2268,25 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/SQLStorage.java
 
 ### ReturnNull
 Return of `null`
-in `LandLord-core/src/main/java/biz/princeps/landlord/persistent/FlatFileStorage.java`
+in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
 #### Snippet
 ```java
-
-        if (sec == null) {
-            return null;
+            }
         }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/MobsManager.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
 
 ```
 
@@ -2328,26 +2304,26 @@ in `LandLord-api/src/main/java/biz/princeps/landlord/api/ClaimHeightDefinition.j
 
 ### ReturnNull
 Return of `null`
-in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
+in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemManager.java`
 #### Snippet
 ```java
-            return land;
+            EldoUtilities.logger().log(Level.WARNING, "Custom item must implement empty constructor: " + e);
         }
         return null;
     }
-
+}
 ```
 
 ### ReturnNull
 Return of `null`
-in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
+in `LandLord-core/src/main/java/biz/princeps/lib/item/ItemManager.java`
 #### Snippet
 ```java
-            }
+            return new ItemStack(material);
+        } catch (NumberFormatException ex) {
+            return null;
         }
-        return null;
     }
-
 ```
 
 ### ReturnNull
@@ -2370,6 +2346,30 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/ALandLord.java`
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         return (rsp == null ? null : rsp.getProvider());
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `LandLord-legacy/src/main/java/biz/princeps/landlord/manager/WorldGuardManager.java`
+#### Snippet
+```java
+            return land;
+        }
+        return null;
     }
 
 ```
@@ -2460,18 +2460,6 @@ in `LandLord-core/src/main/java/biz/princeps/landlord/manager/LPlayerManager.jav
 
 ### ReturnNull
 Return of `null`
-in `LandLord-core/src/main/java/biz/princeps/lib/util/SpigotUtil.java`
-#### Snippet
-```java
-    public static Location exactlocationFromString(String s) {
-        if (s == null || s.isEmpty() || s.equals("null"))
-            return null;
-        String[] split = s.split(":");
-        Location loc;
-```
-
-### ReturnNull
-Return of `null`
 in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
 #### Snippet
 ```java
@@ -2480,6 +2468,18 @@ in `LandLord-legacy/src/main/java/biz/princeps/landlord/LandSessionHandler.java`
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `LandLord-core/src/main/java/biz/princeps/lib/util/SpigotUtil.java`
+#### Snippet
+```java
+    public static Location exactlocationFromString(String s) {
+        if (s == null || s.isEmpty() || s.equals("null"))
+            return null;
+        String[] split = s.split(":");
+        Location loc;
 ```
 
 ### ReturnNull
