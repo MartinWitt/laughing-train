@@ -1,5 +1,4 @@
 import { Position } from "./Position"
-import { RuleID } from "./RuleID"
 
 export type BadSmell = {
   identifier: string
@@ -7,7 +6,7 @@ export type BadSmell = {
   name: string
   messageMarkdown: string
   snippet: string
-  ruleID: RuleID
+  ruleID: string
   commitHashes: [string]
   filePath: string
   position: Position
