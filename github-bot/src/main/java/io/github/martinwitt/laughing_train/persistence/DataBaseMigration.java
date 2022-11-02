@@ -50,7 +50,10 @@ public class DataBaseMigration {
     private void removeDuplicatedBadSmells() {
         var project =
                 Project.<Project>mongoCollection().find(Aggregates.sample(1)).first();
-        BadSmell.findByProjectName(project.getProjectName()).stream()
+        if (BadSmell.findByProjectUrl(project.getProjectUrl()).isEmpty()) {
+            logger.atInfo().log("No bad smells found for project %s", project.getProjectUrl());
+        }
+        BadSmell.findByProjectUrl(project.getProjectUrl()).stream()
                 .collect(Collectors.groupingBy(BadSmell::getIdentifier))
                 .forEach((k, v) -> {
                     if (v.size() > 1) {
@@ -74,7 +77,6 @@ public class DataBaseMigration {
                         var config = list.get(0);
                         config.setSourceFolder(v);
                         config.update();
-                        logger.atInfo().log("Set source folder for %s to %s", k, v);
                     }
                 });
     }
@@ -84,7 +86,6 @@ public class DataBaseMigration {
             if (ProjectConfig.findByProjectUrl(project.getProjectUrl()).isEmpty()) {
                 var config = new ProjectConfig(project.getProjectUrl());
                 config.persist();
-                logger.atInfo().log("Created config %s", ProjectConfig.findByProjectUrl(project.getProjectUrl()));
             }
         });
         logger.atInfo().log("Created missing configs for %d projects", ProjectConfig.count());

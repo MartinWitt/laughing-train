@@ -31,6 +31,10 @@ public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
         return list("projectName", projectName);
     }
 
+    public static List<BadSmell> findByProjectUrl(String projectUrl) {
+        return list("projectUrl", projectUrl);
+    }
+
     public static List<BadSmell> findByCommitHash(String commitHash) {
         return list("commitHash", commitHash);
     }
