@@ -28,7 +28,9 @@ export const fetchBadSmellsforHashQuery = gql`
   byCommitHash(commitHash: $hash) {
     identifier
     id
-    ruleID
+    ruleID {
+      ruleId
+    },
     messageMarkdown
     snippet
     filePath

@@ -4,6 +4,7 @@ import static io.smallrye.graphql.client.core.Document.document;
 import static io.smallrye.graphql.client.core.Field.field;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.Project;
 import io.github.martinwitt.laughing_train.utils.TestAnalyzerResult;
@@ -41,8 +42,9 @@ public class BadSmellGraphQLTest {
     }
 
     private BadSmell createWithMessage(String ruleID) {
+        RuleId ruleId = new RuleId(ruleID);
         TestAnalyzerResult testAnalyzerResult =
-                new TestAnalyzerResult(ruleID, "filePath", new Position(0, 0, 0, 0, 0, 0), "test");
+                new TestAnalyzerResult(ruleId, "filePath", new Position(0, 0, 0, 0, 0, 0), "test");
         return new BadSmell(testAnalyzerResult, "test", "test", "test");
     }
 

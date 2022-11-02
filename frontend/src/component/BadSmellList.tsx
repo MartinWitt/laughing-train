@@ -21,7 +21,7 @@ export default function BadSmellList(project: Project) {
       return [];
     }
     return data.byCommitHash.filter((badSmell: BadSmell) => {
-      return !badSmellFilter.includes(badSmell.ruleID);
+      return !badSmellFilter.includes(badSmell.ruleID.ruleId);
     });
   }, [data, badSmellFilter]);
   if (error) {
@@ -49,7 +49,7 @@ export default function BadSmellList(project: Project) {
           <Stack>
             {listOfUniqueRules(data.byCommitHash).map((badSmell) => {
               return (<>
-                <SelectionBox label={badSmell.ruleID} addFunction={setBadSmellFilterForRuleID} />
+                <SelectionBox label={badSmell.ruleID.ruleId} addFunction={setBadSmellFilterForRuleID} />
                 <Divider />
               </>)
             })}
@@ -140,7 +140,7 @@ function groupByRuleID(projects: BadSmell[]): Map<string, BadSmell[]> {
 function BadSmellCardHeader(badSmell: BadSmell) {
   return (<>
     <OrangeDivider />
-    <Typography padding="10px" variant='h4' fontSize={24}>{badSmell.ruleID}</Typography>
+    <Typography padding="10px" variant='h4' fontSize={24}>{badSmell.ruleID.ruleId}</Typography>
     <Typography padding="10px" justifyContent={"flex-start"}>{badSmell.identifier}</Typography>
     <BlackDivider />  </>);
 }

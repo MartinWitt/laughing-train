@@ -3,6 +3,7 @@ package io.github.martinwitt.laughing_train;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
@@ -79,7 +80,7 @@ public class ChangelogPrinter {
     }
 
     public String printResults(List<AnalyzerResult> results) {
-        Set<String> ruleIds =
+        Set<RuleId> ruleIds =
                 config.getActiveRules().stream().map(QodanaRules::getRuleId).collect(Collectors.toSet());
         List<AnalyzerResult> activeRuleResults =
                 results.stream().filter(v -> ruleIds.contains(v.ruleID())).toList();
@@ -106,7 +107,7 @@ public class ChangelogPrinter {
 
     public String printAllResults(List<AnalyzerResult> results) {
         StringBuilder sb = new StringBuilder();
-        Set<String> ruleIds =
+        Set<RuleId> ruleIds =
                 config.getActiveRules().stream().map(QodanaRules::getRuleId).collect(Collectors.toSet());
         long fixableRules =
                 results.stream().filter(v -> ruleIds.contains(v.ruleID())).count();
@@ -134,7 +135,7 @@ public class ChangelogPrinter {
         return sb.toString();
     }
 
-    private String generateTable(List<AnalyzerResult> results, Set<String> ruleIds) {
+    private String generateTable(List<AnalyzerResult> results, Set<RuleId> ruleIds) {
         StringBuilder sb = new StringBuilder();
         sb.append("| ruleID | number | fixable |\n");
         sb.append("| --- | --- | --- |\n");
@@ -146,7 +147,7 @@ public class ChangelogPrinter {
         return sb.toString();
     }
 
-    private String generateTableLine(Set<String> ruleIds, Entry<String, List<AnalyzerResult>> result) {
+    private String generateTableLine(Set<RuleId> ruleIds, Entry<RuleId, ? extends List<AnalyzerResult>> result) {
         return "| " + result.getKey() + " | " + result.getValue().size() + " | "
                 + result.getValue().stream().anyMatch(v -> ruleIds.contains(v.ruleID())) + " |\n";
     }

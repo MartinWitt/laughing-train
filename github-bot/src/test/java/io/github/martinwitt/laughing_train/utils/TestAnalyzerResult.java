@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.utils;
 
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
@@ -9,12 +10,12 @@ import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 public class TestAnalyzerResult implements AnalyzerResult {
 
     private String analyzer;
-    private String ruleID;
+    private RuleId ruleID;
     private String filePath;
     private Position position;
     private String message;
 
-    public TestAnalyzerResult(String ruleID, String filePath, Position position, String message) {
+    public TestAnalyzerResult(RuleId ruleID, String filePath, Position position, String message) {
         this.analyzer = "JUNIT";
         this.ruleID = ruleID;
         this.filePath = filePath;
@@ -34,7 +35,7 @@ public class TestAnalyzerResult implements AnalyzerResult {
     }
 
     @Override
-    public String ruleID() {
+    public RuleId ruleID() {
         return ruleID;
     }
 

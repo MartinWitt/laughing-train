@@ -2,16 +2,17 @@ package xyz.keksdose.spoon.code_solver.analyzer.qodana;
 
 import com.contrastsecurity.sarif.Region;
 import com.contrastsecurity.sarif.Result;
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 public record QodanaAnalyzerResult(
-        String ruleID, String filePath, Position position, String message, String messageMarkdown, String snippet)
+        RuleId ruleID, String filePath, Position position, String message, String messageMarkdown, String snippet)
         implements AnalyzerResult {
 
     public QodanaAnalyzerResult(Result result) {
         this(
-                result.getRuleId(),
+                new RuleId(result.getRuleId()),
                 getFilePathFromResult(result),
                 fromResult(result),
                 result.getMessage().getText(),
