@@ -1,9 +1,11 @@
-package io.github.martinwitt.laughing_train.api;
+package io.github.martinwitt.laughing_train.domain.value;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
+
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 
 class RuleIdTest {
     @Test

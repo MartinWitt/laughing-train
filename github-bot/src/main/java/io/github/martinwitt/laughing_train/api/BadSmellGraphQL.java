@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.api;
 
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;

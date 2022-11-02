@@ -1,6 +1,6 @@
 package io.github.martinwitt.laughing_train.utils;
 
-import io.github.martinwitt.laughing_train.api.RuleId;
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 

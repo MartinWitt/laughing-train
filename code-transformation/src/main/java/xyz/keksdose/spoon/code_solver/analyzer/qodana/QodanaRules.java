@@ -1,8 +1,9 @@
 package xyz.keksdose.spoon.code_solver.analyzer.qodana;
 
-import io.github.martinwitt.laughing_train.api.RuleId;
 import java.util.List;
 import java.util.function.Function;
+
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import xyz.keksdose.spoon.code_solver.analyzer.AnalyzerRule;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.AbstractRefactoring;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.InnerClassMayBeStatic;

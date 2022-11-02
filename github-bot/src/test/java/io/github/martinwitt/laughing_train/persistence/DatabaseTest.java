@@ -2,7 +2,7 @@ package io.github.martinwitt.laughing_train.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import io.github.martinwitt.laughing_train.api.RuleId;
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.utils.Contract;
 import io.github.martinwitt.laughing_train.utils.TestAnalyzerResult;
 import io.quarkus.test.junit.QuarkusTest;

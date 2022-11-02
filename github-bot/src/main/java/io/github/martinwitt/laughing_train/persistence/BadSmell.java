@@ -1,6 +1,6 @@
 package io.github.martinwitt.laughing_train.persistence;
 
-import io.github.martinwitt.laughing_train.api.RuleId;
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
 import java.util.List;

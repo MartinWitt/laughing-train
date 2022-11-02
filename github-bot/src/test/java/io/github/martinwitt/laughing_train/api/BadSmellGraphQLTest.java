@@ -4,6 +4,7 @@ import static io.smallrye.graphql.client.core.Document.document;
 import static io.smallrye.graphql.client.core.Field.field;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.Project;
 import io.github.martinwitt.laughing_train.utils.TestAnalyzerResult;

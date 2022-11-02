@@ -1,4 +1,4 @@
-package io.github.martinwitt.laughing_train.api;
+package io.github.martinwitt.laughing_train.domain.value;
 
 import java.io.Serializable;
 

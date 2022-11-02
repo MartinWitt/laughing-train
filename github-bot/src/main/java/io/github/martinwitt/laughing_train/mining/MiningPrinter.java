@@ -3,8 +3,9 @@ package io.github.martinwitt.laughing_train.mining;
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.MarkdownPrinter;
-import io.github.martinwitt.laughing_train.api.RuleId;
 import io.github.martinwitt.laughing_train.data.Project;
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
