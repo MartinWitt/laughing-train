@@ -3,15 +3,15 @@
 I found 31 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ConstantConditions | 13 | false |
-| UnstableApiUsage | 13 | false |
-| DynamicRegexReplaceableByCompiledPattern | 1 | false |
-| UnnecessarySemicolon | 1 | false |
-| BusyWait | 1 | false |
-| BoundedWildcard | 1 | false |
-| RedundantSuppression | 1 | false |
-## DynamicRegexReplaceableByCompiledPattern
-### DynamicRegexReplaceableByCompiledPattern
+| RuleId[ruleID=ConstantConditions] | 13 | false |
+| RuleId[ruleID=UnstableApiUsage] | 13 | false |
+| RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern] | 1 | false |
+| RuleId[ruleID=UnnecessarySemicolon] | 1 | false |
+| RuleId[ruleID=BusyWait] | 1 | false |
+| RuleId[ruleID=BoundedWildcard] | 1 | false |
+| RuleId[ruleID=RedundantSuppression] | 1 | false |
+## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 #### Snippet
@@ -23,8 +23,8 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 	}
 ```
 
-## UnnecessarySemicolon
-### UnnecessarySemicolon
+## RuleId[ruleID=UnnecessarySemicolon]
+### RuleId[ruleID=UnnecessarySemicolon]
 Unnecessary semicolon `;`
 in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 #### Snippet
@@ -36,8 +36,8 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 				for (int i = 0; i < groups.size(); i++) {
 ```
 
-## BusyWait
-### BusyWait
+## RuleId[ruleID=BusyWait]
+### RuleId[ruleID=BusyWait]
 Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 #### Snippet
@@ -49,20 +49,8 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 				Thread.currentThread().interrupt();
 ```
 
-## ConstantConditions
-### ConstantConditions
-Method invocation `keySet` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
-#### Snippet
-```java
-		var tideNames = new HashSet<String>();
-		var craneNames = new HashSet<String>();
-		for (var key : labels.keySet()) {
-			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
-				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
-```
-
-### ConstantConditions
+## RuleId[ruleID=ConstantConditions]
+### RuleId[ruleID=ConstantConditions]
 Argument `config.getEnv()` might be null
 in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
 #### Snippet
@@ -74,115 +62,19 @@ in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
 				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
 ```
 
-### ConstantConditions
-Unboxing of `state.getRestarting()` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
+### RuleId[ruleID=ConstantConditions]
+Method invocation `keySet` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
 #### Snippet
 ```java
-			inspect = docker.inspectContainerCmd(container.id()).exec();
-			var state = inspect.getState();
-			if (state.getRestarting()) {
-				log.debug("container {} is restarting, waiting {}ms ({} tries remaining)", container.id(), RETRY_DELAY, remainingRetries);
-				Thread.sleep(RETRY_DELAY);
+		var tideNames = new HashSet<String>();
+		var craneNames = new HashSet<String>();
+		for (var key : labels.keySet()) {
+			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
+				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
 ```
 
-### ConstantConditions
-Unboxing of `inspect.getState().getRestarting()` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
-#### Snippet
-```java
-			}
-			
-		} while (remainingRetries-- > 0 && (inspect.getState().getRestarting()));
-		var state = inspect.getState();
-		
-```
-
-### ConstantConditions
-Unboxing of `state.getRestarting()` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
-#### Snippet
-```java
-		
-		// abort, rather than perform backup with container in unknown state
-		if (state.getRestarting()) {
-			throw new IllegalStateException("container '" + container.id() + "' has not reached stable state after " + RETRY_COUNT + " retries");
-		}
-```
-
-### ConstantConditions
-Unboxing of `state.getRunning()` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
-#### Snippet
-```java
-		// run preperation command if container has one and is running (not paused)
-		boolean preCommandRun = false;
-		if (container.commandPre().isPresent() && state.getRunning() && !state.getPaused()) {
-			var command = container.commandPre().get();
-			log.debug("running preperation command '{}' on container {}", command, container.id());
-```
-
-### ConstantConditions
-Unboxing of `state.getPaused()` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
-#### Snippet
-```java
-		// run preperation command if container has one and is running (not paused)
-		boolean preCommandRun = false;
-		if (container.commandPre().isPresent() && state.getRunning() && !state.getPaused()) {
-			var command = container.commandPre().get();
-			log.debug("running preperation command '{}' on container {}", command, container.id());
-```
-
-### ConstantConditions
-Unboxing of `state.getRunning()` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
-#### Snippet
-```java
-			case STOP -> {
-				// container must ne running and not paused, if it's not running at all, there is no need to stop it (but we must not start it again)
-				if (state.getRunning()) {
-					if (state.getPaused()) {
-						throw new IllegalStateException("container '" + container.id() + "' is paused, cannot stop");
-```
-
-### ConstantConditions
-Unboxing of `state.getPaused()` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
-#### Snippet
-```java
-				// container must ne running and not paused, if it's not running at all, there is no need to stop it (but we must not start it again)
-				if (state.getRunning()) {
-					if (state.getPaused()) {
-						throw new IllegalStateException("container '" + container.id() + "' is paused, cannot stop");
-					}
-```
-
-### ConstantConditions
-Unboxing of `state.getRunning()` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
-#### Snippet
-```java
-			case PAUSE -> {
-				// if container is running, we need to pause it (otherwise we don't need to do anything)
-				if (state.getRunning() && !state.getPaused()) {
-					log.debug("pausing container {}", container.id());
-					docker.pauseContainerCmd(container.id()).exec();
-```
-
-### ConstantConditions
-Unboxing of `state.getPaused()` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
-#### Snippet
-```java
-			case PAUSE -> {
-				// if container is running, we need to pause it (otherwise we don't need to do anything)
-				if (state.getRunning() && !state.getPaused()) {
-					log.debug("pausing container {}", container.id());
-					docker.pauseContainerCmd(container.id()).exec();
-```
-
-### ConstantConditions
+### RuleId[ruleID=ConstantConditions]
 Method invocation `get` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 #### Snippet
@@ -194,7 +86,7 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 		// parse user or fall back to container user
 ```
 
-### ConstantConditions
+### RuleId[ruleID=ConstantConditions]
 Dereference of `container.getMounts()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 #### Snippet
@@ -206,8 +98,116 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 			if (volume != null)
 ```
 
-## BoundedWildcard
-### BoundedWildcard
+### RuleId[ruleID=ConstantConditions]
+Unboxing of `state.getRestarting()` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
+#### Snippet
+```java
+			inspect = docker.inspectContainerCmd(container.id()).exec();
+			var state = inspect.getState();
+			if (state.getRestarting()) {
+				log.debug("container {} is restarting, waiting {}ms ({} tries remaining)", container.id(), RETRY_DELAY, remainingRetries);
+				Thread.sleep(RETRY_DELAY);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Unboxing of `inspect.getState().getRestarting()` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
+#### Snippet
+```java
+			}
+			
+		} while (remainingRetries-- > 0 && (inspect.getState().getRestarting()));
+		var state = inspect.getState();
+		
+```
+
+### RuleId[ruleID=ConstantConditions]
+Unboxing of `state.getRestarting()` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
+#### Snippet
+```java
+		
+		// abort, rather than perform backup with container in unknown state
+		if (state.getRestarting()) {
+			throw new IllegalStateException("container '" + container.id() + "' has not reached stable state after " + RETRY_COUNT + " retries");
+		}
+```
+
+### RuleId[ruleID=ConstantConditions]
+Unboxing of `state.getRunning()` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
+#### Snippet
+```java
+		// run preperation command if container has one and is running (not paused)
+		boolean preCommandRun = false;
+		if (container.commandPre().isPresent() && state.getRunning() && !state.getPaused()) {
+			var command = container.commandPre().get();
+			log.debug("running preperation command '{}' on container {}", command, container.id());
+```
+
+### RuleId[ruleID=ConstantConditions]
+Unboxing of `state.getPaused()` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
+#### Snippet
+```java
+		// run preperation command if container has one and is running (not paused)
+		boolean preCommandRun = false;
+		if (container.commandPre().isPresent() && state.getRunning() && !state.getPaused()) {
+			var command = container.commandPre().get();
+			log.debug("running preperation command '{}' on container {}", command, container.id());
+```
+
+### RuleId[ruleID=ConstantConditions]
+Unboxing of `state.getRunning()` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
+#### Snippet
+```java
+			case STOP -> {
+				// container must ne running and not paused, if it's not running at all, there is no need to stop it (but we must not start it again)
+				if (state.getRunning()) {
+					if (state.getPaused()) {
+						throw new IllegalStateException("container '" + container.id() + "' is paused, cannot stop");
+```
+
+### RuleId[ruleID=ConstantConditions]
+Unboxing of `state.getPaused()` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
+#### Snippet
+```java
+				// container must ne running and not paused, if it's not running at all, there is no need to stop it (but we must not start it again)
+				if (state.getRunning()) {
+					if (state.getPaused()) {
+						throw new IllegalStateException("container '" + container.id() + "' is paused, cannot stop");
+					}
+```
+
+### RuleId[ruleID=ConstantConditions]
+Unboxing of `state.getRunning()` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
+#### Snippet
+```java
+			case PAUSE -> {
+				// if container is running, we need to pause it (otherwise we don't need to do anything)
+				if (state.getRunning() && !state.getPaused()) {
+					log.debug("pausing container {}", container.id());
+					docker.pauseContainerCmd(container.id()).exec();
+```
+
+### RuleId[ruleID=ConstantConditions]
+Unboxing of `state.getPaused()` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
+#### Snippet
+```java
+			case PAUSE -> {
+				// if container is running, we need to pause it (otherwise we don't need to do anything)
+				if (state.getRunning() && !state.getPaused()) {
+					log.debug("pausing container {}", container.id());
+					docker.pauseContainerCmd(container.id()).exec();
+```
+
+## RuleId[ruleID=BoundedWildcard]
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Frame`
 in `src/main/java/de/chrisliebaer/salvage/entity/FrameCallback.java`
 #### Snippet
@@ -219,8 +219,8 @@ in `src/main/java/de/chrisliebaer/salvage/entity/FrameCallback.java`
 	}
 ```
 
-## RedundantSuppression
-### RedundantSuppression
+## RuleId[ruleID=RedundantSuppression]
+### RuleId[ruleID=RedundantSuppression]
 Redundant suppression
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -232,68 +232,8 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		@Getter private final List<SalvageContainer> containers = new ArrayList<>();
 ```
 
-## UnstableApiUsage
-### UnstableApiUsage
-'com.google.common.graph.Traverser' is marked unstable with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-			var current = unvisited.remove(0);
-```
-
-### UnstableApiUsage
-'forGraph(com.google.common.graph.SuccessorsFunction)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-			var current = unvisited.remove(0);
-```
-
-### UnstableApiUsage
-'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-			var current = unvisited.remove(0);
-```
-
-### UnstableApiUsage
-'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-			var current = unvisited.remove(0);
-```
-
-### UnstableApiUsage
-'depthFirstPostOrder(N)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-			
-			var group = new Group();
-			for (Node node : traversal.depthFirstPostOrder(current)) {
-				node.add(group);
-				unvisited.remove(node);
-```
-
-### UnstableApiUsage
+## RuleId[ruleID=UnstableApiUsage]
+### RuleId[ruleID=UnstableApiUsage]
 'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -305,7 +245,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		
 ```
 
-### UnstableApiUsage
+### RuleId[ruleID=UnstableApiUsage]
 'com.google.common.graph.GraphBuilder' is marked unstable with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -317,7 +257,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		// in project mode, nodes of same project will be connected via project node to force same group (in other modes, traversal will ignore edge)
 ```
 
-### UnstableApiUsage
+### RuleId[ruleID=UnstableApiUsage]
 'undirected()' is declared in unstable class 'com.google.common.graph.GraphBuilder' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -329,7 +269,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		// in project mode, nodes of same project will be connected via project node to force same group (in other modes, traversal will ignore edge)
 ```
 
-### UnstableApiUsage
+### RuleId[ruleID=UnstableApiUsage]
 'immutable()' is declared in unstable class 'com.google.common.graph.GraphBuilder' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -341,7 +281,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		// in project mode, nodes of same project will be connected via project node to force same group (in other modes, traversal will ignore edge)
 ```
 
-### UnstableApiUsage
+### RuleId[ruleID=UnstableApiUsage]
 'putEdge(N, N)' is declared in unstable class 'com.google.common.graph.ImmutableGraph' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -353,7 +293,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		
 ```
 
-### UnstableApiUsage
+### RuleId[ruleID=UnstableApiUsage]
 'putEdge(N, N)' is declared in unstable class 'com.google.common.graph.ImmutableGraph' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -365,7 +305,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		}
 ```
 
-### UnstableApiUsage
+### RuleId[ruleID=UnstableApiUsage]
 'addNode(N)' is declared in unstable class 'com.google.common.graph.ImmutableGraph' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -377,7 +317,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		return builder.build();
 ```
 
-### UnstableApiUsage
+### RuleId[ruleID=UnstableApiUsage]
 'build()' is declared in unstable class 'com.google.common.graph.ImmutableGraph' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -387,5 +327,65 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		return builder.build();
 	}
 	
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.graph.Traverser' is marked unstable with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+			var current = unvisited.remove(0);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'forGraph(com.google.common.graph.SuccessorsFunction)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+			var current = unvisited.remove(0);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+			var current = unvisited.remove(0);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+			var current = unvisited.remove(0);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'depthFirstPostOrder(N)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+			
+			var group = new Group();
+			for (Node node : traversal.depthFirstPostOrder(current)) {
+				node.add(group);
+				unvisited.remove(node);
 ```
 
