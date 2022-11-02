@@ -1,5 +1,6 @@
 package xyz.keksdose.spoon.code_solver.transformations;
 
+import io.github.martinwitt.laughing_train.api.RuleId;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
@@ -9,14 +10,14 @@ import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 public class TestAnalyzerResult implements AnalyzerResult {
 
     private String analyzer;
-    private String ruleID;
+    private RuleId ruleID;
     private String filePath;
     private Position position;
     private String message;
 
     public TestAnalyzerResult(String ruleID, String filePath, Position position, String message) {
         this.analyzer = "JUNIT";
-        this.ruleID = ruleID;
+        this.ruleID = new RuleId(ruleID);
         this.filePath = filePath;
         this.position = position;
         this.message = message;
@@ -34,7 +35,7 @@ public class TestAnalyzerResult implements AnalyzerResult {
     }
 
     @Override
-    public String ruleID() {
+    public RuleId ruleID() {
         return ruleID;
     }
 

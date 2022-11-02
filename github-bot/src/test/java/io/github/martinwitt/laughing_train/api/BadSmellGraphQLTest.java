@@ -41,8 +41,9 @@ public class BadSmellGraphQLTest {
     }
 
     private BadSmell createWithMessage(String ruleID) {
+        RuleId ruleId = new RuleId(ruleID);
         TestAnalyzerResult testAnalyzerResult =
-                new TestAnalyzerResult(ruleID, "filePath", new Position(0, 0, 0, 0, 0, 0), "test");
+                new TestAnalyzerResult(ruleId, "filePath", new Position(0, 0, 0, 0, 0, 0), "test");
         return new BadSmell(testAnalyzerResult, "test", "test", "test");
     }
 

@@ -21,7 +21,7 @@ public class BadSmellGraphQL {
     @Query("byRuleID")
     @Description("Gets all bad smells from the database by ruleID")
     public List<BadSmell> getAllBadSmellsByRuleID(@Name("ruleID") String ruleID) {
-        return BadSmell.findByRuleID(ruleID);
+        return BadSmell.findByRuleID(new RuleId(ruleID));
     }
 
     @Query("byProjectName")

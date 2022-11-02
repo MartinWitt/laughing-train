@@ -1,5 +1,6 @@
 package xyz.keksdose.spoon.code_solver.analyzer.qodana;
 
+import io.github.martinwitt.laughing_train.api.RuleId;
 import java.util.List;
 import java.util.function.Function;
 import xyz.keksdose.spoon.code_solver.analyzer.AnalyzerRule;
@@ -42,16 +43,16 @@ public enum QodanaRules implements AnalyzerRule {
     TO_ARRAY_CALL_WITH_ZERO_LENGTH_ARRAY_ARGUMENT(
             "ToArrayCallWithZeroLengthArrayArgument", ToArrayCallWithZeroLengthArrayArgument::new);
 
-    private final String ruleId;
+    private final RuleId ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
 
-    private QodanaRules(String ruleId, Function<AnalyzerResult, AbstractRefactoring> refactoring) {
-        this.ruleId = ruleId;
+    QodanaRules(String ruleId, Function<AnalyzerResult, AbstractRefactoring> refactoring) {
+        this.ruleId = new RuleId(ruleId);
         this.refactoring = refactoring;
     }
 
     @Override
-    public String getRuleId() {
+    public RuleId getRuleId() {
         return ruleId;
     }
 

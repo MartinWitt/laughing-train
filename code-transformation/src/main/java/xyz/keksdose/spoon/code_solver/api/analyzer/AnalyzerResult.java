@@ -1,5 +1,6 @@
 package xyz.keksdose.spoon.code_solver.api.analyzer;
 
+import io.github.martinwitt.laughing_train.api.RuleId;
 import java.io.Serializable;
 import javax.annotation.Nonnull;
 
@@ -11,7 +12,7 @@ public interface AnalyzerResult extends Serializable {
     String getAnalyzer();
 
     @Nonnull
-    public String ruleID();
+    public RuleId ruleID();
 
     public String filePath();
 

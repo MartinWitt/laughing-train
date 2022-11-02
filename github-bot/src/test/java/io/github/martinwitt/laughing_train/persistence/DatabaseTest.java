@@ -2,6 +2,7 @@ package io.github.martinwitt.laughing_train.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.github.martinwitt.laughing_train.api.RuleId;
 import io.github.martinwitt.laughing_train.utils.Contract;
 import io.github.martinwitt.laughing_train.utils.TestAnalyzerResult;
 import io.quarkus.test.junit.QuarkusTest;
@@ -17,7 +18,7 @@ public class DatabaseTest {
         cleanDB();
         createWithMessage("PointLessBoolean").persist();
         // assertThat(badSmell.id).isNotNull();)
-        assertEquals(1, BadSmell.findByRuleID("PointLessBoolean").size());
+        assertEquals(1, BadSmell.findByRuleID(new RuleId("PointLessBoolean")).size());
     }
 
     @Test
@@ -26,7 +27,7 @@ public class DatabaseTest {
         cleanDB();
         createWithMessage("PointLessBoolean").persist();
         createWithMessage("PointLessBoolean").persist();
-        assertEquals(2, BadSmell.findByRuleID("PointLessBoolean").size());
+        assertEquals(2, BadSmell.findByRuleID(new RuleId("PointLessBoolean")).size());
     }
 
     /**
@@ -37,8 +38,9 @@ public class DatabaseTest {
     }
 
     private BadSmell createWithMessage(String ruleID) {
+
         TestAnalyzerResult testAnalyzerResult =
-                new TestAnalyzerResult(ruleID, "filePath", new Position(0, 0, 0, 0, 0, 0), "test");
+                new TestAnalyzerResult(new RuleId(ruleID), "filePath", new Position(0, 0, 0, 0, 0, 0), "test");
         return new BadSmell(testAnalyzerResult, "test", "test", "test");
     }
 }

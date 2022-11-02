@@ -1,5 +1,6 @@
 package xyz.keksdose.spoon.code_solver.analyzer.qodana;
 
+import io.github.martinwitt.laughing_train.api.RuleId;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +32,7 @@ import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
  */
 public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 
-    private Map<String, Function<AnalyzerResult, AbstractRefactoring>> ruleParser;
+    private Map<RuleId, Function<AnalyzerResult, AbstractRefactoring>> ruleParser;
     private List<AbstractRefactoring> refactorings;
     private List<Consumer<QodanaAnalyzer.Builder>> settings = new ArrayList<>();
     private List<AnalyzerResult> results;
@@ -40,7 +41,8 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
         super(builder.listener);
         refactorings = new ArrayList<>();
         this.listener = builder.listener;
-        this.ruleParser = builder.ruleParser;
+        this.ruleParser = builder.ruleParser.entrySet().stream()
+                .collect(HashMap::new, (m, v) -> m.put(new RuleId(v.getKey()), v.getValue()), HashMap::putAll);
         this.settings.addAll(builder.settings);
     }
 
