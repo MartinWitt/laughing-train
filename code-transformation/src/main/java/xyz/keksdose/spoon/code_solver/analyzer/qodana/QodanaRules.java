@@ -20,6 +20,7 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryModifier;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryReturn;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryToStringCall;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedImport;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedLabel;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
@@ -41,7 +42,9 @@ public enum QodanaRules implements AnalyzerRule {
     POINTLESS_BOOLEAN_EXPRESSION("PointlessBooleanExpression", PointlessBooleanExpression::new),
     INNER_CLASS_MAY_BE_STATIC("InnerClassMayBeStatic", InnerClassMayBeStatic::new),
     TO_ARRAY_CALL_WITH_ZERO_LENGTH_ARRAY_ARGUMENT(
-            "ToArrayCallWithZeroLengthArrayArgument", ToArrayCallWithZeroLengthArrayArgument::new);
+            "ToArrayCallWithZeroLengthArrayArgument", ToArrayCallWithZeroLengthArrayArgument::new),
+    UNUSED_LABEL("UnusedLabel", UnusedLabel::new),
+    ;
 
     private final RuleId ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
