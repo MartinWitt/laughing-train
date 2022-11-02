@@ -51,18 +51,6 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 
 ## ConstantConditions
 ### ConstantConditions
-Method invocation `keySet` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
-#### Snippet
-```java
-		var tideNames = new HashSet<String>();
-		var craneNames = new HashSet<String>();
-		for (var key : labels.keySet()) {
-			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
-				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
-```
-
-### ConstantConditions
 Unboxing of `state.getRestarting()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -171,18 +159,6 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 ```
 
 ### ConstantConditions
-Argument `config.getEnv()` might be null
-in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
-#### Snippet
-```java
-				.withAttachStderr(true)
-				.withAttachStdin(false)
-				.withEnv(Arrays.asList(config.getEnv()))
-				.withUser(user)
-				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
-```
-
-### ConstantConditions
 Method invocation `get` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 #### Snippet
@@ -204,6 +180,30 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 		for (var mount : container.getMounts()) {
 			var volume = volumes.get(mount.getName());
 			if (volume != null)
+```
+
+### ConstantConditions
+Argument `config.getEnv()` might be null
+in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
+#### Snippet
+```java
+				.withAttachStderr(true)
+				.withAttachStdin(false)
+				.withEnv(Arrays.asList(config.getEnv()))
+				.withUser(user)
+				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
+```
+
+### ConstantConditions
+Method invocation `keySet` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
+#### Snippet
+```java
+		var tideNames = new HashSet<String>();
+		var craneNames = new HashSet<String>();
+		for (var key : labels.keySet()) {
+			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
+				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
 ```
 
 ## BoundedWildcard
@@ -233,6 +233,66 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 ```
 
 ## UnstableApiUsage
+### UnstableApiUsage
+'com.google.common.graph.Traverser' is marked unstable with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+			var current = unvisited.remove(0);
+```
+
+### UnstableApiUsage
+'forGraph(com.google.common.graph.SuccessorsFunction)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+			var current = unvisited.remove(0);
+```
+
+### UnstableApiUsage
+'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+			var current = unvisited.remove(0);
+```
+
+### UnstableApiUsage
+'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+			var current = unvisited.remove(0);
+```
+
+### UnstableApiUsage
+'depthFirstPostOrder(N)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+			
+			var group = new Group();
+			for (Node node : traversal.depthFirstPostOrder(current)) {
+				node.add(group);
+				unvisited.remove(node);
+```
+
 ### UnstableApiUsage
 'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
@@ -327,65 +387,5 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		return builder.build();
 	}
 	
-```
-
-### UnstableApiUsage
-'com.google.common.graph.Traverser' is marked unstable with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-			var current = unvisited.remove(0);
-```
-
-### UnstableApiUsage
-'forGraph(com.google.common.graph.SuccessorsFunction)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-			var current = unvisited.remove(0);
-```
-
-### UnstableApiUsage
-'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-			var current = unvisited.remove(0);
-```
-
-### UnstableApiUsage
-'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-			var current = unvisited.remove(0);
-```
-
-### UnstableApiUsage
-'depthFirstPostOrder(N)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-			
-			var group = new Group();
-			for (Node node : traversal.depthFirstPostOrder(current)) {
-				node.add(group);
-				unvisited.remove(node);
 ```
 
