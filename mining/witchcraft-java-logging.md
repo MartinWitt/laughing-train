@@ -102,6 +102,19 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
             // Use the slf4j provided utility directly
 ```
 
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `TestReportFormattingPlugin` has no concrete subclass
+in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestReportFormattingPlugin.java`
+#### Snippet
+```java
+ * lines much like our intellij plugin.
+ */
+public abstract class TestReportFormattingPlugin implements Plugin<Project> {
+
+    @Override
+```
+
 ## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
@@ -113,6 +126,18 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     SupplierLogVisitor(Supplier<T> supplier) {
         this.supplier = supplier;
     }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
+#### Snippet
+```java
+    }
+
+    private static String interpolateParameters(String original, Function<String, Object> lookup) {
+        Matcher matcher = PARAMETER_PATTERN.matcher(original);
+        String current = original;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -164,6 +189,42 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
+    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
+        return parseJson(logLine, clazz).flatMap(function);
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
+    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
+        return parseJson(logLine, clazz).flatMap(function);
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
+    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
+        try {
+            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Pair`
 in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/idea/WitchcraftLogFilter.java`
 #### Snippet
@@ -197,54 +258,6 @@ in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/loggi
             File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
         Node rootNode;
         if (configurationFile.isFile()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
-#### Snippet
-```java
-    }
-
-    private static String interpolateParameters(String original, Function<String, Object> lookup) {
-        Matcher matcher = PARAMETER_PATTERN.matcher(original);
-        String current = original;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
-    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
-        try {
-            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
-    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
-        return parseJson(logLine, clazz).flatMap(function);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
-    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
-        return parseJson(logLine, clazz).flatMap(function);
-    }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -305,19 +318,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     CombineWithLogVisitor(LogVisitor<T> first, LogVisitor<U> second, BiFunction<T, U, R> combiner) {
         this.first = first;
         this.second = second;
-```
-
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `TestReportFormattingPlugin` has no concrete subclass
-in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestReportFormattingPlugin.java`
-#### Snippet
-```java
- * lines much like our intellij plugin.
- */
-public abstract class TestReportFormattingPlugin implements Plugin<Project> {
-
-    @Override
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
