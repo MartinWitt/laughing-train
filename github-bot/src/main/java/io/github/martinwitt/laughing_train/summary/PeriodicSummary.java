@@ -97,6 +97,7 @@ public class PeriodicSummary {
                     .getRepository("martinwitt/laughing-train")
                     .getIssue(v.number())
                     .setBody(createSummaryBody(multipleResults.pullRequests().stream()
+                            .filter(this::filterOwnRepos)
                             .collect(Collectors.groupingBy(PullRequest::repo))))));
         } catch (Exception e) {
             logger.atSevere().withCause(e).log("Error while creating summary");
@@ -148,5 +149,9 @@ public class PeriodicSummary {
 
     private GitHubState toPullRequestState(GHIssueState state) {
         return Enum.valueOf(GitHubState.class, state.name());
+    }
+
+    private boolean filterOwnRepos(PullRequest pr) {
+        return pr.repo().startsWith("martinwitt");
     }
 }
