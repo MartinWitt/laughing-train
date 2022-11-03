@@ -301,18 +301,6 @@ in `guava/src/com/google/common/math/IntMath.java`
 ```
 
 ### RuleId[ruleID=PointlessArithmeticExpression]
-`2 - 2` can be replaced with '0'
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-      // Encode all primes less than 66 into mask without 0 and 1.
-      long mask =
-          (1L << (2 - 2))
-              | (1L << (3 - 2))
-              | (1L << (5 - 2))
-```
-
-### RuleId[ruleID=PointlessArithmeticExpression]
 `1L * 2` can be replaced with '2'
 in `guava/src/com/google/common/math/LongMath.java`
 #### Snippet
@@ -540,6 +528,18 @@ in `guava/src/com/google/common/math/LongMath.java`
 
 ```
 
+### RuleId[ruleID=PointlessArithmeticExpression]
+`2 - 2` can be replaced with '0'
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+      // Encode all primes less than 66 into mask without 0 and 1.
+      long mask =
+          (1L << (2 - 2))
+              | (1L << (3 - 2))
+              | (1L << (5 - 2))
+```
+
 ## RuleId[ruleID=SuspiciousSystemArraycopy]
 ### RuleId[ruleID=SuspiciousSystemArraycopy]
 Source parameter type 'java.lang.Object\[\]' is not assignable to destination parameter `dst` of type 'T\[\]'
@@ -584,8 +584,8 @@ in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
 
-    void clearValueReferenceQueue() {
-      while (valueReferenceQueue.poll() != null) {}
+    void clearKeyReferenceQueue() {
+      while (keyReferenceQueue.poll() != null) {}
     }
 
 ```
@@ -596,8 +596,8 @@ in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
 
-    void clearKeyReferenceQueue() {
-      while (keyReferenceQueue.poll() != null) {}
+    void clearValueReferenceQueue() {
+      while (valueReferenceQueue.poll() != null) {}
     }
 
 ```
@@ -621,11 +621,11 @@ Referencing subclass InactiveComparisonChain from superclass ComparisonChain ini
 in `guava/src/com/google/common/collect/ComparisonChain.java`
 #### Snippet
 ```java
-      };
-
   private static final ComparisonChain LESS = new InactiveComparisonChain(-1);
 
   private static final ComparisonChain GREATER = new InactiveComparisonChain(1);
+
+  private static final class InactiveComparisonChain extends ComparisonChain {
 ```
 
 ### RuleId[ruleID=StaticInitializerReferencesSubClass]
@@ -633,11 +633,11 @@ Referencing subclass InactiveComparisonChain from superclass ComparisonChain ini
 in `guava/src/com/google/common/collect/ComparisonChain.java`
 #### Snippet
 ```java
+      };
+
   private static final ComparisonChain LESS = new InactiveComparisonChain(-1);
 
   private static final ComparisonChain GREATER = new InactiveComparisonChain(1);
-
-  private static final class InactiveComparisonChain extends ComparisonChain {
 ```
 
 ### RuleId[ruleID=StaticInitializerReferencesSubClass]
@@ -648,6 +648,18 @@ in `guava/src/com/google/common/io/BaseEncoding.java`
 
   private static final BaseEncoding BASE32_HEX =
       new StandardBaseEncoding("base32Hex()", "0123456789ABCDEFGHIJKLMNOPQRSTUV", '=');
+
+  /**
+```
+
+### RuleId[ruleID=StaticInitializerReferencesSubClass]
+Referencing subclass StandardBaseEncoding from superclass BaseEncoding initializer might lead to class loading deadlock
+in `guava/src/com/google/common/io/BaseEncoding.java`
+#### Snippet
+```java
+
+  private static final BaseEncoding BASE32 =
+      new StandardBaseEncoding("base32()", "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567", '=');
 
   /**
 ```
@@ -672,18 +684,6 @@ in `guava/src/com/google/common/io/BaseEncoding.java`
   }
 
   private static final BaseEncoding BASE16 = new Base16Encoding("base16()", "0123456789ABCDEF");
-
-  /**
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass StandardBaseEncoding from superclass BaseEncoding initializer might lead to class loading deadlock
-in `guava/src/com/google/common/io/BaseEncoding.java`
-#### Snippet
-```java
-
-  private static final BaseEncoding BASE32 =
-      new StandardBaseEncoding("base32()", "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567", '=');
 
   /**
 ```
@@ -732,9 +732,9 @@ in `guava/src/com/google/common/io/ByteStreams.java`
 ```java
 
     @Override
-    public void readFully(byte b[]) {
+    public void readFully(byte b[], int off, int len) {
       try {
-        input.readFully(b);
+        input.readFully(b, off, len);
 ```
 
 ### RuleId[ruleID=CStyleArrayDeclaration]
@@ -744,21 +744,9 @@ in `guava/src/com/google/common/io/ByteStreams.java`
 ```java
 
     @Override
-    public void readFully(byte b[], int off, int len) {
+    public void readFully(byte b[]) {
       try {
-        input.readFully(b, off, len);
-```
-
-### RuleId[ruleID=CStyleArrayDeclaration]
-C-style array declaration of parameter `b`
-in `guava/src/com/google/common/io/ByteArrayDataOutput.java`
-#### Snippet
-```java
-
-  @Override
-  void write(byte b[], int off, int len);
-
-  @Override
+        input.readFully(b);
 ```
 
 ### RuleId[ruleID=CStyleArrayDeclaration]
@@ -773,19 +761,19 @@ in `guava/src/com/google/common/io/ByteArrayDataOutput.java`
   @Override
 ```
 
-## RuleId[ruleID=CommentedOutCode]
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (3 lines)
-in `guava/src/com/google/common/graph/EndpointPair.java`
+### RuleId[ruleID=CStyleArrayDeclaration]
+C-style array declaration of parameter `b`
+in `guava/src/com/google/common/io/ByteArrayDataOutput.java`
 #### Snippet
 ```java
 
-      // Equivalent to the following simple implementation:
-      // boolean condition1 = nodeU().equals(other.nodeU()) && nodeV().equals(other.nodeV());
-      // boolean condition2 = nodeU().equals(other.nodeV()) && nodeV().equals(other.nodeU());
-      // return condition1 || condition2;
+  @Override
+  void write(byte b[], int off, int len);
+
+  @Override
 ```
 
+## RuleId[ruleID=CommentedOutCode]
 ### RuleId[ruleID=CommentedOutCode]
 Commented out code (9 lines)
 in `guava/src/com/google/common/util/concurrent/Monitor.java`
@@ -796,6 +784,18 @@ in `guava/src/com/google/common/util/concurrent/Monitor.java`
   //   @GuardedBy("lock")
   //   private void signalNextWaiterSkipping(Guard guardToSkip) {
   //     for (Guard guard = activeGuards; guard != null; guard = guard.next) {
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (3 lines)
+in `guava/src/com/google/common/graph/EndpointPair.java`
+#### Snippet
+```java
+
+      // Equivalent to the following simple implementation:
+      // boolean condition1 = nodeU().equals(other.nodeU()) && nodeV().equals(other.nodeV());
+      // boolean condition2 = nodeU().equals(other.nodeV()) && nodeV().equals(other.nodeU());
+      // return condition1 || condition2;
 ```
 
 ### RuleId[ruleID=CommentedOutCode]
@@ -914,18 +914,6 @@ Pseudo functional style code
 in `guava/src/com/google/common/collect/FluentIterable.java`
 #### Snippet
 ```java
-  public final <T extends @Nullable Object> FluentIterable<T> transform(
-      Function<? super E, T> function) {
-    return from(Iterables.transform(getDelegate(), function));
-  }
-
-```
-
-### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
-Pseudo functional style code
-in `guava/src/com/google/common/collect/FluentIterable.java`
-#### Snippet
-```java
    */
   public final FluentIterable<E> filter(Predicate<? super E> predicate) {
     return from(Iterables.filter(getDelegate(), predicate));
@@ -938,9 +926,9 @@ Pseudo functional style code
 in `guava/src/com/google/common/collect/FluentIterable.java`
 #### Snippet
 ```java
-   */
-  public final boolean allMatch(Predicate<? super E> predicate) {
-    return Iterables.all(getDelegate(), predicate);
+  public final <T extends @Nullable Object> FluentIterable<T> transform(
+      Function<? super E, T> function) {
+    return from(Iterables.transform(getDelegate(), function));
   }
 
 ```
@@ -953,6 +941,18 @@ in `guava/src/com/google/common/collect/FluentIterable.java`
   @GwtIncompatible // Class.isInstance
   public final <T> FluentIterable<T> filter(Class<T> type) {
     return from(Iterables.filter(getDelegate(), type));
+  }
+
+```
+
+### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
+Pseudo functional style code
+in `guava/src/com/google/common/collect/FluentIterable.java`
+#### Snippet
+```java
+   */
+  public final boolean allMatch(Predicate<? super E> predicate) {
+    return Iterables.all(getDelegate(), predicate);
   }
 
 ```
@@ -983,12 +983,12 @@ in `guava/src/com/google/common/collect/Collections2.java`
 
 ### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
 Pseudo functional style code
-in `guava/src/com/google/common/collect/Iterables.java`
+in `guava/src/com/google/common/collect/SortedLists.java`
 #### Snippet
 ```java
-    checkNotNull(unfiltered);
-    checkNotNull(desiredType);
-    return (Iterable<T>) filter(unfiltered, Predicates.instanceOf(desiredType));
+      KeyAbsentBehavior absentBehavior) {
+    return binarySearch(
+        Lists.transform(list, keyFunction), key, keyComparator, presentBehavior, absentBehavior);
   }
 
 ```
@@ -1007,24 +1007,12 @@ in `guava/src/com/google/common/collect/Iterables.java`
 
 ### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
 Pseudo functional style code
-in `guava/src/com/google/common/collect/SortedLists.java`
+in `guava/src/com/google/common/collect/Iterables.java`
 #### Snippet
 ```java
-      KeyAbsentBehavior absentBehavior) {
-    return binarySearch(
-        Lists.transform(list, keyFunction), key, keyComparator, presentBehavior, absentBehavior);
-  }
-
-```
-
-### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
-Pseudo functional style code
-in `guava/src/com/google/common/reflect/Types.java`
-#### Snippet
-```java
-
-  private static Iterable<Type> filterUpperBounds(Iterable<Type> bounds) {
-    return Iterables.filter(bounds, Predicates.not(Predicates.<Type>equalTo(Object.class)));
+    checkNotNull(unfiltered);
+    checkNotNull(desiredType);
+    return (Iterable<T>) filter(unfiltered, Predicates.instanceOf(desiredType));
   }
 
 ```
@@ -1039,6 +1027,18 @@ in `guava/src/com/google/common/reflect/Types.java`
           .append(COMMA_JOINER.join(transform(argumentsList, JavaVersion.CURRENT::typeName)))
           .append('>')
           .toString();
+```
+
+### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
+Pseudo functional style code
+in `guava/src/com/google/common/reflect/Types.java`
+#### Snippet
+```java
+
+  private static Iterable<Type> filterUpperBounds(Iterable<Type> bounds) {
+    return Iterables.filter(bounds, Predicates.not(Predicates.<Type>equalTo(Object.class)));
+  }
+
 ```
 
 ### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
@@ -1104,30 +1104,6 @@ in `guava/src/com/google/common/collect/Maps.java`
 ## RuleId[ruleID=NotNullFieldNotInitialized]
 ### RuleId[ruleID=NotNullFieldNotInitialized]
 @ElementTypesAreNonnullByDefault fields must be initialized
-in `guava/src/com/google/common/collect/AbstractBiMap.java`
-#### Snippet
-```java
-
-  private transient Map<K, V> delegate;
-  @RetainedWith transient AbstractBiMap<V, K> inverse;
-
-  /** Package-private constructor for creating a map-backed bimap. */
-```
-
-### RuleId[ruleID=NotNullFieldNotInitialized]
-@ElementTypesAreNonnullByDefault fields must be initialized
-in `guava/src/com/google/common/collect/AbstractBiMap.java`
-#### Snippet
-```java
-    extends ForwardingMap<K, V> implements BiMap<K, V>, Serializable {
-
-  private transient Map<K, V> delegate;
-  @RetainedWith transient AbstractBiMap<V, K> inverse;
-
-```
-
-### RuleId[ruleID=NotNullFieldNotInitialized]
-@ElementTypesAreNonnullByDefault fields must be initialized
 in `guava/src/com/google/common/collect/HashBiMap.java`
 #### Snippet
 ```java
@@ -1148,6 +1124,30 @@ in `guava/src/com/google/common/collect/HashBiMap.java`
   private transient @Nullable BiEntry<K, V>[] hashTableVToK;
   @Weak @CheckForNull private transient BiEntry<K, V> firstInKeyInsertionOrder;
   @Weak @CheckForNull private transient BiEntry<K, V> lastInKeyInsertionOrder;
+```
+
+### RuleId[ruleID=NotNullFieldNotInitialized]
+@ElementTypesAreNonnullByDefault fields must be initialized
+in `guava/src/com/google/common/collect/AbstractBiMap.java`
+#### Snippet
+```java
+
+  private transient Map<K, V> delegate;
+  @RetainedWith transient AbstractBiMap<V, K> inverse;
+
+  /** Package-private constructor for creating a map-backed bimap. */
+```
+
+### RuleId[ruleID=NotNullFieldNotInitialized]
+@ElementTypesAreNonnullByDefault fields must be initialized
+in `guava/src/com/google/common/collect/AbstractBiMap.java`
+#### Snippet
+```java
+    extends ForwardingMap<K, V> implements BiMap<K, V>, Serializable {
+
+  private transient Map<K, V> delegate;
+  @RetainedWith transient AbstractBiMap<V, K> inverse;
+
 ```
 
 ### RuleId[ruleID=NotNullFieldNotInitialized]
@@ -1253,11 +1253,11 @@ in `guava/src/com/google/common/graph/StandardValueGraph.java`
 in `guava/src/com/google/common/graph/StandardValueGraph.java`
 #### Snippet
 ```java
-  }
 
-  private final boolean hasEdgeConnectingInternal(N nodeU, N nodeV) {
+  @CheckForNull
+  private final V edgeValueOrDefaultInternal(N nodeU, N nodeV, @CheckForNull V defaultValue) {
     GraphConnections<N, V> connectionsU = nodeConnections.get(nodeU);
-    return (connectionsU != null) && connectionsU.successors().contains(nodeV);
+    V value = (connectionsU == null) ? null : connectionsU.value(nodeV);
 ```
 
 ### RuleId[ruleID=FinalPrivateMethod]
@@ -1265,11 +1265,11 @@ in `guava/src/com/google/common/graph/StandardValueGraph.java`
 in `guava/src/com/google/common/graph/StandardValueGraph.java`
 #### Snippet
 ```java
+  }
 
-  @CheckForNull
-  private final V edgeValueOrDefaultInternal(N nodeU, N nodeV, @CheckForNull V defaultValue) {
+  private final boolean hasEdgeConnectingInternal(N nodeU, N nodeV) {
     GraphConnections<N, V> connectionsU = nodeConnections.get(nodeU);
-    V value = (connectionsU == null) ? null : connectionsU.value(nodeV);
+    return (connectionsU != null) && connectionsU.successors().contains(nodeV);
 ```
 
 ## RuleId[ruleID=DuplicateExpressions]
@@ -1438,9 +1438,9 @@ in `guava/src/com/google/common/collect/Streams.java`
 #### Snippet
 ```java
         new ImmutableList.Builder<>(streams.length);
-    for (LongStream stream : streams) {
+    for (DoubleStream stream : streams) {
       isParallel |= stream.isParallel();
-      Spliterator.OfLong splitr = stream.spliterator();
+      Spliterator.OfDouble splitr = stream.spliterator();
       splitrsBuilder.add(splitr);
 ```
 
@@ -1462,9 +1462,9 @@ in `guava/src/com/google/common/collect/Streams.java`
 #### Snippet
 ```java
         new ImmutableList.Builder<>(streams.length);
-    for (IntStream stream : streams) {
+    for (LongStream stream : streams) {
       isParallel |= stream.isParallel();
-      Spliterator.OfInt splitr = stream.spliterator();
+      Spliterator.OfLong splitr = stream.spliterator();
       splitrsBuilder.add(splitr);
 ```
 
@@ -1474,9 +1474,9 @@ in `guava/src/com/google/common/collect/Streams.java`
 #### Snippet
 ```java
         new ImmutableList.Builder<>(streams.length);
-    for (DoubleStream stream : streams) {
+    for (IntStream stream : streams) {
       isParallel |= stream.isParallel();
-      Spliterator.OfDouble splitr = stream.spliterator();
+      Spliterator.OfInt splitr = stream.spliterator();
       splitrsBuilder.add(splitr);
 ```
 
@@ -1529,39 +1529,15 @@ in `guava/src/com/google/common/hash/HashCode.java`
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `changed |= set.remove(iterator.next())`
-in `guava/src/com/google/common/collect/Sets.java`
-#### Snippet
-```java
-    boolean changed = false;
-    while (iterator.hasNext()) {
-      changed |= set.remove(iterator.next());
-    }
-    return changed;
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `exponent < 0 & !isPowerOfTwo(x)`
+Non-short-circuit boolean expression `z > MIN_INT_AS_DOUBLE - 1.0 & z < MAX_INT_AS_DOUBLE + 1.0`
 in `guava/src/com/google/common/math/DoubleMath.java`
 #### Snippet
 ```java
-        break;
-      case DOWN:
-        increment = exponent < 0 & !isPowerOfTwo(x);
-        break;
-      case UP:
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `exponent >= 0 & !isPowerOfTwo(x)`
-in `guava/src/com/google/common/math/DoubleMath.java`
-#### Snippet
-```java
-        break;
-      case UP:
-        increment = exponent >= 0 & !isPowerOfTwo(x);
-        break;
-      case HALF_DOWN:
+    double z = roundIntermediate(x, mode);
+    checkInRangeForRoundingInputs(
+        z > MIN_INT_AS_DOUBLE - 1.0 & z < MAX_INT_AS_DOUBLE + 1.0, x, mode);
+    return (int) z;
+  }
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
@@ -1589,15 +1565,39 @@ in `guava/src/com/google/common/math/DoubleMath.java`
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `z > MIN_INT_AS_DOUBLE - 1.0 & z < MAX_INT_AS_DOUBLE + 1.0`
+Non-short-circuit boolean expression `exponent < 0 & !isPowerOfTwo(x)`
 in `guava/src/com/google/common/math/DoubleMath.java`
 #### Snippet
 ```java
-    double z = roundIntermediate(x, mode);
-    checkInRangeForRoundingInputs(
-        z > MIN_INT_AS_DOUBLE - 1.0 & z < MAX_INT_AS_DOUBLE + 1.0, x, mode);
-    return (int) z;
-  }
+        break;
+      case DOWN:
+        increment = exponent < 0 & !isPowerOfTwo(x);
+        break;
+      case UP:
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `exponent >= 0 & !isPowerOfTwo(x)`
+in `guava/src/com/google/common/math/DoubleMath.java`
+#### Snippet
+```java
+        break;
+      case UP:
+        increment = exponent >= 0 & !isPowerOfTwo(x);
+        break;
+      case HALF_DOWN:
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `changed |= set.remove(iterator.next())`
+in `guava/src/com/google/common/collect/Sets.java`
+#### Snippet
+```java
+    boolean changed = false;
+    while (iterator.hasNext()) {
+      changed |= set.remove(iterator.next());
+    }
+    return changed;
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
@@ -1625,30 +1625,6 @@ in `guava/src/com/google/common/util/concurrent/AbstractTransformFuture.java`
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `cmp < 0 | (cmp == 0 & getLowerBoundType() == OPEN)`
-in `guava/src/com/google/common/collect/GeneralRange.java`
-#### Snippet
-```java
-    T lbound = uncheckedCastNullableTToT(getLowerEndpoint());
-    int cmp = comparator.compare(t, lbound);
-    return cmp < 0 | (cmp == 0 & getLowerBoundType() == OPEN);
-  }
-
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `cmp == 0 & getLowerBoundType() == OPEN`
-in `guava/src/com/google/common/collect/GeneralRange.java`
-#### Snippet
-```java
-    T lbound = uncheckedCastNullableTToT(getLowerEndpoint());
-    int cmp = comparator.compare(t, lbound);
-    return cmp < 0 | (cmp == 0 & getLowerBoundType() == OPEN);
-  }
-
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
 Non-short-circuit boolean expression `cmp > 0 | (cmp == 0 & getUpperBoundType() == OPEN)`
 in `guava/src/com/google/common/collect/GeneralRange.java`
 #### Snippet
@@ -1668,6 +1644,30 @@ in `guava/src/com/google/common/collect/GeneralRange.java`
     T ubound = uncheckedCastNullableTToT(getUpperEndpoint());
     int cmp = comparator.compare(t, ubound);
     return cmp > 0 | (cmp == 0 & getUpperBoundType() == OPEN);
+  }
+
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `cmp < 0 | (cmp == 0 & getLowerBoundType() == OPEN)`
+in `guava/src/com/google/common/collect/GeneralRange.java`
+#### Snippet
+```java
+    T lbound = uncheckedCastNullableTToT(getLowerEndpoint());
+    int cmp = comparator.compare(t, lbound);
+    return cmp < 0 | (cmp == 0 & getLowerBoundType() == OPEN);
+  }
+
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `cmp == 0 & getLowerBoundType() == OPEN`
+in `guava/src/com/google/common/collect/GeneralRange.java`
+#### Snippet
+```java
+    T lbound = uncheckedCastNullableTToT(getLowerEndpoint());
+    int cmp = comparator.compare(t, lbound);
+    return cmp < 0 | (cmp == 0 & getLowerBoundType() == OPEN);
   }
 
 ```
@@ -1709,18 +1709,6 @@ in `guava/src/com/google/common/collect/AbstractMultimap.java`
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `wasModified |= addTo.add(iterator.next())`
-in `guava/src/com/google/common/collect/Iterators.java`
-#### Snippet
-```java
-    boolean wasModified = false;
-    while (iterator.hasNext()) {
-      wasModified |= addTo.add(iterator.next());
-    }
-    return wasModified;
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
 Non-short-circuit boolean expression `x > 0 & (x & (x - 1)) == 0`
 in `guava/src/com/google/common/math/IntMath.java`
 #### Snippet
@@ -1745,6 +1733,18 @@ in `guava/src/com/google/common/math/IntMath.java`
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `-FLOOR_SQRT_MAX_INT <= b & b <= FLOOR_SQRT_MAX_INT`
+in `guava/src/com/google/common/math/IntMath.java`
+#### Snippet
+```java
+          k >>= 1;
+          if (k > 0) {
+            checkNoOverflow(-FLOOR_SQRT_MAX_INT <= b & b <= FLOOR_SQRT_MAX_INT, "checkedPow", b, k);
+            b *= b;
+          }
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
 Non-short-circuit boolean expression `mode == HALF_EVEN & (div & 1) != 0`
 in `guava/src/com/google/common/math/IntMath.java`
 #### Snippet
@@ -1757,15 +1757,15 @@ in `guava/src/com/google/common/math/IntMath.java`
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `-FLOOR_SQRT_MAX_INT <= b & b <= FLOOR_SQRT_MAX_INT`
-in `guava/src/com/google/common/math/IntMath.java`
+Non-short-circuit boolean expression `wasModified |= addTo.add(iterator.next())`
+in `guava/src/com/google/common/collect/Iterators.java`
 #### Snippet
 ```java
-          k >>= 1;
-          if (k > 0) {
-            checkNoOverflow(-FLOOR_SQRT_MAX_INT <= b & b <= FLOOR_SQRT_MAX_INT, "checkedPow", b, k);
-            b *= b;
-          }
+    boolean wasModified = false;
+    while (iterator.hasNext()) {
+      wasModified |= addTo.add(iterator.next());
+    }
+    return wasModified;
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
@@ -1781,42 +1781,6 @@ in `guava/src/com/google/common/util/concurrent/AggregateFuture.java`
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `related != null & isCancelled()`
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-   */
-  final void maybePropagateCancellationTo(@CheckForNull Future<?> related) {
-    if (related != null & isCancelled()) {
-      related.cancel(wasInterrupted());
-    }
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `localValue == null | localValue instanceof SetFuture`
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-    Object localValue = value;
-    boolean rValue = false;
-    if (localValue == null | localValue instanceof SetFuture) {
-      // Try to delay allocating the exception. At this point we may still lose the CAS, but it is
-      // certainly less likely.
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `localValue == null | localValue instanceof SetFuture`
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-              AbstractFuture<?> trusted = (AbstractFuture<?>) futureToPropagateTo;
-              localValue = trusted.value;
-              if (localValue == null | localValue instanceof SetFuture) {
-                abstractFuture = trusted;
-                continue; // loop back up and try to complete the new future
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
 Non-short-circuit boolean expression `localValue != null & !(localValue instanceof SetFuture)`
 in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 #### Snippet
@@ -1826,30 +1790,6 @@ in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
     return localValue != null & !(localValue instanceof SetFuture);
   }
 
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `localValue != null & !(localValue instanceof SetFuture)`
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-    }
-    Object localValue = value;
-    if (localValue != null & !(localValue instanceof SetFuture)) {
-      return getDoneValue(localValue);
-    }
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `localValue != null & !(localValue instanceof SetFuture)`
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-            // wakeup
-            localValue = value;
-            if (localValue != null & !(localValue instanceof SetFuture)) {
-              return getDoneValue(localValue);
-            }
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
@@ -1889,6 +1829,66 @@ in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `localValue == null | localValue instanceof SetFuture`
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+    Object localValue = value;
+    boolean rValue = false;
+    if (localValue == null | localValue instanceof SetFuture) {
+      // Try to delay allocating the exception. At this point we may still lose the CAS, but it is
+      // certainly less likely.
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `localValue == null | localValue instanceof SetFuture`
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+              AbstractFuture<?> trusted = (AbstractFuture<?>) futureToPropagateTo;
+              localValue = trusted.value;
+              if (localValue == null | localValue instanceof SetFuture) {
+                abstractFuture = trusted;
+                continue; // loop back up and try to complete the new future
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `related != null & isCancelled()`
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+   */
+  final void maybePropagateCancellationTo(@CheckForNull Future<?> related) {
+    if (related != null & isCancelled()) {
+      related.cancel(wasInterrupted());
+    }
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `localValue != null & !(localValue instanceof SetFuture)`
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+    }
+    Object localValue = value;
+    if (localValue != null & !(localValue instanceof SetFuture)) {
+      return getDoneValue(localValue);
+    }
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `localValue != null & !(localValue instanceof SetFuture)`
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+            // wakeup
+            localValue = value;
+            if (localValue != null & !(localValue instanceof SetFuture)) {
+              return getDoneValue(localValue);
+            }
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
 Non-short-circuit boolean expression `!GENERATE_CANCELLATION_CAUSES & wasCancelled`
 in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 #### Snippet
@@ -1901,63 +1901,15 @@ in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `leadingZeros < Long.SIZE | (a < 0 & b == Long.MIN_VALUE)`
+Non-short-circuit boolean expression `b >= -2 & b <= 2`
 in `guava/src/com/google/common/math/LongMath.java`
 #### Snippet
 ```java
-    // the return value if we will overflow (which we calculate by overflowing a long :) )
-    long limit = Long.MAX_VALUE + ((a ^ b) >>> (Long.SIZE - 1));
-    if (leadingZeros < Long.SIZE | (a < 0 & b == Long.MIN_VALUE)) {
-      // overflow
-      return limit;
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `a < 0 & b == Long.MIN_VALUE`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-    // the return value if we will overflow (which we calculate by overflowing a long :) )
-    long limit = Long.MAX_VALUE + ((a ^ b) >>> (Long.SIZE - 1));
-    if (leadingZeros < Long.SIZE | (a < 0 & b == Long.MIN_VALUE)) {
-      // overflow
-      return limit;
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `a >= 0 | b != Long.MIN_VALUE`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-    }
-    checkNoOverflow(leadingZeros >= Long.SIZE, "checkedMultiply", a, b);
-    checkNoOverflow(a >= 0 | b != Long.MIN_VALUE, "checkedMultiply", a, b);
-    long result = a * b;
-    checkNoOverflow(a == 0 || result / a == b, "checkedMultiply", a, b);
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `x > 0 & (x & (x - 1)) == 0`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-  @SuppressWarnings("ShortCircuitBoolean")
-  public static boolean isPowerOfTwo(long x) {
-    return x > 0 & (x & (x - 1)) == 0;
-  }
-
-```
-
-### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `(a ^ b) >= 0 | (a ^ naiveDifference) >= 0`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-  public static long saturatedSubtract(long a, long b) {
-    long naiveDifference = a - b;
-    if ((a ^ b) >= 0 | (a ^ naiveDifference) >= 0) {
-      // If a and b have the same signs or a has the same sign as the result then there was no
-      // overflow, return.
+  public static long checkedPow(long b, int k) {
+    checkNonNegative("exponent", k);
+    if (b >= -2 & b <= 2) {
+      switch ((int) b) {
+        case 0:
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
@@ -1973,15 +1925,63 @@ in `guava/src/com/google/common/math/LongMath.java`
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `b >= -2 & b <= 2`
+Non-short-circuit boolean expression `(a ^ b) >= 0 | (a ^ naiveDifference) >= 0`
 in `guava/src/com/google/common/math/LongMath.java`
 #### Snippet
 ```java
-  public static long checkedPow(long b, int k) {
-    checkNonNegative("exponent", k);
-    if (b >= -2 & b <= 2) {
-      switch ((int) b) {
-        case 0:
+  public static long saturatedSubtract(long a, long b) {
+    long naiveDifference = a - b;
+    if ((a ^ b) >= 0 | (a ^ naiveDifference) >= 0) {
+      // If a and b have the same signs or a has the same sign as the result then there was no
+      // overflow, return.
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `x > 0 & (x & (x - 1)) == 0`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+  @SuppressWarnings("ShortCircuitBoolean")
+  public static boolean isPowerOfTwo(long x) {
+    return x > 0 & (x & (x - 1)) == 0;
+  }
+
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `a >= 0 | b != Long.MIN_VALUE`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+    }
+    checkNoOverflow(leadingZeros >= Long.SIZE, "checkedMultiply", a, b);
+    checkNoOverflow(a >= 0 | b != Long.MIN_VALUE, "checkedMultiply", a, b);
+    long result = a * b;
+    checkNoOverflow(a == 0 || result / a == b, "checkedMultiply", a, b);
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `(a ^ b) >= 0 | (a ^ result) >= 0`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+  public static long checkedSubtract(long a, long b) {
+    long result = a - b;
+    checkNoOverflow((a ^ b) >= 0 | (a ^ result) >= 0, "checkedSubtract", a, b);
+    return result;
+  }
+```
+
+### RuleId[ruleID=NonShortCircuitBoolean]
+Non-short-circuit boolean expression `(a ^ b) < 0 | (a ^ result) >= 0`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+  public static long checkedAdd(long a, long b) {
+    long result = a + b;
+    checkNoOverflow((a ^ b) < 0 | (a ^ result) >= 0, "checkedAdd", a, b);
+    return result;
+  }
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
@@ -2009,27 +2009,27 @@ in `guava/src/com/google/common/math/LongMath.java`
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `(a ^ b) >= 0 | (a ^ result) >= 0`
+Non-short-circuit boolean expression `leadingZeros < Long.SIZE | (a < 0 & b == Long.MIN_VALUE)`
 in `guava/src/com/google/common/math/LongMath.java`
 #### Snippet
 ```java
-  public static long checkedSubtract(long a, long b) {
-    long result = a - b;
-    checkNoOverflow((a ^ b) >= 0 | (a ^ result) >= 0, "checkedSubtract", a, b);
-    return result;
-  }
+    // the return value if we will overflow (which we calculate by overflowing a long :) )
+    long limit = Long.MAX_VALUE + ((a ^ b) >>> (Long.SIZE - 1));
+    if (leadingZeros < Long.SIZE | (a < 0 & b == Long.MIN_VALUE)) {
+      // overflow
+      return limit;
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `(a ^ b) < 0 | (a ^ result) >= 0`
+Non-short-circuit boolean expression `a < 0 & b == Long.MIN_VALUE`
 in `guava/src/com/google/common/math/LongMath.java`
 #### Snippet
 ```java
-  public static long checkedAdd(long a, long b) {
-    long result = a + b;
-    checkNoOverflow((a ^ b) < 0 | (a ^ result) >= 0, "checkedAdd", a, b);
-    return result;
-  }
+    // the return value if we will overflow (which we calculate by overflowing a long :) )
+    long limit = Long.MAX_VALUE + ((a ^ b) >>> (Long.SIZE - 1));
+    if (leadingZeros < Long.SIZE | (a < 0 & b == Long.MIN_VALUE)) {
+      // overflow
+      return limit;
 ```
 
 ## RuleId[ruleID=ManualMinMaxCalculation]
@@ -2119,6 +2119,18 @@ in `guava/src/com/google/common/base/Converter.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
+Dereference of `p` may produce `NullPointerException`
+in `guava/src/com/google/common/util/concurrent/Monitor.java`
+#### Snippet
+```java
+    if (waiters == 0) {
+      // unlink guard from activeGuards
+      for (Guard p = activeGuards, pred = null; ; pred = p, p = p.next) {
+        if (p == guard) {
+          if (pred == null) {
+```
+
+### RuleId[ruleID=ConstantConditions]
 Condition `key == null` is always `false`
 in `guava/src/com/google/common/collect/CollectPreconditions.java`
 #### Snippet
@@ -2140,18 +2152,6 @@ in `guava/src/com/google/common/collect/CollectPreconditions.java`
     } else if (value == null) {
       throw new NullPointerException("null value in entry: " + key + "=null");
     }
-```
-
-### RuleId[ruleID=ConstantConditions]
-Dereference of `p` may produce `NullPointerException`
-in `guava/src/com/google/common/util/concurrent/Monitor.java`
-#### Snippet
-```java
-    if (waiters == 0) {
-      // unlink guard from activeGuards
-      for (Guard p = activeGuards, pred = null; ; pred = p, p = p.next) {
-        if (p == guard) {
-          if (pred == null) {
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -2203,42 +2203,6 @@ in `guava/src/com/google/common/collect/FluentIterable.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-The call to 'checkState' always fails, according to its method contracts
-in `guava/src/com/google/common/collect/AbstractBiMap.java`
-#### Snippet
-```java
-   */
-  void setDelegates(Map<K, V> forward, Map<V, K> backward) {
-    checkState(delegate == null);
-    checkState(inverse == null);
-    checkArgument(forward.isEmpty());
-```
-
-### RuleId[ruleID=ConstantConditions]
-Condition `delegate == null` is always `false`
-in `guava/src/com/google/common/collect/AbstractBiMap.java`
-#### Snippet
-```java
-   */
-  void setDelegates(Map<K, V> forward, Map<V, K> backward) {
-    checkState(delegate == null);
-    checkState(inverse == null);
-    checkArgument(forward.isEmpty());
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `enumClass.cast(ref.get())` might be null
-in `guava/src/com/google/common/base/Platform.java`
-#### Snippet
-```java
-  static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
-    WeakReference<? extends Enum<?>> ref = Enums.getEnumConstants(enumClass).get(value);
-    return ref == null ? Optional.<T>absent() : Optional.of(enumClass.cast(ref.get()));
-  }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
 Expression `elementSet().comparator()` might evaluate to null but is returned by the method declared as @ElementTypesAreNonnullByDefault
 in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
 #### Snippet
@@ -2272,6 +2236,42 @@ in `guava/src/com/google/common/collect/HashBiMap.java`
         bucketEntry = bucketEntry.nextInVToKBucket) {
       if (bucketEntry == entry) {
         if (prevBucketEntry == null) {
+```
+
+### RuleId[ruleID=ConstantConditions]
+The call to 'checkState' always fails, according to its method contracts
+in `guava/src/com/google/common/collect/AbstractBiMap.java`
+#### Snippet
+```java
+   */
+  void setDelegates(Map<K, V> forward, Map<V, K> backward) {
+    checkState(delegate == null);
+    checkState(inverse == null);
+    checkArgument(forward.isEmpty());
+```
+
+### RuleId[ruleID=ConstantConditions]
+Condition `delegate == null` is always `false`
+in `guava/src/com/google/common/collect/AbstractBiMap.java`
+#### Snippet
+```java
+   */
+  void setDelegates(Map<K, V> forward, Map<V, K> backward) {
+    checkState(delegate == null);
+    checkState(inverse == null);
+    checkArgument(forward.isEmpty());
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `enumClass.cast(ref.get())` might be null
+in `guava/src/com/google/common/base/Platform.java`
+#### Snippet
+```java
+  static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
+    WeakReference<? extends Enum<?>> ref = Enums.getEnumConstants(enumClass).get(value);
+    return ref == null ? Optional.<T>absent() : Optional.of(enumClass.cast(ref.get()));
+  }
+
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -2311,18 +2311,6 @@ in `guava/src/com/google/common/collect/Synchronized.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Condition `AnnotatedElement.class.isAssignableFrom(TypeVariable.class)` is always `true`
-in `guava/src/com/google/common/reflect/Types.java`
-#### Snippet
-```java
-
-    static {
-      if (AnnotatedElement.class.isAssignableFrom(TypeVariable.class)) {
-        if (new TypeCapture<Entry<String, int[][]>>() {}.capture()
-            .toString()
-```
-
-### RuleId[ruleID=ConstantConditions]
 Result of 'min' is the same as the second argument making the call meaningless
 in `guava/src/com/google/common/util/concurrent/ListenableFutureTask.java`
 #### Snippet
@@ -2332,6 +2320,18 @@ in `guava/src/com/google/common/util/concurrent/ListenableFutureTask.java`
         min(timeoutNanos, OverflowAvoidingLockSupport.MAX_NANOSECONDS_THRESHOLD), NANOSECONDS);
   }
 
+```
+
+### RuleId[ruleID=ConstantConditions]
+Condition `AnnotatedElement.class.isAssignableFrom(TypeVariable.class)` is always `true`
+in `guava/src/com/google/common/reflect/Types.java`
+#### Snippet
+```java
+
+    static {
+      if (AnnotatedElement.class.isAssignableFrom(TypeVariable.class)) {
+        if (new TypeCapture<Entry<String, int[][]>>() {}.capture()
+            .toString()
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -2359,30 +2359,6 @@ in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Condition `!Double.isNaN(permitsPerSecond)` is always `true` when reached
-in `guava/src/com/google/common/util/concurrent/RateLimiter.java`
-#### Snippet
-```java
-  public final void setRate(double permitsPerSecond) {
-    checkArgument(
-        permitsPerSecond > 0.0 && !Double.isNaN(permitsPerSecond), "rate must be positive");
-    synchronized (mutex()) {
-      doSetRate(permitsPerSecond, stopwatch.readMicros());
-```
-
-### RuleId[ruleID=ConstantConditions]
-Result of `Double.isNaN(permitsPerSecond)` is always 'false'
-in `guava/src/com/google/common/util/concurrent/RateLimiter.java`
-#### Snippet
-```java
-  public final void setRate(double permitsPerSecond) {
-    checkArgument(
-        permitsPerSecond > 0.0 && !Double.isNaN(permitsPerSecond), "rate must be positive");
-    synchronized (mutex()) {
-      doSetRate(permitsPerSecond, stopwatch.readMicros());
-```
-
-### RuleId[ruleID=ConstantConditions]
 Method invocation `removeMax` may produce `NullPointerException`
 in `guava/src/com/google/common/collect/TreeMultiset.java`
 #### Snippet
@@ -2407,6 +2383,18 @@ in `guava/src/com/google/common/collect/TreeMultiset.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
+Value `root` is always 'null'
+in `guava/src/com/google/common/collect/TreeMultiset.java`
+#### Snippet
+```java
+      AvlNode<E> newRoot = new AvlNode<E>(element, occurrences);
+      successor(header, newRoot, header);
+      rootReference.checkAndSet(root, newRoot);
+      return 0;
+    }
+```
+
+### RuleId[ruleID=ConstantConditions]
 Argument `left` might be null
 in `guava/src/com/google/common/collect/TreeMultiset.java`
 #### Snippet
@@ -2419,15 +2407,27 @@ in `guava/src/com/google/common/collect/TreeMultiset.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Value `root` is always 'null'
-in `guava/src/com/google/common/collect/TreeMultiset.java`
+Condition `!Double.isNaN(permitsPerSecond)` is always `true` when reached
+in `guava/src/com/google/common/util/concurrent/RateLimiter.java`
 #### Snippet
 ```java
-      AvlNode<E> newRoot = new AvlNode<E>(element, occurrences);
-      successor(header, newRoot, header);
-      rootReference.checkAndSet(root, newRoot);
-      return 0;
-    }
+  public final void setRate(double permitsPerSecond) {
+    checkArgument(
+        permitsPerSecond > 0.0 && !Double.isNaN(permitsPerSecond), "rate must be positive");
+    synchronized (mutex()) {
+      doSetRate(permitsPerSecond, stopwatch.readMicros());
+```
+
+### RuleId[ruleID=ConstantConditions]
+Result of `Double.isNaN(permitsPerSecond)` is always 'false'
+in `guava/src/com/google/common/util/concurrent/RateLimiter.java`
+#### Snippet
+```java
+  public final void setRate(double permitsPerSecond) {
+    checkArgument(
+        permitsPerSecond > 0.0 && !Double.isNaN(permitsPerSecond), "rate must be positive");
+    synchronized (mutex()) {
+      doSetRate(permitsPerSecond, stopwatch.readMicros());
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -2491,6 +2491,30 @@ in `guava/src/com/google/common/collect/ImmutableMultimap.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
+Method invocation `cancel` may produce `NullPointerException`
+in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
+#### Snippet
+```java
+      requireNonNull(runningTask);
+      requireNonNull(executorService);
+      runningTask.cancel(false);
+      executorService.execute(
+          new Runnable() {
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `execute` may produce `NullPointerException`
+in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
+#### Snippet
+```java
+      requireNonNull(executorService);
+      runningTask.cancel(false);
+      executorService.execute(
+          new Runnable() {
+            @Override
+```
+
+### RuleId[ruleID=ConstantConditions]
 Argument `executorService` might be null
 in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
 #### Snippet
@@ -2527,123 +2551,63 @@ in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Method invocation `cancel` may produce `NullPointerException`
-in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
+The call to 'checkRoundingUnnecessary' always fails, according to its method contracts
+in `guava/src/com/google/common/math/IntMath.java`
 #### Snippet
 ```java
-      requireNonNull(runningTask);
-      requireNonNull(executorService);
-      runningTask.cancel(false);
-      executorService.execute(
-          new Runnable() {
+    switch (mode) {
+      case UNNECESSARY:
+        checkRoundingUnnecessary(rem == 0);
+        // fall through
+      case DOWN:
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Method invocation `execute` may produce `NullPointerException`
-in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
+Condition `rem == 0` is always `false`
+in `guava/src/com/google/common/math/IntMath.java`
 #### Snippet
 ```java
-      requireNonNull(executorService);
-      runningTask.cancel(false);
-      executorService.execute(
-          new Runnable() {
-            @Override
+    switch (mode) {
+      case UNNECESSARY:
+        checkRoundingUnnecessary(rem == 0);
+        // fall through
+      case DOWN:
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Argument `newNext` might be null
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-    /** Unsafely returns a copy of the given entry. */
-    E copyForTesting(InternalEntry<K, V, ?> entry, @CheckForNull InternalEntry<K, V, ?> newNext) {
-      return this.map.entryHelper.copy(self(), castForTesting(entry), castForTesting(newNext));
-    }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-
-        AtomicReferenceArray<E> table = this.table;
-        int index = hash & (table.length() - 1);
-        E first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-        int newCount = count - 1;
-        AtomicReferenceArray<E> table = this.table;
-        int index = hash & (table.length() - 1);
-        E first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-        int newCount = this.count - 1;
-        AtomicReferenceArray<E> table = this.table;
-        int index = hash & (table.length() - 1);
-        E first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `set` may produce `NullPointerException`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-     */
-    void setTableEntryForTesting(int i, InternalEntry<K, V, ?> entry) {
-      table.set(i, castForTesting(entry));
-    }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-    void expand() {
-      AtomicReferenceArray<E> oldTable = table;
-      int oldCapacity = oldTable.length();
-      if (oldCapacity >= MAXIMUM_CAPACITY) {
-        return;
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-      // read this volatile field only once
-      AtomicReferenceArray<E> table = this.table;
-      return table.get(hash & (table.length() - 1));
-    }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `get()` might be null
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+The call to 'checkRemove' always fails, according to its method contracts
+in `guava/src/com/google/common/collect/Iterators.java`
 #### Snippet
 ```java
     @Override
-    public WeakValueReference<K, V, E> copyFor(ReferenceQueue<V> queue, E entry) {
-      return new WeakValueReferenceImpl<>(queue, get(), entry);
+    public void remove() {
+      checkRemove(false);
     }
   }
+```
+
+### RuleId[ruleID=ConstantConditions]
+Expression `whenClosed = new CountDownLatch(1)` might evaluate to null but is returned by the method declared as @ElementTypesAreNonnullByDefault
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+        }
+        checkState(whenClosed == null);
+        return whenClosed = new CountDownLatch(1);
+      }
+    }
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `countDown` may produce `NullPointerException`
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+      clear();
+      if (whenClosed != null) {
+        whenClosed.countDown();
+      }
+    }
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -2663,10 +2627,10 @@ Method invocation `length` may produce `NullPointerException`
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-      int newCount = this.count - 1;
-      AtomicReferenceArray<E> table = this.table;
-      int index = hash & (table.length() - 1);
-      E first = table.get(index);
+        int newCount = this.count - 1;
+        AtomicReferenceArray<E> table = this.table;
+        int index = hash & (table.length() - 1);
+        E first = table.get(index);
 
 ```
 
@@ -2683,63 +2647,15 @@ in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
+Argument `get()` might be null
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-      try {
-        AtomicReferenceArray<E> table = this.table;
-        int index = hash & (table.length() - 1);
-        E first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-
-        AtomicReferenceArray<E> table = segment.table;
-        for (int j = 0; j < table.length(); j++) {
-          for (E e = table.get(j); e != null; e = e.getNext()) {
-            V v = segment.getLiveValue(e);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-
-        AtomicReferenceArray<E> table = this.table;
-        int index = hash & (table.length() - 1);
-        E first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `postReadCleanup` may produce `NullPointerException`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-        }
-      } finally {
-        currentSegment.postReadCleanup();
-      }
+    @Override
+    public WeakValueReference<K, V, E> copyFor(ReferenceQueue<V> queue, E entry) {
+      return new WeakValueReferenceImpl<>(queue, get(), entry);
     }
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-        if (count != 0) { // read-volatile
-          AtomicReferenceArray<E> table = this.table;
-          int length = table.length();
-          for (int i = 0; i < length; ++i) {
-            for (E e = table.get(i); e != null; e = e.getNext()) {
+  }
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -2771,7 +2687,19 @@ Method invocation `length` may produce `NullPointerException`
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
+      int newCount = this.count - 1;
+      AtomicReferenceArray<E> table = this.table;
+      int index = hash & (table.length() - 1);
+      E first = table.get(index);
 
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+        int newCount = count - 1;
         AtomicReferenceArray<E> table = this.table;
         int index = hash & (table.length() - 1);
         E first = table.get(index);
@@ -2791,6 +2719,138 @@ in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
+Method invocation `set` may produce `NullPointerException`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+     */
+    void setTableEntryForTesting(int i, InternalEntry<K, V, ?> entry) {
+      table.set(i, castForTesting(entry));
+    }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `postReadCleanup` may produce `NullPointerException`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+        }
+      } finally {
+        currentSegment.postReadCleanup();
+      }
+    }
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+
+        AtomicReferenceArray<E> table = this.table;
+        int index = hash & (table.length() - 1);
+        E first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `newNext` might be null
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+    /** Unsafely returns a copy of the given entry. */
+    E copyForTesting(InternalEntry<K, V, ?> entry, @CheckForNull InternalEntry<K, V, ?> newNext) {
+      return this.map.entryHelper.copy(self(), castForTesting(entry), castForTesting(newNext));
+    }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+        if (count != 0) { // read-volatile
+          AtomicReferenceArray<E> table = this.table;
+          int length = table.length();
+          for (int i = 0; i < length; ++i) {
+            for (E e = table.get(i); e != null; e = e.getNext()) {
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+
+        AtomicReferenceArray<E> table = this.table;
+        int index = hash & (table.length() - 1);
+        E first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+
+        AtomicReferenceArray<E> table = segment.table;
+        for (int j = 0; j < table.length(); j++) {
+          for (E e = table.get(j); e != null; e = e.getNext()) {
+            V v = segment.getLiveValue(e);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+    void expand() {
+      AtomicReferenceArray<E> oldTable = table;
+      int oldCapacity = oldTable.length();
+      if (oldCapacity >= MAXIMUM_CAPACITY) {
+        return;
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+      // read this volatile field only once
+      AtomicReferenceArray<E> table = this.table;
+      return table.get(hash & (table.length() - 1));
+    }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+
+        AtomicReferenceArray<E> table = this.table;
+        int index = hash & (table.length() - 1);
+        E first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+      try {
+        AtomicReferenceArray<E> table = this.table;
+        int index = hash & (table.length() - 1);
+        E first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
 Method invocation `length` may produce `NullPointerException`
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
@@ -2800,66 +2860,6 @@ in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
           for (int i = 0; i < table.length(); ++i) {
             table.set(i, null);
           }
-```
-
-### RuleId[ruleID=ConstantConditions]
-The call to 'checkRemove' always fails, according to its method contracts
-in `guava/src/com/google/common/collect/Iterators.java`
-#### Snippet
-```java
-    @Override
-    public void remove() {
-      checkRemove(false);
-    }
-  }
-```
-
-### RuleId[ruleID=ConstantConditions]
-The call to 'checkRoundingUnnecessary' always fails, according to its method contracts
-in `guava/src/com/google/common/math/IntMath.java`
-#### Snippet
-```java
-    switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(rem == 0);
-        // fall through
-      case DOWN:
-```
-
-### RuleId[ruleID=ConstantConditions]
-Condition `rem == 0` is always `false`
-in `guava/src/com/google/common/math/IntMath.java`
-#### Snippet
-```java
-    switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(rem == 0);
-        // fall through
-      case DOWN:
-```
-
-### RuleId[ruleID=ConstantConditions]
-Expression `whenClosed = new CountDownLatch(1)` might evaluate to null but is returned by the method declared as @ElementTypesAreNonnullByDefault
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-        }
-        checkState(whenClosed == null);
-        return whenClosed = new CountDownLatch(1);
-      }
-    }
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `countDown` may produce `NullPointerException`
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-      clear();
-      if (whenClosed != null) {
-        whenClosed.countDown();
-      }
-    }
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -2879,7 +2879,7 @@ Expression `result` might evaluate to null but is returned by the method declare
 in `guava/src/com/google/common/io/BaseEncoding.java`
 #### Snippet
 ```java
-        result = lowerCase = (lower == alphabet) ? this : newInstance(lower, paddingChar);
+        result = ignoreCase = (ignore == alphabet) ? this : newInstance(ignore, paddingChar);
       }
       return result;
     }
@@ -2891,7 +2891,7 @@ Expression `result` might evaluate to null but is returned by the method declare
 in `guava/src/com/google/common/io/BaseEncoding.java`
 #### Snippet
 ```java
-        result = ignoreCase = (ignore == alphabet) ? this : newInstance(ignore, paddingChar);
+        result = lowerCase = (lower == alphabet) ? this : newInstance(lower, paddingChar);
       }
       return result;
     }
@@ -2923,30 +2923,6 @@ in `guava/src/com/google/common/reflect/ClassPath.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Argument `comparator()` might be null
-in `guava/src/com/google/common/collect/RegularImmutableSortedSet.java`
-#### Snippet
-```java
-      targets = ((Multiset<?>) targets).elementSet();
-    }
-    if (!SortedIterables.hasSameComparator(comparator(), targets) || (targets.size() <= 1)) {
-      return super.containsAll(targets);
-    }
-```
-
-### RuleId[ruleID=ConstantConditions]
-Condition `cmp > 0` is always `true`
-in `guava/src/com/google/common/collect/RegularImmutableSortedSet.java`
-#### Snippet
-```java
-          target = thatIterator.next();
-
-        } else if (cmp > 0) {
-          return false;
-        }
-```
-
-### RuleId[ruleID=ConstantConditions]
 Argument `element` might be null
 in `guava/src/com/google/common/collect/ConcurrentHashMultiset.java`
 #### Snippet
@@ -2971,15 +2947,27 @@ in `guava/src/com/google/common/collect/ConcurrentHashMultiset.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Condition `localValue instanceof SetFuture` is redundant and can be replaced with a null check
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+Argument `comparator()` might be null
+in `guava/src/com/google/common/collect/RegularImmutableSortedSet.java`
 #### Snippet
 ```java
-          rValue = true;
-          complete(abstractFuture, mayInterruptIfRunning);
-          if (localValue instanceof SetFuture) {
-            // propagate cancellation to the future set in setfuture, this is racy, and we don't
-            // care if we are successful or not.
+      targets = ((Multiset<?>) targets).elementSet();
+    }
+    if (!SortedIterables.hasSameComparator(comparator(), targets) || (targets.size() <= 1)) {
+      return super.containsAll(targets);
+    }
+```
+
+### RuleId[ruleID=ConstantConditions]
+Condition `cmp > 0` is always `true`
+in `guava/src/com/google/common/collect/RegularImmutableSortedSet.java`
+#### Snippet
+```java
+          target = thatIterator.next();
+
+        } else if (cmp > 0) {
+          return false;
+        }
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -3004,6 +2992,18 @@ in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
   @CheckForNull
   private Listener clearListeners(@CheckForNull Listener onto) {
     // We need to
+```
+
+### RuleId[ruleID=ConstantConditions]
+Condition `localValue instanceof SetFuture` is redundant and can be replaced with a null check
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+          rValue = true;
+          complete(abstractFuture, mayInterruptIfRunning);
+          if (localValue instanceof SetFuture) {
+            // propagate cancellation to the future set in setfuture, this is racy, and we don't
+            // care if we are successful or not.
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -3043,18 +3043,6 @@ in `guava/src/com/google/common/collect/ContiguousSet.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Condition `second != null` is always `true`
-in `guava/src/com/google/common/base/MoreObjects.java`
-#### Snippet
-```java
-      return first;
-    }
-    if (second != null) {
-      return second;
-    }
-```
-
-### RuleId[ruleID=ConstantConditions]
 Argument `forward.comparator()` might be null
 in `guava/src/com/google/common/collect/DescendingImmutableSortedSet.java`
 #### Snippet
@@ -3064,6 +3052,18 @@ in `guava/src/com/google/common/collect/DescendingImmutableSortedSet.java`
     super(Ordering.from(forward.comparator()).reverse());
     this.forward = forward;
   }
+```
+
+### RuleId[ruleID=ConstantConditions]
+Condition `second != null` is always `true`
+in `guava/src/com/google/common/base/MoreObjects.java`
+#### Snippet
+```java
+      return first;
+    }
+    if (second != null) {
+      return second;
+    }
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -3091,73 +3091,25 @@ in `guava/src/com/google/common/math/LongMath.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Argument `defaultLoader` might be null
+Condition `oldValue == null` is always `false`
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
 
-  V getOrLoad(K key) throws ExecutionException {
-    return get(key, defaultLoader);
-  }
+    public LoadingValueReference(ValueReference<K, V> oldValue) {
+      this.oldValue = (oldValue == null) ? LocalCache.unset() : oldValue;
+    }
 
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-          long now = map.ticker.read();
-          AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-          int length = table.length();
-          for (int i = 0; i < length; ++i) {
-            for (ReferenceEntry<K, V> e = table.get(i); e != null; e = e.getNext()) {
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `getWeight` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    ReferenceEntry<K, V> getNextEvictable() {
-      for (ReferenceEntry<K, V> e : accessQueue) {
-        int weight = e.getValueReference().getWeight();
-        if (weight > 0) {
-          return e;
 ```
 
 ### RuleId[ruleID=ConstantConditions]
 Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      return null;
-    }
-    V value = entry.getValueReference().get();
-    if (value == null) {
-      return null;
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-        AtomicReferenceArray<ReferenceEntry<K, V>> table = segment.table;
-        for (int j = 0; j < table.length(); j++) {
-          for (ReferenceEntry<K, V> e = table.get(j); e != null; e = e.getNext()) {
-            V v = segment.getLiveValue(e, now);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `getAll` may produce `NullPointerException`
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
     @Override
-    public ImmutableMap<K, V> getAll(Iterable<? extends K> keys) throws ExecutionException {
-      return autoDelegate.getAll(keys);
+    public V get(K key) throws ExecutionException {
+      return autoDelegate.get(key);
     }
 
 ```
@@ -3167,467 +3119,11 @@ Method invocation `length` may produce `NullPointerException`
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-
+      try {
         AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
         int index = hash & (table.length() - 1);
         ReferenceEntry<K, V> first = table.get(index);
 
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-              && map.keyEquivalence.equivalent(key, entryKey)) {
-            ValueReference<K, V> valueReference = e.getValueReference();
-            V entryValue = valueReference.get();
-            if (entryValue == null) {
-              if (valueReference.isActive()) {
-```
-
-### RuleId[ruleID=ConstantConditions]
-Passing `null` argument to parameter annotated as @NotNull
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-                        entryKey,
-                        hash,
-                        entryValue,
-                        valueReference,
-                        RemovalCause.COLLECTED);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `notifyNewValue` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      entry.setValueReference(valueReference);
-      recordWrite(entry, weight, now);
-      previous.notifyNewValue(value);
-    }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    void expand() {
-      AtomicReferenceArray<ReferenceEntry<K, V>> oldTable = table;
-      int oldCapacity = oldTable.length();
-      if (oldCapacity >= MAXIMUM_CAPACITY) {
-        return;
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `getHash` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-            // Clone nodes leading up to the tail.
-            for (ReferenceEntry<K, V> e = head; e != tail; e = e.getNext()) {
-              int newIndex = e.getHash() & newMask;
-              ReferenceEntry<K, V> newNext = newTable.get(newIndex);
-              ReferenceEntry<K, V> newFirst = copyEntry(e, newNext);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      int newCount = this.count - 1;
-      AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-      int index = hash & (table.length() - 1);
-      ReferenceEntry<K, V> first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `e.getValueReference().get()` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-                  e.getKey(),
-                  hash,
-                  e.getValueReference().get(),
-                  e.getValueReference(),
-                  cause);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-                  e.getKey(),
-                  hash,
-                  e.getValueReference().get(),
-                  e.getValueReference(),
-                  cause);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-        int newCount = this.count - 1;
-        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-        int index = hash & (table.length() - 1);
-        ReferenceEntry<K, V> first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `valueReference.get()` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-                      entryKey,
-                      hash,
-                      valueReference.get(),
-                      valueReference,
-                      RemovalCause.COLLECTED);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `segment.keyReferenceQueue` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      <K, V> ReferenceEntry<K, V> newEntry(
-          Segment<K, V> segment, K key, int hash, @CheckForNull ReferenceEntry<K, V> next) {
-        return new WeakAccessWriteEntry<>(segment.keyReferenceQueue, key, hash, next);
-      }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-        int index = hash & (table.length() - 1);
-        ReferenceEntry<K, V> first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-              && map.keyEquivalence.equivalent(key, entryKey)) {
-            ValueReference<K, V> valueReference = e.getValueReference();
-            V entryValue = valueReference.get();
-            if (entryValue == null) {
-              if (valueReference.isActive()) {
-```
-
-### RuleId[ruleID=ConstantConditions]
-Passing `null` argument to parameter annotated as @NotNull
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-                        entryKey,
-                        hash,
-                        entryValue,
-                        valueReference,
-                        RemovalCause.COLLECTED);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `getHash` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-  void reclaimValue(ValueReference<K, V> valueReference) {
-    ReferenceEntry<K, V> entry = valueReference.getEntry();
-    int hash = entry.getHash();
-    segmentFor(hash).reclaimValue(entry.getKey(), hash, valueReference);
-  }
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `entry.getKey()` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    ReferenceEntry<K, V> entry = valueReference.getEntry();
-    int hash = entry.getHash();
-    segmentFor(hash).reclaimValue(entry.getKey(), hash, valueReference);
-  }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `refresh` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    @Override
-    public void refresh(K key) {
-      autoDelegate.refresh(key);
-    }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-        return null;
-      }
-      V value = entry.getValueReference().get();
-      if (value == null) {
-        tryDrainReferenceQueues();
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-      ValueReference<K, V> valueReference = original.getValueReference();
-      V value = valueReference.get();
-      if ((value == null) && valueReference.isActive()) {
-        // value collected
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `this.valueReferenceQueue` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-      ReferenceEntry<K, V> newEntry = map.entryFactory.copyEntry(this, original, newNext, key);
-      newEntry.setValueReference(valueReference.copyFor(this.valueReferenceQueue, value, newEntry));
-      return newEntry;
-    }
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-        int newCount = this.count - 1;
-        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-        int index = hash & (table.length() - 1);
-        ReferenceEntry<K, V> first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-              && map.keyEquivalence.equivalent(key, entryKey)) {
-            ValueReference<K, V> valueReference = e.getValueReference();
-            V entryValue = valueReference.get();
-
-            RemovalCause cause;
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `entryValue` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-            ++modCount;
-            ReferenceEntry<K, V> newFirst =
-                removeValueFromChain(first, e, entryKey, hash, entryValue, valueReference, cause);
-            newCount = this.count - 1;
-            table.set(index, newFirst);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Condition `result == null` is always `false`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    }
-
-    if (result == null) {
-      globalStatsCounter.recordLoadException(stopwatch.elapsed(NANOSECONDS));
-      throw new InvalidCacheLoadException(loader + " returned null map from loadAll");
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-        int index = hash & (table.length() - 1);
-        ReferenceEntry<K, V> first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `isLoading` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-            ValueReference<K, V> valueReference = e.getValueReference();
-            if (valueReference.isLoading()
-                || (checkTime && (now - e.getWriteTime() < map.refreshNanos))) {
-              // refresh is a no-op if loading is pending
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `cache.defaultLoader` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-          cache.removalListener,
-          cache.ticker,
-          cache.defaultLoader);
-    }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `poll` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-    void clearValueReferenceQueue() {
-      while (valueReferenceQueue.poll() != null) {}
-    }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `isLoading` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      if (map.refreshes()
-          && (now - entry.getWriteTime() > map.refreshNanos)
-          && !entry.getValueReference().isLoading()) {
-        V newValue = refresh(key, hash, loader, true);
-        if (newValue != null) {
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `getUnchecked` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    @Override
-    public V getUnchecked(K key) {
-      return autoDelegate.getUnchecked(key);
-    }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-        int newCount = this.count - 1;
-        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-        int index = hash & (table.length() - 1);
-        ReferenceEntry<K, V> first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `isLoading` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-              && map.keyEquivalence.equivalent(key, entryKey)) {
-            valueReference = e.getValueReference();
-            if (valueReference.isLoading()) {
-              createNewEntry = false;
-            } else {
-```
-
-### RuleId[ruleID=ConstantConditions]
-Value `value` is always 'null'
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-              if (value == null) {
-                enqueueNotification(
-                    entryKey, hash, value, valueReference.getWeight(), RemovalCause.COLLECTED);
-              } else if (map.isExpired(e, now)) {
-                // This is a duplicate check, as preWriteCleanup already purged expired
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `defaultLoader` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-  void refresh(K key) {
-    int hash = hash(checkNotNull(key));
-    segmentFor(hash).refresh(key, hash, defaultLoader, false);
-  }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    boolean nextInTable() {
-      while (nextTableIndex >= 0) {
-        if ((nextEntry = currentTable.get(nextTableIndex--)) != null) {
-          if (advanceTo(nextEntry) || nextInChain()) {
-            return true;
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `segment.keyReferenceQueue` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      <K, V> ReferenceEntry<K, V> newEntry(
-          Segment<K, V> segment, K key, int hash, @CheckForNull ReferenceEntry<K, V> next) {
-        return new WeakEntry<>(segment.keyReferenceQueue, key, hash, next);
-      }
-    },
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-        int index = hash & (table.length() - 1);
-        ReferenceEntry<K, V> first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-              && map.keyEquivalence.equivalent(key, entryKey)) {
-            ValueReference<K, V> valueReference = e.getValueReference();
-            V entryValue = valueReference.get();
-            // replace the old LoadingValueReference if it's live, otherwise
-            // perform a putIfAbsent
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -3652,18 +3148,6 @@ in `guava/src/com/google/common/cache/LocalCache.java`
                 segment.valueReferenceQueue, value, entry, weight);
       }
 
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `poll` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      Reference<? extends V> ref;
-      int i = 0;
-      while ((ref = valueReferenceQueue.poll()) != null) {
-        @SuppressWarnings("unchecked")
-        ValueReference<K, V> valueReference = (ValueReference<K, V>) ref;
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -3707,274 +3191,22 @@ Method invocation `get` may produce `NullPointerException`
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-      // read this volatile field only once
-      AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-      return table.get(hash & (table.length() - 1));
+      return null;
     }
-
+    V value = entry.getValueReference().get();
+    if (value == null) {
+      return null;
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Passing `null` argument to parameter annotated as @NotNull
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-    public LoadingValueReference() {
-      this(null);
-    }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Condition `oldValue == null` is always `false`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-    public LoadingValueReference(ValueReference<K, V> oldValue) {
-      this.oldValue = (oldValue == null) ? LocalCache.unset() : oldValue;
-    }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `isLoading` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-            }
-            ValueReference<K, V> valueReference = e.getValueReference();
-            if (valueReference.isLoading()) {
-              return waitForLoadingValue(e, key, valueReference);
-            }
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      try {
-        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-        int index = hash & (table.length() - 1);
-        ReferenceEntry<K, V> first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-        int newCount = count - 1;
-        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-        int index = hash & (table.length() - 1);
-        ReferenceEntry<K, V> first = table.get(index);
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `e.getValueReference().get()` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-                    e.getKey(),
-                    hash,
-                    e.getValueReference().get(),
-                    e.getValueReference(),
-                    RemovalCause.COLLECTED);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-                    e.getKey(),
-                    hash,
-                    e.getValueReference().get(),
-                    e.getValueReference(),
-                    RemovalCause.COLLECTED);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `e` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      ReferenceEntry<K, V> newFirst = entry.getNext();
-      for (ReferenceEntry<K, V> e = first; e != entry; e = e.getNext()) {
-        ReferenceEntry<K, V> next = copyEntry(e, newFirst);
-        if (next != null) {
-          newFirst = next;
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `newFirst` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      ReferenceEntry<K, V> newFirst = entry.getNext();
-      for (ReferenceEntry<K, V> e = first; e != entry; e = e.getNext()) {
-        ReferenceEntry<K, V> next = copyEntry(e, newFirst);
-        if (next != null) {
-          newFirst = next;
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `defaultLoader` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      if (!keysToLoad.isEmpty()) {
-        try {
-          Map<K, V> newEntries = loadAll(unmodifiableSet(keysToLoad), defaultLoader);
-          for (K key : keysToLoad) {
-            V value = newEntries.get(key);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-          Map<K, V> newEntries = loadAll(unmodifiableSet(keysToLoad), defaultLoader);
-          for (K key : keysToLoad) {
-            V value = newEntries.get(key);
-            if (value == null) {
-              throw new InvalidCacheLoadException("loadAll failed to return a value for " + key);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `defaultLoader` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-          for (K key : keysToLoad) {
-            misses--; // get will count this miss
-            result.put(key, get(key, defaultLoader));
-          }
-        }
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-            return false;
-          }
-          return e.getValueReference().get() != null;
-        }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Condition `newValue == null` is always `false`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-        }
-        ListenableFuture<V> newValue = loader.reload(key, previousValue);
-        if (newValue == null) {
-          return Futures.immediateFuture(null);
-        }
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `getWeight` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      // If the newest entry by itself is too heavy for the segment, don't bother evicting
-      // anything else, just that
-      if (newest.getValueReference().getWeight() > maxSegmentWeight) {
-        if (!removeEntry(newest, newest.getHash(), RemovalCause.SIZE)) {
-          throw new AssertionError();
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
+Method invocation `refresh` may produce `NullPointerException`
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
     @Override
-    public V get(K key) throws ExecutionException {
-      return autoDelegate.get(key);
+    public void refresh(K key) {
+      autoDelegate.refresh(key);
     }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `segment.valueReferenceQueue` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-          Segment<K, V> segment, ReferenceEntry<K, V> entry, V value, int weight) {
-        return (weight == 1)
-            ? new WeakValueReference<K, V>(segment.valueReferenceQueue, value, entry)
-            : new WeightedWeakValueReference<K, V>(
-                segment.valueReferenceQueue, value, entry, weight);
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `segment.valueReferenceQueue` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-            ? new WeakValueReference<K, V>(segment.valueReferenceQueue, value, entry)
-            : new WeightedWeakValueReference<K, V>(
-                segment.valueReferenceQueue, value, entry, weight);
-      }
-
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `poll` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      Reference<? extends K> ref;
-      int i = 0;
-      while ((ref = keyReferenceQueue.poll()) != null) {
-        @SuppressWarnings("unchecked")
-        ReferenceEntry<K, V> entry = (ReferenceEntry<K, V>) ref;
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `key` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-        V value = getLiveValue(entry, now);
-        if (value != null) {
-          nextExternal = new WriteThroughEntry(key, value);
-          return true;
-        } else {
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `postReadCleanup` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-        }
-      } finally {
-        currentSegment.postReadCleanup();
-      }
-    }
-```
-
-### RuleId[ruleID=ConstantConditions]
-Argument `segment.keyReferenceQueue` might be null
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      <K, V> ReferenceEntry<K, V> newEntry(
-          Segment<K, V> segment, K key, int hash, @CheckForNull ReferenceEntry<K, V> next) {
-        return new WeakAccessEntry<>(segment.keyReferenceQueue, key, hash, next);
-      }
 
 ```
 
@@ -4015,15 +3247,123 @@ in `guava/src/com/google/common/cache/LocalCache.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+        return null;
+      }
+      V value = entry.getValueReference().get();
+      if (value == null) {
+        tryDrainReferenceQueues();
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `e` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      ReferenceEntry<K, V> newFirst = entry.getNext();
+      for (ReferenceEntry<K, V> e = first; e != entry; e = e.getNext()) {
+        ReferenceEntry<K, V> next = copyEntry(e, newFirst);
+        if (next != null) {
+          newFirst = next;
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `newFirst` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      ReferenceEntry<K, V> newFirst = entry.getNext();
+      for (ReferenceEntry<K, V> e = first; e != entry; e = e.getNext()) {
+        ReferenceEntry<K, V> next = copyEntry(e, newFirst);
+        if (next != null) {
+          newFirst = next;
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+        int index = hash & (table.length() - 1);
+        ReferenceEntry<K, V> first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+              && map.keyEquivalence.equivalent(key, entryKey)) {
+            ValueReference<K, V> valueReference = e.getValueReference();
+            V entryValue = valueReference.get();
+            if (entryValue == null) {
+              if (valueReference.isActive()) {
+```
+
+### RuleId[ruleID=ConstantConditions]
+Passing `null` argument to parameter annotated as @NotNull
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+                        entryKey,
+                        hash,
+                        entryValue,
+                        valueReference,
+                        RemovalCause.COLLECTED);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `isLoading` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+            }
+            ValueReference<K, V> valueReference = e.getValueReference();
+            if (valueReference.isLoading()) {
+              return waitForLoadingValue(e, key, valueReference);
+            }
+```
+
+### RuleId[ruleID=ConstantConditions]
 Argument `segment.keyReferenceQueue` might be null
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
       <K, V> ReferenceEntry<K, V> newEntry(
           Segment<K, V> segment, K key, int hash, @CheckForNull ReferenceEntry<K, V> next) {
-        return new WeakWriteEntry<>(segment.keyReferenceQueue, key, hash, next);
+        return new WeakAccessEntry<>(segment.keyReferenceQueue, key, hash, next);
       }
 
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `isLoading` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      if (map.refreshes()
+          && (now - entry.getWriteTime() > map.refreshNanos)
+          && !entry.getValueReference().isLoading()) {
+        V newValue = refresh(key, hash, loader, true);
+        if (newValue != null) {
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `poll` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      Reference<? extends K> ref;
+      int i = 0;
+      while ((ref = keyReferenceQueue.poll()) != null) {
+        @SuppressWarnings("unchecked")
+        ReferenceEntry<K, V> entry = (ReferenceEntry<K, V>) ref;
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -4051,6 +3391,42 @@ in `guava/src/com/google/common/cache/LocalCache.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
+Argument `cache.defaultLoader` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+          cache.removalListener,
+          cache.ticker,
+          cache.defaultLoader);
+    }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `poll` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+    void clearValueReferenceQueue() {
+      while (valueReferenceQueue.poll() != null) {}
+    }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `poll` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      Reference<? extends V> ref;
+      int i = 0;
+      while ((ref = valueReferenceQueue.poll()) != null) {
+        @SuppressWarnings("unchecked")
+        ValueReference<K, V> valueReference = (ValueReference<K, V>) ref;
+```
+
+### RuleId[ruleID=ConstantConditions]
 Method invocation `get` may produce `NullPointerException`
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
@@ -4060,6 +3436,606 @@ in `guava/src/com/google/common/cache/LocalCache.java`
           entry.getValueReference().get(),
           entry.getValueReference().getWeight(),
           RemovalCause.COLLECTED);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `defaultLoader` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      if (!keysToLoad.isEmpty()) {
+        try {
+          Map<K, V> newEntries = loadAll(unmodifiableSet(keysToLoad), defaultLoader);
+          for (K key : keysToLoad) {
+            V value = newEntries.get(key);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+          Map<K, V> newEntries = loadAll(unmodifiableSet(keysToLoad), defaultLoader);
+          for (K key : keysToLoad) {
+            V value = newEntries.get(key);
+            if (value == null) {
+              throw new InvalidCacheLoadException("loadAll failed to return a value for " + key);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `defaultLoader` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+          for (K key : keysToLoad) {
+            misses--; // get will count this miss
+            result.put(key, get(key, defaultLoader));
+          }
+        }
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+        int index = hash & (table.length() - 1);
+        ReferenceEntry<K, V> first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+            ValueReference<K, V> valueReference = e.getValueReference();
+            V entryValue = valueReference.get();
+
+            if (entryValue == null) {
+```
+
+### RuleId[ruleID=ConstantConditions]
+Value `entryValue` is always 'null'
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+              if (valueReference.isActive()) {
+                enqueueNotification(
+                    key, hash, entryValue, valueReference.getWeight(), RemovalCause.COLLECTED);
+                setValue(e, key, value, now);
+                newCount = this.count; // count remains unchanged
+```
+
+### RuleId[ruleID=ConstantConditions]
+Passing `null` argument to parameter annotated as @NotNull
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+    public LoadingValueReference() {
+      this(null);
+    }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+          long now = map.ticker.read();
+          AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+          int length = table.length();
+          for (int i = 0; i < length; ++i) {
+            for (ReferenceEntry<K, V> e = table.get(i); e != null; e = e.getNext()) {
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+      ValueReference<K, V> valueReference = original.getValueReference();
+      V value = valueReference.get();
+      if ((value == null) && valueReference.isActive()) {
+        // value collected
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `this.valueReferenceQueue` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+      ReferenceEntry<K, V> newEntry = map.entryFactory.copyEntry(this, original, newNext, key);
+      newEntry.setValueReference(valueReference.copyFor(this.valueReferenceQueue, value, newEntry));
+      return newEntry;
+    }
+```
+
+### RuleId[ruleID=ConstantConditions]
+Condition `newValue == null` is always `false`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+        }
+        ListenableFuture<V> newValue = loader.reload(key, previousValue);
+        if (newValue == null) {
+          return Futures.immediateFuture(null);
+        }
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+        int newCount = this.count - 1;
+        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+        int index = hash & (table.length() - 1);
+        ReferenceEntry<K, V> first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+              && map.keyEquivalence.equivalent(key, entryKey)) {
+            ValueReference<K, V> valueReference = e.getValueReference();
+            V entryValue = valueReference.get();
+
+            RemovalCause cause;
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `entryValue` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+            ++modCount;
+            ReferenceEntry<K, V> newFirst =
+                removeValueFromChain(first, e, entryKey, hash, entryValue, valueReference, cause);
+            newCount = this.count - 1;
+            table.set(index, newFirst);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+        AtomicReferenceArray<ReferenceEntry<K, V>> table = segment.table;
+        for (int j = 0; j < table.length(); j++) {
+          for (ReferenceEntry<K, V> e = table.get(j); e != null; e = e.getNext()) {
+            V v = segment.getLiveValue(e, now);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `notifyNewValue` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      entry.setValueReference(valueReference);
+      recordWrite(entry, weight, now);
+      previous.notifyNewValue(value);
+    }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `poll` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+    void clearKeyReferenceQueue() {
+      while (keyReferenceQueue.poll() != null) {}
+    }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    void expand() {
+      AtomicReferenceArray<ReferenceEntry<K, V>> oldTable = table;
+      int oldCapacity = oldTable.length();
+      if (oldCapacity >= MAXIMUM_CAPACITY) {
+        return;
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `getHash` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+            // Clone nodes leading up to the tail.
+            for (ReferenceEntry<K, V> e = head; e != tail; e = e.getNext()) {
+              int newIndex = e.getHash() & newMask;
+              ReferenceEntry<K, V> newNext = newTable.get(newIndex);
+              ReferenceEntry<K, V> newFirst = copyEntry(e, newNext);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    boolean nextInTable() {
+      while (nextTableIndex >= 0) {
+        if ((nextEntry = currentTable.get(nextTableIndex--)) != null) {
+          if (advanceTo(nextEntry) || nextInChain()) {
+            return true;
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      // read this volatile field only once
+      AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+      return table.get(hash & (table.length() - 1));
+    }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `defaultLoader` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+  void refresh(K key) {
+    int hash = hash(checkNotNull(key));
+    segmentFor(hash).refresh(key, hash, defaultLoader, false);
+  }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `segment.keyReferenceQueue` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      <K, V> ReferenceEntry<K, V> newEntry(
+          Segment<K, V> segment, K key, int hash, @CheckForNull ReferenceEntry<K, V> next) {
+        return new WeakAccessWriteEntry<>(segment.keyReferenceQueue, key, hash, next);
+      }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+        int index = hash & (table.length() - 1);
+        ReferenceEntry<K, V> first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+              && map.keyEquivalence.equivalent(key, entryKey)) {
+            ValueReference<K, V> valueReference = e.getValueReference();
+            V entryValue = valueReference.get();
+            // replace the old LoadingValueReference if it's live, otherwise
+            // perform a putIfAbsent
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+        int index = hash & (table.length() - 1);
+        ReferenceEntry<K, V> first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+              && map.keyEquivalence.equivalent(key, entryKey)) {
+            ValueReference<K, V> valueReference = e.getValueReference();
+            V entryValue = valueReference.get();
+            if (entryValue == null) {
+              if (valueReference.isActive()) {
+```
+
+### RuleId[ruleID=ConstantConditions]
+Passing `null` argument to parameter annotated as @NotNull
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+                        entryKey,
+                        hash,
+                        entryValue,
+                        valueReference,
+                        RemovalCause.COLLECTED);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+        int index = hash & (table.length() - 1);
+        ReferenceEntry<K, V> first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `isLoading` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+            ValueReference<K, V> valueReference = e.getValueReference();
+            if (valueReference.isLoading()
+                || (checkTime && (now - e.getWriteTime() < map.refreshNanos))) {
+              // refresh is a no-op if loading is pending
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      int newCount = this.count - 1;
+      AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+      int index = hash & (table.length() - 1);
+      ReferenceEntry<K, V> first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `e.getValueReference().get()` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+                  e.getKey(),
+                  hash,
+                  e.getValueReference().get(),
+                  e.getValueReference(),
+                  cause);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+                  e.getKey(),
+                  hash,
+                  e.getValueReference().get(),
+                  e.getValueReference(),
+                  cause);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+        int newCount = count - 1;
+        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+        int index = hash & (table.length() - 1);
+        ReferenceEntry<K, V> first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `e.getValueReference().get()` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+                    e.getKey(),
+                    hash,
+                    e.getValueReference().get(),
+                    e.getValueReference(),
+                    RemovalCause.COLLECTED);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+                    e.getKey(),
+                    hash,
+                    e.getValueReference().get(),
+                    e.getValueReference(),
+                    RemovalCause.COLLECTED);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `getWeight` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    ReferenceEntry<K, V> getNextEvictable() {
+      for (ReferenceEntry<K, V> e : accessQueue) {
+        int weight = e.getValueReference().getWeight();
+        if (weight > 0) {
+          return e;
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `segment.keyReferenceQueue` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      <K, V> ReferenceEntry<K, V> newEntry(
+          Segment<K, V> segment, K key, int hash, @CheckForNull ReferenceEntry<K, V> next) {
+        return new WeakEntry<>(segment.keyReferenceQueue, key, hash, next);
+      }
+    },
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `segment.valueReferenceQueue` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+          Segment<K, V> segment, ReferenceEntry<K, V> entry, V value, int weight) {
+        return (weight == 1)
+            ? new WeakValueReference<K, V>(segment.valueReferenceQueue, value, entry)
+            : new WeightedWeakValueReference<K, V>(
+                segment.valueReferenceQueue, value, entry, weight);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `segment.valueReferenceQueue` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+            ? new WeakValueReference<K, V>(segment.valueReferenceQueue, value, entry)
+            : new WeightedWeakValueReference<K, V>(
+                segment.valueReferenceQueue, value, entry, weight);
+      }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+        int newCount = this.count - 1;
+        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+        int index = hash & (table.length() - 1);
+        ReferenceEntry<K, V> first = table.get(index);
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `valueReference.get()` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+                      entryKey,
+                      hash,
+                      valueReference.get(),
+                      valueReference,
+                      RemovalCause.COLLECTED);
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `apply` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    @Override
+    public V apply(K key) {
+      return autoDelegate.apply(key);
+    }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `getHash` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+  void reclaimValue(ValueReference<K, V> valueReference) {
+    ReferenceEntry<K, V> entry = valueReference.getEntry();
+    int hash = entry.getHash();
+    segmentFor(hash).reclaimValue(entry.getKey(), hash, valueReference);
+  }
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `entry.getKey()` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    ReferenceEntry<K, V> entry = valueReference.getEntry();
+    int hash = entry.getHash();
+    segmentFor(hash).reclaimValue(entry.getKey(), hash, valueReference);
+  }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `key` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+        V value = getLiveValue(entry, now);
+        if (value != null) {
+          nextExternal = new WriteThroughEntry(key, value);
+          return true;
+        } else {
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `postReadCleanup` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+        }
+      } finally {
+        currentSegment.postReadCleanup();
+      }
+    }
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `length` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+        if (currentSegment.count != 0) {
+          currentTable = currentSegment.table;
+          nextTableIndex = currentTable.length() - 1;
+          if (nextInTable()) {
+            return;
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+            return false;
+          }
+          return e.getValueReference().get() != null;
+        }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Condition `result == null` is always `false`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    }
+
+    if (result == null) {
+      globalStatsCounter.recordLoadException(stopwatch.elapsed(NANOSECONDS));
+      throw new InvalidCacheLoadException(loader + " returned null map from loadAll");
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -4123,27 +4099,63 @@ in `guava/src/com/google/common/cache/LocalCache.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Method invocation `apply` may produce `NullPointerException`
+Method invocation `getWeight` may produce `NullPointerException`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      // If the newest entry by itself is too heavy for the segment, don't bother evicting
+      // anything else, just that
+      if (newest.getValueReference().getWeight() > maxSegmentWeight) {
+        if (!removeEntry(newest, newest.getHash(), RemovalCause.SIZE)) {
+          throw new AssertionError();
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `getUnchecked` may produce `NullPointerException`
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
     @Override
-    public V apply(K key) {
-      return autoDelegate.apply(key);
+    public V getUnchecked(K key) {
+      return autoDelegate.getUnchecked(key);
     }
 
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Method invocation `length` may produce `NullPointerException`
+Method invocation `getAll` may produce `NullPointerException`
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-        if (currentSegment.count != 0) {
-          currentTable = currentSegment.table;
-          nextTableIndex = currentTable.length() - 1;
-          if (nextInTable()) {
-            return;
+    @Override
+    public ImmutableMap<K, V> getAll(Iterable<? extends K> keys) throws ExecutionException {
+      return autoDelegate.getAll(keys);
+    }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `segment.keyReferenceQueue` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      <K, V> ReferenceEntry<K, V> newEntry(
+          Segment<K, V> segment, K key, int hash, @CheckForNull ReferenceEntry<K, V> next) {
+        return new WeakWriteEntry<>(segment.keyReferenceQueue, key, hash, next);
+      }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `defaultLoader` might be null
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+  V getOrLoad(K key) throws ExecutionException {
+    return get(key, defaultLoader);
+  }
+
 ```
 
 ### RuleId[ruleID=ConstantConditions]
@@ -4151,7 +4163,7 @@ Method invocation `length` may produce `NullPointerException`
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-
+        int newCount = this.count - 1;
         AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
         int index = hash & (table.length() - 1);
         ReferenceEntry<K, V> first = table.get(index);
@@ -4159,39 +4171,27 @@ in `guava/src/com/google/common/cache/LocalCache.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
+Method invocation `isLoading` may produce `NullPointerException`
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-
-            ValueReference<K, V> valueReference = e.getValueReference();
-            V entryValue = valueReference.get();
-
-            if (entryValue == null) {
+              && map.keyEquivalence.equivalent(key, entryKey)) {
+            valueReference = e.getValueReference();
+            if (valueReference.isLoading()) {
+              createNewEntry = false;
+            } else {
 ```
 
 ### RuleId[ruleID=ConstantConditions]
-Value `entryValue` is always 'null'
+Value `value` is always 'null'
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-              if (valueReference.isActive()) {
+              if (value == null) {
                 enqueueNotification(
-                    key, hash, entryValue, valueReference.getWeight(), RemovalCause.COLLECTED);
-                setValue(e, key, value, now);
-                newCount = this.count; // count remains unchanged
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `poll` may produce `NullPointerException`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-    void clearKeyReferenceQueue() {
-      while (keyReferenceQueue.poll() != null) {}
-    }
-
+                    entryKey, hash, value, valueReference.getWeight(), RemovalCause.COLLECTED);
+              } else if (map.isExpired(e, now)) {
+                // This is a duplicate check, as preWriteCleanup already purged expired
 ```
 
 ## RuleId[ruleID=TrivialStringConcatenation]
@@ -4366,6 +4366,18 @@ public abstract class FinalizablePhantomReference<T> extends PhantomReference<T>
 
 ## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super E`
+in `guava/src/com/google/common/collect/ImmutableSortedSet.java`
+#### Snippet
+```java
+   * @throws NullPointerException if {@code comparator} is null
+   */
+  public static <E> Builder<E> orderedBy(Comparator<E> comparator) {
+    return new Builder<E>(comparator);
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends N`
 in `guava/src/com/google/common/graph/StandardMutableValueGraph.java`
 #### Snippet
@@ -4387,18 +4399,6 @@ in `guava/src/com/google/common/graph/StandardMutableValueGraph.java`
   public V putEdgeValue(EndpointPair<N> endpoints, V value) {
     validateEndpoints(endpoints);
     return putEdgeValue(endpoints.nodeU(), endpoints.nodeV(), value);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super E`
-in `guava/src/com/google/common/collect/ImmutableSortedSet.java`
-#### Snippet
-```java
-   * @throws NullPointerException if {@code comparator} is null
-   */
-  public static <E> Builder<E> orderedBy(Comparator<E> comparator) {
-    return new Builder<E>(comparator);
-  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -4438,54 +4438,6 @@ in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/graph/DirectedMultiNetworkConnections.java`
-#### Snippet
-```java
-
-  static <N, E> DirectedMultiNetworkConnections<N, E> ofImmutable(
-      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
-    return new DirectedMultiNetworkConnections<>(
-        ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends N`
-in `guava/src/com/google/common/graph/DirectedMultiNetworkConnections.java`
-#### Snippet
-```java
-
-  static <N, E> DirectedMultiNetworkConnections<N, E> ofImmutable(
-      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
-    return new DirectedMultiNetworkConnections<>(
-        ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/graph/DirectedMultiNetworkConnections.java`
-#### Snippet
-```java
-
-  static <N, E> DirectedMultiNetworkConnections<N, E> ofImmutable(
-      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
-    return new DirectedMultiNetworkConnections<>(
-        ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends N`
-in `guava/src/com/google/common/graph/DirectedMultiNetworkConnections.java`
-#### Snippet
-```java
-
-  static <N, E> DirectedMultiNetworkConnections<N, E> ofImmutable(
-      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
-    return new DirectedMultiNetworkConnections<>(
-        ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `guava/src/com/google/common/util/concurrent/SimpleTimeLimiter.java`
 #### Snippet
@@ -4498,39 +4450,51 @@ in `guava/src/com/google/common/util/concurrent/SimpleTimeLimiter.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Subscriber`
-in `guava/src/com/google/common/eventbus/Dispatcher.java`
+Can generalize to `? extends E`
+in `guava/src/com/google/common/graph/DirectedMultiNetworkConnections.java`
 #### Snippet
 ```java
 
-    @Override
-    void dispatch(Object event, Iterator<Subscriber> subscribers) {
-      checkNotNull(event);
-      while (subscribers.hasNext()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Subscriber`
-in `guava/src/com/google/common/eventbus/Dispatcher.java`
-#### Snippet
-```java
-
-    @Override
-    void dispatch(Object event, Iterator<Subscriber> subscribers) {
-      checkNotNull(event);
-      while (subscribers.hasNext()) {
+  static <N, E> DirectedMultiNetworkConnections<N, E> ofImmutable(
+      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
+    return new DirectedMultiNetworkConnections<>(
+        ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends N`
-in `guava/src/com/google/common/graph/StandardValueGraph.java`
+in `guava/src/com/google/common/graph/DirectedMultiNetworkConnections.java`
 #### Snippet
 ```java
-  @Override
-  @CheckForNull
-  public V edgeValueOrDefault(EndpointPair<N> endpoints, @CheckForNull V defaultValue) {
-    validateEndpoints(endpoints);
-    return edgeValueOrDefaultInternal(endpoints.nodeU(), endpoints.nodeV(), defaultValue);
+
+  static <N, E> DirectedMultiNetworkConnections<N, E> ofImmutable(
+      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
+    return new DirectedMultiNetworkConnections<>(
+        ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/graph/DirectedMultiNetworkConnections.java`
+#### Snippet
+```java
+
+  static <N, E> DirectedMultiNetworkConnections<N, E> ofImmutable(
+      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
+    return new DirectedMultiNetworkConnections<>(
+        ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends N`
+in `guava/src/com/google/common/graph/DirectedMultiNetworkConnections.java`
+#### Snippet
+```java
+
+  static <N, E> DirectedMultiNetworkConnections<N, E> ofImmutable(
+      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
+    return new DirectedMultiNetworkConnections<>(
+        ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -4546,15 +4510,39 @@ in `guava/src/com/google/common/graph/StandardValueGraph.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `guava/src/com/google/common/reflect/ImmutableTypeToInstanceMap.java`
+Can generalize to `? extends N`
+in `guava/src/com/google/common/graph/StandardValueGraph.java`
 #### Snippet
 ```java
-     */
-    @CanIgnoreReturnValue
-    public <T extends B> Builder<B> put(TypeToken<T> key, T value) {
-      mapBuilder.put(key.rejectTypeVariables(), value);
-      return this;
+  @Override
+  @CheckForNull
+  public V edgeValueOrDefault(EndpointPair<N> endpoints, @CheckForNull V defaultValue) {
+    validateEndpoints(endpoints);
+    return edgeValueOrDefaultInternal(endpoints.nodeU(), endpoints.nodeV(), defaultValue);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Subscriber`
+in `guava/src/com/google/common/eventbus/Dispatcher.java`
+#### Snippet
+```java
+
+    @Override
+    void dispatch(Object event, Iterator<Subscriber> subscribers) {
+      checkNotNull(event);
+      while (subscribers.hasNext()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Subscriber`
+in `guava/src/com/google/common/eventbus/Dispatcher.java`
+#### Snippet
+```java
+
+    @Override
+    void dispatch(Object event, Iterator<Subscriber> subscribers) {
+      checkNotNull(event);
+      while (subscribers.hasNext()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -4570,6 +4558,18 @@ in `guava/src/com/google/common/reflect/ImmutableTypeToInstanceMap.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `guava/src/com/google/common/reflect/ImmutableTypeToInstanceMap.java`
+#### Snippet
+```java
+     */
+    @CanIgnoreReturnValue
+    public <T extends B> Builder<B> put(TypeToken<T> key, T value) {
+      mapBuilder.put(key.rejectTypeVariables(), value);
+      return this;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Entry`
 in `guava/src/com/google/common/collect/ImmutableMultiset.java`
 #### Snippet
@@ -4579,6 +4579,30 @@ in `guava/src/com/google/common/collect/ImmutableMultiset.java`
     ElementSet(List<Entry<E>> entries, Multiset<E> delegate) {
       this.entries = entries;
       this.delegate = delegate;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/collect/UnmodifiableSortedMultiset.java`
+#### Snippet
+```java
+final class UnmodifiableSortedMultiset<E extends @Nullable Object> extends UnmodifiableMultiset<E>
+    implements SortedMultiset<E> {
+  UnmodifiableSortedMultiset(SortedMultiset<E> delegate) {
+    super(delegate);
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends N`
+in `guava/src/com/google/common/graph/AbstractNetwork.java`
+#### Snippet
+```java
+
+  @Override
+  public Set<E> edgesConnecting(EndpointPair<N> endpoints) {
+    validateEndpoints(endpoints);
+    return edgesConnecting(endpoints.nodeU(), endpoints.nodeV());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -4618,18 +4642,6 @@ in `guava/src/com/google/common/graph/AbstractNetwork.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends N`
-in `guava/src/com/google/common/graph/AbstractNetwork.java`
-#### Snippet
-```java
-
-  @Override
-  public Set<E> edgesConnecting(EndpointPair<N> endpoints) {
-    validateEndpoints(endpoints);
-    return edgesConnecting(endpoints.nodeU(), endpoints.nodeV());
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `guava/src/com/google/common/collect/FluentIterable.java`
 #### Snippet
@@ -4666,30 +4678,6 @@ in `guava/src/com/google/common/collect/ImmutableClassToInstanceMap.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/collect/UnmodifiableSortedMultiset.java`
-#### Snippet
-```java
-final class UnmodifiableSortedMultiset<E extends @Nullable Object> extends UnmodifiableMultiset<E>
-    implements SortedMultiset<E> {
-  UnmodifiableSortedMultiset(SortedMultiset<E> delegate) {
-    super(delegate);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `guava/src/com/google/common/collect/Tables.java`
-#### Snippet
-```java
-      extends UnmodifiableTable<R, C, V> implements RowSortedTable<R, C, V> {
-
-    public UnmodifiableRowSortedMap(RowSortedTable<R, ? extends C, ? extends V> delegate) {
-      super(delegate);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends R`
 in `guava/src/com/google/common/collect/Streams.java`
 #### Snippet
@@ -4706,35 +4694,11 @@ Can generalize to `? extends T`
 in `guava/src/com/google/common/collect/Streams.java`
 #### Snippet
 ```java
-  @InlineMe(replacement = "optional.stream()")
-  @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
-  public static <T> Stream<T> stream(java.util.Optional<T> optional) {
-    return optional.isPresent() ? Stream.of(optional.get()) : Stream.empty();
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `guava/src/com/google/common/collect/Streams.java`
-#### Snippet
-```java
    */
   @Beta
   public static <T> Stream<T> stream(com.google.common.base.Optional<T> optional) {
     return optional.isPresent() ? Stream.of(optional.get()) : Stream.empty();
   }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `guava/src/com/google/common/collect/Streams.java`
-#### Snippet
-```java
-   */
-  public static <R extends @Nullable Object> Stream<R> mapWithIndex(
-      LongStream stream, LongFunctionWithIndex<R> function) {
-    checkNotNull(stream);
-    checkNotNull(function);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -4762,6 +4726,30 @@ in `guava/src/com/google/common/collect/Streams.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `guava/src/com/google/common/collect/Streams.java`
+#### Snippet
+```java
+   */
+  public static <R extends @Nullable Object> Stream<R> mapWithIndex(
+      LongStream stream, LongFunctionWithIndex<R> function) {
+    checkNotNull(stream);
+    checkNotNull(function);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `guava/src/com/google/common/collect/Streams.java`
+#### Snippet
+```java
+  @InlineMe(replacement = "optional.stream()")
+  @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
+  public static <T> Stream<T> stream(java.util.Optional<T> optional) {
+    return optional.isPresent() ? Stream.of(optional.get()) : Stream.empty();
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `guava/src/com/google/common/collect/Streams.java`
 #### Snippet
@@ -4771,6 +4759,18 @@ in `guava/src/com/google/common/collect/Streams.java`
   public static <T extends @Nullable Object> Stream<T> stream(Iterator<T> iterator) {
     return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, 0), false);
   }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `guava/src/com/google/common/collect/Tables.java`
+#### Snippet
+```java
+      extends UnmodifiableTable<R, C, V> implements RowSortedTable<R, C, V> {
+
+    public UnmodifiableRowSortedMap(RowSortedTable<R, ? extends C, ? extends V> delegate) {
+      super(delegate);
+    }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -4822,18 +4822,6 @@ in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `guava/src/com/google/common/collect/HashBiMap.java`
-#### Snippet
-```java
-        @Override
-        @ParametricNullness
-        K output(BiEntry<K, V> entry) {
-          return entry.key;
-        }
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends V`
 in `guava/src/com/google/common/collect/HashBiMap.java`
 #### Snippet
@@ -4846,15 +4834,15 @@ in `guava/src/com/google/common/collect/HashBiMap.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `guava/src/com/google/common/collect/Collections2.java`
+Can generalize to `? extends K`
+in `guava/src/com/google/common/collect/HashBiMap.java`
 #### Snippet
 ```java
-   */
-  public static <F extends @Nullable Object, T extends @Nullable Object> Collection<T> transform(
-      Collection<F> fromCollection, Function<? super F, T> function) {
-    return new TransformedCollection<>(fromCollection, function);
-  }
+        @Override
+        @ParametricNullness
+        K output(BiEntry<K, V> entry) {
+          return entry.key;
+        }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -4866,6 +4854,18 @@ in `guava/src/com/google/common/collect/Collections2.java`
   @Beta
   public static <E> Collection<List<E>> permutations(Collection<E> elements) {
     return new PermutationCollection<E>(ImmutableList.copyOf(elements));
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `guava/src/com/google/common/collect/Collections2.java`
+#### Snippet
+```java
+   */
+  public static <F extends @Nullable Object, T extends @Nullable Object> Collection<T> transform(
+      Collection<F> fromCollection, Function<? super F, T> function) {
+    return new TransformedCollection<>(fromCollection, function);
   }
 ```
 
@@ -4886,11 +4886,11 @@ Can generalize to `? extends Iterator`
 in `guava/src/com/google/common/graph/Traverser.java`
 #### Snippet
 ```java
-        @Override
         @CheckForNull
+        @Override
         N visitNext(Deque<Iterator<? extends N>> horizon) {
           Iterator<? extends N> top = horizon.getFirst();
-          while (top.hasNext()) {
+          if (top.hasNext()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -4898,11 +4898,11 @@ Can generalize to `? extends Iterator`
 in `guava/src/com/google/common/graph/Traverser.java`
 #### Snippet
 ```java
-        @CheckForNull
         @Override
+        @CheckForNull
         N visitNext(Deque<Iterator<? extends N>> horizon) {
           Iterator<? extends N> top = horizon.getFirst();
-          if (top.hasNext()) {
+          while (top.hasNext()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -4966,6 +4966,18 @@ in `guava/src/com/google/common/math/BigIntegerMath.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `guava/src/com/google/common/collect/TreeTraverser.java`
+#### Snippet
+```java
+  @Deprecated
+  public static <T> TreeTraverser<T> using(
+      final Function<T, ? extends Iterable<T>> nodeToChildrenFunction) {
+    checkNotNull(nodeToChildrenFunction);
+    return new TreeTraverser<T>() {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends V`
 in `guava/src/com/google/common/collect/JdkBackedImmutableMap.java`
 #### Snippet
@@ -4990,15 +5002,63 @@ in `guava/src/com/google/common/collect/JdkBackedImmutableMap.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `guava/src/com/google/common/collect/TreeTraverser.java`
+Can generalize to `? super Entry`
+in `guava/src/com/google/common/collect/RegularImmutableMap.java`
 #### Snippet
 ```java
-  @Deprecated
-  public static <T> TreeTraverser<T> using(
-      final Function<T, ? extends Iterable<T>> nodeToChildrenFunction) {
-    checkNotNull(nodeToChildrenFunction);
-    return new TreeTraverser<T>() {
+   */
+  static <K, V> Entry<K, V>[] removeDuplicates(
+      Entry<K, V>[] entries, int n, int newN, IdentityHashMap<Entry<K, V>, Boolean> duplicates) {
+    Entry<K, V>[] newEntries = createEntryArray(newN);
+    for (int in = 0, out = 0; in < n; in++) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `guava/src/com/google/common/collect/RegularImmutableMap.java`
+#### Snippet
+```java
+    final RegularImmutableMap<K, V> map;
+
+    Values(RegularImmutableMap<K, V> map) {
+      this.map = map;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `guava/src/com/google/common/collect/RegularImmutableMap.java`
+#### Snippet
+```java
+    private final RegularImmutableMap<K, ?> map;
+
+    KeySet(RegularImmutableMap<K, ?> map) {
+      this.map = map;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Cell`
+in `guava/src/com/google/common/collect/RegularImmutableTable.java`
+#### Snippet
+```java
+
+  private static <R, C, V> RegularImmutableTable<R, C, V> forCellsInternal(
+      Iterable<Cell<R, C, V>> cells,
+      @CheckForNull Comparator<? super R> rowComparator,
+      @CheckForNull Comparator<? super C> columnComparator) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `guava/src/com/google/common/collect/SortedLists.java`
+#### Snippet
+```java
+  public static <E extends @Nullable Object, K extends @Nullable Object> int binarySearch(
+      List<E> list,
+      Function<? super E, K> keyFunction,
+      @ParametricNullness K key,
+      Comparator<? super K> keyComparator,
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5023,66 +5083,6 @@ in `guava/src/com/google/common/collect/Iterables.java`
   public static <T> @Nullable T[] toArray(Iterable<? extends @Nullable T> iterable, Class<T> type) {
     return toArray(iterable, ObjectArrays.newArray(type, 0));
   }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Cell`
-in `guava/src/com/google/common/collect/RegularImmutableTable.java`
-#### Snippet
-```java
-
-  private static <R, C, V> RegularImmutableTable<R, C, V> forCellsInternal(
-      Iterable<Cell<R, C, V>> cells,
-      @CheckForNull Comparator<? super R> rowComparator,
-      @CheckForNull Comparator<? super C> columnComparator) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `guava/src/com/google/common/collect/RegularImmutableMap.java`
-#### Snippet
-```java
-    final RegularImmutableMap<K, V> map;
-
-    Values(RegularImmutableMap<K, V> map) {
-      this.map = map;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Entry`
-in `guava/src/com/google/common/collect/RegularImmutableMap.java`
-#### Snippet
-```java
-   */
-  static <K, V> Entry<K, V>[] removeDuplicates(
-      Entry<K, V>[] entries, int n, int newN, IdentityHashMap<Entry<K, V>, Boolean> duplicates) {
-    Entry<K, V>[] newEntries = createEntryArray(newN);
-    for (int in = 0, out = 0; in < n; in++) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `guava/src/com/google/common/collect/RegularImmutableMap.java`
-#### Snippet
-```java
-    private final RegularImmutableMap<K, ?> map;
-
-    KeySet(RegularImmutableMap<K, ?> map) {
-      this.map = map;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `guava/src/com/google/common/collect/SortedLists.java`
-#### Snippet
-```java
-  public static <E extends @Nullable Object, K extends @Nullable Object> int binarySearch(
-      List<E> list,
-      Function<? super E, K> keyFunction,
-      @ParametricNullness K key,
-      Comparator<? super K> keyComparator,
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5134,18 +5134,6 @@ in `guava/src/com/google/thirdparty/publicsuffix/TrieParser.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `guava/src/com/google/common/collect/ImmutableMap.java`
-#### Snippet
-```java
-
-  private static <K extends Enum<K>, V> ImmutableMap<K, V> copyOfEnumMap(
-      EnumMap<K, ? extends V> original) {
-    EnumMap<K, V> copy = new EnumMap<>(original);
-    for (Entry<K, V> entry : copy.entrySet()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super K0`
 in `guava/src/com/google/common/collect/MultimapBuilder.java`
 #### Snippet
@@ -5158,15 +5146,15 @@ in `guava/src/com/google/common/collect/MultimapBuilder.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends N`
-in `guava/src/com/google/common/graph/AbstractBaseGraph.java`
+Can generalize to `? extends K`
+in `guava/src/com/google/common/collect/ImmutableMap.java`
 #### Snippet
 ```java
 
-  @Override
-  public boolean hasEdgeConnecting(EndpointPair<N> endpoints) {
-    checkNotNull(endpoints);
-    if (!isOrderingCompatible(endpoints)) {
+  private static <K extends Enum<K>, V> ImmutableMap<K, V> copyOfEnumMap(
+      EnumMap<K, ? extends V> original) {
+    EnumMap<K, V> copy = new EnumMap<>(original);
+    for (Entry<K, V> entry : copy.entrySet()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5182,15 +5170,15 @@ in `guava/src/com/google/common/base/Predicates.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `guava/src/com/google/common/base/Present.java`
+Can generalize to `? extends N`
+in `guava/src/com/google/common/graph/AbstractBaseGraph.java`
 #### Snippet
 ```java
 
   @Override
-  public <V> Optional<V> transform(Function<? super T, V> function) {
-    return new Present<>(
-        checkNotNull(
+  public boolean hasEdgeConnecting(EndpointPair<N> endpoints) {
+    checkNotNull(endpoints);
+    if (!isOrderingCompatible(endpoints)) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5230,6 +5218,18 @@ in `guava/src/com/google/common/graph/DirectedGraphConnections.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `guava/src/com/google/common/base/Present.java`
+#### Snippet
+```java
+
+  @Override
+  public <V> Optional<V> transform(Function<? super T, V> function) {
+    return new Present<>(
+        checkNotNull(
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super E`
 in `guava/src/com/google/common/collect/MinMaxPriorityQueue.java`
 #### Snippet
@@ -5251,6 +5251,18 @@ in `guava/src/com/google/common/collect/ObjectArrays.java`
   public static <T> T[] concat(T[] first, T[] second, Class<T> type) {
     T[] result = newArray(type, first.length + second.length);
     System.arraycopy(first, 0, result, 0, first.length);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Type`
+in `guava/src/com/google/common/reflect/TypeResolver.java`
+#### Snippet
+```java
+    }
+
+    private TypeTable(ImmutableMap<TypeVariableKey, Type> map) {
+      this.map = map;
+    }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5278,18 +5290,6 @@ in `guava/src/com/google/common/reflect/TypeResolver.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Type`
-in `guava/src/com/google/common/reflect/TypeResolver.java`
-#### Snippet
-```java
-    }
-
-    private TypeTable(ImmutableMap<TypeVariableKey, Type> map) {
-      this.map = map;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends List`
 in `guava/src/com/google/common/collect/CartesianList.java`
 #### Snippet
@@ -5299,18 +5299,6 @@ in `guava/src/com/google/common/collect/CartesianList.java`
   CartesianList(ImmutableList<List<E>> axes) {
     this.axes = axes;
     int[] axesSizeProduct = new int[axes.size() + 1];
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super E1`
-in `guava/src/com/google/common/graph/NetworkBuilder.java`
-#### Snippet
-```java
-   * <p>The default value is {@link ElementOrder#insertion() insertion order}.
-   */
-  public <E1 extends E> NetworkBuilder<N, E1> edgeOrder(ElementOrder<E1> edgeOrder) {
-    NetworkBuilder<N, E1> newBuilder = cast();
-    newBuilder.edgeOrder = checkNotNull(edgeOrder);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5326,15 +5314,15 @@ in `guava/src/com/google/common/collect/SortedIterables.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends N`
-in `guava/src/com/google/common/graph/StandardMutableGraph.java`
+Can generalize to `? super E1`
+in `guava/src/com/google/common/graph/NetworkBuilder.java`
 #### Snippet
 ```java
-
-  @Override
-  public boolean putEdge(EndpointPair<N> endpoints) {
-    validateEndpoints(endpoints);
-    return putEdge(endpoints.nodeU(), endpoints.nodeV());
+   * <p>The default value is {@link ElementOrder#insertion() insertion order}.
+   */
+  public <E1 extends E> NetworkBuilder<N, E1> edgeOrder(ElementOrder<E1> edgeOrder) {
+    NetworkBuilder<N, E1> newBuilder = cast();
+    newBuilder.edgeOrder = checkNotNull(edgeOrder);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5350,51 +5338,15 @@ in `guava/src/com/google/common/graph/StandardMutableGraph.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ImmutableSet`
-in `guava/src/com/google/common/collect/Sets.java`
-#### Snippet
-```java
-    }
-
-    private CartesianSet(ImmutableList<ImmutableSet<E>> axes, CartesianList<E> delegate) {
-      this.axes = axes;
-      this.delegate = delegate;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/collect/Sets.java`
-#### Snippet
-```java
-   */
-  public static <E extends Enum<E>> EnumSet<E> newEnumSet(
-      Iterable<E> iterable, Class<E> elementType) {
-    EnumSet<E> set = EnumSet.noneOf(elementType);
-    Iterables.addAll(set, iterable);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `guava/src/com/google/common/collect/Sets.java`
-#### Snippet
-```java
-  @GwtIncompatible // NavigableSet
-  public static <K extends Comparable<? super K>> NavigableSet<K> subSet(
-      NavigableSet<K> set, Range<K> range) {
-    if (set.comparator() != null
-        && set.comparator() != Ordering.natural()
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `guava/src/com/google/common/collect/Sets.java`
+Can generalize to `? extends N`
+in `guava/src/com/google/common/graph/StandardMutableGraph.java`
 #### Snippet
 ```java
 
-    // If we inline this, we get a javac error.
-    private static <T extends @Nullable Object> Ordering<T> reverse(Comparator<T> forward) {
-      return Ordering.from(forward).reverse();
-    }
+  @Override
+  public boolean putEdge(EndpointPair<N> endpoints) {
+    validateEndpoints(endpoints);
+    return putEdge(endpoints.nodeU(), endpoints.nodeV());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5446,6 +5398,54 @@ in `guava/src/com/google/common/io/MoreFiles.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `guava/src/com/google/common/collect/Sets.java`
+#### Snippet
+```java
+  @GwtIncompatible // NavigableSet
+  public static <K extends Comparable<? super K>> NavigableSet<K> subSet(
+      NavigableSet<K> set, Range<K> range) {
+    if (set.comparator() != null
+        && set.comparator() != Ordering.natural()
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ImmutableSet`
+in `guava/src/com/google/common/collect/Sets.java`
+#### Snippet
+```java
+    }
+
+    private CartesianSet(ImmutableList<ImmutableSet<E>> axes, CartesianList<E> delegate) {
+      this.axes = axes;
+      this.delegate = delegate;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/collect/Sets.java`
+#### Snippet
+```java
+   */
+  public static <E extends Enum<E>> EnumSet<E> newEnumSet(
+      Iterable<E> iterable, Class<E> elementType) {
+    EnumSet<E> set = EnumSet.noneOf(elementType);
+    Iterables.addAll(set, iterable);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `guava/src/com/google/common/collect/Sets.java`
+#### Snippet
+```java
+
+    // If we inline this, we get a javac error.
+    private static <T extends @Nullable Object> Ordering<T> reverse(Comparator<T> forward) {
+      return Ordering.from(forward).reverse();
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Entry`>
 in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
 #### Snippet
@@ -5494,27 +5494,15 @@ in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Entry`
-in `guava/src/com/google/common/collect/Multisets.java`
+Can generalize to `? super K`
+in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
 #### Snippet
 ```java
-    private boolean canRemove;
-
-    MultisetIteratorImpl(Multiset<E> multiset, Iterator<Entry<E>> entryIterator) {
-      this.multiset = multiset;
-      this.entryIterator = entryIterator;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Entry`
-in `guava/src/com/google/common/collect/Multisets.java`
-#### Snippet
-```java
-
-  static <E extends @Nullable Object> Iterator<E> elementIterator(
-      Iterator<Entry<E>> entryIterator) {
-    return new TransformedIterator<Entry<E>, E>(entryIterator) {
-      @Override
+   * @throws NullPointerException if {@code comparator} is null
+   */
+  public static <K, V> Builder<K, V> orderedBy(Comparator<K> comparator) {
+    return new Builder<>(comparator);
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5554,51 +5542,27 @@ in `guava/src/com/google/common/collect/SingletonImmutableTable.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super K`
-in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
+Can generalize to `? extends Entry`
+in `guava/src/com/google/common/collect/Multisets.java`
 #### Snippet
 ```java
-   * @throws NullPointerException if {@code comparator} is null
-   */
-  public static <K, V> Builder<K, V> orderedBy(Comparator<K> comparator) {
-    return new Builder<>(comparator);
-  }
+    private boolean canRemove;
+
+    MultisetIteratorImpl(Multiset<E> multiset, Iterator<Entry<E>> entryIterator) {
+      this.multiset = multiset;
+      this.entryIterator = entryIterator;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends N`
-in `guava/src/com/google/common/graph/UndirectedGraphConnections.java`
+Can generalize to `? extends Entry`
+in `guava/src/com/google/common/collect/Multisets.java`
 #### Snippet
 ```java
-  }
 
-  static <N, V> UndirectedGraphConnections<N, V> ofImmutable(Map<N, V> adjacentNodeValues) {
-    return new UndirectedGraphConnections<>(ImmutableMap.copyOf(adjacentNodeValues));
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `guava/src/com/google/common/graph/UndirectedGraphConnections.java`
-#### Snippet
-```java
-  }
-
-  static <N, V> UndirectedGraphConnections<N, V> ofImmutable(Map<N, V> adjacentNodeValues) {
-    return new UndirectedGraphConnections<>(ImmutableMap.copyOf(adjacentNodeValues));
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/collect/TreeMultiset.java`
-#### Snippet
-```java
-  }
-
-  private long aggregateBelowRange(Aggregate aggr, @CheckForNull AvlNode<E> node) {
-    if (node == null) {
-      return 0;
+  static <E extends @Nullable Object> Iterator<E> elementIterator(
+      Iterator<Entry<E>> entryIterator) {
+    return new TransformedIterator<Entry<E>, E>(entryIterator) {
+      @Override
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5623,6 +5587,42 @@ in `guava/src/com/google/common/collect/TreeMultiset.java`
   private Entry<E> wrapEntry(final AvlNode<E> baseEntry) {
     return new Multisets.AbstractEntry<E>() {
       @Override
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/collect/TreeMultiset.java`
+#### Snippet
+```java
+  }
+
+  private long aggregateBelowRange(Aggregate aggr, @CheckForNull AvlNode<E> node) {
+    if (node == null) {
+      return 0;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends N`
+in `guava/src/com/google/common/graph/UndirectedGraphConnections.java`
+#### Snippet
+```java
+  }
+
+  static <N, V> UndirectedGraphConnections<N, V> ofImmutable(Map<N, V> adjacentNodeValues) {
+    return new UndirectedGraphConnections<>(ImmutableMap.copyOf(adjacentNodeValues));
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `guava/src/com/google/common/graph/UndirectedGraphConnections.java`
+#### Snippet
+```java
+  }
+
+  static <N, V> UndirectedGraphConnections<N, V> ofImmutable(Map<N, V> adjacentNodeValues) {
+    return new UndirectedGraphConnections<>(ImmutableMap.copyOf(adjacentNodeValues));
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5750,10 +5750,10 @@ Can generalize to `? extends E`
 in `guava/src/com/google/common/collect/AllEqualOrdering.java`
 #### Snippet
 ```java
+
   @Override
-  @SuppressWarnings("nullness") // unsafe: see supertype
-  public <E extends @Nullable Object> ImmutableList<E> immutableSortedCopy(Iterable<E> iterable) {
-    return ImmutableList.copyOf(iterable);
+  public <E extends @Nullable Object> List<E> sortedCopy(Iterable<E> iterable) {
+    return Lists.newArrayList(iterable);
   }
 ```
 
@@ -5762,10 +5762,10 @@ Can generalize to `? extends E`
 in `guava/src/com/google/common/collect/AllEqualOrdering.java`
 #### Snippet
 ```java
-
   @Override
-  public <E extends @Nullable Object> List<E> sortedCopy(Iterable<E> iterable) {
-    return Lists.newArrayList(iterable);
+  @SuppressWarnings("nullness") // unsafe: see supertype
+  public <E extends @Nullable Object> ImmutableList<E> immutableSortedCopy(Iterable<E> iterable) {
+    return ImmutableList.copyOf(iterable);
   }
 ```
 
@@ -5794,18 +5794,6 @@ in `guava/src/com/google/common/collect/ImmutableMapEntry.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends AbstractFuture`
-in `guava/src/com/google/common/util/concurrent/Futures.java`
-#### Snippet
-```java
-
-    private void recordInputCompletion(
-        ImmutableList<AbstractFuture<T>> delegates, int inputFutureIndex) {
-      /*
-       * requireNonNull is safe because we accepted an Iterable of non-null Future instances, and we
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ListenableFuture`
 in `guava/src/com/google/common/util/concurrent/Futures.java`
 #### Snippet
@@ -5827,6 +5815,18 @@ in `guava/src/com/google/common/util/concurrent/Futures.java`
     CallbackListener(Future<V> future, FutureCallback<? super V> callback) {
       this.future = future;
       this.callback = callback;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends AbstractFuture`
+in `guava/src/com/google/common/util/concurrent/Futures.java`
+#### Snippet
+```java
+
+    private void recordInputCompletion(
+        ImmutableList<AbstractFuture<T>> delegates, int inputFutureIndex) {
+      /*
+       * requireNonNull is safe because we accepted an Iterable of non-null Future instances, and we
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5858,9 +5858,9 @@ Can generalize to `? extends L`
 in `guava/src/com/google/common/util/concurrent/Striped.java`
 #### Snippet
 ```java
-    final ReferenceQueue<L> queue = new ReferenceQueue<>();
+    final int size;
 
-    SmallLazyStriped(int stripes, Supplier<L> supplier) {
+    LargeLazyStriped(int stripes, Supplier<L> supplier) {
       super(stripes);
       this.size = (mask == ALL_SET) ? Integer.MAX_VALUE : mask + 1;
 ```
@@ -5870,9 +5870,9 @@ Can generalize to `? extends L`
 in `guava/src/com/google/common/util/concurrent/Striped.java`
 #### Snippet
 ```java
-    final int size;
+    final ReferenceQueue<L> queue = new ReferenceQueue<>();
 
-    LargeLazyStriped(int stripes, Supplier<L> supplier) {
+    SmallLazyStriped(int stripes, Supplier<L> supplier) {
       super(stripes);
       this.size = (mask == ALL_SET) ? Integer.MAX_VALUE : mask + 1;
 ```
@@ -5919,9 +5919,9 @@ in `guava/src/com/google/common/collect/Comparators.java`
 #### Snippet
 ```java
   @ParametricNullness
-  public static <T extends @Nullable Object> T min(
+  public static <T extends @Nullable Object> T max(
       @ParametricNullness T a, @ParametricNullness T b, Comparator<T> comparator) {
-    return (comparator.compare(a, b) <= 0) ? a : b;
+    return (comparator.compare(a, b) >= 0) ? a : b;
   }
 ```
 
@@ -5931,9 +5931,9 @@ in `guava/src/com/google/common/collect/Comparators.java`
 #### Snippet
 ```java
   @ParametricNullness
-  public static <T extends @Nullable Object> T max(
+  public static <T extends @Nullable Object> T min(
       @ParametricNullness T a, @ParametricNullness T b, Comparator<T> comparator) {
-    return (comparator.compare(a, b) >= 0) ? a : b;
+    return (comparator.compare(a, b) <= 0) ? a : b;
   }
 ```
 
@@ -5947,6 +5947,18 @@ in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
   ImmutableListMultimap(ImmutableMap<K, ImmutableList<V>> map, int size) {
     super(map, size);
   }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/collect/ImmutableSet.java`
+#### Snippet
+```java
+
+    /** Adds all the elements from the specified SetBuilderImpl to this SetBuilderImpl. */
+    final SetBuilderImpl<E> combine(SetBuilderImpl<E> other) {
+      SetBuilderImpl<E> result = this;
+      for (int i = 0; i < other.distinct; i++) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5971,78 +5983,6 @@ in `guava/src/com/google/common/collect/ArrayTable.java`
   private ArrayTable(Table<R, C, ? extends @Nullable V> table) {
     this(table.rowKeySet(), table.columnKeySet());
     putAll(table);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/collect/ImmutableSet.java`
-#### Snippet
-```java
-
-    /** Adds all the elements from the specified SetBuilderImpl to this SetBuilderImpl. */
-    final SetBuilderImpl<E> combine(SetBuilderImpl<E> other) {
-      SetBuilderImpl<E> result = this;
-      for (int i = 0; i < other.distinct; i++) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-
-    @GuardedBy("this")
-    void drainValueReferenceQueue(ReferenceQueue<V> valueReferenceQueue) {
-      Reference<? extends V> ref;
-      int i = 0;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-  }
-
-  private static <E> ArrayList<E> toArrayList(Collection<E> c) {
-    // Avoid calling ArrayList(Collection), which may call back into toArray.
-    ArrayList<E> result = new ArrayList<>(c.size());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-
-    @GuardedBy("this")
-    void drainKeyReferenceQueue(ReferenceQueue<K> keyReferenceQueue) {
-      Reference<? extends K> ref;
-      int i = 0;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super S`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-    final AtomicInteger readCount = new AtomicInteger();
-
-    Segment(MapMakerInternalMap<K, V, E, S> map, int initialCapacity, int maxSegmentSize) {
-      this.map = map;
-      this.maxSegmentSize = maxSegmentSize;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `guava/src/com/google/common/collect/Iterators.java`
-#### Snippet
-```java
-   */
-  public static <T extends @Nullable Object> UnmodifiableIterator<T> filter(
-      Iterator<T> unfiltered, Predicate<? super T> retainIfTrue) {
-    checkNotNull(unfiltered);
-    checkNotNull(retainIfTrue);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -6074,11 +6014,35 @@ Can generalize to `? extends T`
 in `guava/src/com/google/common/collect/Iterators.java`
 #### Snippet
 ```java
+   * @since 2.0
+   */
+  public static <T extends @Nullable Object> Iterator<T> consumingIterator(Iterator<T> iterator) {
+    checkNotNull(iterator);
+    return new UnmodifiableIterator<T>() {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `guava/src/com/google/common/collect/Iterators.java`
+#### Snippet
+```java
    * @since 11.0
    */
   public static <T> Optional<T> tryFind(Iterator<T> iterator, Predicate<? super T> predicate) {
     checkNotNull(iterator);
     checkNotNull(predicate);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `guava/src/com/google/common/collect/Iterators.java`
+#### Snippet
+```java
+   */
+  public static <T extends @Nullable Object> UnmodifiableIterator<T> forEnumeration(
+      Enumeration<T> enumeration) {
+    checkNotNull(enumeration);
+    return new UnmodifiableIterator<T>() {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -6099,22 +6063,10 @@ in `guava/src/com/google/common/collect/Iterators.java`
 #### Snippet
 ```java
    */
-  public static <T extends @Nullable Object> UnmodifiableIterator<T> forEnumeration(
-      Enumeration<T> enumeration) {
-    checkNotNull(enumeration);
-    return new UnmodifiableIterator<T>() {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `guava/src/com/google/common/collect/Iterators.java`
-#### Snippet
-```java
-   * @since 2.0
-   */
-  public static <T extends @Nullable Object> Iterator<T> consumingIterator(Iterator<T> iterator) {
-    checkNotNull(iterator);
-    return new UnmodifiableIterator<T>() {
+  public static <T extends @Nullable Object> UnmodifiableIterator<T> filter(
+      Iterator<T> unfiltered, Predicate<? super T> retainIfTrue) {
+    checkNotNull(unfiltered);
+    checkNotNull(retainIfTrue);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -6122,58 +6074,10 @@ Can generalize to `? extends V1`
 in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
 #### Snippet
 ```java
+    private final ClosingFuture<V2> future2;
 
-    private Combiner4(
-        ClosingFuture<V1> future1,
-        ClosingFuture<V2> future2,
-        ClosingFuture<V3> future3,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V2`
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-    private Combiner4(
-        ClosingFuture<V1> future1,
-        ClosingFuture<V2> future2,
-        ClosingFuture<V3> future3,
-        ClosingFuture<V4> future4) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V3`
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-        ClosingFuture<V1> future1,
-        ClosingFuture<V2> future2,
-        ClosingFuture<V3> future3,
-        ClosingFuture<V4> future4) {
-      super(true, ImmutableList.of(future1, future2, future3, future4));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V4`
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-        ClosingFuture<V2> future2,
-        ClosingFuture<V3> future3,
-        ClosingFuture<V4> future4) {
-      super(true, ImmutableList.of(future1, future2, future3, future4));
-      this.future1 = future1;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V1`
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-
-    private Combiner3(
-        ClosingFuture<V1> future1, ClosingFuture<V2> future2, ClosingFuture<V3> future3) {
-      super(true, ImmutableList.of(future1, future2, future3));
+    private Combiner2(ClosingFuture<V1> future1, ClosingFuture<V2> future2) {
+      super(true, ImmutableList.of(future1, future2));
       this.future1 = future1;
 ```
 
@@ -6182,22 +6086,10 @@ Can generalize to `? extends V2`
 in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
 #### Snippet
 ```java
+    private final ClosingFuture<V2> future2;
 
-    private Combiner3(
-        ClosingFuture<V1> future1, ClosingFuture<V2> future2, ClosingFuture<V3> future3) {
-      super(true, ImmutableList.of(future1, future2, future3));
-      this.future1 = future1;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V3`
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-
-    private Combiner3(
-        ClosingFuture<V1> future1, ClosingFuture<V2> future2, ClosingFuture<V3> future3) {
-      super(true, ImmutableList.of(future1, future2, future3));
+    private Combiner2(ClosingFuture<V1> future1, ClosingFuture<V2> future2) {
+      super(true, ImmutableList.of(future1, future2));
       this.future1 = future1;
 ```
 
@@ -6235,30 +6127,6 @@ in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
         ClosingFuture<V3> future3,
         ClosingFuture<V4> future4,
         ClosingFuture<V5> future5) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/collect/Ordering.java`
-#### Snippet
-```java
-   * @since 14.0
-   */
-  public <E extends T> List<E> leastOf(Iterator<E> iterator, int k) {
-    checkNotNull(iterator);
-    checkNonnegative(k, "k");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/collect/Ordering.java`
-#### Snippet
-```java
-  // TODO(kevinb): rerun benchmarks including new options
-  @SuppressWarnings("nullness") // unsafe, but there's not much we can do about it now
-  public <E extends T> ImmutableList<E> immutableSortedCopy(Iterable<E> elements) {
-    return ImmutableList.sortedCopyOf(this, elements);
-  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -6298,26 +6166,14 @@ in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends U`
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-    <V extends @Nullable Object, U extends @Nullable Object>
-        ListenableFuture<U> applyClosingFunction(
-            ClosingFunction<? super V, U> transformation, @ParametricNullness V input)
-            throws Exception {
-      // TODO(dpb): Consider ways to defer closing without creating a separate CloseableList.
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends V1`
 in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
 #### Snippet
 ```java
-    private final ClosingFuture<V2> future2;
 
-    private Combiner2(ClosingFuture<V1> future1, ClosingFuture<V2> future2) {
-      super(true, ImmutableList.of(future1, future2));
+    private Combiner3(
+        ClosingFuture<V1> future1, ClosingFuture<V2> future2, ClosingFuture<V3> future3) {
+      super(true, ImmutableList.of(future1, future2, future3));
       this.future1 = future1;
 ```
 
@@ -6326,10 +6182,70 @@ Can generalize to `? extends V2`
 in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
 #### Snippet
 ```java
-    private final ClosingFuture<V2> future2;
 
-    private Combiner2(ClosingFuture<V1> future1, ClosingFuture<V2> future2) {
-      super(true, ImmutableList.of(future1, future2));
+    private Combiner3(
+        ClosingFuture<V1> future1, ClosingFuture<V2> future2, ClosingFuture<V3> future3) {
+      super(true, ImmutableList.of(future1, future2, future3));
+      this.future1 = future1;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V3`
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+
+    private Combiner3(
+        ClosingFuture<V1> future1, ClosingFuture<V2> future2, ClosingFuture<V3> future3) {
+      super(true, ImmutableList.of(future1, future2, future3));
+      this.future1 = future1;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V1`
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+
+    private Combiner4(
+        ClosingFuture<V1> future1,
+        ClosingFuture<V2> future2,
+        ClosingFuture<V3> future3,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V2`
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+    private Combiner4(
+        ClosingFuture<V1> future1,
+        ClosingFuture<V2> future2,
+        ClosingFuture<V3> future3,
+        ClosingFuture<V4> future4) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V3`
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+        ClosingFuture<V1> future1,
+        ClosingFuture<V2> future2,
+        ClosingFuture<V3> future3,
+        ClosingFuture<V4> future4) {
+      super(true, ImmutableList.of(future1, future2, future3, future4));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V4`
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+        ClosingFuture<V2> future2,
+        ClosingFuture<V3> future3,
+        ClosingFuture<V4> future4) {
+      super(true, ImmutableList.of(future1, future2, future3, future4));
       this.future1 = future1;
 ```
 
@@ -6346,6 +6262,18 @@ in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends U`
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+    <V extends @Nullable Object, U extends @Nullable Object>
+        ListenableFuture<U> applyClosingFunction(
+            ClosingFunction<? super V, U> transformation, @ParametricNullness V input)
+            throws Exception {
+      // TODO(dpb): Consider ways to defer closing without creating a separate CloseableList.
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Class`
 in `guava/src/com/google/common/primitives/Primitives.java`
 #### Snippet
@@ -6391,6 +6319,54 @@ in `guava/src/com/google/common/primitives/Primitives.java`
       Map<Class<?>, Class<?>> backward,
       Class<?> key,
       Class<?> value) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+
+    @GuardedBy("this")
+    void drainValueReferenceQueue(ReferenceQueue<V> valueReferenceQueue) {
+      Reference<? extends V> ref;
+      int i = 0;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+
+    @GuardedBy("this")
+    void drainKeyReferenceQueue(ReferenceQueue<K> keyReferenceQueue) {
+      Reference<? extends K> ref;
+      int i = 0;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+  }
+
+  private static <E> ArrayList<E> toArrayList(Collection<E> c) {
+    // Avoid calling ArrayList(Collection), which may call back into toArray.
+    ArrayList<E> result = new ArrayList<>(c.size());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super S`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+    final AtomicInteger readCount = new AtomicInteger();
+
+    Segment(MapMakerInternalMap<K, V, E, S> map, int initialCapacity, int maxSegmentSize) {
+      this.map = map;
+      this.maxSegmentSize = maxSegmentSize;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -6403,6 +6379,30 @@ in `guava/src/com/google/common/util/concurrent/AggregateFuture.java`
   private static boolean addCausalChain(Set<Throwable> seen, Throwable param) {
     // Declare a "true" local variable so that the Checker Framework will infer nullness.
     Throwable t = param;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/collect/Ordering.java`
+#### Snippet
+```java
+  // TODO(kevinb): rerun benchmarks including new options
+  @SuppressWarnings("nullness") // unsafe, but there's not much we can do about it now
+  public <E extends T> ImmutableList<E> immutableSortedCopy(Iterable<E> elements) {
+    return ImmutableList.sortedCopyOf(this, elements);
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/collect/Ordering.java`
+#### Snippet
+```java
+   * @since 14.0
+   */
+  public <E extends T> List<E> leastOf(Iterator<E> iterator, int k) {
+    checkNotNull(iterator);
+    checkNonnegative(k, "k");
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -6466,6 +6466,30 @@ in `guava/src/com/google/common/reflect/ClassPath.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends N`
+in `guava/src/com/google/common/graph/ImmutableNetwork.java`
+#### Snippet
+```java
+  }
+
+  private static <N, E> Function<E, N> targetNodeFn(Network<N, E> network) {
+    return (E edge) -> network.incidentNodes(edge).target();
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super E`
+in `guava/src/com/google/common/graph/ImmutableNetwork.java`
+#### Snippet
+```java
+  }
+
+  private static <N, E> Function<E, N> targetNodeFn(Network<N, E> network) {
+    return (E edge) -> network.incidentNodes(edge).target();
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super E`
 in `guava/src/com/google/common/graph/ImmutableNetwork.java`
 #### Snippet
@@ -6484,93 +6508,33 @@ in `guava/src/com/google/common/graph/ImmutableNetwork.java`
 ```java
   }
 
+  private static <N, E> Function<E, N> sourceNodeFn(Network<N, E> network) {
+    return (E edge) -> network.incidentNodes(edge).source();
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super E`
+in `guava/src/com/google/common/graph/ImmutableNetwork.java`
+#### Snippet
+```java
+  }
+
+  private static <N, E> Function<E, N> sourceNodeFn(Network<N, E> network) {
+    return (E edge) -> network.incidentNodes(edge).source();
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends N`
+in `guava/src/com/google/common/graph/ImmutableNetwork.java`
+#### Snippet
+```java
+  }
+
   private static <N, E> Map<E, N> getEdgeToReferenceNode(Network<N, E> network) {
     // ImmutableMap.Builder maintains the order of the elements as inserted, so the map will have
     // whatever ordering the network's edges do, so ImmutableSortedMap is unnecessary even if the
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends N`
-in `guava/src/com/google/common/graph/ImmutableNetwork.java`
-#### Snippet
-```java
-  }
-
-  private static <N, E> Function<E, N> targetNodeFn(Network<N, E> network) {
-    return (E edge) -> network.incidentNodes(edge).target();
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super E`
-in `guava/src/com/google/common/graph/ImmutableNetwork.java`
-#### Snippet
-```java
-  }
-
-  private static <N, E> Function<E, N> targetNodeFn(Network<N, E> network) {
-    return (E edge) -> network.incidentNodes(edge).target();
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends N`
-in `guava/src/com/google/common/graph/ImmutableNetwork.java`
-#### Snippet
-```java
-  }
-
-  private static <N, E> Function<E, N> sourceNodeFn(Network<N, E> network) {
-    return (E edge) -> network.incidentNodes(edge).source();
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super E`
-in `guava/src/com/google/common/graph/ImmutableNetwork.java`
-#### Snippet
-```java
-  }
-
-  private static <N, E> Function<E, N> sourceNodeFn(Network<N, E> network) {
-    return (E edge) -> network.incidentNodes(edge).source();
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/collect/EnumMultiset.java`
-#### Snippet
-```java
-
-  /** Creates an empty {@code EnumMultiset}. */
-  private EnumMultiset(Class<E> type) {
-    this.type = type;
-    checkArgument(type.isEnum());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/collect/EnumMultiset.java`
-#### Snippet
-```java
-   * @since 14.0
-   */
-  public static <E extends Enum<E>> EnumMultiset<E> create(Iterable<E> elements, Class<E> type) {
-    EnumMultiset<E> result = create(type);
-    Iterables.addAll(result, elements);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/collect/JdkBackedImmutableSet.java`
-#### Snippet
-```java
-  private final ImmutableList<E> delegateList;
-
-  JdkBackedImmutableSet(Set<?> delegate, ImmutableList<E> delegateList) {
-    this.delegate = delegate;
-    this.delegateList = delegateList;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -6658,6 +6622,42 @@ in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/collect/EnumMultiset.java`
+#### Snippet
+```java
+   * @since 14.0
+   */
+  public static <E extends Enum<E>> EnumMultiset<E> create(Iterable<E> elements, Class<E> type) {
+    EnumMultiset<E> result = create(type);
+    Iterables.addAll(result, elements);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/collect/EnumMultiset.java`
+#### Snippet
+```java
+
+  /** Creates an empty {@code EnumMultiset}. */
+  private EnumMultiset(Class<E> type) {
+    this.type = type;
+    checkArgument(type.isEnum());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/collect/JdkBackedImmutableSet.java`
+#### Snippet
+```java
+  private final ImmutableList<E> delegateList;
+
+  JdkBackedImmutableSet(Set<?> delegate, ImmutableList<E> delegateList) {
+    this.delegate = delegate;
+    this.delegateList = delegateList;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends N`
 in `guava/src/com/google/common/graph/StandardMutableNetwork.java`
 #### Snippet
@@ -6742,6 +6742,30 @@ in `guava/src/com/google/common/collect/Multimaps.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+  }
+
+  private static <E> ArrayList<E> toArrayList(Collection<E> c) {
+    // Avoid calling ArrayList(Collection), which may call back into toArray.
+    ArrayList<E> result = new ArrayList<>(c.size());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    }
+
+    V waitForLoadingValue(ReferenceEntry<K, V> e, K key, ValueReference<K, V> valueReference)
+        throws ExecutionException {
+      if (!valueReference.isLoading()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends K`
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
@@ -6770,18 +6794,6 @@ Can generalize to `? extends V`
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-    }
-
-    V waitForLoadingValue(ReferenceEntry<K, V> e, K key, ValueReference<K, V> valueReference)
-        throws ExecutionException {
-      if (!valueReference.isLoading()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
         int hash,
         LoadingValueReference<K, V> loadingValueReference,
         ListenableFuture<V> newValue)
@@ -6790,75 +6802,15 @@ in `guava/src/com/google/common/cache/LocalCache.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-  }
-
-  private static <E> ArrayList<E> toArrayList(Collection<E> c) {
-    // Avoid calling ArrayList(Collection), which may call back into toArray.
-    ArrayList<E> result = new ArrayList<>(c.size());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Entry`
+Can generalize to `? extends K`
 in `guava/src/com/google/common/collect/Maps.java`
 #### Snippet
 ```java
-
-  static <K extends @Nullable Object, V extends @Nullable Object> Iterator<K> keyIterator(
-      Iterator<Entry<K, V>> entryIterator) {
-    return new TransformedIterator<Entry<K, V>, K>(entryIterator) {
-      @Override
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Entry`
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-  static <K extends @Nullable Object, V extends @Nullable Object>
-      UnmodifiableIterator<Entry<K, V>> unmodifiableEntryIterator(
-          final Iterator<Entry<K, V>> entryIterator) {
-    return new UnmodifiableIterator<Entry<K, V>>() {
-      @Override
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V2`
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-  /** Views a function as an entry transformer that ignores the entry key. */
-  static <K extends @Nullable Object, V1 extends @Nullable Object, V2 extends @Nullable Object>
-      EntryTransformer<K, V1, V2> asEntryTransformer(final Function<? super V1, V2> function) {
-    checkNotNull(function);
-    return new EntryTransformer<K, V1, V2>() {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-
-  /** Returns a map from the ith element of list to i. */
-  static <E> ImmutableMap<E, Integer> indexMap(Collection<E> list) {
-    ImmutableMap.Builder<E, Integer> builder = new ImmutableMap.Builder<>(list.size());
-    int i = 0;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-
-    // If we inline this, we get a javac error.
-    private static <T extends @Nullable Object> Ordering<T> reverse(Comparator<T> forward) {
-      return Ordering.from(forward).reverse();
-    }
+  @GwtIncompatible // NavigableMap
+  public static <K extends Comparable<? super K>, V extends @Nullable Object>
+      NavigableMap<K, V> subMap(NavigableMap<K, V> map, Range<K> range) {
+    if (map.comparator() != null
+        && map.comparator() != Ordering.natural()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -6890,71 +6842,11 @@ Can generalize to `? extends K`
 in `guava/src/com/google/common/collect/Maps.java`
 #### Snippet
 ```java
-   */
-  public static <K, V> ImmutableMap<K, V> toMap(
-      Iterator<K> keys, Function<? super K, V> valueFunction) {
-    checkNotNull(valueFunction);
-    ImmutableMap.Builder<K, V> builder = ImmutableMap.builder();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-   */
-  public static <K, V> ImmutableMap<K, V> toMap(
-      Iterator<K> keys, Function<? super K, V> valueFunction) {
-    checkNotNull(valueFunction);
-    ImmutableMap.Builder<K, V> builder = ImmutableMap.builder();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-  @CheckForNull
-  private static <K extends @Nullable Object, V extends @Nullable Object>
-      Entry<K, V> unmodifiableOrNull(@CheckForNull Entry<K, ? extends V> entry) {
-    return (entry == null) ? null : Maps.unmodifiableEntry(entry);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
 
   private static <K extends @Nullable Object, V extends @Nullable Object> Map<K, V> unmodifiableMap(
       Map<K, ? extends V> map) {
     if (map instanceof SortedMap) {
       return Collections.unmodifiableSortedMap((SortedMap<K, ? extends V>) map);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-
-  private static <K, V> ImmutableMap<K, V> uniqueIndex(
-      Iterator<V> values, Function<? super V, K> keyFunction, ImmutableMap.Builder<K, V> builder) {
-    checkNotNull(keyFunction);
-    while (values.hasNext()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-
-  private static <K, V> ImmutableMap<K, V> uniqueIndex(
-      Iterator<V> values, Function<? super V, K> keyFunction, ImmutableMap.Builder<K, V> builder) {
-    checkNotNull(keyFunction);
-    while (values.hasNext()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -7066,6 +6958,42 @@ in `guava/src/com/google/common/collect/Maps.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+  @CheckForNull
+  private static <K extends @Nullable Object, V extends @Nullable Object>
+      Entry<K, V> unmodifiableOrNull(@CheckForNull Entry<K, ? extends V> entry) {
+    return (entry == null) ? null : Maps.unmodifiableEntry(entry);
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V2`
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+  /** Views a function as an entry transformer that ignores the entry key. */
+  static <K extends @Nullable Object, V1 extends @Nullable Object, V2 extends @Nullable Object>
+      EntryTransformer<K, V1, V2> asEntryTransformer(final Function<? super V1, V2> function) {
+    checkNotNull(function);
+    return new EntryTransformer<K, V1, V2>() {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Entry`
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+  static <K extends @Nullable Object, V extends @Nullable Object>
+      UnmodifiableIterator<Entry<K, V>> unmodifiableEntryIterator(
+          final Iterator<Entry<K, V>> entryIterator) {
+    return new UnmodifiableIterator<Entry<K, V>>() {
+      @Override
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Entry`
 in `guava/src/com/google/common/collect/Maps.java`
 #### Snippet
@@ -7078,27 +7006,39 @@ in `guava/src/com/google/common/collect/Maps.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Entry`
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-   */
-  static <K extends @Nullable Object, V extends @Nullable Object>
-      Set<Entry<K, V>> unmodifiableEntrySet(Set<Entry<K, V>> entrySet) {
-    return new UnmodifiableEntrySet<>(Collections.unmodifiableSet(entrySet));
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends K`
 in `guava/src/com/google/common/collect/Maps.java`
 #### Snippet
 ```java
-  @GwtIncompatible // NavigableMap
-  public static <K extends Comparable<? super K>, V extends @Nullable Object>
-      NavigableMap<K, V> subMap(NavigableMap<K, V> map, Range<K> range) {
-    if (map.comparator() != null
-        && map.comparator() != Ordering.natural()
+   */
+  public static <K, V> ImmutableMap<K, V> toMap(
+      Iterator<K> keys, Function<? super K, V> valueFunction) {
+    checkNotNull(valueFunction);
+    ImmutableMap.Builder<K, V> builder = ImmutableMap.builder();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+   */
+  public static <K, V> ImmutableMap<K, V> toMap(
+      Iterator<K> keys, Function<? super K, V> valueFunction) {
+    checkNotNull(valueFunction);
+    ImmutableMap.Builder<K, V> builder = ImmutableMap.builder();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+
+  /** Returns a map from the ith element of list to i. */
+  static <E> ImmutableMap<E, Integer> indexMap(Collection<E> list) {
+    ImmutableMap.Builder<E, Integer> builder = new ImmutableMap.Builder<>(list.size());
+    int i = 0;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -7126,18 +7066,6 @@ in `guava/src/com/google/common/collect/Maps.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V1`
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-
-    @CheckForNull
-    private Entry<K, V2> transformEntry(@CheckForNull Entry<K, V1> entry) {
-      return (entry == null) ? null : Maps.transformEntry(transformer, entry);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends V2`
 in `guava/src/com/google/common/collect/Maps.java`
 #### Snippet
@@ -7149,17 +7077,89 @@ in `guava/src/com/google/common/collect/Maps.java`
     return new Function<Entry<K, V1>, V2>() {
 ```
 
-## RuleId[ruleID=NullableProblems]
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/TimeoutFuture.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+
+    // If we inline this, we get a javac error.
+    private static <T extends @Nullable Object> Ordering<T> reverse(Comparator<T> forward) {
+      return Ordering.from(forward).reverse();
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Entry`
+in `guava/src/com/google/common/collect/Maps.java`
 #### Snippet
 ```java
    */
+  static <K extends @Nullable Object, V extends @Nullable Object>
+      Set<Entry<K, V>> unmodifiableEntrySet(Set<Entry<K, V>> entrySet) {
+    return new UnmodifiableEntrySet<>(Collections.unmodifiableSet(entrySet));
+  }
+```
 
-  @CheckForNull private ListenableFuture<V> delegateRef;
-  @CheckForNull private ScheduledFuture<?> timer;
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Entry`
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
 
+  static <K extends @Nullable Object, V extends @Nullable Object> Iterator<K> keyIterator(
+      Iterator<Entry<K, V>> entryIterator) {
+    return new TransformedIterator<Entry<K, V>, K>(entryIterator) {
+      @Override
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+
+  private static <K, V> ImmutableMap<K, V> uniqueIndex(
+      Iterator<V> values, Function<? super V, K> keyFunction, ImmutableMap.Builder<K, V> builder) {
+    checkNotNull(keyFunction);
+    while (values.hasNext()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+
+  private static <K, V> ImmutableMap<K, V> uniqueIndex(
+      Iterator<V> values, Function<? super V, K> keyFunction, ImmutableMap.Builder<K, V> builder) {
+    checkNotNull(keyFunction);
+    while (values.hasNext()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V1`
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+
+    @CheckForNull
+    private Entry<K, V2> transformEntry(@CheckForNull Entry<K, V1> entry) {
+      return (entry == null) ? null : Maps.transformEntry(transformer, entry);
+    }
+```
+
+## RuleId[ruleID=NullableProblems]
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/AbstractSequentialIterator.java`
+#### Snippet
+```java
+@ElementTypesAreNonnullByDefault
+public abstract class AbstractSequentialIterator<T> extends UnmodifiableIterator<T> {
+  @CheckForNull private T nextOrNull;
+
+  /**
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7188,14 +7188,26 @@ in `guava/src/com/google/common/util/concurrent/TimeoutFuture.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractSequentialIterator.java`
+in `guava/src/com/google/common/util/concurrent/TimeoutFuture.java`
 #### Snippet
 ```java
-@ElementTypesAreNonnullByDefault
-public abstract class AbstractSequentialIterator<T> extends UnmodifiableIterator<T> {
-  @CheckForNull private T nextOrNull;
+   */
 
-  /**
+  @CheckForNull private ListenableFuture<V> delegateRef;
+  @CheckForNull private ScheduledFuture<?> timer;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/ImmutableSortedSet.java`
+#### Snippet
+```java
+  @GwtIncompatible // NavigableSet
+  @LazyInit
+  @CheckForNull
+  transient ImmutableSortedSet<E> descendingSet;
+
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7208,6 +7220,18 @@ in `guava/src/com/google/common/util/concurrent/TrustedListenableFutureTask.java
   @CheckForNull private volatile InterruptibleTask<?> task;
 
   TrustedListenableFutureTask(Callable<V> callable) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/TreeBasedTable.java`
+#### Snippet
+```java
+
+    return new AbstractIterator<C>() {
+      @CheckForNull C lastValue;
+
+      @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7240,22 +7264,22 @@ in `guava/src/com/google/common/collect/TreeBasedTable.java`
 #### Snippet
 ```java
 
-    return new AbstractIterator<C>() {
-      @CheckForNull C lastValue;
-
-      @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/TreeBasedTable.java`
-#### Snippet
-```java
-
   private class TreeRow extends Row implements SortedMap<C, V> {
     @CheckForNull final C lowerBound;
     @CheckForNull final C upperBound;
 
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/JdkBackedImmutableBiMap.java`
+#### Snippet
+```java
+  }
+
+  @LazyInit @RetainedWith @CheckForNull private transient JdkBackedImmutableBiMap<V, K> inverse;
+
+  @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7284,18 +7308,6 @@ in `guava/src/com/google/common/collect/FilteredKeyMultimap.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ImmutableSortedSet.java`
-#### Snippet
-```java
-  @GwtIncompatible // NavigableSet
-  @LazyInit
-  @CheckForNull
-  transient ImmutableSortedSet<E> descendingSet;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
 in `guava/src/com/google/common/collect/MapMaker.java`
 #### Snippet
 ```java
@@ -7311,18 +7323,6 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/MapMaker.java`
 #### Snippet
 ```java
-  int concurrencyLevel = UNSET_INT;
-
-  @CheckForNull Strength keyStrength;
-  @CheckForNull Strength valueStrength;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/MapMaker.java`
-#### Snippet
-```java
 
   @CheckForNull Strength keyStrength;
   @CheckForNull Strength valueStrength;
@@ -7332,25 +7332,13 @@ in `guava/src/com/google/common/collect/MapMaker.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/JdkBackedImmutableBiMap.java`
+in `guava/src/com/google/common/collect/MapMaker.java`
 #### Snippet
 ```java
-  }
+  int concurrencyLevel = UNSET_INT;
 
-  @LazyInit @RetainedWith @CheckForNull private transient JdkBackedImmutableBiMap<V, K> inverse;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/base/internal/Finalizer.java`
-#### Snippet
-```java
-  // But before Java 9, our only way not to inherit ThreadLocals is to zap them after the thread
-  // is created, by accessing a private field.
-  @CheckForNull
-  private static final Constructor<Thread> bigThreadConstructor = getBigThreadConstructor();
+  @CheckForNull Strength keyStrength;
+  @CheckForNull Strength valueStrength;
 
 ```
 
@@ -7368,38 +7356,38 @@ in `guava/src/com/google/common/base/internal/Finalizer.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/base/internal/Finalizer.java`
+#### Snippet
+```java
+  // But before Java 9, our only way not to inherit ThreadLocals is to zap them after the thread
+  // is created, by accessing a private field.
+  @CheckForNull
+  private static final Constructor<Thread> bigThreadConstructor = getBigThreadConstructor();
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
 in `guava/src/com/google/common/util/concurrent/ThreadFactoryBuilder.java`
 #### Snippet
 ```java
+  @CheckForNull private String nameFormat = null;
+  @CheckForNull private Boolean daemon = null;
+  @CheckForNull private Integer priority = null;
+  @CheckForNull private UncaughtExceptionHandler uncaughtExceptionHandler = null;
+  @CheckForNull private ThreadFactory backingThreadFactory = null;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/ThreadFactoryBuilder.java`
+#### Snippet
+```java
+@ElementTypesAreNonnullByDefault
 public final class ThreadFactoryBuilder {
   @CheckForNull private String nameFormat = null;
   @CheckForNull private Boolean daemon = null;
   @CheckForNull private Integer priority = null;
-  @CheckForNull private UncaughtExceptionHandler uncaughtExceptionHandler = null;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/ThreadFactoryBuilder.java`
-#### Snippet
-```java
-  @CheckForNull private String nameFormat = null;
-  @CheckForNull private Boolean daemon = null;
-  @CheckForNull private Integer priority = null;
-  @CheckForNull private UncaughtExceptionHandler uncaughtExceptionHandler = null;
-  @CheckForNull private ThreadFactory backingThreadFactory = null;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/ThreadFactoryBuilder.java`
-#### Snippet
-```java
-  @CheckForNull private Boolean daemon = null;
-  @CheckForNull private Integer priority = null;
-  @CheckForNull private UncaughtExceptionHandler uncaughtExceptionHandler = null;
-  @CheckForNull private ThreadFactory backingThreadFactory = null;
-
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7419,11 +7407,47 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/util/concurrent/ThreadFactoryBuilder.java`
 #### Snippet
 ```java
-@ElementTypesAreNonnullByDefault
+  @CheckForNull private Boolean daemon = null;
+  @CheckForNull private Integer priority = null;
+  @CheckForNull private UncaughtExceptionHandler uncaughtExceptionHandler = null;
+  @CheckForNull private ThreadFactory backingThreadFactory = null;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/ThreadFactoryBuilder.java`
+#### Snippet
+```java
 public final class ThreadFactoryBuilder {
   @CheckForNull private String nameFormat = null;
   @CheckForNull private Boolean daemon = null;
   @CheckForNull private Integer priority = null;
+  @CheckForNull private UncaughtExceptionHandler uncaughtExceptionHandler = null;
+```
+
+### RuleId[ruleID=NullableProblems]
+Overridden method parameters are not annotated
+in `guava/src/com/google/common/util/concurrent/ForwardingFuture.java`
+#### Snippet
+```java
+  @CanIgnoreReturnValue
+  @ParametricNullness
+  public V get(long timeout, TimeUnit unit)
+      throws InterruptedException, ExecutionException, TimeoutException {
+    return delegate().get(timeout, unit);
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/ImmutableSetMultimap.java`
+#### Snippet
+```java
+  }
+
+  @LazyInit @RetainedWith @CheckForNull private transient ImmutableSetMultimap<V, K> inverse;
+
+  /**
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7440,26 +7464,86 @@ in `guava/src/com/google/common/collect/ImmutableSetMultimap.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ImmutableSetMultimap.java`
+in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
 #### Snippet
 ```java
-  }
 
-  @LazyInit @RetainedWith @CheckForNull private transient ImmutableSetMultimap<V, K> inverse;
+    /** Thread that called execute(). Set in execute, cleared when delegate.execute() returns. */
+    @CheckForNull Thread submitting;
 
-  /**
+    private TaskNonReentrantExecutor(Executor delegate, ExecutionSequencer sequencer) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
-Overridden method parameters are not annotated
-in `guava/src/com/google/common/util/concurrent/ForwardingFuture.java`
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
 #### Snippet
 ```java
-  @CanIgnoreReturnValue
-  @ParametricNullness
-  public V get(long timeout, TimeUnit unit)
-      throws InterruptedException, ExecutionException, TimeoutException {
-    return delegate().get(timeout, unit);
+     * or queued.
+     */
+    @CheckForNull ExecutionSequencer sequencer;
+
+    /**
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
+#### Snippet
+```java
+    @CheckForNull Thread thread;
+    /** Only used by the thread associated with this object */
+    @CheckForNull Runnable nextTask;
+    /** Only used by the thread associated with this object */
+    @CheckForNull Executor nextExecutor;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
+#### Snippet
+```java
+     * object may live on after, if submitAsync returns an incomplete future.
+     */
+    @CheckForNull Runnable task;
+
+    /** Thread that called execute(). Set in execute, cleared when delegate.execute() returns. */
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
+#### Snippet
+```java
+    @CheckForNull Runnable nextTask;
+    /** Only used by the thread associated with this object */
+    @CheckForNull Executor nextExecutor;
+  }
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
+#### Snippet
+```java
+     * though it's racy, we don't care which of those values we get, so no need to synchronize.
+     */
+    @CheckForNull Thread thread;
+    /** Only used by the thread associated with this object */
+    @CheckForNull Runnable nextTask;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
+#### Snippet
+```java
+     * cancelled.
+     */
+    @CheckForNull Executor delegate;
+
+    /**
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7488,110 +7572,14 @@ in `guava/src/com/google/common/collect/CompactLinkedHashSet.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
-#### Snippet
-```java
-     * though it's racy, we don't care which of those values we get, so no need to synchronize.
-     */
-    @CheckForNull Thread thread;
-    /** Only used by the thread associated with this object */
-    @CheckForNull Runnable nextTask;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
+in `guava/src/com/google/common/base/Converter.java`
 #### Snippet
 ```java
 
-    /** Thread that called execute(). Set in execute, cleared when delegate.execute() returns. */
-    @CheckForNull Thread submitting;
+  // We lazily cache the reverse view to avoid allocating on every call to reverse().
+  @LazyInit @RetainedWith @CheckForNull private transient Converter<B, A> reverse;
 
-    private TaskNonReentrantExecutor(Executor delegate, ExecutionSequencer sequencer) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
-#### Snippet
-```java
-     * cancelled.
-     */
-    @CheckForNull Executor delegate;
-
-    /**
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
-#### Snippet
-```java
-     * or queued.
-     */
-    @CheckForNull ExecutionSequencer sequencer;
-
-    /**
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
-#### Snippet
-```java
-     * object may live on after, if submitAsync returns an incomplete future.
-     */
-    @CheckForNull Runnable task;
-
-    /** Thread that called execute(). Set in execute, cleared when delegate.execute() returns. */
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
-#### Snippet
-```java
-    @CheckForNull Thread thread;
-    /** Only used by the thread associated with this object */
-    @CheckForNull Runnable nextTask;
-    /** Only used by the thread associated with this object */
-    @CheckForNull Executor nextExecutor;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/ExecutionSequencer.java`
-#### Snippet
-```java
-    @CheckForNull Runnable nextTask;
-    /** Only used by the thread associated with this object */
-    @CheckForNull Executor nextExecutor;
-  }
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/graph/DirectedMultiNetworkConnections.java`
-#### Snippet
-```java
-  }
-
-  @CheckForNull @LazyInit private transient Reference<Multiset<N>> predecessorsReference;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/graph/DirectedMultiNetworkConnections.java`
-#### Snippet
-```java
-  }
-
-  @CheckForNull @LazyInit private transient Reference<Multiset<N>> successorsReference;
-
-  @Override
+  /** Constructor for use by subclasses. */
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7619,15 +7607,27 @@ in `guava/src/com/google/common/util/concurrent/CollectionFuture.java`
 ```
 
 ### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/util/concurrent/ImmediateFuture.java`
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/graph/DirectedMultiNetworkConnections.java`
 #### Snippet
 ```java
-  private static final Logger log = Logger.getLogger(ImmediateFuture.class.getName());
+  }
 
-  @ParametricNullness private final V value;
+  @CheckForNull @LazyInit private transient Reference<Multiset<N>> successorsReference;
 
-  ImmediateFuture(@ParametricNullness V value) {
+  @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/graph/DirectedMultiNetworkConnections.java`
+#### Snippet
+```java
+  }
+
+  @CheckForNull @LazyInit private transient Reference<Multiset<N>> predecessorsReference;
+
+  @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7643,15 +7643,15 @@ in `guava/src/com/google/common/util/concurrent/ImmediateFuture.java`
 ```
 
 ### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/base/Converter.java`
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/util/concurrent/ImmediateFuture.java`
 #### Snippet
 ```java
+  private static final Logger log = Logger.getLogger(ImmediateFuture.class.getName());
 
-  // We lazily cache the reverse view to avoid allocating on every call to reverse().
-  @LazyInit @RetainedWith @CheckForNull private transient Converter<B, A> reverse;
+  @ParametricNullness private final V value;
 
-  /** Constructor for use by subclasses. */
+  ImmediateFuture(@ParametricNullness V value) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7659,9 +7659,9 @@ Overridden method parameters are not annotated
 in `guava/src/com/google/common/util/concurrent/ListeningScheduledExecutorService.java`
 #### Snippet
 ```java
+  /** @since 15.0 (previously returned ScheduledFuture) */
   @Override
-  <V extends @Nullable Object> ListenableScheduledFuture<V> schedule(
-      Callable<V> callable, long delay, TimeUnit unit);
+  ListenableScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit);
 
   /**
 ```
@@ -7671,9 +7671,9 @@ Overridden method parameters are not annotated
 in `guava/src/com/google/common/util/concurrent/ListeningScheduledExecutorService.java`
 #### Snippet
 ```java
+  /** @since 15.0 (previously returned ScheduledFuture) */
   @Override
-  <V extends @Nullable Object> ListenableScheduledFuture<V> schedule(
-      Callable<V> callable, long delay, TimeUnit unit);
+  ListenableScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit);
 
   /**
 ```
@@ -7707,30 +7707,6 @@ Overridden method parameters are not annotated
 in `guava/src/com/google/common/util/concurrent/ListeningScheduledExecutorService.java`
 #### Snippet
 ```java
-  /** @since 15.0 (previously returned ScheduledFuture) */
-  @Override
-  ListenableScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit);
-
-  /**
-```
-
-### RuleId[ruleID=NullableProblems]
-Overridden method parameters are not annotated
-in `guava/src/com/google/common/util/concurrent/ListeningScheduledExecutorService.java`
-#### Snippet
-```java
-  /** @since 15.0 (previously returned ScheduledFuture) */
-  @Override
-  ListenableScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit);
-
-  /**
-```
-
-### RuleId[ruleID=NullableProblems]
-Overridden method parameters are not annotated
-in `guava/src/com/google/common/util/concurrent/ListeningScheduledExecutorService.java`
-#### Snippet
-```java
   @Override
   ListenableScheduledFuture<?> scheduleWithFixedDelay(
       Runnable command, long initialDelay, long delay, TimeUnit unit);
@@ -7746,6 +7722,30 @@ in `guava/src/com/google/common/util/concurrent/ListeningScheduledExecutorServic
   @Override
   ListenableScheduledFuture<?> scheduleWithFixedDelay(
       Runnable command, long initialDelay, long delay, TimeUnit unit);
+
+  /**
+```
+
+### RuleId[ruleID=NullableProblems]
+Overridden method parameters are not annotated
+in `guava/src/com/google/common/util/concurrent/ListeningScheduledExecutorService.java`
+#### Snippet
+```java
+  @Override
+  <V extends @Nullable Object> ListenableScheduledFuture<V> schedule(
+      Callable<V> callable, long delay, TimeUnit unit);
+
+  /**
+```
+
+### RuleId[ruleID=NullableProblems]
+Overridden method parameters are not annotated
+in `guava/src/com/google/common/util/concurrent/ListeningScheduledExecutorService.java`
+#### Snippet
+```java
+  @Override
+  <V extends @Nullable Object> ListenableScheduledFuture<V> schedule(
+      Callable<V> callable, long delay, TimeUnit unit);
 
   /**
 ```
@@ -7760,42 +7760,6 @@ in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
     @ParametricNullness private final K key;
     @VisibleForTesting @Nullable ValueEntry<K, V>[] hashTable;
     private int size = 0;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
-#### Snippet
-```java
-     */
-
-    @CheckForNull ValueSetLink<K, V> predecessorInValueSet;
-    @CheckForNull ValueSetLink<K, V> successorInValueSet;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
-#### Snippet
-```java
-
-    @CheckForNull ValueSetLink<K, V> predecessorInValueSet;
-    @CheckForNull ValueSetLink<K, V> successorInValueSet;
-
-    @CheckForNull ValueEntry<K, V> predecessorInMultimap;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
-#### Snippet
-```java
-
-    @CheckForNull ValueEntry<K, V> predecessorInMultimap;
-    @CheckForNull ValueEntry<K, V> successorInMultimap;
-
-    ValueEntry(
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7839,6 +7803,18 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
 #### Snippet
 ```java
+
+    @CheckForNull ValueEntry<K, V> predecessorInMultimap;
+    @CheckForNull ValueEntry<K, V> successorInMultimap;
+
+    ValueEntry(
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
+#### Snippet
+```java
     return new Iterator<Entry<K, V>>() {
       ValueEntry<K, V> nextEntry = multimapHeaderEntry.getSuccessorInMultimap();
       @CheckForNull ValueEntry<K, V> toRemove;
@@ -7847,75 +7823,27 @@ in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
 ```
 
 ### RuleId[ruleID=NullableProblems]
-Overridden method parameters are not annotated
-in `guava/src/com/google/common/util/concurrent/ListeningExecutorService.java`
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
 #### Snippet
 ```java
-   */
-  @Override
-  <T extends @Nullable Object> ListenableFuture<T> submit(Callable<T> task);
+     */
 
-  /**
-```
-
-### RuleId[ruleID=NullableProblems]
-Overridden method parameters are not annotated
-in `guava/src/com/google/common/util/concurrent/ListeningExecutorService.java`
-#### Snippet
-```java
-   */
-  @Override
-  ListenableFuture<?> submit(Runnable task);
-
-  /**
-```
-
-### RuleId[ruleID=NullableProblems]
-Overridden method parameters are not annotated
-in `guava/src/com/google/common/util/concurrent/ListeningExecutorService.java`
-#### Snippet
-```java
-   */
-  @Override
-  <T extends @Nullable Object> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
-      throws InterruptedException;
+    @CheckForNull ValueSetLink<K, V> predecessorInValueSet;
+    @CheckForNull ValueSetLink<K, V> successorInValueSet;
 
 ```
 
 ### RuleId[ruleID=NullableProblems]
-Overridden method parameters are not annotated
-in `guava/src/com/google/common/util/concurrent/ListeningExecutorService.java`
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
 #### Snippet
 ```java
-  @Override
-  <T extends @Nullable Object> ListenableFuture<T> submit(
-      Runnable task, @ParametricNullness T result);
 
-  /**
-```
+    @CheckForNull ValueSetLink<K, V> predecessorInValueSet;
+    @CheckForNull ValueSetLink<K, V> successorInValueSet;
 
-### RuleId[ruleID=NullableProblems]
-Overridden method parameters are not annotated
-in `guava/src/com/google/common/util/concurrent/ListeningExecutorService.java`
-#### Snippet
-```java
-  @Override
-  <T extends @Nullable Object> List<Future<T>> invokeAll(
-      Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-      throws InterruptedException;
-}
-```
-
-### RuleId[ruleID=NullableProblems]
-Overridden method parameters are not annotated
-in `guava/src/com/google/common/util/concurrent/ListeningExecutorService.java`
-#### Snippet
-```java
-  @Override
-  <T extends @Nullable Object> List<Future<T>> invokeAll(
-      Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-      throws InterruptedException;
-}
+    @CheckForNull ValueEntry<K, V> predecessorInMultimap;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7943,6 +7871,78 @@ in `guava/src/com/google/common/util/concurrent/Monitor.java`
 ```
 
 ### RuleId[ruleID=NullableProblems]
+Overridden method parameters are not annotated
+in `guava/src/com/google/common/util/concurrent/ListeningExecutorService.java`
+#### Snippet
+```java
+  @Override
+  <T extends @Nullable Object> List<Future<T>> invokeAll(
+      Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+      throws InterruptedException;
+}
+```
+
+### RuleId[ruleID=NullableProblems]
+Overridden method parameters are not annotated
+in `guava/src/com/google/common/util/concurrent/ListeningExecutorService.java`
+#### Snippet
+```java
+  @Override
+  <T extends @Nullable Object> List<Future<T>> invokeAll(
+      Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+      throws InterruptedException;
+}
+```
+
+### RuleId[ruleID=NullableProblems]
+Overridden method parameters are not annotated
+in `guava/src/com/google/common/util/concurrent/ListeningExecutorService.java`
+#### Snippet
+```java
+  @Override
+  <T extends @Nullable Object> ListenableFuture<T> submit(
+      Runnable task, @ParametricNullness T result);
+
+  /**
+```
+
+### RuleId[ruleID=NullableProblems]
+Overridden method parameters are not annotated
+in `guava/src/com/google/common/util/concurrent/ListeningExecutorService.java`
+#### Snippet
+```java
+   */
+  @Override
+  <T extends @Nullable Object> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
+      throws InterruptedException;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+Overridden method parameters are not annotated
+in `guava/src/com/google/common/util/concurrent/ListeningExecutorService.java`
+#### Snippet
+```java
+   */
+  @Override
+  ListenableFuture<?> submit(Runnable task);
+
+  /**
+```
+
+### RuleId[ruleID=NullableProblems]
+Overridden method parameters are not annotated
+in `guava/src/com/google/common/util/concurrent/ListeningExecutorService.java`
+#### Snippet
+```java
+   */
+  @Override
+  <T extends @Nullable Object> ListenableFuture<T> submit(Callable<T> task);
+
+  /**
+```
+
+### RuleId[ruleID=NullableProblems]
 Method annotated with @NotNull must not override @NotNull method
 in `guava/src/com/google/common/util/concurrent/ForwardingExecutorService.java`
 #### Snippet
@@ -7959,11 +7959,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/RegularImmutableBiMap.java`
 #### Snippet
 ```java
+  static final double MAX_LOAD_FACTOR = 1.2;
 
   @CheckForNull private final transient @Nullable ImmutableMapEntry<K, V>[] keyTable;
   @CheckForNull private final transient @Nullable ImmutableMapEntry<K, V>[] valueTable;
   @VisibleForTesting final transient Entry<K, V>[] entries;
-  private final transient int mask;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7983,11 +7983,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/RegularImmutableBiMap.java`
 #### Snippet
 ```java
-  static final double MAX_LOAD_FACTOR = 1.2;
 
   @CheckForNull private final transient @Nullable ImmutableMapEntry<K, V>[] keyTable;
   @CheckForNull private final transient @Nullable ImmutableMapEntry<K, V>[] valueTable;
   @VisibleForTesting final transient Entry<K, V>[] entries;
+  private final transient int mask;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -7995,9 +7995,9 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/ImmutableMultiset.java`
 #### Snippet
 ```java
-  }
+  public abstract ImmutableSet<E> elementSet();
 
-  @LazyInit @CheckForNull private transient ImmutableList<E> asList;
+  @LazyInit @CheckForNull private transient ImmutableSet<Entry<E>> entrySet;
 
   @Override
 ```
@@ -8019,9 +8019,9 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/ImmutableMultiset.java`
 #### Snippet
 ```java
-  public abstract ImmutableSet<E> elementSet();
+  }
 
-  @LazyInit @CheckForNull private transient ImmutableSet<Entry<E>> entrySet;
+  @LazyInit @CheckForNull private transient ImmutableList<E> asList;
 
   @Override
 ```
@@ -8040,6 +8040,30 @@ public abstract class ForwardingBlockingDeque<E> extends ForwardingDeque<E>
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/net/MediaType.java`
+#### Snippet
+```java
+  private final ImmutableListMultimap<String, String> parameters;
+
+  @LazyInit @CheckForNull private String toString;
+
+  @LazyInit private int hashCode;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/net/MediaType.java`
+#### Snippet
+```java
+  @LazyInit private int hashCode;
+
+  @LazyInit @CheckForNull private Optional<Charset> parsedCharset;
+
+  private MediaType(String type, String subtype, ImmutableListMultimap<String, String> parameters) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
 in `guava/src/com/google/common/collect/UnmodifiableSortedMultiset.java`
 #### Snippet
 ```java
@@ -8048,66 +8072,6 @@ in `guava/src/com/google/common/collect/UnmodifiableSortedMultiset.java`
   @CheckForNull private transient UnmodifiableSortedMultiset<E> descendingMultiset;
 
   @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/collect/Tables.java`
-#### Snippet
-```java
-    @ParametricNullness private final R rowKey;
-    @ParametricNullness private final C columnKey;
-    @ParametricNullness private final V value;
-
-    ImmutableCell(
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/collect/Tables.java`
-#### Snippet
-```java
-          R extends @Nullable Object, C extends @Nullable Object, V extends @Nullable Object>
-      extends AbstractCell<R, C, V> implements Serializable {
-    @ParametricNullness private final R rowKey;
-    @ParametricNullness private final C columnKey;
-    @ParametricNullness private final V value;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/collect/Tables.java`
-#### Snippet
-```java
-      extends AbstractCell<R, C, V> implements Serializable {
-    @ParametricNullness private final R rowKey;
-    @ParametricNullness private final C columnKey;
-    @ParametricNullness private final V value;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/CombinedFuture.java`
-#### Snippet
-```java
-final class CombinedFuture<V extends @Nullable Object>
-    extends AggregateFuture<@Nullable Object, V> {
-  @CheckForNull private CombinedFutureInterruptibleTask<?> task;
-
-  CombinedFuture(
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/collect/Streams.java`
-#### Snippet
-```java
-  // Use this carefully - it doesn't implement value semantics
-  private static class TemporaryPair<A extends @Nullable Object, B extends @Nullable Object> {
-    @ParametricNullness final A a;
-    @ParametricNullness final B b;
-
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8147,15 +8111,63 @@ in `guava/src/com/google/common/collect/Streams.java`
 ```
 
 ### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ImmutableRangeSet.java`
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/collect/Streams.java`
 #### Snippet
 ```java
-  }
+  // Use this carefully - it doesn't implement value semantics
+  private static class TemporaryPair<A extends @Nullable Object, B extends @Nullable Object> {
+    @ParametricNullness final A a;
+    @ParametricNullness final B b;
 
-  @LazyInit @CheckForNull private transient ImmutableRangeSet<C> complement;
+```
 
-  private final class ComplementRanges extends ImmutableList<Range<C>> {
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/CombinedFuture.java`
+#### Snippet
+```java
+final class CombinedFuture<V extends @Nullable Object>
+    extends AggregateFuture<@Nullable Object, V> {
+  @CheckForNull private CombinedFutureInterruptibleTask<?> task;
+
+  CombinedFuture(
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/collect/Tables.java`
+#### Snippet
+```java
+    @ParametricNullness private final R rowKey;
+    @ParametricNullness private final C columnKey;
+    @ParametricNullness private final V value;
+
+    ImmutableCell(
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/collect/Tables.java`
+#### Snippet
+```java
+      extends AbstractCell<R, C, V> implements Serializable {
+    @ParametricNullness private final R rowKey;
+    @ParametricNullness private final C columnKey;
+    @ParametricNullness private final V value;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/collect/Tables.java`
+#### Snippet
+```java
+          R extends @Nullable Object, C extends @Nullable Object, V extends @Nullable Object>
+      extends AbstractCell<R, C, V> implements Serializable {
+    @ParametricNullness private final R rowKey;
+    @ParametricNullness private final C columnKey;
+    @ParametricNullness private final V value;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8172,38 +8184,158 @@ in `guava/src/com/google/common/collect/ImmutableRangeSet.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/net/MediaType.java`
-#### Snippet
-```java
-  @LazyInit private int hashCode;
-
-  @LazyInit @CheckForNull private Optional<Charset> parsedCharset;
-
-  private MediaType(String type, String subtype, ImmutableListMultimap<String, String> parameters) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/net/MediaType.java`
-#### Snippet
-```java
-  private final ImmutableListMultimap<String, String> parameters;
-
-  @LazyInit @CheckForNull private String toString;
-
-  @LazyInit private int hashCode;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractBiMap.java`
+in `guava/src/com/google/common/collect/ImmutableRangeSet.java`
 #### Snippet
 ```java
   }
 
-  @CheckForNull private transient Set<V> valueSet;
+  @LazyInit @CheckForNull private transient ImmutableRangeSet<C> complement;
+
+  private final class ComplementRanges extends ImmutableList<Range<C>> {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/ImmutableTable.java`
+#### Snippet
+```java
+    private final List<Cell<R, C, V>> cells = Lists.newArrayList();
+    @CheckForNull private Comparator<? super R> rowComparator;
+    @CheckForNull private Comparator<? super C> columnComparator;
+
+    /**
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/ImmutableTable.java`
+#### Snippet
+```java
+  public static final class Builder<R, C, V> {
+    private final List<Cell<R, C, V>> cells = Lists.newArrayList();
+    @CheckForNull private Comparator<? super R> rowComparator;
+    @CheckForNull private Comparator<? super C> columnComparator;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
+#### Snippet
+```java
+  public abstract ImmutableSortedSet<E> elementSet();
+
+  @LazyInit @CheckForNull transient ImmutableSortedMultiset<E> descendingMultiset;
 
   @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/HashBiMap.java`
+#### Snippet
+```java
+  }
+
+  @LazyInit @RetainedWith @CheckForNull private transient BiMap<V, K> inverse;
+
+  @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/HashBiMap.java`
+#### Snippet
+```java
+
+  abstract class Itr<T extends @Nullable Object> implements Iterator<T> {
+    @CheckForNull BiEntry<K, V> next = firstInKeyInsertionOrder;
+    @CheckForNull BiEntry<K, V> toRemove = null;
+    int expectedModCount = modCount;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/HashBiMap.java`
+#### Snippet
+```java
+  abstract class Itr<T extends @Nullable Object> implements Iterator<T> {
+    @CheckForNull BiEntry<K, V> next = firstInKeyInsertionOrder;
+    @CheckForNull BiEntry<K, V> toRemove = null;
+    int expectedModCount = modCount;
+    int remaining = size();
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/HashBiMap.java`
+#### Snippet
+```java
+    // which would cause memory leaks when non-empty HashBiMap with cyclic BiEntry
+    // instances is deallocated.
+    @CheckForNull BiEntry<K, V> nextInKToVBucket;
+    @Weak @CheckForNull BiEntry<K, V> nextInVToKBucket;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/HashBiMap.java`
+#### Snippet
+```java
+    // instances is deallocated.
+    @CheckForNull BiEntry<K, V> nextInKToVBucket;
+    @Weak @CheckForNull BiEntry<K, V> nextInVToKBucket;
+
+    @Weak @CheckForNull BiEntry<K, V> nextInKeyInsertionOrder;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/HashBiMap.java`
+#### Snippet
+```java
+  private transient @Nullable BiEntry<K, V>[] hashTableVToK;
+  @Weak @CheckForNull private transient BiEntry<K, V> firstInKeyInsertionOrder;
+  @Weak @CheckForNull private transient BiEntry<K, V> lastInKeyInsertionOrder;
+  private transient int size;
+  private transient int mask;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/HashBiMap.java`
+#### Snippet
+```java
+
+    @Weak @CheckForNull BiEntry<K, V> nextInKeyInsertionOrder;
+    @Weak @CheckForNull BiEntry<K, V> prevInKeyInsertionOrder;
+
+    BiEntry(@ParametricNullness K key, int keyHash, @ParametricNullness V value, int valueHash) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/HashBiMap.java`
+#### Snippet
+```java
+    @Weak @CheckForNull BiEntry<K, V> nextInVToKBucket;
+
+    @Weak @CheckForNull BiEntry<K, V> nextInKeyInsertionOrder;
+    @Weak @CheckForNull BiEntry<K, V> prevInKeyInsertionOrder;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/HashBiMap.java`
+#### Snippet
+```java
+  private transient @Nullable BiEntry<K, V>[] hashTableKToV;
+  private transient @Nullable BiEntry<K, V>[] hashTableVToK;
+  @Weak @CheckForNull private transient BiEntry<K, V> firstInKeyInsertionOrder;
+  @Weak @CheckForNull private transient BiEntry<K, V> lastInKeyInsertionOrder;
+  private transient int size;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8225,7 +8357,7 @@ in `guava/src/com/google/common/collect/AbstractBiMap.java`
 ```java
   }
 
-  @CheckForNull private transient Set<K> keySet;
+  @CheckForNull private transient Set<V> valueSet;
 
   @Override
 ```
@@ -8244,36 +8376,12 @@ in `guava/src/com/google/common/collect/AbstractBiMap.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ImmutableTable.java`
+in `guava/src/com/google/common/collect/AbstractBiMap.java`
 #### Snippet
 ```java
-  public static final class Builder<R, C, V> {
-    private final List<Cell<R, C, V>> cells = Lists.newArrayList();
-    @CheckForNull private Comparator<? super R> rowComparator;
-    @CheckForNull private Comparator<? super C> columnComparator;
+  }
 
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ImmutableTable.java`
-#### Snippet
-```java
-    private final List<Cell<R, C, V>> cells = Lists.newArrayList();
-    @CheckForNull private Comparator<? super R> rowComparator;
-    @CheckForNull private Comparator<? super C> columnComparator;
-
-    /**
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
-#### Snippet
-```java
-  public abstract ImmutableSortedSet<E> elementSet();
-
-  @LazyInit @CheckForNull transient ImmutableSortedMultiset<E> descendingMultiset;
+  @CheckForNull private transient Set<K> keySet;
 
   @Override
 ```
@@ -8292,114 +8400,6 @@ in `guava/src/com/google/common/collect/JdkBackedImmutableMultiset.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/HashBiMap.java`
-#### Snippet
-```java
-    @Weak @CheckForNull BiEntry<K, V> nextInVToKBucket;
-
-    @Weak @CheckForNull BiEntry<K, V> nextInKeyInsertionOrder;
-    @Weak @CheckForNull BiEntry<K, V> prevInKeyInsertionOrder;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/HashBiMap.java`
-#### Snippet
-```java
-
-  abstract class Itr<T extends @Nullable Object> implements Iterator<T> {
-    @CheckForNull BiEntry<K, V> next = firstInKeyInsertionOrder;
-    @CheckForNull BiEntry<K, V> toRemove = null;
-    int expectedModCount = modCount;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/HashBiMap.java`
-#### Snippet
-```java
-
-    @Weak @CheckForNull BiEntry<K, V> nextInKeyInsertionOrder;
-    @Weak @CheckForNull BiEntry<K, V> prevInKeyInsertionOrder;
-
-    BiEntry(@ParametricNullness K key, int keyHash, @ParametricNullness V value, int valueHash) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/HashBiMap.java`
-#### Snippet
-```java
-  private transient @Nullable BiEntry<K, V>[] hashTableVToK;
-  @Weak @CheckForNull private transient BiEntry<K, V> firstInKeyInsertionOrder;
-  @Weak @CheckForNull private transient BiEntry<K, V> lastInKeyInsertionOrder;
-  private transient int size;
-  private transient int mask;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/HashBiMap.java`
-#### Snippet
-```java
-  private transient @Nullable BiEntry<K, V>[] hashTableKToV;
-  private transient @Nullable BiEntry<K, V>[] hashTableVToK;
-  @Weak @CheckForNull private transient BiEntry<K, V> firstInKeyInsertionOrder;
-  @Weak @CheckForNull private transient BiEntry<K, V> lastInKeyInsertionOrder;
-  private transient int size;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/HashBiMap.java`
-#### Snippet
-```java
-  }
-
-  @LazyInit @RetainedWith @CheckForNull private transient BiMap<V, K> inverse;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/HashBiMap.java`
-#### Snippet
-```java
-    // instances is deallocated.
-    @CheckForNull BiEntry<K, V> nextInKToVBucket;
-    @Weak @CheckForNull BiEntry<K, V> nextInVToKBucket;
-
-    @Weak @CheckForNull BiEntry<K, V> nextInKeyInsertionOrder;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/HashBiMap.java`
-#### Snippet
-```java
-    // which would cause memory leaks when non-empty HashBiMap with cyclic BiEntry
-    // instances is deallocated.
-    @CheckForNull BiEntry<K, V> nextInKToVBucket;
-    @Weak @CheckForNull BiEntry<K, V> nextInVToKBucket;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/HashBiMap.java`
-#### Snippet
-```java
-  abstract class Itr<T extends @Nullable Object> implements Iterator<T> {
-    @CheckForNull BiEntry<K, V> next = firstInKeyInsertionOrder;
-    @CheckForNull BiEntry<K, V> toRemove = null;
-    int expectedModCount = modCount;
-    int remaining = size();
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
 in `guava/src/com/google/common/collect/Collections2.java`
 #### Snippet
 ```java
@@ -8408,30 +8408,6 @@ in `guava/src/com/google/common/collect/Collections2.java`
     @CheckForNull List<E> nextPermutation;
     final Comparator<? super E> comparator;
 
-```
-
-### RuleId[ruleID=NullableProblems]
-Method annotated with @NotNull must not override @NotNull method
-in `guava/src/com/google/common/util/concurrent/WrappingExecutorService.java`
-#### Snippet
-```java
-
-  @Override
-  public final <T extends @Nullable Object> T invokeAny(Collection<? extends Callable<T>> tasks)
-      throws InterruptedException, ExecutionException {
-    return delegate.invokeAny(wrapTasks(tasks));
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/graph/EndpointPairIterator.java`
-#### Snippet
-```java
-  private static final class Undirected<N> extends EndpointPairIterator<N> {
-    // It's a little weird that we add `null` to this set, but it makes for slightly simpler code.
-    @CheckForNull private Set<@Nullable N> visitedNodes;
-
-    private Undirected(BaseGraph<N> graph) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8448,6 +8424,18 @@ in `guava/src/com/google/common/graph/EndpointPairIterator.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/graph/EndpointPairIterator.java`
+#### Snippet
+```java
+  private static final class Undirected<N> extends EndpointPairIterator<N> {
+    // It's a little weird that we add `null` to this set, but it makes for slightly simpler code.
+    @CheckForNull private Set<@Nullable N> visitedNodes;
+
+    private Undirected(BaseGraph<N> graph) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
 in `guava/src/com/google/common/collect/TopKSelector.java`
 #### Snippet
 ```java
@@ -8456,6 +8444,18 @@ in `guava/src/com/google/common/collect/TopKSelector.java`
   @CheckForNull private T threshold;
 
   private TopKSelector(Comparator<? super T> comparator, int k) {
+```
+
+### RuleId[ruleID=NullableProblems]
+Method annotated with @NotNull must not override @NotNull method
+in `guava/src/com/google/common/util/concurrent/WrappingExecutorService.java`
+#### Snippet
+```java
+
+  @Override
+  public final <T extends @Nullable Object> T invokeAny(Collection<? extends Callable<T>> tasks)
+      throws InterruptedException, ExecutionException {
+    return delegate.invokeAny(wrapTasks(tasks));
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8483,18 +8483,6 @@ in `guava/src/com/google/common/util/concurrent/ExecutionList.java`
 ```
 
 ### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/AggregateFutureState.java`
-#### Snippet
-```java
-  // Lazily initialized the first time we see an exception; not released until all the input futures
-  // have completed and we have processed them all.
-  @CheckForNull private volatile Set<Throwable> seenExceptions = null;
-
-  private volatile int remaining;
-```
-
-### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
 in `guava/src/com/google/common/collect/FilteredEntryMultimap.java`
 #### Snippet
@@ -8508,38 +8496,14 @@ in `guava/src/com/google/common/collect/FilteredEntryMultimap.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/TreeRangeSet.java`
+in `guava/src/com/google/common/util/concurrent/AggregateFutureState.java`
 #### Snippet
 ```java
-  }
+  // Lazily initialized the first time we see an exception; not released until all the input futures
+  // have completed and we have processed them all.
+  @CheckForNull private volatile Set<Throwable> seenExceptions = null;
 
-  @CheckForNull private transient Set<Range<C>> asRanges;
-  @CheckForNull private transient Set<Range<C>> asDescendingSetOfRanges;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/TreeRangeSet.java`
-#### Snippet
-```java
-
-  @CheckForNull private transient Set<Range<C>> asRanges;
-  @CheckForNull private transient Set<Range<C>> asDescendingSetOfRanges;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/TreeRangeSet.java`
-#### Snippet
-```java
-  }
-
-  @CheckForNull private transient RangeSet<C> complement;
-
-  @Override
+  private volatile int remaining;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8559,83 +8523,35 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/LinkedListMultimap.java`
 #### Snippet
 ```java
-    @ParametricNullness final K key;
-    int nextIndex;
-    @CheckForNull Node<K, V> next;
-    @CheckForNull Node<K, V> current;
-    @CheckForNull Node<K, V> previous;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
-#### Snippet
-```java
-    final Set<K> seenKeys = Sets.<K>newHashSetWithExpectedSize(keySet().size());
-    @CheckForNull Node<K, V> next = head;
-    @CheckForNull Node<K, V> current;
-    int expectedModCount = modCount;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
-#### Snippet
-```java
-    int nextIndex;
-    @CheckForNull Node<K, V> next;
-    @CheckForNull Node<K, V> current;
-    @CheckForNull Node<K, V> previous;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
-#### Snippet
-```java
-    int nextIndex;
-    @CheckForNull Node<K, V> next;
-    @CheckForNull Node<K, V> current;
-    @CheckForNull Node<K, V> previous;
-    int expectedModCount = modCount;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
-#### Snippet
-```java
-    @CheckForNull Node<K, V> next; // the next node (with any key)
-    @CheckForNull Node<K, V> previous; // the previous node (with any key)
-    @CheckForNull Node<K, V> nextSibling; // the next node with the same key
-    @CheckForNull Node<K, V> previousSibling; // the previous node with the same key
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
-#### Snippet
-```java
-    @ParametricNullness V value;
-    @CheckForNull Node<K, V> next; // the next node (with any key)
-    @CheckForNull Node<K, V> previous; // the previous node (with any key)
-    @CheckForNull Node<K, V> nextSibling; // the next node with the same key
-    @CheckForNull Node<K, V> previousSibling; // the previous node with the same key
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
-#### Snippet
-```java
     @CheckForNull Node<K, V> previous; // the previous node (with any key)
     @CheckForNull Node<K, V> nextSibling; // the next node with the same key
     @CheckForNull Node<K, V> previousSibling; // the previous node with the same key
 
     Node(@ParametricNullness K key, @ParametricNullness V value) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+#### Snippet
+```java
+    @ParametricNullness final K key;
+    @ParametricNullness V value;
+    @CheckForNull Node<K, V> next; // the next node (with any key)
+    @CheckForNull Node<K, V> previous; // the previous node (with any key)
+    @CheckForNull Node<K, V> nextSibling; // the next node with the same key
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+#### Snippet
+```java
+      extends AbstractMapEntry<K, V> {
+    @ParametricNullness final K key;
+    @ParametricNullness V value;
+    @CheckForNull Node<K, V> next; // the next node (with any key)
+    @CheckForNull Node<K, V> previous; // the previous node (with any key)
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8655,11 +8571,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/LinkedListMultimap.java`
 #### Snippet
 ```java
-  private class NodeIterator implements ListIterator<Entry<K, V>> {
     int nextIndex;
     @CheckForNull Node<K, V> next;
     @CheckForNull Node<K, V> current;
     @CheckForNull Node<K, V> previous;
+    int expectedModCount = modCount;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8672,6 +8588,102 @@ in `guava/src/com/google/common/collect/LinkedListMultimap.java`
     @CheckForNull Node<K, V> next = head;
     @CheckForNull Node<K, V> current;
     int expectedModCount = modCount;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+#### Snippet
+```java
+    final Set<K> seenKeys = Sets.<K>newHashSetWithExpectedSize(keySet().size());
+    @CheckForNull Node<K, V> next = head;
+    @CheckForNull Node<K, V> current;
+    int expectedModCount = modCount;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+#### Snippet
+```java
+    @CheckForNull Node<K, V> next; // the next node (with any key)
+    @CheckForNull Node<K, V> previous; // the previous node (with any key)
+    @CheckForNull Node<K, V> nextSibling; // the next node with the same key
+    @CheckForNull Node<K, V> previousSibling; // the previous node with the same key
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+#### Snippet
+```java
+    @CheckForNull Node<K, V> next;
+    @CheckForNull Node<K, V> current;
+    @CheckForNull Node<K, V> previous;
+
+    /** Constructs a new iterator over all values for the specified key. */
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+#### Snippet
+```java
+
+  @CheckForNull private transient Node<K, V> head; // the head for all keys
+  @CheckForNull private transient Node<K, V> tail; // the tail for all keys
+  private transient Map<K, KeyList<K, V>> keyToKeyList;
+  private transient int size;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+#### Snippet
+```java
+  }
+
+  @CheckForNull private transient Node<K, V> head; // the head for all keys
+  @CheckForNull private transient Node<K, V> tail; // the tail for all keys
+  private transient Map<K, KeyList<K, V>> keyToKeyList;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+#### Snippet
+```java
+    @ParametricNullness V value;
+    @CheckForNull Node<K, V> next; // the next node (with any key)
+    @CheckForNull Node<K, V> previous; // the previous node (with any key)
+    @CheckForNull Node<K, V> nextSibling; // the next node with the same key
+    @CheckForNull Node<K, V> previousSibling; // the previous node with the same key
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+#### Snippet
+```java
+    int nextIndex;
+    @CheckForNull Node<K, V> next;
+    @CheckForNull Node<K, V> current;
+    @CheckForNull Node<K, V> previous;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+#### Snippet
+```java
+  private class NodeIterator implements ListIterator<Entry<K, V>> {
+    int nextIndex;
+    @CheckForNull Node<K, V> next;
+    @CheckForNull Node<K, V> current;
+    @CheckForNull Node<K, V> previous;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8694,20 +8706,8 @@ in `guava/src/com/google/common/collect/LinkedListMultimap.java`
     @CheckForNull Node<K, V> next;
     @CheckForNull Node<K, V> current;
     @CheckForNull Node<K, V> previous;
+    int expectedModCount = modCount;
 
-    /** Constructs a new iterator over all values for the specified key. */
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
-#### Snippet
-```java
-  }
-
-  @CheckForNull private transient Node<K, V> head; // the head for all keys
-  @CheckForNull private transient Node<K, V> tail; // the tail for all keys
-  private transient Map<K, KeyList<K, V>> keyToKeyList;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8716,46 +8716,10 @@ in `guava/src/com/google/common/collect/LinkedListMultimap.java`
 #### Snippet
 ```java
     @ParametricNullness final K key;
-    @ParametricNullness V value;
-    @CheckForNull Node<K, V> next; // the next node (with any key)
-    @CheckForNull Node<K, V> previous; // the previous node (with any key)
-    @CheckForNull Node<K, V> nextSibling; // the next node with the same key
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
-#### Snippet
-```java
-
-  @CheckForNull private transient Node<K, V> head; // the head for all keys
-  @CheckForNull private transient Node<K, V> tail; // the tail for all keys
-  private transient Map<K, KeyList<K, V>> keyToKeyList;
-  private transient int size;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
-#### Snippet
-```java
-      extends AbstractMapEntry<K, V> {
-    @ParametricNullness final K key;
-    @ParametricNullness V value;
-    @CheckForNull Node<K, V> next; // the next node (with any key)
-    @CheckForNull Node<K, V> previous; // the previous node (with any key)
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
-#### Snippet
-```java
+    int nextIndex;
     @CheckForNull Node<K, V> next;
     @CheckForNull Node<K, V> current;
     @CheckForNull Node<K, V> previous;
-    int expectedModCount = modCount;
-
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8772,36 +8736,36 @@ public abstract class ForwardingBlockingDeque<E> extends ForwardingDeque<E>
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/StandardTable.java`
+in `guava/src/com/google/common/collect/TreeRangeSet.java`
 #### Snippet
 ```java
-  private class CellIterator implements Iterator<Cell<R, C, V>> {
-    final Iterator<Entry<R, Map<C, V>>> rowIterator = backingMap.entrySet().iterator();
-    @CheckForNull Entry<R, Map<C, V>> rowEntry;
-    Iterator<Entry<C, V>> columnIterator = Iterators.emptyModifiableIterator();
+  }
+
+  @CheckForNull private transient Set<Range<C>> asRanges;
+  @CheckForNull private transient Set<Range<C>> asDescendingSetOfRanges;
 
 ```
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/StandardTable.java`
+in `guava/src/com/google/common/collect/TreeRangeSet.java`
 #### Snippet
 ```java
   }
 
-  @CheckForNull private transient Set<C> columnKeySet;
+  @CheckForNull private transient RangeSet<C> complement;
 
-  /**
+  @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/StandardTable.java`
+in `guava/src/com/google/common/collect/TreeRangeSet.java`
 #### Snippet
 ```java
-  }
 
-  @CheckForNull private transient Map<R, Map<C, V>> rowMap;
+  @CheckForNull private transient Set<Range<C>> asRanges;
+  @CheckForNull private transient Set<Range<C>> asDescendingSetOfRanges;
 
   @Override
 ```
@@ -8823,11 +8787,47 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/StandardTable.java`
 #### Snippet
 ```java
+  private class CellIterator implements Iterator<Cell<R, C, V>> {
+    final Iterator<Entry<R, Map<C, V>>> rowIterator = backingMap.entrySet().iterator();
+    @CheckForNull Entry<R, Map<C, V>> rowEntry;
+    Iterator<Entry<C, V>> columnIterator = Iterators.emptyModifiableIterator();
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/StandardTable.java`
+#### Snippet
+```java
   }
 
   @CheckForNull private transient ColumnMap columnMap;
 
   @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/StandardTable.java`
+#### Snippet
+```java
+  }
+
+  @CheckForNull private transient Map<R, Map<C, V>> rowMap;
+
+  @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/StandardTable.java`
+#### Snippet
+```java
+  }
+
+  @CheckForNull private transient Set<C> columnKeySet;
+
+  /**
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8847,11 +8847,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org
 in `guava/src/com/google/common/base/Functions.java`
 #### Snippet
 ```java
-  private static class ConstantFunction<E extends @Nullable Object>
-      implements Function<@Nullable Object, E>, Serializable {
-    @ParametricNullness private final E value;
+      implements Function<K, V>, Serializable {
+    final Map<K, ? extends V> map;
+    @ParametricNullness final V defaultValue;
 
-    public ConstantFunction(@ParametricNullness E value) {
+    ForMapWithDefault(Map<K, ? extends V> map, @ParametricNullness V defaultValue) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8859,11 +8859,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org
 in `guava/src/com/google/common/base/Functions.java`
 #### Snippet
 ```java
-      implements Function<K, V>, Serializable {
-    final Map<K, ? extends V> map;
-    @ParametricNullness final V defaultValue;
+  private static class ConstantFunction<E extends @Nullable Object>
+      implements Function<@Nullable Object, E>, Serializable {
+    @ParametricNullness private final E value;
 
-    ForMapWithDefault(Map<K, ? extends V> map, @ParametricNullness V defaultValue) {
+    public ConstantFunction(@ParametricNullness E value) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -8876,234 +8876,6 @@ in `guava/src/com/google/common/collect/RegularImmutableMap.java`
   @CheckForNull private final transient @Nullable ImmutableMapEntry<K, V>[] table;
   // 'and' with an int to get a table index
   private final transient int mask;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-      extends SynchronizedMap<K, V> implements BiMap<K, V>, Serializable {
-    @CheckForNull private transient Set<V> valueSet;
-    @RetainedWith @CheckForNull private transient BiMap<V, K> inverse;
-
-    private SynchronizedBiMap(
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-  private static class SynchronizedMap<K extends @Nullable Object, V extends @Nullable Object>
-      extends SynchronizedObject implements Map<K, V> {
-    @CheckForNull transient Set<K> keySet;
-    @CheckForNull transient Collection<V> values;
-    @CheckForNull transient Set<Map.Entry<K, V>> entrySet;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-    }
-
-    @CheckForNull transient NavigableMap<K, V> descendingMap;
-
-    @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-    }
-
-    @CheckForNull transient NavigableSet<K> descendingKeySet;
-
-    @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-    @CheckForNull transient Collection<Map.Entry<K, V>> entries;
-    @CheckForNull transient Map<K, Collection<V>> asMap;
-    @CheckForNull transient Multiset<K> keys;
-
-    @SuppressWarnings("unchecked")
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-    }
-
-    @CheckForNull transient NavigableSet<K> navigableKeySet;
-
-    @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-      extends SynchronizedObject implements Multimap<K, V> {
-    @CheckForNull transient Set<K> keySet;
-    @CheckForNull transient Collection<V> valuesCollection;
-    @CheckForNull transient Collection<Map.Entry<K, V>> entries;
-    @CheckForNull transient Map<K, Collection<V>> asMap;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-      extends SynchronizedCollection<E> implements Multiset<E> {
-    @CheckForNull transient Set<E> elementSet;
-    @CheckForNull transient Set<Multiset.Entry<E>> entrySet;
-
-    SynchronizedMultiset(Multiset<E> delegate, @CheckForNull Object mutex) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-    }
-
-    @CheckForNull transient NavigableSet<E> descendingSet;
-
-    @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-          K extends @Nullable Object, V extends @Nullable Object>
-      extends SynchronizedMultimap<K, V> implements SetMultimap<K, V> {
-    @CheckForNull transient Set<Map.Entry<K, V>> entrySet;
-
-    SynchronizedSetMultimap(SetMultimap<K, V> delegate, @CheckForNull Object mutex) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-  private static class SynchronizedMultiset<E extends @Nullable Object>
-      extends SynchronizedCollection<E> implements Multiset<E> {
-    @CheckForNull transient Set<E> elementSet;
-    @CheckForNull transient Set<Multiset.Entry<E>> entrySet;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-  private static class SynchronizedAsMap<K extends @Nullable Object, V extends @Nullable Object>
-      extends SynchronizedMap<K, Collection<V>> {
-    @CheckForNull transient Set<Map.Entry<K, Collection<V>>> asMapEntrySet;
-    @CheckForNull transient Collection<Collection<V>> asMapValues;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-      extends SynchronizedObject implements Map<K, V> {
-    @CheckForNull transient Set<K> keySet;
-    @CheckForNull transient Collection<V> values;
-    @CheckForNull transient Set<Map.Entry<K, V>> entrySet;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-    @CheckForNull transient Set<K> keySet;
-    @CheckForNull transient Collection<V> valuesCollection;
-    @CheckForNull transient Collection<Map.Entry<K, V>> entries;
-    @CheckForNull transient Map<K, Collection<V>> asMap;
-    @CheckForNull transient Multiset<K> keys;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-      extends SynchronizedMap<K, Collection<V>> {
-    @CheckForNull transient Set<Map.Entry<K, Collection<V>>> asMapEntrySet;
-    @CheckForNull transient Collection<Collection<V>> asMapValues;
-
-    SynchronizedAsMap(Map<K, Collection<V>> delegate, @CheckForNull Object mutex) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-    @CheckForNull transient Collection<V> valuesCollection;
-    @CheckForNull transient Collection<Map.Entry<K, V>> entries;
-    @CheckForNull transient Map<K, Collection<V>> asMap;
-    @CheckForNull transient Multiset<K> keys;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-  static class SynchronizedBiMap<K extends @Nullable Object, V extends @Nullable Object>
-      extends SynchronizedMap<K, V> implements BiMap<K, V>, Serializable {
-    @CheckForNull private transient Set<V> valueSet;
-    @RetainedWith @CheckForNull private transient BiMap<V, K> inverse;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-    @CheckForNull transient Set<K> keySet;
-    @CheckForNull transient Collection<V> values;
-    @CheckForNull transient Set<Map.Entry<K, V>> entrySet;
-
-    SynchronizedMap(Map<K, V> delegate, @CheckForNull Object mutex) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-  private static class SynchronizedMultimap<K extends @Nullable Object, V extends @Nullable Object>
-      extends SynchronizedObject implements Multimap<K, V> {
-    @CheckForNull transient Set<K> keySet;
-    @CheckForNull transient Collection<V> valuesCollection;
-    @CheckForNull transient Collection<Map.Entry<K, V>> entries;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9135,6 +8907,18 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/NaturalOrdering.java`
 #### Snippet
 ```java
+
+  @CheckForNull private transient Ordering<@Nullable Comparable<?>> nullsFirst;
+  @CheckForNull private transient Ordering<@Nullable Comparable<?>> nullsLast;
+
+  @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/NaturalOrdering.java`
+#### Snippet
+```java
   static final NaturalOrdering INSTANCE = new NaturalOrdering();
 
   @CheckForNull private transient Ordering<@Nullable Comparable<?>> nullsFirst;
@@ -9144,14 +8928,230 @@ in `guava/src/com/google/common/collect/NaturalOrdering.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/NaturalOrdering.java`
+in `guava/src/com/google/common/collect/Synchronized.java`
 #### Snippet
 ```java
+      extends SynchronizedCollection<E> implements Multiset<E> {
+    @CheckForNull transient Set<E> elementSet;
+    @CheckForNull transient Set<Multiset.Entry<E>> entrySet;
 
-  @CheckForNull private transient Ordering<@Nullable Comparable<?>> nullsFirst;
-  @CheckForNull private transient Ordering<@Nullable Comparable<?>> nullsLast;
+    SynchronizedMultiset(Multiset<E> delegate, @CheckForNull Object mutex) {
+```
 
-  @Override
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+    }
+
+    @CheckForNull transient NavigableSet<E> descendingSet;
+
+    @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+  private static class SynchronizedAsMap<K extends @Nullable Object, V extends @Nullable Object>
+      extends SynchronizedMap<K, Collection<V>> {
+    @CheckForNull transient Set<Map.Entry<K, Collection<V>>> asMapEntrySet;
+    @CheckForNull transient Collection<Collection<V>> asMapValues;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+  private static class SynchronizedMultimap<K extends @Nullable Object, V extends @Nullable Object>
+      extends SynchronizedObject implements Multimap<K, V> {
+    @CheckForNull transient Set<K> keySet;
+    @CheckForNull transient Collection<V> valuesCollection;
+    @CheckForNull transient Collection<Map.Entry<K, V>> entries;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+      extends SynchronizedObject implements Multimap<K, V> {
+    @CheckForNull transient Set<K> keySet;
+    @CheckForNull transient Collection<V> valuesCollection;
+    @CheckForNull transient Collection<Map.Entry<K, V>> entries;
+    @CheckForNull transient Map<K, Collection<V>> asMap;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+  static class SynchronizedBiMap<K extends @Nullable Object, V extends @Nullable Object>
+      extends SynchronizedMap<K, V> implements BiMap<K, V>, Serializable {
+    @CheckForNull private transient Set<V> valueSet;
+    @RetainedWith @CheckForNull private transient BiMap<V, K> inverse;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+      extends SynchronizedMap<K, Collection<V>> {
+    @CheckForNull transient Set<Map.Entry<K, Collection<V>>> asMapEntrySet;
+    @CheckForNull transient Collection<Collection<V>> asMapValues;
+
+    SynchronizedAsMap(Map<K, Collection<V>> delegate, @CheckForNull Object mutex) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+  private static class SynchronizedMap<K extends @Nullable Object, V extends @Nullable Object>
+      extends SynchronizedObject implements Map<K, V> {
+    @CheckForNull transient Set<K> keySet;
+    @CheckForNull transient Collection<V> values;
+    @CheckForNull transient Set<Map.Entry<K, V>> entrySet;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+    @CheckForNull transient Set<K> keySet;
+    @CheckForNull transient Collection<V> valuesCollection;
+    @CheckForNull transient Collection<Map.Entry<K, V>> entries;
+    @CheckForNull transient Map<K, Collection<V>> asMap;
+    @CheckForNull transient Multiset<K> keys;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+    @CheckForNull transient Set<K> keySet;
+    @CheckForNull transient Collection<V> values;
+    @CheckForNull transient Set<Map.Entry<K, V>> entrySet;
+
+    SynchronizedMap(Map<K, V> delegate, @CheckForNull Object mutex) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+    }
+
+    @CheckForNull transient NavigableMap<K, V> descendingMap;
+
+    @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+      extends SynchronizedMap<K, V> implements BiMap<K, V>, Serializable {
+    @CheckForNull private transient Set<V> valueSet;
+    @RetainedWith @CheckForNull private transient BiMap<V, K> inverse;
+
+    private SynchronizedBiMap(
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+    @CheckForNull transient Collection<V> valuesCollection;
+    @CheckForNull transient Collection<Map.Entry<K, V>> entries;
+    @CheckForNull transient Map<K, Collection<V>> asMap;
+    @CheckForNull transient Multiset<K> keys;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+    @CheckForNull transient Collection<Map.Entry<K, V>> entries;
+    @CheckForNull transient Map<K, Collection<V>> asMap;
+    @CheckForNull transient Multiset<K> keys;
+
+    @SuppressWarnings("unchecked")
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+      extends SynchronizedObject implements Map<K, V> {
+    @CheckForNull transient Set<K> keySet;
+    @CheckForNull transient Collection<V> values;
+    @CheckForNull transient Set<Map.Entry<K, V>> entrySet;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+          K extends @Nullable Object, V extends @Nullable Object>
+      extends SynchronizedMultimap<K, V> implements SetMultimap<K, V> {
+    @CheckForNull transient Set<Map.Entry<K, V>> entrySet;
+
+    SynchronizedSetMultimap(SetMultimap<K, V> delegate, @CheckForNull Object mutex) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+    }
+
+    @CheckForNull transient NavigableSet<K> navigableKeySet;
+
+    @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+    }
+
+    @CheckForNull transient NavigableSet<K> descendingKeySet;
+
+    @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+  private static class SynchronizedMultiset<E extends @Nullable Object>
+      extends SynchronizedCollection<E> implements Multiset<E> {
+    @CheckForNull transient Set<E> elementSet;
+    @CheckForNull transient Set<Multiset.Entry<E>> entrySet;
+
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9173,19 +9173,7 @@ in `guava/src/com/google/common/collect/ImmutableMap.java`
 ```java
   }
 
-  @LazyInit @RetainedWith @CheckForNull private transient ImmutableSet<Entry<K, V>> entrySet;
-
-  /**
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ImmutableMap.java`
-#### Snippet
-```java
-  abstract ImmutableSet<Entry<K, V>> createEntrySet();
-
-  @LazyInit @RetainedWith @CheckForNull private transient ImmutableSet<K> keySet;
+  @LazyInit @RetainedWith @CheckForNull private transient ImmutableCollection<V> values;
 
   /**
 ```
@@ -9197,7 +9185,7 @@ in `guava/src/com/google/common/collect/ImmutableMap.java`
 ```java
   }
 
-  @LazyInit @RetainedWith @CheckForNull private transient ImmutableCollection<V> values;
+  @LazyInit @RetainedWith @CheckForNull private transient ImmutableSet<Entry<K, V>> entrySet;
 
   /**
 ```
@@ -9228,6 +9216,18 @@ in `guava/src/com/google/common/collect/ImmutableMap.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/ImmutableMap.java`
+#### Snippet
+```java
+  abstract ImmutableSet<Entry<K, V>> createEntrySet();
+
+  @LazyInit @RetainedWith @CheckForNull private transient ImmutableSet<K> keySet;
+
+  /**
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
 in `guava/src/com/google/common/util/concurrent/AbstractService.java`
 #### Snippet
 ```java
@@ -9236,18 +9236,6 @@ in `guava/src/com/google/common/util/concurrent/AbstractService.java`
     @CheckForNull final Throwable failure;
 
     StateSnapshot(State internalState) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/AbstractCatchingFuture.java`
-#### Snippet
-```java
-  @CheckForNull ListenableFuture<? extends V> inputFuture;
-  @CheckForNull Class<X> exceptionType;
-  @CheckForNull F fallback;
-
-  AbstractCatchingFuture(
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9267,10 +9255,106 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/util/concurrent/AbstractCatchingFuture.java`
 #### Snippet
 ```java
+  @CheckForNull ListenableFuture<? extends V> inputFuture;
+  @CheckForNull Class<X> exceptionType;
+  @CheckForNull F fallback;
+
+  AbstractCatchingFuture(
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/AbstractCatchingFuture.java`
+#### Snippet
+```java
    */
   @CheckForNull ListenableFuture<? extends V> inputFuture;
   @CheckForNull Class<X> exceptionType;
   @CheckForNull F fallback;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/cache/CacheBuilder.java`
+#### Snippet
+```java
+
+  @Nullable Strength keyStrength;
+  @Nullable Strength valueStrength;
+
+  @SuppressWarnings("GoodTime") // should be a java.time.Duration
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/cache/CacheBuilder.java`
+#### Snippet
+```java
+  long refreshNanos = UNSET_INT;
+
+  @Nullable Equivalence<Object> keyEquivalence;
+  @Nullable Equivalence<Object> valueEquivalence;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/cache/CacheBuilder.java`
+#### Snippet
+```java
+  @Nullable Weigher<? super K, ? super V> weigher;
+
+  @Nullable Strength keyStrength;
+  @Nullable Strength valueStrength;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/cache/CacheBuilder.java`
+#### Snippet
+```java
+  long maximumSize = UNSET_INT;
+  long maximumWeight = UNSET_INT;
+  @Nullable Weigher<? super K, ? super V> weigher;
+
+  @Nullable Strength keyStrength;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/cache/CacheBuilder.java`
+#### Snippet
+```java
+
+  @Nullable Equivalence<Object> keyEquivalence;
+  @Nullable Equivalence<Object> valueEquivalence;
+
+  @Nullable RemovalListener<? super K, ? super V> removalListener;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/cache/CacheBuilder.java`
+#### Snippet
+```java
+
+  @Nullable RemovalListener<? super K, ? super V> removalListener;
+  @Nullable Ticker ticker;
+
+  Supplier<? extends StatsCounter> statsCounterSupplier = NULL_STATS_COUNTER;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/cache/CacheBuilder.java`
+#### Snippet
+```java
+  @Nullable Equivalence<Object> valueEquivalence;
+
+  @Nullable RemovalListener<? super K, ? super V> removalListener;
+  @Nullable Ticker ticker;
 
 ```
 
@@ -9284,30 +9368,6 @@ in `guava/src/com/google/common/base/Suppliers.java`
     @CheckForNull T value;
 
     NonSerializableMemoizingSupplier(Supplier<T> delegate) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/base/Suppliers.java`
-#### Snippet
-```java
-    // "value" does not need to be volatile; visibility piggy-backs
-    // on volatile read of "initialized".
-    @CheckForNull transient T value;
-
-    MemoizingSupplier(Supplier<T> delegate) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/base/Suppliers.java`
-#### Snippet
-```java
-  private static class SupplierOfInstance<T extends @Nullable Object>
-      implements Supplier<T>, Serializable {
-    @ParametricNullness final T instance;
-
-    SupplierOfInstance(@ParametricNullness T instance) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9336,86 +9396,26 @@ in `guava/src/com/google/common/base/Suppliers.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/cache/CacheBuilder.java`
+in `guava/src/com/google/common/base/Suppliers.java`
 #### Snippet
 ```java
-  long refreshNanos = UNSET_INT;
+  private static class SupplierOfInstance<T extends @Nullable Object>
+      implements Supplier<T>, Serializable {
+    @ParametricNullness final T instance;
 
-  @Nullable Equivalence<Object> keyEquivalence;
-  @Nullable Equivalence<Object> valueEquivalence;
-
+    SupplierOfInstance(@ParametricNullness T instance) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/cache/CacheBuilder.java`
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/base/Suppliers.java`
 #### Snippet
 ```java
-  long maximumSize = UNSET_INT;
-  long maximumWeight = UNSET_INT;
-  @Nullable Weigher<? super K, ? super V> weigher;
+    // "value" does not need to be volatile; visibility piggy-backs
+    // on volatile read of "initialized".
+    @CheckForNull transient T value;
 
-  @Nullable Strength keyStrength;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/cache/CacheBuilder.java`
-#### Snippet
-```java
-  @Nullable Weigher<? super K, ? super V> weigher;
-
-  @Nullable Strength keyStrength;
-  @Nullable Strength valueStrength;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/cache/CacheBuilder.java`
-#### Snippet
-```java
-
-  @Nullable Strength keyStrength;
-  @Nullable Strength valueStrength;
-
-  @SuppressWarnings("GoodTime") // should be a java.time.Duration
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/cache/CacheBuilder.java`
-#### Snippet
-```java
-
-  @Nullable RemovalListener<? super K, ? super V> removalListener;
-  @Nullable Ticker ticker;
-
-  Supplier<? extends StatsCounter> statsCounterSupplier = NULL_STATS_COUNTER;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/cache/CacheBuilder.java`
-#### Snippet
-```java
-  @Nullable Equivalence<Object> valueEquivalence;
-
-  @Nullable RemovalListener<? super K, ? super V> removalListener;
-  @Nullable Ticker ticker;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/cache/CacheBuilder.java`
-#### Snippet
-```java
-
-  @Nullable Equivalence<Object> keyEquivalence;
-  @Nullable Equivalence<Object> valueEquivalence;
-
-  @Nullable RemovalListener<? super K, ? super V> removalListener;
+    MemoizingSupplier(Supplier<T> delegate) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9435,35 +9435,35 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/MinMaxPriorityQueue.java`
 #### Snippet
 ```java
-    // either of them, up to the same multiplicity as the queue.
-    @CheckForNull private Queue<E> forgetMeNot;
-    @CheckForNull private List<E> skipMe;
-    @CheckForNull private E lastFromForgetMeNot;
-    private boolean canRemove;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/MinMaxPriorityQueue.java`
-#### Snippet
-```java
-    @CheckForNull private Queue<E> forgetMeNot;
-    @CheckForNull private List<E> skipMe;
-    @CheckForNull private E lastFromForgetMeNot;
-    private boolean canRemove;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/MinMaxPriorityQueue.java`
-#### Snippet
-```java
     // The same element is not allowed in both forgetMeNot and skipMe, but duplicates are allowed in
     // either of them, up to the same multiplicity as the queue.
     @CheckForNull private Queue<E> forgetMeNot;
     @CheckForNull private List<E> skipMe;
     @CheckForNull private E lastFromForgetMeNot;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/MinMaxPriorityQueue.java`
+#### Snippet
+```java
+    @CheckForNull private Queue<E> forgetMeNot;
+    @CheckForNull private List<E> skipMe;
+    @CheckForNull private E lastFromForgetMeNot;
+    private boolean canRemove;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/MinMaxPriorityQueue.java`
+#### Snippet
+```java
+    // either of them, up to the same multiplicity as the queue.
+    @CheckForNull private Queue<E> forgetMeNot;
+    @CheckForNull private List<E> skipMe;
+    @CheckForNull private E lastFromForgetMeNot;
+    private boolean canRemove;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9480,38 +9480,14 @@ in `guava/src/com/google/common/cache/Striped64.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/reflect/Types.java`
+in `guava/src/com/google/common/collect/AbstractMapBasedMultiset.java`
 #### Snippet
 ```java
-  private static final class ParameterizedTypeImpl implements ParameterizedType, Serializable {
+    final Iterator<Map.Entry<E, Count>> backingEntries = backingMap.entrySet().iterator();
+    return new Iterator<E>() {
+      @CheckForNull Map.Entry<E, Count> toRemove;
 
-    @CheckForNull private final Type ownerType;
-    private final ImmutableList<Type> argumentsList;
-    private final Class<?> rawType;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/math/LinearTransformation.java`
-#### Snippet
-```java
-    final double yIntercept;
-
-    @CheckForNull @LazyInit LinearTransformation inverse;
-
-    RegularLinearTransformation(double slope, double yIntercept) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/math/LinearTransformation.java`
-#### Snippet
-```java
-    final double x;
-
-    @CheckForNull @LazyInit LinearTransformation inverse;
-
-    VerticalLinearTransformation(double x) {
+      @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9540,14 +9516,14 @@ in `guava/src/com/google/common/collect/AbstractMapBasedMultiset.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractMapBasedMultiset.java`
+in `guava/src/com/google/common/reflect/Types.java`
 #### Snippet
 ```java
-    final Iterator<Map.Entry<E, Count>> backingEntries = backingMap.entrySet().iterator();
-    return new Iterator<E>() {
-      @CheckForNull Map.Entry<E, Count> toRemove;
+  private static final class ParameterizedTypeImpl implements ParameterizedType, Serializable {
 
-      @Override
+    @CheckForNull private final Type ownerType;
+    private final ImmutableList<Type> argumentsList;
+    private final Class<?> rawType;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9564,14 +9540,26 @@ in `guava/src/com/google/common/collect/CompactLinkedHashMap.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/SingletonImmutableBiMap.java`
+in `guava/src/com/google/common/math/LinearTransformation.java`
 #### Snippet
 ```java
+    final double x;
 
-  @CheckForNull private final transient ImmutableBiMap<V, K> inverse;
-  @LazyInit @RetainedWith @CheckForNull private transient ImmutableBiMap<V, K> lazyInverse;
+    @CheckForNull @LazyInit LinearTransformation inverse;
 
-  @Override
+    VerticalLinearTransformation(double x) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/math/LinearTransformation.java`
+#### Snippet
+```java
+    final double yIntercept;
+
+    @CheckForNull @LazyInit LinearTransformation inverse;
+
+    RegularLinearTransformation(double slope, double yIntercept) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9584,6 +9572,18 @@ in `guava/src/com/google/common/collect/SingletonImmutableBiMap.java`
   @CheckForNull private final transient ImmutableBiMap<V, K> inverse;
   @LazyInit @RetainedWith @CheckForNull private transient ImmutableBiMap<V, K> lazyInverse;
 
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/SingletonImmutableBiMap.java`
+#### Snippet
+```java
+
+  @CheckForNull private final transient ImmutableBiMap<V, K> inverse;
+  @LazyInit @RetainedWith @CheckForNull private transient ImmutableBiMap<V, K> lazyInverse;
+
+  @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9623,6 +9623,42 @@ in `guava/src/com/google/common/collect/CompactHashMap.java`
 ```
 
 ### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/collect/CompactHashMap.java`
+#### Snippet
+```java
+
+  final class MapEntry extends AbstractMapEntry<K, V> {
+    @ParametricNullness private final K key;
+
+    private int lastKnownIndex;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/CompactHashMap.java`
+#### Snippet
+```java
+   * keys.length) are all {@code null}.
+   */
+  @VisibleForTesting @CheckForNull transient @Nullable Object[] keys;
+
+  /**
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/CompactHashMap.java`
+#### Snippet
+```java
+  }
+
+  @CheckForNull private transient Set<K> keySetView;
+
+  @Override
+```
+
+### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
 in `guava/src/com/google/common/collect/CompactHashMap.java`
 #### Snippet
@@ -9632,6 +9668,18 @@ in `guava/src/com/google/common/collect/CompactHashMap.java`
   @CheckForNull private transient Set<Entry<K, V>> entrySetView;
 
   @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/CompactHashMap.java`
+#### Snippet
+```java
+   * values.length) are all {@code null}.
+   */
+  @VisibleForTesting @CheckForNull transient @Nullable Object[] values;
+
+  /**
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9654,54 +9702,6 @@ in `guava/src/com/google/common/collect/CompactHashMap.java`
    * </ul>
    */
   @CheckForNull private transient Object table;
-
-  /**
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/CompactHashMap.java`
-#### Snippet
-```java
-   * keys.length) are all {@code null}.
-   */
-  @VisibleForTesting @CheckForNull transient @Nullable Object[] keys;
-
-  /**
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/collect/CompactHashMap.java`
-#### Snippet
-```java
-
-  final class MapEntry extends AbstractMapEntry<K, V> {
-    @ParametricNullness private final K key;
-
-    private int lastKnownIndex;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/CompactHashMap.java`
-#### Snippet
-```java
-  }
-
-  @CheckForNull private transient Set<K> keySetView;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/CompactHashMap.java`
-#### Snippet
-```java
-   * values.length) are all {@code null}.
-   */
-  @VisibleForTesting @CheckForNull transient @Nullable Object[] values;
 
   /**
 ```
@@ -9747,9 +9747,9 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/DescendingMultiset.java`
 #### Snippet
 ```java
-  abstract SortedMultiset<E> forwardMultiset();
+  abstract Iterator<Entry<E>> entryIterator();
 
-  @CheckForNull private transient Comparator<? super E> comparator;
+  @CheckForNull private transient Set<Entry<E>> entrySet;
 
   @Override
 ```
@@ -9759,9 +9759,9 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/DescendingMultiset.java`
 #### Snippet
 ```java
-  abstract Iterator<Entry<E>> entryIterator();
+  abstract SortedMultiset<E> forwardMultiset();
 
-  @CheckForNull private transient Set<Entry<E>> entrySet;
+  @CheckForNull private transient Comparator<? super E> comparator;
 
   @Override
 ```
@@ -9804,14 +9804,14 @@ in `guava/src/com/google/common/collect/CompactHashSet.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractIterator.java`
+in `guava/src/com/google/common/reflect/TypeToken.java`
 #### Snippet
 ```java
-  }
 
-  @CheckForNull private T next;
+    private final transient TypeSet allTypes;
+    @CheckForNull private transient ImmutableSet<TypeToken<? super T>> interfaces;
 
-  /**
+    InterfaceSet(TypeSet allTypes) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9831,11 +9831,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/reflect/TypeToken.java`
 #### Snippet
 ```java
+  public class TypeSet extends ForwardingSet<TypeToken<? super T>> implements Serializable {
 
-    private final transient TypeSet allTypes;
-    @CheckForNull private transient ImmutableSet<TypeToken<? super T>> interfaces;
+    @CheckForNull private transient ImmutableSet<TypeToken<? super T>> types;
 
-    InterfaceSet(TypeSet allTypes) {
+    TypeSet() {}
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9864,26 +9864,14 @@ in `guava/src/com/google/common/reflect/TypeToken.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/reflect/TypeToken.java`
+in `guava/src/com/google/common/collect/AbstractIterator.java`
 #### Snippet
 ```java
-  public class TypeSet extends ForwardingSet<TypeToken<? super T>> implements Serializable {
+  }
 
-    @CheckForNull private transient ImmutableSet<TypeToken<? super T>> types;
+  @CheckForNull private T next;
 
-    TypeSet() {}
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Sets.java`
-#### Snippet
-```java
-    }
-
-    @CheckForNull private transient UnmodifiableNavigableSet<E> descendingSet;
-
-    @Override
+  /**
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9891,10 +9879,10 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/base/Throwables.java`
 #### Snippet
 ```java
-  /** Access to some fancy internal JVM internals. */
+   */
   @GwtIncompatible // java.lang.reflect
   @CheckForNull
-  private static final Object jla = getJLA();
+  private static final Method getStackTraceDepthMethod = (jla == null) ? null : getSizeMethod(jla);
 
 ```
 
@@ -9915,35 +9903,23 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/base/Throwables.java`
 #### Snippet
 ```java
-   */
+  /** Access to some fancy internal JVM internals. */
   @GwtIncompatible // java.lang.reflect
   @CheckForNull
-  private static final Method getStackTraceDepthMethod = (jla == null) ? null : getSizeMethod(jla);
+  private static final Object jla = getJLA();
 
 ```
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
+in `guava/src/com/google/common/collect/Sets.java`
 #### Snippet
 ```java
-    Collection<V> delegate;
-    @CheckForNull final WrappedCollection ancestor;
-    @CheckForNull final Collection<V> ancestorDelegate;
+    }
 
-    WrappedCollection(
-```
+    @CheckForNull private transient UnmodifiableNavigableSet<E> descendingSet;
 
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
-#### Snippet
-```java
-  private abstract class Itr<T extends @Nullable Object> implements Iterator<T> {
-    final Iterator<Entry<K, Collection<V>>> keyIterator;
-    @CheckForNull K key;
-    @CheckForNull Collection<V> collection;
-    Iterator<V> valueIterator;
+    @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9963,11 +9939,47 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
 #### Snippet
 ```java
+    class AsMapIterator implements Iterator<Entry<K, Collection<V>>> {
+      final Iterator<Entry<K, Collection<V>>> delegateIterator = submap.entrySet().iterator();
+      @CheckForNull Collection<V> collection;
+
+      @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
+#### Snippet
+```java
+    Collection<V> delegate;
+    @CheckForNull final WrappedCollection ancestor;
+    @CheckForNull final Collection<V> ancestorDelegate;
+
+    WrappedCollection(
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
+#### Snippet
+```java
+      final Iterator<Entry<K, Collection<V>>> entryIterator = map().entrySet().iterator();
+      return new Iterator<K>() {
+        @CheckForNull Entry<K, Collection<V>> entry;
+
+        @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
+#### Snippet
+```java
+  private abstract class Itr<T extends @Nullable Object> implements Iterator<T> {
     final Iterator<Entry<K, Collection<V>>> keyIterator;
     @CheckForNull K key;
     @CheckForNull Collection<V> collection;
     Iterator<V> valueIterator;
-
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -9999,35 +10011,23 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
 #### Snippet
 ```java
-    class AsMapIterator implements Iterator<Entry<K, Collection<V>>> {
-      final Iterator<Entry<K, Collection<V>>> delegateIterator = submap.entrySet().iterator();
-      @CheckForNull Collection<V> collection;
+    final Iterator<Entry<K, Collection<V>>> keyIterator;
+    @CheckForNull K key;
+    @CheckForNull Collection<V> collection;
+    Iterator<V> valueIterator;
 
-      @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
+in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
 #### Snippet
 ```java
-      final Iterator<Entry<K, Collection<V>>> entryIterator = map().entrySet().iterator();
-      return new Iterator<K>() {
-        @CheckForNull Entry<K, Collection<V>> entry;
+  private final transient RegularImmutableSortedSet<K> keySet;
+  private final transient ImmutableList<V> valueList;
+  @CheckForNull private transient ImmutableSortedMap<K, V> descendingMap;
 
-        @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Multisets.java`
-#### Snippet
-```java
-    }
-
-    @CheckForNull transient Set<Multiset.Entry<E>> entrySet;
-
-    @SuppressWarnings("unchecked")
+  ImmutableSortedMap(RegularImmutableSortedSet<K> keySet, ImmutableList<V> valueList) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10040,6 +10040,18 @@ in `guava/src/com/google/common/collect/Multisets.java`
     @CheckForNull private Entry<E> currentEntry;
 
     /** Count of subsequent elements equal to current element */
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Multisets.java`
+#### Snippet
+```java
+    }
+
+    @CheckForNull transient Set<E> elementSet;
+
+    Set<E> createElementSet() {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10061,33 +10073,9 @@ in `guava/src/com/google/common/collect/Multisets.java`
 ```java
     }
 
-    @CheckForNull transient Set<E> elementSet;
+    @CheckForNull transient Set<Multiset.Entry<E>> entrySet;
 
-    Set<E> createElementSet() {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
-#### Snippet
-```java
-  private final transient RegularImmutableSortedSet<K> keySet;
-  private final transient ImmutableList<V> valueList;
-  @CheckForNull private transient ImmutableSortedMap<K, V> descendingMap;
-
-  ImmutableSortedMap(RegularImmutableSortedSet<K> keySet, ImmutableList<V> valueList) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/AbstractTransformFuture.java`
-#### Snippet
-```java
-   */
-  @CheckForNull ListenableFuture<? extends I> inputFuture;
-  @CheckForNull F function;
-
-  AbstractTransformFuture(ListenableFuture<? extends I> inputFuture, F function) {
+    @SuppressWarnings("unchecked")
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10104,14 +10092,14 @@ in `guava/src/com/google/common/util/concurrent/AbstractTransformFuture.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/io/FileBackedOutputStream.java`
+in `guava/src/com/google/common/util/concurrent/AbstractTransformFuture.java`
 #### Snippet
 ```java
+   */
+  @CheckForNull ListenableFuture<? extends I> inputFuture;
+  @CheckForNull F function;
 
-  @GuardedBy("this")
-  @CheckForNull
-  private MemoryOutput memory;
-
+  AbstractTransformFuture(ListenableFuture<? extends I> inputFuture, F function) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10134,32 +10122,20 @@ in `guava/src/com/google/common/io/FileBackedOutputStream.java`
 
   @GuardedBy("this")
   @CheckForNull
+  private MemoryOutput memory;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/io/FileBackedOutputStream.java`
+#### Snippet
+```java
+
+  @GuardedBy("this")
+  @CheckForNull
   private File file;
 
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/RateLimiter.java`
-#### Snippet
-```java
-
-  // Can't be initialized in the constructor because mocks don't call the constructor.
-  @CheckForNull private volatile Object mutexDoNotUseDirectly;
-
-  private Object mutex() {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/TreeMultiset.java`
-#### Snippet
-```java
-     */
-    @CheckForNull private AvlNode<E> pred;
-    @CheckForNull private AvlNode<E> succ;
-
-    AvlNode(@ParametricNullness E elem, int elemCount) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10179,22 +10155,10 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/TreeMultiset.java`
 #### Snippet
 ```java
-     * the elem field without a null check by calling getElement().
-     */
-    @CheckForNull private final E elem;
-
-    // elemCount is 0 iff this node has been deleted.
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/TreeMultiset.java`
-#### Snippet
-```java
-  Iterator<Entry<E>> descendingEntryIterator() {
+  Iterator<Entry<E>> entryIterator() {
     return new Iterator<Entry<E>>() {
-      @CheckForNull AvlNode<E> current = lastNode();
-      @CheckForNull Entry<E> prevEntry = null;
+      @CheckForNull AvlNode<E> current = firstNode();
+      @CheckForNull Entry<E> prevEntry;
 
 ```
 
@@ -10215,11 +10179,59 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/TreeMultiset.java`
 #### Snippet
 ```java
+    private long totalCount;
+    private int height;
+    @CheckForNull private AvlNode<E> left;
+    @CheckForNull private AvlNode<E> right;
+    /*
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/TreeMultiset.java`
+#### Snippet
+```java
+     */
+    @CheckForNull private AvlNode<E> pred;
+    @CheckForNull private AvlNode<E> succ;
+
+    AvlNode(@ParametricNullness E elem, int elemCount) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/TreeMultiset.java`
+#### Snippet
+```java
+  Iterator<Entry<E>> descendingEntryIterator() {
+    return new Iterator<Entry<E>>() {
+      @CheckForNull AvlNode<E> current = lastNode();
+      @CheckForNull Entry<E> prevEntry = null;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/TreeMultiset.java`
+#### Snippet
+```java
     private int height;
     @CheckForNull private AvlNode<E> left;
     @CheckForNull private AvlNode<E> right;
     /*
      * pred and succ are nullable after construction, but we always call successor() to initialize
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/TreeMultiset.java`
+#### Snippet
+```java
+     * the elem field without a null check by calling getElement().
+     */
+    @CheckForNull private final E elem;
+
+    // elemCount is 0 iff this node has been deleted.
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10248,26 +10260,14 @@ in `guava/src/com/google/common/collect/TreeMultiset.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/TreeMultiset.java`
+in `guava/src/com/google/common/util/concurrent/RateLimiter.java`
 #### Snippet
 ```java
-    private long totalCount;
-    private int height;
-    @CheckForNull private AvlNode<E> left;
-    @CheckForNull private AvlNode<E> right;
-    /*
-```
 
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/TreeMultiset.java`
-#### Snippet
-```java
-  Iterator<Entry<E>> entryIterator() {
-    return new Iterator<Entry<E>>() {
-      @CheckForNull AvlNode<E> current = firstNode();
-      @CheckForNull Entry<E> prevEntry;
+  // Can't be initialized in the constructor because mocks don't call the constructor.
+  @CheckForNull private volatile Object mutexDoNotUseDirectly;
 
+  private Object mutex() {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10307,30 +10307,6 @@ in `guava/src/com/google/common/graph/UndirectedMultiNetworkConnections.java`
 ```
 
 ### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/CollectCollectors.java`
-#### Snippet
-```java
-                Collector.Characteristics.UNORDERED);
-
-    @CheckForNull private EnumSet<E> set;
-
-    void add(E e) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/CollectCollectors.java`
-#### Snippet
-```java
-  private static class EnumMapAccumulator<K extends Enum<K>, V> {
-    private final BinaryOperator<V> mergeFunction;
-    @CheckForNull private EnumMap<K, V> map = null;
-
-    EnumMapAccumulator(BinaryOperator<V> mergeFunction) {
-```
-
-### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
 in `guava/src/com/google/common/collect/MoreCollectors.java`
 #### Snippet
@@ -10356,6 +10332,30 @@ public final class LineReader {
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/CollectCollectors.java`
+#### Snippet
+```java
+                Collector.Characteristics.UNORDERED);
+
+    @CheckForNull private EnumSet<E> set;
+
+    void add(E e) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/CollectCollectors.java`
+#### Snippet
+```java
+  private static class EnumMapAccumulator<K extends Enum<K>, V> {
+    private final BinaryOperator<V> mergeFunction;
+    @CheckForNull private EnumMap<K, V> map = null;
+
+    EnumMapAccumulator(BinaryOperator<V> mergeFunction) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
 in `guava/src/com/google/common/collect/GeneralRange.java`
 #### Snippet
 ```java
@@ -10364,18 +10364,6 @@ in `guava/src/com/google/common/collect/GeneralRange.java`
   @CheckForNull private transient GeneralRange<T> reverse;
 
   /** Returns the same range relative to the reversed comparator. */
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/GeneralRange.java`
-#### Snippet
-```java
-  private final BoundType lowerBoundType;
-  private final boolean hasUpperBound;
-  @CheckForNull private final T upperEndpoint;
-  private final BoundType upperBoundType;
-
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10392,14 +10380,14 @@ in `guava/src/com/google/common/collect/GeneralRange.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ImmutableMapEntry.java`
+in `guava/src/com/google/common/collect/GeneralRange.java`
 #### Snippet
 ```java
-     * in the value bucket (or vice versa).
-     */
-    @CheckForNull private final transient ImmutableMapEntry<K, V> nextInKeyBucket;
+  private final BoundType lowerBoundType;
+  private final boolean hasUpperBound;
+  @CheckForNull private final T upperEndpoint;
+  private final BoundType upperBoundType;
 
-    NonTerminalImmutableMapEntry(
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10416,26 +10404,14 @@ in `guava/src/com/google/common/collect/ImmutableMapEntry.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractMultiset.java`
+in `guava/src/com/google/common/collect/ImmutableMapEntry.java`
 #### Snippet
 ```java
-  // Views
+     * in the value bucket (or vice versa).
+     */
+    @CheckForNull private final transient ImmutableMapEntry<K, V> nextInKeyBucket;
 
-  @LazyInit @CheckForNull private transient Set<E> elementSet;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractMultiset.java`
-#### Snippet
-```java
-  abstract Iterator<E> elementIterator();
-
-  @LazyInit @CheckForNull private transient Set<Entry<E>> entrySet;
-
-  @Override
+    NonTerminalImmutableMapEntry(
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10464,38 +10440,26 @@ in `guava/src/com/google/common/escape/Escapers.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/graph/MapIteratorCache.java`
+in `guava/src/com/google/common/collect/AbstractMultiset.java`
 #### Snippet
 ```java
-   * concurrently. For more information, see AbstractNetworkTest.concurrentIteration.
-   */
-  @CheckForNull private transient volatile Entry<K, V> cacheEntry;
+  abstract Iterator<E> elementIterator();
 
-  MapIteratorCache(Map<K, V> backingMap) {
+  @LazyInit @CheckForNull private transient Set<Entry<E>> entrySet;
+
+  @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/base/Equivalence.java`
+in `guava/src/com/google/common/collect/AbstractMultiset.java`
 #### Snippet
 ```java
+  // Views
 
-    private final Equivalence<T> equivalence;
-    @CheckForNull private final T target;
+  @LazyInit @CheckForNull private transient Set<E> elementSet;
 
-    EquivalentToPredicate(Equivalence<T> equivalence, @CheckForNull T target) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/base/Equivalence.java`
-#### Snippet
-```java
-    private final Equivalence<? super @NonNull T> equivalence;
-
-    @ParametricNullness private final T reference;
-
-    private Wrapper(Equivalence<? super @NonNull T> equivalence, @ParametricNullness T reference) {
+  @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10524,6 +10488,54 @@ in `guava/src/com/google/common/util/concurrent/Futures.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/graph/MapIteratorCache.java`
+#### Snippet
+```java
+   * concurrently. For more information, see AbstractNetworkTest.concurrentIteration.
+   */
+  @CheckForNull private transient volatile Entry<K, V> cacheEntry;
+
+  MapIteratorCache(Map<K, V> backingMap) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/base/Equivalence.java`
+#### Snippet
+```java
+    private final Equivalence<? super @NonNull T> equivalence;
+
+    @ParametricNullness private final T reference;
+
+    private Wrapper(Equivalence<? super @NonNull T> equivalence, @ParametricNullness T reference) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/base/Equivalence.java`
+#### Snippet
+```java
+
+    private final Equivalence<T> equivalence;
+    @CheckForNull private final T target;
+
+    EquivalentToPredicate(Equivalence<T> equivalence, @CheckForNull T target) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/ImmutableMultimap.java`
+#### Snippet
+```java
+    final Map<K, Collection<V>> builderMap;
+    @CheckForNull Comparator<? super K> keyComparator;
+    @CheckForNull Comparator<? super V> valueComparator;
+
+    /**
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
 in `guava/src/com/google/common/collect/ImmutableMultimap.java`
 #### Snippet
 ```java
@@ -10548,18 +10560,6 @@ in `guava/src/com/google/common/collect/ImmutableMultimap.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ImmutableMultimap.java`
-#### Snippet
-```java
-    final Map<K, Collection<V>> builderMap;
-    @CheckForNull Comparator<? super K> keyComparator;
-    @CheckForNull Comparator<? super V> valueComparator;
-
-    /**
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
 in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
 #### Snippet
 ```java
@@ -10567,6 +10567,18 @@ in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
     // These two fields are volatile because their values will be accessed from multiple threads.
     @CheckForNull private volatile Cancellable runningTask;
     @CheckForNull private volatile ScheduledExecutorService executorService;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
+#### Snippet
+```java
+      /** The future that represents the next execution of this task. */
+      @GuardedBy("lock")
+      @CheckForNull
+      private SupplantableFuture cancellationDelegate;
 
 ```
 
@@ -10584,13 +10596,25 @@ in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
+in `guava/src/com/google/common/base/AbstractIterator.java`
 #### Snippet
 ```java
-      /** The future that represents the next execution of this task. */
-      @GuardedBy("lock")
-      @CheckForNull
-      private SupplantableFuture cancellationDelegate;
+  }
+
+  @CheckForNull private T next;
+
+  @CheckForNull
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/collect/Lists.java`
+#### Snippet
+```java
+  private static class OnePlusArrayList<E extends @Nullable Object> extends AbstractList<E>
+      implements Serializable, RandomAccess {
+    @ParametricNullness final E first;
+    final E[] rest;
 
 ```
 
@@ -10611,35 +10635,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org
 in `guava/src/com/google/common/collect/Lists.java`
 #### Snippet
 ```java
-  private static class OnePlusArrayList<E extends @Nullable Object> extends AbstractList<E>
-      implements Serializable, RandomAccess {
-    @ParametricNullness final E first;
-    final E[] rest;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/collect/Lists.java`
-#### Snippet
-```java
       implements Serializable, RandomAccess {
     @ParametricNullness final E first;
     @ParametricNullness final E second;
     final E[] rest;
 
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/base/AbstractIterator.java`
-#### Snippet
-```java
-  }
-
-  @CheckForNull private T next;
-
-  @CheckForNull
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10652,6 +10652,42 @@ in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
   @LazyInit @RetainedWith @CheckForNull private transient ImmutableListMultimap<V, K> inverse;
 
   /**
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
+in `guava/src/com/google/common/collect/ImmutableSet.java`
+#### Snippet
+```java
+  private static final class RegularSetBuilderImpl<E> extends SetBuilderImpl<E> {
+    // null until at least two elements are present
+    private @Nullable Object @Nullable [] hashTable;
+    private int maxRunBeforeFallback;
+    private int expandTableThreshold;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/ImmutableSet.java`
+#### Snippet
+```java
+     * that this field is non-null.
+     */
+    @CheckForNull private SetBuilderImpl<E> impl;
+    boolean forceCopy;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/ImmutableSet.java`
+#### Snippet
+```java
+  @GwtCompatible
+  abstract static class CachingAsList<E> extends ImmutableSet<E> {
+    @LazyInit @RetainedWith @CheckForNull private transient ImmutableList<E> asList;
+
+    @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10683,47 +10719,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
 #### Snippet
 ```java
-  @VisibleForTesting @CheckForNull Integer initialCapacity;
-  @VisibleForTesting @CheckForNull Long maximumSize;
-  @VisibleForTesting @CheckForNull Long maximumWeight;
-  @VisibleForTesting @CheckForNull Integer concurrencyLevel;
-  @VisibleForTesting @CheckForNull Strength keyStrength;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
-#### Snippet
-```java
   @VisibleForTesting @CheckForNull Strength keyStrength;
   @VisibleForTesting @CheckForNull Strength valueStrength;
   @VisibleForTesting @CheckForNull Boolean recordStats;
   @VisibleForTesting long writeExpirationDuration;
   @VisibleForTesting @CheckForNull TimeUnit writeExpirationTimeUnit;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
-#### Snippet
-```java
-  @VisibleForTesting @CheckForNull Integer concurrencyLevel;
-  @VisibleForTesting @CheckForNull Strength keyStrength;
-  @VisibleForTesting @CheckForNull Strength valueStrength;
-  @VisibleForTesting @CheckForNull Boolean recordStats;
-  @VisibleForTesting long writeExpirationDuration;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
-#### Snippet
-```java
-          .buildOrThrow();
-
-  @VisibleForTesting @CheckForNull Integer initialCapacity;
-  @VisibleForTesting @CheckForNull Long maximumSize;
-  @VisibleForTesting @CheckForNull Long maximumWeight;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10743,35 +10743,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
 #### Snippet
 ```java
-  @VisibleForTesting @CheckForNull Boolean recordStats;
-  @VisibleForTesting long writeExpirationDuration;
-  @VisibleForTesting @CheckForNull TimeUnit writeExpirationTimeUnit;
-  @VisibleForTesting long accessExpirationDuration;
-  @VisibleForTesting @CheckForNull TimeUnit accessExpirationTimeUnit;
-```
 
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
-#### Snippet
-```java
-  @VisibleForTesting @CheckForNull Long maximumWeight;
-  @VisibleForTesting @CheckForNull Integer concurrencyLevel;
-  @VisibleForTesting @CheckForNull Strength keyStrength;
-  @VisibleForTesting @CheckForNull Strength valueStrength;
-  @VisibleForTesting @CheckForNull Boolean recordStats;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
-#### Snippet
-```java
+  @VisibleForTesting @CheckForNull Integer initialCapacity;
   @VisibleForTesting @CheckForNull Long maximumSize;
   @VisibleForTesting @CheckForNull Long maximumWeight;
   @VisibleForTesting @CheckForNull Integer concurrencyLevel;
-  @VisibleForTesting @CheckForNull Strength keyStrength;
-  @VisibleForTesting @CheckForNull Strength valueStrength;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10791,11 +10767,71 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
 #### Snippet
 ```java
+  @VisibleForTesting @CheckForNull Boolean recordStats;
+  @VisibleForTesting long writeExpirationDuration;
+  @VisibleForTesting @CheckForNull TimeUnit writeExpirationTimeUnit;
+  @VisibleForTesting long accessExpirationDuration;
+  @VisibleForTesting @CheckForNull TimeUnit accessExpirationTimeUnit;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
+#### Snippet
+```java
+          .buildOrThrow();
 
   @VisibleForTesting @CheckForNull Integer initialCapacity;
   @VisibleForTesting @CheckForNull Long maximumSize;
   @VisibleForTesting @CheckForNull Long maximumWeight;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
+#### Snippet
+```java
   @VisibleForTesting @CheckForNull Integer concurrencyLevel;
+  @VisibleForTesting @CheckForNull Strength keyStrength;
+  @VisibleForTesting @CheckForNull Strength valueStrength;
+  @VisibleForTesting @CheckForNull Boolean recordStats;
+  @VisibleForTesting long writeExpirationDuration;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
+#### Snippet
+```java
+  @VisibleForTesting @CheckForNull Long maximumSize;
+  @VisibleForTesting @CheckForNull Long maximumWeight;
+  @VisibleForTesting @CheckForNull Integer concurrencyLevel;
+  @VisibleForTesting @CheckForNull Strength keyStrength;
+  @VisibleForTesting @CheckForNull Strength valueStrength;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
+#### Snippet
+```java
+  @VisibleForTesting @CheckForNull Long maximumWeight;
+  @VisibleForTesting @CheckForNull Integer concurrencyLevel;
+  @VisibleForTesting @CheckForNull Strength keyStrength;
+  @VisibleForTesting @CheckForNull Strength valueStrength;
+  @VisibleForTesting @CheckForNull Boolean recordStats;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/CacheBuilderSpec.java`
+#### Snippet
+```java
+  @VisibleForTesting @CheckForNull Integer initialCapacity;
+  @VisibleForTesting @CheckForNull Long maximumSize;
+  @VisibleForTesting @CheckForNull Long maximumWeight;
+  @VisibleForTesting @CheckForNull Integer concurrencyLevel;
+  @VisibleForTesting @CheckForNull Strength keyStrength;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10812,38 +10848,122 @@ in `guava/src/com/google/common/collect/AbstractSortedMultiset.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ImmutableSet.java`
+in `guava/src/com/google/common/collect/AbstractMultimap.java`
 #### Snippet
 ```java
-     * that this field is non-null.
-     */
-    @CheckForNull private SetBuilderImpl<E> impl;
-    boolean forceCopy;
+  }
 
+  @LazyInit @CheckForNull private transient Set<K> keySet;
+
+  @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ImmutableSet.java`
+in `guava/src/com/google/common/collect/AbstractMultimap.java`
 #### Snippet
 ```java
-  @GwtCompatible
-  abstract static class CachingAsList<E> extends ImmutableSet<E> {
-    @LazyInit @RetainedWith @CheckForNull private transient ImmutableList<E> asList;
+  }
 
-    @Override
+  @LazyInit @CheckForNull private transient Map<K, Collection<V>> asMap;
+
+  @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/collect/ImmutableSet.java`
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/AbstractMultimap.java`
 #### Snippet
 ```java
-  private static final class RegularSetBuilderImpl<E> extends SetBuilderImpl<E> {
-    // null until at least two elements are present
-    private @Nullable Object @Nullable [] hashTable;
-    private int maxRunBeforeFallback;
-    private int expandTableThreshold;
+  abstract Set<K> createKeySet();
+
+  @LazyInit @CheckForNull private transient Multiset<K> keys;
+
+  @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/AbstractMultimap.java`
+#### Snippet
+```java
+  abstract Multiset<K> createKeys();
+
+  @LazyInit @CheckForNull private transient Collection<V> values;
+
+  @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/AbstractMultimap.java`
+#### Snippet
+```java
+  }
+
+  @LazyInit @CheckForNull private transient Collection<Entry<K, V>> entries;
+
+  @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Iterators.java`
+#### Snippet
+```java
+     */
+
+    @CheckForNull private Iterator<? extends Iterator<? extends T>> topMetaIterator;
+
+    // Only becomes nonnull if we encounter nested concatenations.
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Iterators.java`
+#### Snippet
+```java
+
+    // Only becomes nonnull if we encounter nested concatenations.
+    @CheckForNull private Deque<Iterator<? extends Iterator<? extends T>>> metaIterators;
+
+    ConcatenatedIterator(Iterator<? extends Iterator<? extends T>> metaIterator) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Iterators.java`
+#### Snippet
+```java
+  private static class ConcatenatedIterator<T extends @Nullable Object> implements Iterator<T> {
+    /* The last iterator to return an element.  Calls to remove() go to this iterator. */
+    @CheckForNull private Iterator<? extends T> toRemove;
+
+    /* The iterator currently returning elements. */
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Iterators.java`
+#### Snippet
+```java
+    private final Iterator<? extends E> iterator;
+    private boolean hasPeeked;
+    @CheckForNull private E peekedElement;
+
+    public PeekingImpl(Iterator<? extends E> iterator) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+    private final DeferredCloser closer = new DeferredCloser(this);
+    private volatile boolean closed;
+    @CheckForNull private volatile CountDownLatch whenClosed;
+
+    <V extends @Nullable Object, U extends @Nullable Object>
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10863,11 +10983,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-      extends AbstractWeakKeyEntry<K, V, WeakKeyStrongValueEntry<K, V>>
-      implements StrongValueEntry<K, V, WeakKeyStrongValueEntry<K, V>> {
-    @CheckForNull private volatile V value = null;
+    @CheckForNull E nextEntry;
+    @CheckForNull WriteThroughEntry nextExternal;
+    @CheckForNull WriteThroughEntry lastReturned;
 
-    private WeakKeyStrongValueEntry(ReferenceQueue<K> queue, K key, int hash) {
+    HashIterator() {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10875,11 +10995,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
+    int nextTableIndex;
     @CheckForNull Segment<K, V, E, S> currentSegment;
     @CheckForNull AtomicReferenceArray<E> currentTable;
     @CheckForNull E nextEntry;
     @CheckForNull WriteThroughEntry nextExternal;
-    @CheckForNull WriteThroughEntry lastReturned;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10889,9 +11009,21 @@ in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 ```java
   }
 
-  @CheckForNull transient Set<Entry<K, V>> entrySet;
+  @CheckForNull transient Set<K> keySet;
 
   @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+      extends AbstractStrongKeyEntry<K, V, StrongKeyStrongValueEntry<K, V>>
+      implements StrongValueEntry<K, V, StrongKeyStrongValueEntry<K, V>> {
+    @CheckForNull private volatile V value = null;
+
+    private StrongKeyStrongValueEntry(K key, int hash) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10923,11 +11055,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-      extends AbstractStrongKeyEntry<K, V, StrongKeyStrongValueEntry<K, V>>
-      implements StrongValueEntry<K, V, StrongKeyStrongValueEntry<K, V>> {
-    @CheckForNull private volatile V value = null;
+  }
 
-    private StrongKeyStrongValueEntry(K key, int hash) {
+  @CheckForNull transient Set<Entry<K, V>> entrySet;
+
+  @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10935,11 +11067,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-    int nextTableIndex;
     @CheckForNull Segment<K, V, E, S> currentSegment;
     @CheckForNull AtomicReferenceArray<E> currentTable;
     @CheckForNull E nextEntry;
     @CheckForNull WriteThroughEntry nextExternal;
+    @CheckForNull WriteThroughEntry lastReturned;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -10959,143 +11091,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-    @CheckForNull E nextEntry;
-    @CheckForNull WriteThroughEntry nextExternal;
-    @CheckForNull WriteThroughEntry lastReturned;
+      extends AbstractWeakKeyEntry<K, V, WeakKeyStrongValueEntry<K, V>>
+      implements StrongValueEntry<K, V, WeakKeyStrongValueEntry<K, V>> {
+    @CheckForNull private volatile V value = null;
 
-    HashIterator() {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-  }
-
-  @CheckForNull transient Set<K> keySet;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractMultimap.java`
-#### Snippet
-```java
-  }
-
-  @LazyInit @CheckForNull private transient Set<K> keySet;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractMultimap.java`
-#### Snippet
-```java
-  abstract Multiset<K> createKeys();
-
-  @LazyInit @CheckForNull private transient Collection<V> values;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractMultimap.java`
-#### Snippet
-```java
-  }
-
-  @LazyInit @CheckForNull private transient Collection<Entry<K, V>> entries;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractMultimap.java`
-#### Snippet
-```java
-  abstract Set<K> createKeySet();
-
-  @LazyInit @CheckForNull private transient Multiset<K> keys;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractMultimap.java`
-#### Snippet
-```java
-  }
-
-  @LazyInit @CheckForNull private transient Map<K, Collection<V>> asMap;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Iterators.java`
-#### Snippet
-```java
-     */
-
-    @CheckForNull private Iterator<? extends Iterator<? extends T>> topMetaIterator;
-
-    // Only becomes nonnull if we encounter nested concatenations.
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Iterators.java`
-#### Snippet
-```java
-    private final Iterator<? extends E> iterator;
-    private boolean hasPeeked;
-    @CheckForNull private E peekedElement;
-
-    public PeekingImpl(Iterator<? extends E> iterator) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Iterators.java`
-#### Snippet
-```java
-  private static class ConcatenatedIterator<T extends @Nullable Object> implements Iterator<T> {
-    /* The last iterator to return an element.  Calls to remove() go to this iterator. */
-    @CheckForNull private Iterator<? extends T> toRemove;
-
-    /* The iterator currently returning elements. */
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Iterators.java`
-#### Snippet
-```java
-
-    // Only becomes nonnull if we encounter nested concatenations.
-    @CheckForNull private Deque<Iterator<? extends Iterator<? extends T>>> metaIterators;
-
-    ConcatenatedIterator(Iterator<? extends Iterator<? extends T>> metaIterator) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-    private final DeferredCloser closer = new DeferredCloser(this);
-    private volatile boolean closed;
-    @CheckForNull private volatile CountDownLatch whenClosed;
-
-    <V extends @Nullable Object, U extends @Nullable Object>
+    private WeakKeyStrongValueEntry(ReferenceQueue<K> queue, K key, int hash) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11112,14 +11112,14 @@ in `guava/src/com/google/common/util/concurrent/AggregateFuture.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/hash/Striped64.java`
+in `guava/src/com/google/common/io/MultiReader.java`
 #### Snippet
 ```java
+class MultiReader extends Reader {
+  private final Iterator<? extends CharSource> it;
+  @CheckForNull private Reader current;
 
-  /** Table of cells. When non-null, size is a power of 2. */
-  @CheckForNull transient volatile Cell[] cells;
-
-  /**
+  MultiReader(Iterator<? extends CharSource> readers) throws IOException {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11136,38 +11136,14 @@ in `guava/src/com/google/common/collect/RegularImmutableMultiset.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/io/MultiReader.java`
-#### Snippet
-```java
-class MultiReader extends Reader {
-  private final Iterator<? extends CharSource> it;
-  @CheckForNull private Reader current;
-
-  MultiReader(Iterator<? extends CharSource> readers) throws IOException {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/io/BaseEncoding.java`
+in `guava/src/com/google/common/hash/Striped64.java`
 #### Snippet
 ```java
 
-    @LazyInit @CheckForNull private volatile BaseEncoding upperCase;
-    @LazyInit @CheckForNull private volatile BaseEncoding lowerCase;
-    @LazyInit @CheckForNull private volatile BaseEncoding ignoreCase;
+  /** Table of cells. When non-null, size is a power of 2. */
+  @CheckForNull transient volatile Cell[] cells;
 
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/io/BaseEncoding.java`
-#### Snippet
-```java
-    }
-
-    @LazyInit @CheckForNull private volatile BaseEncoding upperCase;
-    @LazyInit @CheckForNull private volatile BaseEncoding lowerCase;
-    @LazyInit @CheckForNull private volatile BaseEncoding ignoreCase;
+  /**
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11187,6 +11163,30 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/io/BaseEncoding.java`
 #### Snippet
 ```java
+    }
+
+    @LazyInit @CheckForNull private volatile BaseEncoding upperCase;
+    @LazyInit @CheckForNull private volatile BaseEncoding lowerCase;
+    @LazyInit @CheckForNull private volatile BaseEncoding ignoreCase;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/io/BaseEncoding.java`
+#### Snippet
+```java
+
+    @LazyInit @CheckForNull private volatile BaseEncoding upperCase;
+    @LazyInit @CheckForNull private volatile BaseEncoding lowerCase;
+    @LazyInit @CheckForNull private volatile BaseEncoding ignoreCase;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/io/BaseEncoding.java`
+#### Snippet
+```java
     @LazyInit @CheckForNull private volatile BaseEncoding upperCase;
     @LazyInit @CheckForNull private volatile BaseEncoding lowerCase;
     @LazyInit @CheckForNull private volatile BaseEncoding ignoreCase;
@@ -11196,14 +11196,14 @@ in `guava/src/com/google/common/io/BaseEncoding.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/AbstractTable.java`
+in `guava/src/com/google/common/collect/ConcurrentHashMultiset.java`
 #### Snippet
 ```java
-  }
 
-  @LazyInit @CheckForNull private transient Set<Cell<R, C, V>> cellSet;
+    return new ForwardingIterator<Entry<E>>() {
+      @CheckForNull private Entry<E> last;
 
-  @Override
+      @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11220,14 +11220,14 @@ in `guava/src/com/google/common/collect/AbstractTable.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/ConcurrentHashMultiset.java`
+in `guava/src/com/google/common/collect/AbstractTable.java`
 #### Snippet
 ```java
+  }
 
-    return new ForwardingIterator<Entry<E>>() {
-      @CheckForNull private Entry<E> last;
+  @LazyInit @CheckForNull private transient Set<Cell<R, C, V>> cellSet;
 
-      @Override
+  @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11247,59 +11247,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 #### Snippet
 ```java
+  private static final class Cancellation {
+    // constants to use when GENERATE_CANCELLATION_CAUSES = false
+    @CheckForNull static final Cancellation CAUSELESS_INTERRUPTED;
+    @CheckForNull static final Cancellation CAUSELESS_CANCELLED;
 
-  /** All waiting threads. */
-  @CheckForNull private volatile Waiter waiters;
-
-  /** Constructor for use by subclasses. */
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-
-    final boolean wasInterrupted;
-    @CheckForNull final Throwable cause;
-
-    Cancellation(boolean wasInterrupted, @CheckForNull Throwable cause) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-
-    // writes to next are made visible by subsequent CAS's on the listeners field
-    @CheckForNull Listener next;
-
-    Listener(Runnable task, Executor executor) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-
-    @CheckForNull volatile Thread thread;
-    @CheckForNull volatile Waiter next;
-
-    /**
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-
-  /** All listeners. */
-  @CheckForNull private volatile Listener listeners;
-
-  /** All waiting threads. */
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11319,35 +11271,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 #### Snippet
 ```java
-   * </ul>
-   */
-  @CheckForNull private volatile Object value;
 
-  /** All listeners. */
-```
+    @CheckForNull volatile Thread thread;
+    @CheckForNull volatile Waiter next;
 
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-  private static final class Listener {
-    static final Listener TOMBSTONE = new Listener();
-    @CheckForNull // null only for TOMBSTONE
-    final Runnable task;
-    @CheckForNull // null only for TOMBSTONE
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-  private static final class Cancellation {
-    // constants to use when GENERATE_CANCELLATION_CAUSES = false
-    @CheckForNull static final Cancellation CAUSELESS_INTERRUPTED;
-    @CheckForNull static final Cancellation CAUSELESS_CANCELLED;
-
+    /**
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11367,11 +11295,107 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 #### Snippet
 ```java
+
+  /** All waiting threads. */
+  @CheckForNull private volatile Waiter waiters;
+
+  /** Constructor for use by subclasses. */
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+  private static final class Listener {
+    static final Listener TOMBSTONE = new Listener();
+    @CheckForNull // null only for TOMBSTONE
+    final Runnable task;
+    @CheckForNull // null only for TOMBSTONE
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+
+    // writes to next are made visible by subsequent CAS's on the listeners field
+    @CheckForNull Listener next;
+
+    Listener(Runnable task, Executor executor) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
     static final Waiter TOMBSTONE = new Waiter(false /* ignored param */);
 
     @CheckForNull volatile Thread thread;
     @CheckForNull volatile Waiter next;
 
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+
+  /** All listeners. */
+  @CheckForNull private volatile Listener listeners;
+
+  /** All waiting threads. */
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+   * </ul>
+   */
+  @CheckForNull private volatile Object value;
+
+  /** All listeners. */
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+
+    final boolean wasInterrupted;
+    @CheckForNull final Throwable cause;
+
+    Cancellation(boolean wasInterrupted, @CheckForNull Throwable cause) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/base/MoreObjects.java`
+#### Snippet
+```java
+      @CheckForNull String name;
+      @CheckForNull Object value;
+      @CheckForNull ValueHolder next;
+    }
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/base/MoreObjects.java`
+#### Snippet
+```java
+    private static class ValueHolder {
+      @CheckForNull String name;
+      @CheckForNull Object value;
+      @CheckForNull ValueHolder next;
+    }
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11384,30 +11408,6 @@ in `guava/src/com/google/common/base/MoreObjects.java`
       @CheckForNull String name;
       @CheckForNull Object value;
       @CheckForNull ValueHolder next;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/base/MoreObjects.java`
-#### Snippet
-```java
-    private static class ValueHolder {
-      @CheckForNull String name;
-      @CheckForNull Object value;
-      @CheckForNull ValueHolder next;
-    }
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/base/MoreObjects.java`
-#### Snippet
-```java
-      @CheckForNull String name;
-      @CheckForNull Object value;
-      @CheckForNull ValueHolder next;
-    }
-
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11439,11 +11439,47 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/Multimaps.java`
 #### Snippet
 ```java
-      extends AbstractSortedSetMultimap<K, V> {
-    transient Supplier<? extends SortedSet<V>> factory;
-    @CheckForNull transient Comparator<? super V> valueComparator;
+    @LazyInit @CheckForNull transient Set<K> keySet;
+    @LazyInit @CheckForNull transient Collection<V> values;
+    @LazyInit @CheckForNull transient Map<K, Collection<V>> map;
 
-    CustomSortedSetMultimap(Map<K, Collection<V>> map, Supplier<? extends SortedSet<V>> factory) {
+    UnmodifiableMultimap(final Multimap<K, V> delegate) {
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Multimaps.java`
+#### Snippet
+```java
+    @LazyInit @CheckForNull transient Multiset<K> keys;
+    @LazyInit @CheckForNull transient Set<K> keySet;
+    @LazyInit @CheckForNull transient Collection<V> values;
+    @LazyInit @CheckForNull transient Map<K, Collection<V>> map;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Multimaps.java`
+#### Snippet
+```java
+    @LazyInit @CheckForNull transient Collection<Entry<K, V>> entries;
+    @LazyInit @CheckForNull transient Multiset<K> keys;
+    @LazyInit @CheckForNull transient Set<K> keySet;
+    @LazyInit @CheckForNull transient Collection<V> values;
+    @LazyInit @CheckForNull transient Map<K, Collection<V>> map;
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Multimaps.java`
+#### Snippet
+```java
+    final Multimap<K, V> delegate;
+    @LazyInit @CheckForNull transient Collection<Entry<K, V>> entries;
+    @LazyInit @CheckForNull transient Multiset<K> keys;
+    @LazyInit @CheckForNull transient Set<K> keySet;
+    @LazyInit @CheckForNull transient Collection<V> values;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11463,59 +11499,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/Multimaps.java`
 #### Snippet
 ```java
-    @LazyInit @CheckForNull transient Collection<Entry<K, V>> entries;
-    @LazyInit @CheckForNull transient Multiset<K> keys;
-    @LazyInit @CheckForNull transient Set<K> keySet;
-    @LazyInit @CheckForNull transient Collection<V> values;
-    @LazyInit @CheckForNull transient Map<K, Collection<V>> map;
-```
+      extends AbstractSortedSetMultimap<K, V> {
+    transient Supplier<? extends SortedSet<V>> factory;
+    @CheckForNull transient Comparator<? super V> valueComparator;
 
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Multimaps.java`
-#### Snippet
-```java
-    final Multimap<K, V> delegate;
-    @LazyInit @CheckForNull transient Collection<Entry<K, V>> entries;
-    @LazyInit @CheckForNull transient Multiset<K> keys;
-    @LazyInit @CheckForNull transient Set<K> keySet;
-    @LazyInit @CheckForNull transient Collection<V> values;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Multimaps.java`
-#### Snippet
-```java
-    @LazyInit @CheckForNull transient Multiset<K> keys;
-    @LazyInit @CheckForNull transient Set<K> keySet;
-    @LazyInit @CheckForNull transient Collection<V> values;
-    @LazyInit @CheckForNull transient Map<K, Collection<V>> map;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Multimaps.java`
-#### Snippet
-```java
-    @LazyInit @CheckForNull transient Set<K> keySet;
-    @LazyInit @CheckForNull transient Collection<V> values;
-    @LazyInit @CheckForNull transient Map<K, Collection<V>> map;
-
-    UnmodifiableMultimap(final Multimap<K, V> delegate) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-  }
-
-  @RetainedWith @CheckForNull Collection<V> values;
-
-  @Override
+    CustomSortedSetMultimap(Map<K, Collection<V>> map, Supplier<? extends SortedSet<V>> factory) {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11535,47 +11523,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-    int nextTableIndex;
-    @CheckForNull Segment<K, V> currentSegment;
-    @CheckForNull AtomicReferenceArray<ReferenceEntry<K, V>> currentTable;
     @CheckForNull ReferenceEntry<K, V> nextEntry;
     @CheckForNull WriteThroughEntry nextExternal;
-```
+    @CheckForNull WriteThroughEntry lastReturned;
 
-### RuleId[ruleID=NullableProblems]
-Parameter annotated @ParametersAreNonnullByDefault must not override @CheckForNull parameter
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-    @Override
-    public void notifyNewValue(V newValue) {}
-
-    @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-  }
-
-  @RetainedWith @CheckForNull Set<Entry<K, V>> entrySet;
-
-  @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-Parameter annotated @ParametersAreNonnullByDefault must not override @CheckForNull parameter
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    @Override
-    public ValueReference<K, V> copyFor(
-        ReferenceQueue<V> queue, V value, ReferenceEntry<K, V> entry) {
-      return new WeakValueReference<>(queue, value, entry);
-    }
+    HashIterator() {
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11595,107 +11547,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-    final int concurrencyLevel;
-    final RemovalListener<? super K, ? super V> removalListener;
-    @CheckForNull final Ticker ticker;
-    final CacheLoader<? super K, V> loader;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-Parameter annotated @ParametersAreNonnullByDefault must not override @CheckForNull parameter
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-    @Override
-    public void notifyNewValue(V newValue) {}
-
-    @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-    final int hash;
-    @CheckForNull final ReferenceEntry<K, V> next;
-    volatile ValueReference<K, V> valueReference = unset();
-
-```
-
-### RuleId[ruleID=NullableProblems]
-Parameter annotated @ParametersAreNonnullByDefault must not override @CheckForNull parameter
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-
-        @Override
-        public void notifyNewValue(Object newValue) {}
-      };
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-     * and which need to be cleaned up internally.
-     */
-    @CheckForNull final ReferenceQueue<V> valueReferenceQueue;
-
-    /**
-```
-
-### RuleId[ruleID=NullableProblems]
-Parameter annotated @ParametersAreNonnullByDefault must not override @CheckForNull parameter
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    @Override
-    public ValueReference<K, V> copyFor(
-        ReferenceQueue<V> queue, V value, ReferenceEntry<K, V> entry) {
-      return new SoftValueReference<>(queue, value, entry);
-    }
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    int nextSegmentIndex;
     int nextTableIndex;
     @CheckForNull Segment<K, V> currentSegment;
     @CheckForNull AtomicReferenceArray<ReferenceEntry<K, V>> currentTable;
     @CheckForNull ReferenceEntry<K, V> nextEntry;
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    final CacheLoader<? super K, V> loader;
-
-    @CheckForNull transient Cache<K, V> delegate;
-
-    ManualSerializationProxy(LocalCache<K, V> cache) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-     * need to be cleaned up internally.
-     */
-    @CheckForNull final ReferenceQueue<K> keyReferenceQueue;
-
-    /**
+    @CheckForNull WriteThroughEntry nextExternal;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11715,11 +11571,59 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
+    @CheckForNull Segment<K, V> currentSegment;
+    @CheckForNull AtomicReferenceArray<ReferenceEntry<K, V>> currentTable;
     @CheckForNull ReferenceEntry<K, V> nextEntry;
     @CheckForNull WriteThroughEntry nextExternal;
     @CheckForNull WriteThroughEntry lastReturned;
+```
 
-    HashIterator() {
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+     * and which need to be cleaned up internally.
+     */
+    @CheckForNull final ReferenceQueue<V> valueReferenceQueue;
+
+    /**
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+    final int hash;
+    @CheckForNull final ReferenceEntry<K, V> next;
+    volatile ValueReference<K, V> valueReference = unset();
+
+```
+
+### RuleId[ruleID=NullableProblems]
+Parameter annotated @ParametersAreNonnullByDefault must not override @CheckForNull parameter
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    @Override
+    public ValueReference<K, V> copyFor(
+        ReferenceQueue<V> queue, V value, ReferenceEntry<K, V> entry) {
+      return new SoftValueReference<>(queue, value, entry);
+    }
+```
+
+### RuleId[ruleID=NullableProblems]
+Parameter annotated @ParametersAreNonnullByDefault must not override @CheckForNull parameter
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+    @Override
+    public void notifyNewValue(V newValue) {}
+
+    @Override
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11751,35 +11655,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-
-  /** The default cache loader to use on loading operations. */
-  @CheckForNull final CacheLoader<? super K, V> defaultLoader;
-
-  /**
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    @CheckForNull AtomicReferenceArray<ReferenceEntry<K, V>> currentTable;
-    @CheckForNull ReferenceEntry<K, V> nextEntry;
-    @CheckForNull WriteThroughEntry nextExternal;
-    @CheckForNull WriteThroughEntry lastReturned;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
+    int nextSegmentIndex;
+    int nextTableIndex;
     @CheckForNull Segment<K, V> currentSegment;
     @CheckForNull AtomicReferenceArray<ReferenceEntry<K, V>> currentTable;
     @CheckForNull ReferenceEntry<K, V> nextEntry;
-    @CheckForNull WriteThroughEntry nextExternal;
-    @CheckForNull WriteThroughEntry lastReturned;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11796,14 +11676,134 @@ in `guava/src/com/google/common/cache/LocalCache.java`
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    final CacheLoader<? super K, V> loader;
+
+    @CheckForNull transient Cache<K, V> delegate;
+
+    ManualSerializationProxy(LocalCache<K, V> cache) {
+```
+
+### RuleId[ruleID=NullableProblems]
+Parameter annotated @ParametersAreNonnullByDefault must not override @CheckForNull parameter
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+        @Override
+        public void notifyNewValue(Object newValue) {}
+      };
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    final int concurrencyLevel;
+    final RemovalListener<? super K, ? super V> removalListener;
+    @CheckForNull final Ticker ticker;
+    final CacheLoader<? super K, V> loader;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    @CheckForNull AtomicReferenceArray<ReferenceEntry<K, V>> currentTable;
+    @CheckForNull ReferenceEntry<K, V> nextEntry;
+    @CheckForNull WriteThroughEntry nextExternal;
+    @CheckForNull WriteThroughEntry lastReturned;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+  }
+
+  @RetainedWith @CheckForNull Collection<V> values;
+
+  @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+  }
+
+  @RetainedWith @CheckForNull Set<Entry<K, V>> entrySet;
+
+  @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+     * need to be cleaned up internally.
+     */
+    @CheckForNull final ReferenceQueue<K> keyReferenceQueue;
+
+    /**
+```
+
+### RuleId[ruleID=NullableProblems]
+Parameter annotated @ParametersAreNonnullByDefault must not override @CheckForNull parameter
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    @Override
+    public ValueReference<K, V> copyFor(
+        ReferenceQueue<V> queue, V value, ReferenceEntry<K, V> entry) {
+      return new WeakValueReference<>(queue, value, entry);
+    }
+```
+
+### RuleId[ruleID=NullableProblems]
+Parameter annotated @ParametersAreNonnullByDefault must not override @CheckForNull parameter
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+    @Override
+    public void notifyNewValue(V newValue) {}
+
+    @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+
+  /** The default cache loader to use on loading operations. */
+  @CheckForNull final CacheLoader<? super K, V> defaultLoader;
+
+  /**
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
 in `guava/src/com/google/common/collect/Maps.java`
 #### Snippet
 ```java
-    }
+  }
 
-    @CheckForNull private transient Set<K> keySet;
-
-    @Override
+  static class ValueDifferenceImpl<V extends @Nullable Object>
+      implements MapDifference.ValueDifference<V> {
+    @ParametricNullness private final V left;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11823,47 +11823,11 @@ The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'jav
 in `guava/src/com/google/common/collect/Maps.java`
 #### Snippet
 ```java
-    }
-
-    @CheckForNull private transient NavigableSet<K> navigableKeySet;
-
-    @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
     final BiMap<? extends K, ? extends V> delegate;
     @RetainedWith @CheckForNull BiMap<V, K> inverse;
     @CheckForNull transient Set<V> values;
 
     UnmodifiableBiMap(BiMap<? extends K, ? extends V> delegate, @CheckForNull BiMap<V, K> inverse) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-    }
-
-    @CheckForNull private transient Collection<V> values;
-
-    @Override
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.checkerframework.checker.nullness.qual.Nullable'.
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-  }
-
-  static class ValueDifferenceImpl<V extends @Nullable Object>
-      implements MapDifference.ValueDifference<V> {
-    @ParametricNullness private final V left;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -11897,6 +11861,30 @@ in `guava/src/com/google/common/collect/Maps.java`
 ```java
     }
 
+    @CheckForNull private transient Collection<V> values;
+
+    @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+    }
+
+    @CheckForNull private transient NavigableSet<K> navigableKeySet;
+
+    @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+    }
+
     @CheckForNull private transient Comparator<? super K> comparator;
 
     @SuppressWarnings("unchecked")
@@ -11910,6 +11898,18 @@ in `guava/src/com/google/common/collect/Maps.java`
     abstract Set<Entry<K, V>> createEntrySet();
 
     @CheckForNull private transient Set<Entry<K, V>> entrySet;
+
+    @Override
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'javax.annotation.CheckForNull'.
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+    }
+
+    @CheckForNull private transient Set<K> keySet;
 
     @Override
 ```
@@ -12090,9 +12090,9 @@ Unnecessary unboxing `result.longValue()`
 in `guava/src/com/google/common/util/concurrent/AtomicLongMap.java`
 #### Snippet
 ```java
-  public long remove(K key) {
-    Long result = map.remove(key);
-    return (result == null) ? 0L : result.longValue();
+              }
+            });
+    return noValue.get() ? 0L : result.longValue();
   }
 
 ```
@@ -12114,9 +12114,9 @@ Unnecessary unboxing `result.longValue()`
 in `guava/src/com/google/common/util/concurrent/AtomicLongMap.java`
 #### Snippet
 ```java
-              }
-            });
-    return noValue.get() ? 0L : result.longValue();
+  public long remove(K key) {
+    Long result = map.remove(key);
+    return (result == null) ? 0L : result.longValue();
   }
 
 ```
@@ -12138,11 +12138,23 @@ Unnecessary unboxing `paddingChar.charValue()`
 in `guava/src/com/google/common/io/BaseEncoding.java`
 #### Snippet
 ```java
-      if (paddingChar != null) {
-        checkArgument(
-            separator.indexOf(paddingChar.charValue()) < 0,
-            "Separator (%s) cannot contain padding character",
-            separator);
+    public BaseEncoding withPadChar(char padChar) {
+      if (8 % alphabet.bitsPerChar == 0
+          || (paddingChar != null && paddingChar.charValue() == padChar)) {
+        return this;
+      } else {
+```
+
+### RuleId[ruleID=UnnecessaryUnboxing]
+Unnecessary unboxing `paddingChar.charValue()`
+in `guava/src/com/google/common/io/BaseEncoding.java`
+#### Snippet
+```java
+            readChars++;
+            char ch = (char) readChar;
+            if (paddingChar != null && paddingChar.charValue() == ch) {
+              if (!hitPadding
+                  && (readChars == 1 || !alphabet.isValidPaddingStartPosition(readChars - 1))) {
 ```
 
 ### RuleId[ruleID=UnnecessaryUnboxing]
@@ -12162,11 +12174,11 @@ Unnecessary unboxing `paddingChar.charValue()`
 in `guava/src/com/google/common/io/BaseEncoding.java`
 #### Snippet
 ```java
-    public BaseEncoding withPadChar(char padChar) {
-      if (8 % alphabet.bitsPerChar == 0
-          || (paddingChar != null && paddingChar.charValue() == padChar)) {
-        return this;
-      } else {
+      if (paddingChar != null) {
+        checkArgument(
+            separator.indexOf(paddingChar.charValue()) < 0,
+            "Separator (%s) cannot contain padding character",
+            separator);
 ```
 
 ### RuleId[ruleID=UnnecessaryUnboxing]
@@ -12193,18 +12205,6 @@ in `guava/src/com/google/common/io/BaseEncoding.java`
         }
 ```
 
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing `paddingChar.charValue()`
-in `guava/src/com/google/common/io/BaseEncoding.java`
-#### Snippet
-```java
-            readChars++;
-            char ch = (char) readChar;
-            if (paddingChar != null && paddingChar.charValue() == ch) {
-              if (!hitPadding
-                  && (readChars == 1 || !alphabet.isValidPaddingStartPosition(readChars - 1))) {
-```
-
 ## RuleId[ruleID=WhileLoopSpinsOnField]
 ### RuleId[ruleID=WhileLoopSpinsOnField]
 `while` loop spins on field
@@ -12223,10 +12223,10 @@ in `guava/src/com/google/common/io/MultiReader.java`
 in `guava/src/com/google/common/io/MultiInputStream.java`
 #### Snippet
 ```java
-  public int read(byte[] b, int off, int len) throws IOException {
-    checkNotNull(b);
+  @Override
+  public int read() throws IOException {
     while (in != null) {
-      int result = in.read(b, off, len);
+      int result = in.read();
       if (result != -1) {
 ```
 
@@ -12235,10 +12235,10 @@ in `guava/src/com/google/common/io/MultiInputStream.java`
 in `guava/src/com/google/common/io/MultiInputStream.java`
 #### Snippet
 ```java
-  @Override
-  public int read() throws IOException {
+  public int read(byte[] b, int off, int len) throws IOException {
+    checkNotNull(b);
     while (in != null) {
-      int result = in.read();
+      int result = in.read(b, off, len);
       if (result != -1) {
 ```
 
@@ -12253,331 +12253,6 @@ in `guava/src/com/google/common/collect/Sets.java`
   @GwtCompatible(serializable = false)
   public static <E> Set<Set<E>> powerSet(Set<E> set) {
     return new PowerSet<E>(set);
-```
-
-## RuleId[ruleID=ClassNameSameAsAncestorName]
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Builder` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/ImmutableSortedSet.java`
-#### Snippet
-```java
-   * @since 2.0
-   */
-  public static final class Builder<E> extends ImmutableSet.Builder<E> {
-    private final Comparator<? super E> comparator;
-    private E[] elements;
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Builder` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/ImmutableSetMultimap.java`
-#### Snippet
-```java
-   * @since 2.0
-   */
-  public static final class Builder<K, V> extends ImmutableMultimap.Builder<K, V> {
-    /**
-     * Creates a new builder. The returned builder is equivalent to the builder generated by {@link
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Builder` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/ImmutableBiMap.java`
-#### Snippet
-```java
-   * @since 2.0
-   */
-  public static final class Builder<K, V> extends ImmutableMap.Builder<K, V> {
-
-    /**
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `SerializedForm` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/ImmutableBiMap.java`
-#### Snippet
-```java
-   * bimap and its inverse in sync during serialization, the way AbstractBiMap does.
-   */
-  private static class SerializedForm<K, V> extends ImmutableMap.SerializedForm<K, V> {
-    SerializedForm(ImmutableBiMap<K, V> bimap) {
-      super(bimap);
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Builder` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/ImmutableMultiset.java`
-#### Snippet
-```java
-   * @since 2.0
-   */
-  public static class Builder<E> extends ImmutableCollection.Builder<E> {
-    final Multiset<E> contents;
-
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Predicate` is the same as one of its superclass' names
-in `guava/src/com/google/common/base/Predicate.java`
-#### Snippet
-```java
-@GwtCompatible
-@ElementTypesAreNonnullByDefault
-public interface Predicate<T extends @Nullable Object> extends java.util.function.Predicate<T> {
-  /**
-   * Returns the result of applying this predicate to {@code input} (Java 8 users, see notes in the
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `DescendingMap` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/AbstractNavigableMap.java`
-#### Snippet
-```java
-  }
-
-  private final class DescendingMap extends Maps.DescendingMap<K, V> {
-    @Override
-    NavigableMap<K, V> forward() {
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Builder` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
-#### Snippet
-```java
-   * @since 12.0
-   */
-  public static class Builder<E> extends ImmutableMultiset.Builder<E> {
-    /**
-     * Creates a new builder. The returned builder is equivalent to the builder generated by {@link
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `KeySet` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/HashBiMap.java`
-#### Snippet
-```java
-  }
-
-  private final class KeySet extends Maps.KeySet<K, V> {
-    KeySet() {
-      super(HashBiMap.this);
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Keys` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/FilteredEntryMultimap.java`
-#### Snippet
-```java
-
-  @WeakOuter
-  class Keys extends Multimaps.Keys<K, V> {
-    Keys() {
-      super(FilteredEntryMultimap.this);
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Values` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/StandardTable.java`
-#### Snippet
-```java
-
-    @WeakOuter
-    private class Values extends Maps.Values<R, V> {
-      Values() {
-        super(Column.this);
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `KeySet` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/StandardTable.java`
-#### Snippet
-```java
-
-    @WeakOuter
-    private class KeySet extends Maps.KeySet<R, V> {
-      KeySet() {
-        super(Column.this);
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Builder` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/ImmutableList.java`
-#### Snippet
-```java
-   * @since 2.0
-   */
-  public static final class Builder<E> extends ImmutableCollection.Builder<E> {
-    // The first `size` elements are non-null.
-    @VisibleForTesting @Nullable Object[] contents;
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `KeySet` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
-#### Snippet
-```java
-
-  @WeakOuter
-  private class KeySet extends Maps.KeySet<K, Collection<V>> {
-    KeySet(final Map<K, Collection<V>> subMap) {
-      super(subMap);
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Supplier` is the same as one of its superclass' names
-in `guava/src/com/google/common/base/Supplier.java`
-#### Snippet
-```java
-@FunctionalInterface
-@ElementTypesAreNonnullByDefault
-public interface Supplier<T extends @Nullable Object> extends java.util.function.Supplier<T> {
-  /**
-   * Retrieves an instance of the appropriate type. The returned object may or may not be a new
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `SerializedForm` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
-#### Snippet
-```java
-   * remain as implementation details.
-   */
-  private static class SerializedForm<K, V> extends ImmutableMap.SerializedForm<K, V> {
-    private final Comparator<? super K> comparator;
-
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Builder` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
-#### Snippet
-```java
-   * @since 2.0
-   */
-  public static class Builder<K, V> extends ImmutableMap.Builder<K, V> {
-    private final Comparator<? super K> comparator;
-
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `EntrySet` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/AbstractMultiset.java`
-#### Snippet
-```java
-
-  @WeakOuter
-  class EntrySet extends Multisets.EntrySet<E> {
-    @Override
-    Multiset<E> multiset() {
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `ElementSet` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/AbstractMultiset.java`
-#### Snippet
-```java
-
-  @WeakOuter
-  class ElementSet extends Multisets.ElementSet<E> {
-    @Override
-    Multiset<E> multiset() {
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Builder` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
-#### Snippet
-```java
-   * @since 2.0
-   */
-  public static final class Builder<K, V> extends ImmutableMultimap.Builder<K, V> {
-    /**
-     * Creates a new builder. The returned builder is equivalent to the builder generated by {@link
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Builder` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/ImmutableSet.java`
-#### Snippet
-```java
-   * @since 2.0
-   */
-  public static class Builder<E> extends ImmutableCollection.Builder<E> {
-    /*
-     * `impl` is null only for instances of the subclass, ImmutableSortedSet.Builder. That subclass
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `ElementSet` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/SortedMultisets.java`
-#### Snippet
-```java
-  /** A skeleton implementation for {@link SortedMultiset#elementSet}. */
-  @SuppressWarnings("JdkObsolete") // TODO(b/6160855): Switch GWT emulations to NavigableSet.
-  static class ElementSet<E extends @Nullable Object> extends Multisets.ElementSet<E>
-      implements SortedSet<E> {
-    @Weak private final SortedMultiset<E> multiset;
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Entries` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/AbstractMultimap.java`
-#### Snippet
-```java
-
-  @WeakOuter
-  class Entries extends Multimaps.Entries<K, V> {
-    @Override
-    Multimap<K, V> multimap() {
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `EntrySet` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/ConcurrentHashMultiset.java`
-#### Snippet
-```java
-
-  @WeakOuter
-  private class EntrySet extends AbstractMultiset<E>.EntrySet {
-    @Override
-    ConcurrentHashMultiset<E> multiset() {
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Function` is the same as one of its superclass' names
-in `guava/src/com/google/common/base/Function.java`
-#### Snippet
-```java
-@FunctionalInterface
-@ElementTypesAreNonnullByDefault
-public interface Function<F extends @Nullable Object, T extends @Nullable Object>
-    extends java.util.function.Function<F, T> {
-  @Override
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `EntrySet` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/Multimaps.java`
-#### Snippet
-```java
-
-    @WeakOuter
-    class EntrySet extends Maps.EntrySet<K, Collection<V>> {
-      @Override
-      Map<K, Collection<V>> map() {
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `KeySet` is the same as one of its superclass' names
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-
-    @WeakOuter
-    class KeySet extends Maps.KeySet<K, V> {
-      KeySet() {
-        super(FilteredEntryMap.this);
 ```
 
 ## RuleId[ruleID=RedundantMethodOverride]
@@ -12618,18 +12293,6 @@ in `guava/src/com/google/common/collect/RegularContiguousSet.java`
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `replaceValues()` only delegates to its super method
-in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
-#### Snippet
-```java
-  @CanIgnoreReturnValue
-  @Override
-  public Set<V> replaceValues(@ParametricNullness K key, Iterable<? extends V> values) {
-    return super.replaceValues(key, values);
-  }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
 Method `values()` only delegates to its super method
 in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
 #### Snippet
@@ -12642,18 +12305,6 @@ in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `keySet()` only delegates to its super method
-in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
-#### Snippet
-```java
-   */
-  @Override
-  public Set<K> keySet() {
-    return super.keySet();
-  }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
 Method `entries()` only delegates to its super method
 in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
 #### Snippet
@@ -12662,6 +12313,30 @@ in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
   @Override
   public Set<Entry<K, V>> entries() {
     return super.entries();
+  }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `replaceValues()` only delegates to its super method
+in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
+#### Snippet
+```java
+  @CanIgnoreReturnValue
+  @Override
+  public Set<V> replaceValues(@ParametricNullness K key, Iterable<? extends V> values) {
+    return super.replaceValues(key, values);
+  }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `keySet()` only delegates to its super method
+in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
+#### Snippet
+```java
+   */
+  @Override
+  public Set<K> keySet() {
+    return super.keySet();
   }
 ```
 
@@ -12834,18 +12509,6 @@ in `guava/src/com/google/common/collect/EmptyImmutableListMultimap.java`
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `cellSet()` only delegates to its super method
-in `guava/src/com/google/common/collect/ArrayTable.java`
-#### Snippet
-```java
-   */
-  @Override
-  public Set<Cell<R, C, @Nullable V>> cellSet() {
-    return super.cellSet();
-  }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
 Method `putAll()` only delegates to its super method
 in `guava/src/com/google/common/collect/ArrayTable.java`
 #### Snippet
@@ -12854,6 +12517,18 @@ in `guava/src/com/google/common/collect/ArrayTable.java`
   @Override
   public void putAll(Table<? extends R, ? extends C, ? extends @Nullable V> table) {
     super.putAll(table);
+  }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `cellSet()` only delegates to its super method
+in `guava/src/com/google/common/collect/ArrayTable.java`
+#### Snippet
+```java
+   */
+  @Override
+  public Set<Cell<R, C, @Nullable V>> cellSet() {
+    return super.cellSet();
   }
 ```
 
@@ -12894,6 +12569,18 @@ in `guava/src/com/google/common/collect/EmptyImmutableSetMultimap.java`
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
+Method `equals()` only delegates to its super method
+in `guava/src/com/google/common/collect/AbstractSetMultimap.java`
+#### Snippet
+```java
+   */
+  @Override
+  public boolean equals(@CheckForNull Object object) {
+    return super.equals(object);
+  }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
 Method `asMap()` only delegates to its super method
 in `guava/src/com/google/common/collect/AbstractSetMultimap.java`
 #### Snippet
@@ -12905,16 +12592,329 @@ in `guava/src/com/google/common/collect/AbstractSetMultimap.java`
   }
 ```
 
-### RuleId[ruleID=RedundantMethodOverride]
-Method `equals()` only delegates to its super method
-in `guava/src/com/google/common/collect/AbstractSetMultimap.java`
+## RuleId[ruleID=ClassNameSameAsAncestorName]
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Builder` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/ImmutableSortedSet.java`
 #### Snippet
 ```java
+   * @since 2.0
    */
-  @Override
-  public boolean equals(@CheckForNull Object object) {
-    return super.equals(object);
+  public static final class Builder<E> extends ImmutableSet.Builder<E> {
+    private final Comparator<? super E> comparator;
+    private E[] elements;
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Builder` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/ImmutableSetMultimap.java`
+#### Snippet
+```java
+   * @since 2.0
+   */
+  public static final class Builder<K, V> extends ImmutableMultimap.Builder<K, V> {
+    /**
+     * Creates a new builder. The returned builder is equivalent to the builder generated by {@link
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `SerializedForm` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/ImmutableBiMap.java`
+#### Snippet
+```java
+   * bimap and its inverse in sync during serialization, the way AbstractBiMap does.
+   */
+  private static class SerializedForm<K, V> extends ImmutableMap.SerializedForm<K, V> {
+    SerializedForm(ImmutableBiMap<K, V> bimap) {
+      super(bimap);
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Builder` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/ImmutableBiMap.java`
+#### Snippet
+```java
+   * @since 2.0
+   */
+  public static final class Builder<K, V> extends ImmutableMap.Builder<K, V> {
+
+    /**
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Builder` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/ImmutableMultiset.java`
+#### Snippet
+```java
+   * @since 2.0
+   */
+  public static class Builder<E> extends ImmutableCollection.Builder<E> {
+    final Multiset<E> contents;
+
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Predicate` is the same as one of its superclass' names
+in `guava/src/com/google/common/base/Predicate.java`
+#### Snippet
+```java
+@GwtCompatible
+@ElementTypesAreNonnullByDefault
+public interface Predicate<T extends @Nullable Object> extends java.util.function.Predicate<T> {
+  /**
+   * Returns the result of applying this predicate to {@code input} (Java 8 users, see notes in the
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Builder` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
+#### Snippet
+```java
+   * @since 12.0
+   */
+  public static class Builder<E> extends ImmutableMultiset.Builder<E> {
+    /**
+     * Creates a new builder. The returned builder is equivalent to the builder generated by {@link
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `KeySet` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/HashBiMap.java`
+#### Snippet
+```java
   }
+
+  private final class KeySet extends Maps.KeySet<K, V> {
+    KeySet() {
+      super(HashBiMap.this);
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `DescendingMap` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/AbstractNavigableMap.java`
+#### Snippet
+```java
+  }
+
+  private final class DescendingMap extends Maps.DescendingMap<K, V> {
+    @Override
+    NavigableMap<K, V> forward() {
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Keys` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/FilteredEntryMultimap.java`
+#### Snippet
+```java
+
+  @WeakOuter
+  class Keys extends Multimaps.Keys<K, V> {
+    Keys() {
+      super(FilteredEntryMultimap.this);
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `KeySet` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/StandardTable.java`
+#### Snippet
+```java
+
+    @WeakOuter
+    private class KeySet extends Maps.KeySet<R, V> {
+      KeySet() {
+        super(Column.this);
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Values` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/StandardTable.java`
+#### Snippet
+```java
+
+    @WeakOuter
+    private class Values extends Maps.Values<R, V> {
+      Values() {
+        super(Column.this);
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Builder` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/ImmutableList.java`
+#### Snippet
+```java
+   * @since 2.0
+   */
+  public static final class Builder<E> extends ImmutableCollection.Builder<E> {
+    // The first `size` elements are non-null.
+    @VisibleForTesting @Nullable Object[] contents;
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `KeySet` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
+#### Snippet
+```java
+
+  @WeakOuter
+  private class KeySet extends Maps.KeySet<K, Collection<V>> {
+    KeySet(final Map<K, Collection<V>> subMap) {
+      super(subMap);
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Supplier` is the same as one of its superclass' names
+in `guava/src/com/google/common/base/Supplier.java`
+#### Snippet
+```java
+@FunctionalInterface
+@ElementTypesAreNonnullByDefault
+public interface Supplier<T extends @Nullable Object> extends java.util.function.Supplier<T> {
+  /**
+   * Retrieves an instance of the appropriate type. The returned object may or may not be a new
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Builder` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
+#### Snippet
+```java
+   * @since 2.0
+   */
+  public static class Builder<K, V> extends ImmutableMap.Builder<K, V> {
+    private final Comparator<? super K> comparator;
+
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `SerializedForm` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
+#### Snippet
+```java
+   * remain as implementation details.
+   */
+  private static class SerializedForm<K, V> extends ImmutableMap.SerializedForm<K, V> {
+    private final Comparator<? super K> comparator;
+
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `EntrySet` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/AbstractMultiset.java`
+#### Snippet
+```java
+
+  @WeakOuter
+  class EntrySet extends Multisets.EntrySet<E> {
+    @Override
+    Multiset<E> multiset() {
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `ElementSet` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/AbstractMultiset.java`
+#### Snippet
+```java
+
+  @WeakOuter
+  class ElementSet extends Multisets.ElementSet<E> {
+    @Override
+    Multiset<E> multiset() {
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Builder` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
+#### Snippet
+```java
+   * @since 2.0
+   */
+  public static final class Builder<K, V> extends ImmutableMultimap.Builder<K, V> {
+    /**
+     * Creates a new builder. The returned builder is equivalent to the builder generated by {@link
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Builder` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/ImmutableSet.java`
+#### Snippet
+```java
+   * @since 2.0
+   */
+  public static class Builder<E> extends ImmutableCollection.Builder<E> {
+    /*
+     * `impl` is null only for instances of the subclass, ImmutableSortedSet.Builder. That subclass
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `ElementSet` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/SortedMultisets.java`
+#### Snippet
+```java
+  /** A skeleton implementation for {@link SortedMultiset#elementSet}. */
+  @SuppressWarnings("JdkObsolete") // TODO(b/6160855): Switch GWT emulations to NavigableSet.
+  static class ElementSet<E extends @Nullable Object> extends Multisets.ElementSet<E>
+      implements SortedSet<E> {
+    @Weak private final SortedMultiset<E> multiset;
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Entries` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/AbstractMultimap.java`
+#### Snippet
+```java
+
+  @WeakOuter
+  class Entries extends Multimaps.Entries<K, V> {
+    @Override
+    Multimap<K, V> multimap() {
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `EntrySet` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/ConcurrentHashMultiset.java`
+#### Snippet
+```java
+
+  @WeakOuter
+  private class EntrySet extends AbstractMultiset<E>.EntrySet {
+    @Override
+    ConcurrentHashMultiset<E> multiset() {
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `Function` is the same as one of its superclass' names
+in `guava/src/com/google/common/base/Function.java`
+#### Snippet
+```java
+@FunctionalInterface
+@ElementTypesAreNonnullByDefault
+public interface Function<F extends @Nullable Object, T extends @Nullable Object>
+    extends java.util.function.Function<F, T> {
+  @Override
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `EntrySet` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/Multimaps.java`
+#### Snippet
+```java
+
+    @WeakOuter
+    class EntrySet extends Maps.EntrySet<K, Collection<V>> {
+      @Override
+      Map<K, Collection<V>> map() {
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `KeySet` is the same as one of its superclass' names
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+
+    @WeakOuter
+    class KeySet extends Maps.KeySet<K, V> {
+      KeySet() {
+        super(FilteredEntryMap.this);
 ```
 
 ## RuleId[ruleID=ThrowFromFinallyBlock]
@@ -13239,6 +13239,66 @@ in `guava/src/com/google/common/eventbus/Dispatcher.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
+in `guava/src/com/google/common/util/concurrent/Monitor.java`
+#### Snippet
+```java
+    boolean satisfied = false;
+    try {
+      return satisfied = guard.isSatisfied();
+    } finally {
+      if (!satisfied) {
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/util/concurrent/Monitor.java`
+#### Snippet
+```java
+    boolean satisfied = false;
+    try {
+      return satisfied = guard.isSatisfied();
+    } finally {
+      if (!satisfied) {
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/util/concurrent/Monitor.java`
+#### Snippet
+```java
+    boolean satisfied = false;
+    try {
+      return satisfied = guard.isSatisfied();
+    } finally {
+      if (!satisfied) {
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/util/concurrent/Monitor.java`
+#### Snippet
+```java
+    boolean satisfied = false;
+    try {
+      return satisfied = guard.isSatisfied();
+    } finally {
+      if (!satisfied) {
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/util/concurrent/Monitor.java`
+#### Snippet
+```java
+    boolean satisfied = false;
+    try {
+      return satisfied = guard.isSatisfied();
+    } finally {
+      if (!satisfied) {
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
 in `guava/src/com/google/common/base/FinalizableReferenceQueue.java`
 #### Snippet
 ```java
@@ -13251,62 +13311,86 @@ in `guava/src/com/google/common/base/FinalizableReferenceQueue.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/util/concurrent/Monitor.java`
+in `guava/src/com/google/common/hash/LongAdder.java`
 #### Snippet
 ```java
-    boolean satisfied = false;
-    try {
-      return satisfied = guard.isSatisfied();
-    } finally {
-      if (!satisfied) {
+    Cell a;
+    int n;
+    if ((as = cells) != null || !casBase(b = base, b + x)) {
+      boolean uncontended = true;
+      if ((hc = threadHashCode.get()) == null
 ```
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/util/concurrent/Monitor.java`
+in `guava/src/com/google/common/hash/LongAdder.java`
 #### Snippet
 ```java
-    boolean satisfied = false;
-    try {
-      return satisfied = guard.isSatisfied();
-    } finally {
-      if (!satisfied) {
+    Cell a;
+    int n;
+    if ((as = cells) != null || !casBase(b = base, b + x)) {
+      boolean uncontended = true;
+      if ((hc = threadHashCode.get()) == null
 ```
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/util/concurrent/Monitor.java`
+in `guava/src/com/google/common/hash/LongAdder.java`
 #### Snippet
 ```java
-    boolean satisfied = false;
-    try {
-      return satisfied = guard.isSatisfied();
-    } finally {
-      if (!satisfied) {
+    if ((as = cells) != null || !casBase(b = base, b + x)) {
+      boolean uncontended = true;
+      if ((hc = threadHashCode.get()) == null
+          || as == null
+          || (n = as.length) < 1
 ```
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/util/concurrent/Monitor.java`
+in `guava/src/com/google/common/hash/LongAdder.java`
 #### Snippet
 ```java
-    boolean satisfied = false;
-    try {
-      return satisfied = guard.isSatisfied();
-    } finally {
-      if (!satisfied) {
+      if ((hc = threadHashCode.get()) == null
+          || as == null
+          || (n = as.length) < 1
+          || (a = as[(n - 1) & hc[0]]) == null
+          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
 ```
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/util/concurrent/Monitor.java`
+in `guava/src/com/google/common/hash/LongAdder.java`
 #### Snippet
 ```java
-    boolean satisfied = false;
-    try {
-      return satisfied = guard.isSatisfied();
-    } finally {
-      if (!satisfied) {
+          || as == null
+          || (n = as.length) < 1
+          || (a = as[(n - 1) & hc[0]]) == null
+          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
+    }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/hash/LongAdder.java`
+#### Snippet
+```java
+          || (n = as.length) < 1
+          || (a = as[(n - 1) & hc[0]]) == null
+          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
+    }
+  }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/hash/LongAdder.java`
+#### Snippet
+```java
+          || (n = as.length) < 1
+          || (a = as[(n - 1) & hc[0]]) == null
+          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
+    }
+  }
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -13317,102 +13401,6 @@ in `guava/src/com/google/common/collect/RegularImmutableBiMap.java`
     }
     ImmutableBiMap<V, K> result = inverse;
     return (result == null) ? inverse = new Inverse() : result;
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/hash/LongAdder.java`
-#### Snippet
-```java
-    Cell a;
-    int n;
-    if ((as = cells) != null || !casBase(b = base, b + x)) {
-      boolean uncontended = true;
-      if ((hc = threadHashCode.get()) == null
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/hash/LongAdder.java`
-#### Snippet
-```java
-    Cell a;
-    int n;
-    if ((as = cells) != null || !casBase(b = base, b + x)) {
-      boolean uncontended = true;
-      if ((hc = threadHashCode.get()) == null
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/hash/LongAdder.java`
-#### Snippet
-```java
-    if ((as = cells) != null || !casBase(b = base, b + x)) {
-      boolean uncontended = true;
-      if ((hc = threadHashCode.get()) == null
-          || as == null
-          || (n = as.length) < 1
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/hash/LongAdder.java`
-#### Snippet
-```java
-      if ((hc = threadHashCode.get()) == null
-          || as == null
-          || (n = as.length) < 1
-          || (a = as[(n - 1) & hc[0]]) == null
-          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/hash/LongAdder.java`
-#### Snippet
-```java
-          || as == null
-          || (n = as.length) < 1
-          || (a = as[(n - 1) & hc[0]]) == null
-          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
-    }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/hash/LongAdder.java`
-#### Snippet
-```java
-          || (n = as.length) < 1
-          || (a = as[(n - 1) & hc[0]]) == null
-          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
-    }
-  }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/hash/LongAdder.java`
-#### Snippet
-```java
-          || (n = as.length) < 1
-          || (a = as[(n - 1) & hc[0]]) == null
-          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
-    }
-  }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/ImmutableMultiset.java`
-#### Snippet
-```java
-  public ImmutableList<E> asList() {
-    ImmutableList<E> result = asList;
-    return (result == null) ? asList = super.asList() : result;
   }
 
 ```
@@ -13431,14 +13419,14 @@ in `guava/src/com/google/common/collect/ImmutableMultiset.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/io/ByteStreams.java`
+in `guava/src/com/google/common/collect/ImmutableMultiset.java`
 #### Snippet
 ```java
-    long read;
-    byte[] buf = createBuffer();
-    while ((read = in.read(buf)) != -1) {
-      total += read;
-    }
+  public ImmutableList<E> asList() {
+    ImmutableList<E> result = asList;
+    return (result == null) ? asList = super.asList() : result;
+  }
+
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -13455,6 +13443,18 @@ in `guava/src/com/google/common/io/ByteStreams.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
+in `guava/src/com/google/common/io/ByteStreams.java`
+#### Snippet
+```java
+    long read;
+    byte[] buf = createBuffer();
+    while ((read = in.read(buf)) != -1) {
+      total += read;
+    }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
 in `guava/src/com/google/common/collect/UnmodifiableSortedMultiset.java`
 #### Snippet
 ```java
@@ -13463,6 +13463,18 @@ in `guava/src/com/google/common/collect/UnmodifiableSortedMultiset.java`
       return descendingMultiset = result;
     }
     return result;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/Count.java`
+#### Snippet
+```java
+
+  public int addAndGet(int delta) {
+    return value += delta;
+  }
+
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -13515,12 +13527,27 @@ in `guava/src/com/google/common/collect/ImmutableRangeSet.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/Count.java`
+in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
 #### Snippet
 ```java
+    ImmutableSortedMultiset<E> result = descendingMultiset;
+    if (result == null) {
+      return descendingMultiset =
+          this.isEmpty()
+              ? emptyMultiset(Ordering.from(comparator()).reverse())
+              : new DescendingImmutableSortedMultiset<E>(this);
+    }
+    return result;
+```
 
-  public int addAndGet(int delta) {
-    return value += delta;
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/HashBiMap.java`
+#### Snippet
+```java
+  public BiMap<V, K> inverse() {
+    BiMap<V, K> result = inverse;
+    return (result == null) ? inverse = new Inverse() : result;
   }
 
 ```
@@ -13542,18 +13569,6 @@ Result of assignment expression used
 in `guava/src/com/google/common/collect/AbstractBiMap.java`
 #### Snippet
 ```java
-  public Set<Entry<K, V>> entrySet() {
-    Set<Entry<K, V>> result = entrySet;
-    return (result == null) ? entrySet = new EntrySet() : result;
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/AbstractBiMap.java`
-#### Snippet
-```java
   public Set<K> keySet() {
     Set<K> result = keySet;
     return (result == null) ? keySet = new KeySet() : result;
@@ -13563,17 +13578,14 @@ in `guava/src/com/google/common/collect/AbstractBiMap.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
+in `guava/src/com/google/common/collect/AbstractBiMap.java`
 #### Snippet
 ```java
-    ImmutableSortedMultiset<E> result = descendingMultiset;
-    if (result == null) {
-      return descendingMultiset =
-          this.isEmpty()
-              ? emptyMultiset(Ordering.from(comparator()).reverse())
-              : new DescendingImmutableSortedMultiset<E>(this);
-    }
-    return result;
+  public Set<Entry<K, V>> entrySet() {
+    Set<Entry<K, V>> result = entrySet;
+    return (result == null) ? entrySet = new EntrySet() : result;
+  }
+
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -13590,50 +13602,14 @@ in `guava/src/com/google/common/collect/JdkBackedImmutableMultiset.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/HashBiMap.java`
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
 #### Snippet
 ```java
-  public BiMap<V, K> inverse() {
-    BiMap<V, K> result = inverse;
-    return (result == null) ? inverse = new Inverse() : result;
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/TreeRangeSet.java`
-#### Snippet
-```java
-  public Set<Range<C>> asRanges() {
-    Set<Range<C>> result = asRanges;
-    return (result == null) ? asRanges = new AsRanges(rangesByLowerBound.values()) : result;
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/TreeRangeSet.java`
-#### Snippet
-```java
-    Set<Range<C>> result = asDescendingSetOfRanges;
-    return (result == null)
-        ? asDescendingSetOfRanges = new AsRanges(rangesByLowerBound.descendingMap().values())
-        : result;
-  }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/TreeRangeSet.java`
-#### Snippet
-```java
-  public RangeSet<C> complement() {
-    RangeSet<C> result = complement;
-    return (result == null) ? complement = new Complement() : result;
-  }
-
+        throw new NoSuchElementException();
+      }
+      next = current = previous;
+      previous = previous.previous;
+      nextIndex--;
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -13646,6 +13622,30 @@ in `guava/src/com/google/common/collect/LinkedListMultimap.java`
       next = current = previous;
       previous = previous.previousSibling;
       nextIndex--;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+#### Snippet
+```java
+        throw new NoSuchElementException();
+      }
+      previous = current = next;
+      next = next.next;
+      nextIndex++;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+#### Snippet
+```java
+        throw new NoSuchElementException();
+      }
+      previous = current = next;
+      next = next.nextSibling;
+      nextIndex++;
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -13674,38 +13674,50 @@ in `guava/src/com/google/common/collect/LinkedListMultimap.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+in `guava/src/com/google/common/collect/TreeRangeSet.java`
 #### Snippet
 ```java
-        throw new NoSuchElementException();
-      }
-      previous = current = next;
-      next = next.nextSibling;
-      nextIndex++;
+  public Set<Range<C>> asRanges() {
+    Set<Range<C>> result = asRanges;
+    return (result == null) ? asRanges = new AsRanges(rangesByLowerBound.values()) : result;
+  }
+
 ```
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+in `guava/src/com/google/common/collect/TreeRangeSet.java`
 #### Snippet
 ```java
-        throw new NoSuchElementException();
-      }
-      previous = current = next;
-      next = next.next;
-      nextIndex++;
+  public RangeSet<C> complement() {
+    RangeSet<C> result = complement;
+    return (result == null) ? complement = new Complement() : result;
+  }
+
 ```
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/LinkedListMultimap.java`
+in `guava/src/com/google/common/collect/TreeRangeSet.java`
 #### Snippet
 ```java
-        throw new NoSuchElementException();
-      }
-      next = current = previous;
-      previous = previous.previous;
-      nextIndex--;
+    Set<Range<C>> result = asDescendingSetOfRanges;
+    return (result == null)
+        ? asDescendingSetOfRanges = new AsRanges(rangesByLowerBound.descendingMap().values())
+        : result;
+  }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/StandardTable.java`
+#### Snippet
+```java
+  public Map<C, Map<R, V>> columnMap() {
+    ColumnMap result = columnMap;
+    return (result == null) ? columnMap = new ColumnMap() : result;
+  }
+
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -13734,12 +13746,12 @@ in `guava/src/com/google/common/collect/StandardTable.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/StandardTable.java`
+in `guava/src/com/google/common/collect/ImmutableEnumSet.java`
 #### Snippet
 ```java
-  public Map<C, Map<R, V>> columnMap() {
-    ColumnMap result = columnMap;
-    return (result == null) ? columnMap = new ColumnMap() : result;
+  public int hashCode() {
+    int result = hashCode;
+    return (result == 0) ? hashCode = delegate.hashCode() : result;
   }
 
 ```
@@ -13752,18 +13764,6 @@ in `guava/src/com/google/common/util/concurrent/AtomicLongMap.java`
   public Map<K, Long> asMap() {
     Map<K, Long> result = asMap;
     return (result == null) ? asMap = createAsMap() : result;
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/ImmutableEnumSet.java`
-#### Snippet
-```java
-  public int hashCode() {
-    int result = hashCode;
-    return (result == 0) ? hashCode = delegate.hashCode() : result;
   }
 
 ```
@@ -13794,14 +13794,26 @@ in `guava/src/com/google/common/io/CharSource.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/Synchronized.java`
+in `guava/src/com/google/common/collect/NaturalOrdering.java`
 #### Snippet
 ```java
-      synchronized (mutex) {
-        if (descendingMap == null) {
-          return descendingMap = navigableMap(delegate().descendingMap(), mutex);
-        }
-        return descendingMap;
+    Ordering<@Nullable Comparable<?>> result = nullsFirst;
+    if (result == null) {
+      result = nullsFirst = super.<Comparable<?>>nullsFirst();
+    }
+    return (Ordering<@Nullable S>) result;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/NaturalOrdering.java`
+#### Snippet
+```java
+    Ordering<@Nullable Comparable<?>> result = nullsLast;
+    if (result == null) {
+      result = nullsLast = super.<Comparable<?>>nullsLast();
+    }
+    return (Ordering<@Nullable S>) result;
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -13822,6 +13834,18 @@ in `guava/src/com/google/common/collect/Synchronized.java`
 #### Snippet
 ```java
       synchronized (mutex) {
+        if (descendingMap == null) {
+          return descendingMap = navigableMap(delegate().descendingMap(), mutex);
+        }
+        return descendingMap;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+      synchronized (mutex) {
         if (descendingKeySet == null) {
           return descendingKeySet = Synchronized.navigableSet(delegate().descendingKeySet(), mutex);
         }
@@ -13830,26 +13854,14 @@ in `guava/src/com/google/common/collect/Synchronized.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/NaturalOrdering.java`
+in `guava/src/com/google/common/collect/ImmutableMap.java`
 #### Snippet
 ```java
-    Ordering<@Nullable Comparable<?>> result = nullsLast;
-    if (result == null) {
-      result = nullsLast = super.<Comparable<?>>nullsLast();
-    }
-    return (Ordering<@Nullable S>) result;
-```
+  public ImmutableSet<Entry<K, V>> entrySet() {
+    ImmutableSet<Entry<K, V>> result = entrySet;
+    return (result == null) ? entrySet = createEntrySet() : result;
+  }
 
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/NaturalOrdering.java`
-#### Snippet
-```java
-    Ordering<@Nullable Comparable<?>> result = nullsFirst;
-    if (result == null) {
-      result = nullsFirst = super.<Comparable<?>>nullsFirst();
-    }
-    return (Ordering<@Nullable S>) result;
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -13863,18 +13875,6 @@ in `guava/src/com/google/common/collect/ImmutableMap.java`
             new ImmutableSetMultimap<>(new MapViewOfValuesAsSingletonSets(), size(), null))
         : result;
   }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/ImmutableMap.java`
-#### Snippet
-```java
-  public ImmutableSet<Entry<K, V>> entrySet() {
-    ImmutableSet<Entry<K, V>> result = entrySet;
-    return (result == null) ? entrySet = createEntrySet() : result;
-  }
-
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -14075,18 +14075,6 @@ in `guava/src/com/google/common/collect/CompactHashMap.java`
 #### Snippet
 ```java
   @Override
-  public Set<Entry<K, V>> entrySet() {
-    return (entrySetView == null) ? entrySetView = createEntrySet() : entrySetView;
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/CompactHashMap.java`
-#### Snippet
-```java
-  @Override
   public Set<K> keySet() {
     return (keySetView == null) ? keySetView = createKeySet() : keySetView;
   }
@@ -14107,12 +14095,24 @@ in `guava/src/com/google/common/collect/CompactHashMap.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
+in `guava/src/com/google/common/collect/CompactHashMap.java`
+#### Snippet
+```java
+  @Override
+  public Set<Entry<K, V>> entrySet() {
+    return (entrySetView == null) ? entrySetView = createEntrySet() : entrySetView;
+  }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
 in `guava/src/com/google/common/collect/DescendingMultiset.java`
 #### Snippet
 ```java
-    Comparator<? super E> result = comparator;
+    NavigableSet<E> result = elementSet;
     if (result == null) {
-      return comparator = Ordering.from(forwardMultiset().comparator()).<E>reverse();
+      return elementSet = new SortedMultisets.NavigableElementSet<>(this);
     }
     return result;
 ```
@@ -14134,9 +14134,9 @@ Result of assignment expression used
 in `guava/src/com/google/common/collect/DescendingMultiset.java`
 #### Snippet
 ```java
-    NavigableSet<E> result = elementSet;
+    Comparator<? super E> result = comparator;
     if (result == null) {
-      return elementSet = new SortedMultisets.NavigableElementSet<>(this);
+      return comparator = Ordering.from(forwardMultiset().comparator()).<E>reverse();
     }
     return result;
 ```
@@ -14151,6 +14151,34 @@ in `guava/src/com/google/common/io/ByteSource.java`
     while ((skipped = skipUpTo(in, Integer.MAX_VALUE)) > 0) {
       count += skipped;
     }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/reflect/TypeToken.java`
+#### Snippet
+```java
+      ImmutableSet<TypeToken<? super T>> result = interfaces;
+      if (result == null) {
+        return (interfaces =
+            FluentIterable.from(allTypes).filter(TypeFilter.INTERFACE_ONLY).toSet());
+      } else {
+        return result;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/reflect/TypeToken.java`
+#### Snippet
+```java
+            (ImmutableList)
+                TypeCollector.FOR_GENERIC_TYPE.classesOnly().collectTypes(TypeToken.this);
+        return (classes =
+            FluentIterable.from(collectedTypes)
+                .filter(TypeFilter.IGNORE_TYPE_VARIABLE_OR_WILDCARD)
+                .toSet());
+      } else {
+        return result;
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -14182,21 +14210,6 @@ Result of assignment expression used
 in `guava/src/com/google/common/reflect/TypeToken.java`
 #### Snippet
 ```java
-            (ImmutableList)
-                TypeCollector.FOR_GENERIC_TYPE.classesOnly().collectTypes(TypeToken.this);
-        return (classes =
-            FluentIterable.from(collectedTypes)
-                .filter(TypeFilter.IGNORE_TYPE_VARIABLE_OR_WILDCARD)
-                .toSet());
-      } else {
-        return result;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/reflect/TypeToken.java`
-#### Snippet
-```java
         ImmutableList<TypeToken<? super T>> collectedTypes =
             (ImmutableList) TypeCollector.FOR_GENERIC_TYPE.collectTypes(TypeToken.this);
         return (types =
@@ -14205,31 +14218,6 @@ in `guava/src/com/google/common/reflect/TypeToken.java`
                 .toSet());
       } else {
         return filteredTypes;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/reflect/TypeToken.java`
-#### Snippet
-```java
-      ImmutableSet<TypeToken<? super T>> result = interfaces;
-      if (result == null) {
-        return (interfaces =
-            FluentIterable.from(allTypes).filter(TypeFilter.INTERFACE_ONLY).toSet());
-      } else {
-        return result;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/Sets.java`
-#### Snippet
-```java
-      UnmodifiableNavigableSet<E> result = descendingSet;
-      if (result == null) {
-        result = descendingSet = new UnmodifiableNavigableSet<E>(delegate.descendingSet());
-        result.descendingSet = this;
-      }
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -14258,6 +14246,18 @@ in `guava/src/com/google/common/base/Throwables.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
+in `guava/src/com/google/common/collect/Sets.java`
+#### Snippet
+```java
+      UnmodifiableNavigableSet<E> result = descendingSet;
+      if (result == null) {
+        result = descendingSet = new UnmodifiableNavigableSet<E>(delegate.descendingSet());
+        result.descendingSet = this;
+      }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
 in `guava/src/com/google/common/collect/AbstractMapBasedMultimap.java`
 #### Snippet
 ```java
@@ -14278,42 +14278,6 @@ in `guava/src/com/google/common/base/Utf8.java`
       } while ((byte1 = bytes[index++]) >= 0);
 
       if (byte1 < (byte) 0xE0) {
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/Multisets.java`
-#### Snippet
-```java
-      if (laterCount == 0) {
-        currentEntry = entryIterator.next();
-        totalCount = laterCount = currentEntry.getCount();
-      }
-      laterCount--;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/Multisets.java`
-#### Snippet
-```java
-    public Set<E> elementSet() {
-      Set<E> es = elementSet;
-      return (es == null) ? elementSet = createElementSet() : es;
-    }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/Multisets.java`
-#### Snippet
-```java
-          // Safe because the returned set is made unmodifiable and Entry
-          // itself is readonly
-          ? entrySet = (Set) Collections.unmodifiableSet(delegate.entrySet())
-          : es;
-    }
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -14340,6 +14304,42 @@ in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
                 (RegularImmutableSortedSet<K>) keySet.descendingSet(), valueList.reverse(), this);
       }
     }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/Multisets.java`
+#### Snippet
+```java
+      if (laterCount == 0) {
+        currentEntry = entryIterator.next();
+        totalCount = laterCount = currentEntry.getCount();
+      }
+      laterCount--;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/Multisets.java`
+#### Snippet
+```java
+          // Safe because the returned set is made unmodifiable and Entry
+          // itself is readonly
+          ? entrySet = (Set) Collections.unmodifiableSet(delegate.entrySet())
+          : es;
+    }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/Multisets.java`
+#### Snippet
+```java
+    public Set<E> elementSet() {
+      Set<E> es = elementSet;
+      return (es == null) ? elementSet = createElementSet() : es;
+    }
+
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -14383,9 +14383,9 @@ Result of assignment expression used
 in `guava/src/com/google/common/collect/AbstractMultiset.java`
 #### Snippet
 ```java
-    Set<E> result = elementSet;
+    Set<Entry<E>> result = entrySet;
     if (result == null) {
-      elementSet = result = createElementSet();
+      entrySet = result = createEntrySet();
     }
     return result;
 ```
@@ -14395,9 +14395,9 @@ Result of assignment expression used
 in `guava/src/com/google/common/collect/AbstractMultiset.java`
 #### Snippet
 ```java
-    Set<Entry<E>> result = entrySet;
+    Set<E> result = elementSet;
     if (result == null) {
-      entrySet = result = createEntrySet();
+      elementSet = result = createElementSet();
     }
     return result;
 ```
@@ -14455,18 +14455,6 @@ Result of assignment expression used
 in `guava/src/com/google/common/io/CharStreams.java`
 #### Snippet
 ```java
-    int nRead;
-    long total = 0;
-    while ((nRead = from.read(buf)) != -1) {
-      to.write(buf, 0, nRead);
-      total += nRead;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/io/CharStreams.java`
-#### Snippet
-```java
     long read;
     CharBuffer buf = createBuffer();
     while ((read = readable.read(buf)) != -1) {
@@ -14494,6 +14482,18 @@ in `guava/src/com/google/common/io/CharStreams.java`
     int nRead;
     long total = 0;
     while ((nRead = from.read(buf)) != -1) {
+      to.write(buf, 0, nRead);
+      total += nRead;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/io/CharStreams.java`
+#### Snippet
+```java
+    int nRead;
+    long total = 0;
+    while ((nRead = from.read(buf)) != -1) {
       to.append(buf, 0, nRead);
       total += nRead;
 ```
@@ -14508,6 +14508,18 @@ in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
     return (result == null) ? (inverse = invert()) : result;
   }
 
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/ImmutableSet.java`
+#### Snippet
+```java
+      ImmutableList<E> result = asList;
+      if (result == null) {
+        return asList = createAsList();
+      } else {
+        return result;
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -14548,14 +14560,158 @@ in `guava/src/com/google/common/collect/AbstractSortedMultiset.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/ImmutableSet.java`
+in `guava/src/com/google/common/collect/AbstractMultimap.java`
 #### Snippet
 ```java
-      ImmutableList<E> result = asList;
-      if (result == null) {
-        return asList = createAsList();
-      } else {
-        return result;
+  public Collection<V> values() {
+    Collection<V> result = values;
+    return (result == null) ? values = createValues() : result;
+  }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/AbstractMultimap.java`
+#### Snippet
+```java
+  public Multiset<K> keys() {
+    Multiset<K> result = keys;
+    return (result == null) ? keys = createKeys() : result;
+  }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/AbstractMultimap.java`
+#### Snippet
+```java
+  public Collection<Entry<K, V>> entries() {
+    Collection<Entry<K, V>> result = entries;
+    return (result == null) ? entries = createEntries() : result;
+  }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/AbstractMultimap.java`
+#### Snippet
+```java
+  public Map<K, Collection<V>> asMap() {
+    Map<K, Collection<V>> result = asMap;
+    return (result == null) ? asMap = createAsMap() : result;
+  }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/AbstractMultimap.java`
+#### Snippet
+```java
+  public Set<K> keySet() {
+    Set<K> result = keySet;
+    return (result == null) ? keySet = createKeySet() : result;
+  }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+        }
+        checkState(whenClosed == null);
+        return whenClosed = new CountDownLatch(1);
+      }
+    }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/cache/LongAdder.java`
+#### Snippet
+```java
+    Cell a;
+    int n;
+    if ((as = cells) != null || !casBase(b = base, b + x)) {
+      boolean uncontended = true;
+      if ((hc = threadHashCode.get()) == null
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/cache/LongAdder.java`
+#### Snippet
+```java
+    Cell a;
+    int n;
+    if ((as = cells) != null || !casBase(b = base, b + x)) {
+      boolean uncontended = true;
+      if ((hc = threadHashCode.get()) == null
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/cache/LongAdder.java`
+#### Snippet
+```java
+    if ((as = cells) != null || !casBase(b = base, b + x)) {
+      boolean uncontended = true;
+      if ((hc = threadHashCode.get()) == null
+          || as == null
+          || (n = as.length) < 1
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/cache/LongAdder.java`
+#### Snippet
+```java
+      if ((hc = threadHashCode.get()) == null
+          || as == null
+          || (n = as.length) < 1
+          || (a = as[(n - 1) & hc[0]]) == null
+          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/cache/LongAdder.java`
+#### Snippet
+```java
+          || as == null
+          || (n = as.length) < 1
+          || (a = as[(n - 1) & hc[0]]) == null
+          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
+    }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/cache/LongAdder.java`
+#### Snippet
+```java
+          || (n = as.length) < 1
+          || (a = as[(n - 1) & hc[0]]) == null
+          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
+    }
+  }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/cache/LongAdder.java`
+#### Snippet
+```java
+          || (n = as.length) < 1
+          || (a = as[(n - 1) & hc[0]]) == null
+          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
+    }
+  }
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -14568,30 +14724,6 @@ in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
       while ((ref = valueReferenceQueue.poll()) != null) {
         @SuppressWarnings("unchecked")
         WeakValueReference<K, V, E> valueReference = (WeakValueReference<K, V, E>) ref;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-  public Set<K> keySet() {
-    Set<K> ks = keySet;
-    return (ks != null) ? ks : (keySet = new KeySet());
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-  public Collection<V> values() {
-    Collection<V> vs = values;
-    return (vs != null) ? vs : (values = new Values());
-  }
-
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -14623,6 +14755,18 @@ Result of assignment expression used
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
+  public Collection<V> values() {
+    Collection<V> vs = values;
+    return (vs != null) ? vs : (values = new Values());
+  }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
     boolean nextInTable() {
       while (nextTableIndex >= 0) {
         if ((nextEntry = currentTable.get(nextTableIndex--)) != null) {
@@ -14632,158 +14776,26 @@ in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/AbstractMultimap.java`
-#### Snippet
-```java
-  public Collection<Entry<K, V>> entries() {
-    Collection<Entry<K, V>> result = entries;
-    return (result == null) ? entries = createEntries() : result;
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/AbstractMultimap.java`
-#### Snippet
-```java
-  public Collection<V> values() {
-    Collection<V> result = values;
-    return (result == null) ? values = createValues() : result;
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/AbstractMultimap.java`
-#### Snippet
-```java
-  public Multiset<K> keys() {
-    Multiset<K> result = keys;
-    return (result == null) ? keys = createKeys() : result;
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/AbstractMultimap.java`
-#### Snippet
-```java
-  public Map<K, Collection<V>> asMap() {
-    Map<K, Collection<V>> result = asMap;
-    return (result == null) ? asMap = createAsMap() : result;
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/AbstractMultimap.java`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
   public Set<K> keySet() {
-    Set<K> result = keySet;
-    return (result == null) ? keySet = createKeySet() : result;
+    Set<K> ks = keySet;
+    return (ks != null) ? ks : (keySet = new KeySet());
   }
 
 ```
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/cache/LongAdder.java`
+in `guava/src/com/google/common/collect/RegularImmutableMultiset.java`
 #### Snippet
 ```java
-    Cell a;
-    int n;
-    if ((as = cells) != null || !casBase(b = base, b + x)) {
-      boolean uncontended = true;
-      if ((hc = threadHashCode.get()) == null
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/cache/LongAdder.java`
-#### Snippet
-```java
-    Cell a;
-    int n;
-    if ((as = cells) != null || !casBase(b = base, b + x)) {
-      boolean uncontended = true;
-      if ((hc = threadHashCode.get()) == null
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/cache/LongAdder.java`
-#### Snippet
-```java
-    if ((as = cells) != null || !casBase(b = base, b + x)) {
-      boolean uncontended = true;
-      if ((hc = threadHashCode.get()) == null
-          || as == null
-          || (n = as.length) < 1
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/cache/LongAdder.java`
-#### Snippet
-```java
-      if ((hc = threadHashCode.get()) == null
-          || as == null
-          || (n = as.length) < 1
-          || (a = as[(n - 1) & hc[0]]) == null
-          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/cache/LongAdder.java`
-#### Snippet
-```java
-          || as == null
-          || (n = as.length) < 1
-          || (a = as[(n - 1) & hc[0]]) == null
-          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
-    }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/cache/LongAdder.java`
-#### Snippet
-```java
-          || (n = as.length) < 1
-          || (a = as[(n - 1) & hc[0]]) == null
-          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
-    }
+  public ImmutableSet<E> elementSet() {
+    ImmutableSet<E> result = elementSet;
+    return (result == null) ? elementSet = new ElementSet<E>(Arrays.asList(entries), this) : result;
   }
-```
 
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/cache/LongAdder.java`
-#### Snippet
-```java
-          || (n = as.length) < 1
-          || (a = as[(n - 1) & hc[0]]) == null
-          || !(uncontended = a.cas(v = a.value, v + x))) retryUpdate(x, hc, uncontended);
-    }
-  }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-        }
-        checkState(whenClosed == null);
-        return whenClosed = new CountDownLatch(1);
-      }
-    }
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -14908,36 +14920,12 @@ in `guava/src/com/google/common/hash/Striped64.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/RegularImmutableMultiset.java`
-#### Snippet
-```java
-  public ImmutableSet<E> elementSet() {
-    ImmutableSet<E> result = elementSet;
-    return (result == null) ? elementSet = new ElementSet<E>(Arrays.asList(entries), this) : result;
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
 in `guava/src/com/google/common/io/BaseEncoding.java`
 #### Snippet
 ```java
       if (result == null) {
         Alphabet upper = alphabet.upperCase();
         result = upperCase = (upper == alphabet) ? this : newInstance(upper, paddingChar);
-      }
-      return result;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/io/BaseEncoding.java`
-#### Snippet
-```java
-      if (result == null) {
-        Alphabet lower = alphabet.lowerCase();
-        result = lowerCase = (lower == alphabet) ? this : newInstance(lower, paddingChar);
       }
       return result;
 ```
@@ -14956,14 +14944,14 @@ in `guava/src/com/google/common/io/BaseEncoding.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/AbstractTable.java`
+in `guava/src/com/google/common/io/BaseEncoding.java`
 #### Snippet
 ```java
-  public Collection<V> values() {
-    Collection<V> result = values;
-    return (result == null) ? values = createValues() : result;
-  }
-
+      if (result == null) {
+        Alphabet lower = alphabet.lowerCase();
+        result = lowerCase = (lower == alphabet) ? this : newInstance(lower, paddingChar);
+      }
+      return result;
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -14974,6 +14962,18 @@ in `guava/src/com/google/common/collect/AbstractTable.java`
   public Set<Cell<R, C, V>> cellSet() {
     Set<Cell<R, C, V>> result = cellSet;
     return (result == null) ? cellSet = createCellSet() : result;
+  }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/AbstractTable.java`
+#### Snippet
+```java
+  public Collection<V> values() {
+    Collection<V> result = values;
+    return (result == null) ? values = createValues() : result;
   }
 
 ```
@@ -15000,6 +15000,18 @@ in `guava/src/com/google/common/base/MoreObjects.java`
       holderTail = holderTail.next = valueHolder;
       return valueHolder;
     }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/Multimaps.java`
+#### Snippet
+```java
+      Collection<V> result = values;
+      if (result == null) {
+        values = result = Collections.unmodifiableCollection(delegate.values());
+      }
+      return result;
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -15052,18 +15064,6 @@ Result of assignment expression used
 in `guava/src/com/google/common/collect/Multimaps.java`
 #### Snippet
 ```java
-      Collection<V> result = values;
-      if (result == null) {
-        values = result = Collections.unmodifiableCollection(delegate.values());
-      }
-      return result;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/Multimaps.java`
-#### Snippet
-```java
       Collection<Entry<K, V>> result = entries;
       if (result == null) {
         entries = result = unmodifiableEntries(delegate.entries());
@@ -15076,83 +15076,11 @@ Result of assignment expression used
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-      Reference<? extends K> ref;
-      int i = 0;
-      while ((ref = keyReferenceQueue.poll()) != null) {
-        @SuppressWarnings("unchecked")
-        ReferenceEntry<K, V> entry = (ReferenceEntry<K, V>) ref;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    boolean nextInTable() {
-      while (nextTableIndex >= 0) {
-        if ((nextEntry = currentTable.get(nextTableIndex--)) != null) {
-          if (advanceTo(nextEntry) || nextInChain()) {
-            return true;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    // does not impact recency ordering
-    Collection<V> vs = values;
-    return (vs != null) ? vs : (values = new Values());
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-      Reference<? extends V> ref;
-      int i = 0;
-      while ((ref = valueReferenceQueue.poll()) != null) {
-        @SuppressWarnings("unchecked")
-        ValueReference<K, V> valueReference = (ValueReference<K, V>) ref;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
     // does not impact recency ordering
     Set<Entry<K, V>> es = entrySet;
     return (es != null) ? es : (entrySet = new EntrySet());
   }
 
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-  void processPendingNotifications() {
-    RemovalNotification<K, V> notification;
-    while ((notification = removalNotificationQueue.poll()) != null) {
-      try {
-        removalListener.onRemoval(notification);
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    void drainRecencyQueue() {
-      ReferenceEntry<K, V> e;
-      while ((e = recencyQueue.poll()) != null) {
-        // An entry may be in the recency queue despite it being removed from
-        // the map . This can occur when the entry was concurrently read while a
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -15193,62 +15121,74 @@ in `guava/src/com/google/common/cache/LocalCache.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/Maps.java`
+in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-    public Set<V> values() {
-      Set<V> result = values;
-      return (result == null) ? values = Collections.unmodifiableSet(delegate.values()) : result;
-    }
+      Reference<? extends V> ref;
+      int i = 0;
+      while ((ref = valueReferenceQueue.poll()) != null) {
+        @SuppressWarnings("unchecked")
+        ValueReference<K, V> valueReference = (ValueReference<K, V>) ref;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+  void processPendingNotifications() {
+    RemovalNotification<K, V> notification;
+    while ((notification = removalNotificationQueue.poll()) != null) {
+      try {
+        removalListener.onRemoval(notification);
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    boolean nextInTable() {
+      while (nextTableIndex >= 0) {
+        if ((nextEntry = currentTable.get(nextTableIndex--)) != null) {
+          if (advanceTo(nextEntry) || nextInChain()) {
+            return true;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    // does not impact recency ordering
+    Collection<V> vs = values;
+    return (vs != null) ? vs : (values = new Values());
+  }
 
 ```
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/Maps.java`
+in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-          forwardCmp = (Comparator) Ordering.natural();
-        }
-        result = comparator = reverse(forwardCmp);
-      }
-      return result;
+    void drainRecencyQueue() {
+      ReferenceEntry<K, V> e;
+      while ((e = recencyQueue.poll()) != null) {
+        // An entry may be in the recency queue despite it being removed from
+        // the map . This can occur when the entry was concurrently read while a
 ```
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `guava/src/com/google/common/collect/Maps.java`
+in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-    public Collection<V> values() {
-      Collection<V> result = values;
-      return (result == null) ? values = createValues() : result;
-    }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-    public Set<Entry<K, V>> entrySet() {
-      Set<Entry<K, V>> result = entrySet;
-      return (result == null) ? entrySet = createEntrySet() : result;
-    }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `guava/src/com/google/common/collect/Maps.java`
-#### Snippet
-```java
-    public Set<K> keySet() {
-      Set<K> result = keySet;
-      return (result == null) ? keySet = createKeySet() : result;
-    }
-
+      Reference<? extends K> ref;
+      int i = 0;
+      while ((ref = keyReferenceQueue.poll()) != null) {
+        @SuppressWarnings("unchecked")
+        ReferenceEntry<K, V> entry = (ReferenceEntry<K, V>) ref;
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -15280,11 +15220,23 @@ Result of assignment expression used
 in `guava/src/com/google/common/collect/Maps.java`
 #### Snippet
 ```java
-      BiMap<V, K> result = inverse;
-      return (result == null)
-          ? inverse = new UnmodifiableBiMap<>(delegate.inverse(), this)
-          : result;
+    public Collection<V> values() {
+      Collection<V> result = values;
+      return (result == null) ? values = createValues() : result;
     }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+    public Set<V> values() {
+      Set<V> result = values;
+      return (result == null) ? values = Collections.unmodifiableSet(delegate.values()) : result;
+    }
+
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -15295,6 +15247,54 @@ in `guava/src/com/google/common/collect/Maps.java`
       UnmodifiableNavigableMap<K, V> result = descendingMap;
       return (result == null)
           ? descendingMap = new UnmodifiableNavigableMap<>(delegate.descendingMap(), this)
+          : result;
+    }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+    public Set<K> keySet() {
+      Set<K> result = keySet;
+      return (result == null) ? keySet = createKeySet() : result;
+    }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+    public Set<Entry<K, V>> entrySet() {
+      Set<Entry<K, V>> result = entrySet;
+      return (result == null) ? entrySet = createEntrySet() : result;
+    }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+          forwardCmp = (Comparator) Ordering.natural();
+        }
+        result = comparator = reverse(forwardCmp);
+      }
+      return result;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `guava/src/com/google/common/collect/Maps.java`
+#### Snippet
+```java
+      BiMap<V, K> result = inverse;
+      return (result == null)
+          ? inverse = new UnmodifiableBiMap<>(delegate.inverse(), this)
           : result;
     }
 ```
@@ -15325,18 +15325,6 @@ public final class CountingInputStream extends FilterInputStream {
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `workerRunningState` is accessed in both synchronized and unsynchronized contexts
-in `guava/src/com/google/common/util/concurrent/SequentialExecutor.java`
-#### Snippet
-```java
-  /** see {@link WorkerRunningState} */
-  @GuardedBy("queue")
-  private WorkerRunningState workerRunningState = IDLE;
-
-  /**
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `task` is accessed in both synchronized and unsynchronized contexts
 in `guava/src/com/google/common/util/concurrent/SequentialExecutor.java`
 #### Snippet
@@ -15346,6 +15334,18 @@ in `guava/src/com/google/common/util/concurrent/SequentialExecutor.java`
     @CheckForNull Runnable task;
 
     @Override
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `workerRunningState` is accessed in both synchronized and unsynchronized contexts
+in `guava/src/com/google/common/util/concurrent/SequentialExecutor.java`
+#### Snippet
+```java
+  /** see {@link WorkerRunningState} */
+  @GuardedBy("queue")
+  private WorkerRunningState workerRunningState = IDLE;
+
+  /**
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -15619,35 +15619,23 @@ Field initialization to `null` is redundant
 in `guava/src/com/google/common/util/concurrent/ThreadFactoryBuilder.java`
 #### Snippet
 ```java
+  @CheckForNull private String nameFormat = null;
+  @CheckForNull private Boolean daemon = null;
+  @CheckForNull private Integer priority = null;
+  @CheckForNull private UncaughtExceptionHandler uncaughtExceptionHandler = null;
+  @CheckForNull private ThreadFactory backingThreadFactory = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `guava/src/com/google/common/util/concurrent/ThreadFactoryBuilder.java`
+#### Snippet
+```java
+@ElementTypesAreNonnullByDefault
 public final class ThreadFactoryBuilder {
   @CheckForNull private String nameFormat = null;
   @CheckForNull private Boolean daemon = null;
   @CheckForNull private Integer priority = null;
-  @CheckForNull private UncaughtExceptionHandler uncaughtExceptionHandler = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `guava/src/com/google/common/util/concurrent/ThreadFactoryBuilder.java`
-#### Snippet
-```java
-  @CheckForNull private String nameFormat = null;
-  @CheckForNull private Boolean daemon = null;
-  @CheckForNull private Integer priority = null;
-  @CheckForNull private UncaughtExceptionHandler uncaughtExceptionHandler = null;
-  @CheckForNull private ThreadFactory backingThreadFactory = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `guava/src/com/google/common/util/concurrent/ThreadFactoryBuilder.java`
-#### Snippet
-```java
-  @CheckForNull private Boolean daemon = null;
-  @CheckForNull private Integer priority = null;
-  @CheckForNull private UncaughtExceptionHandler uncaughtExceptionHandler = null;
-  @CheckForNull private ThreadFactory backingThreadFactory = null;
-
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -15667,23 +15655,23 @@ Field initialization to `null` is redundant
 in `guava/src/com/google/common/util/concurrent/ThreadFactoryBuilder.java`
 #### Snippet
 ```java
-@ElementTypesAreNonnullByDefault
+  @CheckForNull private Boolean daemon = null;
+  @CheckForNull private Integer priority = null;
+  @CheckForNull private UncaughtExceptionHandler uncaughtExceptionHandler = null;
+  @CheckForNull private ThreadFactory backingThreadFactory = null;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `guava/src/com/google/common/util/concurrent/ThreadFactoryBuilder.java`
+#### Snippet
+```java
 public final class ThreadFactoryBuilder {
   @CheckForNull private String nameFormat = null;
   @CheckForNull private Boolean daemon = null;
   @CheckForNull private Integer priority = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
-#### Snippet
-```java
-    @ParametricNullness private final K key;
-    @VisibleForTesting @Nullable ValueEntry<K, V>[] hashTable;
-    private int size = 0;
-    private int modCount = 0;
-
+  @CheckForNull private UncaughtExceptionHandler uncaughtExceptionHandler = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -15700,14 +15688,14 @@ in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
-in `guava/src/com/google/common/util/concurrent/Monitor.java`
+in `guava/src/com/google/common/collect/LinkedHashMultimap.java`
 #### Snippet
 ```java
+    @ParametricNullness private final K key;
+    @VisibleForTesting @Nullable ValueEntry<K, V>[] hashTable;
+    private int size = 0;
+    private int modCount = 0;
 
-    @GuardedBy("monitor.lock")
-    int waiterCount = 0;
-
-    /** The next active guard */
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -15723,27 +15711,27 @@ in `guava/src/com/google/common/util/concurrent/Monitor.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `guava/src/com/google/common/collect/Streams.java`
+Field initialization to `0` is redundant
+in `guava/src/com/google/common/util/concurrent/Monitor.java`
 #### Snippet
 ```java
-  public static <T> java.util.Optional<T> findLast(Stream<T> stream) {
-    class OptionalState {
-      boolean set = false;
-      @CheckForNull T value = null;
 
+    @GuardedBy("monitor.lock")
+    int waiterCount = 0;
+
+    /** The next active guard */
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
-in `guava/src/com/google/common/collect/Streams.java`
+in `guava/src/com/google/common/net/MediaType.java`
 #### Snippet
 ```java
-                  fromSpliterator.estimateSize(),
-                  fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
-                long index = 0;
+  private static final class Tokenizer {
+    final String input;
+    int position = 0;
 
-                @Override
+    Tokenizer(String input) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -15783,6 +15771,18 @@ in `guava/src/com/google/common/collect/Streams.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `guava/src/com/google/common/collect/Streams.java`
+#### Snippet
+```java
+  public static <T> java.util.Optional<T> findLast(Stream<T> stream) {
+    class OptionalState {
+      boolean set = false;
+      @CheckForNull T value = null;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
 in `guava/src/com/google/common/collect/Streams.java`
 #### Snippet
@@ -15796,14 +15796,14 @@ in `guava/src/com/google/common/collect/Streams.java`
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
-in `guava/src/com/google/common/net/MediaType.java`
+in `guava/src/com/google/common/collect/Streams.java`
 #### Snippet
 ```java
-  private static final class Tokenizer {
-    final String input;
-    int position = 0;
+                  fromSpliterator.estimateSize(),
+                  fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
+                long index = 0;
 
-    Tokenizer(String input) {
+                @Override
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -16003,11 +16003,11 @@ Field initialization to `0.0` is redundant
 in `guava/src/com/google/common/math/StatsAccumulator.java`
 #### Snippet
 ```java
+  // methods of this class.
   private long count = 0;
   private double mean = 0.0; // any finite value will do, we only use it to multiply by zero for sum
   private double sumOfSquaresOfDeltas = 0.0;
   private double min = NaN; // any value will do
-  private double max = NaN; // any value will do
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -16015,11 +16015,11 @@ Field initialization to `0.0` is redundant
 in `guava/src/com/google/common/math/StatsAccumulator.java`
 #### Snippet
 ```java
-  // methods of this class.
   private long count = 0;
   private double mean = 0.0; // any finite value will do, we only use it to multiply by zero for sum
   private double sumOfSquaresOfDeltas = 0.0;
   private double min = NaN; // any value will do
+  private double max = NaN; // any value will do
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -16047,30 +16047,6 @@ in `guava/src/com/google/common/math/PairedStatsAccumulator.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `guava/src/com/google/common/hash/Crc32cHashFunction.java`
-#### Snippet
-```java
-     */
-    private int crc0 = INVERSE_COMPUTE_FOR_WORD_OF_ALL_1S;
-    private int crc1 = 0;
-    private int crc2 = 0;
-    private int crc3 = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `guava/src/com/google/common/hash/Crc32cHashFunction.java`
-#### Snippet
-```java
-    private int crc0 = INVERSE_COMPUTE_FOR_WORD_OF_ALL_1S;
-    private int crc1 = 0;
-    private int crc2 = 0;
-    private int crc3 = 0;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `guava/src/com/google/common/hash/Crc32cHashFunction.java`
 #### Snippet
@@ -16080,6 +16056,30 @@ in `guava/src/com/google/common/hash/Crc32cHashFunction.java`
     private boolean finished = false;
 
     /*
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `guava/src/com/google/common/hash/Crc32cHashFunction.java`
+#### Snippet
+```java
+    private int crc0 = INVERSE_COMPUTE_FOR_WORD_OF_ALL_1S;
+    private int crc1 = 0;
+    private int crc2 = 0;
+    private int crc3 = 0;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `guava/src/com/google/common/hash/Crc32cHashFunction.java`
+#### Snippet
+```java
+     */
+    private int crc0 = INVERSE_COMPUTE_FOR_WORD_OF_ALL_1S;
+    private int crc1 = 0;
+    private int crc2 = 0;
+    private int crc3 = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -16131,15 +16131,15 @@ in `guava/src/com/google/common/collect/ImmutableMultimap.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+Field initialization to `0` is redundant
+in `guava/src/com/google/common/collect/Iterators.java`
 #### Snippet
 ```java
-      extends AbstractWeakKeyEntry<K, V, WeakKeyStrongValueEntry<K, V>>
-      implements StrongValueEntry<K, V, WeakKeyStrongValueEntry<K, V>> {
-    @CheckForNull private volatile V value = null;
+  private static <I extends Iterator<?>> Iterator<I> consumingForArray(@Nullable I... elements) {
+    return new UnmodifiableIterator<I>() {
+      int index = 0;
 
-    private WeakKeyStrongValueEntry(ReferenceQueue<K> queue, K key, int hash) {
+      @Override
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -16155,15 +16155,15 @@ in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `guava/src/com/google/common/collect/Iterators.java`
+Field initialization to `null` is redundant
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-  private static <I extends Iterator<?>> Iterator<I> consumingForArray(@Nullable I... elements) {
-    return new UnmodifiableIterator<I>() {
-      int index = 0;
+      extends AbstractWeakKeyEntry<K, V, WeakKeyStrongValueEntry<K, V>>
+      implements StrongValueEntry<K, V, WeakKeyStrongValueEntry<K, V>> {
+    @CheckForNull private volatile V value = null;
 
-      @Override
+    private WeakKeyStrongValueEntry(ReferenceQueue<K> queue, K key, int hash) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -16188,6 +16188,54 @@ abstract class AbstractGraphBuilder<N> {
   boolean allowsSelfLoops = false;
   ElementOrder<N> nodeOrder = ElementOrder.insertion();
   ElementOrder<N> incidentEdgeOrder = ElementOrder.unordered();
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `guava/src/com/google/common/io/BaseEncoding.java`
+#### Snippet
+```java
+        int bitBuffer = 0;
+        int bitBufferLength = 0;
+        int readChars = 0;
+        boolean hitPadding = false;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `guava/src/com/google/common/io/BaseEncoding.java`
+#### Snippet
+```java
+        int bitBuffer = 0;
+        int bitBufferLength = 0;
+        int writtenChars = 0;
+
+        @Override
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `guava/src/com/google/common/io/BaseEncoding.java`
+#### Snippet
+```java
+      return new InputStream() {
+        int bitBuffer = 0;
+        int bitBufferLength = 0;
+        int readChars = 0;
+        boolean hitPadding = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `guava/src/com/google/common/io/BaseEncoding.java`
+#### Snippet
+```java
+      checkNotNull(reader);
+      return new InputStream() {
+        int bitBuffer = 0;
+        int bitBufferLength = 0;
+        int readChars = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -16224,54 +16272,6 @@ in `guava/src/com/google/common/io/BaseEncoding.java`
         int bitBuffer = 0;
         int bitBufferLength = 0;
         int writtenChars = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `guava/src/com/google/common/io/BaseEncoding.java`
-#### Snippet
-```java
-      checkNotNull(reader);
-      return new InputStream() {
-        int bitBuffer = 0;
-        int bitBufferLength = 0;
-        int readChars = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `guava/src/com/google/common/io/BaseEncoding.java`
-#### Snippet
-```java
-        int bitBuffer = 0;
-        int bitBufferLength = 0;
-        int readChars = 0;
-        boolean hitPadding = false;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `guava/src/com/google/common/io/BaseEncoding.java`
-#### Snippet
-```java
-        int bitBuffer = 0;
-        int bitBufferLength = 0;
-        int writtenChars = 0;
-
-        @Override
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `guava/src/com/google/common/io/BaseEncoding.java`
-#### Snippet
-```java
-      return new InputStream() {
-        int bitBuffer = 0;
-        int bitBufferLength = 0;
-        int readChars = 0;
-        boolean hitPadding = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -16340,11 +16340,11 @@ Class has `hashCode()` defined but does not define `equals()`
 in `guava/src/com/google/common/collect/RegularImmutableBiMap.java`
 #### Snippet
 ```java
-    }
-
-    final class InverseEntrySet extends ImmutableMapEntrySet<V, K> {
-      @Override
-      ImmutableMap<V, K> map() {
+@SuppressWarnings("serial") // uses writeReplace(), not default serialization
+@ElementTypesAreNonnullByDefault
+class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
+  static final RegularImmutableBiMap<Object, Object> EMPTY =
+      new RegularImmutableBiMap<>(
 ```
 
 ### RuleId[ruleID=EqualsAndHashcode]
@@ -16352,11 +16352,11 @@ Class has `hashCode()` defined but does not define `equals()`
 in `guava/src/com/google/common/collect/RegularImmutableBiMap.java`
 #### Snippet
 ```java
-@SuppressWarnings("serial") // uses writeReplace(), not default serialization
-@ElementTypesAreNonnullByDefault
-class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
-  static final RegularImmutableBiMap<Object, Object> EMPTY =
-      new RegularImmutableBiMap<>(
+    }
+
+    final class InverseEntrySet extends ImmutableMapEntrySet<V, K> {
+      @Override
+      ImmutableMap<V, K> map() {
 ```
 
 ### RuleId[ruleID=EqualsAndHashcode]
@@ -16369,6 +16369,18 @@ in `guava/src/com/google/common/collect/ImmutableMultiset.java`
   private final class EntrySet extends IndexedImmutableSet<Entry<E>> {
     @Override
     boolean isPartialView() {
+```
+
+### RuleId[ruleID=EqualsAndHashcode]
+Class has `equals()` defined but does not define `hashCode()`
+in `guava/src/com/google/common/collect/ImmutableEnumMap.java`
+#### Snippet
+```java
+@SuppressWarnings("serial") // we're overriding default serialization
+@ElementTypesAreNonnullByDefault
+final class ImmutableEnumMap<K extends Enum<K>, V> extends IteratorBasedImmutableMap<K, V> {
+  static <K extends Enum<K>, V> ImmutableMap<K, V> asImmutable(EnumMap<K, V> map) {
+    switch (map.size()) {
 ```
 
 ### RuleId[ruleID=EqualsAndHashcode]
@@ -16397,18 +16409,6 @@ in `guava/src/com/google/common/collect/StandardTable.java`
       };
     }
   }
-```
-
-### RuleId[ruleID=EqualsAndHashcode]
-Class has `equals()` defined but does not define `hashCode()`
-in `guava/src/com/google/common/collect/ImmutableEnumMap.java`
-#### Snippet
-```java
-@SuppressWarnings("serial") // we're overriding default serialization
-@ElementTypesAreNonnullByDefault
-final class ImmutableEnumMap<K extends Enum<K>, V> extends IteratorBasedImmutableMap<K, V> {
-  static <K extends Enum<K>, V> ImmutableMap<K, V> asImmutable(EnumMap<K, V> map) {
-    switch (map.size()) {
 ```
 
 ### RuleId[ruleID=EqualsAndHashcode]
@@ -16442,8 +16442,8 @@ in `guava/src/com/google/common/collect/Cut.java`
 ```java
   }
 
-  private static final class BelowValue<C extends Comparable> extends Cut<C> {
-    BelowValue(C endpoint) {
+  private static final class AboveValue<C extends Comparable> extends Cut<C> {
+    AboveValue(C endpoint) {
       super(checkNotNull(endpoint));
 ```
 
@@ -16454,21 +16454,9 @@ in `guava/src/com/google/common/collect/Cut.java`
 ```java
   }
 
-  private static final class AboveValue<C extends Comparable> extends Cut<C> {
-    AboveValue(C endpoint) {
+  private static final class BelowValue<C extends Comparable> extends Cut<C> {
+    BelowValue(C endpoint) {
       super(checkNotNull(endpoint));
-```
-
-### RuleId[ruleID=EqualsAndHashcode]
-Class has `equals()` defined but does not define `hashCode()`
-in `guava/src/com/google/common/collect/Cut.java`
-#### Snippet
-```java
-@GwtCompatible
-@ElementTypesAreNonnullByDefault
-abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializable {
-  final C endpoint;
-
 ```
 
 ### RuleId[ruleID=EqualsAndHashcode]
@@ -16480,6 +16468,18 @@ in `guava/src/com/google/common/collect/Cut.java`
 
   private static final class BelowAll extends Cut<Comparable<?>> {
     private static final BelowAll INSTANCE = new BelowAll();
+
+```
+
+### RuleId[ruleID=EqualsAndHashcode]
+Class has `equals()` defined but does not define `hashCode()`
+in `guava/src/com/google/common/collect/Cut.java`
+#### Snippet
+```java
+@GwtCompatible
+@ElementTypesAreNonnullByDefault
+abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializable {
+  final C endpoint;
 
 ```
 
@@ -16814,10 +16814,10 @@ Redundant interface declaration `Serializable`
 in `guava/src/com/google/common/hash/Funnels.java`
 #### Snippet
 ```java
-  }
 
-  private static class StringCharsetFunnel implements Funnel<CharSequence>, Serializable {
-    private final Charset charset;
+  private static class SequentialFunnel<E extends @Nullable Object>
+      implements Funnel<Iterable<? extends E>>, Serializable {
+    private final Funnel<E> elementFunnel;
 
 ```
 
@@ -16826,10 +16826,10 @@ Redundant interface declaration `Serializable`
 in `guava/src/com/google/common/hash/Funnels.java`
 #### Snippet
 ```java
+  }
 
-  private static class SequentialFunnel<E extends @Nullable Object>
-      implements Funnel<Iterable<? extends E>>, Serializable {
-    private final Funnel<E> elementFunnel;
+  private static class StringCharsetFunnel implements Funnel<CharSequence>, Serializable {
+    private final Charset charset;
 
 ```
 
@@ -17050,7 +17050,7 @@ in `guava/src/com/google/common/base/Suppliers.java`
       if (!initialized) {
         synchronized (this) {
           if (!initialized) {
-            T t = delegate.get();
+            /*
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -17062,7 +17062,7 @@ in `guava/src/com/google/common/base/Suppliers.java`
       if (!initialized) {
         synchronized (this) {
           if (!initialized) {
-            /*
+            T t = delegate.get();
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -17094,30 +17094,6 @@ Lock operations on 'this' may have unforeseen side-effects
 in `guava/src/com/google/common/util/concurrent/ListenerCallQueue.java`
 #### Snippet
 ```java
-          ListenerCallQueue.Event<L> nextToRun;
-          Object nextLabel;
-          synchronized (PerListenerQueue.this) {
-            Preconditions.checkState(isThreadScheduled);
-            nextToRun = waitQueue.poll();
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `guava/src/com/google/common/util/concurrent/ListenerCallQueue.java`
-#### Snippet
-```java
-          // An Error is bubbling up. We should mark ourselves as no longer running. That way, if
-          // anyone tries to keep using us, we won't be corrupted.
-          synchronized (PerListenerQueue.this) {
-            isThreadScheduled = false;
-          }
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `guava/src/com/google/common/util/concurrent/ListenerCallQueue.java`
-#### Snippet
-```java
     void dispatch() {
       boolean scheduleEventRunner = false;
       synchronized (this) {
@@ -17139,14 +17115,26 @@ in `guava/src/com/google/common/util/concurrent/ListenerCallQueue.java`
 
 ### RuleId[ruleID=SynchronizeOnThis]
 Lock operations on 'this' may have unforeseen side-effects
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+in `guava/src/com/google/common/util/concurrent/ListenerCallQueue.java`
 #### Snippet
 ```java
-        return new CountDownLatch(0);
-      }
-      synchronized (this) {
-        if (closed) {
-          return new CountDownLatch(0);
+          ListenerCallQueue.Event<L> nextToRun;
+          Object nextLabel;
+          synchronized (PerListenerQueue.this) {
+            Preconditions.checkState(isThreadScheduled);
+            nextToRun = waitQueue.poll();
+```
+
+### RuleId[ruleID=SynchronizeOnThis]
+Lock operations on 'this' may have unforeseen side-effects
+in `guava/src/com/google/common/util/concurrent/ListenerCallQueue.java`
+#### Snippet
+```java
+          // An Error is bubbling up. We should mark ourselves as no longer running. That way, if
+          // anyone tries to keep using us, we won't be corrupted.
+          synchronized (PerListenerQueue.this) {
+            isThreadScheduled = false;
+          }
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -17159,6 +17147,18 @@ in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
       synchronized (this) {
         if (!closed) {
           put(closeable, executor);
+```
+
+### RuleId[ruleID=SynchronizeOnThis]
+Lock operations on 'this' may have unforeseen side-effects
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+        return new CountDownLatch(0);
+      }
+      synchronized (this) {
+        if (closed) {
+          return new CountDownLatch(0);
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -17287,6 +17287,18 @@ Allocation of zero length array
 in `guava/src/com/google/common/collect/CompactHashMap.java`
 #### Snippet
 ```java
+    public @Nullable Object[] toArray() {
+      if (needsAllocArrays()) {
+        return new Object[0];
+      }
+      Map<K, V> delegate = delegateOrNull();
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `guava/src/com/google/common/collect/CompactHashMap.java`
+#### Snippet
+```java
     public Spliterator<K> spliterator() {
       if (needsAllocArrays()) {
         return Spliterators.spliterator(new Object[0], Spliterator.DISTINCT | Spliterator.ORDERED);
@@ -17314,18 +17326,6 @@ in `guava/src/com/google/common/collect/CompactHashMap.java`
     public Spliterator<V> spliterator() {
       if (needsAllocArrays()) {
         return Spliterators.spliterator(new Object[0], Spliterator.ORDERED);
-      }
-      Map<K, V> delegate = delegateOrNull();
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `guava/src/com/google/common/collect/CompactHashMap.java`
-#### Snippet
-```java
-    public @Nullable Object[] toArray() {
-      if (needsAllocArrays()) {
-        return new Object[0];
       }
       Map<K, V> delegate = delegateOrNull();
 ```
@@ -17404,18 +17404,6 @@ in `guava/src/com/google/common/collect/Multisets.java`
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `guava/src/com/google/common/collect/CollectCollectors.java`
-#### Snippet
-```java
-        ImmutableBiMap.Builder::combine,
-        ImmutableBiMap.Builder::build,
-        new Collector.Characteristics[0]);
-  }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
 in `guava/src/com/google/common/collect/CompoundOrdering.java`
 #### Snippet
 ```java
@@ -17428,12 +17416,12 @@ in `guava/src/com/google/common/collect/CompoundOrdering.java`
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `guava/src/com/google/common/hash/Hashing.java`
+in `guava/src/com/google/common/collect/CollectCollectors.java`
 #### Snippet
 ```java
-    }
-    checkArgument(!list.isEmpty(), "number of hash functions (%s) must be > 0", list.size());
-    return new ConcatenatedHashFunction(list.toArray(new HashFunction[0]));
+        ImmutableBiMap.Builder::combine,
+        ImmutableBiMap.Builder::build,
+        new Collector.Characteristics[0]);
   }
 
 ```
@@ -17445,6 +17433,18 @@ in `guava/src/com/google/common/hash/Hashing.java`
 ```java
     list.add(second);
     Collections.addAll(list, rest);
+    return new ConcatenatedHashFunction(list.toArray(new HashFunction[0]));
+  }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `guava/src/com/google/common/hash/Hashing.java`
+#### Snippet
+```java
+    }
+    checkArgument(!list.isEmpty(), "number of hash functions (%s) must be > 0", list.size());
     return new ConcatenatedHashFunction(list.toArray(new HashFunction[0]));
   }
 
@@ -17489,18 +17489,6 @@ in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 
 ## RuleId[ruleID=UnstableTypeUsedInSignature]
 ### RuleId[ruleID=UnstableTypeUsedInSignature]
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.io.LineProcessor'
-in `guava/src/com/google/common/io/Files.java`
-#### Snippet
-```java
-  @ParametricNullness
-  public
-  static <T extends @Nullable Object> T readLines(
-      File file, Charset charset, LineProcessor<T> callback) throws IOException {
-    return asCharSource(file, charset).readLines(callback);
-```
-
-### RuleId[ruleID=UnstableTypeUsedInSignature]
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.io.ByteProcessor'
 in `guava/src/com/google/common/io/Files.java`
 #### Snippet
@@ -17513,15 +17501,15 @@ in `guava/src/com/google/common/io/Files.java`
 ```
 
 ### RuleId[ruleID=UnstableTypeUsedInSignature]
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.hash.Hasher'
-in `guava/src/com/google/common/hash/HashFunction.java`
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.io.LineProcessor'
+in `guava/src/com/google/common/io/Files.java`
 #### Snippet
 ```java
-   * functions that need to buffer their whole input before processing any of it).
-   */
-  Hasher newHasher(int expectedInputSize);
-
-  /**
+  @ParametricNullness
+  public
+  static <T extends @Nullable Object> T readLines(
+      File file, Charset charset, LineProcessor<T> callback) throws IOException {
+    return asCharSource(file, charset).readLines(callback);
 ```
 
 ### RuleId[ruleID=UnstableTypeUsedInSignature]
@@ -17534,6 +17522,18 @@ in `guava/src/com/google/common/hash/HashFunction.java`
   <T extends @Nullable Object> HashCode hashObject(
       @ParametricNullness T instance, Funnel<? super T> funnel);
 
+```
+
+### RuleId[ruleID=UnstableTypeUsedInSignature]
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.hash.Hasher'
+in `guava/src/com/google/common/hash/HashFunction.java`
+#### Snippet
+```java
+   * functions that need to buffer their whole input before processing any of it).
+   */
+  Hasher newHasher(int expectedInputSize);
+
+  /**
 ```
 
 ### RuleId[ruleID=UnstableTypeUsedInSignature]
@@ -17574,15 +17574,15 @@ in `guava/src/com/google/common/collect/ImmutableSortedSet.java`
 ```
 
 ### RuleId[ruleID=NullArgumentToVariableArgMethod]
-Confusing argument `elements`, unclear if a varargs or non-varargs call is desired
+Confusing argument `elements.clone()`, unclear if a varargs or non-varargs call is desired
 in `guava/src/com/google/common/collect/ImmutableList.java`
 #### Snippet
 ```java
-    @Override
-    public Builder<E> add(E... elements) {
-      checkElementsNotNull(elements);
-      add(elements, elements.length);
-      return this;
+        return of(elements[0]);
+      default:
+        return construct(elements.clone());
+    }
+  }
 ```
 
 ### RuleId[ruleID=NullArgumentToVariableArgMethod]
@@ -17598,15 +17598,15 @@ in `guava/src/com/google/common/collect/ImmutableList.java`
 ```
 
 ### RuleId[ruleID=NullArgumentToVariableArgMethod]
-Confusing argument `elements.clone()`, unclear if a varargs or non-varargs call is desired
+Confusing argument `elements`, unclear if a varargs or non-varargs call is desired
 in `guava/src/com/google/common/collect/ImmutableList.java`
 #### Snippet
 ```java
-        return of(elements[0]);
-      default:
-        return construct(elements.clone());
-    }
-  }
+    @Override
+    public Builder<E> add(E... elements) {
+      checkElementsNotNull(elements);
+      add(elements, elements.length);
+      return this;
 ```
 
 ### RuleId[ruleID=NullArgumentToVariableArgMethod]
@@ -17833,6 +17833,18 @@ Variable `newCount` initializer `this.count - 1` is redundant
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
+        preWriteCleanup();
+
+        int newCount = this.count - 1;
+        AtomicReferenceArray<E> table = this.table;
+        int index = hash & (table.length() - 1);
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `newCount` initializer `this.count - 1` is redundant
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
             if (entryValue == null) {
               if (isCollected(e)) {
                 int newCount = this.count - 1;
@@ -17845,11 +17857,11 @@ Variable `newCount` initializer `this.count - 1` is redundant
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-    boolean removeEntryForTesting(E entry) {
-      int hash = entry.getHash();
-      int newCount = this.count - 1;
-      AtomicReferenceArray<E> table = this.table;
-      int index = hash & (table.length() - 1);
+        preWriteCleanup();
+
+        int newCount = this.count - 1;
+        AtomicReferenceArray<E> table = this.table;
+        int index = hash & (table.length() - 1);
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -17862,6 +17874,18 @@ in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
         int newCount = this.count - 1;
         AtomicReferenceArray<E> table = this.table;
         int index = hash & (table.length() - 1);
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `newCount` initializer `this.count - 1` is redundant
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+    boolean removeEntryForTesting(E entry) {
+      int hash = entry.getHash();
+      int newCount = this.count - 1;
+      AtomicReferenceArray<E> table = this.table;
+      int index = hash & (table.length() - 1);
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -17881,35 +17905,11 @@ Variable `newCount` initializer `this.count - 1` is redundant
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-        preWriteCleanup();
-
-        int newCount = this.count - 1;
-        AtomicReferenceArray<E> table = this.table;
-        int index = hash & (table.length() - 1);
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `newCount` initializer `this.count - 1` is redundant
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
             if (entryValue == null) {
               if (isCollected(e)) {
                 int newCount = this.count - 1;
                 ++modCount;
                 E newFirst = removeFromChain(first, e);
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `newCount` initializer `this.count - 1` is redundant
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-        preWriteCleanup();
-
-        int newCount = this.count - 1;
-        AtomicReferenceArray<E> table = this.table;
-        int index = hash & (table.length() - 1);
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -17949,39 +17949,15 @@ in `guava/src/com/google/common/net/InetAddresses.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `computingValueReference` initializer `null` is redundant
+The value `this.count + 1` assigned to `newCount` is never used
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-      ReferenceEntry<K, V> e;
-      ValueReference<K, V> valueReference = null;
-      ComputingValueReference<K, V> computingValueReference = null;
-      boolean createNewEntry = true;
-      V newValue;
-```
+        if (newCount > this.threshold) { // ensure capacity
+          expand();
+          newCount = this.count + 1;
+        }
 
-### RuleId[ruleID=UnusedAssignment]
-Variable `newCount` initializer `this.count - 1` is redundant
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-              if (valueReference.isActive()) {
-                // If the value disappeared, this entry is partially collected.
-                int newCount = this.count - 1;
-                ++modCount;
-                ReferenceEntry<K, V> newFirst =
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `newCount` initializer `this.count - 1` is redundant
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-    @CanIgnoreReturnValue
-    boolean removeEntry(ReferenceEntry<K, V> entry, int hash, RemovalCause cause) {
-      int newCount = this.count - 1;
-      AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-      int index = hash & (table.length() - 1);
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -18013,11 +17989,11 @@ Variable `newCount` initializer `this.count - 1` is redundant
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
 ```java
-        preWriteCleanup(now);
-
-        int newCount = this.count - 1;
-        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
-        int index = hash & (table.length() - 1);
+              if (valueReference.isActive()) {
+                // If the value disappeared, this entry is partially collected.
+                int newCount = this.count - 1;
+                ++modCount;
+                ReferenceEntry<K, V> newFirst =
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -18045,18 +18021,6 @@ in `guava/src/com/google/common/cache/LocalCache.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-The value `this.count + 1` assigned to `newCount` is never used
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-        if (newCount > this.threshold) { // ensure capacity
-          expand();
-          newCount = this.count + 1;
-        }
-
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `newCount` initializer `this.count - 1` is redundant
 in `guava/src/com/google/common/cache/LocalCache.java`
 #### Snippet
@@ -18068,127 +18032,43 @@ in `guava/src/com/google/common/cache/LocalCache.java`
                 ReferenceEntry<K, V> newFirst =
 ```
 
+### RuleId[ruleID=UnusedAssignment]
+Variable `computingValueReference` initializer `null` is redundant
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+      ReferenceEntry<K, V> e;
+      ValueReference<K, V> valueReference = null;
+      ComputingValueReference<K, V> computingValueReference = null;
+      boolean createNewEntry = true;
+      V newValue;
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `newCount` initializer `this.count - 1` is redundant
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+    @CanIgnoreReturnValue
+    boolean removeEntry(ReferenceEntry<K, V> entry, int hash, RemovalCause cause) {
+      int newCount = this.count - 1;
+      AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+      int index = hash & (table.length() - 1);
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `newCount` initializer `this.count - 1` is redundant
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+        preWriteCleanup(now);
+
+        int newCount = this.count - 1;
+        AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
+        int index = hash & (table.length() - 1);
+```
+
 ## RuleId[ruleID=MethodOverridesStaticMethod]
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
-  @Deprecated
-  public static <E> ImmutableSortedMultiset<E> of(E e1, E e2) {
-    throw new UnsupportedOperationException();
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `builder()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Use naturalOrder.")
-  @Deprecated
-  public static <E> ImmutableSortedMultiset.Builder<E> builder() {
-    throw new UnsupportedOperationException();
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
-  @Deprecated
-  public static <E> ImmutableSortedMultiset<E> of(E e1, E e2, E e3) {
-    throw new UnsupportedOperationException();
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `toImmutableMultiset()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Use toImmutableSortedMultiset.")
-  @Deprecated
-  public static <E> Collector<E, ?, ImmutableMultiset<E>> toImmutableMultiset() {
-    throw new UnsupportedOperationException();
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
-  @Deprecated
-  public static <E> ImmutableSortedMultiset<E> of(E e1, E e2, E e3, E e4) {
-    throw new UnsupportedOperationException();
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `copyOf()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
-  @Deprecated
-  public static <E> ImmutableSortedMultiset<E> copyOf(E[] elements) {
-    throw new UnsupportedOperationException();
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
-  @Deprecated
-  public static <E> ImmutableSortedMultiset<E> of(E element) {
-    throw new UnsupportedOperationException();
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
-  @Deprecated
-  public static <E> ImmutableSortedMultiset<E> of(E e1, E e2, E e3, E e4, E e5) {
-    throw new UnsupportedOperationException();
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
-  @Deprecated
-  public static <E> ImmutableSortedMultiset<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
-    throw new UnsupportedOperationException();
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `toImmutableMultiset()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
-#### Snippet
-```java
-  @Deprecated
-  public static <T extends @Nullable Object, E>
-      Collector<T, ?, ImmutableMultiset<E>> toImmutableMultiset(
-          Function<? super T, ? extends E> elementFunction,
-          ToIntFunction<? super T> countFunction) {
-```
-
 ### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `copyOf()` tries to override a static method of a superclass
 in `guava/src/com/google/common/collect/ImmutableSortedSet.java`
@@ -18197,6 +18077,18 @@ in `guava/src/com/google/common/collect/ImmutableSortedSet.java`
    * @since 7.0 (source-compatible since 2.0)
    */
   public static <E> ImmutableSortedSet<E> copyOf(Collection<? extends E> elements) {
+    // Hack around E not being a subtype of Comparable.
+    // Unsafe, see ImmutableSortedSetFauxverideShim.
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `copyOf()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedSet.java`
+#### Snippet
+```java
+   * @throws NullPointerException if any of {@code elements} is null
+   */
+  public static <E> ImmutableSortedSet<E> copyOf(Iterable<? extends E> elements) {
     // Hack around E not being a subtype of Comparable.
     // Unsafe, see ImmutableSortedSetFauxverideShim.
 ```
@@ -18226,15 +18118,123 @@ in `guava/src/com/google/common/collect/ImmutableSortedSet.java`
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `copyOf()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedSet.java`
+Method `builder()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
 #### Snippet
 ```java
-   * @throws NullPointerException if any of {@code elements} is null
-   */
-  public static <E> ImmutableSortedSet<E> copyOf(Iterable<? extends E> elements) {
-    // Hack around E not being a subtype of Comparable.
-    // Unsafe, see ImmutableSortedSetFauxverideShim.
+  @DoNotCall("Use naturalOrder.")
+  @Deprecated
+  public static <E> ImmutableSortedMultiset.Builder<E> builder() {
+    throw new UnsupportedOperationException();
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `toImmutableMultiset()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Use toImmutableSortedMultiset.")
+  @Deprecated
+  public static <E> Collector<E, ?, ImmutableMultiset<E>> toImmutableMultiset() {
+    throw new UnsupportedOperationException();
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
+  @Deprecated
+  public static <E> ImmutableSortedMultiset<E> of(E e1, E e2, E e3, E e4) {
+    throw new UnsupportedOperationException();
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
+  @Deprecated
+  public static <E> ImmutableSortedMultiset<E> of(
+      E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
+    throw new UnsupportedOperationException();
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
+  @Deprecated
+  public static <E> ImmutableSortedMultiset<E> of(E element) {
+    throw new UnsupportedOperationException();
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
+  @Deprecated
+  public static <E> ImmutableSortedMultiset<E> of(E e1, E e2, E e3) {
+    throw new UnsupportedOperationException();
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `toImmutableMultiset()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
+#### Snippet
+```java
+  @Deprecated
+  public static <T extends @Nullable Object, E>
+      Collector<T, ?, ImmutableMultiset<E>> toImmutableMultiset(
+          Function<? super T, ? extends E> elementFunction,
+          ToIntFunction<? super T> countFunction) {
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `copyOf()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
+  @Deprecated
+  public static <E> ImmutableSortedMultiset<E> copyOf(E[] elements) {
+    throw new UnsupportedOperationException();
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
+  @Deprecated
+  public static <E> ImmutableSortedMultiset<E> of(E e1, E e2, E e3, E e4, E e5) {
+    throw new UnsupportedOperationException();
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMultisetFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Elements must be Comparable. (Or, pass a Comparator to orderedBy or copyOf.)")
+  @Deprecated
+  public static <E> ImmutableSortedMultiset<E> of(E e1, E e2) {
+    throw new UnsupportedOperationException();
+  }
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18278,6 +18278,18 @@ Method `of()` tries to override a static method of a superclass
 in `guava/src/com/google/common/collect/ImmutableSetMultimap.java`
 #### Snippet
 ```java
+
+  /** Returns an immutable multimap containing a single entry. */
+  public static <K, V> ImmutableSetMultimap<K, V> of(K k1, V v1) {
+    ImmutableSetMultimap.Builder<K, V> builder = ImmutableSetMultimap.builder();
+    builder.put(k1, v1);
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSetMultimap.java`
+#### Snippet
+```java
   // Casting is safe because the multimap will never hold any elements.
   @SuppressWarnings("unchecked")
   public static <K, V> ImmutableSetMultimap<K, V> of() {
@@ -18290,11 +18302,23 @@ Method `of()` tries to override a static method of a superclass
 in `guava/src/com/google/common/collect/ImmutableSetMultimap.java`
 #### Snippet
 ```java
-
-  /** Returns an immutable multimap containing a single entry. */
-  public static <K, V> ImmutableSetMultimap<K, V> of(K k1, V v1) {
+   * an entry (according to {@link Object#equals}) after the first are ignored.
+   */
+  public static <K, V> ImmutableSetMultimap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3) {
     ImmutableSetMultimap.Builder<K, V> builder = ImmutableSetMultimap.builder();
     builder.put(k1, v1);
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSetMultimap.java`
+#### Snippet
+```java
+   * an entry (according to {@link Object#equals}) after the first are ignored.
+   */
+  public static <K, V> ImmutableSetMultimap<K, V> of(
+      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+    ImmutableSetMultimap.Builder<K, V> builder = ImmutableSetMultimap.builder();
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18322,27 +18346,15 @@ in `guava/src/com/google/common/collect/ImmutableSetMultimap.java`
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSetMultimap.java`
+Method `create()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/CompactLinkedHashSet.java`
 #### Snippet
 ```java
-   * an entry (according to {@link Object#equals}) after the first are ignored.
+   * @return a new {@code CompactLinkedHashSet} containing those elements (minus duplicates)
    */
-  public static <K, V> ImmutableSetMultimap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
-    ImmutableSetMultimap.Builder<K, V> builder = ImmutableSetMultimap.builder();
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSetMultimap.java`
-#### Snippet
-```java
-   * an entry (according to {@link Object#equals}) after the first are ignored.
-   */
-  public static <K, V> ImmutableSetMultimap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3) {
-    ImmutableSetMultimap.Builder<K, V> builder = ImmutableSetMultimap.builder();
-    builder.put(k1, v1);
+  public static <E extends @Nullable Object> CompactLinkedHashSet<E> create(
+      Collection<? extends E> collection) {
+    CompactLinkedHashSet<E> set = createWithExpectedSize(collection.size());
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18382,42 +18394,6 @@ in `guava/src/com/google/common/collect/CompactLinkedHashSet.java`
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `create()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/CompactLinkedHashSet.java`
-#### Snippet
-```java
-   * @return a new {@code CompactLinkedHashSet} containing those elements (minus duplicates)
-   */
-  public static <E extends @Nullable Object> CompactLinkedHashSet<E> create(
-      Collection<? extends E> collection) {
-    CompactLinkedHashSet<E> set = createWithExpectedSize(collection.size());
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableBiMap.java`
-#### Snippet
-```java
-
-  /** Returns an immutable bimap containing a single entry. */
-  public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1) {
-    return new SingletonImmutableBiMap<>(k1, v1);
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `copyOf()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableBiMap.java`
-#### Snippet
-```java
-   */
-  @Beta
-  public static <K, V> ImmutableBiMap<K, V> copyOf(
-      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
-    @SuppressWarnings("unchecked") // we'll only be using getKey and getValue, which are covariant
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `of()` tries to override a static method of a superclass
 in `guava/src/com/google/common/collect/ImmutableBiMap.java`
 #### Snippet
@@ -18442,15 +18418,27 @@ in `guava/src/com/google/common/collect/ImmutableBiMap.java`
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
+Method `copyOf()` tries to override a static method of a superclass
 in `guava/src/com/google/common/collect/ImmutableBiMap.java`
 #### Snippet
 ```java
-   * @since 31.0
+   * @throws NullPointerException if any key or value in {@code map} is null
    */
-  public static <K, V> ImmutableBiMap<K, V> of(
-      K k1,
-      V v1,
+  public static <K, V> ImmutableBiMap<K, V> copyOf(Map<? extends K, ? extends V> map) {
+    if (map instanceof ImmutableBiMap) {
+      @SuppressWarnings("unchecked") // safe since map is not writable
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `ofEntries()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableBiMap.java`
+#### Snippet
+```java
+   */
+  @SafeVarargs
+  public static <K, V> ImmutableBiMap<K, V> ofEntries(Entry<? extends K, ? extends V>... entries) {
+    @SuppressWarnings("unchecked") // we will only ever read these
+    Entry<K, V>[] entries2 = (Entry<K, V>[]) entries;
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18466,27 +18454,15 @@ in `guava/src/com/google/common/collect/ImmutableBiMap.java`
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `builderWithExpectedSize()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableBiMap.java`
-#### Snippet
-```java
-   */
-  @Beta
-  public static <K, V> Builder<K, V> builderWithExpectedSize(int expectedSize) {
-    checkNonnegative(expectedSize, "expectedSize");
-    return new Builder<>(expectedSize);
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `of()` tries to override a static method of a superclass
 in `guava/src/com/google/common/collect/ImmutableBiMap.java`
 #### Snippet
 ```java
-   * @since 31.0
+   * @throws IllegalArgumentException if duplicate keys or values are added
    */
   public static <K, V> ImmutableBiMap<K, V> of(
-      K k1,
-      V v1,
+      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+    return RegularImmutableBiMap.fromEntries(
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18499,18 +18475,6 @@ in `guava/src/com/google/common/collect/ImmutableBiMap.java`
   public static <K, V> ImmutableBiMap<K, V> of() {
     return (ImmutableBiMap<K, V>) RegularImmutableBiMap.EMPTY;
   }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableBiMap.java`
-#### Snippet
-```java
-   * @since 31.0
-   */
-  public static <K, V> ImmutableBiMap<K, V> of(
-      K k1,
-      V v1,
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18538,42 +18502,6 @@ in `guava/src/com/google/common/collect/ImmutableBiMap.java`
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `ofEntries()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableBiMap.java`
-#### Snippet
-```java
-   */
-  @SafeVarargs
-  public static <K, V> ImmutableBiMap<K, V> ofEntries(Entry<? extends K, ? extends V>... entries) {
-    @SuppressWarnings("unchecked") // we will only ever read these
-    Entry<K, V>[] entries2 = (Entry<K, V>[]) entries;
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `copyOf()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableBiMap.java`
-#### Snippet
-```java
-   * @throws NullPointerException if any key or value in {@code map} is null
-   */
-  public static <K, V> ImmutableBiMap<K, V> copyOf(Map<? extends K, ? extends V> map) {
-    if (map instanceof ImmutableBiMap) {
-      @SuppressWarnings("unchecked") // safe since map is not writable
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableBiMap.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if duplicate keys or values are added
-   */
-  public static <K, V> ImmutableBiMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
-    return RegularImmutableBiMap.fromEntries(
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `of()` tries to override a static method of a superclass
 in `guava/src/com/google/common/collect/ImmutableBiMap.java`
 #### Snippet
@@ -18587,14 +18515,86 @@ in `guava/src/com/google/common/collect/ImmutableBiMap.java`
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
+in `guava/src/com/google/common/collect/ImmutableBiMap.java`
+#### Snippet
+```java
+
+  /** Returns an immutable bimap containing a single entry. */
+  public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1) {
+    return new SingletonImmutableBiMap<>(k1, v1);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableBiMap.java`
+#### Snippet
+```java
+   * @since 31.0
+   */
+  public static <K, V> ImmutableBiMap<K, V> of(
+      K k1,
+      V v1,
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `copyOf()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableBiMap.java`
 #### Snippet
 ```java
    */
-  @SuppressWarnings("unchecked")
-  public static <E> ImmutableSortedMultiset<E> of() {
-    return (ImmutableSortedMultiset) RegularImmutableSortedMultiset.NATURAL_EMPTY_MULTISET;
-  }
+  @Beta
+  public static <K, V> ImmutableBiMap<K, V> copyOf(
+      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+    @SuppressWarnings("unchecked") // we'll only be using getKey and getValue, which are covariant
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableBiMap.java`
+#### Snippet
+```java
+   * @since 31.0
+   */
+  public static <K, V> ImmutableBiMap<K, V> of(
+      K k1,
+      V v1,
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableBiMap.java`
+#### Snippet
+```java
+   * @since 31.0
+   */
+  public static <K, V> ImmutableBiMap<K, V> of(
+      K k1,
+      V v1,
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `builderWithExpectedSize()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableBiMap.java`
+#### Snippet
+```java
+   */
+  @Beta
+  public static <K, V> Builder<K, V> builderWithExpectedSize(int expectedSize) {
+    checkNonnegative(expectedSize, "expectedSize");
+    return new Builder<>(expectedSize);
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `copyOf()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
+#### Snippet
+```java
+   * @throws NullPointerException if any of {@code elements} is null
+   */
+  public static <E> ImmutableSortedMultiset<E> copyOf(Iterable<? extends E> elements) {
+    // Hack around E not being a subtype of Comparable.
+    // Unsafe, see ImmutableSortedMultisetFauxverideShim.
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18610,15 +18610,15 @@ in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `copyOf()` tries to override a static method of a superclass
+Method `of()` tries to override a static method of a superclass
 in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
 #### Snippet
 ```java
-   * @throws NullPointerException if any of {@code elements} is null
    */
-  public static <E> ImmutableSortedMultiset<E> copyOf(Iterable<? extends E> elements) {
-    // Hack around E not being a subtype of Comparable.
-    // Unsafe, see ImmutableSortedMultisetFauxverideShim.
+  @SuppressWarnings("unchecked")
+  public static <E> ImmutableSortedMultiset<E> of() {
+    return (ImmutableSortedMultiset) RegularImmutableSortedMultiset.NATURAL_EMPTY_MULTISET;
+  }
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18677,8 +18677,8 @@ in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
   @DoNotCall("Pass keys of type Comparable")
   @Deprecated
   public static <K, V> ImmutableSortedMap<K, V> of(
-      K k1,
-      V v1,
+      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+    throw new UnsupportedOperationException();
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18688,45 +18688,9 @@ in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
 ```java
   @DoNotCall("Pass keys of type Comparable")
   @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3) {
     throw new UnsupportedOperationException();
   }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `ofEntries()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("ImmutableSortedMap.ofEntries not currently available; use ImmutableSortedMap.copyOf")
-  @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> ofEntries(
-      Entry<? extends K, ? extends V>... entries) {
-    throw new UnsupportedOperationException();
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Pass keys of type Comparable")
-  @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7) {
-    throw new UnsupportedOperationException();
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Pass keys of type Comparable")
-  @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> of(
-      K k1,
-      V v1,
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18773,32 +18737,8 @@ in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
   @DoNotCall("Pass keys of type Comparable")
   @Deprecated
   public static <K, V> ImmutableSortedMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6) {
-    throw new UnsupportedOperationException();
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Pass a key of type Comparable")
-  @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1) {
-    throw new UnsupportedOperationException();
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Pass keys of type Comparable")
-  @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3) {
-    throw new UnsupportedOperationException();
-  }
+      K k1,
+      V v1,
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18811,6 +18751,30 @@ in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
       Collector<T, ?, ImmutableMap<K, V>> toImmutableMap(
           Function<? super T, ? extends K> keyFunction,
           Function<? super T, ? extends V> valueFunction) {
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `toImmutableMap()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
+#### Snippet
+```java
+  @Deprecated
+  public static <T extends @Nullable Object, K, V>
+      Collector<T, ?, ImmutableMap<K, V>> toImmutableMap(
+          Function<? super T, ? extends K> keyFunction,
+          Function<? super T, ? extends V> valueFunction,
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Pass keys of type Comparable")
+  @Deprecated
+  public static <K, V> ImmutableSortedMap<K, V> of(
+      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7) {
+    throw new UnsupportedOperationException();
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18833,32 +18797,56 @@ in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
   @DoNotCall("Pass keys of type Comparable")
   @Deprecated
   public static <K, V> ImmutableSortedMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+      K k1,
+      V v1,
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Pass keys of type Comparable")
+  @Deprecated
+  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+    throw new UnsupportedOperationException();
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `ofEntries()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("ImmutableSortedMap.ofEntries not currently available; use ImmutableSortedMap.copyOf")
+  @Deprecated
+  public static <K, V> ImmutableSortedMap<K, V> ofEntries(
+      Entry<? extends K, ? extends V>... entries) {
     throw new UnsupportedOperationException();
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `toImmutableMap()` tries to override a static method of a superclass
+Method `of()` tries to override a static method of a superclass
 in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
 #### Snippet
 ```java
+  @DoNotCall("Pass a key of type Comparable")
   @Deprecated
-  public static <T extends @Nullable Object, K, V>
-      Collector<T, ?, ImmutableMap<K, V>> toImmutableMap(
-          Function<? super T, ? extends K> keyFunction,
-          Function<? super T, ? extends V> valueFunction,
+  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1) {
+    throw new UnsupportedOperationException();
+  }
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `copyOf()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMapFauxverideShim.java`
 #### Snippet
 ```java
-   */
-  @Beta
-  public static <K, V> ImmutableSortedMap<K, V> copyOf(
-      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
-    // Hack around K not being a subtype of Comparable.
+  @DoNotCall("Pass keys of type Comparable")
+  @Deprecated
+  public static <K, V> ImmutableSortedMap<K, V> of(
+      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6) {
+    throw new UnsupportedOperationException();
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -18886,25 +18874,25 @@ in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
+Method `copyOf()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
 #### Snippet
 ```java
-  @DoNotCall("Pass parameters of type Comparable")
-  @Deprecated
-  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
-    throw new UnsupportedOperationException();
-  }
+   */
+  @Beta
+  public static <K, V> ImmutableSortedMap<K, V> copyOf(
+      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+    // Hack around K not being a subtype of Comparable.
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
+Method `copyOf()` tries to override a static method of a superclass
 in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
 #### Snippet
 ```java
   @DoNotCall("Pass parameters of type Comparable")
   @Deprecated
-  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4, E e5) {
+  public static <E> ImmutableSortedSet<E> copyOf(E[] elements) {
     throw new UnsupportedOperationException();
   }
 ```
@@ -18922,13 +18910,13 @@ in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
+Method `builder()` tries to override a static method of a superclass
 in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
 #### Snippet
 ```java
-  @DoNotCall("Pass parameters of type Comparable")
+  @DoNotCall("Use naturalOrder")
   @Deprecated
-  public static <E> ImmutableSortedSet<E> of(E e1, E e2) {
+  public static <E> ImmutableSortedSet.Builder<E> builder() {
     throw new UnsupportedOperationException();
   }
 ```
@@ -18952,43 +18940,7 @@ in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
 ```java
   @DoNotCall("Pass parameters of type Comparable")
   @Deprecated
-  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4) {
-    throw new UnsupportedOperationException();
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Pass parameters of type Comparable")
-  @Deprecated
-  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3) {
-    throw new UnsupportedOperationException();
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `builder()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Use naturalOrder")
-  @Deprecated
-  public static <E> ImmutableSortedSet.Builder<E> builder() {
-    throw new UnsupportedOperationException();
-  }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `copyOf()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
-#### Snippet
-```java
-  @DoNotCall("Pass parameters of type Comparable")
-  @Deprecated
-  public static <E> ImmutableSortedSet<E> copyOf(E[] elements) {
+  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
     throw new UnsupportedOperationException();
   }
 ```
@@ -19007,13 +18959,49 @@ in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `of()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
+in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
 #### Snippet
 ```java
-  // Casting is safe because the multimap will never hold any elements.
-  @SuppressWarnings("unchecked")
-  public static <K, V> ImmutableListMultimap<K, V> of() {
-    return (ImmutableListMultimap<K, V>) EmptyImmutableListMultimap.INSTANCE;
+  @DoNotCall("Pass parameters of type Comparable")
+  @Deprecated
+  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3) {
+    throw new UnsupportedOperationException();
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Pass parameters of type Comparable")
+  @Deprecated
+  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4, E e5) {
+    throw new UnsupportedOperationException();
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Pass parameters of type Comparable")
+  @Deprecated
+  public static <E> ImmutableSortedSet<E> of(E e1, E e2) {
+    throw new UnsupportedOperationException();
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableSortedSetFauxverideShim.java`
+#### Snippet
+```java
+  @DoNotCall("Pass parameters of type Comparable")
+  @Deprecated
+  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4) {
+    throw new UnsupportedOperationException();
   }
 ```
 
@@ -19035,10 +19023,10 @@ in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
 #### Snippet
 ```java
 
-  /** Returns an immutable multimap containing the given entries, in order. */
-  public static <K, V> ImmutableListMultimap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+  /** Returns an immutable multimap containing a single entry. */
+  public static <K, V> ImmutableListMultimap<K, V> of(K k1, V v1) {
     ImmutableListMultimap.Builder<K, V> builder = ImmutableListMultimap.builder();
+    builder.put(k1, v1);
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -19054,15 +19042,15 @@ in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
+Method `copyOf()` tries to override a static method of a superclass
 in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
 #### Snippet
 ```java
-
-  /** Returns an immutable multimap containing a single entry. */
-  public static <K, V> ImmutableListMultimap<K, V> of(K k1, V v1) {
-    ImmutableListMultimap.Builder<K, V> builder = ImmutableListMultimap.builder();
-    builder.put(k1, v1);
+   */
+  @Beta
+  public static <K, V> ImmutableListMultimap<K, V> copyOf(
+      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+    return new Builder<K, V>().putAll(entries).build();
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -19075,18 +19063,6 @@ in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
   public static <K, V> ImmutableListMultimap<K, V> copyOf(
       Multimap<? extends K, ? extends V> multimap) {
     if (multimap.isEmpty()) {
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `copyOf()` tries to override a static method of a superclass
-in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
-#### Snippet
-```java
-   */
-  @Beta
-  public static <K, V> ImmutableListMultimap<K, V> copyOf(
-      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
-    return new Builder<K, V>().putAll(entries).build();
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
@@ -19110,6 +19086,30 @@ in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
   /** Returns an immutable multimap containing the given entries, in order. */
   public static <K, V> ImmutableListMultimap<K, V> of(
       K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+    ImmutableListMultimap.Builder<K, V> builder = ImmutableListMultimap.builder();
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
+#### Snippet
+```java
+  // Casting is safe because the multimap will never hold any elements.
+  @SuppressWarnings("unchecked")
+  public static <K, V> ImmutableListMultimap<K, V> of() {
+    return (ImmutableListMultimap<K, V>) EmptyImmutableListMultimap.INSTANCE;
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `of()` tries to override a static method of a superclass
+in `guava/src/com/google/common/collect/ImmutableListMultimap.java`
+#### Snippet
+```java
+
+  /** Returns an immutable multimap containing the given entries, in order. */
+  public static <K, V> ImmutableListMultimap<K, V> of(
+      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
     ImmutableListMultimap.Builder<K, V> builder = ImmutableListMultimap.builder();
 ```
 
@@ -19242,30 +19242,6 @@ in `guava/src/com/google/common/math/IntMath.java`
 ```java
       case CEILING:
       case UP:
-        return logFloor + lessThanBranchFree(floorPow, x);
-      case HALF_DOWN:
-      case HALF_UP:
-```
-
-### RuleId[ruleID=SuspiciousNameCombination]
-'x' should probably not be passed as parameter 'y'
-in `guava/src/com/google/common/math/IntMath.java`
-#### Snippet
-```java
-      case HALF_EVEN:
-        // sqrt(10) is irrational, so log10(x) - logFloor is never exactly 0.5
-        return logFloor + lessThanBranchFree(halfPowersOf10[logFloor], x);
-      default:
-        throw new AssertionError();
-```
-
-### RuleId[ruleID=SuspiciousNameCombination]
-'x' should probably not be passed as parameter 'y'
-in `guava/src/com/google/common/math/IntMath.java`
-#### Snippet
-```java
-      case CEILING:
-      case UP:
         return sqrtFloor + lessThanBranchFree(sqrtFloor * sqrtFloor, x);
       case HALF_DOWN:
       case HALF_UP:
@@ -19288,35 +19264,35 @@ in `guava/src/com/google/common/math/IntMath.java`
 in `guava/src/com/google/common/math/IntMath.java`
 #### Snippet
 ```java
+      case CEILING:
+      case UP:
+        return logFloor + lessThanBranchFree(floorPow, x);
+      case HALF_DOWN:
+      case HALF_UP:
+```
+
+### RuleId[ruleID=SuspiciousNameCombination]
+'x' should probably not be passed as parameter 'y'
+in `guava/src/com/google/common/math/IntMath.java`
+#### Snippet
+```java
+      case HALF_EVEN:
+        // sqrt(10) is irrational, so log10(x) - logFloor is never exactly 0.5
+        return logFloor + lessThanBranchFree(halfPowersOf10[logFloor], x);
+      default:
+        throw new AssertionError();
+```
+
+### RuleId[ruleID=SuspiciousNameCombination]
+'x' should probably not be passed as parameter 'y'
+in `guava/src/com/google/common/math/IntMath.java`
+#### Snippet
+```java
         // floor(2^(logFloor + 0.5))
         int logFloor = (Integer.SIZE - 1) - leadingZeros;
         return logFloor + lessThanBranchFree(cmp, x);
 
       default:
-```
-
-### RuleId[ruleID=SuspiciousNameCombination]
-'x' should probably not be passed as parameter 'y'
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-         * signed long, so lessThanBranchFree is safe for use.
-         */
-        return sqrtFloor + lessThanBranchFree(halfSquare, x);
-    }
-    throw new AssertionError();
-```
-
-### RuleId[ruleID=SuspiciousNameCombination]
-'x' should probably not be passed as parameter 'y'
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-        // floor(2^(logFloor + 0.5))
-        int logFloor = (Long.SIZE - 1) - leadingZeros;
-        return logFloor + lessThanBranchFree(cmp, x);
-    }
-    throw new AssertionError("impossible");
 ```
 
 ### RuleId[ruleID=SuspiciousNameCombination]
@@ -19343,6 +19319,30 @@ in `guava/src/com/google/common/math/LongMath.java`
     throw new AssertionError();
 ```
 
+### RuleId[ruleID=SuspiciousNameCombination]
+'x' should probably not be passed as parameter 'y'
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+         * signed long, so lessThanBranchFree is safe for use.
+         */
+        return sqrtFloor + lessThanBranchFree(halfSquare, x);
+    }
+    throw new AssertionError();
+```
+
+### RuleId[ruleID=SuspiciousNameCombination]
+'x' should probably not be passed as parameter 'y'
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+        // floor(2^(logFloor + 0.5))
+        int logFloor = (Long.SIZE - 1) - leadingZeros;
+        return logFloor + lessThanBranchFree(cmp, x);
+    }
+    throw new AssertionError("impossible");
+```
+
 ## RuleId[ruleID=OptionalIsPresent]
 ### RuleId[ruleID=OptionalIsPresent]
 Can be replaced with single expression in functional style
@@ -19358,18 +19358,6 @@ in `guava/src/com/google/common/collect/Streams.java`
 
 ## RuleId[ruleID=AtomicFieldUpdaterNotStaticFinal]
 ### RuleId[ruleID=AtomicFieldUpdaterNotStaticFinal]
-AtomicReferenceFieldUpdater, Set\> field `seenExceptionsUpdater` is not declared 'static final'
-in `guava/src/com/google/common/util/concurrent/AggregateFutureState.java`
-#### Snippet
-```java
-  private static final class SafeAtomicHelper extends AtomicHelper {
-    final AtomicReferenceFieldUpdater<AggregateFutureState<?>, Set<Throwable>>
-        seenExceptionsUpdater;
-
-    final AtomicIntegerFieldUpdater<AggregateFutureState<?>> remainingCountUpdater;
-```
-
-### RuleId[ruleID=AtomicFieldUpdaterNotStaticFinal]
 AtomicIntegerFieldUpdater\> field `remainingCountUpdater` is not declared 'static final'
 in `guava/src/com/google/common/util/concurrent/AggregateFutureState.java`
 #### Snippet
@@ -19382,15 +19370,27 @@ in `guava/src/com/google/common/util/concurrent/AggregateFutureState.java`
 ```
 
 ### RuleId[ruleID=AtomicFieldUpdaterNotStaticFinal]
-AtomicReferenceFieldUpdater field `waiterNextUpdater` is not declared 'static final'
+AtomicReferenceFieldUpdater, Set\> field `seenExceptionsUpdater` is not declared 'static final'
+in `guava/src/com/google/common/util/concurrent/AggregateFutureState.java`
+#### Snippet
+```java
+  private static final class SafeAtomicHelper extends AtomicHelper {
+    final AtomicReferenceFieldUpdater<AggregateFutureState<?>, Set<Throwable>>
+        seenExceptionsUpdater;
+
+    final AtomicIntegerFieldUpdater<AggregateFutureState<?>> remainingCountUpdater;
+```
+
+### RuleId[ruleID=AtomicFieldUpdaterNotStaticFinal]
+AtomicReferenceFieldUpdater field `waiterThreadUpdater` is not declared 'static final'
 in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 #### Snippet
 ```java
+  @SuppressWarnings("rawtypes")
   private static final class SafeAtomicHelper extends AtomicHelper {
     final AtomicReferenceFieldUpdater<Waiter, Thread> waiterThreadUpdater;
     final AtomicReferenceFieldUpdater<Waiter, Waiter> waiterNextUpdater;
     final AtomicReferenceFieldUpdater<AbstractFuture, Waiter> waitersUpdater;
-    final AtomicReferenceFieldUpdater<AbstractFuture, Listener> listenersUpdater;
 ```
 
 ### RuleId[ruleID=AtomicFieldUpdaterNotStaticFinal]
@@ -19406,15 +19406,15 @@ in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 ```
 
 ### RuleId[ruleID=AtomicFieldUpdaterNotStaticFinal]
-AtomicReferenceFieldUpdater field `listenersUpdater` is not declared 'static final'
+AtomicReferenceFieldUpdater field `waiterNextUpdater` is not declared 'static final'
 in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 #### Snippet
 ```java
+  private static final class SafeAtomicHelper extends AtomicHelper {
+    final AtomicReferenceFieldUpdater<Waiter, Thread> waiterThreadUpdater;
     final AtomicReferenceFieldUpdater<Waiter, Waiter> waiterNextUpdater;
     final AtomicReferenceFieldUpdater<AbstractFuture, Waiter> waitersUpdater;
     final AtomicReferenceFieldUpdater<AbstractFuture, Listener> listenersUpdater;
-    final AtomicReferenceFieldUpdater<AbstractFuture, Object> valueUpdater;
-
 ```
 
 ### RuleId[ruleID=AtomicFieldUpdaterNotStaticFinal]
@@ -19430,15 +19430,15 @@ in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 ```
 
 ### RuleId[ruleID=AtomicFieldUpdaterNotStaticFinal]
-AtomicReferenceFieldUpdater field `waiterThreadUpdater` is not declared 'static final'
+AtomicReferenceFieldUpdater field `listenersUpdater` is not declared 'static final'
 in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 #### Snippet
 ```java
-  @SuppressWarnings("rawtypes")
-  private static final class SafeAtomicHelper extends AtomicHelper {
-    final AtomicReferenceFieldUpdater<Waiter, Thread> waiterThreadUpdater;
     final AtomicReferenceFieldUpdater<Waiter, Waiter> waiterNextUpdater;
     final AtomicReferenceFieldUpdater<AbstractFuture, Waiter> waitersUpdater;
+    final AtomicReferenceFieldUpdater<AbstractFuture, Listener> listenersUpdater;
+    final AtomicReferenceFieldUpdater<AbstractFuture, Object> valueUpdater;
+
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -19589,18 +19589,6 @@ in `guava/src/com/google/common/collect/Maps.java`
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'columnComparator' is still used
-in `guava/src/com/google/common/collect/TreeBasedTable.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public Comparator<? super C> columnComparator() {
-    return columnComparator;
-  }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'rowComparator' is still used
 in `guava/src/com/google/common/collect/TreeBasedTable.java`
 #### Snippet
@@ -19613,14 +19601,14 @@ in `guava/src/com/google/common/collect/TreeBasedTable.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'readFirstLine' is still used
-in `guava/src/com/google/common/io/Files.java`
+Deprecated member 'columnComparator' is still used
+in `guava/src/com/google/common/collect/TreeBasedTable.java`
 #### Snippet
 ```java
-  @CheckForNull
-  public
-  static String readFirstLine(File file, Charset charset) throws IOException {
-    return asCharSource(file, charset).readFirstLine();
+   */
+  @Deprecated
+  public Comparator<? super C> columnComparator() {
+    return columnComparator;
   }
 ```
 
@@ -19649,27 +19637,15 @@ in `guava/src/com/google/common/io/Files.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'preOrderTraversal' is still used
-in `guava/src/com/google/common/collect/TreeTraverser.java`
+Deprecated member 'readFirstLine' is still used
+in `guava/src/com/google/common/io/Files.java`
 #### Snippet
 ```java
-   */
-  @Deprecated
-  public final FluentIterable<T> preOrderTraversal(final T root) {
-    checkNotNull(root);
-    return new FluentIterable<T>() {
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'breadthFirstTraversal' is still used
-in `guava/src/com/google/common/collect/TreeTraverser.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public final FluentIterable<T> breadthFirstTraversal(final T root) {
-    checkNotNull(root);
-    return new FluentIterable<T>() {
+  @CheckForNull
+  public
+  static String readFirstLine(File file, Charset charset) throws IOException {
+    return asCharSource(file, charset).readFirstLine();
+  }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -19697,6 +19673,30 @@ public abstract class TreeTraverser<T> {
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'preOrderTraversal' is still used
+in `guava/src/com/google/common/collect/TreeTraverser.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public final FluentIterable<T> preOrderTraversal(final T root) {
+    checkNotNull(root);
+    return new FluentIterable<T>() {
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'breadthFirstTraversal' is still used
+in `guava/src/com/google/common/collect/TreeTraverser.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public final FluentIterable<T> breadthFirstTraversal(final T root) {
+    checkNotNull(root);
+    return new FluentIterable<T>() {
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'unmodifiableIterable' is still used
 in `guava/src/com/google/common/collect/Iterables.java`
 #### Snippet
@@ -19705,42 +19705,6 @@ in `guava/src/com/google/common/collect/Iterables.java`
   @Deprecated
   public static <E> Iterable<E> unmodifiableIterable(ImmutableCollection<E> iterable) {
     return checkNotNull(iterable);
-  }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'newSetFromMap' is still used
-in `guava/src/com/google/common/collect/Sets.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static <E extends @Nullable Object> Set<E> newSetFromMap(
-      Map<E, Boolean> map) {
-    return Collections.newSetFromMap(map);
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'lazyStackTrace' is still used
-in `guava/src/com/google/common/base/Throwables.java`
-#### Snippet
-```java
-  @Deprecated
-  @GwtIncompatible // lazyStackTraceIsLazy, jlaStackTrace
-  public static List<StackTraceElement> lazyStackTrace(Throwable throwable) {
-    return lazyStackTraceIsLazy()
-        ? jlaStackTrace(throwable)
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'lazyStackTraceIsLazy' is still used
-in `guava/src/com/google/common/base/Throwables.java`
-#### Snippet
-```java
-  @Deprecated
-  @GwtIncompatible // getStackTraceElementMethod
-  public static boolean lazyStackTraceIsLazy() {
-    return getStackTraceElementMethod != null && getStackTraceDepthMethod != null;
   }
 ```
 
@@ -19769,15 +19733,39 @@ in `guava/src/com/google/common/base/Throwables.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'unmodifiableMultiset' is still used
-in `guava/src/com/google/common/collect/Multisets.java`
+Deprecated member 'lazyStackTraceIsLazy' is still used
+in `guava/src/com/google/common/base/Throwables.java`
+#### Snippet
+```java
+  @Deprecated
+  @GwtIncompatible // getStackTraceElementMethod
+  public static boolean lazyStackTraceIsLazy() {
+    return getStackTraceElementMethod != null && getStackTraceDepthMethod != null;
+  }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'lazyStackTrace' is still used
+in `guava/src/com/google/common/base/Throwables.java`
+#### Snippet
+```java
+  @Deprecated
+  @GwtIncompatible // lazyStackTraceIsLazy, jlaStackTrace
+  public static List<StackTraceElement> lazyStackTrace(Throwable throwable) {
+    return lazyStackTraceIsLazy()
+        ? jlaStackTrace(throwable)
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'newSetFromMap' is still used
+in `guava/src/com/google/common/collect/Sets.java`
 #### Snippet
 ```java
    */
   @Deprecated
-  public static <E> Multiset<E> unmodifiableMultiset(ImmutableMultiset<E> multiset) {
-    return checkNotNull(multiset);
-  }
+  public static <E extends @Nullable Object> Set<E> newSetFromMap(
+      Map<E, Boolean> map) {
+    return Collections.newSetFromMap(map);
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -19790,6 +19778,18 @@ in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
     public final Builder<K, V> orderEntriesByValue(Comparator<? super V> valueComparator) {
       throw new UnsupportedOperationException("Not available on ImmutableSortedMap.Builder");
     }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'unmodifiableMultiset' is still used
+in `guava/src/com/google/common/collect/Multisets.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static <E> Multiset<E> unmodifiableMultiset(ImmutableMultiset<E> multiset) {
+    return checkNotNull(multiset);
+  }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -19823,8 +19823,8 @@ in `guava/src/com/google/common/hash/Hashing.java`
 ```java
    */
   @Deprecated
-  public static HashFunction murmur3_32() {
-    return Murmur3_32HashFunction.MURMUR3_32;
+  public static HashFunction murmur3_32(int seed) {
+    return new Murmur3_32HashFunction(seed, /* supplementaryPlaneFix= */ false);
   }
 ```
 
@@ -19847,8 +19847,8 @@ in `guava/src/com/google/common/hash/Hashing.java`
 ```java
    */
   @Deprecated
-  public static HashFunction murmur3_32(int seed) {
-    return new Murmur3_32HashFunction(seed, /* supplementaryPlaneFix= */ false);
+  public static HashFunction murmur3_32() {
+    return Murmur3_32HashFunction.MURMUR3_32;
   }
 ```
 
@@ -19949,18 +19949,6 @@ in `guava/src/com/google/common/collect/Ordering.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'unmodifiableMultimap' is still used
-in `guava/src/com/google/common/collect/Multimaps.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static <K, V> Multimap<K, V> unmodifiableMultimap(ImmutableMultimap<K, V> delegate) {
-    return checkNotNull(delegate);
-  }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'unmodifiableSetMultimap' is still used
 in `guava/src/com/google/common/collect/Multimaps.java`
 #### Snippet
@@ -19970,6 +19958,18 @@ in `guava/src/com/google/common/collect/Multimaps.java`
   public static <K, V> SetMultimap<K, V> unmodifiableSetMultimap(
       ImmutableSetMultimap<K, V> delegate) {
     return checkNotNull(delegate);
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'unmodifiableMultimap' is still used
+in `guava/src/com/google/common/collect/Multimaps.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static <K, V> Multimap<K, V> unmodifiableMultimap(ImmutableMultimap<K, V> delegate) {
+    return checkNotNull(delegate);
+  }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -20072,18 +20072,6 @@ in `guava/src/com/google/common/collect/Tables.java`
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'rowKey' in a Serializable class
-in `guava/src/com/google/common/collect/Tables.java`
-#### Snippet
-```java
-          R extends @Nullable Object, C extends @Nullable Object, V extends @Nullable Object>
-      extends AbstractCell<R, C, V> implements Serializable {
-    @ParametricNullness private final R rowKey;
-    @ParametricNullness private final C columnKey;
-    @ParametricNullness private final V value;
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'columnKey' in a Serializable class
 in `guava/src/com/google/common/collect/Tables.java`
 #### Snippet
@@ -20096,15 +20084,15 @@ in `guava/src/com/google/common/collect/Tables.java`
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'cellValues' in a Serializable class
-in `guava/src/com/google/common/collect/ImmutableTable.java`
+Non-serializable field 'rowKey' in a Serializable class
+in `guava/src/com/google/common/collect/Tables.java`
 #### Snippet
 ```java
-    private final Object[] columnKeys;
-
-    private final Object[] cellValues;
-    private final int[] cellRowIndices;
-    private final int[] cellColumnIndices;
+          R extends @Nullable Object, C extends @Nullable Object, V extends @Nullable Object>
+      extends AbstractCell<R, C, V> implements Serializable {
+    @ParametricNullness private final R rowKey;
+    @ParametricNullness private final C columnKey;
+    @ParametricNullness private final V value;
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -20132,15 +20120,15 @@ in `guava/src/com/google/common/collect/ImmutableTable.java`
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'value' in a Serializable class
-in `guava/src/com/google/common/base/Functions.java`
+Non-serializable field 'cellValues' in a Serializable class
+in `guava/src/com/google/common/collect/ImmutableTable.java`
 #### Snippet
 ```java
-  private static class ConstantFunction<E extends @Nullable Object>
-      implements Function<@Nullable Object, E>, Serializable {
-    @ParametricNullness private final E value;
+    private final Object[] columnKeys;
 
-    public ConstantFunction(@ParametricNullness E value) {
+    private final Object[] cellValues;
+    private final int[] cellRowIndices;
+    private final int[] cellColumnIndices;
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -20156,15 +20144,15 @@ in `guava/src/com/google/common/base/Functions.java`
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'instance' in a Serializable class
-in `guava/src/com/google/common/base/Suppliers.java`
+Non-serializable field 'value' in a Serializable class
+in `guava/src/com/google/common/base/Functions.java`
 #### Snippet
 ```java
-  private static class SupplierOfInstance<T extends @Nullable Object>
-      implements Supplier<T>, Serializable {
-    @ParametricNullness final T instance;
+  private static class ConstantFunction<E extends @Nullable Object>
+      implements Function<@Nullable Object, E>, Serializable {
+    @ParametricNullness private final E value;
 
-    SupplierOfInstance(@ParametricNullness T instance) {
+    public ConstantFunction(@ParametricNullness E value) {
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -20180,6 +20168,18 @@ in `guava/src/com/google/common/base/Predicates.java`
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'instance' in a Serializable class
+in `guava/src/com/google/common/base/Suppliers.java`
+#### Snippet
+```java
+  private static class SupplierOfInstance<T extends @Nullable Object>
+      implements Supplier<T>, Serializable {
+    @ParametricNullness final T instance;
+
+    SupplierOfInstance(@ParametricNullness T instance) {
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'element' in a Serializable class
 in `guava/src/com/google/common/collect/Multisets.java`
 #### Snippet
@@ -20188,18 +20188,6 @@ in `guava/src/com/google/common/collect/Multisets.java`
       implements Serializable {
     @ParametricNullness private final E element;
     private final int count;
-
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'upperEndpoint' in a Serializable class
-in `guava/src/com/google/common/collect/GeneralRange.java`
-#### Snippet
-```java
-  private final BoundType lowerBoundType;
-  private final boolean hasUpperBound;
-  @CheckForNull private final T upperEndpoint;
-  private final BoundType upperBoundType;
 
 ```
 
@@ -20213,6 +20201,18 @@ in `guava/src/com/google/common/collect/GeneralRange.java`
   @CheckForNull private final T lowerEndpoint;
   private final BoundType lowerBoundType;
   private final boolean hasUpperBound;
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'upperEndpoint' in a Serializable class
+in `guava/src/com/google/common/collect/GeneralRange.java`
+#### Snippet
+```java
+  private final BoundType lowerBoundType;
+  private final boolean hasUpperBound;
+  @CheckForNull private final T upperEndpoint;
+  private final BoundType upperBoundType;
+
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -20252,15 +20252,15 @@ in `guava/src/com/google/common/util/concurrent/CycleDetectingLockFactory.java`
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'first' in a Serializable class
+Non-serializable field 'rest' in a Serializable class
 in `guava/src/com/google/common/collect/Lists.java`
 #### Snippet
 ```java
-  private static class TwoPlusArrayList<E extends @Nullable Object> extends AbstractList<E>
-      implements Serializable, RandomAccess {
     @ParametricNullness final E first;
     @ParametricNullness final E second;
     final E[] rest;
+
+    TwoPlusArrayList(@ParametricNullness E first, @ParametricNullness E second, E[] rest) {
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -20276,15 +20276,15 @@ in `guava/src/com/google/common/collect/Lists.java`
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'rest' in a Serializable class
+Non-serializable field 'first' in a Serializable class
 in `guava/src/com/google/common/collect/Lists.java`
 #### Snippet
 ```java
+  private static class TwoPlusArrayList<E extends @Nullable Object> extends AbstractList<E>
+      implements Serializable, RandomAccess {
     @ParametricNullness final E first;
     @ParametricNullness final E second;
     final E[] rest;
-
-    TwoPlusArrayList(@ParametricNullness E first, @ParametricNullness E second, E[] rest) {
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -20312,15 +20312,27 @@ in `guava/src/com/google/common/collect/Lists.java`
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'queueForValues' in a Serializable class
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+Non-serializable field 'closer' in a Serializable class
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
 #### Snippet
 ```java
-      extends Segment<K, V, WeakKeyWeakValueEntry<K, V>, WeakKeyWeakValueSegment<K, V>> {
-    private final ReferenceQueue<K> queueForKeys = new ReferenceQueue<K>();
-    private final ReferenceQueue<V> queueForValues = new ReferenceQueue<V>();
+  private static final class CloseableList extends IdentityHashMap<AutoCloseable, Executor>
+      implements Closeable {
+    private final DeferredCloser closer = new DeferredCloser(this);
+    private volatile boolean closed;
+    @CheckForNull private volatile CountDownLatch whenClosed;
+```
 
-    WeakKeyWeakValueSegment(
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'whenClosed' in a Serializable class
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+    private final DeferredCloser closer = new DeferredCloser(this);
+    private volatile boolean closed;
+    @CheckForNull private volatile CountDownLatch whenClosed;
+
+    <V extends @Nullable Object, U extends @Nullable Object>
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -20348,18 +20360,6 @@ in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'queueForKeys' in a Serializable class
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-  static final class WeakKeyStrongValueSegment<K, V>
-      extends Segment<K, V, WeakKeyStrongValueEntry<K, V>, WeakKeyStrongValueSegment<K, V>> {
-    private final ReferenceQueue<K> queueForKeys = new ReferenceQueue<K>();
-
-    WeakKeyStrongValueSegment(
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'queueForValues' in a Serializable class
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
@@ -20372,6 +20372,30 @@ in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'queueForValues' in a Serializable class
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+      extends Segment<K, V, WeakKeyWeakValueEntry<K, V>, WeakKeyWeakValueSegment<K, V>> {
+    private final ReferenceQueue<K> queueForKeys = new ReferenceQueue<K>();
+    private final ReferenceQueue<V> queueForValues = new ReferenceQueue<V>();
+
+    WeakKeyWeakValueSegment(
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'queueForKeys' in a Serializable class
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+  static final class WeakKeyStrongValueSegment<K, V>
+      extends Segment<K, V, WeakKeyStrongValueEntry<K, V>, WeakKeyStrongValueSegment<K, V>> {
+    private final ReferenceQueue<K> queueForKeys = new ReferenceQueue<K>();
+
+    WeakKeyStrongValueSegment(
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'value' in a Serializable class
 in `guava/src/com/google/common/collect/Ordering.java`
 #### Snippet
@@ -20381,30 +20405,6 @@ in `guava/src/com/google/common/collect/Ordering.java`
     final Object value;
 
     IncomparableValueException(Object value) {
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'closer' in a Serializable class
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-  private static final class CloseableList extends IdentityHashMap<AutoCloseable, Executor>
-      implements Closeable {
-    private final DeferredCloser closer = new DeferredCloser(this);
-    private volatile boolean closed;
-    @CheckForNull private volatile CountDownLatch whenClosed;
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'whenClosed' in a Serializable class
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-    private final DeferredCloser closer = new DeferredCloser(this);
-    private volatile boolean closed;
-    @CheckForNull private volatile CountDownLatch whenClosed;
-
-    <V extends @Nullable Object, U extends @Nullable Object>
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -20524,7 +20524,7 @@ in `guava/src/com/google/common/io/ByteSource.java`
 ```java
     @Override
     public String toString() {
-      return ByteSource.this.toString() + ".asCharSource(" + charset + ")";
+      return ByteSource.this.toString() + ".slice(" + offset + ", " + length + ")";
     }
   }
 ```
@@ -20536,7 +20536,7 @@ in `guava/src/com/google/common/io/ByteSource.java`
 ```java
     @Override
     public String toString() {
-      return ByteSource.this.toString() + ".slice(" + offset + ", " + length + ")";
+      return ByteSource.this.toString() + ".asCharSource(" + charset + ")";
     }
   }
 ```
@@ -20547,11 +20547,11 @@ Assignment to for-loop parameter `i`
 in `guava/src/com/google/common/base/Ascii.java`
 #### Snippet
 ```java
-      if (isLowerCase(string.charAt(i))) {
+      if (isUpperCase(string.charAt(i))) {
         char[] chars = string.toCharArray();
         for (; i < length; i++) {
           char c = chars[i];
-          if (isLowerCase(c)) {
+          if (isUpperCase(c)) {
 ```
 
 ### RuleId[ruleID=AssignmentToForLoopParameter]
@@ -20559,11 +20559,11 @@ Assignment to for-loop parameter `i`
 in `guava/src/com/google/common/base/Ascii.java`
 #### Snippet
 ```java
-      if (isUpperCase(string.charAt(i))) {
+      if (isLowerCase(string.charAt(i))) {
         char[] chars = string.toCharArray();
         for (; i < length; i++) {
           char c = chars[i];
-          if (isUpperCase(c)) {
+          if (isLowerCase(c)) {
 ```
 
 ### RuleId[ruleID=AssignmentToForLoopParameter]
@@ -20718,18 +20718,6 @@ in `guava/src/com/google/common/io/CountingInputStream.java`
 #### Snippet
 ```java
   @Override
-  public synchronized void mark(int readlimit) {
-    in.mark(readlimit);
-    mark = count;
-    // it's okay to mark even if mark isn't supported, as reset won't work
-```
-
-### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `in` accessed in synchronized context
-in `guava/src/com/google/common/io/CountingInputStream.java`
-#### Snippet
-```java
-  @Override
   public synchronized void reset() throws IOException {
     if (!in.markSupported()) {
       throw new IOException("Mark not supported");
@@ -20749,37 +20737,49 @@ in `guava/src/com/google/common/io/CountingInputStream.java`
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `descendingMap` accessed in synchronized context
+Non-private field `in` accessed in synchronized context
+in `guava/src/com/google/common/io/CountingInputStream.java`
+#### Snippet
+```java
+  @Override
+  public synchronized void mark(int readlimit) {
+    in.mark(readlimit);
+    mark = count;
+    // it's okay to mark even if mark isn't supported, as reset won't work
+```
+
+### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+Non-private field `navigableKeySet` accessed in synchronized context
 in `guava/src/com/google/common/collect/Synchronized.java`
 #### Snippet
 ```java
-    public NavigableMap<K, V> descendingMap() {
+    public NavigableSet<K> navigableKeySet() {
       synchronized (mutex) {
-        if (descendingMap == null) {
-          return descendingMap = navigableMap(delegate().descendingMap(), mutex);
+        if (navigableKeySet == null) {
+          return navigableKeySet = Synchronized.navigableSet(delegate().navigableKeySet(), mutex);
         }
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `descendingMap` accessed in synchronized context
+Non-private field `navigableKeySet` accessed in synchronized context
 in `guava/src/com/google/common/collect/Synchronized.java`
 #### Snippet
 ```java
       synchronized (mutex) {
-        if (descendingMap == null) {
-          return descendingMap = navigableMap(delegate().descendingMap(), mutex);
+        if (navigableKeySet == null) {
+          return navigableKeySet = Synchronized.navigableSet(delegate().navigableKeySet(), mutex);
         }
-        return descendingMap;
+        return navigableKeySet;
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `descendingMap` accessed in synchronized context
+Non-private field `navigableKeySet` accessed in synchronized context
 in `guava/src/com/google/common/collect/Synchronized.java`
 #### Snippet
 ```java
-          return descendingMap = navigableMap(delegate().descendingMap(), mutex);
+          return navigableKeySet = Synchronized.navigableSet(delegate().navigableKeySet(), mutex);
         }
-        return descendingMap;
+        return navigableKeySet;
       }
     }
 ```
@@ -20821,37 +20821,37 @@ in `guava/src/com/google/common/collect/Synchronized.java`
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `navigableKeySet` accessed in synchronized context
+Non-private field `descendingMap` accessed in synchronized context
 in `guava/src/com/google/common/collect/Synchronized.java`
 #### Snippet
 ```java
-    public NavigableSet<K> navigableKeySet() {
+    public NavigableMap<K, V> descendingMap() {
       synchronized (mutex) {
-        if (navigableKeySet == null) {
-          return navigableKeySet = Synchronized.navigableSet(delegate().navigableKeySet(), mutex);
+        if (descendingMap == null) {
+          return descendingMap = navigableMap(delegate().descendingMap(), mutex);
         }
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `navigableKeySet` accessed in synchronized context
+Non-private field `descendingMap` accessed in synchronized context
 in `guava/src/com/google/common/collect/Synchronized.java`
 #### Snippet
 ```java
       synchronized (mutex) {
-        if (navigableKeySet == null) {
-          return navigableKeySet = Synchronized.navigableSet(delegate().navigableKeySet(), mutex);
+        if (descendingMap == null) {
+          return descendingMap = navigableMap(delegate().descendingMap(), mutex);
         }
-        return navigableKeySet;
+        return descendingMap;
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `navigableKeySet` accessed in synchronized context
+Non-private field `descendingMap` accessed in synchronized context
 in `guava/src/com/google/common/collect/Synchronized.java`
 #### Snippet
 ```java
-          return navigableKeySet = Synchronized.navigableSet(delegate().navigableKeySet(), mutex);
+          return descendingMap = navigableMap(delegate().descendingMap(), mutex);
         }
-        return navigableKeySet;
+        return descendingMap;
       }
     }
 ```
@@ -20890,42 +20890,6 @@ in `guava/src/com/google/common/collect/Synchronized.java`
         return descendingKeySet;
       }
     }
-```
-
-### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `initialized` accessed in synchronized context
-in `guava/src/com/google/common/base/Suppliers.java`
-#### Snippet
-```java
-      if (!initialized) {
-        synchronized (this) {
-          if (!initialized) {
-            T t = delegate.get();
-            value = t;
-```
-
-### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `value` accessed in synchronized context
-in `guava/src/com/google/common/base/Suppliers.java`
-#### Snippet
-```java
-          if (!initialized) {
-            T t = delegate.get();
-            value = t;
-            initialized = true;
-            return t;
-```
-
-### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `initialized` accessed in synchronized context
-in `guava/src/com/google/common/base/Suppliers.java`
-#### Snippet
-```java
-            T t = delegate.get();
-            value = t;
-            initialized = true;
-            return t;
-          }
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
@@ -20984,6 +20948,42 @@ in `guava/src/com/google/common/base/Suppliers.java`
             initialized = true;
             // Release the delegate to GC.
             delegate = null;
+            return t;
+          }
+```
+
+### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+Non-private field `initialized` accessed in synchronized context
+in `guava/src/com/google/common/base/Suppliers.java`
+#### Snippet
+```java
+      if (!initialized) {
+        synchronized (this) {
+          if (!initialized) {
+            T t = delegate.get();
+            value = t;
+```
+
+### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+Non-private field `value` accessed in synchronized context
+in `guava/src/com/google/common/base/Suppliers.java`
+#### Snippet
+```java
+          if (!initialized) {
+            T t = delegate.get();
+            value = t;
+            initialized = true;
+            return t;
+```
+
+### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+Non-private field `initialized` accessed in synchronized context
+in `guava/src/com/google/common/base/Suppliers.java`
+#### Snippet
+```java
+            T t = delegate.get();
+            value = t;
+            initialized = true;
             return t;
           }
 ```
@@ -21372,6 +21372,18 @@ in `guava/src/com/google/common/util/concurrent/MoreExecutors.java`
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for field 'parsedCharset'
+in `guava/src/com/google/common/net/MediaType.java`
+#### Snippet
+```java
+  @LazyInit private int hashCode;
+
+  @LazyInit @CheckForNull private Optional<Charset> parsedCharset;
+
+  private MediaType(String type, String subtype, ImmutableListMultimap<String, String> parameters) {
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional`> used as type for field 'iterableDelegate'
 in `guava/src/com/google/common/collect/FluentIterable.java`
 #### Snippet
@@ -21381,30 +21393,6 @@ in `guava/src/com/google/common/collect/FluentIterable.java`
   private final Optional<Iterable<E>> iterableDelegate;
 
   /** Constructor for use by subclasses. */
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`OptionalLong` used as type for parameter 'optional'
-in `guava/src/com/google/common/collect/Streams.java`
-#### Snippet
-```java
-  @InlineMe(replacement = "optional.stream()")
-  @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
-  public static LongStream stream(OptionalLong optional) {
-    return optional.isPresent() ? LongStream.of(optional.getAsLong()) : LongStream.empty();
-  }
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`java.util.Optional` used as type for parameter 'optional'
-in `guava/src/com/google/common/collect/Streams.java`
-#### Snippet
-```java
-  @InlineMe(replacement = "optional.stream()")
-  @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
-  public static <T> Stream<T> stream(java.util.Optional<T> optional) {
-    return optional.isPresent() ? Stream.of(optional.get()) : Stream.empty();
-  }
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
@@ -21444,27 +21432,27 @@ in `guava/src/com/google/common/collect/Streams.java`
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for field 'parsedCharset'
-in `guava/src/com/google/common/net/MediaType.java`
+`java.util.Optional` used as type for parameter 'optional'
+in `guava/src/com/google/common/collect/Streams.java`
 #### Snippet
 ```java
-  @LazyInit private int hashCode;
-
-  @LazyInit @CheckForNull private Optional<Charset> parsedCharset;
-
-  private MediaType(String type, String subtype, ImmutableListMultimap<String, String> parameters) {
+  @InlineMe(replacement = "optional.stream()")
+  @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
+  public static <T> Stream<T> stream(java.util.Optional<T> optional) {
+    return optional.isPresent() ? Stream.of(optional.get()) : Stream.empty();
+  }
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'desiredType'
-in `guava/src/com/google/common/net/InternetDomainName.java`
+`OptionalLong` used as type for parameter 'optional'
+in `guava/src/com/google/common/collect/Streams.java`
 #### Snippet
 ```java
-   * Otherwise, it finds the first suffix of any type.
-   */
-  private int findSuffixOfType(Optional<PublicSuffixType> desiredType) {
-    int partsSize = parts.size();
-
+  @InlineMe(replacement = "optional.stream()")
+  @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
+  public static LongStream stream(OptionalLong optional) {
+    return optional.isPresent() ? LongStream.of(optional.getAsLong()) : LongStream.empty();
+  }
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
@@ -21477,6 +21465,18 @@ in `guava/src/com/google/common/net/InternetDomainName.java`
       Optional<PublicSuffixType> desiredType, String domain) {
     List<String> pieces = DOT_SPLITTER.limit(2).splitToList(domain);
     return pieces.size() == 2
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for parameter 'desiredType'
+in `guava/src/com/google/common/net/InternetDomainName.java`
+#### Snippet
+```java
+   * Otherwise, it finds the first suffix of any type.
+   */
+  private int findSuffixOfType(Optional<PublicSuffixType> desiredType) {
+    int partsSize = parts.size();
+
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
@@ -21516,18 +21516,6 @@ in `guava/src/com/google/common/graph/NetworkBuilder.java`
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'googleOptional'
-in `guava/src/com/google/common/base/Optional.java`
-#### Snippet
-```java
-   */
-  @CheckForNull
-  public static <T> java.util.Optional<T> toJavaUtil(@CheckForNull Optional<T> googleOptional) {
-    return googleOptional == null ? null : googleOptional.toJavaUtil();
-  }
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for parameter 'secondChoice'
 in `guava/src/com/google/common/base/Optional.java`
 #### Snippet
@@ -21537,6 +21525,18 @@ in `guava/src/com/google/common/base/Optional.java`
   public abstract Optional<T> or(Optional<? extends T> secondChoice);
 
   /**
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for parameter 'googleOptional'
+in `guava/src/com/google/common/base/Optional.java`
+#### Snippet
+```java
+   */
+  @CheckForNull
+  public static <T> java.util.Optional<T> toJavaUtil(@CheckForNull Optional<T> googleOptional) {
+    return googleOptional == null ? null : googleOptional.toJavaUtil();
+  }
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
@@ -21602,15 +21602,15 @@ in `guava/src/com/google/common/io/FileBackedOutputStream.java`
 
 ## RuleId[ruleID=CharsetObjectCanBeUsed]
 ### RuleId[ruleID=CharsetObjectCanBeUsed]
-StandardCharsets.US_ASCII can be used instead
+StandardCharsets.UTF_16 can be used instead
 in `guava/src/com/google/common/base/Charsets.java`
 #### Snippet
 ```java
    */
   @GwtIncompatible // Charset not supported by GWT
-  public static final Charset US_ASCII = Charset.forName("US-ASCII");
+  public static final Charset UTF_16 = Charset.forName("UTF-16");
 
-  /**
+  /*
 ```
 
 ### RuleId[ruleID=CharsetObjectCanBeUsed]
@@ -21626,18 +21626,6 @@ in `guava/src/com/google/common/base/Charsets.java`
 ```
 
 ### RuleId[ruleID=CharsetObjectCanBeUsed]
-StandardCharsets.UTF_16 can be used instead
-in `guava/src/com/google/common/base/Charsets.java`
-#### Snippet
-```java
-   */
-  @GwtIncompatible // Charset not supported by GWT
-  public static final Charset UTF_16 = Charset.forName("UTF-16");
-
-  /*
-```
-
-### RuleId[ruleID=CharsetObjectCanBeUsed]
 StandardCharsets.ISO_8859_1 can be used instead
 in `guava/src/com/google/common/base/Charsets.java`
 #### Snippet
@@ -21650,13 +21638,13 @@ in `guava/src/com/google/common/base/Charsets.java`
 ```
 
 ### RuleId[ruleID=CharsetObjectCanBeUsed]
-StandardCharsets.UTF_16LE can be used instead
+StandardCharsets.US_ASCII can be used instead
 in `guava/src/com/google/common/base/Charsets.java`
 #### Snippet
 ```java
    */
   @GwtIncompatible // Charset not supported by GWT
-  public static final Charset UTF_16LE = Charset.forName("UTF-16LE");
+  public static final Charset US_ASCII = Charset.forName("US-ASCII");
 
   /**
 ```
@@ -21669,6 +21657,18 @@ in `guava/src/com/google/common/base/Charsets.java`
    *
    */
   public static final Charset UTF_8 = Charset.forName("UTF-8");
+
+  /**
+```
+
+### RuleId[ruleID=CharsetObjectCanBeUsed]
+StandardCharsets.UTF_16LE can be used instead
+in `guava/src/com/google/common/base/Charsets.java`
+#### Snippet
+```java
+   */
+  @GwtIncompatible // Charset not supported by GWT
+  public static final Charset UTF_16LE = Charset.forName("UTF-16LE");
 
   /**
 ```
@@ -21699,6 +21699,18 @@ in `guava/src/com/google/common/primitives/Doubles.java`
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.net` is unnecessary and can be removed
+in `guava/src/com/google/common/net/HostSpecifier.java`
+#### Snippet
+```java
+ *
+ * <p>If you know that a given string represents a numeric IP address, use {@link InetAddresses} to
+ * obtain and manipulate a {@link java.net.InetAddress} instance from it rather than using this
+ * class. Similarly, if you know that a given string represents a domain name, use {@link
+ * InternetDomainName} rather than this class.
+```
+
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
 in `guava/src/com/google/common/reflect/ParametricNullness.java`
@@ -21733,18 +21745,6 @@ in `guava/src/com/google/common/reflect/ParametricNullness.java`
 @javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
 @interface ParametricNullness {}
 
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.net` is unnecessary and can be removed
-in `guava/src/com/google/common/net/HostSpecifier.java`
-#### Snippet
-```java
- *
- * <p>If you know that a given string represents a numeric IP address, use {@link InetAddresses} to
- * obtain and manipulate a {@link java.net.InetAddress} instance from it rather than using this
- * class. Similarly, if you know that a given string represents a domain name, use {@link
- * InternetDomainName} rather than this class.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -21832,54 +21832,6 @@ in `guava/src/com/google/common/io/ParametricNullness.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `guava/src/com/google/common/reflect/Invokable.java`
-#### Snippet
-```java
-  }
-
-  /** See {@link java.lang.reflect.AccessibleObject#trySetAccessible()}. */
-  public final boolean trySetAccessible() {
-    // We can't call accessibleObject.trySetAccessible since that was added in Java 9 and this code
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `guava/src/com/google/common/reflect/Invokable.java`
-#### Snippet
-```java
-  }
-
-  /** See {@link java.lang.reflect.AccessibleObject#isAccessible()}. */
-  public final boolean isAccessible() {
-    return accessibleObject.isAccessible();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `guava/src/com/google/common/reflect/Invokable.java`
-#### Snippet
-```java
- *
- * <p><b>Note:</b> earlier versions of this class inherited from {@link
- * java.lang.reflect.AccessibleObject AccessibleObject} and {@link
- * java.lang.reflect.GenericDeclaration GenericDeclaration}. Since version 31.0 that is no longer
- * the case. However, most methods from those types are present with the same signature in this
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `guava/src/com/google/common/reflect/Invokable.java`
-#### Snippet
-```java
-  public abstract TypeVariable<?>[] getTypeParameters();
-
-  /** See {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)}. */
-  public final void setAccessible(boolean flag) {
-    accessibleObject.setAccessible(flag);
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.concurrent.locks` is unnecessary and can be removed
 in `guava/src/com/google/common/util/concurrent/Monitor.java`
 #### Snippet
@@ -21904,6 +21856,54 @@ in `guava/src/com/google/common/util/concurrent/Monitor.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `guava/src/com/google/common/reflect/Invokable.java`
+#### Snippet
+```java
+  public abstract TypeVariable<?>[] getTypeParameters();
+
+  /** See {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)}. */
+  public final void setAccessible(boolean flag) {
+    accessibleObject.setAccessible(flag);
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `guava/src/com/google/common/reflect/Invokable.java`
+#### Snippet
+```java
+ *
+ * <p><b>Note:</b> earlier versions of this class inherited from {@link
+ * java.lang.reflect.AccessibleObject AccessibleObject} and {@link
+ * java.lang.reflect.GenericDeclaration GenericDeclaration}. Since version 31.0 that is no longer
+ * the case. However, most methods from those types are present with the same signature in this
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `guava/src/com/google/common/reflect/Invokable.java`
+#### Snippet
+```java
+  }
+
+  /** See {@link java.lang.reflect.AccessibleObject#trySetAccessible()}. */
+  public final boolean trySetAccessible() {
+    // We can't call accessibleObject.trySetAccessible since that was added in Java 9 and this code
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `guava/src/com/google/common/reflect/Invokable.java`
+#### Snippet
+```java
+  }
+
+  /** See {@link java.lang.reflect.AccessibleObject#isAccessible()}. */
+  public final boolean isAccessible() {
+    return accessibleObject.isAccessible();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
 in `guava/src/com/google/common/graph/ParametricNullness.java`
 #### Snippet
@@ -21940,15 +21940,39 @@ in `guava/src/com/google/common/graph/ParametricNullness.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `guava/src/com/google/common/collect/FluentIterable.java`
+Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/net/ParametricNullness.java`
 #### Snippet
 ```java
-   * Returns a fluent iterable containing the specified elements in order.
-   *
-   * <p><b>{@code Stream} equivalent:</b> {@link java.util.stream.Stream#of(Object[])
-   * Stream.of(T...)}.
-   *
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER})
+@javax.annotation.meta.TypeQualifierNickname
+@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
+@interface ParametricNullness {}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/net/ParametricNullness.java`
+#### Snippet
+```java
+@Target({FIELD, METHOD, PARAMETER})
+@javax.annotation.meta.TypeQualifierNickname
+@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
+@interface ParametricNullness {}
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/net/ParametricNullness.java`
+#### Snippet
+```java
+@Target({FIELD, METHOD, PARAMETER})
+@javax.annotation.meta.TypeQualifierNickname
+@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
+@interface ParametricNullness {}
+
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -21964,39 +21988,15 @@ in `guava/src/com/google/common/collect/FluentIterable.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/net/ParametricNullness.java`
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `guava/src/com/google/common/collect/FluentIterable.java`
 #### Snippet
 ```java
-@Retention(RUNTIME)
-@Target({FIELD, METHOD, PARAMETER})
-@javax.annotation.meta.TypeQualifierNickname
-@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
-@interface ParametricNullness {}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/net/ParametricNullness.java`
-#### Snippet
-```java
-@Target({FIELD, METHOD, PARAMETER})
-@javax.annotation.meta.TypeQualifierNickname
-@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
-@interface ParametricNullness {}
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/net/ParametricNullness.java`
-#### Snippet
-```java
-@Target({FIELD, METHOD, PARAMETER})
-@javax.annotation.meta.TypeQualifierNickname
-@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
-@interface ParametricNullness {}
-
+   * Returns a fluent iterable containing the specified elements in order.
+   *
+   * <p><b>{@code Stream} equivalent:</b> {@link java.util.stream.Stream#of(Object[])
+   * Stream.of(T...)}.
+   *
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -22012,42 +22012,6 @@ in `guava/src/com/google/common/util/concurrent/FutureCallback.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/ParametricNullness.java`
-#### Snippet
-```java
-@Retention(RUNTIME)
-@Target({FIELD, METHOD, PARAMETER})
-@javax.annotation.meta.TypeQualifierNickname
-@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
-@interface ParametricNullness {}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/ParametricNullness.java`
-#### Snippet
-```java
-@Target({FIELD, METHOD, PARAMETER})
-@javax.annotation.meta.TypeQualifierNickname
-@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
-@interface ParametricNullness {}
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/ParametricNullness.java`
-#### Snippet
-```java
-@Target({FIELD, METHOD, PARAMETER})
-@javax.annotation.meta.TypeQualifierNickname
-@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
-@interface ParametricNullness {}
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
 in `guava/src/com/google/common/collect/Streams.java`
 #### Snippet
@@ -22055,32 +22019,8 @@ in `guava/src/com/google/common/collect/Streams.java`
   @Beta
   @InlineMe(replacement = "optional.stream()")
   @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
-  public static LongStream stream(OptionalLong optional) {
-    return optional.isPresent() ? LongStream.of(optional.getAsLong()) : LongStream.empty();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/collect/Streams.java`
-#### Snippet
-```java
-  @Beta
-  @InlineMe(replacement = "optional.stream()")
-  @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
-  public static <T> Stream<T> stream(java.util.Optional<T> optional) {
-    return optional.isPresent() ? Stream.of(optional.get()) : Stream.empty();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/collect/Streams.java`
-#### Snippet
-```java
-  @InlineMe(replacement = "optional.stream()")
-  @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
-  public static <T> Stream<T> stream(java.util.Optional<T> optional) {
-    return optional.isPresent() ? Stream.of(optional.get()) : Stream.empty();
-  }
+  public static IntStream stream(OptionalInt optional) {
+    return optional.isPresent() ? IntStream.of(optional.getAsInt()) : IntStream.empty();
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -22092,6 +22032,18 @@ in `guava/src/com/google/common/collect/Streams.java`
     // findLast(Stream) does some allocation, so we might as well box some more
     java.util.Optional<Integer> boxedLast = findLast(stream.boxed());
     return boxedLast.map(OptionalInt::of).orElseGet(OptionalInt::empty);
+  }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/collect/Streams.java`
+#### Snippet
+```java
+   */
+  @Beta
+  public static <T> Stream<T> stream(com.google.common.base.Optional<T> optional) {
+    return optional.isPresent() ? Stream.of(optional.get()) : Stream.empty();
   }
 ```
 
@@ -22115,44 +22067,8 @@ in `guava/src/com/google/common/collect/Streams.java`
   @Beta
   @InlineMe(replacement = "optional.stream()")
   @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
-  public static IntStream stream(OptionalInt optional) {
-    return optional.isPresent() ? IntStream.of(optional.getAsInt()) : IntStream.empty();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/collect/Streams.java`
-#### Snippet
-```java
-   */
-  @Beta
-  public static <T> Stream<T> stream(com.google.common.base.Optional<T> optional) {
-    return optional.isPresent() ? Stream.of(optional.get()) : Stream.empty();
-  }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/collect/Streams.java`
-#### Snippet
-```java
-  @Beta
-  @InlineMe(replacement = "optional.stream()")
-  @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
   public static DoubleStream stream(OptionalDouble optional) {
     return optional.isPresent() ? DoubleStream.of(optional.getAsDouble()) : DoubleStream.empty();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/collect/Streams.java`
-#### Snippet
-```java
-  public static OptionalDouble findLast(DoubleStream stream) {
-    // findLast(Stream) does some allocation, so we might as well box some more
-    java.util.Optional<Double> boxedLast = findLast(stream.boxed());
-    return boxedLast.map(OptionalDouble::of).orElseGet(OptionalDouble::empty);
-  }
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -22204,6 +22120,90 @@ in `guava/src/com/google/common/collect/Streams.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/collect/Streams.java`
+#### Snippet
+```java
+  @Beta
+  @InlineMe(replacement = "optional.stream()")
+  @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
+  public static <T> Stream<T> stream(java.util.Optional<T> optional) {
+    return optional.isPresent() ? Stream.of(optional.get()) : Stream.empty();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/collect/Streams.java`
+#### Snippet
+```java
+  @InlineMe(replacement = "optional.stream()")
+  @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
+  public static <T> Stream<T> stream(java.util.Optional<T> optional) {
+    return optional.isPresent() ? Stream.of(optional.get()) : Stream.empty();
+  }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/collect/Streams.java`
+#### Snippet
+```java
+  public static OptionalDouble findLast(DoubleStream stream) {
+    // findLast(Stream) does some allocation, so we might as well box some more
+    java.util.Optional<Double> boxedLast = findLast(stream.boxed());
+    return boxedLast.map(OptionalDouble::of).orElseGet(OptionalDouble::empty);
+  }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/collect/Streams.java`
+#### Snippet
+```java
+  @Beta
+  @InlineMe(replacement = "optional.stream()")
+  @com.google.errorprone.annotations.InlineMeValidationDisabled("Java 9+ API only")
+  public static LongStream stream(OptionalLong optional) {
+    return optional.isPresent() ? LongStream.of(optional.getAsLong()) : LongStream.empty();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/ParametricNullness.java`
+#### Snippet
+```java
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER})
+@javax.annotation.meta.TypeQualifierNickname
+@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
+@interface ParametricNullness {}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/ParametricNullness.java`
+#### Snippet
+```java
+@Target({FIELD, METHOD, PARAMETER})
+@javax.annotation.meta.TypeQualifierNickname
+@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
+@interface ParametricNullness {}
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/ParametricNullness.java`
+#### Snippet
+```java
+@Target({FIELD, METHOD, PARAMETER})
+@javax.annotation.meta.TypeQualifierNickname
+@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
+@interface ParametricNullness {}
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `guava/src/com/google/common/reflect/MutableTypeToInstanceMap.java`
 #### Snippet
@@ -22218,30 +22218,6 @@ in `guava/src/com/google/common/reflect/MutableTypeToInstanceMap.java`
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.logging` is unnecessary and can be removed
 in `guava/src/com/google/common/base/Platform.java`
-#### Snippet
-```java
-    }
-    logger.log(
-        java.util.logging.Level.WARNING,
-        "Later in 2020, we will remove GWT-RPC support for Guava types. You are seeing this"
-            + " warning because you are sending a Guava type over GWT-RPC, which will break. You"
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/collect/Platform.java`
-#### Snippet
-```java
-    if (!Boolean.parseBoolean(System.getProperty(propertyName, "false"))) {
-      throw new UnsupportedOperationException(
-          com.google.common.base.Strings.lenientFormat(
-              "We are removing GWT-RPC support for Guava types. You can temporarily reenable"
-                  + " support by setting the system property %s to true. For more about system"
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.logging` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/collect/Platform.java`
 #### Snippet
 ```java
     }
@@ -22276,15 +22252,27 @@ final class Platform {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `guava/src/com/google/common/collect/SortedSetMultimap.java`
+Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/collect/Platform.java`
 #### Snippet
 ```java
-   *
-   * <p>Because a {@code SortedSetMultimap} has unique sorted values for a given key, this method
-   * returns a {@link SortedSet}, instead of the {@link java.util.Collection} specified in the
-   * {@link Multimap} interface.
-   */
+    if (!Boolean.parseBoolean(System.getProperty(propertyName, "false"))) {
+      throw new UnsupportedOperationException(
+          com.google.common.base.Strings.lenientFormat(
+              "We are removing GWT-RPC support for Guava types. You can temporarily reenable"
+                  + " support by setting the system property %s to true. For more about system"
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.logging` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/collect/Platform.java`
+#### Snippet
+```java
+    }
+    logger.log(
+        java.util.logging.Level.WARNING,
+        "Later in 2020, we will remove GWT-RPC support for Guava types. You are seeing this"
+            + " warning because you are sending a Guava type over GWT-RPC, which will break. You"
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -22308,18 +22296,18 @@ in `guava/src/com/google/common/collect/SortedSetMultimap.java`
    * <p>Because a {@code SortedSetMultimap} has unique sorted values for a given key, this method
    * returns a {@link SortedSet}, instead of the {@link java.util.Collection} specified in the
    * {@link Multimap} interface.
-   *
+   */
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.nio.channels` is unnecessary and can be removed
-in `guava/src/com/google/common/io/Files.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `guava/src/com/google/common/collect/SortedSetMultimap.java`
 #### Snippet
 ```java
-
-  /**
-   * Maps a file in to memory as per {@link FileChannel#map(java.nio.channels.FileChannel.MapMode,
-   * long, long)} using the requested {@link MapMode}.
+   *
+   * <p>Because a {@code SortedSetMultimap} has unique sorted values for a given key, this method
+   * returns a {@link SortedSet}, instead of the {@link java.util.Collection} specified in the
+   * {@link Multimap} interface.
    *
 ```
 
@@ -22344,6 +22332,18 @@ in `guava/src/com/google/common/io/Files.java`
    * Fully maps a file in to memory as per {@link
    * FileChannel#map(java.nio.channels.FileChannel.MapMode, long, long)} using the requested {@link
    * MapMode}.
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.nio.channels` is unnecessary and can be removed
+in `guava/src/com/google/common/io/Files.java`
+#### Snippet
+```java
+
+  /**
+   * Maps a file in to memory as per {@link FileChannel#map(java.nio.channels.FileChannel.MapMode,
+   * long, long)} using the requested {@link MapMode}.
    *
 ```
 
@@ -22408,30 +22408,6 @@ in `guava/src/com/google/common/collect/ImmutableEnumSet.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.math` is unnecessary and can be removed
-in `guava/src/com/google/common/collect/DiscreteDomain.java`
-#### Snippet
-```java
-   * @return the maximum value of type {@code C}; never null
-   * @throws NoSuchElementException if the type has no (practical) maximum value; for example,
-   *     {@link java.math.BigInteger}
-   */
-  @CanIgnoreReturnValue
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.math` is unnecessary and can be removed
-in `guava/src/com/google/common/collect/DiscreteDomain.java`
-#### Snippet
-```java
-   * @return the minimum value of type {@code C}; never null
-   * @throws NoSuchElementException if the type has no (practical) minimum value; for example,
-   *     {@link java.math.BigInteger}
-   */
-  @CanIgnoreReturnValue
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.concurrent` is unnecessary and can be removed
 in `guava/src/com/google/common/util/concurrent/MoreExecutors.java`
 #### Snippet
@@ -22456,15 +22432,27 @@ in `guava/src/com/google/common/util/concurrent/MoreExecutors.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `guava/src/com/google/common/collect/Iterables.java`
+Qualifier `java.math` is unnecessary and can be removed
+in `guava/src/com/google/common/collect/DiscreteDomain.java`
 #### Snippet
 ```java
- *
- * <p><b>Java 8 users:</b> several common uses for this class are now more comprehensively addressed
- * by the new {@link java.util.stream.Stream} library. Read the method documentation below for
- * comparisons. This class is not being deprecated, but we gently encourage you to migrate to
- * streams.
+   * @return the minimum value of type {@code C}; never null
+   * @throws NoSuchElementException if the type has no (practical) minimum value; for example,
+   *     {@link java.math.BigInteger}
+   */
+  @CanIgnoreReturnValue
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.math` is unnecessary and can be removed
+in `guava/src/com/google/common/collect/DiscreteDomain.java`
+#### Snippet
+```java
+   * @return the maximum value of type {@code C}; never null
+   * @throws NoSuchElementException if the type has no (practical) maximum value; for example,
+   *     {@link java.math.BigInteger}
+   */
+  @CanIgnoreReturnValue
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -22477,6 +22465,18 @@ in `guava/src/com/google/common/collect/SortedLists.java`
      * <p>This is equivalent to the behavior of {@link java.util.Collections#binarySearch(List,
      * Object)} when the key isn't present, since {@code ~insertionIndex} is equal to {@code -1 -
      * insertionIndex}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `guava/src/com/google/common/collect/Iterables.java`
+#### Snippet
+```java
+ *
+ * <p><b>Java 8 users:</b> several common uses for this class are now more comprehensively addressed
+ * by the new {@link java.util.stream.Stream} library. Read the method documentation below for
+ * comparisons. This class is not being deprecated, but we gently encourage you to migrate to
+ * streams.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -22504,51 +22504,63 @@ in `guava/src/com/google/common/collect/MultimapBuilder.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary and can be removed
-in `guava/src/com/google/common/primitives/UnsignedBytes.java`
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/AtomicDouble.java`
 #### Snippet
 ```java
-              new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
-                @Override
-                public sun.misc.Unsafe run() throws Exception {
-                  Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-                  for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+
+  /** Reconstitutes the instance from a stream (that is, deserializes it). */
+  private void readObject(java.io.ObjectInputStream s)
+      throws java.io.IOException, ClassNotFoundException {
+    s.defaultReadObject();
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary and can be removed
-in `guava/src/com/google/common/primitives/UnsignedBytes.java`
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/AtomicDouble.java`
 #### Snippet
 ```java
-                @Override
-                public sun.misc.Unsafe run() throws Exception {
-                  Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-                  for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                    f.setAccessible(true);
+  /** Reconstitutes the instance from a stream (that is, deserializes it). */
+  private void readObject(java.io.ObjectInputStream s)
+      throws java.io.IOException, ClassNotFoundException {
+    s.defaultReadObject();
+
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary and can be removed
-in `guava/src/com/google/common/primitives/UnsignedBytes.java`
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/AtomicDouble.java`
 #### Snippet
 ```java
-                @Override
-                public sun.misc.Unsafe run() throws Exception {
-                  Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-                  for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                    f.setAccessible(true);
+   * @serialData The current value is emitted (a {@code double}).
+   */
+  private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
+    s.defaultWriteObject();
+
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/primitives/UnsignedBytes.java`
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/AtomicDouble.java`
 #### Snippet
 ```java
-                public sun.misc.Unsafe run() throws Exception {
-                  Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-                  for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                    f.setAccessible(true);
-                    Object x = f.get(null);
+   * @serialData The current value is emitted (a {@code double}).
+   */
+  private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
+    s.defaultWriteObject();
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/AtomicDouble.java`
+#### Snippet
+```java
+@ReflectionSupport(value = ReflectionSupport.Level.FULL)
+@ElementTypesAreNonnullByDefault
+public class AtomicDouble extends Number implements java.io.Serializable {
+  private static final long serialVersionUID = 0L;
+
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -22561,6 +22573,30 @@ in `guava/src/com/google/common/primitives/UnsignedBytes.java`
    * java.util.Arrays#equals(byte[], byte[])}.
    *
    * @since 2.0
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/primitives/UnsignedBytes.java`
+#### Snippet
+```java
+        try {
+          return java.security.AccessController.doPrivileged(
+              new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+                @Override
+                public sun.misc.Unsafe run() throws Exception {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary and can be removed
+in `guava/src/com/google/common/primitives/UnsignedBytes.java`
+#### Snippet
+```java
+        try {
+          return java.security.AccessController.doPrivileged(
+              new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+                @Override
+                public sun.misc.Unsafe run() throws Exception {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -22612,15 +22648,15 @@ in `guava/src/com/google/common/primitives/UnsignedBytes.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.security` is unnecessary, and can be replaced with an import
+Qualifier `sun.misc` is unnecessary and can be removed
 in `guava/src/com/google/common/primitives/UnsignedBytes.java`
 #### Snippet
 ```java
-        try {
-          return java.security.AccessController.doPrivileged(
               new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
                 @Override
                 public sun.misc.Unsafe run() throws Exception {
+                  Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+                  for (java.lang.reflect.Field f : k.getDeclaredFields()) {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -22628,71 +22664,35 @@ Qualifier `sun.misc` is unnecessary and can be removed
 in `guava/src/com/google/common/primitives/UnsignedBytes.java`
 #### Snippet
 ```java
-        try {
-          return java.security.AccessController.doPrivileged(
-              new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
                 @Override
                 public sun.misc.Unsafe run() throws Exception {
+                  Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+                  for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+                    f.setAccessible(true);
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/AtomicDouble.java`
+Qualifier `sun.misc` is unnecessary and can be removed
+in `guava/src/com/google/common/primitives/UnsignedBytes.java`
 #### Snippet
 ```java
-@ReflectionSupport(value = ReflectionSupport.Level.FULL)
-@ElementTypesAreNonnullByDefault
-public class AtomicDouble extends Number implements java.io.Serializable {
-  private static final long serialVersionUID = 0L;
-
+                @Override
+                public sun.misc.Unsafe run() throws Exception {
+                  Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+                  for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+                    f.setAccessible(true);
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/AtomicDouble.java`
+Qualifier `java.lang.reflect` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/primitives/UnsignedBytes.java`
 #### Snippet
 ```java
-
-  /** Reconstitutes the instance from a stream (that is, deserializes it). */
-  private void readObject(java.io.ObjectInputStream s)
-      throws java.io.IOException, ClassNotFoundException {
-    s.defaultReadObject();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/AtomicDouble.java`
-#### Snippet
-```java
-  /** Reconstitutes the instance from a stream (that is, deserializes it). */
-  private void readObject(java.io.ObjectInputStream s)
-      throws java.io.IOException, ClassNotFoundException {
-    s.defaultReadObject();
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/AtomicDouble.java`
-#### Snippet
-```java
-   * @serialData The current value is emitted (a {@code double}).
-   */
-  private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
-    s.defaultWriteObject();
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/AtomicDouble.java`
-#### Snippet
-```java
-   * @serialData The current value is emitted (a {@code double}).
-   */
-  private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
-    s.defaultWriteObject();
-
+                public sun.misc.Unsafe run() throws Exception {
+                  Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+                  for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+                    f.setAccessible(true);
+                    Object x = f.get(null);
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -22870,6 +22870,18 @@ in `guava/src/com/google/common/cache/CacheBuilder.java`
 ```java
   @SuppressWarnings("GoodTime") // java.time.Duration decomposition
   @CanIgnoreReturnValue
+  public CacheBuilder<K, V> expireAfterWrite(java.time.Duration duration) {
+    return expireAfterWrite(toNanosSaturated(duration), TimeUnit.NANOSECONDS);
+  }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/cache/CacheBuilder.java`
+#### Snippet
+```java
+  @SuppressWarnings("GoodTime") // java.time.Duration decomposition
+  @CanIgnoreReturnValue
   public CacheBuilder<K, V> expireAfterAccess(java.time.Duration duration) {
     return expireAfterAccess(toNanosSaturated(duration), TimeUnit.NANOSECONDS);
   }
@@ -22885,18 +22897,6 @@ in `guava/src/com/google/common/cache/CacheBuilder.java`
   private static long toNanosSaturated(java.time.Duration duration) {
     // Using a try/catch seems lazy, but the catch block will rarely get invoked (except for
     // durations longer than approximately +/- 292 years).
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.time` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/cache/CacheBuilder.java`
-#### Snippet
-```java
-  @SuppressWarnings("GoodTime") // java.time.Duration decomposition
-  @CanIgnoreReturnValue
-  public CacheBuilder<K, V> expireAfterWrite(java.time.Duration duration) {
-    return expireAfterWrite(toNanosSaturated(duration), TimeUnit.NANOSECONDS);
-  }
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -22933,54 +22933,6 @@ in `guava/src/com/google/common/escape/ParametricNullness.java`
 @javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
 @interface ParametricNullness {}
 
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/cache/Striped64.java`
-#### Snippet
-```java
-          new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
-            @Override
-            public sun.misc.Unsafe run() throws Exception {
-              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/cache/Striped64.java`
-#### Snippet
-```java
-            @Override
-            public sun.misc.Unsafe run() throws Exception {
-              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                f.setAccessible(true);
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/cache/Striped64.java`
-#### Snippet
-```java
-            @Override
-            public sun.misc.Unsafe run() throws Exception {
-              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                f.setAccessible(true);
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/cache/Striped64.java`
-#### Snippet
-```java
-            public sun.misc.Unsafe run() throws Exception {
-              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                f.setAccessible(true);
-                Object x = f.get(null);
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -23077,6 +23029,54 @@ in `guava/src/com/google/common/cache/Striped64.java`
   private static final sun.misc.Unsafe UNSAFE;
   private static final long baseOffset;
   private static final long busyOffset;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/cache/Striped64.java`
+#### Snippet
+```java
+          new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+            @Override
+            public sun.misc.Unsafe run() throws Exception {
+              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/cache/Striped64.java`
+#### Snippet
+```java
+            @Override
+            public sun.misc.Unsafe run() throws Exception {
+              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+                f.setAccessible(true);
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/cache/Striped64.java`
+#### Snippet
+```java
+            @Override
+            public sun.misc.Unsafe run() throws Exception {
+              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+                f.setAccessible(true);
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang.reflect` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/cache/Striped64.java`
+#### Snippet
+```java
+            public sun.misc.Unsafe run() throws Exception {
+              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+                f.setAccessible(true);
+                Object x = f.get(null);
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -23192,30 +23192,6 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `guava/src/com/google/common/util/concurrent/AtomicDoubleArray.java`
 #### Snippet
 ```java
-   *     {@code double}) in the proper order.
-   */
-  private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
-    s.defaultWriteObject();
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/AtomicDoubleArray.java`
-#### Snippet
-```java
-   *     {@code double}) in the proper order.
-   */
-  private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
-    s.defaultWriteObject();
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/AtomicDoubleArray.java`
-#### Snippet
-```java
 
   /** Reconstitutes the instance from a stream (that is, deserializes it). */
   private void readObject(java.io.ObjectInputStream s)
@@ -23232,6 +23208,30 @@ in `guava/src/com/google/common/util/concurrent/AtomicDoubleArray.java`
   private void readObject(java.io.ObjectInputStream s)
       throws java.io.IOException, ClassNotFoundException {
     s.defaultReadObject();
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/AtomicDoubleArray.java`
+#### Snippet
+```java
+   *     {@code double}) in the proper order.
+   */
+  private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
+    s.defaultWriteObject();
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/AtomicDoubleArray.java`
+#### Snippet
+```java
+   *     {@code double}) in the proper order.
+   */
+  private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
+    s.defaultWriteObject();
 
 ```
 
@@ -23260,18 +23260,6 @@ in `guava/src/com/google/common/reflect/TypeToken.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `guava/src/com/google/common/collect/Sets.java`
-#### Snippet
-```java
-   *
-   * <p><b>Java 8 users:</b> many use cases for this method are better addressed by {@link
-   * java.util.stream.Stream#filter}. This method is not being deprecated, but we gently encourage
-   * you to migrate to streams.
-   */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `guava/src/com/google/common/math/DoubleMath.java`
 #### Snippet
@@ -23281,6 +23269,18 @@ in `guava/src/com/google/common/math/DoubleMath.java`
  * A class for arithmetic on doubles that is not covered by {@link java.lang.Math}.
  *
  * @author Louis Wasserman
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `guava/src/com/google/common/collect/Sets.java`
+#### Snippet
+```java
+   *
+   * <p><b>Java 8 users:</b> many use cases for this method are better addressed by {@link
+   * java.util.stream.Stream#filter}. This method is not being deprecated, but we gently encourage
+   * you to migrate to streams.
+   */
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -23500,6 +23500,42 @@ in `guava/src/com/google/common/math/IntMath.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+   * Starts a {@link ClosingFuture} pipeline by submitting a callable block to an executor.
+   *
+   * @throws java.util.concurrent.RejectedExecutionException if the task cannot be scheduled for
+   *     execution
+   * @since 30.1
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.errorprone.annotations` is unnecessary and can be removed
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+   */
+  // TODO(cpovirk): Use simple name instead of fully qualified after we stop building with JDK 8.
+  @com.google.errorprone.annotations.DoNotMock(
+      "Use ClosingFuture.whenAllSucceed() or .whenAllComplete() instead.")
+  public static class Combiner {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+   * Starts a {@link ClosingFuture} pipeline by submitting a callable block to an executor.
+   *
+   * @throws java.util.concurrent.RejectedExecutionException if the task cannot be scheduled for
+   *     execution
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
 in `guava/src/com/google/common/base/ParametricNullness.java`
 #### Snippet
@@ -23536,39 +23572,135 @@ in `guava/src/com/google/common/base/ParametricNullness.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.errorprone.annotations` is unnecessary and can be removed
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/primitives/ParametricNullness.java`
 #### Snippet
 ```java
-   */
-  // TODO(cpovirk): Use simple name instead of fully qualified after we stop building with JDK 8.
-  @com.google.errorprone.annotations.DoNotMock(
-      "Use ClosingFuture.whenAllSucceed() or .whenAllComplete() instead.")
-  public static class Combiner {
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER})
+@javax.annotation.meta.TypeQualifierNickname
+@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
+@interface ParametricNullness {}
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/primitives/ParametricNullness.java`
 #### Snippet
 ```java
-   * Starts a {@link ClosingFuture} pipeline by submitting a callable block to an executor.
-   *
-   * @throws java.util.concurrent.RejectedExecutionException if the task cannot be scheduled for
-   *     execution
-   */
+@Target({FIELD, METHOD, PARAMETER})
+@javax.annotation.meta.TypeQualifierNickname
+@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
+@interface ParametricNullness {}
+
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/primitives/ParametricNullness.java`
 #### Snippet
 ```java
-   * Starts a {@link ClosingFuture} pipeline by submitting a callable block to an executor.
-   *
-   * @throws java.util.concurrent.RejectedExecutionException if the task cannot be scheduled for
-   *     execution
-   * @since 30.1
+@Target({FIELD, METHOD, PARAMETER})
+@javax.annotation.meta.TypeQualifierNickname
+@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
+@interface ParametricNullness {}
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/hash/Striped64.java`
+#### Snippet
+```java
+    try {
+      return java.security.AccessController.doPrivileged(
+          new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+            @Override
+            public sun.misc.Unsafe run() throws Exception {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/hash/Striped64.java`
+#### Snippet
+```java
+    try {
+      return java.security.AccessController.doPrivileged(
+          new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+            @Override
+            public sun.misc.Unsafe run() throws Exception {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/hash/Striped64.java`
+#### Snippet
+```java
+   * @return a sun.misc.Unsafe
+   */
+  private static sun.misc.Unsafe getUnsafe() {
+    try {
+      return sun.misc.Unsafe.getUnsafe();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/hash/Striped64.java`
+#### Snippet
+```java
+  private static sun.misc.Unsafe getUnsafe() {
+    try {
+      return sun.misc.Unsafe.getUnsafe();
+    } catch (SecurityException tryReflectionInstead) {
+    }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/hash/Striped64.java`
+#### Snippet
+```java
+    }
+    try {
+      return java.security.AccessController.doPrivileged(
+          new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+            @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/hash/Striped64.java`
+#### Snippet
+```java
+            }
+          });
+    } catch (java.security.PrivilegedActionException e) {
+      throw new RuntimeException("Could not initialize intrinsics", e.getCause());
+    }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/hash/Striped64.java`
+#### Snippet
+```java
+
+  // Unsafe mechanics
+  private static final sun.misc.Unsafe UNSAFE;
+  private static final long baseOffset;
+  private static final long busyOffset;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/hash/Striped64.java`
+#### Snippet
+```java
+
+    // Unsafe mechanics
+    private static final sun.misc.Unsafe UNSAFE;
+    private static final long valueOffset;
+
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -23621,270 +23753,6 @@ in `guava/src/com/google/common/hash/Striped64.java`
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/hash/Striped64.java`
-#### Snippet
-```java
-
-    // Unsafe mechanics
-    private static final sun.misc.Unsafe UNSAFE;
-    private static final long valueOffset;
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/hash/Striped64.java`
-#### Snippet
-```java
-
-  // Unsafe mechanics
-  private static final sun.misc.Unsafe UNSAFE;
-  private static final long baseOffset;
-  private static final long busyOffset;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/hash/Striped64.java`
-#### Snippet
-```java
-   * @return a sun.misc.Unsafe
-   */
-  private static sun.misc.Unsafe getUnsafe() {
-    try {
-      return sun.misc.Unsafe.getUnsafe();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/hash/Striped64.java`
-#### Snippet
-```java
-  private static sun.misc.Unsafe getUnsafe() {
-    try {
-      return sun.misc.Unsafe.getUnsafe();
-    } catch (SecurityException tryReflectionInstead) {
-    }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/hash/Striped64.java`
-#### Snippet
-```java
-    }
-    try {
-      return java.security.AccessController.doPrivileged(
-          new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
-            @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/hash/Striped64.java`
-#### Snippet
-```java
-            }
-          });
-    } catch (java.security.PrivilegedActionException e) {
-      throw new RuntimeException("Could not initialize intrinsics", e.getCause());
-    }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/hash/Striped64.java`
-#### Snippet
-```java
-    try {
-      return java.security.AccessController.doPrivileged(
-          new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
-            @Override
-            public sun.misc.Unsafe run() throws Exception {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/hash/Striped64.java`
-#### Snippet
-```java
-    try {
-      return java.security.AccessController.doPrivileged(
-          new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
-            @Override
-            public sun.misc.Unsafe run() throws Exception {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/primitives/ParametricNullness.java`
-#### Snippet
-```java
-@Retention(RUNTIME)
-@Target({FIELD, METHOD, PARAMETER})
-@javax.annotation.meta.TypeQualifierNickname
-@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
-@interface ParametricNullness {}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/primitives/ParametricNullness.java`
-#### Snippet
-```java
-@Target({FIELD, METHOD, PARAMETER})
-@javax.annotation.meta.TypeQualifierNickname
-@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
-@interface ParametricNullness {}
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/primitives/ParametricNullness.java`
-#### Snippet
-```java
-@Target({FIELD, METHOD, PARAMETER})
-@javax.annotation.meta.TypeQualifierNickname
-@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
-@interface ParametricNullness {}
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/xml/ParametricNullness.java`
-#### Snippet
-```java
-@Retention(RUNTIME)
-@Target({FIELD, METHOD, PARAMETER})
-@javax.annotation.meta.TypeQualifierNickname
-@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
-@interface ParametricNullness {}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/xml/ParametricNullness.java`
-#### Snippet
-```java
-@Target({FIELD, METHOD, PARAMETER})
-@javax.annotation.meta.TypeQualifierNickname
-@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
-@interface ParametricNullness {}
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/xml/ParametricNullness.java`
-#### Snippet
-```java
-@Target({FIELD, METHOD, PARAMETER})
-@javax.annotation.meta.TypeQualifierNickname
-@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
-@interface ParametricNullness {}
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.time` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/collect/Queues.java`
-#### Snippet
-```java
-  @GwtIncompatible // BlockingQueue
-  public static <E> int drain(
-      BlockingQueue<E> q, Collection<? super E> buffer, int numElements, java.time.Duration timeout)
-      throws InterruptedException {
-    // TODO(b/126049426): Consider using saturateToNanos(timeout) instead.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.time` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/collect/Queues.java`
-#### Snippet
-```java
-      Collection<? super E> buffer,
-      int numElements,
-      java.time.Duration timeout) {
-    // TODO(b/126049426): Consider using saturateToNanos(timeout) instead.
-    return drainUninterruptibly(q, buffer, numElements, timeout.toNanos(), TimeUnit.NANOSECONDS);
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-  @SuppressWarnings("sunapi")
-  private static final class UnsafeAtomicHelper extends AtomicHelper {
-    static final sun.misc.Unsafe UNSAFE;
-    static final long LISTENERS_OFFSET;
-    static final long WAITERS_OFFSET;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
- * submitting a task to a {@link ListeningExecutorService}, and deriving a {@code Future} from an
- * existing one, typically using methods like {@link Futures#transform(ListenableFuture,
- * com.google.common.base.Function, java.util.concurrent.Executor) Futures.transform} and {@link
- * Futures#catching(ListenableFuture, Class, com.google.common.base.Function,
- * java.util.concurrent.Executor) Futures.catching}.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
- * com.google.common.base.Function, java.util.concurrent.Executor) Futures.transform} and {@link
- * Futures#catching(ListenableFuture, Class, com.google.common.base.Function,
- * java.util.concurrent.Executor) Futures.catching}.
- *
- * <p>This class implements all methods in {@code ListenableFuture}. Subclasses should provide a way
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-          unsafe =
-              AccessController.doPrivileged(
-                  new PrivilegedExceptionAction<sun.misc.Unsafe>() {
-                    @Override
-                    public sun.misc.Unsafe run() throws Exception {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-
-    static {
-      sun.misc.Unsafe unsafe = null;
-      try {
-        unsafe = sun.misc.Unsafe.getUnsafe();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
-#### Snippet
-```java
-      sun.misc.Unsafe unsafe = null;
-      try {
-        unsafe = sun.misc.Unsafe.getUnsafe();
-      } catch (SecurityException tryReflectionInstead) {
-        try {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
 in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 #### Snippet
 ```java
@@ -23929,6 +23797,138 @@ in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
                       for (java.lang.reflect.Field f : k.getDeclaredFields()) {
                         f.setAccessible(true);
                         Object x = f.get(null);
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+
+    static {
+      sun.misc.Unsafe unsafe = null;
+      try {
+        unsafe = sun.misc.Unsafe.getUnsafe();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+      sun.misc.Unsafe unsafe = null;
+      try {
+        unsafe = sun.misc.Unsafe.getUnsafe();
+      } catch (SecurityException tryReflectionInstead) {
+        try {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+ * submitting a task to a {@link ListeningExecutorService}, and deriving a {@code Future} from an
+ * existing one, typically using methods like {@link Futures#transform(ListenableFuture,
+ * com.google.common.base.Function, java.util.concurrent.Executor) Futures.transform} and {@link
+ * Futures#catching(ListenableFuture, Class, com.google.common.base.Function,
+ * java.util.concurrent.Executor) Futures.catching}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+ * com.google.common.base.Function, java.util.concurrent.Executor) Futures.transform} and {@link
+ * Futures#catching(ListenableFuture, Class, com.google.common.base.Function,
+ * java.util.concurrent.Executor) Futures.catching}.
+ *
+ * <p>This class implements all methods in {@code ListenableFuture}. Subclasses should provide a way
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+          unsafe =
+              AccessController.doPrivileged(
+                  new PrivilegedExceptionAction<sun.misc.Unsafe>() {
+                    @Override
+                    public sun.misc.Unsafe run() throws Exception {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
+#### Snippet
+```java
+  @SuppressWarnings("sunapi")
+  private static final class UnsafeAtomicHelper extends AtomicHelper {
+    static final sun.misc.Unsafe UNSAFE;
+    static final long LISTENERS_OFFSET;
+    static final long WAITERS_OFFSET;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/xml/ParametricNullness.java`
+#### Snippet
+```java
+@Retention(RUNTIME)
+@Target({FIELD, METHOD, PARAMETER})
+@javax.annotation.meta.TypeQualifierNickname
+@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
+@interface ParametricNullness {}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/xml/ParametricNullness.java`
+#### Snippet
+```java
+@Target({FIELD, METHOD, PARAMETER})
+@javax.annotation.meta.TypeQualifierNickname
+@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
+@interface ParametricNullness {}
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.annotation.meta` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/xml/ParametricNullness.java`
+#### Snippet
+```java
+@Target({FIELD, METHOD, PARAMETER})
+@javax.annotation.meta.TypeQualifierNickname
+@javax.annotation.Nonnull(when = javax.annotation.meta.When.UNKNOWN)
+@interface ParametricNullness {}
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/collect/Queues.java`
+#### Snippet
+```java
+      Collection<? super E> buffer,
+      int numElements,
+      java.time.Duration timeout) {
+    // TODO(b/126049426): Consider using saturateToNanos(timeout) instead.
+    return drainUninterruptibly(q, buffer, numElements, timeout.toNanos(), TimeUnit.NANOSECONDS);
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary, and can be replaced with an import
+in `guava/src/com/google/common/collect/Queues.java`
+#### Snippet
+```java
+  @GwtIncompatible // BlockingQueue
+  public static <E> int drain(
+      BlockingQueue<E> q, Collection<? super E> buffer, int numElements, java.time.Duration timeout)
+      throws InterruptedException {
+    // TODO(b/126049426): Consider using saturateToNanos(timeout) instead.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -24047,8 +24047,8 @@ in `guava/src/com/google/common/collect/CompactHashMap.java`
 ```java
       Map<K, V> delegate = delegateOrNull();
       return (delegate != null)
-          ? delegate.keySet().toArray(a)
-          : ObjectArrays.toArrayImpl(requireKeys(), 0, size, a);
+          ? delegate.values().toArray(a)
+          : ObjectArrays.toArrayImpl(requireValues(), 0, size, a);
     }
 ```
 
@@ -24059,8 +24059,8 @@ in `guava/src/com/google/common/collect/CompactHashMap.java`
 ```java
       Map<K, V> delegate = delegateOrNull();
       return (delegate != null)
-          ? delegate.values().toArray(a)
-          : ObjectArrays.toArrayImpl(requireValues(), 0, size, a);
+          ? delegate.keySet().toArray(a)
+          : ObjectArrays.toArrayImpl(requireKeys(), 0, size, a);
     }
 ```
 
@@ -24191,11 +24191,11 @@ Anonymous new Function\>() can be replaced with method reference
 in `guava/src/com/google/common/graph/AbstractNetwork.java`
 #### Snippet
 ```java
-  private static <N, E> Map<E, EndpointPair<N>> edgeIncidentNodesMap(final Network<N, E> network) {
-    Function<E, EndpointPair<N>> edgeToIncidentNodesFn =
-        new Function<E, EndpointPair<N>>() {
-          @Override
-          public EndpointPair<N> apply(E edge) {
+            return Iterators.transform(
+                AbstractNetwork.this.edges().iterator(),
+                new Function<E, EndpointPair<N>>() {
+                  @Override
+                  public EndpointPair<N> apply(E edge) {
 ```
 
 ### RuleId[ruleID=Anonymous2MethodRef]
@@ -24203,11 +24203,11 @@ Anonymous new Function\>() can be replaced with method reference
 in `guava/src/com/google/common/graph/AbstractNetwork.java`
 #### Snippet
 ```java
-            return Iterators.transform(
-                AbstractNetwork.this.edges().iterator(),
-                new Function<E, EndpointPair<N>>() {
-                  @Override
-                  public EndpointPair<N> apply(E edge) {
+  private static <N, E> Map<E, EndpointPair<N>> edgeIncidentNodesMap(final Network<N, E> network) {
+    Function<E, EndpointPair<N>> edgeToIncidentNodesFn =
+        new Function<E, EndpointPair<N>>() {
+          @Override
+          public EndpointPair<N> apply(E edge) {
 ```
 
 ### RuleId[ruleID=Anonymous2MethodRef]
@@ -24228,10 +24228,10 @@ in `guava/src/com/google/common/collect/StandardTable.java`
 #### Snippet
 ```java
         return Maps.asMapEntryIterator(
-            columnKeySet(),
-            new Function<C, Map<R, V>>() {
+            backingMap.keySet(),
+            new Function<R, Map<C, V>>() {
               @Override
-              public Map<R, V> apply(C columnKey) {
+              public Map<C, V> apply(R rowKey) {
 ```
 
 ### RuleId[ruleID=Anonymous2MethodRef]
@@ -24240,10 +24240,10 @@ in `guava/src/com/google/common/collect/StandardTable.java`
 #### Snippet
 ```java
         return Maps.asMapEntryIterator(
-            backingMap.keySet(),
-            new Function<R, Map<C, V>>() {
+            columnKeySet(),
+            new Function<C, Map<R, V>>() {
               @Override
-              public Map<C, V> apply(R rowKey) {
+              public Map<R, V> apply(C columnKey) {
 ```
 
 ### RuleId[ruleID=Anonymous2MethodRef]
@@ -24368,15 +24368,15 @@ in `guava/src/com/google/common/util/concurrent/FuturesGetChecked.java`
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
-Anonymous new Function\>() can be replaced with lambda
+Anonymous new Predicate() can be replaced with lambda
 in `guava/src/com/google/common/graph/AbstractNetwork.java`
 #### Snippet
 ```java
-  private static <N, E> Map<E, EndpointPair<N>> edgeIncidentNodesMap(final Network<N, E> network) {
-    Function<E, EndpointPair<N>> edgeToIncidentNodesFn =
-        new Function<E, EndpointPair<N>>() {
-          @Override
-          public EndpointPair<N> apply(E edge) {
+
+  private Predicate<E> connectedPredicate(final N nodePresent, final N nodeToCheck) {
+    return new Predicate<E>() {
+      @Override
+      public boolean apply(E edge) {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -24392,39 +24392,15 @@ in `guava/src/com/google/common/graph/AbstractNetwork.java`
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
-Anonymous new Predicate() can be replaced with lambda
+Anonymous new Function\>() can be replaced with lambda
 in `guava/src/com/google/common/graph/AbstractNetwork.java`
 #### Snippet
 ```java
-
-  private Predicate<E> connectedPredicate(final N nodePresent, final N nodeToCheck) {
-    return new Predicate<E>() {
-      @Override
-      public boolean apply(E edge) {
-```
-
-### RuleId[ruleID=Convert2Lambda]
-Anonymous new Function, Map\>() can be replaced with lambda
-in `guava/src/com/google/common/collect/Tables.java`
-#### Snippet
-```java
-
-  private static final Function<? extends Map<?, ?>, ? extends Map<?, ?>> UNMODIFIABLE_WRAPPER =
-      new Function<Map<Object, Object>, Map<Object, Object>>() {
-        @Override
-        public Map<Object, Object> apply(Map<Object, Object> input) {
-```
-
-### RuleId[ruleID=Convert2Lambda]
-Anonymous new Function, Cell\>() can be replaced with lambda
-in `guava/src/com/google/common/collect/Tables.java`
-#### Snippet
-```java
-    // Will cast TRANSPOSE_CELL to a type that always succeeds
-    private static final Function<Cell<?, ?, ?>, Cell<?, ?, ?>> TRANSPOSE_CELL =
-        new Function<Cell<?, ?, ?>, Cell<?, ?, ?>>() {
+  private static <N, E> Map<E, EndpointPair<N>> edgeIncidentNodesMap(final Network<N, E> network) {
+    Function<E, EndpointPair<N>> edgeToIncidentNodesFn =
+        new Function<E, EndpointPair<N>>() {
           @Override
-          public Cell<?, ?, ?> apply(Cell<?, ?, ?> cell) {
+          public EndpointPair<N> apply(E edge) {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -24464,6 +24440,30 @@ in `guava/src/com/google/common/collect/Tables.java`
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
+Anonymous new Function, Cell\>() can be replaced with lambda
+in `guava/src/com/google/common/collect/Tables.java`
+#### Snippet
+```java
+    // Will cast TRANSPOSE_CELL to a type that always succeeds
+    private static final Function<Cell<?, ?, ?>, Cell<?, ?, ?>> TRANSPOSE_CELL =
+        new Function<Cell<?, ?, ?>, Cell<?, ?, ?>>() {
+          @Override
+          public Cell<?, ?, ?> apply(Cell<?, ?, ?> cell) {
+```
+
+### RuleId[ruleID=Convert2Lambda]
+Anonymous new Function, Map\>() can be replaced with lambda
+in `guava/src/com/google/common/collect/Tables.java`
+#### Snippet
+```java
+
+  private static final Function<? extends Map<?, ?>, ? extends Map<?, ?>> UNMODIFIABLE_WRAPPER =
+      new Function<Map<Object, Object>, Map<Object, Object>>() {
+        @Override
+        public Map<Object, Object> apply(Map<Object, Object> input) {
+```
+
+### RuleId[ruleID=Convert2Lambda]
 Anonymous new Function, V\>() can be replaced with lambda
 in `guava/src/com/google/common/graph/AbstractValueGraph.java`
 #### Snippet
@@ -24481,10 +24481,10 @@ in `guava/src/com/google/common/collect/StandardTable.java`
 #### Snippet
 ```java
         return Maps.asMapEntryIterator(
-            columnKeySet(),
-            new Function<C, Map<R, V>>() {
+            backingMap.keySet(),
+            new Function<R, Map<C, V>>() {
               @Override
-              public Map<R, V> apply(C columnKey) {
+              public Map<C, V> apply(R rowKey) {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -24493,10 +24493,10 @@ in `guava/src/com/google/common/collect/StandardTable.java`
 #### Snippet
 ```java
         return Maps.asMapEntryIterator(
-            backingMap.keySet(),
-            new Function<R, Map<C, V>>() {
+            columnKeySet(),
+            new Function<C, Map<R, V>>() {
               @Override
-              public Map<C, V> apply(R rowKey) {
+              public Map<R, V> apply(C columnKey) {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -24565,10 +24565,10 @@ in `guava/src/com/google/common/collect/Synchronized.java`
 #### Snippet
 ```java
             Maps.transformValues(
-                delegate().columnMap(),
-                new com.google.common.base.Function<Map<R, V>, Map<R, V>>() {
+                delegate().rowMap(),
+                new com.google.common.base.Function<Map<C, V>, Map<C, V>>() {
                   @Override
-                  public Map<R, V> apply(Map<R, V> t) {
+                  public Map<C, V> apply(Map<C, V> t) {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -24577,10 +24577,10 @@ in `guava/src/com/google/common/collect/Synchronized.java`
 #### Snippet
 ```java
             Maps.transformValues(
-                delegate().rowMap(),
-                new com.google.common.base.Function<Map<C, V>, Map<C, V>>() {
+                delegate().columnMap(),
+                new com.google.common.base.Function<Map<R, V>, Map<R, V>>() {
                   @Override
-                  public Map<C, V> apply(Map<C, V> t) {
+                  public Map<R, V> apply(Map<R, V> t) {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -24644,18 +24644,6 @@ in `guava/src/com/google/common/hash/LongAddables.java`
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
-Anonymous new Predicate\>() can be replaced with lambda
-in `guava/src/com/google/common/collect/Multisets.java`
-#### Snippet
-```java
-      return Sets.filter(
-          unfiltered.entrySet(),
-          new Predicate<Entry<E>>() {
-            @Override
-            public boolean apply(Entry<E> entry) {
-```
-
-### RuleId[ruleID=Convert2Lambda]
 Anonymous new Comparator\<@Nullable Entry\>() can be replaced with lambda
 in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
 #### Snippet
@@ -24668,15 +24656,27 @@ in `guava/src/com/google/common/collect/ImmutableSortedMap.java`
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
-Anonymous new Runnable() can be replaced with lambda
-in `guava/src/com/google/common/util/concurrent/Runnables.java`
+Anonymous new Predicate\>() can be replaced with lambda
+in `guava/src/com/google/common/collect/Multisets.java`
 #### Snippet
 ```java
+      return Sets.filter(
+          unfiltered.entrySet(),
+          new Predicate<Entry<E>>() {
+            @Override
+            public boolean apply(Entry<E> entry) {
+```
 
-  private static final Runnable EMPTY_RUNNABLE =
-      new Runnable() {
-        @Override
-        public void run() {}
+### RuleId[ruleID=Convert2Lambda]
+Anonymous new Runnable() can be replaced with lambda
+in `guava/src/com/google/common/util/concurrent/Futures.java`
+#### Snippet
+```java
+    final Future<?> scheduled = executorService.schedule(task, delay, timeUnit);
+    task.addListener(
+        new Runnable() {
+          @Override
+          public void run() {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -24693,14 +24693,26 @@ in `guava/src/com/google/common/util/concurrent/Futures.java`
 
 ### RuleId[ruleID=Convert2Lambda]
 Anonymous new Runnable() can be replaced with lambda
-in `guava/src/com/google/common/util/concurrent/Futures.java`
+in `guava/src/com/google/common/util/concurrent/Runnables.java`
 #### Snippet
 ```java
-    final Future<?> scheduled = executorService.schedule(task, delay, timeUnit);
-    task.addListener(
-        new Runnable() {
-          @Override
-          public void run() {
+
+  private static final Runnable EMPTY_RUNNABLE =
+      new Runnable() {
+        @Override
+        public void run() {}
+```
+
+### RuleId[ruleID=Convert2Lambda]
+Anonymous new Runnable() can be replaced with lambda
+in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
+#### Snippet
+```java
+      runningTask.cancel(false);
+      executorService.execute(
+          new Runnable() {
+            @Override
+            public void run() {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -24729,14 +24741,26 @@ in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
 
 ### RuleId[ruleID=Convert2Lambda]
 Anonymous new Runnable() can be replaced with lambda
-in `guava/src/com/google/common/util/concurrent/AbstractScheduledService.java`
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
 #### Snippet
 ```java
-      runningTask.cancel(false);
-      executorService.execute(
-          new Runnable() {
-            @Override
-            public void run() {
+    }
+    future.addListener(
+        new Runnable() {
+          @Override
+          public void run() {
+```
+
+### RuleId[ruleID=Convert2Lambda]
+Anonymous new AsyncClosingFunction() can be replaced with lambda
+in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
+#### Snippet
+```java
+      AsyncClosingFunction<V, U> withoutCloser(final AsyncFunction<V, U> function) {
+    checkNotNull(function);
+    return new AsyncClosingFunction<V, U>() {
+      @Override
+      public ClosingFuture<U> apply(DeferredCloser closer, V input) throws Exception {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -24761,30 +24785,6 @@ in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
           new Runnable() {
             @Override
             public void run() {
-```
-
-### RuleId[ruleID=Convert2Lambda]
-Anonymous new Runnable() can be replaced with lambda
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-    }
-    future.addListener(
-        new Runnable() {
-          @Override
-          public void run() {
-```
-
-### RuleId[ruleID=Convert2Lambda]
-Anonymous new AsyncClosingFunction() can be replaced with lambda
-in `guava/src/com/google/common/util/concurrent/ClosingFuture.java`
-#### Snippet
-```java
-      AsyncClosingFunction<V, U> withoutCloser(final AsyncFunction<V, U> function) {
-    checkNotNull(function);
-    return new AsyncClosingFunction<V, U>() {
-      @Override
-      public ClosingFuture<U> apply(DeferredCloser closer, V input) throws Exception {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -24909,18 +24909,6 @@ in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `guava/src/com/google/common/net/PercentEscaper.java`
-#### Snippet
-```java
-  protected int nextEscapeIndex(CharSequence csq, int index, int end) {
-    checkNotNull(csq);
-    for (; index < end; index++) {
-      char c = csq.charAt(index);
-      if (c >= safeOctets.length || !safeOctets[c]) {
-```
-
 ### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `cp`
 in `guava/src/com/google/common/net/PercentEscaper.java`
@@ -25078,6 +25066,18 @@ in `guava/src/com/google/common/net/PercentEscaper.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `index`
+in `guava/src/com/google/common/net/PercentEscaper.java`
+#### Snippet
+```java
+  protected int nextEscapeIndex(CharSequence csq, int index, int end) {
+    checkNotNull(csq);
+    for (; index < end; index++) {
+      char c = csq.charAt(index);
+      if (c >= safeOctets.length || !safeOctets[c]) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `safeChars`
 in `guava/src/com/google/common/net/PercentEscaper.java`
 #### Snippet
@@ -25102,18 +25102,6 @@ in `guava/src/com/google/common/base/internal/Finalizer.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `p`
-in `guava/src/com/google/common/hash/BloomFilter.java`
-#### Snippet
-```java
-  static long optimalNumOfBits(long n, double p) {
-    if (p == 0) {
-      p = Double.MIN_VALUE;
-    }
-    return (long) (-n * Math.log(p) / (Math.log(2) * Math.log(2)));
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `expectedInsertions`
 in `guava/src/com/google/common/hash/BloomFilter.java`
 #### Snippet
@@ -25123,6 +25111,18 @@ in `guava/src/com/google/common/hash/BloomFilter.java`
       expectedInsertions = 1;
     }
     /*
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `p`
+in `guava/src/com/google/common/hash/BloomFilter.java`
+#### Snippet
+```java
+  static long optimalNumOfBits(long n, double p) {
+    if (p == 0) {
+      p = Double.MIN_VALUE;
+    }
+    return (long) (-n * Math.log(p) / (Math.log(2) * Math.log(2)));
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -25138,6 +25138,42 @@ in `guava/src/com/google/common/util/concurrent/Monitor.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `k2`
+in `guava/src/com/google/common/hash/Murmur3_128HashFunction.java`
+#### Snippet
+```java
+
+    private static long mixK2(long k2) {
+      k2 *= C2;
+      k2 = Long.rotateLeft(k2, 33);
+      k2 *= C1;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `k2`
+in `guava/src/com/google/common/hash/Murmur3_128HashFunction.java`
+#### Snippet
+```java
+    private static long mixK2(long k2) {
+      k2 *= C2;
+      k2 = Long.rotateLeft(k2, 33);
+      k2 *= C1;
+      return k2;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `k2`
+in `guava/src/com/google/common/hash/Murmur3_128HashFunction.java`
+#### Snippet
+```java
+      k2 *= C2;
+      k2 = Long.rotateLeft(k2, 33);
+      k2 *= C1;
+      return k2;
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `k1`
 in `guava/src/com/google/common/hash/Murmur3_128HashFunction.java`
 #### Snippet
@@ -25230,42 +25266,6 @@ in `guava/src/com/google/common/hash/Murmur3_128HashFunction.java`
       k *= 0xc4ceb9fe1a85ec53L;
       k ^= k >>> 33;
       return k;
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `k2`
-in `guava/src/com/google/common/hash/Murmur3_128HashFunction.java`
-#### Snippet
-```java
-
-    private static long mixK2(long k2) {
-      k2 *= C2;
-      k2 = Long.rotateLeft(k2, 33);
-      k2 *= C1;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `k2`
-in `guava/src/com/google/common/hash/Murmur3_128HashFunction.java`
-#### Snippet
-```java
-    private static long mixK2(long k2) {
-      k2 *= C2;
-      k2 = Long.rotateLeft(k2, 33);
-      k2 *= C1;
-      return k2;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `k2`
-in `guava/src/com/google/common/hash/Murmur3_128HashFunction.java`
-#### Snippet
-```java
-      k2 *= C2;
-      k2 = Long.rotateLeft(k2, 33);
-      k2 *= C1;
-      return k2;
     }
 ```
 
@@ -25294,18 +25294,6 @@ in `guava/src/com/google/common/collect/ImmutableMultiset.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `n`
-in `guava/src/com/google/common/io/ByteStreams.java`
-#### Snippet
-```java
-    @Override
-    public long skip(long n) throws IOException {
-      n = Math.min(n, left);
-      long skipped = in.skip(n);
-      left -= skipped;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `totalLen`
 in `guava/src/com/google/common/io/ByteStreams.java`
 #### Snippet
@@ -25315,6 +25303,18 @@ in `guava/src/com/google/common/io/ByteStreams.java`
         totalLen += r;
       }
     }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `n`
+in `guava/src/com/google/common/io/ByteStreams.java`
+#### Snippet
+```java
+    @Override
+    public long skip(long n) throws IOException {
+      n = Math.min(n, left);
+      long skipped = in.skip(n);
+      left -= skipped;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -25462,6 +25462,42 @@ in `guava/src/com/google/common/collect/ImmutableSortedMultiset.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `length`
+in `guava/src/com/google/common/hash/Fingerprint2011.java`
+#### Snippet
+```java
+
+    // Decrease length to the nearest multiple of 64, and operate on 64-byte chunks.
+    length = (length - 1) & ~63;
+    do {
+      x = rotateRight(x + y + v[0] + load64(bytes, offset + 16), 37) * K1;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `offset`
+in `guava/src/com/google/common/hash/Fingerprint2011.java`
+#### Snippet
+```java
+      z = x;
+      x = tmp;
+      offset += 64;
+      length -= 64;
+    } while (length != 0);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `length`
+in `guava/src/com/google/common/hash/Fingerprint2011.java`
+#### Snippet
+```java
+      x = tmp;
+      offset += 64;
+      length -= 64;
+    } while (length != 0);
+    return hash128to64(hash128to64(v[0], w[0]) + shiftMix(y) * K1 + z, hash128to64(v[1], w[1]) + x);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `seedA`
 in `guava/src/com/google/common/hash/Fingerprint2011.java`
 #### Snippet
@@ -25522,54 +25558,6 @@ in `guava/src/com/google/common/hash/Fingerprint2011.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `length`
-in `guava/src/com/google/common/hash/Fingerprint2011.java`
-#### Snippet
-```java
-
-    // Decrease length to the nearest multiple of 64, and operate on 64-byte chunks.
-    length = (length - 1) & ~63;
-    do {
-      x = rotateRight(x + y + v[0] + load64(bytes, offset + 16), 37) * K1;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `guava/src/com/google/common/hash/Fingerprint2011.java`
-#### Snippet
-```java
-      z = x;
-      x = tmp;
-      offset += 64;
-      length -= 64;
-    } while (length != 0);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `length`
-in `guava/src/com/google/common/hash/Fingerprint2011.java`
-#### Snippet
-```java
-      x = tmp;
-      offset += 64;
-      length -= 64;
-    } while (length != 0);
-    return hash128to64(hash128to64(v[0], w[0]) + shiftMix(y) * K1 + z, hash128to64(v[1], w[1]) + x);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `subWindow`
-in `guava/src/com/google/common/collect/TreeRangeSet.java`
-#### Snippet
-```java
-        return ImmutableSortedMap.of();
-      } else {
-        subWindow = subWindow.intersection(complementLowerBoundWindow);
-        return new ComplementRangesByLowerBound<>(positiveRangesByLowerBound, subWindow);
-      }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `index`
 in `guava/src/com/google/common/collect/LinkedListMultimap.java`
 #### Snippet
@@ -25627,6 +25615,18 @@ in `guava/src/com/google/common/base/Ascii.java`
       seq = string;
     }
 
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `subWindow`
+in `guava/src/com/google/common/collect/TreeRangeSet.java`
+#### Snippet
+```java
+        return ImmutableSortedMap.of();
+      } else {
+        subWindow = subWindow.intersection(complementLowerBoundWindow);
+        return new ComplementRangesByLowerBound<>(positiveRangesByLowerBound, subWindow);
+      }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -25766,11 +25766,11 @@ Assignment to method parameter `index`
 in `guava/src/com/google/common/collect/MinMaxPriorityQueue.java`
 #### Snippet
 ```java
-        }
-        queue[index] = e;
-        index = grandParentIndex;
+        heap = this;
+      } else {
+        index = crossOver;
+        heap = otherHeap;
       }
-      queue[index] = x;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -25778,11 +25778,11 @@ Assignment to method parameter `index`
 in `guava/src/com/google/common/collect/MinMaxPriorityQueue.java`
 #### Snippet
 ```java
-        heap = this;
-      } else {
-        index = crossOver;
-        heap = otherHeap;
+        }
+        queue[index] = e;
+        index = grandParentIndex;
       }
+      queue[index] = x;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -25834,30 +25834,6 @@ in `guava/src/com/google/common/cache/Striped64.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `array`
-in `guava/src/com/google/common/collect/ObjectArrays.java`
-#### Snippet
-```java
-    int size = c.size();
-    if (array.length < size) {
-      array = newArray(array, size);
-    }
-    fillArray(c, array);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `dst`
-in `guava/src/com/google/common/collect/ObjectArrays.java`
-#### Snippet
-```java
-    checkPositionIndexes(offset, offset + len, src.length);
-    if (dst.length < len) {
-      dst = newArray(dst, len);
-    } else if (dst.length > len) {
-      @Nullable Object[] unsoundlyCovariantArray = dst;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `index`
 in `guava/src/com/google/common/escape/UnicodeEscaper.java`
 #### Snippet
@@ -25879,6 +25855,30 @@ in `guava/src/com/google/common/escape/UnicodeEscaper.java`
       char c1 = seq.charAt(index++);
       if (c1 < Character.MIN_HIGH_SURROGATE || c1 > Character.MAX_LOW_SURROGATE) {
         // Fast path (first test is probably all we need to do)
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `array`
+in `guava/src/com/google/common/collect/ObjectArrays.java`
+#### Snippet
+```java
+    int size = c.size();
+    if (array.length < size) {
+      array = newArray(array, size);
+    }
+    fillArray(c, array);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `dst`
+in `guava/src/com/google/common/collect/ObjectArrays.java`
+#### Snippet
+```java
+    checkPositionIndexes(offset, offset + len, src.length);
+    if (dst.length < len) {
+      dst = newArray(dst, len);
+    } else if (dst.length > len) {
+      @Nullable Object[] unsoundlyCovariantArray = dst;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -25915,18 +25915,6 @@ in `guava/src/com/google/common/io/ByteSource.java`
       length = Math.min(length, this.length - offset);
       int newOffset = this.offset + (int) offset;
       return new ByteArrayByteSource(bytes, newOffset, (int) length);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `collection`
-in `guava/src/com/google/common/collect/Sets.java`
-#### Snippet
-```java
-    checkNotNull(collection); // for GWT
-    if (collection instanceof Multiset) {
-      collection = ((Multiset<?>) collection).elementSet();
-    }
-    /*
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -25978,6 +25966,18 @@ in `guava/src/com/google/common/base/Throwables.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `collection`
+in `guava/src/com/google/common/collect/Sets.java`
+#### Snippet
+```java
+    checkNotNull(collection); // for GWT
+    if (collection instanceof Multiset) {
+      collection = ((Multiset<?>) collection).elementSet();
+    }
+    /*
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `safeMax`
 in `guava/src/com/google/common/escape/ArrayBasedCharEscaper.java`
 #### Snippet
@@ -26002,18 +26002,6 @@ in `guava/src/com/google/common/escape/ArrayBasedCharEscaper.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `other`
-in `guava/src/com/google/common/collect/ImmutableCollection.java`
-#### Snippet
-```java
-        return Platform.copy(internal, internalArrayStart(), internalArrayEnd(), other);
-      }
-      other = ObjectArrays.newArray(other, size);
-    } else if (other.length > size) {
-      other[size] = null;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `offset`
 in `guava/src/com/google/common/collect/ImmutableCollection.java`
 #### Snippet
@@ -26026,6 +26014,18 @@ in `guava/src/com/google/common/collect/ImmutableCollection.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `other`
+in `guava/src/com/google/common/collect/ImmutableCollection.java`
+#### Snippet
+```java
+        return Platform.copy(internal, internalArrayStart(), internalArrayEnd(), other);
+      }
+      other = ObjectArrays.newArray(other, size);
+    } else if (other.length > size) {
+      other[size] = null;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `value`
 in `guava/src/com/google/common/primitives/Longs.java`
 #### Snippet
@@ -26035,78 +26035,6 @@ in `guava/src/com/google/common/primitives/Longs.java`
       value >>= 8;
     }
     return result;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `k1`
-in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
-#### Snippet
-```java
-
-  private static int mixK1(int k1) {
-    k1 *= C1;
-    k1 = Integer.rotateLeft(k1, 15);
-    k1 *= C2;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `k1`
-in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
-#### Snippet
-```java
-  private static int mixK1(int k1) {
-    k1 *= C1;
-    k1 = Integer.rotateLeft(k1, 15);
-    k1 *= C2;
-    return k1;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `k1`
-in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
-#### Snippet
-```java
-    k1 *= C1;
-    k1 = Integer.rotateLeft(k1, 15);
-    k1 *= C2;
-    return k1;
-  }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `h1`
-in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
-#### Snippet
-```java
-
-  private static int mixH1(int h1, int k1) {
-    h1 ^= k1;
-    h1 = Integer.rotateLeft(h1, 13);
-    h1 = h1 * 5 + 0xe6546b64;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `h1`
-in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
-#### Snippet
-```java
-  private static int mixH1(int h1, int k1) {
-    h1 ^= k1;
-    h1 = Integer.rotateLeft(h1, 13);
-    h1 = h1 * 5 + 0xe6546b64;
-    return h1;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `h1`
-in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
-#### Snippet
-```java
-    h1 ^= k1;
-    h1 = Integer.rotateLeft(h1, 13);
-    h1 = h1 * 5 + 0xe6546b64;
-    return h1;
-  }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -26178,6 +26106,78 @@ in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
     h1 *= 0xc2b2ae35;
     h1 ^= h1 >>> 16;
     return HashCode.fromInt(h1);
+  }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `h1`
+in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
+#### Snippet
+```java
+
+  private static int mixH1(int h1, int k1) {
+    h1 ^= k1;
+    h1 = Integer.rotateLeft(h1, 13);
+    h1 = h1 * 5 + 0xe6546b64;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `h1`
+in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
+#### Snippet
+```java
+  private static int mixH1(int h1, int k1) {
+    h1 ^= k1;
+    h1 = Integer.rotateLeft(h1, 13);
+    h1 = h1 * 5 + 0xe6546b64;
+    return h1;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `h1`
+in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
+#### Snippet
+```java
+    h1 ^= k1;
+    h1 = Integer.rotateLeft(h1, 13);
+    h1 = h1 * 5 + 0xe6546b64;
+    return h1;
+  }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `k1`
+in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
+#### Snippet
+```java
+
+  private static int mixK1(int k1) {
+    k1 *= C1;
+    k1 = Integer.rotateLeft(k1, 15);
+    k1 *= C2;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `k1`
+in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
+#### Snippet
+```java
+  private static int mixK1(int k1) {
+    k1 *= C1;
+    k1 = Integer.rotateLeft(k1, 15);
+    k1 *= C2;
+    return k1;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `k1`
+in `guava/src/com/google/common/hash/Murmur3_32HashFunction.java`
+#### Snippet
+```java
+    k1 *= C1;
+    k1 = Integer.rotateLeft(k1, 15);
+    k1 *= C2;
+    return k1;
   }
 ```
 
@@ -26302,78 +26302,6 @@ in `guava/src/com/google/common/collect/ImmutableSet.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `guava/src/com/google/common/escape/CharEscaper.java`
-#### Snippet
-```java
-    // Loop through the rest of the string, replacing when needed into the
-    // destination buffer, which gets grown as needed as well.
-    for (; index < slen; index++) {
-
-      // Get a replacement for the current character.
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `h`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-    // using variant of single-word Wang/Jenkins hash.
-    // TODO(kevinb): use Hashing/move this to Hashing?
-    h += (h << 15) ^ 0xffffcd7d;
-    h ^= (h >>> 10);
-    h += (h << 3);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `h`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-    // TODO(kevinb): use Hashing/move this to Hashing?
-    h += (h << 15) ^ 0xffffcd7d;
-    h ^= (h >>> 10);
-    h += (h << 3);
-    h ^= (h >>> 6);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `h`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-    h += (h << 15) ^ 0xffffcd7d;
-    h ^= (h >>> 10);
-    h += (h << 3);
-    h ^= (h >>> 6);
-    h += (h << 2) + (h << 14);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `h`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-    h ^= (h >>> 10);
-    h += (h << 3);
-    h ^= (h >>> 6);
-    h += (h << 2) + (h << 14);
-    return h ^ (h >>> 16);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `h`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-    h += (h << 3);
-    h ^= (h >>> 6);
-    h += (h << 2) + (h << 14);
-    return h ^ (h >>> 16);
-  }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `inMatchingGroup`
 in `guava/src/com/google/common/base/CharMatcher.java`
 #### Snippet
@@ -26422,27 +26350,15 @@ in `guava/src/com/google/common/base/CharMatcher.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `k`
-in `guava/src/com/google/common/math/IntMath.java`
+Assignment to method parameter `index`
+in `guava/src/com/google/common/escape/CharEscaper.java`
 #### Snippet
 ```java
-            accum = saturatedMultiply(accum, b);
-          }
-          k >>= 1;
-          if (k > 0) {
-            if (-FLOOR_SQRT_MAX_INT > b | b > FLOOR_SQRT_MAX_INT) {
-```
+    // Loop through the rest of the string, replacing when needed into the
+    // destination buffer, which gets grown as needed as well.
+    for (; index < slen; index++) {
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `b`
-in `guava/src/com/google/common/math/IntMath.java`
-#### Snippet
-```java
-              return limit;
-            }
-            b *= b;
-          }
-      }
+      // Get a replacement for the current character.
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -26534,11 +26450,23 @@ Assignment to method parameter `k`
 in `guava/src/com/google/common/math/IntMath.java`
 #### Snippet
 ```java
-    checkArgument(k <= n, "k (%s) > n (%s)", k, n);
-    if (k > (n >> 1)) {
-      k = n - k;
-    }
-    if (k >= biggestBinomials.length || n > biggestBinomials[k]) {
+            accum = saturatedMultiply(accum, b);
+          }
+          k >>= 1;
+          if (k > 0) {
+            if (-FLOOR_SQRT_MAX_INT > b | b > FLOOR_SQRT_MAX_INT) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `b`
+in `guava/src/com/google/common/math/IntMath.java`
+#### Snippet
+```java
+              return limit;
+            }
+            b *= b;
+          }
+      }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -26563,6 +26491,78 @@ in `guava/src/com/google/common/math/IntMath.java`
             b *= b;
           }
       }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `k`
+in `guava/src/com/google/common/math/IntMath.java`
+#### Snippet
+```java
+    checkArgument(k <= n, "k (%s) > n (%s)", k, n);
+    if (k > (n >> 1)) {
+      k = n - k;
+    }
+    if (k >= biggestBinomials.length || n > biggestBinomials[k]) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `h`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+    // using variant of single-word Wang/Jenkins hash.
+    // TODO(kevinb): use Hashing/move this to Hashing?
+    h += (h << 15) ^ 0xffffcd7d;
+    h ^= (h >>> 10);
+    h += (h << 3);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `h`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+    // TODO(kevinb): use Hashing/move this to Hashing?
+    h += (h << 15) ^ 0xffffcd7d;
+    h ^= (h >>> 10);
+    h += (h << 3);
+    h ^= (h >>> 6);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `h`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+    h += (h << 15) ^ 0xffffcd7d;
+    h ^= (h >>> 10);
+    h += (h << 3);
+    h ^= (h >>> 6);
+    h += (h << 2) + (h << 14);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `h`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+    h ^= (h >>> 10);
+    h += (h << 3);
+    h ^= (h >>> 6);
+    h += (h << 2) + (h << 14);
+    return h ^ (h >>> 16);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `h`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+    h += (h << 3);
+    h ^= (h >>> 6);
+    h += (h << 2) + (h << 14);
+    return h ^ (h >>> 16);
+  }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -26642,11 +26642,11 @@ Assignment to method parameter `chars`
 in `guava/src/com/google/common/io/BaseEncoding.java`
 #### Snippet
 ```java
-  final byte[] decodeChecked(CharSequence chars)
-      throws DecodingException {
-    chars = trimTrailingPadding(chars);
-    byte[] tmp = new byte[maxDecodedSize(chars.length())];
-    int len = decodeTo(tmp, chars);
+    int decodeTo(byte[] target, CharSequence chars) throws DecodingException {
+      checkNotNull(target);
+      chars = trimTrailingPadding(chars);
+      if (!alphabet.isValidPaddingStartPosition(chars.length())) {
+        throw new DecodingException("Invalid input length " + chars.length());
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -26678,11 +26678,11 @@ Assignment to method parameter `chars`
 in `guava/src/com/google/common/io/BaseEncoding.java`
 #### Snippet
 ```java
-    int decodeTo(byte[] target, CharSequence chars) throws DecodingException {
-      checkNotNull(target);
-      chars = trimTrailingPadding(chars);
-      if (!alphabet.isValidPaddingStartPosition(chars.length())) {
-        throw new DecodingException("Invalid input length " + chars.length());
+  final byte[] decodeChecked(CharSequence chars)
+      throws DecodingException {
+    chars = trimTrailingPadding(chars);
+    byte[] tmp = new byte[maxDecodedSize(chars.length())];
+    int len = decodeTo(tmp, chars);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -26710,15 +26710,87 @@ in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
+Assignment to method parameter `x`
 in `guava/src/com/google/common/math/LongMath.java`
 #### Snippet
 ```java
-          // shift is either the number of powers of 2 left to multiply a by, or the biggest shift
-          // possible while keeping a in an unsigned long.
-          a = UnsignedLongs.remainder(a << shift, m);
-          remainingPowersOf2 -= shift;
-        } while (remainingPowersOf2 > 0);
+    }
+    long commonDivisor = gcd(x, denominator);
+    x /= commonDivisor;
+    denominator /= commonDivisor;
+    // We know gcd(x, denominator) = 1, and x * numerator / denominator is exact,
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `denominator`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+    long commonDivisor = gcd(x, denominator);
+    x /= commonDivisor;
+    denominator /= commonDivisor;
+    // We know gcd(x, denominator) = 1, and x * numerator / denominator is exact,
+    // so denominator must be a divisor of numerator.
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `k`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+            accum = checkedMultiply(accum, b);
+          }
+          k >>= 1;
+          if (k > 0) {
+            checkNoOverflow(
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `b`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+            checkNoOverflow(
+                -FLOOR_SQRT_MAX_LONG <= b && b <= FLOOR_SQRT_MAX_LONG, "checkedPow", b, k);
+            b *= b;
+          }
+      }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `k`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+      }
+    }
+    for (long accum = 1; ; k >>= 1) {
+      switch (k) {
+        case 0:
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `b`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+        default:
+          accum *= ((k & 1) == 0) ? 1 : b;
+          b *= b;
+      }
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `base`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+      int r = Long.numberOfTrailingZeros(n - 1);
+      long d = (n - 1) >> r;
+      base %= n;
+      if (base == 0) {
+        return true;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -26746,27 +26818,63 @@ in `guava/src/com/google/common/math/LongMath.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `x`
+Assignment to method parameter `k`
 in `guava/src/com/google/common/math/LongMath.java`
 #### Snippet
 ```java
+    checkArgument(k <= n, "k (%s) > n (%s)", k, n);
+    if (k > (n >> 1)) {
+      k = n - k;
     }
-    long commonDivisor = gcd(x, denominator);
-    x /= commonDivisor;
-    denominator /= commonDivisor;
-    // We know gcd(x, denominator) = 1, and x * numerator / denominator is exact,
+    switch (k) {
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `denominator`
+Assignment to method parameter `n`
 in `guava/src/com/google/common/math/LongMath.java`
 #### Snippet
 ```java
-    long commonDivisor = gcd(x, denominator);
-    x /= commonDivisor;
-    denominator /= commonDivisor;
-    // We know gcd(x, denominator) = 1, and x * numerator / denominator is exact,
-    // so denominator must be a divisor of numerator.
+        } else if (k < biggestSimpleBinomials.length && n <= biggestSimpleBinomials[k]) {
+          // guaranteed not to overflow
+          long result = n--;
+          for (int i = 2; i <= k; n--, i++) {
+            result *= n;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `n`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+          // guaranteed not to overflow
+          long result = n--;
+          for (int i = 2; i <= k; n--, i++) {
+            result *= n;
+            result /= i;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `n`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+
+          long result = 1;
+          long numerator = n--;
+          long denominator = 1;
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `n`
+in `guava/src/com/google/common/math/LongMath.java`
+#### Snippet
+```java
+           * denominator accumulators, multiplying the fraction into result when near overflow.
+           */
+          for (int i = 2; i <= k; i++, n--) {
+            if (numeratorBits + nBits < Long.SIZE - 1) {
+              // It's definitely safe to multiply into numerator and denominator.
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -26830,63 +26938,15 @@ in `guava/src/com/google/common/math/LongMath.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `base`
+Assignment to method parameter `a`
 in `guava/src/com/google/common/math/LongMath.java`
 #### Snippet
 ```java
-      int r = Long.numberOfTrailingZeros(n - 1);
-      long d = (n - 1) >> r;
-      base %= n;
-      if (base == 0) {
-        return true;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `k`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-      }
-    }
-    for (long accum = 1; ; k >>= 1) {
-      switch (k) {
-        case 0:
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `b`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-        default:
-          accum *= ((k & 1) == 0) ? 1 : b;
-          b *= b;
-      }
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `k`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-            accum = checkedMultiply(accum, b);
-          }
-          k >>= 1;
-          if (k > 0) {
-            checkNoOverflow(
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `b`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-            checkNoOverflow(
-                -FLOOR_SQRT_MAX_LONG <= b && b <= FLOOR_SQRT_MAX_LONG, "checkedPow", b, k);
-            b *= b;
-          }
-      }
+          // shift is either the number of powers of 2 left to multiply a by, or the biggest shift
+          // possible while keeping a in an unsigned long.
+          a = UnsignedLongs.remainder(a << shift, m);
+          remainingPowersOf2 -= shift;
+        } while (remainingPowersOf2 > 0);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -26911,66 +26971,6 @@ in `guava/src/com/google/common/math/LongMath.java`
             b *= b;
           }
       }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `k`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-    checkArgument(k <= n, "k (%s) > n (%s)", k, n);
-    if (k > (n >> 1)) {
-      k = n - k;
-    }
-    switch (k) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `n`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-        } else if (k < biggestSimpleBinomials.length && n <= biggestSimpleBinomials[k]) {
-          // guaranteed not to overflow
-          long result = n--;
-          for (int i = 2; i <= k; n--, i++) {
-            result *= n;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `n`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-          // guaranteed not to overflow
-          long result = n--;
-          for (int i = 2; i <= k; n--, i++) {
-            result *= n;
-            result /= i;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `n`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-
-          long result = 1;
-          long numerator = n--;
-          long denominator = 1;
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `n`
-in `guava/src/com/google/common/math/LongMath.java`
-#### Snippet
-```java
-           * denominator accumulators, multiplying the fraction into result when near overflow.
-           */
-          for (int i = 2; i <= k; i++, n--) {
-            if (numeratorBits + nBits < Long.SIZE - 1) {
-              // It's definitely safe to multiply into numerator and denominator.
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -27087,11 +27087,11 @@ Synchronization on method parameter `future`
 in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 #### Snippet
 ```java
-    boolean casWaiters(
-        AbstractFuture<?> future, @CheckForNull Waiter expect, @CheckForNull Waiter update) {
+    @Override
+    boolean casListeners(AbstractFuture<?> future, @CheckForNull Listener expect, Listener update) {
       synchronized (future) {
-        if (future.waiters == expect) {
-          future.waiters = update;
+        if (future.listeners == expect) {
+          future.listeners = update;
 ```
 
 ### RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
@@ -27099,11 +27099,11 @@ Synchronization on method parameter `future`
 in `guava/src/com/google/common/util/concurrent/AbstractFuture.java`
 #### Snippet
 ```java
-    @Override
-    boolean casListeners(AbstractFuture<?> future, @CheckForNull Listener expect, Listener update) {
+    boolean casWaiters(
+        AbstractFuture<?> future, @CheckForNull Waiter expect, @CheckForNull Waiter update) {
       synchronized (future) {
-        if (future.listeners == expect) {
-          future.listeners = update;
+        if (future.waiters == expect) {
+          future.waiters = update;
 ```
 
 ### RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
@@ -27160,35 +27160,11 @@ Return of `null`
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-  E getEntry(@CheckForNull Object key) {
-    if (key == null) {
-      return null;
-    }
-    int hash = hash(key);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-  V getLiveValue(E entry) {
-    if (entry.getKey() == null) {
-      return null;
-    }
-    return entry.getValue();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
-#### Snippet
-```java
-                this.count = newCount; // write-volatile
-              }
+              newCount = this.count; // count remains unchanged
+              this.count = newCount; // write-volatile
               return null;
-            }
-
+            } else if (onlyIfAbsent) {
+              // Mimic
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -27196,8 +27172,8 @@ Return of `null`
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-        }
-
+        table.set(index, newEntry);
+        this.count = newCount; // write-volatile
         return null;
       } finally {
         unlock();
@@ -27244,6 +27220,30 @@ Return of `null`
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
+  V getLiveValue(E entry) {
+    if (entry.getKey() == null) {
+      return null;
+    }
+    return entry.getValue();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
+  E getEntry(@CheckForNull Object key) {
+    if (key == null) {
+      return null;
+    }
+    int hash = hash(key);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
+#### Snippet
+```java
         E e = getLiveEntry(key, hash);
         if (e == null) {
           return null;
@@ -27256,11 +27256,11 @@ Return of `null`
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-              newCount = this.count; // count remains unchanged
-              this.count = newCount; // write-volatile
+                this.count = newCount; // write-volatile
+              }
               return null;
-            } else if (onlyIfAbsent) {
-              // Mimic
+            }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -27268,35 +27268,11 @@ Return of `null`
 in `guava/src/com/google/common/collect/MapMakerInternalMap.java`
 #### Snippet
 ```java
-        table.set(index, newEntry);
-        this.count = newCount; // write-volatile
+        }
+
         return null;
       } finally {
         unlock();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-        } else if (createNewEntry || valueReference.isLoading()) {
-          removeLoadingValue(key, hash, computingValueReference);
-          return null;
-        } else {
-          removeEntry(e, hash, RemovalCause.EXPLICIT);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `guava/src/com/google/common/cache/LocalCache.java`
-#### Snippet
-```java
-        } else {
-          removeEntry(e, hash, RemovalCause.EXPLICIT);
-          return null;
-        }
-      } finally {
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -27335,6 +27311,30 @@ in `guava/src/com/google/common/cache/LocalCache.java`
       return value;
 ```
 
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+        } else if (createNewEntry || valueReference.isLoading()) {
+          removeLoadingValue(key, hash, computingValueReference);
+          return null;
+        } else {
+          removeEntry(e, hash, RemovalCause.EXPLICIT);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `guava/src/com/google/common/cache/LocalCache.java`
+#### Snippet
+```java
+        } else {
+          removeEntry(e, hash, RemovalCause.EXPLICIT);
+          return null;
+        }
+      } finally {
+```
+
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `next` is redundant
@@ -27349,15 +27349,15 @@ in `guava/src/com/google/common/util/concurrent/AtomicDouble.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `w` is redundant
-in `guava/src/com/google/common/base/Equivalence.java`
+Local variable `nullable` is redundant
+in `guava/src/com/google/common/util/concurrent/Futures.java`
 #### Snippet
 ```java
-   */
-  public final <S extends @Nullable T> Wrapper<S> wrap(@ParametricNullness S reference) {
-    Wrapper<S> w = new Wrapper<>(this, reference);
-    return w;
-  }
+  public static <V extends @Nullable Object> ListenableFuture<List<V>> allAsList(
+      ListenableFuture<? extends V>... futures) {
+    ListenableFuture<List<@Nullable V>> nullable =
+        new ListFuture<V>(ImmutableList.copyOf(futures), true);
+    // allAsList ensures that it fills the output list with V instances.
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
@@ -27373,15 +27373,15 @@ in `guava/src/com/google/common/util/concurrent/Futures.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `nullable` is redundant
-in `guava/src/com/google/common/util/concurrent/Futures.java`
+Local variable `w` is redundant
+in `guava/src/com/google/common/base/Equivalence.java`
 #### Snippet
 ```java
-  public static <V extends @Nullable Object> ListenableFuture<List<V>> allAsList(
-      ListenableFuture<? extends V>... futures) {
-    ListenableFuture<List<@Nullable V>> nullable =
-        new ListFuture<V>(ImmutableList.copyOf(futures), true);
-    // allAsList ensures that it fills the output list with V instances.
+   */
+  public final <S extends @Nullable T> Wrapper<S> wrap(@ParametricNullness S reference) {
+    Wrapper<S> w = new Wrapper<>(this, reference);
+    return w;
+  }
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
@@ -27550,80 +27550,80 @@ in `guava/src/com/google/common/collect/Synchronized.java`
 ```java
 
     @Override
+    public boolean equals(@CheckForNull Object o) {
+      if (o == this) {
+        return true;
+```
+
+### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
+`equals()` should check the class of its parameter
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean equals(@CheckForNull Object o) {
+      if (o == this) {
+        return true;
+```
+
+### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
+`equals()` should check the class of its parameter
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean equals(@CheckForNull Object o) {
+      if (o == this) {
+        return true;
+```
+
+### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
+`equals()` should check the class of its parameter
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean equals(@CheckForNull Object o) {
+      if (o == this) {
+        return true;
+```
+
+### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
+`equals()` should check the class of its parameter
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean equals(@CheckForNull Object o) {
+      if (o == this) {
+        return true;
+```
+
+### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
+`equals()` should check the class of its parameter
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean equals(@CheckForNull Object o) {
+      if (o == this) {
+        return true;
+```
+
+### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
+`equals()` should check the class of its parameter
+in `guava/src/com/google/common/collect/Synchronized.java`
+#### Snippet
+```java
+
+    @Override
     public boolean equals(@CheckForNull Object obj) {
       if (this == obj) {
-        return true;
-```
-
-### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-`equals()` should check the class of its parameter
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean equals(@CheckForNull Object o) {
-      if (o == this) {
-        return true;
-```
-
-### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-`equals()` should check the class of its parameter
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean equals(@CheckForNull Object o) {
-      if (o == this) {
-        return true;
-```
-
-### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-`equals()` should check the class of its parameter
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean equals(@CheckForNull Object o) {
-      if (o == this) {
-        return true;
-```
-
-### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-`equals()` should check the class of its parameter
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean equals(@CheckForNull Object o) {
-      if (o == this) {
-        return true;
-```
-
-### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-`equals()` should check the class of its parameter
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean equals(@CheckForNull Object o) {
-      if (o == this) {
-        return true;
-```
-
-### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-`equals()` should check the class of its parameter
-in `guava/src/com/google/common/collect/Synchronized.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean equals(@CheckForNull Object o) {
-      if (o == this) {
         return true;
 ```
 
@@ -27741,10 +27741,10 @@ in `guava/src/com/google/common/collect/AbstractMultimap.java`
 #### Snippet
 ```java
 
-    @Override
-    public boolean equals(@CheckForNull Object obj) {
-      return Sets.equalsImpl(this, obj);
-    }
+  @Override
+  public boolean equals(@CheckForNull Object object) {
+    return Multimaps.equalsImpl(this, object);
+  }
 ```
 
 ### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
@@ -27753,10 +27753,10 @@ in `guava/src/com/google/common/collect/AbstractMultimap.java`
 #### Snippet
 ```java
 
-  @Override
-  public boolean equals(@CheckForNull Object object) {
-    return Multimaps.equalsImpl(this, object);
-  }
+    @Override
+    public boolean equals(@CheckForNull Object obj) {
+      return Sets.equalsImpl(this, obj);
+    }
 ```
 
 ### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
