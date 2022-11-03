@@ -152,6 +152,6 @@ public class PeriodicSummary {
     }
 
     private boolean filterOwnRepos(PullRequest pr) {
-        return pr.repo().startsWith("martinwitt");
+        return !pr.repo().startsWith("martinWitt");
     }
 }
