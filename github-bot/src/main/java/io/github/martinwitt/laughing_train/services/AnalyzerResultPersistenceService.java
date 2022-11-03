@@ -18,7 +18,10 @@ public class AnalyzerResultPersistenceService {
                 if (BadSmell.findByIdentifier(
                                 BadSmell.generateIdentifier(badSmell, project.name(), project.commitHash()))
                         .isEmpty()) {
-                    BadSmell.persist(new BadSmell(badSmell, project.name(), project.url(), project.commitHash()));
+                    var savedBadSmell = new BadSmell(badSmell, project.name(), project.url(), project.commitHash());
+                    if (BadSmell.findByIdentifier(savedBadSmell.identifier).isEmpty()) {
+                        savedBadSmell.persist();
+                    }
                 }
             }
         }

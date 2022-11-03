@@ -58,7 +58,7 @@ public class DataBaseMigration {
                 .forEach((k, v) -> {
                     if (v.size() > 1) {
                         logger.atInfo().log("Found duplicated bad smells for identifier %s", k);
-                        v.stream().skip(1).forEach(BadSmell::delete);
+                        v.stream().skip(1).forEach(x -> BadSmell.deleteById(x.id));
                     }
                 });
     }
@@ -88,7 +88,6 @@ public class DataBaseMigration {
                 config.persist();
             }
         });
-        logger.atInfo().log("Created missing configs for %d projects", ProjectConfig.count());
     }
 
     private void removeBadSmellsWithWrongIdentifier() {
@@ -107,6 +106,9 @@ public class DataBaseMigration {
                     }
                     return hashPart.equals(v.commitHash);
                 })
+                .forEach(PanacheMongoEntityBase::delete);
+        BadSmell.<BadSmell>findAll().stream()
+                .filter(v -> v.getIdentifier().contains("["))
                 .forEach(PanacheMongoEntityBase::delete);
     }
 
