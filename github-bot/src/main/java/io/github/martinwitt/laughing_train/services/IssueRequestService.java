@@ -51,6 +51,9 @@ public class IssueRequestService {
                 .q("author:" + userName.userName())
                 .q("fingerprint in:body")
                 .list()
+                .toList()
+                .stream()
+                .filter(v -> !v.getRepository().isFork())
                 .toList();
     }
 
