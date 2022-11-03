@@ -171,6 +171,18 @@ in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
 ```
 
 ### RuleId[ruleID=ConstantConditions]
+Method invocation `keySet` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
+#### Snippet
+```java
+		var tideNames = new HashSet<String>();
+		var craneNames = new HashSet<String>();
+		for (var key : labels.keySet()) {
+			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
+				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
+```
+
+### RuleId[ruleID=ConstantConditions]
 Method invocation `get` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 #### Snippet
@@ -192,18 +204,6 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 		for (var mount : container.getMounts()) {
 			var volume = volumes.get(mount.getName());
 			if (volume != null)
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `keySet` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
-#### Snippet
-```java
-		var tideNames = new HashSet<String>();
-		var craneNames = new HashSet<String>();
-		for (var key : labels.keySet()) {
-			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
-				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
