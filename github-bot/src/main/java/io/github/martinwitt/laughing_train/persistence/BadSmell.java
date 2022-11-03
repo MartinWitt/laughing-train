@@ -63,8 +63,13 @@ public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
     }
 
     public static String generateIdentifier(AnalyzerResult result, String projectName, String commitHash) {
-        return "%s-%s-%s-%s"
-                .formatted(result.getAnalyzer(), projectName, result.ruleID(), Objects.hash(result, commitHash));
+        return "%s-%s-%s-%s-%s"
+                .formatted(
+                        result.getAnalyzer(),
+                        projectName,
+                        result.ruleID().ruleID(),
+                        commitHash,
+                        result.position().hashCode());
     }
 
     /** (non-Javadoc)
