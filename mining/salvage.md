@@ -51,54 +51,6 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 
 ## RuleId[ruleID=ConstantConditions]
 ### RuleId[ruleID=ConstantConditions]
-Argument `config.getEnv()` might be null
-in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
-#### Snippet
-```java
-				.withAttachStderr(true)
-				.withAttachStdin(false)
-				.withEnv(Arrays.asList(config.getEnv()))
-				.withUser(user)
-				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `keySet` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
-#### Snippet
-```java
-		var tideNames = new HashSet<String>();
-		var craneNames = new HashSet<String>();
-		for (var key : labels.keySet()) {
-			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
-				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
-```
-
-### RuleId[ruleID=ConstantConditions]
-Method invocation `get` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
-#### Snippet
-```java
-		
-		// container might be part of compose project
-		var project = Optional.ofNullable(labels.get(SalvageService.COMPOSE_LABEL_PROJECT));
-		
-		// parse user or fall back to container user
-```
-
-### RuleId[ruleID=ConstantConditions]
-Dereference of `container.getMounts()` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
-#### Snippet
-```java
-		
-		// note: not all used volumes might be part of tide
-		for (var mount : container.getMounts()) {
-			var volume = volumes.get(mount.getName());
-			if (volume != null)
-```
-
-### RuleId[ruleID=ConstantConditions]
 Unboxing of `state.getRestarting()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -204,6 +156,54 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 				if (state.getRunning() && !state.getPaused()) {
 					log.debug("pausing container {}", container.id());
 					docker.pauseContainerCmd(container.id()).exec();
+```
+
+### RuleId[ruleID=ConstantConditions]
+Argument `config.getEnv()` might be null
+in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
+#### Snippet
+```java
+				.withAttachStderr(true)
+				.withAttachStdin(false)
+				.withEnv(Arrays.asList(config.getEnv()))
+				.withUser(user)
+				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `keySet` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
+#### Snippet
+```java
+		var tideNames = new HashSet<String>();
+		var craneNames = new HashSet<String>();
+		for (var key : labels.keySet()) {
+			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
+				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
+```
+
+### RuleId[ruleID=ConstantConditions]
+Method invocation `get` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
+#### Snippet
+```java
+		
+		// container might be part of compose project
+		var project = Optional.ofNullable(labels.get(SalvageService.COMPOSE_LABEL_PROJECT));
+		
+		// parse user or fall back to container user
+```
+
+### RuleId[ruleID=ConstantConditions]
+Dereference of `container.getMounts()` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
+#### Snippet
+```java
+		
+		// note: not all used volumes might be part of tide
+		for (var mount : container.getMounts()) {
+			var volume = volumes.get(mount.getName());
+			if (volume != null)
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
