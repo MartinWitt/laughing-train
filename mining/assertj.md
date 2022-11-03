@@ -3,63 +3,63 @@
 I found 1429 bad smells with 38 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UnnecessaryFullyQualifiedName | 696 | false |
-| BoundedWildcard | 123 | false |
-| MethodOverridesStaticMethod | 86 | false |
-| ReturnNull | 81 | false |
-| MethodOverloadsParentMethod | 60 | false |
-| OptionalUsedAsFieldOrParameterType | 60 | false |
-| RedundantMethodOverride | 30 | false |
-| UnnecessarySuperQualifier | 21 | false |
-| ArrayEquality | 18 | false |
-| ZeroLengthArrayInitialization | 18 | false |
-| SizeReplaceableByIsEmpty | 17 | true |
-| IgnoreResultOfCall | 17 | false |
-| DeprecatedIsStillUsed | 17 | false |
-| ConstantConditions | 16 | false |
-| OptionalGetWithoutIsPresent | 15 | false |
-| UtilityClassWithoutPrivateConstructor | 14 | false |
-| NonProtectedConstructorInAbstractClass | 13 | true |
-| TypeParameterExtendsObject | 12 | false |
-| AssignmentToMethodParameter | 12 | false |
-| RedundantFieldInitialization | 10 | false |
-| SystemOutErr | 10 | false |
-| EmptyMethod | 9 | false |
-| WrapperTypeMayBePrimitive | 8 | false |
-| CastToIncompatibleInterface | 6 | false |
-| NestedAssignment | 5 | false |
-| RedundantStringFormatCall | 5 | false |
-| Convert2MethodRef | 5 | false |
-| RedundantSuppression | 4 | false |
-| DynamicRegexReplaceableByCompiledPattern | 4 | false |
-| UnnecessaryLocalVariable | 4 | true |
-| KeySetIterationMayUseEntrySet | 3 | false |
-| EqualsWithItself | 2 | false |
-| RegExpRedundantEscape | 2 | false |
-| NonExceptionNameEndsWithException | 2 | false |
-| UnnecessaryToStringCall | 2 | true |
-| StringEqualsEmptyString | 2 | false |
-| RegExpUnnecessaryNonCapturingGroup | 2 | false |
-| EmptyStatementBody | 1 | false |
-| DuplicateBranchesInSwitch | 1 | false |
-| StringBufferReplaceableByString | 1 | false |
-| AbstractClassNeverImplemented | 1 | false |
-| MissortedModifiers | 1 | false |
-| IfStatementMissingBreakInLoop | 1 | false |
-| SimplifyOptionalCallChains | 1 | false |
-| CodeBlock2Expr | 1 | false |
-| ExceptionNameDoesntEndWithException | 1 | false |
-| StringConcatenationInsideStringBufferAppend | 1 | false |
-| IOResource | 1 | false |
-| UnnecessarySemicolon | 1 | false |
-| SimplifyStreamApiCallChains | 1 | false |
-| ProtectedMemberInFinalClass | 1 | true |
-| ThrowablePrintStackTrace | 1 | false |
-| ArrayHashCode | 1 | false |
-| PointlessBooleanExpression | 1 | true |
-| UseBulkOperation | 1 | false |
-## EqualsWithItself
-### EqualsWithItself
+| RuleId[ruleID=UnnecessaryFullyQualifiedName] | 696 | false |
+| RuleId[ruleID=BoundedWildcard] | 123 | false |
+| RuleId[ruleID=MethodOverridesStaticMethod] | 86 | false |
+| RuleId[ruleID=ReturnNull] | 81 | false |
+| RuleId[ruleID=MethodOverloadsParentMethod] | 60 | false |
+| RuleId[ruleID=OptionalUsedAsFieldOrParameterType] | 60 | false |
+| RuleId[ruleID=RedundantMethodOverride] | 30 | false |
+| RuleId[ruleID=UnnecessarySuperQualifier] | 21 | false |
+| RuleId[ruleID=ArrayEquality] | 18 | false |
+| RuleId[ruleID=ZeroLengthArrayInitialization] | 18 | false |
+| RuleId[ruleID=SizeReplaceableByIsEmpty] | 17 | true |
+| RuleId[ruleID=IgnoreResultOfCall] | 17 | false |
+| RuleId[ruleID=DeprecatedIsStillUsed] | 17 | false |
+| RuleId[ruleID=ConstantConditions] | 16 | false |
+| RuleId[ruleID=OptionalGetWithoutIsPresent] | 15 | false |
+| RuleId[ruleID=UtilityClassWithoutPrivateConstructor] | 14 | false |
+| RuleId[ruleID=NonProtectedConstructorInAbstractClass] | 13 | true |
+| RuleId[ruleID=TypeParameterExtendsObject] | 12 | false |
+| RuleId[ruleID=AssignmentToMethodParameter] | 12 | false |
+| RuleId[ruleID=RedundantFieldInitialization] | 10 | false |
+| RuleId[ruleID=SystemOutErr] | 10 | false |
+| RuleId[ruleID=EmptyMethod] | 9 | false |
+| RuleId[ruleID=WrapperTypeMayBePrimitive] | 8 | false |
+| RuleId[ruleID=CastToIncompatibleInterface] | 6 | false |
+| RuleId[ruleID=NestedAssignment] | 5 | false |
+| RuleId[ruleID=RedundantStringFormatCall] | 5 | false |
+| RuleId[ruleID=Convert2MethodRef] | 5 | false |
+| RuleId[ruleID=RedundantSuppression] | 4 | false |
+| RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern] | 4 | false |
+| RuleId[ruleID=UnnecessaryLocalVariable] | 4 | true |
+| RuleId[ruleID=KeySetIterationMayUseEntrySet] | 3 | false |
+| RuleId[ruleID=EqualsWithItself] | 2 | false |
+| RuleId[ruleID=RegExpRedundantEscape] | 2 | false |
+| RuleId[ruleID=NonExceptionNameEndsWithException] | 2 | false |
+| RuleId[ruleID=UnnecessaryToStringCall] | 2 | true |
+| RuleId[ruleID=StringEqualsEmptyString] | 2 | false |
+| RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup] | 2 | false |
+| RuleId[ruleID=EmptyStatementBody] | 1 | false |
+| RuleId[ruleID=DuplicateBranchesInSwitch] | 1 | false |
+| RuleId[ruleID=StringBufferReplaceableByString] | 1 | false |
+| RuleId[ruleID=AbstractClassNeverImplemented] | 1 | false |
+| RuleId[ruleID=MissortedModifiers] | 1 | false |
+| RuleId[ruleID=IfStatementMissingBreakInLoop] | 1 | false |
+| RuleId[ruleID=SimplifyOptionalCallChains] | 1 | false |
+| RuleId[ruleID=CodeBlock2Expr] | 1 | false |
+| RuleId[ruleID=ExceptionNameDoesntEndWithException] | 1 | false |
+| RuleId[ruleID=StringConcatenationInsideStringBufferAppend] | 1 | false |
+| RuleId[ruleID=IOResource] | 1 | false |
+| RuleId[ruleID=UnnecessarySemicolon] | 1 | false |
+| RuleId[ruleID=SimplifyStreamApiCallChains] | 1 | false |
+| RuleId[ruleID=ProtectedMemberInFinalClass] | 1 | true |
+| RuleId[ruleID=ThrowablePrintStackTrace] | 1 | false |
+| RuleId[ruleID=ArrayHashCode] | 1 | false |
+| RuleId[ruleID=PointlessBooleanExpression] | 1 | true |
+| RuleId[ruleID=UseBulkOperation] | 1 | false |
+## RuleId[ruleID=EqualsWithItself]
+### RuleId[ruleID=EqualsWithItself]
 `compare()` called on itself
 in `assertj-core/src/main/java/org/assertj/core/internal/Lists.java`
 #### Snippet
@@ -71,7 +71,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Lists.java`
       }
 ```
 
-### EqualsWithItself
+### RuleId[ruleID=EqualsWithItself]
 `compare()` called on itself
 in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
 #### Snippet
@@ -83,8 +83,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
       }
 ```
 
-## WrapperTypeMayBePrimitive
-### WrapperTypeMayBePrimitive
+## RuleId[ruleID=WrapperTypeMayBePrimitive]
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
 Type may be primitive
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.java`
 #### Snippet
@@ -96,7 +96,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.
         case SHORT:
 ```
 
-### WrapperTypeMayBePrimitive
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
 Type may be primitive
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.java`
 #### Snippet
@@ -108,7 +108,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.
         case INT:
 ```
 
-### WrapperTypeMayBePrimitive
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
 Type may be primitive
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.java`
 #### Snippet
@@ -120,7 +120,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.
         case LONG:
 ```
 
-### WrapperTypeMayBePrimitive
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
 Type may be primitive
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.java`
 #### Snippet
@@ -132,7 +132,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.
         case FLOAT:
 ```
 
-### WrapperTypeMayBePrimitive
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
 Type may be primitive
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.java`
 #### Snippet
@@ -144,7 +144,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.
         case DOUBLE:
 ```
 
-### WrapperTypeMayBePrimitive
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
 Type may be primitive
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.java`
 #### Snippet
@@ -156,7 +156,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.
         case BOOLEAN:
 ```
 
-### WrapperTypeMayBePrimitive
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
 Type may be primitive
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.java`
 #### Snippet
@@ -168,7 +168,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.
         case CHAR:
 ```
 
-### WrapperTypeMayBePrimitive
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
 Type may be primitive
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.java`
 #### Snippet
@@ -180,8 +180,8 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.
         }
 ```
 
-## EmptyStatementBody
-### EmptyStatementBody
+## RuleId[ruleID=EmptyStatementBody]
+### RuleId[ruleID=EmptyStatementBody]
 `while` statement has empty body
 in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
 #### Snippet
@@ -193,8 +193,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
       throw new InputStreamsException(format("Unable to count lines in `%s`", actual), e);
 ```
 
-## RegExpRedundantEscape
-### RegExpRedundantEscape
+## RuleId[ruleID=RegExpRedundantEscape]
+### RuleId[ruleID=RegExpRedundantEscape]
 Redundant character escape `\\]` in RegExp
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/ComparisonDifference.java`
 #### Snippet
@@ -206,7 +206,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Compari
 
 ```
 
-### RegExpRedundantEscape
+### RuleId[ruleID=RegExpRedundantEscape]
 Redundant character escape `\\]` in RegExp
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/ComparisonDifference.java`
 #### Snippet
@@ -218,20 +218,8 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Compari
   private static final String TOP_LEVEL_OBJECTS = "Top level actual and expected objects";
 ```
 
-## CastToIncompatibleInterface
-### CastToIncompatibleInterface
-Cast to incompatible interface `AssertJProxySetup`
-in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
-#### Snippet
-```java
-      Constructor<?> constructor = proxyClass.getConstructor(AbstractFileAssert.class);
-      FileSizeAssert<?> proxiedAssert = (FileSizeAssert<?>) constructor.newInstance(fileSizeAssert.returnToFile());
-      ((AssertJProxySetup) proxiedAssert).assertj$setup(new ProxifyMethodChangingTheObjectUnderTest(this), collector);
-      return proxiedAssert;
-    } catch (Exception e) {
-```
-
-### CastToIncompatibleInterface
+## RuleId[ruleID=CastToIncompatibleInterface]
+### RuleId[ruleID=CastToIncompatibleInterface]
 Cast to incompatible interface `AssertJProxySetup`
 in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
 #### Snippet
@@ -243,31 +231,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
     } catch (Exception e) {
 ```
 
-### CastToIncompatibleInterface
-Cast to incompatible interface `AssertJProxySetup`
-in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
-#### Snippet
-```java
-      RecursiveComparisonAssert<?> proxiedAssert = (RecursiveComparisonAssert<?>) constructor.newInstance(recursiveComparisonAssert.actual,
-                                                                                                          recursiveComparisonAssert.getRecursiveComparisonConfiguration());
-      ((AssertJProxySetup) proxiedAssert).assertj$setup(new ProxifyMethodChangingTheObjectUnderTest(this), collector);
-      return proxiedAssert;
-    } catch (Exception e) {
-```
-
-### CastToIncompatibleInterface
-Cast to incompatible interface `AssertJProxySetup`
-in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
-#### Snippet
-```java
-      SELF proxiedAssert = constructor.newInstance(actual);
-      // instance is a AssertJProxySetup since it is a generated proxy implementing it (see createProxy)
-      ((AssertJProxySetup) proxiedAssert).assertj$setup(new ProxifyMethodChangingTheObjectUnderTest(this), collector);
-      return proxiedAssert;
-    } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-```
-
-### CastToIncompatibleInterface
+### RuleId[ruleID=CastToIncompatibleInterface]
 Cast to incompatible interface `AssertJProxySetup`
 in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
 #### Snippet
@@ -279,7 +243,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
     } catch (Exception e) {
 ```
 
-### CastToIncompatibleInterface
+### RuleId[ruleID=CastToIncompatibleInterface]
+Cast to incompatible interface `AssertJProxySetup`
+in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
+#### Snippet
+```java
+      SELF proxiedAssert = constructor.newInstance(actual);
+      // instance is a AssertJProxySetup since it is a generated proxy implementing it (see createProxy)
+      ((AssertJProxySetup) proxiedAssert).assertj$setup(new ProxifyMethodChangingTheObjectUnderTest(this), collector);
+      return proxiedAssert;
+    } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+```
+
+### RuleId[ruleID=CastToIncompatibleInterface]
 Cast to incompatible interface `AssertJProxySetup`
 in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
 #### Snippet
@@ -291,8 +267,32 @@ in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
     } catch (Exception e) {
 ```
 
-## KeySetIterationMayUseEntrySet
-### KeySetIterationMayUseEntrySet
+### RuleId[ruleID=CastToIncompatibleInterface]
+Cast to incompatible interface `AssertJProxySetup`
+in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
+#### Snippet
+```java
+      RecursiveComparisonAssert<?> proxiedAssert = (RecursiveComparisonAssert<?>) constructor.newInstance(recursiveComparisonAssert.actual,
+                                                                                                          recursiveComparisonAssert.getRecursiveComparisonConfiguration());
+      ((AssertJProxySetup) proxiedAssert).assertj$setup(new ProxifyMethodChangingTheObjectUnderTest(this), collector);
+      return proxiedAssert;
+    } catch (Exception e) {
+```
+
+### RuleId[ruleID=CastToIncompatibleInterface]
+Cast to incompatible interface `AssertJProxySetup`
+in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
+#### Snippet
+```java
+      Constructor<?> constructor = proxyClass.getConstructor(AbstractFileAssert.class);
+      FileSizeAssert<?> proxiedAssert = (FileSizeAssert<?>) constructor.newInstance(fileSizeAssert.returnToFile());
+      ((AssertJProxySetup) proxiedAssert).assertj$setup(new ProxifyMethodChangingTheObjectUnderTest(this), collector);
+      return proxiedAssert;
+    } catch (Exception e) {
+```
+
+## RuleId[ruleID=KeySetIterationMayUseEntrySet]
+### RuleId[ruleID=KeySetIterationMayUseEntrySet]
 Iteration over `expectedMap.keySet()` may be replaced with 'entrySet()' iteration
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonDifferenceCalculator.java`
 #### Snippet
@@ -304,7 +304,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
       comparisonState.registerForComparison(new DualValue(keyFieldLocation, actualMap.get(key), expectedMap.get(key)));
 ```
 
-### KeySetIterationMayUseEntrySet
+### RuleId[ruleID=KeySetIterationMayUseEntrySet]
 Iteration over `methodsModifier.keySet()` may be replaced with 'entrySet()' iteration
 in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
 #### Snippet
@@ -316,7 +316,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
         nonMatchingModifiers.put(method, Modifier.toString(methodsModifier.get(method)));
 ```
 
-### KeySetIterationMayUseEntrySet
+### RuleId[ruleID=KeySetIterationMayUseEntrySet]
 Iteration over `actual.keySet()` may be replaced with 'entrySet()' iteration
 in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
 #### Snippet
@@ -328,8 +328,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
           Entry<K, V> actualEntry = entry(keyFromActual, actual.get(keyFromActual));
 ```
 
-## DuplicateBranchesInSwitch
-### DuplicateBranchesInSwitch
+## RuleId[ruleID=DuplicateBranchesInSwitch]
+### RuleId[ruleID=DuplicateBranchesInSwitch]
 Branch in 'switch' is a duplicate of the default branch
 in `assertj-core/src/main/java/org/assertj/core/internal/Dates.java`
 #### Snippet
@@ -341,8 +341,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Dates.java`
       break;
 ```
 
-## SizeReplaceableByIsEmpty
-### SizeReplaceableByIsEmpty
+## RuleId[ruleID=SizeReplaceableByIsEmpty]
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `s.length() == 0` can be replaced with 's.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/util/Strings.java`
 #### Snippet
@@ -354,7 +354,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Strings.java`
 
 ```
 
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `rawChunk.size() != 0` can be replaced with '!rawChunk.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
 #### Snippet
@@ -366,7 +366,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
           List<String> newChunkLines = new ArrayList<>();
 ```
 
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `line.length() > 0` can be replaced with '!line.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
 #### Snippet
@@ -378,7 +378,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
           rest = line.substring(1);
 ```
 
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `rawChunk.size() != 0` can be replaced with '!rawChunk.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
 #### Snippet
@@ -390,7 +390,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
       List<String> newChunkLines = new ArrayList<>();
 ```
 
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `str.trim().length() == 0` can be replaced with 'str.trim().isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/error/AssertJMultipleFailuresError.java`
 #### Snippet
@@ -402,7 +402,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/AssertJMultipleFailuresErr
 
 ```
 
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `modifier.length() > 0` can be replaced with '!modifier.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveMethods.java`
 #### Snippet
@@ -414,7 +414,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveMethods.java`
   }
 ```
 
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `propertyName.length() > 0` can be replaced with '!propertyName.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/groups/Properties.java`
 #### Snippet
@@ -426,7 +426,7 @@ in `assertj-core/src/main/java/org/assertj/core/groups/Properties.java`
 
 ```
 
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `actual.size() == 0` can be replaced with 'actual.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/internal/Lists.java`
 #### Snippet
@@ -438,43 +438,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Lists.java`
       if (actual.size() == 1) {
 ```
 
-### SizeReplaceableByIsEmpty
-`nonNullElements.size() > 0` can be replaced with '!nonNullElements.isEmpty()'
-in `assertj-core/src/main/java/org/assertj/core/internal/Iterables.java`
-#### Snippet
-```java
-    // look for any non null elements
-    List<Object> nonNullElements = stream(actual).filter(java.util.Objects::nonNull).collect(toList());
-    if (nonNullElements.size() > 0) throw failures.failure(info, shouldContainOnlyNulls(actual, nonNullElements));
-  }
-
-```
-
-### SizeReplaceableByIsEmpty
-`erroneousElements.size() > 0` can be replaced with '!erroneousElements.isEmpty()'
-in `assertj-core/src/main/java/org/assertj/core/internal/Iterables.java`
-#### Snippet
-```java
-                                              .map(Optional::get)
-                                              .collect(toList());
-    if (erroneousElements.size() > 0) throw failures.failure(info, noElementsShouldSatisfy(actual, erroneousElements));
-  }
-
-```
-
-### SizeReplaceableByIsEmpty
-`extra.size() > 0` can be replaced with '!extra.isEmpty()'
-in `assertj-core/src/main/java/org/assertj/core/internal/Iterables.java`
-#### Snippet
-```java
-    List<Object> extra = stream(actual).filter(actualElement -> !iterableContains(values, actualElement))
-                                       .collect(toList());
-    if (extra.size() > 0) throw failures.failure(info, shouldBeSubsetOf(actual, values, extra, comparisonStrategy));
-  }
-
-```
-
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `matchingPaths.size() > 0` can be replaced with '!matchingPaths.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/internal/Paths.java`
 #### Snippet
@@ -486,7 +450,43 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Paths.java`
     }
 ```
 
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`erroneousElements.size() > 0` can be replaced with '!erroneousElements.isEmpty()'
+in `assertj-core/src/main/java/org/assertj/core/internal/Iterables.java`
+#### Snippet
+```java
+                                              .map(Optional::get)
+                                              .collect(toList());
+    if (erroneousElements.size() > 0) throw failures.failure(info, noElementsShouldSatisfy(actual, erroneousElements));
+  }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`extra.size() > 0` can be replaced with '!extra.isEmpty()'
+in `assertj-core/src/main/java/org/assertj/core/internal/Iterables.java`
+#### Snippet
+```java
+    List<Object> extra = stream(actual).filter(actualElement -> !iterableContains(values, actualElement))
+                                       .collect(toList());
+    if (extra.size() > 0) throw failures.failure(info, shouldBeSubsetOf(actual, values, extra, comparisonStrategy));
+  }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`nonNullElements.size() > 0` can be replaced with '!nonNullElements.isEmpty()'
+in `assertj-core/src/main/java/org/assertj/core/internal/Iterables.java`
+#### Snippet
+```java
+    // look for any non null elements
+    List<Object> nonNullElements = stream(actual).filter(java.util.Objects::nonNull).collect(toList());
+    if (nonNullElements.size() > 0) throw failures.failure(info, shouldContainOnlyNulls(actual, nonNullElements));
+  }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `arrayAsList.size() == 0` can be replaced with 'arrayAsList.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
 #### Snippet
@@ -498,7 +498,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
         // call compare to see if unique element is compatible with comparator.
 ```
 
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `nonNullElements.size() > 0` can be replaced with '!nonNullElements.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
 #### Snippet
@@ -510,7 +510,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
 
 ```
 
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `extra.size() > 0` can be replaced with '!extra.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
 #### Snippet
@@ -522,7 +522,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
     }
 ```
 
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `comparatorSimpleClassName.length() == 0` can be replaced with 'comparatorSimpleClassName.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
 #### Snippet
@@ -534,7 +534,7 @@ in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentat
     if (comparator.toString().contains(comparatorSimpleClassName + "@")) return comparatorSimpleClassName;
 ```
 
-### SizeReplaceableByIsEmpty
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `erroneousEntries.size() > 0` can be replaced with '!erroneousEntries.isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
 #### Snippet
@@ -546,8 +546,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
 
 ```
 
-## StringBufferReplaceableByString
-### StringBufferReplaceableByString
+## RuleId[ruleID=StringBufferReplaceableByString]
+### RuleId[ruleID=StringBufferReplaceableByString]
 `StringBuilder builder` can be replaced with 'String'
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotSatisfyPredicateRecursively.java`
 #### Snippet
@@ -559,20 +559,8 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotSatisfyPredicateR
     builder.append(INDENT + fieldsDescription.toString() + NEW_LINE);
 ```
 
-## ConstantConditions
-### ConstantConditions
-Method invocation `spliterator` may produce `NullPointerException`
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-  protected AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtractingForProxy(Function<? super ELEMENT, ?>[] extractors) {
-    if (actual == null) throwAssertionError(shouldNotBeNull());
-    Stream<? extends ELEMENT> actualStream = stream(actual.spliterator(), false);
-    List<Object> result = actualStream.flatMap(element -> Stream.of(extractors).map(extractor -> extractor.apply(element)))
-                                      .collect(toList());
-```
-
-### ConstantConditions
+## RuleId[ruleID=ConstantConditions]
+### RuleId[ruleID=ConstantConditions]
 Method invocation `spliterator` may produce `NullPointerException`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -584,31 +572,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
   }
 ```
 
-### ConstantConditions
-Value `actual` is always 'false'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
+### RuleId[ruleID=ConstantConditions]
+Method invocation `spliterator` may produce `NullPointerException`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
 ```java
-    objects.assertNotNull(info, actual);
-    if (actual) return myself;
-    throw Failures.instance().failure(info, shouldBeTrue(actual), actual, true);
-  }
-
+  protected AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtractingForProxy(Function<? super ELEMENT, ?>[] extractors) {
+    if (actual == null) throwAssertionError(shouldNotBeNull());
+    Stream<? extends ELEMENT> actualStream = stream(actual.spliterator(), false);
+    List<Object> result = actualStream.flatMap(element -> Stream.of(extractors).map(extractor -> extractor.apply(element)))
+                                      .collect(toList());
 ```
 
-### ConstantConditions
-Value `actual` is always 'false'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
-#### Snippet
-```java
-    objects.assertNotNull(info, actual);
-    if (actual) return myself;
-    throw Failures.instance().failure(info, shouldBeTrue(actual), actual, true);
-  }
-
-```
-
-### ConstantConditions
+### RuleId[ruleID=ConstantConditions]
 Value `actual` is always 'true'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
 #### Snippet
@@ -620,7 +596,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
 
 ```
 
-### ConstantConditions
+### RuleId[ruleID=ConstantConditions]
 Value `actual` is always 'true'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
 #### Snippet
@@ -632,31 +608,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
 
 ```
 
-### ConstantConditions
-Immutable object is modified
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/DualValueDeque.java`
+### RuleId[ruleID=ConstantConditions]
+Value `actual` is always 'false'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
 #### Snippet
 ```java
-  public boolean add(DualValue dualKey) {
-    if (shouldIgnore(dualKey)) return false;
-    return super.add(dualKey);
+    objects.assertNotNull(info, actual);
+    if (actual) return myself;
+    throw Failures.instance().failure(info, shouldBeTrue(actual), actual, true);
   }
 
 ```
 
-### ConstantConditions
-Immutable object is modified
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/DualValueDeque.java`
+### RuleId[ruleID=ConstantConditions]
+Value `actual` is always 'false'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
 #### Snippet
 ```java
-  public void add(int index, DualValue dualKey) {
-    if (shouldIgnore(dualKey)) return;
-    super.add(index, dualKey);
+    objects.assertNotNull(info, actual);
+    if (actual) return myself;
+    throw Failures.instance().failure(info, shouldBeTrue(actual), actual, true);
   }
 
 ```
 
-### ConstantConditions
+### RuleId[ruleID=ConstantConditions]
 Immutable object is modified
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/DualValueDeque.java`
 #### Snippet
@@ -668,7 +644,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/DualVal
 
 ```
 
-### ConstantConditions
+### RuleId[ruleID=ConstantConditions]
+Immutable object is modified
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/DualValueDeque.java`
+#### Snippet
+```java
+  public boolean add(DualValue dualKey) {
+    if (shouldIgnore(dualKey)) return false;
+    return super.add(dualKey);
+  }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
+Immutable object is modified
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/DualValueDeque.java`
+#### Snippet
+```java
+  public void add(int index, DualValue dualKey) {
+    if (shouldIgnore(dualKey)) return;
+    super.add(index, dualKey);
+  }
+
+```
+
+### RuleId[ruleID=ConstantConditions]
 Value `recurse` is always 'true'
 in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
 #### Snippet
@@ -680,19 +680,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
         continue;
 ```
 
-### ConstantConditions
-Condition `stackTrace != null` is always `true`
-in `assertj-core/src/main/java/org/assertj/core/internal/Throwables.java`
-#### Snippet
-```java
-    assertNotNull(info, actual);
-    String stackTrace = org.assertj.core.util.Throwables.getStackTrace(actual);
-    if (stackTrace != null && stackTrace.contains(description)) return;
-    throw failures.failure(info, shouldContain(stackTrace, description));
-  }
-```
-
-### ConstantConditions
+### RuleId[ruleID=ConstantConditions]
 Value `actualCause` is always 'null'
 in `assertj-core/src/main/java/org/assertj/core/internal/Throwables.java`
 #### Snippet
@@ -704,7 +692,19 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Throwables.java`
       throw failures.failure(info, shouldHaveCause(actualCause, expectedCause));
 ```
 
-### ConstantConditions
+### RuleId[ruleID=ConstantConditions]
+Condition `stackTrace != null` is always `true`
+in `assertj-core/src/main/java/org/assertj/core/internal/Throwables.java`
+#### Snippet
+```java
+    assertNotNull(info, actual);
+    String stackTrace = org.assertj.core.util.Throwables.getStackTrace(actual);
+    if (stackTrace != null && stackTrace.contains(description)) return;
+    throw failures.failure(info, shouldContain(stackTrace, description));
+  }
+```
+
+### RuleId[ruleID=ConstantConditions]
 Value `rootCause` is always 'null'
 in `assertj-core/src/main/java/org/assertj/core/internal/Throwables.java`
 #### Snippet
@@ -716,7 +716,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Throwables.java`
     throw failures.failure(info, shouldHaveRootCauseWithMessage(actual, rootCause, expectedMessage), rootCause.getMessage(),
 ```
 
-### ConstantConditions
+### RuleId[ruleID=ConstantConditions]
 Argument `actual` might be null
 in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
 #### Snippet
@@ -728,7 +728,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
     if (!java.util.Objects.equals(normalizedActual, normalizedExpected))
 ```
 
-### ConstantConditions
+### RuleId[ruleID=ConstantConditions]
 Value `from` is always 'null'
 in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
 #### Snippet
@@ -740,7 +740,7 @@ in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
 
 ```
 
-### ConstantConditions
+### RuleId[ruleID=ConstantConditions]
 Value `to` is always 'null'
 in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
 #### Snippet
@@ -752,8 +752,8 @@ in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
 
 ```
 
-## AbstractClassNeverImplemented
-### AbstractClassNeverImplemented
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `MemberUtils` has no concrete subclass
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/MemberUtils.java`
 #### Snippet
@@ -765,8 +765,8 @@ abstract class MemberUtils {
     private static final int ACCESS_TEST = Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
 ```
 
-## BoundedWildcard
-### BoundedWildcard
+## RuleId[ruleID=BoundedWildcard]
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends AbstractAssert`
 in `assertj-core/src/main/java/org/assertj/core/api/ProxifyMethodChangingTheObjectUnderTest.java`
 #### Snippet
@@ -778,7 +778,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/ProxifyMethodChangingTheObje
     AbstractAssert<?, ?> result = assertionMethod.call();
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/api/IterableAssert.java`
 #### Snippet
@@ -790,7 +790,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/IterableAssert.java`
   }
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends V`
 in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
 #### Snippet
@@ -802,19 +802,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/SoftProxies.java`
     return BYTE_BUDDY.subclass(assertClass)
 ```
 
-### BoundedWildcard
-Can generalize to `? extends T`
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
-#### Snippet
-```java
-   */
-  @CheckReturnValue
-  public <T> AbstractObjectAssert<?, T> extracting(Function<? super ACTUAL, T> extractor) {
-    return super.extracting(extractor, this::newObjectAssert);
-  }
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super ACTUAL`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 #### Snippet
@@ -826,7 +814,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
     Objects objects = getComparatorBasedObjectAssertions(expected.getClass());
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
+#### Snippet
+```java
+   */
+  @CheckReturnValue
+  public <T> AbstractObjectAssert<?, T> extracting(Function<? super ACTUAL, T> extractor) {
+    return super.extracting(extractor, this::newObjectAssert);
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super ACTUAL`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 #### Snippet
@@ -838,7 +838,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
     Objects objects = getComparatorBasedObjectAssertions(expected.getClass());
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/api/Java6StandardSoftAssertionsProvider.java`
 #### Snippet
@@ -850,7 +850,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6StandardSoftAssertionsP
   }
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends S`
 in `assertj-core/src/main/java/org/assertj/core/api/SoftAssertionsProvider.java`
 #### Snippet
@@ -862,7 +862,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/SoftAssertionsProvider.java`
     try {
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super S`
 in `assertj-core/src/main/java/org/assertj/core/api/SoftAssertionsProvider.java`
 #### Snippet
@@ -874,19 +874,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/SoftAssertionsProvider.java`
     try {
 ```
 
-### BoundedWildcard
-Can generalize to `? super VALUE`
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
-#### Snippet
-```java
-   * @return this assertion object.
-   */
-  public SELF hasValueSatisfying(Consumer<VALUE> requirement) {
-    assertValueIsPresent();
-    requirement.accept(actual.get());
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ASSERTION`
 in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
 #### Snippet
@@ -898,67 +886,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
     return BYTE_BUDDY.subclass(assertionType)
 ```
 
-### BoundedWildcard
-Can generalize to `? super C`
-in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super VALUE`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
 ```java
+   * @return this assertion object.
    */
-  @CheckReturnValue
-  public <C> AtomicReferenceArrayAssert<T> usingComparatorForType(Comparator<C> comparator, Class<C> type) {
-    if (arrays.getComparator() == null) {
-      usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
+  public SELF hasValueSatisfying(Consumer<VALUE> requirement) {
+    assertValueIsPresent();
+    requirement.accept(actual.get());
 ```
 
-### BoundedWildcard
-Can generalize to `? extends C`
-in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
-#### Snippet
-```java
-   */
-  @CheckReturnValue
-  public <C> AtomicReferenceArrayAssert<T> usingComparatorForType(Comparator<C> comparator, Class<C> type) {
-    if (arrays.getComparator() == null) {
-      usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
-#### Snippet
-```java
-   */
-  @CheckReturnValue
-  public <U, EXCEPTION extends Exception> ObjectArrayAssert<U> extracting(ThrowingExtractor<? super T, U, EXCEPTION> extractor) {
-    U[] extracted = FieldsOrPropertiesExtractor.extract(array, extractor);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super C`
-in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
-#### Snippet
-```java
-  @Deprecated
-  @CheckReturnValue
-  public <C> AtomicReferenceArrayAssert<T> usingComparatorForElementFieldsWithType(Comparator<C> comparator,
-                                                                                   Class<C> type) {
-    getComparatorsForElementPropertyOrFieldTypes().registerComparator(type, comparator);
-```
-
-### BoundedWildcard
-Can generalize to `? extends C`
-in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
-#### Snippet
-```java
-  @CheckReturnValue
-  public <C> AtomicReferenceArrayAssert<T> usingComparatorForElementFieldsWithType(Comparator<C> comparator,
-                                                                                   Class<C> type) {
-    getComparatorsForElementPropertyOrFieldTypes().registerComparator(type, comparator);
-    return myself;
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends U`
 in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
 #### Snippet
@@ -970,7 +910,91 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.j
 
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super C`
+in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
+#### Snippet
+```java
+   */
+  @CheckReturnValue
+  public <C> AtomicReferenceArrayAssert<T> usingComparatorForType(Comparator<C> comparator, Class<C> type) {
+    if (arrays.getComparator() == null) {
+      usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends C`
+in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
+#### Snippet
+```java
+   */
+  @CheckReturnValue
+  public <C> AtomicReferenceArrayAssert<T> usingComparatorForType(Comparator<C> comparator, Class<C> type) {
+    if (arrays.getComparator() == null) {
+      usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super C`
+in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
+#### Snippet
+```java
+  @Deprecated
+  @CheckReturnValue
+  public <C> AtomicReferenceArrayAssert<T> usingComparatorForElementFieldsWithType(Comparator<C> comparator,
+                                                                                   Class<C> type) {
+    getComparatorsForElementPropertyOrFieldTypes().registerComparator(type, comparator);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends C`
+in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
+#### Snippet
+```java
+  @CheckReturnValue
+  public <C> AtomicReferenceArrayAssert<T> usingComparatorForElementFieldsWithType(Comparator<C> comparator,
+                                                                                   Class<C> type) {
+    getComparatorsForElementPropertyOrFieldTypes().registerComparator(type, comparator);
+    return myself;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends U`
+in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
+#### Snippet
+```java
+   */
+  @CheckReturnValue
+  public <U, EXCEPTION extends Exception> ObjectArrayAssert<U> extracting(ThrowingExtractor<? super T, U, EXCEPTION> extractor) {
+    U[] extracted = FieldsOrPropertiesExtractor.extract(array, extractor);
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super C`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+#### Snippet
+```java
+   */
+  @CheckReturnValue
+  public <C> SELF usingComparatorForType(Comparator<C> comparator, Class<C> type) {
+    if (arrays.getComparator() == null) {
+      usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends C`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+#### Snippet
+```java
+   */
+  @CheckReturnValue
+  public <C> SELF usingComparatorForType(Comparator<C> comparator, Class<C> type) {
+    if (arrays.getComparator() == null) {
+      usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super OTHER_ELEMENT`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -982,31 +1006,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
     return myself;
 ```
 
-### BoundedWildcard
-Can generalize to `? super C`
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
-#### Snippet
-```java
-   */
-  @CheckReturnValue
-  public <C> SELF usingComparatorForType(Comparator<C> comparator, Class<C> type) {
-    if (arrays.getComparator() == null) {
-      usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
-```
-
-### BoundedWildcard
-Can generalize to `? extends C`
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
-#### Snippet
-```java
-   */
-  @CheckReturnValue
-  public <C> SELF usingComparatorForType(Comparator<C> comparator, Class<C> type) {
-    if (arrays.getComparator() == null) {
-      usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super C`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -1018,7 +1018,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
     return myself;
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends C`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -1030,19 +1030,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
     return myself;
 ```
 
-### BoundedWildcard
-Can generalize to `? extends ELEMENT`
-in `assertj-core/src/main/java/org/assertj/core/api/ObjectArrayAssert.java`
-#### Snippet
-```java
-  }
-
-  public ObjectArrayAssert(AtomicReferenceArray<ELEMENT> actual) {
-    this(array(actual));
-  }
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ELEMENT`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -1054,7 +1042,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
   }
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super T`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -1066,7 +1054,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
       usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -1078,7 +1066,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
       usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super T`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -1090,7 +1078,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
     return myself;
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -1102,7 +1090,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
     return myself;
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ELEMENT`
+in `assertj-core/src/main/java/org/assertj/core/api/ObjectArrayAssert.java`
+#### Snippet
+```java
+  }
+
+  public ObjectArrayAssert(AtomicReferenceArray<ELEMENT> actual) {
+    this(array(actual));
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ELEMENT`
 in `assertj-core/src/main/java/org/assertj/core/api/ListAssert.java`
 #### Snippet
@@ -1114,7 +1114,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/ListAssert.java`
     }
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ACTUAL`
 in `assertj-core/src/main/java/org/assertj/core/api/ObjectAssert.java`
 #### Snippet
@@ -1126,7 +1126,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/ObjectAssert.java`
   }
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super PRIMITIVE`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractPredicateLikeAssert.java`
 #### Snippet
@@ -1138,7 +1138,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractPredicateLikeAssert.
     super(actual, selfType);
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends AssertionError`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractAssert.java`
 #### Snippet
@@ -1150,7 +1150,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractAssert.java`
     return assertionErrorCreator.multipleAssertionsError(info.description(), assertionErrors);
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super T`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractAssert.java`
 #### Snippet
@@ -1162,19 +1162,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractAssert.java`
     requireNonNull(requirements, "The Consumer<T> expressing the assertions requirements must not be null");
 ```
 
-### BoundedWildcard
-Can generalize to `? super Matcher`
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
-#### Snippet
-```java
-  }
-
-  private SELF internalContainsPatternSatisfying(Pattern pattern, Consumer<Matcher> matchSatisfies) {
-    Matcher matcher = pattern.matcher(actual);
-    strings.assertContainsPattern(info, actual, matcher);
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Matcher`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
 #### Snippet
@@ -1186,7 +1174,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.j
     strings.assertMatches(info, actual, matcher);
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Matcher`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
+#### Snippet
+```java
+  }
+
+  private SELF internalContainsPatternSatisfying(Pattern pattern, Consumer<Matcher> matchSatisfies) {
+    Matcher matcher = pattern.matcher(actual);
+    strings.assertContainsPattern(info, actual, matcher);
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDSoftAssertionsProvider.java`
 #### Snippet
@@ -1198,7 +1198,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDSoftAssertionsProvid
   }
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ExtensionContext`
 in `assertj-core/src/main/java/org/assertj/core/api/junit/jupiter/SoftlyExtension.java`
 #### Snippet
@@ -1210,7 +1210,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/junit/jupiter/SoftlyExtensio
   }
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super T`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
 #### Snippet
@@ -1222,7 +1222,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
     for (int i = 0; i < values.length; i++) {
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Date`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
 #### Snippet
@@ -1234,7 +1234,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
     for (int i = 0; i < values.length; i++) {
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends DateFormat`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
 #### Snippet
@@ -1246,7 +1246,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
       try {
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/util/Streams.java`
 #### Snippet
@@ -1258,7 +1258,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Streams.java`
   }
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/util/Arrays.java`
 #### Snippet
@@ -1270,31 +1270,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Arrays.java`
     int length = atomicReferenceArray.length();
 ```
 
-### BoundedWildcard
-Can generalize to `? extends T`
-in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
-#### Snippet
-```java
-   *         null.
-   */
-  public static <T> T[] toArray(Iterable<? extends T> iterable, Class<T> type) {
-    if (iterable == null) return null;
-    Collection<? extends T> collection = toCollection(iterable);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
-#### Snippet
-```java
-  }
-
-  public static <T> Collection<T> toCollection(Iterable<T> iterable) {
-    return iterable instanceof Collection ? (Collection<T>) iterable : newArrayList(iterable);
-  }
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super DualValue`
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonDifferenceCalculator.java`
 #### Snippet
@@ -1306,7 +1282,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
       this.dualValuesToCompare = new DualValueDeque(recursiveComparisonConfiguration);
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
+#### Snippet
+```java
+  }
+
+  public static <T> Collection<T> toCollection(Iterable<T> iterable) {
+    return iterable instanceof Collection ? (Collection<T>) iterable : newArrayList(iterable);
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
+#### Snippet
+```java
+   *         null.
+   */
+  public static <T> T[] toArray(Iterable<? extends T> iterable, Class<T> type) {
+    if (iterable == null) return null;
+    Collection<? extends T> collection = toCollection(iterable);
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/util/diff/Patch.java`
 #### Snippet
@@ -1318,7 +1318,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/Patch.java`
     ListIterator<Delta<T>> it = getDeltas().listIterator(deltas.size());
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Class`
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/ClassUtils.java`
 #### Snippet
@@ -1330,7 +1330,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/ClassUtils.ja
       Class<?>[] interfaces = cls.getInterfaces();
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/PropertySupport.java`
 #### Snippet
@@ -1342,7 +1342,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/PropertySuppo
                          .collect(collectingAndThen(toList(), Collections::unmodifiableList));
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.java`
 #### Snippet
@@ -1354,7 +1354,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.
                          .collect(collectingAndThen(toList(), Collections::unmodifiableList));
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
 #### Snippet
@@ -1366,7 +1366,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
   }
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
 #### Snippet
@@ -1378,7 +1378,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
     checkArgument(rev != null, "revised sequence is null");
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
 #### Snippet
@@ -1390,7 +1390,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
     checkArgument(rev != null, "revised sequence is null");
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Delta`
 in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
 #### Snippet
@@ -1402,19 +1402,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
     int origTotal = 0; // counter for total lines output from Original
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotContain.java`
-#### Snippet
-```java
-  }
-
-  private static List<String> toPathNames(List<Path> files) {
-    return files.stream()
-                .map(Path::toString)
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends File`
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotContain.java`
 #### Snippet
@@ -1426,7 +1414,19 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotContain.java`
                 .map(File::getName)
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Path`
+in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotContain.java`
+#### Snippet
+```java
+  }
+
+  private static List<String> toPathNames(List<Path> files) {
+    return files.stream()
+                .map(Path::toString)
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends CharSequence`
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotContainCharSequence.java`
 #### Snippet
@@ -1438,19 +1438,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotContainCharSequen
                                             "Expecting actual:%n" +
 ```
 
-### BoundedWildcard
-Can generalize to `? extends File`
-in `assertj-core/src/main/java/org/assertj/core/error/ShouldContain.java`
-#### Snippet
-```java
-  }
-
-  private static List<String> toFileNames(List<File> files) {
-    return files.stream()
-                .map(File::getName)
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Path`
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldContain.java`
 #### Snippet
@@ -1462,19 +1450,19 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldContain.java`
                 .map(Path::toString)
 ```
 
-### BoundedWildcard
-Can generalize to `? extends ZipSatisfyError`
-in `assertj-core/src/main/java/org/assertj/core/error/ZippedElementsShouldSatisfy.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends File`
+in `assertj-core/src/main/java/org/assertj/core/error/ShouldContain.java`
 #### Snippet
 ```java
   }
 
-  private static String describe(AssertionInfo info, List<ZipSatisfyError> zipSatisfyErrors) {
-    List<String> errorsToStrings = zipSatisfyErrors.stream()
-                                                   .map(error -> ZipSatisfyError.describe(info, error))
+  private static List<String> toFileNames(List<File> files) {
+    return files.stream()
+                .map(File::getName)
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Difference`
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualByComparingFieldByFieldRecursively.java`
 #### Snippet
@@ -1486,7 +1474,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualByComparingFi
     List<String> descriptionOfDifferences = differences.stream()
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ComparisonDifference`
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualByComparingFieldByFieldRecursively.java`
 #### Snippet
@@ -1498,7 +1486,19 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualByComparingFi
                                                                                     Representation representation) {
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ZipSatisfyError`
+in `assertj-core/src/main/java/org/assertj/core/error/ZippedElementsShouldSatisfy.java`
+#### Snippet
+```java
+  }
+
+  private static String describe(AssertionInfo info, List<ZipSatisfyError> zipSatisfyErrors) {
+    List<String> errorsToStrings = zipSatisfyErrors.stream()
+                                                   .map(error -> ZipSatisfyError.describe(info, error))
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends IndexedDiff`
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldContainExactly.java`
 #### Snippet
@@ -1510,7 +1510,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldContainExactly.java`
     sb.append("but there were differences at these indexes");
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Delta`
 in `assertj-core/src/main/java/org/assertj/core/error/AbstractShouldHaveTextContent.java`
 #### Snippet
@@ -1522,55 +1522,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/AbstractShouldHaveTextCont
   }
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Entry`
-in `assertj-core/src/main/java/org/assertj/core/error/ShouldContainEntries.java`
-#### Snippet
-```java
-
-  private static <K, V> List<String> buildValueDifferences(Map<? extends K, ? extends V> actual,
-                                                           Set<Entry<? extends K, ? extends V>> entriesWithWrongValues,
-                                                           Representation representation) {
-    return entriesWithWrongValues.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `assertj-core/src/main/java/org/assertj/core/groups/FieldsOrPropertiesExtractor.java`
-#### Snippet
-```java
-   * @return the extracted values
-   */
-  public static <F, T> List<T> extract(Iterable<? extends F> objects, Function<? super F, T> extractor) {
-    checkObjectToExtractFromIsNotNull(objects);
-    return stream(objects).map(extractor).collect(toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `assertj-core/src/main/java/org/assertj/core/internal/AtomicReferenceArrayElementComparisonStrategy.java`
-#### Snippet
-```java
-  }
-
-  private boolean compareElementsOf(AtomicReferenceArray<T> actual, T[] other) {
-    if (actual.length() != other.length) return false;
-    // compare their elements with elementComparator
-```
-
-### BoundedWildcard
-Can generalize to `? extends UnsatisfiedRequirement`
-in `assertj-core/src/main/java/org/assertj/core/error/ElementsShouldSatisfy.java`
-#### Snippet
-```java
-  }
-
-  private static String describe(Entry<Integer, UnsatisfiedRequirement> requirementsAtIndex, AssertionInfo info) {
-    int index = requirementsAtIndex.getKey();
-    UnsatisfiedRequirement unsatisfiedRequirement = requirementsAtIndex.getValue();
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends UnsatisfiedRequirement`
 in `assertj-core/src/main/java/org/assertj/core/error/ElementsShouldSatisfy.java`
 #### Snippet
@@ -1582,7 +1534,55 @@ in `assertj-core/src/main/java/org/assertj/core/error/ElementsShouldSatisfy.java
                                                           .map(unsatisfiedRequirement -> unsatisfiedRequirement.describe(info))
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends UnsatisfiedRequirement`
+in `assertj-core/src/main/java/org/assertj/core/error/ElementsShouldSatisfy.java`
+#### Snippet
+```java
+  }
+
+  private static String describe(Entry<Integer, UnsatisfiedRequirement> requirementsAtIndex, AssertionInfo info) {
+    int index = requirementsAtIndex.getKey();
+    UnsatisfiedRequirement unsatisfiedRequirement = requirementsAtIndex.getValue();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Entry`
+in `assertj-core/src/main/java/org/assertj/core/error/ShouldContainEntries.java`
+#### Snippet
+```java
+
+  private static <K, V> List<String> buildValueDifferences(Map<? extends K, ? extends V> actual,
+                                                           Set<Entry<? extends K, ? extends V>> entriesWithWrongValues,
+                                                           Representation representation) {
+    return entriesWithWrongValues.stream()
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `assertj-core/src/main/java/org/assertj/core/internal/AtomicReferenceArrayElementComparisonStrategy.java`
+#### Snippet
+```java
+  }
+
+  private boolean compareElementsOf(AtomicReferenceArray<T> actual, T[] other) {
+    if (actual.length() != other.length) return false;
+    // compare their elements with elementComparator
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `assertj-core/src/main/java/org/assertj/core/groups/FieldsOrPropertiesExtractor.java`
+#### Snippet
+```java
+   * @return the extracted values
+   */
+  public static <F, T> List<T> extract(Iterable<? extends F> objects, Function<? super F, T> extractor) {
+    checkObjectToExtractFromIsNotNull(objects);
+    return stream(objects).map(extractor).collect(toList());
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Class`
 in `assertj-core/src/main/java/org/assertj/core/internal/TypeHolder.java`
 #### Snippet
@@ -1594,31 +1594,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/TypeHolder.java`
   }
 ```
 
-### BoundedWildcard
-Can generalize to `? super File`
-in `assertj-core/src/main/java/org/assertj/core/internal/Files.java`
-#### Snippet
-```java
-  }
-
-  public void assertIsDirectoryContaining(AssertionInfo info, File actual, Predicate<File> filter) {
-    requireNonNull(filter, "The files filter should not be null");
-    assertIsDirectoryContaining(info, actual, filter::test, "the given filter");
-```
-
-### BoundedWildcard
-Can generalize to `? super File`
-in `assertj-core/src/main/java/org/assertj/core/internal/Files.java`
-#### Snippet
-```java
-  }
-
-  public void assertIsDirectoryNotContaining(AssertionInfo info, File actual, Predicate<File> filter) {
-    requireNonNull(filter, "The files filter should not be null");
-    assertIsDirectoryNotContaining(info, actual, filter::test, "the given filter");
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super File`
 in `assertj-core/src/main/java/org/assertj/core/internal/Files.java`
 #### Snippet
@@ -1630,67 +1606,31 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Files.java`
     try (Stream<File> actualContent = recursiveContentOf(actual)) {
 ```
 
-### BoundedWildcard
-Can generalize to `? extends ElementsSatisfyingConsumer`
-in `assertj-core/src/main/java/org/assertj/core/internal/Iterables.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super File`
+in `assertj-core/src/main/java/org/assertj/core/internal/Files.java`
 #### Snippet
 ```java
   }
 
-  private static <E> Queue<ElementsSatisfyingConsumer<E>> removeElement(Queue<ElementsSatisfyingConsumer<E>> satisfiedElementsPerConsumer,
-                                                                        E element) {
-    // new Queue of ElementsSatisfyingConsumer without the given element, original ElementsSatisfyingConsumer are not modified.
+  public void assertIsDirectoryContaining(AssertionInfo info, File actual, Predicate<File> filter) {
+    requireNonNull(filter, "The files filter should not be null");
+    assertIsDirectoryContaining(info, actual, filter::test, "the given filter");
 ```
 
-### BoundedWildcard
-Can generalize to `? super OTHER_ELEMENT`
-in `assertj-core/src/main/java/org/assertj/core/internal/Iterables.java`
-#### Snippet
-```java
-                                                               Iterable<? extends ACTUAL_ELEMENT> actual,
-                                                               Iterable<OTHER_ELEMENT> other,
-                                                               BiConsumer<? super ACTUAL_ELEMENT, OTHER_ELEMENT> zipRequirements) {
-    assertNotNull(info, actual);
-    requireNonNull(zipRequirements, "The BiConsumer expressing the assertions requirements must not be null");
-```
-
-### BoundedWildcard
-Can generalize to `? super Path`
-in `assertj-core/src/main/java/org/assertj/core/internal/Paths.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super File`
+in `assertj-core/src/main/java/org/assertj/core/internal/Files.java`
 #### Snippet
 ```java
   }
 
-  private boolean isDirectoryRecursivelyContaining(AssertionInfo info, Path actual, Predicate<Path> filter) {
-    assertIsDirectory(info, actual);
-    try (Stream<Path> actualContent = recursiveContentOf(actual)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Path`
-in `assertj-core/src/main/java/org/assertj/core/internal/Paths.java`
-#### Snippet
-```java
-  // non-public section
-
-  private List<Path> filterDirectory(AssertionInfo info, Path actual, Filter<Path> filter) {
-    assertIsDirectory(info, actual);
-    try (DirectoryStream<Path> stream = nioFilesWrapper.newDirectoryStream(actual, filter)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Path`
-in `assertj-core/src/main/java/org/assertj/core/internal/Paths.java`
-#### Snippet
-```java
-  }
-
-  public void assertIsDirectoryNotContaining(AssertionInfo info, Path actual, Predicate<Path> filter) {
-    requireNonNull(filter, "The paths filter should not be null");
+  public void assertIsDirectoryNotContaining(AssertionInfo info, File actual, Predicate<File> filter) {
+    requireNonNull(filter, "The files filter should not be null");
     assertIsDirectoryNotContaining(info, actual, filter::test, "the given filter");
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Path`
 in `assertj-core/src/main/java/org/assertj/core/internal/Paths.java`
 #### Snippet
@@ -1702,7 +1642,67 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Paths.java`
     assertIsDirectoryContaining(info, actual, filter::test, "the given filter");
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Path`
+in `assertj-core/src/main/java/org/assertj/core/internal/Paths.java`
+#### Snippet
+```java
+  }
+
+  private boolean isDirectoryRecursivelyContaining(AssertionInfo info, Path actual, Predicate<Path> filter) {
+    assertIsDirectory(info, actual);
+    try (Stream<Path> actualContent = recursiveContentOf(actual)) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Path`
+in `assertj-core/src/main/java/org/assertj/core/internal/Paths.java`
+#### Snippet
+```java
+  // non-public section
+
+  private List<Path> filterDirectory(AssertionInfo info, Path actual, Filter<Path> filter) {
+    assertIsDirectory(info, actual);
+    try (DirectoryStream<Path> stream = nioFilesWrapper.newDirectoryStream(actual, filter)) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Path`
+in `assertj-core/src/main/java/org/assertj/core/internal/Paths.java`
+#### Snippet
+```java
+  }
+
+  public void assertIsDirectoryNotContaining(AssertionInfo info, Path actual, Predicate<Path> filter) {
+    requireNonNull(filter, "The paths filter should not be null");
+    assertIsDirectoryNotContaining(info, actual, filter::test, "the given filter");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ElementsSatisfyingConsumer`
+in `assertj-core/src/main/java/org/assertj/core/internal/Iterables.java`
+#### Snippet
+```java
+  }
+
+  private static <E> Queue<ElementsSatisfyingConsumer<E>> removeElement(Queue<ElementsSatisfyingConsumer<E>> satisfiedElementsPerConsumer,
+                                                                        E element) {
+    // new Queue of ElementsSatisfyingConsumer without the given element, original ElementsSatisfyingConsumer are not modified.
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super OTHER_ELEMENT`
+in `assertj-core/src/main/java/org/assertj/core/internal/Iterables.java`
+#### Snippet
+```java
+                                                               Iterable<? extends ACTUAL_ELEMENT> actual,
+                                                               Iterable<OTHER_ELEMENT> other,
+                                                               BiConsumer<? super ACTUAL_ELEMENT, OTHER_ELEMENT> zipRequirements) {
+    assertNotNull(info, actual);
+    requireNonNull(zipRequirements, "The BiConsumer expressing the assertions requirements must not be null");
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `assertj-core/src/main/java/org/assertj/core/internal/IterableElementComparisonStrategy.java`
 #### Snippet
@@ -1714,7 +1714,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/IterableElementComparis
     // compare their elements with elementComparator
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Comparable`
 in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
 #### Snippet
@@ -1726,7 +1726,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
     if (!isGreaterThan(actual, other))
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super ComparisonStrategy`
 in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
 #### Snippet
@@ -1738,7 +1738,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
     if (!isGreaterThan(actual, other))
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ErrorMessageFactory`
 in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
 #### Snippet
@@ -1750,79 +1750,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
     if (!isGreaterThan(actual, other))
 ```
 
-### BoundedWildcard
-Can generalize to `? super Comparable`
-in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
-#### Snippet
-```java
-   */
-  private <T> void assertGreaterThanOrEqualTo(AssertionInfo info, Comparable<? super T> actual, T other,
-                                              TriFunction<Comparable<? super T>, T, ComparisonStrategy, ErrorMessageFactory> errorMessageFactory) {
-    assertNotNull(info, actual);
-    if (!isLessThan(actual, other))
-```
-
-### BoundedWildcard
-Can generalize to `? super ComparisonStrategy`
-in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
-#### Snippet
-```java
-   */
-  private <T> void assertGreaterThanOrEqualTo(AssertionInfo info, Comparable<? super T> actual, T other,
-                                              TriFunction<Comparable<? super T>, T, ComparisonStrategy, ErrorMessageFactory> errorMessageFactory) {
-    assertNotNull(info, actual);
-    if (!isLessThan(actual, other))
-```
-
-### BoundedWildcard
-Can generalize to `? extends ErrorMessageFactory`
-in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
-#### Snippet
-```java
-   */
-  private <T> void assertGreaterThanOrEqualTo(AssertionInfo info, Comparable<? super T> actual, T other,
-                                              TriFunction<Comparable<? super T>, T, ComparisonStrategy, ErrorMessageFactory> errorMessageFactory) {
-    assertNotNull(info, actual);
-    if (!isLessThan(actual, other))
-```
-
-### BoundedWildcard
-Can generalize to `? super Comparable`
-in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
-#### Snippet
-```java
-   */
-  private <T> void assertGreaterThan(AssertionInfo info, Comparable<? super T> actual, T other,
-                                     TriFunction<Comparable<? super T>, T, ComparisonStrategy, ErrorMessageFactory> errorMessageFactory) {
-    assertNotNull(info, actual);
-    if (isGreaterThan(actual, other))
-```
-
-### BoundedWildcard
-Can generalize to `? super ComparisonStrategy`
-in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
-#### Snippet
-```java
-   */
-  private <T> void assertGreaterThan(AssertionInfo info, Comparable<? super T> actual, T other,
-                                     TriFunction<Comparable<? super T>, T, ComparisonStrategy, ErrorMessageFactory> errorMessageFactory) {
-    assertNotNull(info, actual);
-    if (isGreaterThan(actual, other))
-```
-
-### BoundedWildcard
-Can generalize to `? extends ErrorMessageFactory`
-in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
-#### Snippet
-```java
-   */
-  private <T> void assertGreaterThan(AssertionInfo info, Comparable<? super T> actual, T other,
-                                     TriFunction<Comparable<? super T>, T, ComparisonStrategy, ErrorMessageFactory> errorMessageFactory) {
-    assertNotNull(info, actual);
-    if (isGreaterThan(actual, other))
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Comparable`
 in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
 #### Snippet
@@ -1834,7 +1762,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
     if (isLessThan(actual, other)) return;
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super ComparisonStrategy`
 in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
 #### Snippet
@@ -1846,7 +1774,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
     if (isLessThan(actual, other)) return;
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ErrorMessageFactory`
 in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
 #### Snippet
@@ -1858,91 +1786,79 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
     if (isLessThan(actual, other)) return;
 ```
 
-### BoundedWildcard
-Can generalize to `? extends T`
-in `assertj-core/src/main/java/org/assertj/core/internal/IterableDiff.java`
-#### Snippet
-```java
-  }
-
-  private List<T> missingActualElements(Iterable<T> actual, Iterable<T> expected) {
-    List<T> missingInExpected = new ArrayList<>();
-    // use a copy to deal correctly with potential duplicates
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `assertj-core/src/main/java/org/assertj/core/internal/IterableDiff.java`
-#### Snippet
-```java
-  }
-
-  private List<T> missingActualElements(Iterable<T> actual, Iterable<T> expected) {
-    List<T> missingInExpected = new ArrayList<>();
-    // use a copy to deal correctly with potential duplicates
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `assertj-core/src/main/java/org/assertj/core/internal/IterableDiff.java`
-#### Snippet
-```java
-   * @return the list of elements in the first iterable that are not in the second, i.e. first - second
-   */
-  private List<T> unexpectedActualElements(Iterable<T> actual, Iterable<T> expected) {
-    List<T> missingInFirst = new ArrayList<>();
-    // use a copy to deal correctly with potential duplicates
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `assertj-core/src/main/java/org/assertj/core/internal/IterableDiff.java`
-#### Snippet
-```java
-   * @return the list of elements in the first iterable that are not in the second, i.e. first - second
-   */
-  private List<T> unexpectedActualElements(Iterable<T> actual, Iterable<T> expected) {
-    List<T> missingInFirst = new ArrayList<>();
-    // use a copy to deal correctly with potential duplicates
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
-#### Snippet
-```java
-
-  private static boolean noNonMatchingModifier(Set<String> expectedMethodNames, Map<String, Integer> methodsModifier,
-                                               Map<String, String> nonMatchingModifiers, int modifier) {
-    for (String method : methodsModifier.keySet()) {
-      if (expectedMethodNames.contains(method) && (methodsModifier.get(method) & modifier) == 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
-#### Snippet
-```java
-
-  private static boolean noNonMatchingModifier(Set<String> expectedMethodNames, Map<String, Integer> methodsModifier,
-                                               Map<String, String> nonMatchingModifiers, int modifier) {
-    for (String method : methodsModifier.keySet()) {
-      if (expectedMethodNames.contains(method) && (methodsModifier.get(method) & modifier) == 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Comparable`
+in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
 #### Snippet
 ```java
    */
-  private static boolean noMissingElement(Set<String> actualNames, Set<String> expectedNames,
-                                          Set<String> missingNames) {
-    for (String field : expectedNames) {
-      if (!actualNames.contains(field)) missingNames.add(field);
+  private <T> void assertGreaterThanOrEqualTo(AssertionInfo info, Comparable<? super T> actual, T other,
+                                              TriFunction<Comparable<? super T>, T, ComparisonStrategy, ErrorMessageFactory> errorMessageFactory) {
+    assertNotNull(info, actual);
+    if (!isLessThan(actual, other))
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ComparisonStrategy`
+in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
+#### Snippet
+```java
+   */
+  private <T> void assertGreaterThanOrEqualTo(AssertionInfo info, Comparable<? super T> actual, T other,
+                                              TriFunction<Comparable<? super T>, T, ComparisonStrategy, ErrorMessageFactory> errorMessageFactory) {
+    assertNotNull(info, actual);
+    if (!isLessThan(actual, other))
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ErrorMessageFactory`
+in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
+#### Snippet
+```java
+   */
+  private <T> void assertGreaterThanOrEqualTo(AssertionInfo info, Comparable<? super T> actual, T other,
+                                              TriFunction<Comparable<? super T>, T, ComparisonStrategy, ErrorMessageFactory> errorMessageFactory) {
+    assertNotNull(info, actual);
+    if (!isLessThan(actual, other))
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Comparable`
+in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
+#### Snippet
+```java
+   */
+  private <T> void assertGreaterThan(AssertionInfo info, Comparable<? super T> actual, T other,
+                                     TriFunction<Comparable<? super T>, T, ComparisonStrategy, ErrorMessageFactory> errorMessageFactory) {
+    assertNotNull(info, actual);
+    if (isGreaterThan(actual, other))
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ComparisonStrategy`
+in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
+#### Snippet
+```java
+   */
+  private <T> void assertGreaterThan(AssertionInfo info, Comparable<? super T> actual, T other,
+                                     TriFunction<Comparable<? super T>, T, ComparisonStrategy, ErrorMessageFactory> errorMessageFactory) {
+    assertNotNull(info, actual);
+    if (isGreaterThan(actual, other))
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ErrorMessageFactory`
+in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
+#### Snippet
+```java
+   */
+  private <T> void assertGreaterThan(AssertionInfo info, Comparable<? super T> actual, T other,
+                                     TriFunction<Comparable<? super T>, T, ComparisonStrategy, ErrorMessageFactory> errorMessageFactory) {
+    assertNotNull(info, actual);
+    if (isGreaterThan(actual, other))
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super E`
 in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
 #### Snippet
@@ -1954,43 +1870,91 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
     conditions.assertIsNotNull(condition);
 ```
 
-### BoundedWildcard
-Can generalize to `? super FROM`
-in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `assertj-core/src/main/java/org/assertj/core/internal/IterableDiff.java`
 #### Snippet
 ```java
   }
 
-  private MappedCondition(Function<FROM, TO> mapping, Condition<TO> condition, String mappingDescription) {
-    requireNonNull(condition, "The given condition should not be null");
-    requireNonNull(mapping, "The given mapping function should not be null");
+  private List<T> missingActualElements(Iterable<T> actual, Iterable<T> expected) {
+    List<T> missingInExpected = new ArrayList<>();
+    // use a copy to deal correctly with potential duplicates
 ```
 
-### BoundedWildcard
-Can generalize to `? extends TO`
-in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `assertj-core/src/main/java/org/assertj/core/internal/IterableDiff.java`
 #### Snippet
 ```java
   }
 
-  private MappedCondition(Function<FROM, TO> mapping, Condition<TO> condition, String mappingDescription) {
-    requireNonNull(condition, "The given condition should not be null");
-    requireNonNull(mapping, "The given mapping function should not be null");
+  private List<T> missingActualElements(Iterable<T> actual, Iterable<T> expected) {
+    List<T> missingInExpected = new ArrayList<>();
+    // use a copy to deal correctly with potential duplicates
 ```
 
-### BoundedWildcard
-Can generalize to `? super TO`
-in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `assertj-core/src/main/java/org/assertj/core/internal/IterableDiff.java`
 #### Snippet
 ```java
-  }
-
-  private MappedCondition(Function<FROM, TO> mapping, Condition<TO> condition, String mappingDescription) {
-    requireNonNull(condition, "The given condition should not be null");
-    requireNonNull(mapping, "The given mapping function should not be null");
+   * @return the list of elements in the first iterable that are not in the second, i.e. first - second
+   */
+  private List<T> unexpectedActualElements(Iterable<T> actual, Iterable<T> expected) {
+    List<T> missingInFirst = new ArrayList<>();
+    // use a copy to deal correctly with potential duplicates
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `assertj-core/src/main/java/org/assertj/core/internal/IterableDiff.java`
+#### Snippet
+```java
+   * @return the list of elements in the first iterable that are not in the second, i.e. first - second
+   */
+  private List<T> unexpectedActualElements(Iterable<T> actual, Iterable<T> expected) {
+    List<T> missingInFirst = new ArrayList<>();
+    // use a copy to deal correctly with potential duplicates
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
+#### Snippet
+```java
+   */
+  private static boolean noMissingElement(Set<String> actualNames, Set<String> expectedNames,
+                                          Set<String> missingNames) {
+    for (String field : expectedNames) {
+      if (!actualNames.contains(field)) missingNames.add(field);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
+#### Snippet
+```java
+
+  private static boolean noNonMatchingModifier(Set<String> expectedMethodNames, Map<String, Integer> methodsModifier,
+                                               Map<String, String> nonMatchingModifiers, int modifier) {
+    for (String method : methodsModifier.keySet()) {
+      if (expectedMethodNames.contains(method) && (methodsModifier.get(method) & modifier) == 0) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
+#### Snippet
+```java
+
+  private static boolean noNonMatchingModifier(Set<String> expectedMethodNames, Map<String, Integer> methodsModifier,
+                                               Map<String, String> nonMatchingModifiers, int modifier) {
+    for (String method : methodsModifier.keySet()) {
+      if (expectedMethodNames.contains(method) && (methodsModifier.get(method) & modifier) == 0) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Function`
 in `assertj-core/src/main/java/org/assertj/core/extractor/ByNameMultipleExtractor.java`
 #### Snippet
@@ -2002,19 +1966,43 @@ in `assertj-core/src/main/java/org/assertj/core/extractor/ByNameMultipleExtracto
   }
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Condition`
-in `assertj-core/src/main/java/org/assertj/core/condition/NestableCondition.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super FROM`
+in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
 #### Snippet
 ```java
   }
 
-  private static <ACTUAL, NESTED> List<Condition<ACTUAL>> compose(Stream<Condition<NESTED>> conditions,
-                                                                  Function<ACTUAL, NESTED> extractor) {
-    return conditions.map(condition -> compose(condition, extractor)).collect(toList());
+  private MappedCondition(Function<FROM, TO> mapping, Condition<TO> condition, String mappingDescription) {
+    requireNonNull(condition, "The given condition should not be null");
+    requireNonNull(mapping, "The given mapping function should not be null");
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends TO`
+in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
+#### Snippet
+```java
+  }
+
+  private MappedCondition(Function<FROM, TO> mapping, Condition<TO> condition, String mappingDescription) {
+    requireNonNull(condition, "The given condition should not be null");
+    requireNonNull(mapping, "The given mapping function should not be null");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super TO`
+in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
+#### Snippet
+```java
+  }
+
+  private MappedCondition(Function<FROM, TO> mapping, Condition<TO> condition, String mappingDescription) {
+    requireNonNull(condition, "The given condition should not be null");
+    requireNonNull(mapping, "The given mapping function should not be null");
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super NESTED`
 in `assertj-core/src/main/java/org/assertj/core/condition/NestableCondition.java`
 #### Snippet
@@ -2026,7 +2014,7 @@ in `assertj-core/src/main/java/org/assertj/core/condition/NestableCondition.java
       @Override
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super ACTUAL`
 in `assertj-core/src/main/java/org/assertj/core/condition/NestableCondition.java`
 #### Snippet
@@ -2038,7 +2026,7 @@ in `assertj-core/src/main/java/org/assertj/core/condition/NestableCondition.java
       @Override
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends NESTED`
 in `assertj-core/src/main/java/org/assertj/core/condition/NestableCondition.java`
 #### Snippet
@@ -2050,7 +2038,19 @@ in `assertj-core/src/main/java/org/assertj/core/condition/NestableCondition.java
       @Override
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Condition`
+in `assertj-core/src/main/java/org/assertj/core/condition/NestableCondition.java`
+#### Snippet
+```java
+  }
+
+  private static <ACTUAL, NESTED> List<Condition<ACTUAL>> compose(Stream<Condition<NESTED>> conditions,
+                                                                  Function<ACTUAL, NESTED> extractor) {
+    return conditions.map(condition -> compose(condition, extractor)).collect(toList());
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Comparator`
 in `assertj-core/src/main/java/org/assertj/core/internal/Objects.java`
 #### Snippet
@@ -2062,43 +2062,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Objects.java`
     // no need to look into comparators if objects are the same
 ```
 
-### BoundedWildcard
-Can generalize to `? super DualKey`
-in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
-#### Snippet
-```java
-   */
-  private static <K1, V1, K2, V2> boolean compareSortedMap(SortedMap<K1, V1> map1, SortedMap<K2, V2> map2,
-                                                           List<String> path, Deque<DualKey> toCompare,
-                                                           Set<DualKey> visited) {
-    if (map1.size() != map2.size()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super DualKey`
-in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
-#### Snippet
-```java
-   */
-  private static <K1, V1, K2, V2> boolean compareUnorderedMap(Map<K1, V1> map1, Map<K2, V2> map2,
-                                                              List<String> path, Deque<DualKey> toCompare,
-                                                              Set<DualKey> visited) {
-    if (map1.size() != map2.size()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super DualKey`
-in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
-#### Snippet
-```java
-   */
-  private static <K, V> boolean compareOrderedCollection(Collection<K> col1, Collection<V> col2,
-                                                         List<String> path, Deque<DualKey> toCompare,
-                                                         Set<DualKey> visited) {
-    if (col1.size() != col2.size()) return false;
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super DualKey`
 in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
 #### Snippet
@@ -2110,7 +2074,19 @@ in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
     int len = Array.getLength(array1);
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super DualKey`
+in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
+#### Snippet
+```java
+   */
+  private static <K, V> boolean compareOrderedCollection(Collection<K> col1, Collection<V> col2,
+                                                         List<String> path, Deque<DualKey> toCompare,
+                                                         Set<DualKey> visited) {
+    if (col1.size() != col2.size()) return false;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super DualKey`
 in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
 #### Snippet
@@ -2122,7 +2098,31 @@ in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
     Map<Integer, Object> fastLookup = new HashMap<>();
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super DualKey`
+in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
+#### Snippet
+```java
+   */
+  private static <K1, V1, K2, V2> boolean compareUnorderedMap(Map<K1, V1> map1, Map<K2, V2> map2,
+                                                              List<String> path, Deque<DualKey> toCompare,
+                                                              Set<DualKey> visited) {
+    if (map1.size() != map2.size()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super DualKey`
+in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
+#### Snippet
+```java
+   */
+  private static <K1, V1, K2, V2> boolean compareSortedMap(SortedMap<K1, V1> map1, SortedMap<K2, V2> map2,
+                                                           List<String> path, Deque<DualKey> toCompare,
+                                                           Set<DualKey> visited) {
+    if (map1.size() != map2.size()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super K`
 in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
 #### Snippet
@@ -2134,7 +2134,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
     // Stream API avoided for performance reasons
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super V`
 in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
 #### Snippet
@@ -2146,55 +2146,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
     // Stream API avoided for performance reasons
 ```
 
-### BoundedWildcard
-Can generalize to `? extends K`
-in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  private static <K, V> Map<K, V> clone(Map<K, V> map) throws NoSuchMethodException {
-    if (isMultiValueMapAdapterInstance(map)) throw new IllegalArgumentException("Cannot clone MultiValueMapAdapter");
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  private static <K, V> Map<K, V> clone(Map<K, V> map) throws NoSuchMethodException {
-    if (isMultiValueMapAdapterInstance(map)) throw new IllegalArgumentException("Cannot clone MultiValueMapAdapter");
-
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
-#### Snippet
-```java
-  }
-
-  public <K, V> void assertContainsOnlyKeys(AssertionInfo info, Map<K, V> actual, K[] keys) {
-    assertContainsOnlyKeys(info, actual, "array of keys", keys);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
-#### Snippet
-```java
-  }
-
-  private static <V> Set<V> getNotFoundValues(Map<?, V> actual, V[] expectedValues) {
-    // Stream API avoided for performance reasons
-    Set<V> notFound = new LinkedHashSet<>();
-```
-
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super K`
 in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
 #### Snippet
@@ -2206,7 +2158,31 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
     Set<K> found = new LinkedHashSet<>();
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super K`
+in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
+#### Snippet
+```java
+  }
+
+  public <K, V> void assertContainsOnlyKeys(AssertionInfo info, Map<K, V> actual, K[] keys) {
+    assertContainsOnlyKeys(info, actual, "array of keys", keys);
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
+#### Snippet
+```java
+  }
+
+  private static <V> Set<V> getNotFoundValues(Map<?, V> actual, V[] expectedValues) {
+    // Stream API avoided for performance reasons
+    Set<V> notFound = new LinkedHashSet<>();
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Entry`
 in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
 #### Snippet
@@ -2218,7 +2194,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
     Map<K, V> expectedEntries = entriesToMap(entries);
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Entry`
 in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
 #### Snippet
@@ -2230,7 +2206,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
     Map<K, V> actualEntries = new LinkedHashMap<>(actual);
 ```
 
-### BoundedWildcard
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super K`
 in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
 #### Snippet
@@ -2242,8 +2218,32 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
     Set<K> notFound = new LinkedHashSet<>();
 ```
 
-## MissortedModifiers
-### MissortedModifiers
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
+#### Snippet
+```java
+
+  @SuppressWarnings("unchecked")
+  private static <K, V> Map<K, V> clone(Map<K, V> map) throws NoSuchMethodException {
+    if (isMultiValueMapAdapterInstance(map)) throw new IllegalArgumentException("Cannot clone MultiValueMapAdapter");
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
+#### Snippet
+```java
+
+  @SuppressWarnings("unchecked")
+  private static <K, V> Map<K, V> clone(Map<K, V> map) throws NoSuchMethodException {
+    if (isMultiValueMapAdapterInstance(map)) throw new IllegalArgumentException("Cannot clone MultiValueMapAdapter");
+
+```
+
+## RuleId[ruleID=MissortedModifiers]
+### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final static`
 in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
 #### Snippet
@@ -2255,8 +2255,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
     private final List<String> path;
 ```
 
-## IfStatementMissingBreakInLoop
-### IfStatementMissingBreakInLoop
+## RuleId[ruleID=IfStatementMissingBreakInLoop]
+### RuleId[ruleID=IfStatementMissingBreakInLoop]
 Loop can be terminated after condition is met
 in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
 #### Snippet
@@ -2268,8 +2268,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
       if (!matching) nonMatchingElements.add(value);
 ```
 
-## IgnoreResultOfCall
-### IgnoreResultOfCall
+## RuleId[ruleID=IgnoreResultOfCall]
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `ThrowableAssertAlternative.as()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/SoftThrowableAssertAlternative.java`
 #### Snippet
@@ -2281,7 +2281,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/SoftThrowableAssertAlternati
   }
 ```
 
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `AtomicReferenceArrayAssert.usingElementComparator()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
 #### Snippet
@@ -2293,7 +2293,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.j
 
 ```
 
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `FilterOperator.applyOn()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
 #### Snippet
@@ -2305,7 +2305,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.j
   }
 ```
 
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `FilterOperator.applyOn()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -2317,7 +2317,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
   }
 ```
 
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `AbstractObjectArrayAssert.usingElementComparator()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -2329,43 +2329,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
     getComparatorsForElementPropertyOrFieldTypes().registerComparator(type, comparator);
 ```
 
-### IgnoreResultOfCall
-Result of `FilterOperator.applyOn()` is ignored
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-    checkNotNull(filterOperator);
-    Filters<? extends ELEMENT> filter = filter((Iterable<? extends ELEMENT>) actual).with(propertyOrFieldName);
-    filterOperator.applyOn(filter);
-    return newAbstractIterableAssert(filter.get()).withAssertionState(myself);
-  }
-```
-
-### IgnoreResultOfCall
-Result of `AbstractIterableAssert.usingElementComparator()` is ignored
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-      SortedSet<ELEMENT> sortedSet = (SortedSet<ELEMENT>) actual;
-      Comparator<? super ELEMENT> comparator = sortedSet.comparator();
-      if (comparator != null) usingElementComparator(sortedSet.comparator());
-    }
-  }
-```
-
-### IgnoreResultOfCall
-Result of `AbstractIterableAssert.usingDefaultElementComparator()` is ignored
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-      // compatible with extracted values type, example with a SortedSet<Person> using a comparator on the Person's age, after
-      // extracting names we get a List<String> which is mot suitable for the age comparator
-      usingDefaultElementComparator();
-    }
-    return newListAssertInstance(values).withAssertionState(myself);
-```
-
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `AbstractIterableAssert.usingElementComparator()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -2377,7 +2341,43 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 
 ```
 
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `AbstractIterableAssert.usingElementComparator()` is ignored
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+      SortedSet<ELEMENT> sortedSet = (SortedSet<ELEMENT>) actual;
+      Comparator<? super ELEMENT> comparator = sortedSet.comparator();
+      if (comparator != null) usingElementComparator(sortedSet.comparator());
+    }
+  }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `FilterOperator.applyOn()` is ignored
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+    checkNotNull(filterOperator);
+    Filters<? extends ELEMENT> filter = filter((Iterable<? extends ELEMENT>) actual).with(propertyOrFieldName);
+    filterOperator.applyOn(filter);
+    return newAbstractIterableAssert(filter.get()).withAssertionState(myself);
+  }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `AbstractIterableAssert.usingDefaultElementComparator()` is ignored
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+      // compatible with extracted values type, example with a SortedSet<Person> using a comparator on the Person's age, after
+      // extracting names we get a List<String> which is mot suitable for the age comparator
+      usingDefaultElementComparator();
+    }
+    return newListAssertInstance(values).withAssertionState(myself);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `ListFromStream.initList()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/ListAssert.java`
 #### Snippet
@@ -2389,7 +2389,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/ListAssert.java`
     }
 ```
 
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `ListFromStream.initList()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/ListAssert.java`
 #### Snippet
@@ -2401,7 +2401,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/ListAssert.java`
     }
 ```
 
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `ListFromStream.initList()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/ListAssert.java`
 #### Snippet
@@ -2413,7 +2413,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/ListAssert.java`
     }
 ```
 
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `AbstractAssert.describedAs()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/ThrowableAssertAlternative.java`
 #### Snippet
@@ -2425,7 +2425,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/ThrowableAssertAlternative.j
   }
 ```
 
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `RecursiveComparisonAssert.withComparatorForType()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/RecursiveComparisonAssert.java`
 #### Snippet
@@ -2437,7 +2437,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/RecursiveComparisonAssert.ja
 
 ```
 
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Object.hashCode()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
 #### Snippet
@@ -2449,7 +2449,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
 
 ```
 
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Comparator.compare()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/internal/Lists.java`
 #### Snippet
@@ -2461,7 +2461,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Lists.java`
       }
 ```
 
-### IgnoreResultOfCall
+### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Comparator.compare()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
 #### Snippet
@@ -2473,8 +2473,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
       }
 ```
 
-## RedundantMethodOverride
-### RedundantMethodOverride
+## RuleId[ruleID=RedundantMethodOverride]
+### RuleId[ruleID=RedundantMethodOverride]
 Method `isEqualTo()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/Float2DArrayAssert.java`
 #### Snippet
@@ -2486,7 +2486,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Float2DArrayAssert.java`
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `isEqualTo()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/Object2DArrayAssert.java`
 #### Snippet
@@ -2498,7 +2498,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Object2DArrayAssert.java`
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `isEqualTo()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/Double2DArrayAssert.java`
 #### Snippet
@@ -2510,7 +2510,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Double2DArrayAssert.java`
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `hasValue()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/AtomicLongFieldUpdaterAssert.java`
 #### Snippet
@@ -2522,7 +2522,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicLongFieldUpdaterAssert
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `hasReference()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/AtomicMarkableReferenceAssert.java`
 #### Snippet
@@ -2534,7 +2534,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicMarkableReferenceAsser
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `isEqualTo()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/Boolean2DArrayAssert.java`
 #### Snippet
@@ -2546,7 +2546,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Boolean2DArrayAssert.java`
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `isEqualTo()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/Byte2DArrayAssert.java`
 #### Snippet
@@ -2558,19 +2558,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/Byte2DArrayAssert.java`
   }
 ```
 
-### RedundantMethodOverride
-Method `usingRecursiveComparison()` only delegates to its super method
+### RuleId[ruleID=RedundantMethodOverride]
+Method `usingRecursiveAssertion()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
 ```java
    */
   @Override
-  public RecursiveComparisonAssert<?> usingRecursiveComparison(RecursiveComparisonConfiguration recursiveComparisonConfiguration) {
-    // overridden for javadoc and to make this method public
-    return super.usingRecursiveComparison(recursiveComparisonConfiguration);
+  public RecursiveAssertionAssert usingRecursiveAssertion() {
+    return super.usingRecursiveAssertion();
+  }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `usingRecursiveAssertion()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
@@ -2582,31 +2582,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
   }
 ```
 
-### RedundantMethodOverride
-Method `usingRecursiveAssertion()` only delegates to its super method
+### RuleId[ruleID=RedundantMethodOverride]
+Method `usingRecursiveComparison()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
 ```java
    */
   @Override
-  public RecursiveAssertionAssert usingRecursiveAssertion() {
-    return super.usingRecursiveAssertion();
-  }
+  public RecursiveComparisonAssert<?> usingRecursiveComparison(RecursiveComparisonConfiguration recursiveComparisonConfiguration) {
+    // overridden for javadoc and to make this method public
+    return super.usingRecursiveComparison(recursiveComparisonConfiguration);
 ```
 
-### RedundantMethodOverride
-Method `isEqualTo()` only delegates to its super method
-in `assertj-core/src/main/java/org/assertj/core/api/Short2DArrayAssert.java`
-#### Snippet
-```java
-   */
-  @Override
-  public Short2DArrayAssert isEqualTo(Object expected) {
-    return super.isEqualTo(expected);
-  }
-```
-
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `apply()` is identical to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/Java6JUnitSoftAssertions.java`
 #### Snippet
@@ -2618,7 +2606,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6JUnitSoftAssertions.jav
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
+Method `isEqualTo()` only delegates to its super method
+in `assertj-core/src/main/java/org/assertj/core/api/Short2DArrayAssert.java`
+#### Snippet
+```java
+   */
+  @Override
+  public Short2DArrayAssert isEqualTo(Object expected) {
+    return super.isEqualTo(expected);
+  }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
 Method `isEqualTo()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/Char2DArrayAssert.java`
 #### Snippet
@@ -2630,7 +2630,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Char2DArrayAssert.java`
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `isEqualTo()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/Long2DArrayAssert.java`
 #### Snippet
@@ -2642,7 +2642,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Long2DArrayAssert.java`
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `hasValue()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/AtomicIntegerFieldUpdaterAssert.java`
 #### Snippet
@@ -2654,7 +2654,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicIntegerFieldUpdaterAss
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `hasValue()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceFieldUpdaterAssert.java`
 #### Snippet
@@ -2666,7 +2666,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceFieldUpdaterA
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `hasReference()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/AtomicStampedReferenceAssert.java`
 #### Snippet
@@ -2678,7 +2678,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicStampedReferenceAssert
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `isEqualTo()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/Int2DArrayAssert.java`
 #### Snippet
@@ -2690,31 +2690,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Int2DArrayAssert.java`
   }
 ```
 
-### RedundantMethodOverride
-Method `ignoreFieldsMatchingRegexes()` only delegates to its super method
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
-#### Snippet
-```java
-   */
-  @Override
-  public void ignoreFieldsMatchingRegexes(String... regexes) {
-    super.ignoreFieldsMatchingRegexes(regexes);
-  }
-```
-
-### RedundantMethodOverride
-Method `withIgnoredFieldsOfTypes()` only delegates to its super method
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
-#### Snippet
-```java
-     */
-    @Override
-    public Builder withIgnoredFieldsOfTypes(Class<?>... types) {
-      return super.withIgnoredFieldsOfTypes(types);
-    }
-```
-
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `ignoreFieldsOfTypes()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
 #### Snippet
@@ -2726,7 +2702,55 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/Recursiv
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
+Method `withIgnoredFieldsOfTypes()` only delegates to its super method
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Builder withIgnoredFieldsOfTypes(Class<?>... types) {
+      return super.withIgnoredFieldsOfTypes(types);
+    }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `withIgnoredFieldsMatchingRegexes()` only delegates to its super method
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Builder withIgnoredFieldsMatchingRegexes(String... regexes) {
+      return super.withIgnoredFieldsMatchingRegexes(regexes);
+    }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `withIgnoredFields()` only delegates to its super method
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Builder withIgnoredFields(String... fieldsToIgnore) {
+      return super.withIgnoredFields(fieldsToIgnore);
+    }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `ignoreFieldsMatchingRegexes()` only delegates to its super method
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
+#### Snippet
+```java
+   */
+  @Override
+  public void ignoreFieldsMatchingRegexes(String... regexes) {
+    super.ignoreFieldsMatchingRegexes(regexes);
+  }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
 Method `ignoreFields()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
 #### Snippet
@@ -2738,31 +2762,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/Recursiv
   }
 ```
 
-### RedundantMethodOverride
-Method `withIgnoredFields()` only delegates to its super method
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
-#### Snippet
-```java
-     */
-    @Override
-    public Builder withIgnoredFields(String... fieldsToIgnore) {
-      return super.withIgnoredFields(fieldsToIgnore);
-    }
-```
-
-### RedundantMethodOverride
-Method `withIgnoredFieldsMatchingRegexes()` only delegates to its super method
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
-#### Snippet
-```java
-     */
-    @Override
-    public Builder withIgnoredFieldsMatchingRegexes(String... regexes) {
-      return super.withIgnoredFieldsMatchingRegexes(regexes);
-    }
-```
-
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `withIgnoredFields()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
 #### Snippet
@@ -2774,7 +2774,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
     }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `withIgnoredFieldsOfTypes()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
 #### Snippet
@@ -2786,7 +2786,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
     }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `withIgnoredFieldsMatchingRegexes()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
 #### Snippet
@@ -2798,7 +2798,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
     }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `isStandard()` is identical to its super method
 in `assertj-core/src/main/java/org/assertj/core/internal/ComparatorBasedComparisonStrategy.java`
 #### Snippet
@@ -2810,7 +2810,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/ComparatorBasedComparis
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `duplicatesFrom()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/internal/ComparatorBasedComparisonStrategy.java`
 #### Snippet
@@ -2822,7 +2822,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/ComparatorBasedComparis
   }
 ```
 
-### RedundantMethodOverride
+### RuleId[ruleID=RedundantMethodOverride]
 Method `duplicatesFrom()` only delegates to its super method
 in `assertj-core/src/main/java/org/assertj/core/internal/StandardComparisonStrategy.java`
 #### Snippet
@@ -2834,8 +2834,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/StandardComparisonStrat
   }
 ```
 
-## SimplifyOptionalCallChains
-### SimplifyOptionalCallChains
+## RuleId[ruleID=SimplifyOptionalCallChains]
+### RuleId[ruleID=SimplifyOptionalCallChains]
 Optional chain can be simplified
 in `assertj-core/src/main/java/org/assertj/core/configuration/PreferredAssumptionException.java`
 #### Snippet
@@ -2847,20 +2847,8 @@ in `assertj-core/src/main/java/org/assertj/core/configuration/PreferredAssumptio
                    .orElseThrow(() -> new IllegalStateException("Assumptions require TestNG, JUnit 4 or opentest4j on the classpath"));
 ```
 
-## UnnecessarySuperQualifier
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
-#### Snippet
-```java
-  @CheckReturnValue
-  public <T> AbstractObjectAssert<?, T> extracting(Function<? super ACTUAL, T> extractor) {
-    return super.extracting(extractor, this::newObjectAssert);
-  }
-
-```
-
-### UnnecessarySuperQualifier
+## RuleId[ruleID=UnnecessarySuperQualifier]
+### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 #### Snippet
@@ -2872,7 +2860,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 
 ```
 
-### UnnecessarySuperQualifier
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
+#### Snippet
+```java
+  @CheckReturnValue
+  public <T> AbstractObjectAssert<?, T> extracting(Function<? super ACTUAL, T> extractor) {
+    return super.extracting(extractor, this::newObjectAssert);
+  }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 #### Snippet
@@ -2884,7 +2884,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 
 ```
 
-### UnnecessarySuperQualifier
+### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 #### Snippet
@@ -2896,7 +2896,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 
 ```
 
-### UnnecessarySuperQualifier
+### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractSoftAssertions.java`
 #### Snippet
@@ -2908,31 +2908,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractSoftAssertions.java`
 
 ```
 
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldMessages.java`
-#### Snippet
-```java
-   */
-  public Stream<Entry<String, String>> messageByFields() {
-    return super.entryByField();
-  }
-}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldMessages.java`
-#### Snippet
-```java
-   */
-  public boolean hasMessageForField(String fieldLocation) {
-    return super.hasEntity(fieldLocation);
-  }
-
-```
-
-### UnnecessarySuperQualifier
+### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldMessages.java`
 #### Snippet
@@ -2944,7 +2920,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldMe
 
 ```
 
-### UnnecessarySuperQualifier
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldMessages.java`
+#### Snippet
+```java
+   */
+  public boolean hasMessageForField(String fieldLocation) {
+    return super.hasEntity(fieldLocation);
+  }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldMessages.java`
 #### Snippet
@@ -2956,43 +2944,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldMe
 
 ```
 
-### UnnecessarySuperQualifier
+### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldComparators.java`
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldMessages.java`
 #### Snippet
 ```java
    */
-  public void registerComparator(String fieldLocation, Comparator<?> comparator) {
-    super.put(fieldLocation, comparator);
+  public Stream<Entry<String, String>> messageByFields() {
+    return super.entryByField();
   }
-
+}
 ```
 
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldComparators.java`
-#### Snippet
-```java
-   */
-  public Comparator<?> getComparatorForField(String fieldLocation) {
-    Comparator<?> exactFieldLocationComparator = super.get(fieldLocation);
-    if (exactFieldLocationComparator != null) return exactFieldLocationComparator;
-    // no comparator for exact location, check if there is a regex that matches the field location
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldComparators.java`
-#### Snippet
-```java
-  public boolean hasComparatorForField(String fieldLocation) {
-    // TODO sanitize here?
-    boolean hasComparatorForExactFieldLocation = super.hasEntity(fieldLocation);
-    // comparator for exact location takes precedence over the one with location matched by regexes
-    if (hasComparatorForExactFieldLocation) return true;
-```
-
-### UnnecessarySuperQualifier
+### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldComparators.java`
 #### Snippet
@@ -3004,7 +2968,43 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldCo
 
 ```
 
-### UnnecessarySuperQualifier
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldComparators.java`
+#### Snippet
+```java
+   */
+  public void registerComparator(String fieldLocation, Comparator<?> comparator) {
+    super.put(fieldLocation, comparator);
+  }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldComparators.java`
+#### Snippet
+```java
+  public boolean hasComparatorForField(String fieldLocation) {
+    // TODO sanitize here?
+    boolean hasComparatorForExactFieldLocation = super.hasEntity(fieldLocation);
+    // comparator for exact location takes precedence over the one with location matched by regexes
+    if (hasComparatorForExactFieldLocation) return true;
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldComparators.java`
+#### Snippet
+```java
+   */
+  public Comparator<?> getComparatorForField(String fieldLocation) {
+    Comparator<?> exactFieldLocationComparator = super.get(fieldLocation);
+    if (exactFieldLocationComparator != null) return exactFieldLocationComparator;
+    // no comparator for exact location, check if there is a regex that matches the field location
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
 in `assertj-core/src/main/java/org/assertj/core/internal/TypeComparators.java`
 #### Snippet
@@ -3016,19 +3016,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/TypeComparators.java`
 
 ```
 
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `assertj-core/src/main/java/org/assertj/core/internal/TypeComparators.java`
-#### Snippet
-```java
-   */
-  public <T> void registerComparator(Class<T> clazz, Comparator<? super T> comparator) {
-    super.put(clazz, comparator);
-  }
-
-```
-
-### UnnecessarySuperQualifier
+### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
 in `assertj-core/src/main/java/org/assertj/core/internal/TypeComparators.java`
 #### Snippet
@@ -3040,7 +3028,19 @@ in `assertj-core/src/main/java/org/assertj/core/internal/TypeComparators.java`
 }
 ```
 
-### UnnecessarySuperQualifier
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `assertj-core/src/main/java/org/assertj/core/internal/TypeComparators.java`
+#### Snippet
+```java
+   */
+  public <T> void registerComparator(Class<T> clazz, Comparator<? super T> comparator) {
+    super.put(clazz, comparator);
+  }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
 in `assertj-core/src/main/java/org/assertj/core/internal/TypeComparators.java`
 #### Snippet
@@ -3052,43 +3052,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/TypeComparators.java`
 
 ```
 
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `assertj-core/src/main/java/org/assertj/core/internal/TypeMessages.java`
-#### Snippet
-```java
-   */
-  public boolean hasMessageForType(Class<?> type) {
-    return super.hasEntity(type);
-  }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `assertj-core/src/main/java/org/assertj/core/internal/TypeMessages.java`
-#### Snippet
-```java
-   */
-  public Stream<Map.Entry<Class<?>, String>> messageByTypes() {
-    return super.entityByTypes();
-  }
-}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `assertj-core/src/main/java/org/assertj/core/internal/TypeMessages.java`
-#### Snippet
-```java
-   */
-  public <T> void registerMessage(Class<T> clazz, String message) {
-    super.put(clazz, message);
-  }
-
-```
-
-### UnnecessarySuperQualifier
+### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
 in `assertj-core/src/main/java/org/assertj/core/internal/TypeMessages.java`
 #### Snippet
@@ -3100,8 +3064,44 @@ in `assertj-core/src/main/java/org/assertj/core/internal/TypeMessages.java`
 
 ```
 
-## NestedAssignment
-### NestedAssignment
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `assertj-core/src/main/java/org/assertj/core/internal/TypeMessages.java`
+#### Snippet
+```java
+   */
+  public boolean hasMessageForType(Class<?> type) {
+    return super.hasEntity(type);
+  }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `assertj-core/src/main/java/org/assertj/core/internal/TypeMessages.java`
+#### Snippet
+```java
+   */
+  public <T> void registerMessage(Class<T> clazz, String message) {
+    super.put(clazz, message);
+  }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `assertj-core/src/main/java/org/assertj/core/internal/TypeMessages.java`
+#### Snippet
+```java
+   */
+  public Stream<Map.Entry<Class<?>, String>> messageByTypes() {
+    return super.entityByTypes();
+  }
+}
+```
+
+## RuleId[ruleID=NestedAssignment]
+### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractInputStreamAssert.java`
 #### Snippet
@@ -3113,7 +3113,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractInputStreamAssert.ja
       }
 ```
 
-### NestedAssignment
+### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
 in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
 #### Snippet
@@ -3125,7 +3125,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
     return throwable;
 ```
 
-### NestedAssignment
+### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
 in `assertj-core/src/main/java/org/assertj/core/util/URLs.java`
 #### Snippet
@@ -3137,7 +3137,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/URLs.java`
       }
 ```
 
-### NestedAssignment
+### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
 in `assertj-core/src/main/java/org/assertj/core/internal/Diff.java`
 #### Snippet
@@ -3149,7 +3149,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Diff.java`
     }
 ```
 
-### NestedAssignment
+### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
 in `assertj-core/src/main/java/org/assertj/core/internal/Digests.java`
 #### Snippet
@@ -3161,8 +3161,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Digests.java`
     }
 ```
 
-## CodeBlock2Expr
-### CodeBlock2Expr
+## RuleId[ruleID=CodeBlock2Expr]
+### RuleId[ruleID=CodeBlock2Expr]
 Statement lambda can be replaced with expression lambda
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionDriver.java`
 #### Snippet
@@ -3174,8 +3174,8 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/Recursiv
     });
 ```
 
-## EmptyMethod
-### EmptyMethod
+## RuleId[ruleID=EmptyMethod]
+### RuleId[ruleID=EmptyMethod]
 Method only calls its super
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -3187,7 +3187,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
   }
 ```
 
-### EmptyMethod
+### RuleId[ruleID=EmptyMethod]
 Method only calls its super
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -3199,7 +3199,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
   }
 ```
 
-### EmptyMethod
+### RuleId[ruleID=EmptyMethod]
 Method only calls its super
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -3211,7 +3211,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
   }
 ```
 
-### EmptyMethod
+### RuleId[ruleID=EmptyMethod]
 Method only calls its super
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
@@ -3223,7 +3223,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
   }
 ```
 
-### EmptyMethod
+### RuleId[ruleID=EmptyMethod]
 Method only calls its super
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
@@ -3235,7 +3235,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
   }
 ```
 
-### EmptyMethod
+### RuleId[ruleID=EmptyMethod]
 Method only calls its super
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
@@ -3247,7 +3247,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
   }
 ```
 
-### EmptyMethod
+### RuleId[ruleID=EmptyMethod]
 Method only calls its super
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
@@ -3259,7 +3259,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
     return super.usingRecursiveComparison();
 ```
 
-### EmptyMethod
+### RuleId[ruleID=EmptyMethod]
 Method only calls its super
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
@@ -3271,7 +3271,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
   }
 ```
 
-### EmptyMethod
+### RuleId[ruleID=EmptyMethod]
 The method is empty
 in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvider.java`
 #### Snippet
@@ -3283,8 +3283,8 @@ in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvi
   }
 ```
 
-## RedundantFieldInitialization
-### RedundantFieldInitialization
+## RuleId[ruleID=RedundantFieldInitialization]
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
 in `assertj-core/src/main/java/org/assertj/core/api/DefaultAssertionErrorCollector.java`
 #### Snippet
@@ -3296,7 +3296,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/DefaultAssertionErrorCollect
   public DefaultAssertionErrorCollector() {
 ```
 
-### RedundantFieldInitialization
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractAssert.java`
 #### Snippet
@@ -3308,7 +3308,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractAssert.java`
   @VisibleForTesting
 ```
 
-### RedundantFieldInitialization
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
 #### Snippet
@@ -3320,7 +3320,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/Recursiv
     private CollectionAssertionPolicy collectionAssertionPolicy = ELEMENTS_ONLY;
 ```
 
-### RedundantFieldInitialization
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
 #### Snippet
@@ -3332,31 +3332,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
   private boolean ignoreAllExpectedNullFields = false;
 ```
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-  // fields to ignore section
-  private boolean ignoreAllActualNullFields = false;
-  private boolean ignoreAllActualEmptyOptionalFields = false;
-  private boolean ignoreAllExpectedNullFields = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-  private boolean ignoreAllActualNullFields = false;
-  private boolean ignoreAllActualEmptyOptionalFields = false;
-  private boolean ignoreAllExpectedNullFields = false;
-
-  // fields to compare (no other field will be)
-```
-
-### RedundantFieldInitialization
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
 #### Snippet
@@ -3368,7 +3344,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
   // fields to ignore section
 ```
 
-### RedundantFieldInitialization
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+  private boolean ignoreAllActualNullFields = false;
+  private boolean ignoreAllActualEmptyOptionalFields = false;
+  private boolean ignoreAllExpectedNullFields = false;
+
+  // fields to compare (no other field will be)
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+  // fields to ignore section
+  private boolean ignoreAllActualNullFields = false;
+  private boolean ignoreAllActualEmptyOptionalFields = false;
+  private boolean ignoreAllExpectedNullFields = false;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
 #### Snippet
@@ -3380,7 +3380,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
   private final List<Pattern> ignoredCollectionOrderInFieldsMatchingRegexes = new ArrayList<>();
 ```
 
-### RedundantFieldInitialization
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/Introspection.java`
 #### Snippet
@@ -3392,7 +3392,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/Introspection
   /**
 ```
 
-### RedundantFieldInitialization
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `assertj-core/src/main/java/org/assertj/core/internal/Failures.java`
 #### Snippet
@@ -3404,8 +3404,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Failures.java`
   /**
 ```
 
-## ExceptionNameDoesntEndWithException
-### ExceptionNameDoesntEndWithException
+## RuleId[ruleID=ExceptionNameDoesntEndWithException]
+### RuleId[ruleID=ExceptionNameDoesntEndWithException]
 Exception class name `IntrospectionError` does not end with 'Exception'
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/IntrospectionError.java`
 #### Snippet
@@ -3417,8 +3417,8 @@ public class IntrospectionError extends RuntimeException {
   private static final long serialVersionUID = 1L;
 ```
 
-## ArrayEquality
-### ArrayEquality
+## RuleId[ruleID=ArrayEquality]
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Float2DArrayAssert.java`
 #### Snippet
@@ -3430,7 +3430,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Float2DArrayAssert.java`
     if (expected.length != actual.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Float2DArrayAssert.java`
 #### Snippet
@@ -3442,7 +3442,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Float2DArrayAssert.java`
       if (expectedSubArray.length != actualSubArray.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Object2DArrayAssert.java`
 #### Snippet
@@ -3454,7 +3454,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Object2DArrayAssert.java`
     if (expected.length != actual.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Object2DArrayAssert.java`
 #### Snippet
@@ -3466,7 +3466,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Object2DArrayAssert.java`
       if (expectedSubArray.length != actualSubArray.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Double2DArrayAssert.java`
 #### Snippet
@@ -3478,7 +3478,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Double2DArrayAssert.java`
     if (expected.length != actual.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Double2DArrayAssert.java`
 #### Snippet
@@ -3490,7 +3490,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Double2DArrayAssert.java`
       if (expectedSubArray.length != actualSubArray.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Boolean2DArrayAssert.java`
 #### Snippet
@@ -3502,7 +3502,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Boolean2DArrayAssert.java`
     if (expected.length != actual.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Boolean2DArrayAssert.java`
 #### Snippet
@@ -3514,7 +3514,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Boolean2DArrayAssert.java`
       if (expectedSubArray.length != actualSubArray.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Byte2DArrayAssert.java`
 #### Snippet
@@ -3526,7 +3526,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Byte2DArrayAssert.java`
     if (expected.length != actual.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Byte2DArrayAssert.java`
 #### Snippet
@@ -3538,7 +3538,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Byte2DArrayAssert.java`
       if (expectedSubArray.length != actualSubArray.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Short2DArrayAssert.java`
 #### Snippet
@@ -3550,7 +3550,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Short2DArrayAssert.java`
     if (expected.length != actual.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Short2DArrayAssert.java`
 #### Snippet
@@ -3562,7 +3562,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Short2DArrayAssert.java`
       if (expectedSubArray.length != actualSubArray.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Char2DArrayAssert.java`
 #### Snippet
@@ -3574,7 +3574,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Char2DArrayAssert.java`
     if (expected.length != actual.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Char2DArrayAssert.java`
 #### Snippet
@@ -3586,7 +3586,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Char2DArrayAssert.java`
       if (expectedSubArray.length != actualSubArray.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Long2DArrayAssert.java`
 #### Snippet
@@ -3598,7 +3598,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Long2DArrayAssert.java`
     if (expected.length != actual.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Long2DArrayAssert.java`
 #### Snippet
@@ -3610,7 +3610,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Long2DArrayAssert.java`
       if (expectedSubArray.length != actualSubArray.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Int2DArrayAssert.java`
 #### Snippet
@@ -3622,7 +3622,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Int2DArrayAssert.java`
     if (expected.length != actual.length) {
 ```
 
-### ArrayEquality
+### RuleId[ruleID=ArrayEquality]
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `assertj-core/src/main/java/org/assertj/core/api/Int2DArrayAssert.java`
 #### Snippet
@@ -3634,8 +3634,8 @@ in `assertj-core/src/main/java/org/assertj/core/api/Int2DArrayAssert.java`
       if (expectedSubArray.length != actualSubArray.length) {
 ```
 
-## RedundantStringFormatCall
-### RedundantStringFormatCall
+## RuleId[ruleID=RedundantStringFormatCall]
+### RuleId[ruleID=RedundantStringFormatCall]
 Redundant call to `format()`
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonDifferenceCalculator.java`
 #### Snippet
@@ -3647,19 +3647,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
                                 "- expected field value: %s%n" +
 ```
 
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `assertj-core/src/main/java/org/assertj/core/configuration/Services.java`
-#### Snippet
-```java
-    if (services.hasNext()) {
-      result = defaultValue;
-      System.err.println(format("Found multiple implementations for the service provider %s. Using the default: %s",
-                                serviceType, result.getClass()));
-    }
-```
-
-### RedundantStringFormatCall
+### RuleId[ruleID=RedundantStringFormatCall]
 Redundant call to `format()`
 in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvider.java`
 #### Snippet
@@ -3671,7 +3659,7 @@ in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvi
       } else if (representations.size() > 1) {
 ```
 
-### RedundantStringFormatCall
+### RuleId[ruleID=RedundantStringFormatCall]
 Redundant call to `format()`
 in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvider.java`
 #### Snippet
@@ -3683,7 +3671,7 @@ in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvi
       }
 ```
 
-### RedundantStringFormatCall
+### RuleId[ruleID=RedundantStringFormatCall]
 Redundant call to `format()`
 in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvider.java`
 #### Snippet
@@ -3695,8 +3683,20 @@ in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvi
     }
 ```
 
-## ZeroLengthArrayInitialization
-### ZeroLengthArrayInitialization
+### RuleId[ruleID=RedundantStringFormatCall]
+Redundant call to `format()`
+in `assertj-core/src/main/java/org/assertj/core/configuration/Services.java`
+#### Snippet
+```java
+    if (services.hasNext()) {
+      result = defaultValue;
+      System.err.println(format("Found multiple implementations for the service provider %s. Using the default: %s",
+                                serviceType, result.getClass()));
+    }
+```
+
+## RuleId[ruleID=ZeroLengthArrayInitialization]
+### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
@@ -3708,19 +3708,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/AbstractRecursiveOperationConfiguration.java`
-#### Snippet
-```java
-    private String[] ignoredFields = {};
-    private String[] ignoredFieldsMatchingRegexes = {};
-    private Class<?>[] ignoredTypes = {};
-
-    @SuppressWarnings("unchecked")
-```
-
-### ZeroLengthArrayInitialization
+### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/AbstractRecursiveOperationConfiguration.java`
 #### Snippet
@@ -3732,7 +3720,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/AbstractRecursiveO
     private Class<?>[] ignoredTypes = {};
 ```
 
-### ZeroLengthArrayInitialization
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/AbstractRecursiveOperationConfiguration.java`
+#### Snippet
+```java
+    private String[] ignoredFields = {};
+    private String[] ignoredFieldsMatchingRegexes = {};
+    private Class<?>[] ignoredTypes = {};
+
+    @SuppressWarnings("unchecked")
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/AbstractRecursiveOperationConfiguration.java`
 #### Snippet
@@ -3744,19 +3744,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/AbstractRecursiveO
 
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
-#### Snippet
-```java
-    List<StackTraceElement> stackTrace = newArrayList(t.getStackTrace());
-    stackTrace.addAll(stackTraceInCurrentThread(methodToStartFrom));
-    t.setStackTrace(stackTrace.toArray(new StackTraceElement[0]));
-  }
-
-```
-
-### ZeroLengthArrayInitialization
+### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
 in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
 #### Snippet
@@ -3768,91 +3756,19 @@ in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
   }
 ```
 
-### ZeroLengthArrayInitialization
+### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
 #### Snippet
 ```java
-    private boolean ignoreCollectionOrder;
-    private String[] ignoredCollectionOrderInFields = {};
-    private String[] ignoredCollectionOrderInFieldsMatchingRegexes = {};
-    private final TypeComparators typeComparators = defaultTypeComparators();
-    private final FieldComparators fieldComparators = new FieldComparators();
+    List<StackTraceElement> stackTrace = newArrayList(t.getStackTrace());
+    stackTrace.addAll(stackTraceInCurrentThread(methodToStartFrom));
+    t.setStackTrace(stackTrace.toArray(new StackTraceElement[0]));
+  }
+
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-    private boolean ignoreAllActualEmptyOptionalFields;
-    private boolean ignoreAllExpectedNullFields;
-    private FieldLocation[] comparedFields = {};
-    private Class<?>[] comparedTypes = {};
-    private Class<?>[] ignoredOverriddenEqualsForTypes = {};
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-    private Class<?>[] ignoredOverriddenEqualsForTypes = {};
-    private String[] ignoredOverriddenEqualsForFields = {};
-    private String[] ignoredOverriddenEqualsForFieldsMatchingRegexes = {};
-    private boolean ignoreAllOverriddenEquals = DEFAULT_IGNORE_ALL_OVERRIDDEN_EQUALS;
-    private boolean ignoreCollectionOrder;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-    private Class<?>[] comparedTypes = {};
-    private Class<?>[] ignoredOverriddenEqualsForTypes = {};
-    private String[] ignoredOverriddenEqualsForFields = {};
-    private String[] ignoredOverriddenEqualsForFieldsMatchingRegexes = {};
-    private boolean ignoreAllOverriddenEquals = DEFAULT_IGNORE_ALL_OVERRIDDEN_EQUALS;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-    private boolean ignoreAllOverriddenEquals = DEFAULT_IGNORE_ALL_OVERRIDDEN_EQUALS;
-    private boolean ignoreCollectionOrder;
-    private String[] ignoredCollectionOrderInFields = {};
-    private String[] ignoredCollectionOrderInFieldsMatchingRegexes = {};
-    private final TypeComparators typeComparators = defaultTypeComparators();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-    private boolean ignoreAllExpectedNullFields;
-    private FieldLocation[] comparedFields = {};
-    private Class<?>[] comparedTypes = {};
-    private Class<?>[] ignoredOverriddenEqualsForTypes = {};
-    private String[] ignoredOverriddenEqualsForFields = {};
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-    private FieldLocation[] comparedFields = {};
-    private Class<?>[] comparedTypes = {};
-    private Class<?>[] ignoredOverriddenEqualsForTypes = {};
-    private String[] ignoredOverriddenEqualsForFields = {};
-    private String[] ignoredOverriddenEqualsForFieldsMatchingRegexes = {};
-```
-
-### ZeroLengthArrayInitialization
+### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
 in `assertj-core/src/main/java/org/assertj/core/util/Objects.java`
 #### Snippet
@@ -3864,19 +3780,91 @@ in `assertj-core/src/main/java/org/assertj/core/util/Objects.java`
     String[] names = new String[types.length];
 ```
 
-### ZeroLengthArrayInitialization
+### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `assertj-core/src/main/java/org/assertj/core/internal/Spliterators.java`
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
 #### Snippet
 ```java
-    Set<String> actualCharacteristicNames = characteristicNames(actual.characteristics());
-    Set<String> expectedCharacteristicNames = characteristicNames(characteristics);
-    iterables.assertContainsOnly(info, actualCharacteristicNames, expectedCharacteristicNames.toArray(new String[0]));
-  }
-
+    private Class<?>[] comparedTypes = {};
+    private Class<?>[] ignoredOverriddenEqualsForTypes = {};
+    private String[] ignoredOverriddenEqualsForFields = {};
+    private String[] ignoredOverriddenEqualsForFieldsMatchingRegexes = {};
+    private boolean ignoreAllOverriddenEquals = DEFAULT_IGNORE_ALL_OVERRIDDEN_EQUALS;
 ```
 
-### ZeroLengthArrayInitialization
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+    private boolean ignoreAllExpectedNullFields;
+    private FieldLocation[] comparedFields = {};
+    private Class<?>[] comparedTypes = {};
+    private Class<?>[] ignoredOverriddenEqualsForTypes = {};
+    private String[] ignoredOverriddenEqualsForFields = {};
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+    private Class<?>[] ignoredOverriddenEqualsForTypes = {};
+    private String[] ignoredOverriddenEqualsForFields = {};
+    private String[] ignoredOverriddenEqualsForFieldsMatchingRegexes = {};
+    private boolean ignoreAllOverriddenEquals = DEFAULT_IGNORE_ALL_OVERRIDDEN_EQUALS;
+    private boolean ignoreCollectionOrder;
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+    private boolean ignoreCollectionOrder;
+    private String[] ignoredCollectionOrderInFields = {};
+    private String[] ignoredCollectionOrderInFieldsMatchingRegexes = {};
+    private final TypeComparators typeComparators = defaultTypeComparators();
+    private final FieldComparators fieldComparators = new FieldComparators();
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+    private boolean ignoreAllOverriddenEquals = DEFAULT_IGNORE_ALL_OVERRIDDEN_EQUALS;
+    private boolean ignoreCollectionOrder;
+    private String[] ignoredCollectionOrderInFields = {};
+    private String[] ignoredCollectionOrderInFieldsMatchingRegexes = {};
+    private final TypeComparators typeComparators = defaultTypeComparators();
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+    private FieldLocation[] comparedFields = {};
+    private Class<?>[] comparedTypes = {};
+    private Class<?>[] ignoredOverriddenEqualsForTypes = {};
+    private String[] ignoredOverriddenEqualsForFields = {};
+    private String[] ignoredOverriddenEqualsForFieldsMatchingRegexes = {};
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+    private boolean ignoreAllActualEmptyOptionalFields;
+    private boolean ignoreAllExpectedNullFields;
+    private FieldLocation[] comparedFields = {};
+    private Class<?>[] comparedTypes = {};
+    private Class<?>[] ignoredOverriddenEqualsForTypes = {};
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
 in `assertj-core/src/main/java/org/assertj/core/internal/Spliterators.java`
 #### Snippet
@@ -3888,7 +3876,19 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Spliterators.java`
 
 ```
 
-### ZeroLengthArrayInitialization
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `assertj-core/src/main/java/org/assertj/core/internal/Spliterators.java`
+#### Snippet
+```java
+    Set<String> actualCharacteristicNames = characteristicNames(actual.characteristics());
+    Set<String> expectedCharacteristicNames = characteristicNames(characteristics);
+    iterables.assertContainsOnly(info, actualCharacteristicNames, expectedCharacteristicNames.toArray(new String[0]));
+  }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
 in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
 #### Snippet
@@ -3900,7 +3900,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
 
 ```
 
-### ZeroLengthArrayInitialization
+### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
 in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
 #### Snippet
@@ -3912,8 +3912,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Maps.java`
 
 ```
 
-## NonExceptionNameEndsWithException
-### NonExceptionNameEndsWithException
+## RuleId[ruleID=NonExceptionNameEndsWithException]
+### RuleId[ruleID=NonExceptionNameEndsWithException]
 Non-exception class name `ShouldHaveSuppressedException` ends with 'Exception'
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveSuppressedException.java`
 #### Snippet
@@ -3925,7 +3925,7 @@ public class ShouldHaveSuppressedException extends BasicErrorMessageFactory {
   /**
 ```
 
-### NonExceptionNameEndsWithException
+### RuleId[ruleID=NonExceptionNameEndsWithException]
 Non-exception class name `PreferredAssumptionException` ends with 'Exception'
 in `assertj-core/src/main/java/org/assertj/core/configuration/PreferredAssumptionException.java`
 #### Snippet
@@ -3937,20 +3937,8 @@ public enum PreferredAssumptionException {
   /**
 ```
 
-## TypeParameterExtendsObject
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
-#### Snippet
-```java
-   */
-  @CheckReturnValue
-  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> extracting(String fieldOrProperty) {
-    Object[] values = FieldsOrPropertiesExtractor.extract(actual, byName(fieldOrProperty));
-    String extractedDescription = extractedDescriptionOf(fieldOrProperty);
-```
-
-### TypeParameterExtendsObject
+## RuleId[ruleID=TypeParameterExtendsObject]
+### RuleId[ruleID=TypeParameterExtendsObject]
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -3962,7 +3950,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
     String extractedDescription = extractedDescriptionOfMethod(method);
 ```
 
-### TypeParameterExtendsObject
+### RuleId[ruleID=TypeParameterExtendsObject]
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+#### Snippet
+```java
+   */
+  @CheckReturnValue
+  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> extracting(String fieldOrProperty) {
+    Object[] values = FieldsOrPropertiesExtractor.extract(actual, byName(fieldOrProperty));
+    String extractedDescription = extractedDescriptionOf(fieldOrProperty);
+```
+
+### RuleId[ruleID=TypeParameterExtendsObject]
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -3974,55 +3974,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
     List<?> extractedGroups = FieldsOrPropertiesExtractor.extract(Arrays.asList(actual), byName(propertyName));
 ```
 
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-   */
-  @CheckReturnValue
-  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> extractingResultOf(String method) {
-    // can't refactor by calling extractingResultOf(method, Object.class) as SoftAssertion would fail
-    List<Object> values = FieldsOrPropertiesExtractor.extract(actual, resultOf(method));
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-  @CheckReturnValue
-  @SafeVarargs
-  public final <EXCEPTION extends Exception> AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatMap(ThrowingExtractor<? super ELEMENT, ?, EXCEPTION>... mappers) {
-    return flatExtractingForProxy(mappers);
-  }
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-  // The public method for it (the one not ending with "ForProxy") is marked as final and annotated with @SafeVarargs
-  // in order to avoid compiler warning in user code
-  protected AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtractingForProxy(Function<? super ELEMENT, ?>[] extractors) {
-    if (actual == null) throwAssertionError(shouldNotBeNull());
-    Stream<? extends ELEMENT> actualStream = stream(actual.spliterator(), false);
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-  @CheckReturnValue
-  @SafeVarargs
-  public final <EXCEPTION extends Exception> AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtracting(ThrowingExtractor<? super ELEMENT, ?, EXCEPTION>... extractors) {
-    return flatExtractingForProxy(extractors);
-  }
-```
-
-### TypeParameterExtendsObject
+### RuleId[ruleID=TypeParameterExtendsObject]
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -4034,19 +3986,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
   }
 ```
 
-### TypeParameterExtendsObject
+### RuleId[ruleID=TypeParameterExtendsObject]
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
 ```java
    */
   @CheckReturnValue
-  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtracting(String fieldOrPropertyName) {
-    List<Object> extractedValues = newArrayList();
-    List<?> extractedGroups = FieldsOrPropertiesExtractor.extract(actual, byName(fieldOrPropertyName));
+  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> extractingResultOf(String method) {
+    // can't refactor by calling extractingResultOf(method, Object.class) as SoftAssertion would fail
+    List<Object> values = FieldsOrPropertiesExtractor.extract(actual, resultOf(method));
 ```
 
-### TypeParameterExtendsObject
+### RuleId[ruleID=TypeParameterExtendsObject]
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -4058,19 +4010,43 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
   }
 ```
 
-### TypeParameterExtendsObject
+### RuleId[ruleID=TypeParameterExtendsObject]
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+  @CheckReturnValue
+  @SafeVarargs
+  public final <EXCEPTION extends Exception> AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatMap(ThrowingExtractor<? super ELEMENT, ?, EXCEPTION>... mappers) {
+    return flatExtractingForProxy(mappers);
+  }
+```
+
+### RuleId[ruleID=TypeParameterExtendsObject]
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+  @CheckReturnValue
+  @SafeVarargs
+  public final <EXCEPTION extends Exception> AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtracting(ThrowingExtractor<? super ELEMENT, ?, EXCEPTION>... extractors) {
+    return flatExtractingForProxy(extractors);
+  }
+```
+
+### RuleId[ruleID=TypeParameterExtendsObject]
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
 ```java
    */
   @CheckReturnValue
-  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> extracting(String propertyOrField) {
-    List<Object> values = FieldsOrPropertiesExtractor.extract(actual, byName(propertyOrField));
-    String extractedDescription = extractedDescriptionOf(propertyOrField);
+  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtracting(String fieldOrPropertyName) {
+    List<Object> extractedValues = newArrayList();
+    List<?> extractedGroups = FieldsOrPropertiesExtractor.extract(actual, byName(fieldOrPropertyName));
 ```
 
-### TypeParameterExtendsObject
+### RuleId[ruleID=TypeParameterExtendsObject]
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -4082,8 +4058,32 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
                                                               .flatMap(tuple -> tuple.toList().stream())
 ```
 
-## OptionalGetWithoutIsPresent
-### OptionalGetWithoutIsPresent
+### RuleId[ruleID=TypeParameterExtendsObject]
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+  // The public method for it (the one not ending with "ForProxy") is marked as final and annotated with @SafeVarargs
+  // in order to avoid compiler warning in user code
+  protected AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtractingForProxy(Function<? super ELEMENT, ?>[] extractors) {
+    if (actual == null) throwAssertionError(shouldNotBeNull());
+    Stream<? extends ELEMENT> actualStream = stream(actual.spliterator(), false);
+```
+
+### RuleId[ruleID=TypeParameterExtendsObject]
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+   */
+  @CheckReturnValue
+  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> extracting(String propertyOrField) {
+    List<Object> values = FieldsOrPropertiesExtractor.extract(actual, byName(propertyOrField));
+    String extractedDescription = extractedDescriptionOf(propertyOrField);
+```
+
+## RuleId[ruleID=OptionalGetWithoutIsPresent]
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
 `OptionalLong.getAsLong()` without 'isPresent()' check
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.java`
 #### Snippet
@@ -4095,7 +4095,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.j
     return myself;
 ```
 
-### OptionalGetWithoutIsPresent
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
 `OptionalInt.getAsInt()` without 'isPresent()' check
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.java`
 #### Snippet
@@ -4107,67 +4107,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.ja
     return myself;
 ```
 
-### OptionalGetWithoutIsPresent
-`OptionalDouble.getAsDouble()` without 'isPresent()' check
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-    if (!actual.isPresent()) throwAssertionError(shouldHaveValueCloseToPercentage(expectedValue));
-    try {
-      doubles.assertIsCloseToPercentage(info, actual.getAsDouble(), expectedValue, percentage);
-    } catch (AssertionError assertionError) {
-      throwAssertionError(shouldHaveValueCloseToPercentage(actual, expectedValue, percentage, abs(expectedValue - actual.getAsDouble())));
-```
-
-### OptionalGetWithoutIsPresent
-`OptionalDouble.getAsDouble()` without 'isPresent()' check
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-    isNotNull();
-    if (!actual.isPresent()) throwAssertionError(shouldContain(expectedValue));
-    if (expectedValue != actual.getAsDouble())
-      throw Failures.instance().failure(info, shouldContain(actual, expectedValue), actual.getAsDouble(), expectedValue);
-    return myself;
-```
-
-### OptionalGetWithoutIsPresent
-`OptionalDouble.getAsDouble()` without 'isPresent()' check
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-    // Reuses doubles functionality, catches potential assertion error and throw correct one
-    try {
-      doubles.assertIsCloseTo(info, actual.getAsDouble(), expectedValue, offset);
-    } catch (AssertionError assertionError) {
-      throwAssertionError(shouldHaveValueCloseToOffset(actual, expectedValue, offset, abs(expectedValue - actual.getAsDouble())));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
-#### Snippet
-```java
-  public SELF hasValueSatisfying(Consumer<VALUE> requirement) {
-    assertValueIsPresent();
-    requirement.accept(actual.get());
-    return myself;
-  }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
-#### Snippet
-```java
-  private AbstractObjectAssert<?, VALUE> internalGet() {
-    isPresent();
-    return assertThat(actual.get()).withAssertionState(myself);
-  }
-
-```
-
-### OptionalGetWithoutIsPresent
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
 `Optional.get()` without 'isPresent()' check
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
@@ -4179,31 +4119,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
   }
 ```
 
-### OptionalGetWithoutIsPresent
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
 `Optional.get()` without 'isPresent()' check
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
 ```java
-  public SELF hasValueSatisfying(Condition<? super VALUE> condition) {
+  public SELF hasValueSatisfying(Consumer<VALUE> requirement) {
     assertValueIsPresent();
-    conditions.assertIs(info, actual.get(), condition);
+    requirement.accept(actual.get());
     return myself;
   }
 ```
 
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
-#### Snippet
-```java
-    checkNotNull(expectedValue);
-    if (!actual.isPresent()) throwAssertionError(shouldContain(expectedValue));
-    if (!optionalValueComparisonStrategy.areEqual(actual.get(), expectedValue))
-      throw Failures.instance().failure(info, shouldContain(actual, expectedValue), actual.get(), expectedValue);
-    return myself;
-```
-
-### OptionalGetWithoutIsPresent
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
 `Optional.get()` without 'isPresent()' check
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
@@ -4215,7 +4143,79 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
   }
 ```
 
-### OptionalGetWithoutIsPresent
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`Optional.get()` without 'isPresent()' check
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+  public SELF hasValueSatisfying(Condition<? super VALUE> condition) {
+    assertValueIsPresent();
+    conditions.assertIs(info, actual.get(), condition);
+    return myself;
+  }
+```
+
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`Optional.get()` without 'isPresent()' check
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+  private AbstractObjectAssert<?, VALUE> internalGet() {
+    isPresent();
+    return assertThat(actual.get()).withAssertionState(myself);
+  }
+
+```
+
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`Optional.get()` without 'isPresent()' check
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+    checkNotNull(expectedValue);
+    if (!actual.isPresent()) throwAssertionError(shouldContain(expectedValue));
+    if (!optionalValueComparisonStrategy.areEqual(actual.get(), expectedValue))
+      throw Failures.instance().failure(info, shouldContain(actual, expectedValue), actual.get(), expectedValue);
+    return myself;
+```
+
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`OptionalDouble.getAsDouble()` without 'isPresent()' check
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+    // Reuses doubles functionality, catches potential assertion error and throw correct one
+    try {
+      doubles.assertIsCloseTo(info, actual.getAsDouble(), expectedValue, offset);
+    } catch (AssertionError assertionError) {
+      throwAssertionError(shouldHaveValueCloseToOffset(actual, expectedValue, offset, abs(expectedValue - actual.getAsDouble())));
+```
+
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`OptionalDouble.getAsDouble()` without 'isPresent()' check
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+    if (!actual.isPresent()) throwAssertionError(shouldHaveValueCloseToPercentage(expectedValue));
+    try {
+      doubles.assertIsCloseToPercentage(info, actual.getAsDouble(), expectedValue, percentage);
+    } catch (AssertionError assertionError) {
+      throwAssertionError(shouldHaveValueCloseToPercentage(actual, expectedValue, percentage, abs(expectedValue - actual.getAsDouble())));
+```
+
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`OptionalDouble.getAsDouble()` without 'isPresent()' check
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+    isNotNull();
+    if (!actual.isPresent()) throwAssertionError(shouldContain(expectedValue));
+    if (expectedValue != actual.getAsDouble())
+      throw Failures.instance().failure(info, shouldContain(actual, expectedValue), actual.getAsDouble(), expectedValue);
+    return myself;
+```
+
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
 `OptionalDouble.getAsDouble()` without 'isPresent()' check
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
@@ -4227,7 +4227,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
 
 ```
 
-### OptionalGetWithoutIsPresent
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
 `OptionalLong.getAsLong()` without 'isPresent()' check
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
@@ -4239,19 +4239,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
 }
 ```
 
-### OptionalGetWithoutIsPresent
-`OptionalInt.getAsInt()` without 'isPresent()' check
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
-#### Snippet
-```java
-   */
-  public static OptionalShouldBeEmpty shouldBeEmpty(OptionalInt optional) {
-    return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsInt());
-  }
-
-```
-
-### OptionalGetWithoutIsPresent
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
 `Optional.get()` without 'isPresent()' check
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
@@ -4263,8 +4251,20 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
 
 ```
 
-## MethodOverridesStaticMethod
-### MethodOverridesStaticMethod
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`OptionalInt.getAsInt()` without 'isPresent()' check
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
+#### Snippet
+```java
+   */
+  public static OptionalShouldBeEmpty shouldBeEmpty(OptionalInt optional) {
+    return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsInt());
+  }
+
+```
+
+## RuleId[ruleID=MethodOverridesStaticMethod]
+### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `setPreferredAssumptionException()` tries to override a static method of a superclass
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
 #### Snippet
@@ -4276,127 +4276,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
   }
 ```
 
-### MethodOverridesStaticMethod
-Method `as()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static <T, ASSERT extends AbstractAssert<?, ?>> InstanceOfAssertFactory<T, ASSERT> as(InstanceOfAssertFactory<T, ASSERT> assertFactory) {
-    return Assertions.as(assertFactory);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `setExtractBareNamePropertyMethods()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void setExtractBareNamePropertyMethods(boolean barenamePropertyMethods) {
-    Assertions.setExtractBareNamePropertyMethods(barenamePropertyMethods);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `registerFormatterForType()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.5.0
-   */
-  public static <T> void registerFormatterForType(Class<T> type, Function<T, String> formatter) {
-    Assertions.registerFormatterForType(type, formatter);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `extractProperty()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static <T> Properties<T> extractProperty(String propertyName, Class<T> propertyType) {
-    return Assertions.extractProperty(propertyName, propertyType);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `registerCustomDateFormat()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void registerCustomDateFormat(DateFormat userCustomDateFormat) {
-    Assertions.registerCustomDateFormat(userCustomDateFormat);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `withinPercentage()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Percentage withinPercentage(Integer value) {
-    return Assertions.withinPercentage(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `not()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static <T> Not<T> not(Condition<? super T> condition) {
-    return Assertions.not(condition);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `within()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Short> within(Short value) {
-    return Assertions.within(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `within()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Float> within(Float value) {
-    return Assertions.offset(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `within()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Long> within(Long value) {
-    return Assertions.within(value);
-  }
-```
-
-### MethodOverridesStaticMethod
+### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `entry()` tries to override a static method of a superclass
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
@@ -4408,223 +4288,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
   }
 ```
 
-### MethodOverridesStaticMethod
-Method `anyOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   */
-  @SafeVarargs
-  public static <T> Condition<T> anyOf(Condition<? super T>... conditions) {
-    return Assertions.anyOf(conditions);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `byLessThan()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<BigDecimal> byLessThan(BigDecimal value) {
-    return Assertions.byLessThan(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `linesOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-	 * @since 3.23.0
-	 */
-	public static List<String> linesOf(Path path, String charsetName) {
-		return Assertions.linesOf(path, charsetName);
-	}
-```
-
-### MethodOverridesStaticMethod
-Method `linesOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-	 * @since 3.23.0
-	 */
-	public static List<String> linesOf(Path path, Charset charset) {
-		return Assertions.linesOf(path, charset);
-	}
-```
-
-### MethodOverridesStaticMethod
-Method `notIn()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static NotInFilter notIn(Object... valuesNotToMatch) {
-    return Assertions.notIn(valuesNotToMatch);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `linesOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static List<String> linesOf(File file) {
-    return Assertions.linesOf(file, Charset.defaultCharset());
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `within()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static TemporalUnitOffset within(long value, TemporalUnit unit) {
-    return Assertions.within(value, unit);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `within()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Integer> within(Integer value) {
-    return Assertions.within(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `extractProperty()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Properties<Object> extractProperty(String propertyName) {
-    return Assertions.extractProperty(propertyName);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `catchRuntimeException()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.22.0
-   */
-  public static RuntimeException catchRuntimeException(ThrowingCallable shouldRaiseRuntimeException) {
-    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseRuntimeException, RuntimeException.class);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `contentOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static String contentOf(File file) {
-    return Assertions.contentOf(file, Charset.defaultCharset());
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `setDescriptionConsumer()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void setDescriptionConsumer(Consumer<Description> descriptionConsumer) {
-    Assertions.setDescriptionConsumer(descriptionConsumer);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `fail()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   */
-  @CanIgnoreReturnValue
-  public static <T> T fail(String failureMessage) {
-    return Assertions.fail(failureMessage);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `catchNullPointerException()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.22.0
-   */
-  public static NullPointerException catchNullPointerException(ThrowingCallable shouldRaiseNullPointerException) {
-    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseNullPointerException, NullPointerException.class);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `byLessThan()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Double> byLessThan(Double value) {
-    return Assertions.byLessThan(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `within()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Double> within(Double value) {
-    return Assertions.offset(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `setPrintAssertionsDescription()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void setPrintAssertionsDescription(boolean printAssertionsDescription) {
-    Assertions.setPrintAssertionsDescription(printAssertionsDescription);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `withPrecision()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Float> withPrecision(Float value) {
-    return Assertions.offset(value);
-  }
-```
-
-### MethodOverridesStaticMethod
+### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `byLessThan()` tries to override a static method of a superclass
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
@@ -4636,187 +4300,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
   }
 ```
 
-### MethodOverridesStaticMethod
-Method `within()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<BigInteger> within(BigInteger value) {
-    return Assertions.within(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `setRemoveAssertJRelatedElementsFromStackTrace()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void setRemoveAssertJRelatedElementsFromStackTrace(boolean removeAssertJRelatedElementsFromStackTrace) {
-    Assertions.setRemoveAssertJRelatedElementsFromStackTrace(removeAssertJRelatedElementsFromStackTrace);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `catchIndexOutOfBoundsException()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.22.0
-   */
-  public static IndexOutOfBoundsException catchIndexOutOfBoundsException(ThrowingCallable shouldRaiseIndexOutOfBoundException) {
-    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseIndexOutOfBoundException, IndexOutOfBoundsException.class);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `atIndex()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Index atIndex(int index) {
-    return Assertions.atIndex(index);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `contentOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static String contentOf(URL url, String charsetName) {
-    return Assertions.contentOf(url, charsetName);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `byLessThan()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static TemporalUnitOffset byLessThan(long value, TemporalUnit unit) {
-    return Assertions.byLessThan(value, unit);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `catchThrowable()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Throwable catchThrowable(ThrowingCallable shouldRaiseThrowable) {
-    return AssertionsForClassTypes.catchThrowable(shouldRaiseThrowable);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `contentOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static String contentOf(URL url) {
-    return Assertions.contentOf(url, Charset.defaultCharset());
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `contentOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static String contentOf(URL url, Charset charset) {
-    return Assertions.contentOf(url, charset);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `from()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static <F, T> Function<F, T> from(Function<F, T> extractor) {
-    return Assertions.from(extractor);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `byLessThan()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Short> byLessThan(Short value) {
-    return Assertions.byLessThan(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `withinPercentage()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Percentage withinPercentage(Long value) {
-    return Assertions.withinPercentage(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `contentOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static String contentOf(File file, Charset charset) {
-    return Assertions.contentOf(file, charset);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `withMarginOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Duration withMarginOf(Duration allowedDifference) {
-    return Assertions.withMarginOf(allowedDifference);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `linesOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static List<String> linesOf(URL url) {
-    return Assertions.linesOf(url, Charset.defaultCharset());
-  }
-```
-
-### MethodOverridesStaticMethod
+### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `anyOf()` tries to override a static method of a superclass
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
@@ -4828,163 +4312,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
   }
 ```
 
-### MethodOverridesStaticMethod
-Method `allOf()` tries to override a static method of a superclass
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `contentOf()` tries to override a static method of a superclass
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
 ```java
    * @since 3.20.0
    */
-  public static <T> Condition<T> allOf(Iterable<? extends Condition<? super T>> conditions) {
-    return Assertions.allOf(conditions);
+  public static String contentOf(File file) {
+    return Assertions.contentOf(file, Charset.defaultCharset());
   }
 ```
 
-### MethodOverridesStaticMethod
-Method `shouldHaveThrown()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   */
-  @CanIgnoreReturnValue
-  public static <T> T shouldHaveThrown(Class<? extends Throwable> throwableClass) {
-    return Assertions.shouldHaveThrown(throwableClass);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `setMaxStackTraceElementsDisplayed()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void setMaxStackTraceElementsDisplayed(int maxStackTraceElementsDisplayed) {
-    Assertions.setMaxStackTraceElementsDisplayed(maxStackTraceElementsDisplayed);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `fail()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   */
-  @CanIgnoreReturnValue
-  public static <T> T fail(String failureMessage, Throwable realCause) {
-    return Assertions.fail(failureMessage, realCause);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `registerCustomDateFormat()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void registerCustomDateFormat(String userCustomDateFormatPattern) {
-    Assertions.registerCustomDateFormat(userCustomDateFormatPattern);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `within()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Byte> within(Byte value) {
-    return Assertions.within(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `linesOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static List<String> linesOf(URL url, String charsetName) {
-    return Assertions.linesOf(url, charsetName);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `catchReflectiveOperationException()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.22.0
-   */
-  public static ReflectiveOperationException catchReflectiveOperationException(ThrowingCallable shouldRaiseReflectiveOperationException) {
-    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseReflectiveOperationException, ReflectiveOperationException.class);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `setMaxLengthForSingleLineDescription()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void setMaxLengthForSingleLineDescription(int maxLengthForSingleLineDescription) {
-    Assertions.setMaxLengthForSingleLineDescription(maxLengthForSingleLineDescription);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `within()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<BigDecimal> within(BigDecimal value) {
-    return Assertions.within(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `byLessThan()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Float> byLessThan(Float value) {
-    return Assertions.byLessThan(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `catchIOException()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.22.0
-   */
-  public static IOException catchIOException(ThrowingCallable shouldRaiseIOException) {
-    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseIOException, IOException.class);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `not()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static NotFilter not(Object valueNotToMatch) {
-    return Assertions.not(valueNotToMatch);
-  }
-```
-
-### MethodOverridesStaticMethod
+### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `byLessThan()` tries to override a static method of a superclass
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
@@ -4996,235 +4336,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
   }
 ```
 
-### MethodOverridesStaticMethod
-Method `linesOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-	 * @since 3.23.0
-	 */
-	public static List<String> linesOf(Path path) {
-		return Assertions.linesOf(path, Charset.defaultCharset());
-	}
-```
-
-### MethodOverridesStaticMethod
-Method `linesOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static List<String> linesOf(File file, Charset charset) {
-    return Assertions.linesOf(file, charset);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `useRepresentation()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void useRepresentation(Representation customRepresentation) {
-    Assertions.useRepresentation(customRepresentation);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `linesOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static List<String> linesOf(File file, String charsetName) {
-    return Assertions.linesOf(file, charsetName);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `contentOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static String contentOf(File file, String charsetName) {
-    return Assertions.contentOf(file, charsetName);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `useDefaultRepresentation()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void useDefaultRepresentation() {
-    Assertions.useDefaultRepresentation();
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `in()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static InFilter in(Object... values) {
-    return Assertions.in(values);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `setAllowExtractingPrivateFields()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void setAllowExtractingPrivateFields(boolean allowExtractingPrivateFields) {
-    Assertions.setAllowExtractingPrivateFields(allowExtractingPrivateFields);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `useDefaultDateFormatsOnly()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void useDefaultDateFormatsOnly() {
-    Assertions.useDefaultDateFormatsOnly();
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `linesOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static List<String> linesOf(URL url, Charset charset) {
-    return Assertions.linesOf(url, charset);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `withinPercentage()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Percentage withinPercentage(Double value) {
-    return Assertions.withinPercentage(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `catchIllegalStateException()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.22.0
-   */
-  public static IllegalStateException catchIllegalStateException(ThrowingCallable shouldRaiseIllegalStateException) {
-    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseIllegalStateException, IllegalStateException.class);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `byLessThan()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Integer> byLessThan(Integer value) {
-    return Assertions.byLessThan(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `setAllowComparingPrivateFields()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void setAllowComparingPrivateFields(boolean allowComparingPrivateFields) {
-    Assertions.setAllowComparingPrivateFields(allowComparingPrivateFields);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `setMaxElementsForPrinting()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static void setMaxElementsForPrinting(int maxElementsForPrinting) {
-    Assertions.setMaxElementsForPrinting(maxElementsForPrinting);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `allOf()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   */
-  @SafeVarargs
-  public static <T> Condition<T> allOf(Condition<? super T>... conditions) {
-    return Assertions.allOf(conditions);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `withPrecision()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Double> withPrecision(Double value) {
-    return Assertions.offset(value);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `catchIllegalArgumentException()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.22.0
-   */
-  public static IllegalArgumentException catchIllegalArgumentException(ThrowingCallable shouldRaiseIllegalArgumentException) {
-    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseIllegalArgumentException, IllegalArgumentException.class);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `byLessThan()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static Offset<Byte> byLessThan(Byte value) {
-    return Assertions.byLessThan(value);
-  }
-```
-
-### MethodOverridesStaticMethod
+### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `catchException()` tries to override a static method of a superclass
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
@@ -5236,43 +4348,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
   }
 ```
 
-### MethodOverridesStaticMethod
-Method `setLenientDateParsing()` tries to override a static method of a superclass
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `contentOf()` tries to override a static method of a superclass
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
 ```java
    * @since 3.20.0
    */
-  public static void setLenientDateParsing(boolean value) {
-    Assertions.setLenientDateParsing(value);
+  public static String contentOf(File file, String charsetName) {
+    return Assertions.contentOf(file, charsetName);
   }
 ```
 
-### MethodOverridesStaticMethod
-Method `doesNotHave()` tries to override a static method of a superclass
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `useDefaultDateFormatsOnly()` tries to override a static method of a superclass
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
 ```java
    * @since 3.20.0
    */
-  public static <T> DoesNotHave<T> doesNotHave(Condition<? super T> condition) {
-    return Assertions.doesNotHave(condition);
+  public static void useDefaultDateFormatsOnly() {
+    Assertions.useDefaultDateFormatsOnly();
   }
 ```
 
-### MethodOverridesStaticMethod
-Method `catchThrowableOfType()` tries to override a static method of a superclass
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @since 3.20.0
-   */
-  public static <THROWABLE extends Throwable> THROWABLE catchThrowableOfType(ThrowingCallable shouldRaiseThrowable,
-                                                                             Class<THROWABLE> type) {
-    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseThrowable, type);
-```
-
-### MethodOverridesStaticMethod
+### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `fail()` tries to override a static method of a superclass
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
@@ -5284,7 +4384,859 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
   }
 ```
 
-### MethodOverridesStaticMethod
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `linesOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+	 * @since 3.23.0
+	 */
+	public static List<String> linesOf(Path path, Charset charset) {
+		return Assertions.linesOf(path, charset);
+	}
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `setDescriptionConsumer()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void setDescriptionConsumer(Consumer<Description> descriptionConsumer) {
+    Assertions.setDescriptionConsumer(descriptionConsumer);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `catchIndexOutOfBoundsException()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.22.0
+   */
+  public static IndexOutOfBoundsException catchIndexOutOfBoundsException(ThrowingCallable shouldRaiseIndexOutOfBoundException) {
+    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseIndexOutOfBoundException, IndexOutOfBoundsException.class);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `not()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static <T> Not<T> not(Condition<? super T> condition) {
+    return Assertions.not(condition);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `linesOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+	 * @since 3.23.0
+	 */
+	public static List<String> linesOf(Path path, String charsetName) {
+		return Assertions.linesOf(path, charsetName);
+	}
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `useRepresentation()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void useRepresentation(Representation customRepresentation) {
+    Assertions.useRepresentation(customRepresentation);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `linesOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static List<String> linesOf(URL url, String charsetName) {
+    return Assertions.linesOf(url, charsetName);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `withinPercentage()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Percentage withinPercentage(Long value) {
+    return Assertions.withinPercentage(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `catchThrowableOfType()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static <THROWABLE extends Throwable> THROWABLE catchThrowableOfType(ThrowingCallable shouldRaiseThrowable,
+                                                                             Class<THROWABLE> type) {
+    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseThrowable, type);
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `fail()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   */
+  @CanIgnoreReturnValue
+  public static <T> T fail(String failureMessage, Throwable realCause) {
+    return Assertions.fail(failureMessage, realCause);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `fail()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   */
+  @CanIgnoreReturnValue
+  public static <T> T fail(String failureMessage) {
+    return Assertions.fail(failureMessage);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `withPrecision()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Double> withPrecision(Double value) {
+    return Assertions.offset(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `linesOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static List<String> linesOf(File file, Charset charset) {
+    return Assertions.linesOf(file, charset);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `byLessThan()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Float> byLessThan(Float value) {
+    return Assertions.byLessThan(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `setAllowExtractingPrivateFields()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void setAllowExtractingPrivateFields(boolean allowExtractingPrivateFields) {
+    Assertions.setAllowExtractingPrivateFields(allowExtractingPrivateFields);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `within()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Float> within(Float value) {
+    return Assertions.offset(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `within()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Double> within(Double value) {
+    return Assertions.offset(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `registerCustomDateFormat()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void registerCustomDateFormat(DateFormat userCustomDateFormat) {
+    Assertions.registerCustomDateFormat(userCustomDateFormat);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `setExtractBareNamePropertyMethods()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void setExtractBareNamePropertyMethods(boolean barenamePropertyMethods) {
+    Assertions.setExtractBareNamePropertyMethods(barenamePropertyMethods);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `not()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static NotFilter not(Object valueNotToMatch) {
+    return Assertions.not(valueNotToMatch);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `allOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static <T> Condition<T> allOf(Iterable<? extends Condition<? super T>> conditions) {
+    return Assertions.allOf(conditions);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `byLessThan()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Integer> byLessThan(Integer value) {
+    return Assertions.byLessThan(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `shouldHaveThrown()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   */
+  @CanIgnoreReturnValue
+  public static <T> T shouldHaveThrown(Class<? extends Throwable> throwableClass) {
+    return Assertions.shouldHaveThrown(throwableClass);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `setAllowComparingPrivateFields()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void setAllowComparingPrivateFields(boolean allowComparingPrivateFields) {
+    Assertions.setAllowComparingPrivateFields(allowComparingPrivateFields);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `catchIOException()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.22.0
+   */
+  public static IOException catchIOException(ThrowingCallable shouldRaiseIOException) {
+    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseIOException, IOException.class);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `extractProperty()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static <T> Properties<T> extractProperty(String propertyName, Class<T> propertyType) {
+    return Assertions.extractProperty(propertyName, propertyType);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `extractProperty()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Properties<Object> extractProperty(String propertyName) {
+    return Assertions.extractProperty(propertyName);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `within()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Short> within(Short value) {
+    return Assertions.within(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `setMaxElementsForPrinting()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void setMaxElementsForPrinting(int maxElementsForPrinting) {
+    Assertions.setMaxElementsForPrinting(maxElementsForPrinting);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `anyOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   */
+  @SafeVarargs
+  public static <T> Condition<T> anyOf(Condition<? super T>... conditions) {
+    return Assertions.anyOf(conditions);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `catchReflectiveOperationException()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.22.0
+   */
+  public static ReflectiveOperationException catchReflectiveOperationException(ThrowingCallable shouldRaiseReflectiveOperationException) {
+    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseReflectiveOperationException, ReflectiveOperationException.class);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `setMaxStackTraceElementsDisplayed()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void setMaxStackTraceElementsDisplayed(int maxStackTraceElementsDisplayed) {
+    Assertions.setMaxStackTraceElementsDisplayed(maxStackTraceElementsDisplayed);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `from()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static <F, T> Function<F, T> from(Function<F, T> extractor) {
+    return Assertions.from(extractor);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `catchThrowable()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Throwable catchThrowable(ThrowingCallable shouldRaiseThrowable) {
+    return AssertionsForClassTypes.catchThrowable(shouldRaiseThrowable);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `byLessThan()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static TemporalUnitOffset byLessThan(long value, TemporalUnit unit) {
+    return Assertions.byLessThan(value, unit);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `catchNullPointerException()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.22.0
+   */
+  public static NullPointerException catchNullPointerException(ThrowingCallable shouldRaiseNullPointerException) {
+    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseNullPointerException, NullPointerException.class);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `linesOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static List<String> linesOf(URL url, Charset charset) {
+    return Assertions.linesOf(url, charset);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `within()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Long> within(Long value) {
+    return Assertions.within(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `contentOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static String contentOf(URL url, String charsetName) {
+    return Assertions.contentOf(url, charsetName);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `linesOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+	 * @since 3.23.0
+	 */
+	public static List<String> linesOf(Path path) {
+		return Assertions.linesOf(path, Charset.defaultCharset());
+	}
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `setPrintAssertionsDescription()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void setPrintAssertionsDescription(boolean printAssertionsDescription) {
+    Assertions.setPrintAssertionsDescription(printAssertionsDescription);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `catchIllegalStateException()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.22.0
+   */
+  public static IllegalStateException catchIllegalStateException(ThrowingCallable shouldRaiseIllegalStateException) {
+    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseIllegalStateException, IllegalStateException.class);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `linesOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static List<String> linesOf(File file, String charsetName) {
+    return Assertions.linesOf(file, charsetName);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `setMaxLengthForSingleLineDescription()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void setMaxLengthForSingleLineDescription(int maxLengthForSingleLineDescription) {
+    Assertions.setMaxLengthForSingleLineDescription(maxLengthForSingleLineDescription);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `in()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static InFilter in(Object... values) {
+    return Assertions.in(values);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `doesNotHave()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static <T> DoesNotHave<T> doesNotHave(Condition<? super T> condition) {
+    return Assertions.doesNotHave(condition);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `byLessThan()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Byte> byLessThan(Byte value) {
+    return Assertions.byLessThan(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `withinPercentage()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Percentage withinPercentage(Integer value) {
+    return Assertions.withinPercentage(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `as()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static <T, ASSERT extends AbstractAssert<?, ?>> InstanceOfAssertFactory<T, ASSERT> as(InstanceOfAssertFactory<T, ASSERT> assertFactory) {
+    return Assertions.as(assertFactory);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `within()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Byte> within(Byte value) {
+    return Assertions.within(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `notIn()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static NotInFilter notIn(Object... valuesNotToMatch) {
+    return Assertions.notIn(valuesNotToMatch);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `useDefaultRepresentation()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void useDefaultRepresentation() {
+    Assertions.useDefaultRepresentation();
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `contentOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static String contentOf(URL url) {
+    return Assertions.contentOf(url, Charset.defaultCharset());
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `within()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Integer> within(Integer value) {
+    return Assertions.within(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `withinPercentage()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Percentage withinPercentage(Double value) {
+    return Assertions.withinPercentage(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `byLessThan()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<BigDecimal> byLessThan(BigDecimal value) {
+    return Assertions.byLessThan(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `within()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<BigInteger> within(BigInteger value) {
+    return Assertions.within(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `allOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   */
+  @SafeVarargs
+  public static <T> Condition<T> allOf(Condition<? super T>... conditions) {
+    return Assertions.allOf(conditions);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `catchIllegalArgumentException()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.22.0
+   */
+  public static IllegalArgumentException catchIllegalArgumentException(ThrowingCallable shouldRaiseIllegalArgumentException) {
+    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseIllegalArgumentException, IllegalArgumentException.class);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `setLenientDateParsing()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void setLenientDateParsing(boolean value) {
+    Assertions.setLenientDateParsing(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `withPrecision()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Float> withPrecision(Float value) {
+    return Assertions.offset(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `byLessThan()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Short> byLessThan(Short value) {
+    return Assertions.byLessThan(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `withMarginOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Duration withMarginOf(Duration allowedDifference) {
+    return Assertions.withMarginOf(allowedDifference);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `within()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<BigDecimal> within(BigDecimal value) {
+    return Assertions.within(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `within()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static TemporalUnitOffset within(long value, TemporalUnit unit) {
+    return Assertions.within(value, unit);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `setRemoveAssertJRelatedElementsFromStackTrace()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void setRemoveAssertJRelatedElementsFromStackTrace(boolean removeAssertJRelatedElementsFromStackTrace) {
+    Assertions.setRemoveAssertJRelatedElementsFromStackTrace(removeAssertJRelatedElementsFromStackTrace);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `catchRuntimeException()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.22.0
+   */
+  public static RuntimeException catchRuntimeException(ThrowingCallable shouldRaiseRuntimeException) {
+    return AssertionsForClassTypes.catchThrowableOfType(shouldRaiseRuntimeException, RuntimeException.class);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `registerCustomDateFormat()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static void registerCustomDateFormat(String userCustomDateFormatPattern) {
+    Assertions.registerCustomDateFormat(userCustomDateFormatPattern);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `contentOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static String contentOf(URL url, Charset charset) {
+    return Assertions.contentOf(url, charset);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `byLessThan()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Offset<Double> byLessThan(Double value) {
+    return Assertions.byLessThan(value);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `registerFormatterForType()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.5.0
+   */
+  public static <T> void registerFormatterForType(Class<T> type, Function<T, String> formatter) {
+    Assertions.registerFormatterForType(type, formatter);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `tuple()` tries to override a static method of a superclass
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
@@ -5296,8 +5248,56 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
   }
 ```
 
-## StringConcatenationInsideStringBufferAppend
-### StringConcatenationInsideStringBufferAppend
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `linesOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static List<String> linesOf(URL url) {
+    return Assertions.linesOf(url, Charset.defaultCharset());
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `linesOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static List<String> linesOf(File file) {
+    return Assertions.linesOf(file, Charset.defaultCharset());
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `contentOf()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static String contentOf(File file, Charset charset) {
+    return Assertions.contentOf(file, charset);
+  }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `atIndex()` tries to override a static method of a superclass
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @since 3.20.0
+   */
+  public static Index atIndex(int index) {
+    return Assertions.atIndex(index);
+  }
+```
+
+## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
 String concatenation as argument to `StringBuilder.append()` call
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotSatisfyPredicateRecursively.java`
 #### Snippet
@@ -5309,8 +5309,8 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotSatisfyPredicateR
     builder.append(recursiveAssertionConfiguration);
 ```
 
-## IOResource
-### IOResource
+## RuleId[ruleID=IOResource]
+### RuleId[ruleID=IOResource]
 'LineNumberReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
 #### Snippet
@@ -5322,8 +5322,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
       while (reader.readLine() != null);
 ```
 
-## UtilityClassWithoutPrivateConstructor
-### UtilityClassWithoutPrivateConstructor
+## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `AssumptionExceptionFactory` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/api/AssumptionExceptionFactory.java`
 #### Snippet
@@ -5335,7 +5335,7 @@ public class AssumptionExceptionFactory {
   private static PreferredAssumptionException preferredAssumptionException = Configuration.PREFERRED_ASSUMPTION_EXCEPTION;
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `ClassLoadingStrategyFactory` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/api/ClassLoadingStrategyFactory.java`
 #### Snippet
@@ -5347,7 +5347,7 @@ class ClassLoadingStrategyFactory {
   private static final MethodHandles.Lookup LOOKUP = MethodHandles.lookup();
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Streams` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/util/Streams.java`
 #### Snippet
@@ -5359,7 +5359,7 @@ public class Streams {
   /**
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `DateUtil` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
 #### Snippet
@@ -5371,7 +5371,7 @@ public class DateUtil {
   /**
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `ClassUtils` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/ClassUtils.java`
 #### Snippet
@@ -5383,7 +5383,7 @@ public class ClassUtils {
   /**
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `FieldUtils` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldUtils.java`
 #### Snippet
@@ -5395,7 +5395,7 @@ class FieldUtils {
   /**
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `MethodSupport` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/MethodSupport.java`
 #### Snippet
@@ -5407,7 +5407,7 @@ public class MethodSupport {
   private static final String METHOD_HAS_NO_RETURN_VALUE = "Method '%s' in class %s.class has to return a value!";
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `DiffUtils` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
 #### Snippet
@@ -5419,7 +5419,7 @@ public class DiffUtils {
   private static Pattern unifiedDiffChunkRe = Pattern.compile("^@@\\s+-(?:(\\d+)(?:,(\\d+))?)\\s+\\+(?:(\\d+)(?:,(\\d+))?)\\s+@@$");
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `AssertionErrorMessagesAggregator` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/error/AssertionErrorMessagesAggregator.java`
 #### Snippet
@@ -5431,7 +5431,7 @@ public class AssertionErrorMessagesAggregator {
   public static String aggregateErrorMessages(List<String> errors) {
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `AssertionErrorMessagesAggregrator` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/error/AssertionErrorMessagesAggregrator.java`
 #### Snippet
@@ -5443,7 +5443,7 @@ public class AssertionErrorMessagesAggregrator {
   public static String aggregrateErrorMessages(List<String> errors) {
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Warning` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/error/future/Warning.java`
 #### Snippet
@@ -5455,7 +5455,7 @@ public class Warning {
 }
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `FieldsOrPropertiesExtractor` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/groups/FieldsOrPropertiesExtractor.java`
 #### Snippet
@@ -5467,7 +5467,7 @@ public class FieldsOrPropertiesExtractor {
   /**
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Extractors` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/extractor/Extractors.java`
 #### Snippet
@@ -5479,7 +5479,7 @@ public class Extractors {
    * Provides extractor for extracting {@link java.lang.Object#toString} from any object
 ```
 
-### UtilityClassWithoutPrivateConstructor
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `DeepDifference` has only 'static' members, and lacks a 'private' constructor
 in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
 #### Snippet
@@ -5491,8 +5491,8 @@ public class DeepDifference {
   private static final String MISSING_FIELDS = "%s can't be compared to %s as %s does not declare all %s fields, it lacks these:%s";
 ```
 
-## UnnecessarySemicolon
-### UnnecessarySemicolon
+## RuleId[ruleID=UnnecessarySemicolon]
+### RuleId[ruleID=UnnecessarySemicolon]
 Unnecessary semicolon `;`
 in `assertj-core/src/main/java/org/assertj/core/internal/ComparisonStrategy.java`
 #### Snippet
@@ -5504,8 +5504,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/ComparisonStrategy.java
 }
 ```
 
-## SimplifyStreamApiCallChains
-### SimplifyStreamApiCallChains
+## RuleId[ruleID=SimplifyStreamApiCallChains]
+### RuleId[ruleID=SimplifyStreamApiCallChains]
 'filter()' and 'map()' can be swapped
 in `assertj-core/src/main/java/org/assertj/core/internal/Objects.java`
 #### Snippet
@@ -5517,32 +5517,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Objects.java`
     if (!nonNullFieldNames.isEmpty()) {
 ```
 
-## DeprecatedIsStillUsed
-### DeprecatedIsStillUsed
-Deprecated member 'isEqualToComparingFieldByFieldRecursively' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isEqualToComparingFieldByFieldRecursively(Object other) {
-    objects.assertIsEqualToComparingFieldByFieldRecursively(info, actual, other, comparatorsByPropertyOrField,
-                                                            getComparatorsByType());
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isEqualToIgnoringNullFields' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isEqualToIgnoringNullFields(Object other) {
-    objects.assertIsEqualToIgnoringNullFields(info, actual, other, comparatorsByPropertyOrField, getComparatorsByType());
-    return myself;
-```
-
-### DeprecatedIsStillUsed
+## RuleId[ruleID=DeprecatedIsStillUsed]
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'isEqualToComparingOnlyGivenFields' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 #### Snippet
@@ -5554,7 +5530,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
                                                     propertiesOrFieldsUsedInComparison);
 ```
 
-### DeprecatedIsStillUsed
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'isEqualToComparingFieldByFieldRecursively' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isEqualToComparingFieldByFieldRecursively(Object other) {
+    objects.assertIsEqualToComparingFieldByFieldRecursively(info, actual, other, comparatorsByPropertyOrField,
+                                                            getComparatorsByType());
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'isEqualToIgnoringNullFields' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isEqualToIgnoringNullFields(Object other) {
+    objects.assertIsEqualToIgnoringNullFields(info, actual, other, comparatorsByPropertyOrField, getComparatorsByType());
+    return myself;
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'isEqualToIgnoringGivenFields' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 #### Snippet
@@ -5566,31 +5566,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
                                                propertiesOrFieldsToIgnore);
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'hasFailed' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCompletableFutureAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF hasFailed() {
-    isNotNull();
-    if (!(actual.isCompletedExceptionally() && !actual.isCancelled())) throwAssertionError(shouldHaveFailed(actual));
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hasFailedWithThrowableThat' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCompletableFutureAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public AbstractThrowableAssert<?, ? extends Throwable> hasFailedWithThrowableThat() {
-    hasFailed();
-    try {
-```
-
-### DeprecatedIsStillUsed
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'hasNotFailed' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractCompletableFutureAssert.java`
 #### Snippet
@@ -5602,7 +5578,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractCompletableFutureAss
     if (actual.isCompletedExceptionally() && !actual.isCancelled()) throwAssertionError(shouldNotHaveFailed(actual));
 ```
 
-### DeprecatedIsStillUsed
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'hasFailedWithThrowableThat' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCompletableFutureAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public AbstractThrowableAssert<?, ? extends Throwable> hasFailedWithThrowableThat() {
+    hasFailed();
+    try {
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'hasFailed' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCompletableFutureAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF hasFailed() {
+    isNotNull();
+    if (!(actual.isCompletedExceptionally() && !actual.isCancelled())) throwAssertionError(shouldHaveFailed(actual));
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'Java6JUnitSoftAssertions' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/Java6JUnitSoftAssertions.java`
 #### Snippet
@@ -5614,7 +5614,7 @@ public class Java6JUnitSoftAssertions extends AbstractSoftAssertions
 
 ```
 
-### DeprecatedIsStillUsed
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'Java6JUnitBDDSoftAssertions' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/Java6JUnitBDDSoftAssertions.java`
 #### Snippet
@@ -5626,7 +5626,7 @@ public class Java6JUnitBDDSoftAssertions extends AbstractSoftAssertions
 }
 ```
 
-### DeprecatedIsStillUsed
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'Java6Assertions' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
 #### Snippet
@@ -5638,31 +5638,7 @@ public class Java6Assertions {
   /**
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'isXmlEqualToContentOf' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isXmlEqualToContentOf(File xmlFile) {
-    isXmlEqualTo(contentOf(xmlFile));
-    return myself;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isXmlEqualTo' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isXmlEqualTo(CharSequence expectedXml) {
-    strings.assertXmlEqualsTo(info, actual, expectedXml);
-    return myself;
-```
-
-### DeprecatedIsStillUsed
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'containsOnlyDigits' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
 #### Snippet
@@ -5674,7 +5650,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.j
     return myself;
 ```
 
-### DeprecatedIsStillUsed
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'isXmlEqualTo' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isXmlEqualTo(CharSequence expectedXml) {
+    strings.assertXmlEqualsTo(info, actual, expectedXml);
+    return myself;
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'isNotJavaBlank' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
 #### Snippet
@@ -5686,7 +5674,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.j
     return myself;
 ```
 
-### DeprecatedIsStillUsed
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'isXmlEqualToContentOf' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isXmlEqualToContentOf(File xmlFile) {
+    isXmlEqualTo(contentOf(xmlFile));
+    return myself;
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'isJavaBlank' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
 #### Snippet
@@ -5698,7 +5698,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.j
     return myself;
 ```
 
-### DeprecatedIsStillUsed
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'SoftlyExtension' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/junit/jupiter/SoftlyExtension.java`
 #### Snippet
@@ -5710,7 +5710,7 @@ public class SoftlyExtension implements AfterTestExecutionCallback, TestInstance
   private static final Namespace SOFTLY_EXTENSION_NAMESPACE = Namespace.create(SoftlyExtension.class);
 ```
 
-### DeprecatedIsStillUsed
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'temporaryFolder' is still used
 in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
 #### Snippet
@@ -5722,32 +5722,8 @@ in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
     if (!temp.isDirectory()) {
 ```
 
-## MethodOverloadsParentMethod
-### MethodOverloadsParentMethod
-Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractBigIntegerAssert.java`
-#### Snippet
-```java
-   * @since 2.7.0 / 3.7.0
-   */
-  public SELF isEqualTo(String expected) {
-    return isEqualTo(new BigInteger(expected));
-  }
-```
-
-### MethodOverloadsParentMethod
-Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractBigIntegerAssert.java`
-#### Snippet
-```java
-   * @since 2.7.0 / 3.7.0
-   */
-  public SELF isEqualTo(long expected) {
-    return isEqualTo(new BigInteger(Long.toString(expected)));
-  }
-```
-
-### MethodOverloadsParentMethod
+## RuleId[ruleID=MethodOverloadsParentMethod]
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractBigIntegerAssert.java`
 #### Snippet
@@ -5759,7 +5735,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractBigIntegerAssert.jav
   }
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractBigIntegerAssert.java`
+#### Snippet
+```java
+   * @since 2.7.0 / 3.7.0
+   */
+  public SELF isEqualTo(long expected) {
+    return isEqualTo(new BigInteger(Long.toString(expected)));
+  }
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractBigIntegerAssert.java`
+#### Snippet
+```java
+   * @since 2.7.0 / 3.7.0
+   */
+  public SELF isEqualTo(String expected) {
+    return isEqualTo(new BigInteger(expected));
+  }
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractShortAssert.java`
 #### Snippet
@@ -5771,7 +5771,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractShortAssert.java`
     return myself;
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractShortAssert.java`
 #### Snippet
@@ -5783,19 +5783,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractShortAssert.java`
     return myself;
 ```
 
-### MethodOverloadsParentMethod
-Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   *           from given Strings.
-   */
-  public SELF isIn(String... dateTimesAsString) {
-    checkIsNotNullAndNotEmpty(dateTimesAsString);
-    return isIn(convertToOffsetDateTimeArray(dateTimesAsString));
-```
-
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -5807,19 +5795,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
     return isNotIn(convertToOffsetDateTimeArray(dateTimesAsString));
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractInstantAssert.java`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
 ```java
-   * @since 3.7.0
+   *           from given Strings.
    */
-  public SELF isIn(String... instantsAsString) {
-    checkIsNotNullAndNotEmpty(instantsAsString);
-    return isIn(convertToInstantArray(instantsAsString));
+  public SELF isIn(String... dateTimesAsString) {
+    checkIsNotNullAndNotEmpty(dateTimesAsString);
+    return isIn(convertToOffsetDateTimeArray(dateTimesAsString));
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractInstantAssert.java`
 #### Snippet
@@ -5831,7 +5819,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractInstantAssert.java`
     return isEqualTo(parse(instantAsString));
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractInstantAssert.java`
 #### Snippet
@@ -5843,7 +5831,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractInstantAssert.java`
     return isNotEqualTo(parse(instantAsString));
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractInstantAssert.java`
 #### Snippet
@@ -5855,19 +5843,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractInstantAssert.java`
     return isNotIn(convertToInstantArray(instantsAsString));
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractInstantAssert.java`
 #### Snippet
 ```java
-   *           given Strings.
+   * @since 3.7.0
    */
-  public SELF isIn(String... offsetTimesAsString) {
-    checkIsNotNullAndNotEmpty(offsetTimesAsString);
-    return isIn(convertToOffsetTimeArray(offsetTimesAsString));
+  public SELF isIn(String... instantsAsString) {
+    checkIsNotNullAndNotEmpty(instantsAsString);
+    return isIn(convertToInstantArray(instantsAsString));
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -5879,19 +5867,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
     return isEqualTo(parse(offsetTimeAsString));
 ```
 
-### MethodOverloadsParentMethod
-Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   *           Strings.
-   */
-  public SELF isNotIn(String... offsetTimesAsString) {
-    checkIsNotNullAndNotEmpty(offsetTimesAsString);
-    return isNotIn(convertToOffsetTimeArray(offsetTimesAsString));
-```
-
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -5903,19 +5879,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
     return isNotEqualTo(parse(offsetTimeAsString));
 ```
 
-### MethodOverloadsParentMethod
-Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharacterAssert.java`
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
 ```java
-   * @throws AssertionError if the actual value is equal to the given one.
+   *           Strings.
    */
-  public SELF isNotEqualTo(char other) {
-    characters.assertNotEqual(info, actual, other);
-    return myself;
+  public SELF isNotIn(String... offsetTimesAsString) {
+    checkIsNotNullAndNotEmpty(offsetTimesAsString);
+    return isNotIn(convertToOffsetTimeArray(offsetTimesAsString));
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   *           given Strings.
+   */
+  public SELF isIn(String... offsetTimesAsString) {
+    checkIsNotNullAndNotEmpty(offsetTimesAsString);
+    return isIn(convertToOffsetTimeArray(offsetTimesAsString));
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharacterAssert.java`
 #### Snippet
@@ -5927,7 +5915,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharacterAssert.java
     return myself;
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharacterAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual value is equal to the given one.
+   */
+  public SELF isNotEqualTo(char other) {
+    characters.assertNotEqual(info, actual, other);
+    return myself;
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateTimeAssert.java`
 #### Snippet
@@ -5939,7 +5939,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateTimeAssert.
     return isIn(convertToLocalDateTimeArray(dateTimesAsString));
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateTimeAssert.java`
 #### Snippet
@@ -5951,31 +5951,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateTimeAssert.
     return isNotIn(convertToLocalDateTimeArray(dateTimesAsString));
 ```
 
-### MethodOverloadsParentMethod
-Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual value is not equal to the given one.
-   */
-  public SELF isEqualTo(float expected) {
-    if (noCustomComparatorSet()) {
-      // use primitive comparison since the parameter is a primitive.
-```
-
-### MethodOverloadsParentMethod
-Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual value is not equal to the given one.
-   */
-  public SELF isEqualTo(Float expected) {
-    // overloaded for javadoc
-    return super.isEqualTo(expected);
-```
-
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
 #### Snippet
@@ -5987,7 +5963,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
       // use primitive comparison since the parameter is a primitive.
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual value is not equal to the given one.
+   */
+  public SELF isEqualTo(float expected) {
+    if (noCustomComparatorSet()) {
+      // use primitive comparison since the parameter is a primitive.
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
 #### Snippet
@@ -5999,19 +5987,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
     return super.isNotEqualTo(other);
 ```
 
-### MethodOverloadsParentMethod
-Method `extracting()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
 #### Snippet
 ```java
-  @Deprecated
-  @CheckReturnValue
-  public AbstractListAssert<?, List<?>, Object, ObjectAssert<Object>> extracting(Object... keys) {
-    isNotNull();
-    List<Object> extractedValues = Stream.of(keys).map(actual::get).collect(toList());
+   * @throws AssertionError if the actual value is not equal to the given one.
+   */
+  public SELF isEqualTo(Float expected) {
+    // overloaded for javadoc
+    return super.isEqualTo(expected);
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `extracting()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
@@ -6023,19 +6011,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
     Object extractedValue = actual.get(key);
 ```
 
-### MethodOverloadsParentMethod
-Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalTimeAssert.java`
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `extracting()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
 ```java
-   *           Strings.
-   */
-  public SELF isIn(String... localTimesAsString) {
-    checkIsNotNullAndNotEmpty(localTimesAsString);
-    return isIn(convertToLocalTimeArray(localTimesAsString));
+  @Deprecated
+  @CheckReturnValue
+  public AbstractListAssert<?, List<?>, Object, ObjectAssert<Object>> extracting(Object... keys) {
+    isNotNull();
+    List<Object> extractedValues = Stream.of(keys).map(actual::get).collect(toList());
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalTimeAssert.java`
 #### Snippet
@@ -6047,19 +6035,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalTimeAssert.java
     return isNotEqualTo(parse(localTimeAsString));
 ```
 
-### MethodOverloadsParentMethod
-Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalTimeAssert.java`
-#### Snippet
-```java
-   *           Strings.
-   */
-  public SELF isNotIn(String... localTimesAsString) {
-    checkIsNotNullAndNotEmpty(localTimesAsString);
-    return isNotIn(convertToLocalTimeArray(localTimesAsString));
-```
-
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalTimeAssert.java`
 #### Snippet
@@ -6071,7 +6047,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalTimeAssert.java
     return isEqualTo(parse(localTimeAsString));
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalTimeAssert.java`
+#### Snippet
+```java
+   *           Strings.
+   */
+  public SELF isNotIn(String... localTimesAsString) {
+    checkIsNotNullAndNotEmpty(localTimesAsString);
+    return isNotIn(convertToLocalTimeArray(localTimesAsString));
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalTimeAssert.java`
+#### Snippet
+```java
+   *           Strings.
+   */
+  public SELF isIn(String... localTimesAsString) {
+    checkIsNotNullAndNotEmpty(localTimesAsString);
+    return isIn(convertToLocalTimeArray(localTimesAsString));
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractStringAssert.java`
 #### Snippet
@@ -6083,7 +6083,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractStringAssert.java`
   }
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateAssert.java`
 #### Snippet
@@ -6095,19 +6095,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateAssert.java
     return isNotEqualTo(parse(localDateAsString));
 ```
 
-### MethodOverloadsParentMethod
-Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateAssert.java`
-#### Snippet
-```java
-   *           Strings.
-   */
-  public SELF isIn(String... localDatesAsString) {
-    checkIsNotNullAndNotEmpty(localDatesAsString);
-    return isIn(convertToLocalDateArray(localDatesAsString));
-```
-
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateAssert.java`
 #### Snippet
@@ -6119,7 +6107,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateAssert.java
     return isEqualTo(parse(localDateAsString));
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateAssert.java`
+#### Snippet
+```java
+   *           Strings.
+   */
+  public SELF isIn(String... localDatesAsString) {
+    checkIsNotNullAndNotEmpty(localDatesAsString);
+    return isIn(convertToLocalDateArray(localDatesAsString));
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateAssert.java`
 #### Snippet
@@ -6131,7 +6131,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateAssert.java
     return isNotIn(convertToLocalDateArray(localDatesAsString));
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
 #### Snippet
@@ -6143,7 +6143,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
       // check for null first to avoid casting a null to primitive
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
 #### Snippet
@@ -6155,19 +6155,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
       // check for null first to avoid casting a null to primitive
 ```
 
-### MethodOverloadsParentMethod
-Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual value is not equal to the given one.
-   */
-  public SELF isEqualTo(Double expected) {
-    // overloaded for javadoc
-    return super.isEqualTo(expected);
-```
-
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
 #### Snippet
@@ -6179,19 +6167,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
     return super.isNotEqualTo(other);
 ```
 
-### MethodOverloadsParentMethod
-Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractByteAssert.java`
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
 #### Snippet
 ```java
-   * @throws AssertionError if the actual value is equal to the given one.
+   * @throws AssertionError if the actual value is not equal to the given one.
    */
-  public SELF isNotEqualTo(byte other) {
-    bytes.assertNotEqual(info, actual, other);
-    return myself;
+  public SELF isEqualTo(Double expected) {
+    // overloaded for javadoc
+    return super.isEqualTo(expected);
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractByteAssert.java`
 #### Snippet
@@ -6203,43 +6191,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractByteAssert.java`
     return myself;
 ```
 
-### MethodOverloadsParentMethod
-Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.java`
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractByteAssert.java`
 #### Snippet
 ```java
-   *           Strings.
+   * @throws AssertionError if the actual value is equal to the given one.
    */
-  public SELF isIn(String... dateTimesAsString) {
-    checkIsNotNullAndNotEmpty(dateTimesAsString);
-    return isIn(convertToDateTimeArray(dateTimesAsString));
+  public SELF isNotEqualTo(byte other) {
+    bytes.assertNotEqual(info, actual, other);
+    return myself;
 ```
 
-### MethodOverloadsParentMethod
-Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code ZonedDateTime} is not in the given {@link ZonedDateTime}s.
-   */
-  public SELF isNotIn(ZonedDateTime... expected) {
-    return isNotIn((Object[]) changeToActualTimeZone(expected));
-  }
-```
-
-### MethodOverloadsParentMethod
-Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.java`
-#### Snippet
-```java
-   *           given String.
-   */
-  public SELF isNotIn(String... dateTimesAsString) {
-    checkIsNotNullAndNotEmpty(dateTimesAsString);
-    return isNotIn(convertToDateTimeArray(dateTimesAsString));
-```
-
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.java`
 #### Snippet
@@ -6251,115 +6215,43 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.
   }
 ```
 
-### MethodOverloadsParentMethod
-Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractBigDecimalAssert.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   */
-  public SELF isEqualTo(String expected) {
-    return isEqualTo(new BigDecimal(expected));
-  }
-```
-
-### MethodOverloadsParentMethod
-Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIntegerAssert.java`
-#### Snippet
-```java
-   * @since 3.10.0
-   */
-  public SELF isEqualTo(long expected) {
-    if (canBeCastToInt(expected)) {
-      integers.assertEqual(info, actual, (int) expected);
-```
-
-### MethodOverloadsParentMethod
-Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIntegerAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual value is not equal to the given one.
-   */
-  public SELF isEqualTo(int expected) {
-    integers.assertEqual(info, actual, expected);
-    return myself;
-```
-
-### MethodOverloadsParentMethod
-Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIntegerAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual value is equal to the given one.
-   */
-  public SELF isNotEqualTo(int other) {
-    integers.assertNotEqual(info, actual, other);
-    return myself;
-```
-
-### MethodOverloadsParentMethod
-Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual value is equal to the given one.
-   */
-  public SELF isNotEqualTo(boolean other) {
-    booleans.assertNotEqual(info, actual, other);
-    return myself;
-```
-
-### MethodOverloadsParentMethod
-Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual value is not equal to the given one.
-   */
-  public SELF isEqualTo(boolean expected) {
-    booleans.assertEqual(info, actual, expected);
-    return myself;
-```
-
-### MethodOverloadsParentMethod
-Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if actual {@code Date} and given {@link Instant} are not equal (after converting instant to a Date).
-   */
-  public SELF isEqualTo(Instant instant) {
-    return isEqualTo(Date.from(instant));
-  }
-```
-
-### MethodOverloadsParentMethod
-Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if actual is not in given dates represented as {@code Instant}.
-   */
-  public SELF isIn(Instant... instants) {
-    Date[] dates = toDateArray(instants, Date::from);
-    return isIn((Object[]) dates);
-```
-
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.java`
 #### Snippet
 ```java
-   * @since 3.19.0
+   * @throws AssertionError if the actual {@code ZonedDateTime} is not in the given {@link ZonedDateTime}s.
    */
-  public SELF isNotIn(Instant... instants) {
-    Date[] dates = toDateArray(instants, Date::from);
-    return isNotIn((Object[]) dates);
+  public SELF isNotIn(ZonedDateTime... expected) {
+    return isNotIn((Object[]) changeToActualTimeZone(expected));
+  }
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.java`
+#### Snippet
+```java
+   *           Strings.
+   */
+  public SELF isIn(String... dateTimesAsString) {
+    checkIsNotNullAndNotEmpty(dateTimesAsString);
+    return isIn(convertToDateTimeArray(dateTimesAsString));
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.java`
+#### Snippet
+```java
+   *           given String.
+   */
+  public SELF isNotIn(String... dateTimesAsString) {
+    checkIsNotNullAndNotEmpty(dateTimesAsString);
+    return isNotIn(convertToDateTimeArray(dateTimesAsString));
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLongAssert.java`
 #### Snippet
@@ -6371,7 +6263,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLongAssert.java`
     return myself;
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLongAssert.java`
 #### Snippet
@@ -6383,31 +6275,91 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLongAssert.java`
     return myself;
 ```
 
-### MethodOverloadsParentMethod
-Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the given date as String could not be converted to a Date.
-   */
-  public SELF isNotEqualTo(String dateAsString) {
-    return isNotEqualTo(parse(dateAsString));
-  }
-```
-
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractBigDecimalAssert.java`
 #### Snippet
 ```java
-   * @throws AssertionError if the given date as String could not be converted to a Date.
+   * @return {@code this} assertion object.
    */
-  public SELF isEqualTo(String dateAsString) {
-    return isEqualTo(parse(dateAsString));
+  public SELF isEqualTo(String expected) {
+    return isEqualTo(new BigDecimal(expected));
   }
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIntegerAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual value is not equal to the given one.
+   */
+  public SELF isEqualTo(int expected) {
+    integers.assertEqual(info, actual, expected);
+    return myself;
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIntegerAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual value is equal to the given one.
+   */
+  public SELF isNotEqualTo(int other) {
+    integers.assertNotEqual(info, actual, other);
+    return myself;
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIntegerAssert.java`
+#### Snippet
+```java
+   * @since 3.10.0
+   */
+  public SELF isEqualTo(long expected) {
+    if (canBeCastToInt(expected)) {
+      integers.assertEqual(info, actual, (int) expected);
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual value is not equal to the given one.
+   */
+  public SELF isEqualTo(boolean expected) {
+    booleans.assertEqual(info, actual, expected);
+    return myself;
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual value is equal to the given one.
+   */
+  public SELF isNotEqualTo(boolean other) {
+    booleans.assertNotEqual(info, actual, other);
+    return myself;
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if actual is not in given dates represented as {@code Instant}.
+   */
+  public SELF isIn(Instant... instants) {
+    Date[] dates = toDateArray(instants, Date::from);
+    return isIn((Object[]) dates);
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
 #### Snippet
@@ -6419,19 +6371,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
     return isIn((Object[]) dates);
 ```
 
-### MethodOverloadsParentMethod
-Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
 #### Snippet
 ```java
-   * @throws AssertionError if one of the given date as String could not be converted to a Date.
+   * @throws AssertionError if actual {@code Date} and given {@link Instant} are not equal (after converting instant to a Date).
    */
-  public SELF isNotIn(String... datesAsString) {
-    Date[] dates = toDateArray(datesAsString, this::parse);
-    return isNotIn((Object[]) dates);
+  public SELF isEqualTo(Instant instant) {
+    return isEqualTo(Date.from(instant));
+  }
 ```
 
-### MethodOverloadsParentMethod
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the given date as String could not be converted to a Date.
+   */
+  public SELF isNotEqualTo(String dateAsString) {
+    return isNotEqualTo(parse(dateAsString));
+  }
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
 Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
 #### Snippet
@@ -6443,8 +6407,44 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
   }
 ```
 
-## Convert2MethodRef
-### Convert2MethodRef
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the given date as String could not be converted to a Date.
+   */
+  public SELF isEqualTo(String dateAsString) {
+    return isEqualTo(parse(dateAsString));
+  }
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if one of the given date as String could not be converted to a Date.
+   */
+  public SELF isNotIn(String... datesAsString) {
+    Date[] dates = toDateArray(datesAsString, this::parse);
+    return isNotIn((Object[]) dates);
+```
+
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   * @since 3.19.0
+   */
+  public SELF isNotIn(Instant... instants) {
+    Date[] dates = toDateArray(instants, Date::from);
+    return isNotIn((Object[]) dates);
+```
+
+## RuleId[ruleID=Convert2MethodRef]
+### RuleId[ruleID=Convert2MethodRef]
 Lambda can be replaced with method reference
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractCollectionAssert.java`
 #### Snippet
@@ -6456,7 +6456,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractCollectionAssert.jav
     expectUnsupportedOperationException(() -> actual.remove(null), "Collection.remove(null)");
 ```
 
-### Convert2MethodRef
+### RuleId[ruleID=Convert2MethodRef]
 Lambda can be replaced with method reference
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractCollectionAssert.java`
 #### Snippet
@@ -6468,7 +6468,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractCollectionAssert.jav
     }
 ```
 
-### Convert2MethodRef
+### RuleId[ruleID=Convert2MethodRef]
 Lambda can be replaced with method reference
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractCollectionAssert.java`
 #### Snippet
@@ -6480,7 +6480,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractCollectionAssert.jav
   }
 ```
 
-### Convert2MethodRef
+### RuleId[ruleID=Convert2MethodRef]
 Lambda can be replaced with method reference
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldComparators.java`
 #### Snippet
@@ -6492,7 +6492,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldCo
                                .orElse(null);
 ```
 
-### Convert2MethodRef
+### RuleId[ruleID=Convert2MethodRef]
 Lambda can be replaced with method reference
 in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
 #### Snippet
@@ -6504,8 +6504,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
 
 ```
 
-## ProtectedMemberInFinalClass
-### ProtectedMemberInFinalClass
+## RuleId[ruleID=ProtectedMemberInFinalClass]
+### RuleId[ruleID=ProtectedMemberInFinalClass]
 Class member declared `protected` in 'final' class
 in `assertj-core/src/main/java/org/assertj/core/condition/VerboseCondition.java`
 #### Snippet
@@ -6517,8 +6517,8 @@ in `assertj-core/src/main/java/org/assertj/core/condition/VerboseCondition.java`
     if (!matches) sb.append(objectUnderTestDescriptor.apply(objectUnderTest));
 ```
 
-## UnnecessaryToStringCall
-### UnnecessaryToStringCall
+## RuleId[ruleID=UnnecessaryToStringCall]
+### RuleId[ruleID=UnnecessaryToStringCall]
 Unnecessary `toString()` call
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotSatisfyPredicateRecursively.java`
 #### Snippet
@@ -6530,7 +6530,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotSatisfyPredicateR
     builder.append(recursiveAssertionConfiguration);
 ```
 
-### UnnecessaryToStringCall
+### RuleId[ruleID=UnnecessaryToStringCall]
 Unnecessary `toString()` call
 in `assertj-core/src/main/java/org/assertj/core/internal/ComparatorBasedComparisonStrategy.java`
 #### Snippet
@@ -6542,8 +6542,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/ComparatorBasedComparis
 
 ```
 
-## StringEqualsEmptyString
-### StringEqualsEmptyString
+## RuleId[ruleID=StringEqualsEmptyString]
+### RuleId[ruleID=StringEqualsEmptyString]
 `equals("")` can be replaced with 'isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
 #### Snippet
@@ -6555,7 +6555,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
 
 ```
 
-### StringEqualsEmptyString
+### RuleId[ruleID=StringEqualsEmptyString]
 `equals("")` can be replaced with 'isEmpty()'
 in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
 #### Snippet
@@ -6567,8 +6567,8 @@ in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentat
     return String.format("local class %s", c.getSimpleName());
 ```
 
-## RedundantSuppression
-### RedundantSuppression
+## RuleId[ruleID=RedundantSuppression]
+### RuleId[ruleID=RedundantSuppression]
 Redundant suppression
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -6580,7 +6580,7 @@ public abstract class AbstractIterableAssert<SELF extends AbstractIterableAssert
                                              ELEMENT,
 ```
 
-### RedundantSuppression
+### RuleId[ruleID=RedundantSuppression]
 Redundant suppression
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 #### Snippet
@@ -6592,7 +6592,7 @@ public abstract class AbstractObjectAssert<SELF extends AbstractObjectAssert<SEL
 
 ```
 
-### RedundantSuppression
+### RuleId[ruleID=RedundantSuppression]
 Redundant suppression
 in `assertj-core/src/main/java/org/assertj/core/api/ObjectEnumerableAssert.java`
 #### Snippet
@@ -6604,7 +6604,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/ObjectEnumerableAssert.java`
   /**
 ```
 
-### RedundantSuppression
+### RuleId[ruleID=RedundantSuppression]
 Redundant suppression
 in `assertj-core/src/main/java/org/assertj/core/api/ObjectEnumerableAssert.java`
 #### Snippet
@@ -6616,8 +6616,8 @@ in `assertj-core/src/main/java/org/assertj/core/api/ObjectEnumerableAssert.java`
   /**
 ```
 
-## OptionalUsedAsFieldOrParameterType
-### OptionalUsedAsFieldOrParameterType
+## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalLong` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.java`
 #### Snippet
@@ -6629,7 +6629,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.j
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalInt` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.java`
 #### Snippet
@@ -6641,7 +6641,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.ja
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/OptionalAssert.java`
 #### Snippet
@@ -6653,7 +6653,7 @@ public class OptionalAssert<VALUE> extends AbstractOptionalAssert<OptionalAssert
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalInt` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/OptionalIntAssert.java`
 #### Snippet
@@ -6665,55 +6665,7 @@ public class OptionalIntAssert extends AbstractOptionalIntAssert<OptionalIntAsse
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalDouble` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-  Doubles doubles = Doubles.instance();
-
-  protected AbstractOptionalDoubleAssert(OptionalDouble actual, Class<?> selfType) {
-    super(actual, selfType);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
-#### Snippet
-```java
-  private ComparisonStrategy optionalValueComparisonStrategy;
-
-  protected AbstractOptionalAssert(Optional<VALUE> actual, Class<?> selfType) {
-    super(actual, selfType);
-    this.optionalValueComparisonStrategy = StandardComparisonStrategy.instance();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings("unchecked")
-  public static <VALUE> OptionalAssert<VALUE> assumeThat(Optional<VALUE> actual) {
-    return asAssumption(OptionalAssert.class, Optional.class, actual);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
-#### Snippet
-```java
-   * @since 3.9.0
-   */
-  public static OptionalLongAssert assumeThat(OptionalLong actual) {
-    return asAssumption(OptionalLongAssert.class, OptionalLong.class, actual);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalInt` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
 #### Snippet
@@ -6725,7 +6677,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
 #### Snippet
@@ -6737,7 +6689,55 @@ in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalLong` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
+#### Snippet
+```java
+   * @since 3.9.0
+   */
+  public static OptionalLongAssert assumeThat(OptionalLong actual) {
+    return asAssumption(OptionalLongAssert.class, OptionalLong.class, actual);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
+#### Snippet
+```java
+   */
+  @SuppressWarnings("unchecked")
+  public static <VALUE> OptionalAssert<VALUE> assumeThat(Optional<VALUE> actual) {
+    return asAssumption(OptionalAssert.class, Optional.class, actual);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+  private ComparisonStrategy optionalValueComparisonStrategy;
+
+  protected AbstractOptionalAssert(Optional<VALUE> actual, Class<?> selfType) {
+    super(actual, selfType);
+    this.optionalValueComparisonStrategy = StandardComparisonStrategy.instance();
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalDouble` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+  Doubles doubles = Doubles.instance();
+
+  protected AbstractOptionalDoubleAssert(OptionalDouble actual, Class<?> selfType) {
+    super(actual, selfType);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/OptionalDoubleAssert.java`
 #### Snippet
@@ -6749,19 +6749,7 @@ public class OptionalDoubleAssert extends AbstractOptionalDoubleAssert<OptionalD
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings("unchecked")
-  default <VALUE> OptionalAssert<VALUE> assertThat(Optional<VALUE> actual) {
-    return proxy(OptionalAssert.class, Optional.class, actual);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalInt` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
@@ -6773,7 +6761,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvid
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
@@ -6785,7 +6773,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvid
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalLong` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
@@ -6797,43 +6785,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvid
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
-#### Snippet
-```java
-   * @return the created assertion object.
-   */
-  default OptionalIntAssert then(OptionalInt actual) {
-    return proxy(OptionalIntAssert.class, OptionalInt.class, actual);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
 ```java
    */
   @SuppressWarnings("unchecked")
-  default <VALUE> OptionalAssert<VALUE> then(Optional<VALUE> actual) {
+  default <VALUE> OptionalAssert<VALUE> assertThat(Optional<VALUE> actual) {
     return proxy(OptionalAssert.class, Optional.class, actual);
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
-#### Snippet
-```java
-   * @return the created assertion object.
-   */
-  default OptionalLongAssert then(OptionalLong actual) {
-    return proxy(OptionalLongAssert.class, OptionalLong.class, actual);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
 #### Snippet
@@ -6845,7 +6809,43 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.ja
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+#### Snippet
+```java
+   */
+  @SuppressWarnings("unchecked")
+  default <VALUE> OptionalAssert<VALUE> then(Optional<VALUE> actual) {
+    return proxy(OptionalAssert.class, Optional.class, actual);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalLong` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+#### Snippet
+```java
+   * @return the created assertion object.
+   */
+  default OptionalLongAssert then(OptionalLong actual) {
+    return proxy(OptionalLongAssert.class, OptionalLong.class, actual);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalInt` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+#### Snippet
+```java
+   * @return the created assertion object.
+   */
+  default OptionalIntAssert then(OptionalInt actual) {
+    return proxy(OptionalIntAssert.class, OptionalInt.class, actual);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalLong` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
 #### Snippet
@@ -6857,7 +6857,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
 #### Snippet
@@ -6869,7 +6869,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
 #### Snippet
@@ -6881,7 +6881,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalInt` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
 #### Snippet
@@ -6893,7 +6893,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalLong` used as type for parameter 'optionalLong'
 in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
 #### Snippet
@@ -6905,19 +6905,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'optionalInt'
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
-#### Snippet
-```java
-   * @since 2.9.0 / 3.9.0
-   */
-  default OptionalIntAssert assumeThat(final OptionalInt optionalInt) {
-    return Assumptions.assumeThat(optionalInt);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'optionalDouble'
 in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
 #### Snippet
@@ -6929,7 +6917,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
 #### Snippet
@@ -6941,19 +6929,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalInt` used as type for parameter 'optionalInt'
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
 #### Snippet
 ```java
-   * @return the created assertion object.
+   * @since 2.9.0 / 3.9.0
    */
-  public static OptionalIntAssert assertThat(OptionalInt actual) {
-    return new OptionalIntAssert(actual);
+  default OptionalIntAssert assumeThat(final OptionalInt optionalInt) {
+    return Assumptions.assumeThat(optionalInt);
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
@@ -6965,19 +6953,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'actual'
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalInt` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
 ```java
    * @return the created assertion object.
    */
-  public static OptionalLongAssert assertThat(OptionalLong actual) {
-    return new OptionalLongAssert(actual);
+  public static OptionalIntAssert assertThat(OptionalInt actual) {
+    return new OptionalIntAssert(actual);
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
@@ -6989,7 +6977,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalLong` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   * @return the created assertion object.
+   */
+  public static OptionalLongAssert assertThat(OptionalLong actual) {
+    return new OptionalLongAssert(actual);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalLong` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/OptionalLongAssert.java`
 #### Snippet
@@ -7001,7 +7001,7 @@ public class OptionalLongAssert extends AbstractOptionalLongAssert<OptionalLongA
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for parameter 'currentContext'
 in `assertj-core/src/main/java/org/assertj/core/api/junit/jupiter/SoftlyExtension.java`
 #### Snippet
@@ -7013,7 +7013,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/junit/jupiter/SoftlyExtensio
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalLong` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
 #### Snippet
@@ -7025,19 +7025,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * @return the created assertion object.
-   */
-  public static OptionalIntAssert assertThat(OptionalInt actual) {
-    return AssertionsForClassTypes.assertThat(actual);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
 #### Snippet
@@ -7049,7 +7037,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalInt` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * @return the created assertion object.
+   */
+  public static OptionalIntAssert assertThat(OptionalInt actual) {
+    return AssertionsForClassTypes.assertThat(actual);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
 #### Snippet
@@ -7061,7 +7061,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for field 'additionalInformation'
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/ComparisonDifference.java`
 #### Snippet
@@ -7073,7 +7073,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Compari
 
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
@@ -7085,7 +7085,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalLong` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
@@ -7097,19 +7097,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
-#### Snippet
-```java
-   * @return a error message factory.
-   */
-  public static OptionalShouldBeEmpty shouldBeEmpty(OptionalInt optional) {
-    return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsInt());
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
@@ -7121,7 +7109,19 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalInt` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
+#### Snippet
+```java
+   * @return a error message factory.
+   */
+  public static OptionalShouldBeEmpty shouldBeEmpty(OptionalInt optional) {
+    return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsInt());
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToPercentage.java`
 #### Snippet
@@ -7133,7 +7133,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveVa
     super("%nExpecting actual:%n" +
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToPercentage.java`
 #### Snippet
@@ -7145,55 +7145,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveVa
                                                                                                 Percentage percentage,
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalDouble` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
-#### Snippet
-```java
-   * @return a error message factory
-   */
-  public static OptionalShouldContain shouldContain(OptionalDouble optional, double expectedValue) {
-    return optional.isPresent()
-        ? new OptionalShouldContain(EXPECTING_TO_CONTAIN, optional, expectedValue)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
-#### Snippet
-```java
-   * @return a error message factory
-   */
-  public static OptionalShouldContain shouldContain(OptionalLong optional, long expectedValue) {
-    return optional.isPresent()
-        ? new OptionalShouldContain(EXPECTING_TO_CONTAIN, optional, expectedValue)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
-#### Snippet
-```java
-   * @return a error message factory
-   */
-  public static <VALUE> OptionalShouldContain shouldContainSame(Optional<VALUE> optional, VALUE expectedValue) {
-    return optional.isPresent()
-        ? new OptionalShouldContain(EXPECTING_TO_CONTAIN_SAME, optional, expectedValue)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
-#### Snippet
-```java
-   * @return a error message factory
-   */
-  public static <VALUE> OptionalShouldContain shouldContain(Optional<VALUE> optional, VALUE expectedValue) {
-    return optional.isPresent()
-        ? new OptionalShouldContain(EXPECTING_TO_CONTAIN, optional, expectedValue)
-```
-
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalInt` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
@@ -7205,19 +7157,55 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java
         ? new OptionalShouldContain(EXPECTING_TO_CONTAIN, optional, expectedValue)
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalDouble` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
 ```java
-public class OptionalDoubleShouldHaveValueCloseToOffset extends BasicErrorMessageFactory {
-
-  private OptionalDoubleShouldHaveValueCloseToOffset(OptionalDouble actual, double expected, Offset<Double> offset,
-                                                     double difference) {
-    super("%nExpecting actual:%n  %s%nto be close to:%n  %s%n" +
+   * @return a error message factory
+   */
+  public static <VALUE> OptionalShouldContain shouldContain(Optional<VALUE> optional, VALUE expectedValue) {
+    return optional.isPresent()
+        ? new OptionalShouldContain(EXPECTING_TO_CONTAIN, optional, expectedValue)
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalLong` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
+#### Snippet
+```java
+   * @return a error message factory
+   */
+  public static OptionalShouldContain shouldContain(OptionalLong optional, long expectedValue) {
+    return optional.isPresent()
+        ? new OptionalShouldContain(EXPECTING_TO_CONTAIN, optional, expectedValue)
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
+#### Snippet
+```java
+   * @return a error message factory
+   */
+  public static <VALUE> OptionalShouldContain shouldContainSame(Optional<VALUE> optional, VALUE expectedValue) {
+    return optional.isPresent()
+        ? new OptionalShouldContain(EXPECTING_TO_CONTAIN_SAME, optional, expectedValue)
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalDouble` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
+#### Snippet
+```java
+   * @return a error message factory
+   */
+  public static OptionalShouldContain shouldContain(OptionalDouble optional, double expectedValue) {
+    return optional.isPresent()
+        ? new OptionalShouldContain(EXPECTING_TO_CONTAIN, optional, expectedValue)
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
 #### Snippet
@@ -7229,31 +7217,19 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveVa
                                                                                         Offset<Double> offset,
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalDouble` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
 #### Snippet
 ```java
-   * @return the created assertion object.
-   */
-  default <VALUE> OptionalAssert<VALUE> assertThat(final Optional<VALUE> optional) {
-    return Assertions.assertThat(optional);
-  }
+public class OptionalDoubleShouldHaveValueCloseToOffset extends BasicErrorMessageFactory {
+
+  private OptionalDoubleShouldHaveValueCloseToOffset(OptionalDouble actual, double expected, Offset<Double> offset,
+                                                     double difference) {
+    super("%nExpecting actual:%n  %s%nto be close to:%n  %s%n" +
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * @return the created assertion object.
-   */
-  default OptionalLongAssert assertThat(final OptionalLong optional) {
-    return Assertions.assertThat(optional);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalDouble` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
 #### Snippet
@@ -7265,7 +7241,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalInt` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
 #### Snippet
@@ -7277,19 +7253,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalDouble` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
 #### Snippet
 ```java
    * @return the created assertion object.
    */
-  public static OptionalDoubleAssert then(OptionalDouble optional) {
-    return assertThat(optional);
+  default <VALUE> OptionalAssert<VALUE> assertThat(final Optional<VALUE> optional) {
+    return Assertions.assertThat(optional);
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalLong` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * @return the created assertion object.
+   */
+  default OptionalLongAssert assertThat(final OptionalLong optional) {
+    return Assertions.assertThat(optional);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `OptionalLong` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
@@ -7301,19 +7289,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @return the created assertion object.
-   */
-  public static OptionalIntAssert then(OptionalInt optional) {
-    return assertThat(optional);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
@@ -7325,7 +7301,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalInt` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @return the created assertion object.
+   */
+  public static OptionalIntAssert then(OptionalInt optional) {
+    return assertThat(optional);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`OptionalDouble` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @return the created assertion object.
+   */
+  public static OptionalDoubleAssert then(OptionalDouble optional) {
+    return assertThat(optional);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for field 'description'
 in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
 #### Snippet
@@ -7337,8 +7337,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
     public Difference(List<String> path, Object actual, Object other) {
 ```
 
-## SystemOutErr
-### SystemOutErr
+## RuleId[ruleID=SystemOutErr]
+### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractAssert.java`
 #### Snippet
@@ -7350,7 +7350,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractAssert.java`
 
 ```
 
-### SystemOutErr
+### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
 in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
 #### Snippet
@@ -7362,7 +7362,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
       return;
 ```
 
-### SystemOutErr
+### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
 in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
 #### Snippet
@@ -7374,7 +7374,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
   }
 ```
 
-### SystemOutErr
+### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonDifferenceCalculator.java`
 #### Snippet
@@ -7386,7 +7386,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
                                 "- expected field value: %s%n" +
 ```
 
-### SystemOutErr
+### RuleId[ruleID=SystemOutErr]
 Uses of `System.err` should probably be replaced with more robust logging
 in `assertj-core/src/main/java/org/assertj/core/internal/Failures.java`
 #### Snippet
@@ -7398,19 +7398,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Failures.java`
 
 ```
 
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `assertj-core/src/main/java/org/assertj/core/configuration/Services.java`
-#### Snippet
-```java
-    if (services.hasNext()) {
-      result = defaultValue;
-      System.err.println(format("Found multiple implementations for the service provider %s. Using the default: %s",
-                                serviceType, result.getClass()));
-    }
-```
-
-### SystemOutErr
+### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
 in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvider.java`
 #### Snippet
@@ -7422,7 +7410,7 @@ in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvi
       } else if (representations.size() > 1) {
 ```
 
-### SystemOutErr
+### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
 in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvider.java`
 #### Snippet
@@ -7434,7 +7422,7 @@ in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvi
       }
 ```
 
-### SystemOutErr
+### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
 in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvider.java`
 #### Snippet
@@ -7446,7 +7434,19 @@ in `assertj-core/src/main/java/org/assertj/core/configuration/ConfigurationProvi
     }
 ```
 
-### SystemOutErr
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.err` should probably be replaced with more robust logging
+in `assertj-core/src/main/java/org/assertj/core/configuration/Services.java`
+#### Snippet
+```java
+    if (services.hasNext()) {
+      result = defaultValue;
+      System.err.println(format("Found multiple implementations for the service provider %s. Using the default: %s",
+                                serviceType, result.getClass()));
+    }
+```
+
+### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
 in `assertj-core/src/main/java/org/assertj/core/configuration/Configuration.java`
 #### Snippet
@@ -7458,8 +7458,8 @@ in `assertj-core/src/main/java/org/assertj/core/configuration/Configuration.java
 
 ```
 
-## DynamicRegexReplaceableByCompiledPattern
-### DynamicRegexReplaceableByCompiledPattern
+## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/ComparisonDifference.java`
 #### Snippet
@@ -7471,7 +7471,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Compari
 
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/ComparisonDifference.java`
 #### Snippet
@@ -7483,7 +7483,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Compari
 
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/ComparisonDifference.java`
 #### Snippet
@@ -7495,7 +7495,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Compari
   }
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
 #### Snippet
@@ -7507,32 +7507,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
 
 ```
 
-## UnnecessaryFullyQualifiedName
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/ClassAssert.java`
-#### Snippet
-```java
- * Assertion methods for {@code Class}es.
- * <p>
- * To create a new instance of this class, invoke <code>{@link org.assertj.core.api.Assertions#assertThat(Class)}</code>
- * </p>
- * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.java`
-#### Snippet
-```java
-
-/**
- * Assertions for {@link java.util.OptionalLong}.
- *
- * @author Jean-Christophe Gay
-```
-
-### UnnecessaryFullyQualifiedName
+## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.java`
 #### Snippet
@@ -7544,19 +7520,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.j
    * Assertion will pass :
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link java.util.OptionalLong} is empty.
-   * <p>
-   * Assertion will pass :
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.java`
 #### Snippet
@@ -7568,19 +7532,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.j
    * Assertion will pass :
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that there is a value present in the actual {@link java.util.OptionalLong}.
-   * <p>
-   * Assertion will pass :
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.java`
 #### Snippet
@@ -7592,7 +7544,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.j
    * Assertion will pass :
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.java`
 #### Snippet
@@ -7604,19 +7556,55 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.j
    * @throws AssertionError if actual value is empty.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.java`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.java`
 #### Snippet
 ```java
 
   /**
-   * Verifies that there is a value present in the actual {@link java.util.OptionalInt}.
+   * Verifies that the actual {@link java.util.OptionalLong} is empty.
    * <p>
    * Assertion will pass :
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that there is a value present in the actual {@link java.util.OptionalLong}.
+   * <p>
+   * Assertion will pass :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalLongAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for {@link java.util.OptionalLong}.
+ *
+ * @author Jean-Christophe Gay
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/ClassAssert.java`
+#### Snippet
+```java
+ * Assertion methods for {@code Class}es.
+ * <p>
+ * To create a new instance of this class, invoke <code>{@link org.assertj.core.api.Assertions#assertThat(Class)}</code>
+ * </p>
+ * 
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.java`
 #### Snippet
@@ -7628,7 +7616,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.ja
    * Assertion will pass :
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.java`
 #### Snippet
@@ -7640,19 +7628,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.ja
    * @throws AssertionError if actual value is empty.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that there is a value present in the actual {@link java.util.OptionalInt}, it's an alias of {@link #isPresent()}.
-   * <p>
-   * Assertion will pass :
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.java`
 #### Snippet
@@ -7664,19 +7640,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.ja
    * Assertion will pass :
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.java`
-#### Snippet
-```java
-
-/**
- * Assertions for {@link java.util.OptionalInt}.
- *
- * @author Jean-Christophe Gay
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.java`
 #### Snippet
@@ -7688,7 +7652,43 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.ja
    * Assertion will pass :
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for {@link java.util.OptionalInt}.
+ *
+ * @author Jean-Christophe Gay
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that there is a value present in the actual {@link java.util.OptionalInt}, it's an alias of {@link #isPresent()}.
+   * <p>
+   * Assertion will pass :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalIntAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that there is a value present in the actual {@link java.util.OptionalInt}.
+   * <p>
+   * Assertion will pass :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.net` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/UrlAssert.java`
 #### Snippet
@@ -7700,7 +7700,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/UrlAssert.java`
 public class UrlAssert extends AbstractUrlAssert<UrlAssert> {
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/OptionalAssert.java`
 #### Snippet
@@ -7712,7 +7712,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/OptionalAssert.java`
  * @param <VALUE> type of the value contained in the {@link java.util.Optional}.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/OptionalAssert.java`
 #### Snippet
@@ -7724,115 +7724,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/OptionalAssert.java`
  */
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isBefore(java.time.OffsetDateTime)} but the {@link java.time.OffsetDateTime} is built
-   * from given String, which
-   * must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isBefore(java.time.OffsetDateTime)} but the {@link java.time.OffsetDateTime} is built
-   * from given String, which
-   * must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
-   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
-   * <p>
-   * <b>Breaking change</b> since 3.15.0 The default comparator uses {@link OffsetDateTime#timeLineOrder()}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   *                                          .isBefore("2000-01-02T01:00:00+01:00"); </code></pre>
-   *
-   * @param offsetDateTimeAsString String representing a {@link java.time.OffsetDateTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a
-   *           {@link java.time.OffsetDateTime}.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is not strictly before the
-   *           {@link java.time.OffsetDateTime} built
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   *           {@link java.time.OffsetDateTime}.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is not strictly before the
-   *           {@link java.time.OffsetDateTime} built
-   *           from given String.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   *                                          .isBefore(parse("2000-01-02T01:00:00+01:00")); </code></pre>
-   *
-   * @param other the given {@link java.time.OffsetDateTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   *                                          .isAfter(parse("2000-01-01T00:00:00-01:00"));</code></pre>
-   *
-   * @param other the given {@link java.time.OffsetDateTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * assertThat(OffsetDateTimeA).isEqualToIgnoringHours(OffsetDateTimeB);</code></pre>
-   *
-   * @param other the given {@link java.time.OffsetDateTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -7844,7 +7736,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    * pass {@link java.time.OffsetDateTime} String representations that must follow <a href=
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -7856,7 +7748,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -7868,7 +7760,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    * Example :
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -7880,7 +7772,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -7892,7 +7784,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    *           given Strings.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -7904,79 +7796,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    */
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isNotEqualTo(Object)} (where Object is expected to be {@link java.time.OffsetDateTime})
-   * but here you
-   * pass {@link java.time.OffsetDateTime} String representation that must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * Same assertion as {@link #isNotEqualTo(Object)} (where Object is expected to be {@link java.time.OffsetDateTime})
-   * but here you
-   * pass {@link java.time.OffsetDateTime} String representation that must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
-   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * pass {@link java.time.OffsetDateTime} String representation that must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
-   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
-   * <p>
-   * <b>Breaking change</b> since 3.15.0 The default comparator uses {@link OffsetDateTime#timeLineOrder()}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * assertThat(parse("2000-01-01T00:00:00Z")).isNotEqualTo("2000-01-01T02:00:00+02:00");</code></pre>
-   *
-   * @param dateTimeAsString String representing a {@link java.time.OffsetDateTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a
-   *           {@link java.time.OffsetDateTime}.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is equal to the {@link java.time.OffsetDateTime} built
-   *           from given String.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if given String is null or can't be converted to a
-   *           {@link java.time.OffsetDateTime}.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is equal to the {@link java.time.OffsetDateTime} built
-   *           from given String.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -7988,379 +7808,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Check that the {@link java.time.OffsetDateTime} to compare actual {@link java.time.OffsetDateTime} to is not null,
-   * in that case throws a {@link IllegalArgumentException} with an explicit message
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Check that the {@link java.time.OffsetDateTime} to compare actual {@link java.time.OffsetDateTime} to is not null,
-   * in that case throws a {@link IllegalArgumentException} with an explicit message
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * in that case throws a {@link IllegalArgumentException} with an explicit message
-   *
-   * @param other the {@link java.time.OffsetDateTime} to check
-   * @throws IllegalArgumentException with an explicit message if the given {@link java.time.OffsetDateTime} is null
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   *
-   * @param other the {@link java.time.OffsetDateTime} to check
-   * @throws IllegalArgumentException with an explicit message if the given {@link java.time.OffsetDateTime} is null
-   */
-  private static void assertOffsetDateTimeParameterIsNotNull(OffsetDateTime other) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * assertThat(OffsetDateTimeA).isEqualToIgnoringTimezone(OffsetDateTimeB);</code></pre>
-   *
-   * @param other the given {@link java.time.OffsetDateTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isAfterOrEqualTo(java.time.OffsetDateTime)} but the {@link java.time.OffsetDateTime} is
-   * built from given
-   * String, which must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isAfterOrEqualTo(java.time.OffsetDateTime)} but the {@link java.time.OffsetDateTime} is
-   * built from given
-   * String, which must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * String, which must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
-   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
-   * <p>
-   * <b>Breaking change</b> since 3.15.0 The default comparator uses {@link OffsetDateTime#timeLineOrder()}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   *                                          .isAfterOrEqualTo("2000-01-01T01:00:00+01:00");</code></pre>
-   *
-   * @param offsetDateTimeAsString String representing a {@link java.time.OffsetDateTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a
-   *           {@link java.time.OffsetDateTime}.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is not after or equals to the
-   *           {@link java.time.OffsetDateTime} built from given String.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   *           {@link java.time.OffsetDateTime}.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is not after or equals to the
-   *           {@link java.time.OffsetDateTime} built from given String.
-   */
-  public SELF isAfterOrEqualTo(String offsetDateTimeAsString) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   *                                          .isAfterOrEqualTo(parse("2000-01-01T01:00:00+01:00"));</code></pre>
-   *
-   * @param other the given {@link java.time.OffsetDateTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * assertThat(OffsetDateTimeA).isEqualToIgnoringMinutes(OffsetDateTimeB);</code></pre>
-   *
-   * @param other the given {@link java.time.OffsetDateTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-/**
- * Assertions for {@link java.time.OffsetDateTime} type from new Date &amp; Time API introduced in Java 8.
- *
- * @param <SELF> the "self" type of this assertion class.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isIn(Object...)} (where Objects are expected to be {@link java.time.OffsetDateTime}) but
-   * here you
-   * pass {@link java.time.OffsetDateTime} String representations that must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * Same assertion as {@link #isIn(Object...)} (where Objects are expected to be {@link java.time.OffsetDateTime}) but
-   * here you
-   * pass {@link java.time.OffsetDateTime} String representations that must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
-   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * pass {@link java.time.OffsetDateTime} String representations that must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
-   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
-   * <p>
-   * Example :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   *                                                "2000-01-01T00:00:00Z");</code></pre>
-   *
-   * @param dateTimesAsString String array representing {@link java.time.OffsetDateTime}s.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a
-   *           {@link java.time.OffsetDateTime}.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is not in the {@link java.time.OffsetDateTime}s built
-   *           from given Strings.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if given String is null or can't be converted to a
-   *           {@link java.time.OffsetDateTime}.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is not in the {@link java.time.OffsetDateTime}s built
-   *           from given Strings.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that actual and given {@link java.time.OffsetDateTime} have same year, month, day, hour and minute fields
-   * (second and
-   * nanosecond fields are ignored in comparison).
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * assertThat(OffsetDateTimeA).isEqualToIgnoringSeconds(OffsetDateTimeB);</code></pre>
-   *
-   * @param other the given {@link java.time.OffsetDateTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isBeforeOrEqualTo(java.time.OffsetDateTime)} but the {@link java.time.OffsetDateTime} is
-   * built from given
-   * String, which must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isBeforeOrEqualTo(java.time.OffsetDateTime)} but the {@link java.time.OffsetDateTime} is
-   * built from given
-   * String, which must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * String, which must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
-   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
-   * <p>
-   * <b>Breaking change</b> since 3.15.0 The default comparator uses {@link OffsetDateTime#timeLineOrder()}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   *                                          .isBeforeOrEqualTo("2000-01-01T00:00:00-01:00"); </code></pre>
-   *
-   * @param offsetDateTimeAsString String representing a {@link java.time.OffsetDateTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a
-   *           {@link java.time.OffsetDateTime}.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is not before or equals to the
-   *           {@link java.time.OffsetDateTime} built from given String.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   *           {@link java.time.OffsetDateTime}.
-   * @throws AssertionError if the actual {@code OffsetDateTime} is not before or equals to the
-   *           {@link java.time.OffsetDateTime} built from given String.
-   */
-  public SELF isBeforeOrEqualTo(String offsetDateTimeAsString) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Check that the {@link java.time.OffsetDateTime} string representation to compare actual
-   * {@link java.time.OffsetDateTime} to is not null,
-   * otherwise throws a {@link IllegalArgumentException} with an explicit message
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-  /**
-   * Check that the {@link java.time.OffsetDateTime} string representation to compare actual
-   * {@link java.time.OffsetDateTime} to is not null,
-   * otherwise throws a {@link IllegalArgumentException} with an explicit message
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
-#### Snippet
-```java
-   * otherwise throws a {@link IllegalArgumentException} with an explicit message
-   *
-   * @param offsetDateTimeAsString String representing the {@link java.time.OffsetDateTime} to compare actual with
-   * @throws IllegalArgumentException with an explicit message if the given {@link String} is null
-   */
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -8372,43 +7820,79 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
 ```java
 
-  /**
-   * Creates a new <code>{@link org.assertj.core.api.AbstractOffsetDateTimeAssert}</code>.
-   *
-   * @param selfType the "self type"
+/**
+ * Assertions for {@link java.time.OffsetDateTime} type from new Date &amp; Time API introduced in Java 8.
+ *
+ * @param <SELF> the "self" type of this assertion class.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
 ```java
 
   /**
-   * Same assertion as {@link #isEqualTo(Object)} (where Object is expected to be {@link java.time.OffsetDateTime}) but
-   * here you
+   * Check that the {@link java.time.OffsetDateTime} string representation to compare actual
+   * {@link java.time.OffsetDateTime} to is not null,
+   * otherwise throws a {@link IllegalArgumentException} with an explicit message
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+  /**
+   * Check that the {@link java.time.OffsetDateTime} string representation to compare actual
+   * {@link java.time.OffsetDateTime} to is not null,
+   * otherwise throws a {@link IllegalArgumentException} with an explicit message
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * otherwise throws a {@link IllegalArgumentException} with an explicit message
+   *
+   * @param offsetDateTimeAsString String representing the {@link java.time.OffsetDateTime} to compare actual with
+   * @throws IllegalArgumentException with an explicit message if the given {@link String} is null
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isNotEqualTo(Object)} (where Object is expected to be {@link java.time.OffsetDateTime})
+   * but here you
    * pass {@link java.time.OffsetDateTime} String representation that must follow <a href=
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
 ```java
-   * Same assertion as {@link #isEqualTo(Object)} (where Object is expected to be {@link java.time.OffsetDateTime}) but
-   * here you
+   * Same assertion as {@link #isNotEqualTo(Object)} (where Object is expected to be {@link java.time.OffsetDateTime})
+   * but here you
    * pass {@link java.time.OffsetDateTime} String representation that must follow <a href=
    * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
    * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -8420,7 +7904,79 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    * <b>Breaking change</b> since 3.15.0 The default comparator uses {@link OffsetDateTime#timeLineOrder()}
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * assertThat(parse("2000-01-01T00:00:00Z")).isNotEqualTo("2000-01-01T02:00:00+02:00");</code></pre>
+   *
+   * @param dateTimeAsString String representing a {@link java.time.OffsetDateTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a
+   *           {@link java.time.OffsetDateTime}.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is equal to the {@link java.time.OffsetDateTime} built
+   *           from given String.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if given String is null or can't be converted to a
+   *           {@link java.time.OffsetDateTime}.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is equal to the {@link java.time.OffsetDateTime} built
+   *           from given String.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isEqualTo(Object)} (where Object is expected to be {@link java.time.OffsetDateTime}) but
+   * here you
+   * pass {@link java.time.OffsetDateTime} String representation that must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * Same assertion as {@link #isEqualTo(Object)} (where Object is expected to be {@link java.time.OffsetDateTime}) but
+   * here you
+   * pass {@link java.time.OffsetDateTime} String representation that must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
+   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * pass {@link java.time.OffsetDateTime} String representation that must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
+   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
+   * <p>
+   * <b>Breaking change</b> since 3.15.0 The default comparator uses {@link OffsetDateTime#timeLineOrder()}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -8432,7 +7988,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -8444,7 +8000,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    *           built from given String.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -8456,7 +8012,151 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    */
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * assertThat(OffsetDateTimeA).isEqualToIgnoringHours(OffsetDateTimeB);</code></pre>
+   *
+   * @param other the given {@link java.time.OffsetDateTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * assertThat(OffsetDateTimeA).isEqualToIgnoringTimezone(OffsetDateTimeB);</code></pre>
+   *
+   * @param other the given {@link java.time.OffsetDateTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * assertThat(OffsetDateTimeA).isEqualToIgnoringMinutes(OffsetDateTimeB);</code></pre>
+   *
+   * @param other the given {@link java.time.OffsetDateTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   *                                          .isBefore(parse("2000-01-02T01:00:00+01:00")); </code></pre>
+   *
+   * @param other the given {@link java.time.OffsetDateTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that actual and given {@link java.time.OffsetDateTime} have same year, month, day, hour and minute fields
+   * (second and
+   * nanosecond fields are ignored in comparison).
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * assertThat(OffsetDateTimeA).isEqualToIgnoringSeconds(OffsetDateTimeB);</code></pre>
+   *
+   * @param other the given {@link java.time.OffsetDateTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isIn(Object...)} (where Objects are expected to be {@link java.time.OffsetDateTime}) but
+   * here you
+   * pass {@link java.time.OffsetDateTime} String representations that must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * Same assertion as {@link #isIn(Object...)} (where Objects are expected to be {@link java.time.OffsetDateTime}) but
+   * here you
+   * pass {@link java.time.OffsetDateTime} String representations that must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
+   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * pass {@link java.time.OffsetDateTime} String representations that must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
+   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
+   * <p>
+   * Example :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   *                                                "2000-01-01T00:00:00Z");</code></pre>
+   *
+   * @param dateTimesAsString String array representing {@link java.time.OffsetDateTime}s.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a
+   *           {@link java.time.OffsetDateTime}.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is not in the {@link java.time.OffsetDateTime}s built
+   *           from given Strings.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if given String is null or can't be converted to a
+   *           {@link java.time.OffsetDateTime}.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is not in the {@link java.time.OffsetDateTime}s built
+   *           from given Strings.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -8468,7 +8168,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    * must follow <a href=
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -8480,7 +8180,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    * must follow <a href=
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -8492,7 +8192,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    * <b>Breaking change</b> since 3.15.0 The default comparator uses {@link OffsetDateTime#timeLineOrder()}
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -8504,7 +8204,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -8516,7 +8216,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
    *           {@link java.time.OffsetDateTime} built from given String.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
 #### Snippet
@@ -8528,7 +8228,307 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
   public SELF isAfter(String offsetDateTimeAsString) {
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   *                                          .isAfterOrEqualTo(parse("2000-01-01T01:00:00+01:00"));</code></pre>
+   *
+   * @param other the given {@link java.time.OffsetDateTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isBeforeOrEqualTo(java.time.OffsetDateTime)} but the {@link java.time.OffsetDateTime} is
+   * built from given
+   * String, which must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isBeforeOrEqualTo(java.time.OffsetDateTime)} but the {@link java.time.OffsetDateTime} is
+   * built from given
+   * String, which must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * String, which must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
+   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
+   * <p>
+   * <b>Breaking change</b> since 3.15.0 The default comparator uses {@link OffsetDateTime#timeLineOrder()}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   *                                          .isBeforeOrEqualTo("2000-01-01T00:00:00-01:00"); </code></pre>
+   *
+   * @param offsetDateTimeAsString String representing a {@link java.time.OffsetDateTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a
+   *           {@link java.time.OffsetDateTime}.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is not before or equals to the
+   *           {@link java.time.OffsetDateTime} built from given String.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   *           {@link java.time.OffsetDateTime}.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is not before or equals to the
+   *           {@link java.time.OffsetDateTime} built from given String.
+   */
+  public SELF isBeforeOrEqualTo(String offsetDateTimeAsString) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Check that the {@link java.time.OffsetDateTime} to compare actual {@link java.time.OffsetDateTime} to is not null,
+   * in that case throws a {@link IllegalArgumentException} with an explicit message
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Check that the {@link java.time.OffsetDateTime} to compare actual {@link java.time.OffsetDateTime} to is not null,
+   * in that case throws a {@link IllegalArgumentException} with an explicit message
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * in that case throws a {@link IllegalArgumentException} with an explicit message
+   *
+   * @param other the {@link java.time.OffsetDateTime} to check
+   * @throws IllegalArgumentException with an explicit message if the given {@link java.time.OffsetDateTime} is null
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   *
+   * @param other the {@link java.time.OffsetDateTime} to check
+   * @throws IllegalArgumentException with an explicit message if the given {@link java.time.OffsetDateTime} is null
+   */
+  private static void assertOffsetDateTimeParameterIsNotNull(OffsetDateTime other) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isBefore(java.time.OffsetDateTime)} but the {@link java.time.OffsetDateTime} is built
+   * from given String, which
+   * must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isBefore(java.time.OffsetDateTime)} but the {@link java.time.OffsetDateTime} is built
+   * from given String, which
+   * must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
+   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
+   * <p>
+   * <b>Breaking change</b> since 3.15.0 The default comparator uses {@link OffsetDateTime#timeLineOrder()}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   *                                          .isBefore("2000-01-02T01:00:00+01:00"); </code></pre>
+   *
+   * @param offsetDateTimeAsString String representing a {@link java.time.OffsetDateTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a
+   *           {@link java.time.OffsetDateTime}.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is not strictly before the
+   *           {@link java.time.OffsetDateTime} built
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   *           {@link java.time.OffsetDateTime}.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is not strictly before the
+   *           {@link java.time.OffsetDateTime} built
+   *           from given String.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   *                                          .isAfter(parse("2000-01-01T00:00:00-01:00"));</code></pre>
+   *
+   * @param other the given {@link java.time.OffsetDateTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isAfterOrEqualTo(java.time.OffsetDateTime)} but the {@link java.time.OffsetDateTime} is
+   * built from given
+   * String, which must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isAfterOrEqualTo(java.time.OffsetDateTime)} but the {@link java.time.OffsetDateTime} is
+   * built from given
+   * String, which must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * String, which must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_DATE_TIME"
+   * >ISO OffsetDateTime format</a> to allow calling {@link java.time.OffsetDateTime#parse(CharSequence)} method.
+   * <p>
+   * <b>Breaking change</b> since 3.15.0 The default comparator uses {@link OffsetDateTime#timeLineOrder()}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   *                                          .isAfterOrEqualTo("2000-01-01T01:00:00+01:00");</code></pre>
+   *
+   * @param offsetDateTimeAsString String representing a {@link java.time.OffsetDateTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code OffsetDateTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a
+   *           {@link java.time.OffsetDateTime}.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is not after or equals to the
+   *           {@link java.time.OffsetDateTime} built from given String.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+   *           {@link java.time.OffsetDateTime}.
+   * @throws AssertionError if the actual {@code OffsetDateTime} is not after or equals to the
+   *           {@link java.time.OffsetDateTime} built from given String.
+   */
+  public SELF isAfterOrEqualTo(String offsetDateTimeAsString) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.api.AbstractOffsetDateTimeAssert}</code>.
+   *
+   * @param selfType the "self type"
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractInstantAssert.java`
 #### Snippet
@@ -8540,31 +8540,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractInstantAssert.java`
    * @param selfType the "self type"
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDurationAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 #### Snippet
 ```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.api.AbstractDurationAssert}</code>
-   * @param duration the actual value to verify
-   * @param selfType the "self type"
+   *   <li>Inclusion of Java Class Library types in the recursive execution</li>
+   *   <li>Treatment of {@link java.util.Collection} and array objects</li>
+   *   <li>Treatment of {@link java.util.Map} objects</li>
+   *   <li>Treatment of Optional and primitive Optional objects</li>
+   * </ul>
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/OffsetTimeAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 #### Snippet
 ```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.api.OffsetTimeAssert}</code>.
-   *
-   * @param actual the actual value to verify
+   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+   * </ul>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 #### Snippet
@@ -8576,535 +8576,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
   public SELF hasFieldOrPropertyWithValue(String name, Object value) {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
-#### Snippet
-```java
-   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
-#### Snippet
-```java
-   *   <li>Inclusion of Java Class Library types in the recursive execution</li>
-   *   <li>Treatment of {@link java.util.Collection} and array objects</li>
-   *   <li>Treatment of {@link java.util.Map} objects</li>
-   *   <li>Treatment of Optional and primitive Optional objects</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDurationAssert.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new <code>{@link org.assertj.core.api.AbstractOffsetTimeAssert}</code>.
-   *
+   * Creates a new <code>{@link org.assertj.core.api.AbstractDurationAssert}</code>
+   * @param duration the actual value to verify
    * @param selfType the "self type"
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   *                               .isAfterOrEqualTo(parse("12:00:00Z"));</code></pre>
-   *
-   * @param other the given {@link java.time.OffsetTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/OffsetTimeAssert.java`
 #### Snippet
 ```java
 
   /**
-   * Same assertion as {@link #isAfterOrEqualTo(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built
-   * from given
-   * String, which must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isAfterOrEqualTo(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built
-   * from given
-   * String, which must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * String, which must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
-   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
-   * <p>
-   * Example :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   *                               .isAfterOrEqualTo("12:00:00Z");</code></pre>
+   * Creates a new <code>{@link org.assertj.core.api.OffsetTimeAssert}</code>.
    *
-   * @param offsetTimeAsString String representing a {@link java.time.OffsetTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+   * @param actual the actual value to verify
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is not after or equals to the {@link java.time.OffsetTime}
-   *           built from
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is not after or equals to the {@link java.time.OffsetTime}
-   *           built from
-   *           given String.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Check that the {@link java.time.OffsetTime} to compare actual {@link java.time.OffsetTime} to is not null, in that
-   * case throws a {@link IllegalArgumentException} with an explicit message
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Check that the {@link java.time.OffsetTime} to compare actual {@link java.time.OffsetTime} to is not null, in that
-   * case throws a {@link IllegalArgumentException} with an explicit message
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * case throws a {@link IllegalArgumentException} with an explicit message
-   *
-   * @param other the {@link java.time.OffsetTime} to check
-   * @throws IllegalArgumentException with an explicit message if the given {@link java.time.OffsetTime} is null
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   *
-   * @param other the {@link java.time.OffsetTime} to check
-   * @throws IllegalArgumentException with an explicit message if the given {@link java.time.OffsetTime} is null
-   */
-  private static void assertOffsetTimeParameterIsNotNull(OffsetTime other) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   *                               .isBeforeOrEqualTo(parse("12:00:01Z"));</code></pre>
-   *
-   * @param other the given {@link java.time.OffsetTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that actual and given {@link java.time.OffsetTime} have same hour and minute fields (second and nanosecond
-   * fields are
-   * ignored in comparison).
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * assertThat(OffsetTimeA).isEqualToIgnoringSeconds(OffsetTimeB);</code></pre>
-   *
-   * @param other the given {@link java.time.OffsetTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isBeforeOrEqualTo(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built
-   * from given
-   * String, which must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isBeforeOrEqualTo(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built
-   * from given
-   * String, which must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * String, which must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
-   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
-   * <p>
-   * Example :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   *                               .isBeforeOrEqualTo("13:00:00Z");</code></pre>
-   *
-   * @param offsetTimeAsString String representing a {@link java.time.OffsetTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is not before or equals to the {@link java.time.OffsetTime}
-   *           built from given String.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is not before or equals to the {@link java.time.OffsetTime}
-   *           built from given String.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isNotEqualTo(Object)} (where Object is expected to be {@link java.time.OffsetTime}) but
-   * here you
-   * pass {@link java.time.OffsetTime} String representation that must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * Same assertion as {@link #isNotEqualTo(Object)} (where Object is expected to be {@link java.time.OffsetTime}) but
-   * here you
-   * pass {@link java.time.OffsetTime} String representation that must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
-   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * pass {@link java.time.OffsetTime} String representation that must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
-   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
-   * <p>
-   * Example :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * assertThat(parse("13:00:00Z")).isNotEqualTo("12:00:00Z");</code></pre>
-   *
-   * @param offsetTimeAsString String representing a {@link java.time.OffsetTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is equal to the {@link java.time.OffsetTime} built from
-   *           given String.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is equal to the {@link java.time.OffsetTime} built from
-   *           given String.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isBefore(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built from given
-   * String, which
-   * must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isBefore(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built from given
-   * String, which
-   * must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
-   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
-   * <p>
-   * Example :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * assertThat(parse("12:59Z")).isBefore("13:00Z");</code></pre>
-   *
-   * @param offsetTimeAsString String representing a {@link java.time.OffsetTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is not strictly before the {@link java.time.OffsetTime}
-   *           built
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is not strictly before the {@link java.time.OffsetTime}
-   *           built
-   *           from given String.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isIn(Object...)} (where Objects are expected to be {@link java.time.OffsetTime}) but here
-   * you
-   * pass {@link java.time.OffsetTime} String representations that must follow <a href=
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * Same assertion as {@link #isIn(Object...)} (where Objects are expected to be {@link java.time.OffsetTime}) but here
-   * you
-   * pass {@link java.time.OffsetTime} String representations that must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
-   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * pass {@link java.time.OffsetTime} String representations that must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
-   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
-   * <p>
-   * Example :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * assertThat(parse("13:00:00Z")).isIn("12:00:00Z", "13:00:00Z");</code></pre>
-   *
-   * @param offsetTimesAsString String array representing {@link java.time.OffsetTime}s.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is not in the {@link java.time.OffsetTime}s built from
-   *           given Strings.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is not in the {@link java.time.OffsetTime}s built from
-   *           given Strings.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * assertThat(OffsetTimeA).hasSameHourAs(OffsetTimeB); </code></pre>
-   *
-   * @param other the given {@link java.time.OffsetTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * assertThat(OffsetTimeA).isEqualToIgnoringNanos(OffsetTimeB);</code></pre>
-   *
-   * @param other the given {@link java.time.OffsetTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-
-/**
- * Assertions for {@link java.time.OffsetTime} type from new Date &amp; Time API introduced in Java 8.
- *
- * @author Alexander Bischof
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9116,7 +8612,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    * pass {@link java.time.OffsetTime} String representation that must follow <a href=
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9128,7 +8624,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9140,7 +8636,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    * Example :
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9152,7 +8648,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9164,7 +8660,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    *           given String.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9176,31 +8672,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    */
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
 ```java
 
   /**
-   * Same assertion as {@link #isAfter(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built from given a
-   * String that
+   * Same assertion as {@link #isBefore(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built from given
+   * String, which
    * must follow <a href=
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
 ```java
 
   /**
-   * Same assertion as {@link #isAfter(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built from given a
-   * String that
+   * Same assertion as {@link #isBefore(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built from given
+   * String, which
    * must follow <a href=
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9212,19 +8708,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    * Example :
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
 ```java
-   * assertThat(parse("13:00:00Z")).isAfter("12:00:00Z");</code></pre>
+   * assertThat(parse("12:59Z")).isBefore("13:00Z");</code></pre>
    *
    * @param offsetTimeAsString String representing a {@link java.time.OffsetTime}.
    * @return this assertion object.
    * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9232,83 +8728,71 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    * @return this assertion object.
    * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
    * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is not strictly after the {@link java.time.OffsetTime}
-   *           built from given String.
+   * @throws AssertionError if the actual {@code OffsetTime} is not strictly before the {@link java.time.OffsetTime}
+   *           built
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
 ```java
    * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
    * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is not strictly after the {@link java.time.OffsetTime}
-   *           built from given String.
-   */
+   * @throws AssertionError if the actual {@code OffsetTime} is not strictly before the {@link java.time.OffsetTime}
+   *           built
+   *           from given String.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * <pre><code class='java'> assertThat(parse("12:00:00Z")).isBefore(parse("13:00:00Z"));</code></pre>
-   *
-   * @param other the given {@link java.time.OffsetTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
 ```java
 
   /**
-   * Same assertion as {@link #isNotIn(Object...)} (where Objects are expected to be {@link java.time.OffsetTime}) but
-   * here you
-   * pass {@link java.time.OffsetTime} String representations that must follow <a href=
+   * Same assertion as {@link #isBeforeOrEqualTo(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built
+   * from given
+   * String, which must follow <a href=
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
 ```java
-   * Same assertion as {@link #isNotIn(Object...)} (where Objects are expected to be {@link java.time.OffsetTime}) but
-   * here you
-   * pass {@link java.time.OffsetTime} String representations that must follow <a href=
-   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
-   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
+
+  /**
+   * Same assertion as {@link #isBeforeOrEqualTo(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built
+   * from given
+   * String, which must follow <a href=
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
 ```java
-   * pass {@link java.time.OffsetTime} String representations that must follow <a href=
+   * String, which must follow <a href=
    * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
    * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
    * <p>
    * Example :
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
 ```java
-   * assertThat(parse("13:00:00Z")).isNotIn("12:00:00Z", "14:00:00Z");</code></pre>
+   *                               .isBeforeOrEqualTo("13:00:00Z");</code></pre>
    *
-   * @param offsetTimesAsString Array of String representing a {@link java.time.OffsetTime}.
+   * @param offsetTimeAsString String representing a {@link java.time.OffsetTime}.
    * @return this assertion object.
    * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9316,35 +8800,23 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    * @return this assertion object.
    * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
    * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is in the {@link java.time.OffsetTime}s built from given
-   *           Strings.
+   * @throws AssertionError if the actual {@code OffsetTime} is not before or equals to the {@link java.time.OffsetTime}
+   *           built from given String.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
 ```java
    * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
    * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
-   * @throws AssertionError if the actual {@code OffsetTime} is in the {@link java.time.OffsetTime}s built from given
-   *           Strings.
+   * @throws AssertionError if the actual {@code OffsetTime} is not before or equals to the {@link java.time.OffsetTime}
+   *           built from given String.
    */
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
-#### Snippet
-```java
-   * <pre><code class='java'> assertThat(parse("13:00:00Z")).isAfter(parse("12:00:00Z"));</code></pre>
-   *
-   * @param other the given {@link java.time.OffsetTime}.
-   * @return this assertion object.
-   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9356,7 +8828,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    * otherwise throws a {@link IllegalArgumentException} with an explicit message
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9368,7 +8840,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    * otherwise throws a {@link IllegalArgumentException} with an explicit message
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9380,7 +8852,379 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    */
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isNotEqualTo(Object)} (where Object is expected to be {@link java.time.OffsetTime}) but
+   * here you
+   * pass {@link java.time.OffsetTime} String representation that must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * Same assertion as {@link #isNotEqualTo(Object)} (where Object is expected to be {@link java.time.OffsetTime}) but
+   * here you
+   * pass {@link java.time.OffsetTime} String representation that must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
+   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * pass {@link java.time.OffsetTime} String representation that must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
+   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
+   * <p>
+   * Example :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * assertThat(parse("13:00:00Z")).isNotEqualTo("12:00:00Z");</code></pre>
+   *
+   * @param offsetTimeAsString String representing a {@link java.time.OffsetTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
+   * @throws AssertionError if the actual {@code OffsetTime} is equal to the {@link java.time.OffsetTime} built from
+   *           given String.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
+   * @throws AssertionError if the actual {@code OffsetTime} is equal to the {@link java.time.OffsetTime} built from
+   *           given String.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   *                               .isAfterOrEqualTo(parse("12:00:00Z"));</code></pre>
+   *
+   * @param other the given {@link java.time.OffsetTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for {@link java.time.OffsetTime} type from new Date &amp; Time API introduced in Java 8.
+ *
+ * @author Alexander Bischof
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Check that the {@link java.time.OffsetTime} to compare actual {@link java.time.OffsetTime} to is not null, in that
+   * case throws a {@link IllegalArgumentException} with an explicit message
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Check that the {@link java.time.OffsetTime} to compare actual {@link java.time.OffsetTime} to is not null, in that
+   * case throws a {@link IllegalArgumentException} with an explicit message
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * case throws a {@link IllegalArgumentException} with an explicit message
+   *
+   * @param other the {@link java.time.OffsetTime} to check
+   * @throws IllegalArgumentException with an explicit message if the given {@link java.time.OffsetTime} is null
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   *
+   * @param other the {@link java.time.OffsetTime} to check
+   * @throws IllegalArgumentException with an explicit message if the given {@link java.time.OffsetTime} is null
+   */
+  private static void assertOffsetTimeParameterIsNotNull(OffsetTime other) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isAfter(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built from given a
+   * String that
+   * must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isAfter(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built from given a
+   * String that
+   * must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
+   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
+   * <p>
+   * Example :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * assertThat(parse("13:00:00Z")).isAfter("12:00:00Z");</code></pre>
+   *
+   * @param offsetTimeAsString String representing a {@link java.time.OffsetTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
+   * @throws AssertionError if the actual {@code OffsetTime} is not strictly after the {@link java.time.OffsetTime}
+   *           built from given String.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
+   * @throws AssertionError if the actual {@code OffsetTime} is not strictly after the {@link java.time.OffsetTime}
+   *           built from given String.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isNotIn(Object...)} (where Objects are expected to be {@link java.time.OffsetTime}) but
+   * here you
+   * pass {@link java.time.OffsetTime} String representations that must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * Same assertion as {@link #isNotIn(Object...)} (where Objects are expected to be {@link java.time.OffsetTime}) but
+   * here you
+   * pass {@link java.time.OffsetTime} String representations that must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
+   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * pass {@link java.time.OffsetTime} String representations that must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
+   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
+   * <p>
+   * Example :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * assertThat(parse("13:00:00Z")).isNotIn("12:00:00Z", "14:00:00Z");</code></pre>
+   *
+   * @param offsetTimesAsString Array of String representing a {@link java.time.OffsetTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
+   * @throws AssertionError if the actual {@code OffsetTime} is in the {@link java.time.OffsetTime}s built from given
+   *           Strings.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
+   * @throws AssertionError if the actual {@code OffsetTime} is in the {@link java.time.OffsetTime}s built from given
+   *           Strings.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isIn(Object...)} (where Objects are expected to be {@link java.time.OffsetTime}) but here
+   * you
+   * pass {@link java.time.OffsetTime} String representations that must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * Same assertion as {@link #isIn(Object...)} (where Objects are expected to be {@link java.time.OffsetTime}) but here
+   * you
+   * pass {@link java.time.OffsetTime} String representations that must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
+   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * pass {@link java.time.OffsetTime} String representations that must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
+   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
+   * <p>
+   * Example :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * assertThat(parse("13:00:00Z")).isIn("12:00:00Z", "13:00:00Z");</code></pre>
+   *
+   * @param offsetTimesAsString String array representing {@link java.time.OffsetTime}s.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
+   * @throws AssertionError if the actual {@code OffsetTime} is not in the {@link java.time.OffsetTime}s built from
+   *           given Strings.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
+   * @throws AssertionError if the actual {@code OffsetTime} is not in the {@link java.time.OffsetTime}s built from
+   *           given Strings.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * assertThat(OffsetTimeA).hasSameHourAs(OffsetTimeB); </code></pre>
+   *
+   * @param other the given {@link java.time.OffsetTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9392,7 +9236,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    * Code examples :
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
 #### Snippet
@@ -9404,7 +9248,163 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.jav
    * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * <pre><code class='java'> assertThat(parse("13:00:00Z")).isAfter(parse("12:00:00Z"));</code></pre>
+   *
+   * @param other the given {@link java.time.OffsetTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * <pre><code class='java'> assertThat(parse("12:00:00Z")).isBefore(parse("13:00:00Z"));</code></pre>
+   *
+   * @param other the given {@link java.time.OffsetTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * assertThat(OffsetTimeA).isEqualToIgnoringNanos(OffsetTimeB);</code></pre>
+   *
+   * @param other the given {@link java.time.OffsetTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isAfterOrEqualTo(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built
+   * from given
+   * String, which must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isAfterOrEqualTo(java.time.OffsetTime)} but the {@link java.time.OffsetTime} is built
+   * from given
+   * String, which must follow <a href=
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * String, which must follow <a href=
+   * "http://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_OFFSET_TIME"
+   * >ISO OffsetTime format</a> to allow calling {@link java.time.OffsetTime#parse(CharSequence)} method.
+   * <p>
+   * Example :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   *                               .isAfterOrEqualTo("12:00:00Z");</code></pre>
+   *
+   * @param offsetTimeAsString String representing a {@link java.time.OffsetTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
+   * @throws AssertionError if the actual {@code OffsetTime} is not after or equals to the {@link java.time.OffsetTime}
+   *           built from
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+   * @throws IllegalArgumentException if given String is null or can't be converted to a {@link java.time.OffsetTime}.
+   * @throws AssertionError if the actual {@code OffsetTime} is not after or equals to the {@link java.time.OffsetTime}
+   *           built from
+   *           given String.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   *                               .isBeforeOrEqualTo(parse("12:00:01Z"));</code></pre>
+   *
+   * @param other the given {@link java.time.OffsetTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that actual and given {@link java.time.OffsetTime} have same hour and minute fields (second and nanosecond
+   * fields are
+   * ignored in comparison).
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+   * assertThat(OffsetTimeA).isEqualToIgnoringSeconds(OffsetTimeB);</code></pre>
+   *
+   * @param other the given {@link java.time.OffsetTime}.
+   * @return this assertion object.
+   * @throws AssertionError if the actual {@code OffsetTime} is {@code null}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.api.AbstractOffsetTimeAssert}</code>.
+   *
+   * @param selfType the "self type"
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/OptionalIntAssert.java`
 #### Snippet
@@ -9416,31 +9416,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/OptionalIntAssert.java`
  * @author Jean-Christophe Gay
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractPeriodAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.api.AbstractPeriodAssert}</code>
-   * @param period the actual value to verify
-   * @param selfType the "self type"
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/SoftThrowableAssertAlternative.java`
-#### Snippet
-```java
- * {@link ThrowableAssertAlternative} subclass used in soft assertions.
- * <p> 
- * Assertion methods for {@link java.lang.Throwable} similar to {@link ThrowableAssert} but with assertions methods named
- * differently to make testing code fluent (ex : <code>withMessage</code> instead of <code>hasMessage</code>.
- * <pre><code class='java'> SoftAssertions softly = new SoftAssertions();
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateTimeAssert.java`
 #### Snippet
@@ -9452,7 +9428,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateTimeAssert.
    * @param selfType the "self type"
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/SoftThrowableAssertAlternative.java`
+#### Snippet
+```java
+ * {@link ThrowableAssertAlternative} subclass used in soft assertions.
+ * <p> 
+ * Assertion methods for {@link java.lang.Throwable} similar to {@link ThrowableAssert} but with assertions methods named
+ * differently to make testing code fluent (ex : <code>withMessage</code> instead of <code>hasMessage</code>.
+ * <pre><code class='java'> SoftAssertions softly = new SoftAssertions();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.regex` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/MatcherAssert.java`
 #### Snippet
@@ -9464,31 +9452,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/MatcherAssert.java`
  * @author Jiashu Zhang
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
-#### Snippet
-```java
-   * @see #isInfinite()
-   * @see #isNaN()
-   * @see java.lang.Float#isFinite(float)
-   * @since 3.19.0
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
-#### Snippet
-```java
-   * @see #isFinite()
-   * @see #isNaN()
-   * @see java.lang.Float#isInfinite(float)
-   * @since 3.19.0
-   */
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
 #### Snippet
@@ -9500,7 +9464,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
    */
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
 #### Snippet
@@ -9512,7 +9476,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
    */
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
+#### Snippet
+```java
+   * @see #isInfinite()
+   * @see #isNaN()
+   * @see java.lang.Float#isFinite(float)
+   * @since 3.19.0
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
+#### Snippet
+```java
+   * @see #isFinite()
+   * @see #isNaN()
+   * @see java.lang.Float#isInfinite(float)
+   * @since 3.19.0
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractThrowableAssert.java`
 #### Snippet
@@ -9524,391 +9512,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractThrowableAssert.java
    * Example :
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that there is a value present in the actual {@link java.util.OptionalDouble}, it's an alias of {@link #isPresent()}.
-   * <p>
-   * Assertion will pass :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   *
-   * @return this assertion object.
-   * @throws java.lang.AssertionError if actual value is empty.
-   * @throws java.lang.AssertionError if actual is null.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @return this assertion object.
-   * @throws java.lang.AssertionError if actual value is empty.
-   * @throws java.lang.AssertionError if actual is null.
-   */
-  public SELF isNotEmpty() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link java.util.OptionalDouble} has a value close to the expected value, within the given
-   * percentage.<br>
-   * If the difference is equal to the percentage value, the assertion is considered valid.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * assertThat(OptionalDouble.empty()).hasValueCloseTo(10.0, withinPercentage(5));</code></pre>
-   *
-   * @param expectedValue the expected value inside the {@link java.util.OptionalDouble}
-   * @param percentage    the given positive percentage
-   * @return the assertion object
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @param percentage    the given positive percentage
-   * @return the assertion object
-   * @throws java.lang.AssertionError if actual value is empty
-   * @throws java.lang.AssertionError if actual is null
-   * @throws java.lang.AssertionError if the actual value is not close to the given one
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @return the assertion object
-   * @throws java.lang.AssertionError if actual value is empty
-   * @throws java.lang.AssertionError if actual is null
-   * @throws java.lang.AssertionError if the actual value is not close to the given one
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @throws java.lang.AssertionError if actual value is empty
-   * @throws java.lang.AssertionError if actual is null
-   * @throws java.lang.AssertionError if the actual value is not close to the given one
-   */
-  public SELF hasValueCloseTo(Double expectedValue, Percentage percentage) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link java.util.OptionalDouble} has the value in argument.
-   * <p>
-   * Assertion will pass :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * assertThat(OptionalDouble.of(7)).hasValue(8.0);</code></pre>
-   *
-   * @param expectedValue the expected value inside the {@link java.util.OptionalDouble}.
-   * @return this assertion object.
-   * @throws java.lang.AssertionError if actual value is empty.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @param expectedValue the expected value inside the {@link java.util.OptionalDouble}.
-   * @return this assertion object.
-   * @throws java.lang.AssertionError if actual value is empty.
-   * @throws java.lang.AssertionError if actual is null.
-   * @throws java.lang.AssertionError if actual has not the value as expected.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @return this assertion object.
-   * @throws java.lang.AssertionError if actual value is empty.
-   * @throws java.lang.AssertionError if actual is null.
-   * @throws java.lang.AssertionError if actual has not the value as expected.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @throws java.lang.AssertionError if actual value is empty.
-   * @throws java.lang.AssertionError if actual is null.
-   * @throws java.lang.AssertionError if actual has not the value as expected.
-   */
-  public SELF hasValue(double expectedValue) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-
-/**
- * Assertions for {@link java.util.OptionalDouble}.
- *
- * @author Jean-Christophe Gay
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link java.util.OptionalDouble} has the value close to the argument.
-   * <p>
-   * Assertion will pass :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * assertThat(OptionalDouble.of(7)).hasValueCloseTo(1.0, within(-1d));</code></pre>
-   *
-   * @param expectedValue the expected value inside the {@link java.util.OptionalDouble}.
-   * @param offset the given positive offset.
-   * @return this assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @param offset the given positive offset.
-   * @return this assertion object.
-   * @throws java.lang.AssertionError if actual value is empty.
-   * @throws java.lang.AssertionError if actual is null.
-   * @throws java.lang.AssertionError if actual has not the value as expected.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @return this assertion object.
-   * @throws java.lang.AssertionError if actual value is empty.
-   * @throws java.lang.AssertionError if actual is null.
-   * @throws java.lang.AssertionError if actual has not the value as expected.
-   * @throws java.lang.NullPointerException if offset is null
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @throws java.lang.AssertionError if actual value is empty.
-   * @throws java.lang.AssertionError if actual is null.
-   * @throws java.lang.AssertionError if actual has not the value as expected.
-   * @throws java.lang.NullPointerException if offset is null
-   * @throws java.lang.IllegalArgumentException if offset is not positive.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @throws java.lang.AssertionError if actual is null.
-   * @throws java.lang.AssertionError if actual has not the value as expected.
-   * @throws java.lang.NullPointerException if offset is null
-   * @throws java.lang.IllegalArgumentException if offset is not positive.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @throws java.lang.AssertionError if actual has not the value as expected.
-   * @throws java.lang.NullPointerException if offset is null
-   * @throws java.lang.IllegalArgumentException if offset is not positive.
-   */
-  public SELF hasValueCloseTo(Double expectedValue, Offset<Double> offset) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-  
-  /**
-   * Verifies that the actual {@link java.util.OptionalDouble} is empty.
-   * <p>
-   * Assertion will pass :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   *
-   * @return this assertion object.
-   * @throws java.lang.AssertionError if actual value is present.
-   * @throws java.lang.AssertionError if actual is null.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @return this assertion object.
-   * @throws java.lang.AssertionError if actual value is present.
-   * @throws java.lang.AssertionError if actual is null.
-   */
-  public SELF isEmpty() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that there is a value present in the actual {@link java.util.OptionalDouble}.
-   * <p>
-   * Assertion will pass :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   *
-   * @return this assertion object.
-   * @throws java.lang.AssertionError if actual value is empty.
-   * @throws java.lang.AssertionError if actual is null.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
-#### Snippet
-```java
-   * @return this assertion object.
-   * @throws java.lang.AssertionError if actual value is empty.
-   * @throws java.lang.AssertionError if actual is null.
-   */
-  public SELF isPresent() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractUriAssert.java`
-#### Snippet
-```java
- *
- * @param <SELF> the "self" type of this assertion class.
- * @see java.net.URI
- */
-public abstract class AbstractUriAssert<SELF extends AbstractUriAssert<SELF>> extends AbstractComparableAssert<SELF, URI> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
-#### Snippet
-```java
-   * this new list becoming the object under test.
-   * <p>
-   * This method works as {@link AbstractMapAssert#extractingFromEntries(java.util.function.Function)} except
-   * that it is designed to extract multiple values from the {@link Map} entries.
-   * That's why here the new object under test is a List of {@link Tuple}s.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
-#### Snippet
-```java
-   *   <li>Inclusion of Java Class Library types in the recursive execution</li>
-   *   <li>Treatment of {@link java.util.Collection} and array objects</li>
-   *   <li>Treatment of {@link java.util.Map} objects</li>
-   *   <li>Treatment of Optional and primitive Optional objects</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
-#### Snippet
-```java
-   * Verifies that the actual map contains only the given entries and nothing else, <b>in order</b>.<br>
-   * This assertion should only be used with maps that have a consistent iteration order (i.e. don't use it with
-   * {@link java.util.HashMap}, prefer {@link #containsOnly(java.util.Map.Entry...)} in that case).
-   * <p>
-   * Examples:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
-#### Snippet
-```java
-    for (Object item : collectionToFlatten) {
-      if (item instanceof Iterable<?>) result.addAll(toCollection((Iterable<?>) item));
-      else if (isArray(item)) result.addAll(org.assertj.core.util.Arrays.asList(item));
-      else result.add(item);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
@@ -9920,7 +9524,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
    * </ul>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
+#### Snippet
+```java
+   *   <li>Inclusion of Java Class Library types in the recursive execution</li>
+   *   <li>Treatment of {@link java.util.Collection} and array objects</li>
+   *   <li>Treatment of {@link java.util.Map} objects</li>
+   *   <li>Treatment of Optional and primitive Optional objects</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
 #### Snippet
@@ -9932,55 +9548,91 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
    * Examples:
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
+#### Snippet
+```java
+   * Verifies that the actual map contains only the given entries and nothing else, <b>in order</b>.<br>
+   * This assertion should only be used with maps that have a consistent iteration order (i.e. don't use it with
+   * {@link java.util.HashMap}, prefer {@link #containsOnly(java.util.Map.Entry...)} in that case).
+   * <p>
+   * Examples:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.function` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
+#### Snippet
+```java
+   * this new list becoming the object under test.
+   * <p>
+   * This method works as {@link AbstractMapAssert#extractingFromEntries(java.util.function.Function)} except
+   * that it is designed to extract multiple values from the {@link Map} entries.
+   * That's why here the new object under test is a List of {@link Tuple}s.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractMapAssert.java`
+#### Snippet
+```java
+    for (Object item : collectionToFlatten) {
+      if (item instanceof Iterable<?>) result.addAll(toCollection((Iterable<?>) item));
+      else if (isArray(item)) result.addAll(org.assertj.core.util.Arrays.asList(item));
+      else result.add(item);
+    }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
 #### Snippet
 ```java
 
   /**
-   * Verifies that the actual {@link java.util.Optional} contains the given value (alias of {@link #contains(Object)}).
+   * Creates a new instance of {@link CompletableFutureAssert} assumption for a {@link java.util.concurrent.CompletionStage}
+   * by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
    * <p>
-   * Assertion will pass :
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
 #### Snippet
 ```java
-   * assertThat(Optional.of(20)).contains(10);</code></pre>
+   * by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
+   * <p>
+   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
    *
-   * @param expectedValue the expected value inside the {@link java.util.Optional}.
-   * @return this assertion object.
-   */
+   * @param <RESULT> the CompletableFuture wrapped type.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
+#### Snippet
+```java
+   *
+   * @param future the actual value.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
+   *
+   * @return the created assumption for assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractPeriodAssert.java`
 #### Snippet
 ```java
 
-/**
- * Assertions for {@link java.util.Optional}.
- *
- * @param <SELF> the "self" type of this assertion class.
+  /**
+   * Creates a new <code>{@link org.assertj.core.api.AbstractPeriodAssert}</code>
+   * @param period the actual value to verify
+   * @param selfType the "self type"
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
-#### Snippet
-```java
- *
- * @param <SELF> the "self" type of this assertion class.
- * @param <VALUE> type of the value contained in the {@link java.util.Optional}.
- *
- * @author Jean-Christophe Gay
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
@@ -9992,7 +9644,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
    * containing object, as further requirement(s) for the value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.function` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
@@ -10004,7 +9656,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
    * <p>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
@@ -10016,67 +9668,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
    */
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that there is a value present in the actual {@link java.util.Optional}, it's an alias of {@link #isPresent()}.
-   * <p>
-   * Assertion will pass :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link java.util.Optional} is empty.
-   * <p>
-   * Assertion will pass :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link java.util.Optional} contains the given value (alias of {@link #hasValue(Object)}).
-   * <p>
-   * Assertion will pass :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
-#### Snippet
-```java
-   * assertThat(Optional.of(20)).contains(10);</code></pre>
-   *
-   * @param expectedValue the expected value inside the {@link java.util.Optional}.
-   * @return this assertion object.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
-#### Snippet
-```java
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
-   * </ul>
-   *
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
@@ -10088,7 +9680,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
    * <p>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
@@ -10100,7 +9692,43 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
    */
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the actual {@link java.util.Optional} contains the given value (alias of {@link #contains(Object)}).
+   * <p>
+   * Assertion will pass :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+   * assertThat(Optional.of(20)).contains(10);</code></pre>
+   *
+   * @param expectedValue the expected value inside the {@link java.util.Optional}.
+   * @return this assertion object.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the actual {@link java.util.Optional} is empty.
+   * <p>
+   * Assertion will pass :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
@@ -10112,7 +9740,79 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
    * Assertion will pass :
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for {@link java.util.Optional}.
+ *
+ * @param <SELF> the "self" type of this assertion class.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+ *
+ * @param <SELF> the "self" type of this assertion class.
+ * @param <VALUE> type of the value contained in the {@link java.util.Optional}.
+ *
+ * @author Jean-Christophe Gay
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that there is a value present in the actual {@link java.util.Optional}, it's an alias of {@link #isPresent()}.
+   * <p>
+   * Assertion will pass :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+   * </ul>
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the actual {@link java.util.Optional} contains the given value (alias of {@link #hasValue(Object)}).
+   * <p>
+   * Assertion will pass :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+   * assertThat(Optional.of(20)).contains(10);</code></pre>
+   *
+   * @param expectedValue the expected value inside the {@link java.util.Optional}.
+   * @return this assertion object.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
@@ -10124,43 +9824,355 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
    * Assertion will pass :
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new instance of {@link CompletableFutureAssert} assumption for a {@link java.util.concurrent.CompletionStage}
-   * by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
+   * Verifies that the actual {@link java.util.OptionalDouble} has the value close to the argument.
    * <p>
+   * Assertion will pass :
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
 #### Snippet
 ```java
-   * by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
-   * <p>
-   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
+   * assertThat(OptionalDouble.of(7)).hasValueCloseTo(1.0, within(-1d));</code></pre>
    *
-   * @param <RESULT> the CompletableFuture wrapped type.
+   * @param expectedValue the expected value inside the {@link java.util.OptionalDouble}.
+   * @param offset the given positive offset.
+   * @return this assertion object.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @param offset the given positive offset.
+   * @return this assertion object.
+   * @throws java.lang.AssertionError if actual value is empty.
+   * @throws java.lang.AssertionError if actual is null.
+   * @throws java.lang.AssertionError if actual has not the value as expected.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @return this assertion object.
+   * @throws java.lang.AssertionError if actual value is empty.
+   * @throws java.lang.AssertionError if actual is null.
+   * @throws java.lang.AssertionError if actual has not the value as expected.
+   * @throws java.lang.NullPointerException if offset is null
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @throws java.lang.AssertionError if actual value is empty.
+   * @throws java.lang.AssertionError if actual is null.
+   * @throws java.lang.AssertionError if actual has not the value as expected.
+   * @throws java.lang.NullPointerException if offset is null
+   * @throws java.lang.IllegalArgumentException if offset is not positive.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @throws java.lang.AssertionError if actual is null.
+   * @throws java.lang.AssertionError if actual has not the value as expected.
+   * @throws java.lang.NullPointerException if offset is null
+   * @throws java.lang.IllegalArgumentException if offset is not positive.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @throws java.lang.AssertionError if actual has not the value as expected.
+   * @throws java.lang.NullPointerException if offset is null
+   * @throws java.lang.IllegalArgumentException if offset is not positive.
+   */
+  public SELF hasValueCloseTo(Double expectedValue, Offset<Double> offset) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that there is a value present in the actual {@link java.util.OptionalDouble}.
+   * <p>
+   * Assertion will pass :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
 #### Snippet
 ```java
    *
-   * @param future the actual value.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
-   *
-   * @return the created assumption for assertion object.
+   * @return this assertion object.
+   * @throws java.lang.AssertionError if actual value is empty.
+   * @throws java.lang.AssertionError if actual is null.
+   */
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @return this assertion object.
+   * @throws java.lang.AssertionError if actual value is empty.
+   * @throws java.lang.AssertionError if actual is null.
+   */
+  public SELF isPresent() {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the actual {@link java.util.OptionalDouble} has a value close to the expected value, within the given
+   * percentage.<br>
+   * If the difference is equal to the percentage value, the assertion is considered valid.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * assertThat(OptionalDouble.empty()).hasValueCloseTo(10.0, withinPercentage(5));</code></pre>
+   *
+   * @param expectedValue the expected value inside the {@link java.util.OptionalDouble}
+   * @param percentage    the given positive percentage
+   * @return the assertion object
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @param percentage    the given positive percentage
+   * @return the assertion object
+   * @throws java.lang.AssertionError if actual value is empty
+   * @throws java.lang.AssertionError if actual is null
+   * @throws java.lang.AssertionError if the actual value is not close to the given one
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @return the assertion object
+   * @throws java.lang.AssertionError if actual value is empty
+   * @throws java.lang.AssertionError if actual is null
+   * @throws java.lang.AssertionError if the actual value is not close to the given one
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @throws java.lang.AssertionError if actual value is empty
+   * @throws java.lang.AssertionError if actual is null
+   * @throws java.lang.AssertionError if the actual value is not close to the given one
+   */
+  public SELF hasValueCloseTo(Double expectedValue, Percentage percentage) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the actual {@link java.util.OptionalDouble} has the value in argument.
+   * <p>
+   * Assertion will pass :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * assertThat(OptionalDouble.of(7)).hasValue(8.0);</code></pre>
+   *
+   * @param expectedValue the expected value inside the {@link java.util.OptionalDouble}.
+   * @return this assertion object.
+   * @throws java.lang.AssertionError if actual value is empty.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @param expectedValue the expected value inside the {@link java.util.OptionalDouble}.
+   * @return this assertion object.
+   * @throws java.lang.AssertionError if actual value is empty.
+   * @throws java.lang.AssertionError if actual is null.
+   * @throws java.lang.AssertionError if actual has not the value as expected.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @return this assertion object.
+   * @throws java.lang.AssertionError if actual value is empty.
+   * @throws java.lang.AssertionError if actual is null.
+   * @throws java.lang.AssertionError if actual has not the value as expected.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @throws java.lang.AssertionError if actual value is empty.
+   * @throws java.lang.AssertionError if actual is null.
+   * @throws java.lang.AssertionError if actual has not the value as expected.
+   */
+  public SELF hasValue(double expectedValue) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that there is a value present in the actual {@link java.util.OptionalDouble}, it's an alias of {@link #isPresent()}.
+   * <p>
+   * Assertion will pass :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   *
+   * @return this assertion object.
+   * @throws java.lang.AssertionError if actual value is empty.
+   * @throws java.lang.AssertionError if actual is null.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @return this assertion object.
+   * @throws java.lang.AssertionError if actual value is empty.
+   * @throws java.lang.AssertionError if actual is null.
+   */
+  public SELF isNotEmpty() {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+  
+  /**
+   * Verifies that the actual {@link java.util.OptionalDouble} is empty.
+   * <p>
+   * Assertion will pass :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   *
+   * @return this assertion object.
+   * @throws java.lang.AssertionError if actual value is present.
+   * @throws java.lang.AssertionError if actual is null.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+   * @return this assertion object.
+   * @throws java.lang.AssertionError if actual value is present.
+   * @throws java.lang.AssertionError if actual is null.
+   */
+  public SELF isEmpty() {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalDoubleAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for {@link java.util.OptionalDouble}.
+ *
+ * @author Jean-Christophe Gay
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.net` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractUriAssert.java`
+#### Snippet
+```java
+ *
+ * @param <SELF> the "self" type of this assertion class.
+ * @see java.net.URI
+ */
+public abstract class AbstractUriAssert<SELF extends AbstractUriAssert<SELF>> extends AbstractComparableAssert<SELF, URI> {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
+#### Snippet
+```java
+   *
+   * @param <C> the type to compare.
+   * @param comparator the {@link java.util.Comparator} to use
+   * @param elementPropertyOrFieldNames the names of the properties and/or fields of the elements the comparator should be used for
+   * @return {@code this} assertions object
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
 #### Snippet
@@ -10172,7 +10184,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.j
    * @return {@code this} assertions object
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
 #### Snippet
@@ -10184,7 +10196,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.j
    * @since 2.9.0 / 3.9.0
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
 #### Snippet
@@ -10196,7 +10208,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.j
    * @return {@code this} assertions object
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
 #### Snippet
@@ -10208,19 +10220,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.j
    * @since 2.7.0 / 3.7.0
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.java`
-#### Snippet
-```java
-   *
-   * @param <C> the type to compare.
-   * @param comparator the {@link java.util.Comparator} to use
-   * @param elementPropertyOrFieldNames the names of the properties and/or fields of the elements the comparator should be used for
-   * @return {@code this} assertions object
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.regex` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractMatcherAssert.java`
 #### Snippet
@@ -10232,7 +10232,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractMatcherAssert.java`
  * @author Jiashu Zhang
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/OptionalDoubleAssert.java`
 #### Snippet
@@ -10244,7 +10244,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/OptionalDoubleAssert.java`
  * @author Jean-Christophe Gay
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalTimeAssert.java`
 #### Snippet
@@ -10256,19 +10256,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalTimeAssert.java
    * @param selfType the "self type"
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractStringAssert.java`
-#### Snippet
-```java
-   * @param expected the given {@link String} to compare the actual to.
-   * @return this assertion object.
-   * @see Assert#isEqualTo(java.lang.Object)
-   * @since 3.13.0
-   */
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractStringAssert.java`
 #### Snippet
@@ -10280,7 +10268,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractStringAssert.java`
    *
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractStringAssert.java`
+#### Snippet
+```java
+   * @param expected the given {@link String} to compare the actual to.
+   * @return this assertion object.
+   * @see Assert#isEqualTo(java.lang.Object)
+   * @since 3.13.0
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateAssert.java`
 #### Snippet
@@ -10292,7 +10292,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateAssert.java
    * @param selfType the "self type"
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.OptionalInt}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.concurrent` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
@@ -10304,7 +10316,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvid
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.concurrent` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
@@ -10316,31 +10328,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvid
    * @return the created assertion object.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
 ```java
 
   /**
-   * Create assertion for {@link java.util.Optional}.
+   * Create assertion for {@link java.util.OptionalDouble}.
    *
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
-#### Snippet
-```java
-   *
-   * @param actual the actual value.
-   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.regex` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
@@ -10352,67 +10352,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvid
    * @param actual the actual matcher
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalInt}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalDouble}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
-   * <p>
-   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
-#### Snippet
-```java
-   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
-   * <p>
-   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
-#### Snippet
-```java
-   *
-   * @param actual the actual value.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletionStage}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
@@ -10424,81 +10364,33 @@ in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvid
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
 ```java
 
   /**
-   * Create assertion for {@link java.util.OptionalInt}.
+   * Create assertion for {@link java.util.Optional}.
    *
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.concurrent.CompletableFuture}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
 ```java
    *
    * @param actual the actual value.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletableFuture}.
+   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
    *
    * @return the created assertion object.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.regex.Matcher}.
-   *
-   * @param actual the actual matcher
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalLong}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalDouble}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
 ```java
 
@@ -10508,9 +10400,9 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.ja
    * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
 ```java
    * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
@@ -10520,9 +10412,9 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.ja
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
 ```java
    *
@@ -10532,283 +10424,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.ja
    * @return the created assertion object.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
-#### Snippet
-```java
-   * @see #isInfinite()
-   * @see #isNaN()
-   * @see java.lang.Double#isFinite(double)
-   * @since 3.19.0
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
-#### Snippet
-```java
-   * @see #isInfinite()
-   * @see #isNaN()
-   * @see java.lang.Double#isFinite(double)
-   * @since 3.20.0
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
-#### Snippet
-```java
-   * @see #isFinite()
-   * @see #isNaN()
-   * @see java.lang.Double#isInfinite(double)
-   * @since 3.20.0
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
-#### Snippet
-```java
-   * @see #isFinite()
-   * @see #isNaN()
-   * @see java.lang.Double#isInfinite(double)
-   * @since 3.19.0
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Double {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.concurrent.Future}.
-   *
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * Create assertion for {@link java.util.concurrent.Future}.
-   *
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
-   * @param actual the actual value.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-  /**
-   * Add the given date format to the ones used to parse date String in String based Date assertions like
-   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
-   * <p>
-   * User date formats are used before default ones in the order they have been registered (first registered, first
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * AssertJ is gonna use any date formats registered with one of these methods :
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * <p>
-   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
-   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
-   * <p>
-   * Code examples:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
-   * </li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
-   * </li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
-   * </li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-   * </ul>
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Integer {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-  /**
-   * Add the given date format to the ones used to parse date String in String based Date assertions like
-   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
-   * <p>
-   * User date formats are used before default ones in the order they have been registered (first registered, first
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * AssertJ is gonna use any date formats registered with one of these methods :
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
-#### Snippet
-```java
-   * <p>
-   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
-   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
-   * <p>
-   * Code examples:
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.data` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
 #### Snippet
@@ -10820,7 +10436,127 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
    * <p>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Integer {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
+#### Snippet
+```java
+  /**
+   * Add the given date format to the ones used to parse date String in String based Date assertions like
+   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
+   * <p>
+   * User date formats are used before default ones in the order they have been registered (first registered, first
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
+#### Snippet
+```java
+   * AssertJ is gonna use any date formats registered with one of these methods :
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
+#### Snippet
+```java
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
+#### Snippet
+```java
+   * <p>
+   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
+   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
+   * <p>
+   * Code examples:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Double {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.concurrent.Future}.
+   *
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
+#### Snippet
+```java
+   * Create assertion for {@link java.util.concurrent.Future}.
+   *
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
+   * @param actual the actual value.
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
 #### Snippet
@@ -10832,7 +10568,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
    * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
 #### Snippet
@@ -10844,127 +10580,163 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
    *
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/RecursiveAssertionAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
 #### Snippet
 ```java
-   *
-   * <p>This method enables recursive asserting using default configuration, which means all fields of all objects have the  
-   * {@link java.util.function.Predicate} applied to them (including primitive fields), no fields are excluded, but:
-   * <ul>
-   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
+  /**
+   * Add the given date format to the ones used to parse date String in String based Date assertions like
+   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
+   * <p>
+   * User date formats are used before default ones in the order they have been registered (first registered, first
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/RecursiveAssertionAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
+#### Snippet
+```java
+   * AssertJ is gonna use any date formats registered with one of these methods :
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
 #### Snippet
 ```java
    * <ul>
-   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/RecursiveAssertionAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
 #### Snippet
 ```java
-   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
+#### Snippet
+```java
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
    * </ul>
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/RecursiveAssertionAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
 #### Snippet
 ```java
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
-   * </ul>
-   *
+   * <p>
+   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
+   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
+   * <p>
+   * Code examples:
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
-#### Snippet
-```java
-   *
-   * <p>This method enables recursive asserting using default configuration, which means all fields of all objects have the  
-   * {@link java.util.function.Predicate} applied to them (including primitive fields), no fields are excluded, but:
-   * <ul>
-   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
 #### Snippet
 ```java
    * <ul>
-   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+   * <li>
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
+   * </li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
 #### Snippet
 ```java
    * <ul>
-   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+   * <li>
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
+   * </li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6Assertions.java`
 #### Snippet
 ```java
-   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
-#### Snippet
-```java
-   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
-#### Snippet
-```java
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
-   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
+   * </li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
    * </ul>
    *
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
+#### Snippet
+```java
+   * @see #isFinite()
+   * @see #isNaN()
+   * @see java.lang.Double#isInfinite(double)
+   * @since 3.20.0
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
+#### Snippet
+```java
+   * @see #isInfinite()
+   * @see #isNaN()
+   * @see java.lang.Double#isFinite(double)
+   * @since 3.19.0
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
+#### Snippet
+```java
+   * @see #isInfinite()
+   * @see #isNaN()
+   * @see java.lang.Double#isFinite(double)
+   * @since 3.20.0
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
+#### Snippet
+```java
+   * @see #isFinite()
+   * @see #isNaN()
+   * @see java.lang.Double#isInfinite(double)
+   * @since 3.19.0
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -10976,7 +10748,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
    *   <li>Treatment of Optional and primitive Optional objects</li>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -10988,7 +10760,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
    * </ul>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -11000,7 +10772,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
    * @return {@code this} assertions object
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -11012,7 +10784,91 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
    * @since 2.9.0 / 3.9.0
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+#### Snippet
+```java
+   *
+   * @param <C> the type of elements to compare.
+   * @param comparator the {@link java.util.Comparator} to use
+   * @param elementPropertyOrFieldNames the names of the properties and/or fields of the elements the comparator should be used for
+   * @return {@code this} assertions object
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.function` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+#### Snippet
+```java
+   *
+   * <p>This method enables recursive asserting using default configuration, which means all fields of all objects have the  
+   * {@link java.util.function.Predicate} applied to them (including primitive fields), no fields are excluded, but:
+   * <ul>
+   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.function` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+#### Snippet
+```java
+   * <ul>
+   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+#### Snippet
+```java
+   * <ul>
+   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.function` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+#### Snippet
+```java
+   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+#### Snippet
+```java
+   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.function` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+#### Snippet
+```java
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+   * </ul>
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -11024,7 +10880,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
    * @return {@code this} assertions object
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -11036,31 +10892,55 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
    * @since 2.5.0 / 3.5.0
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
 ```java
    *
-   * @param <C> the type of elements to compare.
+   * @param <T> the type of elements to compare.
    * @param comparator the {@link java.util.Comparator} to use
-   * @param elementPropertyOrFieldNames the names of the properties and/or fields of the elements the comparator should be used for
+   * @param type the {@link java.lang.Class} of the type of the element or element fields the comparator should be used for
    * @return {@code this} assertions object
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/GenericComparableAssert.java`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
 ```java
-
-/**
- * Concrete generic <code>{@link ComparableAssert}</code> to be used through {@link Assertions#assertThat(java.lang.Comparable)}.
- * @param <ACTUAL> the type of the "actual" value.
- */
+   * @param <T> the type of elements to compare.
+   * @param comparator the {@link java.util.Comparator} to use
+   * @param type the {@link java.lang.Class} of the type of the element or element fields the comparator should be used for
+   * @return {@code this} assertions object
+   * @since 2.9.0 / 3.9.0
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+   *   <li>Exclusion of primitive fields</li>
+   *   <li>Inclusion of Java Class Library types in the recursive execution</li>
+   *   <li>Treatment of {@link java.util.Collection} and array objects</li>
+   *   <li>Treatment of {@link java.util.Map} objects</li>
+   *   <li>Treatment of Optional and primitive Optional objects</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+   *   <li>Inclusion of Java Class Library types in the recursive execution</li>
+   *   <li>Treatment of {@link java.util.Collection} and array objects</li>
+   *   <li>Treatment of {@link java.util.Map} objects</li>
+   *   <li>Treatment of Optional and primitive Optional objects</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -11072,7 +10952,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
    * @return {@code this} assertions object
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+   *
+   * @param <T> the type of elements to compare.
+   * @param comparator the {@link java.util.Comparator} to use
+   * @param type the {@link java.lang.Class} of the type of the element fields the comparator should be used for
+   * @return {@code this} assertions object
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+   * @param <T> the type of elements to compare.
+   * @param comparator the {@link java.util.Comparator} to use
+   * @param type the {@link java.lang.Class} of the type of the element fields the comparator should be used for
+   * @return {@code this} assertions object
+   * @since 2.5.0 / 3.5.0
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.function` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -11084,7 +10988,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
    *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.function` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -11096,7 +11000,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
    *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -11108,7 +11012,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
    *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.function` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -11120,7 +11024,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
    * </ul>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -11132,7 +11036,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
    * </ul>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.function` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
@@ -11144,91 +11048,175 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
    *
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.function` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/RecursiveAssertionAssert.java`
 #### Snippet
 ```java
-   *   <li>Exclusion of primitive fields</li>
-   *   <li>Inclusion of Java Class Library types in the recursive execution</li>
-   *   <li>Treatment of {@link java.util.Collection} and array objects</li>
-   *   <li>Treatment of {@link java.util.Map} objects</li>
-   *   <li>Treatment of Optional and primitive Optional objects</li>
+   *
+   * <p>This method enables recursive asserting using default configuration, which means all fields of all objects have the  
+   * {@link java.util.function.Predicate} applied to them (including primitive fields), no fields are excluded, but:
+   * <ul>
+   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.function` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/RecursiveAssertionAssert.java`
 #### Snippet
 ```java
-   *   <li>Inclusion of Java Class Library types in the recursive execution</li>
-   *   <li>Treatment of {@link java.util.Collection} and array objects</li>
-   *   <li>Treatment of {@link java.util.Map} objects</li>
-   *   <li>Treatment of Optional and primitive Optional objects</li>
+   * <ul>
+   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.function` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/RecursiveAssertionAssert.java`
+#### Snippet
+```java
+   *   <li>The recursion does not enter into Java Class Library types (java.*, javax.*)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
    * </ul>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.function` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/RecursiveAssertionAssert.java`
+#### Snippet
+```java
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Collection} and array elements (but the collection/array itself)</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Map} values but not the map itself or its keys</li>
+   *   <li>The {@link java.util.function.Predicate} is applied to {@link java.util.Optional} and primitive optional values</li>
+   * </ul>
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.regex` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.regex.Matcher}.
+   *
+   * @param actual the actual matcher
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.OptionalDouble}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.concurrent.CompletableFuture}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
 #### Snippet
 ```java
    *
-   * @param <T> the type of elements to compare.
-   * @param comparator the {@link java.util.Comparator} to use
-   * @param type the {@link java.lang.Class} of the type of the element or element fields the comparator should be used for
-   * @return {@code this} assertions object
+   * @param actual the actual value.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletableFuture}.
+   *
+   * @return the created assertion object.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
 #### Snippet
 ```java
-   * @param <T> the type of elements to compare.
-   * @param comparator the {@link java.util.Comparator} to use
-   * @param type the {@link java.lang.Class} of the type of the element or element fields the comparator should be used for
-   * @return {@code this} assertions object
-   * @since 2.9.0 / 3.9.0
+
+  /**
+   * Create assertion for {@link java.util.OptionalLong}.
+   *
+   * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
+   * <p>
+   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
+#### Snippet
+```java
+   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
+   * <p>
+   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
 #### Snippet
 ```java
    *
-   * @param <T> the type of elements to compare.
-   * @param comparator the {@link java.util.Comparator} to use
-   * @param type the {@link java.lang.Class} of the type of the element fields the comparator should be used for
-   * @return {@code this} assertions object
+   * @param actual the actual value.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletionStage}.
+   *
+   * @return the created assertion object.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
 #### Snippet
 ```java
-   * @param <T> the type of elements to compare.
-   * @param comparator the {@link java.util.Comparator} to use
-   * @param type the {@link java.lang.Class} of the type of the element fields the comparator should be used for
-   * @return {@code this} assertions object
-   * @since 2.5.0 / 3.5.0
+
+  /**
+   * Create assertion for {@link java.util.OptionalInt}.
+   *
+   * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/UriAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/GenericComparableAssert.java`
 #### Snippet
 ```java
 
 /**
- * Assertion class for {@link java.net.URI}s
+ * Concrete generic <code>{@link ComparableAssert}</code> to be used through {@link Assertions#assertThat(java.lang.Comparable)}.
+ * @param <ACTUAL> the type of the "actual" value.
  */
-public class UriAssert extends AbstractUriAssert<UriAssert> {
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/PeriodAssert.java`
 #### Snippet
@@ -11240,19 +11228,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/PeriodAssert.java`
  * @author Hayden Meloche
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.net` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/UriAssert.java`
 #### Snippet
 ```java
 
-  /**
-   * Creates a new assumption's instance for a {@link java.time.Period} value.
-   *
-   * @param actual the actual value.
+/**
+ * Assertion class for {@link java.net.URI}s
+ */
+public class UriAssert extends AbstractUriAssert<UriAssert> {
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIteratorAssert.java`
 #### Snippet
@@ -11264,79 +11252,55 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIteratorAssert.java`
    * @param actual the actual value to verify
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/OffsetDateTimeAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new <code>{@link org.assertj.core.api.OffsetDateTimeAssert}</code>.
-   *
-   * @param actual the actual value to verify
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
-#### Snippet
-```java
-   * <p>
-   * If you do not want to accept a {@code null} value, use
-   * {@link org.assertj.core.api.AbstractCharSequenceAssert#isEmpty()} instead.
-   * <p>
-   * Both of these assertions will succeed:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
-#### Snippet
-```java
-   * <p>
-   * If you want to accept a {@code null} value as well as a 0 length, use
-   * {@link org.assertj.core.api.AbstractCharSequenceAssert#isNullOrEmpty()} instead.
-   * <p>
-   * This assertion will succeed:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.DateAssert}</code>.
+   * Creates a new assumption's instance for a {@link java.time.Period} value.
    *
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ObjectAssert}</code>.
-   *
-   * @param <T> the actual type
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Int2DArrayAssert}</code>.
+   * Creates a new instance of <code>{@link org.assertj.core.api.LongAssert}</code>.
    *
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.IntArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.CharSequenceAssert}</code> from a {@link StringBuilder}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
@@ -11348,19 +11312,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Boolean2DArrayAssert}</code>.
+   * Creates a new instance of <code>{@link org.assertj.core.api.InputStreamAssert}</code>.
    *
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
@@ -11372,31 +11336,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.FloatAssert}</code>.
+   * Creates a new instance of <code>{@link org.assertj.core.api.Object2DArrayAssert}</code>.
    *
-   * @param actual the actual value.
+   * @param <T> the actual elements type
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Long2DArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
@@ -11408,163 +11360,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.CharArrayAssert}</code>.
+   * Creates a new instance of <code>{@link org.assertj.core.api.ByteAssert}</code>.
    *
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.FutureAssert}</code>.
-   *
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-   * Creates a new instance of <code>{@link org.assertj.core.api.FutureAssert}</code>.
-   *
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
-   * @param actual the future to test
-   * @return the created assertion object
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ShortArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.BooleanAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Short2DArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.DoubleAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.DoubleAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.IntegerAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.InputStreamAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.CharacterAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.LongAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.BigDecimalAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
@@ -11576,259 +11384,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
    *
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ShortAssert}</code>.
+   * Creates a new instance of <code>{@link org.assertj.core.api.BooleanAssert}</code>.
    *
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ByteArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.LongAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.CharacterAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.CharSequenceAssert}</code> from a {@link StringBuffer}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ShortAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.IterableAssert}</code>.
-   *
-   * @param <T> the actual elements type
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.LongArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Object2DArrayAssert}</code>.
-   *
-   * @param <T> the actual elements type
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ClassAssert}</code>
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.FloatArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.StringAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Double2DArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.FileAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ByteAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.CharSequenceAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Byte2DArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.BooleanArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ByteAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.CharSequenceAssert}</code> from a {@link StringBuilder}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.IntegerAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
@@ -11840,43 +11408,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ObjectAssert}</code> for any object.
-   * <p>
-   * This overload is useful, when an overloaded method of then(...) takes precedence over the generic {@link #then(Object)}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.FloatAssert}</code>.
+   * Creates a new instance of <code>{@link org.assertj.core.api.ShortAssert}</code>.
    *
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.BigIntegerAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
@@ -11888,43 +11432,43 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.IntArrayAssert}</code>.
+   * Creates a new instance of <code>{@link org.assertj.core.api.FloatAssert}</code>.
    *
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ObjectArrayAssert}</code>.
+   * Creates a new instance of <code>{@link org.assertj.core.api.LongAssert}</code>.
    *
-   * @param <T> the actual elements type
+   * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.MapAssert}</code>.
+   * Creates a new instance of <code>{@link org.assertj.core.api.CharArrayAssert}</code>.
    *
-   * @param <K> the type of keys in the map.
+   * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
@@ -11936,7 +11480,115 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
   protected Java6BDDAssertions() {}
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.BooleanArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ShortArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.FloatArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ClassAssert}</code>
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.MapAssert}</code>.
+   *
+   * @param <K> the type of keys in the map.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.FutureAssert}</code>.
+   *
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+   * Creates a new instance of <code>{@link org.assertj.core.api.FutureAssert}</code>.
+   *
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
+   * @param actual the future to test
+   * @return the created assertion object
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Boolean2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.DateAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
 #### Snippet
@@ -11948,7 +11600,331 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
    * @param <T> the actual elements type
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ByteArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.FileAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ObjectAssert}</code> for any object.
+   * <p>
+   * This overload is useful, when an overloaded method of then(...) takes precedence over the generic {@link #then(Object)}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ObjectAssert}</code>.
+   *
+   * @param <T> the actual type
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Long2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.IntegerAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Int2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Byte2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ShortAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.DoubleAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.IterableAssert}</code>.
+   *
+   * @param <T> the actual elements type
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Short2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.FloatAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.BigDecimalAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.DoubleAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.LongArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Double2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.StringAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ByteAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.BigIntegerAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.IntegerAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.CharacterAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ObjectArrayAssert}</code>.
+   *
+   * @param <T> the actual elements type
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.CharSequenceAssert}</code> from a {@link StringBuffer}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.CharSequenceAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.CharacterAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/OffsetDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.api.OffsetDateTimeAssert}</code>.
+   *
+   * @param actual the actual value to verify
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.concurrent` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
 #### Snippet
@@ -11960,7 +11936,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
    * @return the created assumption for assertion object.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.concurrent` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
 #### Snippet
@@ -11972,7 +11948,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
    * <p>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.concurrent` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
 #### Snippet
@@ -11984,7 +11960,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
    * @param <RESULT> the CompletableFuture wrapped type.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
+#### Snippet
+```java
+   * <p>
+   * If you do not want to accept a {@code null} value, use
+   * {@link org.assertj.core.api.AbstractCharSequenceAssert#isEmpty()} instead.
+   * <p>
+   * Both of these assertions will succeed:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
+#### Snippet
+```java
+   * <p>
+   * If you want to accept a {@code null} value as well as a 0 length, use
+   * {@link org.assertj.core.api.AbstractCharSequenceAssert#isNullOrEmpty()} instead.
+   * <p>
+   * This assertion will succeed:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDSoftAssertionsProvider.java`
 #### Snippet
@@ -11996,7 +11996,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDSoftAssertionsProvid
    * <p>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.concurrent` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDSoftAssertionsProvider.java`
 #### Snippet
@@ -12008,43 +12008,31 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6BDDSoftAssertionsProvid
    * @return the created assertion object.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
 ```java
-   * The following (incomplete) list of methods will be impacted by this change :
-   * <ul>
-   * <li><code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code></li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-   * </ul>
+
+  /**
+   * Assertions entry point for Long {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
 ```java
-   * The following (incomplete) list of methods will be impacted by this change :
-   * <ul>
-   * <li><code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code></li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-   * </ul>
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-   * <ul>
-   * <li><code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code></li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-   * </ul>
+  /**
+   * Creates a new instance of <code>{@link java.time.OffsetDateTime}</code>.
    *
+   * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
@@ -12056,7 +12044,223 @@ in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+  /**
+   * Add the given date format to the ones used to parse date String in String based Date assertions like
+   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
+   * <p>
+   * User date formats are used before default ones in the order they have been registered (first registered, first
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   * AssertJ is gonna use any date formats registered with one of these methods :
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   * <p>
+   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
+   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
+   * <p>
+   * Code examples:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.OptionalInt}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+  /**
+   * Add the given date format to the ones used to parse date String in String based Date assertions like
+   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
+   * <p>
+   * User date formats are used before default ones in the order they have been registered (first registered, first
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   * AssertJ is gonna use any date formats registered with one of these methods :
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   * <p>
+   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
+   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
+   * <p>
+   * Code examples:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+  /**
+   * Globally sets whether
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
+   * and
+   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
+   * and
+   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
+   * should be allowed to extract private fields, if not and they try it fails with exception.
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Integer {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.Optional}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   *
+   * @param actual the actual value.
+   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.regex` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
@@ -12068,283 +12272,43 @@ in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java
    * @param actual the actual value
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.Optional}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-   *
-   * @param actual the actual value.
-   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
 ```java
-  /**
-   * Globally sets whether
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
-   * and
-   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
-   * and
-   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
-   * should be allowed to extract private fields, if not and they try it fails with exception.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.concurrent.CompletableFuture}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-   *
-   * @param actual the actual value.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletableFuture}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Double {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalInt}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-  /**
-   * Add the given date format to the ones used to parse date String in String based Date assertions like
-   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
-   * <p>
-   * User date formats are used before default ones in the order they have been registered (first registered, first
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-   * AssertJ is gonna use any date formats registered with one of these methods :
+   * The following (incomplete) list of methods will be impacted by this change :
    * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * <li><code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code></li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
    * </ul>
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
 ```java
-   * <p>
-   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
-   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
-   * <p>
-   * Code examples:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-  /**
-   * Add the given date format to the ones used to parse date String in String based Date assertions like
-   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
-   * <p>
-   * User date formats are used before default ones in the order they have been registered (first registered, first
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-   * AssertJ is gonna use any date formats registered with one of these methods :
+   * The following (incomplete) list of methods will be impacted by this change :
    * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * <li><code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code></li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
    * </ul>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
 ```java
-   * <p>
-   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
-   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
-   * <p>
-   * Code examples:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link java.time.OffsetDateTime}</code>.
+   * <ul>
+   * <li><code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code></li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
+   * </ul>
    *
-   * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Long {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Integer {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
@@ -12356,7 +12320,43 @@ in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.concurrent.CompletableFuture}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+   *
+   * @param actual the actual value.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletableFuture}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Double {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
@@ -12368,19 +12368,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractUrlAssert.java`
-#### Snippet
-```java
- *
- * @param <SELF> the "self" type of this assertion class.
- * @see java.net.URL
- */
-public abstract class AbstractUrlAssert<SELF extends AbstractUrlAssert<SELF>> extends AbstractAssert<SELF, URL> {
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/OptionalLongAssert.java`
 #### Snippet
@@ -12392,43 +12380,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/OptionalLongAssert.java`
  * @author Jean-Christophe Gay
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForInterfaceTypes.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.net` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractUrlAssert.java`
 #### Snippet
 ```java
-
-  /**
-   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
-   * <p>
-   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
+ *
+ * @param <SELF> the "self" type of this assertion class.
+ * @see java.net.URL
+ */
+public abstract class AbstractUrlAssert<SELF extends AbstractUrlAssert<SELF>> extends AbstractAssert<SELF, URL> {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForInterfaceTypes.java`
-#### Snippet
-```java
-   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
-   * <p>
-   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForInterfaceTypes.java`
-#### Snippet
-```java
-   *
-   * @param actual the actual value.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletionStage}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/ThrowableAssertAlternative.java`
 #### Snippet
@@ -12440,7 +12404,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/ThrowableAssertAlternative.j
  * <pre><code class='java'> assertThatExceptionOfType(IOException.class)
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractTemporalAssert.java`
 #### Snippet
@@ -12452,19 +12416,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractTemporalAssert.java`
    * @param actual the actual value to verify
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/RecursiveComparisonAssert.java`
-#### Snippet
-```java
-   *
-   * @param <T> the class type to register a comparator for
-   * @param comparator the {@link java.util.Comparator Comparator} to use to compare the given fields
-   * @param type the type to be compared with the given comparator.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/RecursiveComparisonAssert.java`
 #### Snippet
@@ -12476,43 +12428,55 @@ in `assertj-core/src/main/java/org/assertj/core/api/RecursiveComparisonAssert.ja
    * @return this {@link RecursiveComparisonAssert} to chain other methods.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractFileAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/RecursiveComparisonAssert.java`
 #### Snippet
 ```java
-   * @throws AssertionError if the actual {@code File} parent is not equal to the expected one.
    *
-   * @see java.io.File#getParentFile() parent definition.
-   */
-  public SELF hasParent(File expected) {
+   * @param <T> the class type to register a comparator for
+   * @param comparator the {@link java.util.Comparator Comparator} to use to compare the given fields
+   * @param type the type to be compared with the given comparator.
+   *
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractFileAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForInterfaceTypes.java`
 #### Snippet
 ```java
 
   /**
-   * Same as {@link #hasParent(java.io.File)} but takes care of converting given {@code String} as {@code File} for you
-   *
+   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
    * <p>
+   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractFileAssert.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForInterfaceTypes.java`
 #### Snippet
 ```java
-   * @throws AssertionError if the actual {@code File} does not have the expected name.
+   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
+   * <p>
+   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
    *
-   * @see java.io.File#getName() name definition.
-   * @see #hasName(String)
-   * @since 3.21.0
+   * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForInterfaceTypes.java`
+#### Snippet
+```java
+   *
+   * @param actual the actual value.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletionStage}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.io` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractFileAssert.java`
 #### Snippet
@@ -12524,607 +12488,43 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractFileAssert.java`
    */
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractFileAssert.java`
 #### Snippet
 ```java
 
   /**
-   * Create assertion for {@link java.util.concurrent.CompletableFuture}.
+   * Same as {@link #hasParent(java.io.File)} but takes care of converting given {@code String} as {@code File} for you
    *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   *
-   * @param actual the actual value.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletableFuture}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-  /**
-   * Add the given date format to the ones used to parse date String in String based Date assertions like
-   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
    * <p>
-   * User date formats are used before default ones in the order they have been registered (first registered, first
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractFileAssert.java`
 #### Snippet
 ```java
-   * AssertJ is gonna use any date formats registered with one of these methods :
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * <p>
-   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
-   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
-   * <p>
-   * Code examples:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link java.time.OffsetDateTime}</code>.
+   * @throws AssertionError if the actual {@code File} does not have the expected name.
    *
-   * @param actual the actual value.
+   * @see java.io.File#getName() name definition.
+   * @see #hasName(String)
+   * @since 3.21.0
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractFileAssert.java`
 #### Snippet
 ```java
-   * Sets whether we remove elements related to AssertJ from assertion error stack trace.
-   * <p>
-   * Default is {@value org.assertj.core.configuration.Configuration#REMOVE_ASSERTJ_RELATED_ELEMENTS_FROM_STACK_TRACE}.
+   * @throws AssertionError if the actual {@code File} parent is not equal to the expected one.
    *
-   * @param removeAssertJRelatedElementsFromStackTrace flag.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-  /**
-   * Globally sets whether
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
-   * and
-   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
-   * and
-   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
-   * should be allowed to extract private fields, if not and they try it fails with exception.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * should be allowed to extract private fields, if not and they try it fails with exception.
-   *
-   * @param allowExtractingPrivateFields allow private fields extraction. Default is {@value org.assertj.core.configuration.Configuration#ALLOW_EXTRACTING_PRIVATE_FIELDS}.
+   * @see java.io.File#getParentFile() parent definition.
    */
-  public static void setAllowExtractingPrivateFields(boolean allowExtractingPrivateFields) {
+  public SELF hasParent(File expected) {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-  /**
-   * Add the given date format to the ones used to parse date String in String based Date assertions like
-   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
-   * <p>
-   * User date formats are used before default ones in the order they have been registered (first registered, first
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * AssertJ is gonna use any date formats registered with one of these methods :
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * <p>
-   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
-   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
-   * <p>
-   * Code examples:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
-   * </li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
-   * </li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
-   * </li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-   * </ul>
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * If the value is <code>false</code> and these methods try to compare private fields, it will fail with an exception.
-   *
-   * @param allowComparingPrivateFields allow private fields comparison. Default is {@value org.assertj.core.configuration.Configuration#ALLOW_COMPARING_PRIVATE_FIELDS}.
-   */
-  public static void setAllowComparingPrivateFields(boolean allowComparingPrivateFields) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Long {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalDouble}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalInt}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalInt}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.Optional}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   *
-   * @param actual the actual value.
-   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.concurrent.Future}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   *
-   * @param actual the actual value.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Integer {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
-   * <p>
-   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
-   * <p>
-   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   *
-   * @param actual the actual value.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletionStage}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.time.OffsetTime}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-
-  /**
-  * Create assertion for {@link java.util.regex.Matcher}.
-  *
-  * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Double {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isInSameHourWindowAs(java.util.Date)} but given date is represented as String either
-   * with one of the supported defaults date format or a user custom date format (set with method
-   * {@link #withDateFormat(DateFormat)}).
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   *
-   * If you want to assert that two dates are in the same second time window use
-   * {@link #isInSameSecondWindowAs(java.util.Date) isInSameSecondWindowAs} assertion.
-   * <p>
-   * If you want to compare second fields only (without minute, hour, day, month and year), you could write :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   *
-   * If you want to assert that two dates are chronologically in the same hour time window use
-   * {@link #isInSameHourWindowAs(java.util.Date) isInSameHourWindowAs} assertion (note that if
-   * <code>isInSameHourAs</code> succeeds then <code>isInSameHourWindowAs</code> will succeed too).
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>this method</li>
-   * <li>{@link #withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   * <li>this method</li>
-   * <li>{@link #withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isBetween(Date, Date, boolean, boolean)} but given period is represented with {@link java.time.Instant}.
-   * <p>
-   * Example:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link #withDateFormat(String)}</li>
-   * <li>{@link #withDateFormat(java.text.DateFormat)}</li>
-   * <li>this method</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link #withDateFormat(String)}</li>
-   * <li>{@link #withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>this method</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   * <li>{@link #withDateFormat(String)}</li>
-   * <li>{@link #withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>this method</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   * <li>{@link #withDateFormat(String)}</li>
-   * <li>this method</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   *
-   * If you want to assert that two dates are in the same minute time window use
-   * {@link #isInSameMinuteWindowAs(java.util.Date) isInSameMinuteWindowAs} assertion (note that if
-   * <code>isInSameMinuteAs</code> succeeds then <code>isInSameMinuteWindowAs</code> will succeed too).
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isBetween(Date, Date)} but given period is represented with {@link java.time.Instant}.
-   * <p>
-   * Example:
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
 #### Snippet
@@ -13136,7 +12536,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/Recursiv
            && shouldIgnorePrimitiveFields() == that.shouldIgnorePrimitiveFields()
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionConfiguration.java`
 #### Snippet
@@ -13148,7 +12548,151 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/Recursiv
            && shouldSkipJavaLibraryTypeObjects() == that.shouldSkipJavaLibraryTypeObjects()
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isInSameHourWindowAs(java.util.Date)} but given date is represented as String either
+   * with one of the supported defaults date format or a user custom date format (set with method
+   * {@link #withDateFormat(DateFormat)}).
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   * <li>{@link #withDateFormat(String)}</li>
+   * <li>this method</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link #withDateFormat(String)}</li>
+   * <li>{@link #withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>this method</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   * <li>{@link #withDateFormat(String)}</li>
+   * <li>{@link #withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>this method</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isBetween(Date, Date)} but given period is represented with {@link java.time.Instant}.
+   * <p>
+   * Example:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>this method</li>
+   * <li>{@link #withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   * <li>this method</li>
+   * <li>{@link #withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   *
+   * If you want to assert that two dates are in the same minute time window use
+   * {@link #isInSameMinuteWindowAs(java.util.Date) isInSameMinuteWindowAs} assertion (note that if
+   * <code>isInSameMinuteAs</code> succeeds then <code>isInSameMinuteWindowAs</code> will succeed too).
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link #withDateFormat(String)}</li>
+   * <li>{@link #withDateFormat(java.text.DateFormat)}</li>
+   * <li>this method</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   *
+   * If you want to assert that two dates are in the same second time window use
+   * {@link #isInSameSecondWindowAs(java.util.Date) isInSameSecondWindowAs} assertion.
+   * <p>
+   * If you want to compare second fields only (without minute, hour, day, month and year), you could write :
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   *
+   * If you want to assert that two dates are chronologically in the same hour time window use
+   * {@link #isInSameHourWindowAs(java.util.Date) isInSameHourWindowAs} assertion (note that if
+   * <code>isInSameHourAs</code> succeeds then <code>isInSameHourWindowAs</code> will succeed too).
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isBetween(Date, Date, boolean, boolean)} but given period is represented with {@link java.time.Instant}.
+   * <p>
+   * Example:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.data` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/data/Percentage.java`
 #### Snippet
@@ -13160,19 +12704,463 @@ in `assertj-core/src/main/java/org/assertj/core/data/Percentage.java`
    * @param value the value of the percentage.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+  /**
+   * Globally sets whether
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
+   * and
+   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
+   * and
+   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
+   * should be allowed to extract private fields, if not and they try it fails with exception.
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * should be allowed to extract private fields, if not and they try it fails with exception.
+   *
+   * @param allowExtractingPrivateFields allow private fields extraction. Default is {@value org.assertj.core.configuration.Configuration#ALLOW_EXTRACTING_PRIVATE_FIELDS}.
+   */
+  public static void setAllowExtractingPrivateFields(boolean allowExtractingPrivateFields) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.time.OffsetTime}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * Sets whether we remove elements related to AssertJ from assertion error stack trace.
+   * <p>
+   * Default is {@value org.assertj.core.configuration.Configuration#REMOVE_ASSERTJ_RELATED_ELEMENTS_FROM_STACK_TRACE}.
+   *
+   * @param removeAssertJRelatedElementsFromStackTrace flag.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Double {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.OptionalInt}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.Optional}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   *
+   * @param actual the actual value.
+   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.OptionalInt}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.concurrent.Future}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   *
+   * @param actual the actual value.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+  /**
+   * Add the given date format to the ones used to parse date String in String based Date assertions like
+   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
+   * <p>
+   * User date formats are used before default ones in the order they have been registered (first registered, first
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * AssertJ is gonna use any date formats registered with one of these methods :
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
 #### Snippet
 ```java
    * <p>
-   * The result of this method vary by JDK version as this method uses
-   * {@link Throwable#printStackTrace(java.io.PrintWriter)}. On JDK1.3 and earlier, the cause exception will not be
-   * shown unless the specified throwable alters printStackTrace.
-   * </p>
+   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
+   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
+   * <p>
+   * Code examples:
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.OptionalDouble}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.concurrent.CompletableFuture}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   *
+   * @param actual the actual value.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletableFuture}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+  /**
+   * Add the given date format to the ones used to parse date String in String based Date assertions like
+   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
+   * <p>
+   * User date formats are used before default ones in the order they have been registered (first registered, first
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * AssertJ is gonna use any date formats registered with one of these methods :
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * <p>
+   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
+   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
+   * <p>
+   * Code examples:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
+   * </li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
+   * </li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
+   * </li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
+   * </ul>
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * If the value is <code>false</code> and these methods try to compare private fields, it will fail with an exception.
+   *
+   * @param allowComparingPrivateFields allow private fields comparison. Default is {@value org.assertj.core.configuration.Configuration#ALLOW_COMPARING_PRIVATE_FIELDS}.
+   */
+  public static void setAllowComparingPrivateFields(boolean allowComparingPrivateFields) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Long {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link java.time.OffsetDateTime}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.regex` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+  * Create assertion for {@link java.util.regex.Matcher}.
+  *
+  * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
+   * <p>
+   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
+   * <p>
+   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   *
+   * @param actual the actual value.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletionStage}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Integer {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.presentation` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/util/Maps.java`
 #### Snippet
@@ -13184,7 +13172,19 @@ in `assertj-core/src/main/java/org/assertj/core/util/Maps.java`
    * 
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
+#### Snippet
+```java
+   * <p>
+   * The result of this method vary by JDK version as this method uses
+   * {@link Throwable#printStackTrace(java.io.PrintWriter)}. On JDK1.3 and earlier, the cause exception will not be
+   * shown unless the specified throwable alters printStackTrace.
+   * </p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `assertj-core/src/main/java/org/assertj/core/util/Sets.java`
 #### Snippet
@@ -13196,7 +13196,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Sets.java`
   }
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `assertj-core/src/main/java/org/assertj/core/util/Sets.java`
 #### Snippet
@@ -13208,247 +13208,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Sets.java`
   }
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
-#### Snippet
-```java
-    if (elements == null) return null;
-    ArrayList<T> list = newArrayList();
-    java.util.Collections.addAll(list, elements);
-    return list;
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-   * See {@link RecursiveComparisonAssert#withComparatorForFields(Comparator, String...) RecursiveComparisonAssert#withComparatorForFields(Comparator, String...)} for examples.
-   *
-   * @param comparator the {@link java.util.Comparator Comparator} to use to compare the given field
-   * @param fieldLocations the locations from the root object of the fields the comparator should be used for
-   * @throws NullPointerException if the given comparator is null.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-  @Override
-  public int hashCode() {
-    return java.util.Objects.hash(fieldComparators, ignoreAllActualEmptyOptionalFields, ignoreAllActualNullFields,
-                                  ignoreAllExpectedNullFields, ignoreAllOverriddenEquals, ignoreCollectionOrder,
-                                  ignoredCollectionOrderInFields, ignoredCollectionOrderInFieldsMatchingRegexes,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-   *
-   * @param <T> the class type to register a comparator for
-   * @param comparator the {@link java.util.Comparator Comparator} to use to compare the given type
-   * @param type the type to be compared with the given comparator.
-   * @throws NullPointerException if the given comparator is null.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-     * See {@link RecursiveComparisonAssert#withComparatorForFields(Comparator, String...) RecursiveComparisonAssert#withComparatorForFields(Comparator comparator, String...fields)} for examples.
-     *
-     * @param comparator the {@link java.util.Comparator Comparator} to use to compare the given field
-     * @param fields the fields the comparator should be used for
-     * @return this builder.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-     *
-     * @param <T> the class type to register a comparator for
-     * @param comparator the {@link java.util.Comparator Comparator} to use to compare the given field
-     * @param type the type to be compared with the given comparator.
-     * @return this builder.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-    if (getClass() != obj.getClass()) return false;
-    RecursiveComparisonConfiguration other = (RecursiveComparisonConfiguration) obj;
-    return java.util.Objects.equals(fieldComparators, other.fieldComparators)
-           && ignoreAllActualEmptyOptionalFields == other.ignoreAllActualEmptyOptionalFields
-           && ignoreAllActualNullFields == other.ignoreAllActualNullFields
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-           && ignoreAllOverriddenEquals == other.ignoreAllOverriddenEquals
-           && ignoreCollectionOrder == other.ignoreCollectionOrder
-           && java.util.Objects.equals(ignoredCollectionOrderInFields, other.ignoredCollectionOrderInFields)
-           && java.util.Objects.equals(getIgnoredFields(), other.getIgnoredFields())
-           && java.util.Objects.equals(comparedFields, other.comparedFields)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-           && ignoreCollectionOrder == other.ignoreCollectionOrder
-           && java.util.Objects.equals(ignoredCollectionOrderInFields, other.ignoredCollectionOrderInFields)
-           && java.util.Objects.equals(getIgnoredFields(), other.getIgnoredFields())
-           && java.util.Objects.equals(comparedFields, other.comparedFields)
-           && java.util.Objects.equals(comparedTypes, other.comparedTypes)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-           && java.util.Objects.equals(ignoredCollectionOrderInFields, other.ignoredCollectionOrderInFields)
-           && java.util.Objects.equals(getIgnoredFields(), other.getIgnoredFields())
-           && java.util.Objects.equals(comparedFields, other.comparedFields)
-           && java.util.Objects.equals(comparedTypes, other.comparedTypes)
-           && java.util.Objects.equals(getIgnoredFieldsRegexes(), other.getIgnoredFieldsRegexes())
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-           && java.util.Objects.equals(getIgnoredFields(), other.getIgnoredFields())
-           && java.util.Objects.equals(comparedFields, other.comparedFields)
-           && java.util.Objects.equals(comparedTypes, other.comparedTypes)
-           && java.util.Objects.equals(getIgnoredFieldsRegexes(), other.getIgnoredFieldsRegexes())
-           && java.util.Objects.equals(ignoredOverriddenEqualsForFields, other.ignoredOverriddenEqualsForFields)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-           && java.util.Objects.equals(comparedFields, other.comparedFields)
-           && java.util.Objects.equals(comparedTypes, other.comparedTypes)
-           && java.util.Objects.equals(getIgnoredFieldsRegexes(), other.getIgnoredFieldsRegexes())
-           && java.util.Objects.equals(ignoredOverriddenEqualsForFields, other.ignoredOverriddenEqualsForFields)
-           && java.util.Objects.equals(ignoredOverriddenEqualsForTypes, other.ignoredOverriddenEqualsForTypes)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-           && java.util.Objects.equals(comparedTypes, other.comparedTypes)
-           && java.util.Objects.equals(getIgnoredFieldsRegexes(), other.getIgnoredFieldsRegexes())
-           && java.util.Objects.equals(ignoredOverriddenEqualsForFields, other.ignoredOverriddenEqualsForFields)
-           && java.util.Objects.equals(ignoredOverriddenEqualsForTypes, other.ignoredOverriddenEqualsForTypes)
-           && java.util.Objects.equals(ignoredOverriddenEqualsForFieldsMatchingRegexes,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-           && java.util.Objects.equals(getIgnoredFieldsRegexes(), other.getIgnoredFieldsRegexes())
-           && java.util.Objects.equals(ignoredOverriddenEqualsForFields, other.ignoredOverriddenEqualsForFields)
-           && java.util.Objects.equals(ignoredOverriddenEqualsForTypes, other.ignoredOverriddenEqualsForTypes)
-           && java.util.Objects.equals(ignoredOverriddenEqualsForFieldsMatchingRegexes,
-                                       other.ignoredOverriddenEqualsForFieldsMatchingRegexes)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-           && java.util.Objects.equals(ignoredOverriddenEqualsForFields, other.ignoredOverriddenEqualsForFields)
-           && java.util.Objects.equals(ignoredOverriddenEqualsForTypes, other.ignoredOverriddenEqualsForTypes)
-           && java.util.Objects.equals(ignoredOverriddenEqualsForFieldsMatchingRegexes,
-                                       other.ignoredOverriddenEqualsForFieldsMatchingRegexes)
-           && java.util.Objects.equals(getIgnoredTypes(), other.getIgnoredTypes())
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-           && java.util.Objects.equals(ignoredOverriddenEqualsForFieldsMatchingRegexes,
-                                       other.ignoredOverriddenEqualsForFieldsMatchingRegexes)
-           && java.util.Objects.equals(getIgnoredTypes(), other.getIgnoredTypes())
-           && strictTypeChecking == other.strictTypeChecking
-           && java.util.Objects.equals(typeComparators, other.typeComparators)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-           && java.util.Objects.equals(getIgnoredTypes(), other.getIgnoredTypes())
-           && strictTypeChecking == other.strictTypeChecking
-           && java.util.Objects.equals(typeComparators, other.typeComparators)
-           && java.util.Objects.equals(ignoredCollectionOrderInFieldsMatchingRegexes,
-                                       other.ignoredCollectionOrderInFieldsMatchingRegexes)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-           && strictTypeChecking == other.strictTypeChecking
-           && java.util.Objects.equals(typeComparators, other.typeComparators)
-           && java.util.Objects.equals(ignoredCollectionOrderInFieldsMatchingRegexes,
-                                       other.ignoredCollectionOrderInFieldsMatchingRegexes)
-           && java.util.Objects.equals(fieldMessages, other.fieldMessages)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-           && java.util.Objects.equals(ignoredCollectionOrderInFieldsMatchingRegexes,
-                                       other.ignoredCollectionOrderInFieldsMatchingRegexes)
-           && java.util.Objects.equals(fieldMessages, other.fieldMessages)
-           && java.util.Objects.equals(typeMessages, other.typeMessages);
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
-#### Snippet
-```java
-                                       other.ignoredCollectionOrderInFieldsMatchingRegexes)
-           && java.util.Objects.equals(fieldMessages, other.fieldMessages)
-           && java.util.Objects.equals(typeMessages, other.typeMessages);
-  }
-
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonDifferenceCalculator.java`
 #### Snippet
@@ -13460,7 +13220,247 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
         comparisonState.addKeyDifference(dualValue, actualEntry.getKey(), expectedEntry.getKey());
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
+#### Snippet
+```java
+    if (elements == null) return null;
+    ArrayList<T> list = newArrayList();
+    java.util.Collections.addAll(list, elements);
+    return list;
+  }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+     * See {@link RecursiveComparisonAssert#withComparatorForFields(Comparator, String...) RecursiveComparisonAssert#withComparatorForFields(Comparator comparator, String...fields)} for examples.
+     *
+     * @param comparator the {@link java.util.Comparator Comparator} to use to compare the given field
+     * @param fields the fields the comparator should be used for
+     * @return this builder.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+     *
+     * @param <T> the class type to register a comparator for
+     * @param comparator the {@link java.util.Comparator Comparator} to use to compare the given field
+     * @param type the type to be compared with the given comparator.
+     * @return this builder.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+   *
+   * @param <T> the class type to register a comparator for
+   * @param comparator the {@link java.util.Comparator Comparator} to use to compare the given type
+   * @param type the type to be compared with the given comparator.
+   * @throws NullPointerException if the given comparator is null.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+  @Override
+  public int hashCode() {
+    return java.util.Objects.hash(fieldComparators, ignoreAllActualEmptyOptionalFields, ignoreAllActualNullFields,
+                                  ignoreAllExpectedNullFields, ignoreAllOverriddenEquals, ignoreCollectionOrder,
+                                  ignoredCollectionOrderInFields, ignoredCollectionOrderInFieldsMatchingRegexes,
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+   * See {@link RecursiveComparisonAssert#withComparatorForFields(Comparator, String...) RecursiveComparisonAssert#withComparatorForFields(Comparator, String...)} for examples.
+   *
+   * @param comparator the {@link java.util.Comparator Comparator} to use to compare the given field
+   * @param fieldLocations the locations from the root object of the fields the comparator should be used for
+   * @throws NullPointerException if the given comparator is null.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+    if (getClass() != obj.getClass()) return false;
+    RecursiveComparisonConfiguration other = (RecursiveComparisonConfiguration) obj;
+    return java.util.Objects.equals(fieldComparators, other.fieldComparators)
+           && ignoreAllActualEmptyOptionalFields == other.ignoreAllActualEmptyOptionalFields
+           && ignoreAllActualNullFields == other.ignoreAllActualNullFields
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+           && ignoreAllOverriddenEquals == other.ignoreAllOverriddenEquals
+           && ignoreCollectionOrder == other.ignoreCollectionOrder
+           && java.util.Objects.equals(ignoredCollectionOrderInFields, other.ignoredCollectionOrderInFields)
+           && java.util.Objects.equals(getIgnoredFields(), other.getIgnoredFields())
+           && java.util.Objects.equals(comparedFields, other.comparedFields)
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+           && ignoreCollectionOrder == other.ignoreCollectionOrder
+           && java.util.Objects.equals(ignoredCollectionOrderInFields, other.ignoredCollectionOrderInFields)
+           && java.util.Objects.equals(getIgnoredFields(), other.getIgnoredFields())
+           && java.util.Objects.equals(comparedFields, other.comparedFields)
+           && java.util.Objects.equals(comparedTypes, other.comparedTypes)
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+           && java.util.Objects.equals(ignoredCollectionOrderInFields, other.ignoredCollectionOrderInFields)
+           && java.util.Objects.equals(getIgnoredFields(), other.getIgnoredFields())
+           && java.util.Objects.equals(comparedFields, other.comparedFields)
+           && java.util.Objects.equals(comparedTypes, other.comparedTypes)
+           && java.util.Objects.equals(getIgnoredFieldsRegexes(), other.getIgnoredFieldsRegexes())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+           && java.util.Objects.equals(getIgnoredFields(), other.getIgnoredFields())
+           && java.util.Objects.equals(comparedFields, other.comparedFields)
+           && java.util.Objects.equals(comparedTypes, other.comparedTypes)
+           && java.util.Objects.equals(getIgnoredFieldsRegexes(), other.getIgnoredFieldsRegexes())
+           && java.util.Objects.equals(ignoredOverriddenEqualsForFields, other.ignoredOverriddenEqualsForFields)
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+           && java.util.Objects.equals(comparedFields, other.comparedFields)
+           && java.util.Objects.equals(comparedTypes, other.comparedTypes)
+           && java.util.Objects.equals(getIgnoredFieldsRegexes(), other.getIgnoredFieldsRegexes())
+           && java.util.Objects.equals(ignoredOverriddenEqualsForFields, other.ignoredOverriddenEqualsForFields)
+           && java.util.Objects.equals(ignoredOverriddenEqualsForTypes, other.ignoredOverriddenEqualsForTypes)
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+           && java.util.Objects.equals(comparedTypes, other.comparedTypes)
+           && java.util.Objects.equals(getIgnoredFieldsRegexes(), other.getIgnoredFieldsRegexes())
+           && java.util.Objects.equals(ignoredOverriddenEqualsForFields, other.ignoredOverriddenEqualsForFields)
+           && java.util.Objects.equals(ignoredOverriddenEqualsForTypes, other.ignoredOverriddenEqualsForTypes)
+           && java.util.Objects.equals(ignoredOverriddenEqualsForFieldsMatchingRegexes,
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+           && java.util.Objects.equals(getIgnoredFieldsRegexes(), other.getIgnoredFieldsRegexes())
+           && java.util.Objects.equals(ignoredOverriddenEqualsForFields, other.ignoredOverriddenEqualsForFields)
+           && java.util.Objects.equals(ignoredOverriddenEqualsForTypes, other.ignoredOverriddenEqualsForTypes)
+           && java.util.Objects.equals(ignoredOverriddenEqualsForFieldsMatchingRegexes,
+                                       other.ignoredOverriddenEqualsForFieldsMatchingRegexes)
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+           && java.util.Objects.equals(ignoredOverriddenEqualsForFields, other.ignoredOverriddenEqualsForFields)
+           && java.util.Objects.equals(ignoredOverriddenEqualsForTypes, other.ignoredOverriddenEqualsForTypes)
+           && java.util.Objects.equals(ignoredOverriddenEqualsForFieldsMatchingRegexes,
+                                       other.ignoredOverriddenEqualsForFieldsMatchingRegexes)
+           && java.util.Objects.equals(getIgnoredTypes(), other.getIgnoredTypes())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+           && java.util.Objects.equals(ignoredOverriddenEqualsForFieldsMatchingRegexes,
+                                       other.ignoredOverriddenEqualsForFieldsMatchingRegexes)
+           && java.util.Objects.equals(getIgnoredTypes(), other.getIgnoredTypes())
+           && strictTypeChecking == other.strictTypeChecking
+           && java.util.Objects.equals(typeComparators, other.typeComparators)
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+           && java.util.Objects.equals(getIgnoredTypes(), other.getIgnoredTypes())
+           && strictTypeChecking == other.strictTypeChecking
+           && java.util.Objects.equals(typeComparators, other.typeComparators)
+           && java.util.Objects.equals(ignoredCollectionOrderInFieldsMatchingRegexes,
+                                       other.ignoredCollectionOrderInFieldsMatchingRegexes)
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+           && strictTypeChecking == other.strictTypeChecking
+           && java.util.Objects.equals(typeComparators, other.typeComparators)
+           && java.util.Objects.equals(ignoredCollectionOrderInFieldsMatchingRegexes,
+                                       other.ignoredCollectionOrderInFieldsMatchingRegexes)
+           && java.util.Objects.equals(fieldMessages, other.fieldMessages)
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+           && java.util.Objects.equals(ignoredCollectionOrderInFieldsMatchingRegexes,
+                                       other.ignoredCollectionOrderInFieldsMatchingRegexes)
+           && java.util.Objects.equals(fieldMessages, other.fieldMessages)
+           && java.util.Objects.equals(typeMessages, other.typeMessages);
+  }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.java`
+#### Snippet
+```java
+                                       other.ignoredCollectionOrderInFieldsMatchingRegexes)
+           && java.util.Objects.equals(fieldMessages, other.fieldMessages)
+           && java.util.Objects.equals(typeMessages, other.typeMessages);
+  }
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
@@ -13472,7 +13472,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
    * @param optional the actual {@link OptionalDouble} to test.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
@@ -13484,31 +13484,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
    * @param optional the actual {@link OptionalLong} to test.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
-#### Snippet
-```java
-
-  /**
-   * Indicates that the provided {@link java.util.OptionalInt} should be empty.
-   *
-   * @param optional the actual {@link OptionalInt} to test.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
-#### Snippet
-```java
-
-/**
- * Build error message when an {@link java.util.Optional} should be empty.
- *
- * @author Jean-Christophe Gay
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
@@ -13520,7 +13496,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
    * @param optional the actual {@link Optional} to test.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
@@ -13532,7 +13508,31 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
    */
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
+#### Snippet
+```java
+
+/**
+ * Build error message when an {@link java.util.Optional} should be empty.
+ *
+ * @author Jean-Christophe Gay
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
+#### Snippet
+```java
+
+  /**
+   * Indicates that the provided {@link java.util.OptionalInt} should be empty.
+   *
+   * @param optional the actual {@link OptionalInt} to test.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToPercentage.java`
 #### Snippet
@@ -13544,7 +13544,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveVa
    *
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToPercentage.java`
 #### Snippet
@@ -13556,7 +13556,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveVa
    * @param percentage the given positive percentage
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToPercentage.java`
 #### Snippet
@@ -13568,7 +13568,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveVa
    * @param difference the effective distance between actual and expected
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToPercentage.java`
 #### Snippet
@@ -13580,7 +13580,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveVa
    * @param expectedValue the value we expect to be in an {@link java.util.OptionalDouble}.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToPercentage.java`
 #### Snippet
@@ -13592,7 +13592,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveVa
    */
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToPercentage.java`
 #### Snippet
@@ -13604,7 +13604,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveVa
  *
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveCauseInstance.java`
 #### Snippet
@@ -13616,7 +13616,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveCauseInstance.ja
    * @param actual the actual value in the failed assertion.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeSubstring.java`
 #### Snippet
@@ -13628,7 +13628,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeSubstring.java`
    * @param expected the expected value in the failed assertion.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBePresent.java`
 #### Snippet
@@ -13640,7 +13640,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBePresent.ja
   public static OptionalShouldBePresent shouldBePresent(Object optional) {
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveFields.java`
 #### Snippet
@@ -13652,7 +13652,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveFields.java`
    * @param actual the actual value in the failed assertion.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveFields.java`
 #### Snippet
@@ -13664,7 +13664,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveFields.java`
    * @param actual the actual value in the failed assertion.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualWithinPercentage.java`
 #### Snippet
@@ -13676,7 +13676,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualWithinPercent
    * @param <T> the type of values to compare.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualWithTimePrecision.java`
 #### Snippet
@@ -13688,7 +13688,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualWithTimePreci
    * @param actual    the actual value in the failed assertion.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualNormalizingUnicode.java`
 #### Snippet
@@ -13700,7 +13700,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualNormalizingUn
    * @param expected the expected value in the failed assertion.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeAnnotation.java`
 #### Snippet
@@ -13712,7 +13712,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeAnnotation.java`
    * @param actual the actual value in the failed assertion.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeAnnotation.java`
 #### Snippet
@@ -13724,19 +13724,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeAnnotation.java`
    * @param actual the actual value in the failed assertion.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.presentation` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
-#### Snippet
-```java
-   *
-   * @param description the {@link Description} used to build the returned error message
-   * @param representation the {@link org.assertj.core.presentation.Representation} used to build String representation
-   *          of object
-   * @return the error message from description using {@link #expected} and {@link #actual} "smart" representation.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.presentation` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
 #### Snippet
@@ -13748,7 +13736,19 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
    * @return the error message from description using {@link #detailedExpected()} and {@link #detailedActual()}
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.presentation` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
+#### Snippet
+```java
+   *
+   * @param description the {@link Description} used to build the returned error message
+   * @param representation the {@link org.assertj.core.presentation.Representation} used to build String representation
+   *          of object
+   * @return the error message from description using {@link #expected} and {@link #actual} "smart" representation.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotBeEqualIgnoringWhitespace.java`
 #### Snippet
@@ -13760,7 +13760,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotBeEqualIgnoringWh
    * @param expected the expected value in the failed assertion.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeAnArray.java`
 #### Snippet
@@ -13772,43 +13772,91 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeAnArray.java`
    * @return the created of {@code ErrorMessageFactory}.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
 ```java
 
   /**
-   * Indicates that the provided {@link java.util.OptionalDouble} does not contain the provided argument.
+   * Indicates that the provided {@link java.util.OptionalInt} does not contain the provided argument.
    *
-   * @param optional the {@link java.util.OptionalDouble} which contains a value.
+   * @param optional the {@link java.util.OptionalInt} which contains a value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
 ```java
-   * Indicates that the provided {@link java.util.OptionalDouble} does not contain the provided argument.
+   * Indicates that the provided {@link java.util.OptionalInt} does not contain the provided argument.
    *
-   * @param optional the {@link java.util.OptionalDouble} which contains a value.
-   * @param expectedValue the value we expect to be in the provided {@link java.util.OptionalDouble}.
+   * @param optional the {@link java.util.OptionalInt} which contains a value.
+   * @param expectedValue the value we expect to be in the provided {@link java.util.OptionalInt}.
    * @return a error message factory
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
 ```java
    *
-   * @param optional the {@link java.util.OptionalDouble} which contains a value.
-   * @param expectedValue the value we expect to be in the provided {@link java.util.OptionalDouble}.
+   * @param optional the {@link java.util.OptionalInt} which contains a value.
+   * @param expectedValue the value we expect to be in the provided {@link java.util.OptionalInt}.
    * @return a error message factory
    */
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
+#### Snippet
+```java
+
+  /**
+   * Indicates that the provided {@link java.util.Optional} does not contain the provided argument.
+   *
+   * @param optional the {@link java.util.Optional} which contains a value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
+#### Snippet
+```java
+   * Indicates that the provided {@link java.util.Optional} does not contain the provided argument.
+   *
+   * @param optional the {@link java.util.Optional} which contains a value.
+   * @param expectedValue the value we expect to be in the provided {@link java.util.Optional}.
+   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
+#### Snippet
+```java
+   *
+   * @param optional the {@link java.util.Optional} which contains a value.
+   * @param expectedValue the value we expect to be in the provided {@link java.util.Optional}.
+   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
+   * @return a error message factory
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
+#### Snippet
+```java
+   * @param optional the {@link java.util.Optional} which contains a value.
+   * @param expectedValue the value we expect to be in the provided {@link java.util.Optional}.
+   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
+   * @return a error message factory
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
@@ -13820,7 +13868,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java
    * @param optional the {@link java.util.OptionalLong} which contains a value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
@@ -13832,7 +13880,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java
    * @return a error message factory
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
@@ -13844,7 +13892,31 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java
    */
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
+#### Snippet
+```java
+
+  /**
+   * Indicates that an {@link java.util.Optional} is empty so it doesn't contain the expected value.
+   *
+   * @param expectedValue the value we expect to be in an {@link java.util.Optional}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
+#### Snippet
+```java
+   * Indicates that an {@link java.util.Optional} is empty so it doesn't contain the expected value.
+   *
+   * @param expectedValue the value we expect to be in an {@link java.util.Optional}.
+   * @return a error message factory.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
@@ -13856,7 +13928,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java
    *
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
@@ -13868,7 +13940,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java
    * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
@@ -13880,7 +13952,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java
    * @return a error message factory
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
@@ -13892,115 +13964,43 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java
    */
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
 ```java
 
   /**
-   * Indicates that the provided {@link java.util.Optional} does not contain the provided argument.
+   * Indicates that the provided {@link java.util.OptionalDouble} does not contain the provided argument.
    *
-   * @param optional the {@link java.util.Optional} which contains a value.
+   * @param optional the {@link java.util.OptionalDouble} which contains a value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
 ```java
-   * Indicates that the provided {@link java.util.Optional} does not contain the provided argument.
+   * Indicates that the provided {@link java.util.OptionalDouble} does not contain the provided argument.
    *
-   * @param optional the {@link java.util.Optional} which contains a value.
-   * @param expectedValue the value we expect to be in the provided {@link java.util.Optional}.
-   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
-#### Snippet
-```java
-   *
-   * @param optional the {@link java.util.Optional} which contains a value.
-   * @param expectedValue the value we expect to be in the provided {@link java.util.Optional}.
-   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
+   * @param optional the {@link java.util.OptionalDouble} which contains a value.
+   * @param expectedValue the value we expect to be in the provided {@link java.util.OptionalDouble}.
    * @return a error message factory
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
 ```java
-   * @param optional the {@link java.util.Optional} which contains a value.
-   * @param expectedValue the value we expect to be in the provided {@link java.util.Optional}.
-   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
+   *
+   * @param optional the {@link java.util.OptionalDouble} which contains a value.
+   * @param expectedValue the value we expect to be in the provided {@link java.util.OptionalDouble}.
    * @return a error message factory
    */
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
-#### Snippet
-```java
-
-  /**
-   * Indicates that an {@link java.util.Optional} is empty so it doesn't contain the expected value.
-   *
-   * @param expectedValue the value we expect to be in an {@link java.util.Optional}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
-#### Snippet
-```java
-   * Indicates that an {@link java.util.Optional} is empty so it doesn't contain the expected value.
-   *
-   * @param expectedValue the value we expect to be in an {@link java.util.Optional}.
-   * @return a error message factory.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
-#### Snippet
-```java
-
-  /**
-   * Indicates that the provided {@link java.util.OptionalInt} does not contain the provided argument.
-   *
-   * @param optional the {@link java.util.OptionalInt} which contains a value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
-#### Snippet
-```java
-   * Indicates that the provided {@link java.util.OptionalInt} does not contain the provided argument.
-   *
-   * @param optional the {@link java.util.OptionalInt} which contains a value.
-   * @param expectedValue the value we expect to be in the provided {@link java.util.OptionalInt}.
-   * @return a error message factory
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
-#### Snippet
-```java
-   *
-   * @param optional the {@link java.util.OptionalInt} which contains a value.
-   * @param expectedValue the value we expect to be in the provided {@link java.util.OptionalInt}.
-   * @return a error message factory
-   */
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualIgnoringSeconds.java`
 #### Snippet
@@ -14012,7 +14012,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualIgnoringSecon
  *
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveRootCauseExactlyInstance.java`
 #### Snippet
@@ -14024,631 +14024,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveRootCauseExactly
    * @param actual the actual value in the failed assertion.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.presentation` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/MessageFormatter.java`
-#### Snippet
-```java
-   * string</li>
-   * <li>each of the arguments in the given array is converted to a {@code String} by invoking
-   * <code>{@link org.assertj.core.presentation.Representation#toStringOf(Object)}</code>.
-   * </ol>
-   * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/MatcherShouldMatch.java`
-#### Snippet
-```java
-
-/**
- * Build error message when an {@link java.util.regex.Matcher} should match.
- *
- * @author Jiashu Zhang
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/MatcherShouldMatch.java`
-#### Snippet
-```java
-
-  /**
-   * Indicates that the provided {@link java.util.regex.Matcher} should match.
-   *
-   * @param matcher the actual {@link Matcher} to test.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
-#### Snippet
-```java
-
-  /**
-   * Indicates that an {@link java.util.OptionalDouble} is empty so it doesn't have the expected value.
-   *
-   * @param expectedValue the value we expect to be in an {@link java.util.OptionalDouble}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
-#### Snippet
-```java
-   * Indicates that an {@link java.util.OptionalDouble} is empty so it doesn't have the expected value.
-   *
-   * @param expectedValue the value we expect to be in an {@link java.util.OptionalDouble}.
-   * @return a error message factory.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
-#### Snippet
-```java
-
-/**
- * Build error message when an {@link java.util.OptionalDouble} should have a specific value close to an offset.
- *
- * @author Jean-Christophe Gay
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
-#### Snippet
-```java
-
-  /**
-   * Indicates that the provided {@link java.util.OptionalDouble} does not have the provided argument.
-   *
-   * @param optional      the {@link java.util.OptionalDouble} which has a value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
-#### Snippet
-```java
-   * Indicates that the provided {@link java.util.OptionalDouble} does not have the provided argument.
-   *
-   * @param optional      the {@link java.util.OptionalDouble} which has a value.
-   * @param expectedValue the value we expect to be in the provided {@link java.util.OptionalDouble}.
-   * @param offset        the given positive offset.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
-#### Snippet
-```java
-   *
-   * @param optional      the {@link java.util.OptionalDouble} which has a value.
-   * @param expectedValue the value we expect to be in the provided {@link java.util.OptionalDouble}.
-   * @param offset        the given positive offset.
-   * @param difference    the effective difference between actual and expected.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualIgnoringMinutes.java`
-#### Snippet
-```java
- * <li>two {@link ZonedDateTime}, {@link java.time.LocalDateTime} have same year, month, day, hour fields failed.</li>
- * <li>two {@link LocalTime} have same hour failed.</li>
- * <li>two {@link java.time.OffsetTime} have same hour failed.</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
-   * </li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
-   * </li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
-   * </li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-   * </ul>
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalLong}.
-   *
-   * @param optional the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Double {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalDouble}.
-   *
-   * @param optional the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-  /**
-   * Globally sets whether
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
-   * and
-   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
-   * and
-   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
-   * should be allowed to extract private fields, if not and they try it fails with exception.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-  /**
-   * Add the given date format to the ones used to parse date String in String based Date assertions like
-   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
-   * <p>
-   * User date formats are used before default ones in the order they have been registered (first registered, first
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * AssertJ is gonna use any date formats registered with one of these methods :
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * <p>
-   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
-   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
-   * <p>
-   * Code examples:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
-   * <p>
-   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
-   * <p>
-   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
-   *
-   * @param completionStage the actual {@link CompletionStage}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   *
-   * @param completionStage the actual {@link CompletionStage}.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletionStage}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.regex.Matcher}
-   *
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.Optional}.
-   *
-   * @param optional the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   *
-   * @param optional the actual value.
-   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.concurrent.CompletableFuture}.
-   *
-   * @param future the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   *
-   * @param future the actual value.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletableFuture}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Integer {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.concurrent.Future}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   *
-   * @param actual the actual value.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Long {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalInt}.
-   *
-   * @param optional the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-  /**
-   * Add the given date format to the ones used to parse date String in String based Date assertions like
-   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
-   * <p>
-   * User date formats are used before default ones in the order they have been registered (first registered, first
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * AssertJ is gonna use any date formats registered with one of these methods :
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * <p>
-   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
-   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
-   * <p>
-   * Code examples:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualIgnoringNanos.java`
-#### Snippet
-```java
- * <li>two {@link ZonedDateTime}, {@link LocalDateTime} have same year, month, day, hour, minute and second failed.</li>
- * <li>two {@link LocalTime} have same hour, minute and second failed.</li>
- * <li>two {@link java.time.OffsetTime} have same hour, minute and second failed.</li>
- * </ul>
- * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.error` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotBeEqualIgnoringCase.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.error.ShouldNotBeEqualIgnoringCase}</code>.
-   *
-   * @param actual the actual value in the failed assertion.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.error` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualNormalizingPunctuationAndWhitespace.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.error.ShouldBeEqualNormalizingPunctuationAndWhitespace}</code>.
-   * @param actual the actual value in the failed assertion.
-   * @param expected the expected value in the failed assertion.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.error` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualNormalizingWhitespace.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.error.ShouldBeEqualNormalizingWhitespace}</code>.
-   * @param actual the actual value in the failed assertion.
-   * @param expected the expected value in the failed assertion.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.error` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualIgnoringWhitespace.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.error.ShouldBeEqualIgnoringWhitespace}</code>.
-   * @param actual the actual value in the failed assertion.
-   * @param expected the expected value in the failed assertion.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualIgnoringTimezone.java`
-#### Snippet
-```java
-
-/**
- * Creates an error message indicating that an assertion that verifies that two {@link java.time.OffsetTime} have same
- * time fields except the timezone.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContainInstanceOf.java`
-#### Snippet
-```java
-
-  /**
-   * Indicates that a value should be present in an empty {@link java.util.Optional}.
-   *
-   * @param value Optional to be checked.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContainInstanceOf.java`
-#### Snippet
-```java
-   * @param clazz the class to check the optional value against
-   * @return an error message factory.
-   * @throws java.lang.NullPointerException if optional is null.
-   */
-  public static OptionalShouldContainInstanceOf shouldContainInstanceOf(Object value, Class<?> clazz) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.error` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotBeEqualNormalizingWhitespace.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.error.ShouldNotBeEqualNormalizingWhitespace}</code>.
-   * @param actual the actual value in the failed assertion.
-   * @param expected the expected value in the failed assertion.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.time` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/InstanceOfAssertFactories.java`
 #### Snippet
@@ -14660,7 +14036,631 @@ in `assertj-core/src/main/java/org/assertj/core/api/InstanceOfAssertFactories.ja
    * @since 3.17.0
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.presentation` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/MessageFormatter.java`
+#### Snippet
+```java
+   * string</li>
+   * <li>each of the arguments in the given array is converted to a {@code String} by invoking
+   * <code>{@link org.assertj.core.presentation.Representation#toStringOf(Object)}</code>.
+   * </ol>
+   * 
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.regex` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/MatcherShouldMatch.java`
+#### Snippet
+```java
+
+  /**
+   * Indicates that the provided {@link java.util.regex.Matcher} should match.
+   *
+   * @param matcher the actual {@link Matcher} to test.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.regex` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/MatcherShouldMatch.java`
+#### Snippet
+```java
+
+/**
+ * Build error message when an {@link java.util.regex.Matcher} should match.
+ *
+ * @author Jiashu Zhang
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
+#### Snippet
+```java
+
+  /**
+   * Indicates that an {@link java.util.OptionalDouble} is empty so it doesn't have the expected value.
+   *
+   * @param expectedValue the value we expect to be in an {@link java.util.OptionalDouble}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
+#### Snippet
+```java
+   * Indicates that an {@link java.util.OptionalDouble} is empty so it doesn't have the expected value.
+   *
+   * @param expectedValue the value we expect to be in an {@link java.util.OptionalDouble}.
+   * @return a error message factory.
+   */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
+#### Snippet
+```java
+
+/**
+ * Build error message when an {@link java.util.OptionalDouble} should have a specific value close to an offset.
+ *
+ * @author Jean-Christophe Gay
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
+#### Snippet
+```java
+
+  /**
+   * Indicates that the provided {@link java.util.OptionalDouble} does not have the provided argument.
+   *
+   * @param optional      the {@link java.util.OptionalDouble} which has a value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
+#### Snippet
+```java
+   * Indicates that the provided {@link java.util.OptionalDouble} does not have the provided argument.
+   *
+   * @param optional      the {@link java.util.OptionalDouble} which has a value.
+   * @param expectedValue the value we expect to be in the provided {@link java.util.OptionalDouble}.
+   * @param offset        the given positive offset.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalDoubleShouldHaveValueCloseToOffset.java`
+#### Snippet
+```java
+   *
+   * @param optional      the {@link java.util.OptionalDouble} which has a value.
+   * @param expectedValue the value we expect to be in the provided {@link java.util.OptionalDouble}.
+   * @param offset        the given positive offset.
+   * @param difference    the effective difference between actual and expected.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualIgnoringMinutes.java`
+#### Snippet
+```java
+ * <li>two {@link ZonedDateTime}, {@link java.time.LocalDateTime} have same year, month, day, hour fields failed.</li>
+ * <li>two {@link LocalTime} have same hour failed.</li>
+ * <li>two {@link java.time.OffsetTime} have same hour failed.</li>
+ * </ul>
+ *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualIgnoringNanos.java`
+#### Snippet
+```java
+ * <li>two {@link ZonedDateTime}, {@link LocalDateTime} have same year, month, day, hour, minute and second failed.</li>
+ * <li>two {@link LocalTime} have same hour, minute and second failed.</li>
+ * <li>two {@link java.time.OffsetTime} have same hour, minute and second failed.</li>
+ * </ul>
+ * 
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.error` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotBeEqualIgnoringCase.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.error.ShouldNotBeEqualIgnoringCase}</code>.
+   *
+   * @param actual the actual value in the failed assertion.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.error` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualNormalizingPunctuationAndWhitespace.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.error.ShouldBeEqualNormalizingPunctuationAndWhitespace}</code>.
+   * @param actual the actual value in the failed assertion.
+   * @param expected the expected value in the failed assertion.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.error` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualNormalizingWhitespace.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.error.ShouldBeEqualNormalizingWhitespace}</code>.
+   * @param actual the actual value in the failed assertion.
+   * @param expected the expected value in the failed assertion.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.error` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualIgnoringWhitespace.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.error.ShouldBeEqualIgnoringWhitespace}</code>.
+   * @param actual the actual value in the failed assertion.
+   * @param expected the expected value in the failed assertion.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.OptionalDouble}.
+   *
+   * @param optional the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+  /**
+   * Add the given date format to the ones used to parse date String in String based Date assertions like
+   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
+   * <p>
+   * User date formats are used before default ones in the order they have been registered (first registered, first
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * AssertJ is gonna use any date formats registered with one of these methods :
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * <p>
+   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
+   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
+   * <p>
+   * Code examples:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
+   * </li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
+   * </li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
+   * </li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
+   * </ul>
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Integer {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Long {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.concurrent.Future}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   *
+   * @param actual the actual value.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.concurrent.CompletableFuture}.
+   *
+   * @param future the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   *
+   * @param future the actual value.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletableFuture}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+  /**
+   * Add the given date format to the ones used to parse date String in String based Date assertions like
+   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
+   * <p>
+   * User date formats are used before default ones in the order they have been registered (first registered, first
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * AssertJ is gonna use any date formats registered with one of these methods :
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * <p>
+   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
+   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
+   * <p>
+   * Code examples:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.OptionalInt}.
+   *
+   * @param optional the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.Optional}.
+   *
+   * @param optional the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   *
+   * @param optional the actual value.
+   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.regex` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.regex.Matcher}
+   *
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+  /**
+   * Globally sets whether
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
+   * and
+   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
+   * and
+   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
+   * should be allowed to extract private fields, if not and they try it fails with exception.
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Double {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
+   * <p>
+   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
+   * <p>
+   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
+   *
+   * @param completionStage the actual {@link CompletionStage}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   *
+   * @param completionStage the actual {@link CompletionStage}.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletionStage}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.OptionalLong}.
+   *
+   * @param optional the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.time` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqualIgnoringTimezone.java`
+#### Snippet
+```java
+
+/**
+ * Creates an error message indicating that an assertion that verifies that two {@link java.time.OffsetTime} have same
+ * time fields except the timezone.
+ *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContainInstanceOf.java`
+#### Snippet
+```java
+
+  /**
+   * Indicates that a value should be present in an empty {@link java.util.Optional}.
+   *
+   * @param value Optional to be checked.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContainInstanceOf.java`
+#### Snippet
+```java
+   * @param clazz the class to check the optional value against
+   * @return an error message factory.
+   * @throws java.lang.NullPointerException if optional is null.
+   */
+  public static OptionalShouldContainInstanceOf shouldContainInstanceOf(Object value, Class<?> clazz) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.error` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/error/ShouldNotBeEqualNormalizingWhitespace.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.error.ShouldNotBeEqualNormalizingWhitespace}</code>.
+   * @param actual the actual value in the failed assertion.
+   * @param expected the expected value in the failed assertion.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.error` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveMethods.java`
 #### Snippet
@@ -14672,835 +14672,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldHaveMethods.java`
    * @param actual the actual value in the failed assertion.
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalDouble}.
-   *
-   * @param optional the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * Creates a new instance of {@link FutureAssert}
-   *
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
-   * @param actual the future to test
-   * @return the created assertion object
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.BigDecimalAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-  /**
-   * Add the given date format to the ones used to parse date String in String based Date assertions like
-   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
-   * <p>
-   * User date formats are used before default ones in the order they have been registered (first registered, first
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * AssertJ is gonna use any date formats registered with one of these methods :
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * <p>
-   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
-   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
-   * <p>
-   * Code examples:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Integer {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.Optional}.
-   *
-   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * Create assertion for {@link java.util.Optional}.
-   *
-   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
-   * @param optional the actual value.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.IntArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.FileAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.IntegerAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.CharacterAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Short2DArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ByteAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Object2DArrayAssert}</code>.
-   *
-   * @param <T> the actual's elements type.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.CharSequenceAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.CharArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ShortAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ThrowableAssert}</code>.
-   *
-   * @param <T> the type of the actual throwable.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Boolean2DArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ObjectArrayAssert}</code>.
-   *
-   * @param <T> the actual's elements type.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.CharSequenceAssert}</code> from a {@link StringBuilder}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.concurrent.CompletableFuture}.
-   *
-   * @param future the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   *
-   * @param future the actual value.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletableFuture}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Long2DArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalInt}.
-   *
-   * @param optional the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.FloatAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.LongAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.IterableAssert}</code>.
-   *
-   * @param <T> the actual elements type
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ListAssert}</code>.
-   *
-   * @param <T> the type of elements.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.InputStreamAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ShortAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Byte2DArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * Sets whether we remove elements related to AssertJ from assertion error stack trace.
-   * <p>
-   * Default is {@value org.assertj.core.configuration.Configuration#REMOVE_ASSERTJ_RELATED_ELEMENTS_FROM_STACK_TRACE}.
-   *
-   * @param removeAssertJRelatedElementsFromStackTrace flag.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.DoubleArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ByteAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
-   * <p>
-   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
-   * <p>
-   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   *
-   * @param actual the actual value.
-   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletionStage}.
-   *
-   * @return the created assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ZonedDateTimeAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.MapAssert}</code>.
-   *
-   * @param <K> the type of keys in the map.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Int2DArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.DoubleAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Long {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.CharSequenceAssert}</code> from a {@link StringBuffer}.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ClassAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.IntegerAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Double2DArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Float2DArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ObjectAssert}</code> for any object.
-   * <p>
-   * This overload is useful, when an overloaded method of then(...) takes precedence over the generic {@link #then(Object)}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.OptionalLong}.
-   *
-   * @param optional the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-  /**
-   * Add the given date format to the ones used to parse date String in String based Date assertions like
-   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
-   * <p>
-   * User date formats are used before default ones in the order they have been registered (first registered, first
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * AssertJ is gonna use any date formats registered with one of these methods :
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
-   * <li>{@link #registerCustomDateFormat(String)}</li>
-   * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * <p>
-   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
-   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
-   * <p>
-   * Code examples:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.LongArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ShortArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ClassLoaderAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.FloatArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.StringAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.FloatAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.BooleanAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ObjectAssert}</code>.
-   *
-   * @param <T> the type of the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
@@ -15512,211 +14684,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
   protected BDDAssertions() {}
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.Char2DArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.BigIntegerAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-  /**
-   * Globally sets whether
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
-   * and
-   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
-   * and
-   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
-   * should be allowed to extract private fields, if not and they try it fails with exception.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * should be allowed to extract private fields, if not and they try it fails with exception.
-   *
-   * @param allowExtractingPrivateFields allow private fields extraction. Default is {@value org.assertj.core.configuration.Configuration#ALLOW_EXTRACTING_PRIVATE_FIELDS}.
-   *
-   * @since 3.20.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.DoubleAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Assertions entry point for Double {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
-   * percentages.
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
-   * </li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * <ul>
-   * <li>
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
-   * </li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
-   * </li>
-   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
-   * </ul>
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * If the value is <code>false</code> and these methods try to compare private fields, it will fail with an exception.
-   *
-   * @param allowComparingPrivateFields allow private fields comparison. Default is {@value org.assertj.core.configuration.Configuration#ALLOW_COMPARING_PRIVATE_FIELDS}.
-   *
-   * @since 3.20.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.CharacterAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.LongAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.GenericComparableAssert}</code> with
-   * standard comparison semantics.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.ByteArrayAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Create assertion for {@link java.util.regex.Matcher}
-   *
-   * @param actual the actual matcher
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.BooleanAssert}</code>.
-   *
-   * @param actual the actual value.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
@@ -15728,31 +14696,103 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.DateAssert}</code>.
+   * Creates a new instance of <code>{@link org.assertj.core.api.LongArrayAssert}</code>.
    *
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new instance of <code>{@link org.assertj.core.api.LocalDateTimeAssert}</code>.
+   * Creates a new instance of <code>{@link org.assertj.core.api.Char2DArrayAssert}</code>.
    *
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Long2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.LongAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ByteAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Long {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.FloatAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Byte2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
@@ -15764,7 +14804,967 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
    * @param actual the actual value.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.concurrent.CompletableFuture}.
+   *
+   * @param future the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   *
+   * @param future the actual value.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletableFuture}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.CharSequenceAssert}</code> from a {@link StringBuffer}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.CharArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+  /**
+   * Globally sets whether
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
+   * and
+   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#extracting(String) IterableAssert#extracting(String)}</code>
+   * and
+   * <code>{@link org.assertj.core.api.AbstractObjectArrayAssert#extracting(String) ObjectArrayAssert#extracting(String)}</code>
+   * should be allowed to extract private fields, if not and they try it fails with exception.
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * should be allowed to extract private fields, if not and they try it fails with exception.
+   *
+   * @param allowExtractingPrivateFields allow private fields extraction. Default is {@value org.assertj.core.configuration.Configuration#ALLOW_EXTRACTING_PRIVATE_FIELDS}.
+   *
+   * @since 3.20.0
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.CharSequenceAssert}</code> from a {@link StringBuilder}.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.IntegerAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.IntArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.IntegerAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Int2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+  /**
+   * Add the given date format to the ones used to parse date String in String based Date assertions like
+   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
+   * <p>
+   * User date formats are used before default ones in the order they have been registered (first registered, first
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * AssertJ is gonna use any date formats registered with one of these methods :
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * <p>
+   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
+   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
+   * <p>
+   * Code examples:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ObjectArrayAssert}</code>.
+   *
+   * @param <T> the actual's elements type.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ByteArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
+   * </li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
+   * </li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * <code>{@link org.assertj.core.api.AbstractIterableAssert#usingElementComparatorOnFields(java.lang.String...)}</code>
+   * </li>
+   * <li><code>{@link org.assertj.core.api.AbstractObjectAssert#isEqualToComparingFieldByField(Object)}</code></li>
+   * </ul>
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * If the value is <code>false</code> and these methods try to compare private fields, it will fail with an exception.
+   *
+   * @param allowComparingPrivateFields allow private fields comparison. Default is {@value org.assertj.core.configuration.Configuration#ALLOW_COMPARING_PRIVATE_FIELDS}.
+   *
+   * @since 3.20.0
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ShortAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.GenericComparableAssert}</code> with
+   * standard comparison semantics.
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ZonedDateTimeAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.CharacterAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ClassAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.DoubleArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.BooleanAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ObjectAssert}</code> for any object.
+   * <p>
+   * This overload is useful, when an overloaded method of then(...) takes precedence over the generic {@link #then(Object)}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Short2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.BooleanAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
+   * <p>
+   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * Create assertion for {@link java.util.concurrent.CompletionStage} by converting it to a {@link CompletableFuture} and returning a {@link CompletableFutureAssert}.
+   * <p>
+   * If the given {@link java.util.concurrent.CompletionStage} is null, the {@link CompletableFuture} in the returned {@link CompletableFutureAssert} will also be null.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   *
+   * @param actual the actual value.
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.CompletionStage}.
+   *
+   * @return the created assertion object.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.CharSequenceAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.OptionalDouble}.
+   *
+   * @param optional the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.FloatArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Object2DArrayAssert}</code>.
+   *
+   * @param <T> the actual's elements type.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.LongAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ThrowableAssert}</code>.
+   *
+   * @param <T> the type of the actual throwable.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.StringAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Float2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ObjectAssert}</code>.
+   *
+   * @param <T> the type of the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.DateAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.DoubleAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.BigDecimalAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * Creates a new instance of {@link FutureAssert}
+   *
+   * @param <RESULT> the type of the value contained in the {@link java.util.concurrent.Future}.
+   * @param actual the future to test
+   * @return the created assertion object
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Integer {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.Optional}.
+   *
+   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * Create assertion for {@link java.util.Optional}.
+   *
+   * @param <VALUE> the type of the value contained in the {@link java.util.Optional}.
+   * @param optional the actual value.
+   *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.LocalDateTimeAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ClassLoaderAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.BigIntegerAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Assertions entry point for Double {@link org.assertj.core.data.Percentage} to use with isCloseTo assertions for
+   * percentages.
+   * <p>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Double2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.OptionalLong}.
+   *
+   * @param optional the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ShortArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.Boolean2DArrayAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ShortAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.MapAssert}</code>.
+   *
+   * @param <K> the type of keys in the map.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.CharacterAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * Sets whether we remove elements related to AssertJ from assertion error stack trace.
+   * <p>
+   * Default is {@value org.assertj.core.configuration.Configuration#REMOVE_ASSERTJ_RELATED_ELEMENTS_FROM_STACK_TRACE}.
+   *
+   * @param removeAssertJRelatedElementsFromStackTrace flag.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ByteAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.regex` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.regex.Matcher}
+   *
+   * @param actual the actual matcher
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+  /**
+   * Add the given date format to the ones used to parse date String in String based Date assertions like
+   * {@link org.assertj.core.api.AbstractDateAssert#isEqualTo(String)}.
+   * <p>
+   * User date formats are used before default ones in the order they have been registered (first registered, first
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * AssertJ is gonna use any date formats registered with one of these methods :
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * <ul>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
+   * <li>{@link #registerCustomDateFormat(String)}</li>
+   * </ul>
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * <p>
+   * To revert to default formats only, call {@link #useDefaultDateFormatsOnly()} or
+   * {@link org.assertj.core.api.AbstractDateAssert#withDefaultDateFormatsOnly()}.
+   * <p>
+   * Code examples:
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.IterableAssert}</code>.
+   *
+   * @param <T> the actual elements type
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.ListAssert}</code>.
+   *
+   * @param <T> the type of elements.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.DoubleAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Create assertion for {@link java.util.OptionalInt}.
+   *
+   * @param optional the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.FloatAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.InputStreamAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new instance of <code>{@link org.assertj.core.api.FileAssert}</code>.
+   *
+   * @param actual the actual value.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.text` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
 #### Snippet
@@ -15776,7 +15776,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
    * <p>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.text` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
 #### Snippet
@@ -15788,7 +15788,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
    * Examples:
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/extractor/Extractors.java`
 #### Snippet
@@ -15800,19 +15800,7 @@ public class Extractors {
    */
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `assertj-core/src/main/java/org/assertj/core/configuration/Configuration.java`
-#### Snippet
-```java
-   * AssertJ uses defaults date formats in date assertions, this property let's you register additional ones (default there are no additional date formats).
-   * <p>
-   * See {@link Assertions#registerCustomDateFormat(java.text.DateFormat)} for a detailed description.
-   *
-   * @return the date formats AssertJ will use in date assertions in addition the default ones.
-```
-
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.text` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/configuration/Configuration.java`
 #### Snippet
@@ -15824,7 +15812,19 @@ in `assertj-core/src/main/java/org/assertj/core/configuration/Configuration.java
    * Note that this change will only be effective once {@link #apply()} or {@link #applyAndDisplay()} is called.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.text` is unnecessary and can be removed
+in `assertj-core/src/main/java/org/assertj/core/configuration/Configuration.java`
+#### Snippet
+```java
+   * AssertJ uses defaults date formats in date assertions, this property let's you register additional ones (default there are no additional date formats).
+   * <p>
+   * See {@link Assertions#registerCustomDateFormat(java.text.DateFormat)} for a detailed description.
+   *
+   * @return the date formats AssertJ will use in date assertions in addition the default ones.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.text` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/configuration/Configuration.java`
 #### Snippet
@@ -15836,7 +15836,7 @@ in `assertj-core/src/main/java/org/assertj/core/configuration/Configuration.java
    * Note that this change will only be effective once {@link #apply()} or {@link #applyAndDisplay()} is called.
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
 #### Snippet
@@ -15848,7 +15848,7 @@ in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentat
    * </ul>
 ```
 
-### UnnecessaryFullyQualifiedName
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.assertj.core.configuration` is unnecessary and can be removed
 in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
 #### Snippet
@@ -15860,8 +15860,8 @@ in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentat
    */
 ```
 
-## ThrowablePrintStackTrace
-### ThrowablePrintStackTrace
+## RuleId[ruleID=ThrowablePrintStackTrace]
+### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
 #### Snippet
@@ -15873,8 +15873,8 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
     }
 ```
 
-## NonProtectedConstructorInAbstractClass
-### NonProtectedConstructorInAbstractClass
+## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `AbstractObjectAssert()` of an abstract class should not be declared 'public'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
 #### Snippet
@@ -15886,7 +15886,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
   }
 ```
 
-### NonProtectedConstructorInAbstractClass
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `AbstractFloatAssert()` of an abstract class should not be declared 'public'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
 #### Snippet
@@ -15898,7 +15898,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractFloatAssert.java`
     this.isPrimitive = true;
 ```
 
-### NonProtectedConstructorInAbstractClass
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `AbstractDoubleAssert()` of an abstract class should not be declared 'public'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
 #### Snippet
@@ -15910,7 +15910,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDoubleAssert.java`
     this.isPrimitive = true;
 ```
 
-### NonProtectedConstructorInAbstractClass
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `FieldHolder()` of an abstract class should not be declared 'public'
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldHolder.java`
 #### Snippet
@@ -15922,7 +15922,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldHo
   }
 ```
 
-### NonProtectedConstructorInAbstractClass
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `TemporalUnitOffset()` of an abstract class should not be declared 'public'
 in `assertj-core/src/main/java/org/assertj/core/data/TemporalUnitOffset.java`
 #### Snippet
@@ -15934,7 +15934,7 @@ in `assertj-core/src/main/java/org/assertj/core/data/TemporalUnitOffset.java`
     checkThatValueIsPositive(value);
 ```
 
-### NonProtectedConstructorInAbstractClass
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `Delta()` of an abstract class should not be declared 'public'
 in `assertj-core/src/main/java/org/assertj/core/util/diff/Delta.java`
 #### Snippet
@@ -15946,7 +15946,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/Delta.java`
     checkArgument(revised != null, "revised must not be null");
 ```
 
-### NonProtectedConstructorInAbstractClass
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `PathNode()` of an abstract class should not be declared 'public'
 in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/PathNode.java`
 #### Snippet
@@ -15958,43 +15958,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/PathNode.java`
     this.j = j;
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `RealNumbers()` of an abstract class should not be declared 'public'
-in `assertj-core/src/main/java/org/assertj/core/internal/RealNumbers.java`
-#### Snippet
-```java
-public abstract class RealNumbers<NUMBER extends Number & Comparable<NUMBER>> extends Numbers<NUMBER> {
-
-  public RealNumbers() {
-    super();
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `RealNumbers()` of an abstract class should not be declared 'public'
-in `assertj-core/src/main/java/org/assertj/core/internal/RealNumbers.java`
-#### Snippet
-```java
-  }
-
-  public RealNumbers(ComparisonStrategy comparisonStrategy) {
-    super(comparisonStrategy);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `Numbers()` of an abstract class should not be declared 'public'
-in `assertj-core/src/main/java/org/assertj/core/internal/Numbers.java`
-#### Snippet
-```java
-public abstract class Numbers<NUMBER extends Number & Comparable<NUMBER>> extends Comparables {
-
-  public Numbers() {
-    super();
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `Numbers()` of an abstract class should not be declared 'public'
 in `assertj-core/src/main/java/org/assertj/core/internal/Numbers.java`
 #### Snippet
@@ -16006,19 +15970,43 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Numbers.java`
   }
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `TypeHolder()` of an abstract class should not be declared 'public'
-in `assertj-core/src/main/java/org/assertj/core/internal/TypeHolder.java`
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `Numbers()` of an abstract class should not be declared 'public'
+in `assertj-core/src/main/java/org/assertj/core/internal/Numbers.java`
+#### Snippet
+```java
+public abstract class Numbers<NUMBER extends Number & Comparable<NUMBER>> extends Comparables {
+
+  public Numbers() {
+    super();
+  }
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `RealNumbers()` of an abstract class should not be declared 'public'
+in `assertj-core/src/main/java/org/assertj/core/internal/RealNumbers.java`
 #### Snippet
 ```java
   }
 
-  public TypeHolder(Comparator<Class<?>> comparator) {
-    typeHolder = new TreeMap<>(requireNonNull(comparator, "Comparator must not be null"));
+  public RealNumbers(ComparisonStrategy comparisonStrategy) {
+    super(comparisonStrategy);
   }
 ```
 
-### NonProtectedConstructorInAbstractClass
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `RealNumbers()` of an abstract class should not be declared 'public'
+in `assertj-core/src/main/java/org/assertj/core/internal/RealNumbers.java`
+#### Snippet
+```java
+public abstract class RealNumbers<NUMBER extends Number & Comparable<NUMBER>> extends Numbers<NUMBER> {
+
+  public RealNumbers() {
+    super();
+  }
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `TypeHolder()` of an abstract class should not be declared 'public'
 in `assertj-core/src/main/java/org/assertj/core/internal/TypeHolder.java`
 #### Snippet
@@ -16030,8 +16018,20 @@ in `assertj-core/src/main/java/org/assertj/core/internal/TypeHolder.java`
   }
 ```
 
-## AssignmentToMethodParameter
-### AssignmentToMethodParameter
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `TypeHolder()` of an abstract class should not be declared 'public'
+in `assertj-core/src/main/java/org/assertj/core/internal/TypeHolder.java`
+#### Snippet
+```java
+  }
+
+  public TypeHolder(Comparator<Class<?>> comparator) {
+    typeHolder = new TreeMap<>(requireNonNull(comparator, "Comparator must not be null"));
+  }
+```
+
+## RuleId[ruleID=AssignmentToMethodParameter]
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `context`
 in `assertj-core/src/main/java/org/assertj/core/api/junit/jupiter/SoftAssertionsExtension.java`
 #### Snippet
@@ -16043,7 +16043,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/junit/jupiter/SoftAssertions
     }
 ```
 
-### AssignmentToMethodParameter
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `throwable`
 in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
 #### Snippet
@@ -16055,7 +16055,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
   }
 ```
 
-### AssignmentToMethodParameter
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `c`
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonDifferenceCalculator.java`
 #### Snippet
@@ -16067,7 +16067,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
     customEquals.put(origClass, false);
 ```
 
-### AssignmentToMethodParameter
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `cls`
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/ClassUtils.java`
 #### Snippet
@@ -16079,7 +16079,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/ClassUtils.ja
   }
 ```
 
-### AssignmentToMethodParameter
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `path`
 in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
 #### Snippet
@@ -16091,7 +16091,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
       checkState(!path.isSnake(), "bad diffpath: found snake when looking for diff");
 ```
 
-### AssignmentToMethodParameter
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `path`
 in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
 #### Snippet
@@ -16103,7 +16103,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
       int janchor = path.j;
 ```
 
-### AssignmentToMethodParameter
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `path`
 in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
 #### Snippet
@@ -16115,19 +16115,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
     return patch;
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `c`
-in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
-#### Snippet
-```java
-        return true;
-      } catch (Exception ignored) {}
-      c = c.getSuperclass();
-    }
-    customHash.put(origClass, false);
-```
-
-### AssignmentToMethodParameter
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `obj`
 in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
 #### Snippet
@@ -16139,7 +16127,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
         continue;
 ```
 
-### AssignmentToMethodParameter
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `c`
 in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
 #### Snippet
@@ -16148,10 +16136,10 @@ in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
       } catch (Exception ignored) {}
       c = c.getSuperclass();
     }
-    customEquals.put(origClass, false);
+    customHash.put(origClass, false);
 ```
 
-### AssignmentToMethodParameter
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `comparatorByPropertyOrField`
 in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
 #### Snippet
@@ -16163,7 +16151,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
         : comparatorByPropertyOrField;
 ```
 
-### AssignmentToMethodParameter
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `comparatorByType`
 in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
 #### Snippet
@@ -16175,8 +16163,20 @@ in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
   }
 ```
 
-## ReturnNull
-### ReturnNull
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `c`
+in `assertj-core/src/main/java/org/assertj/core/internal/DeepDifference.java`
+#### Snippet
+```java
+        return true;
+      } catch (Exception ignored) {}
+      c = c.getSuperclass();
+    }
+    customEquals.put(origClass, false);
+```
+
+## RuleId[ruleID=ReturnNull]
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/api/LongPredicateAssert.java`
 #### Snippet
@@ -16188,7 +16188,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/LongPredicateAssert.java`
 
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractShortArrayAssert.java`
 #### Snippet
@@ -16200,7 +16200,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractShortArrayAssert.jav
     for (int i = 0; i < shorts.length; i++) {
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/api/IntPredicateAssert.java`
 #### Snippet
@@ -16212,19 +16212,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/IntPredicateAssert.java`
 
 ```
 
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/api/ThrowableAssert.java`
-#### Snippet
-```java
-                                                                             Class<THROWABLE> type) {
-    Throwable throwable = catchThrowable(shouldRaiseThrowable);
-    if (throwable == null) return null;
-    // check exception type
-    new ThrowableAssert(throwable).overridingErrorMessage(shouldBeInstance(throwable, type).create())
-```
-
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/api/ThrowableAssert.java`
 #### Snippet
@@ -16236,7 +16224,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/ThrowableAssert.java`
 
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/api/ThrowableAssert.java`
 #### Snippet
@@ -16248,7 +16236,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/ThrowableAssert.java`
       // do not handle AssertionErrors in the next catch block!
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/api/ThrowableAssert.java`
+#### Snippet
+```java
+                                                                             Class<THROWABLE> type) {
+    Throwable throwable = catchThrowable(shouldRaiseThrowable);
+    if (throwable == null) return null;
+    // check exception type
+    new ThrowableAssert(throwable).overridingErrorMessage(shouldBeInstance(throwable, type).create())
+```
+
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.java`
 #### Snippet
@@ -16260,19 +16260,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.
     return zonedDateTime.withZoneSameInstant(actual.getZone());
 ```
 
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractSoftAssertions.java`
-#### Snippet
-```java
-    error.initCause(realCause);
-    collectAssertionError(error);
-    return null;
-  }
-
-```
-
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractSoftAssertions.java`
 #### Snippet
@@ -16284,7 +16272,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractSoftAssertions.java`
 
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractSoftAssertions.java`
+#### Snippet
+```java
+    error.initCause(realCause);
+    collectAssertionError(error);
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/api/DoublePredicateAssert.java`
 #### Snippet
@@ -16296,19 +16296,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/DoublePredicateAssert.java`
 
 ```
 
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
 #### Snippet
@@ -16320,7 +16308,19 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
     // no synchronization needed as userCustomDateFormat is thread local
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldComparators.java`
 #### Snippet
@@ -16332,7 +16332,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/FieldCo
 
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/RecursiveAssertionDriver.java`
 #### Snippet
@@ -16344,7 +16344,7 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/assertion/Recursiv
     final String name = object.getClass().getName();
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/ArrayWrapperList.java`
 #### Snippet
@@ -16356,7 +16356,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/ArrayWrapperList.java`
     checkArgument(array.getClass().isArray(), "The object to wrap should be an array");
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
 #### Snippet
@@ -16368,7 +16368,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
 
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
 #### Snippet
@@ -16380,7 +16380,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Throwables.java`
     while ((cause = throwable.getCause()) != null)
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/Lists.java`
 #### Snippet
@@ -16392,7 +16392,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Lists.java`
     return Streams.stream(elements).collect(toCollection(ArrayList::new));
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/Lists.java`
 #### Snippet
@@ -16404,7 +16404,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Lists.java`
     ArrayList<T> list = newArrayList();
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/Lists.java`
 #### Snippet
@@ -16416,103 +16416,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Lists.java`
     return Streams.stream(elements).collect(toCollection(ArrayList::new));
 ```
 
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/Sets.java`
-#### Snippet
-```java
-  public static <T> LinkedHashSet<T> newLinkedHashSet(T... elements) {
-    if (elements == null) {
-      return null;
-    }
-    LinkedHashSet<T> set = newLinkedHashSet();
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/Sets.java`
-#### Snippet
-```java
-  public static <T> TreeSet<T> newTreeSet(T... elements) {
-    if (elements == null) {
-      return null;
-    }
-    TreeSet<T> set = newTreeSet();
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/Sets.java`
-#### Snippet
-```java
-  public static <T> HashSet<T> newHashSet(Iterable<? extends T> elements) {
-    if (elements == null) {
-      return null;
-    }
-    return Streams.stream(elements).collect(toCollection(HashSet::new));
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
-#### Snippet
-```java
-   */
-  public static String formatAsDatetime(Calendar calendar) {
-    return calendar == null ? null : formatAsDatetime(calendar.getTime());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
-#### Snippet
-```java
-  public static synchronized Date parseDatetimeWithMs(String dateAsString) {
-    try {
-      return dateAsString == null ? null : ISO_DATE_TIME_FORMAT_WITH_MS.parse(dateAsString);
-    } catch (ParseException e) {
-      throw new RuntimeException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
-#### Snippet
-```java
-  public static synchronized Date parse(String dateAsString) {
-    try {
-      return dateAsString == null ? null : ISO_DATE_FORMAT.parse(dateAsString);
-    } catch (ParseException e) {
-      throw new RuntimeException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
-#### Snippet
-```java
-   */
-  public static synchronized String formatAsDatetimeWithMs(Date date) {
-    return date == null ? null : ISO_DATE_TIME_FORMAT_WITH_MS.format(date);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
-#### Snippet
-```java
-  public static Calendar toCalendar(Date date) {
-    if (date == null) {
-      return null;
-    }
-    Calendar calendar = Calendar.getInstance();
-```
-
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
 #### Snippet
@@ -16524,19 +16428,55 @@ in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
 
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
 #### Snippet
 ```java
-  public static synchronized Date parseDatetime(String dateAsString) {
+   */
+  public static String formatAsDatetime(Calendar calendar) {
+    return calendar == null ? null : formatAsDatetime(calendar.getTime());
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
+#### Snippet
+```java
+  public static synchronized Date parse(String dateAsString) {
     try {
-      return dateAsString == null ? null : ISO_DATE_TIME_FORMAT.parse(dateAsString);
+      return dateAsString == null ? null : ISO_DATE_FORMAT.parse(dateAsString);
     } catch (ParseException e) {
       throw new RuntimeException(e);
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
+#### Snippet
+```java
+  public static synchronized Date parseDatetimeWithMs(String dateAsString) {
+    try {
+      return dateAsString == null ? null : ISO_DATE_TIME_FORMAT_WITH_MS.parse(dateAsString);
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
+#### Snippet
+```java
+  public static Calendar toCalendar(Date date) {
+    if (date == null) {
+      return null;
+    }
+    Calendar calendar = Calendar.getInstance();
+```
+
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
 #### Snippet
@@ -16548,19 +16488,67 @@ in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
     cal.set(Calendar.HOUR_OF_DAY, 0);
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/Arrays.java`
+in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
+#### Snippet
+```java
+  public static synchronized Date parseDatetime(String dateAsString) {
+    try {
+      return dateAsString == null ? null : ISO_DATE_TIME_FORMAT.parse(dateAsString);
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/DateUtil.java`
 #### Snippet
 ```java
    */
-  public static long[] array(AtomicLongArray atomicLongArray) {
-    if (atomicLongArray == null) return null;
-    long[] array = new long[atomicLongArray.length()];
-    for (int i = 0; i < array.length; i++) {
+  public static synchronized String formatAsDatetimeWithMs(Date date) {
+    return date == null ? null : ISO_DATE_TIME_FORMAT_WITH_MS.format(date);
+  }
+
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/Sets.java`
+#### Snippet
+```java
+  public static <T> LinkedHashSet<T> newLinkedHashSet(T... elements) {
+    if (elements == null) {
+      return null;
+    }
+    LinkedHashSet<T> set = newLinkedHashSet();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/Sets.java`
+#### Snippet
+```java
+  public static <T> HashSet<T> newHashSet(Iterable<? extends T> elements) {
+    if (elements == null) {
+      return null;
+    }
+    return Streams.stream(elements).collect(toCollection(HashSet::new));
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/Sets.java`
+#### Snippet
+```java
+  public static <T> TreeSet<T> newTreeSet(T... elements) {
+    if (elements == null) {
+      return null;
+    }
+    TreeSet<T> set = newTreeSet();
+```
+
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/Arrays.java`
 #### Snippet
@@ -16572,7 +16560,19 @@ in `assertj-core/src/main/java/org/assertj/core/util/Arrays.java`
     for (int i = 0; i < array.length; i++) {
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/Arrays.java`
+#### Snippet
+```java
+   */
+  public static long[] array(AtomicLongArray atomicLongArray) {
+    if (atomicLongArray == null) return null;
+    long[] array = new long[atomicLongArray.length()];
+    for (int i = 0; i < array.length; i++) {
+```
+
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/Arrays.java`
 #### Snippet
@@ -16584,115 +16584,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/Arrays.java`
     if (length == 0) return array();
 ```
 
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
-#### Snippet
-```java
-   */
-  public static <T> T[] toArray(Iterable<? extends T> iterable, Class<T> type) {
-    if (iterable == null) return null;
-    Collection<? extends T> collection = toCollection(iterable);
-    T[] array = newArray(type, collection.size());
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
-#### Snippet
-```java
-  @SuppressWarnings("unchecked")
-  public static <T> T[] toArray(Iterable<? extends T> iterable) {
-    if (iterable == null) return null;
-    return (T[]) newArrayList(iterable).toArray();
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
-#### Snippet
-```java
-  @SafeVarargs
-  public static <T> Iterator<T> iterator(T... elements) {
-    if (elements == null) return null;
-    return iterable(elements).iterator();
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
-#### Snippet
-```java
-  @SafeVarargs
-  public static <T> Iterable<T> iterable(T... elements) {
-    if (elements == null) return null;
-    ArrayList<T> list = newArrayList();
-    java.util.Collections.addAll(list, elements);
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/Objects.java`
-#### Snippet
-```java
-      return type.cast(o);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/Strings.java`
-#### Snippet
-```java
-  public static String concat(Object... objects) {
-    if (Arrays.isNullOrEmpty(objects)) {
-      return null;
-    }
-    return stream(objects).map(String::valueOf).collect(joining());
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/Strings.java`
-#### Snippet
-```java
-
-  private static String revertEscapingPercent_n(String value) {
-    return value == null ? null : value.replace("%%n", "%n");
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/Strings.java`
-#### Snippet
-```java
-   */
-  public static String quote(String s) {
-    return s != null ? concat("'", s, "'") : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/Strings.java`
-#### Snippet
-```java
-   */
-  public static String escapePercent(String value) {
-    return value == null ? null : value.replace("%", "%%");
-  }
-
-```
-
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/RecursiveComparisonDifferenceCalculator.java`
 #### Snippet
@@ -16704,7 +16596,115 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Recursi
   }
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
+#### Snippet
+```java
+   */
+  public static <T> T[] toArray(Iterable<? extends T> iterable, Class<T> type) {
+    if (iterable == null) return null;
+    Collection<? extends T> collection = toCollection(iterable);
+    T[] array = newArray(type, collection.size());
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
+#### Snippet
+```java
+  @SafeVarargs
+  public static <T> Iterable<T> iterable(T... elements) {
+    if (elements == null) return null;
+    ArrayList<T> list = newArrayList();
+    java.util.Collections.addAll(list, elements);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
+#### Snippet
+```java
+  @SuppressWarnings("unchecked")
+  public static <T> T[] toArray(Iterable<? extends T> iterable) {
+    if (iterable == null) return null;
+    return (T[]) newArrayList(iterable).toArray();
+  }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/IterableUtil.java`
+#### Snippet
+```java
+  @SafeVarargs
+  public static <T> Iterator<T> iterator(T... elements) {
+    if (elements == null) return null;
+    return iterable(elements).iterator();
+  }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/Strings.java`
+#### Snippet
+```java
+
+  private static String revertEscapingPercent_n(String value) {
+    return value == null ? null : value.replace("%%n", "%n");
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/Strings.java`
+#### Snippet
+```java
+  public static String concat(Object... objects) {
+    if (Arrays.isNullOrEmpty(objects)) {
+      return null;
+    }
+    return stream(objects).map(String::valueOf).collect(joining());
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/Strings.java`
+#### Snippet
+```java
+   */
+  public static String quote(String s) {
+    return s != null ? concat("'", s, "'") : null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/Strings.java`
+#### Snippet
+```java
+   */
+  public static String escapePercent(String value) {
+    return value == null ? null : value.replace("%", "%%");
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/Objects.java`
+#### Snippet
+```java
+      return type.cast(o);
+    }
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/PathNode.java`
 #### Snippet
@@ -16716,7 +16716,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/PathNode.java`
       return prev.previousSnake();
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/ClassUtils.java`
 #### Snippet
@@ -16728,7 +16728,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/ClassUtils.ja
     LinkedHashSet<Class<?>> interfacesFound = new LinkedHashSet<>();
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/ClassUtils.java`
 #### Snippet
@@ -16740,7 +16740,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/ClassUtils.ja
     final List<Class<?>> classes = new ArrayList<>();
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/Introspection.java`
 #### Snippet
@@ -16752,7 +16752,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/Introspection
 
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/PropertyOrFieldSupport.java`
 #### Snippet
@@ -16764,7 +16764,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/PropertyOrFie
       return getValueOf(nextNameFrom(propertyOrFieldName), propertyOrFieldValue);
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/PropertySupport.java`
 #### Snippet
@@ -16776,7 +16776,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/PropertySuppo
   }
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/PropertySupport.java`
 #### Snippet
@@ -16788,19 +16788,7 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/PropertySuppo
     if (isNestedProperty(propertyName)) {
 ```
 
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.java`
-#### Snippet
-```java
-   */
-  public <T> T fieldValue(String fieldName, Class<T> fieldClass, Object target) {
-    if (target == null) return null;
-
-    if (isNestedField(fieldName)) {
-```
-
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.java`
 #### Snippet
@@ -16812,7 +16800,19 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.
   }
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldSupport.java`
+#### Snippet
+```java
+   */
+  public <T> T fieldValue(String fieldName, Class<T> fieldClass, Object target) {
+    if (target == null) return null;
+
+    if (isNestedField(fieldName)) {
+```
+
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
 #### Snippet
@@ -16824,7 +16824,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
       return null;
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
 #### Snippet
@@ -16836,7 +16836,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
   }
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
 #### Snippet
@@ -16848,7 +16848,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
 
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
 #### Snippet
@@ -16860,7 +16860,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
   }
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/error/AssertionErrorCreator.java`
 #### Snippet
@@ -16872,7 +16872,7 @@ in `assertj-core/src/main/java/org/assertj/core/error/AssertionErrorCreator.java
 
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/internal/Lists.java`
 #### Snippet
@@ -16884,19 +16884,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Lists.java`
 
 ```
 
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/internal/TypeHolder.java`
-#### Snippet
-```java
-  public T get(Class<?> clazz) {
-    Class<?> relevantType = getRelevantClass(clazz);
-    return relevantType == null ? null : typeHolder.get(relevantType);
-  }
-
-```
-
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/internal/TypeHolder.java`
 #### Snippet
@@ -16908,7 +16896,19 @@ in `assertj-core/src/main/java/org/assertj/core/internal/TypeHolder.java`
 
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/internal/TypeHolder.java`
+#### Snippet
+```java
+  public T get(Class<?> clazz) {
+    Class<?> relevantType = getRelevantClass(clazz);
+    return relevantType == null ? null : typeHolder.get(relevantType);
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/internal/ByteArrays.java`
 #### Snippet
@@ -16920,7 +16920,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/ByteArrays.java`
     byte[] bytes = new byte[ints.length];
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/internal/Dates.java`
 #### Snippet
@@ -16932,7 +16932,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Dates.java`
 
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/internal/Failures.java`
 #### Snippet
@@ -16944,7 +16944,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Failures.java`
                                                      overridingErrorMessage));
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/internal/Iterables.java`
 #### Snippet
@@ -16956,7 +16956,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Iterables.java`
 
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
 #### Snippet
@@ -16968,43 +16968,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Comparables.java`
 
 ```
 
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
-#### Snippet
-```java
-      return ((ComparatorBasedComparisonStrategy) comparisonStrategy).getComparator();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
-#### Snippet
-```java
-  private static String normalizeWhitespaceAndPunctuation(CharSequence toNormalize) {
-    if (toNormalize == null) {
-      return null;
-    }
-    return normalizeWhitespace(toNormalize.toString().replaceAll(PUNCTUATION_REGEX, EMPTY_STRING));
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
-#### Snippet
-```java
-
-  private static String normalizeWhitespace(CharSequence toNormalize) {
-    if (toNormalize == null) return null;
-    final StringBuilder result = new StringBuilder(toNormalize.length());
-    boolean lastWasSpace = true;
-```
-
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
 #### Snippet
@@ -17016,7 +16980,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
   }
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
 #### Snippet
@@ -17028,7 +16992,43 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Arrays.java`
     int length = getLength(array);
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
+#### Snippet
+```java
+  private static String normalizeWhitespaceAndPunctuation(CharSequence toNormalize) {
+    if (toNormalize == null) {
+      return null;
+    }
+    return normalizeWhitespace(toNormalize.toString().replaceAll(PUNCTUATION_REGEX, EMPTY_STRING));
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
+#### Snippet
+```java
+      return ((ComparatorBasedComparisonStrategy) comparisonStrategy).getComparator();
+    }
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/internal/Strings.java`
+#### Snippet
+```java
+
+  private static String normalizeWhitespace(CharSequence toNormalize) {
+    if (toNormalize == null) return null;
+    final StringBuilder result = new StringBuilder(toNormalize.length());
+    boolean lastWasSpace = true;
+```
+
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/presentation/BinaryRepresentation.java`
 #### Snippet
@@ -17040,31 +17040,7 @@ in `assertj-core/src/main/java/org/assertj/core/presentation/BinaryRepresentatio
 
 ```
 
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
-#### Snippet
-```java
-
-  protected String format(Object[] array, String start, String end, String elementSeparator, String indentation, Object root) {
-    if (array == null) return null;
-    // root is used to avoid infinite recursion in case one element refers to it.
-    List<String> representedElements = representElements(Stream.of(array), start, end, elementSeparator, indentation, root);
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
-#### Snippet
-```java
-    // some types have already an unambiguous toString, no need to double down
-    if (hasAlreadyAnUnambiguousToStringOf(obj)) return toStringOf(obj);
-    return obj == null ? null : String.format("%s (%s@%s)", toStringOf(obj), classNameOf(obj), identityHexCodeOf(obj));
-  }
-
-```
-
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
 #### Snippet
@@ -17076,43 +17052,7 @@ in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentat
   }
 ```
 
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
-#### Snippet
-```java
-
-  protected String toStringOf(Map<?, ?> map) {
-    if (map == null) return null;
-    Map<?, ?> sortedMap = toSortedMapIfPossible(map);
-    Iterator<?> entriesIterator = sortedMap.entrySet().iterator();
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
-#### Snippet
-```java
-  @SuppressWarnings("unchecked")
-  protected <T> String customFormat(T object) {
-    if (object == null) return null;
-    CharSequence formatted = ((Function<T, ? extends CharSequence>) customFormatterByType.get(object.getClass())).apply(object);
-    return formatted != null ? formatted.toString() : null;
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
-#### Snippet
-```java
-    if (object == null) return null;
-    CharSequence formatted = ((Function<T, ? extends CharSequence>) customFormatterByType.get(object.getClass())).apply(object);
-    return formatted != null ? formatted.toString() : null;
-  }
-
-```
-
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
 #### Snippet
@@ -17124,7 +17064,7 @@ in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentat
     if (object instanceof ComparatorBasedComparisonStrategy) return toStringOf((ComparatorBasedComparisonStrategy) object);
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
 #### Snippet
@@ -17136,7 +17076,67 @@ in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentat
     if (!iterator.hasNext()) return start + end;
 ```
 
-### ReturnNull
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
+#### Snippet
+```java
+    // some types have already an unambiguous toString, no need to double down
+    if (hasAlreadyAnUnambiguousToStringOf(obj)) return toStringOf(obj);
+    return obj == null ? null : String.format("%s (%s@%s)", toStringOf(obj), classNameOf(obj), identityHexCodeOf(obj));
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
+#### Snippet
+```java
+
+  protected String format(Object[] array, String start, String end, String elementSeparator, String indentation, Object root) {
+    if (array == null) return null;
+    // root is used to avoid infinite recursion in case one element refers to it.
+    List<String> representedElements = representElements(Stream.of(array), start, end, elementSeparator, indentation, root);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
+#### Snippet
+```java
+
+  protected String toStringOf(Map<?, ?> map) {
+    if (map == null) return null;
+    Map<?, ?> sortedMap = toSortedMapIfPossible(map);
+    Iterator<?> entriesIterator = sortedMap.entrySet().iterator();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
+#### Snippet
+```java
+  @SuppressWarnings("unchecked")
+  protected <T> String customFormat(T object) {
+    if (object == null) return null;
+    CharSequence formatted = ((Function<T, ? extends CharSequence>) customFormatterByType.get(object.getClass())).apply(object);
+    return formatted != null ? formatted.toString() : null;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
+#### Snippet
+```java
+    if (object == null) return null;
+    CharSequence formatted = ((Function<T, ? extends CharSequence>) customFormatterByType.get(object.getClass())).apply(object);
+    return formatted != null ? formatted.toString() : null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `assertj-core/src/main/java/org/assertj/core/internal/Objects.java`
 #### Snippet
@@ -17148,8 +17148,8 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Objects.java`
 
 ```
 
-## UnnecessaryLocalVariable
-### UnnecessaryLocalVariable
+## RuleId[ruleID=UnnecessaryLocalVariable]
+### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `rawComparator` is redundant
 in `assertj-core/src/main/java/org/assertj/core/internal/Lists.java`
 #### Snippet
@@ -17161,7 +17161,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Lists.java`
         // Compare unique element with itself to verify that it is compatible with comparator (a ClassCastException is
 ```
 
-### UnnecessaryLocalVariable
+### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `message` is redundant
 in `assertj-core/src/main/java/org/assertj/core/internal/Failures.java`
 #### Snippet
@@ -17173,19 +17173,7 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Failures.java`
         : MessageFormatter.instance().format(info.description(), info.representation(), overridingErrorMessage);
 ```
 
-### UnnecessaryLocalVariable
-Local variable `suffix` is redundant
-in `assertj-core/src/main/java/org/assertj/core/condition/Join.java`
-#### Snippet
-```java
-                                                         .collect(toList());
-    String prefix = status(actual).label + " " + descriptionPrefix() + PREFIX_DELIMITER;
-    String suffix = SUFFIX_DELIMITER;
-    return new JoinDescription(prefix, suffix, descriptionsWithStatus);
-  }
-```
-
-### UnnecessaryLocalVariable
+### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `suffix` is redundant
 in `assertj-core/src/main/java/org/assertj/core/condition/Join.java`
 #### Snippet
@@ -17197,8 +17185,20 @@ in `assertj-core/src/main/java/org/assertj/core/condition/Join.java`
   }
 ```
 
-## ArrayHashCode
-### ArrayHashCode
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `suffix` is redundant
+in `assertj-core/src/main/java/org/assertj/core/condition/Join.java`
+#### Snippet
+```java
+                                                         .collect(toList());
+    String prefix = status(actual).label + " " + descriptionPrefix() + PREFIX_DELIMITER;
+    String suffix = SUFFIX_DELIMITER;
+    return new JoinDescription(prefix, suffix, descriptionsWithStatus);
+  }
+```
+
+## RuleId[ruleID=ArrayHashCode]
+### RuleId[ruleID=ArrayHashCode]
 Array passed to 'Objects.hash()' should be wrapped in 'Arrays.hashcode()'
 in `assertj-core/src/main/java/org/assertj/core/description/TextDescription.java`
 #### Snippet
@@ -17210,8 +17210,8 @@ in `assertj-core/src/main/java/org/assertj/core/description/TextDescription.java
 
 ```
 
-## RegExpUnnecessaryNonCapturingGroup
-### RegExpUnnecessaryNonCapturingGroup
+## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
+### RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
 Unnecessary non-capturing group `(?:(\\d+)(?:,(\\d+))?)`
 in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
 #### Snippet
@@ -17223,7 +17223,7 @@ public class DiffUtils {
   /**
 ```
 
-### RegExpUnnecessaryNonCapturingGroup
+### RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
 Unnecessary non-capturing group `(?:(\\d+)(?:,(\\d+))?)`
 in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
 #### Snippet
@@ -17235,8 +17235,8 @@ public class DiffUtils {
   /**
 ```
 
-## PointlessBooleanExpression
-### PointlessBooleanExpression
+## RuleId[ruleID=PointlessBooleanExpression]
+### RuleId[ruleID=PointlessBooleanExpression]
 `actual == false` can be simplified to '!actual'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
 #### Snippet
@@ -17248,8 +17248,8 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractBooleanAssert.java`
   }
 ```
 
-## UseBulkOperation
-### UseBulkOperation
+## RuleId[ruleID=UseBulkOperation]
+### RuleId[ruleID=UseBulkOperation]
 Iteration can be replaced with bulk 'Collection.addAll()' call
 in `assertj-core/src/main/java/org/assertj/core/configuration/Configuration.java`
 #### Snippet
