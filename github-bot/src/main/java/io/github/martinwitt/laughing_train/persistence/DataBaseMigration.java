@@ -9,7 +9,6 @@ import io.vertx.core.Vertx;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -21,8 +20,6 @@ import org.apache.commons.lang3.StringUtils;
  */
 @ApplicationScoped
 public class DataBaseMigration {
-
-    private static final Pattern IDENTIFIER_FORMAT = Pattern.compile(".*-\\d+-\\d+$");
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
@@ -113,9 +110,6 @@ public class DataBaseMigration {
                 .forEach(PanacheMongoEntityBase::delete);
         BadSmell.<BadSmell>findAll().stream()
                 .filter(v -> v.getIdentifier().contains("["))
-                .forEach(PanacheMongoEntityBase::delete);
-        BadSmell.<BadSmell>findAll().stream()
-                .filter(v -> !IDENTIFIER_FORMAT.matcher(v.getIdentifier()).matches())
                 .forEach(PanacheMongoEntityBase::delete);
     }
 
