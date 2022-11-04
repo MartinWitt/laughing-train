@@ -258,7 +258,7 @@ public class QodanaAnalyzer {
     public static class Builder {
 
         private String resultFolder = "laughing-cache";
-        private String qodanaImageName = "jetbrains/qodana";
+        private String qodanaImageName = "jetbrains/qodana-jvm-community";
         private String resultPathString = resultFolder + "/qodana.sarif.json";
         private String sourceFileRoot = "./src/main/java";
         private Optional<String> cacheFolder = Optional.of("data/cache");
