@@ -35,7 +35,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.io.FileUtils;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
@@ -133,7 +132,9 @@ public class QodanaAnalyzer {
                     @Override
                     public void onNext(WaitResponse object) {
                         try {
-                            exec.awaitCompletion(14, TimeUnit.MINUTES);
+                            if (!exec.awaitCompletion(14, TimeUnit.MINUTES)) {
+                                dockerClient.killContainerCmd(containerId).exec();
+                            }
                             logger.atInfo().log("Qodana finished");
                             if (!Paths.get(resultPathString).toFile().exists()) {
                                 StringBuilder sb = new StringBuilder();
