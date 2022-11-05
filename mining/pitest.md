@@ -127,6 +127,18 @@ in `pitest/src/main/java/org/pitest/plugin/FeatureParser.java`
 
 ## RuleId[ruleID=UnnecessaryQualifierForThis]
 ### RuleId[ruleID=UnnecessaryQualifierForThis]
+Qualifier `AnnotatedLineFactory` on 'this' is unnecessary in this context
+in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/AnnotatedLineFactory.java`
+#### Snippet
+```java
+
+  private boolean isLineCovered(final int line) {
+    final Predicate<ClassInfo> predicate = a -> !AnnotatedLineFactory.this.statistics.getTestsForClassLine(
+        new ClassLine(a.getName().asInternalName(), line)).isEmpty();
+    return FCollection.contains(this.classesInFile, predicate);
+```
+
+### RuleId[ruleID=UnnecessaryQualifierForThis]
 Qualifier `LoggingCallsFilter` on 'this' is unnecessary in this context
 in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/logging/LoggingCallsFilter.java`
 #### Snippet
@@ -227,18 +239,6 @@ Qualifier `ReportOptions` on 'this' is unnecessary in this context
 in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java`
 #### Snippet
 ```java
-  public Predicate<String> getTargetClassesFilter() {
-    final Predicate<String> filter = Prelude.and(or(Glob.toGlobPredicates(this.targetClasses)),
-        not(isBlackListed(Glob.toGlobPredicates(ReportOptions.this.excludedClasses))));
-    checkNotTryingToMutateSelf(filter);
-    return filter;
-```
-
-### RuleId[ruleID=UnnecessaryQualifierForThis]
-Qualifier `ReportOptions` on 'this' is unnecessary in this context
-in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java`
-#### Snippet
-```java
       // target classes predicate covers both classes and tests
       return Prelude.and(or(Glob.toGlobPredicates(this.targetClasses)),
           not(isBlackListed(ReportOptions.this.excludedTestClasses)));
@@ -256,6 +256,18 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java
           not(isBlackListed(ReportOptions.this.excludedTestClasses)));
     }
   }
+```
+
+### RuleId[ruleID=UnnecessaryQualifierForThis]
+Qualifier `ReportOptions` on 'this' is unnecessary in this context
+in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java`
+#### Snippet
+```java
+  public Predicate<String> getTargetClassesFilter() {
+    final Predicate<String> filter = Prelude.and(or(Glob.toGlobPredicates(this.targetClasses)),
+        not(isBlackListed(Glob.toGlobPredicates(ReportOptions.this.excludedClasses))));
+    checkNotTryingToMutateSelf(filter);
+    return filter;
 ```
 
 ### RuleId[ruleID=UnnecessaryQualifierForThis]
@@ -304,18 +316,6 @@ in `pitest/src/main/java/org/pitest/mutationtest/execute/TimeOutDecoratedTestSou
                     TimeOutDecoratedTestSource.this.timeoutStrategy, a.getTime()));
       }
       return Stream.empty();
-```
-
-### RuleId[ruleID=UnnecessaryQualifierForThis]
-Qualifier `AnnotatedLineFactory` on 'this' is unnecessary in this context
-in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/AnnotatedLineFactory.java`
-#### Snippet
-```java
-
-  private boolean isLineCovered(final int line) {
-    final Predicate<ClassInfo> predicate = a -> !AnnotatedLineFactory.this.statistics.getTestsForClassLine(
-        new ClassLine(a.getName().asInternalName(), line)).isEmpty();
-    return FCollection.contains(this.classesInFile, predicate);
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -397,6 +397,30 @@ in `pitest/src/main/java/org/pitest/junit/adapter/AdaptedJUnitTestUnit.java`
 ## RuleId[ruleID=TrivialStringConcatenation]
 ### RuleId[ruleID=TrivialStringConcatenation]
 Empty string used in concatenation
+in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/Line.java`
+#### Snippet
+```java
+  public String getNumberOfMutationsForDisplay() {
+    if (getNumberOfMutations() > 0) {
+      return "" + getNumberOfMutations();
+    } else {
+      return "";
+```
+
+### RuleId[ruleID=TrivialStringConcatenation]
+Empty string used in concatenation
+in `pitest-entry/src/main/java/org/pitest/util/FileUtil.java`
+#### Snippet
+```java
+  public static String randomFilename() {
+    return System.currentTimeMillis()
+        + ("" + Math.random()).replaceAll("\\.", "");
+  }
+
+```
+
+### RuleId[ruleID=TrivialStringConcatenation]
+Empty string used in concatenation
 in `pitest-entry/src/main/java/org/pitest/util/TimeSpan.java`
 #### Snippet
 ```java
@@ -433,18 +457,6 @@ in `pitest-entry/src/main/java/org/pitest/util/TimeSpan.java`
 
 ### RuleId[ruleID=TrivialStringConcatenation]
 Empty string used in concatenation
-in `pitest-entry/src/main/java/org/pitest/util/FileUtil.java`
-#### Snippet
-```java
-  public static String randomFilename() {
-    return System.currentTimeMillis()
-        + ("" + Math.random()).replaceAll("\\.", "");
-  }
-
-```
-
-### RuleId[ruleID=TrivialStringConcatenation]
-Empty string used in concatenation
 in `pitest-entry/src/main/java/org/pitest/plugin/export/MutantExportInterceptor.java`
 #### Snippet
 ```java
@@ -472,11 +484,11 @@ Empty string used in concatenation
 in `pitest-entry/src/main/java/org/pitest/mutationtest/report/xml/XMLReportListener.java`
 #### Snippet
 ```java
-    sb.append("<" + topTag + ">");
-    for (Integer each : values) {
-      sb.append(makeNode("" + each, tag));
-    }
-    sb.append("</" + topTag + ">");
+        + makeNode(clean(details.getId().getLocation().getMethodDesc()),
+            methodDescription)
+        + makeNode("" + details.getLineNumber(), lineNumber)
+        + makeNode(clean(details.getMutator()), mutator)
+        + makeNodes(indexes, details.getId().getIndexes(), index)
 ```
 
 ### RuleId[ruleID=TrivialStringConcatenation]
@@ -484,11 +496,11 @@ Empty string used in concatenation
 in `pitest-entry/src/main/java/org/pitest/mutationtest/report/xml/XMLReportListener.java`
 #### Snippet
 ```java
-        + makeNode(clean(details.getId().getLocation().getMethodDesc()),
-            methodDescription)
-        + makeNode("" + details.getLineNumber(), lineNumber)
-        + makeNode(clean(details.getMutator()), mutator)
-        + makeNodes(indexes, details.getId().getIndexes(), index)
+    sb.append("<" + topTag + ">");
+    for (Integer each : values) {
+      sb.append(makeNode("" + each, tag));
+    }
+    sb.append("</" + topTag + ">");
 ```
 
 ### RuleId[ruleID=TrivialStringConcatenation]
@@ -513,18 +525,6 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/tooling/MutationCoverage.
     return "" + ((System.currentTimeMillis() - t0) / 1000) + " seconds";
   }
 
-```
-
-### RuleId[ruleID=TrivialStringConcatenation]
-Empty string used in concatenation
-in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/Line.java`
-#### Snippet
-```java
-  public String getNumberOfMutationsForDisplay() {
-    if (getNumberOfMutations() > 0) {
-      return "" + getNumberOfMutations();
-    } else {
-      return "";
 ```
 
 ### RuleId[ruleID=TrivialStringConcatenation]
@@ -577,18 +577,6 @@ public abstract class Functions {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `IsolationUtils` has no concrete subclass
-in `pitest/src/main/java/org/pitest/util/IsolationUtils.java`
-#### Snippet
-```java
-import static org.pitest.util.Unchecked.translateCheckedException;
-
-public abstract class IsolationUtils {
-  public static ClassLoader getContextClassLoader() {
-    return Thread.currentThread().getContextClassLoader();
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `StreamUtil` has no concrete subclass
 in `pitest/src/main/java/org/pitest/util/StreamUtil.java`
 #### Snippet
@@ -598,6 +586,18 @@ import java.nio.channels.WritableByteChannel;
 public abstract class StreamUtil {
 
   public static byte[] streamToByteArray(final InputStream in)
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `IsolationUtils` has no concrete subclass
+in `pitest/src/main/java/org/pitest/util/IsolationUtils.java`
+#### Snippet
+```java
+import static org.pitest.util.Unchecked.translateCheckedException;
+
+public abstract class IsolationUtils {
+  public static ClassLoader getContextClassLoader() {
+    return Thread.currentThread().getContextClassLoader();
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -674,6 +674,18 @@ public abstract class CommandLineMessage {
 
 ## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ClassInfo`
+in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/AnnotatedLineFactory.java`
+#### Snippet
+```java
+  public AnnotatedLineFactory(
+      final Collection<MutationResult> mutations,
+      final ReportCoverage statistics, final Collection<ClassInfo> classes) {
+    this.mutations = mutations;
+    this.statistics = statistics;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super SafeDataOutputStream`
 in `pitest-entry/src/main/java/org/pitest/util/SocketReadingCallable.java`
 #### Snippet
@@ -695,6 +707,18 @@ in `pitest-entry/src/main/java/org/pitest/util/StreamMonitor.java`
       final Consumer<String> inputHandler) {
     super("PIT Stream Monitor");
     this.in = in;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ClassInfo`
+in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationHtmlReportListener.java`
+#### Snippet
+```java
+
+  private Collection<String> classInfoToNames(
+      final Collection<ClassInfo> classes) {
+    return FCollection.map(classes, classInfoToJavaName());
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -758,6 +782,18 @@ in `pitest-entry/src/main/java/org/pitest/coverage/execute/Receive.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ClassInfo`
+in `pitest-entry/src/main/java/org/pitest/coverage/execute/DefaultCoverageGenerator.java`
+#### Snippet
+```java
+  }
+
+  private void gatherCoverageData(final Collection<ClassInfo> tests,
+      final CoverageData coverage) throws IOException, InterruptedException {
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super ClassLine`
 in `pitest-entry/src/main/java/org/pitest/coverage/LegacyClassCoverage.java`
 #### Snippet
@@ -770,15 +806,75 @@ in `pitest-entry/src/main/java/org/pitest/coverage/LegacyClassCoverage.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClassInfo`
-in `pitest-entry/src/main/java/org/pitest/coverage/execute/DefaultCoverageGenerator.java`
+Can generalize to `? super T`
+in `pitest-entry/src/main/java/org/pitest/bytecode/analysis/InstructionMatchers.java`
+#### Snippet
+```java
+
+
+  public static <T extends AbstractInsnNode> Match<AbstractInsnNode> writeNodeToSlot(final SlotWrite<T> slot, final Class<T> clazz) {
+    return (c, t) -> {
+      if (clazz.isAssignableFrom(t.getClass()) ) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `pitest-entry/src/main/java/org/pitest/bytecode/analysis/InstructionMatchers.java`
+#### Snippet
+```java
+
+
+  public static <T extends AbstractInsnNode> Match<AbstractInsnNode> writeNodeToSlot(final SlotWrite<T> slot, final Class<T> clazz) {
+    return (c, t) -> {
+      if (clazz.isAssignableFrom(t.getClass()) ) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Integer`
+in `pitest-entry/src/main/java/org/pitest/bytecode/analysis/InstructionMatchers.java`
+#### Snippet
+```java
+
+  public static Match<AbstractInsnNode> aVariableAccess(
+      final SlotWrite<Integer> counterVariable) {
+    return (c, t) -> {
+      if (t instanceof VarInsnNode) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super LabelNode`
+in `pitest-entry/src/main/java/org/pitest/bytecode/analysis/InstructionMatchers.java`
+#### Snippet
+```java
+
+  private static Match<AbstractInsnNode> storeJumpTarget(
+      final SlotWrite<LabelNode> label) {
+    return (c, t) -> {
+      if (t instanceof JumpInsnNode ) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Boolean`
+in `pitest-entry/src/main/java/org/pitest/bytecode/analysis/InstructionMatchers.java`
+#### Snippet
+```java
+   * Records if a instruction matches the target, but always returns true
+   */
+  public static  Match<AbstractInsnNode> recordTarget(final SlotRead<AbstractInsnNode> target, final SlotWrite<Boolean> found) {
+    return (c, t) -> {
+      if (c.retrieve(target).get() == t) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `pitest-entry/src/main/java/org/pitest/process/WrappingProcess.java`
 #### Snippet
 ```java
   }
 
-  private void gatherCoverageData(final Collection<ClassInfo> tests,
-      final CoverageData coverage) throws IOException, InterruptedException {
-
+  private static void addLaunchJavaAgents(List<String> cmd) {
+    final RuntimeMXBean rt = ManagementFactory.getRuntimeMXBean();
+    final List<String> agents = FCollection.filter(rt.getInputArguments(),
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -815,78 +911,6 @@ in `pitest-entry/src/main/java/org/pitest/process/WrappingProcess.java`
       List<String> cmd) {
     final Optional<String> jarLocation = agentJarLocator.getJarLocation();
     jarLocation.ifPresent(l -> cmd.add("-javaagent:" + l));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `pitest-entry/src/main/java/org/pitest/process/WrappingProcess.java`
-#### Snippet
-```java
-  }
-
-  private static void addLaunchJavaAgents(List<String> cmd) {
-    final RuntimeMXBean rt = ManagementFactory.getRuntimeMXBean();
-    final List<String> agents = FCollection.filter(rt.getInputArguments(),
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `pitest-entry/src/main/java/org/pitest/bytecode/analysis/InstructionMatchers.java`
-#### Snippet
-```java
-
-
-  public static <T extends AbstractInsnNode> Match<AbstractInsnNode> writeNodeToSlot(final SlotWrite<T> slot, final Class<T> clazz) {
-    return (c, t) -> {
-      if (clazz.isAssignableFrom(t.getClass()) ) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `pitest-entry/src/main/java/org/pitest/bytecode/analysis/InstructionMatchers.java`
-#### Snippet
-```java
-
-
-  public static <T extends AbstractInsnNode> Match<AbstractInsnNode> writeNodeToSlot(final SlotWrite<T> slot, final Class<T> clazz) {
-    return (c, t) -> {
-      if (clazz.isAssignableFrom(t.getClass()) ) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Boolean`
-in `pitest-entry/src/main/java/org/pitest/bytecode/analysis/InstructionMatchers.java`
-#### Snippet
-```java
-   * Records if a instruction matches the target, but always returns true
-   */
-  public static  Match<AbstractInsnNode> recordTarget(final SlotRead<AbstractInsnNode> target, final SlotWrite<Boolean> found) {
-    return (c, t) -> {
-      if (c.retrieve(target).get() == t) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Integer`
-in `pitest-entry/src/main/java/org/pitest/bytecode/analysis/InstructionMatchers.java`
-#### Snippet
-```java
-
-  public static Match<AbstractInsnNode> aVariableAccess(
-      final SlotWrite<Integer> counterVariable) {
-    return (c, t) -> {
-      if (t instanceof VarInsnNode) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super LabelNode`
-in `pitest-entry/src/main/java/org/pitest/bytecode/analysis/InstructionMatchers.java`
-#### Snippet
-```java
-
-  private static Match<AbstractInsnNode> storeJumpTarget(
-      final SlotWrite<LabelNode> label) {
-    return (c, t) -> {
-      if (t instanceof JumpInsnNode ) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -998,18 +1022,6 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatu
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super MutationDetails`
-in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatures/InlinedFinallyBlockFilter.java`
-#### Snippet
-```java
-  }
-
-  private void checkForInlinedCode(Collection<MutationDetails> mutantsToReturn,
-                                  Collection<MutationDetails> similarMutantsOnSameLine) {
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends List`
 in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatures/InlinedFinallyBlockFilter.java`
 #### Snippet
@@ -1019,6 +1031,18 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatu
   private static Match<AbstractInsnNode> handlerLabel(Slot<List> handlers) {
     return (c,t) -> {
       if (t instanceof LabelNode) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super MutationDetails`
+in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatures/InlinedFinallyBlockFilter.java`
+#### Snippet
+```java
+  }
+
+  private void checkForInlinedCode(Collection<MutationDetails> mutantsToReturn,
+                                  Collection<MutationDetails> similarMutantsOnSameLine) {
+
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1034,18 +1058,6 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatu
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Location`
-in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/staticinitializers/StaticInitializerInterceptor.java`
-#### Snippet
-```java
-  }
-
-  private void visit(Map<Location, List<Call>> callTree, Set<Location> visited, Location l) {
-    // avoid stack overflow if methods call each other in a cycle
-    if (visited.contains(l)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends MutationResultListener`
 in `pitest-entry/src/main/java/org/pitest/mutationtest/config/CompoundTestListener.java`
 #### Snippet
@@ -1055,6 +1067,18 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/config/CompoundTestListen
   public CompoundTestListener(final Iterable<MutationResultListener> children) {
     this.children = children;
   }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Location`
+in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/staticinitializers/StaticInitializerInterceptor.java`
+#### Snippet
+```java
+  }
+
+  private void visit(Map<Location, List<Call>> callTree, Set<Location> visited, Location l) {
+    // avoid stack overflow if methods call each other in a cycle
+    if (visited.contains(l)) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1070,63 +1094,15 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/config/PluginServices.jav
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Feature`
-in `pitest-entry/src/main/java/org/pitest/mutationtest/config/SettingsFactory.java`
-#### Snippet
-```java
-  }
-
-  public void describeFeatures(Consumer<Feature> enabled, Consumer<Feature> disabled) {
-    final FeatureParser parser = new FeatureParser();
-    final Collection<ProvidesFeature> available = new ArrayList<>(this.plugins.findFeatures());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Feature`
-in `pitest-entry/src/main/java/org/pitest/mutationtest/config/SettingsFactory.java`
-#### Snippet
-```java
-  }
-
-  public void describeFeatures(Consumer<Feature> enabled, Consumer<Feature> disabled) {
-    final FeatureParser parser = new FeatureParser();
-    final Collection<ProvidesFeature> available = new ArrayList<>(this.plugins.findFeatures());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MutationResultListener`
-in `pitest-entry/src/main/java/org/pitest/mutationtest/execute/MutationAnalysisExecutor.java`
+Can generalize to `? extends ClassInfo`
+in `pitest-entry/src/main/java/org/pitest/mutationtest/verify/DefaultBuildVerifier.java`
 #### Snippet
 ```java
 
-  public MutationAnalysisExecutor(int numberOfThreads,
-      List<MutationResultListener> listeners) {
-    this.listeners = listeners;
-    this.executor = new ThreadPoolExecutor(numberOfThreads, numberOfThreads,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Future`
-in `pitest-entry/src/main/java/org/pitest/mutationtest/execute/MutationAnalysisExecutor.java`
-#### Snippet
-```java
-  }
-
-  private void processResult(List<Future<MutationMetaData>> results)
-      throws InterruptedException, ExecutionException {
-    for (final Future<MutationMetaData> f : results) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MutationAnalysisUnit`
-in `pitest-entry/src/main/java/org/pitest/mutationtest/execute/MutationAnalysisExecutor.java`
-#### Snippet
-```java
-
-  // entry point for mutation testing
-  public void run(final List<MutationAnalysisUnit> testUnits) {
-
-    LOG.fine("Running " + testUnits.size() + " units");
+  private void checkAtLeastOneClassHasLineNumbers(
+      final Collection<ClassInfo> codeClasses) {
+    // perform only a weak check for line numbers as
+    // some jvm languages are not guaranteed to produce them for all classes
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1142,15 +1118,63 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/verify/DefaultBuildVerifi
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClassInfo`
-in `pitest-entry/src/main/java/org/pitest/mutationtest/verify/DefaultBuildVerifier.java`
+Can generalize to `? extends MutationAnalysisUnit`
+in `pitest-entry/src/main/java/org/pitest/mutationtest/execute/MutationAnalysisExecutor.java`
 #### Snippet
 ```java
 
-  private void checkAtLeastOneClassHasLineNumbers(
-      final Collection<ClassInfo> codeClasses) {
-    // perform only a weak check for line numbers as
-    // some jvm languages are not guaranteed to produce them for all classes
+  // entry point for mutation testing
+  public void run(final List<MutationAnalysisUnit> testUnits) {
+
+    LOG.fine("Running " + testUnits.size() + " units");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Future`
+in `pitest-entry/src/main/java/org/pitest/mutationtest/execute/MutationAnalysisExecutor.java`
+#### Snippet
+```java
+  }
+
+  private void processResult(List<Future<MutationMetaData>> results)
+      throws InterruptedException, ExecutionException {
+    for (final Future<MutationMetaData> f : results) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MutationResultListener`
+in `pitest-entry/src/main/java/org/pitest/mutationtest/execute/MutationAnalysisExecutor.java`
+#### Snippet
+```java
+
+  public MutationAnalysisExecutor(int numberOfThreads,
+      List<MutationResultListener> listeners) {
+    this.listeners = listeners;
+    this.executor = new ThreadPoolExecutor(numberOfThreads, numberOfThreads,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Feature`
+in `pitest-entry/src/main/java/org/pitest/mutationtest/config/SettingsFactory.java`
+#### Snippet
+```java
+  }
+
+  public void describeFeatures(Consumer<Feature> enabled, Consumer<Feature> disabled) {
+    final FeatureParser parser = new FeatureParser();
+    final Collection<ProvidesFeature> available = new ArrayList<>(this.plugins.findFeatures());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Feature`
+in `pitest-entry/src/main/java/org/pitest/mutationtest/config/SettingsFactory.java`
+#### Snippet
+```java
+  }
+
+  public void describeFeatures(Consumer<Feature> enabled, Consumer<Feature> disabled) {
+    final FeatureParser parser = new FeatureParser();
+    final Collection<ProvidesFeature> available = new ArrayList<>(this.plugins.findFeatures());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1214,6 +1238,18 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/incremental/DefaultCodeHi
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Integer`
+in `pitest-command-line/src/main/java/org/pitest/mutationtest/commandline/CommaAwareArgsProcessor.java`
+#### Snippet
+```java
+    }
+
+    private String replaceCommas(String single, Set<Integer> modifiedIndices) {
+        StringBuilder newString = new StringBuilder();
+        boolean inSpecialRegion = false;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Reader`
 in `pitest-entry/src/main/java/org/pitest/mutationtest/incremental/ObjectOutputStreamHistoryStore.java`
 #### Snippet
@@ -1226,15 +1262,63 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/incremental/ObjectOutputS
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Integer`
-in `pitest-command-line/src/main/java/org/pitest/mutationtest/commandline/CommaAwareArgsProcessor.java`
+Can generalize to `? extends File`
+in `pitest-aggregator/src/main/java/org/pitest/aggregate/ReportAggregator.java`
+#### Snippet
+```java
+  }
+
+  private Collection<Path> asPaths(Collection<File> files) {
+    return files.stream()
+            .map(File::toPath)
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends File`
+in `pitest-aggregator/src/main/java/org/pitest/aggregate/ReportAggregator.java`
 #### Snippet
 ```java
     }
 
-    private String replaceCommas(String single, Set<Integer> modifiedIndices) {
-        StringBuilder newString = new StringBuilder();
-        boolean inSpecialRegion = false;
+    public Builder sourceCodeDirectories(final List<File> sourceCodeDirectories) {
+      this.sourceCodeDirectories.clear();
+      for (final File file : sourceCodeDirectories) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends File`
+in `pitest-aggregator/src/main/java/org/pitest/aggregate/ReportAggregator.java`
+#### Snippet
+```java
+    }
+
+    public Builder compiledCodeDirectories(final List<File> compiledCodeDirectories) {
+      this.compiledCodeDirectories.clear();
+      for (final File file : compiledCodeDirectories) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends File`
+in `pitest-aggregator/src/main/java/org/pitest/aggregate/ReportAggregator.java`
+#### Snippet
+```java
+    }
+
+    public Builder mutationResultsFiles(final List<File> mutationResultsFiles) {
+      this.mutationResultsFiles.clear();
+      for (final File file : mutationResultsFiles) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends File`
+in `pitest-aggregator/src/main/java/org/pitest/aggregate/ReportAggregator.java`
+#### Snippet
+```java
+    }
+
+    public Builder lineCoverageFiles(final List<File> lineCoverageFiles) {
+      this.lineCoverageFiles.clear();
+      for (final File file : lineCoverageFiles) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1262,18 +1346,6 @@ in `pitest/src/main/java/org/pitest/junit/RunnerSuiteFinder.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends S`
-in `pitest/src/main/java/org/pitest/util/ServiceLoader.java`
-#### Snippet
-```java
-  }
-
-  private static <S> void createServicesFromStream(final Class<S> ifc,
-      final ClassLoader loader, final Collection<S> services,
-      final InputStream is) throws IOException {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends File`
 in `pitest-command-line/src/main/java/org/pitest/mutationtest/commandline/OptionsParser.java`
 #### Snippet
@@ -1283,42 +1355,6 @@ in `pitest-command-line/src/main/java/org/pitest/mutationtest/commandline/Option
   private Collection<Path> asPaths(List<File> values) {
     return values.stream()
             .map(File::toPath)
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Filter`
-in `pitest/src/main/java/org/pitest/junit/adapter/AdaptedJUnitTestUnit.java`
-#### Snippet
-```java
-
-  private static String createName(final Class<?> clazz,
-      final Optional<Filter> filter) {
-    if (filter.isPresent()) {
-      return filter.get().describe();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Filter`
-in `pitest/src/main/java/org/pitest/junit/adapter/AdaptedJUnitTestUnit.java`
-#### Snippet
-```java
-
-  public AdaptedJUnitTestUnit(
-      final Class<?> clazz, final Optional<Filter> filter) {
-    super(new org.pitest.testapi.Description(createName(clazz, filter), clazz));
-    this.clazz = clazz;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `pitest/src/main/java/org/pitest/plugin/FeatureParser.java`
-#### Snippet
-```java
-  }
-
-  private void extractValue(String part, Map<String, List<String>> vals) {
-    final String[] pairs = part.split("\\[");
-    for (int i = 0; i != pairs.length; i = i + 2) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1334,18 +1370,6 @@ in `pitest-entry/src/main/java/org/pitest/sequence/SequenceQuery.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `pitest-entry/src/main/java/org/pitest/sequence/SequenceQuery.java`
-#### Snippet
-```java
-  private final State<T> start;
-
-  NFASequenceMatcher(Match<T> ignore, State<T> state, boolean debug) {
-    this.ignore = ignore;
-    this.start = state;
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super StateContext`
 in `pitest-entry/src/main/java/org/pitest/sequence/SequenceQuery.java`
 #### Snippet
@@ -1358,6 +1382,66 @@ in `pitest-entry/src/main/java/org/pitest/sequence/SequenceQuery.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `pitest-entry/src/main/java/org/pitest/sequence/SequenceQuery.java`
+#### Snippet
+```java
+  private final State<T> start;
+
+  NFASequenceMatcher(Match<T> ignore, State<T> state, boolean debug) {
+    this.ignore = ignore;
+    this.start = state;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Filter`
+in `pitest/src/main/java/org/pitest/junit/adapter/AdaptedJUnitTestUnit.java`
+#### Snippet
+```java
+
+  public AdaptedJUnitTestUnit(
+      final Class<?> clazz, final Optional<Filter> filter) {
+    super(new org.pitest.testapi.Description(createName(clazz, filter), clazz));
+    this.clazz = clazz;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Filter`
+in `pitest/src/main/java/org/pitest/junit/adapter/AdaptedJUnitTestUnit.java`
+#### Snippet
+```java
+
+  private static String createName(final Class<?> clazz,
+      final Optional<Filter> filter) {
+    if (filter.isPresent()) {
+      return filter.get().describe();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends S`
+in `pitest/src/main/java/org/pitest/util/ServiceLoader.java`
+#### Snippet
+```java
+  }
+
+  private static <S> void createServicesFromStream(final Class<S> ifc,
+      final ClassLoader loader, final Collection<S> services,
+      final InputStream is) throws IOException {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `pitest/src/main/java/org/pitest/plugin/FeatureParser.java`
+#### Snippet
+```java
+  }
+
+  private void extractValue(String part, Map<String, List<String>> vals) {
+    final String[] pairs = part.split("\\[");
+    for (int i = 0; i != pairs.length; i = i + 2) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends TestUnit`
 in `pitest/src/main/java/org/pitest/testapi/execute/MultipleTestGroup.java`
 #### Snippet
@@ -1367,6 +1451,18 @@ in `pitest/src/main/java/org/pitest/testapi/execute/MultipleTestGroup.java`
   public MultipleTestGroup(final List<TestUnit> children) {
     super(new Description("MultipleTestGroup"));
     this.children = children;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super TestResult`
+in `pitest/src/main/java/org/pitest/testapi/execute/containers/ConcreteResultCollector.java`
+#### Snippet
+```java
+  private final Collection<TestResult> feedback;
+
+  public ConcreteResultCollector(final Collection<TestResult> feedback) {
+    this.feedback = feedback;
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1394,18 +1490,6 @@ in `pitest/src/main/java/org/pitest/testapi/execute/FindTestUnits.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super TestResult`
-in `pitest/src/main/java/org/pitest/testapi/execute/containers/ConcreteResultCollector.java`
-#### Snippet
-```java
-  private final Collection<TestResult> feedback;
-
-  public ConcreteResultCollector(final Collection<TestResult> feedback) {
-    this.feedback = feedback;
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `pitest/src/main/java/org/pitest/plugin/FeatureSelector.java`
 #### Snippet
@@ -1427,6 +1511,18 @@ in `pitest/src/main/java/org/pitest/coverage/CoverageTransformer.java`
   public CoverageTransformer(final Predicate<String> filter) {
     this.filter = filter;
   }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java`
+#### Snippet
+```java
+  }
+
+  private void checkNotTryingToMutateSelf(final Predicate<String> filter) {
+    if (filter.test(Pitest.class.getName())) {
+      throw new PitHelpError(Help.BAD_FILTER);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1455,6 +1551,18 @@ in `pitest/src/main/java/org/pitest/coverage/analysis/ControlFlowAnalyser.java`
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super String`
+in `pitest/src/main/java/org/pitest/classinfo/ComputeClassWriter.java`
+#### Snippet
+```java
+
+  public ComputeClassWriter(final ClassByteArraySource bytes,
+      final Map<String, String> cache, final int flags) {
+    super(flags);
+    this.bytes = bytes;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
 in `pitest/src/main/java/org/pitest/coverage/execute/CoverageMinion.java`
 #### Snippet
 ```java
@@ -1475,30 +1583,6 @@ in `pitest/src/main/java/org/pitest/coverage/execute/CoverageMinion.java`
   private static List<TestUnit> removeTestsExecutedDuringDiscovery(List<TestUnit> tus) {
     List<TestUnit> toExecute = tus.stream()
             .filter(t -> !(t instanceof ExecutedInDiscovery))
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `pitest/src/main/java/org/pitest/classinfo/ComputeClassWriter.java`
-#### Snippet
-```java
-
-  public ComputeClassWriter(final ClassByteArraySource bytes,
-      final Map<String, String> cache, final int flags) {
-    super(flags);
-    this.bytes = bytes;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java`
-#### Snippet
-```java
-  }
-
-  private void checkNotTryingToMutateSelf(final Predicate<String> filter) {
-    if (filter.test(Pitest.class.getName())) {
-      throw new PitHelpError(Help.BAD_FILTER);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1598,6 +1682,30 @@ in `pitest/src/main/java/org/pitest/mutationtest/config/PrioritisingTestUnitFind
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends TestSuiteFinder`
+in `pitest/src/main/java/org/pitest/mutationtest/config/PrioritisingTestSuiteFinder.java`
+#### Snippet
+```java
+    private final List<TestSuiteFinder> orderedChildren;
+
+    PrioritisingTestSuiteFinder(List<TestSuiteFinder> orderedChildren) {
+        this.orderedChildren = orderedChildren;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super A`
+in `pitest/src/main/java/org/pitest/functional/FArray.java`
+#### Snippet
+```java
+
+  public static <A, B> void flatMapTo(final A[] as,
+      final Function<A, ? extends Iterable<B>> f, final Collection<? super B> bs) {
+    if (as != null) {
+      for (final A a : as) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super T`
 in `pitest/src/main/java/org/pitest/functional/FArray.java`
 #### Snippet
@@ -1622,18 +1730,6 @@ in `pitest/src/main/java/org/pitest/functional/FArray.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `pitest/src/main/java/org/pitest/functional/FArray.java`
-#### Snippet
-```java
-  }
-
-  public static <T> boolean contains(final T[] xs, final Predicate<T> predicate) {
-    for (final T x : xs) {
-      if (predicate.test(x)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super A`
 in `pitest/src/main/java/org/pitest/functional/FArray.java`
 #### Snippet
@@ -1646,27 +1742,15 @@ in `pitest/src/main/java/org/pitest/functional/FArray.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super A`
+Can generalize to `? super T`
 in `pitest/src/main/java/org/pitest/functional/FArray.java`
 #### Snippet
 ```java
+  }
 
-  public static <A, B> void flatMapTo(final A[] as,
-      final Function<A, ? extends Iterable<B>> f, final Collection<? super B> bs) {
-    if (as != null) {
-      for (final A a : as) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends TestSuiteFinder`
-in `pitest/src/main/java/org/pitest/mutationtest/config/PrioritisingTestSuiteFinder.java`
-#### Snippet
-```java
-    private final List<TestSuiteFinder> orderedChildren;
-
-    PrioritisingTestSuiteFinder(List<TestSuiteFinder> orderedChildren) {
-        this.orderedChildren = orderedChildren;
-    }
+  public static <T> boolean contains(final T[] xs, final Predicate<T> predicate) {
+    for (final T x : xs) {
+      if (predicate.test(x)) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1682,30 +1766,6 @@ in `pitest/src/main/java/org/pitest/functional/prelude/Prelude.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ClassPathRoot`
-in `pitest/src/main/java/org/pitest/classpath/ClassPath.java`
-#### Snippet
-```java
-  }
-
-  public ClassPath getComponent(final Predicate<ClassPathRoot> predicate) {
-    return new ClassPath(FCollection.filter(this.root, predicate).toArray(
-        new ClassPathRoot[0]));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ClassPathRoot`
-in `pitest/src/main/java/org/pitest/classpath/ClassPath.java`
-#### Snippet
-```java
-  }
-
-  private static void handleArchive(final List<ClassPathRoot> rs, final File f)
-      throws IOException {
-    try {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends File`
 in `pitest/src/main/java/org/pitest/classpath/ClassPath.java`
 #### Snippet
@@ -1718,6 +1778,18 @@ in `pitest/src/main/java/org/pitest/classpath/ClassPath.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ClassPathRoot`
+in `pitest/src/main/java/org/pitest/classpath/ClassPath.java`
+#### Snippet
+```java
+  }
+
+  public ClassPath getComponent(final Predicate<ClassPathRoot> predicate) {
+    return new ClassPath(FCollection.filter(this.root, predicate).toArray(
+        new ClassPathRoot[0]));
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends File`
 in `pitest/src/main/java/org/pitest/classpath/ClassPath.java`
 #### Snippet
@@ -1727,6 +1799,18 @@ in `pitest/src/main/java/org/pitest/classpath/ClassPath.java`
   public ClassPath(final Collection<File> files) {
     this(createRoots(FCollection.filter(files, exists())));
   }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ClassPathRoot`
+in `pitest/src/main/java/org/pitest/classpath/ClassPath.java`
+#### Snippet
+```java
+  }
+
+  private static void handleArchive(final List<ClassPathRoot> rs, final File f)
+      throws IOException {
+    try {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1754,6 +1838,30 @@ in `pitest/src/main/java/org/pitest/mutationtest/config/PrioritisingTestConfigur
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super MethodInfo`
+in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/MutatingClassVisitor.java`
+#### Snippet
+```java
+
+  MutatingClassVisitor(final ClassVisitor delegateClassVisitor,
+      final ClassContext context, final Predicate<MethodInfo> filter,
+      final List<MethodMutatorFactory> mutators) {
+    super(ASMVersion.ASM_VERSION, delegateClassVisitor);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MethodMutatorFactory`
+in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/MutatingClassVisitor.java`
+#### Snippet
+```java
+  MutatingClassVisitor(final ClassVisitor delegateClassVisitor,
+      final ClassContext context, final Predicate<MethodInfo> filter,
+      final List<MethodMutatorFactory> mutators) {
+    super(ASMVersion.ASM_VERSION, delegateClassVisitor);
+    this.context = context;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `pitest/src/main/java/org/pitest/functional/FCollection.java`
 #### Snippet
@@ -1763,6 +1871,42 @@ in `pitest/src/main/java/org/pitest/functional/FCollection.java`
       final int targetLength, final Iterable<T> ts) {
     final List<List<T>> list = new ArrayList<>();
     List<T> temp = new ArrayList<>();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends B`
+in `pitest/src/main/java/org/pitest/functional/FCollection.java`
+#### Snippet
+```java
+
+  public static <A, B> List<B> map(final Iterable<? extends A> as,
+      final Function<A, B> f) {
+    final List<B> bs = emptyList();
+    mapTo(as, f, bs);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super A`
+in `pitest/src/main/java/org/pitest/functional/FCollection.java`
+#### Snippet
+```java
+  }
+
+  public static <A, B> A fold(final BiFunction<A, B, A> f, final A z,
+      final Iterable<? extends B> xs) {
+    A p = z;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends A`
+in `pitest/src/main/java/org/pitest/functional/FCollection.java`
+#### Snippet
+```java
+  }
+
+  public static <A, B> A fold(final BiFunction<A, B, A> f, final A z,
+      final Iterable<? extends B> xs) {
+    A p = z;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1802,42 +1946,6 @@ in `pitest/src/main/java/org/pitest/functional/FCollection.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super A`
-in `pitest/src/main/java/org/pitest/functional/FCollection.java`
-#### Snippet
-```java
-  }
-
-  public static <A, B> A fold(final BiFunction<A, B, A> f, final A z,
-      final Iterable<? extends B> xs) {
-    A p = z;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends A`
-in `pitest/src/main/java/org/pitest/functional/FCollection.java`
-#### Snippet
-```java
-  }
-
-  public static <A, B> A fold(final BiFunction<A, B, A> f, final A z,
-      final Iterable<? extends B> xs) {
-    A p = z;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends B`
-in `pitest/src/main/java/org/pitest/functional/FCollection.java`
-#### Snippet
-```java
-
-  public static <A, B> List<B> map(final Iterable<? extends A> as,
-      final Function<A, B> f) {
-    final List<B> bs = emptyList();
-    mapTo(as, f, bs);
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends MethodMutatorFactory`
 in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/GregorMutater.java`
 #### Snippet
@@ -1850,30 +1958,6 @@ in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/GregorMutater.jav
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super MethodInfo`
-in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/MutatingClassVisitor.java`
-#### Snippet
-```java
-
-  MutatingClassVisitor(final ClassVisitor delegateClassVisitor,
-      final ClassContext context, final Predicate<MethodInfo> filter,
-      final List<MethodMutatorFactory> mutators) {
-    super(ASMVersion.ASM_VERSION, delegateClassVisitor);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MethodMutatorFactory`
-in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/MutatingClassVisitor.java`
-#### Snippet
-```java
-  MutatingClassVisitor(final ClassVisitor delegateClassVisitor,
-      final ClassContext context, final Predicate<MethodInfo> filter,
-      final List<MethodMutatorFactory> mutators) {
-    super(ASMVersion.ASM_VERSION, delegateClassVisitor);
-    this.context = context;
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends List`
 in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/config/MutatorGroup.java`
 #### Snippet
@@ -1883,6 +1967,42 @@ in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/config/MutatorGro
     default List<MethodMutatorFactory> gather(Map<String, List<MethodMutatorFactory>> mutators, String...keys) {
         return Arrays.stream(keys)
                 .flatMap(k -> mutators.get(k).stream())
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`
+in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/config/Mutator.java`
+#### Snippet
+```java
+  }
+
+  private static Function<String, Iterable<MethodMutatorFactory>> fromString(Map<String, List<MethodMutatorFactory>> mutators) {
+    return a -> {
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MethodMutatorFactory`
+in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/config/Mutator.java`
+#### Snippet
+```java
+
+  private static Collection<MethodMutatorFactory> combine(
+      Collection<MethodMutatorFactory> a, Collection<MethodMutatorFactory> b) {
+    final List<MethodMutatorFactory> l = new ArrayList<>(a);
+    l.addAll(b);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MethodMutatorFactory`
+in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/config/Mutator.java`
+#### Snippet
+```java
+
+  private static Collection<MethodMutatorFactory> combine(
+      Collection<MethodMutatorFactory> a, Collection<MethodMutatorFactory> b) {
+    final List<MethodMutatorFactory> l = new ArrayList<>(a);
+    l.addAll(b);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1907,42 +2027,6 @@ public class RemoveSwitchMutatorGroup implements MutatorGroup {
     public void register(Map<String, List<MethodMutatorFactory>> mutators) {
         mutators.put("REMOVE_SWITCH", RemoveSwitchMutator.makeMutators());
     }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MethodMutatorFactory`
-in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/config/Mutator.java`
-#### Snippet
-```java
-
-  private static Collection<MethodMutatorFactory> combine(
-      Collection<MethodMutatorFactory> a, Collection<MethodMutatorFactory> b) {
-    final List<MethodMutatorFactory> l = new ArrayList<>(a);
-    l.addAll(b);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MethodMutatorFactory`
-in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/config/Mutator.java`
-#### Snippet
-```java
-
-  private static Collection<MethodMutatorFactory> combine(
-      Collection<MethodMutatorFactory> a, Collection<MethodMutatorFactory> b) {
-    final List<MethodMutatorFactory> l = new ArrayList<>(a);
-    l.addAll(b);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/config/Mutator.java`
-#### Snippet
-```java
-  }
-
-  private static Function<String, Iterable<MethodMutatorFactory>> fromString(Map<String, List<MethodMutatorFactory>> mutators) {
-    return a -> {
-
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2066,30 +2150,6 @@ in `pitest/src/main/java/org/pitest/mutationtest/mocksupport/BendJavassistToMyWi
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClassInfo`
-in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/AnnotatedLineFactory.java`
-#### Snippet
-```java
-  public AnnotatedLineFactory(
-      final Collection<MutationResult> mutations,
-      final ReportCoverage statistics, final Collection<ClassInfo> classes) {
-    this.mutations = mutations;
-    this.statistics = statistics;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClassInfo`
-in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationHtmlReportListener.java`
-#### Snippet
-```java
-
-  private Collection<String> classInfoToNames(
-      final Collection<ClassInfo> classes) {
-    return FCollection.map(classes, classInfoToJavaName());
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ReportGenerationStrategy`
 in `pitest-maven/src/main/java/org/pitest/maven/report/generator/ReportGenerationManager.java`
 #### Snippet
@@ -2099,6 +2159,30 @@ in `pitest-maven/src/main/java/org/pitest/maven/report/generator/ReportGeneratio
       final List<ReportGenerationStrategy> reportGenerationStrategyList) {
     this.reportLocator = reportLocator;
     this.reportGenerationStrategyList = reportGenerationStrategyList;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super MavenProject`
+in `pitest-maven/src/main/java/org/pitest/maven/AbstractPitMojo.java`
+#### Snippet
+```java
+
+  public AbstractPitMojo(final GoalStrategy strategy, final Predicate<Artifact> filter,
+      final PluginServices plugins, final Predicate<MavenProject> emptyProjectCheck) {
+    this.goalStrategy = strategy;
+    this.filter = filter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends X`
+in `pitest-maven/src/main/java/org/pitest/maven/AbstractPitMojo.java`
+#### Snippet
+```java
+  }
+
+  private <X> ArrayList<X> withoutNulls(List<X> originalList) {
+    if (originalList == null) {
+      return null;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2135,90 +2219,6 @@ in `pitest-maven/src/main/java/org/pitest/maven/MojoToReportOptionsConverter.jav
   private void addOwnDependenciesToClassPath(final List<String> classPath) {
     for (final Artifact dependency : filteredDependencies()) {
       this.log.info("Adding " + dependency.getGroupId() + ":"
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super MavenProject`
-in `pitest-maven/src/main/java/org/pitest/maven/AbstractPitMojo.java`
-#### Snippet
-```java
-
-  public AbstractPitMojo(final GoalStrategy strategy, final Predicate<Artifact> filter,
-      final PluginServices plugins, final Predicate<MavenProject> emptyProjectCheck) {
-    this.goalStrategy = strategy;
-    this.filter = filter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends X`
-in `pitest-maven/src/main/java/org/pitest/maven/AbstractPitMojo.java`
-#### Snippet
-```java
-  }
-
-  private <X> ArrayList<X> withoutNulls(List<X> originalList) {
-    if (originalList == null) {
-      return null;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends File`
-in `pitest-aggregator/src/main/java/org/pitest/aggregate/ReportAggregator.java`
-#### Snippet
-```java
-  }
-
-  private Collection<Path> asPaths(Collection<File> files) {
-    return files.stream()
-            .map(File::toPath)
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends File`
-in `pitest-aggregator/src/main/java/org/pitest/aggregate/ReportAggregator.java`
-#### Snippet
-```java
-    }
-
-    public Builder mutationResultsFiles(final List<File> mutationResultsFiles) {
-      this.mutationResultsFiles.clear();
-      for (final File file : mutationResultsFiles) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends File`
-in `pitest-aggregator/src/main/java/org/pitest/aggregate/ReportAggregator.java`
-#### Snippet
-```java
-    }
-
-    public Builder compiledCodeDirectories(final List<File> compiledCodeDirectories) {
-      this.compiledCodeDirectories.clear();
-      for (final File file : compiledCodeDirectories) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends File`
-in `pitest-aggregator/src/main/java/org/pitest/aggregate/ReportAggregator.java`
-#### Snippet
-```java
-    }
-
-    public Builder lineCoverageFiles(final List<File> lineCoverageFiles) {
-      this.lineCoverageFiles.clear();
-      for (final File file : lineCoverageFiles) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends File`
-in `pitest-aggregator/src/main/java/org/pitest/aggregate/ReportAggregator.java`
-#### Snippet
-```java
-    }
-
-    public Builder sourceCodeDirectories(final List<File> sourceCodeDirectories) {
-      this.sourceCodeDirectories.clear();
-      for (final File file : sourceCodeDirectories) {
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -2359,18 +2359,6 @@ in `pitest-entry/src/main/java/org/pitest/util/SocketReadingCallable.java`
 
 ### RuleId[ruleID=ThrowFromFinallyBlock]
 `throw` inside 'finally' block
-in `pitest/src/main/java/org/pitest/coverage/execute/CoverageMinion.java`
-#### Snippet
-```java
-        }
-      } catch (final IOException e) {
-        throw translateCheckedException(e);
-      }
-    }
-```
-
-### RuleId[ruleID=ThrowFromFinallyBlock]
-`throw` inside 'finally' block
 in `pitest-aggregator/src/main/java/org/pitest/aggregate/DataLoader.java`
 #### Snippet
 ```java
@@ -2379,6 +2367,18 @@ in `pitest-aggregator/src/main/java/org/pitest/aggregate/DataLoader.java`
           throw new ReportAggregationException(CANNOT_CLOSE_ERR, e);
         }
       }
+```
+
+### RuleId[ruleID=ThrowFromFinallyBlock]
+`throw` inside 'finally' block
+in `pitest/src/main/java/org/pitest/coverage/execute/CoverageMinion.java`
+#### Snippet
+```java
+        }
+      } catch (final IOException e) {
+        throw translateCheckedException(e);
+      }
+    }
 ```
 
 ## RuleId[ruleID=IfStatementWithIdenticalBranches]
@@ -2467,6 +2467,43 @@ in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/mutators/experime
       } else {
 ```
 
+## RuleId[ruleID=NestedAssignment]
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `pitest-entry/src/main/java/org/pitest/util/FileUtil.java`
+#### Snippet
+```java
+      int numRead = 0;
+
+      while ((numRead = reader.read(buf)) != -1) {
+        final String readData = String.valueOf(buf, 0, numRead);
+        fileData.append(readData);
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `pitest-entry/src/main/java/org/pitest/util/StreamMonitor.java`
+#### Snippet
+```java
+
+      String output;
+      while ( ( output = reader.readLine() ) != null ) {
+        this.inputHandler.accept(output);
+      }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `pitest-command-line/src/main/java/org/pitest/mutationtest/commandline/OptionsParser.java`
+#### Snippet
+```java
+      try (BufferedReader classPathFileBR = new BufferedReader(new FileReader(userArgs.valueOf(this.classPathFile).getAbsoluteFile()))) {
+        String element;
+        while ((element = classPathFileBR.readLine()) != null) {
+          elements.add(element);
+        }
+```
+
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 ### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 `total = total + each.getValue().duration()` could be simplified to 'total += each.getValue().duration()'
@@ -2529,56 +2566,7 @@ in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/MethodMutationCon
   }
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `pitest-entry/src/main/java/org/pitest/util/StreamMonitor.java`
-#### Snippet
-```java
-
-      String output;
-      while ( ( output = reader.readLine() ) != null ) {
-        this.inputHandler.accept(output);
-      }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `pitest-entry/src/main/java/org/pitest/util/FileUtil.java`
-#### Snippet
-```java
-      int numRead = 0;
-
-      while ((numRead = reader.read(buf)) != -1) {
-        final String readData = String.valueOf(buf, 0, numRead);
-        fileData.append(readData);
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `pitest-command-line/src/main/java/org/pitest/mutationtest/commandline/OptionsParser.java`
-#### Snippet
-```java
-      try (BufferedReader classPathFileBR = new BufferedReader(new FileReader(userArgs.valueOf(this.classPathFile).getAbsoluteFile()))) {
-        String element;
-        while ((element = classPathFileBR.readLine()) != null) {
-          elements.add(element);
-        }
-```
-
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `currentMutant` is accessed in both synchronized and unsynchronized contexts
-in `pitest/src/main/java/org/pitest/mutationtest/execute/CatchNewClassLoadersTransformer.java`
-#### Snippet
-```java
-public class CatchNewClassLoadersTransformer implements ClassFileTransformer {
-
-    private static byte[] currentMutant;
-    private static String currentClass;
-
-```
-
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `ignore` is accessed in both synchronized and unsynchronized contexts
 in `pitest/src/main/java/org/pitest/mutationtest/execute/CatchNewClassLoadersTransformer.java`
@@ -2589,6 +2577,18 @@ in `pitest/src/main/java/org/pitest/mutationtest/execute/CatchNewClassLoadersTra
     private static ClassLoader ignore;
 
     // Map of loaders we have transformed the current class in, so we can restore them
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `currentMutant` is accessed in both synchronized and unsynchronized contexts
+in `pitest/src/main/java/org/pitest/mutationtest/execute/CatchNewClassLoadersTransformer.java`
+#### Snippet
+```java
+public class CatchNewClassLoadersTransformer implements ClassFileTransformer {
+
+    private static byte[] currentMutant;
+    private static String currentClass;
+
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -2666,6 +2666,78 @@ in `pitest/src/main/java/org/pitest/testapi/TestListener.java`
 ```
 
 ## RuleId[ruleID=RedundantFieldInitialization]
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationTotals.java`
+#### Snippet
+```java
+
+  private long numberOfFiles                 = 0;
+  private long numberOfLines                 = 0;
+  private long numberOfLinesCovered          = 0;
+  private long numberOfMutations             = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationTotals.java`
+#### Snippet
+```java
+  private long numberOfMutations             = 0;
+  private long numberOfMutationsDetected     = 0;
+  private long numberOfMutationsWithCoverage = 0;
+
+  public long getNumberOfFiles() {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationTotals.java`
+#### Snippet
+```java
+  private long numberOfLinesCovered          = 0;
+  private long numberOfMutations             = 0;
+  private long numberOfMutationsDetected     = 0;
+  private long numberOfMutationsWithCoverage = 0;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationTotals.java`
+#### Snippet
+```java
+  private long numberOfLines                 = 0;
+  private long numberOfLinesCovered          = 0;
+  private long numberOfMutations             = 0;
+  private long numberOfMutationsDetected     = 0;
+  private long numberOfMutationsWithCoverage = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationTotals.java`
+#### Snippet
+```java
+  private long numberOfFiles                 = 0;
+  private long numberOfLines                 = 0;
+  private long numberOfLinesCovered          = 0;
+  private long numberOfMutations             = 0;
+  private long numberOfMutationsDetected     = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationTotals.java`
+#### Snippet
+```java
+public class MutationTotals {
+
+  private long numberOfFiles                 = 0;
+  private long numberOfLines                 = 0;
+  private long numberOfLinesCovered          = 0;
+```
+
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
 in `pitest-entry/src/main/java/org/pitest/process/ProcessArgs.java`
@@ -2763,39 +2835,15 @@ in `pitest/src/main/java/org/pitest/testapi/execute/ExitingResultCollector.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `pitest/src/main/java/org/pitest/coverage/analysis/AbstractCoverageStrategy.java`
-#### Snippet
-```java
-  private final InstructionCounter counter;
-
-  protected int                    probeCount = 0;
-
-  AbstractCoverageStrategy(List<Block> blocks, InstructionCounter counter,
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java`
-#### Snippet
-```java
-  private final List<String>             jvmArgs                        = new ArrayList<>();
-
-  private int                            numberOfThreads                = 0;
-  private float                          timeoutFactor                  = PercentAndConstantTimeoutStrategy.DEFAULT_FACTOR;
-  private long                           timeoutConstant                = PercentAndConstantTimeoutStrategy.DEFAULT_CONSTANT;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java`
 #### Snippet
 ```java
-  private TestGroupConfig                groupConfig;
-
-  private boolean                        fullMutationMatrix            = false;
-
   private int                            mutationUnitSize;
+  private boolean                        shouldCreateTimestampedReports = true;
+  private boolean                        detectInlinedCode              = false;
+  private boolean                        exportLineCoverage             = false;
+  private int                            mutationThreshold;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -2815,6 +2863,30 @@ Field initialization to `false` is redundant
 in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java`
 #### Snippet
 ```java
+
+  private Verbosity                      verbosity                      = Verbosity.DEFAULT;
+  private boolean                        failWhenNoMutations            = false;
+  private boolean                        skipFailingTests               = false;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java`
+#### Snippet
+```java
+  private TestGroupConfig                groupConfig;
+
+  private boolean                        fullMutationMatrix            = false;
+
+  private int                            mutationUnitSize;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java`
+#### Snippet
+```java
   private boolean                        shouldCreateTimestampedReports = true;
   private boolean                        detectInlinedCode              = false;
   private boolean                        exportLineCoverage             = false;
@@ -2823,27 +2895,27 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
+Field initialization to `0` is redundant
 in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java`
 #### Snippet
 ```java
-  private int                            mutationUnitSize;
-  private boolean                        shouldCreateTimestampedReports = true;
-  private boolean                        detectInlinedCode              = false;
-  private boolean                        exportLineCoverage             = false;
-  private int                            mutationThreshold;
+  private final List<String>             jvmArgs                        = new ArrayList<>();
+
+  private int                            numberOfThreads                = 0;
+  private float                          timeoutFactor                  = PercentAndConstantTimeoutStrategy.DEFAULT_FACTOR;
+  private long                           timeoutConstant                = PercentAndConstantTimeoutStrategy.DEFAULT_CONSTANT;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java`
+Field initialization to `0` is redundant
+in `pitest/src/main/java/org/pitest/coverage/analysis/AbstractCoverageStrategy.java`
 #### Snippet
 ```java
+  private final InstructionCounter counter;
 
-  private Verbosity                      verbosity                      = Verbosity.DEFAULT;
-  private boolean                        failWhenNoMutations            = false;
-  private boolean                        skipFailingTests               = false;
+  protected int                    probeCount = 0;
 
+  AbstractCoverageStrategy(List<Block> blocks, InstructionCounter counter,
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -2892,78 +2964,6 @@ in `pitest/src/main/java/sun/pitest/CodeCoverageStore.java`
   private static int                           classId           = 0;
 
   public static final String PROBE_FIELD_NAME                    = "$$pitCoverageProbes";
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationTotals.java`
-#### Snippet
-```java
-  private long numberOfFiles                 = 0;
-  private long numberOfLines                 = 0;
-  private long numberOfLinesCovered          = 0;
-  private long numberOfMutations             = 0;
-  private long numberOfMutationsDetected     = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationTotals.java`
-#### Snippet
-```java
-public class MutationTotals {
-
-  private long numberOfFiles                 = 0;
-  private long numberOfLines                 = 0;
-  private long numberOfLinesCovered          = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationTotals.java`
-#### Snippet
-```java
-  private long numberOfLines                 = 0;
-  private long numberOfLinesCovered          = 0;
-  private long numberOfMutations             = 0;
-  private long numberOfMutationsDetected     = 0;
-  private long numberOfMutationsWithCoverage = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationTotals.java`
-#### Snippet
-```java
-
-  private long numberOfFiles                 = 0;
-  private long numberOfLines                 = 0;
-  private long numberOfLinesCovered          = 0;
-  private long numberOfMutations             = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationTotals.java`
-#### Snippet
-```java
-  private long numberOfMutations             = 0;
-  private long numberOfMutationsDetected     = 0;
-  private long numberOfMutationsWithCoverage = 0;
-
-  public long getNumberOfFiles() {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationTotals.java`
-#### Snippet
-```java
-  private long numberOfLinesCovered          = 0;
-  private long numberOfMutations             = 0;
-  private long numberOfMutationsDetected     = 0;
-  private long numberOfMutationsWithCoverage = 0;
-
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -3207,11 +3207,11 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/timeout/A
 in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/equivalent/EqualsPerformanceShortcutFilter.java`
 #### Snippet
 ```java
+        .filter(MethodMatchers.forLocation(tree.asLocation()))
+        .findFirst()
+        .get();
 
-    return inEquals.stream()
-        .filter(isShortcutEquals(maybeEquals.get(), m).negate())
-        .collect(Collectors.toList());
-  }
+    return ALWAYS_FALSE.matches(mutantEquals.instructions());
 ```
 
 ### RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -3219,11 +3219,11 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/equivalen
 in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/equivalent/EqualsPerformanceShortcutFilter.java`
 #### Snippet
 ```java
-        .filter(MethodMatchers.forLocation(tree.asLocation()))
-        .findFirst()
-        .get();
 
-    return ALWAYS_FALSE.matches(mutantEquals.instructions());
+    return inEquals.stream()
+        .filter(isShortcutEquals(maybeEquals.get(), m).negate())
+        .collect(Collectors.toList());
+  }
 ```
 
 ### RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -3375,11 +3375,11 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatu
 in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatures/InlinedFinallyBlockFilter.java`
 #### Snippet
 ```java
-
-  private boolean isInFinallyBlock(MutationDetails m) {
-    MethodTree method = currentClass.method(m.getId().getLocation()).get();
-    List<LabelNode> handlers = method.rawNode().tryCatchBlocks.stream()
-            .filter(t -> t.type == null)
+      if (t instanceof LabelNode) {
+        LabelNode label = (LabelNode) t;
+        List<LabelNode> labels = c.retrieve(handlers.read()).get();
+        return result(labels.contains(label), c);
+      }
 ```
 
 ### RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -3387,11 +3387,11 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatu
 in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatures/InlinedFinallyBlockFilter.java`
 #### Snippet
 ```java
-      if (t instanceof LabelNode) {
-        LabelNode label = (LabelNode) t;
-        List<LabelNode> labels = c.retrieve(handlers.read()).get();
-        return result(labels.contains(label), c);
-      }
+
+  private boolean isInFinallyBlock(MutationDetails m) {
+    MethodTree method = currentClass.method(m.getId().getLocation()).get();
+    List<LabelNode> handlers = method.rawNode().tryCatchBlocks.stream()
+            .filter(t -> t.type == null)
 ```
 
 ### RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -3411,11 +3411,11 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatu
 in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatures/ForEachLoopFilter.java`
 #### Snippet
 ```java
-    return a -> {
-      final int instruction = a.getInstructionIndex();
-      final MethodTree method = currentClass.method(a.getId().getLocation()).get();
-
-      //performance hack
+    Context context = Context.start(DEBUG).store(LOOP_INSTRUCTIONS.write(), new ArrayList<>());
+    return ITERATOR_LOOP.contextMatches(method.instructions(), context).stream()
+            .flatMap(c -> c.retrieve(LOOP_INSTRUCTIONS.read()).get().stream())
+            .collect(Collectors.toSet());
+  }
 ```
 
 ### RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -3423,11 +3423,11 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatu
 in `pitest-entry/src/main/java/org/pitest/mutationtest/build/intercept/javafeatures/ForEachLoopFilter.java`
 #### Snippet
 ```java
-    Context context = Context.start(DEBUG).store(LOOP_INSTRUCTIONS.write(), new ArrayList<>());
-    return ITERATOR_LOOP.contextMatches(method.instructions(), context).stream()
-            .flatMap(c -> c.retrieve(LOOP_INSTRUCTIONS.read()).get().stream())
-            .collect(Collectors.toSet());
-  }
+    return a -> {
+      final int instruction = a.getInstructionIndex();
+      final MethodTree method = currentClass.method(a.getId().getLocation()).get();
+
+      //performance hack
 ```
 
 ### RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -3471,11 +3471,11 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/incremental/DefaultCodeHi
 in `pitest-command-line/src/main/java/org/pitest/mutationtest/commandline/MutationCoverageReport.java`
 #### Snippet
 ```java
-      throw Unchecked.translateCheckedException(result.getError().get());
-    }
-    return result.getStatistics().get();
-
-  }
+    if (!pr.isOk()) {
+      parser.printHelp();
+      System.out.println(">>>> " + pr.getErrorMessage().get());
+    } else {
+      final ReportOptions data = pr.getOptions();
 ```
 
 ### RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -3483,11 +3483,11 @@ in `pitest-command-line/src/main/java/org/pitest/mutationtest/commandline/Mutati
 in `pitest-command-line/src/main/java/org/pitest/mutationtest/commandline/MutationCoverageReport.java`
 #### Snippet
 ```java
-    if (!pr.isOk()) {
-      parser.printHelp();
-      System.out.println(">>>> " + pr.getErrorMessage().get());
-    } else {
-      final ReportOptions data = pr.getOptions();
+      throw Unchecked.translateCheckedException(result.getError().get());
+    }
+    return result.getStatistics().get();
+
+  }
 ```
 
 ### RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -3637,18 +3637,6 @@ in `pitest/src/main/java/org/pitest/mutationtest/execute/CommandLineMessage.java
 
 ## RuleId[ruleID=IOResource]
 ### RuleId[ruleID=IOResource]
-'ObjectInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `pitest-entry/src/main/java/org/pitest/mutationtest/incremental/ObjectOutputStreamHistoryStore.java`
-#### Snippet
-```java
-      final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
-          Base64.getDecoder().decode(string));
-      final ObjectInputStream objectInputStream = new ObjectInputStream(
-          byteArrayInputStream);
-      return clazz.cast(objectInputStream.readObject());
-```
-
-### RuleId[ruleID=IOResource]
 'ObjectOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `pitest-entry/src/main/java/org/pitest/mutationtest/incremental/ObjectOutputStreamHistoryStore.java`
 #### Snippet
@@ -3658,6 +3646,18 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/incremental/ObjectOutputS
       final ObjectOutputStream objectOutputStream = new ObjectOutputStream(
           byteArrayOutputStream);
       objectOutputStream.writeObject(t);
+```
+
+### RuleId[ruleID=IOResource]
+'ObjectInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `pitest-entry/src/main/java/org/pitest/mutationtest/incremental/ObjectOutputStreamHistoryStore.java`
+#### Snippet
+```java
+      final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
+          Base64.getDecoder().decode(string));
+      final ObjectInputStream objectInputStream = new ObjectInputStream(
+          byteArrayInputStream);
+      return clazz.cast(objectInputStream.readObject());
 ```
 
 ### RuleId[ruleID=IOResource]
@@ -3711,6 +3711,18 @@ in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/mutators/experime
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ConfidenceMap` has only 'static' members, and lacks a 'private' constructor
+in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/ConfidenceMap.java`
+#### Snippet
+```java
+import org.pitest.mutationtest.DetectionStatus;
+
+class ConfidenceMap {
+
+  private static final EnumSet<DetectionStatus> HIGH = EnumSet
+```
+
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `FileUtil` has only 'static' members, and lacks a 'private' constructor
 in `pitest-entry/src/main/java/org/pitest/util/FileUtil.java`
@@ -3856,18 +3868,6 @@ public class Log {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `FrameOptions` has only 'static' members, and lacks a 'private' constructor
-in `pitest/src/main/java/org/pitest/bytecode/FrameOptions.java`
-#### Snippet
-```java
-import org.objectweb.asm.ClassWriter;
-
-public class FrameOptions {
-
-  private static final int JAVA_7 = 51;
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `ASMVersion` has only 'static' members, and lacks a 'private' constructor
 in `pitest/src/main/java/org/pitest/bytecode/ASMVersion.java`
 #### Snippet
@@ -3877,6 +3877,18 @@ import org.objectweb.asm.Opcodes;
 public class ASMVersion {
   public static final int ASM_VERSION = Opcodes.ASM9;
 }
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `FrameOptions` has only 'static' members, and lacks a 'private' constructor
+in `pitest/src/main/java/org/pitest/bytecode/FrameOptions.java`
+#### Snippet
+```java
+import org.objectweb.asm.ClassWriter;
+
+public class FrameOptions {
+
+  private static final int JAVA_7 = 51;
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -3939,18 +3951,6 @@ public class MemoryWatchdog {
 
 ```
 
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ConfidenceMap` has only 'static' members, and lacks a 'private' constructor
-in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/ConfidenceMap.java`
-#### Snippet
-```java
-import org.pitest.mutationtest.DetectionStatus;
-
-class ConfidenceMap {
-
-  private static final EnumSet<DetectionStatus> HIGH = EnumSet
-```
-
 ## RuleId[ruleID=DataFlowIssue]
 ### RuleId[ruleID=DataFlowIssue]
 Dereference of `state.peek()` may produce `NullPointerException`
@@ -3969,11 +3969,10 @@ Passing a non-null argument to `Optional`
 in `pitest-entry/src/main/java/org/pitest/classinfo/Repository.java`
 #### Snippet
 ```java
-
-  private Optional<ClassInfo> contructClassInfo(final ClassInfoBuilder classData) {
-    return Optional.ofNullable(new ClassInfo(resolveClass(classData.superClass),
-        resolveClass(classData.outerClass), classData));
-  }
+    final ClassInfo info = this.knownClasses.get(name);
+    if (info != null) {
+      return Optional.ofNullable(info);
+    }
 
 ```
 
@@ -3982,10 +3981,11 @@ Passing a non-null argument to `Optional`
 in `pitest-entry/src/main/java/org/pitest/classinfo/Repository.java`
 #### Snippet
 ```java
-    final ClassInfo info = this.knownClasses.get(name);
-    if (info != null) {
-      return Optional.ofNullable(info);
-    }
+
+  private Optional<ClassInfo> contructClassInfo(final ClassInfoBuilder classData) {
+    return Optional.ofNullable(new ClassInfo(resolveClass(classData.superClass),
+        resolveClass(classData.outerClass), classData));
+  }
 
 ```
 
@@ -4042,11 +4042,11 @@ Passing a non-null argument to `Optional`
 in `pitest/src/main/java/org/pitest/junit/JUnitCustomRunnerTestUnitFinder.java`
 #### Snippet
 ```java
-    }
-    return new AdaptedJUnitTestUnit(clazz,
-        Optional.ofNullable(createFilterFor(description)));
-  }
-
+  private static Optional<Class> findClassRuleClass() {
+    try {
+      return Optional.ofNullable(Class.forName("org.junit.ClassRule"));
+    } catch (final ClassNotFoundException ex) {
+      return Optional.empty();
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -4054,11 +4054,11 @@ Passing a non-null argument to `Optional`
 in `pitest/src/main/java/org/pitest/junit/JUnitCustomRunnerTestUnitFinder.java`
 #### Snippet
 ```java
-  private static Optional<Class> findClassRuleClass() {
-    try {
-      return Optional.ofNullable(Class.forName("org.junit.ClassRule"));
-    } catch (final ClassNotFoundException ex) {
-      return Optional.empty();
+    }
+    return new AdaptedJUnitTestUnit(clazz,
+        Optional.ofNullable(createFilterFor(description)));
+  }
+
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -4087,18 +4087,6 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/config/ReportOptions.java
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Dereference of `file.listFiles()` may produce `NullPointerException`
-in `pitest/src/main/java/org/pitest/classpath/DirectoryClassPathRoot.java`
-#### Snippet
-```java
-  private Collection<String> classNames(final File file) {
-    final List<String> classNames = new LinkedList<>();
-    for (final File f : file.listFiles()) {
-      if (f.isDirectory()) {
-        classNames.addAll(classNames(f));
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Passing a non-null argument to `Optional`
 in `pitest/src/main/java/org/pitest/classpath/DirectoryClassPathRoot.java`
 #### Snippet
@@ -4108,6 +4096,18 @@ in `pitest/src/main/java/org/pitest/classpath/DirectoryClassPathRoot.java`
     return Optional.ofNullable(this.root.getAbsolutePath());
   }
 
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Dereference of `file.listFiles()` may produce `NullPointerException`
+in `pitest/src/main/java/org/pitest/classpath/DirectoryClassPathRoot.java`
+#### Snippet
+```java
+  private Collection<String> classNames(final File file) {
+    final List<String> classNames = new LinkedList<>();
+    for (final File f : file.listFiles()) {
+      if (f.isDirectory()) {
+        classNames.addAll(classNames(f));
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -4319,18 +4319,6 @@ in `pitest/src/main/java/org/pitest/classinfo/CachingByteArraySource.java`
 
 ### RuleId[ruleID=OptionalContainsCollection]
 'Optional' contains array `byte[]`
-in `pitest/src/main/java/org/pitest/classpath/ClassPathByteArraySource.java`
-#### Snippet
-```java
-
-  @Override
-  public Optional<byte[]> getBytes(final String classname) {
-    try {
-      return Optional.ofNullable(this.classPath.getClassData(classname));
-```
-
-### RuleId[ruleID=OptionalContainsCollection]
-'Optional' contains array `byte[]`
 in `pitest/src/main/java/org/pitest/classinfo/ComputeClassWriter.java`
 #### Snippet
 ```java
@@ -4339,6 +4327,18 @@ in `pitest/src/main/java/org/pitest/classinfo/ComputeClassWriter.java`
     final Optional<byte[]> maybeBytes = this.bytes.getBytes(type);
     if (!maybeBytes.isPresent()) {
       throw new PitError("Could not find class defintiion for " + type);
+```
+
+### RuleId[ruleID=OptionalContainsCollection]
+'Optional' contains array `byte[]`
+in `pitest/src/main/java/org/pitest/classpath/ClassPathByteArraySource.java`
+#### Snippet
+```java
+
+  @Override
+  public Optional<byte[]> getBytes(final String classname) {
+    try {
+      return Optional.ofNullable(this.classPath.getClassData(classname));
 ```
 
 ### RuleId[ruleID=OptionalContainsCollection]
@@ -4358,11 +4358,11 @@ in `pitest/src/main/java/org/pitest/classpath/ClassloaderByteArraySource.java`
 in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/GregorMutater.java`
 #### Snippet
 ```java
-    context.setTargetMutation(Optional.ofNullable(id));
-
-    final Optional<byte[]> bytes = this.byteSource.getBytes(id.getClassName()
-        .asJavaName());
-
+    final ClassContext context = new ClassContext();
+    context.setTargetMutation(Optional.empty());
+    Optional<byte[]> bytes = GregorMutater.this.byteSource.getBytes(
+        classToMutate.asInternalName());
+    
 ```
 
 ### RuleId[ruleID=OptionalContainsCollection]
@@ -4370,11 +4370,11 @@ in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/GregorMutater.jav
 in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/GregorMutater.java`
 #### Snippet
 ```java
-    final ClassContext context = new ClassContext();
-    context.setTargetMutation(Optional.empty());
-    Optional<byte[]> bytes = GregorMutater.this.byteSource.getBytes(
-        classToMutate.asInternalName());
-    
+    context.setTargetMutation(Optional.ofNullable(id));
+
+    final Optional<byte[]> bytes = this.byteSource.getBytes(id.getClassName()
+        .asJavaName());
+
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -4539,18 +4539,6 @@ in `pitest/src/main/java/org/pitest/util/Log.java`
 ## RuleId[ruleID=StringEqualsEmptyString]
 ### RuleId[ruleID=StringEqualsEmptyString]
 `equals("")` can be replaced with 'isEmpty()'
-in `pitest-entry/src/main/java/org/pitest/mutationtest/tooling/DirectorySourceLocator.java`
-#### Snippet
-```java
-
-    private String toFileName(ClassName packge, String fileName) {
-        if (packge.asJavaName().equals("")) {
-            return fileName;
-        }
-```
-
-### RuleId[ruleID=StringEqualsEmptyString]
-`equals("")` can be replaced with 'isEmpty()'
 in `pitest-ant/src/main/java/org/pitest/ant/PitestTask.java`
 #### Snippet
 ```java
@@ -4559,6 +4547,18 @@ in `pitest-ant/src/main/java/org/pitest/ant/PitestTask.java`
     if (!"".equals(value)) {
       this.options.put(option.getParamName(), value);
     }
+```
+
+### RuleId[ruleID=StringEqualsEmptyString]
+`equals("")` can be replaced with 'isEmpty()'
+in `pitest-entry/src/main/java/org/pitest/mutationtest/tooling/DirectorySourceLocator.java`
+#### Snippet
+```java
+
+    private String toFileName(ClassName packge, String fileName) {
+        if (packge.asJavaName().equals("")) {
+            return fileName;
+        }
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -4708,15 +4708,15 @@ in `pitest-entry/src/main/java/org/pitest/mutationtest/incremental/ObjectOutputS
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'filter'
-in `pitest/src/main/java/org/pitest/junit/adapter/AdaptedJUnitTestUnit.java`
+`Optional` used as type for parameter 'historyWriter'
+in `pitest-entry/src/main/java/org/pitest/mutationtest/tooling/EntryPoint.java`
 #### Snippet
 ```java
+  }
 
-  private static String createName(final Class<?> clazz,
-      final Optional<Filter> filter) {
-    if (filter.isPresent()) {
-      return filter.get().describe();
+  private HistoryStore makeHistoryStore(ReportOptions data,  Optional<WriterFactory> historyWriter) {
+    final Optional<Reader> reader = data.createHistoryReader();
+    if (!reader.isPresent() && !historyWriter.isPresent()) {
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
@@ -4732,6 +4732,18 @@ in `pitest/src/main/java/org/pitest/junit/adapter/AdaptedJUnitTestUnit.java`
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for parameter 'filter'
+in `pitest/src/main/java/org/pitest/junit/adapter/AdaptedJUnitTestUnit.java`
+#### Snippet
+```java
+
+  private static String createName(final Class<?> clazz,
+      final Optional<Filter> filter) {
+    if (filter.isPresent()) {
+      return filter.get().describe();
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for field 'filter'
 in `pitest/src/main/java/org/pitest/junit/adapter/AdaptedJUnitTestUnit.java`
 #### Snippet
@@ -4741,18 +4753,6 @@ in `pitest/src/main/java/org/pitest/junit/adapter/AdaptedJUnitTestUnit.java`
   private final Optional<Filter>               filter;
 
 
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'historyWriter'
-in `pitest-entry/src/main/java/org/pitest/mutationtest/tooling/EntryPoint.java`
-#### Snippet
-```java
-  }
-
-  private HistoryStore makeHistoryStore(ReportOptions data,  Optional<WriterFactory> historyWriter) {
-    final Optional<Reader> reader = data.createHistoryReader();
-    if (!reader.isPresent() && !historyWriter.isPresent()) {
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
@@ -4792,18 +4792,6 @@ public class Streams {
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for field 'target'
-in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/ClassContext.java`
-#### Snippet
-```java
-  private String                      sourceFile;
-
-  private Optional<MutationIdentifier>  target       = Optional.empty();
-  private final List<MutationDetails> mutations    = new ArrayList<>();
-
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for parameter 'target'
 in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/ClassContext.java`
 #### Snippet
@@ -4813,6 +4801,18 @@ in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/ClassContext.java
   public void setTargetMutation(final Optional<MutationIdentifier> target) {
     this.target = target;
   }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for field 'target'
+in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/ClassContext.java`
+#### Snippet
+```java
+  private String                      sourceFile;
+
+  private Optional<MutationIdentifier>  target       = Optional.empty();
+  private final List<MutationDetails> mutations    = new ArrayList<>();
+
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -4842,18 +4842,6 @@ in `pitest-entry/src/main/java/org/pitest/sequence/Context.java`
 
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
-in `pitest-entry/src/main/java/org/pitest/coverage/CoverageData.java`
-#### Snippet
-```java
-
-    if (description.getFirstTestClass() == null) {
-      System.out.println(description);
-    }
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
 in `pitest-entry/src/main/java/org/pitest/coverage/execute/DefaultCoverageGenerator.java`
 #### Snippet
 ```java
@@ -4862,6 +4850,18 @@ in `pitest-entry/src/main/java/org/pitest/coverage/execute/DefaultCoverageGenera
           System.out.printf("%s", this.spinner[this.i % this.spinner.length]);
         }
         this.i++;
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `pitest-entry/src/main/java/org/pitest/coverage/CoverageData.java`
+#### Snippet
+```java
+
+    if (description.getFirstTestClass() == null) {
+      System.out.println(description);
+    }
+
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -5001,11 +5001,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `pitest/src/main/java/org/pitest/mutationtest/execute/MutationTestMinion.java`
 #### Snippet
 ```java
-      this.reporter.done(ExitCode.OK);
+      instance.run();
     } catch (final Throwable ex) {
       ex.printStackTrace(System.out);
       LOG.log(Level.WARNING, "Error during mutation test", ex);
-      this.reporter.done(ExitCode.UNKNOWN_ERROR);
+    } finally {
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -5013,11 +5013,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `pitest/src/main/java/org/pitest/mutationtest/execute/MutationTestMinion.java`
 #### Snippet
 ```java
-      instance.run();
+      this.reporter.done(ExitCode.OK);
     } catch (final Throwable ex) {
       ex.printStackTrace(System.out);
       LOG.log(Level.WARNING, "Error during mutation test", ex);
-    } finally {
+      this.reporter.done(ExitCode.UNKNOWN_ERROR);
 ```
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
@@ -5156,18 +5156,6 @@ in `pitest/src/main/java/org/pitest/util/Glob.java`
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `pitest/src/main/java/org/pitest/coverage/execute/CoverageMinion.java`
-#### Snippet
-```java
-  private static Predicate<String> convertToJVMClassFilter(
-      final Predicate<String> child) {
-    return a -> child.test(a.replace("/", "."));
-  }
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `pitest/src/main/java/org/pitest/classinfo/ComputeClassWriter.java`
 #### Snippet
 ```java
@@ -5176,6 +5164,18 @@ in `pitest/src/main/java/org/pitest/classinfo/ComputeClassWriter.java`
     final String cleanItf = itf.replace(".", "/");
     while (!"java/lang/Object".equals(type)) {
       final String[] itfs = info.getInterfaces();
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `pitest/src/main/java/org/pitest/coverage/execute/CoverageMinion.java`
+#### Snippet
+```java
+  private static Predicate<String> convertToJVMClassFilter(
+      final Predicate<String> child) {
+    return a -> child.test(a.replace("/", "."));
+  }
+
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -5276,18 +5276,6 @@ public class CustomRunnerExecutor {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `junit.runner` is unnecessary, and can be replaced with an import
-in `pitest/src/main/java/org/pitest/junit/JUnitCompatibleConfiguration.java`
-#### Snippet
-```java
-  public Optional<PitHelpError> verifyEnvironment() {
-    try {
-      final String version = junit.runner.Version.id();
-      if (isInvalidVersion(version)) {
-        return Optional.ofNullable(new PitHelpError(Help.WRONG_JUNIT_VERSION, version));
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.pitest.testapi` is unnecessary, and can be replaced with an import
 in `pitest/src/main/java/org/pitest/junit/adapter/AdaptedJUnitTestUnit.java`
 #### Snippet
@@ -5297,6 +5285,18 @@ in `pitest/src/main/java/org/pitest/junit/adapter/AdaptedJUnitTestUnit.java`
     super(new org.pitest.testapi.Description(createName(clazz, filter), clazz));
     this.clazz = clazz;
     this.filter = filter;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `junit.runner` is unnecessary, and can be replaced with an import
+in `pitest/src/main/java/org/pitest/junit/JUnitCompatibleConfiguration.java`
+#### Snippet
+```java
+  public Optional<PitHelpError> verifyEnvironment() {
+    try {
+      final String version = junit.runner.Version.id();
+      if (isInvalidVersion(version)) {
+        return Optional.ofNullable(new PitHelpError(Help.WRONG_JUNIT_VERSION, version));
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -5312,18 +5312,6 @@ public class Streams {
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `pitest/src/main/java/org/pitest/coverage/CoverageTransformer.java`
-#### Snippet
-```java
-      } catch (final RuntimeException t) {
-        System.err.println("RuntimeException while transforming  " + className);
-        t.printStackTrace();
-        throw t;
-      }
-```
-
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/MutationHtmlReportListener.java`
@@ -5358,6 +5346,18 @@ in `pitest-html-report/src/main/java/org/pitest/mutationtest/report/html/Mutatio
       e.printStackTrace();
     }
 
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `pitest/src/main/java/org/pitest/coverage/CoverageTransformer.java`
+#### Snippet
+```java
+      } catch (final RuntimeException t) {
+        System.err.println("RuntimeException while transforming  " + className);
+        t.printStackTrace();
+        throw t;
+      }
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -5545,14 +5545,14 @@ in `pitest/src/main/java/org/pitest/coverage/execute/JavassistCoverageIntercepto
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `pitest/src/main/java/org/pitest/classpath/DirectoryClassPathRoot.java`
+in `pitest/src/main/java/org/pitest/classpath/NameCachingRoot.java`
 #### Snippet
 ```java
-      return new FileInputStream(file);
-    } else {
+    final Collection<String> names = classNames();
+    if (!names.contains(ClassName.fromString(name).asJavaName())) {
       return null;
     }
-  }
+    return this.child.getData(name);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -5569,14 +5569,14 @@ in `pitest/src/main/java/org/pitest/classpath/DirectoryClassPathRoot.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `pitest/src/main/java/org/pitest/classpath/NameCachingRoot.java`
+in `pitest/src/main/java/org/pitest/classpath/DirectoryClassPathRoot.java`
 #### Snippet
 ```java
-    final Collection<String> names = classNames();
-    if (!names.contains(ClassName.fromString(name).asJavaName())) {
+      return new FileInputStream(file);
+    } else {
       return null;
     }
-    return this.child.getData(name);
+  }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -5620,11 +5620,11 @@ Return of `null`
 in `pitest/src/main/java/org/pitest/classpath/CompoundClassPathRoot.java`
 #### Snippet
 ```java
-      }
+      return findRootForResource(name);
+    } catch (final IOException exception) {
+      return null;
     }
-    return null;
   }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -5632,11 +5632,11 @@ Return of `null`
 in `pitest/src/main/java/org/pitest/classpath/CompoundClassPathRoot.java`
 #### Snippet
 ```java
-      return findRootForResource(name);
-    } catch (final IOException exception) {
-      return null;
+      }
     }
+    return null;
   }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -5672,30 +5672,6 @@ in `pitest/src/main/java/org/pitest/mutationtest/engine/gregor/mutators/experime
       }
       return null;
     }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `pitest/src/main/java/org/pitest/mutationtest/execute/CatchNewClassLoadersTransformer.java`
-#### Snippet
-```java
-            // loaded by parent
-            if (clazz.getClassLoader() != loader) {
-                return null;
-            }
-            return clazz;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `pitest/src/main/java/org/pitest/mutationtest/execute/CatchNewClassLoadersTransformer.java`
-#### Snippet
-```java
-            // Does not occur when we only mutate for the Quarkus loader, but
-            // left in place for when/if the list expands
-            return null;
-        }
 
 ```
 
@@ -5749,6 +5725,30 @@ in `pitest/src/main/java/org/pitest/mutationtest/execute/CatchNewClassLoadersTra
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `pitest/src/main/java/org/pitest/mutationtest/execute/CatchNewClassLoadersTransformer.java`
+#### Snippet
+```java
+            // loaded by parent
+            if (clazz.getClassLoader() != loader) {
+                return null;
+            }
+            return clazz;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `pitest/src/main/java/org/pitest/mutationtest/execute/CatchNewClassLoadersTransformer.java`
+#### Snippet
+```java
+            // Does not occur when we only mutate for the Quarkus loader, but
+            // left in place for when/if the list expands
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `pitest/src/main/java/org/pitest/mutationtest/mocksupport/BendJavassistToMyWillTransformer.java`
 #### Snippet
 ```java
@@ -5776,11 +5776,11 @@ Return of `null`
 in `pitest-maven/src/main/java/org/pitest/maven/AbstractPitMojo.java`
 #### Snippet
 ```java
-  private <X> ArrayList<X> withoutNulls(List<X> originalList) {
-    if (originalList == null) {
+    final MavenProject executionProject = this.project.getExecutionProject();
+    if (executionProject == null) {
       return null;
     }
-
+    return executionProject.getBasedir();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -5788,11 +5788,11 @@ Return of `null`
 in `pitest-maven/src/main/java/org/pitest/maven/AbstractPitMojo.java`
 #### Snippet
 ```java
-    final MavenProject executionProject = this.project.getExecutionProject();
-    if (executionProject == null) {
+  private <X> ArrayList<X> withoutNulls(List<X> originalList) {
+    if (originalList == null) {
       return null;
     }
-    return executionProject.getBasedir();
+
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
