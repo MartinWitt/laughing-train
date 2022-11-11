@@ -34,12 +34,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 public class QodanaAnalyzer {
 
+    private static final int QODANA_TIME_LIMIT = 14;
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private String resultFolder;
     private String qodanaImageName;
@@ -126,15 +129,14 @@ public class QodanaAnalyzer {
         WaitContainerResultCallback exec =
                 dockerClient.waitContainerCmd(containerId).exec(new WaitContainerResultCallback());
         List<AnalyzerResult> results = new ArrayList<>();
+        addContainerTimeLimit(dockerClient, containerId);
         dockerClient
                 .waitContainerCmd(containerId)
                 .exec(new ResultCallbackTemplate<WaitContainerResultCallback, WaitResponse>() {
                     @Override
                     public void onNext(WaitResponse object) {
                         try {
-                            if (!exec.awaitCompletion(14, TimeUnit.MINUTES)) {
-                                dockerClient.killContainerCmd(containerId).exec();
-                            }
+                            exec.awaitCompletion();
                             logger.atInfo().log("Qodana finished");
                             if (!Paths.get(resultPathString).toFile().exists()) {
                                 StringBuilder sb = new StringBuilder();
@@ -157,6 +159,22 @@ public class QodanaAnalyzer {
                 .awaitCompletion();
         logger.atInfo().log("Qodana finished with %s results", results.size());
         return results;
+    }
+
+    private void addContainerTimeLimit(DockerClient dockerClient, String containerId) {
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                logger.atInfo().log("Qodana did not finish in time, stopping container");
+                try {
+                    dockerClient.killContainerCmd(containerId).exec();
+                } catch (Exception ignored) {
+                    // this is fine and faster as checking if the container exists
+                }
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(timerTask, TimeUnit.MINUTES.toMillis(QODANA_TIME_LIMIT));
     }
 
     private CreateContainerResponse createQodanaContainer(
