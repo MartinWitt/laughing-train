@@ -141,126 +141,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
-#### Snippet
-```java
-    }
-
-    private static String interpolateParameters(String original, Function<String, Object> lookup) {
-        Matcher matcher = PARAMETER_PATTERN.matcher(original);
-        String current = original;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends U`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
-#### Snippet
-```java
-     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
-     */
-    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
-        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
-            maybeOther.ifPresent(other -> effect.accept(original, other));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
-#### Snippet
-```java
-     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
-     */
-    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
-        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
-            maybeOther.ifPresent(other -> effect.accept(original, other));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super U`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
-#### Snippet
-```java
-     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
-     */
-    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
-        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
-            maybeOther.ifPresent(other -> effect.accept(original, other));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/idea/WitchcraftLogFilter.java`
-#### Snippet
-```java
-    }
-
-    private static boolean containsWitchcraftData(List<Pair<String, ConsoleViewContentType>> lines) {
-        for (Pair<String, ConsoleViewContentType> item : lines) {
-            // The null check is likely unnecessarily defensive, the goal is to avoid breaking any non-witchcraft
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Node`
-in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
-#### Snippet
-```java
-
-    static void createOrUpdateXmlFile(
-            File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
-        Node rootNode;
-        if (configurationFile.isFile()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Node`
-in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
-#### Snippet
-```java
-
-    static void createOrUpdateXmlFile(
-            File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
-        Node rootNode;
-        if (configurationFile.isFile()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
-    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
-        try {
-            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
-    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
-        return parseJson(logLine, clazz).flatMap(function);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
-    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
-        return parseJson(logLine, clazz).flatMap(function);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/CombineWithLogVisitor.java`
 #### Snippet
@@ -318,6 +198,126 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     CombineWithLogVisitor(LogVisitor<T> first, LogVisitor<U> second, BiFunction<T, U, R> combiner) {
         this.first = first;
         this.second = second;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Pair`
+in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/idea/WitchcraftLogFilter.java`
+#### Snippet
+```java
+    }
+
+    private static boolean containsWitchcraftData(List<Pair<String, ConsoleViewContentType>> lines) {
+        for (Pair<String, ConsoleViewContentType> item : lines) {
+            // The null check is likely unnecessarily defensive, the goal is to avoid breaking any non-witchcraft
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Node`
+in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
+#### Snippet
+```java
+
+    static void createOrUpdateXmlFile(
+            File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
+        Node rootNode;
+        if (configurationFile.isFile()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Node`
+in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
+#### Snippet
+```java
+
+    static void createOrUpdateXmlFile(
+            File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
+        Node rootNode;
+        if (configurationFile.isFile()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
+    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
+        return parseJson(logLine, clazz).flatMap(function);
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
+    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
+        return parseJson(logLine, clazz).flatMap(function);
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
+    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
+        try {
+            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends U`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
+#### Snippet
+```java
+     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
+     */
+    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
+        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
+            maybeOther.ifPresent(other -> effect.accept(original, other));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
+#### Snippet
+```java
+     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
+     */
+    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
+        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
+            maybeOther.ifPresent(other -> effect.accept(original, other));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super U`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
+#### Snippet
+```java
+     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
+     */
+    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
+        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
+            maybeOther.ifPresent(other -> effect.accept(original, other));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
+#### Snippet
+```java
+    }
+
+    private static String interpolateParameters(String original, Function<String, Object> lookup) {
+        Matcher matcher = PARAMETER_PATTERN.matcher(original);
+        String current = original;
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
