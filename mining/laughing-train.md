@@ -32,8 +32,8 @@ I found 163 bad smells with 8 repairable:
 | RuleId[ruleID=UnnecessarySemicolon] | 1 | false |
 | RuleId[ruleID=RefusedBequest] | 1 | false |
 | RuleId[ruleID=EnhancedSwitchMigration] | 1 | false |
-| RuleId[ruleID=InnerClassMayBeStatic] | 1 | true |
 | RuleId[ruleID=SetReplaceableByEnumSet] | 1 | false |
+| RuleId[ruleID=InnerClassMayBeStatic] | 1 | true |
 | RuleId[ruleID=UtilityClassWithPublicConstructor] | 1 | false |
 | RuleId[ruleID=UnnecessaryBoxing] | 1 | false |
 | RuleId[ruleID=OptionalUsedAsFieldOrParameterType] | 1 | false |
@@ -78,18 +78,6 @@ public class JunitHelper {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CommitBuilder` has only 'static' members, and lacks a 'private' constructor
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
-#### Snippet
-```java
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
-
-public class CommitBuilder {
-
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `ImportHelper` has only 'static' members, and lacks a 'private' constructor
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/ImportHelper.java`
 #### Snippet
@@ -99,6 +87,18 @@ import spoon.reflect.visitor.CtAbstractImportVisitor;
 public class ImportHelper {
 
     public static void addImport(CtImport ctImport, CtCompilationUnit uni) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CommitBuilder` has only 'static' members, and lacks a 'private' constructor
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
+#### Snippet
+```java
+import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+
+public class CommitBuilder {
+
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -115,15 +115,15 @@ public class PullRequest {
 
 ## RuleId[ruleID=StaticCallOnSubclass]
 ### RuleId[ruleID=StaticCallOnSubclass]
-Static method `findAll()` declared in class 'io.quarkus.mongodb.panache.PanacheMongoEntityBase' but referenced via subclass 'io.github.martinwitt.laughing_train.persistence.Project'
+Static method `list()` declared in class 'io.quarkus.mongodb.panache.PanacheMongoEntityBase' but referenced via subclass 'io.github.martinwitt.laughing_train.persistence.Project'
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/api/ProjectGraphQL.java`
 #### Snippet
 ```java
-    @Description("Gets all projects from the database")
-    public List<Project> getAllProjects() {
-        return Project.<Project>findAll().list();
-    }
-
+    @Description("Gets project with given name from the database")
+    public Project getProject(String projectName) {
+        return Project.<Project>list("projectName", projectName).stream()
+                .findAny()
+                .orElse(null);
 ```
 
 ### RuleId[ruleID=StaticCallOnSubclass]
@@ -139,15 +139,15 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/api/ProjectGrap
 ```
 
 ### RuleId[ruleID=StaticCallOnSubclass]
-Static method `list()` declared in class 'io.quarkus.mongodb.panache.PanacheMongoEntityBase' but referenced via subclass 'io.github.martinwitt.laughing_train.persistence.Project'
+Static method `findAll()` declared in class 'io.quarkus.mongodb.panache.PanacheMongoEntityBase' but referenced via subclass 'io.github.martinwitt.laughing_train.persistence.Project'
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/api/ProjectGraphQL.java`
 #### Snippet
 ```java
-    @Description("Gets project with given name from the database")
-    public Project getProject(String projectName) {
-        return Project.<Project>list("projectName", projectName).stream()
-                .findAny()
-                .orElse(null);
+    @Description("Gets all projects from the database")
+    public List<Project> getAllProjects() {
+        return Project.<Project>findAll().list();
+    }
+
 ```
 
 ### RuleId[ruleID=StaticCallOnSubclass]
@@ -172,30 +172,6 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/api/BadSmellGra
         return BadSmell.<BadSmell>listAll();
     }
 
-```
-
-### RuleId[ruleID=StaticCallOnSubclass]
-Static method `streamAll()` declared in class 'io.quarkus.mongodb.panache.PanacheMongoEntityBase' but referenced via subclass 'io.github.martinwitt.laughing_train.persistence.Project'
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/DataBaseMigration.java`
-#### Snippet
-```java
-
-    private void createConfigsIfMissing() {
-        Project.<Project>streamAll().forEach(project -> {
-            if (ProjectConfig.findByProjectUrl(project.getProjectUrl()).isEmpty()) {
-                var config = new ProjectConfig(project.getProjectUrl());
-```
-
-### RuleId[ruleID=StaticCallOnSubclass]
-Static method `mongoCollection()` declared in class 'io.quarkus.mongodb.panache.PanacheMongoEntityBase' but referenced via subclass 'io.github.martinwitt.laughing_train.persistence.BadSmell'
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/DataBaseMigration.java`
-#### Snippet
-```java
-
-    private void removeBadSmellsWithoutIdentifier() {
-        BadSmell.mongoCollection()
-                .find(Filters.not(Filters.exists("identifier")))
-                .forEach(PanacheMongoEntityBase::delete);
 ```
 
 ### RuleId[ruleID=StaticCallOnSubclass]
@@ -235,18 +211,6 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/Dat
 ```
 
 ### RuleId[ruleID=StaticCallOnSubclass]
-Static method `listAll()` declared in class 'io.quarkus.mongodb.panache.PanacheMongoEntityBase' but referenced via subclass 'io.github.martinwitt.laughing_train.persistence.Project'
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/DataBaseMigration.java`
-#### Snippet
-```java
-
-    private void removeProjectHashesWithoutResults() {
-        for (Project project : Project.<Project>listAll()) {
-            boolean changed = false;
-            for (String hash : new ArrayList<>(project.commitHashes)) {
-```
-
-### RuleId[ruleID=StaticCallOnSubclass]
 Static method `mongoCollection()` declared in class 'io.quarkus.mongodb.panache.PanacheMongoEntityBase' but referenced via subclass 'io.github.martinwitt.laughing_train.persistence.Project'
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/DataBaseMigration.java`
 #### Snippet
@@ -271,6 +235,30 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/Dat
 ```
 
 ### RuleId[ruleID=StaticCallOnSubclass]
+Static method `streamAll()` declared in class 'io.quarkus.mongodb.panache.PanacheMongoEntityBase' but referenced via subclass 'io.github.martinwitt.laughing_train.persistence.Project'
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/DataBaseMigration.java`
+#### Snippet
+```java
+
+    private void createConfigsIfMissing() {
+        Project.<Project>streamAll().forEach(project -> {
+            if (ProjectConfig.findByProjectUrl(project.getProjectUrl()).isEmpty()) {
+                var config = new ProjectConfig(project.getProjectUrl());
+```
+
+### RuleId[ruleID=StaticCallOnSubclass]
+Static method `listAll()` declared in class 'io.quarkus.mongodb.panache.PanacheMongoEntityBase' but referenced via subclass 'io.github.martinwitt.laughing_train.persistence.Project'
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/DataBaseMigration.java`
+#### Snippet
+```java
+
+    private void removeProjectHashesWithoutResults() {
+        for (Project project : Project.<Project>listAll()) {
+            boolean changed = false;
+            for (String hash : new ArrayList<>(project.commitHashes)) {
+```
+
+### RuleId[ruleID=StaticCallOnSubclass]
 Static method `mongoCollection()` declared in class 'io.quarkus.mongodb.panache.PanacheMongoEntityBase' but referenced via subclass 'io.github.martinwitt.laughing_train.persistence.BadSmell'
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/DataBaseMigration.java`
 #### Snippet
@@ -279,6 +267,18 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/Dat
     private void removeBadSmellsWithoutPosition() {
         BadSmell.mongoCollection()
                 .find(Filters.not(Filters.exists("position")))
+                .forEach(PanacheMongoEntityBase::delete);
+```
+
+### RuleId[ruleID=StaticCallOnSubclass]
+Static method `mongoCollection()` declared in class 'io.quarkus.mongodb.panache.PanacheMongoEntityBase' but referenced via subclass 'io.github.martinwitt.laughing_train.persistence.BadSmell'
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/DataBaseMigration.java`
+#### Snippet
+```java
+
+    private void removeBadSmellsWithoutIdentifier() {
+        BadSmell.mongoCollection()
+                .find(Filters.not(Filters.exists("identifier")))
                 .forEach(PanacheMongoEntityBase::delete);
 ```
 
@@ -297,18 +297,6 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/Dat
 
 ## RuleId[ruleID=DataFlowIssue]
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getPath` may produce `NullPointerException`
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/config/ConfigStore.java`
-#### Snippet
-```java
-        property = new Properties();
-        URL rootPath = Thread.currentThread().getContextClassLoader().getResource(CONFIG_FILE_NAME);
-        String appConfigPath = URLDecoder.decode(rootPath.getPath(), StandardCharsets.UTF_8);
-        try (FileInputStream configFile = new FileInputStream(new File(appConfigPath))) {
-            property.load(configFile);
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Argument `url` might be null
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
 #### Snippet
@@ -318,6 +306,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
             FileUtils.copyURLToFile(url, copyQodanaRules);
         } catch (IOException e) {
             logger.atSevere().withCause(e).log("Could not write qodana.yaml");
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getPath` may produce `NullPointerException`
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/config/ConfigStore.java`
+#### Snippet
+```java
+        property = new Properties();
+        URL rootPath = Thread.currentThread().getContextClassLoader().getResource(CONFIG_FILE_NAME);
+        String appConfigPath = URLDecoder.decode(rootPath.getPath(), StandardCharsets.UTF_8);
+        try (FileInputStream configFile = new FileInputStream(new File(appConfigPath))) {
+            property.load(configFile);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -370,30 +370,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 ```
 
 ### RuleId[ruleID=SimplifyStreamApiCallChains]
-'collect(toList())' can be replaced with 'toList()'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-                .distinct()
-                .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
-                .collect(Collectors.toList());
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-```
-
-### RuleId[ruleID=SimplifyStreamApiCallChains]
-'collect(toList())' can be replaced with 'toList()'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-                .distinct()
-                .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
-                .collect(Collectors.toList());
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-```
-
-### RuleId[ruleID=SimplifyStreamApiCallChains]
 Can be replaced with 'peek'
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/DataBaseMigration.java`
 #### Snippet
@@ -403,6 +379,30 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/persistence/Dat
                 .map(v -> {
                     v.identifier = v.identifier.replace("--", "-");
                     return v;
+```
+
+### RuleId[ruleID=SimplifyStreamApiCallChains]
+'collect(toList())' can be replaced with 'toList()'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+                .distinct()
+                .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
+                .collect(Collectors.toList());
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
+```
+
+### RuleId[ruleID=SimplifyStreamApiCallChains]
+'collect(toList())' can be replaced with 'toList()'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+                .distinct()
+                .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
+                .collect(Collectors.toList());
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -519,6 +519,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/NewLi
 
 ## RuleId[ruleID=PatternVariableCanBeUsed]
 ### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'targetedExpression' can be replaced with pattern variable
+in `code-transformation/src/main/java/spoon/reflect/visitor/ImportAnalyzer.java`
+#### Snippet
+```java
+
+        if (element instanceof CtTargetedExpression) {
+            CtTargetedExpression<?, ?> targetedExpression = (CtTargetedExpression<?, ?>) element;
+            handleTargetedExpression(targetedExpression, context);
+        } else if (element instanceof CtTypeReference<?>) {
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'ctReturn' can be replaced with pattern variable
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/UnnecessaryLocalVariable.java`
 #### Snippet
@@ -543,18 +555,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'targetedExpression' can be replaced with pattern variable
-in `code-transformation/src/main/java/spoon/reflect/visitor/ImportAnalyzer.java`
-#### Snippet
-```java
-
-        if (element instanceof CtTargetedExpression) {
-            CtTargetedExpression<?, ?> targetedExpression = (CtTargetedExpression<?, ?>) element;
-            handleTargetedExpression(targetedExpression, context);
-        } else if (element instanceof CtTypeReference<?>) {
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'equalsInvocation' can be replaced with pattern variable
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertTrueEqualsCheck.java`
 #### Snippet
@@ -564,6 +564,102 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
                 CtInvocation<?> equalsInvocation = (CtInvocation<?>) expression;
                 if (equalsInvocation.getExecutable().getSimpleName().equals("equals")) {
                     CtExpression<?> firstArgument = equalsInvocation.getTarget();
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'binaryOperator' can be replaced with pattern variable
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertNotNullTransformation.java`
+#### Snippet
+```java
+            CtExpression<?> expression = element.getArguments().iterator().next();
+            if (expression instanceof CtBinaryOperator) {
+                CtBinaryOperator<?> binaryOperator = (CtBinaryOperator<?>) expression;
+                if (binaryOperator.getKind().equals(BinaryOperatorKind.NE)) {
+                    CtExpression<?> check = findTestingExpression(binaryOperator);
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'fieldRef' can be replaced with pattern variable
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
+#### Snippet
+```java
+        }
+        if (ref instanceof CtFieldReference) {
+            CtFieldReference fieldRef = (CtFieldReference) ref;
+            return fieldRef.getDeclaringType().getQualifiedName() + "." + fieldRef.getSimpleName();
+        }
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'execRef' can be replaced with pattern variable
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
+#### Snippet
+```java
+        }
+        if (ref instanceof CtExecutableReference) {
+            CtExecutableReference execRef = (CtExecutableReference) ref;
+            return execRef.getDeclaringType().getQualifiedName() + "." + execRef.getSimpleName();
+        }
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'wildRef' can be replaced with pattern variable
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
+#### Snippet
+```java
+        }
+        if (ref instanceof CtTypeMemberWildcardImportReference) {
+            CtTypeMemberWildcardImportReference wildRef = (CtTypeMemberWildcardImportReference) ref;
+            return wildRef.getTypeReference().getQualifiedName() + ".*";
+        }
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'typeRef' can be replaced with pattern variable
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
+#### Snippet
+```java
+        }
+        if (ref instanceof CtTypeReference) {
+            CtTypeReference typeRef = (CtTypeReference) ref;
+            return typeRef.getQualifiedName();
+        }
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'invocation' can be replaced with pattern variable
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
+#### Snippet
+```java
+
+            } else if (targetedExpression instanceof CtInvocation<?>) {
+                CtInvocation<?> invocation = (CtInvocation<?>) targetedExpression;
+                // import static method
+                if (invocation.getExecutable().isStatic()) {
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'fieldAccess' can be replaced with pattern variable
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
+#### Snippet
+```java
+            } else if (targetedExpression instanceof CtFieldAccess<?>) {
+                // import static field
+                CtFieldAccess<?> fieldAccess = (CtFieldAccess<?>) targetedExpression;
+                if (fieldAccess.getVariable().isStatic()) {
+                    context.addImport(fieldAccess.getVariable());
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'binaryOperator' can be replaced with pattern variable
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertNullTransformation.java`
+#### Snippet
+```java
+            CtExpression<?> expression = invocation.getArguments().iterator().next();
+            if (expression instanceof CtBinaryOperator) {
+                CtBinaryOperator<?> binaryOperator = (CtBinaryOperator<?>) expression;
+                if (binaryOperator.getKind().equals(BinaryOperatorKind.EQ)) {
+                    CtExpression<?> check = findTestingExpression(binaryOperator);
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -627,102 +723,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'binaryOperator' can be replaced with pattern variable
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertNullTransformation.java`
-#### Snippet
-```java
-            CtExpression<?> expression = invocation.getArguments().iterator().next();
-            if (expression instanceof CtBinaryOperator) {
-                CtBinaryOperator<?> binaryOperator = (CtBinaryOperator<?>) expression;
-                if (binaryOperator.getKind().equals(BinaryOperatorKind.EQ)) {
-                    CtExpression<?> check = findTestingExpression(binaryOperator);
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'binaryOperator' can be replaced with pattern variable
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertNotNullTransformation.java`
-#### Snippet
-```java
-            CtExpression<?> expression = element.getArguments().iterator().next();
-            if (expression instanceof CtBinaryOperator) {
-                CtBinaryOperator<?> binaryOperator = (CtBinaryOperator<?>) expression;
-                if (binaryOperator.getKind().equals(BinaryOperatorKind.NE)) {
-                    CtExpression<?> check = findTestingExpression(binaryOperator);
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'invocation' can be replaced with pattern variable
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
-#### Snippet
-```java
-
-            } else if (targetedExpression instanceof CtInvocation<?>) {
-                CtInvocation<?> invocation = (CtInvocation<?>) targetedExpression;
-                // import static method
-                if (invocation.getExecutable().isStatic()) {
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'fieldAccess' can be replaced with pattern variable
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
-#### Snippet
-```java
-            } else if (targetedExpression instanceof CtFieldAccess<?>) {
-                // import static field
-                CtFieldAccess<?> fieldAccess = (CtFieldAccess<?>) targetedExpression;
-                if (fieldAccess.getVariable().isStatic()) {
-                    context.addImport(fieldAccess.getVariable());
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'fieldRef' can be replaced with pattern variable
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
-#### Snippet
-```java
-        }
-        if (ref instanceof CtFieldReference) {
-            CtFieldReference fieldRef = (CtFieldReference) ref;
-            return fieldRef.getDeclaringType().getQualifiedName() + "." + fieldRef.getSimpleName();
-        }
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'execRef' can be replaced with pattern variable
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
-#### Snippet
-```java
-        }
-        if (ref instanceof CtExecutableReference) {
-            CtExecutableReference execRef = (CtExecutableReference) ref;
-            return execRef.getDeclaringType().getQualifiedName() + "." + execRef.getSimpleName();
-        }
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'wildRef' can be replaced with pattern variable
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
-#### Snippet
-```java
-        }
-        if (ref instanceof CtTypeMemberWildcardImportReference) {
-            CtTypeMemberWildcardImportReference wildRef = (CtTypeMemberWildcardImportReference) ref;
-            return wildRef.getTypeReference().getQualifiedName() + ".*";
-        }
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'typeRef' can be replaced with pattern variable
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
-#### Snippet
-```java
-        }
-        if (ref instanceof CtTypeReference) {
-            CtTypeReference typeRef = (CtTypeReference) ref;
-            return typeRef.getQualifiedName();
-        }
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'compilationUnit' can be replaced with pattern variable
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/formatting/ImportGrouper.java`
 #### Snippet
@@ -732,18 +732,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/formatting/
             CtCompilationUnit compilationUnit = (CtCompilationUnit) element;
             compilationUnit.setImports(cloneImports(compilationUnit));
         }
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'invocation' can be replaced with pattern variable
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/StringBuilderDirectUse.java`
-#### Snippet
-```java
-    public void process(CtInvocation<?> element) {
-        if (targetIsStringType(element) && element.getTarget() instanceof CtInvocation) {
-            CtInvocation<?> invocation = (CtInvocation<?>) element.getTarget();
-            if (targetIsStringBuilder(invocation) && stringBuilderHasMethod(element)) {
-                element.setTarget(invocation.getTarget());
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -771,6 +759,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'invocation' can be replaced with pattern variable
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/StringBuilderDirectUse.java`
+#### Snippet
+```java
+    public void process(CtInvocation<?> element) {
+        if (targetIsStringType(element) && element.getTarget() instanceof CtInvocation) {
+            CtInvocation<?> invocation = (CtInvocation<?>) element.getTarget();
+            if (targetIsStringBuilder(invocation) && stringBuilderHasMethod(element)) {
+                element.setTarget(invocation.getTarget());
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'other' can be replaced with pattern variable
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/Change.java`
 #### Snippet
@@ -795,18 +795,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'fieldRead' can be replaced with pattern variable
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/ExpectedExceptionRemoval.java`
-#### Snippet
-```java
-    private boolean isNoneType(CtExpression<?> value) {
-        if (value instanceof CtFieldRead) {
-            CtFieldRead<?> fieldRead = (CtFieldRead<?>) value;
-            return fieldRead.getVariable().getDeclaringType().getSimpleName().equals("None");
-        }
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'binaryOperator' can be replaced with pattern variable
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertTrueSameCheck.java`
 #### Snippet
@@ -816,6 +804,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
                 CtBinaryOperator<?> binaryOperator = (CtBinaryOperator<?>) expression;
                 if (binaryOperator.getKind().equals(BinaryOperatorKind.EQ)) {
                     CtInvocation<?> junit5AssertNotNull = createJunit5AssertSame(
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'fieldRead' can be replaced with pattern variable
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/ExpectedExceptionRemoval.java`
+#### Snippet
+```java
+    private boolean isNoneType(CtExpression<?> value) {
+        if (value instanceof CtFieldRead) {
+            CtFieldRead<?> fieldRead = (CtFieldRead<?>) value;
+            return fieldRead.getVariable().getDeclaringType().getSimpleName().equals("None");
+        }
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -892,19 +892,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/Impor
             case ALL_TYPES:
 ```
 
-## RuleId[ruleID=InnerClassMayBeStatic]
-### RuleId[ruleID=InnerClassMayBeStatic]
-Inner class `ResultCallbackImplementation` may be 'static'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
-#### Snippet
-```java
-    }
-
-    private final class ResultCallbackImplementation implements ResultCallback<Frame> {
-        private final StringBuilder sb;
-
-```
-
 ## RuleId[ruleID=SetReplaceableByEnumSet]
 ### RuleId[ruleID=SetReplaceableByEnumSet]
 `HashSet<>` can be replaced with 'EnumSet'
@@ -916,6 +903,19 @@ in `code-transformation/src/main/java/spoon/reflect/visitor/ImportAnalyzer.java`
     protected static Set<CtRole> IGNORED_ROLES_WHEN_IMPLICIT = new HashSet<>(Arrays.asList(
             // e.g. List<String> s = new ArrayList</*keep me implicit*/>();
             CtRole.TYPE_ARGUMENT,
+```
+
+## RuleId[ruleID=InnerClassMayBeStatic]
+### RuleId[ruleID=InnerClassMayBeStatic]
+Inner class `ResultCallbackImplementation` may be 'static'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
+#### Snippet
+```java
+    }
+
+    private final class ResultCallbackImplementation implements ResultCallback<Frame> {
+        private final StringBuilder sb;
+
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -968,6 +968,90 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/formatting/
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends GHPullRequest`
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/MentionCommands.java`
+#### Snippet
+```java
+    }
+
+    private void closePullRequestsWithLabelName(List<GHPullRequest> pr, String name) {
+        for (GHPullRequest ghPullRequest : pr) {
+            ghPullRequest.getLabels().forEach(v -> {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Message`
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/MentionCommands.java`
+#### Snippet
+```java
+    }
+
+    private void runQodanaOnRepo(GHEventPayload.IssueComment issueComment, AsyncResult<Message<ProjectResult>> v) {
+        if (v.succeeded() && v.result().body() instanceof ProjectResult.Success success) {
+            vertx.executeBlocking(project -> eventBus.<QodanaResult>request(
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Message`
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/mining/PeriodicMiner.java`
+#### Snippet
+```java
+    }
+
+    private Promise<Void> mineProject(String repoName, AsyncResult<Message<ProjectResult>> message) {
+        if (message.succeeded()) {
+            logger.atInfo().log("Mining periodic %s", repoName);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends CtType`
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
+#### Snippet
+```java
+
+    private void createPullRequestForAffectedType(
+            GHRepository repo, Path dir, Map<CtType<?>, List<Change>> changesByType) throws IOException {
+        GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
+        logger.atInfo().log(
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
+#### Snippet
+```java
+
+    private void createPullRequestForAffectedType(
+            GHRepository repo, Path dir, Map<CtType<?>, List<Change>> changesByType) throws IOException {
+        GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
+        logger.atInfo().log(
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends CtType`
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/printing/ChangedTypePrinting.java`
+#### Snippet
+```java
+    }
+
+    public void printChangedTypes(ChangeListener listener, Iterable<CtType<?>> newTypes) {
+        for (CtType<?> type : newTypes) {
+            if (type.getPosition().getFile() == null || !listener.isChanged(type)) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/util/Nullsafe.java`
+#### Snippet
+```java
+     * @return  the value of the given supplier if it doesn't throw an exception, otherwise returns the default value.
+     */
+    public static <T> T get(Supplier<T> supplier, T defaultValue) {
+        try {
+            return supplier.get();
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super String`
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
 #### Snippet
@@ -1001,90 +1085,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/Comm
             String path, String sourceFiles, String file, BiFunction<String, String, Changelog> transformation) {
         ConfigStore config = new ConfigStore();
         try (Repository repository = Git.open(new File(path)).checkout().getRepository()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Message`
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/mining/PeriodicMiner.java`
-#### Snippet
-```java
-    }
-
-    private Promise<Void> mineProject(String repoName, AsyncResult<Message<ProjectResult>> message) {
-        if (message.succeeded()) {
-            logger.atInfo().log("Mining periodic %s", repoName);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Message`
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/MentionCommands.java`
-#### Snippet
-```java
-    }
-
-    private void runQodanaOnRepo(GHEventPayload.IssueComment issueComment, AsyncResult<Message<ProjectResult>> v) {
-        if (v.succeeded() && v.result().body() instanceof ProjectResult.Success success) {
-            vertx.executeBlocking(project -> eventBus.<QodanaResult>request(
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends GHPullRequest`
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/MentionCommands.java`
-#### Snippet
-```java
-    }
-
-    private void closePullRequestsWithLabelName(List<GHPullRequest> pr, String name) {
-        for (GHPullRequest ghPullRequest : pr) {
-            ghPullRequest.getLabels().forEach(v -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends CtType`
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/printing/ChangedTypePrinting.java`
-#### Snippet
-```java
-    }
-
-    public void printChangedTypes(ChangeListener listener, Iterable<CtType<?>> newTypes) {
-        for (CtType<?> type : newTypes) {
-            if (type.getPosition().getFile() == null || !listener.isChanged(type)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/util/Nullsafe.java`
-#### Snippet
-```java
-     * @return  the value of the given supplier if it doesn't throw an exception, otherwise returns the default value.
-     */
-    public static <T> T get(Supplier<T> supplier, T defaultValue) {
-        try {
-            return supplier.get();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends CtType`
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
-#### Snippet
-```java
-
-    private void createPullRequestForAffectedType(
-            GHRepository repo, Path dir, Map<CtType<?>, List<Change>> changesByType) throws IOException {
-        GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
-        logger.atInfo().log(
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/App.java`
-#### Snippet
-```java
-
-    private void createPullRequestForAffectedType(
-            GHRepository repo, Path dir, Map<CtType<?>, List<Change>> changesByType) throws IOException {
-        GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
-        logger.atInfo().log(
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1481,6 +1481,31 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/services/Refact
         return "";
 ```
 
+## RuleId[ruleID=GroovyUnusedAssignment]
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `code-transformation/build.gradle`
+#### Snippet
+```java
+
+
+def test = tasks.named("test") {
+	useJUnitPlatform {
+		excludeTags "Mining"
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `code-transformation/build.gradle`
+#### Snippet
+```java
+}
+
+def mining = tasks.register("mining", Test) {
+	useJUnitPlatform {
+		includeTags "Mining"
+```
+
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
@@ -1518,44 +1543,7 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/RepeatingPr
     public RepeatingProcessingManager(Factory factory, ChangeListener listener) {
 ```
 
-## RuleId[ruleID=GroovyUnusedAssignment]
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `code-transformation/build.gradle`
-#### Snippet
-```java
-
-
-def test = tasks.named("test") {
-	useJUnitPlatform {
-		excludeTags "Mining"
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `code-transformation/build.gradle`
-#### Snippet
-```java
-}
-
-def mining = tasks.register("mining", Test) {
-	useJUnitPlatform {
-		includeTags "Mining"
-```
-
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `sourceRoot`
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
-#### Snippet
-```java
-
-    public List<AnalyzerResult> runQodana(Path sourceRoot) {
-        sourceRoot = fixWindowsPath(sourceRoot);
-        logger.atInfo().log("Running Qodana on %s", sourceRoot);
-        copyQodanaRules(sourceRoot);
-```
-
 ### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `sourceRoot`
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
@@ -1587,6 +1575,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 ```java
     @Deprecated
     public List<AnalyzerResult> runQodanaNoCacheDelete(Path sourceRoot) {
+        sourceRoot = fixWindowsPath(sourceRoot);
+        logger.atInfo().log("Running Qodana on %s", sourceRoot);
+        copyQodanaRules(sourceRoot);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `sourceRoot`
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
+#### Snippet
+```java
+
+    public List<AnalyzerResult> runQodana(Path sourceRoot) {
         sourceRoot = fixWindowsPath(sourceRoot);
         logger.atInfo().log("Running Qodana on %s", sourceRoot);
         copyQodanaRules(sourceRoot);
@@ -1644,18 +1644,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `junit5AssertTrue` is redundant
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertNullTransformation.java`
-#### Snippet
-```java
-    public void process(CtInvocation<?> invocation) {
-        if (invocation.getExecutable() != null && JunitHelper.isJunit5AssertTrue(invocation.getExecutable())) {
-            CtInvocation<?> junit5AssertTrue = invocation;
-            CtExpression<?> expression = invocation.getArguments().iterator().next();
-            if (expression instanceof CtBinaryOperator) {
-```
-
-### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `junit5AssertTrue` is redundant
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertNotNullTransformation.java`
 #### Snippet
 ```java
@@ -1663,6 +1651,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
         if (element.getExecutable() != null && JunitHelper.isJunit5AssertTrue(element.getExecutable())) {
             CtInvocation<?> junit5AssertTrue = element;
             CtExpression<?> expression = element.getArguments().iterator().next();
+            if (expression instanceof CtBinaryOperator) {
+```
+
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `junit5AssertTrue` is redundant
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertNullTransformation.java`
+#### Snippet
+```java
+    public void process(CtInvocation<?> invocation) {
+        if (invocation.getExecutable() != null && JunitHelper.isJunit5AssertTrue(invocation.getExecutable())) {
+            CtInvocation<?> junit5AssertTrue = invocation;
+            CtExpression<?> expression = invocation.getArguments().iterator().next();
             if (expression instanceof CtBinaryOperator) {
 ```
 
@@ -1717,18 +1717,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 
 ### RuleId[ruleID=RedundantStringFormatCall]
 Redundant call to `format()`
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertNullTransformation.java`
-#### Snippet
-```java
-                parent,
-                new Change(
-                        String.format("Replaced nullcheck in assertTrue with assertNull"),
-                        "AssertTrue instead of AssertNull",
-                        parent));
-```
-
-### RuleId[ruleID=RedundantStringFormatCall]
-Redundant call to `format()`
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertNotNullTransformation.java`
 #### Snippet
 ```java
@@ -1736,6 +1724,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
                 new Change(
                         String.format("Replaced not nullcheck in assertTrue with assertNotNull"),
                         "AssertTrue instead of AssertNotNull",
+                        parent));
+```
+
+### RuleId[ruleID=RedundantStringFormatCall]
+Redundant call to `format()`
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertNullTransformation.java`
+#### Snippet
+```java
+                parent,
+                new Change(
+                        String.format("Replaced nullcheck in assertTrue with assertNull"),
+                        "AssertTrue instead of AssertNull",
                         parent));
 ```
 
@@ -1832,30 +1832,6 @@ String concatenation as argument to `StringBuilder.append()` call
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
 #### Snippet
 ```java
-        for (Change change : log.getChanges()) {
-            if (change.getAffectedType().getSimpleName().equals(name)) {
-                sb.append(change.getChangeText().asText() + "\n");
-            }
-        }
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
-#### Snippet
-```java
-    private static void appendChanges(Map<String, List<Change>> changesByType, StringBuilder sb) {
-        for (Entry<String, List<Change>> entry : changesByType.entrySet()) {
-            sb.append("### " + entry.getKey() + "\n");
-            sb.append(entry.getValue().stream()
-                    .map(c -> "- " + c.getChangeText().asMarkdown())
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
-#### Snippet
-```java
                 .collect(Collectors.toList());
         for (BadSmell badSmell : badSmells) {
             sb.append("## " + badSmell.getName().asText() + "\n");
@@ -1883,6 +1859,30 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/Comm
             sb.append(badSmell.getDescription().asMarkdown() + "\n");
             for (Link link : badSmell.getLinks()) {
                 sb.append("- " + link + "\n");
+            }
+        }
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
+#### Snippet
+```java
+    private static void appendChanges(Map<String, List<Change>> changesByType, StringBuilder sb) {
+        for (Entry<String, List<Change>> entry : changesByType.entrySet()) {
+            sb.append("### " + entry.getKey() + "\n");
+            sb.append(entry.getValue().stream()
+                    .map(c -> "- " + c.getChangeText().asMarkdown())
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
+#### Snippet
+```java
+        for (Change change : log.getChanges()) {
+            if (change.getAffectedType().getSimpleName().equals(name)) {
+                sb.append(change.getChangeText().asText() + "\n");
             }
         }
 ```
@@ -1904,11 +1904,11 @@ String concatenation as argument to `StringBuilder.append()` call
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/ChangelogPrinter.java`
 #### Snippet
 ```java
-        sb.append("## Changes: \n");
-        for (var fix : changes) {
-            sb.append("* " + fix.getChangeText().asMarkdown()).append("\n");
-            if (fix.getAnalyzerResult() != null) {
-                sb.append("<!-- ").append(toYaml(fix.getAnalyzerResult())).append(" -->\n");
+        sb.append("# Repairing Code Style Issues\n");
+        sb.append("<!-- laughing-train-refactor -->\n");
+        changes.stream().map(Change::getBadSmell).distinct().forEach(v -> sb.append(
+                        "## " + v.getName().asText() + "\n")
+                .append(v.getDescription().asMarkdown())
 ```
 
 ### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
@@ -1916,11 +1916,11 @@ String concatenation as argument to `StringBuilder.append()` call
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/ChangelogPrinter.java`
 #### Snippet
 ```java
-        sb.append("# Repairing Code Style Issues\n");
-        sb.append("<!-- laughing-train-refactor -->\n");
-        changes.stream().map(Change::getBadSmell).distinct().forEach(v -> sb.append(
-                        "## " + v.getName().asText() + "\n")
-                .append(v.getDescription().asMarkdown())
+        sb.append("## Changes: \n");
+        for (var fix : changes) {
+            sb.append("* " + fix.getChangeText().asMarkdown()).append("\n");
+            if (fix.getAnalyzerResult() != null) {
+                sb.append("<!-- ").append(toYaml(fix.getAnalyzerResult())).append(" -->\n");
 ```
 
 ### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
@@ -1940,35 +1940,11 @@ String concatenation as argument to `StringBuilder.append()` call
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
 #### Snippet
 ```java
-                .collect(Collectors.toList());
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
-                sb.append("- " + link + "\n");
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
-                sb.append("- " + link + "\n");
-            }
-        }
+    private static void appendChanges(Map<String, List<Change>> changesByType, StringBuilder sb) {
+        for (Entry<String, List<Change>> entry : changesByType.entrySet()) {
+            sb.append("### " + entry.getKey() + "\n");
+            sb.append(entry.getValue().stream()
+                    .map(c -> "- " + c.getChangeText().asMarkdown())
 ```
 
 ### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
@@ -2024,10 +2000,34 @@ String concatenation as argument to `StringBuilder.append()` call
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
 #### Snippet
 ```java
-    private static void appendChanges(Map<String, List<Change>> changesByType, StringBuilder sb) {
-        for (Entry<String, List<Change>> entry : changesByType.entrySet()) {
-            sb.append("### " + entry.getKey() + "\n");
-            sb.append(entry.getValue().stream()
-                    .map(c -> "- " + c.getChangeText().asMarkdown())
+                .collect(Collectors.toList());
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
+            sb.append(badSmell.getDescription().asMarkdown() + "\n");
+            for (Link link : badSmell.getLinks()) {
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
+            sb.append(badSmell.getDescription().asMarkdown() + "\n");
+            for (Link link : badSmell.getLinks()) {
+                sb.append("- " + link + "\n");
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+            sb.append(badSmell.getDescription().asMarkdown() + "\n");
+            for (Link link : badSmell.getLinks()) {
+                sb.append("- " + link + "\n");
+            }
+        }
 ```
 
