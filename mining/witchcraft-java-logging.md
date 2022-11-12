@@ -128,6 +128,18 @@ in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/i
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
+#### Snippet
+```java
+    }
+
+    private static String interpolateParameters(String original, Function<String, Object> lookup) {
+        Matcher matcher = PARAMETER_PATTERN.matcher(original);
+        String current = original;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Node`
 in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
 #### Snippet
@@ -152,15 +164,15 @@ in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/loggi
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
+Can generalize to `? super StringBuilder`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/Formatting.java`
 #### Snippet
 ```java
     }
 
-    private static String interpolateParameters(String original, Function<String, Object> lookup) {
-        Matcher matcher = PARAMETER_PATTERN.matcher(original);
-        String current = original;
+    static String withStringBuilder(Consumer<StringBuilder> function) {
+        StringBuilder builder = REUSABLE_STRING_BUILDER.get();
+        builder.setLength(0);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -221,18 +233,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     CombineWithLogVisitor(LogVisitor<T> first, LogVisitor<U> second, BiFunction<T, U, R> combiner) {
         this.first = first;
         this.second = second;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super StringBuilder`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/Formatting.java`
-#### Snippet
-```java
-    }
-
-    static String withStringBuilder(Consumer<StringBuilder> function) {
-        StringBuilder builder = REUSABLE_STRING_BUILDER.get();
-        builder.setLength(0);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
