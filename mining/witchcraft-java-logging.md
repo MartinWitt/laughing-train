@@ -104,18 +104,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 
 ## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/idea/WitchcraftLogFilter.java`
-#### Snippet
-```java
-    }
-
-    private static boolean containsWitchcraftData(List<Pair<String, ConsoleViewContentType>> lines) {
-        for (Pair<String, ConsoleViewContentType> item : lines) {
-            // The null check is likely unnecessarily defensive, the goal is to avoid breaking any non-witchcraft
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/SupplierLogVisitor.java`
 #### Snippet
@@ -128,15 +116,15 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
+Can generalize to `? extends Pair`
+in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/idea/WitchcraftLogFilter.java`
 #### Snippet
 ```java
     }
 
-    private static String interpolateParameters(String original, Function<String, Object> lookup) {
-        Matcher matcher = PARAMETER_PATTERN.matcher(original);
-        String current = original;
+    private static boolean containsWitchcraftData(List<Pair<String, ConsoleViewContentType>> lines) {
+        for (Pair<String, ConsoleViewContentType> item : lines) {
+            // The null check is likely unnecessarily defensive, the goal is to avoid breaking any non-witchcraft
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -161,6 +149,18 @@ in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/loggi
             File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
         Node rootNode;
         if (configurationFile.isFile()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
+#### Snippet
+```java
+    }
+
+    private static String interpolateParameters(String original, Function<String, Object> lookup) {
+        Matcher matcher = PARAMETER_PATTERN.matcher(original);
+        String current = original;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
