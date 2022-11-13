@@ -317,6 +317,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
+#### Snippet
+```java
+		 * Creates a single set of distinct objects (according to
+		 * {@link Object#equals(Object)}) for a CartesianProductTest
+		 * from the elements of the passed {@link java.util.Collection}.
+		 *
+		 * The passed argument does not have to be an instance of {@link java.util.Set}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.stream` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
@@ -338,18 +350,6 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
  * @see org.junitpioneer.jupiter.CartesianValueSource
  *
  * @deprecated has been superseded by CartesianTest, scheduled to be removed in 2.0
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
-		 * Creates a single set of distinct objects (according to
-		 * {@link Object#equals(Object)}) for a CartesianProductTest
-		 * from the elements of the passed {@link java.util.Collection}.
-		 *
-		 * The passed argument does not have to be an instance of {@link java.util.Set}.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -514,18 +514,6 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Source`
-in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
-#### Snippet
-```java
-	private List<Source> sources;
-
-	protected void accept(List<Source> sources, String dataLocation) {
-		this.sources = sources;
-		this.dataLocation = dataLocation;
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super String`
 in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
 #### Snippet
@@ -550,6 +538,18 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Source`
+in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
+#### Snippet
+```java
+	private List<Source> sources;
+
+	protected void accept(List<Source> sources, String dataLocation) {
+		this.sources = sources;
+		this.dataLocation = dataLocation;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends DisableIfTestFails`
 in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 #### Snippet
@@ -559,30 +559,6 @@ in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 			List<DisableIfTestFails> annotations) {
 		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
 		if (annotations.isEmpty())
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -607,6 +583,30 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 	private void setEntries(Map<K, V> entriesToSet) {
 		entriesToSet.forEach(this::setEntry);
 	}
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
