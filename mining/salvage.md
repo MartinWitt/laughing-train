@@ -38,18 +38,6 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 
 ## RuleId[ruleID=DataFlowIssue]
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `keySet` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
-#### Snippet
-```java
-		var tideNames = new HashSet<String>();
-		var craneNames = new HashSet<String>();
-		for (var key : labels.keySet()) {
-			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
-				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Unboxing of `state.getRestarting()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -167,6 +155,18 @@ in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
 				.withEnv(Arrays.asList(config.getEnv()))
 				.withUser(user)
 				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `keySet` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
+#### Snippet
+```java
+		var tideNames = new HashSet<String>();
+		var craneNames = new HashSet<String>();
+		for (var key : labels.keySet()) {
+			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
+				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
