@@ -38,18 +38,6 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 
 ## RuleId[ruleID=DataFlowIssue]
 ### RuleId[ruleID=DataFlowIssue]
-Argument `config.getEnv()` might be null
-in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
-#### Snippet
-```java
-				.withAttachStderr(true)
-				.withAttachStdin(false)
-				.withEnv(Arrays.asList(config.getEnv()))
-				.withUser(user)
-				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `keySet` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
 #### Snippet
@@ -167,6 +155,18 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 				if (state.getRunning() && !state.getPaused()) {
 					log.debug("pausing container {}", container.id());
 					docker.pauseContainerCmd(container.id()).exec();
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `config.getEnv()` might be null
+in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
+#### Snippet
+```java
+				.withAttachStderr(true)
+				.withAttachStdin(false)
+				.withEnv(Arrays.asList(config.getEnv()))
+				.withUser(user)
+				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
