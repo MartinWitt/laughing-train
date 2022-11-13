@@ -176,6 +176,42 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends U`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
+#### Snippet
+```java
+     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
+     */
+    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
+        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
+            maybeOther.ifPresent(other -> effect.accept(original, other));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
+#### Snippet
+```java
+     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
+     */
+    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
+        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
+            maybeOther.ifPresent(other -> effect.accept(original, other));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super U`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
+#### Snippet
+```java
+     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
+     */
+    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
+        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
+            maybeOther.ifPresent(other -> effect.accept(original, other));
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/CombineWithLogVisitor.java`
 #### Snippet
@@ -242,6 +278,18 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```java
     }
 
+    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
+        try {
+            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
     private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
         return parseJson(logLine, clazz).flatMap(function);
     }
@@ -257,54 +305,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
         return parseJson(logLine, clazz).flatMap(function);
     }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
-    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
-        try {
-            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends U`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
-#### Snippet
-```java
-     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
-     */
-    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
-        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
-            maybeOther.ifPresent(other -> effect.accept(original, other));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
-#### Snippet
-```java
-     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
-     */
-    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
-        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
-            maybeOther.ifPresent(other -> effect.accept(original, other));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super U`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
-#### Snippet
-```java
-     * visitor is visited, and then the value from each is handed off to the given {@code effect} consumer.
-     */
-    default <U> LogVisitor<T> combineWithEffect(LogVisitor<U> otherLogVisitor, BiConsumer<T, U> effect) {
-        return new CombineWithLogVisitor<>(this, LogVisitors.liftOptional(otherLogVisitor), (original, maybeOther) -> {
-            maybeOther.ifPresent(other -> effect.accept(original, other));
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
