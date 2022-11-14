@@ -178,11 +178,11 @@ Pseudo functional style code
 in `core/src/main/java/com/google/errorprone/refaster/PlaceholderVerificationVisitor.java`
 #### Snippet
 ```java
-      JCExpression expr = (JCExpression) node;
-      for (UFreeIdent.Key key :
-          Iterables.filter(unifier.getBindings().keySet(), UFreeIdent.Key.class)) {
-        JCExpression keyBinding = unifier.getBinding(key);
-        if (PlaceholderUnificationVisitor.equivalentExprs(unifier, expr, keyBinding)) {
+  public Boolean visitIdentifier(IdentifierTree node, Unifier unifier) {
+    for (LocalVarBinding localBinding :
+        Iterables.filter(unifier.getBindings().values(), LocalVarBinding.class)) {
+      if (localBinding.getSymbol().equals(ASTHelpers.getSymbol(node))) {
+        return false;
 ```
 
 ### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
@@ -190,11 +190,11 @@ Pseudo functional style code
 in `core/src/main/java/com/google/errorprone/refaster/PlaceholderVerificationVisitor.java`
 #### Snippet
 ```java
-  public Boolean visitIdentifier(IdentifierTree node, Unifier unifier) {
-    for (LocalVarBinding localBinding :
-        Iterables.filter(unifier.getBindings().values(), LocalVarBinding.class)) {
-      if (localBinding.getSymbol().equals(ASTHelpers.getSymbol(node))) {
-        return false;
+      JCExpression expr = (JCExpression) node;
+      for (UFreeIdent.Key key :
+          Iterables.filter(unifier.getBindings().keySet(), UFreeIdent.Key.class)) {
+        JCExpression keyBinding = unifier.getBinding(key);
+        if (PlaceholderUnificationVisitor.equivalentExprs(unifier, expr, keyBinding)) {
 ```
 
 ### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
@@ -235,18 +235,6 @@ in `core/src/main/java/com/google/errorprone/refaster/RefasterRuleBuilderScanner
 
 ### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
 Pseudo functional style code
-in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
-#### Snippet
-```java
-      @Override
-      protected Iterator<R> iterator() {
-        return Optional.presentInstances(Iterables.transform(thisChoice.asIterable(), function))
-            .iterator();
-      }
-```
-
-### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
-Pseudo functional style code
 in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
 #### Snippet
 ```java
@@ -255,6 +243,18 @@ in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
     for (MethodTree decl : Iterables.filter(tree.getMembers(), MethodTree.class)) {
       if (ASTHelpers.isGeneratedConstructor(decl)) {
         // skip synthetic constructors
+```
+
+### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
+Pseudo functional style code
+in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
+#### Snippet
+```java
+      @Override
+      protected Iterator<R> iterator() {
+        return Optional.presentInstances(Iterables.transform(thisChoice.asIterable(), function))
+            .iterator();
+      }
 ```
 
 ### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
@@ -394,11 +394,11 @@ Pseudo functional style code
 in `test_helpers/src/main/java/com/google/errorprone/BugCheckerRefactoringTestHelper.java`
 #### Snippet
 ```java
-  private static String getFullyQualifiedName(JCCompilationUnit tree) {
-    Iterator<JCClassDecl> types =
-        Iterables.filter(tree.getTypeDecls(), JCClassDecl.class).iterator();
-    if (types.hasNext()) {
-      return Iterators.getOnlyElement(types).sym.getQualifiedName().toString();
+    JCCompilationUnit tree = (JCCompilationUnit) byURI.get(inputURI);
+    Iterable<Diagnostic<? extends JavaFileObject>> errorDiagnostics =
+        Iterables.filter(
+            diagnosticsCollector.getDiagnostics(), d -> d.getKind() == Diagnostic.Kind.ERROR);
+    if (!Iterables.isEmpty(errorDiagnostics)) {
 ```
 
 ### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
@@ -406,11 +406,11 @@ Pseudo functional style code
 in `test_helpers/src/main/java/com/google/errorprone/BugCheckerRefactoringTestHelper.java`
 #### Snippet
 ```java
-    JCCompilationUnit tree = (JCCompilationUnit) byURI.get(inputURI);
-    Iterable<Diagnostic<? extends JavaFileObject>> errorDiagnostics =
-        Iterables.filter(
-            diagnosticsCollector.getDiagnostics(), d -> d.getKind() == Diagnostic.Kind.ERROR);
-    if (!Iterables.isEmpty(errorDiagnostics)) {
+  private static String getFullyQualifiedName(JCCompilationUnit tree) {
+    Iterator<JCClassDecl> types =
+        Iterables.filter(tree.getTypeDecls(), JCClassDecl.class).iterator();
+    if (types.hasNext()) {
+      return Iterators.getOnlyElement(types).sym.getQualifiedName().toString();
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
@@ -787,14 +787,50 @@ in `core/src/main/java/com/google/errorprone/refaster/UPlaceholderExpression.jav
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
+in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
+#### Snippet
+```java
+  }
+
+  private static <T> ImmutableList<T> cast(Iterable<?> elements, Class<T> clazz) {
+    ImmutableList.Builder<T> builder = ImmutableList.builder();
+    for (Object element : elements) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
 in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
 #### Snippet
 ```java
-   * Returns a choice of the optional value, if it is present, or the empty choice if it is absent.
+
+      @Override
+      public <R> Choice<R> transform(Function<? super T, R> function) {
+        return of(function.apply(t));
+      }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Optional`
+in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
+#### Snippet
+```java
+   * <p>The function may be applied lazily or immediately, at the discretion of the implementation.
    */
-  public static <T> Choice<T> fromOptional(Optional<T> optional) {
-    return optional.isPresent() ? of(optional.get()) : Choice.<T>none();
-  }
+  public <R> Choice<R> thenOption(Function<? super T, Optional<R>> function) {
+    checkNotNull(function);
+    Choice<T> thisChoice = this;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Choice`
+in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
+#### Snippet
+```java
+   * <p>This is the monadic bind for {@code Choice}.
+   */
+  public <R> Choice<R> thenChoose(Function<? super T, Choice<R>> function) {
+    checkNotNull(function);
+    if (Thread.interrupted()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -814,11 +850,11 @@ Can generalize to `? extends T`
 in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
 #### Snippet
 ```java
-
-  /** Returns a choice of the options from this {@code Choice} or from {@code other}. */
-  public Choice<T> or(Choice<T> other) {
-    checkNotNull(other);
-    if (other == none()) {
+   * Returns a choice of the optional value, if it is present, or the empty choice if it is absent.
+   */
+  public static <T> Choice<T> fromOptional(Optional<T> optional) {
+    return optional.isPresent() ? of(optional.get()) : Choice.<T>none();
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -829,18 +865,6 @@ in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
 
   /** Maps the choices with the specified function. */
   public <R> Choice<R> transform(Function<? super T, R> function) {
-    checkNotNull(function);
-    Choice<T> thisChoice = this;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Optional`
-in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
-#### Snippet
-```java
-   * <p>The function may be applied lazily or immediately, at the discretion of the implementation.
-   */
-  public <R> Choice<R> thenOption(Function<? super T, Optional<R>> function) {
     checkNotNull(function);
     Choice<T> thisChoice = this;
 ```
@@ -862,30 +886,6 @@ Can generalize to `? extends Choice`
 in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
 #### Snippet
 ```java
-   * <p>This is the monadic bind for {@code Choice}.
-   */
-  public <R> Choice<R> thenChoose(Function<? super T, Choice<R>> function) {
-    checkNotNull(function);
-    if (Thread.interrupted()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
-#### Snippet
-```java
-
-      @Override
-      public <R> Choice<R> transform(Function<? super T, R> function) {
-        return of(function.apply(t));
-      }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Choice`
-in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
-#### Snippet
-```java
 
       @Override
       public <R> Choice<R> thenChoose(Function<? super T, Choice<R>> function) {
@@ -895,14 +895,14 @@ in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
-in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
+in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
 #### Snippet
 ```java
-  }
 
-  private static <T> ImmutableList<T> cast(Iterable<?> elements, Class<T> clazz) {
-    ImmutableList.Builder<T> builder = ImmutableList.builder();
-    for (Object element : elements) {
+  /** Returns a choice of the options from this {@code Choice} or from {@code other}. */
+  public Choice<T> or(Choice<T> other) {
+    checkNotNull(other);
+    if (other == none()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -918,18 +918,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/DifferentNameButSame.ja
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends VarSymbol`
-in `core/src/main/java/com/google/errorprone/bugpatterns/CompileTimeConstantChecker.java`
-#### Snippet
-```java
-  }
-
-  private static List<Integer> getAnnotatedParams(List<VarSymbol> params, VisitorState state) {
-    List<Integer> compileTimeConstantAnnotationIndexes = new ArrayList<>();
-    for (int i = 0; i < params.size(); i++) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends MethodSymbol`
 in `core/src/main/java/com/google/errorprone/bugpatterns/CompileTimeConstantChecker.java`
 #### Snippet
@@ -939,6 +927,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/CompileTimeConstantChec
       Iterable<MethodSymbol> superMethods) {
     for (Symbol.MethodSymbol superMethod : superMethods) {
       for (Integer index : compileTimeConstantAnnotationIndexes) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends VarSymbol`
+in `core/src/main/java/com/google/errorprone/bugpatterns/CompileTimeConstantChecker.java`
+#### Snippet
+```java
+  }
+
+  private static List<Integer> getAnnotatedParams(List<VarSymbol> params, VisitorState state) {
+    List<Integer> compileTimeConstantAnnotationIndexes = new ArrayList<>();
+    for (int i = 0; i < params.size(); i++) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -967,14 +967,14 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/LoopConditionChecker.ja
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Tree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/ImmutableMemberCollection.java`
+in `core/src/main/java/com/google/errorprone/bugpatterns/AssertThrowsUtils.java`
 #### Snippet
 ```java
-    }
-
-    private SuggestedFix getFix(ImmutableSet<Tree> initTrees, VisitorState state) {
-      SuggestedFix.Builder fixBuilder =
-          SuggestedFix.builder()
+      TryTree tryTree,
+      List<? extends StatementTree> throwingStatements,
+      Optional<Tree> failureMessage,
+      VisitorState state) {
+    List<? extends CatchTree> catchTrees = tryTree.getCatches();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -991,14 +991,14 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ImmutableMemberCollecti
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Tree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/AssertThrowsUtils.java`
+in `core/src/main/java/com/google/errorprone/bugpatterns/ImmutableMemberCollection.java`
 #### Snippet
 ```java
-      TryTree tryTree,
-      List<? extends StatementTree> throwingStatements,
-      Optional<Tree> failureMessage,
-      VisitorState state) {
-    List<? extends CatchTree> catchTrees = tryTree.getCatches();
+    }
+
+    private SuggestedFix getFix(ImmutableSet<Tree> initTrees, VisitorState state) {
+      SuggestedFix.Builder fixBuilder =
+          SuggestedFix.builder()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1007,10 +1007,10 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/JUnit3FloatingPointComp
 #### Snippet
 ```java
 
-  /** Gets the text for the delta argument to be added. */
-  private static String getDeltaArgument(VisitorState state, List<Type> argumentTypes) {
-    Type firstType = argumentTypes.get(0);
-    Type secondType = argumentTypes.get(1);
+  /** Removes the message argument if it is present. */
+  private static void removeMessageArgumentIfPresent(VisitorState state, List<Type> argumentTypes) {
+    if (argumentTypes.size() == 2) {
+      return;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1031,10 +1031,10 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/JUnit3FloatingPointComp
 #### Snippet
 ```java
 
-  /** Removes the message argument if it is present. */
-  private static void removeMessageArgumentIfPresent(VisitorState state, List<Type> argumentTypes) {
-    if (argumentTypes.size() == 2) {
-      return;
+  /** Gets the text for the delta argument to be added. */
+  private static String getDeltaArgument(VisitorState state, List<Type> argumentTypes) {
+    Type firstType = argumentTypes.get(0);
+    Type secondType = argumentTypes.get(1);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1074,18 +1074,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryBoxedVariabl
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Symbol`
-in `core/src/main/java/com/google/errorprone/bugpatterns/TypeNameShadowing.java`
-#### Snippet
-```java
-  }
-
-  private static String buildMessage(List<Symbol> shadowedTypes) {
-    return "Found type parameters shadowing other declared types:\n\t"
-        + shadowedTypes.stream()
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends AttrContext`
 in `core/src/main/java/com/google/errorprone/bugpatterns/TypeNameShadowing.java`
 #### Snippet
@@ -1098,15 +1086,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/TypeNameShadowing.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Modifier`
-in `core/src/main/java/com/google/errorprone/bugpatterns/RequiredModifiersChecker.java`
+Can generalize to `? extends Symbol`
+in `core/src/main/java/com/google/errorprone/bugpatterns/TypeNameShadowing.java`
 #### Snippet
 ```java
   }
 
-  private static void getModifiers(Collection<Modifier> modifiers, Attribute attribute) {
-    class Visitor extends SimpleAnnotationValueVisitor8<Void, Void> {
-      @Override
+  private static String buildMessage(List<Symbol> shadowedTypes) {
+    return "Found type parameters shadowing other declared types:\n\t"
+        + shadowedTypes.stream()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1116,18 +1104,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractMockChecker.jav
 ```java
    */
   public static TypeExtractor<MethodInvocationTree> extractClassArg(
-      Matcher<MethodInvocationTree> m) {
-    return (tree, state) -> {
-      if (m.matches(tree, state)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super MethodInvocationTree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractMockChecker.java`
-#### Snippet
-```java
-   */
-  public static TypeExtractor<MethodInvocationTree> extractFirstArg(
       Matcher<MethodInvocationTree> m) {
     return (tree, state) -> {
       if (m.matches(tree, state)) {
@@ -1194,6 +1170,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractMockChecker.jav
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super MethodInvocationTree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractMockChecker.java`
+#### Snippet
+```java
+   */
+  public static TypeExtractor<MethodInvocationTree> extractFirstArg(
+      Matcher<MethodInvocationTree> m) {
+    return (tree, state) -> {
+      if (m.matches(tree, state)) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super T`
 in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractMockChecker.java`
 #### Snippet
@@ -1203,6 +1191,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractMockChecker.jav
   public static <T extends Tree> TypeExtractor<T> extractType(Matcher<T> m) {
     return (tree, state) -> {
       if (m.matches(tree, state)) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Modifier`
+in `core/src/main/java/com/google/errorprone/bugpatterns/RequiredModifiersChecker.java`
+#### Snippet
+```java
+  }
+
+  private static void getModifiers(Collection<Modifier> modifiers, Attribute attribute) {
+    class Visitor extends SimpleAnnotationValueVisitor8<Void, Void> {
+      @Override
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1234,18 +1234,6 @@ Can generalize to `? super ExpressionTree`
 in `core/src/main/java/com/google/errorprone/bugpatterns/NonAtomicVolatileUpdate.java`
 #### Snippet
 ```java
-
-  /** Extracts the expression from a UnaryTree and applies a matcher to it. */
-  private static Matcher<UnaryTree> expressionFromUnaryTree(Matcher<ExpressionTree> exprMatcher) {
-    return new Matcher<UnaryTree>() {
-      @Override
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ExpressionTree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/NonAtomicVolatileUpdate.java`
-#### Snippet
-```java
   /** Extracts the variable from a CompoundAssignmentTree and applies a matcher to it. */
   private static Matcher<CompoundAssignmentTree> variableFromCompoundAssignmentTree(
       Matcher<ExpressionTree> exprMatcher) {
@@ -1254,15 +1242,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/NonAtomicVolatileUpdate
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends CatchTree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/CatchFail.java`
+Can generalize to `? super ExpressionTree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/NonAtomicVolatileUpdate.java`
 #### Snippet
 ```java
 
-  private static Optional<Fix> rethrowFix(
-      ImmutableList<CatchTree> catchBlocks, VisitorState state) {
-    SuggestedFix.Builder fix = SuggestedFix.builder();
-    catchBlocks.forEach(
+  /** Extracts the expression from a UnaryTree and applies a matcher to it. */
+  private static Matcher<UnaryTree> expressionFromUnaryTree(Matcher<ExpressionTree> exprMatcher) {
+    return new Matcher<UnaryTree>() {
+      @Override
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1278,6 +1266,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/CatchFail.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends CatchTree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/CatchFail.java`
+#### Snippet
+```java
+
+  private static Optional<Fix> rethrowFix(
+      ImmutableList<CatchTree> catchBlocks, VisitorState state) {
+    SuggestedFix.Builder fix = SuggestedFix.builder();
+    catchBlocks.forEach(
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends AnnotationTree`
 in `core/src/main/java/com/google/errorprone/bugpatterns/JUnit4ClassAnnotationNonStatic.java`
 #### Snippet
@@ -1287,42 +1287,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/JUnit4ClassAnnotationNo
   private static String messageForAnnos(List<AnnotationTree> annotationTrees) {
     String annoNames =
         annotationTrees.stream()
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ConstantExpression`
-in `core/src/main/java/com/google/errorprone/bugpatterns/OptionalNotPresent.java`
-#### Snippet
-```java
-    }
-
-    private Stream<PureMethodInvocation> getMethodInvocations(Multiset<ConstantExpression> truths) {
-      return truths.stream()
-          .filter(truth -> truth.kind().equals(ConstantExpressionKind.PURE_METHOD))
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Type`
-in `core/src/main/java/com/google/errorprone/bugpatterns/StronglyType.java`
-#### Snippet
-```java
-  // TODO(b/147006492): Consider extracting a helper to find all fields that match a Matcher.
-  private ImmutableMap<VarSymbol, TreePath> findPathToPotentialFields(
-      VisitorState state, Set<Type> potentialTypes) {
-    ImmutableMap.Builder<VarSymbol, TreePath> fields = ImmutableMap.builder();
-    bugChecker().new SuppressibleTreePathScanner<Void, Void>(state) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ExpressionTree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/StronglyType.java`
-#### Snippet
-```java
-      TreePath variableTreePath,
-      VarSymbol replacedSymbol,
-      Set<ExpressionTree> invocationTrees,
-      VisitorState state) {
-    if (invocationTrees.stream().map(ASTHelpers::getSymbol).distinct().count() != 1) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1350,15 +1314,39 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/EqualsGetClass.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FieldWithValue`
-in `core/src/main/java/com/google/errorprone/bugpatterns/ProtoRedundantSet.java`
+Can generalize to `? extends ExpressionTree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/StronglyType.java`
 #### Snippet
 ```java
+      TreePath variableTreePath,
+      VarSymbol replacedSymbol,
+      Set<ExpressionTree> invocationTrees,
+      VisitorState state) {
+    if (invocationTrees.stream().map(ASTHelpers::getSymbol).distinct().count() != 1) {
+```
 
-  private Description describe(
-      ProtoField protoField, Collection<FieldWithValue> locations, VisitorState state) {
-    // We flag up all duplicate sets, but only suggest a fix if the setter is given the same
-    // argument (based on source code). This is to avoid the temptation to apply the fix in
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Type`
+in `core/src/main/java/com/google/errorprone/bugpatterns/StronglyType.java`
+#### Snippet
+```java
+  // TODO(b/147006492): Consider extracting a helper to find all fields that match a Matcher.
+  private ImmutableMap<VarSymbol, TreePath> findPathToPotentialFields(
+      VisitorState state, Set<Type> potentialTypes) {
+    ImmutableMap.Builder<VarSymbol, TreePath> fields = ImmutableMap.builder();
+    bugChecker().new SuppressibleTreePathScanner<Void, Void>(state) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ConstantExpression`
+in `core/src/main/java/com/google/errorprone/bugpatterns/OptionalNotPresent.java`
+#### Snippet
+```java
+    }
+
+    private Stream<PureMethodInvocation> getMethodInvocations(Multiset<ConstantExpression> truths) {
+      return truths.stream()
+          .filter(truth -> truth.kind().equals(ConstantExpressionKind.PURE_METHOD))
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1383,6 +1371,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ProtoRedundantSet.java`
       ListMultimap<ProtoField, FieldWithValue> setters) {
     for (FieldType fieldType : FieldType.values()) {
       FieldWithValue match = fieldType.match(methodName, method);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends FieldWithValue`
+in `core/src/main/java/com/google/errorprone/bugpatterns/ProtoRedundantSet.java`
+#### Snippet
+```java
+
+  private Description describe(
+      ProtoField protoField, Collection<FieldWithValue> locations, VisitorState state) {
+    // We flag up all duplicate sets, but only suggest a fix if the setter is given the same
+    // argument (based on source code). This is to avoid the temptation to apply the fix in
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1422,18 +1422,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedException.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ErrorProneToken`
-in `core/src/main/java/com/google/errorprone/bugpatterns/ParameterName.java`
-#### Snippet
-```java
-  }
-
-  private static boolean advanceTokens(Deque<ErrorProneToken> tokens, Range<Integer> actual) {
-    while (!tokens.isEmpty() && tokens.getFirst().pos() < actual.lowerEndpoint()) {
-      tokens.removeFirst();
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super ErrorProneToken`
 in `core/src/main/java/com/google/errorprone/bugpatterns/ParameterName.java`
 #### Snippet
@@ -1443,6 +1431,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ParameterName.java`
       Consumer<ErrorProneToken> consumer) {
     String source = state.getSourceCode().subSequence(offset, positions.upperEndpoint()).toString();
     Deque<ErrorProneToken> tokens =
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ErrorProneToken`
+in `core/src/main/java/com/google/errorprone/bugpatterns/ParameterName.java`
+#### Snippet
+```java
+  }
+
+  private static boolean advanceTokens(Deque<ErrorProneToken> tokens, Range<Integer> actual) {
+    while (!tokens.isEmpty() && tokens.getFirst().pos() < actual.lowerEndpoint()) {
+      tokens.removeFirst();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1494,6 +1494,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/InconsistentCapitalizat
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Type`
+in `core/src/main/java/com/google/errorprone/bugpatterns/JdkObsolete.java`
+#### Snippet
+```java
+
+  private Description describeIfObsolete(
+      @Nullable Tree tree, Iterable<Type> types, VisitorState state) {
+    for (Type type : types) {
+      Obsolete obsolete = OBSOLETE.get(type.asElement().getQualifiedName().toString());
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ImportTree`
 in `core/src/main/java/com/google/errorprone/bugpatterns/WildcardImport.java`
 #### Snippet
@@ -1515,18 +1527,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/WildcardImport.java`
       Set<TypeToImport> typesToImport,
       VisitorState state) {
     Map<Symbol, List<TypeToImport>> toFix =
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Type`
-in `core/src/main/java/com/google/errorprone/bugpatterns/JdkObsolete.java`
-#### Snippet
-```java
-
-  private Description describeIfObsolete(
-      @Nullable Tree tree, Iterable<Type> types, VisitorState state) {
-    for (Type type : types) {
-      Obsolete obsolete = OBSOLETE.get(type.asElement().getQualifiedName().toString());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1662,6 +1662,30 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/BadAnnotationImplementa
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ClassSymbol`
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedMethod.java`
+#### Snippet
+```java
+
+      private boolean isMethodSymbolEligibleForChecking(
+          MethodTree tree, Set<ClassSymbol> classesMadeVisible) {
+        if (exemptedByName(tree.getName())) {
+          return false;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends TreePath`
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedMethod.java`
+#### Snippet
+```java
+  }
+
+  private void fixNonConstructors(Iterable<TreePath> unusedPaths, VisitorState state) {
+    for (TreePath unusedPath : unusedPaths) {
+      Tree unusedTree = unusedPath.getLeaf();
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ImmutableSet`
 in `core/src/main/java/com/google/errorprone/bugpatterns/InconsistentHashCode.java`
 #### Snippet
@@ -1686,27 +1710,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/InconsistentHashCode.ja
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClassSymbol`
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedMethod.java`
+Can generalize to `? super JCVariableDecl`
+in `core/src/main/java/com/google/errorprone/bugpatterns/ReplacementVariableFinder.java`
 #### Snippet
 ```java
+   */
+  public static ImmutableList<Fix> fixesByReplacingExpressionWithMethodParameter(
+      ExpressionTree input, Predicate<JCVariableDecl> validParameterPredicate, VisitorState state) {
+    Preconditions.checkState(input.getKind() == IDENTIFIER || input.getKind() == MEMBER_SELECT);
 
-      private boolean isMethodSymbolEligibleForChecking(
-          MethodTree tree, Set<ClassSymbol> classesMadeVisible) {
-        if (exemptedByName(tree.getName())) {
-          return false;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends TreePath`
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedMethod.java`
-#### Snippet
-```java
-  }
-
-  private void fixNonConstructors(Iterable<TreePath> unusedPaths, VisitorState state) {
-    for (TreePath unusedPath : unusedPaths) {
-      Tree unusedTree = unusedPath.getLeaf();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1758,18 +1770,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ReplacementVariableFind
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super JCVariableDecl`
-in `core/src/main/java/com/google/errorprone/bugpatterns/ReplacementVariableFinder.java`
-#### Snippet
-```java
-   */
-  public static ImmutableList<Fix> fixesByReplacingExpressionWithMethodParameter(
-      ExpressionTree input, Predicate<JCVariableDecl> validParameterPredicate, VisitorState state) {
-    Preconditions.checkState(input.getKind() == IDENTIFIER || input.getKind() == MEMBER_SELECT);
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Fix`
 in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractToString.java`
 #### Snippet
@@ -1779,54 +1779,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractToString.java`
   private Description maybeFix(Tree tree, VisitorState state, Type matchedType, Optional<Fix> fix) {
     Description.Builder description = buildDescription(tree);
     fix.ifPresent(description::addFix);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MethodTree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/MethodCanBeStatic.java`
-#### Snippet
-```java
-      @Override
-      public Description report(
-          Set<MethodTree> affectedTrees, SuggestedFix fix, VisitorState state, BugChecker checker) {
-        for (MethodTree tree : affectedTrees) {
-          state.reportMatch(checker.describeMatch(tree.getModifiers(), fix));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MethodTree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/MethodCanBeStatic.java`
-#### Snippet
-```java
-      @Override
-      public Description report(
-          Set<MethodTree> affectedTrees, SuggestedFix fix, VisitorState state, BugChecker checker) {
-        return affectedTrees.stream()
-            .min(Comparator.comparingInt(t -> getStartPosition(t)))
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends UnusedSpec`
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
-#### Snippet
-```java
-  private static SuggestedFix makeAssignmentDeclaration(
-      Symbol unusedSymbol,
-      Collection<UnusedSpec> specs,
-      ImmutableList<TreePath> allUsageSites,
-      VisitorState state) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends TreePath`
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
-#### Snippet
-```java
-      Symbol unusedSymbol,
-      Collection<UnusedSpec> specs,
-      ImmutableList<TreePath> allUsageSites,
-      VisitorState state) {
-    if (unusedSymbol.getKind() != ElementKind.LOCAL_VARIABLE) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1878,6 +1830,30 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends UnusedSpec`
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
+#### Snippet
+```java
+  private static SuggestedFix makeAssignmentDeclaration(
+      Symbol unusedSymbol,
+      Collection<UnusedSpec> specs,
+      ImmutableList<TreePath> allUsageSites,
+      VisitorState state) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends TreePath`
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
+#### Snippet
+```java
+      Symbol unusedSymbol,
+      Collection<UnusedSpec> specs,
+      ImmutableList<TreePath> allUsageSites,
+      VisitorState state) {
+    if (unusedSymbol.getKind() != ElementKind.LOCAL_VARIABLE) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends TreePath`
 in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
 #### Snippet
@@ -1887,6 +1863,42 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
       Symbol varSymbol, List<TreePath> usagePaths, VisitorState state) {
     MethodSymbol methodSymbol = (MethodSymbol) varSymbol.owner;
     int index = methodSymbol.params.indexOf(varSymbol);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MethodTree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/MethodCanBeStatic.java`
+#### Snippet
+```java
+      @Override
+      public Description report(
+          Set<MethodTree> affectedTrees, SuggestedFix fix, VisitorState state, BugChecker checker) {
+        for (MethodTree tree : affectedTrees) {
+          state.reportMatch(checker.describeMatch(tree.getModifiers(), fix));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MethodTree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/MethodCanBeStatic.java`
+#### Snippet
+```java
+      @Override
+      public Description report(
+          Set<MethodTree> affectedTrees, SuggestedFix fix, VisitorState state, BugChecker checker) {
+        return affectedTrees.stream()
+            .min(Comparator.comparingInt(t -> getStartPosition(t)))
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends JCStatement`
+in `core/src/main/java/com/google/errorprone/refaster/BlockTemplate.java`
+#### Snippet
+```java
+   * newlines.
+   */
+  private static String printStatements(Context context, Iterable<JCStatement> statements) {
+    StringWriter writer = new StringWriter();
+    try {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1926,18 +1938,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/MemoizeConstantVisitorS
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends JCStatement`
-in `core/src/main/java/com/google/errorprone/refaster/BlockTemplate.java`
-#### Snippet
-```java
-   * newlines.
-   */
-  private static String printStatements(Context context, Iterable<JCStatement> statements) {
-    StringWriter writer = new StringWriter();
-    try {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Modifier`
 in `core/src/main/java/com/google/errorprone/bugpatterns/IncompatibleModifiersChecker.java`
 #### Snippet
@@ -1954,47 +1954,35 @@ Can generalize to `? extends AnnotationTree`
 in `core/src/main/java/com/google/errorprone/bugpatterns/AnnotationPosition.java`
 #### Snippet
 ```java
+
+  private static boolean isOrderingIsCorrect(
+      List<AnnotationTree> shouldBeBefore, List<AnnotationTree> shouldBeAfter) {
+    if (shouldBeBefore.isEmpty() || shouldBeAfter.isEmpty()) {
+      return true;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends AnnotationTree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/AnnotationPosition.java`
+#### Snippet
+```java
+
+  private static boolean isOrderingIsCorrect(
+      List<AnnotationTree> shouldBeBefore, List<AnnotationTree> shouldBeAfter) {
+    if (shouldBeBefore.isEmpty() || shouldBeAfter.isEmpty()) {
+      return true;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends AnnotationTree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/AnnotationPosition.java`
+#### Snippet
+```java
   }
 
   private static String joinSource(VisitorState state, Iterable<AnnotationTree> moveBefore) {
     return stream(moveBefore).map(state::getSourceForNode).collect(joining(" "));
   }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends AnnotationTree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/AnnotationPosition.java`
-#### Snippet
-```java
-  }
-
-  private static ImmutableList<String> annotationNames(List<AnnotationTree> annotations) {
-    return annotations.stream()
-        .map(ASTHelpers::getSymbol)
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends AnnotationTree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/AnnotationPosition.java`
-#### Snippet
-```java
-
-  private static boolean isOrderingIsCorrect(
-      List<AnnotationTree> shouldBeBefore, List<AnnotationTree> shouldBeAfter) {
-    if (shouldBeBefore.isEmpty() || shouldBeAfter.isEmpty()) {
-      return true;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends AnnotationTree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/AnnotationPosition.java`
-#### Snippet
-```java
-
-  private static boolean isOrderingIsCorrect(
-      List<AnnotationTree> shouldBeBefore, List<AnnotationTree> shouldBeAfter) {
-    if (shouldBeBefore.isEmpty() || shouldBeAfter.isEmpty()) {
-      return true;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2007,6 +1995,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/AnnotationPosition.java
   private static Comment findOrphanedJavadoc(Name name, List<ErrorProneToken> tokens) {
     for (ErrorProneToken token : tokens) {
       for (Comment comment : token.comments()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends AnnotationTree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/AnnotationPosition.java`
+#### Snippet
+```java
+  }
+
+  private static ImmutableList<String> annotationNames(List<AnnotationTree> annotations) {
+    return annotations.stream()
+        .map(ASTHelpers::getSymbol)
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2034,18 +2034,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/MissingFail.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Tree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/MissingFail.java`
-#### Snippet
-```java
-
-  private static boolean anyCatchBlockMatches(
-      TryTree tree, VisitorState state, Matcher<Tree> matcher) {
-    for (CatchTree catchTree : tree.getCatches()) {
-      if (matcher.matches(catchTree.getBlock(), state)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super ExpressionTree`
 in `core/src/main/java/com/google/errorprone/bugpatterns/MissingFail.java`
 #### Snippet
@@ -2055,6 +2043,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/MissingFail.java`
     private UnequalIntegerLiteralMatcher(Matcher<ExpressionTree> methodSelectMatcher) {
       this.methodSelectMatcher = methodSelectMatcher;
     }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Tree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/MissingFail.java`
+#### Snippet
+```java
+
+  private static boolean anyCatchBlockMatches(
+      TryTree tree, VisitorState state, Matcher<Tree> matcher) {
+    for (CatchTree catchTree : tree.getCatches()) {
+      if (matcher.matches(catchTree.getBlock(), state)) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2106,18 +2106,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/TypeCompatibilityUtils.
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Tree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/ExpectedExceptionChecker.java`
-#### Snippet
-```java
-  private static Fix buildFix(
-      VisitorState state,
-      List<Tree> expectations,
-      @Nullable StatementTree failure,
-      List<StatementTree> suffix) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends StatementTree`
 in `core/src/main/java/com/google/errorprone/bugpatterns/ExpectedExceptionChecker.java`
 #### Snippet
@@ -2127,6 +2115,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ExpectedExceptionChecke
       List<StatementTree> throwingStatements,
       VisitorState state) {
     if (throwingStatements.isEmpty()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Tree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/ExpectedExceptionChecker.java`
+#### Snippet
+```java
+  private static Fix buildFix(
+      VisitorState state,
+      List<Tree> expectations,
+      @Nullable StatementTree failure,
+      List<StatementTree> suffix) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2250,6 +2250,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/flogger/FloggerWithCaus
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends JavadocTag`
+in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/InvalidBlockTag.java`
+#### Snippet
+```java
+
+    private InvalidTagChecker(
+        VisitorState state, ImmutableSet<JavadocTag> validTags, ImmutableSet<String> parameters) {
+      this.state = state;
+      this.validTags = validTags;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super ErrorProneToken`
 in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/Validator.java`
 #### Snippet
@@ -2274,18 +2286,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/Validator.java
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends JavadocTag`
-in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/InvalidBlockTag.java`
-#### Snippet
-```java
-
-    private InvalidTagChecker(
-        VisitorState state, ImmutableSet<JavadocTag> validTags, ImmutableSet<String> parameters) {
-      this.state = state;
-      this.validTags = validTags;
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Integer`
 in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
 #### Snippet
@@ -2298,18 +2298,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Type`
-in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullArgumentForNonNullParameter.java`
-#### Snippet
-```java
-
-  private static boolean isParameterOfMethodOnType(
-      VarSymbol sym, Supplier<Type> typeSupplier, VisitorState state) {
-    Type target = typeSupplier.get(state);
-    return target != null && state.getTypes().isSameType(sym.enclClass().type, target);
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends JCExpression`
 in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/InlineMeData.java`
 #### Snippet
@@ -2319,6 +2307,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/InlineMeData.j
         VisitorState state, IdentityHashMap<IdentifierTree, JCExpression> qualifications) {
       super(state.getTreeMaker());
       this.state = state;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Type`
+in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullArgumentForNonNullParameter.java`
+#### Snippet
+```java
+
+  private static boolean isParameterOfMethodOnType(
+      VarSymbol sym, Supplier<Type> typeSupplier, VisitorState state) {
+    Type target = typeSupplier.get(state);
+    return target != null && state.getTypes().isSameType(sym.enclClass().type, target);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2370,18 +2370,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Rules.
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Tree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/HeldLockAnalyzer.java`
-#### Snippet
-```java
-        VisitorState visitorState,
-        LockEventListener listener,
-        Predicate<Tree> isSuppressed,
-        GuardedByFlags flags) {
-      this.visitorState = visitorState;
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super ExpressionTree`
 in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/HeldLockAnalyzer.java`
 #### Snippet
@@ -2391,6 +2379,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/HeldLockAn
         VisitorState state, Matcher<ExpressionTree> lockOperationMatcher, GuardedByFlags flags) {
       this.state = state;
       this.lockOperationMatcher = lockOperationMatcher;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Tree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/HeldLockAnalyzer.java`
+#### Snippet
+```java
+        VisitorState visitorState,
+        LockEventListener listener,
+        Predicate<Tree> isSuppressed,
+        GuardedByFlags flags) {
+      this.visitorState = visitorState;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2418,30 +2418,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Result
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends VarSymbol`
-in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/ExternalCanIgnoreReturnValue.java`
-#### Snippet
-```java
-
-  private static boolean methodParametersMatch(
-      ImmutableList<String> parameters, List<VarSymbol> methodParams, Types types) {
-    return Iterables.elementsEqual(
-        parameters,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends VarSymbol`
-in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/ExternalCanIgnoreReturnValue.java`
-#### Snippet
-```java
-  }
-
-  private static String paramsString(Types types, List<VarSymbol> params) {
-    if (params.isEmpty()) {
-      return "";
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ParameterPair`
 in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefects/CreatesDuplicateCallHeuristic.java`
 #### Snippet
@@ -2466,15 +2442,27 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefect
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Tree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableAnalysis.java`
+Can generalize to `? extends VarSymbol`
+in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/ExternalCanIgnoreReturnValue.java`
 #### Snippet
 ```java
-  /** Check a single field for immutability. */
-  Violation isFieldImmutable(
-      Optional<Tree> tree,
-      ImmutableSet<String> immutableTyParams,
-      ClassSymbol classSym,
+
+  private static boolean methodParametersMatch(
+      ImmutableList<String> parameters, List<VarSymbol> methodParams, Types types) {
+    return Iterables.elementsEqual(
+        parameters,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends VarSymbol`
+in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/ExternalCanIgnoreReturnValue.java`
+#### Snippet
+```java
+  }
+
+  private static String paramsString(Types types, List<VarSymbol> params) {
+    if (params.isEmpty()) {
+      return "";
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2502,15 +2490,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableA
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super RequiredType`
-in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatibletype/IncompatibleArgumentType.java`
+Can generalize to `? extends Tree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableAnalysis.java`
 #### Snippet
 ```java
-      Type calledMethodType,
-      Type calledReceiverType,
-      List<RequiredType> argumentTypeRequirements,
-      VisitorState state) {
-    boolean foundAnyTypeToEnforce = false;
+  /** Check a single field for immutability. */
+  Violation isFieldImmutable(
+      Optional<Tree> tree,
+      ImmutableSet<String> immutableTyParams,
+      ClassSymbol classSym,
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2526,6 +2514,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatiblet
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super RequiredType`
+in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatibletype/IncompatibleArgumentType.java`
+#### Snippet
+```java
+      Type calledMethodType,
+      Type calledReceiverType,
+      List<RequiredType> argumentTypeRequirements,
+      VisitorState state) {
+    boolean foundAnyTypeToEnforce = false;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Parameter`
 in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefects/Costs.java`
 #### Snippet
@@ -2547,6 +2547,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefect
   Costs(ImmutableList<Parameter> formals, ImmutableList<Parameter> actuals) {
     this.formals = formals;
     this.actuals = actuals;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Type`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ThreadSafety.java`
+#### Snippet
+```java
+  /** Checks that any thread-safe type parameters are instantiated with thread-safe types. */
+  public Violation checkInstantiation(
+      TypeVariableSymbol typeParameter, Collection<Type> instantiations) {
+    if (!hasThreadSafeTypeParameterAnnotation(typeParameter)) {
+      return Violation.absent();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2583,18 +2595,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ThreadSafe
   public Type mutableEnclosingInstance(Optional<ClassTree> tree, ClassType type) {
     if (tree.isPresent()
         && !CanBeStaticAnalyzer.referencesOuter(
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Type`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ThreadSafety.java`
-#### Snippet
-```java
-  /** Checks that any thread-safe type parameters are instantiated with thread-safe types. */
-  public Violation checkInstantiation(
-      TypeVariableSymbol typeParameter, Collection<Type> instantiations) {
-    if (!hasThreadSafeTypeParameterAnnotation(typeParameter)) {
-      return Violation.absent();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2670,6 +2670,18 @@ in `check_api/src/main/java/com/google/errorprone/util/Comments.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Import`
+in `check_api/src/main/java/com/google/errorprone/apply/BasicImportOrganizer.java`
+#### Snippet
+```java
+
+  @Override
+  public OrganizedImports organizeImports(List<Import> imports) {
+
+    // Group into static and non-static. Each group is a set sorted by type.
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Type`
 in `check_api/src/main/java/com/google/errorprone/VisitorState.java`
 #### Snippet
@@ -2691,18 +2703,6 @@ in `check_api/src/main/java/com/google/errorprone/VisitorState.java`
     private Cache(Supplier<T> impl) {
       this.impl = impl;
       // provenance intentionally left null-initialized
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Import`
-in `check_api/src/main/java/com/google/errorprone/apply/BasicImportOrganizer.java`
-#### Snippet
-```java
-
-  @Override
-  public OrganizedImports organizeImports(List<Import> imports) {
-
-    // Group into static and non-static. Each group is a set sorted by type.
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2730,15 +2730,15 @@ in `check_api/src/main/java/com/google/errorprone/apply/IdeaImportOrganizer.java
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Import`
-in `check_api/src/main/java/com/google/errorprone/apply/AndroidImportOrganizer.java`
+Can generalize to `? super AnnotationValue`
+in `check_api/src/main/java/com/google/errorprone/util/MoreAnnotations.java`
 #### Snippet
 ```java
-  }
 
-  private static void organizePartition(OrganizedImports organized, List<Import> imports) {
-
-    Map<String, ImmutableSortedSet<Import>> groupedByRoot =
+  private static <T> Stream<T> asArray(
+      AnnotationValue v, Function<AnnotationValue, Optional<T>> mapper) {
+    class Visitor extends SimpleAnnotationValueVisitor8<Stream<T>, Void> {
+      @Override
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2751,6 +2751,30 @@ in `check_api/src/main/java/com/google/errorprone/apply/AndroidImportOrganizer.j
   public OrganizedImports organizeImports(List<Import> imports) {
     OrganizedImports organized = new OrganizedImports();
 
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Import`
+in `check_api/src/main/java/com/google/errorprone/apply/AndroidImportOrganizer.java`
+#### Snippet
+```java
+  }
+
+  private static void organizePartition(OrganizedImports organized, List<Import> imports) {
+
+    Map<String, ImmutableSortedSet<Import>> groupedByRoot =
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super VarSymbol`
+in `check_api/src/main/java/com/google/errorprone/util/FindIdentifiers.java`
+#### Snippet
+```java
+  }
+
+  private static void addIfVariable(Tree tree, ImmutableSet.Builder<VarSymbol> setBuilder) {
+    if (tree.getKind() == Kind.VARIABLE) {
+      setBuilder.add(ASTHelpers.getSymbol((VariableTree) tree));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2814,30 +2838,6 @@ in `check_api/src/main/java/com/google/errorprone/util/FindIdentifiers.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super VarSymbol`
-in `check_api/src/main/java/com/google/errorprone/util/FindIdentifiers.java`
-#### Snippet
-```java
-  }
-
-  private static void addIfVariable(Tree tree, ImmutableSet.Builder<VarSymbol> setBuilder) {
-    if (tree.getKind() == Kind.VARIABLE) {
-      setBuilder.add(ASTHelpers.getSymbol((VariableTree) tree));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AnnotationValue`
-in `check_api/src/main/java/com/google/errorprone/util/MoreAnnotations.java`
-#### Snippet
-```java
-
-  private static <T> Stream<T> asArray(
-      AnnotationValue v, Function<AnnotationValue, Optional<T>> mapper) {
-    class Visitor extends SimpleAnnotationValueVisitor8<Stream<T>, Void> {
-      @Override
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Replacement`
 in `check_api/src/main/java/com/google/errorprone/fixes/AppliedFix.java`
 #### Snippet
@@ -2850,51 +2850,291 @@ in `check_api/src/main/java/com/google/errorprone/fixes/AppliedFix.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `check_api/src/main/java/com/google/errorprone/names/TermEditDistance.java`
+Can generalize to `? super State`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
 #### Snippet
 ```java
-   */
-  public TermEditDistance(
-      BiFunction<String, String, Double> editDistanceFn,
-      BiFunction<Integer, Integer, Double> maxDistanceFn) {
-    this.editDistanceFn = editDistanceFn;
+  private static <T1, T2, R> Choice<State<R>> chooseSubtrees(
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      BiFunction<T1, T2, R> finalizer) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `check_api/src/main/java/com/google/errorprone/names/TermEditDistance.java`
+Can generalize to `? extends Choice``>`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
 #### Snippet
 ```java
-   */
-  public TermEditDistance(
-      BiFunction<String, String, Double> editDistanceFn,
-      BiFunction<Integer, Integer, Double> maxDistanceFn) {
-    this.editDistanceFn = editDistanceFn;
+  private static <T1, T2, R> Choice<State<R>> chooseSubtrees(
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      BiFunction<T1, T2, R> finalizer) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Integer`
-in `check_api/src/main/java/com/google/errorprone/names/TermEditDistance.java`
+Can generalize to `? super State`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
 #### Snippet
 ```java
-  public TermEditDistance(
-      BiFunction<String, String, Double> editDistanceFn,
-      BiFunction<Integer, Integer, Double> maxDistanceFn) {
-    this.editDistanceFn = editDistanceFn;
-    this.maxDistanceFn = maxDistanceFn;
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      BiFunction<T1, T2, R> finalizer) {
+    return choice1
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Integer`
-in `check_api/src/main/java/com/google/errorprone/names/TermEditDistance.java`
+Can generalize to `? extends Choice``>`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
 #### Snippet
 ```java
-  public TermEditDistance(
-      BiFunction<String, String, Double> editDistanceFn,
-      BiFunction<Integer, Integer, Double> maxDistanceFn) {
-    this.editDistanceFn = editDistanceFn;
-    this.maxDistanceFn = maxDistanceFn;
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      BiFunction<T1, T2, R> finalizer) {
+    return choice1
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      BiFunction<T1, T2, R> finalizer) {
+    return choice1
+        .apply(state)
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super State`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+  private static <T1, T2, T3, T4, R> Choice<State<R>> chooseSubtrees(
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Choice``>`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+  private static <T1, T2, T3, T4, R> Choice<State<R>> chooseSubtrees(
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super State`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Choice``>`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super State`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
+      QuadFunction<T1, T2, T3, T4, R> finalizer) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Choice``>`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
+      QuadFunction<T1, T2, T3, T4, R> finalizer) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super State`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
+      QuadFunction<T1, T2, T3, T4, R> finalizer) {
+    return choice1
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Choice``>`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
+      QuadFunction<T1, T2, T3, T4, R> finalizer) {
+    return choice1
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
+      QuadFunction<T1, T2, T3, T4, R> finalizer) {
+    return choice1
+        .apply(state)
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super State`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+  private static <T1, T2, T3, R> Choice<State<R>> chooseSubtrees(
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Choice``>`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+  private static <T1, T2, T3, R> Choice<State<R>> chooseSubtrees(
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super State`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+      TriFunction<T1, T2, T3, R> finalizer) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Choice``>`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+      TriFunction<T1, T2, T3, R> finalizer) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super State`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+      TriFunction<T1, T2, T3, R> finalizer) {
+    return choice1
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Choice``>`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+      TriFunction<T1, T2, T3, R> finalizer) {
+    return choice1
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
+      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
+      TriFunction<T1, T2, T3, R> finalizer) {
+    return choice1
+        .apply(state)
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super State`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+  private static <T, R> Choice<State<R>> chooseSubtrees(
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T>>> choice1,
+      Function<T, R> finalizer) {
+    return choice1.apply(state).transform(s -> s.withResult(finalizer.apply(s.result())));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Choice``>`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+  private static <T, R> Choice<State<R>> chooseSubtrees(
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T>>> choice1,
+      Function<T, R> finalizer) {
+    return choice1.apply(state).transform(s -> s.withResult(finalizer.apply(s.result())));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+      State<?> state,
+      Function<State<?>, Choice<? extends State<? extends T>>> choice1,
+      Function<T, R> finalizer) {
+    return choice1.apply(state).transform(s -> s.withResult(finalizer.apply(s.result())));
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2922,15 +3162,51 @@ in `check_api/src/main/java/com/google/errorprone/scanner/ScannerSupplier.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Type`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+Can generalize to `? super String`
+in `check_api/src/main/java/com/google/errorprone/names/TermEditDistance.java`
 #### Snippet
 ```java
-      Suppliers.typeFromString("com.google.io.protocol.ProtocolMessage");
+   */
+  public TermEditDistance(
+      BiFunction<String, String, Double> editDistanceFn,
+      BiFunction<Integer, Integer, Double> maxDistanceFn) {
+    this.editDistanceFn = editDistanceFn;
+```
 
-  private static boolean isAssignableTo(Type type, Supplier<Type> supplier, VisitorState state) {
-    Type to = supplier.get(state);
-    if (to == null) {
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `check_api/src/main/java/com/google/errorprone/names/TermEditDistance.java`
+#### Snippet
+```java
+   */
+  public TermEditDistance(
+      BiFunction<String, String, Double> editDistanceFn,
+      BiFunction<Integer, Integer, Double> maxDistanceFn) {
+    this.editDistanceFn = editDistanceFn;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Integer`
+in `check_api/src/main/java/com/google/errorprone/names/TermEditDistance.java`
+#### Snippet
+```java
+  public TermEditDistance(
+      BiFunction<String, String, Double> editDistanceFn,
+      BiFunction<Integer, Integer, Double> maxDistanceFn) {
+    this.editDistanceFn = editDistanceFn;
+    this.maxDistanceFn = maxDistanceFn;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Integer`
+in `check_api/src/main/java/com/google/errorprone/names/TermEditDistance.java`
+#### Snippet
+```java
+  public TermEditDistance(
+      BiFunction<String, String, Double> editDistanceFn,
+      BiFunction<Integer, Integer, Double> maxDistanceFn) {
+    this.editDistanceFn = editDistanceFn;
+    this.maxDistanceFn = maxDistanceFn;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2962,30 +3238,6 @@ Can generalize to `? extends Matchable`
 in `check_api/src/main/java/com/google/errorprone/matchers/ChildMultiMatcher.java`
 #### Snippet
 ```java
-  private static class AtLeastOneMatcher<N extends Tree> extends ListMatcher<N> {
-    @Override
-    public MatchResult<N> matches(List<Matchable<N>> matchables, Matcher<N> nodeMatcher) {
-      ImmutableList.Builder<N> matchingTrees = ImmutableList.builder();
-      for (Matchable<N> matchable : matchables) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super N`
-in `check_api/src/main/java/com/google/errorprone/matchers/ChildMultiMatcher.java`
-#### Snippet
-```java
-  private static class AtLeastOneMatcher<N extends Tree> extends ListMatcher<N> {
-    @Override
-    public MatchResult<N> matches(List<Matchable<N>> matchables, Matcher<N> nodeMatcher) {
-      ImmutableList.Builder<N> matchingTrees = ImmutableList.builder();
-      for (Matchable<N> matchable : matchables) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Matchable`
-in `check_api/src/main/java/com/google/errorprone/matchers/ChildMultiMatcher.java`
-#### Snippet
-```java
   private static class AllMatcher<N extends Tree> extends ListMatcher<N> {
     @Override
     public MatchResult<N> matches(List<Matchable<N>> matchables, Matcher<N> nodeMatcher) {
@@ -3027,6 +3279,54 @@ in `check_api/src/main/java/com/google/errorprone/matchers/ChildMultiMatcher.jav
     public MatchResult<N> matches(List<Matchable<N>> matchables, Matcher<N> nodeMatcher) {
       if (matchables.isEmpty()) {
         return MatchResult.none();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Matchable`
+in `check_api/src/main/java/com/google/errorprone/matchers/ChildMultiMatcher.java`
+#### Snippet
+```java
+  private static class AtLeastOneMatcher<N extends Tree> extends ListMatcher<N> {
+    @Override
+    public MatchResult<N> matches(List<Matchable<N>> matchables, Matcher<N> nodeMatcher) {
+      ImmutableList.Builder<N> matchingTrees = ImmutableList.builder();
+      for (Matchable<N> matchable : matchables) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super N`
+in `check_api/src/main/java/com/google/errorprone/matchers/ChildMultiMatcher.java`
+#### Snippet
+```java
+  private static class AtLeastOneMatcher<N extends Tree> extends ListMatcher<N> {
+    @Override
+    public MatchResult<N> matches(List<Matchable<N>> matchables, Matcher<N> nodeMatcher) {
+      ImmutableList.Builder<N> matchingTrees = ImmutableList.builder();
+      for (Matchable<N> matchable : matchables) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Matcher`
+in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
+#### Snippet
+```java
+  @Nullable
+  public static List<ExpressionTree> matchBinaryTree(
+      BinaryTree tree, List<Matcher<ExpressionTree>> matchers, VisitorState state) {
+    ExpressionTree leftOperand = tree.getLeftOperand();
+    ExpressionTree rightOperand = tree.getRightOperand();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super MethodSymbol`
+in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
+#### Snippet
+```java
+   */
+  public static Stream<MethodSymbol> matchingMethods(
+      Name name, Predicate<MethodSymbol> predicate, Type startClass, Types types) {
+    Predicate<Symbol> matchesMethodPredicate =
+        sym -> sym instanceof MethodSymbol && predicate.test((MethodSymbol) sym);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3078,30 +3378,6 @@ in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super MethodSymbol`
-in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
-#### Snippet
-```java
-   */
-  public static Stream<MethodSymbol> matchingMethods(
-      Name name, Predicate<MethodSymbol> predicate, Type startClass, Types types) {
-    Predicate<Symbol> matchesMethodPredicate =
-        sym -> sym instanceof MethodSymbol && predicate.test((MethodSymbol) sym);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Matcher`
-in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
-#### Snippet
-```java
-  @Nullable
-  public static List<ExpressionTree> matchBinaryTree(
-      BinaryTree tree, List<Matcher<ExpressionTree>> matchers, VisitorState state) {
-    ExpressionTree leftOperand = tree.getLeftOperand();
-    ExpressionTree rightOperand = tree.getRightOperand();
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Class`
 in `check_api/src/main/java/com/google/errorprone/scanner/ErrorProneScanner.java`
 #### Snippet
@@ -3111,6 +3387,18 @@ in `check_api/src/main/java/com/google/errorprone/scanner/ErrorProneScanner.java
       ImmutableSet.Builder<Class<? extends Annotation>> customSuppressionAnnotationClasses) {
     customSuppressionAnnotationClasses.addAll(checker.customSuppressionAnnotations());
 
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends BugChecker`
+in `check_api/src/main/java/com/google/errorprone/scanner/ErrorProneScanner.java`
+#### Snippet
+```java
+
+  private static ImmutableMap<String, BugPattern.SeverityLevel> defaultSeverities(
+      Iterable<BugChecker> checkers) {
+    ImmutableMap.Builder<String, BugPattern.SeverityLevel> builder = ImmutableMap.builder();
+    for (BugChecker check : checkers) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3138,15 +3426,63 @@ in `check_api/src/main/java/com/google/errorprone/scanner/ErrorProneScanner.java
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends BugChecker`
-in `check_api/src/main/java/com/google/errorprone/scanner/ErrorProneScanner.java`
+Can generalize to `? extends AccessPathStore`
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/AbstractNullnessPropagationTransfer.java`
 #### Snippet
 ```java
 
-  private static ImmutableMap<String, BugPattern.SeverityLevel> defaultSeverities(
-      Iterable<BugChecker> checkers) {
-    ImmutableMap.Builder<String, BugPattern.SeverityLevel> builder = ImmutableMap.builder();
-    for (BugChecker check : checkers) {
+  private static TransferResult<Nullness, AccessPathStore<Nullness>> noStoreChanges(
+      Nullness value, TransferInput<?, AccessPathStore<Nullness>> input) {
+    return new RegularTransferResult<>(value, input.getRegularStore());
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends AccessPathStore`
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/AbstractNullnessPropagationTransfer.java`
+#### Snippet
+```java
+  @CheckReturnValue
+  private static TransferResult<Nullness, AccessPathStore<Nullness>> updateRegularStore(
+      Nullness value, TransferInput<?, AccessPathStore<Nullness>> input, ReadableUpdates updates) {
+    ResultingStore newStore = updateStore(input.getRegularStore(), updates);
+    return new RegularTransferResult<>(value, newStore.store, newStore.storeChanged);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ExpressionTree`
+in `check_api/src/main/java/com/google/errorprone/matchers/MethodInvocation.java`
+#### Snippet
+```java
+   */
+  public MethodInvocation(
+      Matcher<ExpressionTree> methodSelectMatcher,
+      MatchType matchType,
+      Matcher<ExpressionTree> methodArgumentMatcher) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super TypeArgInferenceVar`
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+      ArrayDeque<Integer> partialSelector,
+      Tree sourceNode,
+      Consumer<TypeArgInferenceVar> consumer) {
+    List<Type> typeArguments = type.getTypeArguments();
+    for (int i = 0; i < typeArguments.size(); ++i) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super TypeArgInferenceVar`
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+      @Nullable Symbol decl,
+      Tree sourceNode,
+      Consumer<TypeArgInferenceVar> consumer) {
+    visitTypeVarRefs(
+        typeVar.typeVar(),
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3174,66 +3510,6 @@ in `check_api/src/main/java/com/google/errorprone/matchers/Enclosing.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ExpressionTree`
-in `check_api/src/main/java/com/google/errorprone/matchers/MethodInvocation.java`
-#### Snippet
-```java
-   */
-  public MethodInvocation(
-      Matcher<ExpressionTree> methodSelectMatcher,
-      MatchType matchType,
-      Matcher<ExpressionTree> methodArgumentMatcher) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends AccessPathStore`
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/AbstractNullnessPropagationTransfer.java`
-#### Snippet
-```java
-  @CheckReturnValue
-  private static TransferResult<Nullness, AccessPathStore<Nullness>> updateRegularStore(
-      Nullness value, TransferInput<?, AccessPathStore<Nullness>> input, ReadableUpdates updates) {
-    ResultingStore newStore = updateStore(input.getRegularStore(), updates);
-    return new RegularTransferResult<>(value, newStore.store, newStore.storeChanged);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends AccessPathStore`
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/AbstractNullnessPropagationTransfer.java`
-#### Snippet
-```java
-
-  private static TransferResult<Nullness, AccessPathStore<Nullness>> noStoreChanges(
-      Nullness value, TransferInput<?, AccessPathStore<Nullness>> input) {
-    return new RegularTransferResult<>(value, input.getRegularStore());
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super TypeArgInferenceVar`
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-      @Nullable Symbol decl,
-      Tree sourceNode,
-      Consumer<TypeArgInferenceVar> consumer) {
-    visitTypeVarRefs(
-        typeVar.typeVar(),
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super TypeArgInferenceVar`
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-      ArrayDeque<Integer> partialSelector,
-      Tree sourceNode,
-      Consumer<TypeArgInferenceVar> consumer) {
-    List<Type> typeArguments = type.getTypeArguments();
-    for (int i = 0; i < typeArguments.size(); ++i) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super IdentifierTree`
 in `check_api/src/main/java/com/google/errorprone/matchers/HasIdentifier.java`
 #### Snippet
@@ -3243,366 +3519,6 @@ in `check_api/src/main/java/com/google/errorprone/matchers/HasIdentifier.java`
     public HasIdentifierScanner(VisitorState ancestorState, Matcher<IdentifierTree> idMatcher) {
       this.ancestorState = ancestorState;
       this.idMatcher = idMatcher;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super State`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-  private static <T, R> Choice<State<R>> chooseSubtrees(
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T>>> choice1,
-      Function<T, R> finalizer) {
-    return choice1.apply(state).transform(s -> s.withResult(finalizer.apply(s.result())));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Choice``>`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-  private static <T, R> Choice<State<R>> chooseSubtrees(
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T>>> choice1,
-      Function<T, R> finalizer) {
-    return choice1.apply(state).transform(s -> s.withResult(finalizer.apply(s.result())));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T>>> choice1,
-      Function<T, R> finalizer) {
-    return choice1.apply(state).transform(s -> s.withResult(finalizer.apply(s.result())));
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super State`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-  private static <T1, T2, R> Choice<State<R>> chooseSubtrees(
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      BiFunction<T1, T2, R> finalizer) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Choice``>`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-  private static <T1, T2, R> Choice<State<R>> chooseSubtrees(
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      BiFunction<T1, T2, R> finalizer) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super State`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      BiFunction<T1, T2, R> finalizer) {
-    return choice1
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Choice``>`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      BiFunction<T1, T2, R> finalizer) {
-    return choice1
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      BiFunction<T1, T2, R> finalizer) {
-    return choice1
-        .apply(state)
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super State`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-  private static <T1, T2, T3, T4, R> Choice<State<R>> chooseSubtrees(
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Choice``>`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-  private static <T1, T2, T3, T4, R> Choice<State<R>> chooseSubtrees(
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super State`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Choice``>`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super State`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
-      QuadFunction<T1, T2, T3, T4, R> finalizer) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Choice``>`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
-      QuadFunction<T1, T2, T3, T4, R> finalizer) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super State`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
-      QuadFunction<T1, T2, T3, T4, R> finalizer) {
-    return choice1
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Choice``>`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
-      QuadFunction<T1, T2, T3, T4, R> finalizer) {
-    return choice1
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-      Function<State<?>, Choice<? extends State<? extends T4>>> choice4,
-      QuadFunction<T1, T2, T3, T4, R> finalizer) {
-    return choice1
-        .apply(state)
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super State`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-  private static <T1, T2, T3, R> Choice<State<R>> chooseSubtrees(
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Choice``>`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-  private static <T1, T2, T3, R> Choice<State<R>> chooseSubtrees(
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super State`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-      TriFunction<T1, T2, T3, R> finalizer) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Choice``>`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      State<?> state,
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-      TriFunction<T1, T2, T3, R> finalizer) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super State`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-      TriFunction<T1, T2, T3, R> finalizer) {
-    return choice1
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Choice``>`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      Function<State<?>, Choice<? extends State<? extends T1>>> choice1,
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-      TriFunction<T1, T2, T3, R> finalizer) {
-    return choice1
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-      Function<State<?>, Choice<? extends State<? extends T2>>> choice2,
-      Function<State<?>, Choice<? extends State<? extends T3>>> choice3,
-      TriFunction<T1, T2, T3, R> finalizer) {
-    return choice1
-        .apply(state)
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Tree`
-in `check_api/src/main/java/com/google/errorprone/matchers/Contains.java`
-#### Snippet
-```java
-  private final Matcher<Tree> matcher;
-
-  public Contains(Matcher<Tree> matcher) {
-    this.matcher = matcher;
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ExpressionTree`
-in `check_api/src/main/java/com/google/errorprone/matchers/AnnotationHasArgumentWithValue.java`
-#### Snippet
-```java
-  private final Matcher<ExpressionTree> valueMatcher;
-
-  public AnnotationHasArgumentWithValue(String element, Matcher<ExpressionTree> valueMatcher) {
-    this.element = element;
-    this.valueMatcher = valueMatcher;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ExpressionTree`
-in `check_api/src/main/java/com/google/errorprone/matchers/CompoundAssignment.java`
-#### Snippet
-```java
-  public CompoundAssignment(
-      Set<Kind> operators,
-      Matcher<ExpressionTree> receiverMatcher,
-      Matcher<ExpressionTree> expressionMatcher) {
-    this.operators = validateOperators(operators);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ExpressionTree`
-in `check_api/src/main/java/com/google/errorprone/matchers/CompoundAssignment.java`
-#### Snippet
-```java
-      Set<Kind> operators,
-      Matcher<ExpressionTree> receiverMatcher,
-      Matcher<ExpressionTree> expressionMatcher) {
-    this.operators = validateOperators(operators);
-    if (receiverMatcher == null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super MethodInfo`
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/NullnessPropagationTransfer.java`
-#### Snippet
-```java
-   */
-  protected NullnessPropagationTransfer(
-      Nullness defaultAssumption, Predicate<MethodInfo> methodReturnsNonNull) {
-    this.defaultAssumption = defaultAssumption;
-    this.methodReturnsNonNull = methodReturnsNonNull;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends LocalVariableNode`
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/NullnessPropagationTransfer.java`
-#### Snippet
-```java
-  @Override
-  public AccessPathStore<Nullness> initialStore(
-      UnderlyingAST underlyingAST, List<LocalVariableNode> parameters) {
-    if (parameters == null) {
-      // Documentation of this method states, "parameters is only set if the underlying AST is a
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3630,6 +3546,78 @@ in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/N
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends LocalVariableNode`
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/NullnessPropagationTransfer.java`
+#### Snippet
+```java
+  @Override
+  public AccessPathStore<Nullness> initialStore(
+      UnderlyingAST underlyingAST, List<LocalVariableNode> parameters) {
+    if (parameters == null) {
+      // Documentation of this method states, "parameters is only set if the underlying AST is a
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super MethodInfo`
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/NullnessPropagationTransfer.java`
+#### Snippet
+```java
+   */
+  protected NullnessPropagationTransfer(
+      Nullness defaultAssumption, Predicate<MethodInfo> methodReturnsNonNull) {
+    this.defaultAssumption = defaultAssumption;
+    this.methodReturnsNonNull = methodReturnsNonNull;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ExpressionTree`
+in `check_api/src/main/java/com/google/errorprone/matchers/AnnotationHasArgumentWithValue.java`
+#### Snippet
+```java
+  private final Matcher<ExpressionTree> valueMatcher;
+
+  public AnnotationHasArgumentWithValue(String element, Matcher<ExpressionTree> valueMatcher) {
+    this.element = element;
+    this.valueMatcher = valueMatcher;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Tree`
+in `check_api/src/main/java/com/google/errorprone/matchers/Contains.java`
+#### Snippet
+```java
+  private final Matcher<Tree> matcher;
+
+  public Contains(Matcher<Tree> matcher) {
+    this.matcher = matcher;
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ExpressionTree`
+in `check_api/src/main/java/com/google/errorprone/matchers/CompoundAssignment.java`
+#### Snippet
+```java
+  public CompoundAssignment(
+      Set<Kind> operators,
+      Matcher<ExpressionTree> receiverMatcher,
+      Matcher<ExpressionTree> expressionMatcher) {
+    this.operators = validateOperators(operators);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ExpressionTree`
+in `check_api/src/main/java/com/google/errorprone/matchers/CompoundAssignment.java`
+#### Snippet
+```java
+      Set<Kind> operators,
+      Matcher<ExpressionTree> receiverMatcher,
+      Matcher<ExpressionTree> expressionMatcher) {
+    this.operators = validateOperators(operators);
+    if (receiverMatcher == null) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Type`
 in `check_api/src/main/java/com/google/errorprone/suppliers/Suppliers.java`
 #### Snippet
@@ -3654,18 +3642,6 @@ in `check_api/src/main/java/com/google/errorprone/suppliers/Suppliers.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Path`
-in `test_helpers/src/main/java/com/google/errorprone/FileManagers.java`
-#### Snippet
-```java
-
-  private static void setLocation(
-      JavacFileManager fileManager, ImmutableList<Path> collect, StandardLocation classPath) {
-    // Calling `setLocationFromPaths` on trusted inputs should never fail, so rethrow the
-    // specified `IOException` as unchecked so we can call it in lambdas.
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Name`
 in `check_api/src/main/java/com/google/errorprone/bugpatterns/BugChecker.java`
 #### Snippet
@@ -3675,6 +3651,18 @@ in `check_api/src/main/java/com/google/errorprone/bugpatterns/BugChecker.java`
   public boolean suppressedByAnyOf(Set<Name> annotations, VisitorState s) {
     return checkSuppression.test(annotations, s);
   }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Path`
+in `test_helpers/src/main/java/com/google/errorprone/FileManagers.java`
+#### Snippet
+```java
+
+  private static void setLocation(
+      JavacFileManager fileManager, ImmutableList<Path> collect, StandardLocation classPath) {
+    // Calling `setLocationFromPaths` on trusted inputs should never fail, so rethrow the
+    // specified `IOException` as unchecked so we can call it in lambdas.
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3714,6 +3702,30 @@ in `test_helpers/src/main/java/com/google/errorprone/BugCheckerRefactoringTestHe
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends JavaFileObject`
+in `test_helpers/src/main/java/com/google/errorprone/BugCheckerRefactoringTestHelper.java`
+#### Snippet
+```java
+  @CanIgnoreReturnValue
+  private JCCompilationUnit doCompile(
+      JavaFileObject input, Iterable<JavaFileObject> files, Context context) throws IOException {
+    JavacTool tool = JavacTool.create();
+    DiagnosticCollector<JavaFileObject> diagnosticsCollector = new DiagnosticCollector<>();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Fix`
+in `test_helpers/src/main/java/com/google/errorprone/BugCheckerRefactoringTestHelper.java`
+#### Snippet
+```java
+    THIRD {
+      @Override
+      public Fix choose(List<Fix> fixes) {
+        return fixes.get(2);
+      }
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Fix`
 in `test_helpers/src/main/java/com/google/errorprone/BugCheckerRefactoringTestHelper.java`
 #### Snippet
@@ -3738,27 +3750,15 @@ in `test_helpers/src/main/java/com/google/errorprone/BugCheckerRefactoringTestHe
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Fix`
-in `test_helpers/src/main/java/com/google/errorprone/BugCheckerRefactoringTestHelper.java`
+Can generalize to `? extends Constraint`
+in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatcherImpl.java`
 #### Snippet
 ```java
-    THIRD {
-      @Override
-      public Fix choose(List<Fix> fixes) {
-        return fixes.get(2);
-      }
-```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends JavaFileObject`
-in `test_helpers/src/main/java/com/google/errorprone/BugCheckerRefactoringTestHelper.java`
-#### Snippet
-```java
-  @CanIgnoreReturnValue
-  private JCCompilationUnit doCompile(
-      JavaFileObject input, Iterable<JavaFileObject> files, Context context) throws IOException {
-    JavacTool tool = JavacTool.create();
-    DiagnosticCollector<JavaFileObject> diagnosticsCollector = new DiagnosticCollector<>();
+  // All constructors private: only static final instances are legal starting points for chains.
+  private MethodMatcherImpl(BaseMethodMatcher baseMatcher, ImmutableList<Constraint> matchers) {
+    this.baseMatcher = baseMatcher;
+    this.constraints = matchers;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3774,15 +3774,15 @@ in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatcherI
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Constraint`
-in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatcherImpl.java`
+Can generalize to `? extends JavaFileObject`
+in `check_api/src/main/java/com/google/errorprone/fixes/SuggestedFixes.java`
 #### Snippet
 ```java
 
-  // All constructors private: only static final instances are legal starting points for chains.
-  private MethodMatcherImpl(BaseMethodMatcher baseMatcher, ImmutableList<Constraint> matchers) {
-    this.baseMatcher = baseMatcher;
-    this.constraints = matchers;
+    private FixCompiler(
+        List<JavaFileObject> fileObjects, VisitorState state, BasicJavacTask javacTask) {
+      this.fileObjects = fileObjects;
+      this.state = state;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3798,27 +3798,39 @@ in `check_api/src/main/java/com/google/errorprone/fixes/SuggestedFixes.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends JavaFileObject`
-in `check_api/src/main/java/com/google/errorprone/fixes/SuggestedFixes.java`
+Can generalize to `? extends Type`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
 #### Snippet
 ```java
+      Suppliers.typeFromString("com.google.io.protocol.ProtocolMessage");
 
-    private FixCompiler(
-        List<JavaFileObject> fileObjects, VisitorState state, BasicJavacTask javacTask) {
-      this.fileObjects = fileObjects;
-      this.state = state;
+  private static boolean isAssignableTo(Type type, Supplier<Type> supplier, VisitorState state) {
+    Type to = supplier.get(state);
+    if (to == null) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Tree`
+Can generalize to `? extends Matcher`
 in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
 #### Snippet
 ```java
-   * this;}
    */
-  public static <T extends Tree> Matcher<T> parentNode(Matcher<Tree> treeMatcher) {
-    return (tree, state) -> {
-      TreePath parent = requireNonNull(state.getPath().getParentPath());
+  public static Matcher<MethodTree> methodHasParameters(
+      List<Matcher<VariableTree>> variableMatcher) {
+    return (methodTree, state) -> {
+      if (methodTree.getParameters().size() != variableMatcher.size()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super StatementTree`
+in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
+#### Snippet
+```java
+
+  private static boolean siblingStatement(
+      int offset, Matcher<StatementTree> matcher, StatementTree statement, VisitorState state) {
+    // TODO(cushon): walking arbitrarily far up to find a block tree often isn't what we want
+    TreePath blockPath = state.findPathToEnclosing(BlockTree.class);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3826,11 +3838,11 @@ Can generalize to `? super ExpressionTree`
 in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
 #### Snippet
 ```java
-
-  public static Matcher<MethodInvocationTree> receiverOfInvocation(
+   */
+  public static Matcher<StatementTree> matchExpressionReturn(
       Matcher<ExpressionTree> expressionTreeMatcher) {
-    return (methodInvocationTree, state) -> {
-      ExpressionTree receiver = ASTHelpers.getReceiver(methodInvocationTree);
+    return (statement, state) -> {
+      if (!(statement instanceof ReturnTree)) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3846,15 +3858,15 @@ in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
+Can generalize to `? super ExpressionTree`
 in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
 #### Snippet
 ```java
 
-  /** Matches an AST node iff it does not match the given matcher. */
-  public static <T extends Tree> Matcher<T> not(Matcher<T> matcher) {
-    return (t, state) -> !matcher.matches(t, state);
-  }
+  public static Matcher<MethodInvocationTree> receiverOfInvocation(
+      Matcher<ExpressionTree> expressionTreeMatcher) {
+    return (methodInvocationTree, state) -> {
+      ExpressionTree receiver = ASTHelpers.getReceiver(methodInvocationTree);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3875,10 +3887,22 @@ in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
 #### Snippet
 ```java
    */
-  public static Matcher<AssignmentTree> assignment(
-      Matcher<ExpressionTree> variableMatcher, Matcher<? super ExpressionTree> expressionMatcher) {
-    return (t, state) ->
-        variableMatcher.matches(t.getVariable(), state)
+  public static Matcher<VariableTree> variableInitializer(
+      Matcher<ExpressionTree> expressionTreeMatcher) {
+    return (variableTree, state) -> {
+      ExpressionTree initializer = variableTree.getInitializer();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ExpressionTree`
+in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
+#### Snippet
+```java
+   */
+  public static Matcher<AssertTree> assertionWithCondition(
+      Matcher<ExpressionTree> conditionMatcher) {
+    return (tree, state) -> conditionMatcher.matches(tree.getCondition(), state);
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3930,15 +3954,99 @@ in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Matcher`
+Can generalize to `? super Tree`
+in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
+#### Snippet
+```java
+   * @param treeMatcher A matcher on the type of the variable.
+   */
+  public static Matcher<VariableTree> variableType(Matcher<Tree> treeMatcher) {
+    return (variableTree, state) -> treeMatcher.matches(variableTree.getType(), state);
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Tree`
 in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
 #### Snippet
 ```java
    */
-  public static Matcher<MethodTree> methodHasParameters(
-      List<Matcher<VariableTree>> variableMatcher) {
-    return (methodTree, state) -> {
-      if (methodTree.getParameters().size() != variableMatcher.size()) {
+  public static Matcher<TypeCastTree> typeCast(
+      Matcher<Tree> typeMatcher, Matcher<ExpressionTree> expressionMatcher) {
+    return (t, state) ->
+        typeMatcher.matches(t.getType(), state)
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ExpressionTree`
+in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
+#### Snippet
+```java
+   */
+  public static Matcher<TypeCastTree> typeCast(
+      Matcher<Tree> typeMatcher, Matcher<ExpressionTree> expressionMatcher) {
+    return (t, state) ->
+        typeMatcher.matches(t.getType(), state)
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ExpressionTree`
+in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
+#### Snippet
+```java
+   */
+  public static Matcher<AssignmentTree> assignment(
+      Matcher<ExpressionTree> variableMatcher, Matcher<? super ExpressionTree> expressionMatcher) {
+    return (t, state) ->
+        variableMatcher.matches(t.getVariable(), state)
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ExpressionTree`
+in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
+#### Snippet
+```java
+   * (((value)))}.
+   */
+  public static Matcher<ExpressionTree> ignoreParens(Matcher<ExpressionTree> innerMatcher) {
+    return (tree, state) -> innerMatcher.matches(stripParentheses(tree), state);
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Tree`
+in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
+#### Snippet
+```java
+   * this;}
+   */
+  public static <T extends Tree> Matcher<T> parentNode(Matcher<Tree> treeMatcher) {
+    return (tree, state) -> {
+      TreePath parent = requireNonNull(state.getPath().getParentPath());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ExpressionTree`
+in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
+#### Snippet
+```java
+   */
+  public static Matcher<ExpressionTree> methodInvocation(
+      Matcher<ExpressionTree> methodSelectMatcher) {
+    return (expressionTree, state) -> {
+      if (!(expressionTree instanceof MethodInvocationTree)) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
+#### Snippet
+```java
+
+  /** Matches an AST node iff it does not match the given matcher. */
+  public static <T extends Tree> Matcher<T> not(Matcher<T> matcher) {
+    return (t, state) -> !matcher.matches(t, state);
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3951,6 +4059,18 @@ in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
       Matcher<StatementTree> statementMatcher) {
     return (blockTree, state) -> {
       if (blockTree == null) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Tree`
+in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
+#### Snippet
+```java
+   * <p>TODO(eaftan): This could be used instead of enclosingBlock and enclosingClass.
+   */
+  public static Matcher<Tree> enclosingNode(Matcher<Tree> matcher) {
+    return (t, state) -> {
+      TreePath path = state.getPath().getParentPath();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3977,126 +4097,6 @@ in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
       Symbol sym = getSymbol(tree);
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Tree`
-in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
-#### Snippet
-```java
-   * <p>TODO(eaftan): This could be used instead of enclosingBlock and enclosingClass.
-   */
-  public static Matcher<Tree> enclosingNode(Matcher<Tree> matcher) {
-    return (t, state) -> {
-      TreePath path = state.getPath().getParentPath();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ExpressionTree`
-in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
-#### Snippet
-```java
-   * (((value)))}.
-   */
-  public static Matcher<ExpressionTree> ignoreParens(Matcher<ExpressionTree> innerMatcher) {
-    return (tree, state) -> innerMatcher.matches(stripParentheses(tree), state);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ExpressionTree`
-in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
-#### Snippet
-```java
-   */
-  public static Matcher<ExpressionTree> methodInvocation(
-      Matcher<ExpressionTree> methodSelectMatcher) {
-    return (expressionTree, state) -> {
-      if (!(expressionTree instanceof MethodInvocationTree)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Tree`
-in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
-#### Snippet
-```java
-   */
-  public static Matcher<TypeCastTree> typeCast(
-      Matcher<Tree> typeMatcher, Matcher<ExpressionTree> expressionMatcher) {
-    return (t, state) ->
-        typeMatcher.matches(t.getType(), state)
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ExpressionTree`
-in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
-#### Snippet
-```java
-   */
-  public static Matcher<TypeCastTree> typeCast(
-      Matcher<Tree> typeMatcher, Matcher<ExpressionTree> expressionMatcher) {
-    return (t, state) ->
-        typeMatcher.matches(t.getType(), state)
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ExpressionTree`
-in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
-#### Snippet
-```java
-   */
-  public static Matcher<VariableTree> variableInitializer(
-      Matcher<ExpressionTree> expressionTreeMatcher) {
-    return (variableTree, state) -> {
-      ExpressionTree initializer = variableTree.getInitializer();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Tree`
-in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
-#### Snippet
-```java
-   * @param treeMatcher A matcher on the type of the variable.
-   */
-  public static Matcher<VariableTree> variableType(Matcher<Tree> treeMatcher) {
-    return (variableTree, state) -> treeMatcher.matches(variableTree.getType(), state);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ExpressionTree`
-in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
-#### Snippet
-```java
-   */
-  public static Matcher<AssertTree> assertionWithCondition(
-      Matcher<ExpressionTree> conditionMatcher) {
-    return (tree, state) -> conditionMatcher.matches(tree.getCondition(), state);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ExpressionTree`
-in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
-#### Snippet
-```java
-   */
-  public static Matcher<StatementTree> matchExpressionReturn(
-      Matcher<ExpressionTree> expressionTreeMatcher) {
-    return (statement, state) -> {
-      if (!(statement instanceof ReturnTree)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super StatementTree`
-in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
-#### Snippet
-```java
-
-  private static boolean siblingStatement(
-      int offset, Matcher<StatementTree> matcher, StatementTree statement, VisitorState state) {
-    // TODO(cushon): walking arbitrarily far up to find a block tree often isn't what we want
-    TreePath blockPath = state.findPathToEnclosing(BlockTree.class);
-```
-
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `UDoWhileLoop` has no concrete subclass
@@ -4111,30 +4111,6 @@ abstract class UDoWhileLoop extends USimpleStatement implements DoWhileLoopTree 
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UIntersectionType` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UIntersectionType.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class UIntersectionType extends UExpression implements IntersectionTypeTree {
-  @VisibleForTesting
-  static UIntersectionType create(UExpression... bounds) {
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `LocalVarBinding` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/LocalVarBinding.java`
-#### Snippet
-```java
- */
-@AutoValue
-public abstract class LocalVarBinding {
-  public static LocalVarBinding create(VarSymbol symbol, ModifiersTree modifiers) {
-    return new AutoValue_LocalVarBinding(symbol, modifiers);
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `UAssignOp` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/UAssignOp.java`
 #### Snippet
@@ -4144,6 +4120,18 @@ in `core/src/main/java/com/google/errorprone/refaster/UAssignOp.java`
 abstract class UAssignOp extends UExpression implements CompoundAssignmentTree {
   private static final ImmutableBiMap<Kind, JCTree.Tag> TAG =
       ImmutableBiMap.<Kind, JCTree.Tag>builder()
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `UIntersectionType` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UIntersectionType.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class UIntersectionType extends UExpression implements IntersectionTypeTree {
+  @VisibleForTesting
+  static UIntersectionType create(UExpression... bounds) {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4171,6 +4159,18 @@ public abstract class UStaticIdent extends UIdent {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `LocalVarBinding` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/LocalVarBinding.java`
+#### Snippet
+```java
+ */
+@AutoValue
+public abstract class LocalVarBinding {
+  public static LocalVarBinding create(VarSymbol symbol, ModifiersTree modifiers) {
+    return new AutoValue_LocalVarBinding(symbol, modifiers);
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `UOfKind` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/UOfKind.java`
 #### Snippet
@@ -4183,15 +4183,15 @@ abstract class UOfKind extends UExpression {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UArrayType` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UArrayType.java`
+Abstract class `UAssign` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UAssign.java`
 #### Snippet
 ```java
  */
 @AutoValue
-abstract class UArrayType extends UType {
-  public static UArrayType create(UType componentType) {
-    return new AutoValue_UArrayType(componentType);
+abstract class UAssign extends UExpression implements AssignmentTree {
+  public static UAssign create(UExpression variable, UExpression expression) {
+    return new AutoValue_UAssign(variable, expression);
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4207,15 +4207,15 @@ public abstract class UExpression extends UTree<JCExpression> implements Express
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UAssign` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UAssign.java`
+Abstract class `UArrayType` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UArrayType.java`
 #### Snippet
 ```java
  */
 @AutoValue
-abstract class UAssign extends UExpression implements AssignmentTree {
-  public static UAssign create(UExpression variable, UExpression expression) {
-    return new AutoValue_UAssign(variable, expression);
+abstract class UArrayType extends UType {
+  public static UArrayType create(UType componentType) {
+    return new AutoValue_UArrayType(componentType);
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4255,18 +4255,6 @@ abstract class UModifiers extends UTree<JCModifiers> implements ModifiersTree {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UPrimitiveType` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UPrimitiveType.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class UPrimitiveType extends UType {
-
-  public static UPrimitiveType create(TypeKind typeKind) {
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `UIf` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/UIf.java`
 #### Snippet
@@ -4276,6 +4264,18 @@ in `core/src/main/java/com/google/errorprone/refaster/UIf.java`
 abstract class UIf implements UStatement, IfTree {
   public static UIf create(
       UExpression condition, UStatement thenStatement, UStatement elseStatement) {
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `UPrimitiveType` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UPrimitiveType.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class UPrimitiveType extends UType {
+
+  public static UPrimitiveType create(TypeKind typeKind) {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4291,18 +4291,6 @@ public abstract class ULiteral extends UExpression implements LiteralTree {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UExpressionStatement` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UExpressionStatement.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class UExpressionStatement extends USimpleStatement implements ExpressionStatementTree {
-  public static UExpressionStatement create(UExpression expression) {
-    return new AutoValue_UExpressionStatement(expression);
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `UPrimitiveTypeTree` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/UPrimitiveTypeTree.java`
 #### Snippet
@@ -4312,6 +4300,18 @@ in `core/src/main/java/com/google/errorprone/refaster/UPrimitiveTypeTree.java`
 abstract class UPrimitiveTypeTree extends UExpression implements PrimitiveTypeTree {
 
   public static UPrimitiveTypeTree create(TypeTag tag) {
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `UExpressionStatement` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UExpressionStatement.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class UExpressionStatement extends USimpleStatement implements ExpressionStatementTree {
+  public static UExpressionStatement create(UExpression expression) {
+    return new AutoValue_UExpressionStatement(expression);
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4327,18 +4327,6 @@ abstract class UClassIdent extends UIdent {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `RefasterScanner` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/RefasterScanner.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class RefasterScanner<M extends TemplateMatch, T extends Template<M>>
-    extends TreeScanner<Void, Context> {
-  static <M extends TemplateMatch, T extends Template<M>> RefasterScanner<M, T> create(
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `UMethodType` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/UMethodType.java`
 #### Snippet
@@ -4351,15 +4339,39 @@ public abstract class UMethodType extends UType {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UEnhancedForLoop` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UEnhancedForLoop.java`
+Abstract class `RefasterScanner` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/RefasterScanner.java`
 #### Snippet
 ```java
  */
 @AutoValue
-abstract class UEnhancedForLoop extends USimpleStatement implements EnhancedForLoopTree {
-  public static UEnhancedForLoop create(
-      UVariableDecl variable, UExpression elements, UStatement statement) {
+abstract class RefasterScanner<M extends TemplateMatch, T extends Template<M>>
+    extends TreeScanner<Void, Context> {
+  static <M extends TemplateMatch, T extends Template<M>> RefasterScanner<M, T> create(
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `UnifierWithRemainingMembers` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UClassDecl.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class UnifierWithRemainingMembers {
+    static UnifierWithRemainingMembers create(
+        Unifier unifier, Iterable<UMethodDecl> remainingMembers) {
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `UClassDecl` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UClassDecl.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class UClassDecl extends USimpleStatement implements ClassTree {
+  public static UClassDecl create(UMethodDecl... members) {
+    return create(ImmutableList.copyOf(members));
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4399,15 +4411,15 @@ abstract class UArrayAccess extends UExpression implements ArrayAccessTree {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UTypeParameter` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UTypeParameter.java`
+Abstract class `UEnhancedForLoop` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UEnhancedForLoop.java`
 #### Snippet
 ```java
  */
 @AutoValue
-abstract class UTypeParameter extends UTree<JCTypeParameter> implements TypeParameterTree {
-  @VisibleForTesting
-  static UTypeParameter create(CharSequence name, UExpression... bounds) {
+abstract class UEnhancedForLoop extends USimpleStatement implements EnhancedForLoopTree {
+  public static UEnhancedForLoop create(
+      UVariableDecl variable, UExpression elements, UStatement statement) {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4423,51 +4435,15 @@ abstract class UMatches extends UExpression {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `ULambda` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/ULambda.java`
+Abstract class `UTypeParameter` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UTypeParameter.java`
 #### Snippet
 ```java
  */
 @AutoValue
-abstract class ULambda extends UExpression implements LambdaExpressionTree {
-  public static ULambda create(
-      ParameterKind parameterKind, Iterable<UVariableDecl> parameters, UTree<?> body) {
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UClassDecl` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UClassDecl.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class UClassDecl extends USimpleStatement implements ClassTree {
-  public static UClassDecl create(UMethodDecl... members) {
-    return create(ImmutableList.copyOf(members));
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UnifierWithRemainingMembers` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UClassDecl.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class UnifierWithRemainingMembers {
-    static UnifierWithRemainingMembers create(
-        Unifier unifier, Iterable<UMethodDecl> remainingMembers) {
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UArrayTypeTree` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UArrayTypeTree.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class UArrayTypeTree extends UExpression implements ArrayTypeTree {
-  public static UArrayTypeTree create(UExpression elementType) {
-    return new AutoValue_UArrayTypeTree(elementType);
+abstract class UTypeParameter extends UTree<JCTypeParameter> implements TypeParameterTree {
+  @VisibleForTesting
+  static UTypeParameter create(CharSequence name, UExpression... bounds) {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4483,15 +4459,27 @@ abstract class UMemberReference extends UExpression implements MemberReferenceTr
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UUnary` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UUnary.java`
+Abstract class `UArrayTypeTree` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UArrayTypeTree.java`
 #### Snippet
 ```java
  */
 @AutoValue
-abstract class UUnary extends UExpression implements UnaryTree {
-  private static final ImmutableBiMap<Kind, JCTree.Tag> UNARY_OP_CODES =
-      new ImmutableBiMap.Builder<Kind, JCTree.Tag>()
+abstract class UArrayTypeTree extends UExpression implements ArrayTypeTree {
+  public static UArrayTypeTree create(UExpression elementType) {
+    return new AutoValue_UArrayTypeTree(elementType);
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `ULambda` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/ULambda.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class ULambda extends UExpression implements LambdaExpressionTree {
+  public static ULambda create(
+      ParameterKind parameterKind, Iterable<UVariableDecl> parameters, UTree<?> body) {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4507,15 +4495,15 @@ abstract class UAnnotatedType extends UExpression implements AnnotatedTypeTree {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UConditional` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UConditional.java`
+Abstract class `UUnary` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UUnary.java`
 #### Snippet
 ```java
  */
 @AutoValue
-abstract class UConditional extends UExpression implements ConditionalExpressionTree {
-  public static UConditional create(
-      UExpression conditionExpr, UExpression trueExpr, UExpression falseExpr) {
+abstract class UUnary extends UExpression implements UnaryTree {
+  private static final ImmutableBiMap<Kind, JCTree.Tag> UNARY_OP_CODES =
+      new ImmutableBiMap.Builder<Kind, JCTree.Tag>()
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4543,6 +4531,18 @@ public abstract class StringName
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `UConditional` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UConditional.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class UConditional extends UExpression implements ConditionalExpressionTree {
+  public static UConditional create(
+      UExpression conditionExpr, UExpression trueExpr, UExpression falseExpr) {
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `UForAll` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/UForAll.java`
 #### Snippet
@@ -4555,18 +4555,6 @@ public abstract class UForAll extends UType {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UInstanceOf` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UInstanceOf.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class UInstanceOf extends UExpression {
-  public static UInstanceOf create(UExpression expression, UTree<?> type) {
-    return new AutoValue_UInstanceOf(expression, type);
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `UNewClass` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/UNewClass.java`
 #### Snippet
@@ -4576,6 +4564,18 @@ in `core/src/main/java/com/google/errorprone/refaster/UNewClass.java`
 abstract class UNewClass extends UExpression implements NewClassTree {
 
   public static UNewClass create(
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `UInstanceOf` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UInstanceOf.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class UInstanceOf extends UExpression {
+  public static UInstanceOf create(UExpression expression, UTree<?> type) {
+    return new AutoValue_UInstanceOf(expression, type);
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4627,18 +4627,6 @@ abstract class UMethodDecl extends UTree<JCMethodDecl> implements MethodTree {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UReturn` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UReturn.java`
-#### Snippet
-```java
- */
-@AutoValue
-public abstract class UReturn extends USimpleStatement implements ReturnTree {
-  public static UReturn create(UExpression expression) {
-    return new AutoValue_UReturn(expression);
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `ULocalVarIdent` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/ULocalVarIdent.java`
 #### Snippet
@@ -4648,6 +4636,18 @@ in `core/src/main/java/com/google/errorprone/refaster/ULocalVarIdent.java`
 abstract class ULocalVarIdent extends UIdent {
   /** A key in a {@code Bindings} associated with a local variable of the specified name. */
   static final class Key extends Bindings.Key<LocalVarBinding> {
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `UReturn` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UReturn.java`
+#### Snippet
+```java
+ */
+@AutoValue
+public abstract class UReturn extends USimpleStatement implements ReturnTree {
+  public static UReturn create(UExpression expression) {
+    return new AutoValue_UReturn(expression);
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4675,18 +4675,6 @@ abstract class UBlock extends USimpleStatement implements BlockTree {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UAnnotation` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UAnnotation.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class UAnnotation extends UExpression implements AnnotationTree {
-  public static UAnnotation create(UTree<?> annotationType, List<UExpression> arguments) {
-    return new AutoValue_UAnnotation(annotationType, ImmutableList.copyOf(arguments));
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `PlaceholderMethod` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/PlaceholderMethod.java`
 #### Snippet
@@ -4696,6 +4684,18 @@ in `core/src/main/java/com/google/errorprone/refaster/PlaceholderMethod.java`
 abstract class PlaceholderMethod implements Serializable {
   static PlaceholderMethod create(
       CharSequence name,
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `UAnnotation` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UAnnotation.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class UAnnotation extends UExpression implements AnnotationTree {
+  public static UAnnotation create(UTree<?> annotationType, List<UExpression> arguments) {
+    return new AutoValue_UAnnotation(annotationType, ImmutableList.copyOf(arguments));
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4711,18 +4711,6 @@ public abstract class UMemberSelect extends UExpression implements MemberSelectT
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UTry` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UTry.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class UTry extends USimpleStatement implements TryTree {
-  static UTry create(
-      Iterable<? extends UTree<?>> resources,
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `UAnyOf` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/UAnyOf.java`
 #### Snippet
@@ -4735,15 +4723,15 @@ public abstract class UAnyOf extends UExpression {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UMethodInvocation` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UMethodInvocation.java`
+Abstract class `UTry` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UTry.java`
 #### Snippet
 ```java
  */
 @AutoValue
-public abstract class UMethodInvocation extends UExpression implements MethodInvocationTree {
-  public static UMethodInvocation create(UExpression methodSelect, List<UExpression> arguments) {
-    return new AutoValue_UMethodInvocation(methodSelect, ImmutableList.copyOf(arguments));
+abstract class UTry extends USimpleStatement implements TryTree {
+  static UTry create(
+      Iterable<? extends UTree<?>> resources,
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4771,6 +4759,18 @@ abstract class UTypeApply extends UExpression implements ParameterizedTypeTree {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `UMethodInvocation` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UMethodInvocation.java`
+#### Snippet
+```java
+ */
+@AutoValue
+public abstract class UMethodInvocation extends UExpression implements MethodInvocationTree {
+  public static UMethodInvocation create(UExpression methodSelect, List<UExpression> arguments) {
+    return new AutoValue_UMethodInvocation(methodSelect, ImmutableList.copyOf(arguments));
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `ULabeledStatement` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/ULabeledStatement.java`
 #### Snippet
@@ -4795,18 +4795,6 @@ public abstract class RefasterRule<M extends TemplateMatch, T extends Template<M
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UParens` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UParens.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class UParens extends UExpression implements ParenthesizedTree {
-  public static UParens create(UExpression expression) {
-    return new AutoValue_UParens(expression);
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `UForLoop` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/UForLoop.java`
 #### Snippet
@@ -4828,6 +4816,18 @@ in `core/src/main/java/com/google/errorprone/refaster/UNewArray.java`
 abstract class UNewArray extends UExpression implements NewArrayTree {
 
   public static UNewArray create(
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `UParens` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UParens.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class UParens extends UExpression implements ParenthesizedTree {
+  public static UParens create(UExpression expression) {
+    return new AutoValue_UParens(expression);
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4891,18 +4891,6 @@ abstract class UAssert extends USimpleStatement implements AssertTree {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `ExpressionTemplate` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/ExpressionTemplate.java`
-#### Snippet
-```java
- */
-@AutoValue
-public abstract class ExpressionTemplate extends Template<ExpressionTemplateMatch>
-    implements Unifiable<JCExpression> {
-  private static final Logger logger = Logger.getLogger(ExpressionTemplate.class.toString());
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `TypeWithExpression` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/UTypeVar.java`
 #### Snippet
@@ -4912,18 +4900,6 @@ in `core/src/main/java/com/google/errorprone/refaster/UTypeVar.java`
   public abstract static class TypeWithExpression implements Inlineable<JCExpression> {
     public static TypeWithExpression create(Type type, JCExpression expression) {
       return new AutoValue_UTypeVar_TypeWithExpression(type, checkNotNull(expression));
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UCatch` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UCatch.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class UCatch extends UTree<JCCatch> implements CatchTree {
-  static UCatch create(UVariableDecl parameter, UBlock block) {
-    return new AutoValue_UCatch(parameter, block);
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4939,15 +4915,27 @@ abstract class UUnionType extends UExpression implements UnionTypeTree {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UTypeCast` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UTypeCast.java`
+Abstract class `UCatch` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UCatch.java`
 #### Snippet
 ```java
  */
 @AutoValue
-abstract class UTypeCast extends UExpression implements TypeCastTree {
-  public static UTypeCast create(UTree<?> type, UExpression expression) {
-    return new AutoValue_UTypeCast(type, expression);
+abstract class UCatch extends UTree<JCCatch> implements CatchTree {
+  static UCatch create(UVariableDecl parameter, UBlock block) {
+    return new AutoValue_UCatch(parameter, block);
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `ConsumptionState` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UPlaceholderStatement.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class ConsumptionState {
+    static ConsumptionState empty() {
+      return new AutoValue_UPlaceholderStatement_ConsumptionState(0, List.<JCStatement>nil());
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -4963,15 +4951,27 @@ abstract class UPlaceholderStatement implements UStatement {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `ConsumptionState` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/UPlaceholderStatement.java`
+Abstract class `UTypeCast` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/UTypeCast.java`
 #### Snippet
 ```java
+ */
+@AutoValue
+abstract class UTypeCast extends UExpression implements TypeCastTree {
+  public static UTypeCast create(UTree<?> type, UExpression expression) {
+    return new AutoValue_UTypeCast(type, expression);
+```
 
-  @AutoValue
-  abstract static class ConsumptionState {
-    static ConsumptionState empty() {
-      return new AutoValue_UPlaceholderStatement_ConsumptionState(0, List.<JCStatement>nil());
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `ExpressionTemplate` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/ExpressionTemplate.java`
+#### Snippet
+```java
+ */
+@AutoValue
+public abstract class ExpressionTemplate extends Template<ExpressionTemplateMatch>
+    implements Unifiable<JCExpression> {
+  private static final Logger logger = Logger.getLogger(ExpressionTemplate.class.toString());
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -5047,18 +5047,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ImmutableMemberCollecti
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `ComparisonPair` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/EqualsWrongThing.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class ComparisonPair {
-    abstract Symbol lhs();
-
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `ComparisonSite` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/bugpatterns/EqualsWrongThing.java`
 #### Snippet
@@ -5067,6 +5055,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/EqualsWrongThing.java`
   @AutoValue
   abstract static class ComparisonSite {
     abstract Tree tree();
+
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `ComparisonPair` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/EqualsWrongThing.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class ComparisonPair {
+    abstract Symbol lhs();
 
 ```
 
@@ -5347,18 +5347,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `MethodPairing` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/MissingTestCall.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class MethodPairing {
-    abstract String name();
-
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `BlockTemplate` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/refaster/BlockTemplate.java`
 #### Snippet
@@ -5367,6 +5355,18 @@ in `core/src/main/java/com/google/errorprone/refaster/BlockTemplate.java`
 @AutoValue
 public abstract class BlockTemplate extends Template<BlockTemplateMatch> {
   private static final Logger logger = Logger.getLogger(BlockTemplate.class.toString());
+
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `MethodPairing` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/MissingTestCall.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class MethodPairing {
+    abstract String name();
 
 ```
 
@@ -5395,6 +5395,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/TypeCompatibilityUtils.
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `Param` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/time/InvalidJavaTimeConstant.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class Param {
+    abstract String type();
+
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `Builder` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/bugpatterns/time/InvalidJavaTimeConstant.java`
 #### Snippet
@@ -5403,18 +5415,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/time/InvalidJavaTimeCon
     @AutoValue.Builder
     public abstract static class Builder {
       public abstract Builder setClassName(String className);
-
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `JavaTimeType` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/time/InvalidJavaTimeConstant.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class JavaTimeType {
-    abstract String className();
 
 ```
 
@@ -5431,14 +5431,14 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/time/InvalidJavaTimeCon
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Param` has no concrete subclass
+Abstract class `JavaTimeType` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/bugpatterns/time/InvalidJavaTimeConstant.java`
 #### Snippet
 ```java
 
   @AutoValue
-  abstract static class Param {
-    abstract String type();
+  abstract static class JavaTimeType {
+    abstract String className();
 
 ```
 
@@ -5455,18 +5455,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/inject/guice/AssistedPa
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `ClassMemberKey` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/apidiff/ApiDiff.java`
-#### Snippet
-```java
-  /** A per class unique identifier for a field or method. */
-  @AutoValue
-  public abstract static class ClassMemberKey {
-
-    /** The simple name of the member. */
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `ApiDiff` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/bugpatterns/apidiff/ApiDiff.java`
 #### Snippet
@@ -5476,6 +5464,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/apidiff/ApiDiff.java`
 public abstract class ApiDiff {
 
   /** A per class unique identifier for a field or method. */
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `ClassMemberKey` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/apidiff/ApiDiff.java`
+#### Snippet
+```java
+  /** A per class unique identifier for a field or method. */
+  @AutoValue
+  public abstract static class ClassMemberKey {
+
+    /** The simple name of the member. */
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -5491,6 +5491,18 @@ abstract class JavadocTag {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `InlinabilityResult` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/InlinabilityResult.java`
+#### Snippet
+```java
+/** Whether an API can have {@code @InlineMe} applied to it or not. */
+@AutoValue
+abstract class InlinabilityResult {
+
+  abstract @Nullable InlineValidationErrorReason error();
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `Api` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/Inliner.java`
 #### Snippet
@@ -5503,15 +5515,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/Inliner.java`
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `InlinabilityResult` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/InlinabilityResult.java`
+Abstract class `InlineMeData` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/InlineMeData.java`
 #### Snippet
 ```java
-/** Whether an API can have {@code @InlineMe} applied to it or not. */
-@AutoValue
-abstract class InlinabilityResult {
 
-  abstract @Nullable InlineValidationErrorReason error();
+@AutoValue
+abstract class InlineMeData {
+
+  private static final String INLINE_ME = "InlineMe";
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -5536,18 +5548,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/overloading/ParameterOr
   abstract static class Builder {
 
     abstract Builder setMethodTree(MethodTree methodTree);
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `InlineMeData` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/InlineMeData.java`
-#### Snippet
-```java
-
-@AutoValue
-abstract class InlineMeData {
-
-  private static final String INLINE_ME = "InlineMe";
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -5611,51 +5611,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/formatstring/FormatStri
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `LocalVariable` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByExpression.java`
-#### Snippet
-```java
-  /** A local variable (or parameter), resolved as part of a lock access expression. */
-  @AutoValue
-  public abstract static class LocalVariable extends GuardedByExpression {
-    public static LocalVariable create(Symbol owner) {
-      return new AutoValue_GuardedByExpression_LocalVariable(
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `TypeLiteral` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByExpression.java`
+Abstract class `NullCheck` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullnessUtils.java`
 #### Snippet
 ```java
    */
-  @AutoValue
-  public abstract static class TypeLiteral extends GuardedByExpression {
-    public static TypeLiteral create(Symbol owner) {
-      return new AutoValue_GuardedByExpression_TypeLiteral(Kind.TYPE_LITERAL, owner, owner.type);
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `ClassLiteral` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByExpression.java`
-#### Snippet
-```java
-  /** A 'class' literal: ClassName.class */
-  @AutoValue
-  public abstract static class ClassLiteral extends GuardedByExpression {
-    public static ClassLiteral create(Symbol owner) {
-      return new AutoValue_GuardedByExpression_ClassLiteral(Kind.CLASS_LITERAL, owner, owner.type);
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Select` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByExpression.java`
-#### Snippet
-```java
-  /** The member access expression for a field or method. */
-  @AutoValue
-  public abstract static class Select extends GuardedByExpression {
-
-    public abstract GuardedByExpression base();
+  @com.google.auto.value.AutoValue // fully qualified to work around JDK-7177813(?) in JDK8 build
+  abstract static class NullCheck {
+    /**
+     * Returns the bare identifier that was checked against {@code null}, if the null check took
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -5671,15 +5635,51 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullnessUtils.
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `NullCheck` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullnessUtils.java`
+Abstract class `LocalVariable` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByExpression.java`
+#### Snippet
+```java
+  /** A local variable (or parameter), resolved as part of a lock access expression. */
+  @AutoValue
+  public abstract static class LocalVariable extends GuardedByExpression {
+    public static LocalVariable create(Symbol owner) {
+      return new AutoValue_GuardedByExpression_LocalVariable(
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `Select` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByExpression.java`
+#### Snippet
+```java
+  /** The member access expression for a field or method. */
+  @AutoValue
+  public abstract static class Select extends GuardedByExpression {
+
+    public abstract GuardedByExpression base();
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `ClassLiteral` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByExpression.java`
+#### Snippet
+```java
+  /** A 'class' literal: ClassName.class */
+  @AutoValue
+  public abstract static class ClassLiteral extends GuardedByExpression {
+    public static ClassLiteral create(Symbol owner) {
+      return new AutoValue_GuardedByExpression_ClassLiteral(Kind.CLASS_LITERAL, owner, owner.type);
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `TypeLiteral` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByExpression.java`
 #### Snippet
 ```java
    */
-  @com.google.auto.value.AutoValue // fully qualified to work around JDK-7177813(?) in JDK8 build
-  abstract static class NullCheck {
-    /**
-     * Returns the bare identifier that was checked against {@code null}, if the null check took
+  @AutoValue
+  public abstract static class TypeLiteral extends GuardedByExpression {
+    public static TypeLiteral create(Symbol owner) {
+      return new AutoValue_GuardedByExpression_TypeLiteral(Kind.TYPE_LITERAL, owner, owner.type);
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -5731,18 +5731,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/HeldLockAn
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Evaluation` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/ResultUseRule.java`
-#### Snippet
-```java
-  /** An evaluation that a rule makes. */
-  @AutoValue
-  public abstract static class Evaluation {
-    /** Creates a new {@link Evaluation}. */
-    public static Evaluation create(
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `ConstantEquals` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ConstantExpressions.java`
 #### Snippet
@@ -5791,15 +5779,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ConstantEx
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Api` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Api.java`
+Abstract class `Evaluation` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/ResultUseRule.java`
 #### Snippet
 ```java
-// TODO(kak): if not, then consider renaming to `MethodSignature` or something
-@AutoValue
-public abstract class Api {
-
-  /** Returns the {@code Api} representation of the given {@code symbol}. */
+  /** An evaluation that a rule makes. */
+  @AutoValue
+  public abstract static class Evaluation {
+    /** Creates a new {@link Evaluation}. */
+    public static Evaluation create(
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -5812,6 +5800,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefect
 abstract class Changes {
 
   abstract ImmutableList<Double> originalCost();
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `Api` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Api.java`
+#### Snippet
+```java
+// TODO(kak): if not, then consider renaming to `MethodSignature` or something
+@AutoValue
+public abstract class Api {
+
+  /** Returns the {@code Api} representation of the given {@code symbol}. */
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -5851,18 +5851,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefect
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `InvocationInfo` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefects/InvocationInfo.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class InvocationInfo {
-
-  abstract Tree tree();
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `MatchedComment` has no concrete subclass
 in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefects/NamedParameterComment.java`
 #### Snippet
@@ -5875,15 +5863,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefect
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Parameter` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefects/Parameter.java`
+Abstract class `InvocationInfo` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefects/InvocationInfo.java`
 #### Snippet
 ```java
  */
 @AutoValue
-abstract class Parameter {
+abstract class InvocationInfo {
 
-  private static final ImmutableSet<String> METHODNAME_PREFIXES_TO_REMOVE =
+  abstract Tree tree();
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -5896,6 +5884,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatiblet
   public abstract static class MatchResult {
     public abstract ExpressionTree sourceTree();
 
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `Parameter` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefects/Parameter.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class Parameter {
+
+  private static final ImmutableSet<String> METHODNAME_PREFIXES_TO_REMOVE =
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -5947,18 +5947,6 @@ in `check_api/src/main/java/com/google/errorprone/RefactoringCollection.java`
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `PatchingOptions` has no concrete subclass
-in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class PatchingOptions {
-    final boolean doRefactor() {
-      return inPlace() || !baseDirectory().isEmpty();
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `Builder` has no concrete subclass
 in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
 #### Snippet
@@ -5971,15 +5959,15 @@ in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `IndexEntry` has no concrete subclass
-in `docgen/src/main/java/com/google/errorprone/BugPatternIndexWriter.java`
+Abstract class `PatchingOptions` has no concrete subclass
+in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
 #### Snippet
 ```java
 
   @AutoValue
-  abstract static class IndexEntry {
-    abstract boolean onByDefault();
-
+  abstract static class PatchingOptions {
+    final boolean doRefactor() {
+      return inPlace() || !baseDirectory().isEmpty();
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -5995,15 +5983,15 @@ in `docgen/src/main/java/com/google/errorprone/BugPatternIndexWriter.java`
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Builder` has no concrete subclass
-in `check_api/src/main/java/com/google/errorprone/util/Commented.java`
+Abstract class `IndexEntry` has no concrete subclass
+in `docgen/src/main/java/com/google/errorprone/BugPatternIndexWriter.java`
 #### Snippet
 ```java
 
-  @AutoValue.Builder
-  abstract static class Builder<T extends Tree> {
+  @AutoValue
+  abstract static class IndexEntry {
+    abstract boolean onByDefault();
 
-    abstract Builder<T> setTree(T tree);
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -6016,6 +6004,18 @@ in `check_api/src/main/java/com/google/errorprone/util/Commented.java`
 public abstract class Commented<T extends Tree> {
 
   /** Identifies the position of a comment relative to the associated treenode. */
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `Builder` has no concrete subclass
+in `check_api/src/main/java/com/google/errorprone/util/Commented.java`
+#### Snippet
+```java
+
+  @AutoValue.Builder
+  abstract static class Builder<T extends Tree> {
+
+    abstract Builder<T> setTree(T tree);
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -6067,6 +6067,30 @@ public abstract class AccessPathStore<V extends AbstractValue<V>>
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `State` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  abstract static class State<R> {
+    static <R> State<R> create(
+        List<UVariableDecl> seenParameters, Unifier unifier, @Nullable R result) {
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `PlaceholderUnificationVisitor` has no concrete subclass
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class PlaceholderUnificationVisitor
+    extends SimpleTreeVisitor<Choice<? extends State<? extends JCTree>>, State<?>> {
+
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `AccessPath` has no concrete subclass
 in `check_api/src/main/java/com/google/errorprone/dataflow/AccessPath.java`
 #### Snippet
@@ -6103,18 +6127,6 @@ in `check_api/src/main/java/com/google/errorprone/dataflow/DataFlow.java`
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `TypeVariableInferenceVar` has no concrete subclass
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/TypeVariableInferenceVar.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class TypeVariableInferenceVar implements InferenceVariable {
-  static TypeVariableInferenceVar create(
-      TypeVariableSymbol typeVar, MethodInvocationTree typeAppSite) {
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `TypeArgInferenceVar` has no concrete subclass
 in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/TypeArgInferenceVar.java`
 #### Snippet
@@ -6124,6 +6136,18 @@ in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/i
 abstract class TypeArgInferenceVar implements InferenceVariable {
   static TypeArgInferenceVar create(ImmutableList<Integer> typeArgSelector, Tree astNode) {
     return new AutoValue_TypeArgInferenceVar(typeArgSelector, astNode);
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `TypeVariableInferenceVar` has no concrete subclass
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/TypeVariableInferenceVar.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class TypeVariableInferenceVar implements InferenceVariable {
+  static TypeVariableInferenceVar create(
+      TypeVariableSymbol typeVar, MethodInvocationTree typeAppSite) {
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -6187,30 +6211,6 @@ in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/i
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `PlaceholderUnificationVisitor` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class PlaceholderUnificationVisitor
-    extends SimpleTreeVisitor<Choice<? extends State<? extends JCTree>>, State<?>> {
-
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `State` has no concrete subclass
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  abstract static class State<R> {
-    static <R> State<R> create(
-        List<UVariableDecl> seenParameters, Unifier unifier, @Nullable R result) {
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `MethodMatchState` has no concrete subclass
 in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchState.java`
 #### Snippet
@@ -6232,18 +6232,6 @@ in `check_api/src/main/java/com/google/errorprone/matchers/method/ConstructorMat
 public abstract class ConstructorMatchState implements MatchState {
   /** The type of the class in which a member method or constructor is declared. */
   @Override
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Rule` has no concrete subclass
-in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocationMatcher.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  public abstract static class Rule {
-
-    /** Builds a Rule object from a map. */
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -6271,18 +6259,6 @@ in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocati
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `ReceiverSupertype` has no concrete subclass
-in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocationMatcher.java`
-#### Snippet
-```java
-     */
-    @AutoValue
-    abstract class ReceiverSupertype implements Token {
-      public abstract String receiverSupertype();
-
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
 Abstract class `ReceiverType` has no concrete subclass
 in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocationMatcher.java`
 #### Snippet
@@ -6295,15 +6271,27 @@ in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocati
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `DefinedIn` has no concrete subclass
+Abstract class `ReceiverSupertype` has no concrete subclass
 in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocationMatcher.java`
 #### Snippet
 ```java
-    /** A token specifying the class or interface in which the invoked method was defined. */
+     */
     @AutoValue
-    abstract class DefinedIn implements Token {
-      public abstract String owner();
+    abstract class ReceiverSupertype implements Token {
+      public abstract String receiverSupertype();
 
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `Rule` has no concrete subclass
+in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocationMatcher.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  public abstract static class Rule {
+
+    /** Builds a Rule object from a map. */
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
@@ -6315,6 +6303,18 @@ in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocati
     @AutoValue
     abstract class MethodName implements Token {
       public abstract String methodName();
+
+```
+
+### RuleId[ruleID=AbstractClassNeverImplemented]
+Abstract class `DefinedIn` has no concrete subclass
+in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocationMatcher.java`
+#### Snippet
+```java
+    /** A token specifying the class or interface in which the invoked method was defined. */
+    @AutoValue
+    abstract class DefinedIn implements Token {
+      public abstract String owner();
 
 ```
 
@@ -6384,11 +6384,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ThreadSafety.java`
 #### Snippet
 ```java
+    private ImmutableSet<String> markerAnnotations;
+    private ImmutableSet<String> acceptedAnnotations = ImmutableSet.of();
     @Nullable private Class<? extends Annotation> containerOfAnnotation;
     @Nullable private Class<? extends Annotation> suppressAnnotation;
     @Nullable private Class<? extends Annotation> typeParameterAnnotation;
-
-    /** See {@link Purpose}. */
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -6408,11 +6408,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ThreadSafety.java`
 #### Snippet
 ```java
-    private ImmutableSet<String> markerAnnotations;
-    private ImmutableSet<String> acceptedAnnotations = ImmutableSet.of();
     @Nullable private Class<? extends Annotation> containerOfAnnotation;
     @Nullable private Class<? extends Annotation> suppressAnnotation;
     @Nullable private Class<? extends Annotation> typeParameterAnnotation;
+
+    /** See {@link Purpose}. */
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -6465,18 +6465,6 @@ in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/N
 
 ### RuleId[ruleID=NullableProblems]
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `test_helpers/src/main/java/com/google/errorprone/CompilationTestHelper.java`
-#### Snippet
-```java
-  private final List<JavaFileObject> sources = new ArrayList<>();
-  private ImmutableList<String> extraArgs = ImmutableList.of();
-  @Nullable private ImmutableList<Class<?>> overrideClasspath;
-  private boolean expectNoDiagnostics = false;
-  private Optional<Result> expectedResult = Optional.empty();
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocationMatcher.java`
 #### Snippet
 ```java
@@ -6485,6 +6473,18 @@ in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocati
     @Nullable final Set<Node> def;
     final SetMultimap<Token, Node> mapping;
 
+```
+
+### RuleId[ruleID=NullableProblems]
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `test_helpers/src/main/java/com/google/errorprone/CompilationTestHelper.java`
+#### Snippet
+```java
+  private final List<JavaFileObject> sources = new ArrayList<>();
+  private ImmutableList<String> extraArgs = ImmutableList.of();
+  @Nullable private ImmutableList<Class<?>> overrideClasspath;
+  private boolean expectNoDiagnostics = false;
+  private Optional<Result> expectedResult = Optional.empty();
 ```
 
 ## RuleId[ruleID=InstanceofIncompatibleInterface]
@@ -6869,13 +6869,13 @@ in `core/src/main/java/com/google/errorprone/refaster/ImportPolicy.java`
 
 ### RuleId[ruleID=SimplifyOptionalCallChains]
 Can be replaced with 'isEmpty()'
-in `core/src/main/java/com/google/errorprone/bugpatterns/NullablePrimitiveArray.java`
+in `core/src/main/java/com/google/errorprone/bugpatterns/RestrictedApiChecker.java`
 #### Snippet
 ```java
-    Set<String> targets = new HashSet<>();
-    Optional<Attribute> value = MoreAnnotations.getValue(attribute, "value");
-    if (!value.isPresent()) {
-      return false;
+        MoreAnnotations.getValue(api, "allowlistAnnotations");
+    // TODO(b/178905039): remove handling of legacy names
+    if (!allowlistAnnotations.isPresent()) {
+      allowlistAnnotations = MoreAnnotations.getValue(api, "whitelistAnnotations");
     }
 ```
 
@@ -6893,13 +6893,13 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/RestrictedApiChecker.ja
 
 ### RuleId[ruleID=SimplifyOptionalCallChains]
 Can be replaced with 'isEmpty()'
-in `core/src/main/java/com/google/errorprone/bugpatterns/RestrictedApiChecker.java`
+in `core/src/main/java/com/google/errorprone/bugpatterns/NullablePrimitiveArray.java`
 #### Snippet
 ```java
-        MoreAnnotations.getValue(api, "allowlistAnnotations");
-    // TODO(b/178905039): remove handling of legacy names
-    if (!allowlistAnnotations.isPresent()) {
-      allowlistAnnotations = MoreAnnotations.getValue(api, "whitelistAnnotations");
+    Set<String> targets = new HashSet<>();
+    Optional<Attribute> value = MoreAnnotations.getValue(attribute, "value");
+    if (!value.isPresent()) {
+      return false;
     }
 ```
 
@@ -6968,10 +6968,10 @@ Can be replaced with 'isEmpty()'
 in `core/src/main/java/com/google/errorprone/bugpatterns/JUnitParameterMethodNotFound.java`
 #### Snippet
 ```java
-        getParamAssignmentTree(annotationsArguments, /* parameterName= */ "source");
+            .findFirst();
 
-    if (!paramSourceAssignmentTree.isPresent()) {
-      return ImmutableSet.of();
+    if (!parametersAnnotation.isPresent()) {
+      return Description.NO_MATCH;
     }
 ```
 
@@ -6980,10 +6980,10 @@ Can be replaced with 'isEmpty()'
 in `core/src/main/java/com/google/errorprone/bugpatterns/JUnitParameterMethodNotFound.java`
 #### Snippet
 ```java
-            .findFirst();
+        getParamAssignmentTree(annotationsArguments, /* parameterName= */ "source");
 
-    if (!parametersAnnotation.isPresent()) {
-      return Description.NO_MATCH;
+    if (!paramSourceAssignmentTree.isPresent()) {
+      return ImmutableSet.of();
     }
 ```
 
@@ -7196,11 +7196,11 @@ Can be replaced with 'isEmpty()'
 in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/HeldLockAnalyzer.java`
 #### Snippet
 ```java
-        GuardedByBinder.bindExpression(
-            Iterables.getOnlyElement(newClassTree.getArguments()), state, flags);
-    if (!lockExpression.isPresent()) {
-      return locks;
-    }
+          GuardedByBinder.bindExpression(guardedMemberExpression, state, flags);
+
+      if (!guardedMember.isPresent()) {
+        return Optional.empty();
+      }
 ```
 
 ### RuleId[ruleID=SimplifyOptionalCallChains]
@@ -7208,11 +7208,11 @@ Can be replaced with 'isEmpty()'
 in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/HeldLockAnalyzer.java`
 #### Snippet
 ```java
-          GuardedByBinder.bindExpression(guardedMemberExpression, state, flags);
-
-      if (!guardedMember.isPresent()) {
-        return Optional.empty();
-      }
+        GuardedByBinder.bindExpression(
+            Iterables.getOnlyElement(newClassTree.getArguments()), state, flags);
+    if (!lockExpression.isPresent()) {
+      return locks;
+    }
 ```
 
 ### RuleId[ruleID=SimplifyOptionalCallChains]
@@ -7280,11 +7280,35 @@ Can be replaced with 'isEmpty()'
 in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
 #### Snippet
 ```java
+        ((JCExpression) sourceNode).type,
+        (declaredType, selector, inferredType) -> {
+          if (!extractExplicitNullness(type, selector.isEmpty() ? decl : null).isPresent()) {
+            consumer.accept(TypeArgInferenceVar.create(ImmutableList.copyOf(selector), sourceNode));
+          }
+```
+
+### RuleId[ruleID=SimplifyOptionalCallChains]
+Can be replaced with 'isEmpty()'
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
         null,
         (typeVarRef, selector, unused) -> {
           if (!extractExplicitNullness(typeVarRef, selector.isEmpty() ? decl : null).isPresent()) {
             result.add(TypeArgInferenceVar.create(ImmutableList.copyOf(selector), sourceNode));
           }
+```
+
+### RuleId[ruleID=SimplifyOptionalCallChains]
+Can be replaced with 'isEmpty()'
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+    Optional<Nullness> fromAnnotations =
+        extractExplicitNullness(lType, argSelector.isEmpty() ? decl : null);
+    if (!fromAnnotations.isPresent()) {
+      if (lType instanceof TypeVariable) {
+        fromAnnotations = NullnessAnnotations.getUpperBound((TypeVariable) lType);
 ```
 
 ### RuleId[ruleID=SimplifyOptionalCallChains]
@@ -7309,30 +7333,6 @@ in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/i
     if (!fromAnnotations.isPresent()) {
       if (declaredType instanceof TypeVariable) {
         // Check bounds second so explicit annotations take precedence. Even for bounds we still use
-```
-
-### RuleId[ruleID=SimplifyOptionalCallChains]
-Can be replaced with 'isEmpty()'
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-        ((JCExpression) sourceNode).type,
-        (declaredType, selector, inferredType) -> {
-          if (!extractExplicitNullness(type, selector.isEmpty() ? decl : null).isPresent()) {
-            consumer.accept(TypeArgInferenceVar.create(ImmutableList.copyOf(selector), sourceNode));
-          }
-```
-
-### RuleId[ruleID=SimplifyOptionalCallChains]
-Can be replaced with 'isEmpty()'
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-    Optional<Nullness> fromAnnotations =
-        extractExplicitNullness(lType, argSelector.isEmpty() ? decl : null);
-    if (!fromAnnotations.isPresent()) {
-      if (lType instanceof TypeVariable) {
-        fromAnnotations = NullnessAnnotations.getUpperBound((TypeVariable) lType);
 ```
 
 ### RuleId[ruleID=SimplifyOptionalCallChains]
@@ -7709,10 +7709,10 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/EqualsGetClass.java`
 #### Snippet
 ```java
 
-    /** Whether we managed to rewrite a {@code getClass}. */
-    private boolean matchedGetClass = false;
-
     /** Whether we failed to generate a satisfactory fix for a boolean replacement. */
+    private boolean failed = false;
+
+    private EqualsFixer(Symbol parameter, ClassSymbol classSymbol, VisitorState visitorState) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -7721,10 +7721,10 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/EqualsGetClass.java`
 #### Snippet
 ```java
 
-    /** Whether we failed to generate a satisfactory fix for a boolean replacement. */
-    private boolean failed = false;
+    /** Whether we managed to rewrite a {@code getClass}. */
+    private boolean matchedGetClass = false;
 
-    private EqualsFixer(Symbol parameter, ClassSymbol classSymbol, VisitorState visitorState) {
+    /** Whether we failed to generate a satisfactory fix for a boolean replacement. */
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -7768,18 +7768,6 @@ Field initialization to `false` is redundant
 in `core/src/main/java/com/google/errorprone/bugpatterns/MixedMutabilityReturnType.java`
 #### Snippet
 ```java
-      private final List<ReturnTree> immutableReturns = new ArrayList<>();
-      private final List<ReturnTree> mutableReturns = new ArrayList<>();
-      private boolean skipMethods = false;
-
-      @Override
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `core/src/main/java/com/google/errorprone/bugpatterns/MixedMutabilityReturnType.java`
-#### Snippet
-```java
     private final SuggestedFix.Builder fix = SuggestedFix.builder();
     private boolean builderifiedVariable = false;
     private boolean failed = false;
@@ -7800,15 +7788,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/MixedMutabilityReturnTy
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnicodeEscape.java`
+Field initialization to `false` is redundant
+in `core/src/main/java/com/google/errorprone/bugpatterns/MixedMutabilityReturnType.java`
 #### Snippet
 ```java
-    private char currentCharacter = 0;
-    private boolean isUnicode = false;
-    private int lastBackslash = 0;
+      private final List<ReturnTree> immutableReturns = new ArrayList<>();
+      private final List<ReturnTree> mutableReturns = new ArrayList<>();
+      private boolean skipMethods = false;
 
-    private UnicodeScanner(String source, VisitorState state) {
+      @Override
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -7833,6 +7821,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnicodeEscape.java`
     private char currentCharacter = 0;
     private boolean isUnicode = false;
     private int lastBackslash = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnicodeEscape.java`
+#### Snippet
+```java
+    private char currentCharacter = 0;
+    private boolean isUnicode = false;
+    private int lastBackslash = 0;
+
+    private UnicodeScanner(String source, VisitorState state) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -7872,15 +7872,27 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/InconsistentHashCode.ja
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `core/src/main/java/com/google/errorprone/bugpatterns/MethodCanBeStatic.java`
+Field initialization to `false` is redundant
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
 #### Snippet
 ```java
-    Map<MethodSymbol, MethodDetails> nodes = new HashMap<>();
-    new TreePathScanner<Void, Void>() {
-      private int suppressions = 0;
+    // This is true when we are processing a `return` statement. Elements used in return statement
+    // must not be considered unused.
+    private boolean inReturnStatement = false;
+    // When this greater than zero, the usage of identifiers are real because they are in a method
+    // call.
+```
 
-      @Override
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
+#### Snippet
+```java
+    private boolean leftHandSideAssignment = false;
+    // When this greater than zero, the usage of identifiers are real.
+    private int inArrayAccess = 0;
+    // This is true when we are processing a `return` statement. Elements used in return statement
+    // must not be considered unused.
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -7912,35 +7924,23 @@ Field initialization to `false` is redundant
 in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
 #### Snippet
 ```java
-    // This is true when we are processing a `return` statement. Elements used in return statement
-    // must not be considered unused.
-    private boolean inReturnStatement = false;
-    // When this greater than zero, the usage of identifiers are real because they are in a method
-    // call.
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
-#### Snippet
-```java
-    private boolean leftHandSideAssignment = false;
-    // When this greater than zero, the usage of identifiers are real.
-    private int inArrayAccess = 0;
-    // This is true when we are processing a `return` statement. Elements used in return statement
-    // must not be considered unused.
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
-#### Snippet
-```java
 
   private static final class FilterUsedVariables extends TreePathScanner<Void, Void> {
     private boolean leftHandSideAssignment = false;
     // When this greater than zero, the usage of identifiers are real.
     private int inArrayAccess = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `core/src/main/java/com/google/errorprone/bugpatterns/MethodCanBeStatic.java`
+#### Snippet
+```java
+    Map<MethodSymbol, MethodDetails> nodes = new HashMap<>();
+    new TreePathScanner<Void, Void>() {
+      private int suppressions = 0;
+
+      @Override
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -8056,78 +8056,6 @@ Field initialization to `false` is redundant
 in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
 #### Snippet
 ```java
-
-  private static class Builder {
-    private boolean ignoreUnknownChecks = false;
-    private boolean disableAllWarnings = false;
-    private boolean disableWarningsInGeneratedCode = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
-#### Snippet
-```java
-    private boolean enableAllChecksAsWarnings = false;
-    private boolean disableAllChecks = false;
-    private boolean isTestOnlyTarget = false;
-    private boolean ignoreSuppressionAnnotations = false;
-    private boolean ignoreLargeCodeGenerators = true;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
-#### Snippet
-```java
-    private boolean disableWarningsInGeneratedCode = false;
-    private boolean dropErrorsToWarnings = false;
-    private boolean enableAllChecksAsWarnings = false;
-    private boolean disableAllChecks = false;
-    private boolean isTestOnlyTarget = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
-#### Snippet
-```java
-  private static class Builder {
-    private boolean ignoreUnknownChecks = false;
-    private boolean disableAllWarnings = false;
-    private boolean disableWarningsInGeneratedCode = false;
-    private boolean dropErrorsToWarnings = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
-#### Snippet
-```java
-    private boolean dropErrorsToWarnings = false;
-    private boolean enableAllChecksAsWarnings = false;
-    private boolean disableAllChecks = false;
-    private boolean isTestOnlyTarget = false;
-    private boolean ignoreSuppressionAnnotations = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
-#### Snippet
-```java
-    private boolean ignoreUnknownChecks = false;
-    private boolean disableAllWarnings = false;
-    private boolean disableWarningsInGeneratedCode = false;
-    private boolean dropErrorsToWarnings = false;
-    private boolean enableAllChecksAsWarnings = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
-#### Snippet
-```java
     private boolean disableAllChecks = false;
     private boolean isTestOnlyTarget = false;
     private boolean ignoreSuppressionAnnotations = false;
@@ -8140,11 +8068,83 @@ Field initialization to `false` is redundant
 in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
 #### Snippet
 ```java
+    private boolean ignoreUnknownChecks = false;
+    private boolean disableAllWarnings = false;
+    private boolean disableWarningsInGeneratedCode = false;
+    private boolean dropErrorsToWarnings = false;
+    private boolean enableAllChecksAsWarnings = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
+#### Snippet
+```java
+    private boolean enableAllChecksAsWarnings = false;
+    private boolean disableAllChecks = false;
+    private boolean isTestOnlyTarget = false;
+    private boolean ignoreSuppressionAnnotations = false;
+    private boolean ignoreLargeCodeGenerators = true;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
+#### Snippet
+```java
     private boolean disableAllWarnings = false;
     private boolean disableWarningsInGeneratedCode = false;
     private boolean dropErrorsToWarnings = false;
     private boolean enableAllChecksAsWarnings = false;
     private boolean disableAllChecks = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
+#### Snippet
+```java
+    private boolean dropErrorsToWarnings = false;
+    private boolean enableAllChecksAsWarnings = false;
+    private boolean disableAllChecks = false;
+    private boolean isTestOnlyTarget = false;
+    private boolean ignoreSuppressionAnnotations = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
+#### Snippet
+```java
+    private boolean disableWarningsInGeneratedCode = false;
+    private boolean dropErrorsToWarnings = false;
+    private boolean enableAllChecksAsWarnings = false;
+    private boolean disableAllChecks = false;
+    private boolean isTestOnlyTarget = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
+#### Snippet
+```java
+
+  private static class Builder {
+    private boolean ignoreUnknownChecks = false;
+    private boolean disableAllWarnings = false;
+    private boolean disableWarningsInGeneratedCode = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `check_api/src/main/java/com/google/errorprone/ErrorProneOptions.java`
+#### Snippet
+```java
+  private static class Builder {
+    private boolean ignoreUnknownChecks = false;
+    private boolean disableAllWarnings = false;
+    private boolean disableWarningsInGeneratedCode = false;
+    private boolean dropErrorsToWarnings = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -8172,18 +8172,6 @@ in `check_api/src/main/java/com/google/errorprone/util/ErrorProneTokens.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `check_api/src/main/java/com/google/errorprone/util/Comments.java`
-#### Snippet
-```java
-    private final LineMap lineMap;
-
-    private int tokensOnCurrentLine = 0;
-    private int currentLineNumber = -1;
-    private boolean previousLineEmpty = true;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
 in `check_api/src/main/java/com/google/errorprone/util/Comments.java`
 #### Snippet
@@ -8193,6 +8181,18 @@ in `check_api/src/main/java/com/google/errorprone/util/Comments.java`
     private Commented.Builder<ExpressionTree> previousCommentedResultBuilder = null;
     private final ImmutableList.Builder<Commented<ExpressionTree>> resultBuilder =
         ImmutableList.builder();
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `check_api/src/main/java/com/google/errorprone/util/Comments.java`
+#### Snippet
+```java
+    private final LineMap lineMap;
+
+    private int tokensOnCurrentLine = 0;
+    private int currentLineNumber = -1;
+    private boolean previousLineEmpty = true;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -9209,18 +9209,6 @@ in `core/src/main/java/com/google/errorprone/refaster/UFreeIdent.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `value` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/refaster/ExpressionTemplate.java`
-#### Snippet
-```java
-    Context context = inliner.getContext();
-    if (annotations().containsKey(UseImportPolicy.class)) {
-      ImportPolicy.bind(context, annotations().getInstance(UseImportPolicy.class).value());
-    } else {
-      ImportPolicy.bind(context, ImportPolicy.IMPORT_TOP_LEVEL);
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `consume` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/refaster/UPlaceholderStatement.java`
 #### Snippet
@@ -9242,6 +9230,18 @@ in `core/src/main/java/com/google/errorprone/refaster/UPlaceholderStatement.java
             int nConsumedStatements = consumptionState.result().consumedStatements();
             ImmutableList<? extends StatementTree> remainingStatements =
                 initState
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `value` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/refaster/ExpressionTemplate.java`
+#### Snippet
+```java
+    Context context = inliner.getContext();
+    if (annotations().containsKey(UseImportPolicy.class)) {
+      ImportPolicy.bind(context, annotations().getInstance(UseImportPolicy.class).value());
+    } else {
+      ImportPolicy.bind(context, ImportPolicy.IMPORT_TOP_LEVEL);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9293,30 +9293,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/NestedInstanceOfConditi
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `isUnion` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/AssertionFailureIgnored.java`
-#### Snippet
-```java
-            catchTree -> {
-              Type type = ASTHelpers.getType(catchTree.getParameter());
-              return (type.isUnion()
-                      ? Streams.stream(((UnionClassType) type).getAlternativeTypes())
-                      : Stream.of(type))
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Dereference of `getType(tree.getExpression())` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/WrongOneof.java`
-#### Snippet
-```java
-      SwitchTree tree, ConstantExpression constantReceiver, VisitorState state) {
-    ImmutableSet<String> getters =
-        enumValues(getType(tree.getExpression()).tsym).stream()
-            .map(WrongOneof::getter)
-            .collect(toImmutableSet());
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Argument `templateExpressions(modifiers.getAnnotations())` might be null
 in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
 #### Snippet
@@ -9329,18 +9305,6 @@ in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Argument `templateStatements(tree.getParameters())` might be null
-in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
-#### Snippet
-```java
-    return ULambda.create(
-        ((JCLambda) tree).paramKind,
-        cast(templateStatements(tree.getParameters()), UVariableDecl.class),
-        (UTree<?>) template(tree.getBody()));
-  }
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Argument `templateTrees(tree.getResources())` might be null
 in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
 #### Snippet
@@ -9350,30 +9314,6 @@ in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
         cast(templateTrees(tree.getResources()), (Class<UTree<?>>) (Class) UTree.class);
     UBlock block = visitBlock(tree.getBlock(), null);
     ImmutableList.Builder<UCatch> catchesBuilder = ImmutableList.builder();
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `templateExpressions(tree.getAnnotations())` might be null
-in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
-#### Snippet
-```java
-  public UAnnotatedType visitAnnotatedType(AnnotatedTypeTree tree, Void v) {
-    return UAnnotatedType.create(
-        cast(templateExpressions(tree.getAnnotations()), UAnnotation.class),
-        template(tree.getUnderlyingType()));
-  }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `templateExpressions(tree.getAnnotations())` might be null
-in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
-#### Snippet
-```java
-        tree.getName(),
-        templateTypeExpressions(tree.getBounds()),
-        cast(templateExpressions(tree.getAnnotations()), UAnnotation.class));
-  }
-
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9401,6 +9341,66 @@ in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
+Argument `templateExpressions(tree.getAnnotations())` might be null
+in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
+#### Snippet
+```java
+  public UAnnotatedType visitAnnotatedType(AnnotatedTypeTree tree, Void v) {
+    return UAnnotatedType.create(
+        cast(templateExpressions(tree.getAnnotations()), UAnnotation.class),
+        template(tree.getUnderlyingType()));
+  }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `templateExpressions(tree.getAnnotations())` might be null
+in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
+#### Snippet
+```java
+        tree.getName(),
+        templateTypeExpressions(tree.getBounds()),
+        cast(templateExpressions(tree.getAnnotations()), UAnnotation.class));
+  }
+
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `templateStatements(tree.getParameters())` might be null
+in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
+#### Snippet
+```java
+    return ULambda.create(
+        ((JCLambda) tree).paramKind,
+        cast(templateStatements(tree.getParameters()), UVariableDecl.class),
+        (UTree<?>) template(tree.getBody()));
+  }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Dereference of `getType(tree.getExpression())` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/WrongOneof.java`
+#### Snippet
+```java
+      SwitchTree tree, ConstantExpression constantReceiver, VisitorState state) {
+    ImmutableSet<String> getters =
+        enumValues(getType(tree.getExpression()).tsym).stream()
+            .map(WrongOneof::getter)
+            .collect(toImmutableSet());
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `isUnion` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/AssertionFailureIgnored.java`
+#### Snippet
+```java
+            catchTree -> {
+              Type type = ASTHelpers.getType(catchTree.getParameter());
+              return (type.isUnion()
+                      ? Streams.stream(((UnionClassType) type).getAlternativeTypes())
+                      : Stream.of(type))
+```
+
+### RuleId[ruleID=DataFlowIssue]
 Method invocation `type` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/refaster/Template.java`
 #### Snippet
@@ -9425,18 +9425,6 @@ in `core/src/main/java/com/google/errorprone/refaster/Template.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `accept` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/AlwaysThrows.java`
-#### Snippet
-```java
-      void validate(MethodInvocationTree tree, String argument) {
-        MethodSymbol sym = ASTHelpers.getSymbol(tree);
-        VALIDATORS.get(sym.owner.getQualifiedName().toString()).accept(argument);
-      }
-    },
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Dereference of `Throwables.getCauseAs(e.getCause(), NumberFormatException.class)` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/AlwaysThrows.java`
 #### Snippet
@@ -9446,6 +9434,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/AlwaysThrows.java`
           throw Throwables.getCauseAs(e.getCause(), NumberFormatException.class);
         }
       }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `accept` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/AlwaysThrows.java`
+#### Snippet
+```java
+      void validate(MethodInvocationTree tree, String argument) {
+        MethodSymbol sym = ASTHelpers.getSymbol(tree);
+        VALIDATORS.get(sym.owner.getQualifiedName().toString()).accept(argument);
+      }
+    },
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9562,6 +9562,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/LockNotBeforeTry.java`
 #### Snippet
 ```java
     return receiver != null
+        && LOCK.matches(node, state)
+        && state.getSourceForNode(receiver).equals(state.getSourceForNode(lockee));
+  }
+}
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `equals` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/LockNotBeforeTry.java`
+#### Snippet
+```java
+    return receiver != null
         && UNLOCK.matches(node, state)
         && state.getSourceForNode(receiver).equals(state.getSourceForNode(lockee));
   }
@@ -9578,18 +9590,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/LockNotBeforeTry.java`
                     lockStatement, state.getSourceCode().subSequence(start, end).toString())
                 .build();
         return buildDescription(lockInvocation)
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `equals` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/LockNotBeforeTry.java`
-#### Snippet
-```java
-    return receiver != null
-        && LOCK.matches(node, state)
-        && state.getSourceForNode(receiver).equals(state.getSourceForNode(lockee));
-  }
-}
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9617,15 +9617,27 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/AssertThrowsMultipleSta
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `isUnion` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/ThrowIfUncheckedKnownChecked.java`
+Method invocation `getTag` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryBoxedVariable.java`
 #### Snippet
 ```java
-        public boolean matches(ExpressionTree tree, VisitorState state) {
-          Type type = ASTHelpers.getType(tree);
-          if (type.isUnion()) {
-            for (TypeMirror alternative : ((UnionType) type).getAlternatives()) {
-              if (!isKnownCheckedException(state, (Type) alternative)) {
+      } else {
+        Type unboxedReceiverType = state.getTypes().unboxedType(ASTHelpers.getType(receiver));
+        if (unboxedReceiverType.getTag() == expressionType.getTag()) {
+          // someInteger.intValue() can just become someInt.
+          fixBuilder.replace(castInvocation, state.getSourceForNode(receiver));
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `isPrimitive` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryBoxedVariable.java`
+#### Snippet
+```java
+    private boolean checkAssignmentExpression(ExpressionTree expression) {
+      Type expressionType = ASTHelpers.getType(expression);
+      if (expressionType.isPrimitive()) {
+        return false;
+      }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9641,18 +9653,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryBoxedVariabl
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getTag` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryBoxedVariable.java`
-#### Snippet
-```java
-      } else {
-        Type unboxedReceiverType = state.getTypes().unboxedType(ASTHelpers.getType(receiver));
-        if (unboxedReceiverType.getTag() == expressionType.getTag()) {
-          // someInteger.intValue() can just become someInt.
-          fixBuilder.replace(castInvocation, state.getSourceForNode(receiver));
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Dereference of `receiverType` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryBoxedVariable.java`
 #### Snippet
@@ -9665,15 +9665,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryBoxedVariabl
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `isPrimitive` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryBoxedVariable.java`
+Method invocation `isUnion` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/ThrowIfUncheckedKnownChecked.java`
 #### Snippet
 ```java
-    private boolean checkAssignmentExpression(ExpressionTree expression) {
-      Type expressionType = ASTHelpers.getType(expression);
-      if (expressionType.isPrimitive()) {
-        return false;
-      }
+        public boolean matches(ExpressionTree tree, VisitorState state) {
+          Type type = ASTHelpers.getType(tree);
+          if (type.isUnion()) {
+            for (TypeMirror alternative : ((UnionType) type).getAlternatives()) {
+              if (!isKnownCheckedException(state, (Type) alternative)) {
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9725,18 +9725,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/NarrowingCompoundAssign
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Argument `getType(tree.getVariable())` might be null
-in `core/src/main/java/com/google/errorprone/bugpatterns/NarrowingCompoundAssignment.java`
-#### Snippet
-```java
-    String message =
-        identifyBadCast(
-            getType(tree.getVariable()), getType(tree.getExpression()), state.getTypes());
-    if (message == null) {
-      return Description.NO_MATCH;
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `toString` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/NarrowingCompoundAssignment.java`
 #### Snippet
@@ -9746,6 +9734,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/NarrowingCompoundAssign
     String castType = getType(tree.getVariable()).toString();
     String replacement = String.format("%s = (%s) (%s %s %s)", var, castType, var, op, expr);
     return Optional.of(SuggestedFix.replace(tree, replacement));
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `getType(tree.getVariable())` might be null
+in `core/src/main/java/com/google/errorprone/bugpatterns/NarrowingCompoundAssignment.java`
+#### Snippet
+```java
+    String message =
+        identifyBadCast(
+            getType(tree.getVariable()), getType(tree.getExpression()), state.getTypes());
+    if (message == null) {
+      return Description.NO_MATCH;
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9785,15 +9785,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ImplementAssertionWithC
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `equals` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessarySetDefault.java`
+Method invocation `replaceAll` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/NarrowCalculation.java`
 #### Snippet
 ```java
 
-  static Matcher<ExpressionTree> sourceMatcher(String source) {
-    return (tree, state) -> state.getSourceForNode(tree).equals(source);
+  private static String forceLiteralType(ExpressionTree tree, Type targetType, VisitorState state) {
+    return state.getSourceForNode(tree).replaceAll("[LlFfDd]$", "")
+        + suffixForType(targetType, state);
   }
-}
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9809,6 +9809,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessarySetDefault.j
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
+Method invocation `equals` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessarySetDefault.java`
+#### Snippet
+```java
+
+  static Matcher<ExpressionTree> sourceMatcher(String source) {
+    return (tree, state) -> state.getSourceForNode(tree).equals(source);
+  }
+}
+```
+
+### RuleId[ruleID=DataFlowIssue]
 Method invocation `toString` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/UnicodeInCode.java`
 #### Snippet
@@ -9818,30 +9830,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnicodeInCode.java`
     String sourceCode = state.getSourceCode().toString();
 
     for (int i = 0; i < sourceCode.length(); ++i) {
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `replaceAll` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/NarrowCalculation.java`
-#### Snippet
-```java
-
-  private static String forceLiteralType(ExpressionTree tree, Type targetType, VisitorState state) {
-    return state.getSourceForNode(tree).replaceAll("[LlFfDd]$", "")
-        + suffixForType(targetType, state);
-  }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `getType(classTree.getExtendsClause())` might be null
-in `core/src/main/java/com/google/errorprone/bugpatterns/JUnit4TestsNotRunWithinEnclosed.java`
-#### Snippet
-```java
-      public Void visitClass(ClassTree classTree, Void unused) {
-        if (classTree.getExtendsClause() != null) {
-          extendedTypes.add(getType(classTree.getExtendsClause()));
-        }
-        return super.visitClass(classTree, null);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9858,15 +9846,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/JUnit4TestsNotRunWithin
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `lastIndexOf` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/PackageInfo.java`
+Argument `getType(classTree.getExtendsClause())` might be null
+in `core/src/main/java/com/google/errorprone/bugpatterns/JUnit4TestsNotRunWithinEnclosed.java`
 #### Snippet
 ```java
-    }
-    String name = ASTHelpers.getFileName(tree);
-    int idx = name.lastIndexOf('/');
-    if (idx != -1) {
-      name = name.substring(idx + 1);
+      public Void visitClass(ClassTree classTree, Void unused) {
+        if (classTree.getExtendsClause() != null) {
+          extendedTypes.add(getType(classTree.getExtendsClause()));
+        }
+        return super.visitClass(classTree, null);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9879,6 +9867,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/MustBeClosedChecker.jav
                 state, builder, state.getTypeFromString(MustBeClosed.class.getCanonicalName()));
         SuggestedFix fix = builder.prefixWith(methodTree, "@" + suggestedFixName + " ").build();
 
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `lastIndexOf` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/PackageInfo.java`
+#### Snippet
+```java
+    }
+    String name = ASTHelpers.getFileName(tree);
+    int idx = name.lastIndexOf('/');
+    if (idx != -1) {
+      name = name.substring(idx + 1);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9918,18 +9918,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/BoxedPrimitiveConstruct
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `subSequence` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/CatchFail.java`
-#### Snippet
-```java
-          + state
-              .getSourceCode()
-              .subSequence(
-                  getStartPosition(tree.getArguments().get(0)),
-                  state.getEndPosition(getLast(tree.getArguments())))
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `toString` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/CatchFail.java`
 #### Snippet
@@ -9939,6 +9927,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/CatchFail.java`
         String source = state.getSourceCode().toString();
         // Replace the full region to work around a GJF partial formatting bug that prevents it from
         // re-indenting unchanged lines. This means that fixes may overlap, but that's (hopefully)
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `subSequence` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/CatchFail.java`
+#### Snippet
+```java
+          + state
+              .getSourceCode()
+              .subSequence(
+                  getStartPosition(tree.getArguments().get(0)),
+                  state.getEndPosition(getLast(tree.getArguments())))
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9978,18 +9978,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ClassName.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `toString` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/SuppressWarningsWithoutExplanation.java`
-#### Snippet
-```java
-  private static ImmutableRangeSet<Long> linesWithComments(VisitorState state) {
-    RangeSet<Long> lines = TreeRangeSet.create();
-    ErrorProneTokens tokens = new ErrorProneTokens(state.getSourceCode().toString(), state.context);
-    LineMap lineMap = tokens.getLineMap();
-    for (ErrorProneToken token : tokens.getTokens()) {
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Argument `ASTHelpers.getType(a)` might be null
 in `core/src/main/java/com/google/errorprone/bugpatterns/JUnit4ClassAnnotationNonStatic.java`
 #### Snippet
@@ -10026,6 +10014,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryAssignment.j
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
+Method invocation `toString` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/SuppressWarningsWithoutExplanation.java`
+#### Snippet
+```java
+  private static ImmutableRangeSet<Long> linesWithComments(VisitorState state) {
+    RangeSet<Long> lines = TreeRangeSet.create();
+    ErrorProneTokens tokens = new ErrorProneTokens(state.getSourceCode().toString(), state.context);
+    LineMap lineMap = tokens.getLineMap();
+    for (ErrorProneToken token : tokens.getTokens()) {
+```
+
+### RuleId[ruleID=DataFlowIssue]
 Argument `targetType` might be null
 in `core/src/main/java/com/google/errorprone/bugpatterns/StronglyType.java`
 #### Snippet
@@ -10038,25 +10038,13 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/StronglyType.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getTypeArguments` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/JUnitParameterMethodNotFound.java`
+Dereference of `getDeclaredSymbol(enclosingClass)` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/ChainedAssertionLosesContext.java`
 #### Snippet
 ```java
-
-    ClassType classType = (ClassType) getType(paramSourceAssignmentTree.get().getExpression());
-    Type typeArgument = classType.getTypeArguments().get(0);
-    return getAllMethodIdentifiersForType(typeArgument, state);
-  }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Dereference of `ASTHelpers.enclosingClass(ASTHelpers.getSymbol(tree))` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/JUnitParameterMethodNotFound.java`
-#### Snippet
-```java
-
-  private static Type getClassType(MethodTree tree) {
-    return ASTHelpers.enclosingClass(ASTHelpers.getSymbol(tree)).type;
+     */
+    return isSubtype(
+        getDeclaredSymbol(enclosingClass).type, COM_GOOGLE_COMMON_TRUTH_SUBJECT.get(state), state);
   }
 
 ```
@@ -10074,15 +10062,27 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/JUnitParameterMethodNot
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Dereference of `getDeclaredSymbol(enclosingClass)` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/ChainedAssertionLosesContext.java`
+Dereference of `ASTHelpers.enclosingClass(ASTHelpers.getSymbol(tree))` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/JUnitParameterMethodNotFound.java`
 #### Snippet
 ```java
-     */
-    return isSubtype(
-        getDeclaredSymbol(enclosingClass).type, COM_GOOGLE_COMMON_TRUTH_SUBJECT.get(state), state);
+
+  private static Type getClassType(MethodTree tree) {
+    return ASTHelpers.enclosingClass(ASTHelpers.getSymbol(tree)).type;
   }
 
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getTypeArguments` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/JUnitParameterMethodNotFound.java`
+#### Snippet
+```java
+
+    ClassType classType = (ClassType) getType(paramSourceAssignmentTree.get().getExpression());
+    Type typeArgument = classType.getTypeArguments().get(0);
+    return getAllMethodIdentifiersForType(typeArgument, state);
+  }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10194,15 +10194,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/MixedDescriptors.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `asElement` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/MissingDefault.java`
+Method invocation `subSequence` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/ParameterName.java`
 #### Snippet
 ```java
-  public Description matchSwitch(SwitchTree tree, VisitorState state) {
-    Type switchType = ASTHelpers.getType(tree.getExpression());
-    if (switchType.asElement().getKind() == ElementKind.ENUM) {
-      // enum switches can omit the default if they're exhaustive, which is enforced separately
-      // by MissingCasesInEnumSwitch
+      VisitorState state,
+      Consumer<ErrorProneToken> consumer) {
+    String source = state.getSourceCode().subSequence(offset, positions.upperEndpoint()).toString();
+    Deque<ErrorProneToken> tokens =
+        new ArrayDeque<>(ErrorProneTokens.getTokens(source, offset, state.context));
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10218,15 +10218,27 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ParameterName.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `subSequence` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/ParameterName.java`
+Method invocation `equals` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/InconsistentCapitalization.java`
 #### Snippet
 ```java
-      VisitorState state,
-      Consumer<ErrorProneToken> consumer) {
-    String source = state.getSourceCode().subSequence(offset, positions.upperEndpoint()).toString();
-    Deque<ErrorProneToken> tokens =
-        new ArrayDeque<>(ErrorProneTokens.getTokens(source, offset, state.context));
+      if (symbol.getKind().equals(ElementKind.FIELD)
+          && !isUpperCaseAndStatic(symbol)
+          && ASTHelpers.enclosingClass(symbol).equals(classSymbol)) {
+        fields.add(symbol);
+      }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `asElement` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/MissingDefault.java`
+#### Snippet
+```java
+  public Description matchSwitch(SwitchTree tree, VisitorState state) {
+    Type switchType = ASTHelpers.getType(tree.getExpression());
+    if (switchType.asElement().getKind() == ElementKind.ENUM) {
+      // enum switches can omit the default if they're exhaustive, which is enforced separately
+      // by MissingCasesInEnumSwitch
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10239,18 +10251,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/FieldCanBeStatic.java`
             + state.getSourceForNode(variableTree).indexOf(name, searchOffset);
     SuggestedFix.Builder fix =
         SuggestedFix.builder().replace(pos, pos + name.length(), replacement);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `equals` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/InconsistentCapitalization.java`
-#### Snippet
-```java
-      if (symbol.getKind().equals(ElementKind.FIELD)
-          && !isUpperCaseAndStatic(symbol)
-          && ASTHelpers.enclosingClass(symbol).equals(classSymbol)) {
-        fields.add(symbol);
-      }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10290,18 +10290,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/SizeGreaterThanOrEquals
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getParameterTypes` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/JdkObsolete.java`
-#### Snippet
-```java
-      }
-      Type methodType = ASTHelpers.getType(tree.getMethodSelect());
-      if (idx >= methodType.getParameterTypes().size()) {
-        return null;
-      }
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `getReturnType` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/JdkObsolete.java`
 #### Snippet
@@ -10314,15 +10302,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/JdkObsolete.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getReturnType` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractMustBeClosedChecker.java`
+Method invocation `getParameterTypes` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/JdkObsolete.java`
 #### Snippet
 ```java
-            Type streamType = state.getTypeFromString(Stream.class.getName());
-            if (isSubtype(sym.enclClass().asType(), streamType, state)
-                && isSameType(type.getReturnType(), streamType, state)) {
-              // skip enclosing method invocation
-              path = path.getParentPath();
+      }
+      Type methodType = ASTHelpers.getType(tree.getMethodSelect());
+      if (idx >= methodType.getParameterTypes().size()) {
+        return null;
+      }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10338,27 +10326,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractMustBeClosedChe
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `asElement` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryLambda.java`
+Method invocation `getReturnType` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractMustBeClosedChecker.java`
 #### Snippet
 ```java
-    Symbol descriptor;
-    try {
-      descriptor = state.getTypes().findDescriptorSymbol(getType(type).asElement());
-    } catch (FunctionDescriptorLookupError e) {
-      return false;
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getQualifiedName` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryLambda.java`
-#### Snippet
-```java
-      return false;
-    }
-    if (!PACKAGES_TO_FIX.contains(enclosingPackage(descriptor).getQualifiedName().toString())) {
-      return false;
-    }
+            Type streamType = state.getTypeFromString(Stream.class.getName());
+            if (isSubtype(sym.enclClass().asType(), streamType, state)
+                && isSameType(type.getReturnType(), streamType, state)) {
+              // skip enclosing method invocation
+              path = path.getParentPath();
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10411,13 +10387,25 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/FloatingPointAssertionW
 
 ### RuleId[ruleID=DataFlowIssue]
 Method invocation `asElement` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/MissingCasesInEnumSwitch.java`
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryLambda.java`
 #### Snippet
 ```java
-  public Description matchSwitch(SwitchTree tree, VisitorState state) {
-    Type switchType = ASTHelpers.getType(tree.getExpression());
-    if (switchType.asElement().getKind() != ElementKind.ENUM) {
-      return Description.NO_MATCH;
+    Symbol descriptor;
+    try {
+      descriptor = state.getTypes().findDescriptorSymbol(getType(type).asElement());
+    } catch (FunctionDescriptorLookupError e) {
+      return false;
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getQualifiedName` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryLambda.java`
+#### Snippet
+```java
+      return false;
+    }
+    if (!PACKAGES_TO_FIX.contains(enclosingPackage(descriptor).getQualifiedName().toString())) {
+      return false;
     }
 ```
 
@@ -10431,6 +10419,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessarilyFullyQuali
     int idx = name.lastIndexOf('/');
     if (idx != -1) {
       name = name.substring(idx + 1);
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `asElement` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/MissingCasesInEnumSwitch.java`
+#### Snippet
+```java
+  public Description matchSwitch(SwitchTree tree, VisitorState state) {
+    Type switchType = ASTHelpers.getType(tree.getExpression());
+    if (switchType.asElement().getKind() != ElementKind.ENUM) {
+      return Description.NO_MATCH;
+    }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10470,18 +10470,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/MixedMutabilityReturnTy
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `substring` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/UndefinedEquals.java`
-#### Snippet
-```java
-      String methodText =
-          state.getSourceForNode(tree.getMethodSelect()); // e.g. "assertThat(foo).isEqualTo"
-      String assertThatWithArg = methodText.substring(0, methodText.lastIndexOf('.'));
-
-      // If both the argument and receiver are subtypes of the given type, rewrites the isEqualTo
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `getArguments` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/UndefinedEquals.java`
 #### Snippet
@@ -10491,6 +10479,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UndefinedEquals.java`
       argument = getOnlyElement(((MethodInvocationTree) getReceiver(tree)).getArguments());
     } else {
       return Description.NO_MATCH;
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `substring` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/UndefinedEquals.java`
+#### Snippet
+```java
+      String methodText =
+          state.getSourceForNode(tree.getMethodSelect()); // e.g. "assertThat(foo).isEqualTo"
+      String assertThatWithArg = methodText.substring(0, methodText.lastIndexOf('.'));
+
+      // If both the argument and receiver are subtypes of the given type, rewrites the isEqualTo
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10650,18 +10650,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryTypeArgument
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Function may return null, but it's not allowed here
-in `core/src/main/java/com/google/errorprone/bugpatterns/CheckedExceptionNotThrown.java`
-#### Snippet
-```java
-        tree.getThrows().stream()
-            .filter(et -> !canActuallyBeThrown.contains(et))
-            .map(state::getSourceForNode)
-            .sorted()
-            .collect(joining(", ", "(", ")"));
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `subSequence` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/CheckedExceptionNotThrown.java`
 #### Snippet
@@ -10671,6 +10659,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/CheckedExceptionNotThro
                 state.getSourceCode().subSequence(methodStartPos, endPos).toString(),
                 methodStartPos,
                 state.context)
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Function may return null, but it's not allowed here
+in `core/src/main/java/com/google/errorprone/bugpatterns/CheckedExceptionNotThrown.java`
+#### Snippet
+```java
+        tree.getThrows().stream()
+            .filter(et -> !canActuallyBeThrown.contains(et))
+            .map(state::getSourceForNode)
+            .sorted()
+            .collect(joining(", ", "(", ")"));
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10698,27 +10698,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/SelfAlwaysReturnsThis.j
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getMethodSelect` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/ImpossibleNullComparison.java`
+Dereference of `multiByteReadMethod` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/InputStreamSlowMultibyteRead.java`
 #### Snippet
 ```java
-                      String.format(
-                          "%s(%s).isTrue()",
-                          state.getSourceForNode(receiver.getMethodSelect()), r));
-                })
-            .orElse(SuggestedFix.emptyFix());
-```
+            ImmutableList.of());
 
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getArguments` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/ImpossibleNullComparison.java`
-#### Snippet
-```java
-        problemType = ProblemUsage.OPTIONAL;
-      } else if (matchTestAssertions && TRUTH_NOT_NULL.matches(node, subState)) {
-        argument = getOnlyElement(((MethodInvocationTree) getReceiver(node)).getArguments());
-        problemType = ProblemUsage.TRUTH;
-      } else {
+    return multiByteReadMethod.owner.equals(thisClassSymbol)
+        ? Description.NO_MATCH
+        : maybeMatchReadByte(readByteMethod, state);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10734,27 +10722,27 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ConstantPatternCompile.
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Dereference of `multiByteReadMethod` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/InputStreamSlowMultibyteRead.java`
+Method invocation `getArguments` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/ImpossibleNullComparison.java`
 #### Snippet
 ```java
-            ImmutableList.of());
-
-    return multiByteReadMethod.owner.equals(thisClassSymbol)
-        ? Description.NO_MATCH
-        : maybeMatchReadByte(readByteMethod, state);
+        problemType = ProblemUsage.OPTIONAL;
+      } else if (matchTestAssertions && TRUTH_NOT_NULL.matches(node, subState)) {
+        argument = getOnlyElement(((MethodInvocationTree) getReceiver(node)).getArguments());
+        problemType = ProblemUsage.TRUTH;
+      } else {
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getMembers` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/ReplacementVariableFinder.java`
+Method invocation `getMethodSelect` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/ImpossibleNullComparison.java`
 #### Snippet
 ```java
-
-    ImmutableMultimap<Integer, JCVariableDecl> potentialReplacements =
-        ASTHelpers.findEnclosingNode(state.getPath(), JCClassDecl.class).getMembers().stream()
-            .filter(JCVariableDecl.class::isInstance)
-            .map(JCVariableDecl.class::cast)
+                      String.format(
+                          "%s(%s).isTrue()",
+                          state.getSourceForNode(receiver.getMethodSelect()), r));
+                })
+            .orElse(SuggestedFix.emptyFix());
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10767,6 +10755,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ReplacementVariableFind
         ASTHelpers.findEnclosingNode(state.getPath(), JCMethodDecl.class).getParameters().stream()
             .filter(validParameterPredicate)
             .collect(collectByEditDistanceTo(simpleNameOfIdentifierOrMemberAccess(input)));
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getMembers` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/ReplacementVariableFinder.java`
+#### Snippet
+```java
+
+    ImmutableMultimap<Integer, JCVariableDecl> potentialReplacements =
+        ASTHelpers.findEnclosingNode(state.getPath(), JCClassDecl.class).getMembers().stream()
+            .filter(JCVariableDecl.class::isInstance)
+            .map(JCVariableDecl.class::cast)
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10902,6 +10902,30 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/BigDecimalLiteralDouble
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
+Method invocation `isPresent` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/refaster/BlockTemplate.java`
+#### Snippet
+```java
+                    expectedTypes(inliner),
+                    actualTypes(inliner));
+            if (checkedUnifier.isPresent()) {
+              int consumedStatements = statements.size() - state.unconsumedStatements().size();
+              BlockTemplateMatch match =
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `value` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/refaster/BlockTemplate.java`
+#### Snippet
+```java
+    Context context = inliner.getContext();
+    if (annotations().containsKey(UseImportPolicy.class)) {
+      ImportPolicy.bind(context, annotations().getInstance(UseImportPolicy.class).value());
+    } else {
+      ImportPolicy.bind(context, ImportPolicy.IMPORT_TOP_LEVEL);
+```
+
+### RuleId[ruleID=DataFlowIssue]
 Method invocation `getLeaf` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/ImmutableSetForContains.java`
 #### Snippet
@@ -10959,30 +10983,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ModifyingCollectionWith
     for (Fix fix : buildFixes(methodInvocationTree, state, receiver, argument)) {
       builder.addFix(fix);
     }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `isPresent` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/refaster/BlockTemplate.java`
-#### Snippet
-```java
-                    expectedTypes(inliner),
-                    actualTypes(inliner));
-            if (checkedUnifier.isPresent()) {
-              int consumedStatements = statements.size() - state.unconsumedStatements().size();
-              BlockTemplateMatch match =
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `value` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/refaster/BlockTemplate.java`
-#### Snippet
-```java
-    Context context = inliner.getContext();
-    if (annotations().containsKey(UseImportPolicy.class)) {
-      ImportPolicy.bind(context, annotations().getInstance(UseImportPolicy.class).value());
-    } else {
-      ImportPolicy.bind(context, ImportPolicy.IMPORT_TOP_LEVEL);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -11166,18 +11166,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/FieldCanBeLocal.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Dereference of `enclosingClass(symbol)` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractReturnValueIgnored.java`
-#### Snippet
-```java
-
-  private static boolean isExemptedInterfaceMethod(MethodSymbol symbol, VisitorState state) {
-    return isExemptedInterfaceType(enclosingClass(symbol).type, state);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Argument `unit` might be null
 in `core/src/main/java/com/google/errorprone/bugpatterns/CanonicalDuration.java`
 #### Snippet
@@ -11199,6 +11187,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/CanonicalDuration.java`
           long nextValue = converter.convert(durations.get(i));
           String name = FACTORIES.get(api, nextUnit);
           String replacement =
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Dereference of `enclosingClass(symbol)` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractReturnValueIgnored.java`
+#### Snippet
+```java
+
+  private static boolean isExemptedInterfaceMethod(MethodSymbol symbol, VisitorState state) {
+    return isExemptedInterfaceType(enclosingClass(symbol).type, state);
+  }
+
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -11274,18 +11274,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/RefersToD
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Argument `ASTHelpers.outermostClass(method)` might be null
-in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/RefersToDaggerCodegen.java`
-#### Snippet
-```java
-      return false;
-    }
-    return isGeneratedBaseType(ASTHelpers.outermostClass(method), state, "dagger.MembersInjector");
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `getQualifiedName` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/RefersToDaggerCodegen.java`
 #### Snippet
@@ -11293,6 +11281,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/RefersToD
   private static boolean isDaggerInternalClass(ClassSymbol symbol) {
     return DAGGER_INTERNAL_PACKAGES.contains(
         enclosingPackage(symbol).getQualifiedName().toString());
+  }
+
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `ASTHelpers.outermostClass(method)` might be null
+in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/RefersToDaggerCodegen.java`
+#### Snippet
+```java
+      return false;
+    }
+    return isGeneratedBaseType(ASTHelpers.outermostClass(method), state, "dagger.MembersInjector");
   }
 
 ```
@@ -11326,11 +11326,11 @@ Argument `state.getSourceForNode(annotation)` might be null
 in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/EmptySetMultibindingContributions.java`
 #### Snippet
 ```java
-          || annotationQualifiedName.contentEquals("dagger.producers.Produces")
-          || annotationQualifiedName.contentEquals("dagger.multibindings.ElementsIntoSet"))) {
-        modifierStringsBuilder.add(state.getSourceForNode(annotation));
-      }
+
+    for (JCAnnotation annotation : enclosingClassModifiers.annotations) {
+      classModifierStringsBuilder.add(state.getSourceForNode(annotation));
     }
+
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -11350,35 +11350,11 @@ Argument `state.getSourceForNode(annotation)` might be null
 in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/EmptySetMultibindingContributions.java`
 #### Snippet
 ```java
-
-    for (JCAnnotation annotation : enclosingClassModifiers.annotations) {
-      classModifierStringsBuilder.add(state.getSourceForNode(annotation));
+          || annotationQualifiedName.contentEquals("dagger.producers.Produces")
+          || annotationQualifiedName.contentEquals("dagger.multibindings.ElementsIntoSet"))) {
+        modifierStringsBuilder.add(state.getSourceForNode(annotation));
+      }
     }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `state.getSourceForNode(annotation)` might be null
-in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/Util.java`
-#### Snippet
-```java
-    ImmutableList.Builder<Object> modifiers = ImmutableList.builder();
-    for (AnnotationTree annotation : classTree.getModifiers().getAnnotations()) {
-      modifiers.add(state.getSourceForNode(annotation));
-    }
-    modifiers.addAll(flags);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `toString` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/android/BundleDeserializationCast.java`
-#### Snippet
-```java
-
-  private Description getDescriptionForType(TypeCastTree tree, String baseType) {
-    String targetType = getType(tree.getType()).toString();
-    return buildDescription(tree)
-        .setMessage(
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -11394,6 +11370,30 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/android/BundleDeseriali
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
+Method invocation `toString` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/android/BundleDeserializationCast.java`
+#### Snippet
+```java
+
+  private Description getDescriptionForType(TypeCastTree tree, String baseType) {
+    String targetType = getType(tree.getType()).toString();
+    return buildDescription(tree)
+        .setMessage(
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `state.getSourceForNode(annotation)` might be null
+in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/Util.java`
+#### Snippet
+```java
+    ImmutableList.Builder<Object> modifiers = ImmutableList.builder();
+    for (AnnotationTree annotation : classTree.getModifiers().getAnnotations()) {
+      modifiers.add(state.getSourceForNode(annotation));
+    }
+    modifiers.addAll(flags);
+```
+
+### RuleId[ruleID=DataFlowIssue]
 Method invocation `accept` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/android/IsLoggableTagLength.java`
 #### Snippet
@@ -11403,6 +11403,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/android/IsLoggableTagLe
         .accept(
             new TreeScanner<VariableTree, Void>() {
               @Nullable
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Dereference of `isValidFragmentMethodSymbol` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/android/FragmentInjection.java`
+#### Snippet
+```java
+              ImmutableList.of(state.getSymtab().stringType),
+              ImmutableList.<Type>of());
+      methodNotImplemented = isValidFragmentMethodSymbol.owner.equals(preferenceActivityTypeSymbol);
+    } catch (FatalError e) {
+      // If isValidFragment method symbol is not found, then we must be compiling against an old SDK
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -11430,18 +11442,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/android/WakelockRelease
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Dereference of `isValidFragmentMethodSymbol` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/android/FragmentInjection.java`
-#### Snippet
-```java
-              ImmutableList.of(state.getSymtab().stringType),
-              ImmutableList.<Type>of());
-      methodNotImplemented = isValidFragmentMethodSymbol.owner.equals(preferenceActivityTypeSymbol);
-    } catch (FatalError e) {
-      // If isValidFragment method symbol is not found, then we must be compiling against an old SDK
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Argument `source` might be null
 in `core/src/main/java/com/google/errorprone/bugpatterns/flogger/FloggerMessageFormat.java`
 #### Snippet
@@ -11451,18 +11451,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/flogger/FloggerMessageF
     String fixed = MESSAGE_FORMAT_SPECIFIER.matcher(source).replaceAll("%s");
     if (!source.equals(fixed)) {
       description.addFix(SuggestedFix.replace(formatArg, fixed));
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getLeaf` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/flogger/FloggerRequiredModifiers.java`
-#### Snippet
-```java
-    TreePath owner =
-        state.findPathToEnclosing(ClassTree.class, MethodTree.class, VariableTree.class);
-    Tree parent = owner.getLeaf();
-    Tree grandparent = owner.getParentPath().getLeaf();
-    boolean isLoggerField =
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -11478,15 +11466,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/AlmostJavadoc.j
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `subSequence` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
+Method invocation `getLeaf` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/flogger/FloggerRequiredModifiers.java`
 #### Snippet
 ```java
-          if (startPos != null) {
-            int endPos = getStartPosition(endTree, state);
-            String source = state.getSourceCode().subSequence(startPos, endPos).toString();
-            if (SHOULD_NOT_WRAP.matcher(source).find()) {
-              dontEmitCodeFix.add(Range.closed(startPos, endPos));
+    TreePath owner =
+        state.findPathToEnclosing(ClassTree.class, MethodTree.class, VariableTree.class);
+    Tree parent = owner.getLeaf();
+    Tree grandparent = owner.getParentPath().getLeaf();
+    boolean isLoggerField =
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -11499,6 +11487,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/InvalidInlineTa
         CharSequence text = state.getSourceCode().subSequence(startPos, endPos);
         Matcher matcher = PARAM_MATCHER.matcher(text);
         if (matcher.find()) {
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `subSequence` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
+#### Snippet
+```java
+          if (startPos != null) {
+            int endPos = getStartPosition(endTree, state);
+            String source = state.getSourceCode().subSequence(startPos, endPos).toString();
+            if (SHOULD_NOT_WRAP.matcher(source).find()) {
+              dontEmitCodeFix.add(Range.closed(startPos, endPos));
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -11562,6 +11562,114 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullnessUtils.
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
+Method invocation `getTypeArguments` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
+#### Snippet
+```java
+          analysis,
+          getSymbol(implementTree).getTypeParameters(),
+          ASTHelpers.getType(implementTree).getTypeArguments());
+    }
+
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getTypeArguments` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
+#### Snippet
+```java
+          analysis,
+          getSymbol(extendsClause).getTypeParameters(),
+          ASTHelpers.getType(extendsClause).getTypeArguments());
+    }
+  }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getTypeArguments` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
+#### Snippet
+```java
+        state,
+        getSymbol(tree).getTypeParameters(),
+        ASTHelpers.getType(tree).getTypeArguments());
+    return NO_MATCH;
+  }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `type` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
+#### Snippet
+```java
+    checkInvocation(tree, getSymbol(tree), ((JCMemberReference) tree).referentType, state);
+    ImmutableAnalysis analysis = createImmutableAnalysis(state);
+    TypeSymbol memberReferenceType = targetType(state).type().tsym;
+    Violation info =
+        analysis.checkInstantiation(
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getTypeArguments` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
+#### Snippet
+```java
+    Violation info =
+        analysis.checkInstantiation(
+            memberReferenceType.getTypeParameters(), getType(tree).getTypeArguments());
+
+    if (info.isPresent()) {
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `ASTHelpers.getType(tree)` might be null
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
+#### Snippet
+```java
+            Optional.of(tree),
+            typarams,
+            ASTHelpers.getType(tree),
+            (t, i) -> describeAnonymous(t, superType, i));
+    if (!info.isPresent()) {
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getTypeArguments` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
+#### Snippet
+```java
+        state,
+        getSymbol(tree.getIdentifier()).getTypeParameters(),
+        ASTHelpers.getType(tree).getTypeArguments());
+
+    ClassTree classBody = tree.getClassBody();
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Dereference of `getType(tree)` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
+#### Snippet
+```java
+  @Override
+  public Description matchLambdaExpression(LambdaExpressionTree tree, VisitorState state) {
+    TypeSymbol lambdaType = getType(tree).tsym;
+    ImmutableAnalysis analysis = createImmutableAnalysis(state);
+    Violation info =
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getTypeArguments` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
+#### Snippet
+```java
+    Violation info =
+        analysis.checkInstantiation(
+            lambdaType.getTypeParameters(), getType(tree).getTypeArguments());
+
+    if (info.isPresent()) {
+```
+
+### RuleId[ruleID=DataFlowIssue]
 Argument `ASTHelpers.enclosingClass(sym)` might be null
 in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefects/Parameter.java`
 #### Snippet
@@ -11610,138 +11718,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatiblet
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Dereference of `getType(tree)` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
-#### Snippet
-```java
-  @Override
-  public Description matchLambdaExpression(LambdaExpressionTree tree, VisitorState state) {
-    TypeSymbol lambdaType = getType(tree).tsym;
-    ImmutableAnalysis analysis = createImmutableAnalysis(state);
-    Violation info =
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getTypeArguments` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
-#### Snippet
-```java
-    Violation info =
-        analysis.checkInstantiation(
-            lambdaType.getTypeParameters(), getType(tree).getTypeArguments());
-
-    if (info.isPresent()) {
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `ASTHelpers.getType(tree)` might be null
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
-#### Snippet
-```java
-            Optional.of(tree),
-            typarams,
-            ASTHelpers.getType(tree),
-            (t, i) -> describeAnonymous(t, superType, i));
-    if (!info.isPresent()) {
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getTypeArguments` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
-#### Snippet
-```java
-          analysis,
-          getSymbol(implementTree).getTypeParameters(),
-          ASTHelpers.getType(implementTree).getTypeArguments());
-    }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getTypeArguments` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
-#### Snippet
-```java
-          analysis,
-          getSymbol(extendsClause).getTypeParameters(),
-          ASTHelpers.getType(extendsClause).getTypeArguments());
-    }
-  }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getTypeArguments` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
-#### Snippet
-```java
-        state,
-        getSymbol(tree).getTypeParameters(),
-        ASTHelpers.getType(tree).getTypeArguments());
-    return NO_MATCH;
-  }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getTypeArguments` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
-#### Snippet
-```java
-        state,
-        getSymbol(tree.getIdentifier()).getTypeParameters(),
-        ASTHelpers.getType(tree).getTypeArguments());
-
-    ClassTree classBody = tree.getClassBody();
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `type` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
-#### Snippet
-```java
-    checkInvocation(tree, getSymbol(tree), ((JCMemberReference) tree).referentType, state);
-    ImmutableAnalysis analysis = createImmutableAnalysis(state);
-    TypeSymbol memberReferenceType = targetType(state).type().tsym;
-    Violation info =
-        analysis.checkInstantiation(
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getTypeArguments` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
-#### Snippet
-```java
-    Violation info =
-        analysis.checkInstantiation(
-            memberReferenceType.getTypeParameters(), getType(tree).getTypeArguments());
-
-    if (info.isPresent()) {
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `receiver` might be null
-in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatibletype/TruthIncompatibleType.java`
-#### Snippet
-```java
-    Type targetType =
-        getIterableTypeArg(
-            getOnlyElement(getSymbol((MethodInvocationTree) receiver).getParameters()).type,
-            ignoringCasts(getOnlyElement(((MethodInvocationTree) receiver).getArguments())),
-            state);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `receiver` might be null
-in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatibletype/TruthIncompatibleType.java`
-#### Snippet
-```java
-    Type targetType =
-        getIterableTypeArg(
-            getOnlyElement(getSymbol((MethodInvocationTree) receiver).getParameters()).type,
-            ignoringCasts(getOnlyElement(((MethodInvocationTree) receiver).getArguments())),
-            state);
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `getArguments` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatibletype/TruthIncompatibleType.java`
 #### Snippet
@@ -11778,27 +11754,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatiblet
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getArguments` may produce `NullPointerException`
+Argument `receiver` might be null
 in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatibletype/TruthIncompatibleType.java`
 #### Snippet
 ```java
-    }
-
-    ExpressionTree assertee = getOnlyElement(((MethodInvocationTree) receiver).getArguments());
-    TypeSymbol assertionType =
-        getOnlyElement(getSymbol((MethodInvocationTree) receiver).getParameters()).type.tsym;
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getArguments` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatibletype/TruthIncompatibleType.java`
-#### Snippet
-```java
-    }
-
-    ExpressionTree assertee = getOnlyElement(((MethodInvocationTree) receiver).getArguments());
-    TypeSymbol assertionType =
-        getOnlyElement(getSymbol((MethodInvocationTree) receiver).getParameters()).type.tsym;
+    Type targetType =
+        getIterableTypeArg(
+            getOnlyElement(getSymbol((MethodInvocationTree) receiver).getParameters()).type,
+            ignoringCasts(getOnlyElement(((MethodInvocationTree) receiver).getArguments())),
+            state);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -11814,15 +11778,27 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatiblet
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Dereference of `((ArrayType) getType(getOnlyElement(tree.getArguments())))` may produce `NullPointerException`
+Method invocation `getArguments` may produce `NullPointerException`
 in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatibletype/TruthIncompatibleType.java`
 #### Snippet
 ```java
-            ignoringCasts(getOnlyElement(((MethodInvocationTree) receiver).getArguments())),
-            state);
-    Type sourceType = ((ArrayType) getType(getOnlyElement(tree.getArguments()))).elemtype;
-    return checkCompatibility(getOnlyElement(tree.getArguments()), targetType, sourceType, state);
-  }
+    }
+
+    ExpressionTree assertee = getOnlyElement(((MethodInvocationTree) receiver).getArguments());
+    TypeSymbol assertionType =
+        getOnlyElement(getSymbol((MethodInvocationTree) receiver).getParameters()).type.tsym;
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getArguments` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatibletype/TruthIncompatibleType.java`
+#### Snippet
+```java
+    }
+
+    ExpressionTree assertee = getOnlyElement(((MethodInvocationTree) receiver).getArguments());
+    TypeSymbol assertionType =
+        getOnlyElement(getSymbol((MethodInvocationTree) receiver).getParameters()).type.tsym;
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -11847,6 +11823,30 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatiblet
                   ? checkCompatibility(arg, targetType, ((ArrayType) argumentType).elemtype, state)
                   : checkCompatibility(arg, targetType, argumentType, state);
             })
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `receiver` might be null
+in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatibletype/TruthIncompatibleType.java`
+#### Snippet
+```java
+    Type targetType =
+        getIterableTypeArg(
+            getOnlyElement(getSymbol((MethodInvocationTree) receiver).getParameters()).type,
+            ignoringCasts(getOnlyElement(((MethodInvocationTree) receiver).getArguments())),
+            state);
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Dereference of `((ArrayType) getType(getOnlyElement(tree.getArguments())))` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatibletype/TruthIncompatibleType.java`
+#### Snippet
+```java
+            ignoringCasts(getOnlyElement(((MethodInvocationTree) receiver).getArguments())),
+            state);
+    Type sourceType = ((ArrayType) getType(getOnlyElement(tree.getArguments()))).elemtype;
+    return checkCompatibility(getOnlyElement(tree.getArguments()), targetType, sourceType, state);
+  }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -11882,6 +11882,30 @@ in `check_api/src/main/java/com/google/errorprone/ErrorProneAnalyzer.java`
     return excludedPattern != null
         && excludedPattern.matcher(ASTHelpers.getFileName(tree)).matches();
   }
+
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `equals` may produce `NullPointerException`
+in `check_api/src/main/java/com/google/errorprone/util/Visibility.java`
+#### Snippet
+```java
+        }
+      }
+      return outermostClass == null || ASTHelpers.outermostClass(symbol).equals(outermostClass);
+    }
+
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Dereference of `enclosingClass(symbol)` may produce `NullPointerException`
+in `check_api/src/main/java/com/google/errorprone/util/Visibility.java`
+#### Snippet
+```java
+      ClassTree classTree = ASTHelpers.findEnclosingNode(state.getPath(), ClassTree.class);
+      return classTree != null
+          && hasEnclosingClassExtending(enclosingClass(symbol).type, state, classTree);
+    }
 
 ```
 
@@ -11926,30 +11950,6 @@ Method invocation `equals` may produce `NullPointerException`
 in `check_api/src/main/java/com/google/errorprone/util/Visibility.java`
 #### Snippet
 ```java
-        }
-      }
-      return outermostClass == null || ASTHelpers.outermostClass(symbol).equals(outermostClass);
-    }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Dereference of `enclosingClass(symbol)` may produce `NullPointerException`
-in `check_api/src/main/java/com/google/errorprone/util/Visibility.java`
-#### Snippet
-```java
-      ClassTree classTree = ASTHelpers.findEnclosingNode(state.getPath(), ClassTree.class);
-      return classTree != null
-          && hasEnclosingClassExtending(enclosingClass(symbol).type, state, classTree);
-    }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `equals` may produce `NullPointerException`
-in `check_api/src/main/java/com/google/errorprone/util/Visibility.java`
-#### Snippet
-```java
       PackageSymbol packge = compilationUnit.packge;
       // TODO(ghm): Should we handle the default (unnamed) package here?
       return enclosingPackage(symbol).equals(packge);
@@ -11970,18 +11970,6 @@ in `check_api/src/main/java/com/google/errorprone/util/Comments.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `subSequence` may produce `NullPointerException`
-in `check_api/src/main/java/com/google/errorprone/VisitorState.java`
-#### Snippet
-```java
-  public List<ErrorProneToken> getOffsetTokens(int start, int end) {
-    return ErrorProneTokens.getTokens(
-        getSourceCode().subSequence(start, end).toString(), start, context);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `length` may produce `NullPointerException`
 in `check_api/src/main/java/com/google/errorprone/VisitorState.java`
 #### Snippet
@@ -11991,6 +11979,18 @@ in `check_api/src/main/java/com/google/errorprone/VisitorState.java`
     checkArgument(end <= source.length(), "invalid end position (%s) for: %s", end, tree);
     return source.subSequence(start, end).toString();
   }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `subSequence` may produce `NullPointerException`
+in `check_api/src/main/java/com/google/errorprone/VisitorState.java`
+#### Snippet
+```java
+  public List<ErrorProneToken> getOffsetTokens(int start, int end) {
+    return ErrorProneTokens.getTokens(
+        getSourceCode().subSequence(start, end).toString(), start, context);
+  }
+
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -12006,75 +12006,27 @@ in `check_api/src/main/java/com/google/errorprone/dataflow/AccessPathStore.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `isPresent` may produce `NullPointerException`
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/InferredNullability.java`
+Method invocation `getExpression` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
 #### Snippet
 ```java
-      }
-
-      checkState(!inferredMemoTable.put(iv, result).isPresent());
-      return result;
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `hasTag` may produce `NullPointerException`
-in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
-#### Snippet
-```java
-      return null;
-    }
-    if (type.hasTag(TypeTag.BOOLEAN) && value instanceof Integer) {
-      return ((Integer) value) == 1;
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Dereference of `getType(resource)` may produce `NullPointerException`
-in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
-#### Snippet
-```java
-    public void scanResources(TryTree tree) {
-      for (Tree resource : tree.getResources()) {
-        Symbol symbol = getType(resource).tsym;
-
-        if (symbol instanceof ClassSymbol) {
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `getDeclaredSymbol(tree)` might be null
-in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
-#### Snippet
-```java
-   */
-  public static boolean hasDirectAnnotationWithSimpleName(Tree tree, String simpleName) {
-    return hasDirectAnnotationWithSimpleName(getDeclaredSymbol(tree), simpleName);
+            s ->
+                !MUTATING_UNARY_TAGS.contains(tag)
+                    || !(s.result().getExpression() instanceof PlaceholderParamIdent));
   }
 
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `matches` may produce `NullPointerException`
-in `check_api/src/main/java/com/google/errorprone/matchers/UnusedReturnValueMatcher.java`
+Method invocation `getVariable` may produce `NullPointerException`
+in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
 #### Snippet
 ```java
-  public Stream<AllowReason> getAllowReasons(ExpressionTree tree, VisitorState state) {
-    return validAllowReasons.stream()
-        .filter(reason -> ALLOW_MATCHERS.get(reason).matches(tree, state));
+            s -> unifyExpression(node.getExpression(), s),
+            maker()::Assign)
+        .condition(s -> !(s.result().getVariable() instanceof PlaceholderParamIdent));
   }
 
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Dereference of `tryGetMethodSymbol(node.getTree(), null)` may produce `NullPointerException`
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/AbstractNullnessPropagationTransfer.java`
-#### Snippet
-```java
-     * current code does. To avoid problems, we return a RegularTransferResult when possible.
-     */
-    if (tryGetMethodSymbol(node.getTree(), null).isBoolean) {
-      ResultingStore thenStore = updateStore(input.getThenStore(), thenUpdates, bothUpdates);
-      ResultingStore elseStore = updateStore(input.getElseStore(), elseUpdates, bothUpdates);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -12114,27 +12066,75 @@ in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisi
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getVariable` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+Method invocation `isPresent` may produce `NullPointerException`
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/InferredNullability.java`
 #### Snippet
 ```java
-            s -> unifyExpression(node.getExpression(), s),
-            maker()::Assign)
-        .condition(s -> !(s.result().getVariable() instanceof PlaceholderParamIdent));
+      }
+
+      checkState(!inferredMemoTable.put(iv, result).isPresent());
+      return result;
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `getDeclaredSymbol(tree)` might be null
+in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
+#### Snippet
+```java
+   */
+  public static boolean hasDirectAnnotationWithSimpleName(Tree tree, String simpleName) {
+    return hasDirectAnnotationWithSimpleName(getDeclaredSymbol(tree), simpleName);
   }
 
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getExpression` may produce `NullPointerException`
-in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
+Method invocation `hasTag` may produce `NullPointerException`
+in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
 #### Snippet
 ```java
-            s ->
-                !MUTATING_UNARY_TAGS.contains(tag)
-                    || !(s.result().getExpression() instanceof PlaceholderParamIdent));
+      return null;
+    }
+    if (type.hasTag(TypeTag.BOOLEAN) && value instanceof Integer) {
+      return ((Integer) value) == 1;
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Dereference of `getType(resource)` may produce `NullPointerException`
+in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
+#### Snippet
+```java
+    public void scanResources(TryTree tree) {
+      for (Tree resource : tree.getResources()) {
+        Symbol symbol = getType(resource).tsym;
+
+        if (symbol instanceof ClassSymbol) {
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `matches` may produce `NullPointerException`
+in `check_api/src/main/java/com/google/errorprone/matchers/UnusedReturnValueMatcher.java`
+#### Snippet
+```java
+  public Stream<AllowReason> getAllowReasons(ExpressionTree tree, VisitorState state) {
+    return validAllowReasons.stream()
+        .filter(reason -> ALLOW_MATCHERS.get(reason).matches(tree, state));
   }
 
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Dereference of `tryGetMethodSymbol(node.getTree(), null)` may produce `NullPointerException`
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/AbstractNullnessPropagationTransfer.java`
+#### Snippet
+```java
+     * current code does. To avoid problems, we return a RegularTransferResult when possible.
+     */
+    if (tryGetMethodSymbol(node.getTree(), null).isBoolean) {
+      ResultingStore thenStore = updateStore(input.getThenStore(), thenUpdates, bothUpdates);
+      ResultingStore elseStore = updateStore(input.getElseStore(), elseUpdates, bothUpdates);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -12174,18 +12174,6 @@ in `test_helpers/src/main/java/com/google/errorprone/CompilationTestHelper.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `value` may produce `NullPointerException`
-in `check_api/src/main/java/com/google/errorprone/fixes/SuggestedFixes.java`
-#### Snippet
-```java
-
-    SuppressWarnings annotation = getAnnotation(suppressibleNode, SuppressWarnings.class);
-    ImmutableSet<String> warningsSuppressed = ImmutableSet.copyOf(annotation.value());
-    ImmutableSet<String> newWarningSet =
-        warningsSuppressed.stream()
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `subSequence` may produce `NullPointerException`
 in `check_api/src/main/java/com/google/errorprone/fixes/SuggestedFixes.java`
 #### Snippet
@@ -12195,6 +12183,18 @@ in `check_api/src/main/java/com/google/errorprone/fixes/SuggestedFixes.java`
       CharSequence stringBetweenComments = sourceCode.subSequence(endOfCommentPos, startPos);
       if (stringBetweenComments.chars().filter(c -> c == '\n').count() > 1) {
         break;
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `value` may produce `NullPointerException`
+in `check_api/src/main/java/com/google/errorprone/fixes/SuggestedFixes.java`
+#### Snippet
+```java
+
+    SuppressWarnings annotation = getAnnotation(suppressibleNode, SuppressWarnings.class);
+    ImmutableSet<String> warningsSuppressed = ImmutableSet.copyOf(annotation.value());
+    ImmutableSet<String> newWarningSet =
+        warningsSuppressed.stream()
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -12381,27 +12381,15 @@ public @interface UnlockMethod {
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ConstructorMatcher' is still used
+Deprecated member 'StaticMethodMatcher' is still used
 in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers.java`
 #### Snippet
 ```java
    */
   @Deprecated
-  public interface ConstructorMatcher extends MethodMatcher {
+  public interface StaticMethodMatcher extends MethodMatcher {
     /** Match on types that satisfy the given predicate. */
-    ConstructorClassMatcher forClass(TypePredicate predicate);
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'MethodClassMatcher' is still used
-in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public interface MethodClassMatcher extends MethodMatcher {
-    /** Match methods with the given name. (e.g. {@code toString}) */
-    MethodNameMatcher named(String name);
+    MethodClassMatcher onClass(TypePredicate predicate);
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -12413,6 +12401,30 @@ in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers
   @Deprecated
   public interface InstanceMethodMatcher extends MethodMatcher {
     /** Match on types that satisfy the given predicate. */
+    MethodClassMatcher onClass(TypePredicate predicate);
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'MethodMatcher' is still used
+in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public interface MethodMatcher extends Matcher<ExpressionTree> {}
+
+  // Language definition for fluent method matchers.
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'AnyMethodMatcher' is still used
+in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public interface AnyMethodMatcher extends MethodMatcher {
+    /** Match the given type exactly. */
     MethodClassMatcher onClass(TypePredicate predicate);
 ```
 
@@ -12429,15 +12441,15 @@ in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ConstructorClassMatcher' is still used
+Deprecated member 'ConstructorMatcher' is still used
 in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers.java`
 #### Snippet
 ```java
    */
   @Deprecated
-  public interface ConstructorClassMatcher extends MethodMatcher {
-    /** Match constructors with no formal parameters. */
-    ParameterMatcher withNoParameters();
+  public interface ConstructorMatcher extends MethodMatcher {
+    /** Match on types that satisfy the given predicate. */
+    ConstructorClassMatcher forClass(TypePredicate predicate);
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -12453,15 +12465,27 @@ in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'MethodMatcher' is still used
+Deprecated member 'ConstructorClassMatcher' is still used
 in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers.java`
 #### Snippet
 ```java
    */
   @Deprecated
-  public interface MethodMatcher extends Matcher<ExpressionTree> {}
+  public interface ConstructorClassMatcher extends MethodMatcher {
+    /** Match constructors with no formal parameters. */
+    ParameterMatcher withNoParameters();
+```
 
-  // Language definition for fluent method matchers.
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'MethodClassMatcher' is still used
+in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public interface MethodClassMatcher extends MethodMatcher {
+    /** Match methods with the given name. (e.g. {@code toString}) */
+    MethodNameMatcher named(String name);
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -12474,30 +12498,6 @@ in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers
   public interface MethodSignatureMatcher extends MethodMatcher {}
 
   /**
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'AnyMethodMatcher' is still used
-in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public interface AnyMethodMatcher extends MethodMatcher {
-    /** Match the given type exactly. */
-    MethodClassMatcher onClass(TypePredicate predicate);
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'StaticMethodMatcher' is still used
-in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodMatchers.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public interface StaticMethodMatcher extends MethodMatcher {
-    /** Match on types that satisfy the given predicate. */
-    MethodClassMatcher onClass(TypePredicate predicate);
 ```
 
 ## RuleId[ruleID=OptionalContainsCollection]
@@ -12562,18 +12562,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/time/NearbyCallers.java
 ```
 
 ### RuleId[ruleID=OptionalContainsCollection]
-'Optional' contains collection `Set`
-in `check_api/src/main/java/com/google/errorprone/ErrorProneFlags.java`
-#### Snippet
-```java
-   * <p>(note: empty strings included, e.g. {@code "-XepOpt:Set=,1,,1,2," => ["","1","2"]})
-   */
-  public Optional<Set<String>> getSet(String key) {
-    return this.get(key).map(v -> ImmutableSet.copyOf(Splitter.on(',').split(v)));
-  }
-```
-
-### RuleId[ruleID=OptionalContainsCollection]
 'Optional' contains collection `List`
 in `check_api/src/main/java/com/google/errorprone/ErrorProneFlags.java`
 #### Snippet
@@ -12582,6 +12570,18 @@ in `check_api/src/main/java/com/google/errorprone/ErrorProneFlags.java`
    */
   public Optional<List<String>> getList(String key) {
     return this.get(key).map(v -> ImmutableList.copyOf(Splitter.on(',').split(v)));
+  }
+```
+
+### RuleId[ruleID=OptionalContainsCollection]
+'Optional' contains collection `Set`
+in `check_api/src/main/java/com/google/errorprone/ErrorProneFlags.java`
+#### Snippet
+```java
+   * <p>(note: empty strings included, e.g. {@code "-XepOpt:Set=,1,,1,2," => ["","1","2"]})
+   */
+  public Optional<Set<String>> getSet(String key) {
+    return this.get(key).map(v -> ImmutableSet.copyOf(Splitter.on(',').split(v)));
   }
 ```
 
@@ -12672,18 +12672,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/CheckedExceptionNotThro
 
 ### RuleId[ruleID=Convert2MethodRef]
 Lambda can be replaced with method reference
-in `core/src/main/java/com/google/errorprone/bugpatterns/MethodCanBeStatic.java`
-#### Snippet
-```java
-          Set<MethodTree> affectedTrees, SuggestedFix fix, VisitorState state, BugChecker checker) {
-        return affectedTrees.stream()
-            .min(Comparator.comparingInt(t -> getStartPosition(t)))
-            .map(t -> checker.describeMatch(t.getModifiers(), fix))
-            .orElse(NO_MATCH);
-```
-
-### RuleId[ruleID=Convert2MethodRef]
-Lambda can be replaced with method reference
 in `core/src/main/java/com/google/errorprone/bugpatterns/MultipleParallelOrSequentialCalls.java`
 #### Snippet
 ```java
@@ -12692,6 +12680,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/MultipleParallelOrSeque
             .map(m -> state.getSourceForNode(m))
             .anyMatch(m -> m.contains(state.getSourceForNode(t)))) {
           break;
+```
+
+### RuleId[ruleID=Convert2MethodRef]
+Lambda can be replaced with method reference
+in `core/src/main/java/com/google/errorprone/bugpatterns/MethodCanBeStatic.java`
+#### Snippet
+```java
+          Set<MethodTree> affectedTrees, SuggestedFix fix, VisitorState state, BugChecker checker) {
+        return affectedTrees.stream()
+            .min(Comparator.comparingInt(t -> getStartPosition(t)))
+            .map(t -> checker.describeMatch(t.getModifiers(), fix))
+            .orElse(NO_MATCH);
 ```
 
 ### RuleId[ruleID=Convert2MethodRef]
@@ -12756,6 +12756,30 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/AnnotationPosition.java
 
 ### RuleId[ruleID=Convert2MethodRef]
 Lambda can be replaced with method reference
+in `core/src/main/java/com/google/errorprone/bugpatterns/CanonicalDuration.java`
+#### Snippet
+```java
+      FACTORIES.rowMap().values().stream()
+          .flatMap(x -> x.entrySet().stream())
+          .collect(toImmutableMap(x -> x.getValue(), x -> x.getKey()));
+
+  private static final ImmutableMap<ChronoUnit, Converter<Duration, Long>> CONVERTERS =
+```
+
+### RuleId[ruleID=Convert2MethodRef]
+Lambda can be replaced with method reference
+in `core/src/main/java/com/google/errorprone/bugpatterns/CanonicalDuration.java`
+#### Snippet
+```java
+      FACTORIES.rowMap().values().stream()
+          .flatMap(x -> x.entrySet().stream())
+          .collect(toImmutableMap(x -> x.getValue(), x -> x.getKey()));
+
+  private static final ImmutableMap<ChronoUnit, Converter<Duration, Long>> CONVERTERS =
+```
+
+### RuleId[ruleID=Convert2MethodRef]
+Lambda can be replaced with method reference
 in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractReturnValueIgnored.java`
 #### Snippet
 ```java
@@ -12764,30 +12788,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/AbstractReturnValueIgno
                   (t, s) -> isObjectReturningMethodReferenceExpression(t, s),
                   not((t, s) -> isExemptedInterfaceType(getType(t), s)),
                   not((t, s) -> isThrowingFunctionalInterface(getType(t), s)),
-```
-
-### RuleId[ruleID=Convert2MethodRef]
-Lambda can be replaced with method reference
-in `core/src/main/java/com/google/errorprone/bugpatterns/CanonicalDuration.java`
-#### Snippet
-```java
-      FACTORIES.rowMap().values().stream()
-          .flatMap(x -> x.entrySet().stream())
-          .collect(toImmutableMap(x -> x.getValue(), x -> x.getKey()));
-
-  private static final ImmutableMap<ChronoUnit, Converter<Duration, Long>> CONVERTERS =
-```
-
-### RuleId[ruleID=Convert2MethodRef]
-Lambda can be replaced with method reference
-in `core/src/main/java/com/google/errorprone/bugpatterns/CanonicalDuration.java`
-#### Snippet
-```java
-      FACTORIES.rowMap().values().stream()
-          .flatMap(x -> x.entrySet().stream())
-          .collect(toImmutableMap(x -> x.getValue(), x -> x.getKey()));
-
-  private static final ImmutableMap<ChronoUnit, Converter<Duration, Long>> CONVERTERS =
 ```
 
 ### RuleId[ruleID=Convert2MethodRef]
@@ -12820,8 +12820,8 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/time/InvalidJavaTimeCon
 #### Snippet
 ```java
 
-      private static ImmutableList<String> getParameterTypes(Param... params) {
-        return stream(params).map(p -> p.type()).collect(toImmutableList());
+      private static ImmutableList<ChronoField> getParameterUnits(Param... params) {
+        return stream(params).map(p -> p.unit()).collect(toImmutableList());
       }
 
 ```
@@ -12832,8 +12832,8 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/time/InvalidJavaTimeCon
 #### Snippet
 ```java
 
-      private static ImmutableList<ChronoField> getParameterUnits(Param... params) {
-        return stream(params).map(p -> p.unit()).collect(toImmutableList());
+      private static ImmutableList<String> getParameterTypes(Param... params) {
+        return stream(params).map(p -> p.type()).collect(toImmutableList());
       }
 
 ```
@@ -12855,11 +12855,11 @@ Lambda can be replaced with method reference
 in `core/src/main/java/com/google/errorprone/bugpatterns/formatstring/FormatStringValidation.java`
 #### Snippet
 ```java
-      }
-    }.visit(tree, null);
-    return flat.stream().map(t -> ASTHelpers.constValue(t, String.class)).filter(x -> x != null);
-  }
-
+    return formatStrings
+        .map(formatString -> validate(formatString, instances))
+        .filter(x -> x != null)
+        .findFirst()
+        .orElse(null);
 ```
 
 ### RuleId[ruleID=Convert2MethodRef]
@@ -12867,11 +12867,11 @@ Lambda can be replaced with method reference
 in `core/src/main/java/com/google/errorprone/bugpatterns/formatstring/FormatStringValidation.java`
 #### Snippet
 ```java
-    return formatStrings
-        .map(formatString -> validate(formatString, instances))
-        .filter(x -> x != null)
-        .findFirst()
-        .orElse(null);
+      }
+    }.visit(tree, null);
+    return flat.stream().map(t -> ASTHelpers.constValue(t, String.class)).filter(x -> x != null);
+  }
+
 ```
 
 ### RuleId[ruleID=Convert2MethodRef]
@@ -12891,11 +12891,11 @@ Lambda can be replaced with method reference
 in `check_api/src/main/java/com/google/errorprone/ErrorProneTimings.java`
 #### Snippet
 ```java
-    String key = suppressible.canonicalName();
-    Stopwatch sw = timers.computeIfAbsent(key, k -> Stopwatch.createUnstarted()).start();
-    return () -> sw.stop();
+  public ImmutableMap<String, Duration> timings() {
+    return timers.entrySet().stream()
+        .collect(toImmutableMap(e -> e.getKey(), e -> e.getValue().elapsed()));
   }
-
+}
 ```
 
 ### RuleId[ruleID=Convert2MethodRef]
@@ -12903,11 +12903,11 @@ Lambda can be replaced with method reference
 in `check_api/src/main/java/com/google/errorprone/ErrorProneTimings.java`
 #### Snippet
 ```java
-  public ImmutableMap<String, Duration> timings() {
-    return timers.entrySet().stream()
-        .collect(toImmutableMap(e -> e.getKey(), e -> e.getValue().elapsed()));
+    String key = suppressible.canonicalName();
+    Stopwatch sw = timers.computeIfAbsent(key, k -> Stopwatch.createUnstarted()).start();
+    return () -> sw.stop();
   }
-}
+
 ```
 
 ### RuleId[ruleID=Convert2MethodRef]
@@ -12936,6 +12936,18 @@ in `check_api/src/main/java/com/google/errorprone/util/MoreAnnotations.java`
 
 ### RuleId[ruleID=Convert2MethodRef]
 Lambda can be replaced with method reference
+in `check_api/src/main/java/com/google/errorprone/scanner/ScannerSupplier.java`
+#### Snippet
+```java
+    if (errorProneOptions.isDisableAllChecks()) {
+      getAllChecks().values().stream()
+          .filter(c -> c.disableable())
+          .forEach(c -> disabled.add(c.canonicalName()));
+    }
+```
+
+### RuleId[ruleID=Convert2MethodRef]
+Lambda can be replaced with method reference
 in `check_api/src/main/java/com/google/errorprone/names/TermEditDistance.java`
 #### Snippet
 ```java
@@ -12956,18 +12968,6 @@ in `check_api/src/main/java/com/google/errorprone/names/TermEditDistance.java`
                         .map(t -> t.length())
                         .mapToDouble(t -> maxDistanceFn.apply(s, t))
                         .toArray())
-```
-
-### RuleId[ruleID=Convert2MethodRef]
-Lambda can be replaced with method reference
-in `check_api/src/main/java/com/google/errorprone/scanner/ScannerSupplier.java`
-#### Snippet
-```java
-    if (errorProneOptions.isDisableAllChecks()) {
-      getAllChecks().values().stream()
-          .filter(c -> c.disableable())
-          .forEach(c -> disabled.add(c.canonicalName()));
-    }
 ```
 
 ### RuleId[ruleID=Convert2MethodRef]
@@ -13081,18 +13081,6 @@ in `check_api/src/main/java/com/google/errorprone/util/FindIdentifiers.java`
 ```
 
 ### RuleId[ruleID=JavaReflectionMemberAccess]
-Cannot resolve method 'isDirectlyOrIndirectlyLocal'
-in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
-#### Snippet
-```java
-    }
-    try {
-      return Symbol.class.getMethod("isDirectlyOrIndirectlyLocal");
-    } catch (NoSuchMethodException e) {
-      throw new LinkageError(e.getMessage(), e);
-```
-
-### RuleId[ruleID=JavaReflectionMemberAccess]
 Cannot resolve method 'getCaseKind'
 in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisitor.java`
 #### Snippet
@@ -13114,6 +13102,18 @@ in `core/src/main/java/com/google/errorprone/refaster/PlaceholderUnificationVisi
                     "Case",
                     Class.forName("com.sun.source.tree.CaseTree.CaseKind"),
                     List.class,
+```
+
+### RuleId[ruleID=JavaReflectionMemberAccess]
+Cannot resolve method 'isDirectlyOrIndirectlyLocal'
+in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
+#### Snippet
+```java
+    }
+    try {
+      return Symbol.class.getMethod("isDirectlyOrIndirectlyLocal");
+    } catch (NoSuchMethodException e) {
+      throw new LinkageError(e.getMessage(), e);
 ```
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -13375,11 +13375,11 @@ Method is specified to return 'true' but its return type is not boolean
 in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
 #### Snippet
 ```java
-  /**
-   * Matches a binary tree if the given matchers match the operands in either order. That is,
-   * returns true if either: matcher1 matches the left operand and matcher2 matches the right
-   * operand or matcher2 matches the left operand and matcher1 matches the right operand
-   */
+   * Matches an AST node that represents a method declaration, based on the list of
+   * variableMatchers. Applies the variableMatcher at index n to the parameter at index n and
+   * returns true iff they all match. Returns false if the number of variableMatchers provided does
+   * not match the number of parameters.
+   *
 ```
 
 ### RuleId[ruleID=MismatchedJavadocCode]
@@ -13387,11 +13387,11 @@ Method is specified to return 'true' but its return type is not boolean
 in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
 #### Snippet
 ```java
-   * Matches an AST node that represents a method declaration, based on the list of
-   * variableMatchers. Applies the variableMatcher at index n to the parameter at index n and
-   * returns true iff they all match. Returns false if the number of variableMatchers provided does
-   * not match the number of parameters.
-   *
+  /**
+   * Matches a binary tree if the given matchers match the operands in either order. That is,
+   * returns true if either: matcher1 matches the left operand and matcher2 matches the right
+   * operand or matcher2 matches the left operand and matcher1 matches the right operand
+   */
 ```
 
 ## RuleId[ruleID=AssignmentToForLoopParameter]
@@ -13688,30 +13688,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/flogger/FloggerRequired
 in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Rules.java`
 #### Snippet
 ```java
-   */
-  public static ResultUseRule globalDefault(
-      Optional<ResultUsePolicy> methodDefault, Optional<ResultUsePolicy> constructorDefault) {
-    return new SimpleGlobalRule("GLOBAL_DEFAULT", methodDefault, constructorDefault);
-  }
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'constructorDefault'
-in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Rules.java`
-#### Snippet
-```java
-   */
-  public static ResultUseRule globalDefault(
-      Optional<ResultUsePolicy> methodDefault, Optional<ResultUsePolicy> constructorDefault) {
-    return new SimpleGlobalRule("GLOBAL_DEFAULT", methodDefault, constructorDefault);
-  }
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'methodDefault'
-in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Rules.java`
-#### Snippet
-```java
     private SimpleGlobalRule(
         String id,
         Optional<ResultUsePolicy> methodDefault,
@@ -13756,6 +13732,30 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Rules.
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for parameter 'methodDefault'
+in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Rules.java`
+#### Snippet
+```java
+   */
+  public static ResultUseRule globalDefault(
+      Optional<ResultUsePolicy> methodDefault, Optional<ResultUsePolicy> constructorDefault) {
+    return new SimpleGlobalRule("GLOBAL_DEFAULT", methodDefault, constructorDefault);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for parameter 'constructorDefault'
+in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Rules.java`
+#### Snippet
+```java
+   */
+  public static ResultUseRule globalDefault(
+      Optional<ResultUsePolicy> methodDefault, Optional<ResultUsePolicy> constructorDefault) {
+    return new SimpleGlobalRule("GLOBAL_DEFAULT", methodDefault, constructorDefault);
+  }
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for parameter 'receiver'
 in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ConstantExpressions.java`
 #### Snippet
@@ -13765,18 +13765,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ConstantEx
         Optional<ConstantExpression> receiver) {
       return new AutoValue_ConstantExpressions_PureMethodInvocation(
           symbol, ImmutableList.copyOf(arguments), receiver);
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'tree'
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableAnalysis.java`
-#### Snippet
-```java
-  /** Check a single field for immutability. */
-  Violation isFieldImmutable(
-      Optional<Tree> tree,
-      ImmutableSet<String> immutableTyParams,
-      ClassSymbol classSym,
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
@@ -13813,6 +13801,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableA
     default Description report(Tree tree, Violation info, Optional<SuggestedFix> suggestedFix) {
       Description.Builder description = describe(tree, info);
       suggestedFix.ifPresent(description::addFix);
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for parameter 'tree'
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableAnalysis.java`
+#### Snippet
+```java
+  /** Check a single field for immutability. */
+  Violation isFieldImmutable(
+      Optional<Tree> tree,
+      ImmutableSet<String> immutableTyParams,
+      ClassSymbol classSym,
 ```
 
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
@@ -14203,18 +14203,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullnessUtils.
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefects/InvocationInfo.java`
-#### Snippet
-```java
-    just abort */
-    if (!formalParameters.isEmpty()
-        && formalParameters.get(0).getSimpleName().toString().matches("this\\$[0-9]+")) {
-      return ImmutableList.of();
-    }
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefects/NamedParameterComment.java`
 #### Snippet
@@ -14224,6 +14212,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefect
             Arrays.asList(commentText.split("[^a-zA-Z0-9_]+", -1)).contains(formal);
         boolean tooLong = commentText.length() > formal.length() + 5 && commentText.length() > 50;
         boolean tooMuchMarkup = CharMatcher.anyOf("-*!@<>").countIn(commentText) > 5;
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefects/InvocationInfo.java`
+#### Snippet
+```java
+    just abort */
+    if (!formalParameters.isEmpty()
+        && formalParameters.get(0).getSimpleName().toString().matches("this\\$[0-9]+")) {
+      return ImmutableList.of();
+    }
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -14976,6 +14976,18 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `core/src/main/java/com/google/errorprone/bugpatterns/ReturnValueIgnored.java`
 #### Snippet
 ```java
+
+  /**
+   * The return values of primitive types (e.g., {@link java.lang.Integer}) should always be checked
+   * (except for parsing-type methods and void-returning methods, which won't be checked by
+   * AbstractReturnValueIgnored).
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `core/src/main/java/com/google/errorprone/bugpatterns/ReturnValueIgnored.java`
+#### Snippet
+```java
           instanceMethod().onDescendantOf("java.util.Map.Entry").namedAnyOf("getKey", "getValue"));
 
   /** APIs to check on the {@link java.lang.Iterable} interface. */
@@ -14993,18 +15005,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ReturnValueIgnored.java
    * java.lang.Integer#decode(String)}).
    */
   // TODO(kak): Instead of special casing the parsing style methods, we could consider looking for a
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `core/src/main/java/com/google/errorprone/bugpatterns/ReturnValueIgnored.java`
-#### Snippet
-```java
-
-  /**
-   * The return values of primitive types (e.g., {@link java.lang.Integer}) should always be checked
-   * (except for parsing-type methods and void-returning methods, which won't be checked by
-   * AbstractReturnValueIgnored).
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -15140,6 +15140,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullnessUtils.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.sun.tools.javac.code` is unnecessary and can be removed
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByBinder.java`
+#### Snippet
+```java
+  /**
+   * A context containing the information necessary to resolve a {@link
+   * com.sun.tools.javac.code.Symbol} from an AST node.
+   *
+   * <p>Guard expressions can be bound from the string value of an {@code @GuardedBy} annotation, or
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/DoubleCheckedLocking.java`
 #### Snippet
@@ -15224,18 +15236,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/DoubleChec
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.sun.tools.javac.code` is unnecessary and can be removed
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByBinder.java`
-#### Snippet
-```java
-  /**
-   * A context containing the information necessary to resolve a {@link
-   * com.sun.tools.javac.code.Symbol} from an AST node.
-   *
-   * <p>Guard expressions can be bound from the string value of an {@code @GuardedBy} annotation, or
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `com.sun.tools.javac.util` is unnecessary, and can be replaced with an import
 in `core/src/main/java/com/google/errorprone/bugpatterns/collectionincompatibletype/AbstractCollectionIncompatibleTypeMatcher.java`
 #### Snippet
@@ -15305,6 +15305,342 @@ in `check_api/src/main/java/com/google/errorprone/dataflow/DataFlow.java`
  * Provides a wrapper around {@link org.checkerframework.errorprone.dataflow.analysis.Analysis}.
  *
  * @author konne@google.com (Konstantin Weitz)
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.function` is unnecessary and can be removed
+in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
+#### Snippet
+```java
+   * @return The (possibly empty) set of methods in any superclass that match {@code predicate} and
+   *     have the given {@code name}. The set's iteration order will be the same as the order
+   *     documented in {@link #matchingMethods(Name, java.util.function.Predicate, Type, Types)}.
+   */
+  public static ImmutableSet<MethodSymbol> findMatchingMethods(
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.errorprone.suppliers` is unnecessary, and can be replaced with an import
+in `check_api/src/main/java/com/google/errorprone/scanner/ErrorProneScanner.java`
+#### Snippet
+```java
+public class ErrorProneScanner extends Scanner {
+
+  private final com.google.errorprone.suppliers.Supplier<? extends Set<? extends Name>>
+      customSuppressionAnnotations;
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.sun.tools.javac.util` is unnecessary, and can be replaced with an import
+in `check_api/src/main/java/com/google/errorprone/matchers/JUnitMatchers.java`
+#### Snippet
+```java
+        }
+        // Expect one type argument, the type of the JUnit class runner to use.
+        com.sun.tools.javac.util.List<Type> typeArgs = type.getTypeArguments();
+        if (typeArgs.size() != 1) {
+          return false;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.errorprone.matchers.method` is unnecessary and can be removed
+in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocationMatcher.java`
+#### Snippet
+```java
+   * satisfying at least one of the given Rule specifications. For an easy way to create such Rules,
+   * see the factories in {@link com.google.errorprone.matchers.Matchers} returning subtypes of
+   * {@link com.google.errorprone.matchers.method.MethodMatchers.MethodMatcher}.
+   */
+  public static Matcher<ExpressionTree> compile(Iterable<Rule> rules) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.errorprone.matchers.method` is unnecessary and can be removed
+in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocationMatcher.java`
+#### Snippet
+```java
+/**
+ * The machinery and type definitions necessary to model and compile a single efficient matcher out
+ * of a list of {@link com.google.errorprone.matchers.method.MethodMatchers.MethodMatcher}s.
+ */
+public class MethodInvocationMatcher {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add("com.google.common.util.concurrent.AtomicDouble")
+        .add("com.google.protobuf.util.FieldMaskUtil.MergeOptions")
+        .add(java.util.BitSet.class.getName())
+        .add(java.util.Calendar.class.getName())
+        .add(java.lang.Iterable.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add("com.google.protobuf.util.FieldMaskUtil.MergeOptions")
+        .add(java.util.BitSet.class.getName())
+        .add(java.util.Calendar.class.getName())
+        .add(java.lang.Iterable.class.getName())
+        .add(java.lang.Object.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.BitSet.class.getName())
+        .add(java.util.Calendar.class.getName())
+        .add(java.lang.Iterable.class.getName())
+        .add(java.lang.Object.class.getName())
+        .add("java.text.DateFormat")
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.Calendar.class.getName())
+        .add(java.lang.Iterable.class.getName())
+        .add(java.lang.Object.class.getName())
+        .add("java.text.DateFormat")
+        .add(java.util.ArrayList.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.lang.Object.class.getName())
+        .add("java.text.DateFormat")
+        .add(java.util.ArrayList.class.getName())
+        .add(java.util.Collection.class.getName())
+        .add(java.util.EnumMap.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add("java.text.DateFormat")
+        .add(java.util.ArrayList.class.getName())
+        .add(java.util.Collection.class.getName())
+        .add(java.util.EnumMap.class.getName())
+        .add(java.util.EnumSet.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.ArrayList.class.getName())
+        .add(java.util.Collection.class.getName())
+        .add(java.util.EnumMap.class.getName())
+        .add(java.util.EnumSet.class.getName())
+        .add(java.util.List.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.Collection.class.getName())
+        .add(java.util.EnumMap.class.getName())
+        .add(java.util.EnumSet.class.getName())
+        .add(java.util.List.class.getName())
+        .add(java.util.logging.Logger.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.EnumMap.class.getName())
+        .add(java.util.EnumSet.class.getName())
+        .add(java.util.List.class.getName())
+        .add(java.util.logging.Logger.class.getName())
+        .add(java.util.Map.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.logging` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.EnumSet.class.getName())
+        .add(java.util.List.class.getName())
+        .add(java.util.logging.Logger.class.getName())
+        .add(java.util.Map.class.getName())
+        .add(java.util.HashMap.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.List.class.getName())
+        .add(java.util.logging.Logger.class.getName())
+        .add(java.util.Map.class.getName())
+        .add(java.util.HashMap.class.getName())
+        .add(java.util.HashSet.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.logging.Logger.class.getName())
+        .add(java.util.Map.class.getName())
+        .add(java.util.HashMap.class.getName())
+        .add(java.util.HashSet.class.getName())
+        .add(java.util.NavigableMap.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.Map.class.getName())
+        .add(java.util.HashMap.class.getName())
+        .add(java.util.HashSet.class.getName())
+        .add(java.util.NavigableMap.class.getName())
+        .add(java.util.NavigableSet.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.HashMap.class.getName())
+        .add(java.util.HashSet.class.getName())
+        .add(java.util.NavigableMap.class.getName())
+        .add(java.util.NavigableSet.class.getName())
+        .add(java.util.Random.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.HashSet.class.getName())
+        .add(java.util.NavigableMap.class.getName())
+        .add(java.util.NavigableSet.class.getName())
+        .add(java.util.Random.class.getName())
+        .add(java.util.TreeMap.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.NavigableMap.class.getName())
+        .add(java.util.NavigableSet.class.getName())
+        .add(java.util.Random.class.getName())
+        .add(java.util.TreeMap.class.getName())
+        .add(java.util.TreeSet.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.NavigableSet.class.getName())
+        .add(java.util.Random.class.getName())
+        .add(java.util.TreeMap.class.getName())
+        .add(java.util.TreeSet.class.getName())
+        .add(java.util.Vector.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.Random.class.getName())
+        .add(java.util.TreeMap.class.getName())
+        .add(java.util.TreeSet.class.getName())
+        .add(java.util.Vector.class.getName())
+        .add(java.util.Set.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.TreeMap.class.getName())
+        .add(java.util.TreeSet.class.getName())
+        .add(java.util.Vector.class.getName())
+        .add(java.util.Set.class.getName())
+        .add(java.util.concurrent.atomic.AtomicBoolean.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.TreeSet.class.getName())
+        .add(java.util.Vector.class.getName())
+        .add(java.util.Set.class.getName())
+        .add(java.util.concurrent.atomic.AtomicBoolean.class.getName())
+        .add(java.util.concurrent.atomic.AtomicReference.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent.atomic` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.Vector.class.getName())
+        .add(java.util.Set.class.getName())
+        .add(java.util.concurrent.atomic.AtomicBoolean.class.getName())
+        .add(java.util.concurrent.atomic.AtomicReference.class.getName())
+        .add(java.util.concurrent.atomic.AtomicLong.class.getName())
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent.atomic` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.Set.class.getName())
+        .add(java.util.concurrent.atomic.AtomicBoolean.class.getName())
+        .add(java.util.concurrent.atomic.AtomicReference.class.getName())
+        .add(java.util.concurrent.atomic.AtomicLong.class.getName())
+        .build();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent.atomic` is unnecessary, and can be replaced with an import
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(java.util.concurrent.atomic.AtomicBoolean.class.getName())
+        .add(java.util.concurrent.atomic.AtomicReference.class.getName())
+        .add(java.util.concurrent.atomic.AtomicLong.class.getName())
+        .build();
+  }
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -15896,339 +16232,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownM
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add("com.google.common.util.concurrent.AtomicDouble")
-        .add("com.google.protobuf.util.FieldMaskUtil.MergeOptions")
-        .add(java.util.BitSet.class.getName())
-        .add(java.util.Calendar.class.getName())
-        .add(java.lang.Iterable.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add("com.google.protobuf.util.FieldMaskUtil.MergeOptions")
-        .add(java.util.BitSet.class.getName())
-        .add(java.util.Calendar.class.getName())
-        .add(java.lang.Iterable.class.getName())
-        .add(java.lang.Object.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.BitSet.class.getName())
-        .add(java.util.Calendar.class.getName())
-        .add(java.lang.Iterable.class.getName())
-        .add(java.lang.Object.class.getName())
-        .add("java.text.DateFormat")
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.Calendar.class.getName())
-        .add(java.lang.Iterable.class.getName())
-        .add(java.lang.Object.class.getName())
-        .add("java.text.DateFormat")
-        .add(java.util.ArrayList.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.lang.Object.class.getName())
-        .add("java.text.DateFormat")
-        .add(java.util.ArrayList.class.getName())
-        .add(java.util.Collection.class.getName())
-        .add(java.util.EnumMap.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add("java.text.DateFormat")
-        .add(java.util.ArrayList.class.getName())
-        .add(java.util.Collection.class.getName())
-        .add(java.util.EnumMap.class.getName())
-        .add(java.util.EnumSet.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.ArrayList.class.getName())
-        .add(java.util.Collection.class.getName())
-        .add(java.util.EnumMap.class.getName())
-        .add(java.util.EnumSet.class.getName())
-        .add(java.util.List.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.Collection.class.getName())
-        .add(java.util.EnumMap.class.getName())
-        .add(java.util.EnumSet.class.getName())
-        .add(java.util.List.class.getName())
-        .add(java.util.logging.Logger.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
 #### Snippet
 ```java
-        .add(java.util.EnumMap.class.getName())
-        .add(java.util.EnumSet.class.getName())
-        .add(java.util.List.class.getName())
-        .add(java.util.logging.Logger.class.getName())
-        .add(java.util.Map.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.logging` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.EnumSet.class.getName())
-        .add(java.util.List.class.getName())
-        .add(java.util.logging.Logger.class.getName())
-        .add(java.util.Map.class.getName())
-        .add(java.util.HashMap.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.List.class.getName())
-        .add(java.util.logging.Logger.class.getName())
-        .add(java.util.Map.class.getName())
-        .add(java.util.HashMap.class.getName())
-        .add(java.util.HashSet.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.logging.Logger.class.getName())
-        .add(java.util.Map.class.getName())
-        .add(java.util.HashMap.class.getName())
-        .add(java.util.HashSet.class.getName())
-        .add(java.util.NavigableMap.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.Map.class.getName())
-        .add(java.util.HashMap.class.getName())
-        .add(java.util.HashSet.class.getName())
-        .add(java.util.NavigableMap.class.getName())
-        .add(java.util.NavigableSet.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.HashMap.class.getName())
-        .add(java.util.HashSet.class.getName())
-        .add(java.util.NavigableMap.class.getName())
-        .add(java.util.NavigableSet.class.getName())
-        .add(java.util.Random.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.HashSet.class.getName())
-        .add(java.util.NavigableMap.class.getName())
-        .add(java.util.NavigableSet.class.getName())
-        .add(java.util.Random.class.getName())
-        .add(java.util.TreeMap.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.NavigableMap.class.getName())
-        .add(java.util.NavigableSet.class.getName())
-        .add(java.util.Random.class.getName())
-        .add(java.util.TreeMap.class.getName())
-        .add(java.util.TreeSet.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.NavigableSet.class.getName())
-        .add(java.util.Random.class.getName())
-        .add(java.util.TreeMap.class.getName())
-        .add(java.util.TreeSet.class.getName())
-        .add(java.util.Vector.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.Random.class.getName())
-        .add(java.util.TreeMap.class.getName())
-        .add(java.util.TreeSet.class.getName())
-        .add(java.util.Vector.class.getName())
-        .add(java.util.Set.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.TreeMap.class.getName())
-        .add(java.util.TreeSet.class.getName())
-        .add(java.util.Vector.class.getName())
-        .add(java.util.Set.class.getName())
-        .add(java.util.concurrent.atomic.AtomicBoolean.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.TreeSet.class.getName())
-        .add(java.util.Vector.class.getName())
-        .add(java.util.Set.class.getName())
-        .add(java.util.concurrent.atomic.AtomicBoolean.class.getName())
-        .add(java.util.concurrent.atomic.AtomicReference.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.concurrent.atomic` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.Vector.class.getName())
-        .add(java.util.Set.class.getName())
-        .add(java.util.concurrent.atomic.AtomicBoolean.class.getName())
-        .add(java.util.concurrent.atomic.AtomicReference.class.getName())
-        .add(java.util.concurrent.atomic.AtomicLong.class.getName())
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.concurrent.atomic` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.Set.class.getName())
-        .add(java.util.concurrent.atomic.AtomicBoolean.class.getName())
-        .add(java.util.concurrent.atomic.AtomicReference.class.getName())
-        .add(java.util.concurrent.atomic.AtomicLong.class.getName())
-        .build();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.concurrent.atomic` is unnecessary, and can be replaced with an import
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(java.util.concurrent.atomic.AtomicBoolean.class.getName())
-        .add(java.util.concurrent.atomic.AtomicReference.class.getName())
-        .add(java.util.concurrent.atomic.AtomicLong.class.getName())
-        .build();
-  }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.function` is unnecessary and can be removed
-in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
-#### Snippet
-```java
-   * @return The (possibly empty) set of methods in any superclass that match {@code predicate} and
-   *     have the given {@code name}. The set's iteration order will be the same as the order
-   *     documented in {@link #matchingMethods(Name, java.util.function.Predicate, Type, Types)}.
+  /**
+   * Matches an invocation of a recognized static object equality method such as {@link
+   * java.util.Objects#equals}. These are simple facades to {@link Object#equals} that accept null
+   * for either argument.
    */
-  public static ImmutableSet<MethodSymbol> findMatchingMethods(
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.errorprone.suppliers` is unnecessary, and can be replaced with an import
-in `check_api/src/main/java/com/google/errorprone/scanner/ErrorProneScanner.java`
-#### Snippet
-```java
-public class ErrorProneScanner extends Scanner {
-
-  private final com.google.errorprone.suppliers.Supplier<? extends Set<? extends Name>>
-      customSuppressionAnnotations;
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.sun.tools.javac.util` is unnecessary, and can be replaced with an import
-in `check_api/src/main/java/com/google/errorprone/matchers/JUnitMatchers.java`
-#### Snippet
-```java
-        }
-        // Expect one type argument, the type of the JUnit class runner to use.
-        com.sun.tools.javac.util.List<Type> typeArgs = type.getTypeArguments();
-        if (typeArgs.size() != 1) {
-          return false;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.errorprone.matchers.method` is unnecessary and can be removed
-in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocationMatcher.java`
-#### Snippet
-```java
-   * satisfying at least one of the given Rule specifications. For an easy way to create such Rules,
-   * see the factories in {@link com.google.errorprone.matchers.Matchers} returning subtypes of
-   * {@link com.google.errorprone.matchers.method.MethodMatchers.MethodMatcher}.
-   */
-  public static Matcher<ExpressionTree> compile(Iterable<Rule> rules) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.errorprone.matchers.method` is unnecessary and can be removed
-in `check_api/src/main/java/com/google/errorprone/matchers/method/MethodInvocationMatcher.java`
-#### Snippet
-```java
-/**
- * The machinery and type definitions necessary to model and compile a single efficient matcher out
- * of a list of {@link com.google.errorprone.matchers.method.MethodMatchers.MethodMatcher}s.
- */
-public class MethodInvocationMatcher {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -16241,18 +16253,6 @@ in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
   public static <T extends Tree> Matcher<T> isInstance(java.lang.Class<?> klass) {
     return (t, state) -> klass.isInstance(t);
   }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `check_api/src/main/java/com/google/errorprone/matchers/Matchers.java`
-#### Snippet
-```java
-  /**
-   * Matches an invocation of a recognized static object equality method such as {@link
-   * java.util.Objects#equals}. These are simple facades to {@link Object#equals} that accept null
-   * for either argument.
-   */
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -16424,18 +16424,6 @@ in `core/src/main/java/com/google/errorprone/refaster/UVariableDecl.java`
 
 ### RuleId[ruleID=Convert2Lambda]
 Anonymous new Function\>() can be replaced with lambda
-in `core/src/main/java/com/google/errorprone/refaster/ExpressionTemplate.java`
-#### Snippet
-```java
-        .condition(u -> trueOrNull(PLACEHOLDER_VERIFIER.scan(expression(), u)))
-        .thenOption(
-            new Function<Unifier, Optional<Unifier>>() {
-
-              @Override
-```
-
-### RuleId[ruleID=Convert2Lambda]
-Anonymous new Function\>() can be replaced with lambda
 in `core/src/main/java/com/google/errorprone/refaster/Unifier.java`
 #### Snippet
 ```java
@@ -16444,6 +16432,18 @@ in `core/src/main/java/com/google/errorprone/refaster/Unifier.java`
                 new Function<Unifier, Optional<Unifier>>() {
                   @Override
                   public Optional<Unifier> apply(Unifier unifier) {
+```
+
+### RuleId[ruleID=Convert2Lambda]
+Anonymous new Function\>() can be replaced with lambda
+in `core/src/main/java/com/google/errorprone/refaster/ExpressionTemplate.java`
+#### Snippet
+```java
+        .condition(u -> trueOrNull(PLACEHOLDER_VERIFIER.scan(expression(), u)))
+        .thenOption(
+            new Function<Unifier, Optional<Unifier>>() {
+
+              @Override
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -16499,18 +16499,6 @@ Anonymous new Matcher() can be replaced with lambda
 in `core/src/main/java/com/google/errorprone/bugpatterns/NonAtomicVolatileUpdate.java`
 #### Snippet
 ```java
-  /** Extracts the expression from a UnaryTree and applies a matcher to it. */
-  private static Matcher<UnaryTree> expressionFromUnaryTree(Matcher<ExpressionTree> exprMatcher) {
-    return new Matcher<UnaryTree>() {
-      @Override
-      public boolean matches(UnaryTree tree, VisitorState state) {
-```
-
-### RuleId[ruleID=Convert2Lambda]
-Anonymous new Matcher() can be replaced with lambda
-in `core/src/main/java/com/google/errorprone/bugpatterns/NonAtomicVolatileUpdate.java`
-#### Snippet
-```java
   private static Matcher<CompoundAssignmentTree> variableFromCompoundAssignmentTree(
       Matcher<ExpressionTree> exprMatcher) {
     return new Matcher<CompoundAssignmentTree>() {
@@ -16520,14 +16508,14 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/NonAtomicVolatileUpdate
 
 ### RuleId[ruleID=Convert2Lambda]
 Anonymous new Matcher() can be replaced with lambda
-in `core/src/main/java/com/google/errorprone/bugpatterns/FuturesGetCheckedIllegalExceptionType.java`
+in `core/src/main/java/com/google/errorprone/bugpatterns/NonAtomicVolatileUpdate.java`
 #### Snippet
 ```java
-
-  private static final Matcher<ExpressionTree> CLASS_OBJECT_FOR_CLASS_EXTENDING_RUNTIME_EXCEPTION =
-      new Matcher<ExpressionTree>() {
-        @Override
-        public boolean matches(ExpressionTree tree, VisitorState state) {
+  /** Extracts the expression from a UnaryTree and applies a matcher to it. */
+  private static Matcher<UnaryTree> expressionFromUnaryTree(Matcher<ExpressionTree> exprMatcher) {
+    return new Matcher<UnaryTree>() {
+      @Override
+      public boolean matches(UnaryTree tree, VisitorState state) {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -16540,6 +16528,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/FuturesGetCheckedIllega
           new Matcher<ExpressionTree>() {
             @Override
             public boolean matches(ExpressionTree tree, VisitorState state) {
+```
+
+### RuleId[ruleID=Convert2Lambda]
+Anonymous new Matcher() can be replaced with lambda
+in `core/src/main/java/com/google/errorprone/bugpatterns/FuturesGetCheckedIllegalExceptionType.java`
+#### Snippet
+```java
+
+  private static final Matcher<ExpressionTree> CLASS_OBJECT_FOR_CLASS_EXTENDING_RUNTIME_EXCEPTION =
+      new Matcher<ExpressionTree>() {
+        @Override
+        public boolean matches(ExpressionTree tree, VisitorState state) {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -16571,11 +16571,11 @@ Anonymous new Matcher() can be replaced with lambda
 in `core/src/main/java/com/google/errorprone/bugpatterns/NoAllocationChecker.java`
 #### Snippet
 ```java
-  /** Matches boxing by method invocation, including varargs. */
-  private static final Matcher<MethodInvocationTree> boxingInvocation =
-      new Matcher<MethodInvocationTree>() {
+   */
+  private static final Matcher<Tree> withinThrowOrAnnotation =
+      new Matcher<Tree>() {
         @Override
-        public boolean matches(MethodInvocationTree tree, VisitorState state) {
+        public boolean matches(Tree tree, VisitorState state) {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -16595,11 +16595,11 @@ Anonymous new Matcher() can be replaced with lambda
 in `core/src/main/java/com/google/errorprone/bugpatterns/NoAllocationChecker.java`
 #### Snippet
 ```java
-   */
-  private static final Matcher<Tree> withinThrowOrAnnotation =
-      new Matcher<Tree>() {
+  /** Matches boxing by method invocation, including varargs. */
+  private static final Matcher<MethodInvocationTree> boxingInvocation =
+      new Matcher<MethodInvocationTree>() {
         @Override
-        public boolean matches(Tree tree, VisitorState state) {
+        public boolean matches(MethodInvocationTree tree, VisitorState state) {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -16679,18 +16679,6 @@ Anonymous new Matcher() can be replaced with lambda
 in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/Util.java`
 #### Snippet
 ```java
-
-  private static final Matcher<ClassTree> CLASS_EXTENDS_NOTHING =
-      new Matcher<ClassTree>() {
-        @Override
-        public boolean matches(ClassTree t, VisitorState state) {
-```
-
-### RuleId[ruleID=Convert2Lambda]
-Anonymous new Matcher() can be replaced with lambda
-in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/Util.java`
-#### Snippet
-```java
       constructor(
           AT_LEAST_ONE,
           new Matcher<MethodTree>() {
@@ -16708,6 +16696,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/Util.java
             new Function<String, Matcher<AnnotationTree>>() {
               @Override
               public Matcher<AnnotationTree> apply(String parameter) {
+```
+
+### RuleId[ruleID=Convert2Lambda]
+Anonymous new Matcher() can be replaced with lambda
+in `core/src/main/java/com/google/errorprone/bugpatterns/inject/dagger/Util.java`
+#### Snippet
+```java
+
+  private static final Matcher<ClassTree> CLASS_EXTENDS_NOTHING =
+      new Matcher<ClassTree>() {
+        @Override
+        public boolean matches(ClassTree t, VisitorState state) {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -17028,35 +17028,11 @@ Assignment to method parameter `init`
 in `core/src/main/java/com/google/errorprone/bugpatterns/FieldCanBeFinal.java`
 #### Snippet
 ```java
-    public Void visitUnary(UnaryTree node, InitializationContext init) {
-      if (UNARY_ASSIGNMENT.contains(node.getKind())) {
-        init = InitializationContext.NONE;
-        writes.recordAssignment(node.getExpression(), init);
-      }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `init`
-in `core/src/main/java/com/google/errorprone/bugpatterns/FieldCanBeFinal.java`
-#### Snippet
-```java
         // don't record assignments in initializers that aren't to members of the object
         // being initialized
         init = InitializationContext.NONE;
       }
       writes.recordAssignment(node.getVariable(), init);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `init`
-in `core/src/main/java/com/google/errorprone/bugpatterns/FieldCanBeFinal.java`
-#### Snippet
-```java
-      MethodSymbol sym = ASTHelpers.getSymbol(node);
-      if (sym.isConstructor()) {
-        init = InitializationContext.INSTANCE;
-      }
-      return super.visitMethod(node, init);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -17076,11 +17052,35 @@ Assignment to method parameter `init`
 in `core/src/main/java/com/google/errorprone/bugpatterns/FieldCanBeFinal.java`
 #### Snippet
 ```java
+    public Void visitUnary(UnaryTree node, InitializationContext init) {
+      if (UNARY_ASSIGNMENT.contains(node.getKind())) {
+        init = InitializationContext.NONE;
+        writes.recordAssignment(node.getExpression(), init);
+      }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `init`
+in `core/src/main/java/com/google/errorprone/bugpatterns/FieldCanBeFinal.java`
+#### Snippet
+```java
     @Override
     public Void visitCompoundAssignment(CompoundAssignmentTree node, InitializationContext init) {
       init = InitializationContext.NONE;
       writes.recordAssignment(node.getVariable(), init);
       return super.visitCompoundAssignment(node, init);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `init`
+in `core/src/main/java/com/google/errorprone/bugpatterns/FieldCanBeFinal.java`
+#### Snippet
+```java
+      MethodSymbol sym = ASTHelpers.getSymbol(node);
+      if (sym.isConstructor()) {
+        init = InitializationContext.INSTANCE;
+      }
+      return super.visitMethod(node, init);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -17132,6 +17132,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/apidiff/ApiDiffChecker.
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `label`
+in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/InvalidLink.java`
+#### Snippet
+```java
+    private String fixLink(String reference, String label) {
+      if (label.isEmpty()) {
+        label = "link";
+      }
+      return String.format("<a href=\"%s\">%s</a>", reference, label);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `sym`
 in `core/src/main/java/com/google/errorprone/bugpatterns/flogger/FloggerRequiredModifiers.java`
 #### Snippet
@@ -17153,30 +17165,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/flogger/FloggerRequired
       path = path.getParentPath();
     }
 
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `label`
-in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/InvalidLink.java`
-#### Snippet
-```java
-    private String fixLink(String reference, String label) {
-      if (label.isEmpty()) {
-        label = "link";
-      }
-      return String.format("<a href=\"%s\">%s</a>", reference, label);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `callingVars`
-in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/Inliner.java`
-#### Snippet
-```java
-        String varargsJoined =
-            Joiner.on(", ").join(callingVars.subList(varNames.size() - 1, callingVars.size()));
-        callingVars =
-            ImmutableList.<String>builderWithExpectedSize(varNames.size())
-                .addAll(nonvarargs)
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -17204,15 +17192,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/EqualsBrokenFo
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `sym`
-in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullArgumentForNonNullParameter.java`
+Assignment to method parameter `callingVars`
+in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/Inliner.java`
 #### Snippet
 ```java
-  private boolean enclosingAnnotationDefaultsNonTypeVariablesToNonNull(
-      Symbol sym, VisitorState state) {
-    for (; sym != null; sym = sym.getEnclosingElement()) {
-      if (hasAnnotation(sym, "com.google.protobuf.Internal$ProtoNonnullApi", state)) {
-        return true;
+        String varargsJoined =
+            Joiner.on(", ").join(callingVars.subList(varNames.size() - 1, callingVars.size()));
+        callingVars =
+            ImmutableList.<String>builderWithExpectedSize(varNames.size())
+                .addAll(nonvarargs)
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -17225,6 +17213,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/UnnecessaryChe
       path = path.getParentPath();
     }
     if (path == null) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `sym`
+in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullArgumentForNonNullParameter.java`
+#### Snippet
+```java
+  private boolean enclosingAnnotationDefaultsNonTypeVariablesToNonNull(
+      Symbol sym, VisitorState state) {
+    for (; sym != null; sym = sym.getEnclosingElement()) {
+      if (hasAnnotation(sym, "com.google.protobuf.Internal$ProtoNonnullApi", state)) {
+        return true;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -17252,18 +17252,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/formatstring/FormatStri
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `tree`
-in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullnessUtils.java`
-#### Snippet
-```java
-  @Nullable
-  static NullCheck getNullCheck(ExpressionTree tree) {
-    tree = stripParentheses(tree);
-
-    Polarity polarity;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `typeTree`
 in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullnessUtils.java`
 #### Snippet
@@ -17288,15 +17276,27 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullnessUtils.
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `condition`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/DoubleCheckedLocking.java`
+Assignment to method parameter `tree`
+in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/NullnessUtils.java`
 #### Snippet
 ```java
   @Nullable
-  private static ExpressionTree getNullCheckedExpression(ExpressionTree condition) {
-    condition = stripParentheses(condition);
-    if (!(condition instanceof BinaryTree)) {
-      return null;
+  static NullCheck getNullCheck(ExpressionTree tree) {
+    tree = stripParentheses(tree);
+
+    Polarity polarity;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `expr`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByChecker.java`
+#### Snippet
+```java
+  private static boolean enclosingInstance(GuardedByExpression expr) {
+    while (expr.kind() == Kind.SELECT) {
+      expr = ((Select) expr).base();
+      if (expr.kind() == Kind.THIS) {
+        return true;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -17312,15 +17312,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByC
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `expr`
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByChecker.java`
+Assignment to method parameter `condition`
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/DoubleCheckedLocking.java`
 #### Snippet
 ```java
-  private static boolean enclosingInstance(GuardedByExpression expr) {
-    while (expr.kind() == Kind.SELECT) {
-      expr = ((Select) expr).base();
-      if (expr.kind() == Kind.THIS) {
-        return true;
+  @Nullable
+  private static ExpressionTree getNullCheckedExpression(ExpressionTree condition) {
+    condition = stripParentheses(condition);
+    if (!(condition instanceof BinaryTree)) {
+      return null;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -17348,18 +17348,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/HeldLockAn
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `expr`
-in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/CanIgnoreReturnValueSuggester.java`
-#### Snippet
-```java
-
-  private static boolean isIdentifier(ExpressionTree expr, String identifierName) {
-    expr = stripParentheses(expr);
-    if (expr instanceof IdentifierTree) {
-      return ((IdentifierTree) expr).getName().contentEquals(identifierName);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `symbol`
 in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/PackagesRule.java`
 #### Snippet
@@ -17369,6 +17357,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Packag
       symbol = symbol.owner;
     }
     return Optional.empty();
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `expr`
+in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/CanIgnoreReturnValueSuggester.java`
+#### Snippet
+```java
+
+  private static boolean isIdentifier(ExpressionTree expr, String identifierName) {
+    expr = stripParentheses(expr);
+    if (expr instanceof IdentifierTree) {
+      return ((IdentifierTree) expr).getName().contentEquals(identifierName);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -17468,6 +17468,18 @@ in `check_api/src/main/java/com/google/errorprone/util/FindIdentifiers.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `treePath`
+in `check_api/src/main/java/com/google/errorprone/util/FindIdentifiers.java`
+#### Snippet
+```java
+        return (ClassTree) leaf;
+      }
+      treePath = parent;
+    }
+  }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `path`
 in `check_api/src/main/java/com/google/errorprone/util/FindIdentifiers.java`
 #### Snippet
@@ -17501,18 +17513,6 @@ in `check_api/src/main/java/com/google/errorprone/util/FindIdentifiers.java`
       path = parentPath;
       count++;
     }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `treePath`
-in `check_api/src/main/java/com/google/errorprone/util/FindIdentifiers.java`
-#### Snippet
-```java
-        return (ClassTree) leaf;
-      }
-      treePath = parent;
-    }
-  }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -17624,30 +17624,6 @@ in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `tree`
-in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
-#### Snippet
-```java
-  public static ExpressionTree stripParentheses(ExpressionTree tree) {
-    while (tree instanceof ParenthesizedTree) {
-      tree = ((ParenthesizedTree) tree).getExpression();
-    }
-    return tree;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `path`
-in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
-#### Snippet
-```java
-  @Nullable
-  public static <T> T findEnclosingNode(TreePath path, Class<T> klass) {
-    path = findPathFromEnclosingNodeToTopLevel(path, klass);
-    return (path == null) ? null : klass.cast(path.getLeaf());
-  }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `sym`
 in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
 #### Snippet
@@ -17684,18 +17660,6 @@ in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `path`
-in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
-#### Snippet
-```java
-    if (path != null) {
-      do {
-        path = path.getParentPath();
-      } while (path != null && !klass.isInstance(path.getLeaf()));
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `annotationClass`
 in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
 #### Snippet
@@ -17717,6 +17681,42 @@ in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
         sym = ((ClassSymbol) sym).getSuperclass().tsym;
       } while (sym instanceof ClassSymbol);
     }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `path`
+in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
+#### Snippet
+```java
+    if (path != null) {
+      do {
+        path = path.getParentPath();
+      } while (path != null && !klass.isInstance(path.getLeaf()));
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `path`
+in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
+#### Snippet
+```java
+  @Nullable
+  public static <T> T findEnclosingNode(TreePath path, Class<T> klass) {
+    path = findPathFromEnclosingNodeToTopLevel(path, klass);
+    return (path == null) ? null : klass.cast(path.getLeaf());
+  }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `tree`
+in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
+#### Snippet
+```java
+  public static ExpressionTree stripParentheses(ExpressionTree tree) {
+    while (tree instanceof ParenthesizedTree) {
+      tree = ((ParenthesizedTree) tree).getExpression();
+    }
+    return tree;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -17783,30 +17783,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ChainedAssertionLosesCo
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `core/src/main/java/com/google/errorprone/refaster/UVariableDecl.java`
-#### Snippet
-```java
-  @Override
-  public ModifiersTree getModifiers() {
-    return null;
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/com/google/errorprone/refaster/UVariableDecl.java`
-#### Snippet
-```java
-  @Override
-  public ExpressionTree getNameExpression() {
-    return null;
-  }
-}
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `core/src/main/java/com/google/errorprone/refaster/UClassDecl.java`
 #### Snippet
 ```java
@@ -17839,6 +17815,30 @@ in `core/src/main/java/com/google/errorprone/refaster/UClassDecl.java`
     return null;
   }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/com/google/errorprone/refaster/UVariableDecl.java`
+#### Snippet
+```java
+  @Override
+  public ModifiersTree getModifiers() {
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/com/google/errorprone/refaster/UVariableDecl.java`
+#### Snippet
+```java
+  @Override
+  public ExpressionTree getNameExpression() {
+    return null;
+  }
+}
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -17943,7 +17943,7 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByE
 #### Snippet
 ```java
     @Override
-    public Type type() {
+    public Symbol sym() {
       return null;
     }
 
@@ -17955,7 +17955,7 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/GuardedByE
 #### Snippet
 ```java
     @Override
-    public Symbol sym() {
+    public Type type() {
       return null;
     }
 
@@ -18039,7 +18039,7 @@ in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
 #### Snippet
 ```java
     @Override
-    public Type visitClass(ClassTree node, Void unused) {
+    public Type visitAnnotation(AnnotationTree tree, Void unused) {
       return null;
     }
 
@@ -18063,7 +18063,7 @@ in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
 #### Snippet
 ```java
     @Override
-    public Type visitAnnotation(AnnotationTree tree, Void unused) {
+    public Type visitClass(ClassTree node, Void unused) {
       return null;
     }
 
@@ -18314,18 +18314,6 @@ in `core/src/main/java/com/google/errorprone/refaster/Bindings.java`
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
-'presentInstances(java.lang.Iterable\>)' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
-#### Snippet
-```java
-      @Override
-      protected Iterator<R> iterator() {
-        return Optional.presentInstances(Iterables.transform(thisChoice.asIterable(), function))
-            .iterator();
-      }
-```
-
-### RuleId[ruleID=UnstableApiUsage]
 'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
 #### Snippet
@@ -18407,6 +18395,18 @@ in `core/src/main/java/com/google/errorprone/refaster/UTemplater.java`
     if (!token.isSupertypeOf(klass)) {
       throw new ClassCastException(klass + " is not assignable to " + token);
     }
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'presentInstances(java.lang.Iterable\>)' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/refaster/Choice.java`
+#### Snippet
+```java
+      @Override
+      protected Iterator<R> iterator() {
+        return Optional.presentInstances(Iterables.transform(thisChoice.asIterable(), function))
+            .iterator();
+      }
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -18614,6 +18614,42 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/ClassName.java`
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
+'findLast(java.util.stream.Stream)' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryAssignment.java`
+#### Snippet
+```java
+            getTokens(source, getStartPosition(tree), state.context);
+        int equalsPos =
+            findLast(tokens.stream().filter(t -> t.kind().equals(TokenKind.EQ))).get().pos();
+        description.addFix(
+            SuggestedFix.builder()
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/SuppressWarningsWithoutExplanation.java`
+#### Snippet
+```java
+      return NO_MATCH;
+    }
+    ImmutableRangeSet<Long> linesWithComments = linesWithComments(state);
+    new SuppressibleTreePathScanner<Void, Void>(state) {
+      @Override
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'intersects(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/SuppressWarningsWithoutExplanation.java`
+#### Snippet
+```java
+                lineMap.getLineNumber(getStartPosition(parent)) - 1,
+                lineMap.getLineNumber(state.getEndPosition(parent)) + 1);
+        if (!linesWithComments.intersects(linesCovered)) {
+          state.reportMatch(
+              describeMatch(
+```
+
+### RuleId[ruleID=UnstableApiUsage]
 'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
 in `core/src/main/java/com/google/errorprone/bugpatterns/SuppressWarningsWithoutExplanation.java`
 #### Snippet
@@ -18695,42 +18731,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/SuppressWarningsWithout
     return ImmutableRangeSet.copyOf(lines);
   }
 }
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'intersects(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/SuppressWarningsWithoutExplanation.java`
-#### Snippet
-```java
-                lineMap.getLineNumber(getStartPosition(parent)) - 1,
-                lineMap.getLineNumber(state.getEndPosition(parent)) + 1);
-        if (!linesWithComments.intersects(linesCovered)) {
-          state.reportMatch(
-              describeMatch(
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/SuppressWarningsWithoutExplanation.java`
-#### Snippet
-```java
-      return NO_MATCH;
-    }
-    ImmutableRangeSet<Long> linesWithComments = linesWithComments(state);
-    new SuppressibleTreePathScanner<Void, Void>(state) {
-      @Override
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'findLast(java.util.stream.Stream)' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/UnnecessaryAssignment.java`
-#### Snippet
-```java
-            getTokens(source, getStartPosition(tree), state.context);
-        int equalsPos =
-            findLast(tokens.stream().filter(t -> t.kind().equals(TokenKind.EQ))).get().pos();
-        description.addFix(
-            SuggestedFix.builder()
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -18854,18 +18854,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/PreferredInterfaceType.
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
-'forEachPair(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiConsumer)' is marked unstable with @Beta**
-in `core/src/main/java/com/google/errorprone/bugpatterns/ParameterComment.java`
-#### Snippet
-```java
-    }
-    SuggestedFix.Builder fix = SuggestedFix.builder();
-    forEachPair(
-        arguments.stream(),
-        Stream.concat(
-```
-
-### RuleId[ruleID=UnstableApiUsage]
 'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
 in `core/src/main/java/com/google/errorprone/bugpatterns/UnicodeEscape.java`
 #### Snippet
@@ -18875,6 +18863,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnicodeEscape.java`
     private final Supplier<ImmutableRangeSet<Integer>> suppressedRegions =
         memoize(() -> suppressedRegions(getState()));
 
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'forEachPair(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiConsumer)' is marked unstable with @Beta**
+in `core/src/main/java/com/google/errorprone/bugpatterns/ParameterComment.java`
+#### Snippet
+```java
+    }
+    SuggestedFix.Builder fix = SuggestedFix.builder();
+    forEachPair(
+        arguments.stream(),
+        Stream.concat(
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -18902,18 +18902,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedMethod.java`
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
-'zip(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiFunction)' is marked unstable with @Beta**
-in `core/src/main/java/com/google/errorprone/bugpatterns/RobolectricShadowDirectlyOn.java`
-#### Snippet
-```java
-        Streams.concat(
-                Stream.of(state.getConstantExpression(symbol.getSimpleName().toString())),
-                Streams.zip(
-                    symbol.getParameters().stream(),
-                    parent.getArguments().stream(),
-```
-
-### RuleId[ruleID=UnstableApiUsage]
 'stream(java.util.Optional)' is marked unstable with @Beta
 in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
 #### Snippet
@@ -18923,6 +18911,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/UnusedVariable.java`
             .flatMap(Streams::stream)
             .filter(
                 a ->
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'zip(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiFunction)' is marked unstable with @Beta**
+in `core/src/main/java/com/google/errorprone/bugpatterns/RobolectricShadowDirectlyOn.java`
+#### Snippet
+```java
+        Streams.concat(
+                Stream.of(state.getConstantExpression(symbol.getSimpleName().toString())),
+                Streams.zip(
+                    symbol.getParameters().stream(),
+                    parent.getArguments().stream(),
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -19322,30 +19322,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/apidiff/Java8ApiChecker
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
-'add(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
-#### Snippet
-```java
-      int endPos = getEndPosition(tree, state);
-      if (endPos != Position.NOPOS) {
-        dontEmitCodeFix.add(Range.closed(getStartPosition(tree, state), endPos));
-      }
-    }
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
-#### Snippet
-```java
-  private final class EntityChecker extends DocTreePathScanner<Void, Void> {
-    private final VisitorState state;
-    private final RangeSet<Integer> generics;
-    private final RangeSet<Integer> preTags;
-    private final RangeSet<Integer> emittedFixes;
-```
-
-### RuleId[ruleID=UnstableApiUsage]
 'contains(C)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
 in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
 #### Snippet
@@ -19410,6 +19386,54 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity
 in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
 #### Snippet
 ```java
+    private final RangeSet<Integer> generics;
+    private final RangeSet<Integer> preTags;
+    private final RangeSet<Integer> emittedFixes;
+
+    private EntityChecker(
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
+#### Snippet
+```java
+     * {@literal @}code tag put inside them to escape HTML.
+     */
+    private final RangeSet<Integer> preTags = TreeRangeSet.create();
+
+    /**
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.collect.TreeRangeSet' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
+#### Snippet
+```java
+     * {@literal @}code tag put inside them to escape HTML.
+     */
+    private final RangeSet<Integer> preTags = TreeRangeSet.create();
+
+    /**
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'create()' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
+#### Snippet
+```java
+     * {@literal @}code tag put inside them to escape HTML.
+     */
+    private final RangeSet<Integer> preTags = TreeRangeSet.create();
+
+    /**
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
+#### Snippet
+```java
     Comment comment = ((DCDocComment) path.getDocComment()).comment;
     Matcher matcher = GENERIC_PATTERN.matcher(comment.getText());
     RangeSet<Integer> generics = TreeRangeSet.create();
@@ -19466,15 +19490,15 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
+'add(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
 in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
 #### Snippet
 ```java
-    private final VisitorState state;
-    private final RangeSet<Integer> generics;
-    private final RangeSet<Integer> preTags;
-    private final RangeSet<Integer> emittedFixes;
-
+      int endPos = getEndPosition(tree, state);
+      if (endPos != Position.NOPOS) {
+        dontEmitCodeFix.add(Range.closed(getStartPosition(tree, state), endPos));
+      }
+    }
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -19518,11 +19542,59 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity
 in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
 #### Snippet
 ```java
+    private EntityChecker(
+        VisitorState state,
+        RangeSet<Integer> generics,
+        RangeSet<Integer> preTags,
+        RangeSet<Integer> emittedFixes) {
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
+#### Snippet
+```java
+        VisitorState state,
+        RangeSet<Integer> generics,
+        RangeSet<Integer> preTags,
+        RangeSet<Integer> emittedFixes) {
+      this.state = state;
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
+#### Snippet
+```java
+        RangeSet<Integer> generics,
+        RangeSet<Integer> preTags,
+        RangeSet<Integer> emittedFixes) {
+      this.state = state;
+      this.generics = generics;
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
+#### Snippet
+```java
+    private final VisitorState state;
     private final RangeSet<Integer> generics;
     private final RangeSet<Integer> preTags;
     private final RangeSet<Integer> emittedFixes;
 
-    private EntityChecker(
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
+#### Snippet
+```java
+  private final class EntityChecker extends DocTreePathScanner<Void, Void> {
+    private final VisitorState state;
+    private final RangeSet<Integer> generics;
+    private final RangeSet<Integer> preTags;
+    private final RangeSet<Integer> emittedFixes;
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -19694,78 +19766,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
-#### Snippet
-```java
-     * {@literal @}code tag put inside them to escape HTML.
-     */
-    private final RangeSet<Integer> preTags = TreeRangeSet.create();
-
-    /**
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.collect.TreeRangeSet' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
-#### Snippet
-```java
-     * {@literal @}code tag put inside them to escape HTML.
-     */
-    private final RangeSet<Integer> preTags = TreeRangeSet.create();
-
-    /**
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'create()' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
-#### Snippet
-```java
-     * {@literal @}code tag put inside them to escape HTML.
-     */
-    private final RangeSet<Integer> preTags = TreeRangeSet.create();
-
-    /**
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
-#### Snippet
-```java
-    private EntityChecker(
-        VisitorState state,
-        RangeSet<Integer> generics,
-        RangeSet<Integer> preTags,
-        RangeSet<Integer> emittedFixes) {
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
-#### Snippet
-```java
-        VisitorState state,
-        RangeSet<Integer> generics,
-        RangeSet<Integer> preTags,
-        RangeSet<Integer> emittedFixes) {
-      this.state = state;
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/javadoc/UnescapedEntity.java`
-#### Snippet
-```java
-        RangeSet<Integer> generics,
-        RangeSet<Integer> preTags,
-        RangeSet<Integer> emittedFixes) {
-      this.state = state;
-      this.generics = generics;
-```
-
-### RuleId[ruleID=UnstableApiUsage]
 'builderWithExpectedSize(int)' is marked unstable with @Beta
 in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/Inliner.java`
 #### Snippet
@@ -19775,6 +19775,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/Inliner.java`
             ImmutableList.<String>builderWithExpectedSize(varNames.size())
                 .addAll(nonvarargs)
                 .add(varargsJoined)
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'escape(java.lang.String)' is declared in unstable class 'com.google.common.escape.CharEscaper' marked with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/InlineMeData.java`
+#### Snippet
+```java
+    String annotation =
+        "@InlineMe(replacement = \""
+            + SourceCodeEscapers.javaCharEscaper().escape(replacement)
+            + "\"";
+    if (!imports.isEmpty()) {
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -19802,18 +19814,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/nullness/ParameterMissi
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
-'escape(java.lang.String)' is declared in unstable class 'com.google.common.escape.CharEscaper' marked with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/inlineme/InlineMeData.java`
-#### Snippet
-```java
-    String annotation =
-        "@InlineMe(replacement = \""
-            + SourceCodeEscapers.javaCharEscaper().escape(replacement)
-            + "\"";
-    if (!imports.isEmpty()) {
-```
-
-### RuleId[ruleID=UnstableApiUsage]
 'lines()' is marked unstable with @Beta
 in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/ExternalCanIgnoreReturnValue.java`
 #### Snippet
@@ -19832,9 +19832,9 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Extern
 ```java
       @Override
       MethodPredicate load(String file) throws IOException {
-        return configByInterpretingMethodsAsStrings(MoreFiles.asCharSource(Paths.get(file), UTF_8));
+        return configByParsingApiObjects(MoreFiles.asCharSource(Paths.get(file), UTF_8));
       }
-    },
+    };
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -19844,9 +19844,9 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Extern
 ```java
       @Override
       MethodPredicate load(String file) throws IOException {
-        return configByInterpretingMethodsAsStrings(MoreFiles.asCharSource(Paths.get(file), UTF_8));
+        return configByParsingApiObjects(MoreFiles.asCharSource(Paths.get(file), UTF_8));
       }
-    },
+    };
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -19856,9 +19856,9 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Extern
 ```java
       @Override
       MethodPredicate load(String file) throws IOException {
-        return configByParsingApiObjects(MoreFiles.asCharSource(Paths.get(file), UTF_8));
+        return configByInterpretingMethodsAsStrings(MoreFiles.asCharSource(Paths.get(file), UTF_8));
       }
-    };
+    },
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -19868,9 +19868,9 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/checkreturnvalue/Extern
 ```java
       @Override
       MethodPredicate load(String file) throws IOException {
-        return configByParsingApiObjects(MoreFiles.asCharSource(Paths.get(file), UTF_8));
+        return configByInterpretingMethodsAsStrings(MoreFiles.asCharSource(Paths.get(file), UTF_8));
       }
-    };
+    },
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -19895,6 +19895,18 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefect
         Streams.findLast(
             actual.beforeComments().stream().filter(c -> c.getStyle() == CommentStyle.BLOCK));
 
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
+#### Snippet
+```java
+  private static Optional<ClassSymbol> effectiveTypeOfThis(
+      MethodSymbol symbol, TreePath currentPath, VisitorState state) {
+    return stream(currentPath.iterator())
+        .filter(ClassTree.class::isInstance)
+        .map(t -> ASTHelpers.getSymbol((ClassTree) t))
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -19957,18 +19969,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/argumentselectiondefect
                     false))
         .collect(toImmutableList());
   }
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ImmutableChecker.java`
-#### Snippet
-```java
-  private static Optional<ClassSymbol> effectiveTypeOfThis(
-      MethodSymbol symbol, TreePath currentPath, VisitorState state) {
-    return stream(currentPath.iterator())
-        .filter(ClassTree.class::isInstance)
-        .map(t -> ASTHelpers.getSymbol((ClassTree) t))
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -20065,18 +20065,6 @@ in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/ThreadSafe
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
-Overridden method 'getResult()' is declared in unstable interface 'com.google.common.io.LineProcessor' marked with @Beta
-in `docgen/src/main/java/com/google/errorprone/BugPatternFileGenerator.java`
-#### Snippet
-```java
-
-  @Override
-  public List<BugPatternInstance> getResult() {
-    return result;
-  }
-```
-
-### RuleId[ruleID=UnstableApiUsage]
 Overridden method 'processLine(java.lang.String)' is declared in unstable interface 'com.google.common.io.LineProcessor' marked with @Beta
 in `docgen/src/main/java/com/google/errorprone/BugPatternFileGenerator.java`
 #### Snippet
@@ -20086,6 +20074,18 @@ in `docgen/src/main/java/com/google/errorprone/BugPatternFileGenerator.java`
   public boolean processLine(String line) throws IOException {
     BugPatternInstance pattern = new Gson().fromJson(line, BugPatternInstance.class);
     pattern.severity = severityRemapper.apply(pattern);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+Overridden method 'getResult()' is declared in unstable interface 'com.google.common.io.LineProcessor' marked with @Beta
+in `docgen/src/main/java/com/google/errorprone/BugPatternFileGenerator.java`
+#### Snippet
+```java
+
+  @Override
+  public List<BugPatternInstance> getResult() {
+    return result;
+  }
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -20129,23 +20129,11 @@ in `docgen/src/main/java/com/google/errorprone/BugPatternIndexWriter.java`
 in `check_api/src/main/java/com/google/errorprone/util/SourceCodeEscapers.java`
 #### Snippet
 ```java
+   * >The Java Language Specification</a> for more details.
+   */
+  public static CharEscaper javaCharEscaper() {
+    return JAVA_CHAR_ESCAPER;
   }
-
-  private static final CharEscaper JAVA_CHAR_ESCAPER =
-      new JavaCharEscaper(
-          ImmutableMap.of(
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.escape.ArrayBasedCharEscaper' is marked unstable with @Beta
-in `check_api/src/main/java/com/google/errorprone/util/SourceCodeEscapers.java`
-#### Snippet
-```java
-  //   only Unicode values \u0000 through \u00FF, so Unicode escapes are
-  //   usually preferred."
-  private static class JavaCharEscaper extends ArrayBasedCharEscaper {
-    JavaCharEscaper(Map<Character, String> replacements) {
-      super(replacements, PRINTABLE_ASCII_MIN, PRINTABLE_ASCII_MAX);
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -20161,6 +20149,30 @@ in `check_api/src/main/java/com/google/errorprone/util/SourceCodeEscapers.java`
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.escape.ArrayBasedCharEscaper' is marked unstable with @Beta
+in `check_api/src/main/java/com/google/errorprone/util/SourceCodeEscapers.java`
+#### Snippet
+```java
+  //   only Unicode values \u0000 through \u00FF, so Unicode escapes are
+  //   usually preferred."
+  private static class JavaCharEscaper extends ArrayBasedCharEscaper {
+    JavaCharEscaper(Map<Character, String> replacements) {
+      super(replacements, PRINTABLE_ASCII_MIN, PRINTABLE_ASCII_MAX);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.escape.CharEscaper' is marked unstable with @Beta
+in `check_api/src/main/java/com/google/errorprone/util/SourceCodeEscapers.java`
+#### Snippet
+```java
+  }
+
+  private static final CharEscaper JAVA_CHAR_ESCAPER =
+      new JavaCharEscaper(
+          ImmutableMap.of(
+```
+
+### RuleId[ruleID=UnstableApiUsage]
 'ArrayBasedCharEscaper(java.util.Map, char, char)' is declared in unstable class 'com.google.common.escape.ArrayBasedCharEscaper' marked with @Beta
 in `check_api/src/main/java/com/google/errorprone/util/SourceCodeEscapers.java`
 #### Snippet
@@ -20170,18 +20182,6 @@ in `check_api/src/main/java/com/google/errorprone/util/SourceCodeEscapers.java`
       super(replacements, PRINTABLE_ASCII_MIN, PRINTABLE_ASCII_MAX);
     }
 
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.escape.CharEscaper' is marked unstable with @Beta
-in `check_api/src/main/java/com/google/errorprone/util/SourceCodeEscapers.java`
-#### Snippet
-```java
-   * >The Java Language Specification</a> for more details.
-   */
-  public static CharEscaper javaCharEscaper() {
-    return JAVA_CHAR_ESCAPER;
-  }
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -20341,90 +20341,6 @@ in `check_api/src/main/java/com/google/errorprone/names/NamingConventions.java`
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(com.google.common.collect.ImmutableMultimap.class, "K", "V")
-        .add(com.google.common.collect.ImmutableMultiset.class, "E")
-        .add(com.google.common.collect.ImmutableRangeMap.class, "K", "V")
-        .add(com.google.common.collect.ImmutableRangeSet.class, "C")
-        .add(com.google.common.collect.ImmutableSet.class, "E")
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(com.google.common.collect.ImmutableMultiset.class, "E")
-        .add(com.google.common.collect.ImmutableRangeMap.class, "K", "V")
-        .add(com.google.common.collect.ImmutableRangeSet.class, "C")
-        .add(com.google.common.collect.ImmutableSet.class, "E")
-        .add(com.google.common.collect.ImmutableSetMultimap.class, "K", "V")
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(com.google.common.collect.ImmutableTable.class, "R", "C", "V")
-        .add(com.google.common.collect.Range.class, "C")
-        .add(com.google.common.graph.ImmutableGraph.class, "N")
-        .add(com.google.common.graph.ImmutableNetwork.class, "N", "E")
-        .add(com.google.common.graph.ImmutableValueGraph.class, "N", "V")
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.graph.ImmutableNetwork' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(com.google.common.collect.Range.class, "C")
-        .add(com.google.common.graph.ImmutableGraph.class, "N")
-        .add(com.google.common.graph.ImmutableNetwork.class, "N", "E")
-        .add(com.google.common.graph.ImmutableValueGraph.class, "N", "V")
-        .add("com.google.common.hash.AbstractHashFunction") // package-private
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.graph.ImmutableValueGraph' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(com.google.common.graph.ImmutableGraph.class, "N")
-        .add(com.google.common.graph.ImmutableNetwork.class, "N", "E")
-        .add(com.google.common.graph.ImmutableValueGraph.class, "N", "V")
-        .add("com.google.common.hash.AbstractHashFunction") // package-private
-        .add(com.google.common.hash.HashCode.class)
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.net.MediaType' is marked unstable with @Beta
-in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
-#### Snippet
-```java
-        .add(com.google.common.hash.HashCode.class)
-        .add(com.google.common.io.BaseEncoding.class)
-        .add(com.google.common.net.MediaType.class)
-        .add(com.google.common.primitives.UnsignedInteger.class)
-        .add(com.google.common.primitives.UnsignedLong.class)
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/InferredNullability.java`
-#### Snippet
-```java
- */
-public class InferredNullability {
-  private final ImmutableGraph<InferenceVariable> constraintGraph;
-
-  private final Map<InferenceVariable, Optional<Nullness>> inferredMemoTable = new HashMap<>();
-```
-
-### RuleId[ruleID=UnstableApiUsage]
 'com.google.common.graph.Graph' is marked unstable with @Beta
 in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/InferredNullability.java`
 #### Snippet
@@ -20461,15 +20377,15 @@ in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/i
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
+'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/InferredNullability.java`
 #### Snippet
 ```java
-   */
-  public static Stream<ExpressionTree> streamReceivers(ExpressionTree tree) {
-    return stream(
-        new AbstractIterator<ExpressionTree>() {
-          private ExpressionTree current = tree;
+ */
+public class InferredNullability {
+  private final ImmutableGraph<InferenceVariable> constraintGraph;
+
+  private final Map<InferenceVariable, Optional<Nullness>> inferredMemoTable = new HashMap<>();
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -20485,111 +20401,15 @@ in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
-'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `check_api/src/main/java/com/google/errorprone/util/ASTHelpers.java`
 #### Snippet
 ```java
-    // TODO(kmb): Consider just visiting these expression types
-    if (rVal.getKind() == Kind.NULL_LITERAL) {
-      qualifierConstraints.putEdge(
-          ProperInferenceVar.NULL, TypeArgInferenceVar.create(ImmutableList.of(), rVal));
-      qualifierConstraints.putEdge(
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-      qualifierConstraints.putEdge(
-          ProperInferenceVar.NULL, TypeArgInferenceVar.create(ImmutableList.of(), rVal));
-      qualifierConstraints.putEdge(
-          TypeArgInferenceVar.create(ImmutableList.of(), rVal), ProperInferenceVar.NULL);
-    } else if ((rVal instanceof LiteralTree)
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-        || ((rVal instanceof IdentifierTree)
-            && ((IdentifierTree) rVal).getName().contentEquals("this"))) {
-      qualifierConstraints.putEdge(
-          ProperInferenceVar.NONNULL, TypeArgInferenceVar.create(ImmutableList.of(), rVal));
-      qualifierConstraints.putEdge(
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-      qualifierConstraints.putEdge(
-          ProperInferenceVar.NONNULL, TypeArgInferenceVar.create(ImmutableList.of(), rVal));
-      qualifierConstraints.putEdge(
-          TypeArgInferenceVar.create(ImmutableList.of(), rVal), ProperInferenceVar.NONNULL);
-    }
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-              InferenceVariable var =
-                  TypeArgInferenceVar.create(ImmutableList.copyOf(argSelector), sourceTree);
-              qualifierConstraints.putEdge(var, annot);
-              qualifierConstraints.putEdge(annot, var);
-            });
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-                  TypeArgInferenceVar.create(ImmutableList.copyOf(argSelector), sourceTree);
-              qualifierConstraints.putEdge(var, annot);
-              qualifierConstraints.putEdge(annot, var);
-            });
-  }
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.graph.MutableGraph' is marked unstable with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-   * words, edges point "upwards" in the lattice towards Top == Nullable.
    */
-  private final MutableGraph<InferenceVariable> qualifierConstraints;
-
-  private final Tree currentMethodOrInitializerOrLambda;
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-                              .typeArgSelector()
-                              .subList(depth, typeArg.typeArgSelector().size()));
-                  qualifierConstraints.putEdge(typeVarComponent, typeArg);
-                  qualifierConstraints.putEdge(typeArg, typeVarComponent);
-                });
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-                              .subList(depth, typeArg.typeArgSelector().size()));
-                  qualifierConstraints.putEdge(typeVarComponent, typeArg);
-                  qualifierConstraints.putEdge(typeArg, typeVarComponent);
-                });
-            selector.pop();
+  public static Stream<ExpressionTree> streamReceivers(ExpressionTree tree) {
+    return stream(
+        new AbstractIterator<ExpressionTree>() {
+          private ExpressionTree current = tree;
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -20601,90 +20421,6 @@ in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/i
       List<VarSymbol> formalArgs, int arity) {
     ImmutableList.Builder<TypeAndSymbol> result = ImmutableList.builderWithExpectedSize(arity);
     int numberOfVarArgs = arity - formalArgs.size() + 1;
-
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.graph.GraphBuilder' is marked unstable with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-  private NullnessQualifierInference(Tree currentMethodOrInitializerOrLambda) {
-    this.currentMethodOrInitializerOrLambda = currentMethodOrInitializerOrLambda;
-    this.qualifierConstraints = GraphBuilder.directed().build();
-
-    // Initialize graph with standard nullness lattice; see ASCII art diagram in
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'directed()' is declared in unstable class 'com.google.common.graph.GraphBuilder' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-  private NullnessQualifierInference(Tree currentMethodOrInitializerOrLambda) {
-    this.currentMethodOrInitializerOrLambda = currentMethodOrInitializerOrLambda;
-    this.qualifierConstraints = GraphBuilder.directed().build();
-
-    // Initialize graph with standard nullness lattice; see ASCII art diagram in
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'build()' is declared in unstable class 'com.google.common.graph.GraphBuilder' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-  private NullnessQualifierInference(Tree currentMethodOrInitializerOrLambda) {
-    this.currentMethodOrInitializerOrLambda = currentMethodOrInitializerOrLambda;
-    this.qualifierConstraints = GraphBuilder.directed().build();
-
-    // Initialize graph with standard nullness lattice; see ASCII art diagram in
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-    // Initialize graph with standard nullness lattice; see ASCII art diagram in
-    // com.google.errorprone.dataflow.nullnesspropagation.Nullness for more details.
-    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NONNULL);
-    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NULL);
-    qualifierConstraints.putEdge(ProperInferenceVar.NONNULL, ProperInferenceVar.NULLABLE);
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-    // com.google.errorprone.dataflow.nullnesspropagation.Nullness for more details.
-    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NONNULL);
-    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NULL);
-    qualifierConstraints.putEdge(ProperInferenceVar.NONNULL, ProperInferenceVar.NULLABLE);
-    qualifierConstraints.putEdge(ProperInferenceVar.NULL, ProperInferenceVar.NULLABLE);
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NONNULL);
-    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NULL);
-    qualifierConstraints.putEdge(ProperInferenceVar.NONNULL, ProperInferenceVar.NULLABLE);
-    qualifierConstraints.putEdge(ProperInferenceVar.NULL, ProperInferenceVar.NULLABLE);
-  }
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
-#### Snippet
-```java
-    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NULL);
-    qualifierConstraints.putEdge(ProperInferenceVar.NONNULL, ProperInferenceVar.NULLABLE);
-    qualifierConstraints.putEdge(ProperInferenceVar.NULL, ProperInferenceVar.NULLABLE);
-  }
 
 ```
 
@@ -20773,6 +20509,174 @@ in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/i
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.graph.MutableGraph' is marked unstable with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+   * words, edges point "upwards" in the lattice towards Top == Nullable.
+   */
+  private final MutableGraph<InferenceVariable> qualifierConstraints;
+
+  private final Tree currentMethodOrInitializerOrLambda;
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.graph.GraphBuilder' is marked unstable with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+  private NullnessQualifierInference(Tree currentMethodOrInitializerOrLambda) {
+    this.currentMethodOrInitializerOrLambda = currentMethodOrInitializerOrLambda;
+    this.qualifierConstraints = GraphBuilder.directed().build();
+
+    // Initialize graph with standard nullness lattice; see ASCII art diagram in
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'directed()' is declared in unstable class 'com.google.common.graph.GraphBuilder' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+  private NullnessQualifierInference(Tree currentMethodOrInitializerOrLambda) {
+    this.currentMethodOrInitializerOrLambda = currentMethodOrInitializerOrLambda;
+    this.qualifierConstraints = GraphBuilder.directed().build();
+
+    // Initialize graph with standard nullness lattice; see ASCII art diagram in
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'build()' is declared in unstable class 'com.google.common.graph.GraphBuilder' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+  private NullnessQualifierInference(Tree currentMethodOrInitializerOrLambda) {
+    this.currentMethodOrInitializerOrLambda = currentMethodOrInitializerOrLambda;
+    this.qualifierConstraints = GraphBuilder.directed().build();
+
+    // Initialize graph with standard nullness lattice; see ASCII art diagram in
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+    // Initialize graph with standard nullness lattice; see ASCII art diagram in
+    // com.google.errorprone.dataflow.nullnesspropagation.Nullness for more details.
+    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NONNULL);
+    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NULL);
+    qualifierConstraints.putEdge(ProperInferenceVar.NONNULL, ProperInferenceVar.NULLABLE);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+    // com.google.errorprone.dataflow.nullnesspropagation.Nullness for more details.
+    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NONNULL);
+    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NULL);
+    qualifierConstraints.putEdge(ProperInferenceVar.NONNULL, ProperInferenceVar.NULLABLE);
+    qualifierConstraints.putEdge(ProperInferenceVar.NULL, ProperInferenceVar.NULLABLE);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NONNULL);
+    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NULL);
+    qualifierConstraints.putEdge(ProperInferenceVar.NONNULL, ProperInferenceVar.NULLABLE);
+    qualifierConstraints.putEdge(ProperInferenceVar.NULL, ProperInferenceVar.NULLABLE);
+  }
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+    qualifierConstraints.putEdge(ProperInferenceVar.BOTTOM, ProperInferenceVar.NULL);
+    qualifierConstraints.putEdge(ProperInferenceVar.NONNULL, ProperInferenceVar.NULLABLE);
+    qualifierConstraints.putEdge(ProperInferenceVar.NULL, ProperInferenceVar.NULLABLE);
+  }
+
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+                              .typeArgSelector()
+                              .subList(depth, typeArg.typeArgSelector().size()));
+                  qualifierConstraints.putEdge(typeVarComponent, typeArg);
+                  qualifierConstraints.putEdge(typeArg, typeVarComponent);
+                });
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+                              .subList(depth, typeArg.typeArgSelector().size()));
+                  qualifierConstraints.putEdge(typeVarComponent, typeArg);
+                  qualifierConstraints.putEdge(typeArg, typeVarComponent);
+                });
+            selector.pop();
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+    // TODO(kmb): Consider just visiting these expression types
+    if (rVal.getKind() == Kind.NULL_LITERAL) {
+      qualifierConstraints.putEdge(
+          ProperInferenceVar.NULL, TypeArgInferenceVar.create(ImmutableList.of(), rVal));
+      qualifierConstraints.putEdge(
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+      qualifierConstraints.putEdge(
+          ProperInferenceVar.NULL, TypeArgInferenceVar.create(ImmutableList.of(), rVal));
+      qualifierConstraints.putEdge(
+          TypeArgInferenceVar.create(ImmutableList.of(), rVal), ProperInferenceVar.NULL);
+    } else if ((rVal instanceof LiteralTree)
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+        || ((rVal instanceof IdentifierTree)
+            && ((IdentifierTree) rVal).getName().contentEquals("this"))) {
+      qualifierConstraints.putEdge(
+          ProperInferenceVar.NONNULL, TypeArgInferenceVar.create(ImmutableList.of(), rVal));
+      qualifierConstraints.putEdge(
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+      qualifierConstraints.putEdge(
+          ProperInferenceVar.NONNULL, TypeArgInferenceVar.create(ImmutableList.of(), rVal));
+      qualifierConstraints.putEdge(
+          TypeArgInferenceVar.create(ImmutableList.of(), rVal), ProperInferenceVar.NONNULL);
+    }
+```
+
+### RuleId[ruleID=UnstableApiUsage]
 'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
 in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
 #### Snippet
@@ -20806,6 +20710,42 @@ in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/i
       qualifierConstraints.putEdge(
           TypeArgInferenceVar.create(argSelectorList, rVal),
           TypeArgInferenceVar.create(argSelectorList, lVal));
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+              InferenceVariable var =
+                  TypeArgInferenceVar.create(ImmutableList.copyOf(argSelector), sourceTree);
+              qualifierConstraints.putEdge(var, annot);
+              qualifierConstraints.putEdge(annot, var);
+            });
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'putEdge(N, N)' is declared in unstable interface 'com.google.common.graph.MutableGraph' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/dataflow/nullnesspropagation/inference/NullnessQualifierInference.java`
+#### Snippet
+```java
+                  TypeArgInferenceVar.create(ImmutableList.copyOf(argSelector), sourceTree);
+              qualifierConstraints.putEdge(var, annot);
+              qualifierConstraints.putEdge(annot, var);
+            });
+  }
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'add(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `check_api/src/main/java/com/google/errorprone/bugpatterns/BugChecker.java`
+#### Snippet
+```java
+      public Void scan(Tree tree, Void unused) {
+        if (getModifiers(tree) != null && isSuppressed(tree, state)) {
+          suppressedRegions.add(Range.closed(getStartPosition(tree), state.getEndPosition(tree)));
+        } else {
+          super.scan(tree, null);
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
@@ -20881,18 +20821,6 @@ in `check_api/src/main/java/com/google/errorprone/bugpatterns/BugChecker.java`
 ```
 
 ### RuleId[ruleID=UnstableApiUsage]
-'add(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `check_api/src/main/java/com/google/errorprone/bugpatterns/BugChecker.java`
-#### Snippet
-```java
-      public Void scan(Tree tree, Void unused) {
-        if (getModifiers(tree) != null && isSuppressed(tree, state)) {
-          suppressedRegions.add(Range.closed(getStartPosition(tree), state.getEndPosition(tree)));
-        } else {
-          super.scan(tree, null);
-```
-
-### RuleId[ruleID=UnstableApiUsage]
 'findLast(java.util.stream.Stream)' is marked unstable with @Beta
 in `check_api/src/main/java/com/google/errorprone/fixes/SuggestedFixes.java`
 #### Snippet
@@ -20914,5 +20842,77 @@ in `check_api/src/main/java/com/google/errorprone/fixes/SuggestedFixes.java`
                   CharStreams.nullWriter(),
                   state.context.get(JavaFileManager.class),
                   diagnosticListener,
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(com.google.common.collect.ImmutableMultimap.class, "K", "V")
+        .add(com.google.common.collect.ImmutableMultiset.class, "E")
+        .add(com.google.common.collect.ImmutableRangeMap.class, "K", "V")
+        .add(com.google.common.collect.ImmutableRangeSet.class, "C")
+        .add(com.google.common.collect.ImmutableSet.class, "E")
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(com.google.common.collect.ImmutableMultiset.class, "E")
+        .add(com.google.common.collect.ImmutableRangeMap.class, "K", "V")
+        .add(com.google.common.collect.ImmutableRangeSet.class, "C")
+        .add(com.google.common.collect.ImmutableSet.class, "E")
+        .add(com.google.common.collect.ImmutableSetMultimap.class, "K", "V")
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(com.google.common.collect.ImmutableTable.class, "R", "C", "V")
+        .add(com.google.common.collect.Range.class, "C")
+        .add(com.google.common.graph.ImmutableGraph.class, "N")
+        .add(com.google.common.graph.ImmutableNetwork.class, "N", "E")
+        .add(com.google.common.graph.ImmutableValueGraph.class, "N", "V")
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.graph.ImmutableNetwork' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(com.google.common.collect.Range.class, "C")
+        .add(com.google.common.graph.ImmutableGraph.class, "N")
+        .add(com.google.common.graph.ImmutableNetwork.class, "N", "E")
+        .add(com.google.common.graph.ImmutableValueGraph.class, "N", "V")
+        .add("com.google.common.hash.AbstractHashFunction") // package-private
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.graph.ImmutableValueGraph' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(com.google.common.graph.ImmutableGraph.class, "N")
+        .add(com.google.common.graph.ImmutableNetwork.class, "N", "E")
+        .add(com.google.common.graph.ImmutableValueGraph.class, "N", "V")
+        .add("com.google.common.hash.AbstractHashFunction") // package-private
+        .add(com.google.common.hash.HashCode.class)
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.net.MediaType' is marked unstable with @Beta
+in `core/src/main/java/com/google/errorprone/bugpatterns/threadsafety/WellKnownMutability.java`
+#### Snippet
+```java
+        .add(com.google.common.hash.HashCode.class)
+        .add(com.google.common.io.BaseEncoding.class)
+        .add(com.google.common.net.MediaType.class)
+        .add(com.google.common.primitives.UnsignedInteger.class)
+        .add(com.google.common.primitives.UnsignedLong.class)
 ```
 
