@@ -59,18 +59,6 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableExtension.java`
 ```
 
 ### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
-#### Snippet
-```java
-
-	private void storeStdOut(ExtensionContext context) {
-		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
-	}
-
-```
-
-### RuleId[ruleID=SystemOutErr]
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -78,6 +66,18 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 
 	private void storeStdErr(ExtensionContext context) {
 		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
+	}
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
+#### Snippet
+```java
+
+	private void storeStdOut(ExtensionContext context) {
+		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
 	}
 
 ```
@@ -225,11 +225,11 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-	 * Constructor with all attributes.
+
+	/**
+	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
 	 *
-	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
-	 * @param tests List of all tests, annotated with the issueId
-	 */
+	 * @return IssueId the test belongs to
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -237,11 +237,11 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-
-	/**
-	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
+	 * Constructor with all attributes.
 	 *
-	 * @return IssueId the test belongs to
+	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
+	 * @param tests List of all tests, annotated with the issueId
+	 */
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -317,18 +317,6 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
-		 * Creates a single set of distinct objects (according to
-		 * {@link Object#equals(Object)}) for a CartesianProductTest
-		 * from the elements of the passed {@link java.util.Collection}.
-		 *
-		 * The passed argument does not have to be an instance of {@link java.util.Set}.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
@@ -350,6 +338,18 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 		 * from the elements of the passed {@link java.util.stream.Stream}.
 		 *
 		 * @param entries the objects we want to include in a single set
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
+#### Snippet
+```java
+		 * Creates a single set of distinct objects (according to
+		 * {@link Object#equals(Object)}) for a CartesianProductTest
+		 * from the elements of the passed {@link java.util.Collection}.
+		 *
+		 * The passed argument does not have to be an instance of {@link java.util.Set}.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -494,11 +494,11 @@ Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
-	 * Works on Linux and OSX
+	 * Works on Windows
 	 */
-	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
+	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
-		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -506,11 +506,11 @@ Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
-	 * Works on Windows
+	 * Works on Linux and OSX
 	 */
-	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
+	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
-		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
