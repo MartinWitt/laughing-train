@@ -11,27 +11,14 @@ I found 67 bad smells with 2 repairable:
 | RuleId[ruleID=MarkedForRemoval] | 3 | false |
 | RuleId[ruleID=AssignmentToMethodParameter] | 2 | false |
 | RuleId[ruleID=RedundantSuppression] | 2 | false |
-| RuleId[ruleID=NonStrictComparisonCanBeEquality] | 1 | true |
 | RuleId[ruleID=OptionalUsedAsFieldOrParameterType] | 1 | false |
+| RuleId[ruleID=NonStrictComparisonCanBeEquality] | 1 | true |
 | RuleId[ruleID=RedundantMethodOverride] | 1 | false |
 | RuleId[ruleID=UtilityClassWithoutPrivateConstructor] | 1 | false |
 | RuleId[ruleID=RedundantClassCall] | 1 | false |
 | RuleId[ruleID=NonProtectedConstructorInAbstractClass] | 1 | true |
 | RuleId[ruleID=DeprecatedIsStillUsed] | 1 | false |
 | RuleId[ruleID=RedundantImplements] | 1 | false |
-## RuleId[ruleID=NonStrictComparisonCanBeEquality]
-### RuleId[ruleID=NonStrictComparisonCanBeEquality]
-Can be replaced with equality
-in `src/main/java/org/junitpioneer/jupiter/CartesianEnumArgumentsProvider.java`
-#### Snippet
-```java
-			Class<?>[] parameterTypes = method.getParameterTypes();
-
-			if (parameterTypes.length <= 0)
-				throw new PreconditionViolationException(
-					"Test method must declare at least one parameter: " + method.toGenericString());
-```
-
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional`> used as type for parameter 'type'
@@ -43,6 +30,19 @@ in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
 	private static <A extends Annotation> Stream<A> findOnOuterClasses(Optional<Class<?>> type, Class<A> annotationType,
 			boolean findRepeated, boolean findAllEnclosing) {
 		if (!type.isPresent())
+```
+
+## RuleId[ruleID=NonStrictComparisonCanBeEquality]
+### RuleId[ruleID=NonStrictComparisonCanBeEquality]
+Can be replaced with equality
+in `src/main/java/org/junitpioneer/jupiter/CartesianEnumArgumentsProvider.java`
+#### Snippet
+```java
+			Class<?>[] parameterTypes = method.getParameterTypes();
+
+			if (parameterTypes.length <= 0)
+				throw new PreconditionViolationException(
+					"Test method must declare at least one parameter: " + method.toGenericString());
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -123,18 +123,6 @@ in `src/main/java/org/junitpioneer/jupiter/ClearEnvironmentVariable.java`
 
 ### RuleId[ruleID=MarkedForRemoval]
 'java.lang.SecurityManager' is deprecated and marked for removal
-in `src/main/java/org/junitpioneer/jupiter/SetEnvironmentVariable.java`
-#### Snippet
-```java
- *
- * <p>WARNING: Java considers environment variables to be immutable, so this extension
- * uses reflection to change them. This requires that the {@link SecurityManager}
- * allows modifications and can potentially break on different operating systems and
- * Java versions. Be aware that this is a fragile solution and consider finding a
-```
-
-### RuleId[ruleID=MarkedForRemoval]
-'java.lang.SecurityManager' is deprecated and marked for removal
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
@@ -143,6 +131,18 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
  * Warning: If your {@link SecurityManager} does not allow modifications, it fails.
  */
 class EnvironmentVariableUtils {
+```
+
+### RuleId[ruleID=MarkedForRemoval]
+'java.lang.SecurityManager' is deprecated and marked for removal
+in `src/main/java/org/junitpioneer/jupiter/SetEnvironmentVariable.java`
+#### Snippet
+```java
+ *
+ * <p>WARNING: Java considers environment variables to be immutable, so this extension
+ * uses reflection to change them. This requires that the {@link SecurityManager}
+ * allows modifications and can potentially break on different operating systems and
+ * Java versions. Be aware that this is a fragile solution and consider finding a
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -244,18 +244,6 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
-#### Snippet
-```java
-	 * {@link Object#equals(Object) equals}) for the first parameter of
-	 * a {@code CartesianTest} from the elements of the passed
-	 * {@link java.util.stream.Stream Stream}.
-	 *
-	 * @param arguments the objects that should be passed to the parameter
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 #### Snippet
@@ -265,6 +253,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 	 * {@link java.util.Collection Collection}.
 	 * <p>
 	 * The passed argument does not have to be an instance of {@link java.util.Set Set}.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
+#### Snippet
+```java
+	 * {@link Object#equals(Object) equals}) for the first parameter of
+	 * a {@code CartesianTest} from the elements of the passed
+	 * {@link java.util.stream.Stream Stream}.
+	 *
+	 * @param arguments the objects that should be passed to the parameter
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -490,18 +490,6 @@ in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends DisableIfTestFails`
-in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
-#### Snippet
-```java
-
-	private static Stream<Configuration> createConfigurationFor(ExtensionContext context,
-			List<DisableIfTestFails> annotations) {
-		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
-		if (annotations.isEmpty())
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
@@ -523,6 +511,54 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
 		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends DisableIfTestFails`
+in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
+#### Snippet
+```java
+
+	private static Stream<Configuration> createConfigurationFor(ExtensionContext context,
+			List<DisableIfTestFails> annotations) {
+		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
+		if (annotations.isEmpty())
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Source`
+in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
+#### Snippet
+```java
+	private List<Source> sources;
+
+	protected void accept(List<Source> sources, String dataLocation) {
+		this.sources = sources;
+		this.dataLocation = dataLocation;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -559,42 +595,6 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 	private void clearEntries(Collection<K> entriesToClear) {
 		entriesToClear.forEach(this::clearEntry);
 	}
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Source`
-in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
-#### Snippet
-```java
-	private List<Source> sources;
-
-	protected void accept(List<Source> sources, String dataLocation) {
-		this.sources = sources;
-		this.dataLocation = dataLocation;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
