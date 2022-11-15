@@ -234,6 +234,66 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 
 ## RuleId[ruleID=UnstableApiUsage]
 ### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.graph.Traverser' is marked unstable with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+			var current = unvisited.remove(0);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'forGraph(com.google.common.graph.SuccessorsFunction)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+			var current = unvisited.remove(0);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+			var current = unvisited.remove(0);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+		var unvisited = new ArrayList<>(graph.nodes());
+		var groups = new ArrayList<Group>();
+		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
+		while (!unvisited.isEmpty()) {
+			var current = unvisited.remove(0);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
+'depthFirstPostOrder(N)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
+in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
+#### Snippet
+```java
+			
+			var group = new Group();
+			for (Node node : traversal.depthFirstPostOrder(current)) {
+				node.add(group);
+				unvisited.remove(node);
+```
+
+### RuleId[ruleID=UnstableApiUsage]
 'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -327,65 +387,5 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		return builder.build();
 	}
 	
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.graph.Traverser' is marked unstable with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-			var current = unvisited.remove(0);
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'forGraph(com.google.common.graph.SuccessorsFunction)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-			var current = unvisited.remove(0);
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-			var current = unvisited.remove(0);
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-		var unvisited = new ArrayList<>(graph.nodes());
-		var groups = new ArrayList<Group>();
-		var traversal = Traverser.forGraph((SuccessorsFunction<Node>) node -> graph.successors(node).stream().filter(successorFilter)::iterator);
-		while (!unvisited.isEmpty()) {
-			var current = unvisited.remove(0);
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'depthFirstPostOrder(N)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
-in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
-#### Snippet
-```java
-			
-			var group = new Group();
-			for (Node node : traversal.depthFirstPostOrder(current)) {
-				node.add(group);
-				unvisited.remove(node);
 ```
 
