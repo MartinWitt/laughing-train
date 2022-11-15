@@ -67,8 +67,8 @@ I found 1790 bad smells with 353 repairable:
 | RuleId[ruleID=InnerClassMayBeStatic] | 1 | true |
 | RuleId[ruleID=UtilityClassWithPublicConstructor] | 1 | false |
 | RuleId[ruleID=CharsetObjectCanBeUsed] | 1 | false |
-| RuleId[ruleID=RegExpSingleCharAlternation] | 1 | false |
 | RuleId[ruleID=ComparatorMethodParameterNotUsed] | 1 | false |
+| RuleId[ruleID=RegExpSingleCharAlternation] | 1 | false |
 | RuleId[ruleID=Convert2Lambda] | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
@@ -173,6 +173,18 @@ Type may be primitive
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
 ```java
+
+            StringBuilder modifiedData = new StringBuilder();
+            Integer modifyCount = 0;
+            if (actionList.contains(5)) {
+                modifiedData = modifiedData.append(Phrase.build(Phrase.AMOUNT_ITEM, NumberFormat.getInstance().format(blockCount), (blockCount == 1 ? Selector.FIRST : Selector.SECOND)));
+```
+
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
+Type may be primitive
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
                 userString = user.getName();
                 if (verbose && preview == 0 && !actionList.contains(11)) {
                     Integer chunks = chunkList.size();
@@ -192,125 +204,17 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                 }
 ```
 
-### RuleId[ruleID=WrapperTypeMayBePrimitive]
-Type may be primitive
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-
-            StringBuilder modifiedData = new StringBuilder();
-            Integer modifyCount = 0;
-            if (actionList.contains(5)) {
-                modifiedData = modifiedData.append(Phrase.build(Phrase.AMOUNT_ITEM, NumberFormat.getInstance().format(blockCount), (blockCount == 1 ? Selector.FIRST : Selector.SECOND)));
-```
-
 ## RuleId[ruleID=UnnecessaryModifier]
 ### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
 in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
 #### Snippet
 ```java
-    public Material getFrameType(EntityType type);
+    public int getMinHeight(World world);
 
-    public Class<?> getFrameClass(Material material);
-
-    public String parseLegacyName(String name);
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot);
-
-    public boolean setItemMeta(Material rowType, ItemStack itemstack, List<Map<String, Object>> map);
-
-    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin);
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public boolean setItemMeta(Material rowType, ItemStack itemstack, List<Map<String, Object>> map);
-
-    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin);
-
-    public boolean isWall(BlockData blockData);
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public String parseLegacyName(String name);
-
-    public boolean getEntityMeta(LivingEntity entity, List<Object> info);
-
-    public boolean setEntityMeta(Entity entity, Object value, int count);
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
     public int getLegacyBlockId(Material material);
 
     public void sendSignChange(Player player, Sign sign);
-
-    public void setGlowing(Sign sign, boolean b);
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public boolean isItemFrame(Material material);
-
-    public boolean isGlowing(Sign sign);
-
-    public boolean isInvisible(Material material);
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin);
-
-    public boolean isWall(BlockData blockData);
-
-    public boolean isItemFrame(Material material);
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public Material getBucketContents(Material material);
-
-    public Material getFrameType(Entity entity);
-
-    public Material getFrameType(EntityType type);
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public boolean isWall(BlockData blockData);
-
-    public boolean isItemFrame(Material material);
-
-    public boolean isGlowing(Sign sign);
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
@@ -330,6 +234,126 @@ Modifier `public` is redundant for interface members
 in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
 #### Snippet
 ```java
+    public boolean isItemFrame(Material material);
+
+    public boolean isGlowing(Sign sign);
+
+    public boolean isInvisible(Material material);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin);
+
+    public boolean isWall(BlockData blockData);
+
+    public boolean isItemFrame(Material material);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public Material getFrameType(EntityType type);
+
+    public Class<?> getFrameClass(Material material);
+
+    public String parseLegacyName(String name);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean setEntityMeta(Entity entity, Object value, int count);
+
+    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot);
+
+    public boolean setItemMeta(Material rowType, ItemStack itemstack, List<Map<String, Object>> map);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot);
+
+    public boolean setItemMeta(Material rowType, ItemStack itemstack, List<Map<String, Object>> map);
+
+    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public int getLegacyBlockId(Material material);
+
+    public void sendSignChange(Player player, Sign sign);
+
+    public void setGlowing(Sign sign, boolean b);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public String parseLegacyName(String name);
+
+    public boolean getEntityMeta(LivingEntity entity, List<Object> info);
+
+    public boolean setEntityMeta(Entity entity, Object value, int count);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean setItemMeta(Material rowType, ItemStack itemstack, List<Map<String, Object>> map);
+
+    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin);
+
+    public boolean isWall(BlockData blockData);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public Material getFrameType(Entity entity);
+
+    public Material getFrameType(EntityType type);
+
+    public Class<?> getFrameClass(Material material);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean isWall(BlockData blockData);
+
+    public boolean isItemFrame(Material material);
+
+    public boolean isGlowing(Sign sign);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
     public ItemStack adjustIngredient(MerchantRecipe recipe, ItemStack itemStack);
 
     public Material getBucketContents(Material material);
@@ -342,11 +366,47 @@ Modifier `public` is redundant for interface members
 in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
 #### Snippet
 ```java
+    public Material getBucketContents(Material material);
+
+    public Material getFrameType(Entity entity);
+
+    public Material getFrameType(EntityType type);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean isInvisible(Material material);
+
+    public int getMinHeight(World world);
+
+    public int getLegacyBlockId(Material material);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
     public boolean isGlowing(Sign sign);
 
     public boolean isInvisible(Material material);
 
     public int getMinHeight(World world);
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean getEntityMeta(LivingEntity entity, List<Object> info);
+
+    public boolean setEntityMeta(Entity entity, Object value, int count);
+
+    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot);
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
@@ -375,62 +435,14 @@ public interface BukkitInterface {
 
 ### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+in `src/main/java/net/coreprotect/paper/PaperInterface.java`
 #### Snippet
 ```java
-    public Material getFrameType(Entity entity);
+    public InventoryHolder getHolder(Inventory holder, boolean useSnapshot);
 
-    public Material getFrameType(EntityType type);
+    public boolean isStopping(Server server);
 
-    public Class<?> getFrameClass(Material material);
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public boolean isInvisible(Material material);
-
-    public int getMinHeight(World world);
-
-    public int getLegacyBlockId(Material material);
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public int getMinHeight(World world);
-
-    public int getLegacyBlockId(Material material);
-
-    public void sendSignChange(Player player, Sign sign);
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public boolean setEntityMeta(Entity entity, Object value, int count);
-
-    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot);
-
-    public boolean setItemMeta(Material rowType, ItemStack itemstack, List<Map<String, Object>> map);
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public boolean getEntityMeta(LivingEntity entity, List<Object> info);
-
-    public boolean setEntityMeta(Entity entity, Object value, int count);
-
-    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot);
+}
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
@@ -447,14 +459,14 @@ public interface PaperInterface {
 
 ### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/paper/PaperInterface.java`
+in `src/main/java/net/coreprotect/spigot/SpigotInterface.java`
 #### Snippet
 ```java
-    public InventoryHolder getHolder(Inventory holder, boolean useSnapshot);
+    public void addHoverComponent(Object message, String[] data);
 
-    public boolean isStopping(Server server);
+    public void setHoverEvent(Object message, String text);
 
-}
+    public void sendComponent(CommandSender sender, String string, String bypass);
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
@@ -481,18 +493,6 @@ in `src/main/java/net/coreprotect/spigot/SpigotInterface.java`
 }
 ```
 
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/spigot/SpigotInterface.java`
-#### Snippet
-```java
-    public void addHoverComponent(Object message, String[] data);
-
-    public void setHoverEvent(Object message, String text);
-
-    public void sendComponent(CommandSender sender, String string, String bypass);
-```
-
 ## RuleId[ruleID=WhileCanBeForeach]
 ### RuleId[ruleID=WhileCanBeForeach]
 `while` loop can be replaced with enhanced 'for'
@@ -504,6 +504,307 @@ in `src/main/java/net/coreprotect/listener/block/BlockExplodeListener.java`
             while (it.hasNext()) {
                 Map.Entry<Location, Block> data = it.next();
                 Block block = data.getValue();
+```
+
+## RuleId[ruleID=CommentedOutCode]
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (9 lines)
+in `src/main/java/net/coreprotect/listener/player/ProjectileLaunchListener.java`
+#### Snippet
+```java
+
+    // Requires Bukkit 1.17+
+    /*
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    protected void onEntityShootBow(EntityShootBowEvent event) {
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (6 lines)
+in `src/main/java/net/coreprotect/listener/player/ProjectileLaunchListener.java`
+#### Snippet
+```java
+    */
+    // Requires Bukkit 1.16+
+    /*
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    protected void onPlayerEggThrow(PlayerEggThrowEvent event) {
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (7 lines)
+in `src/main/java/net/coreprotect/database/logger/UsernameLogger.java`
+#### Snippet
+```java
+                preparedStmt.close();
+
+                /*
+                    //Commented out to prevent potential issues if player manages to stay logged in with old username
+                    if (ConfigHandler.playerIdCache.get(user_row)!=null){
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (2 lines)
+in `src/main/java/net/coreprotect/command/StatusCommand.java`
+#### Snippet
+```java
+                    }
+
+                    // Functions.sendMessage(player, Color.DARK_AQUA + "Website: " + Color.WHITE + "www.coreprotect.net/updates/");
+
+                    // Functions.sendMessage(player, Color.DARK_AQUA + Phrase.build(Phrase.LINK_DISCORD, Color.WHITE + "www.coreprotect.net/discord/").replaceFirst(":", ":" + Color.WHITE));
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (3 lines)
+in `src/main/java/net/coreprotect/command/StatusCommand.java`
+#### Snippet
+```java
+                        if (instance.getServer().getPluginManager().getPlugin("CoreEdit") == null) {
+                            Thread.sleep(500);
+                            /*
+                            Functions.sendMessage(player, Color.WHITE + "----- " + Color.DARK_AQUA + "Recommended Plugin " + Color.WHITE + "-----");
+                            Functions.sendMessage(player, Color.DARK_AQUA + "Notice: " + Color.WHITE + "Enjoy CoreProtect? Check out CoreEdit!");
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (12 lines)
+in `src/main/java/net/coreprotect/listener/block/BlockFormListener.java`
+#### Snippet
+```java
+            if (player.length() > 0) {
+                boolean log = true;
+                /*
+                if (newState.getType().equals(Material.COBBLESTONE)) {
+                    log = false;
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (31 lines)
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+            NATURAL_BLOCKS.addAll(VINES);
+
+            /*
+            NATURAL_BLOCKS.addAll(Tag.BASE_STONE_OVERWORLD.getValues());
+            NATURAL_BLOCKS.addAll(Tag.BEACON_BASE_BLOCKS.getValues());
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (6 lines)
+in `src/main/java/net/coreprotect/listener/player/PlayerCommandListener.java`
+#### Snippet
+```java
+    }
+
+    /*
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onServerCommand(ServerCommandEvent event) {
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (3 lines)
+in `src/main/java/net/coreprotect/listener/player/PlayerCommandListener.java`
+#### Snippet
+```java
+        }
+
+        /*
+        if (Config.getGlobal().ENTITY_KILLS && player.hasPermission("bukkit.command.kill")) {
+            EntityDeathListener.parseEntityKills(event.getMessage());
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (6 lines)
+in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
+#### Snippet
+```java
+                Queue.queueBlockBreak(e, block.getState(), Material.ARMOR_STAND, null, (int) entityLocation.getYaw());
+            }
+            /*
+            else if (isCommand) {
+                entityLocation.setY(entityLocation.getY() + 0.99);
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (2 lines)
+in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
+#### Snippet
+```java
+            if (!skip) {
+                if (!(entity instanceof Player) && entity_type.name() != null) {
+                    // Player player = (Player)entity;
+                    // e = player.getName();
+                    e = "#" + entity_type.name().toLowerCase(Locale.ROOT);
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (7 lines)
+in `src/main/java/net/coreprotect/database/ContainerRollback.java`
+#### Snippet
+```java
+                        if (container != null) {
+                            for (Object[] lookupRow : lookupList) {
+                                // int unixtimestamp = (int) (System.currentTimeMillis() / 1000L);
+                                // int rowId = lookupRow[0];
+                                // int rowTime = (Integer)lookupRow[1];
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (18 lines)
+in `src/main/java/net/coreprotect/listener/player/HopperPullListener.java`
+#### Snippet
+```java
+                    }
+
+                    /*
+                    for (ItemStack itemStack : sourceHolder.getInventory().getContents()) {
+                        if (itemStack != null && Util.getItemStackHashCode(itemStack) == itemHash) {
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (9 lines)
+in `src/main/java/net/coreprotect/listener/player/ArmorStandManipulateListener.java`
+#### Snippet
+```java
+        }
+
+        /*
+            if (item!=null && playerItem==null){
+                //player gets item
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (12 lines)
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                            Queue.queueBlockPlace(player.getName(), block.getState(), type, block.getState(), type, -1, 0, blockData.getAsString());
+
+                            /*
+                            BlockState blockState = block.getState();
+                            Bukkit.getServer().getScheduler().runTask(CoreProtect.getInstance(), () -> {
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (3 lines)
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+#### Snippet
+```java
+                            log = false;
+
+                            /*
+                            if (physics == 0 && scanBlock.getBlockData() instanceof MultipleFacing) {
+                                physics = 1;
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (2 lines)
+in `src/main/java/net/coreprotect/listener/block/BlockIgniteListener.java`
+#### Snippet
+```java
+
+            if (event.getPlayer() == null) {
+                // IgniteCause cause = event.getCause(); // FLINT_AND_STEEL
+                // boolean isDispenser = (event.getIgnitingBlock() != null && event.getIgnitingBlock().getType()==Material.DISPENSER);
+
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (3 lines)
+in `src/main/java/net/coreprotect/consumer/Queue.java`
+#### Snippet
+```java
+
+    protected static void queueSignText(String user, Location location, int action, int color, boolean glowing, String line1, String line2, String line3, String line4, int offset) {
+        /*
+        if (line1.length() == 0 && line2.length() == 0 && line3.length() == 0 && line4.length() == 0) {
+            return;
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (12 lines)
+in `src/main/java/net/coreprotect/database/Lookup.java`
+#### Snippet
+```java
+    }
+
+    /*
+    private static long calculateTableOffset(long col2, long col3, long limitOffset, int limitCount) {
+        return (limitOffset - (col2 + col3)) < 0L ? 0L : (limitOffset - (col2 + col3));
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (10 lines)
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+            boolean inventoryRollback = actionList.contains(11);
+
+            /*
+            int worldMin = BukkitAdapter.ADAPTER.getMinHeight(world);
+            int worldHeight = world.getMaxHeight() - worldMin;
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (3 lines)
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                    int chunkZ = rowZ >> 4;
+                    long chunkKey = inventoryRollback ? 0 : (chunkX & 0xffffffffL | (chunkZ & 0xffffffffL) << 32);
+                    // int rowAction = result[8];
+                    // if (rowAction==10) result[8] = 0;
+                    // if (rowAction==11) result[8] = 1;
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (3 lines)
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                    }
+
+                    /*
+                    if (rowY < worldMin) {
+                        continue;
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (2 lines)
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+
+                    if (modifyList.get(chunkKey) == null) {
+                        // Integer[][] chunkSections = new Integer[((worldMax - worldMin) >> 4)][];
+                        // adjacentDataList.put(chunkKey, chunkSections);
+                        dataList.put(chunkKey, new ArrayList<>());
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (3 lines)
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                                        else {
+                                            boolean physics = true;
+                                            /*
+                                            if (blockData instanceof MultipleFacing || BukkitAdapter.ADAPTER.isWall(blockData) || blockData instanceof Snow || blockData instanceof Stairs || blockData instanceof RedstoneWire || blockData instanceof Chest) {
+                                                physics = !(blockData instanceof Snow) || block.getY() <= BukkitAdapter.ADAPTER.getMinHeight(block.getWorld()) || (block.getWorld().getBlockAt(block.getX(), block.getY() - 1, block.getZ()).getType().equals(Material.GRASS_BLOCK));
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (6 lines)
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+
+        try {
+            /*
+            if (list instanceof Object[]) {
+                slot = (int) ((Object[]) list)[0];
 ```
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -676,6 +977,18 @@ in `src/main/java/net/coreprotect/CoreProtect.java`
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `patchNotification` from instance context
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+                                    Chat.console(Phrase.build(Phrase.PATCH_UPGRADING));
+                                    alertTime = alertTime + 30;
+                                    patchNotification = true;
+                                }
+                                Thread.sleep(1000);
+```
+
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 Assignment to static field `ConfigHandler.converterRunning` from instance context
 in `src/main/java/net/coreprotect/patch/Patch.java`
 #### Snippet
@@ -697,18 +1010,6 @@ in `src/main/java/net/coreprotect/patch/Patch.java`
                                 Consumer.isPaused = false;
                             }
                             else if (finished == -1) {
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `patchNotification` from instance context
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-                                    Chat.console(Phrase.build(Phrase.PATCH_UPGRADING));
-                                    alertTime = alertTime + 30;
-                                    patchNotification = true;
-                                }
-                                Thread.sleep(1000);
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -1131,307 +1432,6 @@ in `src/main/java/net/coreprotect/consumer/Consumer.java`
                 Thread.sleep(500);
 ```
 
-## RuleId[ruleID=CommentedOutCode]
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (2 lines)
-in `src/main/java/net/coreprotect/command/StatusCommand.java`
-#### Snippet
-```java
-                    }
-
-                    // Functions.sendMessage(player, Color.DARK_AQUA + "Website: " + Color.WHITE + "www.coreprotect.net/updates/");
-
-                    // Functions.sendMessage(player, Color.DARK_AQUA + Phrase.build(Phrase.LINK_DISCORD, Color.WHITE + "www.coreprotect.net/discord/").replaceFirst(":", ":" + Color.WHITE));
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (3 lines)
-in `src/main/java/net/coreprotect/command/StatusCommand.java`
-#### Snippet
-```java
-                        if (instance.getServer().getPluginManager().getPlugin("CoreEdit") == null) {
-                            Thread.sleep(500);
-                            /*
-                            Functions.sendMessage(player, Color.WHITE + "----- " + Color.DARK_AQUA + "Recommended Plugin " + Color.WHITE + "-----");
-                            Functions.sendMessage(player, Color.DARK_AQUA + "Notice: " + Color.WHITE + "Enjoy CoreProtect? Check out CoreEdit!");
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (9 lines)
-in `src/main/java/net/coreprotect/listener/player/ProjectileLaunchListener.java`
-#### Snippet
-```java
-
-    // Requires Bukkit 1.17+
-    /*
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    protected void onEntityShootBow(EntityShootBowEvent event) {
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (6 lines)
-in `src/main/java/net/coreprotect/listener/player/ProjectileLaunchListener.java`
-#### Snippet
-```java
-    */
-    // Requires Bukkit 1.16+
-    /*
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    protected void onPlayerEggThrow(PlayerEggThrowEvent event) {
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (7 lines)
-in `src/main/java/net/coreprotect/database/logger/UsernameLogger.java`
-#### Snippet
-```java
-                preparedStmt.close();
-
-                /*
-                    //Commented out to prevent potential issues if player manages to stay logged in with old username
-                    if (ConfigHandler.playerIdCache.get(user_row)!=null){
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (12 lines)
-in `src/main/java/net/coreprotect/listener/block/BlockFormListener.java`
-#### Snippet
-```java
-            if (player.length() > 0) {
-                boolean log = true;
-                /*
-                if (newState.getType().equals(Material.COBBLESTONE)) {
-                    log = false;
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (31 lines)
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-            NATURAL_BLOCKS.addAll(VINES);
-
-            /*
-            NATURAL_BLOCKS.addAll(Tag.BASE_STONE_OVERWORLD.getValues());
-            NATURAL_BLOCKS.addAll(Tag.BEACON_BASE_BLOCKS.getValues());
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (3 lines)
-in `src/main/java/net/coreprotect/listener/player/PlayerCommandListener.java`
-#### Snippet
-```java
-        }
-
-        /*
-        if (Config.getGlobal().ENTITY_KILLS && player.hasPermission("bukkit.command.kill")) {
-            EntityDeathListener.parseEntityKills(event.getMessage());
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (6 lines)
-in `src/main/java/net/coreprotect/listener/player/PlayerCommandListener.java`
-#### Snippet
-```java
-    }
-
-    /*
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onServerCommand(ServerCommandEvent event) {
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (6 lines)
-in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
-#### Snippet
-```java
-                Queue.queueBlockBreak(e, block.getState(), Material.ARMOR_STAND, null, (int) entityLocation.getYaw());
-            }
-            /*
-            else if (isCommand) {
-                entityLocation.setY(entityLocation.getY() + 0.99);
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (2 lines)
-in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
-#### Snippet
-```java
-            if (!skip) {
-                if (!(entity instanceof Player) && entity_type.name() != null) {
-                    // Player player = (Player)entity;
-                    // e = player.getName();
-                    e = "#" + entity_type.name().toLowerCase(Locale.ROOT);
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (18 lines)
-in `src/main/java/net/coreprotect/listener/player/HopperPullListener.java`
-#### Snippet
-```java
-                    }
-
-                    /*
-                    for (ItemStack itemStack : sourceHolder.getInventory().getContents()) {
-                        if (itemStack != null && Util.getItemStackHashCode(itemStack) == itemHash) {
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (7 lines)
-in `src/main/java/net/coreprotect/database/ContainerRollback.java`
-#### Snippet
-```java
-                        if (container != null) {
-                            for (Object[] lookupRow : lookupList) {
-                                // int unixtimestamp = (int) (System.currentTimeMillis() / 1000L);
-                                // int rowId = lookupRow[0];
-                                // int rowTime = (Integer)lookupRow[1];
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (3 lines)
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
-#### Snippet
-```java
-                            log = false;
-
-                            /*
-                            if (physics == 0 && scanBlock.getBlockData() instanceof MultipleFacing) {
-                                physics = 1;
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (9 lines)
-in `src/main/java/net/coreprotect/listener/player/ArmorStandManipulateListener.java`
-#### Snippet
-```java
-        }
-
-        /*
-            if (item!=null && playerItem==null){
-                //player gets item
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (12 lines)
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                            Queue.queueBlockPlace(player.getName(), block.getState(), type, block.getState(), type, -1, 0, blockData.getAsString());
-
-                            /*
-                            BlockState blockState = block.getState();
-                            Bukkit.getServer().getScheduler().runTask(CoreProtect.getInstance(), () -> {
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (2 lines)
-in `src/main/java/net/coreprotect/listener/block/BlockIgniteListener.java`
-#### Snippet
-```java
-
-            if (event.getPlayer() == null) {
-                // IgniteCause cause = event.getCause(); // FLINT_AND_STEEL
-                // boolean isDispenser = (event.getIgnitingBlock() != null && event.getIgnitingBlock().getType()==Material.DISPENSER);
-
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (3 lines)
-in `src/main/java/net/coreprotect/consumer/Queue.java`
-#### Snippet
-```java
-
-    protected static void queueSignText(String user, Location location, int action, int color, boolean glowing, String line1, String line2, String line3, String line4, int offset) {
-        /*
-        if (line1.length() == 0 && line2.length() == 0 && line3.length() == 0 && line4.length() == 0) {
-            return;
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (12 lines)
-in `src/main/java/net/coreprotect/database/Lookup.java`
-#### Snippet
-```java
-    }
-
-    /*
-    private static long calculateTableOffset(long col2, long col3, long limitOffset, int limitCount) {
-        return (limitOffset - (col2 + col3)) < 0L ? 0L : (limitOffset - (col2 + col3));
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (10 lines)
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-            boolean inventoryRollback = actionList.contains(11);
-
-            /*
-            int worldMin = BukkitAdapter.ADAPTER.getMinHeight(world);
-            int worldHeight = world.getMaxHeight() - worldMin;
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (3 lines)
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                    int chunkZ = rowZ >> 4;
-                    long chunkKey = inventoryRollback ? 0 : (chunkX & 0xffffffffL | (chunkZ & 0xffffffffL) << 32);
-                    // int rowAction = result[8];
-                    // if (rowAction==10) result[8] = 0;
-                    // if (rowAction==11) result[8] = 1;
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (3 lines)
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                    }
-
-                    /*
-                    if (rowY < worldMin) {
-                        continue;
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (2 lines)
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-
-                    if (modifyList.get(chunkKey) == null) {
-                        // Integer[][] chunkSections = new Integer[((worldMax - worldMin) >> 4)][];
-                        // adjacentDataList.put(chunkKey, chunkSections);
-                        dataList.put(chunkKey, new ArrayList<>());
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (3 lines)
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                                        else {
-                                            boolean physics = true;
-                                            /*
-                                            if (blockData instanceof MultipleFacing || BukkitAdapter.ADAPTER.isWall(blockData) || blockData instanceof Snow || blockData instanceof Stairs || blockData instanceof RedstoneWire || blockData instanceof Chest) {
-                                                physics = !(blockData instanceof Snow) || block.getY() <= BukkitAdapter.ADAPTER.getMinHeight(block.getWorld()) || (block.getWorld().getBlockAt(block.getX(), block.getY() - 1, block.getZ()).getType().equals(Material.GRASS_BLOCK));
-```
-
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (6 lines)
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-
-        try {
-            /*
-            if (list instanceof Object[]) {
-                slot = (int) ((Object[]) list)[0];
-```
-
 ## RuleId[ruleID=Java8ListReplaceAll]
 ### RuleId[ruleID=Java8ListReplaceAll]
 The loop can be replaced with 'List.replaceAll'
@@ -1702,6 +1702,30 @@ in `src/main/java/net/coreprotect/command/StatusCommand.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`data.size() == 0` can be replaced with 'data.isEmpty()'
+in `src/main/java/net/coreprotect/database/logger/ItemLogger.java`
+#### Snippet
+```java
+                    // Object[] metadata = new Object[] { slot, item.getItemMeta() };
+                    List<List<Map<String, Object>>> data = ItemMetaHandler.seralize(item, null, null, 0);
+                    if (data.size() == 0) {
+                        data = null;
+                    }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`items.size() == 0` can be replaced with 'items.isEmpty()'
+in `src/main/java/net/coreprotect/listener/player/PlayerDeathListener.java`
+#### Snippet
+```java
+        String user = ((Player) entity).getName();
+        List<ItemStack> items = event.getDrops();
+        if (items == null || items.size() == 0) {
+            return;
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `signList.size() == 0` can be replaced with 'signList.isEmpty()'
 in `src/main/java/net/coreprotect/patch/script/__2_19_0.java`
 #### Snippet
@@ -1735,30 +1759,6 @@ in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
             if (user.length() > 0) {
                 BlockState blockState = location.getBlock().getState();
                 Material type = blockState.getType();
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`items.size() == 0` can be replaced with 'items.isEmpty()'
-in `src/main/java/net/coreprotect/listener/player/PlayerDeathListener.java`
-#### Snippet
-```java
-        String user = ((Player) entity).getName();
-        List<ItemStack> items = event.getDrops();
-        if (items == null || items.size() == 0) {
-            return;
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`data.size() == 0` can be replaced with 'data.isEmpty()'
-in `src/main/java/net/coreprotect/database/logger/ItemLogger.java`
-#### Snippet
-```java
-                    // Object[] metadata = new Object[] { slot, item.getItemMeta() };
-                    List<List<Map<String, Object>>> data = ItemMetaHandler.seralize(item, null, null, 0);
-                    if (data.size() == 0) {
-                        data = null;
-                    }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1819,30 +1819,6 @@ in `src/main/java/net/coreprotect/database/logger/BlockPlaceLogger.java`
             if (event.getUser().length() > 0) {
                 CacheHandler.lookupCache.put("" + x + "." + y + "." + z + "." + wid + "", new Object[] { time, event.getUser(), type });
             }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`color.length() > 0` can be replaced with '!color.isEmpty()'
-in `src/main/java/net/coreprotect/language/Phrase.java`
-#### Snippet
-```java
-        }
-
-        if (color.length() > 0) {
-            output = output.replaceFirst(split, split + color);
-            output = ChatMessage.parseQuotes(output, color);
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`users.length() == 0` can be replaced with 'users.isEmpty()'
-in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
-#### Snippet
-```java
-                                            String users = "";
-                                            for (String value : rollbackusers2) {
-                                                if (users.length() == 0) {
-                                                    users = "" + value + "";
-                                                }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1954,6 +1930,30 @@ in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`users.length() == 0` can be replaced with 'users.isEmpty()'
+in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
+#### Snippet
+```java
+                                            String users = "";
+                                            for (String value : rollbackusers2) {
+                                                if (users.length() == 0) {
+                                                    users = "" + value + "";
+                                                }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`color.length() > 0` can be replaced with '!color.isEmpty()'
+in `src/main/java/net/coreprotect/language/Phrase.java`
+#### Snippet
+```java
+        }
+
+        if (color.length() > 0) {
+            output = output.replaceFirst(split, split + color);
+            output = ChatMessage.parseQuotes(output, color);
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `idList.length() == 0` can be replaced with 'idList.isEmpty()'
 in `src/main/java/net/coreprotect/patch/script/__2_16_0.java`
 #### Snippet
@@ -1975,30 +1975,6 @@ in `src/main/java/net/coreprotect/patch/script/__2_16_0.java`
                 if (idList.length() > 0) {
                     query = "SELECT rowid as id FROM " + ConfigHandler.prefix + "block WHERE type IN(" + idList + ") AND y='0'";
                     String preparedQueryDelete = "DELETE FROM " + ConfigHandler.prefix + "block WHERE rowid = ?";
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`builder.length() > 0` can be replaced with '!builder.isEmpty()'
-in `src/main/java/net/coreprotect/spigot/SpigotHandler.java`
-#### Snippet
-```java
-            String value = matcher.group(1);
-            if (value != null) {
-                if (builder.length() > 0) {
-                    addBuilder(message, builder);
-                }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`builder.length() > 0` can be replaced with '!builder.isEmpty()'
-in `src/main/java/net/coreprotect/spigot/SpigotHandler.java`
-#### Snippet
-```java
-        }
-
-        if (builder.length() > 0) {
-            addBuilder(message, builder);
-        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2074,6 +2050,30 @@ in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`builder.length() > 0` can be replaced with '!builder.isEmpty()'
+in `src/main/java/net/coreprotect/spigot/SpigotHandler.java`
+#### Snippet
+```java
+            String value = matcher.group(1);
+            if (value != null) {
+                if (builder.length() > 0) {
+                    addBuilder(message, builder);
+                }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`builder.length() > 0` can be replaced with '!builder.isEmpty()'
+in `src/main/java/net/coreprotect/spigot/SpigotHandler.java`
+#### Snippet
+```java
+        }
+
+        if (builder.length() > 0) {
+            addBuilder(message, builder);
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `line1.length() > 0` can be replaced with '!line1.isEmpty()'
 in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 #### Snippet
@@ -2119,6 +2119,30 @@ in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
                 if (line4 != null && line4.length() > 0) {
                     message.append(line4);
                     if (!line4.endsWith(" ")) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`currentArg.length() > 0` can be replaced with '!currentArg.isEmpty()'
+in `src/main/java/net/coreprotect/command/TabHandler.java`
+#### Snippet
+```java
+                if (arg.chars().allMatch(Character::isDigit)) {
+                    boolean addNumbers = true;
+                    if (currentArg.length() > 0) {
+                        char lastChar = currentArg.charAt(currentArg.length() - 1);
+                        if (Character.isDigit(lastChar)) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`arg.length() == 0` can be replaced with 'arg.isEmpty()'
+in `src/main/java/net/coreprotect/command/TabHandler.java`
+#### Snippet
+```java
+                            completions.set(index, filter + arg + completions.get(index));
+                        }
+                        if (arg.length() == 0) {
+                            completions.remove(0);
+                        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2179,30 +2203,6 @@ in `src/main/java/net/coreprotect/listener/block/BlockPlaceListener.java`
                             if (line1.length() > 0 || line2.length() > 0 || line3.length() > 0 || line4.length() > 0) {
                                 Queue.queueSignText(player.getName(), location, 1, color, isGlowing, line1, line2, line3, line4, 0);
                             }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`currentArg.length() > 0` can be replaced with '!currentArg.isEmpty()'
-in `src/main/java/net/coreprotect/command/TabHandler.java`
-#### Snippet
-```java
-                if (arg.chars().allMatch(Character::isDigit)) {
-                    boolean addNumbers = true;
-                    if (currentArg.length() > 0) {
-                        char lastChar = currentArg.charAt(currentArg.length() - 1);
-                        if (Character.isDigit(lastChar)) {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`arg.length() == 0` can be replaced with 'arg.isEmpty()'
-in `src/main/java/net/coreprotect/command/TabHandler.java`
-#### Snippet
-```java
-                            completions.set(index, filter + arg + completions.get(index));
-                        }
-                        if (arg.length() == 0) {
-                            completions.remove(0);
-                        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2314,18 +2314,6 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`value.length() > 0` can be replaced with '!value.isEmpty()'
-in `src/main/java/net/coreprotect/config/ConfigFile.java`
-#### Snippet
-```java
-            String key = entry.getKey();
-            String value = entry.getValue();
-            if (DEFAULT_VALUES.containsKey(key) && value.length() > 0 && (!isCache || DEFAULT_VALUES.get(key).equals(USER_VALUES.get(key)))) {
-                Phrase phrase = Phrase.valueOf(key);
-                if (!isCache) {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `newLine.length() > 0` can be replaced with '!newLine.isEmpty()'
 in `src/main/java/net/coreprotect/config/ConfigFile.java`
 #### Snippet
@@ -2362,51 +2350,15 @@ in `src/main/java/net/coreprotect/config/ConfigFile.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`signMessage.length() > 0` can be replaced with '!signMessage.isEmpty()'
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
+`value.length() > 0` can be replaced with '!value.isEmpty()'
+in `src/main/java/net/coreprotect/config/ConfigFile.java`
 #### Snippet
 ```java
-                                    }
-
-                                    if (signMessage.length() > 0) {
-                                        Chat.sendComponent(player2, signMessage, bypass);
-                                    }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`blockdata.length() > 0` can be replaced with '!blockdata.isEmpty()'
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                                    }
-                                }
-                                else if (blockdata.length() > 0) {
-                                    Chat.sendComponent(player2, blockdata);
-                                }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`dname.length() > 0` can be replaced with '!dname.isEmpty()'
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                                                        dname = Util.nameFilter(dname, ddata);
-                                                    }
-                                                    if (dname.length() > 0 && !isPlayer) {
-                                                        dname = "minecraft:" + dname.toLowerCase(Locale.ROOT) + "";
-                                                    }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`finalArgAction.size() == 0` can be replaced with 'finalArgAction.isEmpty()'
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                                                    }
-
-                                                    action = (finalArgAction.size() == 0 ? " (" + action + ")" : "");
-                                                    Chat.sendComponent(player2, Color.WHITE + leftPadding + Color.GREY + "^ " + Util.getCoordinates(command.getName(), wid, x, y, z, true, true) + Color.GREY + Color.ITALIC + action);
-                                                }
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (DEFAULT_VALUES.containsKey(key) && value.length() > 0 && (!isCache || DEFAULT_VALUES.get(key).equals(USER_VALUES.get(key)))) {
+                Phrase phrase = Phrase.valueOf(key);
+                if (!isCache) {
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2710,6 +2662,66 @@ in `src/main/java/net/coreprotect/command/LookupCommand.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`dname.length() > 0` can be replaced with '!dname.isEmpty()'
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                                                        dname = Util.nameFilter(dname, ddata);
+                                                    }
+                                                    if (dname.length() > 0 && !isPlayer) {
+                                                        dname = "minecraft:" + dname.toLowerCase(Locale.ROOT) + "";
+                                                    }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`finalArgAction.size() == 0` can be replaced with 'finalArgAction.isEmpty()'
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                                                    }
+
+                                                    action = (finalArgAction.size() == 0 ? " (" + action + ")" : "");
+                                                    Chat.sendComponent(player2, Color.WHITE + leftPadding + Color.GREY + "^ " + Util.getCoordinates(command.getName(), wid, x, y, z, true, true) + Color.GREY + Color.ITALIC + action);
+                                                }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`signMessage.length() > 0` can be replaced with '!signMessage.isEmpty()'
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                                    }
+
+                                    if (signMessage.length() > 0) {
+                                        Chat.sendComponent(player2, signMessage, bypass);
+                                    }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`blockdata.length() > 0` can be replaced with '!blockdata.isEmpty()'
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                                    }
+                                }
+                                else if (blockdata.length() > 0) {
+                                    Chat.sendComponent(player2, blockdata);
+                                }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`resultData.length() > 0` can be replaced with '!resultData.isEmpty()'
+in `src/main/java/net/coreprotect/listener/world/PortalCreateListener.java`
+#### Snippet
+```java
+            if (type == Material.NETHER_PORTAL || type == Material.FIRE) {
+                String resultData = Lookup.whoPlacedCache(block);
+                if (resultData.length() > 0) {
+                    user = resultData;
+                    break;
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `result.length() > 0` can be replaced with '!result.isEmpty()'
 in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
 #### Snippet
@@ -2758,18 +2770,6 @@ in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`resultData.length() > 0` can be replaced with '!resultData.isEmpty()'
-in `src/main/java/net/coreprotect/listener/world/PortalCreateListener.java`
-#### Snippet
-```java
-            if (type == Material.NETHER_PORTAL || type == Material.FIRE) {
-                String resultData = Lookup.whoPlacedCache(block);
-                if (resultData.length() > 0) {
-                    user = resultData;
-                    break;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `e.length() > 0` can be replaced with '!e.isEmpty()'
 in `src/main/java/net/coreprotect/listener/entity/EntityBlockFormListener.java`
 #### Snippet
@@ -2779,6 +2779,18 @@ in `src/main/java/net/coreprotect/listener/entity/EntityBlockFormListener.java`
             if (e.length() > 0) {
                 Queue.queueBlockPlace(e, block.getState(), block.getType(), null, newState.getType(), -1, 0, newState.getBlockData().getAsString());
             }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`p.length() > 0` can be replaced with '!p.isEmpty()'
+in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
+#### Snippet
+```java
+                if (Config.getConfig(world).LIQUID_TRACKING) {
+                    String p = Lookup.whoPlacedCache(block);
+                    if (p.length() > 0) {
+                        f = p;
+                    }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2803,18 +2815,6 @@ in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
         if (e.length() > 0) {
             List<Object> data = new ArrayList<>();
             List<Object> age = new ArrayList<>();
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`p.length() > 0` can be replaced with '!p.isEmpty()'
-in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
-#### Snippet
-```java
-                if (Config.getConfig(world).LIQUID_TRACKING) {
-                    String p = Lookup.whoPlacedCache(block);
-                    if (p.length() > 0) {
-                        f = p;
-                    }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2890,6 +2890,18 @@ in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`color.length() > 0` can be replaced with '!color.isEmpty()'
+in `src/main/java/net/coreprotect/language/Selector.java`
+#### Snippet
+```java
+            }
+
+            output = output.replace("{" + substring + "}", color + param + (color.length() > 0 ? Color.WHITE : color));
+        }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `resultData.length() > 0` can be replaced with '!resultData.isEmpty()'
 in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
 #### Snippet
@@ -2899,30 +2911,6 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
                             else if (resultData.length() > 0) {
                                 Chat.sendComponent(player, resultData);
                             }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`blockData.length() > 0` can be replaced with '!blockData.isEmpty()'
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                                }
-                                            }
-                                            else if (blockData.length() > 0) {
-                                                Chat.sendComponent(finalPlayer, blockData);
-                                            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`blockData.length() > 0` can be replaced with '!blockData.isEmpty()'
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                                }
-                                            }
-                                            else if (blockData.length() > 0) {
-                                                Chat.sendComponent(finalPlayer, blockData);
-                                            }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2938,15 +2926,27 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`color.length() > 0` can be replaced with '!color.isEmpty()'
-in `src/main/java/net/coreprotect/language/Selector.java`
+`blockData.length() > 0` can be replaced with '!blockData.isEmpty()'
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
 #### Snippet
 ```java
-            }
+                                                }
+                                            }
+                                            else if (blockData.length() > 0) {
+                                                Chat.sendComponent(finalPlayer, blockData);
+                                            }
+```
 
-            output = output.replace("{" + substring + "}", color + param + (color.length() > 0 ? Color.WHITE : color));
-        }
-
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`blockData.length() > 0` can be replaced with '!blockData.isEmpty()'
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                                                }
+                                            }
+                                            else if (blockData.length() > 0) {
+                                                Chat.sendComponent(finalPlayer, blockData);
+                                            }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2962,18 +2962,6 @@ in `src/main/java/net/coreprotect/consumer/process/StructureGrowthProcess.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`blockData.length() > 0` can be replaced with '!blockData.isEmpty()'
-in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
-#### Snippet
-```java
-                            }
-                        }
-                        else if (blockData.length() > 0) {
-                            Chat.sendComponent(player, blockData);
-                        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `set.length() > 0` can be replaced with '!set.isEmpty()'
 in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
 #### Snippet
@@ -2983,6 +2971,18 @@ in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
                             if (set.length() > 0) {
                                 Player owner = Bukkit.getServer().getPlayer(set);
                                 if (owner == null) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`blockData.length() > 0` can be replaced with '!blockData.isEmpty()'
+in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
+#### Snippet
+```java
+                            }
+                        }
+                        else if (blockData.length() > 0) {
+                            Chat.sendComponent(player, blockData);
+                        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3010,15 +3010,51 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`branch.length() > 0` can be replaced with '!branch.isEmpty()'
+`worldEditVersion[0].length() == 0` can be replaced with 'worldEditVersion\[0\].isEmpty()'
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
-                branch = branch.substring(1);
-            }
-            if (branch.length() > 0) {
-                branch = "-" + branch;
-            }
+                    worldEditVersion[0] = worldEditVersion[0].replaceAll("[^0-9]", "");
+                    worldEditVersion[1] = worldEditVersion[1].replaceAll("[^0-9]", "");
+                    if (worldEditVersion[0].length() == 0 || worldEditVersion[1].length() == 0 || Util.newVersion(worldEditVersion[0] + "." + worldEditVersion[1], "7.1")) {
+                        validVersion = false;
+                    }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`worldEditVersion[1].length() == 0` can be replaced with 'worldEditVersion\[1\].isEmpty()'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                    worldEditVersion[0] = worldEditVersion[0].replaceAll("[^0-9]", "");
+                    worldEditVersion[1] = worldEditVersion[1].replaceAll("[^0-9]", "");
+                    if (worldEditVersion[0].length() == 0 || worldEditVersion[1].length() == 0 || Util.newVersion(worldEditVersion[0] + "." + worldEditVersion[1], "7.1")) {
+                        validVersion = false;
+                    }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`result.length() > 0` can be replaced with '!result.isEmpty()'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+
+            result = new String(data, StandardCharsets.UTF_8);
+            if (result.length() > 0) {
+                if (result.matches("\\d+")) {
+                    result = result + ",";
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`block.length() > 0` can be replaced with '!block.isEmpty()'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                    for (String blockData : blockDataSplit) {
+                        String block = getBlockDataString(Integer.parseInt(blockData));
+                        if (block.length() > 0) {
+                            blockDataArray.add(block);
+                        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3058,30 +3094,6 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`worldEditVersion[0].length() == 0` can be replaced with 'worldEditVersion\[0\].isEmpty()'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                    worldEditVersion[0] = worldEditVersion[0].replaceAll("[^0-9]", "");
-                    worldEditVersion[1] = worldEditVersion[1].replaceAll("[^0-9]", "");
-                    if (worldEditVersion[0].length() == 0 || worldEditVersion[1].length() == 0 || Util.newVersion(worldEditVersion[0] + "." + worldEditVersion[1], "7.1")) {
-                        validVersion = false;
-                    }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`worldEditVersion[1].length() == 0` can be replaced with 'worldEditVersion\[1\].isEmpty()'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                    worldEditVersion[0] = worldEditVersion[0].replaceAll("[^0-9]", "");
-                    worldEditVersion[1] = worldEditVersion[1].replaceAll("[^0-9]", "");
-                    if (worldEditVersion[0].length() == 0 || worldEditVersion[1].length() == 0 || Util.newVersion(worldEditVersion[0] + "." + worldEditVersion[1], "7.1")) {
-                        validVersion = false;
-                    }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `builder.length() > 0` can be replaced with '!builder.isEmpty()'
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
@@ -3115,30 +3127,6 @@ in `src/main/java/net/coreprotect/utility/Util.java`
                     if (itemMap.size() > 0) {
                         meta.add(itemMap);
                     }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`result.length() > 0` can be replaced with '!result.isEmpty()'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-
-            result = new String(data, StandardCharsets.UTF_8);
-            if (result.length() > 0) {
-                if (result.matches("\\d+")) {
-                    result = result + ",";
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`block.length() > 0` can be replaced with '!block.isEmpty()'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                    for (String blockData : blockDataSplit) {
-                        String block = getBlockDataString(Integer.parseInt(blockData));
-                        if (block.length() > 0) {
-                            blockDataArray.add(block);
-                        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3178,6 +3166,18 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`branch.length() > 0` can be replaced with '!branch.isEmpty()'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                branch = branch.substring(1);
+            }
+            if (branch.length() > 0) {
+                branch = "-" + branch;
+            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `i2.length() > 0` can be replaced with '!i2.isEmpty()'
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
@@ -3190,6 +3190,126 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        if (i3.endsWith("w") && w == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                w = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        if (i3.endsWith("w") && w == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                w = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("d") && d == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                d = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("d") && d == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                d = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("h") && h == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                h = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("h") && h == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                h = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("m") && m == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                m = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("m") && m == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                m = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("s") && s == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                s = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("s") && s == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                s = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `coord.length() > 0` can be replaced with '!coord.isEmpty()'
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
@@ -3199,6 +3319,126 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                             if (coord.length() > 0 && !coord.equals(".") && !coord.equals("-") && coord.indexOf('.') == coord.lastIndexOf('.')) {
                                 double parsedCoord = Double.parseDouble(coord);
                                 if (cCount == 0) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        if (i3.endsWith("w") && w.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                w = new BigDecimal(i4);
+                                if (range) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        if (i3.endsWith("w") && w.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                w = new BigDecimal(i4);
+                                if (range) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("d") && d.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                d = new BigDecimal(i4);
+                                if (range) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("d") && d.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                d = new BigDecimal(i4);
+                                if (range) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("h") && h.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                h = new BigDecimal(i4);
+                                if (range) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("h") && h.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                h = new BigDecimal(i4);
+                                if (range) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("m") && m.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                m = new BigDecimal(i4);
+                                if (range) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("m") && m.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                m = new BigDecimal(i4);
+                                if (range) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("s") && s.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                s = new BigDecimal(i4);
+                                if (range) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("s") && s.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                s = new BigDecimal(i4);
+                                if (range) {
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3218,126 +3458,6 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                        if (i3.endsWith("w") && w.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                w = new BigDecimal(i4);
-                                if (range) {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        if (i3.endsWith("w") && w.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                w = new BigDecimal(i4);
-                                if (range) {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("d") && d.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                d = new BigDecimal(i4);
-                                if (range) {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("d") && d.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                d = new BigDecimal(i4);
-                                if (range) {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("h") && h.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                h = new BigDecimal(i4);
-                                if (range) {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("h") && h.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                h = new BigDecimal(i4);
-                                if (range) {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("m") && m.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                m = new BigDecimal(i4);
-                                if (range) {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("m") && m.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                m = new BigDecimal(i4);
-                                if (range) {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("s") && s.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                s = new BigDecimal(i4);
-                                if (range) {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("s") && s.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                s = new BigDecimal(i4);
-                                if (range) {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
                         for (String value : r_dat) {
                             String i4 = value.replaceAll("[^0-9.]", "");
                             if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
@@ -3355,150 +3475,6 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                             if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
                                 double a1 = Double.parseDouble(i4);
                                 if (rcount == 0) { // x
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        if (i3.endsWith("w") && w == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                w = Double.parseDouble(i4);
-                            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        if (i3.endsWith("w") && w == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                w = Double.parseDouble(i4);
-                            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("d") && d == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                d = Double.parseDouble(i4);
-                            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("d") && d == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                d = Double.parseDouble(i4);
-                            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("h") && h == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                h = Double.parseDouble(i4);
-                            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("h") && h == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                h = Double.parseDouble(i4);
-                            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("m") && m == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                m = Double.parseDouble(i4);
-                            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("m") && m == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                m = Double.parseDouble(i4);
-                            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("s") && s == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                s = Double.parseDouble(i4);
-                            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("s") && s == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                s = Double.parseDouble(i4);
-                            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`blockData.length() == 0` can be replaced with 'blockData.isEmpty()'
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-
-            String blockData = parse[12];
-            if (blockData == null || blockData.length() == 0) {
-                return getType().createBlockData();
-            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`user.length() > 0` can be replaced with '!user.isEmpty()'
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-        if (Config.getGlobal().API_ENABLED) {
-            if (user != null && location != null) {
-                if (user.length() > 0) {
-                    Queue.queueBlockBreak(user, location.getBlock().getState(), type, type.createBlockData().getAsString(), data);
-                    return true;
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3521,8 +3497,8 @@ in `src/main/java/net/coreprotect/CoreProtectAPI.java`
         if (Config.getGlobal().API_ENABLED) {
             if (user != null && location != null) {
                 if (user.length() > 0) {
-                    Block block = location.getBlock();
-                    BlockState blockState = block.getState();
+                    Queue.queuePlayerInteraction(user, location.getBlock().getState(), location.getBlock().getType());
+                    return true;
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3533,7 +3509,7 @@ in `src/main/java/net/coreprotect/CoreProtectAPI.java`
         if (Config.getGlobal().API_ENABLED) {
             if (user != null && location != null) {
                 if (user.length() > 0) {
-                    Queue.queuePlayerInteraction(user, location.getBlock().getState(), location.getBlock().getType());
+                    Queue.queueBlockPlace(user, location.getBlock().getState(), location.getBlock().getType(), null, type, data, 1, null);
                     return true;
 ```
 
@@ -3550,15 +3526,15 @@ in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`user.length() > 0` can be replaced with '!user.isEmpty()'
+`blockData.length() == 0` can be replaced with 'blockData.isEmpty()'
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
 ```java
-        if (Config.getGlobal().API_ENABLED) {
-            if (user != null && location != null) {
-                if (user.length() > 0) {
-                    Queue.queueBlockPlace(user, location.getBlock().getState(), location.getBlock().getType(), null, type, data, 1, null);
-                    return true;
+
+            String blockData = parse[12];
+            if (blockData == null || blockData.length() == 0) {
+                return getType().createBlockData();
+            }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3571,6 +3547,18 @@ in `src/main/java/net/coreprotect/CoreProtectAPI.java`
                 if (message.length() > 0 && !message.startsWith("/")) {
                     long timestamp = System.currentTimeMillis() / 1000L;
 
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`user.length() > 0` can be replaced with '!user.isEmpty()'
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+        if (Config.getGlobal().API_ENABLED) {
+            if (user != null && location != null) {
+                if (user.length() > 0) {
+                    Block block = location.getBlock();
+                    BlockState blockState = block.getState();
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3619,6 +3607,18 @@ in `src/main/java/net/coreprotect/CoreProtectAPI.java`
         if (restrictUsers.size() == 0) {
             restrictUsers.add("#global");
         }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`user.length() > 0` can be replaced with '!user.isEmpty()'
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+        if (Config.getGlobal().API_ENABLED) {
+            if (user != null && location != null) {
+                if (user.length() > 0) {
+                    Queue.queueBlockBreak(user, location.getBlock().getState(), type, type.createBlockData().getAsString(), data);
+                    return true;
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -4282,18 +4282,6 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`result.length() > 0` can be replaced with '!result.isEmpty()'
-in `src/main/java/net/coreprotect/database/Lookup.java`
-#### Snippet
-```java
-
-                result = ConfigHandler.playerIdCacheReversed.get(resultUserId);
-                if (result.length() > 0) {
-                    Material resultMaterial = Util.getType(resultType);
-                    CacheHandler.lookupCache.put("" + x + "." + y + "." + z + "." + worldId + "", new Object[] { time, result, resultMaterial });
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `line1.length() > 0` can be replaced with '!line1.isEmpty()'
 in `src/main/java/net/coreprotect/database/Lookup.java`
 #### Snippet
@@ -4354,15 +4342,75 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`inventory.addItem(itemstack).size() == 0` can be replaced with 'inventory.addItem(itemstack).isEmpty()'
+`result.length() > 0` can be replaced with '!result.isEmpty()'
+in `src/main/java/net/coreprotect/database/Lookup.java`
+#### Snippet
+```java
+
+                result = ConfigHandler.playerIdCacheReversed.get(resultUserId);
+                if (result.length() > 0) {
+                    Material resultMaterial = Util.getType(resultType);
+                    CacheHandler.lookupCache.put("" + x + "." + y + "." + z + "." + worldId + "", new Object[] { time, result, resultMaterial });
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`usersBuilder.length() == 0` can be replaced with 'usersBuilder.isEmpty()'
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
 ```java
-                            }
-                            if (!addedItem) {
-                                addedItem = (inventory.addItem(itemstack).size() == 0);
-                            }
-                            if (!addedItem && isPlayerInventory) {
+            StringBuilder usersBuilder = new StringBuilder();
+            for (String value : checkUsers) {
+                if (usersBuilder.length() == 0) {
+                    usersBuilder = usersBuilder.append("" + value + "");
+                }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`restrictList.size() > 0` can be replaced with '!restrictList.isEmpty()'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+            }
+
+            if (restrictList.size() > 0) {
+                StringBuilder restrictTargets = new StringBuilder();
+                boolean material = false;
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`excludeList.size() > 0` can be replaced with '!excludeList.isEmpty()'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+            }
+
+            if (excludeList.size() > 0) {
+                StringBuilder excludeTargets = new StringBuilder();
+                boolean material = false;
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`excludeUserList.size() > 0` can be replaced with '!excludeUserList.isEmpty()'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+            }
+
+            if (excludeUserList.size() > 0) {
+                StringBuilder excludeUsers = new StringBuilder();
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`modifiedDataVerbose.length() > 0` can be replaced with '!modifiedDataVerbose.isEmpty()'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+
+            Chat.sendMessage(user, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.ROLLBACK_MODIFIED, modifiedData.toString(), (preview == 0 ? Selector.FIRST : Selector.SECOND)));
+            if (modifiedDataVerbose.length() > 0) {
+                Chat.sendMessage(user, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.ROLLBACK_MODIFIED, modifiedDataVerbose.toString(), (preview == 0 ? Selector.FIRST : Selector.SECOND)));
+            }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -4474,63 +4522,15 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`usersBuilder.length() == 0` can be replaced with 'usersBuilder.isEmpty()'
+`inventory.addItem(itemstack).size() == 0` can be replaced with 'inventory.addItem(itemstack).isEmpty()'
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
 ```java
-            StringBuilder usersBuilder = new StringBuilder();
-            for (String value : checkUsers) {
-                if (usersBuilder.length() == 0) {
-                    usersBuilder = usersBuilder.append("" + value + "");
-                }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`restrictList.size() > 0` can be replaced with '!restrictList.isEmpty()'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-            }
-
-            if (restrictList.size() > 0) {
-                StringBuilder restrictTargets = new StringBuilder();
-                boolean material = false;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`excludeList.size() > 0` can be replaced with '!excludeList.isEmpty()'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-            }
-
-            if (excludeList.size() > 0) {
-                StringBuilder excludeTargets = new StringBuilder();
-                boolean material = false;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`excludeUserList.size() > 0` can be replaced with '!excludeUserList.isEmpty()'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-            }
-
-            if (excludeUserList.size() > 0) {
-                StringBuilder excludeUsers = new StringBuilder();
-
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`modifiedDataVerbose.length() > 0` can be replaced with '!modifiedDataVerbose.isEmpty()'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-
-            Chat.sendMessage(user, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.ROLLBACK_MODIFIED, modifiedData.toString(), (preview == 0 ? Selector.FIRST : Selector.SECOND)));
-            if (modifiedDataVerbose.length() > 0) {
-                Chat.sendMessage(user, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.ROLLBACK_MODIFIED, modifiedDataVerbose.toString(), (preview == 0 ? Selector.FIRST : Selector.SECOND)));
-            }
+                            }
+                            if (!addedItem) {
+                                addedItem = (inventory.addItem(itemstack).size() == 0);
+                            }
+                            if (!addedItem && isPlayerInventory) {
 ```
 
 ## RuleId[ruleID=ReadWriteStringCanBeUsed]
@@ -4756,6 +4756,30 @@ in `src/main/java/net/coreprotect/listener/block/BlockUtil.java`
 
 ### RuleId[ruleID=TrivialStringConcatenation]
 Empty string used in concatenation
+in `src/main/java/net/coreprotect/listener/player/PlayerBucketEmptyListener.java`
+#### Snippet
+```java
+            }
+
+            CacheHandler.lookupCache.put("" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + worldId + "", new Object[] { unixTimestamp, player, type });
+            queueBlockPlace(player, block.getState(), block.getType(), blockState, type, 1, 1, null);
+        }
+```
+
+### RuleId[ruleID=TrivialStringConcatenation]
+Empty string used in concatenation
+in `src/main/java/net/coreprotect/listener/player/PlayerBucketEmptyListener.java`
+#### Snippet
+```java
+            }
+
+            CacheHandler.lookupCache.put("" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + worldId + "", new Object[] { unixTimestamp, player, type });
+            queueBlockPlace(player, block.getState(), block.getType(), blockState, type, 1, 1, null);
+        }
+```
+
+### RuleId[ruleID=TrivialStringConcatenation]
+Empty string used in concatenation
 in `src/main/java/net/coreprotect/command/HelpCommand.java`
 #### Snippet
 ```java
@@ -4764,30 +4788,6 @@ in `src/main/java/net/coreprotect/command/HelpCommand.java`
                     Chat.sendMessage(player, Color.GREY + Color.ITALIC + "" + Phrase.build(Phrase.HELP_PURGE_2, "/co purge t:30d"));
                 }
                 else if (helpcommand.equals("reload")) {
-```
-
-### RuleId[ruleID=TrivialStringConcatenation]
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/listener/player/PlayerBucketEmptyListener.java`
-#### Snippet
-```java
-            }
-
-            CacheHandler.lookupCache.put("" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + worldId + "", new Object[] { unixTimestamp, player, type });
-            queueBlockPlace(player, block.getState(), block.getType(), blockState, type, 1, 1, null);
-        }
-```
-
-### RuleId[ruleID=TrivialStringConcatenation]
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/listener/player/PlayerBucketEmptyListener.java`
-#### Snippet
-```java
-            }
-
-            CacheHandler.lookupCache.put("" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + worldId + "", new Object[] { unixTimestamp, player, type });
-            queueBlockPlace(player, block.getState(), block.getType(), blockState, type, 1, 1, null);
-        }
 ```
 
 ### RuleId[ruleID=TrivialStringConcatenation]
@@ -5311,30 +5311,6 @@ Empty string used in concatenation
 in `src/main/java/net/coreprotect/database/Lookup.java`
 #### Snippet
 ```java
-                if (result.length() > 0) {
-                    Material resultMaterial = Util.getType(resultType);
-                    CacheHandler.lookupCache.put("" + x + "." + y + "." + z + "." + worldId + "", new Object[] { time, result, resultMaterial });
-                }
-            }
-```
-
-### RuleId[ruleID=TrivialStringConcatenation]
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/database/Lookup.java`
-#### Snippet
-```java
-                if (result.length() > 0) {
-                    Material resultMaterial = Util.getType(resultType);
-                    CacheHandler.lookupCache.put("" + x + "." + y + "." + z + "." + worldId + "", new Object[] { time, result, resultMaterial });
-                }
-            }
-```
-
-### RuleId[ruleID=TrivialStringConcatenation]
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/database/Lookup.java`
-#### Snippet
-```java
                 int worldId = Util.getWorldId(block.getWorld().getName());
 
                 String cords = "" + x + "." + y + "." + z + "." + worldId + "";
@@ -5359,11 +5335,23 @@ Empty string used in concatenation
 in `src/main/java/net/coreprotect/database/Lookup.java`
 #### Snippet
 ```java
-            int worldId = Util.getWorldId(block.getWorld().getName());
+                if (result.length() > 0) {
+                    Material resultMaterial = Util.getType(resultType);
+                    CacheHandler.lookupCache.put("" + x + "." + y + "." + z + "." + worldId + "", new Object[] { time, result, resultMaterial });
+                }
+            }
+```
 
-            String cords = "" + x + "." + y + "." + z + "." + worldId + "";
-            Object[] data = CacheHandler.lookupCache.get(cords);
-
+### RuleId[ruleID=TrivialStringConcatenation]
+Empty string used in concatenation
+in `src/main/java/net/coreprotect/database/Lookup.java`
+#### Snippet
+```java
+                if (result.length() > 0) {
+                    Material resultMaterial = Util.getType(resultType);
+                    CacheHandler.lookupCache.put("" + x + "." + y + "." + z + "." + worldId + "", new Object[] { time, result, resultMaterial });
+                }
+            }
 ```
 
 ### RuleId[ruleID=TrivialStringConcatenation]
@@ -5380,25 +5368,13 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 
 ### RuleId[ruleID=TrivialStringConcatenation]
 Empty string used in concatenation
-in `src/main/java/net/coreprotect/database/Rollback.java`
+in `src/main/java/net/coreprotect/database/Lookup.java`
 #### Snippet
 ```java
-                                        int entityId = -1;
-                                        String entityName = Util.getEntityType(oldTypeRaw).name();
-                                        String token = "" + rowX + "." + rowY + "." + rowZ + "." + rowWorldId + "." + entityName + "";
-                                        Object[] cachedEntity = CacheHandler.entityCache.get(token);
+            int worldId = Util.getWorldId(block.getWorld().getName());
 
-```
-
-### RuleId[ruleID=TrivialStringConcatenation]
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                                        int entityId = -1;
-                                        String entityName = Util.getEntityType(oldTypeRaw).name();
-                                        String token = "" + rowX + "." + rowY + "." + rowZ + "." + rowWorldId + "." + entityName + "";
-                                        Object[] cachedEntity = CacheHandler.entityCache.get(token);
+            String cords = "" + x + "." + y + "." + z + "." + worldId + "";
+            Object[] data = CacheHandler.lookupCache.get(cords);
 
 ```
 
@@ -5496,6 +5472,30 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                         excludeUsers = excludeUsers.append("" + excludeUser + "");
                     }
                     else {
+```
+
+### RuleId[ruleID=TrivialStringConcatenation]
+Empty string used in concatenation
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                                        int entityId = -1;
+                                        String entityName = Util.getEntityType(oldTypeRaw).name();
+                                        String token = "" + rowX + "." + rowY + "." + rowZ + "." + rowWorldId + "." + entityName + "";
+                                        Object[] cachedEntity = CacheHandler.entityCache.get(token);
+
+```
+
+### RuleId[ruleID=TrivialStringConcatenation]
+Empty string used in concatenation
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                                        int entityId = -1;
+                                        String entityName = Util.getEntityType(oldTypeRaw).name();
+                                        String token = "" + rowX + "." + rowY + "." + rowZ + "." + rowWorldId + "." + entityName + "";
+                                        Object[] cachedEntity = CacheHandler.entityCache.get(token);
+
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -5560,18 +5560,6 @@ in `src/main/java/net/coreprotect/config/ConfigFile.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Map`
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_15.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean setItemMeta(Material rowType, ItemStack itemstack, List<Map<String, Object>> map) {
-        if ((rowType == Material.SUSPICIOUS_STEW)) {
-            for (Map<String, Object> suspiciousStewData : map) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super List`>
 in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_15.java`
 #### Snippet
@@ -5581,6 +5569,18 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_15.java`
     public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot) {
         if (itemMeta instanceof SuspiciousStewMeta) {
             SuspiciousStewMeta meta = (SuspiciousStewMeta) itemMeta;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Map`
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_15.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean setItemMeta(Material rowType, ItemStack itemstack, List<Map<String, Object>> map) {
+        if ((rowType == Material.SUSPICIOUS_STEW)) {
+            for (Map<String, Object> suspiciousStewData : map) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -5639,7 +5639,7 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
 ```java
 
     @Override
-    public Block getBlock() {
+    public MaterialData getData() {
         // TODO Auto-generated method stub
         return null;
 ```
@@ -5651,7 +5651,7 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
 ```java
 
     @Override
-    public List<MetadataValue> getMetadata(String metadataKey) {
+    public Block getBlock() {
         // TODO Auto-generated method stub
         return null;
 ```
@@ -5675,12 +5675,24 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
 ```java
 
     @Override
-    public MaterialData getData() {
+    public List<MetadataValue> getMetadata(String metadataKey) {
         // TODO Auto-generated method stub
         return null;
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final private static`
+in `src/main/java/net/coreprotect/language/Phrase.java`
+#### Snippet
+```java
+
+    final private static Set<Phrase> HEADERS = new HashSet<>(Arrays.asList(Phrase.CONTAINER_HEADER, Phrase.HELP_HEADER, Phrase.INTERACTIONS_HEADER, Phrase.LOOKUP_HEADER, Phrase.SIGN_HEADER, Phrase.UPDATE_HEADER));
+    final private static Set<String> COLORS = new HashSet<>(Arrays.asList(Color.WHITE, Color.DARK_AQUA));
+    final private static String split = ":";
+
+```
+
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final private static`
 in `src/main/java/net/coreprotect/language/Phrase.java`
@@ -5703,18 +5715,6 @@ in `src/main/java/net/coreprotect/language/Phrase.java`
     final private static Set<Phrase> HEADERS = new HashSet<>(Arrays.asList(Phrase.CONTAINER_HEADER, Phrase.HELP_HEADER, Phrase.INTERACTIONS_HEADER, Phrase.LOOKUP_HEADER, Phrase.SIGN_HEADER, Phrase.UPDATE_HEADER));
     final private static Set<String> COLORS = new HashSet<>(Arrays.asList(Color.WHITE, Color.DARK_AQUA));
     final private static String split = ":";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final private static`
-in `src/main/java/net/coreprotect/language/Phrase.java`
-#### Snippet
-```java
-
-    final private static Set<Phrase> HEADERS = new HashSet<>(Arrays.asList(Phrase.CONTAINER_HEADER, Phrase.HELP_HEADER, Phrase.INTERACTIONS_HEADER, Phrase.LOOKUP_HEADER, Phrase.SIGN_HEADER, Phrase.UPDATE_HEADER));
-    final private static Set<String> COLORS = new HashSet<>(Arrays.asList(Color.WHITE, Color.DARK_AQUA));
-    final private static String split = ":";
-
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -5754,18 +5754,6 @@ in `src/main/java/net/coreprotect/language/Selector.java`
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final public static`
-in `src/main/java/net/coreprotect/language/Selector.java`
-#### Snippet
-```java
-    final public static String SECOND = "{2}";
-    final public static String THIRD = "{3}";
-    final public static String FOURTH = "{4}";
-
-    final protected static Set<String> SELECTORS = new HashSet<>(Arrays.asList(Selector.FIRST, Selector.SECOND, Selector.THIRD, Selector.FOURTH));
-```
-
-### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final protected static`
 in `src/main/java/net/coreprotect/language/Selector.java`
 #### Snippet
@@ -5775,6 +5763,18 @@ in `src/main/java/net/coreprotect/language/Selector.java`
     final protected static Set<String> SELECTORS = new HashSet<>(Arrays.asList(Selector.FIRST, Selector.SECOND, Selector.THIRD, Selector.FOURTH));
 
     private Selector() {
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final public static`
+in `src/main/java/net/coreprotect/language/Selector.java`
+#### Snippet
+```java
+    final public static String SECOND = "{2}";
+    final public static String THIRD = "{3}";
+    final public static String FOURTH = "{4}";
+
+    final protected static Set<String> SELECTORS = new HashSet<>(Arrays.asList(Selector.FIRST, Selector.SECOND, Selector.THIRD, Selector.FOURTH));
 ```
 
 ## RuleId[ruleID=IfStatementMissingBreakInLoop]
@@ -6403,18 +6403,6 @@ Field initialization to `0` is redundant
 in `src/main/java/net/coreprotect/consumer/process/Process.java`
 #### Snippet
 ```java
-    public static final int BLOCK_INVENTORY_ROLLBACK_UPDATE = 29;
-
-    public static int lastLockUpdate = 0;
-    private static volatile int currentConsumerSize = 0;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/main/java/net/coreprotect/consumer/process/Process.java`
-#### Snippet
-```java
 
     public static int lastLockUpdate = 0;
     private static volatile int currentConsumerSize = 0;
@@ -6423,15 +6411,27 @@ in `src/main/java/net/coreprotect/consumer/process/Process.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
+Field initialization to `0` is redundant
+in `src/main/java/net/coreprotect/consumer/process/Process.java`
+#### Snippet
+```java
+    public static final int BLOCK_INVENTORY_ROLLBACK_UPDATE = 29;
+
+    public static int lastLockUpdate = 0;
+    private static volatile int currentConsumerSize = 0;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
 in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 #### Snippet
 ```java
+
+    private boolean startup = true;
     private boolean background = false;
     private boolean translate = true;
     private static String latestVersion = null;
-    private static String donationKey = null;
-
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -6447,15 +6447,15 @@ in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
+Field initialization to `null` is redundant
 in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 #### Snippet
 ```java
-
-    private boolean startup = true;
     private boolean background = false;
     private boolean translate = true;
     private static String latestVersion = null;
+    private static String donationKey = null;
+
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -6475,11 +6475,11 @@ Field initialization to `false` is redundant
 in `src/main/java/net/coreprotect/patch/Patch.java`
 #### Snippet
 ```java
-public class Patch {
 
     private static boolean patching = false;
     private static boolean patchNotification = false;
     private static Integer[] firstVersion = null;
+
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -6487,11 +6487,11 @@ Field initialization to `false` is redundant
 in `src/main/java/net/coreprotect/patch/Patch.java`
 #### Snippet
 ```java
+public class Patch {
 
     private static boolean patching = false;
     private static boolean patchNotification = false;
     private static Integer[] firstVersion = null;
-
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -6531,6 +6531,18 @@ public class CoreProtectEditSessionEvent {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+#### Snippet
+```java
+    public static volatile boolean purgeRunning = false;
+    public static volatile boolean pauseConsumer = false;
+    public static volatile boolean worldeditEnabled = false;
+    public static volatile boolean databaseReachable = true;
+    public static volatile int worldId = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
 in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 #### Snippet
@@ -6547,35 +6559,23 @@ Field initialization to `0` is redundant
 in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 #### Snippet
 ```java
+    public static volatile boolean databaseReachable = true;
+    public static volatile int worldId = 0;
+    public static volatile int materialId = 0;
+    public static volatile int blockdataId = 0;
+    public static volatile int entityId = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+#### Snippet
+```java
     public static volatile boolean worldeditEnabled = false;
     public static volatile boolean databaseReachable = true;
     public static volatile int worldId = 0;
     public static volatile int materialId = 0;
     public static volatile int blockdataId = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
-#### Snippet
-```java
-    public static volatile boolean serverRunning = false;
-    public static volatile boolean converterRunning = false;
-    public static volatile boolean purgeRunning = false;
-    public static volatile boolean pauseConsumer = false;
-    public static volatile boolean worldeditEnabled = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
-#### Snippet
-```java
-    public static volatile boolean purgeRunning = false;
-    public static volatile boolean pauseConsumer = false;
-    public static volatile boolean worldeditEnabled = false;
-    public static volatile boolean databaseReachable = true;
-    public static volatile int worldId = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -6591,15 +6591,15 @@ public class ConfigHandler extends Queue {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
+Field initialization to `0` is redundant
 in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 #### Snippet
 ```java
-    public static final boolean isSpigot = Util.isSpigot();
-    public static final boolean isPaper = Util.isPaper();
-    public static volatile boolean serverRunning = false;
-    public static volatile boolean converterRunning = false;
-    public static volatile boolean purgeRunning = false;
+    public static volatile int worldId = 0;
+    public static volatile int materialId = 0;
+    public static volatile int blockdataId = 0;
+    public static volatile int entityId = 0;
+    public static volatile int artId = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -6615,15 +6615,15 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
+Field initialization to `false` is redundant
 in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 #### Snippet
 ```java
-    public static volatile int worldId = 0;
-    public static volatile int materialId = 0;
-    public static volatile int blockdataId = 0;
-    public static volatile int entityId = 0;
-    public static volatile int artId = 0;
+    public static final boolean isSpigot = Util.isSpigot();
+    public static final boolean isPaper = Util.isPaper();
+    public static volatile boolean serverRunning = false;
+    public static volatile boolean converterRunning = false;
+    public static volatile boolean purgeRunning = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -6639,15 +6639,15 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
+Field initialization to `null` is redundant
 in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 #### Snippet
 ```java
-    public static volatile boolean databaseReachable = true;
-    public static volatile int worldId = 0;
-    public static volatile int materialId = 0;
-    public static volatile int blockdataId = 0;
-    public static volatile int entityId = 0;
+    public static String password = "";
+    public static String prefix = "co_";
+    public static HikariDataSource hikariDataSource = null;
+    public static final boolean isSpigot = Util.isSpigot();
+    public static final boolean isPaper = Util.isPaper();
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -6663,15 +6663,15 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 #### Snippet
 ```java
-    public static String password = "";
-    public static String prefix = "co_";
-    public static HikariDataSource hikariDataSource = null;
-    public static final boolean isSpigot = Util.isSpigot();
-    public static final boolean isPaper = Util.isPaper();
+    public static volatile boolean serverRunning = false;
+    public static volatile boolean converterRunning = false;
+    public static volatile boolean purgeRunning = false;
+    public static volatile boolean pauseConsumer = false;
+    public static volatile boolean worldeditEnabled = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -6679,23 +6679,23 @@ Field initialization to `false` is redundant
 in `src/main/java/net/coreprotect/consumer/Consumer.java`
 #### Snippet
 ```java
-    public static volatile boolean isPaused = false;
-    public static volatile boolean transacting = false;
-    public static volatile boolean interrupt = false;
-    protected static volatile boolean pausedSuccess = false;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/main/java/net/coreprotect/consumer/Consumer.java`
-#### Snippet
-```java
-
     private static Thread consumerThread = null;
     public static volatile int currentConsumer = 0;
     public static volatile boolean isPaused = false;
     public static volatile boolean transacting = false;
+    public static volatile boolean interrupt = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/main/java/net/coreprotect/consumer/Consumer.java`
+#### Snippet
+```java
+    public static volatile boolean transacting = false;
+    public static volatile boolean interrupt = false;
+    protected static volatile boolean pausedSuccess = false;
+
+    public static ConcurrentHashMap<Integer, ArrayList<Object[]>> consumer = new ConcurrentHashMap<>(4, 0.75f, 2);
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -6727,23 +6727,23 @@ Field initialization to `false` is redundant
 in `src/main/java/net/coreprotect/consumer/Consumer.java`
 #### Snippet
 ```java
+    public static volatile boolean isPaused = false;
     public static volatile boolean transacting = false;
     public static volatile boolean interrupt = false;
     protected static volatile boolean pausedSuccess = false;
 
-    public static ConcurrentHashMap<Integer, ArrayList<Object[]>> consumer = new ConcurrentHashMap<>(4, 0.75f, 2);
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
+Field initialization to `0` is redundant
 in `src/main/java/net/coreprotect/consumer/Consumer.java`
 #### Snippet
 ```java
+
     private static Thread consumerThread = null;
     public static volatile int currentConsumer = 0;
     public static volatile boolean isPaused = false;
     public static volatile boolean transacting = false;
-    public static volatile boolean interrupt = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -6871,7 +6871,7 @@ in `src/main/java/net/coreprotect/config/Config.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-14-15-20-30.682.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-15-01-05-20.836.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -7077,18 +7077,6 @@ in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `startup` initializer `true` is redundant
-in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
-#### Snippet
-```java
-public class NetworkHandler extends Language implements Runnable {
-
-    private boolean startup = true;
-    private boolean background = false;
-    private boolean translate = true;
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `background` initializer `false` is redundant
 in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 #### Snippet
@@ -7098,6 +7086,18 @@ in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
     private boolean background = false;
     private boolean translate = true;
     private static String latestVersion = null;
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `startup` initializer `true` is redundant
+in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
+#### Snippet
+```java
+public class NetworkHandler extends Language implements Runnable {
+
+    private boolean startup = true;
+    private boolean background = false;
+    private boolean translate = true;
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7221,18 +7221,6 @@ in `src/main/java/net/coreprotect/database/Database.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `blockdata` initializer `null` is redundant
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                            }
-                            else {
-                                String blockdata = null;
-                                if (t == 7) {
-                                    blockdata = InteractionLookup.performLookup(command.getName(), statement, fblock, player2, 0, p2, finalLimit);
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `selector` initializer `Selector.FIRST` is redundant
 in `src/main/java/net/coreprotect/command/LookupCommand.java`
 #### Snippet
@@ -7302,6 +7290,18 @@ in `src/main/java/net/coreprotect/command/LookupCommand.java`
                                                     String selector = Selector.FIRST;
                                                     String action = "a:block";
                                                     if (finalArgAction.contains(4) || finalArgAction.contains(5) || finalArgAction.contains(11) || amount > -1) {
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `blockdata` initializer `null` is redundant
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                            }
+                            else {
+                                String blockdata = null;
+                                if (t == 7) {
+                                    blockdata = InteractionLookup.performLookup(command.getName(), statement, fblock, player2, 0, p2, finalLimit);
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7389,18 +7389,6 @@ in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.j
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `n` initializer `null` is redundant
-in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
-#### Snippet
-```java
-            while (l <= nblocks.size()) {
-                int ll = l - 1;
-                Block n = null;
-                if (ll == -1) {
-                    n = bm;
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `query` initializer `""` is redundant
 in `src/main/java/net/coreprotect/consumer/process/SignUpdateProcess.java`
 #### Snippet
@@ -7410,6 +7398,18 @@ in `src/main/java/net/coreprotect/consumer/process/SignUpdateProcess.java`
             String query = "";
             if (action == 0) {
                 query = "SELECT color, data, line_1, line_2, line_3, line_4 FROM " + ConfigHandler.prefix + "sign WHERE user='" + userid + "' AND wid='" + wid + "' AND x='" + x + "' AND z='" + z + "' AND y='" + y + "' AND time < '" + time + "' ORDER BY rowid DESC LIMIT 0, 1";
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `n` initializer `null` is redundant
+in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
+#### Snippet
+```java
+            while (l <= nblocks.size()) {
+                int ll = l - 1;
+                Block n = null;
+                if (ll == -1) {
+                    n = bm;
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7444,8 +7444,8 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
         int count = 0;
         int next = 0;
         boolean range = false;
-        BigDecimal w = new BigDecimal(0);
-        BigDecimal d = new BigDecimal(0);
+        double w = 0;
+        double d = 0;
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7456,8 +7456,8 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
         int count = 0;
         int next = 0;
         boolean range = false;
-        double w = 0;
-        double d = 0;
+        BigDecimal w = new BigDecimal(0);
+        BigDecimal d = new BigDecimal(0);
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7521,15 +7521,15 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `contents` initializer `null` is redundant
+The value changed at `modifyCount++` is never used
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
 ```java
-        int modifiedArmor = -1;
-        try {
-            ItemStack[] contents = null;
-
-            if (type != null && type.equals(Material.ARMOR_STAND)) {
+                    }
+                    modifiedData.append(Phrase.build(Phrase.AMOUNT_CHUNK, NumberFormat.getInstance().format(chunkCount), (chunkCount == 1 ? Selector.FIRST : Selector.SECOND)));
+                    modifyCount++;
+                }
+                else if (chunkCount > 1) {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7629,15 +7629,15 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-The value changed at `modifyCount++` is never used
+Variable `contents` initializer `null` is redundant
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
 ```java
-                    }
-                    modifiedData.append(Phrase.build(Phrase.AMOUNT_CHUNK, NumberFormat.getInstance().format(chunkCount), (chunkCount == 1 ? Selector.FIRST : Selector.SECOND)));
-                    modifyCount++;
-                }
-                else if (chunkCount > 1) {
+        int modifiedArmor = -1;
+        try {
+            ItemStack[] contents = null;
+
+            if (type != null && type.equals(Material.ARMOR_STAND)) {
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -7651,18 +7651,6 @@ in `src/main/java/net/coreprotect/listener/player/PlayerChatListener.java`
         if (message == null) {
             return;
         }
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `inventory == null` is always `false`
-in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
-#### Snippet
-```java
-            // Perform standard inventory holder check on primary inventory
-            Inventory inventory = event.getInventory();
-            if (inventory == null) {
-                return;
-            }
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -7699,6 +7687,18 @@ in `src/main/java/net/coreprotect/listener/player/PlayerDeathListener.java`
         if (items == null || items.size() == 0) {
             return;
         }
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `inventory == null` is always `false`
+in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
+#### Snippet
+```java
+            // Perform standard inventory holder check on primary inventory
+            Inventory inventory = event.getInventory();
+            if (inventory == null) {
+                return;
+            }
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -8026,15 +8026,15 @@ in `src/main/java/net/coreprotect/command/LookupCommand.java`
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Condition `entity == null` is always `false`
-in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
+Condition `type.equals(Material.LAVA)` is always `true`
+in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
 #### Snippet
 ```java
-    public void onEntityDeath(EntityDeathEvent event) {
-        LivingEntity entity = event.getEntity();
-        if (entity == null) {
-            return;
-        }
+                    f = "#water";
+                }
+                else if (type.equals(Material.LAVA)) {
+                    f = "#lava";
+                }
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -8110,51 +8110,15 @@ in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Condition `type.equals(Material.LAVA)` is always `true`
-in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
+Condition `entity == null` is always `false`
+in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
 #### Snippet
 ```java
-                    f = "#water";
-                }
-                else if (type.equals(Material.LAVA)) {
-                    f = "#lava";
-                }
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `scanMin == 4` is always `false`
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
-#### Snippet
-```java
-                            log = false;
-                        }
-                        else if (scanMin == 4 && !BlockGroup.TRACK_TOP.contains(scanType)) {
-                            // checking block below for door
-                            log = false;
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `scanMin == 4 && !BlockGroup.TRACK_TOP.contains(scanType)` is always `false`
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
-#### Snippet
-```java
-                            log = false;
-                        }
-                        else if (scanMin == 4 && !BlockGroup.TRACK_TOP.contains(scanType)) {
-                            // checking block below for door
-                            log = false;
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `handItem != null` is always `true` when reached
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
-#### Snippet
-```java
-                if (player != null && Util.iceBreakCheck(blockState, user, blockType)) {
-                    ItemStack handItem = player.getInventory().getItemInMainHand();
-                    if (!(player.getGameMode().equals(GameMode.CREATIVE)) && !(handItem != null && handItem.containsEnchantment(Enchantment.SILK_TOUCH))) {
-                        Queue.queueBlockPlaceValidate(user, blockState, blockLog, null, Material.WATER, -1, 0, null, 0);
-                    }
+    public void onEntityDeath(EntityDeathEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (entity == null) {
+            return;
+        }
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -8278,6 +8242,42 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
 ```
 
 ### RuleId[ruleID=ConstantValue]
+Condition `scanMin == 4` is always `false`
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+#### Snippet
+```java
+                            log = false;
+                        }
+                        else if (scanMin == 4 && !BlockGroup.TRACK_TOP.contains(scanType)) {
+                            // checking block below for door
+                            log = false;
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `scanMin == 4 && !BlockGroup.TRACK_TOP.contains(scanType)` is always `false`
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+#### Snippet
+```java
+                            log = false;
+                        }
+                        else if (scanMin == 4 && !BlockGroup.TRACK_TOP.contains(scanType)) {
+                            // checking block below for door
+                            log = false;
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `handItem != null` is always `true` when reached
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+#### Snippet
+```java
+                if (player != null && Util.iceBreakCheck(blockState, user, blockType)) {
+                    ItemStack handItem = player.getInventory().getItemInMainHand();
+                    if (!(player.getGameMode().equals(GameMode.CREATIVE)) && !(handItem != null && handItem.containsEnchantment(Enchantment.SILK_TOUCH))) {
+                        Queue.queueBlockPlaceValidate(user, blockState, blockLog, null, Material.WATER, -1, 0, null, 0);
+                    }
+```
+
+### RuleId[ruleID=ConstantValue]
 Condition `block == null` is always `false`
 in `src/main/java/net/coreprotect/listener/block/BlockIgniteListener.java`
 #### Snippet
@@ -8290,18 +8290,6 @@ in `src/main/java/net/coreprotect/listener/block/BlockIgniteListener.java`
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Condition `remover.getType() != null` is always `true`
-in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
-#### Snippet
-```java
-                    logDrops = player.getGameMode() != GameMode.CREATIVE;
-                }
-                else if (remover.getType() != null) {
-                    culprit = "#" + remover.getType().name().toLowerCase(Locale.ROOT);
-                }
-```
-
-### RuleId[ruleID=ConstantValue]
 Condition `offlinePlayer != null` is always `true`
 in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
 #### Snippet
@@ -8311,6 +8299,18 @@ in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
                                     if (offlinePlayer != null) {
                                         tameable.setOwner(offlinePlayer);
                                     }
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `remover.getType() != null` is always `true`
+in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
+#### Snippet
+```java
+                    logDrops = player.getGameMode() != GameMode.CREATIVE;
+                }
+                else if (remover.getType() != null) {
+                    culprit = "#" + remover.getType().name().toLowerCase(Locale.ROOT);
+                }
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -8347,6 +8347,18 @@ in `src/main/java/net/coreprotect/consumer/Queue.java`
             if ((replaceType == Material.IRON_DOOR || BlockGroup.DOORS.contains(replaceType) || replaceType.equals(Material.SUNFLOWER) || replaceType.equals(Material.LILAC) || replaceType.equals(Material.TALL_GRASS) || replaceType.equals(Material.LARGE_FERN) || replaceType.equals(Material.ROSE_BUSH) || replaceType.equals(Material.PEONY)) && replaceData >= 8) { // Double plant top half
                 BlockState blockBelow = blockReplaced.getWorld().getBlockAt(blockReplaced.getX(), blockReplaced.getY() - 1, blockReplaced.getZ()).getState();
                 Material belowType = blockBelow.getType();
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `update` is always 'false'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+
+        if (!update) {
+            setTypeAndData(block, type, blockData, update);
+            map.remove(block);
+        }
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -8398,18 +8410,6 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Value `update` is always 'false'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-
-        if (!update) {
-            setTypeAndData(block, type, blockData, update);
-            map.remove(block);
-        }
-```
-
-### RuleId[ruleID=ConstantValue]
 Condition `resultc > -1` is always `true`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
@@ -8458,18 +8458,6 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Condition `offhand == null` is always `false`
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                                PlayerInventory playerInventory = (PlayerInventory) inventory;
-                                ItemStack offhand = playerInventory.getItemInOffHand();
-                                if (offhand == null || offhand.getType() == Material.AIR || (itemstack.isSimilar(offhand) && offhand.getAmount() < offhand.getMaxStackSize())) {
-                                    ItemStack setOffhand = itemstack.clone();
-                                    if (itemstack.isSimilar(offhand)) {
-```
-
-### RuleId[ruleID=ConstantValue]
 Value `item` is always 'true'
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
@@ -8503,6 +8491,18 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                     modifiedDataVerbose.append(Phrase.build(Phrase.AMOUNT_CHUNK, NumberFormat.getInstance().format(chunkCount), (chunkCount == 1 ? Selector.FIRST : Selector.SECOND)));
                 }
             }
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `offhand == null` is always `false`
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                                PlayerInventory playerInventory = (PlayerInventory) inventory;
+                                ItemStack offhand = playerInventory.getItemInOffHand();
+                                if (offhand == null || offhand.getType() == Material.AIR || (itemstack.isSimilar(offhand) && offhand.getAmount() < offhand.getMaxStackSize())) {
+                                    ItemStack setOffhand = itemstack.clone();
+                                    if (itemstack.isSimilar(offhand)) {
 ```
 
 ## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
@@ -8828,7 +8828,7 @@ in `src/main/java/net/coreprotect/listener/channel/PluginChannelListener.java`
         ByteArrayOutputStream msgBytes = new ByteArrayOutputStream();
         DataOutputStream msgOut = new DataOutputStream(msgBytes);
 
-        msgOut.writeInt(2);
+        msgOut.writeInt(3);
 ```
 
 ### RuleId[ruleID=IOResource]
@@ -8852,7 +8852,7 @@ in `src/main/java/net/coreprotect/listener/channel/PluginChannelListener.java`
         ByteArrayOutputStream msgBytes = new ByteArrayOutputStream();
         DataOutputStream msgOut = new DataOutputStream(msgBytes);
 
-        msgOut.writeInt(3);
+        msgOut.writeInt(4);
 ```
 
 ### RuleId[ruleID=IOResource]
@@ -8864,7 +8864,7 @@ in `src/main/java/net/coreprotect/listener/channel/PluginChannelListener.java`
         ByteArrayOutputStream msgBytes = new ByteArrayOutputStream();
         DataOutputStream msgOut = new DataOutputStream(msgBytes);
 
-        msgOut.writeInt(4);
+        msgOut.writeInt(2);
 ```
 
 ### RuleId[ruleID=IOResource]
@@ -8906,18 +8906,6 @@ in `src/main/java/net/coreprotect/listener/channel/PluginChannelHandshakeListene
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `__2_10_0` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/patch/script/__2_10_0.java`
-#### Snippet
-```java
-import net.coreprotect.config.ConfigHandler;
-
-public class __2_10_0 {
-
-    protected static boolean patch(Statement statement) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `PlayerInteractionProcess` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/consumer/process/PlayerInteractionProcess.java`
 #### Snippet
@@ -8927,6 +8915,18 @@ import net.coreprotect.database.logger.PlayerInteractLogger;
 class PlayerInteractionProcess {
 
     static void process(PreparedStatement preparedStmt, int batchCount, String user, Object object, Material type) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `__2_10_0` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/patch/script/__2_10_0.java`
+#### Snippet
+```java
+import net.coreprotect.config.ConfigHandler;
+
+public class __2_10_0 {
+
+    protected static boolean patch(Statement statement) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -8978,6 +8978,30 @@ public class __2_5_0 {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ApplyCommand` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/command/ApplyCommand.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Color;
+
+public class ApplyCommand {
+    protected static void runCommand(CommandSender user, Command command, boolean permission, String[] args) {
+        try {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `BlockUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/listener/block/BlockUtil.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Util;
+
+public class BlockUtil {
+
+    public static final int NONE = 0;
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `EntityInsertProcess` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/consumer/process/EntityInsertProcess.java`
 #### Snippet
@@ -9002,18 +9026,6 @@ public class StatusCommand {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `BlockUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/listener/block/BlockUtil.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public class BlockUtil {
-
-    public static final int NONE = 0;
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `HelpCommand` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/command/HelpCommand.java`
 #### Snippet
@@ -9035,18 +9047,6 @@ import net.coreprotect.utility.Util;
 public class __2_19_0 {
 
     protected static boolean patch(Statement statement) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ApplyCommand` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/command/ApplyCommand.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Color;
-
-public class ApplyCommand {
-    protected static void runCommand(CommandSender user, Command command, boolean permission, String[] args) {
-        try {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -9122,18 +9122,6 @@ public class PlayerLookup {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ArtInsertProcess` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/consumer/process/ArtInsertProcess.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Chat;
-
-class ArtInsertProcess {
-
-    static void process(PreparedStatement preparedStmt, Statement statement, int batchCount, Object name, int materialId) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `RollbackRestoreCommand` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
 #### Snippet
@@ -9143,6 +9131,18 @@ import net.coreprotect.utility.Util;
 public class RollbackRestoreCommand {
     protected static void runCommand(CommandSender player, Command command, boolean permission, String[] args, Location argLocation, long forceStart, long forceEnd) {
         Location lo = (argLocation != null ? argLocation : CommandHandler.parseLocation(player, args));
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ArtInsertProcess` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/consumer/process/ArtInsertProcess.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Chat;
+
+class ArtInsertProcess {
+
+    static void process(PreparedStatement preparedStmt, Statement statement, int batchCount, Object name, int materialId) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -9218,18 +9218,6 @@ class PlayerKillProcess {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SignMessageLookup` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public class SignMessageLookup {
-
-    public static List<String> performLookup(String command, Statement statement, Location l, CommandSender commandSender, int page, int limit) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `PlayerLoginProcess` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/consumer/process/PlayerLoginProcess.java`
 #### Snippet
@@ -9242,15 +9230,15 @@ class PlayerLoginProcess {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `__2_18_0` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+Class `SignMessageLookup` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 #### Snippet
 ```java
 import net.coreprotect.utility.Util;
 
-public class __2_18_0 {
+public class SignMessageLookup {
 
-    protected static boolean createIndexes = true;
+    public static List<String> performLookup(String command, Statement statement, Location l, CommandSender commandSender, int page, int limit) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -9314,6 +9302,18 @@ class BlockBreakProcess {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `__2_18_0` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Util;
+
+public class __2_18_0 {
+
+    protected static boolean createIndexes = true;
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `SignTextProcess` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/consumer/process/SignTextProcess.java`
 #### Snippet
@@ -9362,18 +9362,6 @@ public class BlockAPI {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ItemMetaHandler` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public class ItemMetaHandler {
-
-    public static String getEnchantmentName(Enchantment enchantment, int level) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `SkullUpdateProcess` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/consumer/process/SkullUpdateProcess.java`
 #### Snippet
@@ -9383,6 +9371,18 @@ import net.coreprotect.config.ConfigHandler;
 class SkullUpdateProcess {
 
     static void process(Statement statement, Object object, int rowId) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ItemMetaHandler` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Util;
+
+public class ItemMetaHandler {
+
+    public static String getEnchantmentName(Enchantment enchantment, int level) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -9422,18 +9422,6 @@ public class __2_11_0 {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `UndoCommand` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/command/UndoCommand.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Color;
-
-public class UndoCommand {
-    protected static void runCommand(CommandSender user, Command command, boolean permission, String[] args) {
-        try {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `HopperPullListener` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/listener/player/HopperPullListener.java`
 #### Snippet
@@ -9455,6 +9443,18 @@ import net.coreprotect.database.logger.ChatLogger;
 class PlayerChatProcess {
 
     static void process(PreparedStatement preparedStmt, int batchCount, int processId, int id, Object object, String user) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `UndoCommand` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/command/UndoCommand.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Color;
+
+public class UndoCommand {
+    protected static void runCommand(CommandSender user, Command command, boolean permission, String[] args) {
+        try {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -9482,18 +9482,6 @@ public final class ListenerHandler {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `BlockLookup` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/database/lookup/BlockLookup.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public class BlockLookup {
-
-    public static String performLookup(String command, Statement statement, BlockState block, CommandSender commandSender, int offset, int page, int limit) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `NetworkDebugCommand` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/command/NetworkDebugCommand.java`
 #### Snippet
@@ -9503,6 +9491,18 @@ import net.coreprotect.utility.Color;
 public class NetworkDebugCommand {
     protected static void runCommand(CommandSender player, boolean permission, String[] args) {
         if (!permission || !Config.getGlobal().NETWORK_DEBUG) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `BlockLookup` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/database/lookup/BlockLookup.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Util;
+
+public class BlockLookup {
+
+    public static String performLookup(String command, Statement statement, BlockState block, CommandSender commandSender, int offset, int page, int limit) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -9530,18 +9530,6 @@ public class InteractionLookup {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `HopperPushListener` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/listener/player/HopperPushListener.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public final class HopperPushListener {
-
-    static void processHopperPush(Location location, InventoryHolder sourceHolder, InventoryHolder destinationHolder, ItemStack item) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `WorldEditHandler` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/command/WorldEditHandler.java`
 #### Snippet
@@ -9563,6 +9551,18 @@ import net.coreprotect.config.ConfigHandler;
 public class __2_6_0 {
 
     protected static boolean patch(Statement statement) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `HopperPushListener` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/listener/player/HopperPushListener.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Util;
+
+public final class HopperPushListener {
+
+    static void processHopperPush(Location location, InventoryHolder sourceHolder, InventoryHolder destinationHolder, ItemStack item) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -9699,18 +9699,6 @@ in `src/main/java/net/coreprotect/listener/block/BlockPlaceListener.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `isBlock` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
-#### Snippet
-```java
-                            }
-
-                            if (blockBlockData == null && validatedMaterial.isBlock()) {
-                                BlockData newBlockData = null;
-                                try {
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `replaceAll` may produce `NullPointerException`
 in `src/main/java/net/coreprotect/command/TeleportCommand.java`
 #### Snippet
@@ -9819,6 +9807,18 @@ in `src/main/java/net/coreprotect/listener/block/BlockExplodeListener.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
+Method invocation `isBlock` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+                            }
+
+                            if (blockBlockData == null && validatedMaterial.isBlock()) {
+                                BlockData newBlockData = null;
+                                try {
+```
+
+### RuleId[ruleID=DataFlowIssue]
 Method invocation `getValue` may produce `NullPointerException`
 in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
 #### Snippet
@@ -9847,18 +9847,6 @@ Variable is already assigned to this value
 in `src/main/java/net/coreprotect/command/LookupCommand.java`
 #### Snippet
 ```java
-                                                        }
-                                                        else {
-                                                            phrase = Phrase.LOOKUP_BLOCK; // {placed|broke}
-                                                            selector = (daction != 0 ? Selector.FIRST : Selector.SECOND);
-                                                            tag = (daction != 0 ? Color.GREEN + "+" : Color.RED + "-");
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
     protected static void runCommand(CommandSender player, Command command, boolean permission, String[] args) {
         int resultc = args.length;
         args = CommandHandler.parsePage(args);
@@ -9879,15 +9867,15 @@ in `src/main/java/net/coreprotect/command/LookupCommand.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Argument `sign.getColor()` might be null
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_15.java`
+Variable is already assigned to this value
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
 #### Snippet
 ```java
-    @Override
-    public void sendSignChange(Player player, Sign sign) {
-        player.sendSignChange(sign.getLocation(), sign.getLines(), sign.getColor());
-    }
-
+                                                        }
+                                                        else {
+                                                            phrase = Phrase.LOOKUP_BLOCK; // {placed|broke}
+                                                            selector = (daction != 0 ? Selector.FIRST : Selector.SECOND);
+                                                            tag = (daction != 0 ? Color.GREEN + "+" : Color.RED + "-");
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9900,6 +9888,18 @@ in `src/main/java/net/coreprotect/config/Config.java`
         for (final File worldConfigFile : configFolder.listFiles((File file) -> file.getName().endsWith(".yml"))) {
             final String name = worldConfigFile.getName();
             if (name.equals(ConfigFile.CONFIG) || name.equals(ConfigFile.LANGUAGE)) {
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `sign.getColor()` might be null
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_15.java`
+#### Snippet
+```java
+    @Override
+    public void sendSignChange(Player player, Sign sign) {
+        player.sendSignChange(sign.getLocation(), sign.getLines(), sign.getColor());
+    }
+
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -9951,18 +9951,6 @@ in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getAsString` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
-#### Snippet
-```java
-
-                try {
-                    info.add(enderman.getCarriedBlock().getAsString());
-                }
-                catch (Exception endermanException) {
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
 in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
 #### Snippet
@@ -9972,6 +9960,18 @@ in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
                     blockData = levelled;
                 }
 
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getAsString` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
+#### Snippet
+```java
+
+                try {
+                    info.add(enderman.getCarriedBlock().getAsString());
+                }
+                catch (Exception endermanException) {
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10020,18 +10020,6 @@ in `src/main/java/net/coreprotect/listener/player/SignChangeListener.java`
         int color = (blockState instanceof Sign) ? ((Sign) blockState).getColor().getColor().asRGB() : 0;
         boolean isGlowing = (blockState instanceof Sign) ? BukkitAdapter.ADAPTER.isGlowing((Sign) blockState) : false;
 
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getColor` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
-#### Snippet
-```java
-                        String line3 = sign.getLine(2);
-                        String line4 = sign.getLine(3);
-                        int color = sign.getColor().getColor().asRGB();
-                        boolean isGlowing = BukkitAdapter.ADAPTER.isGlowing(sign);
-                        Queue.queueSignText(user, location, 0, color, isGlowing, line1, line2, line3, line4, 5);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10167,6 +10155,18 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
+Method invocation `getColor` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+#### Snippet
+```java
+                        String line3 = sign.getLine(2);
+                        String line4 = sign.getLine(3);
+                        int color = sign.getColor().getColor().asRGB();
+                        boolean isGlowing = BukkitAdapter.ADAPTER.isGlowing(sign);
+                        Queue.queueSignText(user, location, 0, color, isGlowing, line1, line2, line3, line4, 5);
+```
+
+### RuleId[ruleID=DataFlowIssue]
 Dereference of `event_blocks` may produce `NullPointerException`
 in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
 #### Snippet
@@ -10200,30 +10200,6 @@ in `src/main/java/net/coreprotect/consumer/Queue.java`
             replaceData = 0;
 
             if ((replaceType == Material.IRON_DOOR || BlockGroup.DOORS.contains(replaceType) || replaceType.equals(Material.SUNFLOWER) || replaceType.equals(Material.LILAC) || replaceType.equals(Material.TALL_GRASS) || replaceType.equals(Material.LARGE_FERN) || replaceType.equals(Material.ROSE_BUSH) || replaceType.equals(Material.PEONY)) && replaceData >= 8) { // Double plant top half
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `CoreProtect.getInstance().getClass().getResourceAsStream("/plugin.yml")` might be null
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        String branch = "";
-        try {
-            InputStreamReader reader = new InputStreamReader(CoreProtect.getInstance().getClass().getResourceAsStream("/plugin.yml"));
-            branch = YamlConfiguration.loadConfiguration(reader).getString("branch");
-            reader.close();
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getAsString` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            }
-
-            if (material.isBlock() && !createBlockData(material).getAsString().equals(string) && string.startsWith(NAMESPACE + material.name().toLowerCase(Locale.ROOT) + "[") && string.endsWith("]")) {
-                String substring = string.substring(material.name().length() + 11, string.length() - 1);
-                String[] blockDataSplit = substring.split(",");
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10263,6 +10239,18 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
+Argument `CoreProtect.getInstance().getClass().getResourceAsStream("/plugin.yml")` might be null
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        String branch = "";
+        try {
+            InputStreamReader reader = new InputStreamReader(CoreProtect.getInstance().getClass().getResourceAsStream("/plugin.yml"));
+            branch = YamlConfiguration.loadConfiguration(reader).getString("branch");
+            reader.close();
+```
+
+### RuleId[ruleID=DataFlowIssue]
 Dereference of `contents` may produce `NullPointerException`
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
@@ -10275,39 +10263,15 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
+Method invocation `getAsString` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
-                }
-                else {
-                    next = 0;
-                }
             }
-```
 
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else {
-                    next = 0;
-                }
-            }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else {
-                    next = 0;
-                }
-            }
+            if (material.isBlock() && !createBlockData(material).getAsString().equals(string) && string.startsWith(NAMESPACE + material.name().toLowerCase(Locale.ROOT) + "[") && string.endsWith("]")) {
+                String substring = string.substring(material.name().length() + 11, string.length() - 1);
+                String[] blockDataSplit = substring.split(",");
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -10468,6 +10432,42 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else {
+                    next = 0;
+                }
+            }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else {
+                    next = 0;
+                }
+            }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else {
+                    next = 0;
+                }
+            }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
 ```java
@@ -10587,30 +10587,6 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `setArms` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                    else {
-                        ArmorStand armorStand = (ArmorStand) equipment.getHolder();
-                        armorStand.setArms(true);
-                        switch (slot) {
-                            case 4:
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `entries` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                    ItemMeta itemMeta = itemstack.getItemMeta();
-                    if (itemMeta.hasAttributeModifiers()) {
-                        for (Map.Entry<Attribute, AttributeModifier> entry : itemMeta.getAttributeModifiers().entries()) {
-                            itemMeta.removeAttributeModifier(entry.getKey(), entry.getValue());
-                        }
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
@@ -10682,6 +10658,30 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                 }
 ```
 
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `entries` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                    ItemMeta itemMeta = itemstack.getItemMeta();
+                    if (itemMeta.hasAttributeModifiers()) {
+                        for (Map.Entry<Attribute, AttributeModifier> entry : itemMeta.getAttributeModifiers().entries()) {
+                            itemMeta.removeAttributeModifier(entry.getKey(), entry.getValue());
+                        }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `setArms` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                    else {
+                        ArmorStand armorStand = (ArmorStand) equipment.getHolder();
+                        armorStand.setArms(true);
+                        switch (slot) {
+                            case 4:
+```
+
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
 ### RuleId[ruleID=SimplifyStreamApiCallChains]
 'filter()' and 'map()' can be swapped
@@ -10746,6 +10746,30 @@ public class CancelCommand {
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'consumerObjectArrayList' is still used
+in `src/main/java/net/coreprotect/consumer/Consumer.java`
+#### Snippet
+```java
+    public static ConcurrentHashMap<Integer, Map<Integer, List<BlockState>>> consumerBlockList = new ConcurrentHashMap<>(4, 0.75f, 2);
+    @Deprecated
+    public static ConcurrentHashMap<Integer, Map<Integer, List<Object[]>>> consumerObjectArrayList = new ConcurrentHashMap<>(4, 0.75f, 2);
+    @Deprecated
+    public static ConcurrentHashMap<Integer, Map<Integer, List<Object>>> consumerObjectList = new ConcurrentHashMap<>(4, 0.75f, 2);
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'consumerSigns' is still used
+in `src/main/java/net/coreprotect/consumer/Consumer.java`
+#### Snippet
+```java
+    public static ConcurrentHashMap<Integer, Map<Integer, String>> consumerStrings = new ConcurrentHashMap<>(4, 0.75f, 2);
+    @Deprecated
+    public static ConcurrentHashMap<Integer, Map<Integer, Object[]>> consumerSigns = new ConcurrentHashMap<>(4, 0.75f, 2);
+    @Deprecated
+    public static ConcurrentHashMap<Integer, Map<Integer, ItemStack[]>> consumerContainers = new ConcurrentHashMap<>(4, 0.75f, 2);
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'consumerObjectList' is still used
 in `src/main/java/net/coreprotect/consumer/Consumer.java`
 #### Snippet
@@ -10758,15 +10782,15 @@ in `src/main/java/net/coreprotect/consumer/Consumer.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'consumerObjectArrayList' is still used
+Deprecated member 'consumerStrings' is still used
 in `src/main/java/net/coreprotect/consumer/Consumer.java`
 #### Snippet
 ```java
-    public static ConcurrentHashMap<Integer, Map<Integer, List<BlockState>>> consumerBlockList = new ConcurrentHashMap<>(4, 0.75f, 2);
+    public static ConcurrentHashMap<Integer, Map<Integer, String[]>> consumerUsers = new ConcurrentHashMap<>(4, 0.75f, 2);
     @Deprecated
-    public static ConcurrentHashMap<Integer, Map<Integer, List<Object[]>>> consumerObjectArrayList = new ConcurrentHashMap<>(4, 0.75f, 2);
+    public static ConcurrentHashMap<Integer, Map<Integer, String>> consumerStrings = new ConcurrentHashMap<>(4, 0.75f, 2);
     @Deprecated
-    public static ConcurrentHashMap<Integer, Map<Integer, List<Object>>> consumerObjectList = new ConcurrentHashMap<>(4, 0.75f, 2);
+    public static ConcurrentHashMap<Integer, Map<Integer, Object[]>> consumerSigns = new ConcurrentHashMap<>(4, 0.75f, 2);
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -10803,30 +10827,6 @@ in `src/main/java/net/coreprotect/consumer/Consumer.java`
     public static ConcurrentHashMap<Integer, Map<Integer, Object>> consumerInventories = new ConcurrentHashMap<>(4, 0.75f, 2);
     @Deprecated
     public static ConcurrentHashMap<Integer, Map<Integer, List<BlockState>>> consumerBlockList = new ConcurrentHashMap<>(4, 0.75f, 2);
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'consumerSigns' is still used
-in `src/main/java/net/coreprotect/consumer/Consumer.java`
-#### Snippet
-```java
-    public static ConcurrentHashMap<Integer, Map<Integer, String>> consumerStrings = new ConcurrentHashMap<>(4, 0.75f, 2);
-    @Deprecated
-    public static ConcurrentHashMap<Integer, Map<Integer, Object[]>> consumerSigns = new ConcurrentHashMap<>(4, 0.75f, 2);
-    @Deprecated
-    public static ConcurrentHashMap<Integer, Map<Integer, ItemStack[]>> consumerContainers = new ConcurrentHashMap<>(4, 0.75f, 2);
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'consumerStrings' is still used
-in `src/main/java/net/coreprotect/consumer/Consumer.java`
-#### Snippet
-```java
-    public static ConcurrentHashMap<Integer, Map<Integer, String[]>> consumerUsers = new ConcurrentHashMap<>(4, 0.75f, 2);
-    @Deprecated
-    public static ConcurrentHashMap<Integer, Map<Integer, String>> consumerStrings = new ConcurrentHashMap<>(4, 0.75f, 2);
-    @Deprecated
-    public static ConcurrentHashMap<Integer, Map<Integer, Object[]>> consumerSigns = new ConcurrentHashMap<>(4, 0.75f, 2);
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -10867,6 +10867,18 @@ in `src/main/java/net/coreprotect/consumer/process/BlockPlaceProcess.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'inventoryHolder' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
+#### Snippet
+```java
+
+                if (BlockGroup.CONTAINERS.contains(type) && blockState instanceof InventoryHolder) {
+                    InventoryHolder inventoryHolder = (InventoryHolder) blockState;
+                    return onInventoryInteract(user, inventoryHolder.getInventory(), inventoryData, null, location, false);
+                }
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'state' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
@@ -10891,18 +10903,6 @@ in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'inventoryHolder' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
-#### Snippet
-```java
-
-                if (BlockGroup.CONTAINERS.contains(type) && blockState instanceof InventoryHolder) {
-                    InventoryHolder inventoryHolder = (InventoryHolder) blockState;
-                    return onInventoryInteract(user, inventoryHolder.getInventory(), inventoryData, null, location, false);
-                }
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'location' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/consumer/process/ContainerBreakProcess.java`
 #### Snippet
@@ -10916,18 +10916,6 @@ in `src/main/java/net/coreprotect/consumer/process/ContainerBreakProcess.java`
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'location' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/consumer/process/ItemTransactionProcess.java`
-#### Snippet
-```java
-    static void process(PreparedStatement preparedStmt, int batchCount, int processId, int id, int forceData, int time, int offset, String user, Object object) {
-        if (object instanceof Location) {
-            Location location = (Location) object;
-            String loggingItemId = user.toLowerCase(Locale.ROOT) + "." + location.getBlockX() + "." + location.getBlockY() + "." + location.getBlockZ();
-
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'location' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/consumer/process/PlayerLogoutProcess.java`
 #### Snippet
 ```java
@@ -10936,6 +10924,18 @@ in `src/main/java/net/coreprotect/consumer/process/PlayerLogoutProcess.java`
             Location location = (Location) object;
             PlayerSessionLogger.log(preparedStmt, batchCount, user, location, time, 0);
         }
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'location' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/consumer/process/ItemTransactionProcess.java`
+#### Snippet
+```java
+    static void process(PreparedStatement preparedStmt, int batchCount, int processId, int id, int forceData, int time, int offset, String user, Object object) {
+        if (object instanceof Location) {
+            Location location = (Location) object;
+            String loggingItemId = user.toLowerCase(Locale.ROOT) + "." + location.getBlockX() + "." + location.getBlockY() + "." + location.getBlockZ();
+
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -10999,30 +10999,6 @@ in `src/main/java/net/coreprotect/listener/player/PlayerBucketFillListener.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'directional' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
-#### Snippet
-```java
-                                if (newBlockData != null) {
-                                    if (validatedMaterial == Material.OAK_WALL_SIGN && newBlockData instanceof Directional) {
-                                        Directional directional = (Directional) newBlockData;
-                                        BlockFace newDirection = getLegacyDirection(blockData);
-                                        directional.setFacing(newDirection);
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'rotatable' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
-#### Snippet
-```java
-                                    }
-                                    if (validatedMaterial == Material.SKELETON_SKULL && newBlockData instanceof Rotatable) {
-                                        Rotatable rotatable = (Rotatable) newBlockData;
-                                        BlockFace newRotation = getLegacyRotation(blockData);
-                                        rotatable.setRotation(newRotation);
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'location' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/consumer/process/ContainerTransactionProcess.java`
 #### Snippet
@@ -11047,6 +11023,18 @@ in `src/main/java/net/coreprotect/listener/entity/HangingBreakListener.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'bisected' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/block/BlockExplodeListener.java`
+#### Snippet
+```java
+                            BlockData blockData = scanBlock.getBlockData();
+                            if (blockData instanceof Bisected) {
+                                Bisected bisected = (Bisected) blockData;
+                                Location bisectLocation = location.clone();
+                                if (bisected.getHalf() == Half.TOP) {
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'block' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/consumer/process/BlockBreakProcess.java`
 #### Snippet
@@ -11059,15 +11047,27 @@ in `src/main/java/net/coreprotect/consumer/process/BlockBreakProcess.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'bisected' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/block/BlockExplodeListener.java`
+Variable 'directional' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
 #### Snippet
 ```java
-                            BlockData blockData = scanBlock.getBlockData();
-                            if (blockData instanceof Bisected) {
-                                Bisected bisected = (Bisected) blockData;
-                                Location bisectLocation = location.clone();
-                                if (bisected.getHalf() == Half.TOP) {
+                                if (newBlockData != null) {
+                                    if (validatedMaterial == Material.OAK_WALL_SIGN && newBlockData instanceof Directional) {
+                                        Directional directional = (Directional) newBlockData;
+                                        BlockFace newDirection = getLegacyDirection(blockData);
+                                        directional.setFacing(newDirection);
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'rotatable' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+                                    }
+                                    if (validatedMaterial == Material.SKELETON_SKULL && newBlockData instanceof Rotatable) {
+                                        Rotatable rotatable = (Rotatable) newBlockData;
+                                        BlockFace newRotation = getLegacyRotation(blockData);
+                                        rotatable.setRotation(newRotation);
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -11119,30 +11119,6 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'piglin' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
-#### Snippet
-```java
-    public boolean getEntityMeta(LivingEntity entity, List<Object> info) {
-        if (entity instanceof Piglin) {
-            Piglin piglin = (Piglin) entity;
-            info.add(piglin.isBaby());
-        }
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'zoglin' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
-#### Snippet
-```java
-        }
-        else if (entity instanceof Zoglin) {
-            Zoglin zoglin = (Zoglin) entity;
-            info.add(zoglin.isBaby());
-        }
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'directional' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
 #### Snippet
@@ -11164,6 +11140,30 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
             FaceAttachable faceAttachable = (FaceAttachable) blockData;
 
             boolean scanButton = false;
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'piglin' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
+#### Snippet
+```java
+    public boolean getEntityMeta(LivingEntity entity, List<Object> info) {
+        if (entity instanceof Piglin) {
+            Piglin piglin = (Piglin) entity;
+            info.add(piglin.isBaby());
+        }
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'zoglin' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
+#### Snippet
+```java
+        }
+        else if (entity instanceof Zoglin) {
+            Zoglin zoglin = (Zoglin) entity;
+            info.add(zoglin.isBaby());
+        }
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -11191,18 +11191,6 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'pointedDripstone' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
-#### Snippet
-```java
-    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin) {
-        if (blockData instanceof PointedDripstone) {
-            PointedDripstone pointedDripstone = (PointedDripstone) blockData;
-            BlockFace blockFace = pointedDripstone.getVerticalDirection();
-            boolean adjacent = scanBlock.getRelative(blockFace.getOppositeFace()).getLocation().equals(block.getLocation());
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'axolotl' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 #### Snippet
@@ -11224,18 +11212,6 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
             Goat goat = (Goat) entity;
             if (count == 0) {
                 boolean set = (Boolean) value;
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'meta' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
-#### Snippet
-```java
-    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot) {
-        if (itemMeta instanceof BundleMeta) {
-            BundleMeta meta = (BundleMeta) itemMeta;
-            BundleMeta subMeta = (BundleMeta) meta.clone();
-            meta.setItems(null);
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -11263,6 +11239,30 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'pointedDripstone' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
+#### Snippet
+```java
+    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin) {
+        if (blockData instanceof PointedDripstone) {
+            PointedDripstone pointedDripstone = (PointedDripstone) blockData;
+            BlockFace blockFace = pointedDripstone.getVerticalDirection();
+            boolean adjacent = scanBlock.getRelative(blockFace.getOppositeFace()).getLocation().equals(block.getLocation());
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'meta' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
+#### Snippet
+```java
+    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot) {
+        if (itemMeta instanceof BundleMeta) {
+            BundleMeta meta = (BundleMeta) itemMeta;
+            BundleMeta subMeta = (BundleMeta) meta.clone();
+            meta.setItems(null);
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'frame' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/listener/entity/EntityDamageByBlockListener.java`
 #### Snippet
@@ -11287,15 +11287,15 @@ in `src/main/java/net/coreprotect/database/statement/SkullStatement.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'bee' can be replaced with pattern variable
+Variable 'meta' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_15.java`
 #### Snippet
 ```java
-    public boolean setEntityMeta(Entity entity, Object value, int count) {
-        if (entity instanceof Bee) {
-            Bee bee = (Bee) entity;
-            if (count == 0) {
-                int set = (int) value;
+    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot) {
+        if (itemMeta instanceof SuspiciousStewMeta) {
+            SuspiciousStewMeta meta = (SuspiciousStewMeta) itemMeta;
+            SuspiciousStewMeta subMeta = meta.clone();
+            meta.clearCustomEffects();
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -11311,27 +11311,27 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_15.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'meta' can be replaced with pattern variable
+Variable 'bee' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_15.java`
 #### Snippet
 ```java
-    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot) {
-        if (itemMeta instanceof SuspiciousStewMeta) {
-            SuspiciousStewMeta meta = (SuspiciousStewMeta) itemMeta;
-            SuspiciousStewMeta subMeta = meta.clone();
-            meta.clearCustomEffects();
+    public boolean setEntityMeta(Entity entity, Object value, int count) {
+        if (entity instanceof Bee) {
+            Bee bee = (Bee) entity;
+            if (count == 0) {
+                int set = (int) value;
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'enchantmentStorageEngine' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
+Variable 'block' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/consumer/process/SkullUpdateProcess.java`
 #### Snippet
 ```java
-
-        if (itemMeta instanceof EnchantmentStorageMeta) {
-            EnchantmentStorageMeta enchantmentStorageEngine = (EnchantmentStorageMeta) itemMeta;
-            return enchantmentStorageEngine.getStoredEnchants();
-        }
+         */
+        if (object instanceof BlockState) {
+            BlockState block = (BlockState) object;
+            String query = "SELECT owner FROM " + ConfigHandler.prefix + "skull WHERE rowid='" + rowId + "' LIMIT 0, 1";
+            SkullStatement.getData(statement, block, query);
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -11419,15 +11419,51 @@ in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'block' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/consumer/process/SkullUpdateProcess.java`
+Variable 'enchantmentStorageEngine' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
 #### Snippet
 ```java
-         */
-        if (object instanceof BlockState) {
-            BlockState block = (BlockState) object;
-            String query = "SELECT owner FROM " + ConfigHandler.prefix + "skull WHERE rowid='" + rowId + "' LIMIT 0, 1";
-            SkullStatement.getData(statement, block, query);
+
+        if (itemMeta instanceof EnchantmentStorageMeta) {
+            EnchantmentStorageMeta enchantmentStorageEngine = (EnchantmentStorageMeta) itemMeta;
+            return enchantmentStorageEngine.getStoredEnchants();
+        }
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'blockState' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/api/QueueLookup.java`
+#### Snippet
+```java
+                    String blockData = (String) data[7];
+                    String user = userData[0];
+                    BlockState blockState = (BlockState) objectData;
+                    Location location = blockState.getLocation();
+                    int wid = Util.getWorldId(location.getWorld().getName());
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'waterlogged' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
+#### Snippet
+```java
+            BlockData blockData = block.getBlockData();
+            if (blockData instanceof Waterlogged) {
+                Waterlogged waterlogged = (Waterlogged) blockData;
+                if (waterlogged.isWaterlogged()) {
+                    type = Material.WATER;
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'levelled' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
+#### Snippet
+```java
+
+                if (blockData instanceof Levelled) {
+                    Levelled levelled = (Levelled) blockData;
+                    int waterLevel = levelled.getLevel() + 1;
+                    if (waterLevel > 8) {
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -11827,42 +11863,6 @@ in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'blockState' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/api/QueueLookup.java`
-#### Snippet
-```java
-                    String blockData = (String) data[7];
-                    String user = userData[0];
-                    BlockState blockState = (BlockState) objectData;
-                    Location location = blockState.getLocation();
-                    int wid = Util.getWorldId(location.getWorld().getName());
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'waterlogged' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
-#### Snippet
-```java
-            BlockData blockData = block.getBlockData();
-            if (blockData instanceof Waterlogged) {
-                Waterlogged waterlogged = (Waterlogged) blockData;
-                if (waterlogged.isWaterlogged()) {
-                    type = Material.WATER;
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'levelled' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
-#### Snippet
-```java
-
-                if (blockData instanceof Levelled) {
-                    Levelled levelled = (Levelled) blockData;
-                    int waterLevel = levelled.getLevel() + 1;
-                    if (waterLevel > 8) {
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'data' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/consumer/process/PlayerChatProcess.java`
 #### Snippet
@@ -11884,42 +11884,6 @@ in `src/main/java/net/coreprotect/database/logger/SkullPlaceLogger.java`
                 Skull skull = (Skull) block;
                 String skullOwner = "";
                 if (skull.hasOwner()) {
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'directional' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
-#### Snippet
-```java
-        BlockData blockData = scanBlock.getBlockData();
-        if (blockData instanceof Directional && !(blockData instanceof Bisected) && scanMin != BlockUtil.BOTTOM && scanMin != BlockUtil.TOP) {
-            Directional directional = (Directional) blockData;
-            BlockFace blockFace = directional.getFacing();
-            if (blockData instanceof Bed) {
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'multipleFacing' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
-#### Snippet
-```java
-        }
-        else if (blockData instanceof MultipleFacing) {
-            MultipleFacing multipleFacing = (MultipleFacing) blockData;
-            for (BlockFace blockFace : multipleFacing.getFaces()) {
-                boolean adjacent = scanBlock.getRelative(blockFace).getLocation().equals(block.getLocation());
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'waterlogged' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
-#### Snippet
-```java
-                BlockData blockDataB1 = blockState.getBlockData();
-                if (blockDataB1 instanceof Waterlogged) {
-                    Waterlogged waterlogged = (Waterlogged) blockDataB1;
-                    if (waterlogged.isWaterlogged()) {
-                        Queue.queueBlockPlace(user, blockState, blockLog.getType(), null, Material.WATER, -1, 0, null);
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -11971,18 +11935,6 @@ in `src/main/java/net/coreprotect/listener/entity/EntityDamageByEntityListener.j
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'enderCrystal' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                    for (Entity entity : locationFinal.getChunk().getEntities()) {
-                                        if (entity instanceof EnderCrystal && entity.getLocation().getBlockX() == locationFinal.getBlockX() && entity.getLocation().getBlockY() == locationFinal.getBlockY() && entity.getLocation().getBlockZ() == locationFinal.getBlockZ()) {
-                                            EnderCrystal enderCrystal = (EnderCrystal) entity;
-                                            showingBottom = enderCrystal.isShowingBottom() ? 1 : 0;
-                                            blockExists = true;
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'sign' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
 #### Snippet
@@ -11992,6 +11944,18 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
                                 Sign sign = (Sign) blockFinal;
                                 BukkitAdapter.ADAPTER.sendSignChange(player, sign);
                             }
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'enderCrystal' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                                    for (Entity entity : locationFinal.getChunk().getEntities()) {
+                                        if (entity instanceof EnderCrystal && entity.getLocation().getBlockX() == locationFinal.getBlockX() && entity.getLocation().getBlockY() == locationFinal.getBlockY() && entity.getLocation().getBlockZ() == locationFinal.getBlockZ()) {
+                                            EnderCrystal enderCrystal = (EnderCrystal) entity;
+                                            showingBottom = enderCrystal.isShowingBottom() ? 1 : 0;
+                                            blockExists = true;
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -12043,6 +12007,42 @@ in `src/main/java/net/coreprotect/consumer/process/PlayerCommandProcess.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'waterlogged' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+#### Snippet
+```java
+                BlockData blockDataB1 = blockState.getBlockData();
+                if (blockDataB1 instanceof Waterlogged) {
+                    Waterlogged waterlogged = (Waterlogged) blockDataB1;
+                    if (waterlogged.isWaterlogged()) {
+                        Queue.queueBlockPlace(user, blockState, blockLog.getType(), null, Material.WATER, -1, 0, null);
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'directional' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+#### Snippet
+```java
+        BlockData blockData = scanBlock.getBlockData();
+        if (blockData instanceof Directional && !(blockData instanceof Bisected) && scanMin != BlockUtil.BOTTOM && scanMin != BlockUtil.TOP) {
+            Directional directional = (Directional) blockData;
+            BlockFace blockFace = directional.getFacing();
+            if (blockData instanceof Bed) {
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'multipleFacing' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+#### Snippet
+```java
+        }
+        else if (blockData instanceof MultipleFacing) {
+            MultipleFacing multipleFacing = (MultipleFacing) blockData;
+            for (BlockFace blockFace : multipleFacing.getFaces()) {
+                boolean adjacent = scanBlock.getRelative(blockFace).getLocation().equals(block.getLocation());
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'lightable' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/listener/block/BlockIgniteListener.java`
 #### Snippet
@@ -12052,42 +12052,6 @@ in `src/main/java/net/coreprotect/listener/block/BlockIgniteListener.java`
                     Lightable lightable = (Lightable) forceBlockData;
                     lightable.setLit(true);
                 }
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'player' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
-#### Snippet
-```java
-        boolean inspecting = false;
-        if (event.getRemover() instanceof Player) {
-            Player player = (Player) event.getRemover();
-
-            if (ConfigHandler.inspecting.get(player.getName()) != null) {
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'player' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
-#### Snippet
-```java
-            if (remover != null) {
-                if (remover instanceof Player) {
-                    Player player = (Player) remover;
-                    culprit = player.getName();
-                    logDrops = player.getGameMode() != GameMode.CREATIVE;
-```
-
-### RuleId[ruleID=PatternVariableCanBeUsed]
-Variable 'itemframe' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
-#### Snippet
-```java
-            if (entity instanceof ItemFrame) {
-                material = BukkitAdapter.ADAPTER.getFrameType(entity);
-                ItemFrame itemframe = (ItemFrame) entity;
-                blockData = "FACING=" + itemframe.getFacing().name();
-
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
@@ -12475,6 +12439,42 @@ in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
 ```
 
 ### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'player' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
+#### Snippet
+```java
+        boolean inspecting = false;
+        if (event.getRemover() instanceof Player) {
+            Player player = (Player) event.getRemover();
+
+            if (ConfigHandler.inspecting.get(player.getName()) != null) {
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'player' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
+#### Snippet
+```java
+            if (remover != null) {
+                if (remover instanceof Player) {
+                    Player player = (Player) remover;
+                    culprit = player.getName();
+                    logDrops = player.getGameMode() != GameMode.CREATIVE;
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
+Variable 'itemframe' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
+#### Snippet
+```java
+            if (entity instanceof ItemFrame) {
+                material = BukkitAdapter.ADAPTER.getFrameType(entity);
+                ItemFrame itemframe = (ItemFrame) entity;
+                blockData = "FACING=" + itemframe.getFacing().name();
+
+```
+
+### RuleId[ruleID=PatternVariableCanBeUsed]
 Variable 'block' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/consumer/process/SignUpdateProcess.java`
 #### Snippet
@@ -12826,6 +12826,66 @@ in `src/main/java/net/coreprotect/listener/player/ProjectileLaunchListener.java`
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
 Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/player/PlayerBucketEmptyListener.java`
+#### Snippet
+```java
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    protected void onPlayerBucketEmpty(org.bukkit.event.player.PlayerBucketEmptyEvent event) {
+        String player = event.getPlayer().getName();
+        World world = event.getPlayer().getWorld();
+```
+
+### RuleId[ruleID=ProtectedMemberInFinalClass]
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/player/PlayerItemBreakListener.java`
+#### Snippet
+```java
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    protected void onPlayerItemBreak(PlayerItemBreakEvent event) {
+        ItemStack itemStack = event.getBrokenItem();
+        playerBreakItem(event.getPlayer().getLocation(), event.getPlayer().getName(), itemStack);
+```
+
+### RuleId[ruleID=ProtectedMemberInFinalClass]
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/player/PlayerItemBreakListener.java`
+#### Snippet
+```java
+public final class PlayerItemBreakListener extends Queue implements Listener {
+
+    protected static void playerBreakItem(Location location, String user, ItemStack itemStack) {
+        if (!Config.getConfig(location.getWorld()).ITEM_TRANSACTIONS || itemStack == null) {
+            return;
+```
+
+### RuleId[ruleID=ProtectedMemberInFinalClass]
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/player/PlayerDeathListener.java`
+#### Snippet
+```java
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    protected void onPlayerDeath(PlayerDeathEvent event) {
+        if (event.getKeepInventory()) {
+            return;
+```
+
+### RuleId[ruleID=ProtectedMemberInFinalClass]
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/block/BlockFertilizeListener.java`
+#### Snippet
+```java
+
+    @EventHandler
+    protected void onBlockFertilize(BlockFertilizeEvent event) {
+        if (event.isCancelled()) {
+            return;
+```
+
+### RuleId[ruleID=ProtectedMemberInFinalClass]
+Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
@@ -12853,11 +12913,11 @@ Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
+public final class InventoryChangeListener extends Queue implements Listener {
+
+    protected static AtomicLong tasksStarted = new AtomicLong();
     protected static AtomicLong tasksCompleted = new AtomicLong();
 
-    protected static void checkTasks(long taskStarted) {
-        try {
-            int waitCount = 0;
 ```
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -12865,11 +12925,11 @@ Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
-public final class InventoryChangeListener extends Queue implements Listener {
 
-    protected static AtomicLong tasksStarted = new AtomicLong();
-    protected static AtomicLong tasksCompleted = new AtomicLong();
-
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    protected void onInventoryMoveItemEvent(InventoryMoveItemEvent event) {
+        if (event.isCancelled()) {
+            return;
 ```
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -12889,71 +12949,11 @@ Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
+    protected static AtomicLong tasksCompleted = new AtomicLong();
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    protected void onInventoryMoveItemEvent(InventoryMoveItemEvent event) {
-        if (event.isCancelled()) {
-            return;
-```
-
-### RuleId[ruleID=ProtectedMemberInFinalClass]
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/player/PlayerItemBreakListener.java`
-#### Snippet
-```java
-public final class PlayerItemBreakListener extends Queue implements Listener {
-
-    protected static void playerBreakItem(Location location, String user, ItemStack itemStack) {
-        if (!Config.getConfig(location.getWorld()).ITEM_TRANSACTIONS || itemStack == null) {
-            return;
-```
-
-### RuleId[ruleID=ProtectedMemberInFinalClass]
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/player/PlayerItemBreakListener.java`
-#### Snippet
-```java
-
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    protected void onPlayerItemBreak(PlayerItemBreakEvent event) {
-        ItemStack itemStack = event.getBrokenItem();
-        playerBreakItem(event.getPlayer().getLocation(), event.getPlayer().getName(), itemStack);
-```
-
-### RuleId[ruleID=ProtectedMemberInFinalClass]
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/player/PlayerDeathListener.java`
-#### Snippet
-```java
-
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    protected void onPlayerDeath(PlayerDeathEvent event) {
-        if (event.getKeepInventory()) {
-            return;
-```
-
-### RuleId[ruleID=ProtectedMemberInFinalClass]
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/player/PlayerBucketEmptyListener.java`
-#### Snippet
-```java
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    protected void onPlayerBucketEmpty(org.bukkit.event.player.PlayerBucketEmptyEvent event) {
-        String player = event.getPlayer().getName();
-        World world = event.getPlayer().getWorld();
-```
-
-### RuleId[ruleID=ProtectedMemberInFinalClass]
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/block/BlockFertilizeListener.java`
-#### Snippet
-```java
-
-    @EventHandler
-    protected void onBlockFertilize(BlockFertilizeEvent event) {
-        if (event.isCancelled()) {
-            return;
+    protected static void checkTasks(long taskStarted) {
+        try {
+            int waitCount = 0;
 ```
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -12970,18 +12970,6 @@ in `src/main/java/net/coreprotect/listener/entity/EntityChangeBlockListener.java
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/entity/HangingPlaceListener.java`
-#### Snippet
-```java
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    protected void onHangingPlace(HangingPlaceEvent event) {
-        Entity entity = event.getEntity();
-        Player player = event.getPlayer();
-```
-
-### RuleId[ruleID=ProtectedMemberInFinalClass]
-Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/block/BlockFormListener.java`
 #### Snippet
 ```java
@@ -12990,6 +12978,18 @@ in `src/main/java/net/coreprotect/listener/block/BlockFormListener.java`
     protected void onBlockForm(BlockFormEvent event) {
         // random form, snow/ice
         World world = event.getBlock().getWorld();
+```
+
+### RuleId[ruleID=ProtectedMemberInFinalClass]
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/entity/HangingPlaceListener.java`
+#### Snippet
+```java
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    protected void onHangingPlace(HangingPlaceEvent event) {
+        Entity entity = event.getEntity();
+        Player player = event.getPlayer();
 ```
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -13030,14 +13030,14 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractEntityListener.j
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/player/CraftItemListener.java`
+in `src/main/java/net/coreprotect/listener/PlayerPickupArrowListener.java`
 #### Snippet
 ```java
-    }
 
-    protected static void playerCraftItem(InventoryClickEvent event, boolean isTrade) {
-        if (event.getResult() == Result.DENY || event.getSlotType() != SlotType.RESULT) {
-            return;
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    protected void onPlayerPickupArrowEvent(PlayerPickupArrowEvent event) {
+        ItemStack itemStack = getArrowType(event.getArrow());
+        EntityPickupItemListener.onItemPickup(event.getPlayer(), event.getArrow().getLocation(), itemStack);
 ```
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -13045,10 +13045,10 @@ Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/player/CraftItemListener.java`
 #### Snippet
 ```java
-public final class CraftItemListener extends Queue implements Listener {
+    }
 
-    protected static void logCraftedItem(Location location, String user, ItemStack itemStack, int action) {
-        if (!Config.getConfig(location.getWorld()).ITEM_TRANSACTIONS || itemStack == null) {
+    protected static void playerCraftItem(InventoryClickEvent event, boolean isTrade) {
+        if (event.getResult() == Result.DENY || event.getSlotType() != SlotType.RESULT) {
             return;
 ```
 
@@ -13066,14 +13066,14 @@ in `src/main/java/net/coreprotect/listener/player/CraftItemListener.java`
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/PlayerPickupArrowListener.java`
+in `src/main/java/net/coreprotect/listener/player/CraftItemListener.java`
 #### Snippet
 ```java
+public final class CraftItemListener extends Queue implements Listener {
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    protected void onPlayerPickupArrowEvent(PlayerPickupArrowEvent event) {
-        ItemStack itemStack = getArrowType(event.getArrow());
-        EntityPickupItemListener.onItemPickup(event.getPlayer(), event.getArrow().getLocation(), itemStack);
+    protected static void logCraftedItem(Location location, String user, ItemStack itemStack, int action) {
+        if (!Config.getConfig(location.getWorld()).ITEM_TRANSACTIONS || itemStack == null) {
+            return;
 ```
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -13090,18 +13090,6 @@ in `src/main/java/net/coreprotect/listener/entity/EntityInteractListener.java`
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/player/PlayerBucketFillListener.java`
-#### Snippet
-```java
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    protected void onPlayerBucketFill(PlayerBucketFillEvent event) {
-        String player = event.getPlayer().getName();
-        Block block = event.getBlockClicked();
-```
-
-### RuleId[ruleID=ProtectedMemberInFinalClass]
-Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/block/BlockPlaceListener.java`
 #### Snippet
 ```java
@@ -13110,6 +13098,18 @@ in `src/main/java/net/coreprotect/listener/block/BlockPlaceListener.java`
     protected void onBlockPlace(BlockPlaceEvent event) {
         World world = event.getBlockPlaced().getWorld();
         if (!event.isCancelled() && Config.getConfig(world).BLOCK_PLACE) {
+```
+
+### RuleId[ruleID=ProtectedMemberInFinalClass]
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/player/PlayerBucketFillListener.java`
+#### Snippet
+```java
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    protected void onPlayerBucketFill(PlayerBucketFillEvent event) {
+        String player = event.getPlayer().getName();
+        Block block = event.getBlockClicked();
 ```
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -13222,18 +13222,6 @@ in `src/main/java/net/coreprotect/listener/entity/EntityBlockFormListener.java`
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
-#### Snippet
-```java
-    }
-
-    protected static void logEntityDeath(LivingEntity entity, String e) {
-        if (!Config.getConfig(entity.getWorld()).ENTITY_KILLS) {
-            return;
-```
-
-### RuleId[ruleID=ProtectedMemberInFinalClass]
-Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
 #### Snippet
 ```java
@@ -13242,6 +13230,18 @@ in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
     protected void onBlockFromTo(BlockFromToEvent event) {
         Block block = event.getBlock();
         Material type = block.getType(); // old block type
+```
+
+### RuleId[ruleID=ProtectedMemberInFinalClass]
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
+#### Snippet
+```java
+    }
+
+    protected static void logEntityDeath(LivingEntity entity, String e) {
+        if (!Config.getConfig(entity.getWorld()).ENTITY_KILLS) {
+            return;
 ```
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -13306,30 +13306,6 @@ in `src/main/java/net/coreprotect/listener/player/SignChangeListener.java`
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
-#### Snippet
-```java
-    }
-
-    protected static void processBlockBreak(Player player, String user, Block block, boolean logBreak, int skipScan) {
-        List<Block> placementMap = new ArrayList<>();
-        Material type = block.getType();
-```
-
-### RuleId[ruleID=ProtectedMemberInFinalClass]
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
-#### Snippet
-```java
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    protected void onBlockBreak(BlockBreakEvent event) {
-        if (!event.isCancelled()) {
-            String user = event.getPlayer().getName();
-```
-
-### RuleId[ruleID=ProtectedMemberInFinalClass]
-Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/entity/EntityDamageByEntityListener.java`
 #### Snippet
 ```java
@@ -13374,6 +13350,30 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
     protected void onPlayerInspect(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         World world = player.getWorld();
+```
+
+### RuleId[ruleID=ProtectedMemberInFinalClass]
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+#### Snippet
+```java
+    }
+
+    protected static void processBlockBreak(Player player, String user, Block block, boolean logBreak, int skipScan) {
+        List<Block> placementMap = new ArrayList<>();
+        Material type = block.getType();
+```
+
+### RuleId[ruleID=ProtectedMemberInFinalClass]
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+#### Snippet
+```java
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    protected void onBlockBreak(BlockBreakEvent event) {
+        if (!event.isCancelled()) {
+            String user = event.getPlayer().getName();
 ```
 
 ### RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -13535,14 +13535,14 @@ in `src/main/java/net/coreprotect/utility/ChestTool.java`
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
 Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+in `src/main/java/net/coreprotect/listener/channel/PluginChannelListener.java`
 #### Snippet
 ```java
+        boolean sign = true;
 
-    private static BlockFace getLegacyRotation(int data) {
-        switch (data) {
-            case 1:
-                return BlockFace.SOUTH_SOUTH_WEST;
+        switch (type) {
+            case "2":
+                sendInfoData(commandSender, timeAgo, Phrase.LOOKUP_LOGIN, selector, resultUser, amount, x, y, z, worldId);
 ```
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
@@ -13575,22 +13575,22 @@ in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
 #### Snippet
 ```java
 
-                        boolean legacy = true;
-                        switch (materialName) {
-                            case "minecraft:legacy_wall_sign":
-                                materialName = "minecraft:oak_wall_sign";
+    private static BlockFace getLegacyRotation(int data) {
+        switch (data) {
+            case 1:
+                return BlockFace.SOUTH_SOUTH_WEST;
 ```
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
 Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/listener/channel/PluginChannelListener.java`
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
 #### Snippet
 ```java
-        boolean sign = true;
 
-        switch (type) {
-            case "2":
-                sendInfoData(commandSender, timeAgo, Phrase.LOOKUP_LOGIN, selector, resultUser, amount, x, y, z, worldId);
+                        boolean legacy = true;
+                        switch (materialName) {
+                            case "minecraft:legacy_wall_sign":
+                                materialName = "minecraft:oak_wall_sign";
 ```
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
@@ -13603,6 +13603,42 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
             switch (faceAttachable.getAttachedFace()) {
                 case WALL:
                     scanButton = (scanMin < 5 && scanBlock.getRelative(directional.getFacing().getOppositeFace()).getLocation().equals(block.getLocation()));
+```
+
+### RuleId[ruleID=EnhancedSwitchMigration]
+Switch statement can be replaced with enhanced 'switch'
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
+#### Snippet
+```java
+    @Override
+    public int getLegacyBlockId(Material material) {
+        switch (material) {
+            case DIRT_PATH:
+                return Util.getBlockId("GRASS_PATH", false);
+```
+
+### RuleId[ruleID=EnhancedSwitchMigration]
+Switch statement can be replaced with enhanced 'switch'
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
+#### Snippet
+```java
+    @Override
+    public String parseLegacyName(String name) {
+        switch (name) {
+            case "GRASS_PATH":
+                name = "DIRT_PATH";
+```
+
+### RuleId[ruleID=EnhancedSwitchMigration]
+Switch statement can be replaced with enhanced 'switch'
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
+#### Snippet
+```java
+    @Override
+    public Material getFrameType(EntityType type) {
+        switch (type) {
+            case ITEM_FRAME:
+                return Material.ITEM_FRAME;
 ```
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
@@ -13627,42 +13663,6 @@ in `src/main/java/net/coreprotect/database/Database.java`
             switch (type) {
                 case SIGN:
                     preparedStatement = prepareStatement(connection, signInsert, keys);
-```
-
-### RuleId[ruleID=EnhancedSwitchMigration]
-Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
-#### Snippet
-```java
-    @Override
-    public Material getFrameType(EntityType type) {
-        switch (type) {
-            case ITEM_FRAME:
-                return Material.ITEM_FRAME;
-```
-
-### RuleId[ruleID=EnhancedSwitchMigration]
-Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
-#### Snippet
-```java
-    @Override
-    public String parseLegacyName(String name) {
-        switch (name) {
-            case "GRASS_PATH":
-                name = "DIRT_PATH";
-```
-
-### RuleId[ruleID=EnhancedSwitchMigration]
-Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
-#### Snippet
-```java
-    @Override
-    public int getLegacyBlockId(Material material) {
-        switch (material) {
-            case DIRT_PATH:
-                return Util.getBlockId("GRASS_PATH", false);
 ```
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
@@ -13715,14 +13715,14 @@ in `src/main/java/net/coreprotect/spigot/SpigotAdapter.java`
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
 Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+in `src/main/java/net/coreprotect/paper/PaperAdapter.java`
 #### Snippet
 ```java
-        else if (blockData instanceof Lantern) {
-            boolean scan = false;
-            switch (scanMin) {
-                case BlockUtil.TOP:
-                    scan = !((Lantern) blockData).isHanging();
+        }
+
+        switch (paperVersion) {
+            case PAPER_UNAVAILABLE:
+                PaperAdapter.ADAPTER = new PaperAdapter();
 ```
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
@@ -13739,14 +13739,14 @@ in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
 Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/paper/PaperAdapter.java`
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
 #### Snippet
 ```java
-        }
-
-        switch (paperVersion) {
-            case PAPER_UNAVAILABLE:
-                PaperAdapter.ADAPTER = new PaperAdapter();
+        else if (blockData instanceof Lantern) {
+            boolean scan = false;
+            switch (scanMin) {
+                case BlockUtil.TOP:
+                    scan = !((Lantern) blockData).isHanging();
 ```
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
@@ -13759,42 +13759,6 @@ in `src/main/java/net/coreprotect/listener/block/BlockIgniteListener.java`
                         switch (face) {
                             case NORTH:
                                 scanLocation.setZ(scanLocation.getZ() - 1);
-```
-
-### RuleId[ruleID=EnhancedSwitchMigration]
-Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-
-    public static Material getEntityMaterial(EntityType type) {
-        switch (type) {
-            case ARMOR_STAND:
-                return Material.ARMOR_STAND;
-```
-
-### RuleId[ruleID=EnhancedSwitchMigration]
-Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-
-    public static int toggleRolledBack(int rolledBack, boolean isInventory) {
-        switch (rolledBack) {
-            case 1: // just block rolled back
-                return isInventory ? 3 : 0;
-```
-
-### RuleId[ruleID=EnhancedSwitchMigration]
-Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        }
-        else {
-            switch (queryTable) {
-                case "block":
-                    index = "INDEXED BY block_index ";
 ```
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
@@ -13815,10 +13779,10 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
 
-    public static int rolledBack(int rolledBack, boolean isInventory) {
+    public static int toggleRolledBack(int rolledBack, boolean isInventory) {
         switch (rolledBack) {
             case 1: // just block rolled back
-                return isInventory ? 0 : 1;
+                return isInventory ? 3 : 0;
 ```
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
@@ -13835,6 +13799,42 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
 Switch statement can be replaced with enhanced 'switch'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+
+    public static Material getEntityMaterial(EntityType type) {
+        switch (type) {
+            case ARMOR_STAND:
+                return Material.ARMOR_STAND;
+```
+
+### RuleId[ruleID=EnhancedSwitchMigration]
+Switch statement can be replaced with enhanced 'switch'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+
+    public static int rolledBack(int rolledBack, boolean isInventory) {
+        switch (rolledBack) {
+            case 1: // just block rolled back
+                return isInventory ? 0 : 1;
+```
+
+### RuleId[ruleID=EnhancedSwitchMigration]
+Switch statement can be replaced with enhanced 'switch'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        }
+        else {
+            switch (queryTable) {
+                case "block":
+                    index = "INDEXED BY block_index ";
+```
+
+### RuleId[ruleID=EnhancedSwitchMigration]
+Switch statement can be replaced with enhanced 'switch'
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
 ```java
@@ -13843,18 +13843,6 @@ in `src/main/java/net/coreprotect/CoreProtectAPI.java`
                 switch (actionID) {
                     case 0:
                         return "logout";
-```
-
-### RuleId[ruleID=EnhancedSwitchMigration]
-Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                        ArmorStand armorStand = (ArmorStand) equipment.getHolder();
-                        armorStand.setArms(true);
-                        switch (slot) {
-                            case 4:
-                                equipment.setItemInMainHand(itemstack);
 ```
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
@@ -13879,6 +13867,18 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                                             switch (rowData) {
                                                 case 2:
                                                     face = BlockFace.WEST;
+```
+
+### RuleId[ruleID=EnhancedSwitchMigration]
+Switch statement can be replaced with enhanced 'switch'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                        ArmorStand armorStand = (ArmorStand) equipment.getHolder();
+                        armorStand.setArms(true);
+                        switch (slot) {
+                            case 4:
+                                equipment.setItemInMainHand(itemstack);
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -14081,177 +14081,6 @@ in `src/main/java/net/coreprotect/language/Phrase.java`
 in `src/main/java/net/coreprotect/model/BlockGroup.java`
 #### Snippet
 ```java
-    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
-    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
-    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
-    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
-    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX));
-    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.SMOKER, Material.LECTERN));
-    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOOR, Material.JUNGLE_DOOR, Material.ACACIA_DOOR, Material.DARK_OAK_DOOR));
-    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
-    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
-    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
-    public static Set<Material> INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE, Material.DISPENSER, Material.NOTE_BLOCK, Material.CHEST, Material.FURNACE, Material.LEVER, Material.REPEATER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.BREWING_STAND, Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, M
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-_BANNER, Material.PINK_WALL_BANNER, Material.GRAY_WALL_BANNER, Material.LIGHT_GRAY_WALL_BANNER, Material.CYAN_WALL_BANNER, Material.PURPLE_WALL_BANNER, Material.BLUE_WALL_BANNER, Material.BROWN_WALL_BANNER, Material.GREEN_WALL_BANNER, Material.RED_WALL_BANNER, Material.BLACK_WALL_BANNER));
-    public static Set<Material> SHULKER_BOXES = new HashSet<>(Arrays.asList(Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX));
-    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.SMOKER, Material.LECTERN));
-    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOOR, Material.JUNGLE
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
-    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
-    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
-    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
-    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-RAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE));
-    public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Material.TRAPPED_CHEST, Material.ACTIVATOR_RAIL));
-    public static Set<Material> NATURAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STONE, Material.GOLD_ORE, Material.IRON_ORE, Material.COAL_ORE, Material.LAPIS_ORE, Material.SANDSTONE, Material.COBWEB, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.OBSIDIAN, Material.DIAMOND_ORE, Material.WHEAT, Material.REDSTONE_ORE, Material.SNOW, Material.ICE, Material.CACTUS, Material.CLAY, Material.SUGAR_CANE, Material.PUMPKIN, Material.NETHERRACK, Material.SOUL_SAND, Material.MELON, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.MYCELIUM, Material.LILY_PAD, Material.NETHER_WART, Material.END_STONE, Material.EMERALD_ORE, Material.CARROT, Material.POTATO, Material.KELP, Material.CHORUS_FLOWER, Materia
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    /* blocks that support vertical scanning */
-    public static Set<Material> VERTICAL_TOP_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL = new HashSet<>(Arrays.asList());
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
-    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
-    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
-    public static Set<Material> INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE, Material.DISPENSER, Material.NOTE_BLOCK, Material.CHEST, Material.FURNACE, Material.LEVER, Material.REPEATER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.BREWING_STAND, Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-erial.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, Material.TALL_GRASS, Material.LARGE_FERN, Material.ROSE_BUSH, Material.PEONY, Material.NETHER_WART, Material.CHORUS_PLANT, Material.CHORUS_FLOWER, Material.KELP));
-    public static Set<Material> TRACK_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> TRACK_SIDE = new HashSet<>(Arrays.asList(Material.WALL_TORCH, Material.REDSTONE_WALL_TORCH, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.ACTIVATOR_RAIL, Material.WHITE_BED, Material.ORANGE_BED, Material.MAGENTA_BED, Material.LIGHT_BLUE_BED, Material.YELLOW_BED, Material.LIME_BED, Material.PINK_BED, Material.GRAY_BED, Material.LIGHT_GRAY_BED, Material.CYAN_BED, Material.PURPLE_BED, Material.BLUE_BED, Material.BROWN_BED, Material.GREEN_BED, Material.RED_BED, Material.BLACK_BED, Material.LADDER, Material.ACACIA_WALL_SIGN, Material.BIRCH_WALL_SIGN, Material.DARK_OAK_WALL_SIGN, Material.JUNGLE_WALL_SIGN, Material.OAK_WALL_SIGN, Material.SPRUCE_WALL_SIGN, Material.VINE, Material.COCOA, Material.TRIPWIRE_HOOK, Material.WHITE_WALL_BANNER, Material.ORANGE_WALL_BANNER, Material.MAGENTA_WALL_BANNER, Material.LIGHT_BLUE
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-
-    public static Set<Material> TRACK_ANY = new HashSet<>(Arrays.asList(Material.PISTON_HEAD, Material.LEVER, Material.BELL));
-    public static Set<Material> TRACK_TOP_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> TRACK_TOP = new HashSet<>(Arrays.asList(Material.TORCH, Material.REDSTONE_TORCH, Material.BAMBOO, Material.BAMBOO_SAPLING, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.SCAFFOLDING, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.REDSTONE_WIRE, Material.WHEAT, Material.ACACIA_SIGN, Material.BIRCH_SIGN, Material.DARK_OAK_SIGN, Material.JUNGLE_SIGN, Material.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, M
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
-    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
-    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
-    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
-    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-
-    /* blocks that support vertical scanning */
-    public static Set<Material> VERTICAL_TOP_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    // These are blocks that an item frame or painting can't be attached to.
-    // Same as non_solid_entity_blocks? >>Perform testing<<
-    public static Set<Material> NON_ATTACHABLE = new HashSet<>(Arrays.asList(Material.AIR, Material.CAVE_AIR, Material.BARRIER, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.WATER, Material.LAVA, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.LADDER, Material.RAIL, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.SNOW, Material.SUGAR_CANE, Material.NETHER_PORTAL, Material.REPEATER, Material.KELP, Material.CHORUS_FLOWER, Material.CHORUS_PLANT));
-
-    public static void initialize() {
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> VERTICAL_TOP_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL = new HashSet<>(Arrays.asList());
-
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
-    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
-    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
-    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
-    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
 Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.GRINDSTONE, Material.LOOM, Material.SMOKER, Material.CRAFTING_TABLE, Material.CARTOGRAPHY_TABLE, Material.ENCHANTING_TABLE, Material.SMITHING_TABLE, Material.STONECUTTER));
     public static Set<Material> SAFE_INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.LEVER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE));
     public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Material.TRAPPED_CHEST, Material.ACTIVATOR_RAIL));
@@ -14263,45 +14092,11 @@ Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_
 in `src/main/java/net/coreprotect/model/BlockGroup.java`
 #### Snippet
 ```java
-    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
-    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
-    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
-    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
-    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-ED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.GRINDSTONE, Material.LOOM, Material.SMOKER, Material.CRAFTING_TABLE, Material.CARTOGRAPHY_TABLE, Material.ENCHANTING_TABLE, Material.SMITHING_TABLE, Material.STONECUTTER));
-    public static Set<Material> SAFE_INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.LEVER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE));
-    public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Mat
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
-    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
-    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
-    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
-    public static Set<Material> INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE, Material.DISPENSER, Material.NOTE_BLOCK, Material.CHEST, Material.FURNACE, Material.LEVER, Material.REPEATER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.BREWING_STAND, Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PUR
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
+    public static Set<Material> VERTICAL_TOP_BOTTOM = new HashSet<>(Arrays.asList());
     public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
     public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
     public static Set<Material> VERTICAL = new HashSet<>(Arrays.asList());
 
-    // These are blocks that an item frame or painting can't be attached to.
 ```
 
 ### RuleId[ruleID=SetReplaceableByEnumSet]
@@ -14309,45 +14104,11 @@ in `src/main/java/net/coreprotect/model/BlockGroup.java`
 in `src/main/java/net/coreprotect/model/BlockGroup.java`
 #### Snippet
 ```java
-.LIGHT_GRAY_BED, Material.CYAN_BED, Material.PURPLE_BED, Material.BLUE_BED, Material.BROWN_BED, Material.GREEN_BED, Material.RED_BED, Material.BLACK_BED, Material.LADDER, Material.ACACIA_WALL_SIGN, Material.BIRCH_WALL_SIGN, Material.DARK_OAK_WALL_SIGN, Material.JUNGLE_WALL_SIGN, Material.OAK_WALL_SIGN, Material.SPRUCE_WALL_SIGN, Material.VINE, Material.COCOA, Material.TRIPWIRE_HOOK, Material.WHITE_WALL_BANNER, Material.ORANGE_WALL_BANNER, Material.MAGENTA_WALL_BANNER, Material.LIGHT_BLUE_WALL_BANNER, Material.YELLOW_WALL_BANNER, Material.LIME_WALL_BANNER, Material.PINK_WALL_BANNER, Material.GRAY_WALL_BANNER, Material.LIGHT_GRAY_WALL_BANNER, Material.CYAN_WALL_BANNER, Material.PURPLE_WALL_BANNER, Material.BLUE_WALL_BANNER, Material.BROWN_WALL_BANNER, Material.GREEN_WALL_BANNER, Material.RED_WALL_BANNER, Material.BLACK_WALL_BANNER));
-    public static Set<Material> SHULKER_BOXES = new HashSet<>(Arrays.asList(Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX));
-    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SH
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.SMOKER, Material.LECTERN));
-    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOOR, Material.JUNGLE_DOOR, Material.ACACIA_DOOR, Material.DARK_OAK_DOOR));
-    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
-    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
-    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-public final class BlockGroup {
-
-    public static Set<Material> TRACK_ANY = new HashSet<>(Arrays.asList(Material.PISTON_HEAD, Material.LEVER, Material.BELL));
-    public static Set<Material> TRACK_TOP_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> TRACK_TOP = new HashSet<>(Arrays.asList(Material.TORCH, Material.REDSTONE_TORCH, Material.BAMBOO, Material.BAMBOO_SAPLING, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.SCAFFOLDING, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.REDSTONE_WIRE, Material.WHEAT, Material.ACACIA_SIGN, Material.BIRCH_SIGN, Material.DARK_OAK_SIGN, Material.JUNGLE_SIGN, Material.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Mater
-```
-
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
-    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
-    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
     public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
     public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
+    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
+    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
+    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
 ```
 
 ### RuleId[ruleID=SetReplaceableByEnumSet]
@@ -14377,9 +14138,248 @@ BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BAN
 in `src/main/java/net/coreprotect/model/BlockGroup.java`
 #### Snippet
 ```java
+    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
+    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
+    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
+    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
+    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
+    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
+    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
+    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
+    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+.LIGHT_GRAY_BED, Material.CYAN_BED, Material.PURPLE_BED, Material.BLUE_BED, Material.BROWN_BED, Material.GREEN_BED, Material.RED_BED, Material.BLACK_BED, Material.LADDER, Material.ACACIA_WALL_SIGN, Material.BIRCH_WALL_SIGN, Material.DARK_OAK_WALL_SIGN, Material.JUNGLE_WALL_SIGN, Material.OAK_WALL_SIGN, Material.SPRUCE_WALL_SIGN, Material.VINE, Material.COCOA, Material.TRIPWIRE_HOOK, Material.WHITE_WALL_BANNER, Material.ORANGE_WALL_BANNER, Material.MAGENTA_WALL_BANNER, Material.LIGHT_BLUE_WALL_BANNER, Material.YELLOW_WALL_BANNER, Material.LIME_WALL_BANNER, Material.PINK_WALL_BANNER, Material.GRAY_WALL_BANNER, Material.LIGHT_GRAY_WALL_BANNER, Material.CYAN_WALL_BANNER, Material.PURPLE_WALL_BANNER, Material.BLUE_WALL_BANNER, Material.BROWN_WALL_BANNER, Material.GREEN_WALL_BANNER, Material.RED_WALL_BANNER, Material.BLACK_WALL_BANNER));
+    public static Set<Material> SHULKER_BOXES = new HashSet<>(Arrays.asList(Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX));
+    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SH
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
+    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
+    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
+    public static Set<Material> INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE, Material.DISPENSER, Material.NOTE_BLOCK, Material.CHEST, Material.FURNACE, Material.LEVER, Material.REPEATER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.BREWING_STAND, Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+erial.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, Material.TALL_GRASS, Material.LARGE_FERN, Material.ROSE_BUSH, Material.PEONY, Material.NETHER_WART, Material.CHORUS_PLANT, Material.CHORUS_FLOWER, Material.KELP));
+    public static Set<Material> TRACK_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> TRACK_SIDE = new HashSet<>(Arrays.asList(Material.WALL_TORCH, Material.REDSTONE_WALL_TORCH, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.ACTIVATOR_RAIL, Material.WHITE_BED, Material.ORANGE_BED, Material.MAGENTA_BED, Material.LIGHT_BLUE_BED, Material.YELLOW_BED, Material.LIME_BED, Material.PINK_BED, Material.GRAY_BED, Material.LIGHT_GRAY_BED, Material.CYAN_BED, Material.PURPLE_BED, Material.BLUE_BED, Material.BROWN_BED, Material.GREEN_BED, Material.RED_BED, Material.BLACK_BED, Material.LADDER, Material.ACACIA_WALL_SIGN, Material.BIRCH_WALL_SIGN, Material.DARK_OAK_WALL_SIGN, Material.JUNGLE_WALL_SIGN, Material.OAK_WALL_SIGN, Material.SPRUCE_WALL_SIGN, Material.VINE, Material.COCOA, Material.TRIPWIRE_HOOK, Material.WHITE_WALL_BANNER, Material.ORANGE_WALL_BANNER, Material.MAGENTA_WALL_BANNER, Material.LIGHT_BLUE
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
     public static Set<Material> TRACK_ANY = new HashSet<>(Arrays.asList(Material.PISTON_HEAD, Material.LEVER, Material.BELL));
     public static Set<Material> TRACK_TOP_BOTTOM = new HashSet<>(Arrays.asList());
     public static Set<Material> TRACK_TOP = new HashSet<>(Arrays.asList(Material.TORCH, Material.REDSTONE_TORCH, Material.BAMBOO, Material.BAMBOO_SAPLING, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.SCAFFOLDING, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.REDSTONE_WIRE, Material.WHEAT, Material.ACACIA_SIGN, Material.BIRCH_SIGN, Material.DARK_OAK_SIGN, Material.JUNGLE_SIGN, Material.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, Ma
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    /* blocks that support vertical scanning */
+    public static Set<Material> VERTICAL_TOP_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL = new HashSet<>(Arrays.asList());
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+
+    public static Set<Material> TRACK_ANY = new HashSet<>(Arrays.asList(Material.PISTON_HEAD, Material.LEVER, Material.BELL));
+    public static Set<Material> TRACK_TOP_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> TRACK_TOP = new HashSet<>(Arrays.asList(Material.TORCH, Material.REDSTONE_TORCH, Material.BAMBOO, Material.BAMBOO_SAPLING, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.SCAFFOLDING, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.REDSTONE_WIRE, Material.WHEAT, Material.ACACIA_SIGN, Material.BIRCH_SIGN, Material.DARK_OAK_SIGN, Material.JUNGLE_SIGN, Material.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, M
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX));
+    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.SMOKER, Material.LECTERN));
+    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOOR, Material.JUNGLE_DOOR, Material.ACACIA_DOOR, Material.DARK_OAK_DOOR));
+    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
+    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL = new HashSet<>(Arrays.asList());
+
+    // These are blocks that an item frame or painting can't be attached to.
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+RAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE));
+    public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Material.TRAPPED_CHEST, Material.ACTIVATOR_RAIL));
+    public static Set<Material> NATURAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STONE, Material.GOLD_ORE, Material.IRON_ORE, Material.COAL_ORE, Material.LAPIS_ORE, Material.SANDSTONE, Material.COBWEB, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.OBSIDIAN, Material.DIAMOND_ORE, Material.WHEAT, Material.REDSTONE_ORE, Material.SNOW, Material.ICE, Material.CACTUS, Material.CLAY, Material.SUGAR_CANE, Material.PUMPKIN, Material.NETHERRACK, Material.SOUL_SAND, Material.MELON, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.MYCELIUM, Material.LILY_PAD, Material.NETHER_WART, Material.END_STONE, Material.EMERALD_ORE, Material.CARROT, Material.POTATO, Material.KELP, Material.CHORUS_FLOWER, Materia
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
+    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
+    public static Set<Material> INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE, Material.DISPENSER, Material.NOTE_BLOCK, Material.CHEST, Material.FURNACE, Material.LEVER, Material.REPEATER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.BREWING_STAND, Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, M
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.SMOKER, Material.LECTERN));
+    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOOR, Material.JUNGLE_DOOR, Material.ACACIA_DOOR, Material.DARK_OAK_DOOR));
+    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
+    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
+    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+_BANNER, Material.PINK_WALL_BANNER, Material.GRAY_WALL_BANNER, Material.LIGHT_GRAY_WALL_BANNER, Material.CYAN_WALL_BANNER, Material.PURPLE_WALL_BANNER, Material.BLUE_WALL_BANNER, Material.BROWN_WALL_BANNER, Material.GREEN_WALL_BANNER, Material.RED_WALL_BANNER, Material.BLACK_WALL_BANNER));
+    public static Set<Material> SHULKER_BOXES = new HashSet<>(Arrays.asList(Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX));
+    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.SMOKER, Material.LECTERN));
+    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOOR, Material.JUNGLE
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    // These are blocks that an item frame or painting can't be attached to.
+    // Same as non_solid_entity_blocks? >>Perform testing<<
+    public static Set<Material> NON_ATTACHABLE = new HashSet<>(Arrays.asList(Material.AIR, Material.CAVE_AIR, Material.BARRIER, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.WATER, Material.LAVA, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.LADDER, Material.RAIL, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.SNOW, Material.SUGAR_CANE, Material.NETHER_PORTAL, Material.REPEATER, Material.KELP, Material.CHORUS_FLOWER, Material.CHORUS_PLANT));
+
+    public static void initialize() {
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
+    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
+    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
+    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
+    public static Set<Material> INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE, Material.DISPENSER, Material.NOTE_BLOCK, Material.CHEST, Material.FURNACE, Material.LEVER, Material.REPEATER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.BREWING_STAND, Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PUR
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
+    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
+    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
+    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
+    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
+    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
+    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
+    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
+    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+
+    /* blocks that support vertical scanning */
+    public static Set<Material> VERTICAL_TOP_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+ED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.GRINDSTONE, Material.LOOM, Material.SMOKER, Material.CRAFTING_TABLE, Material.CARTOGRAPHY_TABLE, Material.ENCHANTING_TABLE, Material.SMITHING_TABLE, Material.STONECUTTER));
+    public static Set<Material> SAFE_INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.LEVER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE));
+    public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Mat
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+public final class BlockGroup {
+
+    public static Set<Material> TRACK_ANY = new HashSet<>(Arrays.asList(Material.PISTON_HEAD, Material.LEVER, Material.BELL));
+    public static Set<Material> TRACK_TOP_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> TRACK_TOP = new HashSet<>(Arrays.asList(Material.TORCH, Material.REDSTONE_TORCH, Material.BAMBOO, Material.BAMBOO_SAPLING, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.SCAFFOLDING, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.REDSTONE_WIRE, Material.WHEAT, Material.ACACIA_SIGN, Material.BIRCH_SIGN, Material.DARK_OAK_SIGN, Material.JUNGLE_SIGN, Material.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Mater
+```
+
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
+    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
+    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
+    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
+    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
 ```
 
 ### RuleId[ruleID=SetReplaceableByEnumSet]
@@ -14835,18 +14835,6 @@ in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/HelpCommand.java`
-#### Snippet
-```java
-                String helpcommand_original = args[1];
-                String helpcommand = args[1].toLowerCase(Locale.ROOT);
-                helpcommand = helpcommand.replaceAll("[^a-zA-Z]", "");
-                Chat.sendMessage(player, Color.WHITE + "----- " + Color.DARK_AQUA + Phrase.build(Phrase.HELP_HEADER, "CoreProtect") + Color.WHITE + " -----");
-                if (helpcommand.equals("help")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/net/coreprotect/command/ApplyCommand.java`
 #### Snippet
 ```java
@@ -14855,6 +14843,18 @@ in `src/main/java/net/coreprotect/command/ApplyCommand.java`
                         args[i] = args[i].replaceAll("#preview", "");
                     }
                 }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/HelpCommand.java`
+#### Snippet
+```java
+                String helpcommand_original = args[1];
+                String helpcommand = args[1].toLowerCase(Locale.ROOT);
+                helpcommand = helpcommand.replaceAll("[^a-zA-Z]", "");
+                Chat.sendMessage(player, Color.WHITE + "----- " + Color.DARK_AQUA + Phrase.build(Phrase.HELP_HEADER, "CoreProtect") + Color.WHITE + " -----");
+                if (helpcommand.equals("help")) {
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -15042,11 +15042,35 @@ in `src/main/java/net/coreprotect/CoreProtect.java`
 in `src/main/java/net/coreprotect/patch/Patch.java`
 #### Snippet
 ```java
+
+                        if (continuePatch()) {
+                            Class<?> patchClass = Class.forName("net.coreprotect.patch.script.__" + patchData.replaceAll("\\.", "_"));
+                            Method patchMethod = patchClass.getDeclaredMethod("patch", Statement.class);
+                            patchMethod.setAccessible(true);
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
                     String className = jarEntry.getName();
                     if (className.startsWith("net/coreprotect/patch/script/__") && className.endsWith(".class")) {
                         Class<?> patchClass = Class.forName(className.substring(0, className.length() - 6).replaceAll("/", "."));
                         String patchVersion = getClassVersion(patchClass.getName());
                         if (!Util.newVersion(Util.getInternalPluginVersion(), patchVersion)) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+                    version = String.format(Locale.ROOT, "%3.2f", version_int / 100.0);
+                }
+                version = version.replaceAll(",", ".");
+                String[] old_version_split = version.split("\\.");
+                if (old_version_split.length > 2) { // #.#.#
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -15071,30 +15095,6 @@ in `src/main/java/net/coreprotect/patch/Patch.java`
         return (version.split(".__"))[1].replaceAll("_", ".");
     }
 
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-                    version = String.format(Locale.ROOT, "%3.2f", version_int / 100.0);
-                }
-                version = version.replaceAll(",", ".");
-                String[] old_version_split = version.split("\\.");
-                if (old_version_split.length > 2) { // #.#.#
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-
-                        if (continuePatch()) {
-                            Class<?> patchClass = Class.forName("net.coreprotect.patch.script.__" + patchData.replaceAll("\\.", "_"));
-                            Method patchMethod = patchClass.getDeclaredMethod("patch", Statement.class);
-                            patchMethod.setAccessible(true);
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -15155,42 +15155,6 @@ in `src/main/java/net/coreprotect/config/ConfigFile.java`
                     value = value.replaceAll("^\"|\"$", "");
                     value = value.replace("\\\"", "\"");
                     value = value.replace("\\\\", "\\");
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                                                    int action = Integer.parseInt(data[6]);
-                                                    String timeago = Util.getTimeSince(Integer.parseInt(time), unixtimestamp, true);
-                                                    int timeLength = 50 + (Util.getTimeSince(Integer.parseInt(time), unixtimestamp, false).replaceAll("[^0-9]", "").length() * 6);
-                                                    String leftPadding = Color.BOLD + Strings.padStart("", 10, ' ');
-                                                    if (timeLength % 4 == 0) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                                                    String message = data[6];
-                                                    String timeago = Util.getTimeSince(Integer.parseInt(time), unixtimestamp, true);
-                                                    int timeLength = 50 + (Util.getTimeSince(Integer.parseInt(time), unixtimestamp, false).replaceAll("[^0-9]", "").length() * 6);
-                                                    String leftPadding = Color.BOLD + Strings.padStart("", 10, ' ');
-                                                    if (timeLength % 4 == 0) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-
-                                                    String timeago = Util.getTimeSince(Integer.parseInt(time), unixtimestamp, true);
-                                                    int timeLength = 50 + (Util.getTimeSince(Integer.parseInt(time), unixtimestamp, false).replaceAll("[^0-9]", "").length() * 6);
-                                                    String leftPadding = Color.BOLD + Strings.padStart("", 10, ' ');
-                                                    if (timeLength % 4 == 0) {
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -15315,6 +15279,42 @@ in `src/main/java/net/coreprotect/command/LookupCommand.java`
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                                                    int action = Integer.parseInt(data[6]);
+                                                    String timeago = Util.getTimeSince(Integer.parseInt(time), unixtimestamp, true);
+                                                    int timeLength = 50 + (Util.getTimeSince(Integer.parseInt(time), unixtimestamp, false).replaceAll("[^0-9]", "").length() * 6);
+                                                    String leftPadding = Color.BOLD + Strings.padStart("", 10, ' ');
+                                                    if (timeLength % 4 == 0) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                                                    String message = data[6];
+                                                    String timeago = Util.getTimeSince(Integer.parseInt(time), unixtimestamp, true);
+                                                    int timeLength = 50 + (Util.getTimeSince(Integer.parseInt(time), unixtimestamp, false).replaceAll("[^0-9]", "").length() * 6);
+                                                    String leftPadding = Color.BOLD + Strings.padStart("", 10, ' ');
+                                                    if (timeLength % 4 == 0) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+
+                                                    String timeago = Util.getTimeSince(Integer.parseInt(time), unixtimestamp, true);
+                                                    int timeLength = 50 + (Util.getTimeSince(Integer.parseInt(time), unixtimestamp, false).replaceAll("[^0-9]", "").length() * 6);
+                                                    String leftPadding = Color.BOLD + Strings.padStart("", 10, ' ');
+                                                    if (timeLength % 4 == 0) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/net/coreprotect/config/Config.java`
 #### Snippet
 ```java
@@ -15359,54 +15359,6 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
                                 newColor = (DyeColor.valueOf(handType.name().replaceFirst("_DYE", ""))).getColor().asRGB();
                             }
                             else {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            // Parse wid:# parameter used internally for /co tp click events
-            if (name.startsWith("wid:")) {
-                String nameWid = name.replaceFirst("wid:", "");
-                if (nameWid.length() > 0 && nameWid.equals(nameWid.replaceAll("[^0-9]", ""))) {
-                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            if (name.startsWith("wid:")) {
-                String nameWid = name.replaceFirst("wid:", "");
-                if (nameWid.length() > 0 && nameWid.equals(nameWid.replaceAll("[^0-9]", ""))) {
-                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
-                    if (nameWid.length() > 0) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            // Determine closest match on world name
-            String result = "";
-            name = name.replaceFirst("#", "").toLowerCase(Locale.ROOT).trim();
-            for (World world : Bukkit.getServer().getWorlds()) {
-                String worldName = world.getName();
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                    result = world.getName();
-                }
-                else if (worldName.toLowerCase(Locale.ROOT).replaceAll("[^a-zA-Z0-9]", "").endsWith(name)) {
-                    result = world.getName();
-                }
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -15498,6 +15450,54 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
+            // Parse wid:# parameter used internally for /co tp click events
+            if (name.startsWith("wid:")) {
+                String nameWid = name.replaceFirst("wid:", "");
+                if (nameWid.length() > 0 && nameWid.equals(nameWid.replaceAll("[^0-9]", ""))) {
+                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            if (name.startsWith("wid:")) {
+                String nameWid = name.replaceFirst("wid:", "");
+                if (nameWid.length() > 0 && nameWid.equals(nameWid.replaceAll("[^0-9]", ""))) {
+                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
+                    if (nameWid.length() > 0) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            // Determine closest match on world name
+            String result = "";
+            name = name.replaceFirst("#", "").toLowerCase(Locale.ROOT).trim();
+            for (World world : Bukkit.getServer().getWorlds()) {
+                String worldName = world.getName();
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                    result = world.getName();
+                }
+                else if (worldName.toLowerCase(Locale.ROOT).replaceAll("[^a-zA-Z0-9]", "").endsWith(name)) {
+                    result = world.getName();
+                }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
 
             if (data[2].startsWith("wid:")) {
                 String nameWid = data[2].replaceFirst("wid:", "");
@@ -15538,7 +15538,7 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 argument = argument.replaceAll("\\\\", "");
                 argument = argument.replaceAll("'", "");
 
-                if (argument.equals("r:") || argument.equals("radius:")) {
+                if (argument.equals("e:") || argument.equals("exclude:")) {
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -15547,10 +15547,10 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
                 }
-                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "");
-                    argument = argument.replaceAll("r:", "");
-                    if (argument.equals("#worldedit") || argument.equals("#we")) {
+                else if (next == 5 || argument.startsWith("e:") || argument.startsWith("exclude:")) {
+                    argument = argument.replaceAll("exclude:", "");
+                    argument = argument.replaceAll("e:", "");
+                    if (argument.contains(",")) {
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -15558,11 +15558,383 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "");
-                    argument = argument.replaceAll("r:", "");
-                    if (argument.equals("#worldedit") || argument.equals("#we")) {
-                        result = true;
+                else if (next == 5 || argument.startsWith("e:") || argument.startsWith("exclude:")) {
+                    argument = argument.replaceAll("exclude:", "");
+                    argument = argument.replaceAll("e:", "");
+                    if (argument.contains(",")) {
+                        String[] i2 = argument.split(",");
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+    private static void validUserCheck(List<String> users, String user) {
+        List<String> badUsers = Arrays.asList("n", "noisy", "v", "verbose", "#v", "#verbose", "#silent", "#preview", "#preview_cancel", "#count", "#sum");
+        String check = user.replaceAll("[\\s'\"]", "");
+        if (check.equals(user) && check.length() > 0) {
+            if (user.equalsIgnoreCase("#global")) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+            if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                if (argument.equals("rows:")) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else if (next == 1 || argument.startsWith("rows:")) {
+                    argument = argument.replaceAll("rows:", "").trim();
+                    if (!argument.startsWith("-")) {
+                        String i2 = argument.replaceAll("[^0-9]", "");
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("rows:", "").trim();
+                    if (!argument.startsWith("-")) {
+                        String i2 = argument.replaceAll("[^0-9]", "");
+                        if (i2.length() > 0 && i2.length() < 10) {
+                            rows = Integer.parseInt(i2);
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+            if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                if (argument.equals("t:") || argument.equals("time:")) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                else if (next == 1 || argument.startsWith("t:") || argument.startsWith("time:")) {
+                    // time arguments
+                    argument = argument.replaceAll("time:", "");
+                    argument = argument.replaceAll("t:", "");
+                    argument = argument.replaceAll("y", "y:");
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    // time arguments
+                    argument = argument.replaceAll("time:", "");
+                    argument = argument.replaceAll("t:", "");
+                    argument = argument.replaceAll("y", "y:");
+                    argument = argument.replaceAll("m", "m:");
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("time:", "");
+                    argument = argument.replaceAll("t:", "");
+                    argument = argument.replaceAll("y", "y:");
+                    argument = argument.replaceAll("m", "m:");
+                    argument = argument.replaceAll("w", "w:");
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("t:", "");
+                    argument = argument.replaceAll("y", "y:");
+                    argument = argument.replaceAll("m", "m:");
+                    argument = argument.replaceAll("w", "w:");
+                    argument = argument.replaceAll("d", "d:");
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("y", "y:");
+                    argument = argument.replaceAll("m", "m:");
+                    argument = argument.replaceAll("w", "w:");
+                    argument = argument.replaceAll("d", "d:");
+                    argument = argument.replaceAll("h", "h:");
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("m", "m:");
+                    argument = argument.replaceAll("w", "w:");
+                    argument = argument.replaceAll("d", "d:");
+                    argument = argument.replaceAll("h", "h:");
+                    argument = argument.replaceAll("s", "s:");
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("w", "w:");
+                    argument = argument.replaceAll("d", "d:");
+                    argument = argument.replaceAll("h", "h:");
+                    argument = argument.replaceAll("s", "s:");
+                    range = argument.contains("-");
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("d", "d:");
+                    argument = argument.replaceAll("h", "h:");
+                    argument = argument.replaceAll("s", "s:");
+                    range = argument.contains("-");
+
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+
+                        if (i3.endsWith("w") && w == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                w = Double.parseDouble(i4);
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        if (i3.endsWith("w") && w == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                w = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        }
+                        else if (i3.endsWith("d") && d == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                d = Double.parseDouble(i4);
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("d") && d == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                d = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        }
+                        else if (i3.endsWith("h") && h == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                h = Double.parseDouble(i4);
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("h") && h == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                h = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        }
+                        else if (i3.endsWith("m") && m == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                m = Double.parseDouble(i4);
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("m") && m == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                m = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        }
+                        else if (i3.endsWith("s") && s == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                s = Double.parseDouble(i4);
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("s") && s == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                s = Double.parseDouble(i4);
+                            }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+            if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+                if (argument.equals("#preview")) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+                if (argument.equals("#preview")) {
+                    result = 1;
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+            if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                if (argument.equals("e:") || argument.equals("exclude:")) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else if (next == 5 || argument.startsWith("e:") || argument.startsWith("exclude:")) {
+                    argument = argument.replaceAll("exclude:", "");
+                    argument = argument.replaceAll("e:", "");
+                    if (argument.contains(",")) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                else if (next == 5 || argument.startsWith("e:") || argument.startsWith("exclude:")) {
+                    argument = argument.replaceAll("exclude:", "");
+                    argument = argument.replaceAll("e:", "");
+                    if (argument.contains(",")) {
+                        String[] i2 = argument.split(",");
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -15730,282 +16102,6 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 argument = argument.replaceAll("\\\\", "");
                 argument = argument.replaceAll("'", "");
 
-                if (argument.equals("r:") || argument.equals("radius:")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "");
-                    argument = argument.replaceAll("r:", "");
-                    if (argument.equals("#global") || argument.equals("global") || argument.equals("off") || argument.equals("-1") || argument.equals("none") || argument.equals("false")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "");
-                    argument = argument.replaceAll("r:", "");
-                    if (argument.equals("#global") || argument.equals("global") || argument.equals("off") || argument.equals("-1") || argument.equals("none") || argument.equals("false")) {
-                        result = true;
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-                if (argument.equals("e:") || argument.equals("exclude:")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else if (next == 5 || argument.startsWith("e:") || argument.startsWith("exclude:")) {
-                    argument = argument.replaceAll("exclude:", "");
-                    argument = argument.replaceAll("e:", "");
-                    if (argument.contains(",")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                else if (next == 5 || argument.startsWith("e:") || argument.startsWith("exclude:")) {
-                    argument = argument.replaceAll("exclude:", "");
-                    argument = argument.replaceAll("e:", "");
-                    if (argument.contains(",")) {
-                        String[] i2 = argument.split(",");
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-    protected static String[] parsePage(String[] argumentArray) {
-        if (argumentArray.length == 2) {
-            argumentArray[1] = argumentArray[1].replaceFirst("page:", "");
-        }
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-                if (argument.equals("rows:")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else if (next == 1 || argument.startsWith("rows:")) {
-                    argument = argument.replaceAll("rows:", "").trim();
-                    if (!argument.startsWith("-")) {
-                        String i2 = argument.replaceAll("[^0-9]", "");
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("rows:", "").trim();
-                    if (!argument.startsWith("-")) {
-                        String i2 = argument.replaceAll("[^0-9]", "");
-                        if (i2.length() > 0 && i2.length() < 10) {
-                            rows = Integer.parseInt(i2);
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-                if (argument.equals("r:") || argument.equals("radius:")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "");
-                    argument = argument.replaceAll("r:", "");
-                    if ((processWorldEdit && (argument.equals("#worldedit") || argument.equals("#we"))) || argument.equals("#global") || argument.equals("global") || argument.equals("off") || argument.equals("-1") || argument.equals("none") || argument.equals("false")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "");
-                    argument = argument.replaceAll("r:", "");
-                    if ((processWorldEdit && (argument.equals("#worldedit") || argument.equals("#we"))) || argument.equals("#global") || argument.equals("global") || argument.equals("off") || argument.equals("-1") || argument.equals("none") || argument.equals("false")) {
-                        worldName = "";
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    }
-                    else if (argument.startsWith("#")) {
-                        worldName = argument.replaceFirst("#", "");
-                    }
-                    next = 0;
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim();
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim();
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-                String inputProcessed = argument.toLowerCase(Locale.ROOT);
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else if (next == 2 || inputProcessed.startsWith("r:") || inputProcessed.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "").replaceAll("r:", "");
-                    inputProcessed = argument.toLowerCase(Locale.ROOT);
-                    if ((processWorldEdit && (inputProcessed.equals("#worldedit") || inputProcessed.equals("#we"))) || inputProcessed.equals("#global") || inputProcessed.equals("global") || inputProcessed.equals("off") || inputProcessed.equals("-1") || inputProcessed.equals("none") || inputProcessed.equals("false")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else if (next == 2 || inputProcessed.startsWith("r:") || inputProcessed.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "").replaceAll("r:", "");
-                    inputProcessed = argument.toLowerCase(Locale.ROOT);
-                    if ((processWorldEdit && (inputProcessed.equals("#worldedit") || inputProcessed.equals("#we"))) || inputProcessed.equals("#global") || inputProcessed.equals("global") || inputProcessed.equals("off") || inputProcessed.equals("-1") || inputProcessed.equals("none") || inputProcessed.equals("false")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        world_id = Util.matchWorld(inputProcessed);
-                        if (world_id == -1 && !requireLoaded) {
-                            world_id = ConfigHandler.worlds.getOrDefault(argument.replaceFirst("#", ""), -1);
-                        }
-                    }
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
                 if (argument.equals("i:") || argument.equals("include:") || argument.equals("item:") || argument.equals("items:") || argument.equals("b:") || argument.equals("block:") || argument.equals("blocks:")) {
 ```
 
@@ -16098,11 +16194,23 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-    private static void validUserCheck(List<String> users, String user) {
-        List<String> badUsers = Arrays.asList("n", "noisy", "v", "verbose", "#v", "#verbose", "#silent", "#preview", "#preview_cancel", "#count", "#sum");
-        String check = user.replaceAll("[\\s'\"]", "");
-        if (check.equals(user) && check.length() > 0) {
-            if (user.equalsIgnoreCase("#global")) {
+            if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                if (argument.equals("n") || argument.equals("noisy") || argument.equals("v") || argument.equals("verbose") || argument.equals("#v") || argument.equals("#verbose")) {
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16114,7 +16222,7 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 argument = argument.trim().toLowerCase(Locale.ROOT);
                 argument = argument.replaceAll("\\\\", "");
                 argument = argument.replaceAll("'", "");
-                if (argument.equals("#preview")) {
+
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16125,8 +16233,44 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 argument = argument.trim().toLowerCase(Locale.ROOT);
                 argument = argument.replaceAll("\\\\", "");
                 argument = argument.replaceAll("'", "");
-                if (argument.equals("#preview")) {
-                    result = 1;
+
+                if (argument.equals("r:") || argument.equals("radius:")) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "");
+                    argument = argument.replaceAll("r:", "");
+                    if ((processWorldEdit && (argument.equals("#worldedit") || argument.equals("#we"))) || argument.equals("#global") || argument.equals("global") || argument.equals("off") || argument.equals("-1") || argument.equals("none") || argument.equals("false")) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "");
+                    argument = argument.replaceAll("r:", "");
+                    if ((processWorldEdit && (argument.equals("#worldedit") || argument.equals("#we"))) || argument.equals("#global") || argument.equals("global") || argument.equals("off") || argument.equals("-1") || argument.equals("none") || argument.equals("false")) {
+                        worldName = "";
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    }
+                    else if (argument.startsWith("#")) {
+                        worldName = argument.replaceFirst("#", "");
+                    }
+                    next = 0;
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16450,150 +16594,6 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 argument = argument.replaceAll("\\\\", "");
                 argument = argument.replaceAll("'", "");
 
-                if (argument.equals("r:") || argument.equals("radius:")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "");
-                    argument = argument.replaceAll("r:", "");
-                    if (argument.equals("#worldedit") || argument.equals("#we")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "");
-                    argument = argument.replaceAll("r:", "");
-                    if (argument.equals("#worldedit") || argument.equals("#we")) {
-                        if (user.getServer().getPluginManager().getPlugin("WorldEdit") != null) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        }
-                        for (String value : r_dat) {
-                            String i4 = value.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                double a1 = Double.parseDouble(i4);
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        for (String value : r_dat) {
-                            String i4 = value.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                double a1 = Double.parseDouble(i4);
-                                if (rcount == 0) { // x
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-                if (argument.equals("n") || argument.equals("noisy") || argument.equals("v") || argument.equals("verbose") || argument.equals("#v") || argument.equals("#verbose")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-                if (argument.equals("e:") || argument.equals("exclude:")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else if (next == 5 || argument.startsWith("e:") || argument.startsWith("exclude:")) {
-                    argument = argument.replaceAll("exclude:", "");
-                    argument = argument.replaceAll("e:", "");
-                    if (argument.contains(",")) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                else if (next == 5 || argument.startsWith("e:") || argument.startsWith("exclude:")) {
-                    argument = argument.replaceAll("exclude:", "");
-                    argument = argument.replaceAll("e:", "");
-                    if (argument.contains(",")) {
-                        String[] i2 = argument.split(",");
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
                 if (next == 2) {
 ```
 
@@ -16666,7 +16666,7 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 argument = argument.replaceAll("\\\\", "");
                 argument = argument.replaceAll("'", "");
 
-                if (argument.equals("t:") || argument.equals("time:")) {
+                if (argument.equals("r:") || argument.equals("radius:")) {
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16674,11 +16674,11 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                else if (next == 1 || argument.startsWith("t:") || argument.startsWith("time:")) {
-                    // time arguments
-                    argument = argument.replaceAll("time:", "");
-                    argument = argument.replaceAll("t:", "");
-                    argument = argument.replaceAll("y", "y:");
+                }
+                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "");
+                    argument = argument.replaceAll("r:", "");
+                    if (argument.equals("#worldedit") || argument.equals("#we")) {
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16686,107 +16686,11 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                    // time arguments
-                    argument = argument.replaceAll("time:", "");
-                    argument = argument.replaceAll("t:", "");
-                    argument = argument.replaceAll("y", "y:");
-                    argument = argument.replaceAll("m", "m:");
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("time:", "");
-                    argument = argument.replaceAll("t:", "");
-                    argument = argument.replaceAll("y", "y:");
-                    argument = argument.replaceAll("m", "m:");
-                    argument = argument.replaceAll("w", "w:");
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("t:", "");
-                    argument = argument.replaceAll("y", "y:");
-                    argument = argument.replaceAll("m", "m:");
-                    argument = argument.replaceAll("w", "w:");
-                    argument = argument.replaceAll("d", "d:");
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("y", "y:");
-                    argument = argument.replaceAll("m", "m:");
-                    argument = argument.replaceAll("w", "w:");
-                    argument = argument.replaceAll("d", "d:");
-                    argument = argument.replaceAll("h", "h:");
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("m", "m:");
-                    argument = argument.replaceAll("w", "w:");
-                    argument = argument.replaceAll("d", "d:");
-                    argument = argument.replaceAll("h", "h:");
-                    argument = argument.replaceAll("s", "s:");
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("w", "w:");
-                    argument = argument.replaceAll("d", "d:");
-                    argument = argument.replaceAll("h", "h:");
-                    argument = argument.replaceAll("s", "s:");
-                    range = argument.contains("-");
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("d", "d:");
-                    argument = argument.replaceAll("h", "h:");
-                    argument = argument.replaceAll("s", "s:");
-                    range = argument.contains("-");
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-
-                        if (i3.endsWith("w") && w == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                w = Double.parseDouble(i4);
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        if (i3.endsWith("w") && w == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                w = Double.parseDouble(i4);
-                            }
+                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "");
+                    argument = argument.replaceAll("r:", "");
+                    if (argument.equals("#worldedit") || argument.equals("#we")) {
+                        if (user.getServer().getPluginManager().getPlugin("WorldEdit") != null) {
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16795,10 +16699,10 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
                         }
-                        else if (i3.endsWith("d") && d == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                d = Double.parseDouble(i4);
+                        for (String value : r_dat) {
+                            String i4 = value.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                double a1 = Double.parseDouble(i4);
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16806,11 +16710,11 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                        else if (i3.endsWith("d") && d == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                d = Double.parseDouble(i4);
-                            }
+                        for (String value : r_dat) {
+                            String i4 = value.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                double a1 = Double.parseDouble(i4);
+                                if (rcount == 0) { // x
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16818,11 +16722,71 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
+            if (count > 0) {
+                argument = argument.trim();
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim();
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                String inputProcessed = argument.toLowerCase(Locale.ROOT);
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else if (next == 2 || inputProcessed.startsWith("r:") || inputProcessed.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "").replaceAll("r:", "");
+                    inputProcessed = argument.toLowerCase(Locale.ROOT);
+                    if ((processWorldEdit && (inputProcessed.equals("#worldedit") || inputProcessed.equals("#we"))) || inputProcessed.equals("#global") || inputProcessed.equals("global") || inputProcessed.equals("off") || inputProcessed.equals("-1") || inputProcessed.equals("none") || inputProcessed.equals("false")) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else if (next == 2 || inputProcessed.startsWith("r:") || inputProcessed.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "").replaceAll("r:", "");
+                    inputProcessed = argument.toLowerCase(Locale.ROOT);
+                    if ((processWorldEdit && (inputProcessed.equals("#worldedit") || inputProcessed.equals("#we"))) || inputProcessed.equals("#global") || inputProcessed.equals("global") || inputProcessed.equals("off") || inputProcessed.equals("-1") || inputProcessed.equals("none") || inputProcessed.equals("false")) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        world_id = Util.matchWorld(inputProcessed);
+                        if (world_id == -1 && !requireLoaded) {
+                            world_id = ConfigHandler.worlds.getOrDefault(argument.replaceFirst("#", ""), -1);
                         }
-                        else if (i3.endsWith("h") && h == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                h = Double.parseDouble(i4);
+                    }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+    protected static String[] parsePage(String[] argumentArray) {
+        if (argumentArray.length == 2) {
+            argumentArray[1] = argumentArray[1].replaceFirst("page:", "");
+        }
+
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16830,11 +16794,11 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                        else if (i3.endsWith("h") && h == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                h = Double.parseDouble(i4);
-                            }
+            if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16842,11 +16806,11 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                        }
-                        else if (i3.endsWith("m") && m == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                m = Double.parseDouble(i4);
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                if (argument.equals("r:") || argument.equals("radius:")) {
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16854,11 +16818,11 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                        else if (i3.endsWith("m") && m == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                m = Double.parseDouble(i4);
-                            }
+                }
+                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "");
+                    argument = argument.replaceAll("r:", "");
+                    if (argument.equals("#worldedit") || argument.equals("#we")) {
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16866,11 +16830,11 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                        }
-                        else if (i3.endsWith("s") && s == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                s = Double.parseDouble(i4);
+                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "");
+                    argument = argument.replaceAll("r:", "");
+                    if (argument.equals("#worldedit") || argument.equals("#we")) {
+                        result = true;
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -16878,11 +16842,47 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                        else if (i3.endsWith("s") && s == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                s = Double.parseDouble(i4);
-                            }
+            if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                if (argument.equals("r:") || argument.equals("radius:")) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "");
+                    argument = argument.replaceAll("r:", "");
+                    if (argument.equals("#global") || argument.equals("global") || argument.equals("off") || argument.equals("-1") || argument.equals("none") || argument.equals("false")) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "");
+                    argument = argument.replaceAll("r:", "");
+                    if (argument.equals("#global") || argument.equals("global") || argument.equals("off") || argument.equals("-1") || argument.equals("none") || argument.equals("false")) {
+                        result = true;
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -17066,19 +17066,6 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                                 boolean hasTrail = (Boolean) fireworkData.get("trail");
 ```
 
-## RuleId[ruleID=RegExpSingleCharAlternation]
-### RuleId[ruleID=RegExpSingleCharAlternation]
-Single character alternation in RegExp
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            }
-            else if (version.contains(".")) {
-                String[] worldEditVersion = version.split("-|\\.");
-                if (worldEditVersion.length >= 2) {
-                    worldEditVersion[0] = worldEditVersion[0].replaceAll("[^0-9]", "");
-```
-
 ## RuleId[ruleID=ComparatorMethodParameterNotUsed]
 ### RuleId[ruleID=ComparatorMethodParameterNotUsed]
 Comparator does not return 0 for equal elements
@@ -17090,6 +17077,19 @@ in `src/main/java/net/coreprotect/utility/Util.java`
             return res != 0 ? res : 1;
         });
         sortedEntries.addAll(map.entrySet());
+```
+
+## RuleId[ruleID=RegExpSingleCharAlternation]
+### RuleId[ruleID=RegExpSingleCharAlternation]
+Single character alternation in RegExp
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            }
+            else if (version.contains(".")) {
+                String[] worldEditVersion = version.split("-|\\.");
+                if (worldEditVersion.length >= 2) {
+                    worldEditVersion[0] = worldEditVersion[0].replaceAll("[^0-9]", "");
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
@@ -17131,6 +17131,18 @@ in `src/main/java/net/coreprotect/command/ReloadCommand.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/SignTextLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/patch/script/__2_5_0.java`
 #### Snippet
 ```java
@@ -17155,7 +17167,7 @@ in `src/main/java/net/coreprotect/patch/script/__2_5_0.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/PlayerInteractLogger.java`
+in `src/main/java/net/coreprotect/database/logger/PlayerSessionLogger.java`
 #### Snippet
 ```java
         }
@@ -17168,6 +17180,54 @@ in `src/main/java/net/coreprotect/database/logger/PlayerInteractLogger.java`
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/logger/CommandLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/PlayerInteractLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/EntityKillLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/command/ApplyCommand.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/UsernameLogger.java`
 #### Snippet
 ```java
         }
@@ -17203,7 +17263,19 @@ in `src/main/java/net/coreprotect/command/StatusCommand.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/SignTextLogger.java`
+in `src/main/java/net/coreprotect/database/logger/ItemLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/ItemLogger.java`
 #### Snippet
 ```java
         }
@@ -17227,42 +17299,6 @@ in `src/main/java/net/coreprotect/patch/script/__2_19_0.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/ApplyCommand.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/UsernameLogger.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
@@ -17275,43 +17311,7 @@ in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/PlayerSessionLogger.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/ItemLogger.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/ItemLogger.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/EntityKillLogger.java`
+in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
         }
@@ -17386,6 +17386,18 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
 #### Snippet
 ```java
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
+#### Snippet
+```java
                                 }
                                 catch (Exception e) {
                                     e.printStackTrace();
@@ -17395,14 +17407,14 @@ in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
+in `src/main/java/net/coreprotect/spigot/Spigot_v1_16.java`
 #### Snippet
 ```java
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -17444,18 +17456,6 @@ in `src/main/java/net/coreprotect/consumer/process/Process.java`
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/consumer/process/Process.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/spigot/Spigot_v1_16.java`
 #### Snippet
 ```java
         }
@@ -17527,18 +17527,6 @@ in `src/main/java/net/coreprotect/patch/script/__2_21_0.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/PlayerKillLogger.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 #### Snippet
 ```java
@@ -17599,7 +17587,31 @@ in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/PlayerKillLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/statement/ItemStatement.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/ChatLogger.java`
 #### Snippet
 ```java
         }
@@ -17619,18 +17631,6 @@ in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
             e.printStackTrace();
         }
 
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/ChatLogger.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -17666,7 +17666,7 @@ in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-
+        return id;
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -17678,7 +17678,7 @@ in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-        return id;
+
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -17695,50 +17695,14 @@ in `src/main/java/net/coreprotect/listener/block/BlockPlaceListener.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
-#### Snippet
-```java
-                String error = e.getMessage().toLowerCase();
-                if (!error.contains("duplicate") && !error.contains("error 1060")) {
-                    e.printStackTrace();
-                    return false;
-                }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
-#### Snippet
-```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Database.commitTransaction(statement);
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
-#### Snippet
-```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+in `src/main/java/net/coreprotect/CoreProtect.java`
 #### Snippet
 ```java
         }
         catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -17775,66 +17739,6 @@ in `src/main/java/net/coreprotect/CoreProtect.java`
                     e.printStackTrace();
                 }
             }, 0);
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/CoreProtect.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/statement/ContainerStatement.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-                        }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -17899,6 +17803,66 @@ in `src/main/java/net/coreprotect/patch/Patch.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/statement/ContainerStatement.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/listener/block/BlockExplodeListener.java`
+#### Snippet
+```java
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/statement/SessionStatement.java`
 #### Snippet
 ```java
@@ -17907,6 +17871,66 @@ in `src/main/java/net/coreprotect/database/statement/SessionStatement.java`
             e.printStackTrace();
         }
     }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/statement/BlockStatement.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+                String error = e.getMessage().toLowerCase();
+                if (!error.contains("duplicate") && !error.contains("error 1060")) {
+                    e.printStackTrace();
+                    return false;
+                }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Database.commitTransaction(statement);
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -18031,30 +18055,6 @@ in `src/main/java/net/coreprotect/command/PurgeCommand.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/block/BlockExplodeListener.java`
-#### Snippet
-```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/statement/BlockStatement.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/utility/Teleport.java`
 #### Snippet
 ```java
@@ -18103,14 +18103,14 @@ in `src/main/java/net/coreprotect/database/statement/SignStatement.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
+in `src/main/java/net/coreprotect/listener/channel/PluginChannelHandshakeListener.java`
 #### Snippet
 ```java
+        catch (Exception exception) {
+            Chat.console(exception.toString());
+            exception.printStackTrace();
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    }
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -18139,14 +18139,14 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/channel/PluginChannelHandshakeListener.java`
+in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
 #### Snippet
 ```java
-        catch (Exception exception) {
-            Chat.console(exception.toString());
-            exception.printStackTrace();
         }
-    }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -18166,6 +18166,66 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 #### Snippet
 ```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+#### Snippet
+```java
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -18194,42 +18254,6 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
 
 ```
 
@@ -18247,19 +18271,19 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+in `src/main/java/net/coreprotect/database/Database.java`
 #### Snippet
 ```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+in `src/main/java/net/coreprotect/database/Database.java`
 #### Snippet
 ```java
         }
@@ -18279,6 +18303,18 @@ in `src/main/java/net/coreprotect/database/Database.java`
             e.printStackTrace();
         }
     }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Database.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -18334,42 +18370,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/Database.java`
 #### Snippet
 ```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Database.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Database.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Database.java`
-#### Snippet
-```java
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -18406,11 +18406,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/Database.java`
 #### Snippet
 ```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -18478,6 +18478,18 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/command/LookupCommand.java`
 #### Snippet
 ```java
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
                             }
                             catch (Exception e) {
                                 e.printStackTrace();
@@ -18499,18 +18511,6 @@ in `src/main/java/net/coreprotect/command/LookupCommand.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/statement/SkullStatement.java`
 #### Snippet
 ```java
@@ -18566,7 +18566,7 @@ in `src/main/java/net/coreprotect/database/statement/EntityStatement.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -18578,7 +18578,7 @@ in `src/main/java/net/coreprotect/database/statement/EntityStatement.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
+
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -18610,6 +18610,30 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/consumer/Consumer.java`
 #### Snippet
 ```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        pausedSuccess = false;
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/consumer/Consumer.java`
+#### Snippet
+```java
+    @Override
+    public void uncaughtException(Thread thread, Throwable e) {
+        e.printStackTrace();
+        Bukkit.getPluginManager().disablePlugin(CoreProtect.getInstance());
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/consumer/Consumer.java`
+#### Snippet
+```java
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -18626,30 +18650,6 @@ in `src/main/java/net/coreprotect/consumer/Consumer.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-        pausedSuccess = false;
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/consumer/Consumer.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/consumer/Consumer.java`
-#### Snippet
-```java
-    @Override
-    public void uncaughtException(Thread thread, Throwable e) {
-        e.printStackTrace();
-        Bukkit.getPluginManager().disablePlugin(CoreProtect.getInstance());
     }
 ```
 
@@ -18679,18 +18679,6 @@ in `src/main/java/net/coreprotect/patch/script/__2_18_1.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/thread/CacheHandler.java`
-#### Snippet
-```java
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/patch/script/__2_11_0.java`
 #### Snippet
 ```java
@@ -18703,7 +18691,7 @@ in `src/main/java/net/coreprotect/patch/script/__2_11_0.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/UndoCommand.java`
+in `src/main/java/net/coreprotect/database/ContainerRollback.java`
 #### Snippet
 ```java
         }
@@ -18711,6 +18699,30 @@ in `src/main/java/net/coreprotect/command/UndoCommand.java`
             e.printStackTrace();
         }
     }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/ContainerRollback.java`
+#### Snippet
+```java
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/thread/CacheHandler.java`
+#### Snippet
+```java
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -18723,6 +18735,18 @@ in `src/main/java/net/coreprotect/listener/player/HopperPullListener.java`
                 e.printStackTrace();
             }
         });
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/command/UndoCommand.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -18763,42 +18787,6 @@ in `src/main/java/net/coreprotect/database/logger/SkullPlaceLogger.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/ContainerRollback.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/ContainerRollback.java`
-#### Snippet
-```java
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/lookup/BlockLookup.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return resultText;
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/logger/ContainerBreakLogger.java`
 #### Snippet
 ```java
@@ -18819,6 +18807,18 @@ in `src/main/java/net/coreprotect/command/NetworkDebugCommand.java`
             e.printStackTrace();
         }
     }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/lookup/BlockLookup.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultText;
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -18871,18 +18871,6 @@ in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/HopperPushListener.java`
-#### Snippet
-```java
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/command/WorldEditHandler.java`
 #### Snippet
 ```java
@@ -18907,26 +18895,14 @@ in `src/main/java/net/coreprotect/patch/script/__2_6_0.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+in `src/main/java/net/coreprotect/listener/player/HopperPushListener.java`
 #### Snippet
 ```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
-#### Snippet
-```java
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -18950,6 +18926,42 @@ in `src/main/java/net/coreprotect/listener/player/ArmorStandManipulateListener.j
                 catch (Exception e) {
                     e.printStackTrace();
                 }
+
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
 
 ```
 
@@ -18982,18 +18994,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
 #### Snippet
 ```java
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
                                 }
                                 catch (Exception e) {
                                     e.printStackTrace();
@@ -19003,38 +19003,26 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                }
-                                catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                }
-                                catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
 #### Snippet
 ```java
                 }
                 catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+```
 
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+#### Snippet
+```java
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -19051,6 +19039,18 @@ in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
+#### Snippet
+```java
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/utility/entity/HangingUtil.java`
 #### Snippet
 ```java
@@ -19154,7 +19154,7 @@ in `src/main/java/net/coreprotect/utility/Util.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -19162,11 +19162,23 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -19186,11 +19198,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -19198,11 +19210,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -19215,6 +19227,18 @@ in `src/main/java/net/coreprotect/utility/Util.java`
             e.printStackTrace();
         }
         return inventory;
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -19250,7 +19274,19 @@ in `src/main/java/net/coreprotect/utility/Util.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
+        return contents;
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -19274,30 +19310,6 @@ in `src/main/java/net/coreprotect/utility/Util.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
 
 ```
 
@@ -19310,19 +19322,7 @@ in `src/main/java/net/coreprotect/utility/Util.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-        return contents;
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+        return result;
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -19426,18 +19426,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/Lookup.java`
 #### Snippet
 ```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Lookup.java`
-#### Snippet
-```java
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -19459,7 +19447,7 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Rollback.java`
+in `src/main/java/net/coreprotect/database/Lookup.java`
 #### Snippet
 ```java
         }
@@ -19522,6 +19510,42 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
 ```java
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -19538,31 +19562,7 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
-```
 
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
 ```
 
 ## RuleId[ruleID=Convert2Lambda]
@@ -19748,18 +19748,6 @@ in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `contents`
-in `src/main/java/net/coreprotect/database/Database.java`
-#### Snippet
-```java
-                try {
-                    if (contents == null) {
-                        contents = Util.getContainerContents(type, container, location);
-                    }
-                    if (contents != null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `name`
 in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 #### Snippet
@@ -19781,6 +19769,18 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
                 list = new ArrayList<>();
                 for (ItemStack itemStack : subMeta.getItems()) {
                     Map<String, Object> itemMap = Util.serializeItemStack(itemStack, null, slot);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `contents`
+in `src/main/java/net/coreprotect/database/Database.java`
+#### Snippet
+```java
+                try {
+                    if (contents == null) {
+                        contents = Util.getContainerContents(type, container, location);
+                    }
+                    if (contents != null) {
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -20400,47 +20400,11 @@ Assignment to method parameter `name`
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
-        // Name entered by user
-        Material material = null;
-        name = name.toUpperCase(Locale.ROOT).trim();
-        if (!name.startsWith("#")) {
-            if (name.contains(NAMESPACE.toUpperCase(Locale.ROOT))) {
-```
+    public static int getArtId(String name, boolean internal) {
+        int id = -1;
+        name = name.toLowerCase(Locale.ROOT).trim();
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        if (!name.startsWith("#")) {
-            if (name.contains(NAMESPACE.toUpperCase(Locale.ROOT))) {
-                name = name.split(":")[1];
-            }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            }
-
-            name = BukkitAdapter.ADAPTER.parseLegacyName(name);
-            material = Material.matchMaterial(name);
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `string`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        }
-
-        string = string.toLowerCase(Locale.ROOT);
-
-        if (allWords) {
+        if (ConfigHandler.art.get(name) != null) {
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -20453,6 +20417,102 @@ in `src/main/java/net/coreprotect/utility/Util.java`
             material = Material.AIR;
         }
         return getBlockId(material.name(), true);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+    public static int getEntityId(String name, boolean internal) {
+        int id = -1;
+        name = name.toLowerCase(Locale.ROOT).trim();
+
+        if (ConfigHandler.entities.get(name) != null) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        int id = -1;
+
+        name = name.toLowerCase(Locale.ROOT).trim();
+        if (!name.contains(":")) {
+            name = NAMESPACE + name;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        name = name.toLowerCase(Locale.ROOT).trim();
+        if (!name.contains(":")) {
+            name = NAMESPACE + name;
+        }
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        // Name entered by user
+        EntityType type = null;
+        name = name.toLowerCase(Locale.ROOT).trim();
+        if (name.contains(NAMESPACE)) {
+            name = (name.split(":"))[1];
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        name = name.toLowerCase(Locale.ROOT).trim();
+        if (name.contains(NAMESPACE)) {
+            name = (name.split(":"))[1];
+        }
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `container`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                // container may be null if called from within WorldEdit logger
+                if (container == null) {
+                    container = location.getBlock();
+                }
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `string`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                    }
+                }
+                string = String.join(",", blockDataArray);
+            }
+            else if (!string.contains(":") && (material == Material.PAINTING || BukkitAdapter.ADAPTER.isItemFrame(material))) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `string`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                int id = getBlockdataId(string, true);
+                if (id > -1) {
+                    string = Integer.toString(id);
+                }
+                else {
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -20540,138 +20600,6 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        // Name entered by user
-        EntityType type = null;
-        name = name.toLowerCase(Locale.ROOT).trim();
-        if (name.contains(NAMESPACE)) {
-            name = (name.split(":"))[1];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        name = name.toLowerCase(Locale.ROOT).trim();
-        if (name.contains(NAMESPACE)) {
-            name = (name.split(":"))[1];
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-    public static int getArtId(String name, boolean internal) {
-        int id = -1;
-        name = name.toLowerCase(Locale.ROOT).trim();
-
-        if (ConfigHandler.art.get(name) != null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-    public static int getEntityId(String name, boolean internal) {
-        int id = -1;
-        name = name.toLowerCase(Locale.ROOT).trim();
-
-        if (ConfigHandler.entities.get(name) != null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `string`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                    }
-                }
-                string = String.join(",", blockDataArray);
-            }
-            else if (!string.contains(":") && (material == Material.PAINTING || BukkitAdapter.ADAPTER.isItemFrame(material))) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `string`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                int id = getBlockdataId(string, true);
-                if (id > -1) {
-                    string = Integer.toString(id);
-                }
-                else {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        int id = -1;
-
-        name = name.toLowerCase(Locale.ROOT).trim();
-        if (!name.contains(":")) {
-            name = NAMESPACE + name;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        name = name.toLowerCase(Locale.ROOT).trim();
-        if (!name.contains(":")) {
-            name = NAMESPACE + name;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `container`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                // container may be null if called from within WorldEdit logger
-                if (container == null) {
-                    container = location.getBlock();
-                }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `blockData`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-    public static void prepareTypeAndData(Map<Block, BlockData> map, Block block, Material type, BlockData blockData, boolean update) {
-        if (blockData == null) {
-            blockData = createBlockData(type);
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `data`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-    public static int getBlockdataId(String data, boolean internal) {
-        int id = -1;
-        data = data.toLowerCase(Locale.ROOT).trim();
-
-        if (ConfigHandler.blockdata.get(data) != null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `material`
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
@@ -20732,15 +20660,75 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `string`
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
+        // Name entered by user
+        Material material = null;
+        name = name.toUpperCase(Locale.ROOT).trim();
+        if (!name.startsWith("#")) {
+            if (name.contains(NAMESPACE.toUpperCase(Locale.ROOT))) {
+```
 
-    private static void parseUser(List<String> users, String string) {
-        string = string.trim();
-        if (string.contains(",")) {
-            String[] data = string.split(",");
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        if (!name.startsWith("#")) {
+            if (name.contains(NAMESPACE.toUpperCase(Locale.ROOT))) {
+                name = name.split(":")[1];
+            }
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            }
+
+            name = BukkitAdapter.ADAPTER.parseLegacyName(name);
+            material = Material.matchMaterial(name);
+        }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `string`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        }
+
+        string = string.toLowerCase(Locale.ROOT);
+
+        if (allWords) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `blockData`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+    public static void prepareTypeAndData(Map<Block, BlockData> map, Block block, Material type, BlockData blockData, boolean update) {
+        if (blockData == null) {
+            blockData = createBlockData(type);
+        }
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `data`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+    public static int getBlockdataId(String data, boolean internal) {
+        int id = -1;
+        data = data.toLowerCase(Locale.ROOT).trim();
+
+        if (ConfigHandler.blockdata.get(data) != null) {
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -20753,6 +20741,18 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                                 location = new Location(Bukkit.getWorld(Util.getWorldName(worldId)), 0, 0, 0);
                             }
                             if (location != null) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `string`
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+
+    private static void parseUser(List<String> users, String string) {
+        string = string.trim();
+        if (string.contains(",")) {
+            String[] data = string.split(",");
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -20854,14 +20854,14 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/net/coreprotect/bukkit/BukkitAdapter.java`
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 #### Snippet
 ```java
-    @Override
-    public ItemStack adjustIngredient(MerchantRecipe recipe, ItemStack itemStack) {
-        return null;
+                return Material.GLOW_ITEM_FRAME;
+            default:
+                return null;
+        }
     }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -20878,14 +20878,14 @@ in `src/main/java/net/coreprotect/bukkit/BukkitAdapter.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
+in `src/main/java/net/coreprotect/bukkit/BukkitAdapter.java`
 #### Snippet
 ```java
-                return Material.GLOW_ITEM_FRAME;
-            default:
-                return null;
-        }
+    @Override
+    public ItemStack adjustIngredient(MerchantRecipe recipe, ItemStack itemStack) {
+        return null;
     }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -20905,7 +20905,7 @@ Return of `null`
 in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
 #### Snippet
 ```java
-    public Block getBlock() {
+    public MaterialData getData() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -20917,7 +20917,7 @@ Return of `null`
 in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
 #### Snippet
 ```java
-    public List<MetadataValue> getMetadata(String metadataKey) {
+    public Block getBlock() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -20941,7 +20941,7 @@ Return of `null`
 in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
 #### Snippet
 ```java
-    public MaterialData getData() {
+    public List<MetadataValue> getMetadata(String metadataKey) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -21037,10 +21037,22 @@ Return of `null`
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
 ```java
-        public BlockData getBlockData() {
-            if (parse.length < 13) {
-                return null;
-            }
+            return processData(time, radius, radiusLocation, parseList(restrictBlocks), parseList(excludeBlocks), restrictUsers, excludeUsers, actionList, 0, 1, limitOffset, limitCount, true);
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+            return processData(user, time, radius, location, parseList(restrict), parseList(exclude), 1, 2, -1, -1, false);
+        }
+        return null;
+    }
 
 ```
 
@@ -21050,42 +21062,6 @@ in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
 ```java
             return processData(user, time, radius, location, parseList(restrict), parseList(exclude), 0, 1, -1, -1, false);
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-            return processData(user, time, radius, location, parseList(restrict), parseList(exclude), 0, 2, -1, -1, false);
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-            return processData(time, radius, radiusLocation, parseList(restrictBlocks), parseList(excludeBlocks), restrictUsers, excludeUsers, actionList, 0, 1, -1, -1, false);
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-            return processData(time, radius, radiusLocation, parseList(restrictBlocks), parseList(excludeBlocks), restrictUsers, excludeUsers, actionList, 1, 2, -1, -1, false);
         }
         return null;
     }
@@ -21121,10 +21097,10 @@ Return of `null`
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
 ```java
-            return processData(time, radius, radiusLocation, parseList(restrictBlocks), parseList(excludeBlocks), restrictUsers, excludeUsers, actionList, 0, 1, limitOffset, limitCount, true);
-        }
-        return null;
-    }
+        public BlockData getBlockData() {
+            if (parse.length < 13) {
+                return null;
+            }
 
 ```
 
@@ -21133,7 +21109,7 @@ Return of `null`
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
 ```java
-            return processData(user, time, radius, location, parseList(restrict), parseList(exclude), 0, 1, limitOffset, limitCount, true);
+            return processData(time, radius, radiusLocation, parseList(restrictBlocks), parseList(excludeBlocks), restrictUsers, excludeUsers, actionList, 1, 2, -1, -1, false);
         }
         return null;
     }
@@ -21157,7 +21133,31 @@ Return of `null`
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
 ```java
-            return processData(user, time, radius, location, parseList(restrict), parseList(exclude), 1, 2, -1, -1, false);
+            return processData(user, time, radius, location, parseList(restrict), parseList(exclude), 0, 1, limitOffset, limitCount, true);
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+            return processData(user, time, radius, location, parseList(restrict), parseList(exclude), 0, 2, -1, -1, false);
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+            return processData(time, radius, radiusLocation, parseList(restrictBlocks), parseList(excludeBlocks), restrictUsers, excludeUsers, actionList, 0, 1, -1, -1, false);
         }
         return null;
     }
@@ -21226,18 +21226,6 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `action` is redundant
-in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
-#### Snippet
-```java
-                                try (Connection connection = Database.getConnection(false, 1000)) {
-                                    ConfigHandler.lookupThrottle.put(player.getName(), new Object[] { true, System.currentTimeMillis() });
-                                    int action = finalAction;
-                                    Location location = locationFinal;
-                                    if (connection != null) {
-```
-
-### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `location` is redundant
 in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
 #### Snippet
@@ -21259,6 +21247,18 @@ in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
                 List<String> rollbackusers = argUsers;
                 int c = 0;
                 for (String ruser : rollbackusers) {
+```
+
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `action` is redundant
+in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
+#### Snippet
+```java
+                                try (Connection connection = Database.getConnection(false, 1000)) {
+                                    ConfigHandler.lookupThrottle.put(player.getName(), new Object[] { true, System.currentTimeMillis() });
+                                    int action = finalAction;
+                                    Location location = locationFinal;
+                                    if (connection != null) {
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
@@ -21435,11 +21435,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/net/coreprotect/consumer/Consumer.java`
 #### Snippet
 ```java
-                    currentConsumer = 0;
-                }
-                Thread.sleep(500);
-                pauseConsumer(process_id);
-                Process.processConsumer(process_id, lastRun);
+            while ((ConfigHandler.serverRunning || ConfigHandler.converterRunning) && (Consumer.isPaused || ConfigHandler.pauseConsumer || ConfigHandler.purgeRunning || Consumer.consumer_id.get(process_id)[1] == 1)) {
+                pausedSuccess = true;
+                Thread.sleep(100);
+            }
+        }
 ```
 
 ### RuleId[ruleID=BusyWait]
@@ -21447,11 +21447,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/net/coreprotect/consumer/Consumer.java`
 #### Snippet
 ```java
-            while ((ConfigHandler.serverRunning || ConfigHandler.converterRunning) && (Consumer.isPaused || ConfigHandler.pauseConsumer || ConfigHandler.purgeRunning || Consumer.consumer_id.get(process_id)[1] == 1)) {
-                pausedSuccess = true;
-                Thread.sleep(100);
-            }
-        }
+                    currentConsumer = 0;
+                }
+                Thread.sleep(500);
+                pauseConsumer(process_id);
+                Process.processConsumer(process_id, lastRun);
 ```
 
 ### RuleId[ruleID=BusyWait]
