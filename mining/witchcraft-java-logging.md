@@ -28,18 +28,6 @@ in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/i
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for field 'ALLOW'
-in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestLogFilter.java`
-#### Snippet
-```java
-    INSTANCE;
-
-    private static final Optional<Boolean> ALLOW = Optional.of(Boolean.TRUE);
-    private static final Optional<Boolean> BLOCK = Optional.of(Boolean.FALSE);
-
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for field 'BLOCK'
 in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestLogFilter.java`
 #### Snippet
@@ -49,6 +37,18 @@ in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/loggi
     private static final Optional<Boolean> BLOCK = Optional.of(Boolean.FALSE);
 
     @Override
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for field 'ALLOW'
+in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestLogFilter.java`
+#### Snippet
+```java
+    INSTANCE;
+
+    private static final Optional<Boolean> ALLOW = Optional.of(Boolean.TRUE);
+    private static final Optional<Boolean> BLOCK = Optional.of(Boolean.FALSE);
+
 ```
 
 ## RuleId[ruleID=OptionalIsPresent]
