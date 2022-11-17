@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.health.HealthCheckResponse;
-import org.eclipse.microprofile.health.HealthCheckResponseBuilder;
 import org.eclipse.microprofile.health.Readiness;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHRepositorySearchBuilder.Sort;
@@ -83,18 +82,10 @@ public class SearchProjectService {
 
         @Override
         public Uni<HealthCheckResponse> call() {
-            return searchProjectService
-                    .searchProjectOnGithub()
-                    .onItemOrFailure()
-                    .transform((project, throwable) -> {
-                        HealthCheckResponseBuilder builder = HealthCheckResponse.named("Periodic Mining");
-                        if (throwable != null || project == null) {
-                            builder.down().withData("error", "Could not find project on github");
-                        } else {
-                            builder.up();
-                        }
-                        return builder.build();
-                    });
+            return Uni.createFrom()
+                    .item(HealthCheckResponse.named("Search Project Service")
+                            .up()
+                            .build());
         }
     }
 }
