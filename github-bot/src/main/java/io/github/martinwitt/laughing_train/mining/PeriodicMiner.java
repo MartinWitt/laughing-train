@@ -17,6 +17,7 @@ import io.vertx.mutiny.core.eventbus.Message;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -39,7 +40,20 @@ public class PeriodicMiner {
     @Inject
     Vertx vertx;
 
+    @Inject
+    SearchProjectService searchProjectService;
+
+    private final Random random = new Random();
+
     private Uni<Project> getRandomProject() {
+        if (random.nextInt(5) >= 3) {
+            return searchProjectService.searchProjectOnGithub();
+        } else {
+            return getKnownProject();
+        }
+    }
+
+    private Uni<Project> getKnownProject() {
         return Uni.createFrom()
                 .item(Project.<Project>mongoCollection()
                         .aggregate(List.of(Aggregates.sample(1)))
