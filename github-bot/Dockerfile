@@ -1,4 +1,4 @@
-FROM eclipse-temurin:19.0.1_10-jre-ubi9-minimal
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.14-4.1666624568
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 
