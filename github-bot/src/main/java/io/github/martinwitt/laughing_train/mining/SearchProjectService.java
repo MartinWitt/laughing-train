@@ -61,10 +61,11 @@ public class SearchProjectService {
             var repos = github.searchRepositories()
                     .q("language:java")
                     .org(getRandomOrgName())
-                    .size("10")
                     .sort(Sort.UPDATED)
                     .list()
-                    .toList();
+                    .withPageSize(30)
+                    .iterator()
+                    .nextPage();
             return repos.get(random.nextInt(repos.size()));
         } catch (Exception e) {
             Log.error("Error while searching for project on github", e);
