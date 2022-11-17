@@ -250,8 +250,8 @@ public class RefactorService {
 
         @Override
         public Uni<HealthCheckResponse> call() {
-            return Uni.createFrom().item(HealthCheckResponse.named("Qodana Refactor").up().build());
+            return Uni.createFrom()
+                    .item(HealthCheckResponse.named("Qodana Refactor").up().build());
         }
-
     }
 }

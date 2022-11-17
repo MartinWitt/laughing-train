@@ -1,21 +1,7 @@
 package io.github.martinwitt.laughing_train.mining;
 
-import java.io.IOException;
-import java.time.Duration;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-
-import org.kohsuke.github.GHRepository;
-import org.kohsuke.github.GitHub;
-
 import com.google.common.flogger.FluentLogger;
 import com.mongodb.client.model.Aggregates;
-
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
@@ -29,6 +15,16 @@ import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import io.vertx.mutiny.core.eventbus.Message;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GitHub;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 @ApplicationScoped
@@ -47,6 +43,7 @@ public class PeriodicMiner {
 
     @Inject
     SearchProjectService searchProjectService;
+
     private final MeterRegistry registry;
 
     private final Random random = new Random();
@@ -54,6 +51,7 @@ public class PeriodicMiner {
     public PeriodicMiner(MeterRegistry registry) {
         this.registry = registry;
     }
+
     private Uni<Project> getRandomProject() {
         if (random.nextInt(5) >= 3) {
             return searchProjectService.searchProjectOnGithub();
