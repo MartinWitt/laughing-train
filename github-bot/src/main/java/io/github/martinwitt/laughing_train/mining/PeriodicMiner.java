@@ -126,25 +126,28 @@ public class PeriodicMiner {
 
     private Uni<Void> saveQodanaResults(Message<QodanaResult> message) {
         if (message.body() instanceof QodanaResult.Success success) {
-            return success.project().runInContext(() -> {
-                try {
-                    List<AnalyzerResult> results = success.result();
-                    if (results.isEmpty()) {
-                        logger.atInfo().log("No results for %s", success);
-                        return Uni.createFrom().voidItem();
-                    }
-                    StringBuilder builder = new StringBuilder();
-                    builder.append("# ")
-                            .append(success.project().getOwnerRepoName())
-                            .append(miningPrinter.printAllResults(results, success.project()));
+            return success.project()
+                    .runInContext(() -> {
+                        try {
+                            List<AnalyzerResult> results = success.result();
+                            if (results.isEmpty()) {
+                                logger.atInfo().log("No results for %s", success);
+                                return Uni.createFrom().voidItem();
+                            }
+                            String content = "# %s %n %s"
+                                    .formatted(
+                                            success.project().name(),
+                                            miningPrinter.printAllResults(results, success.project()));
 
-                    var laughingRepo = getLaughingRepo();
-                    updateOrCreateContent(laughingRepo, success.project().name(), builder.toString());
-                } catch (Exception e) {
-                    logger.atSevere().withCause(e).log("Error while updating content");
-                }
-                return Uni.createFrom().voidItem();
-            });
+                            var laughingRepo = getLaughingRepo();
+                            updateOrCreateContent(
+                                    laughingRepo, success.project().name(), content);
+                        } catch (Exception e) {
+                            logger.atSevere().withCause(e).log("Error while updating content");
+                        }
+                        return Uni.createFrom().voidItem();
+                    })
+                    .orElse(Uni.createFrom().voidItem());
         }
         return Uni.createFrom().voidItem();
     }
