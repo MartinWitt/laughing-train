@@ -11,6 +11,8 @@ import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
+import io.smallrye.health.api.AsyncHealthCheck;
+import io.smallrye.mutiny.Uni;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
@@ -31,6 +33,8 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.apache.commons.io.FileUtils;
+import org.eclipse.microprofile.health.HealthCheckResponse;
+import org.eclipse.microprofile.health.Readiness;
 import org.kohsuke.github.GHRef;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
@@ -238,5 +242,16 @@ public class RefactorService {
             throws IOException {
         repo.createPullRequest(commitNameTitle, branchName, repo.getDefaultBranch(), body)
                 .addLabels(LABEL_NAME);
+    }
+
+    @Readiness
+    @ApplicationScoped
+    private static class HealthCheck implements AsyncHealthCheck {
+
+        @Override
+        public Uni<HealthCheckResponse> call() {
+            return Uni.createFrom().item(HealthCheckResponse.named("Qodana Refactor").up().build());
+        }
+
     }
 }

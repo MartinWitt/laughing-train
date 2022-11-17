@@ -1,28 +1,42 @@
 package io.github.martinwitt.laughing_train.mining;
 
-import io.github.martinwitt.laughing_train.persistence.Project;
-import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
-import io.quarkus.logging.Log;
-import io.smallrye.mutiny.Uni;
 import java.util.List;
 import java.util.Random;
+
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.health.HealthCheckResponse;
+import org.eclipse.microprofile.health.HealthCheckResponseBuilder;
+import org.eclipse.microprofile.health.Readiness;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHRepositorySearchBuilder.Sort;
 import org.kohsuke.github.GitHub;
+
+import io.github.martinwitt.laughing_train.persistence.Project;
+import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.quarkus.logging.Log;
+import io.smallrye.health.api.AsyncHealthCheck;
+import io.smallrye.mutiny.Uni;
 
 /**
  * This service handles searches for random java projects on github. Use this service to get a random project from github.
  * See {@link #searchProjectOnGithub()}.
  */
 @ApplicationScoped
-public class SearchProjectService {
+public class SearchProjectService  {
     @ConfigProperty(name = "mining.github.search.orgs")
     List<String> orgs;
 
     private final Random random = new Random();
+    private final MeterRegistry registry;
+    
+    public SearchProjectService(MeterRegistry registry) {
+        this.registry = registry;
+    }
 
     /**
      * Searches for a random project on github and returns it as a {@link Uni} of {@link Project}.
@@ -40,6 +54,7 @@ public class SearchProjectService {
         Project project = new Project(repo.getName(), repo.getHttpTransportUrl());
         project.persist();
         ProjectConfig.ofProjectUrl(repo.getHttpTransportUrl()).persistOrUpdate();
+        registry.summary("mining.github.search.projects", "name", repo.getName());
         return Uni.createFrom().item(project);
     }
 
@@ -62,4 +77,26 @@ public class SearchProjectService {
     private String getRandomOrgName() {
         return orgs.get(random.nextInt(orgs.size()));
     }
+    
+    @Readiness
+    static class MiningHealthCheck implements AsyncHealthCheck {
+
+        @Inject
+        SearchProjectService searchProjectService;
+
+        @Override
+        public Uni<HealthCheckResponse> call() {
+            return searchProjectService.searchProjectOnGithub().onItemOrFailure().transform((project, throwable) -> {
+                HealthCheckResponseBuilder builder = HealthCheckResponse.named("Periodic Mining");
+                if (throwable != null || project == null) {
+                    builder.down().withData("error", "Could not find project on github");
+                } else {
+                    builder.up();
+                }
+                return builder.build();
+            });
+
+        }
+    }
+
 }

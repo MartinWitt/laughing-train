@@ -22,6 +22,7 @@ dependencies {
 	implementation 'io.quarkiverse.quinoa:quarkus-quinoa:1.2.2'
 	implementation("io.quarkus:quarkus-oidc")
 	implementation("io.quarkus:quarkus-keycloak-authorization")
+	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
 }
 
