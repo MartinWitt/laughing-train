@@ -44,8 +44,9 @@ public class SearchProjectService {
         if (repo == null) {
             return Uni.createFrom().nullItem();
         }
-        if (Project.findByProjectName(repo.getName()) != null) {
-            return searchProjectOnGithub();
+        if (!Project.findByProjectName(repo.getName()).isEmpty()) {
+            return Uni.createFrom()
+                    .item(Project.findByProjectName(repo.getName()).get(0));
         }
         Project project = new Project(repo.getName(), repo.getHttpTransportUrl());
         project.persist();
@@ -60,6 +61,7 @@ public class SearchProjectService {
             var repos = github.searchRepositories()
                     .q("language:java")
                     .org(getRandomOrgName())
+                    .size("10")
                     .sort(Sort.UPDATED)
                     .list()
                     .toList();
