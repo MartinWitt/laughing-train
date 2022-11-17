@@ -17,8 +17,6 @@ import io.vertx.mutiny.core.eventbus.Message;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -49,14 +47,7 @@ public class PeriodicMiner {
     }
 
     void mine(@Observes StartupEvent event) {
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                mineRandomRepo();
-            }
-        };
-        timer.schedule(task, TimeUnit.MINUTES.toMillis(5));
+        vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> mineRandomRepo());
     }
 
     private void mineRandomRepo() {
