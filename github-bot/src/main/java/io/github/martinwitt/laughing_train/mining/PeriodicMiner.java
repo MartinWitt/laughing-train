@@ -8,6 +8,7 @@ import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.persistence.Project;
 import io.github.martinwitt.laughing_train.services.ServiceAdresses;
+import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.Vertx;
@@ -43,7 +44,13 @@ public class PeriodicMiner {
     @Inject
     SearchProjectService searchProjectService;
 
+    private final MeterRegistry registry;
+
     private final Random random = new Random();
+
+    public PeriodicMiner(MeterRegistry registry) {
+        this.registry = registry;
+    }
 
     private Uni<Project> getRandomProject() {
         if (random.nextInt(5) >= 3) {
@@ -135,6 +142,7 @@ public class PeriodicMiner {
                     .runInContext(() -> {
                         try {
                             List<AnalyzerResult> results = success.result();
+                            registry.summary("mining.qodana", "result", Integer.toString(results.size()));
                             if (results.isEmpty()) {
                                 logger.atInfo().log("No results for %s", success);
                                 return Uni.createFrom().voidItem();

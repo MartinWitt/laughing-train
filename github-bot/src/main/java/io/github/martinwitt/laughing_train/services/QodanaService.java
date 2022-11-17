@@ -10,6 +10,8 @@ import io.github.martinwitt.laughing_train.data.FindProjectConfigResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
 import io.quarkus.vertx.ConsumeEvent;
+import io.smallrye.health.api.AsyncHealthCheck;
+import io.smallrye.mutiny.Uni;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
 import java.io.Closeable;
@@ -26,6 +28,8 @@ import javax.inject.Inject;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.microprofile.health.HealthCheckResponse;
+import org.eclipse.microprofile.health.Readiness;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaAnalyzer;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
@@ -153,6 +157,17 @@ public class QodanaService {
 
         public ExecutorService getService() {
             return service;
+        }
+    }
+
+    @Readiness
+    @ApplicationScoped
+    private static class HealthCheck implements AsyncHealthCheck {
+
+        @Override
+        public Uni<HealthCheckResponse> call() {
+            return Uni.createFrom()
+                    .item(HealthCheckResponse.named("Qodana Analyzer").up().build());
         }
     }
 }
