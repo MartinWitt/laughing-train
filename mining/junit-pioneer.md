@@ -1,4 +1,5 @@
-# junit-pioneer/junit-pioneer
+# junit-pioneer 
+ 
 # Bad smells
 I found 67 bad smells with 2 repairable:
 | ruleID | number | fixable |
@@ -59,18 +60,6 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableExtension.java`
 ```
 
 ### RuleId[ruleID=SystemOutErr]
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
-#### Snippet
-```java
-
-	private void storeStdErr(ExtensionContext context) {
-		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
-	}
-
-```
-
-### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -78,6 +67,18 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 
 	private void storeStdOut(ExtensionContext context) {
 		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
+	}
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
+#### Snippet
+```java
+
+	private void storeStdErr(ExtensionContext context) {
+		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
 	}
 
 ```
@@ -123,18 +124,6 @@ in `src/main/java/org/junitpioneer/jupiter/ClearEnvironmentVariable.java`
 
 ### RuleId[ruleID=MarkedForRemoval]
 'java.lang.SecurityManager' is deprecated and marked for removal
-in `src/main/java/org/junitpioneer/jupiter/SetEnvironmentVariable.java`
-#### Snippet
-```java
- *
- * <p>WARNING: Java considers environment variables to be immutable, so this extension
- * uses reflection to change them. This requires that the {@link SecurityManager}
- * allows modifications and can potentially break on different operating systems and
- * Java versions. Be aware that this is a fragile solution and consider finding a
-```
-
-### RuleId[ruleID=MarkedForRemoval]
-'java.lang.SecurityManager' is deprecated and marked for removal
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
@@ -143,6 +132,18 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
  * Warning: If your {@link SecurityManager} does not allow modifications, it fails.
  */
 class EnvironmentVariableUtils {
+```
+
+### RuleId[ruleID=MarkedForRemoval]
+'java.lang.SecurityManager' is deprecated and marked for removal
+in `src/main/java/org/junitpioneer/jupiter/SetEnvironmentVariable.java`
+#### Snippet
+```java
+ *
+ * <p>WARNING: Java considers environment variables to be immutable, so this extension
+ * uses reflection to change them. This requires that the {@link SecurityManager}
+ * allows modifications and can potentially break on different operating systems and
+ * Java versions. Be aware that this is a fragile solution and consider finding a
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -232,6 +233,18 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
+#### Snippet
+```java
+	 * found or the top level class is reached.
+	 *
+	 * <p>The algorithm does not search for methods in {@link java.lang.Object}.
+	 *
+	 * @param clazz the class or interface in which to find the method; never {@code null}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util.stream` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 #### Snippet
@@ -265,18 +278,6 @@ in `src/main/java/org/junitpioneer/jupiter/params/DisableIfDisplayName.java`
 	 * (according to {@link String#matches(java.lang.String)}).
 	 *
 	 * @return test case display name regular expressions
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
-#### Snippet
-```java
-	 * found or the top level class is reached.
-	 *
-	 * <p>The algorithm does not search for methods in {@link java.lang.Object}.
-	 *
-	 * @param clazz the class or interface in which to find the method; never {@code null}
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -514,6 +515,18 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`
+in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
+#### Snippet
+```java
+	}
+
+	public static List<List<?>> cartesianProduct(List<List<?>> lists) {
+		List<List<?>> resultLists = new ArrayList<>();
+		if (lists.isEmpty()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends K`
 in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 #### Snippet
@@ -571,18 +584,6 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
 			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
 				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
-#### Snippet
-```java
-	}
-
-	public static List<List<?>> cartesianProduct(List<List<?>> lists) {
-		List<List<?>> resultLists = new ArrayList<>();
-		if (lists.isEmpty()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
