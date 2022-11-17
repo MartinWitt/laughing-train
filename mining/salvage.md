@@ -23,7 +23,44 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 	}
 ```
 
+## RuleId[ruleID=UnnecessarySemicolon]
+### RuleId[ruleID=UnnecessarySemicolon]
+Unnecessary semicolon `;`
+in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
+#### Snippet
+```java
+			// instance worker pool for backup, which can be reused for all groups
+			var hostMeta = new BackupMeta.HostMeta(System.currentTimeMillis(), configuration.hostname());
+			try (var operation = new BackupOperation(docker, tide.maxConcurrent(), configuration.cranes().values(), hostMeta);) {
+				// backup each group individually but in series
+				for (int i = 0; i < groups.size(); i++) {
+```
+
 ## RuleId[ruleID=DataFlowIssue]
+### RuleId[ruleID=DataFlowIssue]
+Argument `config.getEnv()` might be null
+in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
+#### Snippet
+```java
+				.withAttachStderr(true)
+				.withAttachStdin(false)
+				.withEnv(Arrays.asList(config.getEnv()))
+				.withUser(user)
+				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `keySet` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
+#### Snippet
+```java
+		var tideNames = new HashSet<String>();
+		var craneNames = new HashSet<String>();
+		for (var key : labels.keySet()) {
+			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
+				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
+```
+
 ### RuleId[ruleID=DataFlowIssue]
 Unboxing of `state.getRestarting()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
@@ -133,18 +170,6 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Argument `config.getEnv()` might be null
-in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
-#### Snippet
-```java
-				.withAttachStderr(true)
-				.withAttachStdin(false)
-				.withEnv(Arrays.asList(config.getEnv()))
-				.withUser(user)
-				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `get` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 #### Snippet
@@ -166,31 +191,6 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 		for (var mount : container.getMounts()) {
 			var volume = volumes.get(mount.getName());
 			if (volume != null)
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `keySet` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
-#### Snippet
-```java
-		var tideNames = new HashSet<String>();
-		var craneNames = new HashSet<String>();
-		for (var key : labels.keySet()) {
-			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
-				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
-```
-
-## RuleId[ruleID=UnnecessarySemicolon]
-### RuleId[ruleID=UnnecessarySemicolon]
-Unnecessary semicolon `;`
-in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
-#### Snippet
-```java
-			// instance worker pool for backup, which can be reused for all groups
-			var hostMeta = new BackupMeta.HostMeta(System.currentTimeMillis(), configuration.hostname());
-			try (var operation = new BackupOperation(docker, tide.maxConcurrent(), configuration.cranes().values(), hostMeta);) {
-				// backup each group individually but in series
-				for (int i = 0; i < groups.size(); i++) {
 ```
 
 ## RuleId[ruleID=BusyWait]
