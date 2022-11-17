@@ -165,9 +165,18 @@ public class QodanaAnalyzer {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                logger.atInfo().log("Qodana did not finish in time, stopping container");
                 try {
-                    dockerClient.killContainerCmd(containerId).exec();
+                    dockerClient
+                            .listContainersCmd()
+                            .withIdFilter(List.of(containerId))
+                            .exec()
+                            .forEach(container -> {
+                                logger.atInfo().log("Qodana did not finish in time, stopping container");
+                                dockerClient.stopContainerCmd(container.getId()).exec();
+                                dockerClient
+                                        .removeContainerCmd(container.getId())
+                                        .exec();
+                            });
                 } catch (Exception ignored) {
                     // this is fine and faster as checking if the container exists
                 }
