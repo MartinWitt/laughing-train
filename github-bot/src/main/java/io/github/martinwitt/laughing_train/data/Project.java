@@ -25,7 +25,7 @@ public record Project(String name, String url, File folder, String sourceFolder,
      * Executes the given command in the project folder and deletes the folder afterwards
      * @param runnable  the command to execute
      */
-    public <T> Optional<T> runInContext(Supplier<T> runnable) {
+    public <T> Optional<T> runInContext(Supplier<? extends T> runnable) {
         try (Closeable closeable = () -> FileUtils.deleteQuietly(folder())) {
             return Optional.ofNullable(runnable.get());
         } catch (Exception logged) {
