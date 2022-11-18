@@ -18,8 +18,8 @@ I found 56 bad smells with 6 repairable:
 | RuleId[ruleID=EmptyTryBlock] | 1 | false |
 | RuleId[ruleID=DataFlowIssue] | 1 | false |
 | RuleId[ruleID=SimplifyStreamApiCallChains] | 1 | false |
-| RuleId[ruleID=NonProtectedConstructorInAbstractClass] | 1 | true |
 | RuleId[ruleID=CodeBlock2Expr] | 1 | false |
+| RuleId[ruleID=NonProtectedConstructorInAbstractClass] | 1 | true |
 | RuleId[ruleID=Convert2MethodRef] | 1 | false |
 | RuleId[ruleID=DuplicateBranchesInSwitch] | 1 | false |
 | RuleId[ruleID=HtmlWrongAttributeValue] | 1 | false |
@@ -36,43 +36,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
             try (CosmosClient unused = new com.azure.cosmos.CosmosClientBuilder()
                 .endpoint(endpoint)
                 .key(key)
-```
-
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ExceptionsHelper` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/ExceptionsHelper.java`
-#### Snippet
-```java
-import com.azure.cosmos.implementation.HttpConstants;
-
-public class ExceptionsHelper {
-    public static boolean isTransientFailure(int statusCode, int substatusCode) {
-        return statusCode == HttpConstants.StatusCodes.GONE
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `StructToJsonMap` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/StructToJsonMap.java`
-#### Snippet
-```java
-import org.apache.kafka.connect.data.Timestamp;
-
-public class StructToJsonMap {
-
-    public static Map<String, Object> toJsonMap(Struct struct) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CosmosClientBuilder` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
-#### Snippet
-```java
-
-    /* separate class for mocking static method in tests */
-    public static class CosmosClientBuilder {
-        public static void createClient(String endpoint, String key) {
-            try (CosmosClient unused = new com.azure.cosmos.CosmosClientBuilder()
 ```
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
@@ -98,6 +61,43 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
                         : (exception != null && exception instanceof CosmosException ? ((CosmosException)exception).getSubStatusCode() : 0);
 
         String errorMessage =
+```
+
+## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `StructToJsonMap` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/StructToJsonMap.java`
+#### Snippet
+```java
+import org.apache.kafka.connect.data.Timestamp;
+
+public class StructToJsonMap {
+
+    public static Map<String, Object> toJsonMap(Struct struct) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ExceptionsHelper` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/ExceptionsHelper.java`
+#### Snippet
+```java
+import com.azure.cosmos.implementation.HttpConstants;
+
+public class ExceptionsHelper {
+    public static boolean isTransientFailure(int statusCode, int substatusCode) {
+        return statusCode == HttpConstants.StatusCodes.GONE
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CosmosClientBuilder` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
+#### Snippet
+```java
+
+    /* separate class for mocking static method in tests */
+    public static class CosmosClientBuilder {
+        public static void createClient(String endpoint, String key) {
+            try (CosmosClient unused = new com.azure.cosmos.CosmosClientBuilder()
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -211,19 +211,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/TemplateStrate
     }
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `SinkWriterBase()` of an abstract class should not be declared 'public'
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/SinkWriterBase.java`
-#### Snippet
-```java
-    private final int maxRetryCount;
-
-    public SinkWriterBase(int maxRetryCount) {
-        this.maxRetryCount = maxRetryCount;
-    }
-```
-
 ## RuleId[ruleID=CodeBlock2Expr]
 ### RuleId[ruleID=CodeBlock2Expr]
 Statement lambda can be replaced with expression lambda
@@ -235,6 +222,19 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/StructToJsonMap.java`
                         fieldArray.forEach(item -> {
                             jsonArray.add(toJsonMap((Struct) item));
                         });
+```
+
+## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `SinkWriterBase()` of an abstract class should not be declared 'public'
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/SinkWriterBase.java`
+#### Snippet
+```java
+    private final int maxRetryCount;
+
+    public SinkWriterBase(int maxRetryCount) {
+        this.maxRetryCount = maxRetryCount;
+    }
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -265,6 +265,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConnector.
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
+#### Snippet
+```java
+public class CosmosDBSinkTask extends SinkTask {
+    private static final Logger logger = LoggerFactory.getLogger(CosmosDBSinkTask.class);
+    private CosmosClient client = null;
+    private CosmosDBSinkConfig config;
+    private final ConcurrentHashMap<String, SinkWriterBase> containerWriterMap = new ConcurrentHashMap<>();
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
@@ -285,18 +297,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
     private CosmosAsyncClient client = null;
     private CosmosDBSourceConfig config;
     private LinkedTransferQueue<JsonNode> queue = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
-#### Snippet
-```java
-public class CosmosDBSinkTask extends SinkTask {
-    private static final Logger logger = LoggerFactory.getLogger(CosmosDBSinkTask.class);
-    private CosmosClient client = null;
-    private CosmosDBSinkConfig config;
-    private final ConcurrentHashMap<String, SinkWriterBase> containerWriterMap = new ConcurrentHashMap<>();
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
@@ -327,6 +327,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/StructToJsonMap.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `src/main/java/com/azure/cosmos/kafka/connect/source/JsonToStruct.java`
+#### Snippet
+```java
+            case POJO:
+            default:
+                return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
@@ -349,22 +361,10 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 
 ```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/com/azure/cosmos/kafka/connect/source/JsonToStruct.java`
-#### Snippet
-```java
-            case POJO:
-            default:
-                return null;
-        }
-    }
-```
-
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-18-07-17-05.858.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-18-16-44-35.689.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -401,6 +401,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`response.getFailedRecordResponses().size() == 0` can be replaced with 'response.getFailedRecordResponses().isEmpty()'
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/SinkWriterBase.java`
+#### Snippet
+```java
+
+    private boolean shouldRetry(int currentRetryCount, SinkWriteResponse response) {
+        if (response == null || response.getFailedRecordResponses().size() == 0) {
+            // there is no failed operation
+            return false;
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `containerList.size() == 0` can be replaced with 'containerList.isEmpty()'
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConnector.java`
 #### Snippet
@@ -414,14 +426,14 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConnector.
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `response.getFailedRecordResponses().size() == 0` can be replaced with 'response.getFailedRecordResponses().isEmpty()'
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/SinkWriterBase.java`
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
 #### Snippet
 ```java
+                SinkWriteResponse response = cosmosdbWriter.write(toBeWrittenRecordList);
 
-    private boolean shouldRetry(int currentRetryCount, SinkWriteResponse response) {
-        if (response == null || response.getFailedRecordResponses().size() == 0) {
-            // there is no failed operation
-            return false;
+                if (response.getFailedRecordResponses().size() == 0) {
+                    logger.debug("Sink write completed, {} records succeeded.", response.getSucceededRecords().size());
+
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -434,18 +446,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
                 if (records.size() == 0 || bufferSize >= 0) {
                     records.add(sourceRecord);
                     count++;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`response.getFailedRecordResponses().size() == 0` can be replaced with 'response.getFailedRecordResponses().isEmpty()'
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
-#### Snippet
-```java
-                SinkWriteResponse response = cosmosdbWriter.write(toBeWrittenRecordList);
-
-                if (response.getFailedRecordResponses().size() == 0) {
-                    logger.debug("Sink write completed, {} records succeeded.", response.getSucceededRecords().size());
-
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -467,11 +467,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
-        while (!running.get()) {
+            // Wait till the items are drained by poll before stopping.
             try {
                 sleep(500);
             } catch (InterruptedException e) {
-                logger.warn("Interrupted!", e);                
+                logger.error("Interrupted! Failed to stop the task", e);            
 ```
 
 ### RuleId[ruleID=BusyWait]
@@ -479,11 +479,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
-            // Wait till the items are drained by poll before stopping.
+        while (!running.get()) {
             try {
                 sleep(500);
             } catch (InterruptedException e) {
-                logger.error("Interrupted! Failed to stop the task", e);            
+                logger.warn("Interrupted!", e);                
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -512,6 +512,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends SinkOperationFailedResponse`
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
+#### Snippet
+```java
+     * @param failedResponses the kafka record that failed to write
+     */
+    private void sendToDlqIfConfigured(List<SinkOperationFailedResponse> failedResponses) {
+        if (context != null && context.errantRecordReporter() != null) {
+            for (SinkOperationFailedResponse sinkRecordResponse : failedResponses) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super SourceRecord`
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
@@ -533,18 +545,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
     protected void handleCosmosDbChanges(List<JsonNode> docs)  {
         for (JsonNode document : docs) {
             // Blocks for each transfer till it is processed by the poll method.
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends SinkOperationFailedResponse`
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
-#### Snippet
-```java
-     * @param failedResponses the kafka record that failed to write
-     */
-    private void sendToDlqIfConfigured(List<SinkOperationFailedResponse> failedResponses) {
-        if (context != null && context.errantRecordReporter() != null) {
-            for (SinkOperationFailedResponse sinkRecordResponse : failedResponses) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -586,14 +586,14 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/ProvidedInConf
 
 ### RuleId[ruleID=UnusedAssignment]
 The value changed at `groupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/TemplateStrategyConfig.java`
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/KafkaMetadataStrategyConfig.java`
 #### Snippet
 ```java
-                TEMPLATE_CONFIG_DOC,
+                DELIMITER_CONFIG_DOC,
                 groupName,
                 groupOrder++,
                 ConfigDef.Width.MEDIUM,
-                TEMPLATE_CONFIG_DISPLAY
+                DELIMITER_CONFIG_DISPLAY
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -606,54 +606,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
                 groupOrder++,
                 Width.MEDIUM,
                 TEMPLATE_CONFIG_DISPLAY
-```
-
-### RuleId[ruleID=UnusedAssignment]
-The value changed at `groupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/KafkaMetadataStrategyConfig.java`
-#### Snippet
-```java
-                DELIMITER_CONFIG_DOC,
-                groupName,
-                groupOrder++,
-                ConfigDef.Width.MEDIUM,
-                DELIMITER_CONFIG_DISPLAY
-```
-
-### RuleId[ruleID=UnusedAssignment]
-The value changed at `connectionGroupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
-#### Snippet
-```java
-                        COSMOS_CONN_KEY_DOC,
-                        connectionGroupName,
-                        connectionGroupOrder++,
-                        Width.LONG,
-                        COSMOS_CONN_KEY_DISPLAY
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `topicContainerMap` initializer `TopicContainerMap.empty()` is redundant
-in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
-#### Snippet
-```java
-    private final boolean connectionSharingEnabled;
-    private final int maxRetryCount;
-    private TopicContainerMap topicContainerMap = TopicContainerMap.empty();
-
-    public CosmosDBConfig(ConfigDef config, Map<String, String> parsedConfig) {
-```
-
-### RuleId[ruleID=UnusedAssignment]
-The value changed at `databaseGroupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
-#### Snippet
-```java
-                        COSMOS_CONTAINER_TOPIC_MAP_DOC,
-                        databaseGroupName,
-                        databaseGroupOrder++,
-                        Width.MEDIUM,
-                        COSMOS_CONTAINER_TOPIC_MAP_DISPLAY
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -678,6 +630,54 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.jav
                 taskGroupOrder++,
                 Width.SHORT,
                 COSMOS_SOURCE_TASK_POLL_INTERVAL_DISPLAY
+```
+
+### RuleId[ruleID=UnusedAssignment]
+The value changed at `groupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/TemplateStrategyConfig.java`
+#### Snippet
+```java
+                TEMPLATE_CONFIG_DOC,
+                groupName,
+                groupOrder++,
+                ConfigDef.Width.MEDIUM,
+                TEMPLATE_CONFIG_DISPLAY
+```
+
+### RuleId[ruleID=UnusedAssignment]
+The value changed at `databaseGroupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
+#### Snippet
+```java
+                        COSMOS_CONTAINER_TOPIC_MAP_DOC,
+                        databaseGroupName,
+                        databaseGroupOrder++,
+                        Width.MEDIUM,
+                        COSMOS_CONTAINER_TOPIC_MAP_DISPLAY
+```
+
+### RuleId[ruleID=UnusedAssignment]
+The value changed at `connectionGroupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
+#### Snippet
+```java
+                        COSMOS_CONN_KEY_DOC,
+                        connectionGroupName,
+                        connectionGroupOrder++,
+                        Width.LONG,
+                        COSMOS_CONN_KEY_DISPLAY
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `topicContainerMap` initializer `TopicContainerMap.empty()` is redundant
+in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
+#### Snippet
+```java
+    private final boolean connectionSharingEnabled;
+    private final int maxRetryCount;
+    private TopicContainerMap topicContainerMap = TopicContainerMap.empty();
+
+    public CosmosDBConfig(ConfigDef config, Map<String, String> parsedConfig) {
 ```
 
 ## RuleId[ruleID=ConstantValue]
