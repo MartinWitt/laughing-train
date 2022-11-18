@@ -47,6 +47,30 @@ Redundant default parameter value assignment
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
 			description = "Path to the output file. If no path is provided but the flag is, the result will be stored in flacoco_result.{extension}",
 			arity = "0..1",
 			fallbackValue = ""
@@ -66,30 +90,6 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 
 ```
 
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
-```
-
 ## RuleId[ruleID=UnnecessaryModifier]
 ### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
@@ -104,18 +104,6 @@ public interface TestDetectionStrategy {
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/formulas/Formula.java`
-#### Snippet
-```java
-public interface Formula {
-
-	public double compute(int nPassingNotExecuting, int nFailingNotExecuting, int nPassingExecuting,
-			int nFailingExecuting);
-}
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
 Modifier `private` is redundant for enum constructors
 in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumFormula.java`
 #### Snippet
@@ -125,6 +113,18 @@ in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumFormula.jav
 	private SpectrumFormula(Formula formula) {
 		this.formula = formula;
 	}
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/formulas/Formula.java`
+#### Snippet
+```java
+public interface Formula {
+
+	public double compute(int nPassingNotExecuting, int nFailingNotExecuting, int nPassingExecuting,
+			int nFailingExecuting);
+}
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -179,18 +179,6 @@ in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumRunner.java
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
-in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
-#### Snippet
-```java
-            // the private ones
-            for (Method method : clazz.getDeclaredMethods()) {
-                if (method.getAnnotation(org.junit.jupiter.api.Test.class) != null
-                        && !isPrivateMethod(method)
-                        && !isIgnoredMethod(clazz, method)
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.junit` is unnecessary, and can be replaced with an import
 in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
 #### Snippet
@@ -200,6 +188,18 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/f
                 if (method.getAnnotation(org.junit.Test.class) != null && !isIgnoredMethod(clazz, method)) {
                     testMethods.add(new StringTestMethod(clazz.getCanonicalName(), method.getName()));
                 }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
+in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
+#### Snippet
+```java
+            // the private ones
+            for (Method method : clazz.getDeclaredMethods()) {
+                if (method.getAnnotation(org.junit.jupiter.api.Test.class) != null
+                        && !isPrivateMethod(method)
+                        && !isIgnoredMethod(clazz, method)
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -399,6 +399,18 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.ja
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
+#### Snippet
+```java
+	public void process(CtType<?> ctType) {
+		List<CtStatement> result = ctType.filterChildren(new SpoonLineFilter(lineNumber)).list();
+		found = filterResult(result);
+	}
+
+```
+
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 Assignment to static field `SpoonBlockLocationsFinder.fullyQualifiedClassName` from instance context
 in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
 #### Snippet
@@ -444,18 +456,6 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
         SpoonBlockLocationsFinder.found = null;
 
         return locations;
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
-#### Snippet
-```java
-	public void process(CtType<?> ctType) {
-		List<CtStatement> result = ctType.filterChildren(new SpoonLineFilter(lineNumber)).list();
-		found = filterResult(result);
-	}
-
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -550,30 +550,6 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
 
-	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
-	boolean includeZeros = false;
-
-	@Option(names = {"--complianceLevel"}, description = "Compliance level for Spoon. Default value is 8", defaultValue = "8")
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
-	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
-	boolean testRunnerVerbose = false;
-
-	@Option(names = {"--testRunnerTimeoutInMs"}, description = "Timeout for each test execution with test-runner. Must be greater than 0. Default value is 1000000", defaultValue = "1000000")
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
 	@Option(names = {"--coverTest"}, description = "Indicates if coverage must also cover the tests.", defaultValue = "false")
 	boolean coverTest = false;
 
@@ -593,6 +569,18 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
+	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
+	boolean includeZeros = false;
+
+	@Option(names = {"--complianceLevel"}, description = "Compliance level for Spoon. Default value is 8", defaultValue = "8")
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0.0` is redundant
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
@@ -602,6 +590,18 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 	double threshold = 0.0;
 
 	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
+	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
+	boolean testRunnerVerbose = false;
+
+	@Option(names = {"--testRunnerTimeoutInMs"}, description = "Timeout for each test execution with test-runner. Must be greater than 0. Default value is 1000000", defaultValue = "1000000")
 ```
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
@@ -620,7 +620,7 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-17-23-41-23.443.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-18-12-24-09.204.html`
 #### Snippet
 ```java
               <td>0</td>
