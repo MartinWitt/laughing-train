@@ -1,7 +1,7 @@
 # gumtree-spoon-ast-diff 
  
 # Bad smells
-I found 50 bad smells with 9 repairable:
+I found 51 bad smells with 9 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | RuleId[ruleID=BoundedWildcard] | 9 | false |
@@ -17,8 +17,8 @@ I found 50 bad smells with 9 repairable:
 | RuleId[ruleID=UnusedAssignment] | 2 | false |
 | RuleId[ruleID=DataFlowIssue] | 1 | false |
 | RuleId[ruleID=StringOperationCanBeSimplified] | 1 | false |
-| RuleId[ruleID=DeprecatedIsStillUsed] | 1 | false |
 | RuleId[ruleID=CommentedOutCode] | 1 | false |
+| RuleId[ruleID=DeprecatedIsStillUsed] | 1 | false |
 | RuleId[ruleID=KeySetIterationMayUseEntrySet] | 1 | false |
 | RuleId[ruleID=UnnecessaryToStringCall] | 1 | true |
 | RuleId[ruleID=EqualsBetweenInconvertibleTypes] | 1 | false |
@@ -29,6 +29,7 @@ I found 50 bad smells with 9 repairable:
 | RuleId[ruleID=MismatchedCollectionQueryUpdate] | 1 | false |
 | RuleId[ruleID=Convert2Lambda] | 1 | false |
 | RuleId[ruleID=AssignmentToMethodParameter] | 1 | false |
+| RuleId[ruleID=HtmlWrongAttributeValue] | 1 | false |
 ## RuleId[ruleID=UnnecessaryModifier]
 ### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
@@ -85,11 +86,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ### RuleId[ruleID=UnnecessarySemicolon]
@@ -97,11 +98,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -117,19 +118,6 @@ in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 
 ```
 
-## RuleId[ruleID=DeprecatedIsStillUsed]
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getNode' is still used
-in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
-#### Snippet
-```java
-	/** use {@link #getSrcNode()} or {@link #getDstNode()} instead. */
-	@Deprecated
-	public CtElement getNode() {
-		return node;
-	}
-```
-
 ## RuleId[ruleID=CommentedOutCode]
 ### RuleId[ruleID=CommentedOutCode]
 Commented out code (2 lines)
@@ -140,6 +128,19 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
 		// System.setProperty("gumtree.match.bu.size","10");
 		// System.setProperty("gt.bum.szt", "1000");
+	}
+```
+
+## RuleId[ruleID=DeprecatedIsStillUsed]
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getNode' is still used
+in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
+#### Snippet
+```java
+	/** use {@link #getSrcNode()} or {@link #getDstNode()} instead. */
+	@Deprecated
+	public CtElement getNode() {
+		return node;
 	}
 ```
 
@@ -287,18 +288,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```java
 
 	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
-			String nodeLabel) {
-		return operations.stream()
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
 	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
 		return rootOperations.stream() //
 				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
@@ -314,6 +303,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
 		return operations.stream() //
 				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+
+	@Override
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
+			String nodeLabel) {
+		return operations.stream()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -531,6 +532,19 @@ public class CtVirtualElement extends CtWrapper<String> {
 	protected Collection<?> children;
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### RuleId[ruleID=HtmlWrongAttributeValue]
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-18-14-48-18.697.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
@@ -558,18 +572,6 @@ in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-
-		if (factory.Type().getAll().size() == 0) {
-			return null;
-		}
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 #### Snippet
 ```java
@@ -577,6 +579,18 @@ in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 	public CtElement getDstNode() {
 		return null;
 	}
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+
+		if (factory.Type().getAll().size() == 0) {
+			return null;
+		}
 
 ```
 
