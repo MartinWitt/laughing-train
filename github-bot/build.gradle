@@ -7,7 +7,7 @@ plugins {
 dependencies {
 	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
 	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.313.1'
-	implementation 'io.quarkiverse.githubapp:quarkus-github-app:1.15.1'
+	implementation 'io.quarkiverse.githubapp:quarkus-github-app:1.15.2'
 	implementation 'io.quarkiverse.githubapp:quarkus-github-app-command-airline:1.15.1'
 	implementation 'io.quarkus:quarkus-arc'
 	implementation "io.quarkus:quarkus-scheduler"
