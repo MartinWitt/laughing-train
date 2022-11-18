@@ -60,6 +60,18 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `WordUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/text/WordUtils.java`
+#### Snippet
+```java
+ * @since 1.1
+ */
+public class WordUtils {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `CaseUtils` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/commons/text/CaseUtils.java`
 #### Snippet
@@ -81,18 +93,6 @@ in `src/main/java/org/apache/commons/text/translate/EntityArrays.java`
 public class EntityArrays {
 
    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `WordUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/text/WordUtils.java`
-#### Snippet
-```java
- * @since 1.1
- */
-public class WordUtils {
-
-    /**
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -121,13 +121,49 @@ public class StringEscapeUtils {
 
 ## RuleId[ruleID=StaticInitializerReferencesSubClass]
 ### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass TrimMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/text/StrMatcher.java`
 #### Snippet
 ```java
-     * Matches the String trim() whitespace characters.
+     * Matches the space character.
      */
-    private static final StrMatcher TRIM_MATCHER = new TrimMatcher();
+    private static final StrMatcher SPACE_MATCHER = new CharMatcher(' ');
+
+    /**
+```
+
+### RuleId[ruleID=StaticInitializerReferencesSubClass]
+Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches the single or double quote character.
+     */
+    private static final StrMatcher QUOTE_MATCHER = new CharSetMatcher("'\"".toCharArray());
+
+    /**
+```
+
+### RuleId[ruleID=StaticInitializerReferencesSubClass]
+Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/text/StrMatcher.java`
+#### Snippet
+```java
+     * namely space, tab, newline, form feed.
+     */
+    private static final StrMatcher SPLIT_MATCHER = new CharSetMatcher(" \t\n\r\f".toCharArray());
+
+    /**
+```
+
+### RuleId[ruleID=StaticInitializerReferencesSubClass]
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches the comma character.
+     */
+    private static final StrMatcher COMMA_MATCHER = new CharMatcher(',');
 
     /**
 ```
@@ -140,6 +176,30 @@ in `src/main/java/org/apache/commons/text/StrMatcher.java`
      * Matches no characters.
      */
     private static final StrMatcher NONE_MATCHER = new NoMatcher();
+
+    /**
+```
+
+### RuleId[ruleID=StaticInitializerReferencesSubClass]
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches the double quote character.
+     */
+    private static final StrMatcher SINGLE_QUOTE_MATCHER = new CharMatcher('\'');
+
+    /**
+```
+
+### RuleId[ruleID=StaticInitializerReferencesSubClass]
+Referencing subclass TrimMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches the String trim() whitespace characters.
+     */
+    private static final StrMatcher TRIM_MATCHER = new TrimMatcher();
 
     /**
 ```
@@ -164,66 +224,6 @@ in `src/main/java/org/apache/commons/text/StrMatcher.java`
      * Matches the tab character.
      */
     private static final StrMatcher TAB_MATCHER = new CharMatcher('\t');
-
-    /**
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the comma character.
-     */
-    private static final StrMatcher COMMA_MATCHER = new CharMatcher(',');
-
-    /**
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the space character.
-     */
-    private static final StrMatcher SPACE_MATCHER = new CharMatcher(' ');
-
-    /**
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the double quote character.
-     */
-    private static final StrMatcher SINGLE_QUOTE_MATCHER = new CharMatcher('\'');
-
-    /**
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/text/StrMatcher.java`
-#### Snippet
-```java
-     * namely space, tab, newline, form feed.
-     */
-    private static final StrMatcher SPLIT_MATCHER = new CharSetMatcher(" \t\n\r\f".toCharArray());
-
-    /**
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the single or double quote character.
-     */
-    private static final StrMatcher QUOTE_MATCHER = new CharSetMatcher("'\"".toCharArray());
 
     /**
 ```
@@ -279,18 +279,6 @@ in `src/main/java/org/apache/commons/text/lookup/AbstractStringLookup.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'substringAfterLast' is still used
-in `src/main/java/org/apache/commons/text/lookup/AbstractStringLookup.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    protected String substringAfterLast(final String value, final char ch) {
-        return StringUtils.substringAfterLast(value, ch);
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'substringAfter' is still used
 in `src/main/java/org/apache/commons/text/lookup/AbstractStringLookup.java`
 #### Snippet
@@ -299,6 +287,18 @@ in `src/main/java/org/apache/commons/text/lookup/AbstractStringLookup.java`
     @Deprecated
     protected String substringAfter(final String value, final char ch) {
         return StringUtils.substringAfter(value, ch);
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'substringAfterLast' is still used
+in `src/main/java/org/apache/commons/text/lookup/AbstractStringLookup.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    protected String substringAfterLast(final String value, final char ch) {
+        return StringUtils.substringAfterLast(value, ch);
     }
 ```
 
@@ -346,10 +346,22 @@ in `src/main/java/org/apache/commons/text/lookup/DnsStringLookup.java`
 in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 #### Snippet
 ```java
-     * quotes unescaped, {@code null} if null string input
+     * @return A new unescaped {@code String}, {@code null} if null string input
      */
-    public static final String unescapeCsv(final String input) {
-        return UNESCAPE_CSV.translate(input);
+    public static final String unescapeJson(final String input) {
+        return UNESCAPE_JSON.translate(input);
+    }
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @return String with escaped values, {@code null} if null string input
+     */
+    public static final String escapeJava(final String input) {
+        return ESCAPE_JAVA.translate(input);
     }
 ```
 
@@ -370,10 +382,34 @@ in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 #### Snippet
 ```java
-     * @return String with escaped values, {@code null} if null string input
+     * newline or double quote, {@code null} if null string input
      */
-    public static final String escapeEcmaScript(final String input) {
-        return ESCAPE_ECMASCRIPT.translate(input);
+    public static final String escapeCsv(final String input) {
+        return ESCAPE_CSV.translate(input);
+    }
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
+#### Snippet
+```java
+     * quotes unescaped, {@code null} if null string input
+     */
+    public static final String unescapeCsv(final String input) {
+        return UNESCAPE_CSV.translate(input);
+    }
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @return a new unescaped {@code String}, {@code null} if null string input
+     */
+    public static final String unescapeJava(final String input) {
+        return UNESCAPE_JAVA.translate(input);
     }
 ```
 
@@ -408,8 +444,20 @@ in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 ```java
      * @return a new unescaped {@code String}, {@code null} if null string input
      */
-    public static final String unescapeJava(final String input) {
-        return UNESCAPE_JAVA.translate(input);
+    public static final String unescapeHtml3(final String input) {
+        return UNESCAPE_HTML3.translate(input);
+    }
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @return a new unescaped {@code String}, {@code null} if null string input
+     */
+    public static final String unescapeHtml4(final String input) {
+        return UNESCAPE_HTML4.translate(input);
     }
 ```
 
@@ -420,32 +468,8 @@ in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 ```java
      * @return String with escaped values, {@code null} if null string input
      */
-    public static final String escapeJson(final String input) {
-        return ESCAPE_JSON.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return String with escaped values, {@code null} if null string input
-     */
-    public static final String escapeJava(final String input) {
-        return ESCAPE_JAVA.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return a new escaped {@code String}, {@code null} if null string input
-     */
-    public static final String escapeHtml3(final String input) {
-        return ESCAPE_HTML3.translate(input);
+    public static final String escapeEcmaScript(final String input) {
+        return ESCAPE_ECMASCRIPT.translate(input);
     }
 ```
 
@@ -478,10 +502,10 @@ in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 #### Snippet
 ```java
-     * @return A new unescaped {@code String}, {@code null} if null string input
+     * @return String with escaped values, {@code null} if null string input
      */
-    public static final String unescapeJson(final String input) {
-        return UNESCAPE_JSON.translate(input);
+    public static final String escapeJson(final String input) {
+        return ESCAPE_JSON.translate(input);
     }
 ```
 
@@ -490,34 +514,10 @@ in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 #### Snippet
 ```java
-     * @return a new unescaped {@code String}, {@code null} if null string input
+     * @return a new escaped {@code String}, {@code null} if null string input
      */
-    public static final String unescapeHtml3(final String input) {
-        return UNESCAPE_HTML3.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
-#### Snippet
-```java
-     * newline or double quote, {@code null} if null string input
-     */
-    public static final String escapeCsv(final String input) {
-        return ESCAPE_CSV.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return a new unescaped {@code String}, {@code null} if null string input
-     */
-    public static final String unescapeHtml4(final String input) {
-        return UNESCAPE_HTML4.translate(input);
+    public static final String escapeHtml3(final String input) {
+        return ESCAPE_HTML3.translate(input);
     }
 ```
 
@@ -551,18 +551,6 @@ Assignment to for-loop parameter `i`
 in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
 #### Snippet
 ```java
-                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
-                to = to - removeLen + replaceLen;
-                i = i + replaceLen - 1;
-                if (replaceCount > 0) {
-                    replaceCount--;
-```
-
-### RuleId[ruleID=AssignmentToForLoopParameter]
-Assignment to for-loop parameter `i`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
             if (buffer[i] == ch) {
                 final int start = i;
                 while (++i < size) {
@@ -584,6 +572,30 @@ in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
 
 ### RuleId[ruleID=AssignmentToForLoopParameter]
 Assignment to for-loop parameter `i`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
+                to = to - removeLen + replaceLen;
+                i = i + replaceLen - 1;
+                if (replaceCount > 0) {
+                    replaceCount--;
+```
+
+### RuleId[ruleID=AssignmentToForLoopParameter]
+Assignment to for-loop parameter `i`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
+                to = to - removeLen + replaceLen;
+                i = i + replaceLen - 1;
+                if (replaceCount > 0) {
+                    replaceCount--;
+```
+
+### RuleId[ruleID=AssignmentToForLoopParameter]
+Assignment to for-loop parameter `i`
 in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
@@ -604,21 +616,57 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
                 i -= len;
             }
         }
-```
-
-### RuleId[ruleID=AssignmentToForLoopParameter]
-Assignment to for-loop parameter `i`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
-                to = to - removeLen + replaceLen;
-                i = i + replaceLen - 1;
-                if (replaceCount > 0) {
-                    replaceCount--;
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
+#### Snippet
+```java
+     * @return a new instance backed by the given map.
+     */
+    static <V> FunctionStringLookup<V> on(final Map<String, V> map) {
+        return on(StringLookupFactory.toMap(map)::get);
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
+#### Snippet
+```java
+     * @param function the function, may be null.
+     */
+    private FunctionStringLookup(final Function<String, V> function) {
+        this.function = function;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
+#### Snippet
+```java
+     * @param function the function, may be null.
+     */
+    private FunctionStringLookup(final Function<String, V> function) {
+        this.function = function;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `src/main/java/org/apache/commons/text/similarity/IntersectionSimilarity.java`
+#### Snippet
+```java
+     * @return The bag
+     */
+    private TinyBag toBag(final Collection<T> objects) {
+        final TinyBag bag = new TinyBag(objects.size());
+        objects.forEach(bag::add);
+```
+
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super CharSequence`
 in `src/main/java/org/apache/commons/text/similarity/IntersectionSimilarity.java`
@@ -641,18 +689,6 @@ in `src/main/java/org/apache/commons/text/similarity/IntersectionSimilarity.java
     public IntersectionSimilarity(final Function<CharSequence, Collection<T>> converter) {
         if (converter == null) {
             throw new IllegalArgumentException("Converter must not be null");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/text/similarity/IntersectionSimilarity.java`
-#### Snippet
-```java
-     * @return The bag
-     */
-    private TinyBag toBag(final Collection<T> objects) {
-        final TinyBag bag = new TinyBag(objects.size());
-        objects.forEach(bag::add);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -688,42 +724,6 @@ in `src/main/java/org/apache/commons/text/translate/EntityArrays.java`
      */
     public static Map<CharSequence, CharSequence> invert(final Map<CharSequence, CharSequence> map) {
         return map.entrySet().stream().collect(Collectors.toMap(Entry::getValue, Entry::getKey));
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
-#### Snippet
-```java
-     * @return a new instance backed by the given map.
-     */
-    static <V> FunctionStringLookup<V> on(final Map<String, V> map) {
-        return on(StringLookupFactory.toMap(map)::get);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
-#### Snippet
-```java
-     * @param function the function, may be null.
-     */
-    private FunctionStringLookup(final Function<String, V> function) {
-        this.function = function;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
-#### Snippet
-```java
-     * @param function the function, may be null.
-     */
-    private FunctionStringLookup(final Function<String, V> function) {
-        this.function = function;
     }
 ```
 
@@ -848,18 +848,6 @@ in `src/main/java/org/apache/commons/text/AlphabetConverter.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `src/main/java/org/apache/commons/text/StringTokenizer.java`
-#### Snippet
-```java
-     *            the token to add
-     */
-    private void addToken(final List<String> list, String tok) {
-        if (tok == null || tok.isEmpty()) {
-            if (isIgnoreEmptyTokens()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super T`
 in `src/main/java/org/apache/commons/text/diff/InsertCommand.java`
 #### Snippet
@@ -869,6 +857,18 @@ in `src/main/java/org/apache/commons/text/diff/InsertCommand.java`
     public void accept(final CommandVisitor<T> visitor) {
         visitor.visitInsertCommand(getObject());
     }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `src/main/java/org/apache/commons/text/StringTokenizer.java`
+#### Snippet
+```java
+     *            the token to add
+     */
+    private void addToken(final List<String> list, String tok) {
+        if (tok == null || tok.isEmpty()) {
+            if (isIgnoreEmptyTokens()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -912,11 +912,11 @@ Can generalize to `? extends CharSequence`
 in `src/main/java/org/apache/commons/text/similarity/CosineSimilarity.java`
 #### Snippet
 ```java
+     * @return common strings
      */
-    private double dot(final Map<CharSequence, Integer> leftVector, final Map<CharSequence, Integer> rightVector,
-            final Set<CharSequence> intersection) {
-        long dotProduct = 0;
-        for (final CharSequence key : intersection) {
+    private Set<CharSequence> getIntersection(final Map<CharSequence, Integer> leftVector,
+            final Map<CharSequence, Integer> rightVector) {
+        final Set<CharSequence> intersection = new HashSet<>(leftVector.keySet());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -924,11 +924,11 @@ Can generalize to `? extends CharSequence`
 in `src/main/java/org/apache/commons/text/similarity/CosineSimilarity.java`
 #### Snippet
 ```java
-     * @return common strings
      */
-    private Set<CharSequence> getIntersection(final Map<CharSequence, Integer> leftVector,
-            final Map<CharSequence, Integer> rightVector) {
-        final Set<CharSequence> intersection = new HashSet<>(leftVector.keySet());
+    private double dot(final Map<CharSequence, Integer> leftVector, final Map<CharSequence, Integer> rightVector,
+            final Set<CharSequence> intersection) {
+        long dotProduct = 0;
+        for (final CharSequence key : intersection) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -970,18 +970,6 @@ in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
 
 ## RuleId[ruleID=UtilityClassWithPublicConstructor]
 ### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `CaseUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/text/CaseUtils.java`
-#### Snippet
-```java
- * @since 1.2
- */
-public class CaseUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
 Class `WordUtils` has only 'static' members, and a 'public' constructor
 in `src/main/java/org/apache/commons/text/WordUtils.java`
 #### Snippet
@@ -989,6 +977,18 @@ in `src/main/java/org/apache/commons/text/WordUtils.java`
  * @since 1.1
  */
 public class WordUtils {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithPublicConstructor]
+Class `CaseUtils` has only 'static' members, and a 'public' constructor
+in `src/main/java/org/apache/commons/text/CaseUtils.java`
+#### Snippet
+```java
+ * @since 1.2
+ */
+public class CaseUtils {
 
     /**
 ```
@@ -1322,10 +1322,10 @@ in `src/main/java/org/apache/commons/text/numbers/DoubleFormat.java`
 #### Snippet
 ```java
 
-        /** If {@code true}, thousands groups will be separated by the grouping separator. */
-        private boolean groupThousands = false;
+        /** Flag indicating if the exponent value should always be included, even if zero. */
+        private boolean alwaysIncludeExponent = false;
 
-        /** Minus sign character. */
+        /**
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -1346,10 +1346,10 @@ in `src/main/java/org/apache/commons/text/numbers/DoubleFormat.java`
 #### Snippet
 ```java
 
-        /** Flag indicating if the exponent value should always be included, even if zero. */
-        private boolean alwaysIncludeExponent = false;
+        /** If {@code true}, thousands groups will be separated by the grouping separator. */
+        private boolean groupThousands = false;
 
-        /**
+        /** Minus sign character. */
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -1366,27 +1366,39 @@ in `src/main/java/org/apache/commons/text/StrMatcher.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `key`
-in `src/main/java/org/apache/commons/text/lookup/InterpolatorStringLookup.java`
+Assignment to method parameter `lower`
+in `src/main/java/org/apache/commons/text/WordUtils.java`
 #### Snippet
 ```java
-                return value;
-            }
-            key = key.substring(prefixPos + 1);
+        // set to the length of the string
+        if (lower > str.length()) {
+            lower = str.length();
         }
-        if (defaultStringLookup != null) {
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `upper`
+in `src/main/java/org/apache/commons/text/WordUtils.java`
+#### Snippet
+```java
+        // than the length of the string, set to the length of the string
+        if (upper == -1 || upper > str.length()) {
+            upper = str.length();
+        }
+
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/text/CaseUtils.java`
+in `src/main/java/org/apache/commons/text/WordUtils.java`
 #### Snippet
 ```java
             return str;
         }
         str = str.toLowerCase();
-        final int strLen = str.length();
-        final int[] newCodePoints = new int[strLen];
+        return capitalize(str, delimiters);
+    }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -1426,39 +1438,27 @@ in `src/main/java/org/apache/commons/text/WordUtils.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `key`
+in `src/main/java/org/apache/commons/text/lookup/InterpolatorStringLookup.java`
+#### Snippet
+```java
+                return value;
+            }
+            key = key.substring(prefixPos + 1);
+        }
+        if (defaultStringLookup != null) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/text/WordUtils.java`
+in `src/main/java/org/apache/commons/text/CaseUtils.java`
 #### Snippet
 ```java
             return str;
         }
         str = str.toLowerCase();
-        return capitalize(str, delimiters);
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `lower`
-in `src/main/java/org/apache/commons/text/WordUtils.java`
-#### Snippet
-```java
-        // set to the length of the string
-        if (lower > str.length()) {
-            lower = str.length();
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `upper`
-in `src/main/java/org/apache/commons/text/WordUtils.java`
-#### Snippet
-```java
-        // than the length of the string, set to the length of the string
-        if (upper == -1 || upper > str.length()) {
-            upper = str.length();
-        }
-
+        final int strLen = str.length();
+        final int[] newCodePoints = new int[strLen];
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -1534,318 +1534,6 @@ in `src/main/java/org/apache/commons/text/StringTokenizer.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-    public String midString(int index, final int length) {
-        if (index < 0) {
-            index = 0;
-        }
-        if (length <= 0 || index >= size) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public int lastIndexOf(final String str, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (str == null || startIndex < 0) {
-            return StringUtils.INDEX_NOT_FOUND;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public int indexOf(final char ch, int startIndex) {
-        startIndex = Math.max(0, startIndex);
-        if (startIndex >= size) {
-            return StringUtils.INDEX_NOT_FOUND;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public TextStringBuilder replace(final int startIndex, int endIndex, final String replaceStr) {
-        endIndex = validateRange(startIndex, endIndex);
-        final int insertLen = replaceStr == null ? 0 : replaceStr.length();
-        replaceImpl(startIndex, endIndex, endIndex - startIndex, replaceStr, insertLen);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public int indexOf(final String str, int startIndex) {
-        startIndex = Math.max(0, startIndex);
-        if (str == null || startIndex >= size) {
-            return StringUtils.INDEX_NOT_FOUND;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public String substring(final int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        return new String(buffer, startIndex, endIndex - startIndex);
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public int lastIndexOf(final StringMatcher matcher, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (matcher == null || startIndex < 0) {
-            return StringUtils.INDEX_NOT_FOUND;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public int indexOf(final StringMatcher matcher, int startIndex) {
-        startIndex = Math.max(0, startIndex);
-        if (matcher == null || startIndex >= size) {
-            return StringUtils.INDEX_NOT_FOUND;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `nullText`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-    public TextStringBuilder setNullText(String nullText) {
-        if (nullText != null && nullText.isEmpty()) {
-            nullText = null;
-        }
-        this.nullText = nullText;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-    /** Appends {@code "false"}. */
-    private void appendFalse(int index) {
-        buffer[index++] = 'f';
-        buffer[index++] = 'a';
-        buffer[index++] = 'l';
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-    private void appendFalse(int index) {
-        buffer[index++] = 'f';
-        buffer[index++] = 'a';
-        buffer[index++] = 'l';
-        buffer[index++] = 's';
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-        buffer[index++] = 'f';
-        buffer[index++] = 'a';
-        buffer[index++] = 'l';
-        buffer[index++] = 's';
-        buffer[index] = 'e';
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-        buffer[index++] = 'a';
-        buffer[index++] = 'l';
-        buffer[index++] = 's';
-        buffer[index] = 'e';
-        size += FALSE_STRING_SIZE;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-            }
-            if (pos + len > size()) {
-                len = TextStringBuilder.this.size() - pos;
-            }
-            TextStringBuilder.this.getChars(pos, pos + len, b, off);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-        validateIndex(index);
-        if (str == null) {
-            str = nullText;
-        }
-        if (str != null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-        }
-        if (endIndex > size) {
-            endIndex = size;
-        }
-        if (startIndex > endIndex) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-    /** Appends {@code "true"}. */
-    private void appendTrue(int index) {
-        buffer[index++] = 't';
-        buffer[index++] = 'r';
-        buffer[index++] = 'u';
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-    private void appendTrue(int index) {
-        buffer[index++] = 't';
-        buffer[index++] = 'r';
-        buffer[index++] = 'u';
-        buffer[index] = 'e';
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-        buffer[index++] = 't';
-        buffer[index++] = 'r';
-        buffer[index++] = 'u';
-        buffer[index] = 'e';
-        size += TRUE_STRING_SIZE;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public char[] toCharArray(final int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        final int len = endIndex - startIndex;
-        return len == 0 ? ArrayUtils.EMPTY_CHAR_ARRAY : Arrays.copyOfRange(buffer, startIndex, endIndex);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public int lastIndexOf(final char ch, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (startIndex < 0) {
-            return StringUtils.INDEX_NOT_FOUND;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `n`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-        public long skip(long n) {
-            if (pos + n > TextStringBuilder.this.size()) {
-                n = TextStringBuilder.this.size() - pos;
-            }
-            if (n < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-    public TextStringBuilder replace(final StringMatcher matcher, final String replaceStr, final int startIndex,
-        int endIndex, final int replaceCount) {
-        endIndex = validateRange(startIndex, endIndex);
-        return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `target`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-        final int len = length();
-        if (target == null || target.length < len) {
-            target = new char[len];
-        }
-        System.arraycopy(buffer, 0, target, 0, len);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `to`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-            if (removeLen > 0) {
-                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
-                to = to - removeLen + replaceLen;
-                i = i + replaceLen - 1;
-                if (replaceCount > 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `replaceCount`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-                i = i + replaceLen - 1;
-                if (replaceCount > 0) {
-                    replaceCount--;
-                }
-            }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `left`
 in `src/main/java/org/apache/commons/text/similarity/LevenshteinDistance.java`
 #### Snippet
@@ -1906,6 +1594,318 @@ in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public int indexOf(final char ch, int startIndex) {
+        startIndex = Math.max(0, startIndex);
+        if (startIndex >= size) {
+            return StringUtils.INDEX_NOT_FOUND;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+    /** Appends {@code "true"}. */
+    private void appendTrue(int index) {
+        buffer[index++] = 't';
+        buffer[index++] = 'r';
+        buffer[index++] = 'u';
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+    private void appendTrue(int index) {
+        buffer[index++] = 't';
+        buffer[index++] = 'r';
+        buffer[index++] = 'u';
+        buffer[index] = 'e';
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+        buffer[index++] = 't';
+        buffer[index++] = 'r';
+        buffer[index++] = 'u';
+        buffer[index] = 'e';
+        size += TRUE_STRING_SIZE;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+    public TextStringBuilder replace(final StringMatcher matcher, final String replaceStr, final int startIndex,
+        int endIndex, final int replaceCount) {
+        endIndex = validateRange(startIndex, endIndex);
+        return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public int indexOf(final StringMatcher matcher, int startIndex) {
+        startIndex = Math.max(0, startIndex);
+        if (matcher == null || startIndex >= size) {
+            return StringUtils.INDEX_NOT_FOUND;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+    /** Appends {@code "false"}. */
+    private void appendFalse(int index) {
+        buffer[index++] = 'f';
+        buffer[index++] = 'a';
+        buffer[index++] = 'l';
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+    private void appendFalse(int index) {
+        buffer[index++] = 'f';
+        buffer[index++] = 'a';
+        buffer[index++] = 'l';
+        buffer[index++] = 's';
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+        buffer[index++] = 'f';
+        buffer[index++] = 'a';
+        buffer[index++] = 'l';
+        buffer[index++] = 's';
+        buffer[index] = 'e';
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+        buffer[index++] = 'a';
+        buffer[index++] = 'l';
+        buffer[index++] = 's';
+        buffer[index] = 'e';
+        size += FALSE_STRING_SIZE;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public String substring(final int startIndex, int endIndex) {
+        endIndex = validateRange(startIndex, endIndex);
+        return new String(buffer, startIndex, endIndex - startIndex);
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public int indexOf(final String str, int startIndex) {
+        startIndex = Math.max(0, startIndex);
+        if (str == null || startIndex >= size) {
+            return StringUtils.INDEX_NOT_FOUND;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `n`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+        public long skip(long n) {
+            if (pos + n > TextStringBuilder.this.size()) {
+                n = TextStringBuilder.this.size() - pos;
+            }
+            if (n < 0) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `nullText`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+    public TextStringBuilder setNullText(String nullText) {
+        if (nullText != null && nullText.isEmpty()) {
+            nullText = null;
+        }
+        this.nullText = nullText;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public int lastIndexOf(final String str, int startIndex) {
+        startIndex = startIndex >= size ? size - 1 : startIndex;
+        if (str == null || startIndex < 0) {
+            return StringUtils.INDEX_NOT_FOUND;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+        }
+        if (endIndex > size) {
+            endIndex = size;
+        }
+        if (startIndex > endIndex) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `to`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+            if (removeLen > 0) {
+                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
+                to = to - removeLen + replaceLen;
+                i = i + replaceLen - 1;
+                if (replaceCount > 0) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `replaceCount`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+                i = i + replaceLen - 1;
+                if (replaceCount > 0) {
+                    replaceCount--;
+                }
+            }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `str`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+        validateIndex(index);
+        if (str == null) {
+            str = nullText;
+        }
+        if (str != null) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public TextStringBuilder replace(final int startIndex, int endIndex, final String replaceStr) {
+        endIndex = validateRange(startIndex, endIndex);
+        final int insertLen = replaceStr == null ? 0 : replaceStr.length();
+        replaceImpl(startIndex, endIndex, endIndex - startIndex, replaceStr, insertLen);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `target`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+        final int len = length();
+        if (target == null || target.length < len) {
+            target = new char[len];
+        }
+        System.arraycopy(buffer, 0, target, 0, len);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+    public String midString(int index, final int length) {
+        if (index < 0) {
+            index = 0;
+        }
+        if (length <= 0 || index >= size) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public int lastIndexOf(final char ch, int startIndex) {
+        startIndex = startIndex >= size ? size - 1 : startIndex;
+        if (startIndex < 0) {
+            return StringUtils.INDEX_NOT_FOUND;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `len`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+            }
+            if (pos + len > size()) {
+                len = TextStringBuilder.this.size() - pos;
+            }
+            TextStringBuilder.this.getChars(pos, pos + len, b, off);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public char[] toCharArray(final int startIndex, int endIndex) {
+        endIndex = validateRange(startIndex, endIndex);
+        final int len = endIndex - startIndex;
+        return len == 0 ? ArrayUtils.EMPTY_CHAR_ARRAY : Arrays.copyOfRange(buffer, startIndex, endIndex);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public int lastIndexOf(final StringMatcher matcher, int startIndex) {
+        startIndex = startIndex >= size ? size - 1 : startIndex;
+        if (matcher == null || startIndex < 0) {
+            return StringUtils.INDEX_NOT_FOUND;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `priorVariables`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
@@ -1918,27 +1918,27 @@ in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-            final StrMatcher matcher, final String replaceStr,
-            final int startIndex, int endIndex, final int replaceCount) {
-        endIndex = validateRange(startIndex, endIndex);
-        return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `startIndex`
 in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
      */
-    public int lastIndexOf(final String str, int startIndex) {
+    public int lastIndexOf(final char ch, int startIndex) {
         startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (str == null || startIndex < 0) {
+        if (startIndex < 0) {
             return -1;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `str`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+        validateIndex(index);
+        if (str == null) {
+            str = nullText;
+        }
+        if (str != null) {
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -1951,6 +1951,66 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
             initialCapacity = CAPACITY;
         }
         buffer = new char[initialCapacity];
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `len`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+            }
+            if (pos + len > size()) {
+                len = StrBuilder.this.size() - pos;
+            }
+            StrBuilder.this.getChars(pos, pos + len, b, off);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+    public String midString(int index, final int length) {
+        if (index < 0) {
+            index = 0;
+        }
+        if (length <= 0 || index >= size) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+     */
+    public String substring(final int startIndex, int endIndex) {
+        endIndex = validateRange(startIndex, endIndex);
+        return new String(buffer, startIndex, endIndex - startIndex);
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+     */
+    public StrBuilder delete(final int startIndex, int endIndex) {
+        endIndex = validateRange(startIndex, endIndex);
+        final int len = endIndex - startIndex;
+        if (len > 0) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+        }
+        if (endIndex > size) {
+            endIndex = size;
+        }
+        if (startIndex > endIndex) {
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -1978,15 +2038,123 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `str`
+Assignment to method parameter `startIndex`
 in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
-        validateIndex(index);
-        if (str == null) {
-            str = nullText;
+     */
+    public int indexOf(final String str, int startIndex) {
+        startIndex = Math.max(startIndex, 0);
+        if (str == null || startIndex >= size) {
+            return -1;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+     */
+    public int indexOf(final char ch, int startIndex) {
+        startIndex = Math.max(startIndex, 0);
+        if (startIndex >= size) {
+            return -1;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+            final StrMatcher matcher, final String replaceStr,
+            final int startIndex, int endIndex, final int replaceCount) {
+        endIndex = validateRange(startIndex, endIndex);
+        return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `destination`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+        final int len = length();
+        if (destination == null || destination.length < len) {
+            destination = new char[len];
         }
-        if (str != null) {
+        System.arraycopy(buffer, 0, destination, 0, len);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `nullText`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+    public StrBuilder setNullText(String nullText) {
+        if (nullText != null && nullText.isEmpty()) {
+            nullText = null;
+        }
+        this.nullText = nullText;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+     */
+    public int lastIndexOf(final String str, int startIndex) {
+        startIndex = startIndex >= size ? size - 1 : startIndex;
+        if (str == null || startIndex < 0) {
+            return -1;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `n`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+        public long skip(long n) {
+            if (pos + n > StrBuilder.this.size()) {
+                n = StrBuilder.this.size() - pos;
+            }
+            if (n < 0) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+     */
+    public char[] toCharArray(final int startIndex, int endIndex) {
+        endIndex = validateRange(startIndex, endIndex);
+        final int len = endIndex - startIndex;
+        if (len == 0) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+     */
+    public StrBuilder replace(final int startIndex, int endIndex, final String replaceStr) {
+        endIndex = validateRange(startIndex, endIndex);
+        final int insertLen = replaceStr == null ? 0 : replaceStr.length();
+        replaceImpl(startIndex, endIndex, endIndex - startIndex, replaceStr, insertLen);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+     */
+    public int lastIndexOf(final StrMatcher matcher, int startIndex) {
+        startIndex = startIndex >= size ? size - 1 : startIndex;
+        if (matcher == null || startIndex < 0) {
+            return -1;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -2079,178 +2247,10 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
      */
-    public int lastIndexOf(final char ch, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (startIndex < 0) {
-            return -1;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-            }
-            if (pos + len > size()) {
-                len = StrBuilder.this.size() - pos;
-            }
-            StrBuilder.this.getChars(pos, pos + len, b, off);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-     */
-    public int lastIndexOf(final StrMatcher matcher, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (matcher == null || startIndex < 0) {
-            return -1;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `nullText`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-    public StrBuilder setNullText(String nullText) {
-        if (nullText != null && nullText.isEmpty()) {
-            nullText = null;
-        }
-        this.nullText = nullText;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-     */
-    public StrBuilder delete(final int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        final int len = endIndex - startIndex;
-        if (len > 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `n`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-        public long skip(long n) {
-            if (pos + n > StrBuilder.this.size()) {
-                n = StrBuilder.this.size() - pos;
-            }
-            if (n < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-     */
-    public StrBuilder replace(final int startIndex, int endIndex, final String replaceStr) {
-        endIndex = validateRange(startIndex, endIndex);
-        final int insertLen = replaceStr == null ? 0 : replaceStr.length();
-        replaceImpl(startIndex, endIndex, endIndex - startIndex, replaceStr, insertLen);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-     */
-    public char[] toCharArray(final int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        final int len = endIndex - startIndex;
-        if (len == 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-     */
-    public String substring(final int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        return new String(buffer, startIndex, endIndex - startIndex);
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-     */
-    public int indexOf(final char ch, int startIndex) {
-        startIndex = Math.max(startIndex, 0);
-        if (startIndex >= size) {
-            return -1;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-        }
-        if (endIndex > size) {
-            endIndex = size;
-        }
-        if (startIndex > endIndex) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-     */
     public int indexOf(final StrMatcher matcher, int startIndex) {
         startIndex = Math.max(startIndex, 0);
         if (matcher == null || startIndex >= size) {
             return -1;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `destination`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-        final int len = length();
-        if (destination == null || destination.length < len) {
-            destination = new char[len];
-        }
-        System.arraycopy(buffer, 0, destination, 0, len);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-     */
-    public int indexOf(final String str, int startIndex) {
-        startIndex = Math.max(startIndex, 0);
-        if (str == null || startIndex >= size) {
-            return -1;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-    public String midString(int index, final int length) {
-        if (index < 0) {
-            index = 0;
-        }
-        if (length <= 0 || index >= size) {
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -2280,7 +2280,7 @@ in `src/main/java/org/apache/commons/text/StrTokenizer.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-18-08-15-05.024.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-18-11-04-26.927.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -2329,6 +2329,30 @@ in `src/main/java/org/apache/commons/text/lookup/DnsStringLookup.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `src/main/java/org/apache/commons/text/WordUtils.java`
+#### Snippet
+```java
+                              String wrapOn) {
+        if (str == null) {
+            return null;
+        }
+        if (newLineStr == null) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/text/lookup/UrlStringLookup.java`
+#### Snippet
+```java
+    public String lookup(final String key) {
+        if (key == null) {
+            return null;
+        }
+        final String[] keys = key.split(SPLIT_STR);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `src/main/java/org/apache/commons/text/lookup/InterpolatorStringLookup.java`
 #### Snippet
 ```java
@@ -2349,18 +2373,6 @@ in `src/main/java/org/apache/commons/text/lookup/InterpolatorStringLookup.java`
         return null;
     }
 
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/text/lookup/UrlStringLookup.java`
-#### Snippet
-```java
-    public String lookup(final String key) {
-        if (key == null) {
-            return null;
-        }
-        final String[] keys = key.split(SPLIT_STR);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2389,31 +2401,7 @@ in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/org/apache/commons/text/WordUtils.java`
-#### Snippet
-```java
-                              String wrapOn) {
-        if (str == null) {
-            return null;
-        }
-        if (newLineStr == null) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/main/java/org/apache/commons/text/lookup/UrlEncoderStringLookup.java`
-#### Snippet
-```java
-    public String lookup(final String key) {
-        if (key == null) {
-            return null;
-        }
-        final String enc = StandardCharsets.UTF_8.name();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/text/lookup/UrlDecoderStringLookup.java`
 #### Snippet
 ```java
     public String lookup(final String key) {
@@ -2433,6 +2421,18 @@ in `src/main/java/org/apache/commons/text/lookup/StringLookupFactory.java`
     static final FunctionStringLookup<String> INSTANCE_NULL = FunctionStringLookup.on(key -> null);
 
     /**
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/text/lookup/UrlDecoderStringLookup.java`
+#### Snippet
+```java
+    public String lookup(final String key) {
+        if (key == null) {
+            return null;
+        }
+        final String enc = StandardCharsets.UTF_8.name();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2512,7 +2512,7 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StringTokenizer.java`
 #### Snippet
 ```java
-            return tokens[tokenPos++];
+            return tokens[--tokenPos];
         }
         return null;
     }
@@ -2536,7 +2536,7 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StringTokenizer.java`
 #### Snippet
 ```java
-            return tokens[--tokenPos];
+            return tokens[tokenPos++];
         }
         return null;
     }
@@ -2596,11 +2596,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrLookup.java`
 #### Snippet
 ```java
-                }
+        public String lookup(final String key) {
+            if (resourceBundle == null || key == null || !resourceBundle.containsKey(key)) {
+                return null;
             }
-            return null;
-        }
-    }
+            return resourceBundle.getString(key);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2608,11 +2608,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrLookup.java`
 #### Snippet
 ```java
-        public String lookup(final String key) {
-            if (resourceBundle == null || key == null || !resourceBundle.containsKey(key)) {
-                return null;
+                }
             }
-            return resourceBundle.getString(key);
+            return null;
+        }
+    }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2632,83 +2632,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final String source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final TextStringBuilder buf = new TextStringBuilder(length).append(source, offset, length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final CharSequence source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final TextStringBuilder buf = new TextStringBuilder(length).append(source.toString(), offset, length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
-#### Snippet
-```java
         final StringLookup resolver = getStringLookup();
         if (resolver == null) {
             return null;
         }
         return resolver.lookup(variableName);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final Object source) {
-        if (source == null) {
-            return null;
-        }
-        final TextStringBuilder buf = new TextStringBuilder().append(source);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final CharSequence source) {
-        if (source == null) {
-            return null;
-        }
-        return replace(source, 0, source.length());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final StringBuffer source) {
-        if (source == null) {
-            return null;
-        }
-        final TextStringBuilder buf = new TextStringBuilder(source.length()).append(source);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final String source) {
-        if (source == null) {
-            return null;
-        }
-        final TextStringBuilder buf = new TextStringBuilder(source);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2740,6 +2668,78 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
 #### Snippet
 ```java
+    public String replace(final Object source) {
+        if (source == null) {
+            return null;
+        }
+        final TextStringBuilder buf = new TextStringBuilder().append(source);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
+#### Snippet
+```java
+    public String replace(final String source, final int offset, final int length) {
+        if (source == null) {
+            return null;
+        }
+        final TextStringBuilder buf = new TextStringBuilder(length).append(source, offset, length);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
+#### Snippet
+```java
+    public String replace(final char[] source, final int offset, final int length) {
+        if (source == null) {
+            return null;
+        }
+        final TextStringBuilder buf = new TextStringBuilder(length).append(source, offset, length);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
+#### Snippet
+```java
+    public String replace(final StringBuffer source) {
+        if (source == null) {
+            return null;
+        }
+        final TextStringBuilder buf = new TextStringBuilder(source.length()).append(source);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
+#### Snippet
+```java
+    public String replace(final String source) {
+        if (source == null) {
+            return null;
+        }
+        final TextStringBuilder buf = new TextStringBuilder(source);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
+#### Snippet
+```java
+    public String replace(final CharSequence source, final int offset, final int length) {
+        if (source == null) {
+            return null;
+        }
+        final TextStringBuilder buf = new TextStringBuilder(length).append(source.toString(), offset, length);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
+#### Snippet
+```java
     public String replace(final TextStringBuilder source) {
         if (source == null) {
             return null;
@@ -2764,11 +2764,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final char[] source, final int offset, final int length) {
+    public String replace(final CharSequence source) {
         if (source == null) {
             return null;
         }
-        final TextStringBuilder buf = new TextStringBuilder(length).append(source, offset, length);
+        return replace(source, 0, source.length());
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2809,14 +2809,14 @@ in `src/main/java/org/apache/commons/text/lookup/LocalHostStringLookup.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/org/apache/commons/text/lookup/PropertiesStringLookup.java`
+in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String lookup(final String key) {
-        if (key == null) {
+        final StrLookup<?> resolver = getVariableResolver();
+        if (resolver == null) {
             return null;
         }
-        final String[] keys = key.split(SEPARATOR);
+        return resolver.lookup(variableName);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2824,7 +2824,7 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final StringBuffer source, final int offset, final int length) {
+    public String replace(final String source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
@@ -2836,11 +2836,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final Object source) {
+    public String replace(final CharSequence source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
-        final StrBuilder buf = new StrBuilder().append(source);
+        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2860,11 +2860,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final StrBuilder source, final int offset, final int length) {
+    public String replace(final String source) {
         if (source == null) {
             return null;
         }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        final StrBuilder buf = new StrBuilder(source);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2872,11 +2872,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-        final StrLookup<?> resolver = getVariableResolver();
-        if (resolver == null) {
+    public String replace(final Object source) {
+        if (source == null) {
             return null;
         }
-        return resolver.lookup(variableName);
+        final StrBuilder buf = new StrBuilder().append(source);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2884,7 +2884,7 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final CharSequence source, final int offset, final int length) {
+    public String replace(final StrBuilder source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
@@ -2908,11 +2908,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final StringBuffer source) {
+    public String replace(final StringBuffer source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
-        final StrBuilder buf = new StrBuilder(source.length()).append(source);
+        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2920,11 +2920,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final String source, final int offset, final int length) {
+    public String replace(final StrBuilder source) {
         if (source == null) {
             return null;
         }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        final StrBuilder buf = new StrBuilder(source.length()).append(source);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2944,23 +2944,23 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final String source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(source);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final StrBuilder source) {
+    public String replace(final StringBuffer source) {
         if (source == null) {
             return null;
         }
         final StrBuilder buf = new StrBuilder(source.length()).append(source);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/text/lookup/PropertiesStringLookup.java`
+#### Snippet
+```java
+    public String lookup(final String key) {
+        if (key == null) {
+            return null;
+        }
+        final String[] keys = key.split(SEPARATOR);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3013,6 +3013,18 @@ in `src/main/java/org/apache/commons/text/lookup/ConstantStringLookup.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `src/main/java/org/apache/commons/text/ExtendedMessageFormat.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `src/main/java/org/apache/commons/text/StrTokenizer.java`
 #### Snippet
 ```java
@@ -3059,31 +3071,7 @@ in `src/main/java/org/apache/commons/text/StrTokenizer.java`
 
 ```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/text/ExtendedMessageFormat.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
 ## RuleId[ruleID=NullArgumentToVariableArgMethod]
-### RuleId[ruleID=NullArgumentToVariableArgMethod]
-Confusing argument `null`, unclear if a varargs or non-varargs call is desired
-in `src/main/java/org/apache/commons/text/WordUtils.java`
-#### Snippet
-```java
-     */
-    public static String capitalizeFully(final String str) {
-        return capitalizeFully(str, null);
-    }
-
-```
-
 ### RuleId[ruleID=NullArgumentToVariableArgMethod]
 Confusing argument `null`, unclear if a varargs or non-varargs call is desired
 in `src/main/java/org/apache/commons/text/WordUtils.java`
@@ -3102,8 +3090,8 @@ in `src/main/java/org/apache/commons/text/WordUtils.java`
 #### Snippet
 ```java
      */
-    public static String initials(final String str) {
-        return initials(str, null);
+    public static String capitalizeFully(final String str) {
+        return capitalizeFully(str, null);
     }
 
 ```
@@ -3120,55 +3108,19 @@ in `src/main/java/org/apache/commons/text/WordUtils.java`
 
 ```
 
+### RuleId[ruleID=NullArgumentToVariableArgMethod]
+Confusing argument `null`, unclear if a varargs or non-varargs call is desired
+in `src/main/java/org/apache/commons/text/WordUtils.java`
+#### Snippet
+```java
+     */
+    public static String initials(final String str) {
+        return initials(str, null);
+    }
+
+```
+
 ## RuleId[ruleID=UnusedAssignment]
-### RuleId[ruleID=UnusedAssignment]
-Variable `readCount` initializer `buffer(readCount(minReadLenPrefix, 0))` is redundant
-in `src/main/java/org/apache/commons/text/io/StringSubstitutorReader.java`
-#### Snippet
-```java
-        final int minReadLenPrefix = prefixEscapeMatcher.size();
-        // READ enough to test for an [optionally escaped] variable start
-        int readCount = buffer(readCount(minReadLenPrefix, 0));
-        if (buffer.length() < minReadLenPrefix && targetLength < minReadLenPrefix) {
-            // read less than minReadLenPrefix, no variable possible
-```
-
-### RuleId[ruleID=UnusedAssignment]
-The value `readCount` assigned to `targetLength` is never used
-in `src/main/java/org/apache/commons/text/io/StringSubstitutorReader.java`
-#### Snippet
-```java
-                    if (readCount != EOS) {
-                        targetIndex += readCount;
-                        targetLength -= readCount;
-                    }
-                    final int actual = targetIndex - targetIndexIn;
-```
-
-### RuleId[ruleID=UnusedAssignment]
-The value `buffer(readCount(minReadLenSuffix, pos))` assigned to `readCount` is never used
-in `src/main/java/org/apache/commons/text/io/StringSubstitutorReader.java`
-#### Snippet
-```java
-        final StringMatcher suffixMatcher = stringSubstitutor.getVariableSuffixMatcher();
-        final int minReadLenSuffix = Math.max(minReadLenPrefix, suffixMatcher.size());
-        readCount = buffer(readCount(minReadLenSuffix, pos));
-        if (eos) {
-            // EOS
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `count` initializer `0` is redundant
-in `src/main/java/org/apache/commons/text/io/StringSubstitutorReader.java`
-#### Snippet
-```java
-    @Override
-    public int read() throws IOException {
-        int count = 0;
-        // ask until we get a char or EOS
-        do {
-```
-
 ### RuleId[ruleID=UnusedAssignment]
 Variable `dataAtLeft` initializer `0` is redundant
 in `src/main/java/org/apache/commons/text/similarity/LevenshteinDetailedDistance.java`
@@ -3239,6 +3191,54 @@ in `src/main/java/org/apache/commons/text/similarity/LevenshteinDetailedDistance
         boolean added = false;
 
         while (rowIndex >= 0 && columnIndex >= 0) {
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `count` initializer `0` is redundant
+in `src/main/java/org/apache/commons/text/io/StringSubstitutorReader.java`
+#### Snippet
+```java
+    @Override
+    public int read() throws IOException {
+        int count = 0;
+        // ask until we get a char or EOS
+        do {
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `readCount` initializer `buffer(readCount(minReadLenPrefix, 0))` is redundant
+in `src/main/java/org/apache/commons/text/io/StringSubstitutorReader.java`
+#### Snippet
+```java
+        final int minReadLenPrefix = prefixEscapeMatcher.size();
+        // READ enough to test for an [optionally escaped] variable start
+        int readCount = buffer(readCount(minReadLenPrefix, 0));
+        if (buffer.length() < minReadLenPrefix && targetLength < minReadLenPrefix) {
+            // read less than minReadLenPrefix, no variable possible
+```
+
+### RuleId[ruleID=UnusedAssignment]
+The value `readCount` assigned to `targetLength` is never used
+in `src/main/java/org/apache/commons/text/io/StringSubstitutorReader.java`
+#### Snippet
+```java
+                    if (readCount != EOS) {
+                        targetIndex += readCount;
+                        targetLength -= readCount;
+                    }
+                    final int actual = targetIndex - targetIndexIn;
+```
+
+### RuleId[ruleID=UnusedAssignment]
+The value `buffer(readCount(minReadLenSuffix, pos))` assigned to `readCount` is never used
+in `src/main/java/org/apache/commons/text/io/StringSubstitutorReader.java`
+#### Snippet
+```java
+        final StringMatcher suffixMatcher = stringSubstitutor.getVariableSuffixMatcher();
+        final int minReadLenSuffix = Math.max(minReadLenPrefix, suffixMatcher.size());
+        readCount = buffer(readCount(minReadLenSuffix, pos));
+        if (eos) {
+            // EOS
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -3327,18 +3327,6 @@ in `src/main/java/org/apache/commons/text/ExtendedMessageFormat.java`
 
 ## RuleId[ruleID=MethodOverridesStaticMethod]
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `below()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
-#### Snippet
-```java
-     * @return The newly created {@code UnicodeEscaper} instance
-     */
-    public static JavaUnicodeEscaper below(final int codePoint) {
-        return outsideOf(codePoint, Integer.MAX_VALUE);
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `outsideOf()` tries to override a static method of a superclass
 in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
 #### Snippet
@@ -3351,18 +3339,6 @@ in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
 ```
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `above()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
-#### Snippet
-```java
-     * @return The newly created {@code UnicodeEscaper} instance
-     */
-    public static JavaUnicodeEscaper above(final int codePoint) {
-        return outsideOf(0, codePoint);
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `between()` tries to override a static method of a superclass
 in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
 #### Snippet
@@ -3371,6 +3347,30 @@ in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
      */
     public static JavaUnicodeEscaper between(final int codePointLow, final int codePointHigh) {
         return new JavaUnicodeEscaper(codePointLow, codePointHigh, true);
+    }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `below()` tries to override a static method of a superclass
+in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
+#### Snippet
+```java
+     * @return The newly created {@code UnicodeEscaper} instance
+     */
+    public static JavaUnicodeEscaper below(final int codePoint) {
+        return outsideOf(codePoint, Integer.MAX_VALUE);
+    }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `above()` tries to override a static method of a superclass
+in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
+#### Snippet
+```java
+     * @return The newly created {@code UnicodeEscaper} instance
+     */
+    public static JavaUnicodeEscaper above(final int codePoint) {
+        return outsideOf(0, codePoint);
     }
 ```
 
