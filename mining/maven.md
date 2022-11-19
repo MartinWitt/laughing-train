@@ -127,6 +127,30 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/ArtifactStatus.java`
 
 ## RuleId[ruleID=CStyleArrayDeclaration]
 ### RuleId[ruleID=CStyleArrayDeclaration]
+C-style array declaration of parameter `x`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ThreadOutputMuxer.java`
+#### Snippet
+```java
+
+        @Override
+        public void println( char x[] )
+        {
+            final PrintStream currentStream = getOutputStreamForCurrentThread();
+```
+
+### RuleId[ruleID=CStyleArrayDeclaration]
+C-style array declaration of parameter `s`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ThreadOutputMuxer.java`
+#### Snippet
+```java
+
+        @Override
+        public void print( char s[] )
+        {
+            final PrintStream currentStream = getOutputStreamForCurrentThread();
+```
+
+### RuleId[ruleID=CStyleArrayDeclaration]
 C-style array declaration of parameter `b`
 in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ThreadOutputMuxer.java`
 #### Snippet
@@ -146,30 +170,6 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multith
 
         @Override
         public void write( byte b[], int off, int len )
-        {
-            final PrintStream currentStream = getOutputStreamForCurrentThread();
-```
-
-### RuleId[ruleID=CStyleArrayDeclaration]
-C-style array declaration of parameter `s`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ThreadOutputMuxer.java`
-#### Snippet
-```java
-
-        @Override
-        public void print( char s[] )
-        {
-            final PrintStream currentStream = getOutputStreamForCurrentThread();
-```
-
-### RuleId[ruleID=CStyleArrayDeclaration]
-C-style array declaration of parameter `x`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ThreadOutputMuxer.java`
-#### Snippet
-```java
-
-        @Override
-        public void println( char x[] )
         {
             final PrintStream currentStream = getOutputStreamForCurrentThread();
 ```
@@ -296,18 +296,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraph
 ```
 
 ### RuleId[ruleID=CommentedOutCode]
-Commented out code (12 lines)
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMetadata.java`
-#### Snippet
-```java
-    }
-    //------------------------------------------------------------------
-//    public void init( ArtifactMetadata af )
-//    {
-//        setGroupId( af.getGroupId() );
-```
-
-### RuleId[ruleID=CommentedOutCode]
 Commented out code (4 lines)
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMetadata.java`
 #### Snippet
@@ -317,6 +305,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMeta
         /*
         if ( af != null )
         {
+```
+
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (12 lines)
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMetadata.java`
+#### Snippet
+```java
+    }
+    //------------------------------------------------------------------
+//    public void init( ArtifactMetadata af )
+//    {
+//        setGroupId( af.getGroupId() );
 ```
 
 ## RuleId[ruleID=RegExpRedundantEscape]
@@ -474,6 +474,18 @@ in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.j
 #### Snippet
 ```java
                 break;
+            case REQUEST_GET:
+                break;
+            default :
+                throw new IllegalArgumentException( "Illegal request type: " + requestType );
+```
+
+### RuleId[ruleID=DuplicateBranchesInSwitch]
+Duplicate branch in 'switch'
+in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.java`
+#### Snippet
+```java
+                break;
             case TRANSFER_STARTED:
                 break;
             case TRANSFER_COMPLETED:
@@ -514,18 +526,6 @@ in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.j
                 break;
             default :
                 throw new IllegalArgumentException( "Illegal event type: " + eventType );
-```
-
-### RuleId[ruleID=DuplicateBranchesInSwitch]
-Duplicate branch in 'switch'
-in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.java`
-#### Snippet
-```java
-                break;
-            case REQUEST_GET:
-                break;
-            default :
-                throw new IllegalArgumentException( "Illegal request type: " + requestType );
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -602,18 +602,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuild
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`pathAdjustment.length() == 0` can be replaced with 'pathAdjustment.isEmpty()'
-in `maven-model-builder/src/main/java/org/apache/maven/model/inheritance/DefaultInheritanceAssembler.java`
-#### Snippet
-```java
-        {
-            StringBuilder url = new StringBuilder( parentUrl.length() + pathAdjustment.length() + childPath.length()
-                + ( ( pathAdjustment.length() == 0 ) ? 1 : 2 ) );
-
-            url.append( parentUrl );
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `path.length() > 0` can be replaced with '!path.isEmpty()'
 in `maven-model-builder/src/main/java/org/apache/maven/model/inheritance/DefaultInheritanceAssembler.java`
 #### Snippet
@@ -626,6 +614,18 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/inheritance/Default
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`pathAdjustment.length() == 0` can be replaced with 'pathAdjustment.isEmpty()'
+in `maven-model-builder/src/main/java/org/apache/maven/model/inheritance/DefaultInheritanceAssembler.java`
+#### Snippet
+```java
+        {
+            StringBuilder url = new StringBuilder( parentUrl.length() + pathAdjustment.length() + childPath.length()
+                + ( ( pathAdjustment.length() == 0 ) ? 1 : 2 ) );
+
+            url.append( parentUrl );
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `string.length() > 0` can be replaced with '!string.isEmpty()'
 in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
 #### Snippet
@@ -635,342 +635,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultM
         if ( string.length() > 0 )
         {
             return true;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`getClassifier().length() > 0` can be replaced with '!getClassifier().isEmpty()'
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java`
-#### Snippet
-```java
-                + ':' + getArtifactId()
-                + ':' + getExtension()
-                + ( getClassifier().length() > 0 ? ":" + getClassifier() : "" )
-                + ':' + getVersion();
-    }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`xmlWriter.getExceptions().size() > 0` can be replaced with '!xmlWriter.getExceptions().isEmpty()'
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
-#### Snippet
-```java
-        SerializerXMLWriter xmlWriter = new SerializerXMLWriter( namespace, serializer );
-        Xpp3DomWriter.write( xmlWriter, this );
-        if ( xmlWriter.getExceptions().size() > 0 )
-        {
-            throw (IOException) xmlWriter.getExceptions().get( 0 );
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`recessive.getChildren().size() > 0` can be replaced with '!recessive.getChildren().isEmpty()'
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
-#### Snippet
-```java
-            }
-
-            if ( recessive.getChildren().size() > 0 )
-            {
-                boolean mergeChildren = true;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`dominantChildren.size() > 0` can be replaced with '!dominantChildren.isEmpty()'
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
-#### Snippet
-```java
-                                .filter( n -> n.getName().equals( name ) )
-                                .collect( Collectors.toList() );
-                        if ( dominantChildren.size() > 0 )
-                        {
-                            commonChildren.put( name, dominantChildren.iterator() );
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`str.trim().length() == 0` can be replaced with 'str.trim().isEmpty()'
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
-#### Snippet
-```java
-    public static boolean isEmpty( String str )
-    {
-        return ( ( str == null ) || ( str.trim().length() == 0 ) );
-    }
-
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`str.length() > 0` can be replaced with '!str.isEmpty()'
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
-#### Snippet
-```java
-    public static boolean isNotEmpty( String str )
-    {
-        return ( ( str != null ) && ( str.length() > 0 ) );
-    }
-
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`xmlWriter.getExceptions().size() > 0` can be replaced with '!xmlWriter.getExceptions().isEmpty()'
-in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
-#### Snippet
-```java
-        SerializerXMLWriter xmlWriter = new SerializerXMLWriter( namespace, serializer );
-        Xpp3DomWriter.write( xmlWriter, this );
-        if ( xmlWriter.getExceptions().size() > 0 )
-        {
-            throw (IOException) xmlWriter.getExceptions().get( 0 );
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`str.trim().length() == 0` can be replaced with 'str.trim().isEmpty()'
-in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
-#### Snippet
-```java
-    public static boolean isEmpty( String str )
-    {
-        return ( ( str == null ) || ( str.trim().length() == 0 ) );
-    }
-
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`str.length() > 0` can be replaced with '!str.isEmpty()'
-in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
-#### Snippet
-```java
-    public static boolean isNotEmpty( String str )
-    {
-        return ( ( str != null ) && ( str.length() > 0 ) );
-    }
-
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`pomArtifact.getClassifier().length() > 0` can be replaced with '!pomArtifact.getClassifier().isEmpty()'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
-#### Snippet
-```java
-        Artifact pomArtifact = artifact;
-
-        if ( pomArtifact.getClassifier().length() > 0 || !"pom".equals( pomArtifact.getExtension() ) )
-        {
-            pomArtifact =
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`groupId.length() > 0` can be replaced with '!groupId.isEmpty()'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
-#### Snippet
-```java
-        this.artifact = Objects.requireNonNull( artifact, "artifact cannot be null" );
-        // TODO Use StringUtils here
-        this.groupId = ( groupId != null && groupId.length() > 0 ) ? groupId : null;
-        this.artifactId = ( artifactId != null && artifactId.length() > 0 ) ? artifactId : null;
-        this.version = ( version != null && version.length() > 0 ) ? version : null;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`artifactId.length() > 0` can be replaced with '!artifactId.isEmpty()'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
-#### Snippet
-```java
-        // TODO Use StringUtils here
-        this.groupId = ( groupId != null && groupId.length() > 0 ) ? groupId : null;
-        this.artifactId = ( artifactId != null && artifactId.length() > 0 ) ? artifactId : null;
-        this.version = ( version != null && version.length() > 0 ) ? version : null;
-        this.message = ( message != null && message.length() > 0 ) ? message : null;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`version.length() > 0` can be replaced with '!version.isEmpty()'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
-#### Snippet
-```java
-        this.groupId = ( groupId != null && groupId.length() > 0 ) ? groupId : null;
-        this.artifactId = ( artifactId != null && artifactId.length() > 0 ) ? artifactId : null;
-        this.version = ( version != null && version.length() > 0 ) ? version : null;
-        this.message = ( message != null && message.length() > 0 ) ? message : null;
-    }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`message.length() > 0` can be replaced with '!message.isEmpty()'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
-#### Snippet
-```java
-        this.artifactId = ( artifactId != null && artifactId.length() > 0 ) ? artifactId : null;
-        this.version = ( version != null && version.length() > 0 ) ? version : null;
-        this.message = ( message != null && message.length() > 0 ) ? message : null;
-    }
-
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`downloadUrl.length() > 0` can be replaced with '!downloadUrl.isEmpty()'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorReaderDelegate.java`
-#### Snippet
-```java
-            downloadUrl = distMgmt.getDownloadUrl();
-        }
-        if ( downloadUrl != null && downloadUrl.length() > 0 )
-        {
-            Artifact artifact = result.getArtifact();
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`text.length() == 0` can be replaced with 'text.isEmpty()'
-in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.java`
-#### Snippet
-```java
-
-        // last chance => attempt to create an instance of the expected type: use the string if non-empty
-        return text.length() == 0 ? newImplementation( rawType ) : newImplementation( rawType, text );
-    }
-}
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`message.length() > 0` can be replaced with '!message.isEmpty()'
-in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblem.java`
-#### Snippet
-```java
-        String msg;
-
-        if ( message != null && message.length() > 0 )
-        {
-            msg = message;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`getSource().length() > 0` can be replaced with '!getSource().isEmpty()'
-in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblem.java`
-#### Snippet
-```java
-        StringBuilder buffer = new StringBuilder( 256 );
-
-        if ( getSource().length() > 0 )
-        {
-            if ( buffer.length() > 0 )
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`getExecuteGoal().length() > 0` can be replaced with '!getExecuteGoal().isEmpty()'
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-    public boolean isForking()
-    {
-        return ( getExecuteGoal() != null && getExecuteGoal().length() > 0 )
-            || ( getExecutePhase() != null && getExecutePhase().length() > 0 );
-    }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`getExecutePhase().length() > 0` can be replaced with '!getExecutePhase().isEmpty()'
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-    {
-        return ( getExecuteGoal() != null && getExecuteGoal().length() > 0 )
-            || ( getExecutePhase() != null && getExecutePhase().length() > 0 );
-    }
-
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`str.length() > 0` can be replaced with '!str.isEmpty()'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
-#### Snippet
-```java
-    private static void notBlank( String str, String message )
-    {
-        int c = str != null && str.length() > 0 ? str.charAt( 0 ) : 0;
-        if ( ( c < '0' || c > '9' ) && ( c < 'a' || c > 'z' ) )
-        {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`restrictions.size() == 0` can be replaced with 'restrictions.isEmpty()'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-        else
-        {
-            if ( restrictions.size() == 0 )
-            {
-                throw new OverConstrainedVersionException( "The artifact has no valid ranges", artifact );
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`restrictions.size() > 0` can be replaced with '!restrictions.isEmpty()'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-
-        ArtifactVersion version = null;
-        if ( restrictions.size() > 0 )
-        {
-            for ( Restriction r : restrictions )
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`lowerBound.length() > 0` can be replaced with '!lowerBound.isEmpty()'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-
-            ArtifactVersion lowerVersion = null;
-            if ( lowerBound.length() > 0 )
-            {
-                lowerVersion = new DefaultArtifactVersion( lowerBound );
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`upperBound.length() > 0` can be replaced with '!upperBound.isEmpty()'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-            }
-            ArtifactVersion upperVersion = null;
-            if ( upperBound.length() > 0 )
-            {
-                upperVersion = new DefaultArtifactVersion( upperBound );
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`process.length() > 0` can be replaced with '!process.isEmpty()'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-        }
-
-        if ( process.length() > 0 )
-        {
-            if ( restrictions.size() > 0 )
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`restrictions.size() > 0` can be replaced with '!restrictions.isEmpty()'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-        if ( process.length() > 0 )
-        {
-            if ( restrictions.size() > 0 )
-            {
-                throw new InvalidVersionSpecificationException(
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`restrictions.size() == 0` can be replaced with 'restrictions.isEmpty()'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-        else
-        {
-            if ( restrictions.size() == 0 )
-            {
-                throw new OverConstrainedVersionException( "The artifact has no valid ranges", artifact );
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -998,18 +662,6 @@ in `maven-core/src/main/java/org/apache/maven/project/ExtensionDescriptorBuilder
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`path.length() != 0` can be replaced with '!path.isEmpty()'
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-        {
-            path = path.trim();
-            if ( path.length() != 0 )
-            {
-                if ( !getScriptSourceRoots().contains( path ) )
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `path.length() > 0` can be replaced with '!path.isEmpty()'
 in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
@@ -1019,6 +671,18 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
             if ( path.length() > 0 )
             {
                 File file = new File( path );
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`path.length() != 0` can be replaced with '!path.isEmpty()'
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+        {
+            path = path.trim();
+            if ( path.length() != 0 )
+            {
+                if ( !getScriptSourceRoots().contains( path ) )
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1058,18 +722,6 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifact.java
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`getClassifier().length() > 0` can be replaced with '!getClassifier().isEmpty()'
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependency.java`
-#### Snippet
-```java
-                + ':' + getArtifactId()
-                + ':' + getExtension()
-                + ( getClassifier().length() > 0 ? ":" + getClassifier() : "" )
-                + ':' + getVersion();
-    }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `getSource().length() > 0` can be replaced with '!getSource().isEmpty()'
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultProjectBuilder.java`
 #### Snippet
@@ -1079,6 +731,18 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultProjectBuilde
                             if ( getSource().length() > 0 )
                             {
                                 if ( buffer.length() > 0 )
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`getClassifier().length() > 0` can be replaced with '!getClassifier().isEmpty()'
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependency.java`
+#### Snippet
+```java
+                + ':' + getArtifactId()
+                + ':' + getExtension()
+                + ( getClassifier().length() > 0 ? ":" + getClassifier() : "" )
+                + ':' + getVersion();
+    }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1103,54 +767,6 @@ in `maven-core/src/main/java/org/apache/maven/configuration/internal/EnhancedCon
                 if ( null != value && value.length() > 0 )
                 {
                     if ( evaluator instanceof TypeAwareExpressionEvaluator )
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`message.length() > 0` can be replaced with '!message.isEmpty()'
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblem.java`
-#### Snippet
-```java
-        String msg;
-
-        if ( message != null && message.length() > 0 )
-        {
-            msg = message;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`getSource().length() > 0` can be replaced with '!getSource().isEmpty()'
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblem.java`
-#### Snippet
-```java
-        StringBuilder buffer = new StringBuilder( 256 );
-
-        if ( getSource().length() > 0 )
-        {
-            if ( buffer.length() > 0 )
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`localRepository.length() > 0` can be replaced with '!localRepository.isEmpty()'
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
-#### Snippet
-```java
-        // for the special case of a drive-relative Windows path, make sure it's absolute to save plugins from trouble
-        String localRepository = userSettings.getLocalRepository();
-        if ( localRepository != null && localRepository.length() > 0 )
-        {
-            File file = new File( localRepository );
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`string.length() > 0` can be replaced with '!string.isEmpty()'
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/validation/DefaultSettingsValidator.java`
-#### Snippet
-```java
-        }
-
-        if ( string.length() > 0 )
-        {
-            return true;
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1213,6 +829,390 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraph
             for ( MetadataGraphEdge e : graph.getExcidentEdges( from ) )
 ```
 
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`message.length() > 0` can be replaced with '!message.isEmpty()'
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblem.java`
+#### Snippet
+```java
+        String msg;
+
+        if ( message != null && message.length() > 0 )
+        {
+            msg = message;
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`getSource().length() > 0` can be replaced with '!getSource().isEmpty()'
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblem.java`
+#### Snippet
+```java
+        StringBuilder buffer = new StringBuilder( 256 );
+
+        if ( getSource().length() > 0 )
+        {
+            if ( buffer.length() > 0 )
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`localRepository.length() > 0` can be replaced with '!localRepository.isEmpty()'
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
+#### Snippet
+```java
+        // for the special case of a drive-relative Windows path, make sure it's absolute to save plugins from trouble
+        String localRepository = userSettings.getLocalRepository();
+        if ( localRepository != null && localRepository.length() > 0 )
+        {
+            File file = new File( localRepository );
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`string.length() > 0` can be replaced with '!string.isEmpty()'
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/validation/DefaultSettingsValidator.java`
+#### Snippet
+```java
+        }
+
+        if ( string.length() > 0 )
+        {
+            return true;
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`message.length() > 0` can be replaced with '!message.isEmpty()'
+in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblem.java`
+#### Snippet
+```java
+        String msg;
+
+        if ( message != null && message.length() > 0 )
+        {
+            msg = message;
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`getSource().length() > 0` can be replaced with '!getSource().isEmpty()'
+in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblem.java`
+#### Snippet
+```java
+        StringBuilder buffer = new StringBuilder( 256 );
+
+        if ( getSource().length() > 0 )
+        {
+            if ( buffer.length() > 0 )
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`getExecuteGoal().length() > 0` can be replaced with '!getExecuteGoal().isEmpty()'
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+    public boolean isForking()
+    {
+        return ( getExecuteGoal() != null && getExecuteGoal().length() > 0 )
+            || ( getExecutePhase() != null && getExecutePhase().length() > 0 );
+    }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`getExecutePhase().length() > 0` can be replaced with '!getExecutePhase().isEmpty()'
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+    {
+        return ( getExecuteGoal() != null && getExecuteGoal().length() > 0 )
+            || ( getExecutePhase() != null && getExecutePhase().length() > 0 );
+    }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`getClassifier().length() > 0` can be replaced with '!getClassifier().isEmpty()'
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java`
+#### Snippet
+```java
+                + ':' + getArtifactId()
+                + ':' + getExtension()
+                + ( getClassifier().length() > 0 ? ":" + getClassifier() : "" )
+                + ':' + getVersion();
+    }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`downloadUrl.length() > 0` can be replaced with '!downloadUrl.isEmpty()'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorReaderDelegate.java`
+#### Snippet
+```java
+            downloadUrl = distMgmt.getDownloadUrl();
+        }
+        if ( downloadUrl != null && downloadUrl.length() > 0 )
+        {
+            Artifact artifact = result.getArtifact();
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`pomArtifact.getClassifier().length() > 0` can be replaced with '!pomArtifact.getClassifier().isEmpty()'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
+#### Snippet
+```java
+        Artifact pomArtifact = artifact;
+
+        if ( pomArtifact.getClassifier().length() > 0 || !"pom".equals( pomArtifact.getExtension() ) )
+        {
+            pomArtifact =
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`str.length() > 0` can be replaced with '!str.isEmpty()'
+in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
+#### Snippet
+```java
+    public static boolean isNotEmpty( String str )
+    {
+        return ( ( str != null ) && ( str.length() > 0 ) );
+    }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`xmlWriter.getExceptions().size() > 0` can be replaced with '!xmlWriter.getExceptions().isEmpty()'
+in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
+#### Snippet
+```java
+        SerializerXMLWriter xmlWriter = new SerializerXMLWriter( namespace, serializer );
+        Xpp3DomWriter.write( xmlWriter, this );
+        if ( xmlWriter.getExceptions().size() > 0 )
+        {
+            throw (IOException) xmlWriter.getExceptions().get( 0 );
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`str.trim().length() == 0` can be replaced with 'str.trim().isEmpty()'
+in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
+#### Snippet
+```java
+    public static boolean isEmpty( String str )
+    {
+        return ( ( str == null ) || ( str.trim().length() == 0 ) );
+    }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`str.length() > 0` can be replaced with '!str.isEmpty()'
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+#### Snippet
+```java
+    public static boolean isNotEmpty( String str )
+    {
+        return ( ( str != null ) && ( str.length() > 0 ) );
+    }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`xmlWriter.getExceptions().size() > 0` can be replaced with '!xmlWriter.getExceptions().isEmpty()'
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+#### Snippet
+```java
+        SerializerXMLWriter xmlWriter = new SerializerXMLWriter( namespace, serializer );
+        Xpp3DomWriter.write( xmlWriter, this );
+        if ( xmlWriter.getExceptions().size() > 0 )
+        {
+            throw (IOException) xmlWriter.getExceptions().get( 0 );
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`str.trim().length() == 0` can be replaced with 'str.trim().isEmpty()'
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+#### Snippet
+```java
+    public static boolean isEmpty( String str )
+    {
+        return ( ( str == null ) || ( str.trim().length() == 0 ) );
+    }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`recessive.getChildren().size() > 0` can be replaced with '!recessive.getChildren().isEmpty()'
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+#### Snippet
+```java
+            }
+
+            if ( recessive.getChildren().size() > 0 )
+            {
+                boolean mergeChildren = true;
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`dominantChildren.size() > 0` can be replaced with '!dominantChildren.isEmpty()'
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+#### Snippet
+```java
+                                .filter( n -> n.getName().equals( name ) )
+                                .collect( Collectors.toList() );
+                        if ( dominantChildren.size() > 0 )
+                        {
+                            commonChildren.put( name, dominantChildren.iterator() );
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`groupId.length() > 0` can be replaced with '!groupId.isEmpty()'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+#### Snippet
+```java
+        this.artifact = Objects.requireNonNull( artifact, "artifact cannot be null" );
+        // TODO Use StringUtils here
+        this.groupId = ( groupId != null && groupId.length() > 0 ) ? groupId : null;
+        this.artifactId = ( artifactId != null && artifactId.length() > 0 ) ? artifactId : null;
+        this.version = ( version != null && version.length() > 0 ) ? version : null;
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`artifactId.length() > 0` can be replaced with '!artifactId.isEmpty()'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+#### Snippet
+```java
+        // TODO Use StringUtils here
+        this.groupId = ( groupId != null && groupId.length() > 0 ) ? groupId : null;
+        this.artifactId = ( artifactId != null && artifactId.length() > 0 ) ? artifactId : null;
+        this.version = ( version != null && version.length() > 0 ) ? version : null;
+        this.message = ( message != null && message.length() > 0 ) ? message : null;
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`version.length() > 0` can be replaced with '!version.isEmpty()'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+#### Snippet
+```java
+        this.groupId = ( groupId != null && groupId.length() > 0 ) ? groupId : null;
+        this.artifactId = ( artifactId != null && artifactId.length() > 0 ) ? artifactId : null;
+        this.version = ( version != null && version.length() > 0 ) ? version : null;
+        this.message = ( message != null && message.length() > 0 ) ? message : null;
+    }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`message.length() > 0` can be replaced with '!message.isEmpty()'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+#### Snippet
+```java
+        this.artifactId = ( artifactId != null && artifactId.length() > 0 ) ? artifactId : null;
+        this.version = ( version != null && version.length() > 0 ) ? version : null;
+        this.message = ( message != null && message.length() > 0 ) ? message : null;
+    }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`str.length() > 0` can be replaced with '!str.isEmpty()'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
+#### Snippet
+```java
+    private static void notBlank( String str, String message )
+    {
+        int c = str != null && str.length() > 0 ? str.charAt( 0 ) : 0;
+        if ( ( c < '0' || c > '9' ) && ( c < 'a' || c > 'z' ) )
+        {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`text.length() == 0` can be replaced with 'text.isEmpty()'
+in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.java`
+#### Snippet
+```java
+
+        // last chance => attempt to create an instance of the expected type: use the string if non-empty
+        return text.length() == 0 ? newImplementation( rawType ) : newImplementation( rawType, text );
+    }
+}
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`restrictions.size() == 0` can be replaced with 'restrictions.isEmpty()'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+        else
+        {
+            if ( restrictions.size() == 0 )
+            {
+                throw new OverConstrainedVersionException( "The artifact has no valid ranges", artifact );
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`restrictions.size() > 0` can be replaced with '!restrictions.isEmpty()'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+
+        ArtifactVersion version = null;
+        if ( restrictions.size() > 0 )
+        {
+            for ( Restriction r : restrictions )
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`process.length() > 0` can be replaced with '!process.isEmpty()'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+        }
+
+        if ( process.length() > 0 )
+        {
+            if ( restrictions.size() > 0 )
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`restrictions.size() > 0` can be replaced with '!restrictions.isEmpty()'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+        if ( process.length() > 0 )
+        {
+            if ( restrictions.size() > 0 )
+            {
+                throw new InvalidVersionSpecificationException(
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`lowerBound.length() > 0` can be replaced with '!lowerBound.isEmpty()'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+
+            ArtifactVersion lowerVersion = null;
+            if ( lowerBound.length() > 0 )
+            {
+                lowerVersion = new DefaultArtifactVersion( lowerBound );
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`upperBound.length() > 0` can be replaced with '!upperBound.isEmpty()'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+            }
+            ArtifactVersion upperVersion = null;
+            if ( upperBound.length() > 0 )
+            {
+                upperVersion = new DefaultArtifactVersion( upperBound );
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`restrictions.size() == 0` can be replaced with 'restrictions.isEmpty()'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+        else
+        {
+            if ( restrictions.size() == 0 )
+            {
+                throw new OverConstrainedVersionException( "The artifact has no valid ranges", artifact );
+```
+
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### RuleId[ruleID=StringBufferReplaceableByString]
 `StringBuilder buffer` can be replaced with 'String'
@@ -1224,54 +1224,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelProbl
         StringBuilder buffer = new StringBuilder( 128 );
 
         buffer.append( ( groupId != null && groupId.length() > 0 ) ? groupId : "[unknown-group-id]" );
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder version` can be replaced with 'String'
-in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
-#### Snippet
-```java
-        final String ls = System.lineSeparator();
-        Properties properties = getBuildProperties();
-        StringBuilder version = new StringBuilder( 256 );
-        version.append( buffer().strong( createMavenVersionString( properties ) ) ).append( ls );
-        version.append( reduce(
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder message` can be replaced with 'String'
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/Slf4jMavenTransferListener.java`
-#### Snippet
-```java
-
-        TransferResource resource = event.getResource();
-        StringBuilder message = new StringBuilder();
-        message.append( action ).append( ' ' ).append( direction ).append( ' ' ).append( resource.getRepositoryId() );
-        message.append( ": " );
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder message` can be replaced with 'String'
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
-#### Snippet
-```java
-
-        TransferResource resource = event.getResource();
-        StringBuilder message = new StringBuilder();
-        message.append( action ).append( ' ' ).append( direction ).append( ' ' ).append( resource.getRepositoryId() );
-        message.append( ": " );
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder buffer` can be replaced with 'String'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java`
-#### Snippet
-```java
-    public String toString()
-    {
-        StringBuilder buffer = new StringBuilder( 64 );
-        buffer.append( "{enabled=" );
-        buffer.append( enabled );
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -1368,6 +1320,54 @@ in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionReq
         StringBuilder sb = new StringBuilder()
                 .append( "REQUEST: " ).append(  "\n" )
                 .append( "artifact: " ).append( mad ).append(  "\n" )
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder version` can be replaced with 'String'
+in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
+#### Snippet
+```java
+        final String ls = System.lineSeparator();
+        Properties properties = getBuildProperties();
+        StringBuilder version = new StringBuilder( 256 );
+        version.append( buffer().strong( createMavenVersionString( properties ) ) ).append( ls );
+        version.append( reduce(
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder message` can be replaced with 'String'
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/Slf4jMavenTransferListener.java`
+#### Snippet
+```java
+
+        TransferResource resource = event.getResource();
+        StringBuilder message = new StringBuilder();
+        message.append( action ).append( ' ' ).append( direction ).append( ' ' ).append( resource.getRepositoryId() );
+        message.append( ": " );
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder message` can be replaced with 'String'
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
+#### Snippet
+```java
+
+        TransferResource resource = event.getResource();
+        StringBuilder message = new StringBuilder();
+        message.append( action ).append( ' ' ).append( direction ).append( ' ' ).append( resource.getRepositoryId() );
+        message.append( ": " );
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder buffer` can be replaced with 'String'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java`
+#### Snippet
+```java
+    public String toString()
+    {
+        StringBuilder buffer = new StringBuilder( 64 );
+        buffer.append( "{enabled=" );
+        buffer.append( enabled );
 ```
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
@@ -1471,14 +1471,14 @@ in `maven-core/src/main/java/org/apache/maven/toolchain/DefaultToolchainManager.
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `BaseObject` has no concrete subclass
-in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
+Abstract class `AbstractEventSpy` has no concrete subclass
+in `maven-core/src/main/java/org/apache/maven/eventspy/AbstractEventSpy.java`
 #### Snippet
 ```java
-import java.io.Serializable;
-
-public abstract class BaseObject
-        implements Serializable, Cloneable, InputLocationTracker
+ * @since 3.0.2
+ */
+public abstract class AbstractEventSpy
+    implements EventSpy
 {
 ```
 
@@ -1495,14 +1495,14 @@ public abstract class AbstractMojo
 ```
 
 ### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `AbstractEventSpy` has no concrete subclass
-in `maven-core/src/main/java/org/apache/maven/eventspy/AbstractEventSpy.java`
+Abstract class `BaseObject` has no concrete subclass
+in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
 #### Snippet
 ```java
- * @since 3.0.2
- */
-public abstract class AbstractEventSpy
-    implements EventSpy
+import java.io.Serializable;
+
+public abstract class BaseObject
+        implements Serializable, Cloneable, InputLocationTracker
 {
 ```
 
@@ -1736,582 +1736,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/inheritance/Default
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Map`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-    final Consumer<Properties> setter;
-
-    WrapperProperties( Supplier<Map<String, String>> getter, Consumer<Properties> setter )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Properties`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-    final Consumer<Properties> setter;
-
-    WrapperProperties( Supplier<Map<String, String>> getter, Consumer<Properties> setter )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/BaseRequest.java`
-#### Snippet
-```java
-    }
-
-    protected static <T> Collection<T> unmodifiable( Collection<T> obj )
-    {
-        return obj != null && !obj.isEmpty()
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Exclusion`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/DependencyCoordinateFactoryRequest.java`
-#### Snippet
-```java
-        }
-
-        public DependencyCoordinateFactoryRequestBuilder exclusions( Collection<Exclusion> exclusions )
-        {
-            if ( exclusions != null )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                 Function<U, T> mapper, Function<T, U> revMapper )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super List`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                 Function<U, T> mapper, Function<T, U> revMapper )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super U`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                 Function<U, T> mapper, Function<T, U> revMapper )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                 Function<U, T> mapper, Function<T, U> revMapper )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                 Function<U, T> mapper, Function<T, U> revMapper )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends U`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                 Function<U, T> mapper, Function<T, U> revMapper )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
-#### Snippet
-```java
-    }
-
-    private void merge( String key, Map<String, VersionInfo> infos, String timestamp, String version,
-                        ArtifactRepository repository )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends VersionInfo`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
-#### Snippet
-```java
-    }
-
-    private boolean resolve( VersionResult result, Map<String, VersionInfo> infos, String key )
-    {
-        VersionInfo info = infos.get( key );
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
-#### Snippet
-```java
-    }
-
-    private void merge( Map<String, VersionInfo> infos, String srcKey, String dstKey )
-    {
-        VersionInfo srcInfo = infos.get( srcKey );
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Problem`
-in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
-#### Snippet
-```java
-    }
-
-    private boolean hasErrors( List<Problem> problems )
-    {
-        if ( problems != null )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Problem`
-in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/ToolchainsBuildingException.java`
-#### Snippet
-```java
-    }
-
-    private static String toMessage( List<Problem> problems )
-    {
-        StringWriter buffer = new StringWriter( 1024 );
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Map`
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-    final Consumer<Properties> setter;
-
-    WrapperProperties( Supplier<Map<String, String>> getter, Consumer<Properties> setter )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Properties`
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-    final Consumer<Properties> setter;
-
-    WrapperProperties( Supplier<Map<String, String>> getter, Consumer<Properties> setter )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Map`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-    final Consumer<Properties> setter;
-
-    WrapperProperties( Supplier<Map<String, String>> getter, Consumer<Properties> setter )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Properties`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-    final Consumer<Properties> setter;
-
-    WrapperProperties( Supplier<Map<String, String>> getter, Consumer<Properties> setter )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                 Function<U, T> mapper, Function<T, U> revMapper )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super List`
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                 Function<U, T> mapper, Function<T, U> revMapper )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super U`
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
-#### Snippet
-```java
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                 Function<U, T> mapper, Function<T, U> revMapper )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
-#### Snippet
-```java
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                 Function<U, T> mapper, Function<T, U> revMapper )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
-#### Snippet
-```java
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                 Function<U, T> mapper, Function<T, U> revMapper )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends U`
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
-#### Snippet
-```java
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                 Function<U, T> mapper, Function<T, U> revMapper )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Parameter`
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-     * @throws DuplicateParameterException if any
-     */
-    public void setParameters( List<Parameter> parameters )
-        throws DuplicateParameterException
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MojoDescriptor`
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
-#### Snippet
-```java
-    }
-
-    public void addMojos( List<MojoDescriptor> mojos )
-        throws DuplicateMojoDescriptorException
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                        Function<U, T> mapper, Function<T, U> revMapper )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super List`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                        Function<U, T> mapper, Function<T, U> revMapper )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super U`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                        Function<U, T> mapper, Function<T, U> revMapper )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                        Function<U, T> mapper, Function<T, U> revMapper )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                        Function<U, T> mapper, Function<T, U> revMapper )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends U`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-
-    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
-                        Function<U, T> mapper, Function<T, U> revMapper )
-    {
-        this.getter = getter;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
-#### Snippet
-```java
-    }
-
-    private static <T> List<T> copyList( List<T> original )
-    {
-        List<T> copy = null;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Artifact`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
-#### Snippet
-```java
-    }
-
-    public static Map<String, Artifact> artifactMapByVersionlessId( Collection<Artifact> artifacts )
-    {
-        Map<String, Artifact> artifactMap = new LinkedHashMap<>();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Artifact`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
-#### Snippet
-```java
-     * @return <code>to</code> collection
-     */
-    public static <T extends Collection<Artifact>> T copyArtifacts( Collection<Artifact> from, T to )
-    {
-        for ( Artifact artifact : from )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Boolean`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-    private void disableOnPresentOption( final CommandLine commandLine,
-                                         final String option,
-                                         final Consumer<Boolean> setting )
-    {
-        if ( commandLine.hasOption( option ) )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-    }
-
-    private void logSummary( ExceptionSummary summary, Map<String, String> references, String indent,
-                             boolean showErrors )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Boolean`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-    private void enableOnPresentOption( final CommandLine commandLine,
-                                        final String option,
-                                        final Consumer<Boolean> setting )
-    {
-        if ( commandLine.hasOption( option ) )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-    }
-
-    private static <T> List<T> reverse( List<T> list )
-    {
-        List<T> copy = new ArrayList<>( list );
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Boolean`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-    private void enableOnAbsentOption( final CommandLine commandLine,
-                                       final char option,
-                                       final Consumer<Boolean> setting )
-    {
-        if ( !commandLine.hasOption( option ) )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends File`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-    }
-
-    private ClassRealm setupContainerRealm( ClassWorld classWorld, ClassRealm coreRealm, List<File> extClassPath,
-                                            List<CoreExtensionEntry> extensions )
-        throws Exception
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends CoreExtensionEntry`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-    private ClassRealm setupContainerRealm( ClassWorld classWorld, ClassRealm coreRealm, List<File> extClassPath,
-                                            List<CoreExtensionEntry> extensions )
-        throws Exception
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MavenProject`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-     * and {@code groupId:artifactId} when there is a name clash).
-     */
-    String getResumeFromSelector( List<MavenProject> mavenProjects, MavenProject firstFailedProject )
-    {
-        boolean hasOverlappingArtifactId = mavenProjects.stream()
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactVersion`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactVersion matchVersion( List<ArtifactVersion> versions )
-    {
-        // TODO could be more efficient by sorting the list and then moving along the restrictions in order?
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Artifact`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/MultipleArtifactsNotFoundException.java`
-#### Snippet
-```java
-    }
-
-    private static String constructMessage( List<Artifact> artifacts )
-    {
-        StringBuilder buffer = new StringBuilder( 256 );
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MavenProject`
-in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
-#### Snippet
-```java
-    }
-
-    protected <T> Collection<T> getProjectScopedExtensionComponents( Collection<MavenProject> projects, Class<T> role )
-    {
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
-#### Snippet
-```java
-    }
-
-    protected <T> Collection<T> getProjectScopedExtensionComponents( Collection<MavenProject> projects, Class<T> role )
-    {
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends MavenProject`
 in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
 #### Snippet
@@ -2324,6 +1748,30 @@ in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MavenProject`
+in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
+#### Snippet
+```java
+    }
+
+    protected <T> Collection<T> getProjectScopedExtensionComponents( Collection<MavenProject> projects, Class<T> role )
+    {
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
+#### Snippet
+```java
+    }
+
+    protected <T> Collection<T> getProjectScopedExtensionComponents( Collection<MavenProject> projects, Class<T> role )
+    {
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
 #### Snippet
@@ -2333,6 +1781,54 @@ in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
     private <T> Collection<T> getExtensionComponents( Collection<MavenProject> projects, Class<T> role )
     {
         Collection<T> foundComponents = new LinkedHashSet<>();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ArtifactRepository`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+#### Snippet
+```java
+    }
+
+    public static List<RemoteRepository> toRepos( List<ArtifactRepository> repos )
+    {
+        return Optional.ofNullable( repos )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends org.apache.maven.artifact.Artifact`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+#### Snippet
+```java
+    }
+
+    public static Collection<Artifact> toArtifacts( Collection<org.apache.maven.artifact.Artifact> artifactsToConvert )
+    {
+        return artifactsToConvert.stream().map( RepositoryUtils::toArtifact ).collect( Collectors.toList() );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super org.apache.maven.artifact.Artifact`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+#### Snippet
+```java
+    }
+
+    public static void toArtifacts( Collection<org.apache.maven.artifact.Artifact> artifacts,
+                                    Collection<? extends DependencyNode> nodes, List<String> trail,
+                                    DependencyFilter filter )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MojoExecutionListener`
+in `maven-core/src/main/java/org/apache/maven/plugin/CompoundMojoExecutionListener.java`
+#### Snippet
+```java
+    private final Collection<MojoExecutionListener> listeners;
+
+    CompoundMojoExecutionListener( Collection<MojoExecutionListener> listeners )
+    {
+        this.listeners = listeners; // NB this is live injected collection
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2372,54 +1868,6 @@ in `maven-core/src/main/java/org/apache/maven/graph/DefaultGraphBuilder.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MojoExecutionListener`
-in `maven-core/src/main/java/org/apache/maven/plugin/CompoundMojoExecutionListener.java`
-#### Snippet
-```java
-    private final Collection<MojoExecutionListener> listeners;
-
-    CompoundMojoExecutionListener( Collection<MojoExecutionListener> listeners )
-    {
-        this.listeners = listeners; // NB this is live injected collection
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactRepository`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
-#### Snippet
-```java
-    }
-
-    public static List<RemoteRepository> toRepos( List<ArtifactRepository> repos )
-    {
-        return Optional.ofNullable( repos )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super org.apache.maven.artifact.Artifact`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
-#### Snippet
-```java
-    }
-
-    public static void toArtifacts( Collection<org.apache.maven.artifact.Artifact> artifacts,
-                                    Collection<? extends DependencyNode> nodes, List<String> trail,
-                                    DependencyFilter filter )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends org.apache.maven.artifact.Artifact`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
-#### Snippet
-```java
-    }
-
-    public static Collection<Artifact> toArtifacts( Collection<org.apache.maven.artifact.Artifact> artifactsToConvert )
-    {
-        return artifactsToConvert.stream().map( RepositoryUtils::toArtifact ).collect( Collectors.toList() );
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends MojoExecution`
 in `maven-core/src/main/java/org/apache/maven/plugin/DefaultMojosExecutionStrategy.java`
 #### Snippet
@@ -2456,39 +1904,15 @@ in `maven-core/src/main/java/org/apache/maven/plugin/DefaultPluginArtifactsCache
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactRepository`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+Can generalize to `? extends Parameter`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterException.java`
 #### Snippet
 ```java
     }
 
-    public void injectProxy( RepositorySystemSession session, List<ArtifactRepository> repositories )
+    private static String format( List<Parameter> parameters )
     {
-        if ( repositories != null && session != null )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactRepositoryPolicy`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    private ArtifactRepositoryPolicy getEffectivePolicy( Collection<ArtifactRepositoryPolicy> policies )
-    {
-        ArtifactRepositoryPolicy effectivePolicy = null;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactRepository`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public void injectAuthentication( RepositorySystemSession session, List<ArtifactRepository> repositories )
-    {
-        if ( repositories != null && session != null )
+        StringBuilder buffer = new StringBuilder( 128 );
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2501,6 +1925,18 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
             Map<String, ArtifactRepositoryLayout> layouts )
     {
         this.artifactHandlerManager = artifactHandlerManager;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ArtifactRepositoryPolicy`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    private ArtifactRepositoryPolicy getEffectivePolicy( Collection<ArtifactRepositoryPolicy> policies )
+    {
+        ArtifactRepositoryPolicy effectivePolicy = null;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2528,27 +1964,27 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Parameter`
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterException.java`
+Can generalize to `? extends ArtifactRepository`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
     }
 
-    private static String format( List<Parameter> parameters )
+    public void injectAuthentication( RepositorySystemSession session, List<ArtifactRepository> repositories )
     {
-        StringBuilder buffer = new StringBuilder( 128 );
+        if ( repositories != null && session != null )
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super MetadataRequest`
-in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
+Can generalize to `? extends ArtifactRepository`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
+    }
 
-    private PluginPrefixResult processResults( PluginPrefixRequest request, RequestTrace trace,
-                                               List<MetadataResult> results, List<MetadataRequest> requests )
+    public void injectProxy( RepositorySystemSession session, List<ArtifactRepository> repositories )
     {
-        for ( MetadataResult res : results )
+        if ( repositories != null && session != null )
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2561,6 +1997,18 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPlugin
     public void validate( Artifact pluginArtifact, PluginDescriptor pluginDescriptor, List<String> errors )
     {
         if ( !pluginArtifact.getGroupId().equals( pluginDescriptor.getGroupId() ) )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super MetadataRequest`
+in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
+#### Snippet
+```java
+
+    private PluginPrefixResult processResults( PluginPrefixRequest request, RequestTrace trace,
+                                               List<MetadataResult> results, List<MetadataRequest> requests )
+    {
+        for ( MetadataResult res : results )
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2588,18 +2036,6 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequ
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MavenProject`
-in `maven-core/src/main/java/org/apache/maven/project/ProjectSorter.java`
-#### Snippet
-```java
-
-    private void addEdge( Vertex fromVertex, Vertex toVertex, MavenProject fromProject,
-                          Map<String, MavenProject> projectMap, boolean force, boolean safe )
-        throws CycleDetectedException
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Map`
 in `maven-core/src/main/java/org/apache/maven/project/ProjectSorter.java`
 #### Snippet
@@ -2613,14 +2049,14 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectSorter.java`
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends MavenProject`
-in `maven-core/src/main/java/org/apache/maven/project/collector/MultiModuleCollectionStrategy.java`
+in `maven-core/src/main/java/org/apache/maven/project/ProjectSorter.java`
 #### Snippet
 ```java
-     * @return true if the collected projects contain the requested project (for example with -f)
-     */
-    private boolean isRequestedProjectCollected( MavenExecutionRequest request, List<MavenProject> projects )
+
+    private void addEdge( Vertex fromVertex, Vertex toVertex, MavenProject fromProject,
+                          Map<String, MavenProject> projectMap, boolean force, boolean safe )
+        throws CycleDetectedException
     {
-        return projects.stream()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2636,15 +2072,15 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultProjectArt
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactHandler`
-in `maven-core/src/main/java/org/apache/maven/artifact/handler/manager/DefaultArtifactHandlerManager.java`
+Can generalize to `? extends MavenProject`
+in `maven-core/src/main/java/org/apache/maven/project/collector/MultiModuleCollectionStrategy.java`
 #### Snippet
 ```java
-    }
-
-    public void addHandlers( Map<String, ArtifactHandler> handlers )
+     * @return true if the collected projects contain the requested project (for example with -f)
+     */
+    private boolean isRequestedProjectCollected( MavenExecutionRequest request, List<MavenProject> projects )
     {
-        // legacy support for maven-gpg-plugin:1.0
+        return projects.stream()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2660,27 +2096,27 @@ in `maven-core/src/main/java/org/apache/maven/artifact/handler/manager/DefaultAr
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `maven-core/src/main/java/org/apache/maven/session/scope/internal/SessionScope.java`
-#### Snippet
-```java
-        private volatile T value;
-
-        CachingProvider( Provider<T> provider )
-        {
-            this.provider = provider;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `maven-core/src/main/java/org/apache/maven/session/scope/internal/SessionScope.java`
+Can generalize to `? extends ArtifactHandler`
+in `maven-core/src/main/java/org/apache/maven/artifact/handler/manager/DefaultArtifactHandlerManager.java`
 #### Snippet
 ```java
     }
 
-    public <T> void seed( Class<T> clazz, final T value )
+    public void addHandlers( Map<String, ArtifactHandler> handlers )
     {
-        seed( clazz, ( Provider<T> ) () -> value );
+        // legacy support for maven-gpg-plugin:1.0
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ArtifactRepository`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+
+    private List<ArtifactRepository> aggregateRepositories( List<ArtifactRepository> requestRepositories,
+                                                            List<ArtifactRepository> pomRepositories )
+    {
+        List<ArtifactRepository> repositories = requestRepositories;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2720,6 +2156,30 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/DefaultResolutio
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `maven-core/src/main/java/org/apache/maven/session/scope/internal/SessionScope.java`
+#### Snippet
+```java
+        private volatile T value;
+
+        CachingProvider( Provider<T> provider )
+        {
+            this.provider = provider;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `maven-core/src/main/java/org/apache/maven/session/scope/internal/SessionScope.java`
+#### Snippet
+```java
+    }
+
+    public <T> void seed( Class<T> clazz, final T value )
+    {
+        seed( clazz, ( Provider<T> ) () -> value );
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ArtifactRepository`
 in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
 #### Snippet
@@ -2741,18 +2201,6 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetad
                      Map<String, Artifact> managedVersions, List<ArtifactRepository> remoteRepositories )
         {
             this.pomArtifact = ArtifactUtils.copyArtifact( pomArtifact );
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Artifact`
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionNode.java`
-#### Snippet
-```java
-    }
-
-    public void addDependencies( Set<Artifact> artifacts, List<ArtifactRepository> remoteRepositories,
-                                 ArtifactFilter filter )
-        throws CyclicDependencyException, OverConstrainedVersionException
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2792,15 +2240,15 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResoluti
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactRepository`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+Can generalize to `? extends Artifact`
+in `maven-core/src/main/java/org/apache/maven/DefaultProjectDependenciesResolver.java`
 #### Snippet
 ```java
+    }
 
-    private List<ArtifactRepository> aggregateRepositories( List<ArtifactRepository> requestRepositories,
-                                                            List<ArtifactRepository> pomRepositories )
+    private Set<String> getIgnorableArtifacts( Iterable<Artifact> artifactIterable )
     {
-        List<ArtifactRepository> repositories = requestRepositories;
+        Set<String> projectIds = new HashSet<>();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2817,14 +2265,14 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/filter/AndArtifa
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Artifact`
-in `maven-core/src/main/java/org/apache/maven/DefaultProjectDependenciesResolver.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionNode.java`
 #### Snippet
 ```java
     }
 
-    private Set<String> getIgnorableArtifacts( Iterable<Artifact> artifactIterable )
-    {
-        Set<String> projectIds = new HashSet<>();
+    public void addDependencies( Set<Artifact> artifacts, List<ArtifactRepository> remoteRepositories,
+                                 ArtifactFilter filter )
+        throws CyclicDependencyException, OverConstrainedVersionException
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2849,30 +2297,6 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractNode.java`
     public Node filter( Predicate<Node> filter )
     {
         List<Node> children = getChildren().stream().filter( filter )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/MappedCollection.java`
-#### Snippet
-```java
-    private final Function<V, U> mapper;
-
-    public MappedCollection( Collection<V> list, Function<V, U> mapper )
-    {
-        this.list = list;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends U`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/MappedCollection.java`
-#### Snippet
-```java
-    private final Function<V, U> mapper;
-
-    public MappedCollection( Collection<V> list, Function<V, U> mapper )
-    {
-        this.list = list;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2912,27 +2336,51 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/MappedList.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends DependencyCoordinate`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
+Can generalize to `? super V`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/MappedCollection.java`
 #### Snippet
 ```java
-    public abstract ArtifactRepository toArtifactRepository( RemoteRepository repository );
+    private final Function<V, U> mapper;
 
-    public List<org.eclipse.aether.graph.Dependency> toDependencies( Collection<DependencyCoordinate> dependencies )
+    public MappedCollection( Collection<V> list, Function<V, U> mapper )
     {
-        return dependencies == null ? null : dependencies.stream()
+        this.list = list;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Artifact`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
+Can generalize to `? extends U`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/MappedCollection.java`
 #### Snippet
 ```java
-    public abstract org.eclipse.aether.graph.Dependency toDependency( DependencyCoordinate dependency );
+    private final Function<V, U> mapper;
 
-    public List<org.eclipse.aether.artifact.Artifact> toArtifacts( Collection<Artifact> artifacts )
+    public MappedCollection( Collection<V> list, Function<V, U> mapper )
     {
-        return artifacts == null ? null : artifacts.stream()
+        this.list = list;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ExceptionSummary`
+in `maven-core/src/main/java/org/apache/maven/exception/ExceptionSummary.java`
+#### Snippet
+```java
+    }
+
+    public ExceptionSummary( Throwable exception, String message, String reference, List<ExceptionSummary> children )
+    {
+        this.exception = exception;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ActivationSettings`
+in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+#### Snippet
+```java
+    }
+
+    private Stream<ProjectActivationSettings> getProjects( final Predicate<ActivationSettings> predicate )
+    {
+        return this.activations.stream()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2972,27 +2420,27 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ExceptionSummary`
-in `maven-core/src/main/java/org/apache/maven/exception/ExceptionSummary.java`
+Can generalize to `? extends DependencyCoordinate`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
 #### Snippet
 ```java
-    }
+    public abstract ArtifactRepository toArtifactRepository( RemoteRepository repository );
 
-    public ExceptionSummary( Throwable exception, String message, String reference, List<ExceptionSummary> children )
+    public List<org.eclipse.aether.graph.Dependency> toDependencies( Collection<DependencyCoordinate> dependencies )
     {
-        this.exception = exception;
+        return dependencies == null ? null : dependencies.stream()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ActivationSettings`
-in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+Can generalize to `? extends Artifact`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
 #### Snippet
 ```java
-    }
+    public abstract org.eclipse.aether.graph.Dependency toDependency( DependencyCoordinate dependency );
 
-    private Stream<ProjectActivationSettings> getProjects( final Predicate<ActivationSettings> predicate )
+    public List<org.eclipse.aether.artifact.Artifact> toArtifacts( Collection<Artifact> artifacts )
     {
-        return this.activations.stream()
+        return artifacts == null ? null : artifacts.stream()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3068,15 +2516,15 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/DefaultLifecycle
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactRepository`
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+Can generalize to `? super Integer`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycleMappingDelegate.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    public MavenExecutionRequest setPluginArtifactRepositories( List<ArtifactRepository> pluginArtifactRepositories )
+    private void addMojoExecution( Map<Integer, List<MojoExecution>> phaseBindings, MojoExecution mojoExecution,
+                                   int priority )
     {
-        if ( pluginArtifactRepositories != null )
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3092,27 +2540,15 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionReq
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Integer`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycleMappingDelegate.java`
+Can generalize to `? extends ArtifactRepository`
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-    }
 
-    private void addMojoExecution( Map<Integer, List<MojoExecution>> phaseBindings, MojoExecution mojoExecution,
-                                   int priority )
+    @Override
+    public MavenExecutionRequest setPluginArtifactRepositories( List<ArtifactRepository> pluginArtifactRepositories )
     {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MojoExecution`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDebugLogger.java`
-#### Snippet
-```java
-    }
-
-    private void debugDependencyRequirements( List<MojoExecution> mojoExecutions )
-    {
-        Set<String> scopesToCollect = new TreeSet<>();
+        if ( pluginArtifactRepositories != null )
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3128,6 +2564,18 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/CompoundProject
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MojoExecution`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDebugLogger.java`
+#### Snippet
+```java
+    }
+
+    private void debugDependencyRequirements( List<MojoExecution> mojoExecutions )
+    {
+        Set<String> scopesToCollect = new TreeSet<>();
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Builder`
 in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleStarter.java`
 #### Snippet
@@ -3137,6 +2585,66 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleStarte
             Map<String, Builder> builders,
             SessionScope sessionScope )
     {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MavenProject`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/MultiThreadedBuilder.java`
+#### Snippet
+```java
+                                                       CompletionService<ProjectSegment> service,
+                                                       TaskSegment taskSegment,
+                                                       Map<MavenProject, ProjectSegment> projectBuildList,
+                                                       ThreadOutputMuxer muxer )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MojoExecution`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycleExecutionPlanCalculator.java`
+#### Snippet
+```java
+
+    private Set<MojoDescriptor> fillMojoDescriptors( MavenSession session, MavenProject project,
+                                                    List<MojoExecution> mojoExecutions )
+            throws InvalidPluginDescriptorException, MojoNotFoundException, PluginResolutionException,
+            PluginDescriptorParsingException, PluginNotFoundException
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends LifecycleMappingDelegate`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycleExecutionPlanCalculator.java`
+#### Snippet
+```java
+            LifecyclePluginResolver lifecyclePluginResolver,
+            @Named( DefaultLifecycleMappingDelegate.HINT ) LifecycleMappingDelegate standardDelegate,
+            Map<String, LifecycleMappingDelegate> delegates,
+            Map<String, MojoExecutionConfigurator> mojoExecutionConfigurators )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MojoExecutionConfigurator`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycleExecutionPlanCalculator.java`
+#### Snippet
+```java
+            @Named( DefaultLifecycleMappingDelegate.HINT ) LifecycleMappingDelegate standardDelegate,
+            Map<String, LifecycleMappingDelegate> delegates,
+            Map<String, MojoExecutionConfigurator> mojoExecutionConfigurators )
+    {
+        this.pluginManager = pluginManager;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MojosExecutionStrategy`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
+#### Snippet
+```java
+            LifecycleDependencyResolver lifeCycleDependencyResolver,
+            ExecutionEventCatapult eventCatapult,
+            Provider<MojosExecutionStrategy> mojosExecutionStrategy )
+    {
+        this.pluginManager = pluginManager;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3176,30 +2684,6 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.ja
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MojosExecutionStrategy`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
-#### Snippet
-```java
-            LifecycleDependencyResolver lifeCycleDependencyResolver,
-            ExecutionEventCatapult eventCatapult,
-            Provider<MojosExecutionStrategy> mojosExecutionStrategy )
-    {
-        this.pluginManager = pluginManager;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MavenProject`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/MultiThreadedBuilder.java`
-#### Snippet
-```java
-                                                       CompletionService<ProjectSegment> service,
-                                                       TaskSegment taskSegment,
-                                                       Map<MavenProject, ProjectSegment> projectBuildList,
-                                                       ThreadOutputMuxer muxer )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends MavenProject`
 in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDependencyResolver.java`
 #### Snippet
@@ -3224,99 +2708,27 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDepend
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends LifecycleMappingDelegate`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycleExecutionPlanCalculator.java`
-#### Snippet
-```java
-            LifecyclePluginResolver lifecyclePluginResolver,
-            @Named( DefaultLifecycleMappingDelegate.HINT ) LifecycleMappingDelegate standardDelegate,
-            Map<String, LifecycleMappingDelegate> delegates,
-            Map<String, MojoExecutionConfigurator> mojoExecutionConfigurators )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MojoExecutionConfigurator`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycleExecutionPlanCalculator.java`
-#### Snippet
-```java
-            @Named( DefaultLifecycleMappingDelegate.HINT ) LifecycleMappingDelegate standardDelegate,
-            Map<String, LifecycleMappingDelegate> delegates,
-            Map<String, MojoExecutionConfigurator> mojoExecutionConfigurators )
-    {
-        this.pluginManager = pluginManager;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MojoExecution`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycleExecutionPlanCalculator.java`
-#### Snippet
-```java
-
-    private Set<MojoDescriptor> fillMojoDescriptors( MavenSession session, MavenProject project,
-                                                    List<MojoExecution> mojoExecutions )
-            throws InvalidPluginDescriptorException, MojoNotFoundException, PluginResolutionException,
-            PluginDescriptorParsingException, PluginNotFoundException
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends SettingsProblem`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
+Can generalize to `? extends Problem`
+in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
 #### Snippet
 ```java
     }
 
-    private boolean hasErrors( List<SettingsProblem> problems )
+    private boolean hasErrors( List<Problem> problems )
     {
         if ( problems != null )
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends SettingsProblem`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingException.java`
+Can generalize to `? extends Problem`
+in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/ToolchainsBuildingException.java`
 #### Snippet
 ```java
     }
 
-    private static String toMessage( List<SettingsProblem> problems )
+    private static String toMessage( List<Problem> problems )
     {
         StringWriter buffer = new StringWriter( 1024 );
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClassRealmManagerDelegate`
-in `maven-core/src/main/java/org/apache/maven/classrealm/DefaultClassRealmManager.java`
-#### Snippet
-```java
-    @Inject
-    public DefaultClassRealmManager( PlexusContainer container,
-                                     List<ClassRealmManagerDelegate> delegates,
-                                     CoreExports exports )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClassRealmConstituent`
-in `maven-core/src/main/java/org/apache/maven/classrealm/DefaultClassRealmManager.java`
-#### Snippet
-```java
-    }
-
-    private Set<String> populateRealm( ClassRealm classRealm, List<ClassRealmConstituent> constituents )
-    {
-        Set<String> includedIds = new LinkedHashSet<>();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Artifact`
-in `maven-core/src/main/java/org/apache/maven/classrealm/DefaultClassRealmManager.java`
-#### Snippet
-```java
-     */
-    private ClassRealm createRealm( String baseRealmId, RealmType type, ClassLoader parent, List<String> parentImports,
-                                    Map<String, ClassLoader> foreignImports, List<Artifact> artifacts )
-    {
-        Set<String> artifactIds = new LinkedHashSet<>();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3368,6 +2780,42 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/versioning/ManagedVersi
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ClassRealmManagerDelegate`
+in `maven-core/src/main/java/org/apache/maven/classrealm/DefaultClassRealmManager.java`
+#### Snippet
+```java
+    @Inject
+    public DefaultClassRealmManager( PlexusContainer container,
+                                     List<ClassRealmManagerDelegate> delegates,
+                                     CoreExports exports )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ClassRealmConstituent`
+in `maven-core/src/main/java/org/apache/maven/classrealm/DefaultClassRealmManager.java`
+#### Snippet
+```java
+    }
+
+    private Set<String> populateRealm( ClassRealm classRealm, List<ClassRealmConstituent> constituents )
+    {
+        Set<String> includedIds = new LinkedHashSet<>();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Artifact`
+in `maven-core/src/main/java/org/apache/maven/classrealm/DefaultClassRealmManager.java`
+#### Snippet
+```java
+     */
+    private ClassRealm createRealm( String baseRealmId, RealmType type, ClassLoader parent, List<String> parentImports,
+                                    Map<String, ClassLoader> foreignImports, List<Artifact> artifacts )
+    {
+        Set<String> artifactIds = new LinkedHashSet<>();
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ArtifactRepository`
 in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionResult.java`
 #### Snippet
@@ -3377,78 +2825,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRes
     public MetadataResolutionResult setRepositories( final List<ArtifactRepository> repositories )
     {
         this.repositories = repositories;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends File`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-    }
-
-    private void cleanupTemporaryFiles( List<File> files )
-    {
-        for ( File file : files )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactRepository`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-
-    @Override
-    public void getArtifact( Artifact artifact, List<ArtifactRepository> remoteRepositories,
-                             TransferListener downloadMonitor, boolean force )
-        throws TransferFailedException, ResourceDoesNotExistException
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactRepository`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public void injectAuthentication( RepositorySystemSession session, List<ArtifactRepository> repositories )
-    {
-        if ( repositories != null && session != null )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactRepository`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    //    }
-
-    public List<ArtifactRepository> getEffectiveRepositories( List<ArtifactRepository> repositories )
-    {
-        if ( repositories == null )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactRepository`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public void injectProxy( RepositorySystemSession session, List<ArtifactRepository> repositories )
-    {
-        if ( repositories != null && session != null )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ArtifactRepositoryPolicy`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    private ArtifactRepositoryPolicy getEffectivePolicy( Collection<ArtifactRepositoryPolicy> policies )
-    {
-        ArtifactRepositoryPolicy effectivePolicy = null;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3500,15 +2876,75 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super MetadataGraphVertex`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraphConflictResolver.java`
+Can generalize to `? extends File`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+    }
+
+    private void cleanupTemporaryFiles( List<File> files )
+    {
+        for ( File file : files )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ArtifactRepository`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
 #### Snippet
 ```java
 
-    // -------------------------------------------------------------------------------------
-    private void visit( MetadataGraphVertex from, List<MetadataGraphVertex> visited, MetadataGraph graph )
+    @Override
+    public void getArtifact( Artifact artifact, List<ArtifactRepository> remoteRepositories,
+                             TransferListener downloadMonitor, boolean force )
+        throws TransferFailedException, ResourceDoesNotExistException
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ArtifactRepository`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    public void injectProxy( RepositorySystemSession session, List<ArtifactRepository> repositories )
     {
-        if ( visited.contains( from ) )
+        if ( repositories != null && session != null )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ArtifactRepository`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    public void injectAuthentication( RepositorySystemSession session, List<ArtifactRepository> repositories )
+    {
+        if ( repositories != null && session != null )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ArtifactRepository`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    //    }
+
+    public List<ArtifactRepository> getEffectiveRepositories( List<ArtifactRepository> repositories )
+    {
+        if ( repositories == null )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ArtifactRepositoryPolicy`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    private ArtifactRepositoryPolicy getEffectivePolicy( Collection<ArtifactRepositoryPolicy> policies )
+    {
+        ArtifactRepositoryPolicy effectivePolicy = null;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3524,15 +2960,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraph
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ResolutionListener`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+Can generalize to `? super MetadataGraphVertex`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraphConflictResolver.java`
 #### Snippet
 ```java
-    }
 
-    private void fireEvent( int event, List<ResolutionListener> listeners, ResolutionNode node, Artifact replacement,
-                            VersionRange newRange )
+    // -------------------------------------------------------------------------------------
+    private void visit( MetadataGraphVertex from, List<MetadataGraphVertex> visited, MetadataGraph graph )
     {
+        if ( visited.contains( from ) )
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -3547,7 +2983,583 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtif
         if ( mirroredRepositories != null )
 ```
 
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends SettingsProblem`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
+#### Snippet
+```java
+    }
+
+    private boolean hasErrors( List<SettingsProblem> problems )
+    {
+        if ( problems != null )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends SettingsProblem`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingException.java`
+#### Snippet
+```java
+    }
+
+    private static String toMessage( List<SettingsProblem> problems )
+    {
+        StringWriter buffer = new StringWriter( 1024 );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MojoDescriptor`
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
+#### Snippet
+```java
+    }
+
+    public void addMojos( List<MojoDescriptor> mojos )
+        throws DuplicateMojoDescriptorException
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Parameter`
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+     * @throws DuplicateParameterException if any
+     */
+    public void setParameters( List<Parameter> parameters )
+        throws DuplicateParameterException
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Exclusion`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/DependencyCoordinateFactoryRequest.java`
+#### Snippet
+```java
+        }
+
+        public DependencyCoordinateFactoryRequestBuilder exclusions( Collection<Exclusion> exclusions )
+        {
+            if ( exclusions != null )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/BaseRequest.java`
+#### Snippet
+```java
+    }
+
+    protected static <T> Collection<T> unmodifiable( Collection<T> obj )
+    {
+        return obj != null && !obj.isEmpty()
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Map`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+    final Consumer<Properties> setter;
+
+    WrapperProperties( Supplier<Map<String, String>> getter, Consumer<Properties> setter )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Properties`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+    final Consumer<Properties> setter;
+
+    WrapperProperties( Supplier<Map<String, String>> getter, Consumer<Properties> setter )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                 Function<U, T> mapper, Function<T, U> revMapper )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super List`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                 Function<U, T> mapper, Function<T, U> revMapper )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super U`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                 Function<U, T> mapper, Function<T, U> revMapper )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                 Function<U, T> mapper, Function<T, U> revMapper )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                 Function<U, T> mapper, Function<T, U> revMapper )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends U`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                 Function<U, T> mapper, Function<T, U> revMapper )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
+#### Snippet
+```java
+    }
+
+    private void merge( Map<String, VersionInfo> infos, String srcKey, String dstKey )
+    {
+        VersionInfo srcInfo = infos.get( srcKey );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
+#### Snippet
+```java
+    }
+
+    private void merge( String key, Map<String, VersionInfo> infos, String timestamp, String version,
+                        ArtifactRepository repository )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends VersionInfo`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
+#### Snippet
+```java
+    }
+
+    private boolean resolve( VersionResult result, Map<String, VersionInfo> infos, String key )
+    {
+        VersionInfo info = infos.get( key );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
+#### Snippet
+```java
+    }
+
+    private static <T> List<T> copyList( List<T> original )
+    {
+        List<T> copy = null;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Artifact`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
+#### Snippet
+```java
+    }
+
+    public static Map<String, Artifact> artifactMapByVersionlessId( Collection<Artifact> artifacts )
+    {
+        Map<String, Artifact> artifactMap = new LinkedHashMap<>();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Artifact`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
+#### Snippet
+```java
+     * @return <code>to</code> collection
+     */
+    public static <T extends Collection<Artifact>> T copyArtifacts( Collection<Artifact> from, T to )
+    {
+        for ( Artifact artifact : from )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Artifact`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/MultipleArtifactsNotFoundException.java`
+#### Snippet
+```java
+    }
+
+    private static String constructMessage( List<Artifact> artifacts )
+    {
+        StringBuilder buffer = new StringBuilder( 256 );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ArtifactVersion`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactVersion matchVersion( List<ArtifactVersion> versions )
+    {
+        // TODO could be more efficient by sorting the list and then moving along the restrictions in order?
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Boolean`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    private void enableOnAbsentOption( final CommandLine commandLine,
+                                       final char option,
+                                       final Consumer<Boolean> setting )
+    {
+        if ( !commandLine.hasOption( option ) )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Boolean`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    private void enableOnPresentOption( final CommandLine commandLine,
+                                        final String option,
+                                        final Consumer<Boolean> setting )
+    {
+        if ( commandLine.hasOption( option ) )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Boolean`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    private void disableOnPresentOption( final CommandLine commandLine,
+                                         final String option,
+                                         final Consumer<Boolean> setting )
+    {
+        if ( commandLine.hasOption( option ) )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    }
+
+    private void logSummary( ExceptionSummary summary, Map<String, String> references, String indent,
+                             boolean showErrors )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends File`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    }
+
+    private ClassRealm setupContainerRealm( ClassWorld classWorld, ClassRealm coreRealm, List<File> extClassPath,
+                                            List<CoreExtensionEntry> extensions )
+        throws Exception
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends CoreExtensionEntry`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+    private ClassRealm setupContainerRealm( ClassWorld classWorld, ClassRealm coreRealm, List<File> extClassPath,
+                                            List<CoreExtensionEntry> extensions )
+        throws Exception
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MavenProject`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+     * and {@code groupId:artifactId} when there is a name clash).
+     */
+    String getResumeFromSelector( List<MavenProject> mavenProjects, MavenProject firstFailedProject )
+    {
+        boolean hasOverlappingArtifactId = mavenProjects.stream()
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    }
+
+    private static <T> List<T> reverse( List<T> list )
+    {
+        List<T> copy = new ArrayList<>( list );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Map`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+    final Consumer<Properties> setter;
+
+    WrapperProperties( Supplier<Map<String, String>> getter, Consumer<Properties> setter )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Properties`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+    final Consumer<Properties> setter;
+
+    WrapperProperties( Supplier<Map<String, String>> getter, Consumer<Properties> setter )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Map`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+    final Consumer<Properties> setter;
+
+    WrapperProperties( Supplier<Map<String, String>> getter, Consumer<Properties> setter )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Properties`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+    final Consumer<Properties> setter;
+
+    WrapperProperties( Supplier<Map<String, String>> getter, Consumer<Properties> setter )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                        Function<U, T> mapper, Function<T, U> revMapper )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super List`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                        Function<U, T> mapper, Function<T, U> revMapper )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super U`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
+#### Snippet
+```java
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                        Function<U, T> mapper, Function<T, U> revMapper )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
+#### Snippet
+```java
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                        Function<U, T> mapper, Function<T, U> revMapper )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
+#### Snippet
+```java
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                        Function<U, T> mapper, Function<T, U> revMapper )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends U`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
+#### Snippet
+```java
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                        Function<U, T> mapper, Function<T, U> revMapper )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                 Function<U, T> mapper, Function<T, U> revMapper )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super List`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                 Function<U, T> mapper, Function<T, U> revMapper )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super U`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
+#### Snippet
+```java
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                 Function<U, T> mapper, Function<T, U> revMapper )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
+#### Snippet
+```java
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                 Function<U, T> mapper, Function<T, U> revMapper )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
+#### Snippet
+```java
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                 Function<U, T> mapper, Function<T, U> revMapper )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends U`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
+#### Snippet
+```java
+
+    WrapperList( Supplier<List<U>> getter, Consumer<List<U>> setter,
+                 Function<U, T> mapper, Function<T, U> revMapper )
+    {
+        this.getter = getter;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ResolutionListener`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+    }
+
+    private void fireEvent( int event, List<ResolutionListener> listeners, ResolutionNode node, Artifact replacement,
+                            VersionRange newRange )
+    {
+```
+
 ## RuleId[ruleID=MissortedModifiers]
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `private final @Nonnull`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifact.java`
+#### Snippet
+```java
+{
+    private final @Nonnull AbstractSession session;
+    private final @Nonnull org.eclipse.aether.artifact.Artifact artifact;
+    private final String id;
+
+```
+
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `private final @Nonnull`
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifact.java`
@@ -3558,18 +3570,6 @@ public class DefaultArtifact implements Artifact
     private final @Nonnull AbstractSession session;
     private final @Nonnull org.eclipse.aether.artifact.Artifact artifact;
     private final String id;
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `private final @Nonnull`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifact.java`
-#### Snippet
-```java
-{
-    private final @Nonnull AbstractSession session;
-    private final @Nonnull org.eclipse.aether.artifact.Artifact artifact;
-    private final String id;
-
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -3597,6 +3597,30 @@ public class DefaultMessageBuilder implements MessageBuilder
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `protected final @Nonnull`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
+#### Snippet
+```java
+{
+
+    protected final @Nonnull AbstractSession session;
+    protected final @Nonnull org.eclipse.aether.graph.DependencyNode node;
+    protected final boolean verbose;
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `protected final @Nonnull`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
+#### Snippet
+```java
+
+    protected final @Nonnull AbstractSession session;
+    protected final @Nonnull org.eclipse.aether.graph.DependencyNode node;
+    protected final boolean verbose;
+
+```
+
+### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `private final @Nonnull`
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifactDeployer.java`
 #### Snippet
@@ -3606,30 +3630,6 @@ public class DefaultArtifactDeployer implements ArtifactDeployer
     private final @Nonnull RepositorySystem repositorySystem;
 
     @Inject
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `protected final @Nonnull`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
-#### Snippet
-```java
-
-    protected final @Nonnull AbstractSession session;
-    protected final @Nonnull org.eclipse.aether.graph.DependencyNode node;
-    protected final boolean verbose;
-
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `protected final @Nonnull`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
-#### Snippet
-```java
-{
-
-    protected final @Nonnull AbstractSession session;
-    protected final @Nonnull org.eclipse.aether.graph.DependencyNode node;
-    protected final boolean verbose;
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -3657,18 +3657,6 @@ public class DefaultArtifactCoordinate implements ArtifactCoordinate
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.mkdirs()` is ignored
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/MavenMetadata.java`
-#### Snippet
-```java
-        throws RepositoryException
-    {
-        metadataFile.getParentFile().mkdirs();
-        try ( Writer writer = WriterFactory.newXmlWriter( metadataFile ) )
-        {
-```
-
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `File.mkdirs()` is ignored
 in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
@@ -3730,15 +3718,15 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/Abstr
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.mkdirs()` is ignored
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/io/DefaultSettingsWriter.java`
+Result of `File.delete()` is ignored
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
 #### Snippet
 ```java
-        Objects.requireNonNull( settings, "settings cannot be null" );
-
-        output.getParentFile().mkdirs();
-
-        write( WriterFactory.newXmlWriter( output ), options, settings );
+                        // ignore
+                    }
+                    file.delete(); // if this fails, forget about it
+                }
+            }
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -3761,18 +3749,6 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Def
                 if ( file.exists() )
                 {
                     file.setLastModified( System.currentTimeMillis() );
-                }
-            }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.delete()` is ignored
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
-#### Snippet
-```java
-                        // ignore
-                    }
-                    file.delete(); // if this fails, forget about it
                 }
             }
 ```
@@ -3813,6 +3789,30 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
                         }
 ```
 
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `File.mkdirs()` is ignored
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/io/DefaultSettingsWriter.java`
+#### Snippet
+```java
+        Objects.requireNonNull( settings, "settings cannot be null" );
+
+        output.getParentFile().mkdirs();
+
+        write( WriterFactory.newXmlWriter( output ), options, settings );
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `File.mkdirs()` is ignored
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/MavenMetadata.java`
+#### Snippet
+```java
+        throws RepositoryException
+    {
+        metadataFile.getParentFile().mkdirs();
+        try ( Writer writer = WriterFactory.newXmlWriter( metadataFile ) )
+        {
+```
+
 ## RuleId[ruleID=RedundantMethodOverride]
 ### RuleId[ruleID=RedundantMethodOverride]
 Method `getJavaHome()` only delegates to its super method
@@ -3840,14 +3840,14 @@ in `maven-core/src/main/java/org/apache/maven/toolchain/java/DefaultJavaToolChai
 
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
 ### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `ArtifactMetadata` is the same as one of its superclass' names
-in `maven-artifact/src/main/java/org/apache/maven/artifact/metadata/ArtifactMetadata.java`
+Class name `ArtifactMetadataRetrievalException` is the same as one of its superclass' names
+in `maven-core/src/main/java/org/apache/maven/artifact/metadata/ArtifactMetadataRetrievalException.java`
 #### Snippet
 ```java
  */
 @Deprecated
-public interface ArtifactMetadata
-    extends org.apache.maven.repository.legacy.metadata.ArtifactMetadata
+public class ArtifactMetadataRetrievalException
+    extends org.apache.maven.repository.legacy.metadata.ArtifactMetadataRetrievalException
 {
 ```
 
@@ -3861,18 +3861,6 @@ in `maven-core/src/main/java/org/apache/maven/artifact/metadata/AbstractArtifact
 public abstract class AbstractArtifactMetadata
     extends org.apache.maven.repository.legacy.metadata.AbstractArtifactMetadata
     implements org.apache.maven.artifact.metadata.ArtifactMetadata
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `ArtifactMetadataRetrievalException` is the same as one of its superclass' names
-in `maven-core/src/main/java/org/apache/maven/artifact/metadata/ArtifactMetadataRetrievalException.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class ArtifactMetadataRetrievalException
-    extends org.apache.maven.repository.legacy.metadata.ArtifactMetadataRetrievalException
-{
 ```
 
 ### RuleId[ruleID=ClassNameSameAsAncestorName]
@@ -3935,152 +3923,31 @@ public class DefaultWagonManager
     implements WagonManager
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `ArtifactMetadata` is the same as one of its superclass' names
+in `maven-artifact/src/main/java/org/apache/maven/artifact/metadata/ArtifactMetadata.java`
 #### Snippet
 ```java
-                    String pathExpression = expression.substring( 1, pathSeparator );
-                    value = ReflectionValueExtractor.evaluate( pathExpression, session );
-                    value = value + expression.substring( pathSeparator );
-                }
-                else
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring( 0, pathSeparator );
-                    value = ReflectionValueExtractor.evaluate( pathExpression, project );
-                    value = value + expression.substring( pathSeparator );
-                }
-                else
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring( 1, pathSeparator );
-                    value = ReflectionValueExtractor.evaluate( pathExpression, mojoExecution );
-                    value = value + expression.substring( pathSeparator );
-                }
-                else
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring( 1, pathSeparator );
-                    value = ReflectionValueExtractor.evaluate( pathExpression, pluginDescriptor );
-                    value = value + expression.substring( pathSeparator );
-                }
-                else
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring( 1, pathSeparator );
-                    value = ReflectionValueExtractor.evaluate( pathExpression, session.getSettings() );
-                    value = value + expression.substring( pathSeparator );
-                }
-                else
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring( 1, pathSeparator );
-                    value = ReflectionValueExtractor.evaluate( pathExpression, session );
-                    value = value + expression.substring( pathSeparator );
-                }
-                else
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring( 0, pathSeparator );
-                    value = ReflectionValueExtractor.evaluate( pathExpression, project );
-                    value = value + expression.substring( pathSeparator );
-                }
-                else
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring( 1, pathSeparator );
-                    value = ReflectionValueExtractor.evaluate( pathExpression, mojoExecution );
-                    value = value + expression.substring( pathSeparator );
-                }
-                else
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring( 1, pathSeparator );
-                    value = ReflectionValueExtractor.evaluate( pathExpression, pluginDescriptor );
-                    value = value + expression.substring( pathSeparator );
-                }
-                else
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring( 1, pathSeparator );
-                    value = ReflectionValueExtractor.evaluate( pathExpression, session.getSettings() );
-                    value = value + expression.substring( pathSeparator );
-                }
-                else
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`i = i + 2` could be simplified to 'i += 2'
-in `maven-core/src/main/java/org/apache/maven/lifecycle/providers/packaging/AbstractLifecycleMappingProvider.java`
-#### Snippet
-```java
-
-        HashMap<String, LifecyclePhase> lifecyclePhaseBindings = new HashMap<>( len / 2 );
-        for ( int i = 0; i < len; i = i + 2 )
-        {
-            lifecyclePhaseBindings.put( pluginBindings[i], new LifecyclePhase( pluginBindings[i + 1] ) );
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`transferred = transferred + length` could be simplified to 'transferred += length'
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/TransferListenerAdapter.java`
-#### Snippet
-```java
-            else
-            {
-                transferred = transferred + length;
-            }
-            transfers.put( transferEvent.getResource(), transferred );
+ */
+@Deprecated
+public interface ArtifactMetadata
+    extends org.apache.maven.repository.legacy.metadata.ArtifactMetadata
+{
 ```
 
 ## RuleId[ruleID=NestedAssignment]
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
+#### Snippet
+```java
+        {
+            int pos = -1;
+            while ( ( pos = decoded.indexOf( '%', pos + 1 ) ) >= 0 )
+            {
+                if ( pos + 2 < decoded.length() )
+```
+
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
 in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
@@ -4117,16 +3984,149 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/Comparable
                 }
 ```
 
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
+## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
 #### Snippet
 ```java
+                    String pathExpression = expression.substring( 1, pathSeparator );
+                    value = ReflectionValueExtractor.evaluate( pathExpression, session );
+                    value = value + expression.substring( pathSeparator );
+                }
+                else
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring( 0, pathSeparator );
+                    value = ReflectionValueExtractor.evaluate( pathExpression, project );
+                    value = value + expression.substring( pathSeparator );
+                }
+                else
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring( 1, pathSeparator );
+                    value = ReflectionValueExtractor.evaluate( pathExpression, mojoExecution );
+                    value = value + expression.substring( pathSeparator );
+                }
+                else
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring( 1, pathSeparator );
+                    value = ReflectionValueExtractor.evaluate( pathExpression, pluginDescriptor );
+                    value = value + expression.substring( pathSeparator );
+                }
+                else
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring( 1, pathSeparator );
+                    value = ReflectionValueExtractor.evaluate( pathExpression, session.getSettings() );
+                    value = value + expression.substring( pathSeparator );
+                }
+                else
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring( 1, pathSeparator );
+                    value = ReflectionValueExtractor.evaluate( pathExpression, session );
+                    value = value + expression.substring( pathSeparator );
+                }
+                else
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring( 0, pathSeparator );
+                    value = ReflectionValueExtractor.evaluate( pathExpression, project );
+                    value = value + expression.substring( pathSeparator );
+                }
+                else
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring( 1, pathSeparator );
+                    value = ReflectionValueExtractor.evaluate( pathExpression, mojoExecution );
+                    value = value + expression.substring( pathSeparator );
+                }
+                else
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring( 1, pathSeparator );
+                    value = ReflectionValueExtractor.evaluate( pathExpression, pluginDescriptor );
+                    value = value + expression.substring( pathSeparator );
+                }
+                else
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`value = value + expression.substring( pathSeparator )` could be simplified to 'value += expression.substring( pathSeparator )'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring( 1, pathSeparator );
+                    value = ReflectionValueExtractor.evaluate( pathExpression, session.getSettings() );
+                    value = value + expression.substring( pathSeparator );
+                }
+                else
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`i = i + 2` could be simplified to 'i += 2'
+in `maven-core/src/main/java/org/apache/maven/lifecycle/providers/packaging/AbstractLifecycleMappingProvider.java`
+#### Snippet
+```java
+
+        HashMap<String, LifecyclePhase> lifecyclePhaseBindings = new HashMap<>( len / 2 );
+        for ( int i = 0; i < len; i = i + 2 )
         {
-            int pos = -1;
-            while ( ( pos = decoded.indexOf( '%', pos + 1 ) ) >= 0 )
+            lifecyclePhaseBindings.put( pluginBindings[i], new LifecyclePhase( pluginBindings[i + 1] ) );
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`transferred = transferred + length` could be simplified to 'transferred += length'
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/TransferListenerAdapter.java`
+#### Snippet
+```java
+            else
             {
-                if ( pos + 2 < decoded.length() )
+                transferred = transferred + length;
+            }
+            transfers.put( transferEvent.getResource(), transferred );
 ```
 
 ## RuleId[ruleID=ReturnFromFinallyBlock]
@@ -4143,18 +4143,6 @@ in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
 ```
 
 ## RuleId[ruleID=MismatchedCollectionQueryUpdate]
-### RuleId[ruleID=MismatchedCollectionQueryUpdate]
-Contents of collection `params` are queried, but never updated
-in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/velocity/ModelloVelocityMojo.java`
-#### Snippet
-```java
-
-    @Parameter
-    private List<String> params;
-
-    protected String getGeneratorType()
-```
-
 ### RuleId[ruleID=MismatchedCollectionQueryUpdate]
 Contents of collection `lifecycles` are queried, but never updated
 in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/DefaultLifecycleMapping.java`
@@ -4215,17 +4203,29 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClass
         // -----------------------------------------------------------------------
 ```
 
+### RuleId[ruleID=MismatchedCollectionQueryUpdate]
+Contents of collection `params` are queried, but never updated
+in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/velocity/ModelloVelocityMojo.java`
+#### Snippet
+```java
+
+    @Parameter
+    private List<String> params;
+
+    protected String getGeneratorType()
+```
+
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `modelSource` is accessed in both synchronized and unsynchronized contexts
+Field `systemProperties` is accessed in both synchronized and unsynchronized contexts
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
 #### Snippet
 ```java
-    private File pomFile;
+    private List<String> inactiveProfileIds;
 
-    private ModelSource modelSource;
+    private Properties systemProperties;
 
-    private int validationLevel = VALIDATION_LEVEL_STRICT;
+    private Properties userProperties;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -4241,27 +4241,15 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `systemProperties` is accessed in both synchronized and unsynchronized contexts
+Field `modelSource` is accessed in both synchronized and unsynchronized contexts
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
 #### Snippet
 ```java
-    private List<String> inactiveProfileIds;
+    private File pomFile;
 
-    private Properties systemProperties;
+    private ModelSource modelSource;
 
-    private Properties userProperties;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `systemProperties` is accessed in both synchronized and unsynchronized contexts
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuildingRequest.java`
-#### Snippet
-```java
-    private SettingsSource userSettingsSource;
-
-    private Properties systemProperties;
-
-    private Properties userProperties;
+    private int validationLevel = VALIDATION_LEVEL_STRICT;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -4288,33 +4276,21 @@ in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractSt
     private RecursionInterceptor recursionInterceptor;
 ```
 
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `systemProperties` is accessed in both synchronized and unsynchronized contexts
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuildingRequest.java`
+#### Snippet
+```java
+    private SettingsSource userSettingsSource;
+
+    private Properties systemProperties;
+
+    private Properties userProperties;
+```
+
 ## RuleId[ruleID=UseOfPropertiesAsHashtable]
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.put()` on properties object
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-                for ( Map.Entry<Object, Object> e : props.entrySet() )
-                {
-                    super.put( e.getKey(), e.getValue() );
-                }
-            }
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-                for ( Map.Entry<Object, Object> e : props.entrySet() )
-                {
-                    super.put( e.getKey(), e.getValue() );
-                }
-            }
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
 in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/DefaultModelVersionProcessor.java`
 #### Snippet
 ```java
@@ -4383,54 +4359,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/Defau
             modelProperties.put( SHA1_PROPERTY, request.getSystemProperties().get( SHA1_PROPERTY ) );
         }
 
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-    public synchronized Object put( Object key, Object value )
-    {
-        return writeOperation( p -> p.put( key, value ) );
-    }
-
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-    public synchronized void putAll( Map<?, ?> t )
-    {
-        writeOperationVoid( p -> p.putAll( t ) );
-    }
-
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putIfAbsent()` on properties object
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-    public synchronized Object putIfAbsent( Object key, Object value )
-    {
-        return writeOperation( p -> p.putIfAbsent( key, value ) );
-    }
-
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-            for ( Profile profile : activeExternalProfiles )
-            {
-                profileProps.putAll( profile.getProperties() );
-            }
-            profileProps.putAll( profileActivationContext.getUserProperties() );
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -4458,8 +4386,80 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+            for ( Profile profile : activeExternalProfiles )
+            {
+                profileProps.putAll( profile.getProperties() );
+            }
+            profileProps.putAll( profileActivationContext.getUserProperties() );
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
+#### Snippet
+```java
+    {
+        Properties props = new Properties();
+        props.putAll( context );
+
+        return interpolate( model,
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+                Properties headers = new Properties();
+
+                headers.put( "User-Agent", ConfigUtils.getString( legacySupport.getRepositorySession(), "Maven",
+                                                                  ConfigurationProperties.USER_AGENT ) );
+                try
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+                for ( Map.Entry<Object, Object> e : props.entrySet() )
+                {
+                    super.put( e.getKey(), e.getValue() );
+                }
+            }
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+                for ( Map.Entry<Object, Object> e : props.entrySet() )
+                {
+                    super.put( e.getKey(), e.getValue() );
+                }
+            }
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+                for ( Map.Entry<Object, Object> e : props.entrySet() )
+                {
+                    super.put( e.getKey(), e.getValue() );
+                }
+            }
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.putIfAbsent()` on properties object
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
     public synchronized Object putIfAbsent( Object key, Object value )
@@ -4470,8 +4470,20 @@ in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/Wrapper
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+    public synchronized void putAll( Map<?, ?> t )
+    {
+        writeOperationVoid( p -> p.putAll( t ) );
+    }
+
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.put()` on properties object
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
     public synchronized Object put( Object key, Object value )
@@ -4506,8 +4518,92 @@ in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+        static
+        {
+            ALIASES.put( "ga", "" );
+            ALIASES.put( "final", "" );
+            ALIASES.put( "release", "" );
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+        {
+            ALIASES.put( "ga", "" );
+            ALIASES.put( "final", "" );
+            ALIASES.put( "release", "" );
+            ALIASES.put( "cr", "rc" );
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+            ALIASES.put( "ga", "" );
+            ALIASES.put( "final", "" );
+            ALIASES.put( "release", "" );
+            ALIASES.put( "cr", "rc" );
+        }
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+            ALIASES.put( "final", "" );
+            ALIASES.put( "release", "" );
+            ALIASES.put( "cr", "rc" );
+        }
+
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+                for ( Map.Entry<Object, Object> e : props.entrySet() )
+                {
+                    super.put( e.getKey(), e.getValue() );
+                }
+            }
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putIfAbsent()` on properties object
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+    public synchronized Object putIfAbsent( Object key, Object value )
+    {
+        return writeOperation( p -> p.putIfAbsent( key, value ) );
+    }
+
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+    public synchronized Object put( Object key, Object value )
+    {
+        return writeOperation( p -> p.put( key, value ) );
+    }
+
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.putAll()` on properties object
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 #### Snippet
 ```java
     public synchronized void putAll( Map<?, ?> t )
@@ -4579,7 +4675,7 @@ in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/veloci
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.putAll()` on properties object
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
 #### Snippet
 ```java
     public synchronized void putAll( Map<?, ?> t )
@@ -4591,7 +4687,7 @@ in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.putIfAbsent()` on properties object
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
 #### Snippet
 ```java
     public synchronized Object putIfAbsent( Object key, Object value )
@@ -4603,7 +4699,7 @@ in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.put()` on properties object
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
 #### Snippet
 ```java
     public synchronized Object put( Object key, Object value )
@@ -4611,102 +4707,6 @@ in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
         return writeOperation( p -> p.put( key, value ) );
     }
 
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-                for ( Map.Entry<Object, Object> e : props.entrySet() )
-                {
-                    super.put( e.getKey(), e.getValue() );
-                }
-            }
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-                for ( Map.Entry<Object, Object> e : props.entrySet() )
-                {
-                    super.put( e.getKey(), e.getValue() );
-                }
-            }
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-        static
-        {
-            ALIASES.put( "ga", "" );
-            ALIASES.put( "final", "" );
-            ALIASES.put( "release", "" );
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-        {
-            ALIASES.put( "ga", "" );
-            ALIASES.put( "final", "" );
-            ALIASES.put( "release", "" );
-            ALIASES.put( "cr", "rc" );
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-            ALIASES.put( "ga", "" );
-            ALIASES.put( "final", "" );
-            ALIASES.put( "release", "" );
-            ALIASES.put( "cr", "rc" );
-        }
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-            ALIASES.put( "final", "" );
-            ALIASES.put( "release", "" );
-            ALIASES.put( "cr", "rc" );
-        }
-
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
-#### Snippet
-```java
-    {
-        Properties props = new Properties();
-        props.putAll( context );
-
-        return interpolate( model,
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-                Properties headers = new Properties();
-
-                headers.put( "User-Agent", ConfigUtils.getString( legacySupport.getRepositorySession(), "Maven",
-                                                                  ConfigurationProperties.USER_AGENT ) );
-                try
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -5120,78 +5120,6 @@ in `maven-model-transform/src/main/java/org/apache/maven/model/transform/FastFor
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `maven-slf4j-wrapper/src/main/java/org/apache/maven/logwrapper/LogLevelRecorder.java`
-#### Snippet
-```java
-
-    private final Level logThreshold;
-    private boolean metThreshold = false;
-
-    public LogLevelRecorder( String threshold )
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-                    return new Iterator<Entry<K, V>>()
-                    {
-                        int index = 0;
-                        @Override
-                        public boolean hasNext()
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-                    return new Iterator<Entry<K, V>>()
-                    {
-                        int index = 0;
-                        @Override
-                        public boolean hasNext()
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-                    return new Iterator<Entry<K, V>>()
-                    {
-                        int index = 0;
-                        @Override
-                        public boolean hasNext()
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-                    return new Iterator<Entry<K, V>>()
-                    {
-                        int index = 0;
-                        @Override
-                        public boolean hasNext()
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3Writer.java`
-#### Snippet
-```java
-     * Field fileComment.
-     */
-    private String fileComment = null;
-
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
 in `maven-slf4j-provider/src/main/java/org/slf4j/impl/MavenLoggerFactory.java`
 #### Snippet
@@ -5201,174 +5129,6 @@ public class MavenLoggerFactory extends SimpleLoggerFactory implements MavenSlf4
     private LogLevelRecorder logLevelRecorder = null;
 
     @Override
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Writer.java`
-#### Snippet
-```java
-     * Field fileComment.
-     */
-    private String fileComment = null;
-
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3WriterEx.java`
-#### Snippet
-```java
-     * Field fileComment.
-     */
-    private String fileComment = null;
-
-    /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-
-    /**  By default, the Mojo is assumed to work offline as well */
-    private boolean onlineRequired = false;
-
-    /**  Plugin configuration */
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-     * modules. By default, no need to aggregate the Maven project and its child modules
-     */
-    private boolean aggregator = false;
-
-    // ----------------------------------------------------------------------
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-
-    /**  By default, the Mojo don't need reports to run */
-    private boolean requiresReports = false;
-
-    /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-    private boolean threadSafe = false;
-
-    private boolean v4Api = false;
-
-    /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-
-    /**  By default, the Mojo cannot be invoked directly */
-    private boolean directInvocationOnly = false;
-
-    /**  By default, the Mojo don't need reports to run */
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-     * @since 3.0-beta-2
-     */
-    private boolean threadSafe = false;
-
-    private boolean v4Api = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-
-    /** Specify the required dependencies in a specified scope */
-    private String dependencyResolutionRequired = null;
-
-    /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-                    return new Iterator<Entry<K, V>>()
-                    {
-                        int index = 0;
-                        @Override
-                        public boolean hasNext()
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-                    return new Iterator<Entry<K, V>>()
-                    {
-                        int index = 0;
-                        @Override
-                        public boolean hasNext()
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-                    return new Iterator<Entry<K, V>>()
-                    {
-                        int index = 0;
-                        @Override
-                        public boolean hasNext()
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-                    return new Iterator<Entry<K, V>>()
-                    {
-                        int index = 0;
-                        @Override
-                        public boolean hasNext()
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionResult.java`
-#### Snippet
-```java
-        Collections.synchronizedMap( new IdentityHashMap<>() );
-
-    private boolean canResume = false;
-
-    public MavenExecutionResult setProject( MavenProject project )
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -5385,14 +5145,26 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResoluti
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionResult.java`
 #### Snippet
 ```java
-    private Date startTime;
+        Collections.synchronizedMap( new IdentityHashMap<>() );
 
-    private boolean showErrors = false;
+    private boolean canResume = false;
 
-    private TransferListener transferListener;
+    public MavenExecutionResult setProject( MavenProject project )
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/ReactorBuildStatus.java`
+#### Snippet
+```java
+    private final Collection<String> blackListedProjects = Collections.synchronizedSet( new HashSet<>() );
+
+    private volatile boolean halted = false;
+
+    public ReactorBuildStatus( ProjectDependencyGraph projectDependencyGraph )
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -5400,11 +5172,23 @@ Field initialization to `false` is redundant
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-    private boolean interactiveMode = true;
+    private List<String> goals;
 
+    private boolean useReactor = false;
+
+    private boolean recursive = true;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
     private boolean cacheTransferError = false;
 
     private boolean cacheNotFound = false;
+
+    private List<Proxy> proxies;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -5424,11 +5208,11 @@ Field initialization to `false` is redundant
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-    private List<String> goals;
+    private boolean interactiveMode = true;
 
-    private boolean useReactor = false;
+    private boolean cacheTransferError = false;
 
-    private boolean recursive = true;
+    private boolean cacheNotFound = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -5460,11 +5244,11 @@ Field initialization to `false` is redundant
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-    private File localRepositoryPath;
+    private Date startTime;
 
-    private boolean offline = false;
+    private boolean showErrors = false;
 
-    private boolean interactiveMode = true;
+    private TransferListener transferListener;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -5484,23 +5268,35 @@ Field initialization to `false` is redundant
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-    private boolean cacheTransferError = false;
+    private File localRepositoryPath;
 
-    private boolean cacheNotFound = false;
+    private boolean offline = false;
 
-    private List<Proxy> proxies;
+    private boolean interactiveMode = true;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/ReactorBuildStatus.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphVertex.java`
 #### Snippet
 ```java
-    private final Collection<String> blackListedProjects = Collections.synchronizedSet( new HashSet<>() );
 
-    private volatile boolean halted = false;
+    // indications to use these in comparison
+    private boolean compareVersion = false;
+    private boolean compareScope   = false;
 
-    public ReactorBuildStatus( ProjectDependencyGraph projectDependencyGraph )
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphVertex.java`
+#### Snippet
+```java
+    // indications to use these in comparison
+    private boolean compareVersion = false;
+    private boolean compareScope   = false;
+
+    public MetadataGraphVertex( ArtifactMetadata md )
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -5509,10 +5305,10 @@ in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionReq
 #### Snippet
 ```java
 
-    /** result type - dirty tree */
-    private boolean asDirtyTree = false;
-
     /** result type - resolved tree */
+    private boolean asResolvedTree = false;
+
+    /** result type - graph */
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -5533,34 +5329,22 @@ in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionReq
 #### Snippet
 ```java
 
+    /** result type - dirty tree */
+    private boolean asDirtyTree = false;
+
     /** result type - resolved tree */
-    private boolean asResolvedTree = false;
-
-    /** result type - graph */
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphVertex.java`
-#### Snippet
-```java
-    // indications to use these in comparison
-    private boolean compareVersion = false;
-    private boolean compareScope   = false;
-
-    public MetadataGraphVertex( ArtifactMetadata md )
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphVertex.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
 #### Snippet
 ```java
 
-    // indications to use these in comparison
-    private boolean compareVersion = false;
-    private boolean compareScope   = false;
-
+    // flags to indicate the granularity of vertices
+    private boolean versionedVertices = false;
+    private boolean scopedVertices    = false;
+    /**
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -5577,14 +5361,14 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGrap
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMetadata.java`
 #### Snippet
 ```java
 
-    // flags to indicate the granularity of vertices
-    private boolean versionedVertices = false;
-    private boolean scopedVertices    = false;
-    /**
+    /** does the actual artifact for this metadata exists */
+    protected boolean artifactExists = false;
+    /** artifact URI */
+    protected String artifactUri;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -5601,14 +5385,230 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMeta
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMetadata.java`
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+     * modules. By default, no need to aggregate the Maven project and its child modules
+     */
+    private boolean aggregator = false;
+
+    // ----------------------------------------------------------------------
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
 #### Snippet
 ```java
 
-    /** does the actual artifact for this metadata exists */
-    protected boolean artifactExists = false;
-    /** artifact URI */
-    protected String artifactUri;
+    /**  By default, the Mojo cannot be invoked directly */
+    private boolean directInvocationOnly = false;
+
+    /**  By default, the Mojo don't need reports to run */
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+
+    /** Specify the required dependencies in a specified scope */
+    private String dependencyResolutionRequired = null;
+
+    /**
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+    private boolean threadSafe = false;
+
+    private boolean v4Api = false;
+
+    /**
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+
+    /**  By default, the Mojo don't need reports to run */
+    private boolean requiresReports = false;
+
+    /**
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+
+    /**  By default, the Mojo is assumed to work offline as well */
+    private boolean onlineRequired = false;
+
+    /**  Plugin configuration */
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+     * @since 3.0-beta-2
+     */
+    private boolean threadSafe = false;
+
+    private boolean v4Api = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+                    return new Iterator<Entry<K, V>>()
+                    {
+                        int index = 0;
+                        @Override
+                        public boolean hasNext()
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+                    return new Iterator<Entry<K, V>>()
+                    {
+                        int index = 0;
+                        @Override
+                        public boolean hasNext()
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+                    return new Iterator<Entry<K, V>>()
+                    {
+                        int index = 0;
+                        @Override
+                        public boolean hasNext()
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+                    return new Iterator<Entry<K, V>>()
+                    {
+                        int index = 0;
+                        @Override
+                        public boolean hasNext()
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+                    return new Iterator<Entry<K, V>>()
+                    {
+                        int index = 0;
+                        @Override
+                        public boolean hasNext()
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+                    return new Iterator<Entry<K, V>>()
+                    {
+                        int index = 0;
+                        @Override
+                        public boolean hasNext()
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3Writer.java`
+#### Snippet
+```java
+     * Field fileComment.
+     */
+    private String fileComment = null;
+
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+                    return new Iterator<Entry<K, V>>()
+                    {
+                        int index = 0;
+                        @Override
+                        public boolean hasNext()
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+                    return new Iterator<Entry<K, V>>()
+                    {
+                        int index = 0;
+                        @Override
+                        public boolean hasNext()
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3WriterEx.java`
+#### Snippet
+```java
+     * Field fileComment.
+     */
+    private String fileComment = null;
+
+    /**
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Writer.java`
+#### Snippet
+```java
+     * Field fileComment.
+     */
+    private String fileComment = null;
+
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `maven-slf4j-wrapper/src/main/java/org/apache/maven/logwrapper/LogLevelRecorder.java`
+#### Snippet
+```java
+
+    private final Level logThreshold;
+    private boolean metThreshold = false;
+
+    public LogLevelRecorder( String threshold )
 ```
 
 ## RuleId[ruleID=EqualsAndHashcode]
@@ -5640,7 +5640,7 @@ public abstract class DefaultToolchain // should have been AbstractToolchain...
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-18-23-07-25.814.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-19-16-11-17.042.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -5651,18 +5651,6 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-18-23-07-25.814.
 ```
 
 ## RuleId[ruleID=InstanceofCatchParameter]
-### RuleId[ruleID=InstanceofCatchParameter]
-'instanceof' on 'catch' parameter `e`
-in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.java`
-#### Snippet
-```java
-        catch ( final Exception e )
-        {
-            final Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
-            throw new IllegalArgumentException( String.format( CONVERSION_ERROR, value, clazz ), cause );
-        }
-```
-
 ### RuleId[ruleID=InstanceofCatchParameter]
 'instanceof' on 'catch' parameter `t`
 in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleModuleBuilder.java`
@@ -5687,22 +5675,22 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleModule
                 throw (Error) t;
 ```
 
+### RuleId[ruleID=InstanceofCatchParameter]
+'instanceof' on 'catch' parameter `e`
+in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.java`
+#### Snippet
+```java
+        catch ( final Exception e )
+        {
+            final Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
+            throw new IllegalArgumentException( String.format( CONVERSION_ERROR, value, clazz ), cause );
+        }
+```
+
 ## RuleId[ruleID=DuplicateThrows]
 ### RuleId[ruleID=DuplicateThrows]
 There is a more general exception, 'java.io.IOException', in the throws list already.
 in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public synchronized void loadFromXML( InputStream in ) throws IOException, InvalidPropertiesFormatException
-    {
-        throw new UnsupportedOperationException();
-```
-
-### RuleId[ruleID=DuplicateThrows]
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
 #### Snippet
 ```java
 
@@ -5724,6 +5712,127 @@ in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
         throw new UnsupportedOperationException();
 ```
 
+### RuleId[ruleID=DuplicateThrows]
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public synchronized void loadFromXML( InputStream in ) throws IOException, InvalidPropertiesFormatException
+    {
+        throw new UnsupportedOperationException();
+```
+
+## RuleId[ruleID=ZeroLengthArrayInitialization]
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `maven-core/src/main/java/org/apache/maven/internal/aether/MavenChainedWorkspaceReader.java`
+#### Snippet
+```java
+    public static WorkspaceReader of( Collection<WorkspaceReader> workspaceReaderCollection )
+    {
+        WorkspaceReader[] readers = workspaceReaderCollection.toArray( new WorkspaceReader[0] );
+        if ( readers.length == 1 )
+        {
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `maven-core/src/main/java/org/apache/maven/toolchain/DefaultToolchainManagerPrivate.java`
+#### Snippet
+```java
+        }
+
+        return toRet.toArray( new ToolchainPrivate[0] );
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClasspathTransformation.java`
+#### Snippet
+```java
+            if ( exits != null && exits.size() > 0 )
+            {
+                MetadataGraphEdge[] sortedExits = exits.toArray( new MetadataGraphEdge[0] );
+                Arrays.sort( sortedExits, ( e1, e2 ) ->
+                {
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+        private MapN( Map<K, V> map )
+        {
+            entries = map != null ? map.entrySet().toArray() : new Object[0];
+        }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+        private MapN( Map<K, V> map )
+        {
+            entries = map != null ? map.entrySet().toArray() : new Object[0];
+        }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+        private MapN( Map<K, V> map )
+        {
+            entries = map != null ? map.entrySet().toArray() : new Object[0];
+        }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
+#### Snippet
+```java
+        else
+        {
+            cleanArgs = cleaned.toArray( new String[0] );
+        }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+        private MapN( Map<K, V> map )
+        {
+            entries = map != null ? map.entrySet().toArray() : new Object[0];
+        }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+                }
+
+                mavenConfig = cliManager.parse( args.toArray( new String[0] ) );
+                List<?> unrecognized = mavenConfig.getArgList();
+                if ( !unrecognized.isEmpty() )
+```
+
 ## RuleId[ruleID=NonFinalFieldOfException]
 ### RuleId[ruleID=NonFinalFieldOfException]
 Non-final field `repository` of exception class
@@ -5735,102 +5844,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/InvalidR
     private Repository repository;
 
     /**
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `longMessage` of exception class
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/MojoException.java`
-#### Snippet
-```java
-    protected Object source;
-
-    protected String longMessage;
-
-    /**
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `source` of exception class
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/MojoException.java`
-#### Snippet
-```java
-{
-
-    protected Object source;
-
-    protected String longMessage;
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `longMessage` of exception class
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecutionException.java`
-#### Snippet
-```java
-    protected Object source;
-
-    protected String longMessage;
-
-    public AbstractMojoExecutionException( String message )
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `source` of exception class
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecutionException.java`
-#### Snippet
-```java
-    extends Exception
-{
-    protected Object source;
-
-    protected String longMessage;
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `pluginDescriptor` of exception class
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoNotFoundException.java`
-#### Snippet
-```java
-    private String goal;
-
-    private PluginDescriptor pluginDescriptor;
-
-    public MojoNotFoundException( String goal, PluginDescriptor pluginDescriptor )
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `goal` of exception class
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoNotFoundException.java`
-#### Snippet
-```java
-    extends Exception
-{
-    private String goal;
-
-    private PluginDescriptor pluginDescriptor;
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `artifact` of exception class
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/CyclicDependencyException.java`
-#### Snippet
-```java
-    extends ArtifactResolutionException
-{
-    private Artifact artifact;
-
-    public CyclicDependencyException( String message,
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `exitCode` of exception class
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-        extends Exception
-    {
-        int exitCode;
-
-        ExitException( int exitCode )
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
@@ -5870,18 +5883,6 @@ in `maven-core/src/main/java/org/apache/maven/MissingModuleException.java`
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `downloadUrl` of exception class
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactNotFoundException.java`
-#### Snippet
-```java
-    extends AbstractArtifactResolutionException
-{
-    private String downloadUrl;
-
-    protected ArtifactNotFoundException( String message, Artifact artifact,
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
 Non-final field `plugin` of exception class
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginNotFoundException.java`
 #### Snippet
@@ -5906,18 +5907,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginContainerException.ja
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `goal` of exception class
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginManagerException.java`
-#### Snippet
-```java
-    private final String pluginVersion;
-
-    private String goal;
-
-    private MavenProject project;
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
 Non-final field `project` of exception class
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginManagerException.java`
 #### Snippet
@@ -5930,15 +5919,15 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginManagerException.java
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `originalMessage` of exception class
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginConfigurationException.java`
+Non-final field `goal` of exception class
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginManagerException.java`
 #### Snippet
 ```java
-    private PluginDescriptor pluginDescriptor;
+    private final String pluginVersion;
 
-    private String originalMessage;
+    private String goal;
 
-    public PluginConfigurationException( PluginDescriptor pluginDescriptor, String originalMessage )
+    private MavenProject project;
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
@@ -5954,6 +5943,18 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginConfigurationExceptio
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `originalMessage` of exception class
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginConfigurationException.java`
+#### Snippet
+```java
+    private PluginDescriptor pluginDescriptor;
+
+    private String originalMessage;
+
+    public PluginConfigurationException( PluginDescriptor pluginDescriptor, String originalMessage )
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
 Non-final field `pluginKey` of exception class
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginLoaderException.java`
 #### Snippet
@@ -5966,87 +5967,15 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginLoaderException.java`
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `version` of exception class
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+Non-final field `results` of exception class
+in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingException.java`
 #### Snippet
 ```java
-    private String artifactId;
+    private File pomFile;
 
-    private String version;
+    private List<ProjectBuildingResult> results;
 
-    private String type;
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `artifactId` of exception class
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private String groupId;
-
-    private String artifactId;
-
-    private String version;
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `artifact` of exception class
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private String classifier;
-
-    private Artifact artifact;
-
-    private List<ArtifactRepository> remoteRepositories;
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `type` of exception class
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private String version;
-
-    private String type;
-
-    private String classifier;
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `remoteRepositories` of exception class
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private Artifact artifact;
-
-    private List<ArtifactRepository> remoteRepositories;
-
-    private final String originalMessage;
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `classifier` of exception class
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private String type;
-
-    private String classifier;
-
-    private Artifact artifact;
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `groupId` of exception class
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    extends Exception
-{
-    private String groupId;
-
-    private String artifactId;
+    public ProjectBuildingException( String projectId, String message, Throwable cause )
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
@@ -6059,18 +5988,6 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingException.j
     private File pomFile;
 
     private List<ProjectBuildingResult> results;
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `results` of exception class
-in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingException.java`
-#### Snippet
-```java
-    private File pomFile;
-
-    private List<ProjectBuildingResult> results;
-
-    public ProjectBuildingException( String projectId, String message, Throwable cause )
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
@@ -6098,18 +6015,6 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/InvalidDependency
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `columnNumber` of exception class
-in `maven-core/src/main/java/org/apache/maven/settings/SettingsConfigurationException.java`
-#### Snippet
-```java
-    private int lineNumber;
-
-    private int columnNumber;
-
-    public SettingsConfigurationException( String message )
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
 Non-final field `lineNumber` of exception class
 in `maven-core/src/main/java/org/apache/maven/settings/SettingsConfigurationException.java`
 #### Snippet
@@ -6119,6 +6024,18 @@ in `maven-core/src/main/java/org/apache/maven/settings/SettingsConfigurationExce
     private int lineNumber;
 
     private int columnNumber;
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `columnNumber` of exception class
+in `maven-core/src/main/java/org/apache/maven/settings/SettingsConfigurationException.java`
+#### Snippet
+```java
+    private int lineNumber;
+
+    private int columnNumber;
+
+    public SettingsConfigurationException( String message )
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
@@ -6158,18 +6075,6 @@ in `maven-compat/src/main/java/org/apache/maven/project/InvalidProjectModelExcep
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `originalMessage` of exception class
-in `maven-compat/src/main/java/org/apache/maven/project/interpolation/ModelInterpolationException.java`
-#### Snippet
-```java
-    private String expression;
-
-    private String originalMessage;
-
-    public ModelInterpolationException( String message )
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
 Non-final field `expression` of exception class
 in `maven-compat/src/main/java/org/apache/maven/project/interpolation/ModelInterpolationException.java`
 #### Snippet
@@ -6182,27 +6087,15 @@ in `maven-compat/src/main/java/org/apache/maven/project/interpolation/ModelInter
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `pomFile` of exception class
-in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundException.java`
+Non-final field `originalMessage` of exception class
+in `maven-compat/src/main/java/org/apache/maven/project/interpolation/ModelInterpolationException.java`
 #### Snippet
 ```java
+    private String expression;
 
-    private String projectId;
-    private File pomFile;
-    private InvalidVersionSpecificationException cause;
+    private String originalMessage;
 
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `dependency` of exception class
-in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundException.java`
-#### Snippet
-```java
-    extends Exception
-{
-    private Dependency dependency;
-
-    private String projectId;
+    public ModelInterpolationException( String message )
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
@@ -6218,6 +6111,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundExcept
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `dependency` of exception class
+in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundException.java`
+#### Snippet
+```java
+    extends Exception
+{
+    private Dependency dependency;
+
+    private String projectId;
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
 Non-final field `cause` of exception class
 in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundException.java`
 #### Snippet
@@ -6230,6 +6135,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundExcept
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `pomFile` of exception class
+in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundException.java`
+#### Snippet
+```java
+
+    private String projectId;
+    private File pomFile;
+    private InvalidVersionSpecificationException cause;
+
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
 Non-final field `artifact` of exception class
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataRetrievalException.java`
 #### Snippet
@@ -6239,6 +6156,198 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataRetr
     private ArtifactMetadata artifact;
 
     public MetadataRetrievalException( String message )
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `goal` of exception class
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoNotFoundException.java`
+#### Snippet
+```java
+    extends Exception
+{
+    private String goal;
+
+    private PluginDescriptor pluginDescriptor;
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `pluginDescriptor` of exception class
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoNotFoundException.java`
+#### Snippet
+```java
+    private String goal;
+
+    private PluginDescriptor pluginDescriptor;
+
+    public MojoNotFoundException( String goal, PluginDescriptor pluginDescriptor )
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `source` of exception class
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecutionException.java`
+#### Snippet
+```java
+    extends Exception
+{
+    protected Object source;
+
+    protected String longMessage;
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `longMessage` of exception class
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecutionException.java`
+#### Snippet
+```java
+    protected Object source;
+
+    protected String longMessage;
+
+    public AbstractMojoExecutionException( String message )
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `longMessage` of exception class
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/MojoException.java`
+#### Snippet
+```java
+    protected Object source;
+
+    protected String longMessage;
+
+    /**
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `source` of exception class
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/MojoException.java`
+#### Snippet
+```java
+{
+
+    protected Object source;
+
+    protected String longMessage;
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `artifact` of exception class
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/CyclicDependencyException.java`
+#### Snippet
+```java
+    extends ArtifactResolutionException
+{
+    private Artifact artifact;
+
+    public CyclicDependencyException( String message,
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `downloadUrl` of exception class
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactNotFoundException.java`
+#### Snippet
+```java
+    extends AbstractArtifactResolutionException
+{
+    private String downloadUrl;
+
+    protected ArtifactNotFoundException( String message, Artifact artifact,
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `exitCode` of exception class
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        extends Exception
+    {
+        int exitCode;
+
+        ExitException( int exitCode )
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `version` of exception class
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private String artifactId;
+
+    private String version;
+
+    private String type;
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `classifier` of exception class
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private String type;
+
+    private String classifier;
+
+    private Artifact artifact;
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `remoteRepositories` of exception class
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private Artifact artifact;
+
+    private List<ArtifactRepository> remoteRepositories;
+
+    private final String originalMessage;
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `groupId` of exception class
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    extends Exception
+{
+    private String groupId;
+
+    private String artifactId;
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `artifact` of exception class
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private String classifier;
+
+    private Artifact artifact;
+
+    private List<ArtifactRepository> remoteRepositories;
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `artifactId` of exception class
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private String groupId;
+
+    private String artifactId;
+
+    private String version;
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `type` of exception class
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private String version;
+
+    private String type;
+
+    private String classifier;
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
@@ -6292,18 +6401,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultTra
 
 ### RuleId[ruleID=SynchronizeOnThis]
 Lock operations on 'this' may have unforeseen side-effects
-in `maven-embedder/src/main/java/org/apache/maven/cli/event/ExecutionEventLogger.java`
-#### Snippet
-```java
-                // display progress [i/n]
-                int number;
-                synchronized ( this )
-                {
-                    number = ++currentVisitedProjectCount;
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
 in `maven-core/src/main/java/org/apache/maven/session/scope/internal/SessionScope.java`
 #### Snippet
 ```java
@@ -6326,113 +6423,16 @@ in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractSt
 
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+### RuleId[ruleID=SynchronizeOnThis]
+Lock operations on 'this' may have unforeseen side-effects
+in `maven-embedder/src/main/java/org/apache/maven/cli/event/ExecutionEventLogger.java`
 #### Snippet
 ```java
-        private MapN( Map<K, V> map )
-        {
-            entries = map != null ? map.entrySet().toArray() : new Object[0];
-        }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-        private MapN( Map<K, V> map )
-        {
-            entries = map != null ? map.entrySet().toArray() : new Object[0];
-        }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
-#### Snippet
-```java
-        else
-        {
-            cleanArgs = cleaned.toArray( new String[0] );
-        }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-        private MapN( Map<K, V> map )
-        {
-            entries = map != null ? map.entrySet().toArray() : new Object[0];
-        }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-        private MapN( Map<K, V> map )
-        {
-            entries = map != null ? map.entrySet().toArray() : new Object[0];
-        }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-                }
-
-                mavenConfig = cliManager.parse( args.toArray( new String[0] ) );
-                List<?> unrecognized = mavenConfig.getArgList();
-                if ( !unrecognized.isEmpty() )
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `maven-core/src/main/java/org/apache/maven/internal/aether/MavenChainedWorkspaceReader.java`
-#### Snippet
-```java
-    public static WorkspaceReader of( Collection<WorkspaceReader> workspaceReaderCollection )
-    {
-        WorkspaceReader[] readers = workspaceReaderCollection.toArray( new WorkspaceReader[0] );
-        if ( readers.length == 1 )
-        {
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `maven-core/src/main/java/org/apache/maven/toolchain/DefaultToolchainManagerPrivate.java`
-#### Snippet
-```java
-        }
-
-        return toRet.toArray( new ToolchainPrivate[0] );
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClasspathTransformation.java`
-#### Snippet
-```java
-            if ( exits != null && exits.size() > 0 )
-            {
-                MetadataGraphEdge[] sortedExits = exits.toArray( new MetadataGraphEdge[0] );
-                Arrays.sort( sortedExits, ( e1, e2 ) ->
+                // display progress [i/n]
+                int number;
+                synchronized ( this )
                 {
+                    number = ++currentVisitedProjectCount;
 ```
 
 ## RuleId[ruleID=InfiniteRecursion]
@@ -6508,18 +6508,6 @@ in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ParentX
                     buffer.add( pos++, e );
                 }
                 break;
-```
-
-### RuleId[ruleID=UnusedAssignment]
-The value `false` assigned to `addedToBuffer` is never used
-in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
-#### Snippet
-```java
-
-                currentArg = null;
-                addedToBuffer = false;
-                continue;
-            }
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -6619,6 +6607,18 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/filter/TypeArt
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
+Variable `result` initializer `null` is redundant
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+            catch ( ModelBuildingException e )
+            {
+                DefaultProjectBuildingResult result = null;
+                if ( project == null || interimResult.result.getEffectiveModel() == null )
+                {
+```
+
+### RuleId[ruleID=UnusedAssignment]
 The value changed at `i++` is never used
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
 #### Snippet
@@ -6628,6 +6628,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
                     sha1ChecksumObserver = addChecksumObserver( wagon, CHECKSUM_ALGORITHMS[i++] );
 
                     // reset the retry flag.
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `resolved` initializer `true` is redundant
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphEdge.java`
+#### Snippet
+```java
+    int               depth = -1;
+    int               pomOrder = -1;
+    boolean           resolved = true;
+    String            artifactUri;
+
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -6655,186 +6667,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGrap
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `resolved` initializer `true` is redundant
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphEdge.java`
+The value `false` assigned to `addedToBuffer` is never used
+in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
 #### Snippet
 ```java
-    int               depth = -1;
-    int               pomOrder = -1;
-    boolean           resolved = true;
-    String            artifactUri;
 
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `result` initializer `null` is redundant
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-            catch ( ModelBuildingException e )
-            {
-                DefaultProjectBuildingResult result = null;
-                if ( project == null || interimResult.result.getEffectiveModel() == null )
-                {
+                currentArg = null;
+                addedToBuffer = false;
+                continue;
+            }
 ```
 
 ## RuleId[ruleID=ConstantValue]
-### RuleId[ruleID=ConstantValue]
-Value `ret` is always 'true'
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-            boolean ret = list.add( revMapper.apply( t ) );
-            setter.accept( list );
-            return ret;
-        }
-        else
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `currentArg != null` is always `true`
-in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
-#### Snippet
-```java
-
-                // if we're building an argument, keep doing so.
-                if ( currentArg != null )
-                {
-                    // if this is the case of "-Dfoo=bar", then we need to adjust the buffer.
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `addedToBuffer` is always `true`
-in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
-#### Snippet
-```java
-                {
-                    // if this is the case of "-Dfoo=bar", then we need to adjust the buffer.
-                    if ( addedToBuffer )
-                    {
-                        currentArg.setLength( currentArg.length() - 1 );
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `problems != null` is always `true`
-in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/ToolchainsBuildingException.java`
-#### Snippet
-```java
-
-        this.problems = new ArrayList<>();
-        if ( problems != null )
-        {
-            this.problems.addAll( problems );
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `ret` is always 'true'
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
-#### Snippet
-```java
-            boolean ret = list.add( revMapper.apply( t ) );
-            setter.accept( list );
-            return ret;
-        }
-        else
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `ret` is always 'true'
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-            boolean ret = list.add( revMapper.apply( t ) );
-            setter.accept( list );
-            return ret;
-        }
-        else
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `artifactId` is always 'null'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
-#### Snippet
-```java
-        if ( artifactId == null )
-        {
-            throw new InvalidArtifactRTException( groupId, artifactId, getVersion(), type,
-                "The artifactId cannot be empty." );
-        }
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `type` is always 'null'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
-#### Snippet
-```java
-        if ( type == null )
-        {
-            throw new InvalidArtifactRTException( groupId, artifactId, getVersion(), type,
-                "The type cannot be empty." );
-        }
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `lowerInclusive` is always 'true'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-                    else if ( lowerInclusive && upperInclusive )
-                    {
-                        restrictions.add( new Restriction( lower, lowerInclusive, upper, upperInclusive ) );
-                    }
-
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `upperInclusive` is always 'true'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-                    else if ( lowerInclusive && upperInclusive )
-                    {
-                        restrictions.add( new Restriction( lower, lowerInclusive, upper, upperInclusive ) );
-                    }
-
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `lowerBoundInclusive` is always 'true'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-            ArtifactVersion version = new DefaultArtifactVersion( process );
-
-            restriction = new Restriction( version, lowerBoundInclusive, version, upperBoundInclusive );
-        }
-        else
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `upperBoundInclusive` is always 'true'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-            ArtifactVersion version = new DefaultArtifactVersion( process );
-
-            restriction = new Restriction( version, lowerBoundInclusive, version, upperBoundInclusive );
-        }
-        else
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `l` is always 'null'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-
-                        // if this is shorter, then invert the compare and mul with -1
-                        int result = l == null ? ( r == null ? 0 : -1 * r.compareTo( l ) ) : l.compareTo( r );
-
-                        if ( result != 0 )
-```
-
 ### RuleId[ruleID=ConstantValue]
 Value `transitive` is always 'true'
 in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGraph.java`
@@ -6884,18 +6728,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPlugin
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Value `outputStream` is always 'null'
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultModelXmlFactory.java`
-#### Snippet
-```java
-                try ( OutputStream os = Files.newOutputStream( path ) )
-                {
-                    new MavenXpp3WriterEx().write( outputStream, content );
-                }
-            }
-```
-
-### RuleId[ruleID=ConstantValue]
 Condition `!details.isEmpty()` is always `true`
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
 #### Snippet
@@ -6920,15 +6752,15 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Value `aggregating` is always 'true'
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
+Value `outputStream` is always 'null'
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultModelXmlFactory.java`
 #### Snippet
 ```java
-                    {
-                        lifeCycleDependencyResolver.resolveProjectDependencies( aggregatedProject, scopesToCollect,
-                                                                                scopesToResolve, session, aggregating,
-                                                                                Collections.emptySet() );
-                    }
+                try ( OutputStream os = Files.newOutputStream( path ) )
+                {
+                    new MavenXpp3WriterEx().write( outputStream, content );
+                }
+            }
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -6941,6 +6773,18 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multith
                                                       projectBuildMap, muxer );
                 if ( reactorContext.getReactorBuildStatus().isHalted() )
                 {
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `aggregating` is always 'true'
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
+#### Snippet
+```java
+                    {
+                        lifeCycleDependencyResolver.resolveProjectDependencies( aggregatedProject, scopesToCollect,
+                                                                                scopesToResolve, session, aggregating,
+                                                                                Collections.emptySet() );
+                    }
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -6957,7 +6801,7 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDepend
 
 ### RuleId[ruleID=ConstantValue]
 Condition `problems != null` is always `true`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingException.java`
+in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/ToolchainsBuildingException.java`
 #### Snippet
 ```java
 
@@ -7027,6 +6871,162 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java
             final DependencyManagement dependencyManagement = project.getDependencyManagement();
 ```
 
+### RuleId[ruleID=ConstantValue]
+Condition `problems != null` is always `true`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingException.java`
+#### Snippet
+```java
+
+        this.problems = new ArrayList<>();
+        if ( problems != null )
+        {
+            this.problems.addAll( problems );
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `ret` is always 'true'
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+            boolean ret = list.add( revMapper.apply( t ) );
+            setter.accept( list );
+            return ret;
+        }
+        else
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `currentArg != null` is always `true`
+in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
+#### Snippet
+```java
+
+                // if we're building an argument, keep doing so.
+                if ( currentArg != null )
+                {
+                    // if this is the case of "-Dfoo=bar", then we need to adjust the buffer.
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `addedToBuffer` is always `true`
+in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
+#### Snippet
+```java
+                {
+                    // if this is the case of "-Dfoo=bar", then we need to adjust the buffer.
+                    if ( addedToBuffer )
+                    {
+                        currentArg.setLength( currentArg.length() - 1 );
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `artifactId` is always 'null'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+        if ( artifactId == null )
+        {
+            throw new InvalidArtifactRTException( groupId, artifactId, getVersion(), type,
+                "The artifactId cannot be empty." );
+        }
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `type` is always 'null'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+        if ( type == null )
+        {
+            throw new InvalidArtifactRTException( groupId, artifactId, getVersion(), type,
+                "The type cannot be empty." );
+        }
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `l` is always 'null'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+
+                        // if this is shorter, then invert the compare and mul with -1
+                        int result = l == null ? ( r == null ? 0 : -1 * r.compareTo( l ) ) : l.compareTo( r );
+
+                        if ( result != 0 )
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `lowerBoundInclusive` is always 'true'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+            ArtifactVersion version = new DefaultArtifactVersion( process );
+
+            restriction = new Restriction( version, lowerBoundInclusive, version, upperBoundInclusive );
+        }
+        else
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `upperBoundInclusive` is always 'true'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+            ArtifactVersion version = new DefaultArtifactVersion( process );
+
+            restriction = new Restriction( version, lowerBoundInclusive, version, upperBoundInclusive );
+        }
+        else
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `lowerInclusive` is always 'true'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+                    else if ( lowerInclusive && upperInclusive )
+                    {
+                        restrictions.add( new Restriction( lower, lowerInclusive, upper, upperInclusive ) );
+                    }
+
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `upperInclusive` is always 'true'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+                    else if ( lowerInclusive && upperInclusive )
+                    {
+                        restrictions.add( new Restriction( lower, lowerInclusive, upper, upperInclusive ) );
+                    }
+
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `ret` is always 'true'
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
+#### Snippet
+```java
+            boolean ret = list.add( revMapper.apply( t ) );
+            setter.accept( list );
+            return ret;
+        }
+        else
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `ret` is always 'true'
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
+#### Snippet
+```java
+            boolean ret = list.add( revMapper.apply( t ) );
+            setter.accept( list );
+            return ret;
+        }
+        else
+```
+
 ## RuleId[ruleID=IOResource]
 ### RuleId[ruleID=IOResource]
 'PrintWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
@@ -7053,18 +7053,6 @@ in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/To
 ```
 
 ### RuleId[ruleID=IOResource]
-'PrintWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingException.java`
-#### Snippet
-```java
-        StringWriter buffer = new StringWriter( 1024 );
-
-        PrintWriter writer = new PrintWriter( buffer );
-
-        writer.print( problems.size() );
-```
-
-### RuleId[ruleID=IOResource]
 'RandomAccessFile' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
 #### Snippet
@@ -7074,6 +7062,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateC
                 channel = new RandomAccessFile( touchfile, "rw" ).getChannel();
                 lock = channel.lock();
 
+```
+
+### RuleId[ruleID=IOResource]
+'PrintWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingException.java`
+#### Snippet
+```java
+        StringWriter buffer = new StringWriter( 1024 );
+
+        PrintWriter writer = new PrintWriter( buffer );
+
+        writer.print( problems.size() );
 ```
 
 ## RuleId[ruleID=FieldMayBeStatic]
@@ -7103,18 +7103,6 @@ public class XmlUtils
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-import java.util.function.UnaryOperator;
-
-class ImmutableCollections
-{
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `ModelProblemUtils` has only 'static' members, and lacks a 'private' constructor
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelProblemUtils.java`
 #### Snippet
@@ -7122,198 +7110,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelProbl
  * @author Benjamin Bentmann
  */
 public class ModelProblemUtils
-{
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-import java.util.function.UnaryOperator;
-
-class ImmutableCollections
-{
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `DomBuilder` has only 'static' members, and lacks a 'private' constructor
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/DomBuilder.java`
-#### Snippet
-```java
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
-
-public class DomBuilder
-{
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Xpp3DomWriter` has only 'static' members, and lacks a 'private' constructor
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomWriter.java`
-#### Snippet
-```java
- *
- */
-public class Xpp3DomWriter
-{
-    public static void write( Writer writer, Dom dom )
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Xpp3DomBuilder` has only 'static' members, and lacks a 'private' constructor
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomBuilder.java`
-#### Snippet
-```java
- *
- */
-public class Xpp3DomBuilder
-{
-    private static final boolean DEFAULT_TRIM = true;
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Xpp3DomBuilder` has only 'static' members, and lacks a 'private' constructor
-in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3DomBuilder.java`
-#### Snippet
-```java
- * @version $Id$
- */
-public class Xpp3DomBuilder
-{
-    private static final boolean DEFAULT_TRIM = true;
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ArtifactDescriptorUtils` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
-#### Snippet
-```java
- * @author Benjamin Bentmann
- */
-public class ArtifactDescriptorUtils
-{
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MavenSlf4jFriend` has only 'static' members, and lacks a 'private' constructor
-in `maven-embedder/src/main/java/org/slf4j/MavenSlf4jFriend.java`
-#### Snippet
-```java
- * Use with precaution, since this is not normally intended for production use.
- */
-public class MavenSlf4jFriend
-{
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MavenSlf4jSimpleFriend` has only 'static' members, and lacks a 'private' constructor
-in `maven-embedder/src/main/java/org/slf4j/impl/MavenSlf4jSimpleFriend.java`
-#### Snippet
-```java
- * Use with precaution, since this is not normally intended for production use.
- */
-public class MavenSlf4jSimpleFriend
-{
-    public static void init()
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CleanArgument` has only 'static' members, and lacks a 'private' constructor
-in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
-#### Snippet
-```java
- * CleanArgument
- */
-public class CleanArgument
-{
-    public static String[] cleanArgs( String[] args )
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ResolveFile` has only 'static' members, and lacks a 'private' constructor
-in `maven-embedder/src/main/java/org/apache/maven/cli/ResolveFile.java`
-#### Snippet
-```java
- * Resolve relative file path against the given base directory
- */
-public class ResolveFile
-{
-    public static File resolveFile( File file, String baseDirectory )
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CLIReportingUtils` has only 'static' members, and lacks a 'private' constructor
-in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
-#### Snippet
-```java
- * @author jdcasey
- */
-public final class CLIReportingUtils
-{
-    // CHECKSTYLE_OFF: MagicNumber
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Slf4jConfigurationFactory` has only 'static' members, and lacks a 'private' constructor
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jConfigurationFactory.java`
-#### Snippet
-```java
- * @since 3.1.0
- */
-public class Slf4jConfigurationFactory
-{
-    public static final String RESOURCE = "META-INF/maven/slf4j-configuration.properties";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ProblemCollectorFactory` has only 'static' members, and lacks a 'private' constructor
-in `maven-builder-support/src/main/java/org/apache/maven/building/ProblemCollectorFactory.java`
-#### Snippet
-```java
- * @since 3.3.0
- */
-public class ProblemCollectorFactory
-{
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-import java.util.function.UnaryOperator;
-
-class ImmutableCollections
-{
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ArtifactUtils` has only 'static' members, and lacks a 'private' constructor
-in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
-#### Snippet
-```java
- * ArtifactUtils
- */
-public final class ArtifactUtils
-{
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-import java.util.function.UnaryOperator;
-
-class ImmutableCollections
 {
 
 ```
@@ -7426,6 +7222,210 @@ public class ExpressionDocumenter
 
 ```
 
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ProblemCollectorFactory` has only 'static' members, and lacks a 'private' constructor
+in `maven-builder-support/src/main/java/org/apache/maven/building/ProblemCollectorFactory.java`
+#### Snippet
+```java
+ * @since 3.3.0
+ */
+public class ProblemCollectorFactory
+{
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+import java.util.function.UnaryOperator;
+
+class ImmutableCollections
+{
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+import java.util.function.UnaryOperator;
+
+class ImmutableCollections
+{
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+import java.util.function.UnaryOperator;
+
+class ImmutableCollections
+{
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Xpp3DomWriter` has only 'static' members, and lacks a 'private' constructor
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomWriter.java`
+#### Snippet
+```java
+ *
+ */
+public class Xpp3DomWriter
+{
+    public static void write( Writer writer, Dom dom )
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `DomBuilder` has only 'static' members, and lacks a 'private' constructor
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/DomBuilder.java`
+#### Snippet
+```java
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+
+public class DomBuilder
+{
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Xpp3DomBuilder` has only 'static' members, and lacks a 'private' constructor
+in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3DomBuilder.java`
+#### Snippet
+```java
+ * @version $Id$
+ */
+public class Xpp3DomBuilder
+{
+    private static final boolean DEFAULT_TRIM = true;
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Xpp3DomBuilder` has only 'static' members, and lacks a 'private' constructor
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomBuilder.java`
+#### Snippet
+```java
+ *
+ */
+public class Xpp3DomBuilder
+{
+    private static final boolean DEFAULT_TRIM = true;
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ArtifactDescriptorUtils` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
+#### Snippet
+```java
+ * @author Benjamin Bentmann
+ */
+public class ArtifactDescriptorUtils
+{
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MavenSlf4jFriend` has only 'static' members, and lacks a 'private' constructor
+in `maven-embedder/src/main/java/org/slf4j/MavenSlf4jFriend.java`
+#### Snippet
+```java
+ * Use with precaution, since this is not normally intended for production use.
+ */
+public class MavenSlf4jFriend
+{
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MavenSlf4jSimpleFriend` has only 'static' members, and lacks a 'private' constructor
+in `maven-embedder/src/main/java/org/slf4j/impl/MavenSlf4jSimpleFriend.java`
+#### Snippet
+```java
+ * Use with precaution, since this is not normally intended for production use.
+ */
+public class MavenSlf4jSimpleFriend
+{
+    public static void init()
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CleanArgument` has only 'static' members, and lacks a 'private' constructor
+in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
+#### Snippet
+```java
+ * CleanArgument
+ */
+public class CleanArgument
+{
+    public static String[] cleanArgs( String[] args )
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ResolveFile` has only 'static' members, and lacks a 'private' constructor
+in `maven-embedder/src/main/java/org/apache/maven/cli/ResolveFile.java`
+#### Snippet
+```java
+ * Resolve relative file path against the given base directory
+ */
+public class ResolveFile
+{
+    public static File resolveFile( File file, String baseDirectory )
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CLIReportingUtils` has only 'static' members, and lacks a 'private' constructor
+in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
+#### Snippet
+```java
+ * @author jdcasey
+ */
+public final class CLIReportingUtils
+{
+    // CHECKSTYLE_OFF: MagicNumber
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Slf4jConfigurationFactory` has only 'static' members, and lacks a 'private' constructor
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jConfigurationFactory.java`
+#### Snippet
+```java
+ * @since 3.1.0
+ */
+public class Slf4jConfigurationFactory
+{
+    public static final String RESOURCE = "META-INF/maven/slf4j-configuration.properties";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ArtifactUtils` has only 'static' members, and lacks a 'private' constructor
+in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
+#### Snippet
+```java
+ * ArtifactUtils
+ */
+public final class ArtifactUtils
+{
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+import java.util.function.UnaryOperator;
+
+class ImmutableCollections
+{
+
+```
+
 ## RuleId[ruleID=UnnecessarySemicolon]
 ### RuleId[ruleID=UnnecessarySemicolon]
 Unnecessary semicolon `;`
@@ -7450,18 +7450,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/superpom/DefaultSup
                         modelId, getClass().getResource( resource ).toExternalForm() );
                 options.put( ModelProcessor.INPUT_SOURCE, inputSource );
 
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `str` might be null
-in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
-#### Snippet
-```java
-        if ( ( c < '0' || c > '9' ) && ( c < 'a' || c > 'z' ) )
-        {
-            Validate.notBlank( str, message );
-        }
-    }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -7510,6 +7498,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ClasspathCon
         return classpath == null ? null : classpath.iterator();
     }
 
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `str` might be null
+in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
+#### Snippet
+```java
+        if ( ( c < '0' || c > '9' ) && ( c < 'a' || c > 'z' ) )
+        {
+            Validate.notBlank( str, message );
+        }
+    }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -7564,15 +7564,15 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuild
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'UrlModelSource' is still used
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/UrlModelSource.java`
+Deprecated member 'ArtifactFilterManagerDelegate' is still used
+in `maven-core/src/main/java/org/apache/maven/ArtifactFilterManagerDelegate.java`
 #### Snippet
 ```java
+ * @deprecated use {@code META-INF/maven/extension.xml} to define artifacts exported by Maven core extensions.
  */
-@Deprecated
-public class UrlModelSource extends UrlSource
-    implements ModelSource
+public interface ArtifactFilterManagerDelegate
 {
+
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -7588,39 +7588,15 @@ public class StringModelSource extends StringSource
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'DEBUG' is still used
-in `maven-embedder/src/main/java/org/apache/maven/cli/CLIManager.java`
+Deprecated member 'UrlModelSource' is still used
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/UrlModelSource.java`
 #### Snippet
 ```java
-     * Use {@code -X/--verbose} instead. */
-    @Deprecated
-    public static final String DEBUG = "debug";
-
-    protected Options options;
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'setLog' is still used
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/Mojo.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    void setLog( Log log );
-
-    /**
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ArtifactFilterManagerDelegate' is still used
-in `maven-core/src/main/java/org/apache/maven/ArtifactFilterManagerDelegate.java`
-#### Snippet
-```java
- * @deprecated use {@code META-INF/maven/extension.xml} to define artifacts exported by Maven core extensions.
  */
-public interface ArtifactFilterManagerDelegate
+@Deprecated
+public class UrlModelSource extends UrlSource
+    implements ModelSource
 {
-
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -7684,6 +7660,18 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequ
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'createArtifacts' is still used
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+    // USED BY MAVEN ASSEMBLY PLUGIN
+    @Deprecated
+    public static Set<Artifact> createArtifacts( ArtifactFactory artifactFactory, List<Dependency> dependencies,
+                                                 String inheritedScope, ArtifactFilter dependencyFilter,
+                                                 MavenProject project )
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'AbstractArtifactMetadata' is still used
 in `maven-core/src/main/java/org/apache/maven/artifact/metadata/AbstractArtifactMetadata.java`
 #### Snippet
@@ -7708,18 +7696,6 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionListen
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getExtensionArtifacts' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public Set<Artifact> getExtensionArtifacts()
-    {
-        return extensionArtifacts;
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'setScriptSourceRoots' is still used
 in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
@@ -7729,54 +7705,6 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
     protected void setScriptSourceRoots( List<String> scriptSourceRoots )
     {
         this.scriptSourceRoots = scriptSourceRoots;
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'setDependencyArtifacts' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public void setDependencyArtifacts( Set<Artifact> dependencyArtifacts )
-    {
-        this.dependencyArtifacts = dependencyArtifacts;
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'setReportArtifacts' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public void setReportArtifacts( Set<Artifact> reportArtifacts )
-    {
-        this.reportArtifacts = reportArtifacts;
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getModulePathAdjustment' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated // This appears only to be used in test code
-    public String getModulePathAdjustment( MavenProject moduleProject )
-        throws IOException
-    {
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getReportPlugins' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public List<ReportPlugin> getReportPlugins()
-    {
-        if ( getModel().getReporting() == null )
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -7792,6 +7720,18 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'addAttachedArtifact' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+     * @throws DuplicateArtifactAttachmentException will never happen but leave it for backward compatibility
+     */
+    public void addAttachedArtifact( Artifact artifact )
+        throws DuplicateArtifactAttachmentException
+    {
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'setExtensionArtifacts' is still used
 in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
@@ -7801,18 +7741,6 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
     public void setExtensionArtifacts( Set<Artifact> extensionArtifacts )
     {
         this.extensionArtifacts = extensionArtifacts;
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getSystemClasspathElements' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public List<String> getSystemClasspathElements()
-        throws DependencyResolutionRequiredException
-    {
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -7828,6 +7756,78 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'setReportArtifacts' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public void setReportArtifacts( Set<Artifact> reportArtifacts )
+    {
+        this.reportArtifacts = reportArtifacts;
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getSystemClasspathElements' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public List<String> getSystemClasspathElements()
+        throws DependencyResolutionRequiredException
+    {
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'setDependencyArtifacts' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public void setDependencyArtifacts( Set<Artifact> dependencyArtifacts )
+    {
+        this.dependencyArtifacts = dependencyArtifacts;
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getReportPlugins' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public List<ReportPlugin> getReportPlugins()
+    {
+        if ( getModel().getReporting() == null )
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getExtensionArtifacts' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public Set<Artifact> getExtensionArtifacts()
+    {
+        return extensionArtifacts;
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getModulePathAdjustment' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated // This appears only to be used in test code
+    public String getModulePathAdjustment( MavenProject moduleProject )
+        throws IOException
+    {
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'setProjectBuildingRequest' is still used
 in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
@@ -7837,42 +7837,6 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
     public void setProjectBuildingRequest( ProjectBuildingRequest projectBuildingRequest )
     {
         this.projectBuilderConfiguration = projectBuildingRequest;
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getDependencyArtifacts' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Set<Artifact> getDependencyArtifacts()
-    {
-        return dependencyArtifacts;
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'addAttachedArtifact' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-     * @throws DuplicateArtifactAttachmentException will never happen but leave it for backward compatibility
-     */
-    public void addAttachedArtifact( Artifact artifact )
-        throws DuplicateArtifactAttachmentException
-    {
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'addScriptSourceRoot' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public void addScriptSourceRoot( String path )
-    {
-        if ( path != null )
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -7888,15 +7852,27 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'createArtifacts' is still used
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+Deprecated member 'addScriptSourceRoot' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
 ```java
-    // USED BY MAVEN ASSEMBLY PLUGIN
+
     @Deprecated
-    public static Set<Artifact> createArtifacts( ArtifactFactory artifactFactory, List<Dependency> dependencies,
-                                                 String inheritedScope, ArtifactFilter dependencyFilter,
-                                                 MavenProject project )
+    public void addScriptSourceRoot( String path )
+    {
+        if ( path != null )
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getDependencyArtifacts' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public Set<Artifact> getDependencyArtifacts()
+    {
+        return dependencyArtifacts;
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -7936,30 +7912,6 @@ in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequestPop
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'overwriteInactiveProjects' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void overwriteInactiveProjects( List<String> inactiveProjectSelectors )
-    {
-        List<ProjectActivationSettings> projects = getProjects( pa -> !pa.active ).collect( Collectors.toList() );
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getExcludedProjects' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public List<String> getExcludedProjects()
-    {
-        return Collections.unmodifiableList( new ArrayList<>( getProjectSelectors( pa -> !pa.active ) ) );
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'getSelectedProjects' is still used
 in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
 #### Snippet
@@ -7984,13 +7936,37 @@ in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'setSelectedProjects' is still used
+Deprecated member 'overwriteInactiveProjects' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void overwriteInactiveProjects( List<String> inactiveProjectSelectors )
+    {
+        List<ProjectActivationSettings> projects = getProjects( pa -> !pa.active ).collect( Collectors.toList() );
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getExcludedProjects' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public List<String> getExcludedProjects()
+    {
+        return Collections.unmodifiableList( new ArrayList<>( getProjectSelectors( pa -> !pa.active ) ) );
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getInactiveProfiles' is still used
 in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    MavenExecutionRequest setSelectedProjects( List<String> projects );
+    List<String> getInactiveProfiles();
 
     /**
 ```
@@ -8008,13 +7984,13 @@ in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.ja
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getInactiveProfiles' is still used
+Deprecated member 'setSelectedProjects' is still used
 in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    List<String> getInactiveProfiles();
+    MavenExecutionRequest setSelectedProjects( List<String> projects );
 
     /**
 ```
@@ -8032,18 +8008,6 @@ in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'overwriteInactiveProfiles' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void overwriteInactiveProfiles( List<String> inactiveProfileIds )
-    {
-        getInactiveProfiles().forEach( this.activations::remove );
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'overwriteActiveProfiles' is still used
 in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
 #### Snippet
@@ -8053,6 +8017,18 @@ in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
     public void overwriteActiveProfiles( List<String> activeProfileIds )
     {
         getActiveProfiles().forEach( this.activations::remove );
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'overwriteInactiveProfiles' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void overwriteInactiveProfiles( List<String> inactiveProfileIds )
+    {
+        getInactiveProfiles().forEach( this.activations::remove );
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -8080,14 +8056,14 @@ public class DefaultJavaToolChain
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'DefaultPathTranslator' is still used
-in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
+Deprecated member 'DelegatingLocalArtifactRepository' is still used
+in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
 #### Snippet
 ```java
+ */
 @Deprecated
-@Component( role = PathTranslator.class )
-public class DefaultPathTranslator
-    implements PathTranslator
+public class DelegatingLocalArtifactRepository
+    extends MavenArtifactRepository
 {
 ```
 
@@ -8104,15 +8080,15 @@ public interface ModelInheritanceAssembler
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'SettingsSource' is still used
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsSource.java`
+Deprecated member 'DefaultPathTranslator' is still used
+in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
 #### Snippet
 ```java
- */
 @Deprecated
-public interface SettingsSource extends Source
+@Component( role = PathTranslator.class )
+public class DefaultPathTranslator
+    implements PathTranslator
 {
-
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -8137,18 +8113,6 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ResolutionList
 public interface ResolutionListenerForDepMgmt
 {
     void manageArtifactVersion( Artifact artifact,
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'resolveTransitively' is still used
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolver.java`
-#### Snippet
-```java
-    // USED BY INVOKER PLUGIN
-    @Deprecated
-    ArtifactResolutionResult resolveTransitively(
-        Set<Artifact> artifacts, Artifact originatingArtifact,
-        List<ArtifactRepository> remoteRepositories,
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -8200,30 +8164,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.j
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getRemoteRepostories' is still used
-in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public List<ArtifactRepository> getRemoteRepostories()
-    {
-        return remoteRepositories;
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'setRemoteRepostories' is still used
-in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public MetadataResolutionRequest setRemoteRepostories( List<ArtifactRepository> remoteRepositories )
-    {
-        this.remoteRepositories = remoteRepositories;
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'LegacyArtifactCollector' is still used
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/LegacyArtifactCollector.java`
 #### Snippet
@@ -8248,15 +8188,51 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'DefaultArtifactRepository' is still used
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
+Deprecated member 'setRemoteRepostories' is still used
+in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public MetadataResolutionRequest setRemoteRepostories( List<ArtifactRepository> remoteRepositories )
+    {
+        this.remoteRepositories = remoteRepositories;
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getRemoteRepostories' is still used
+in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public List<ArtifactRepository> getRemoteRepostories()
+    {
+        return remoteRepositories;
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'ArtifactCollector' is still used
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactCollector.java`
 #### Snippet
 ```java
  */
 @Deprecated
-public class DefaultArtifactRepository
-    extends Repository
-    implements ArtifactRepository
+public interface ArtifactCollector
+    extends org.apache.maven.repository.legacy.resolver.LegacyArtifactCollector
+{
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'resolveTransitively' is still used
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolver.java`
+#### Snippet
+```java
+    // USED BY INVOKER PLUGIN
+    @Deprecated
+    ArtifactResolutionResult resolveTransitively(
+        Set<Artifact> artifacts, Artifact originatingArtifact,
+        List<ArtifactRepository> remoteRepositories,
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -8272,27 +8248,51 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/Art
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'DelegatingLocalArtifactRepository' is still used
-in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
+Deprecated member 'DefaultArtifactRepository' is still used
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
 #### Snippet
 ```java
  */
 @Deprecated
-public class DelegatingLocalArtifactRepository
-    extends MavenArtifactRepository
-{
+public class DefaultArtifactRepository
+    extends Repository
+    implements ArtifactRepository
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ArtifactCollector' is still used
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactCollector.java`
+Deprecated member 'SettingsSource' is still used
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsSource.java`
 #### Snippet
 ```java
  */
 @Deprecated
-public interface ArtifactCollector
-    extends org.apache.maven.repository.legacy.resolver.LegacyArtifactCollector
+public interface SettingsSource extends Source
 {
+
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'setLog' is still used
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/Mojo.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    void setLog( Log log );
+
+    /**
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'DEBUG' is still used
+in `maven-embedder/src/main/java/org/apache/maven/cli/CLIManager.java`
+#### Snippet
+```java
+     * Use {@code -X/--verbose} instead. */
+    @Deprecated
+    public static final String DEBUG = "debug";
+
+    protected Options options;
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -8345,6 +8345,919 @@ in `maven-core/src/main/java/org/apache/maven/plugin/DebugConfigurationListener.
             buf.append( ']' );
 ```
 
+## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `replace()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean replace( Object key, Object oldValue, Object newValue )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `clear()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void clear()
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `remove()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object remove( Object key )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `compute()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object compute( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `computeIfAbsent()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfAbsent( Object key, Function<? super Object, ?> mappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `computeIfPresent()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfPresent( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `replaceAll()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void replaceAll( BiFunction<? super Object, ? super Object, ?> function )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `merge()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object merge( Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `put()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object put( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `putAll()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void putAll( Map<?, ?> t )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `replace()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object replace( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `remove()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean remove( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `putIfAbsent()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object putIfAbsent( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `compute()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object compute( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `replaceAll()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void replaceAll( BiFunction<? super Object, ? super Object, ?> function )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `merge()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object merge( Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `remove()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean remove( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `computeIfAbsent()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfAbsent( Object key, Function<? super Object, ?> mappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `putIfAbsent()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object putIfAbsent( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `replace()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object replace( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `computeIfPresent()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfPresent( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `putAll()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void putAll( Map<?, ?> t )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `put()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object put( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `replace()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean replace( Object key, Object oldValue, Object newValue )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `clear()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void clear()
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `remove()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object remove( Object key )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `replace()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object replace( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `putAll()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void putAll( Map<?, ?> t )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `clear()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void clear()
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `put()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object put( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `merge()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object merge( Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `replace()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean replace( Object key, Object oldValue, Object newValue )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `compute()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object compute( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `computeIfPresent()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfPresent( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `putIfAbsent()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object putIfAbsent( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `remove()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean remove( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `replaceAll()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void replaceAll( BiFunction<? super Object, ? super Object, ?> function )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `computeIfAbsent()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfAbsent( Object key, Function<? super Object, ?> mappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `remove()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object remove( Object key )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `get()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Object get( Object key )
+    {
+        return getter.get().get( key );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `containsKey()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean containsKey( Object key )
+    {
+        return getter.get().containsKey( key );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `isEmpty()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isEmpty()
+    {
+        return getter.get().isEmpty();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `elements()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Enumeration<Object> elements()
+    {
+        return Collections.enumeration( (Collection) getter.get().values() );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `contains()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean contains( Object value )
+    {
+        return getter.get().containsKey( value != null ? value.toString() : null );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `getOrDefault()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Object getOrDefault( Object key, Object defaultValue )
+    {
+        return getter.get().getOrDefault( key, defaultValue != null ? defaultValue.toString() : null );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `keys()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Enumeration<Object> keys()
+    {
+        return Collections.enumeration( (Set) getter.get().keySet() );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `size()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public int size()
+    {
+        return getter.get().size();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `remove()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object remove( Object key )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `replaceAll()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void replaceAll( BiFunction<? super Object, ? super Object, ?> function )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `replace()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object replace( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `merge()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object merge( Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `computeIfPresent()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfPresent( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `remove()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean remove( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `compute()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object compute( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `putIfAbsent()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object putIfAbsent( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `replace()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean replace( Object key, Object oldValue, Object newValue )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `putAll()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void putAll( Map<?, ?> t )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `clear()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void clear()
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `computeIfAbsent()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfAbsent( Object key, Function<? super Object, ?> mappingFunction )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `put()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object put( Object key, Object value )
+        {
+            throw uoe();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `isEmpty()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isEmpty()
+    {
+        return getter.get().isEmpty();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `get()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Object get( Object key )
+    {
+        return getter.get().get( key );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `elements()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Enumeration<Object> elements()
+    {
+        return Collections.enumeration( (Collection) getter.get().values() );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `keys()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Enumeration<Object> keys()
+    {
+        return Collections.enumeration( (Set) getter.get().keySet() );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `contains()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean contains( Object value )
+    {
+        return getter.get().containsKey( value != null ? value.toString() : null );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `size()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public int size()
+    {
+        return getter.get().size();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `getOrDefault()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Object getOrDefault( Object key, Object defaultValue )
+    {
+        return getter.get().getOrDefault( key, defaultValue != null ? defaultValue.toString() : null );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `containsKey()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean containsKey( Object key )
+    {
+        return getter.get().containsKey( key );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `getOrDefault()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Object getOrDefault( Object key, Object defaultValue )
+    {
+        return getter.get().getOrDefault( key, defaultValue != null ? defaultValue.toString() : null );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `size()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public int size()
+    {
+        return getter.get().size();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `elements()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Enumeration<Object> elements()
+    {
+        return Collections.enumeration( (Collection) getter.get().values() );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `keys()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Enumeration<Object> keys()
+    {
+        return Collections.enumeration( (Set) getter.get().keySet() );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `isEmpty()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isEmpty()
+    {
+        return getter.get().isEmpty();
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `contains()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean contains( Object value )
+    {
+        return getter.get().containsKey( value != null ? value.toString() : null );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `get()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Object get( Object key )
+    {
+        return getter.get().get( key );
+```
+
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `containsKey()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean containsKey( Object key )
+    {
+        return getter.get().containsKey( key );
+```
+
 ## RuleId[ruleID=RedundantCollectionOperation]
 ### RuleId[ruleID=RedundantCollectionOperation]
 Unnecessary 'contains()' check
@@ -8370,1076 +9283,7 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGrap
             vertices.add( vertex );
 ```
 
-## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `replace()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean replace( Object key, Object oldValue, Object newValue )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `compute()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object compute( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `merge()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object merge( Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `computeIfPresent()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfPresent( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `computeIfAbsent()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfAbsent( Object key, Function<? super Object, ?> mappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `replace()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object replace( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `putIfAbsent()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object putIfAbsent( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `clear()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void clear()
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `replaceAll()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void replaceAll( BiFunction<? super Object, ? super Object, ?> function )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `remove()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object remove( Object key )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `put()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object put( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `remove()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean remove( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `putAll()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void putAll( Map<?, ?> t )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `merge()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object merge( Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `compute()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object compute( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `replace()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean replace( Object key, Object oldValue, Object newValue )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `remove()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean remove( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `clear()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void clear()
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `computeIfPresent()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfPresent( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `replace()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object replace( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `put()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object put( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `putAll()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void putAll( Map<?, ?> t )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `computeIfAbsent()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfAbsent( Object key, Function<? super Object, ?> mappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `putIfAbsent()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object putIfAbsent( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `replaceAll()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void replaceAll( BiFunction<? super Object, ? super Object, ?> function )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `remove()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object remove( Object key )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `isEmpty()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isEmpty()
-    {
-        return getter.get().isEmpty();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `size()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public int size()
-    {
-        return getter.get().size();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `containsKey()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean containsKey( Object key )
-    {
-        return getter.get().containsKey( key );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `contains()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean contains( Object value )
-    {
-        return getter.get().containsKey( value != null ? value.toString() : null );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `elements()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Enumeration<Object> elements()
-    {
-        return Collections.enumeration( (Collection) getter.get().values() );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `getOrDefault()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Object getOrDefault( Object key, Object defaultValue )
-    {
-        return getter.get().getOrDefault( key, defaultValue != null ? defaultValue.toString() : null );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `get()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Object get( Object key )
-    {
-        return getter.get().get( key );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `keys()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Enumeration<Object> keys()
-    {
-        return Collections.enumeration( (Set) getter.get().keySet() );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `size()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public int size()
-    {
-        return getter.get().size();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `elements()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Enumeration<Object> elements()
-    {
-        return Collections.enumeration( (Collection) getter.get().values() );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `contains()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean contains( Object value )
-    {
-        return getter.get().containsKey( value != null ? value.toString() : null );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `containsKey()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean containsKey( Object key )
-    {
-        return getter.get().containsKey( key );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `get()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Object get( Object key )
-    {
-        return getter.get().get( key );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `getOrDefault()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Object getOrDefault( Object key, Object defaultValue )
-    {
-        return getter.get().getOrDefault( key, defaultValue != null ? defaultValue.toString() : null );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `keys()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Enumeration<Object> keys()
-    {
-        return Collections.enumeration( (Set) getter.get().keySet() );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `isEmpty()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isEmpty()
-    {
-        return getter.get().isEmpty();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `getOrDefault()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Object getOrDefault( Object key, Object defaultValue )
-    {
-        return getter.get().getOrDefault( key, defaultValue != null ? defaultValue.toString() : null );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `isEmpty()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isEmpty()
-    {
-        return getter.get().isEmpty();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `size()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public int size()
-    {
-        return getter.get().size();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `get()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Object get( Object key )
-    {
-        return getter.get().get( key );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `elements()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Enumeration<Object> elements()
-    {
-        return Collections.enumeration( (Collection) getter.get().values() );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `containsKey()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean containsKey( Object key )
-    {
-        return getter.get().containsKey( key );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `contains()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean contains( Object value )
-    {
-        return getter.get().containsKey( value != null ? value.toString() : null );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `keys()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Enumeration<Object> keys()
-    {
-        return Collections.enumeration( (Set) getter.get().keySet() );
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `computeIfAbsent()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfAbsent( Object key, Function<? super Object, ?> mappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `replace()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object replace( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `clear()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void clear()
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `remove()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean remove( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `computeIfPresent()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfPresent( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `compute()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object compute( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `merge()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object merge( Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `put()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object put( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `putIfAbsent()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object putIfAbsent( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `remove()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object remove( Object key )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `replaceAll()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void replaceAll( BiFunction<? super Object, ? super Object, ?> function )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `putAll()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void putAll( Map<?, ?> t )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `replace()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean replace( Object key, Object oldValue, Object newValue )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `put()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object put( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `replace()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean replace( Object key, Object oldValue, Object newValue )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `compute()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object compute( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `remove()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object remove( Object key )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `replaceAll()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void replaceAll( BiFunction<? super Object, ? super Object, ?> function )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `putAll()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void putAll( Map<?, ?> t )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `remove()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean remove( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `replace()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object replace( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `putIfAbsent()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object putIfAbsent( Object key, Object value )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `clear()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void clear()
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `computeIfPresent()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfPresent( Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `computeIfAbsent()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfAbsent( Object key, Function<? super Object, ?> mappingFunction )
-        {
-            throw uoe();
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `merge()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object merge( Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction )
-        {
-            throw uoe();
-```
-
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'entries' in a Serializable class
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-    private static class MapN<K, V> extends AbstractImmutableMap<K, V>
-    {
-        private final Object[] entries;
-
-        private MapN( Map<K, V> map )
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'elements' in a Serializable class
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-    private static class ListN<E> extends AbstractImmutableList<E>
-    {
-        private final Object[] elements;
-
-        private ListN( Collection<E> elements )
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'elements' in a Serializable class
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-    private static class ListN<E> extends AbstractImmutableList<E>
-    {
-        private final Object[] elements;
-
-        private ListN( Collection<E> elements )
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'entries' in a Serializable class
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-    private static class MapN<K, V> extends AbstractImmutableMap<K, V>
-    {
-        private final Object[] entries;
-
-        private MapN( Map<K, V> map )
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'location' in a Serializable class
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
-#### Snippet
-```java
-    protected final List<Dom> children;
-
-    protected final Object location;
-
-
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'source' in a Serializable class
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/MojoException.java`
-#### Snippet
-```java
-{
-
-    protected Object source;
-
-    protected String longMessage;
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'delegate' in a Serializable class
-in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
-#### Snippet
-```java
-    protected transient ChildrenTracking childrenTracking;
-
-    protected Object delegate;
-
-    public BaseObject()
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'source' in a Serializable class
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecutionException.java`
-#### Snippet
-```java
-    extends Exception
-{
-    protected Object source;
-
-    protected String longMessage;
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'pluginDescriptor' in a Serializable class
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoNotFoundException.java`
-#### Snippet
-```java
-    private String goal;
-
-    private PluginDescriptor pluginDescriptor;
-
-    public MojoNotFoundException( String goal, PluginDescriptor pluginDescriptor )
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'elements' in a Serializable class
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-    private static class ListN<E> extends AbstractImmutableList<E>
-    {
-        private final Object[] elements;
-
-        private ListN( Collection<E> elements )
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'entries' in a Serializable class
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-    private static class MapN<K, V> extends AbstractImmutableMap<K, V>
-    {
-        private final Object[] entries;
-
-        private MapN( Map<K, V> map )
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'entries' in a Serializable class
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-    private static class MapN<K, V> extends AbstractImmutableMap<K, V>
-    {
-        private final Object[] entries;
-
-        private MapN( Map<K, V> map )
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'elements' in a Serializable class
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-    private static class ListN<E> extends AbstractImmutableList<E>
-    {
-        private final Object[] elements;
-
-        private ListN( Collection<E> elements )
-```
-
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'pluginRealm' in a Serializable class
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginContainerException.java`
@@ -9561,6 +9405,18 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtif
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'releases' in a Serializable class
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
+#### Snippet
+```java
+    private ArtifactRepositoryPolicy snapshots;
+
+    private ArtifactRepositoryPolicy releases;
+
+    private boolean blacklisted;
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'proxy' in a Serializable class
 in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
 #### Snippet
@@ -9585,28 +9441,159 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtif
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'releases' in a Serializable class
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
+Non-serializable field 'pluginDescriptor' in a Serializable class
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoNotFoundException.java`
 #### Snippet
 ```java
-    private ArtifactRepositoryPolicy snapshots;
+    private String goal;
 
-    private ArtifactRepositoryPolicy releases;
+    private PluginDescriptor pluginDescriptor;
 
-    private boolean blacklisted;
+    public MojoNotFoundException( String goal, PluginDescriptor pluginDescriptor )
 ```
 
-## RuleId[ruleID=MismatchedJavadocCode]
-### RuleId[ruleID=MismatchedJavadocCode]
-Method is specified to return 'true' but its return type is not boolean
-in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'source' in a Serializable class
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecutionException.java`
 #### Snippet
 ```java
-     *
-     * @param requestArtifact checked against the given artifact.
-     * @return true if equals, false otherwise.
-     */
-    private Predicate<Artifact> isRequestedArtifact( Artifact requestArtifact )
+    extends Exception
+{
+    protected Object source;
+
+    protected String longMessage;
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'entries' in a Serializable class
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+    private static class MapN<K, V> extends AbstractImmutableMap<K, V>
+    {
+        private final Object[] entries;
+
+        private MapN( Map<K, V> map )
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'elements' in a Serializable class
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+    private static class ListN<E> extends AbstractImmutableList<E>
+    {
+        private final Object[] elements;
+
+        private ListN( Collection<E> elements )
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'source' in a Serializable class
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/MojoException.java`
+#### Snippet
+```java
+{
+
+    protected Object source;
+
+    protected String longMessage;
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'elements' in a Serializable class
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+    private static class ListN<E> extends AbstractImmutableList<E>
+    {
+        private final Object[] elements;
+
+        private ListN( Collection<E> elements )
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'entries' in a Serializable class
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+    private static class MapN<K, V> extends AbstractImmutableMap<K, V>
+    {
+        private final Object[] entries;
+
+        private MapN( Map<K, V> map )
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'elements' in a Serializable class
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+    private static class ListN<E> extends AbstractImmutableList<E>
+    {
+        private final Object[] elements;
+
+        private ListN( Collection<E> elements )
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'entries' in a Serializable class
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+    private static class MapN<K, V> extends AbstractImmutableMap<K, V>
+    {
+        private final Object[] entries;
+
+        private MapN( Map<K, V> map )
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'location' in a Serializable class
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+#### Snippet
+```java
+    protected final List<Dom> children;
+
+    protected final Object location;
+
+
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'elements' in a Serializable class
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+    private static class ListN<E> extends AbstractImmutableList<E>
+    {
+        private final Object[] elements;
+
+        private ListN( Collection<E> elements )
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'entries' in a Serializable class
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+    private static class MapN<K, V> extends AbstractImmutableMap<K, V>
+    {
+        private final Object[] entries;
+
+        private MapN( Map<K, V> map )
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'delegate' in a Serializable class
+in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
+#### Snippet
+```java
+    protected transient ChildrenTracking childrenTracking;
+
+    protected Object delegate;
+
+    public BaseObject()
 ```
 
 ## RuleId[ruleID=CollectionContainsUrl]
@@ -9627,11 +9614,11 @@ Map `supported` may contain URL objects
 in `maven-embedder/src/main/java/org/apache/maven/cli/logging/impl/UnsupportedSlf4jBindingConfiguration.java`
 #### Snippet
 ```java
+    private String slf4jBinding;
+
     private Map<URL, Set<Object>> supported;
 
     public UnsupportedSlf4jBindingConfiguration( String slf4jBinding, Map<URL, Set<Object>> supported )
-    {
-        this.slf4jBinding = slf4jBinding;
 ```
 
 ### RuleId[ruleID=CollectionContainsUrl]
@@ -9639,11 +9626,24 @@ Map `supported` may contain URL objects
 in `maven-embedder/src/main/java/org/apache/maven/cli/logging/impl/UnsupportedSlf4jBindingConfiguration.java`
 #### Snippet
 ```java
-    private String slf4jBinding;
-
     private Map<URL, Set<Object>> supported;
 
     public UnsupportedSlf4jBindingConfiguration( String slf4jBinding, Map<URL, Set<Object>> supported )
+    {
+        this.slf4jBinding = slf4jBinding;
+```
+
+## RuleId[ruleID=MismatchedJavadocCode]
+### RuleId[ruleID=MismatchedJavadocCode]
+Method is specified to return 'true' but its return type is not boolean
+in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
+#### Snippet
+```java
+     *
+     * @param requestArtifact checked against the given artifact.
+     * @return true if equals, false otherwise.
+     */
+    private Predicate<Artifact> isRequestedArtifact( Artifact requestArtifact )
 ```
 
 ## RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -9698,24 +9698,36 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/providers/DefaultLifecyc
 ## RuleId[ruleID=UnnecessaryToStringCall]
 ### RuleId[ruleID=UnnecessaryToStringCall]
 Unnecessary `toString()` call
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
 #### Snippet
 ```java
+            {
+                getLogger().debug(
+                    "Failed to record lastUpdated information for resolution.\nFile: " + touchfile.toString()
+                        + "; key: " + key, e );
+            }
+```
 
-        message.append( ')' );
-        out.println( message.toString() );
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+        error.printStackTrace( pWriter );
+
+        System.out.println( "[" + prefix + "] " + sWriter.toString() );
     }
 
 ```
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
 Unnecessary `toString()` call
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
 #### Snippet
 ```java
-        message.append( resource.getRepositoryUrl() ).append( resource.getResourceName() );
 
-        out.println( message.toString() );
+        System.err.println( "[error] " + content.toString()
+                            + System.lineSeparator() + System.lineSeparator() + sWriter.toString() );
     }
 
 ```
@@ -9746,24 +9758,24 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
 Unnecessary `toString()` call
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
 #### Snippet
 ```java
-        error.printStackTrace( pWriter );
 
-        System.out.println( "[" + prefix + "] " + sWriter.toString() );
+        message.append( ')' );
+        out.println( message.toString() );
     }
 
 ```
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
 Unnecessary `toString()` call
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
 #### Snippet
 ```java
+        message.append( resource.getRepositoryUrl() ).append( resource.getResourceName() );
 
-        System.err.println( "[error] " + content.toString()
-                            + System.lineSeparator() + System.lineSeparator() + sWriter.toString() );
+        out.println( message.toString() );
     }
 
 ```
@@ -9780,16 +9792,17 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/Comparable
             }
 ```
 
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+## RuleId[ruleID=SetReplaceableByEnumSet]
+### RuleId[ruleID=SetReplaceableByEnumSet]
+`HashSet<>` can be replaced with 'EnumSet'
+in `api/maven-api-core/src/main/java/org/apache/maven/api/ResolutionScope.java`
 #### Snippet
 ```java
-            {
-                getLogger().debug(
-                    "Failed to record lastUpdated information for resolution.\nFile: " + touchfile.toString()
-                        + "; key: " + key, e );
-            }
+    {
+        this.id = id;
+        this.scopes = Collections.unmodifiableSet( new HashSet<>( Arrays.asList( scopes ) ) );
+    }
+
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
@@ -9815,19 +9828,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClass
     private class ClasspathGraphVisitor
     {
         MetadataGraph graph;
-```
-
-## RuleId[ruleID=SetReplaceableByEnumSet]
-### RuleId[ruleID=SetReplaceableByEnumSet]
-`HashSet<>` can be replaced with 'EnumSet'
-in `api/maven-api-core/src/main/java/org/apache/maven/api/ResolutionScope.java`
-#### Snippet
-```java
-    {
-        this.id = id;
-        this.scopes = Collections.unmodifiableSet( new HashSet<>( Arrays.asList( scopes ) ) );
-    }
-
 ```
 
 ## RuleId[ruleID=StringEqualsEmptyString]
@@ -9869,30 +9869,6 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArti
 
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `out` accessed in synchronized context
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/ConsoleMavenTransferListener.java`
-#### Snippet
-```java
-        pad( buffer, pad );
-        buffer.append( '\r' );
-        out.print( buffer );
-        out.flush();
-    }
-```
-
-### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `out` accessed in synchronized context
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/ConsoleMavenTransferListener.java`
-#### Snippet
-```java
-        buffer.append( '\r' );
-        out.print( buffer );
-        out.flush();
-    }
-
-```
-
-### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
 Non-private field `excludedArtifacts` accessed in synchronized context
 in `maven-core/src/main/java/org/apache/maven/DefaultArtifactFilterManager.java`
 #### Snippet
@@ -9924,6 +9900,30 @@ in `maven-core/src/main/java/org/apache/maven/DefaultArtifactFilterManager.java`
             excludedArtifacts = new LinkedHashSet<>( coreArtifacts );
         }
         return excludedArtifacts;
+    }
+
+```
+
+### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+Non-private field `out` accessed in synchronized context
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/ConsoleMavenTransferListener.java`
+#### Snippet
+```java
+        pad( buffer, pad );
+        buffer.append( '\r' );
+        out.print( buffer );
+        out.flush();
+    }
+```
+
+### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+Non-private field `out` accessed in synchronized context
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/ConsoleMavenTransferListener.java`
+#### Snippet
+```java
+        buffer.append( '\r' );
+        out.print( buffer );
+        out.flush();
     }
 
 ```
@@ -9970,14 +9970,14 @@ in `maven-builder-support/src/main/java/org/apache/maven/building/UrlSource.java
 ## RuleId[ruleID=NonStrictComparisonCanBeEquality]
 ### RuleId[ruleID=NonStrictComparisonCanBeEquality]
 Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/PropertyProfileActivator.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
 #### Snippet
 ```java
-        }
-
-        if ( name == null || name.length() <= 0 )
+    private static int getRelationOrder( String value, RangeValue rangeValue, boolean isLeft )
+    {
+        if ( rangeValue.value.length() <= 0 )
         {
-            problems.add( new ModelProblemCollectorRequest( Severity.ERROR, Version.BASE )
+            return isLeft ? 1 : -1;
 ```
 
 ### RuleId[ruleID=NonStrictComparisonCanBeEquality]
@@ -9997,18 +9997,6 @@ Can be replaced with equality
 in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
 #### Snippet
 ```java
-    private static int getRelationOrder( String value, RangeValue rangeValue, boolean isLeft )
-    {
-        if ( rangeValue.value.length() <= 0 )
-        {
-            return isLeft ? 1 : -1;
-```
-
-### RuleId[ruleID=NonStrictComparisonCanBeEquality]
-Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
-#### Snippet
-```java
                 ranges.add( new RangeValue( token.replace( ")", "" ), false ) );
             }
             else if ( token.length() <= 0 )
@@ -10018,14 +10006,14 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/
 
 ### RuleId[ruleID=NonStrictComparisonCanBeEquality]
 Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/PropertyProfileActivator.java`
 #### Snippet
 ```java
-                                     Version version, String string, String sourceHint, InputLocationTracker tracker )
-    {
-        if ( string == null || string.length() <= 0 )
+        }
+
+        if ( name == null || name.length() <= 0 )
         {
-            return true;
+            problems.add( new ModelProblemCollectorRequest( Severity.ERROR, Version.BASE )
 ```
 
 ### RuleId[ruleID=NonStrictComparisonCanBeEquality]
@@ -10033,7 +10021,7 @@ Can be replaced with equality
 in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
 #### Snippet
 ```java
-                                                     String sourceHint, InputLocationTracker tracker )
+                                     Version version, String string, String sourceHint, InputLocationTracker tracker )
     {
         if ( string == null || string.length() <= 0 )
         {
@@ -10057,6 +10045,18 @@ Can be replaced with equality
 in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
 #### Snippet
 ```java
+        }
+
+        if ( string.length() <= 0 || "RELEASE".equals( string ) || "LATEST".equals( string ) )
+        {
+            addViolation( problems, errOn30, Version.V20, fieldName, sourceHint,
+```
+
+### RuleId[ruleID=NonStrictComparisonCanBeEquality]
+Can be replaced with equality
+in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
+#### Snippet
+```java
                                   String... validValues )
     {
         if ( string == null || string.length() <= 0 )
@@ -10069,11 +10069,11 @@ Can be replaced with equality
 in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
 #### Snippet
 ```java
-        }
-
-        if ( string.length() <= 0 || "RELEASE".equals( string ) || "LATEST".equals( string ) )
+                                                     String sourceHint, InputLocationTracker tracker )
+    {
+        if ( string == null || string.length() <= 0 )
         {
-            addViolation( problems, errOn30, Version.V20, fieldName, sourceHint,
+            return true;
 ```
 
 ### RuleId[ruleID=NonStrictComparisonCanBeEquality]
@@ -10090,14 +10090,26 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultM
 
 ### RuleId[ruleID=NonStrictComparisonCanBeEquality]
 Can be replaced with equality
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 #### Snippet
 ```java
+    private static String nullify( String string )
     {
-         String current = getVersion();
-         if ( current.equals( version ) || ( version == null && current.length() <= 0 ) )
-         {
-             return this;
+        return ( string == null || string.length() <= 0 ) ? null : string;
+    }
+
+```
+
+### RuleId[ruleID=NonStrictComparisonCanBeEquality]
+Can be replaced with equality
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+        {
+            String msg = e.getMessage();
+            if ( msg == null || msg.length() <= 0 )
+            {
+                // NOTE: There's java.nio.charset.MalformedInputException and sun.io.MalformedInputException
 ```
 
 ### RuleId[ruleID=NonStrictComparisonCanBeEquality]
@@ -10150,30 +10162,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
 
 ### RuleId[ruleID=NonStrictComparisonCanBeEquality]
 Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-        {
-            String msg = e.getMessage();
-            if ( msg == null || msg.length() <= 0 )
-            {
-                // NOTE: There's java.nio.charset.MalformedInputException and sun.io.MalformedInputException
-```
-
-### RuleId[ruleID=NonStrictComparisonCanBeEquality]
-Can be replaced with equality
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
-#### Snippet
-```java
-    private static String nullify( String string )
-    {
-        return ( string == null || string.length() <= 0 ) ? null : string;
-    }
-
-```
-
-### RuleId[ruleID=NonStrictComparisonCanBeEquality]
-Can be replaced with equality
 in `maven-model-builder/src/main/java/org/apache/maven/model/io/DefaultModelWriter.java`
 #### Snippet
 ```java
@@ -10189,9 +10177,9 @@ Can be replaced with equality
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
 #### Snippet
 ```java
-        public boolean storedInGroupDirectory()
+        private String nullify( String str )
         {
-            return metadata.getArtifactId().length() <= 0;
+            return ( str == null || str.length() <= 0 ) ? null : str;
         }
 
 ```
@@ -10201,9 +10189,9 @@ Can be replaced with equality
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
 #### Snippet
 ```java
-        private String nullify( String str )
+        public boolean storedInGroupDirectory()
         {
-            return ( str == null || str.length() <= 0 ) ? null : str;
+            return metadata.getArtifactId().length() <= 0;
         }
 
 ```
@@ -10232,67 +10220,19 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/io/DefaultSet
             encoding = "UTF-8";
 ```
 
-## RuleId[ruleID=SystemOutErr]
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.err` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
+### RuleId[ruleID=NonStrictComparisonCanBeEquality]
+Can be replaced with equality
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
 #### Snippet
 ```java
-        catch ( IOException e )
-        {
-            System.err.println( "Unable determine version from JAR file: " + e.getMessage() );
-        }
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jStdoutLogger.java`
-#### Snippet
-```java
-    private static final String ERROR = "[ERROR] ";
-
-    private PrintStream out = System.out;
-
-    //
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-        error.printStackTrace( pWriter );
-
-        System.out.println( "[" + prefix + "] " + content.toString()
-                            + System.lineSeparator() + System.lineSeparator() + sWriter.toString() );
-    }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.err` should probably be replaced with more robust logging
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-        error.printStackTrace( pWriter );
-
-        System.err.println( "[error] " + sWriter.toString() );
-    }
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-    private void print( String prefix, CharSequence content )
     {
-        System.out.println( "[" + prefix + "] " + content.toString() );
-    }
-
+         String current = getVersion();
+         if ( current.equals( version ) || ( version == null && current.length() <= 0 ) )
+         {
+             return this;
 ```
 
+## RuleId[ruleID=SystemOutErr]
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
@@ -10325,6 +10265,210 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
     public void error( CharSequence content )
     {
         System.err.println( "[error] " + content.toString() );
+    }
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+        error.printStackTrace( pWriter );
+
+        System.out.println( "[" + prefix + "] " + content.toString()
+                            + System.lineSeparator() + System.lineSeparator() + sWriter.toString() );
+    }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+    private void print( String prefix, CharSequence content )
+    {
+        System.out.println( "[" + prefix + "] " + content.toString() );
+    }
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.err` should probably be replaced with more robust logging
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+        error.printStackTrace( pWriter );
+
+        System.err.println( "[error] " + sWriter.toString() );
+    }
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.err` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
+#### Snippet
+```java
+        catch ( IOException e )
+        {
+            System.err.println( "Unable determine version from JAR file: " + e.getMessage() );
+        }
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jStdoutLogger.java`
+#### Snippet
+```java
+    private static final String ERROR = "[ERROR] ";
+
+    private PrintStream out = System.out;
+
+    //
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+    public static void main( String... args )
+    {
+        System.out.println( "Display parameters as parsed by Maven (in canonical form and as a list of tokens) and"
+                                + " comparison result:" );
+        if ( args.length == 0 )
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+            {
+                int compare = prev.compareTo( c );
+                System.out.println( "   " + prev.toString() + ' '
+                    + ( ( compare == 0 ) ? "==" : ( ( compare < 0 ) ? "<" : ">" ) ) + ' ' + version );
+            }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+            }
+
+            System.out.println( ( i++ ) + ". " + version + " -> " + c.getCanonical()
+                                    + "; tokens: " + c.items.toListString() );
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
+
+            System.out.println(
+                cipher.encryptAndDecorate( passwd, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION ) );
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
+            String masterPasswd = cipher.decryptDecorated( master, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION );
+            System.out.println( cipher.encryptAndDecorate( passwd, masterPasswd ) );
+
+            throw new ExitException( 0 );
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    public int doMain( String[] args, String workingDirectory, PrintStream stdout, PrintStream stderr )
+    {
+        PrintStream oldout = System.out;
+        PrintStream olderr = System.err;
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.err` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    {
+        PrintStream oldout = System.out;
+        PrintStream olderr = System.err;
+
+        final Set<String> realms;
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        if ( cliRequest.commandLine.hasOption( CLIManager.HELP ) )
+        {
+            cliManager.displayHelp( System.out );
+            throw new ExitException( 0 );
+        }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+            if ( cliRequest.commandLine.hasOption( CLIManager.QUIET ) )
+            {
+                System.out.println( CLIReportingUtils.showVersionMinimal() );
+            }
+            else
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+            else
+            {
+                System.out.println( CLIReportingUtils.showVersion() );
+            }
+            throw new ExitException( 0 );
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.err` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+            if ( basedirProperty == null )
+            {
+                System.err.format(
+                    "-D%s system property is not set.", MULTIMODULE_PROJECT_DIRECTORY );
+                throw new ExitException( 1 );
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    protected TransferListener getConsoleTransferListener( boolean printResourceNames )
+    {
+        return new ConsoleMavenTransferListener( System.out, printResourceNames );
     }
 
 ```
@@ -10387,150 +10531,6 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
             cliManager.displayHelp( System.out );
             throw e;
         }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-    public int doMain( String[] args, String workingDirectory, PrintStream stdout, PrintStream stderr )
-    {
-        PrintStream oldout = System.out;
-        PrintStream olderr = System.err;
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.err` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-    {
-        PrintStream oldout = System.out;
-        PrintStream olderr = System.err;
-
-        final Set<String> realms;
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-    protected TransferListener getConsoleTransferListener( boolean printResourceNames )
-    {
-        return new ConsoleMavenTransferListener( System.out, printResourceNames );
-    }
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.err` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-            if ( basedirProperty == null )
-            {
-                System.err.format(
-                    "-D%s system property is not set.", MULTIMODULE_PROJECT_DIRECTORY );
-                throw new ExitException( 1 );
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-        if ( cliRequest.commandLine.hasOption( CLIManager.HELP ) )
-        {
-            cliManager.displayHelp( System.out );
-            throw new ExitException( 0 );
-        }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-            if ( cliRequest.commandLine.hasOption( CLIManager.QUIET ) )
-            {
-                System.out.println( CLIReportingUtils.showVersionMinimal() );
-            }
-            else
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-            else
-            {
-                System.out.println( CLIReportingUtils.showVersion() );
-            }
-            throw new ExitException( 0 );
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
-
-            System.out.println(
-                cipher.encryptAndDecorate( passwd, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION ) );
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
-            String masterPasswd = cipher.decryptDecorated( master, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION );
-            System.out.println( cipher.encryptAndDecorate( passwd, masterPasswd ) );
-
-            throw new ExitException( 0 );
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-    public static void main( String... args )
-    {
-        System.out.println( "Display parameters as parsed by Maven (in canonical form and as a list of tokens) and"
-                                + " comparison result:" );
-        if ( args.length == 0 )
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-            {
-                int compare = prev.compareTo( c );
-                System.out.println( "   " + prev.toString() + ' '
-                    + ( ( compare == 0 ) ? "==" : ( ( compare < 0 ) ? "<" : ">" ) ) + ' ' + version );
-            }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-            }
-
-            System.out.println( ( i++ ) + ". " + version + " -> " + c.getCanonical()
-                                    + "; tokens: " + c.items.toListString() );
-
 ```
 
 ## RuleId[ruleID=MissingDeprecatedAnnotation]
@@ -10732,9 +10732,9 @@ in `maven-model-transform/src/main/java/org/apache/maven/model/transform/CiFrien
 in `maven-model-transform/src/main/java/org/apache/maven/model/transform/CiFriendlyXMLFilter.java`
 #### Snippet
 ```java
-    public CiFriendlyXMLFilter setChangelist( String changelist )
+    public CiFriendlyXMLFilter setSha1( String sha1 )
     {
-        replaceChain = replaceChain.andThen( t -> t.replace( "${changelist}", changelist ) );
+        replaceChain = replaceChain.andThen( t -> t.replace( "${sha1}", sha1 ) );
         return this;
     }
 ```
@@ -10744,9 +10744,9 @@ in `maven-model-transform/src/main/java/org/apache/maven/model/transform/CiFrien
 in `maven-model-transform/src/main/java/org/apache/maven/model/transform/CiFriendlyXMLFilter.java`
 #### Snippet
 ```java
-    public CiFriendlyXMLFilter setSha1( String sha1 )
+    public CiFriendlyXMLFilter setChangelist( String changelist )
     {
-        replaceChain = replaceChain.andThen( t -> t.replace( "${sha1}", sha1 ) );
+        replaceChain = replaceChain.andThen( t -> t.replace( "${changelist}", changelist ) );
         return this;
     }
 ```
@@ -10872,80 +10872,8 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
-#### Snippet
-```java
-            {
-                // we're going to parse this back in as XML so we need to escape XML markup
-                value = value.toString().replace( "&", "&amp;" ).replace( "<", "&lt;" ).replace( ">", "&gt;" );
-                return value;
-            }
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
-#### Snippet
-```java
-            {
-                // we're going to parse this back in as XML so we need to escape XML markup
-                value = value.toString().replace( "&", "&amp;" ).replace( "<", "&lt;" ).replace( ">", "&gt;" );
-                return value;
-            }
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
-#### Snippet
-```java
-            {
-                // we're going to parse this back in as XML so we need to escape XML markup
-                value = value.toString().replace( "&", "&amp;" ).replace( "<", "&lt;" ).replace( ">", "&gt;" );
-                return value;
-            }
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
-#### Snippet
-```java
-        else
-        {
-            return artifactId.replaceAll( "-?maven-?", "" ).replaceAll( "-?plugin-?", "" );
-        }
-    }
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
-#### Snippet
-```java
-        else
-        {
-            return artifactId.replaceAll( "-?maven-?", "" ).replaceAll( "-?plugin-?", "" );
-        }
-    }
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-        }
-
-        String[] lines = msg.split( "(\r\n)|(\r)|(\n)" );
-        String currentColor = "";
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
 #### Snippet
 ```java
             if ( expression.contains( "$$" ) )
@@ -10957,7 +10885,7 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
 #### Snippet
 ```java
             if ( expression.contains( "$$" ) )
@@ -11065,6 +10993,54 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultBuildResumptionDa
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
+#### Snippet
+```java
+            {
+                // we're going to parse this back in as XML so we need to escape XML markup
+                value = value.toString().replace( "&", "&amp;" ).replace( "<", "&lt;" ).replace( ">", "&gt;" );
+                return value;
+            }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
+#### Snippet
+```java
+            {
+                // we're going to parse this back in as XML so we need to escape XML markup
+                value = value.toString().replace( "&", "&amp;" ).replace( "<", "&lt;" ).replace( ">", "&gt;" );
+                return value;
+            }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
+#### Snippet
+```java
+            {
+                // we're going to parse this back in as XML so we need to escape XML markup
+                value = value.toString().replace( "&", "&amp;" ).replace( "<", "&lt;" ).replace( ">", "&gt;" );
+                return value;
+            }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-compat/src/main/java/org/apache/maven/profiles/activation/JdkPrefixProfileActivator.java`
+#### Snippet
+```java
+    private String convertJdkToMavenVersion( String jdk )
+    {
+        return jdk.replaceAll( "_", "-" );
+    }
+
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
 #### Snippet
 ```java
@@ -11113,13 +11089,37 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/validation/De
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-compat/src/main/java/org/apache/maven/profiles/activation/JdkPrefixProfileActivator.java`
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
 #### Snippet
 ```java
-    private String convertJdkToMavenVersion( String jdk )
-    {
-        return jdk.replaceAll( "_", "-" );
+        else
+        {
+            return artifactId.replaceAll( "-?maven-?", "" ).replaceAll( "-?plugin-?", "" );
+        }
     }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
+#### Snippet
+```java
+        else
+        {
+            return artifactId.replaceAll( "-?maven-?", "" ).replaceAll( "-?plugin-?", "" );
+        }
+    }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        }
+
+        String[] lines = msg.split( "(\r\n)|(\r)|(\n)" );
+        String currentColor = "";
 
 ```
 
@@ -11129,42 +11129,6 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
 #### Snippet
 ```java
-     * Tries to resolve the POM for the specified parent coordinates possibly updating {@code parent}.
-     * <p>
-     * Unlike the {@link #resolveModel(java.lang.String, java.lang.String, java.lang.String)} method, this method
-     * supports version ranges and updates the given {@code parent} instance to match the returned {@code ModelSource}.
-     * If {@code parent} declares a version range, the version corresponding to the returned {@code ModelSource} will
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
-#### Snippet
-```java
-     * Tries to resolve the POM for the specified parent coordinates possibly updating {@code parent}.
-     * <p>
-     * Unlike the {@link #resolveModel(java.lang.String, java.lang.String, java.lang.String)} method, this method
-     * supports version ranges and updates the given {@code parent} instance to match the returned {@code ModelSource}.
-     * If {@code parent} declares a version range, the version corresponding to the returned {@code ModelSource} will
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
-#### Snippet
-```java
-     * Tries to resolve the POM for the specified parent coordinates possibly updating {@code parent}.
-     * <p>
-     * Unlike the {@link #resolveModel(java.lang.String, java.lang.String, java.lang.String)} method, this method
-     * supports version ranges and updates the given {@code parent} instance to match the returned {@code ModelSource}.
-     * If {@code parent} declares a version range, the version corresponding to the returned {@code ModelSource} will
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
-#### Snippet
-```java
      * Tries to resolve the POM for the specified dependency coordinates possibly updating {@code dependency}.
      * <p>
      * Unlike the {@link #resolveModel(java.lang.String, java.lang.String, java.lang.String)} method, this method
@@ -11197,495 +11161,39 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelRes
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.api` is unnecessary and can be removed
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Version.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
 #### Snippet
 ```java
- * @since 4.0
- * @see org.apache.maven.api.services.VersionParser#parseVersion(String)
- * @see org.apache.maven.api.Session#parseVersion(String)
- */
-@Experimental
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.api` is unnecessary and can be removed
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java`
-#### Snippet
-```java
-     *
-     * @return an {@link ArtifactCoordinate}
-     * @see org.apache.maven.api.Session#createArtifactCoordinate(Artifact)
-     */
-    @Nonnull
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.api` is unnecessary and can be removed
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java`
-#### Snippet
-```java
-     *
-     * @return {@code true} if the artifact is a snapshot, {@code false} otherwise
-     * @see org.apache.maven.api.Session#isVersionSnapshot(String)
-     */
-    boolean isSnapshot();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.slf4j` is unnecessary and can be removed
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
-#### Snippet
-```java
-
-/**
- * Use an SLF4J {@link org.slf4j.ILoggerFactory} as a backing for a Plexus
- * {@link org.codehaus.plexus.logging.LoggerManager},
- * ignoring Plexus logger API parts that are not classical and probably not really used.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
-#### Snippet
-```java
-/**
- * Use an SLF4J {@link org.slf4j.ILoggerFactory} as a backing for a Plexus
- * {@link org.codehaus.plexus.logging.LoggerManager},
- * ignoring Plexus logger API parts that are not classical and probably not really used.
- *
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.building` is unnecessary and can be removed
-in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblem.java`
-#### Snippet
-```java
-     * @param message The message describing the problem, may be {@code null}.
-     * @param severity The severity level of the problem, may be {@code null} to default to
-     *            {@link org.apache.maven.building.Problem.Severity#ERROR}.
-     * @param source A hint about the source of the problem like a file path, may be {@code null}.
-     * @param lineNumber The one-based index of the line containing the problem or {@code -1} if unknown.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence)
-     */
-    public void info( CharSequence content )
+     * Tries to resolve the POM for the specified parent coordinates possibly updating {@code parent}.
+     * <p>
+     * Unlike the {@link #resolveModel(java.lang.String, java.lang.String, java.lang.String)} method, this method
+     * supports version ranges and updates the given {@code parent} instance to match the returned {@code ModelSource}.
+     * If {@code parent} declares a version range, the version corresponding to the returned {@code ModelSource} will
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
 #### Snippet
 ```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence)
-     */
-    public void info( CharSequence content )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#isWarnEnabled()
-     */
-    public boolean isWarnEnabled()
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#isErrorEnabled()
-     */
-    public boolean isErrorEnabled()
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.Throwable)
-     */
-    public void warn( Throwable error )
+     * Tries to resolve the POM for the specified parent coordinates possibly updating {@code parent}.
+     * <p>
+     * Unlike the {@link #resolveModel(java.lang.String, java.lang.String, java.lang.String)} method, this method
+     * supports version ranges and updates the given {@code parent} instance to match the returned {@code ModelSource}.
+     * If {@code parent} declares a version range, the version corresponding to the returned {@code ModelSource} will
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
 #### Snippet
 ```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.Throwable)
-     */
-    public void warn( Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void error( CharSequence content, Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void error( CharSequence content, Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void error( CharSequence content, Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
-     */
-    public void info( Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
-     */
-    public void info( Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#isDebugEnabled()
-     */
-    public boolean isDebugEnabled()
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void info( CharSequence content, Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void info( CharSequence content, Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void info( CharSequence content, Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void warn( CharSequence content, Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void warn( CharSequence content, Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void warn( CharSequence content, Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
-     */
-    public void debug( Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
-     */
-    public void debug( Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.Throwable)
-     */
-    public void error( Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.Throwable)
-     */
-    public void error( Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
-     */
-    public void warn( CharSequence content )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
-     */
-    public void warn( CharSequence content )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-{
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
-     */
-    public void debug( CharSequence content )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-{
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
-     */
-    public void debug( CharSequence content )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#isInfoEnabled()
-     */
-    public boolean isInfoEnabled()
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void debug( CharSequence content, Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void debug( CharSequence content, Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void debug( CharSequence content, Throwable error )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
-     */
-    public void error( CharSequence content )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
-     */
-    public void error( CharSequence content )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.plugin` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojo.java`
-#### Snippet
-```java
-     * method directly whenever you need the logger, it is fast enough and needs no caching.
-     *
-     * @see org.apache.maven.plugin.Mojo#getLog()
-     * @deprecated Use SLF4J directly
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-                    // Sun/Oracle advises to empty the char array
-                    java.util.Arrays.fill( password, ' ' );
-                }
-            }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-                    // Sun/Oracle advises to empty the char array
-                    java.util.Arrays.fill( password, ' ' );
-                }
-            }
+     * Tries to resolve the POM for the specified parent coordinates possibly updating {@code parent}.
+     * <p>
+     * Unlike the {@link #resolveModel(java.lang.String, java.lang.String, java.lang.String)} method, this method
+     * supports version ranges and updates the given {@code parent} instance to match the returned {@code ModelSource}.
+     * If {@code parent} declares a version range, the version corresponding to the returned {@code ModelSource} will
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -11717,11 +11225,11 @@ Qualifier `org.codehaus.plexus.util.xml` is unnecessary, and can be replaced wit
 in `maven-core/src/main/java/org/apache/maven/plugin/MojoExecution.java`
 #### Snippet
 ```java
-    private MojoDescriptor mojoDescriptor;
+    }
 
-    private org.codehaus.plexus.util.xml.Xpp3Dom configuration;
-
-    /**
+    public MojoExecution( MojoDescriptor mojoDescriptor, org.codehaus.plexus.util.xml.Xpp3Dom configuration )
+    {
+        this.mojoDescriptor = mojoDescriptor;
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -11729,11 +11237,11 @@ Qualifier `org.codehaus.plexus.util.xml` is unnecessary, and can be replaced wit
 in `maven-core/src/main/java/org/apache/maven/plugin/MojoExecution.java`
 #### Snippet
 ```java
-    }
+    private MojoDescriptor mojoDescriptor;
 
-    public org.codehaus.plexus.util.xml.Xpp3Dom getConfiguration()
-    {
-        return configuration;
+    private org.codehaus.plexus.util.xml.Xpp3Dom configuration;
+
+    /**
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -11755,9 +11263,9 @@ in `maven-core/src/main/java/org/apache/maven/plugin/MojoExecution.java`
 ```java
     }
 
-    public MojoExecution( MojoDescriptor mojoDescriptor, org.codehaus.plexus.util.xml.Xpp3Dom configuration )
+    public org.codehaus.plexus.util.xml.Xpp3Dom getConfiguration()
     {
-        this.mojoDescriptor = mojoDescriptor;
+        return configuration;
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -11797,30 +11305,6 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.aether.artifact` is unnecessary and can be removed
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDependenciesResolver.java`
-#### Snippet
-```java
-            if ( dep != null )
-            {
-                org.eclipse.aether.artifact.Artifact art = dep.getArtifact();
-
-                buffer.append( art );
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDependenciesResolver.java`
-#### Snippet
-```java
-                         == DependencyNode.MANAGED_EXCLUSIONS )
-                {
-                    final Collection<org.eclipse.aether.graph.Exclusion> premanagedExclusions =
-                        DependencyManagerUtils.getPremanagedExclusions( node );
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.maven.repository.internal` is unnecessary, and can be replaced with an import
 in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDependenciesResolver.java`
 #### Snippet
@@ -11845,6 +11329,30 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDepen
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.eclipse.aether.artifact` is unnecessary and can be removed
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDependenciesResolver.java`
+#### Snippet
+```java
+            if ( dep != null )
+            {
+                org.eclipse.aether.artifact.Artifact art = dep.getArtifact();
+
+                buffer.append( art );
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDependenciesResolver.java`
+#### Snippet
+```java
+                         == DependencyNode.MANAGED_EXCLUSIONS )
+                {
+                    final Collection<org.eclipse.aether.graph.Exclusion> premanagedExclusions =
+                        DependencyManagerUtils.getPremanagedExclusions( node );
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.maven.artifact` is unnecessary and can be removed
 in `maven-core/src/main/java/org/apache/maven/project/DefaultMavenProjectHelper.java`
 #### Snippet
@@ -11863,9 +11371,9 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProjectHelper.java`
 ```java
 
     /**
-     * * See {@link #attachArtifact(MavenProject, String, String, java.io.File)}, but with classifier set to null.
+     * See {@link #attachArtifact(MavenProject, String, String, java.io.File)}, but with type set to null.
      * @param project project reference.
-     * @param artifactType artifact type.
+     * @param artifactFile artifact file.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -11875,9 +11383,9 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProjectHelper.java`
 ```java
 
     /**
-     * See {@link #attachArtifact(MavenProject, String, String, java.io.File)}, but with type set to null.
+     * * See {@link #attachArtifact(MavenProject, String, String, java.io.File)}, but with classifier set to null.
      * @param project project reference.
-     * @param artifactFile artifact file.
+     * @param artifactType artifact type.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -11929,18 +11437,6 @@ public interface RepositoryMetadata
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
-in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractNode.java`
-#### Snippet
-```java
-{
-
-    abstract org.eclipse.aether.graph.DependencyNode getDependencyNode();
-
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependencyCoordinate.java`
 #### Snippet
@@ -11957,6 +11453,18 @@ Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependencyCoordinate.java`
 #### Snippet
 ```java
+{
+    private final AbstractSession session;
+    private final org.eclipse.aether.graph.Dependency dependency;
+
+    public DefaultDependencyCoordinate( @Nonnull AbstractSession session,
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependencyCoordinate.java`
+#### Snippet
+```java
 
     public DefaultDependencyCoordinate( @Nonnull AbstractSession session,
                                         @Nonnull org.eclipse.aether.graph.Dependency dependency )
@@ -11965,15 +11473,15 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependencyCoo
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependencyCoordinate.java`
+Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
+in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractNode.java`
 #### Snippet
 ```java
 {
-    private final AbstractSession session;
-    private final org.eclipse.aether.graph.Dependency dependency;
 
-    public DefaultDependencyCoordinate( @Nonnull AbstractSession session,
+    abstract org.eclipse.aether.graph.DependencyNode getDependencyNode();
+
+    @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -11989,42 +11497,6 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependencyCoo
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.aether.repository` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
-#### Snippet
-```java
-        }
-        org.eclipse.aether.repository.LocalRepository repository = toRepository( localRepository );
-        org.eclipse.aether.repository.LocalRepositoryManager localRepositoryManager
-                = repositorySystem.newLocalRepositoryManager( session, repository );
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
-#### Snippet
-```java
-    }
-
-    public org.eclipse.aether.graph.Dependency toDependency( DependencyCoordinate dependency )
-    {
-        if ( dependency instanceof DefaultDependencyCoordinate )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
-#### Snippet
-```java
-        else
-        {
-            return new org.eclipse.aether.graph.Dependency(
-                    new org.eclipse.aether.artifact.DefaultArtifact(
-                            dependency.getGroupId(),
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
 #### Snippet
@@ -12034,18 +11506,6 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
                         @Nonnull org.eclipse.aether.graph.DependencyNode node,
                         boolean verbose )
     {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
-#### Snippet
-```java
-
-    protected final @Nonnull AbstractSession session;
-    protected final @Nonnull org.eclipse.aether.graph.DependencyNode node;
-    protected final boolean verbose;
-
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -12085,15 +11545,51 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.aether.artifact` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifactCoordinate.java`
+Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
 #### Snippet
 ```java
-{
-    private final @Nonnull AbstractSession session;
-    private final @Nonnull org.eclipse.aether.artifact.Artifact coordinate;
 
-    public DefaultArtifactCoordinate( @Nonnull AbstractSession session,
+    protected final @Nonnull AbstractSession session;
+    protected final @Nonnull org.eclipse.aether.graph.DependencyNode node;
+    protected final boolean verbose;
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.eclipse.aether.repository` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
+#### Snippet
+```java
+        }
+        org.eclipse.aether.repository.LocalRepository repository = toRepository( localRepository );
+        org.eclipse.aether.repository.LocalRepositoryManager localRepositoryManager
+                = repositorySystem.newLocalRepositoryManager( session, repository );
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
+#### Snippet
+```java
+    }
+
+    public org.eclipse.aether.graph.Dependency toDependency( DependencyCoordinate dependency )
+    {
+        if ( dependency instanceof DefaultDependencyCoordinate )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
+#### Snippet
+```java
+        else
+        {
+            return new org.eclipse.aether.graph.Dependency(
+                    new org.eclipse.aether.artifact.DefaultArtifact(
+                            dependency.getGroupId(),
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -12106,6 +11602,18 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifactCoord
     public org.eclipse.aether.artifact.Artifact getCoordinate()
     {
         return coordinate;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.eclipse.aether.artifact` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifactCoordinate.java`
+#### Snippet
+```java
+{
+    private final @Nonnull AbstractSession session;
+    private final @Nonnull org.eclipse.aether.artifact.Artifact coordinate;
+
+    public DefaultArtifactCoordinate( @Nonnull AbstractSession session,
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -12229,6 +11737,30 @@ public class DefaultArtifactCollector
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.eclipse.aether` is unnecessary and can be removed
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+    private final ProjectBuildingHelper projectBuildingHelper;
+    private final MavenRepositorySystem repositorySystem;
+    private final org.eclipse.aether.RepositorySystem repoSystem;
+    private final RemoteRepositoryManager repositoryManager;
+    private final ProjectDependenciesResolver dependencyResolver;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.eclipse.aether.resolution` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+            localProject = pomResult.getRepository() instanceof WorkspaceRepository;
+        }
+        catch ( org.eclipse.aether.resolution.ArtifactResolutionException e )
+        {
+            if ( e.getResults().get( 0 ).isMissing() && allowStubModel )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
 #### Snippet
@@ -12238,6 +11770,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
         String hint = protocol.toLowerCase( java.util.Locale.ENGLISH );
 
         Wagon wagon;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.wagon` is unnecessary, and can be replaced with an import
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+                    TransferListenerAdapter.newAdapter( transferListener ) );
+        }
+        catch ( org.apache.maven.wagon.TransferFailedException e )
+        {
+            throw new ArtifactTransferFailedException( getMessage( e, "Error transferring artifact." ), e );
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -12265,42 +11809,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.maven.wagon` is unnecessary, and can be replaced with an import
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-                    TransferListenerAdapter.newAdapter( transferListener ) );
-        }
-        catch ( org.apache.maven.wagon.TransferFailedException e )
-        {
-            throw new ArtifactTransferFailedException( getMessage( e, "Error transferring artifact." ), e );
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.aether.resolution` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-            localProject = pomResult.getRepository() instanceof WorkspaceRepository;
-        }
-        catch ( org.eclipse.aether.resolution.ArtifactResolutionException e )
-        {
-            if ( e.getResults().get( 0 ).isMissing() && allowStubModel )
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.aether` is unnecessary and can be removed
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-    private final ProjectBuildingHelper projectBuildingHelper;
-    private final MavenRepositorySystem repositorySystem;
-    private final org.eclipse.aether.RepositorySystem repoSystem;
-    private final RemoteRepositoryManager repositoryManager;
-    private final ProjectDependenciesResolver dependencyResolver;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.maven.repository.legacy.resolver` is unnecessary, and can be replaced with an import
 in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactCollector.java`
 #### Snippet
@@ -12312,19 +11820,499 @@ public interface ArtifactCollector
 
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jConfigurationFactory.java`
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.building` is unnecessary and can be removed
+in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblem.java`
 #### Snippet
 ```java
-        catch ( IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e )
-        {
-            e.printStackTrace();
-        }
-
+     * @param message The message describing the problem, may be {@code null}.
+     * @param severity The severity level of the problem, may be {@code null} to default to
+     *            {@link org.apache.maven.building.Problem.Severity#ERROR}.
+     * @param source A hint about the source of the problem like a file path, may be {@code null}.
+     * @param lineNumber The one-based index of the line containing the problem or {@code -1} if unknown.
 ```
 
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#isWarnEnabled()
+     */
+    public boolean isWarnEnabled()
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+{
+    /**
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
+     */
+    public void debug( CharSequence content )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+{
+    /**
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
+     */
+    public void debug( CharSequence content )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void debug( CharSequence content, Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void debug( CharSequence content, Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void debug( CharSequence content, Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
+     */
+    public void debug( Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
+     */
+    public void debug( Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void error( CharSequence content, Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void error( CharSequence content, Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void error( CharSequence content, Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#isInfoEnabled()
+     */
+    public boolean isInfoEnabled()
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.Throwable)
+     */
+    public void warn( Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.Throwable)
+     */
+    public void warn( Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.Throwable)
+     */
+    public void error( Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.Throwable)
+     */
+    public void error( Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void warn( CharSequence content, Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void warn( CharSequence content, Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void warn( CharSequence content, Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#isErrorEnabled()
+     */
+    public boolean isErrorEnabled()
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
+     */
+    public void info( Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
+     */
+    public void info( Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
+     */
+    public void error( CharSequence content )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojo.java`
+#### Snippet
+```java
+     * method directly whenever you need the logger, it is fast enough and needs no caching.
+     *
+     * @see org.apache.maven.plugin.Mojo#getLog()
+     * @deprecated Use SLF4J directly
+     */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
+     */
+    public void error( CharSequence content )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#isDebugEnabled()
+     */
+    public boolean isDebugEnabled()
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
+     */
+    public void warn( CharSequence content )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
+     */
+    public void warn( CharSequence content )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void info( CharSequence content, Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void info( CharSequence content, Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void info( CharSequence content, Throwable error )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence)
+     */
+    public void info( CharSequence content )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence)
+     */
+    public void info( CharSequence content )
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.api` is unnecessary and can be removed
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Version.java`
+#### Snippet
+```java
+ * @since 4.0
+ * @see org.apache.maven.api.services.VersionParser#parseVersion(String)
+ * @see org.apache.maven.api.Session#parseVersion(String)
+ */
+@Experimental
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.api` is unnecessary and can be removed
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java`
+#### Snippet
+```java
+     *
+     * @return an {@link ArtifactCoordinate}
+     * @see org.apache.maven.api.Session#createArtifactCoordinate(Artifact)
+     */
+    @Nonnull
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.maven.api` is unnecessary and can be removed
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java`
+#### Snippet
+```java
+     *
+     * @return {@code true} if the artifact is a snapshot, {@code false} otherwise
+     * @see org.apache.maven.api.Session#isVersionSnapshot(String)
+     */
+    boolean isSnapshot();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.slf4j` is unnecessary and can be removed
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
+#### Snippet
+```java
+
+/**
+ * Use an SLF4J {@link org.slf4j.ILoggerFactory} as a backing for a Plexus
+ * {@link org.codehaus.plexus.logging.LoggerManager},
+ * ignoring Plexus logger API parts that are not classical and probably not really used.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
+#### Snippet
+```java
+/**
+ * Use an SLF4J {@link org.slf4j.ILoggerFactory} as a backing for a Plexus
+ * {@link org.codehaus.plexus.logging.LoggerManager},
+ * ignoring Plexus logger API parts that are not classical and probably not really used.
+ *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+                    // Sun/Oracle advises to empty the char array
+                    java.util.Arrays.fill( password, ' ' );
+                }
+            }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+                    // Sun/Oracle advises to empty the char array
+                    java.util.Arrays.fill( password, ' ' );
+                }
+            }
+```
+
+## RuleId[ruleID=ThrowablePrintStackTrace]
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `maven-core/src/main/java/org/apache/maven/toolchain/RequirementMatcherFactory.java`
@@ -12335,6 +12323,18 @@ in `maven-core/src/main/java/org/apache/maven/toolchain/RequirementMatcherFactor
                 ex.printStackTrace();
                 return false;
             }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jConfigurationFactory.java`
+#### Snippet
+```java
+        catch ( IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e )
+        {
+            e.printStackTrace();
+        }
+
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -12360,42 +12360,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/Abstr
     public AbstractStringBasedModelInterpolator( PathTranslator pathTranslator, UrlNormalizer urlNormalizer )
     {
         this.pathTranslator = pathTranslator;
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `BaseObject()` of an abstract class should not be declared 'public'
-in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
-#### Snippet
-```java
-    }
-
-    public BaseObject( Object delegate, BaseObject parent )
-    {
-        this.delegate = delegate;
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `BaseObject()` of an abstract class should not be declared 'public'
-in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
-#### Snippet
-```java
-    }
-
-    public BaseObject( Object delegate, ChildrenTracking parent )
-    {
-        this.delegate = delegate;
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `BaseObject()` of an abstract class should not be declared 'public'
-in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
-#### Snippet
-```java
-    protected Object delegate;
-
-    public BaseObject()
-    {
-    }
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -12434,6 +12398,42 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecution
         super( message, cause );
 ```
 
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `BaseObject()` of an abstract class should not be declared 'public'
+in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
+#### Snippet
+```java
+    protected Object delegate;
+
+    public BaseObject()
+    {
+    }
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `BaseObject()` of an abstract class should not be declared 'public'
+in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
+#### Snippet
+```java
+    }
+
+    public BaseObject( Object delegate, ChildrenTracking parent )
+    {
+        this.delegate = delegate;
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `BaseObject()` of an abstract class should not be declared 'public'
+in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
+#### Snippet
+```java
+    }
+
+    public BaseObject( Object delegate, BaseObject parent )
+    {
+        this.delegate = delegate;
+```
+
 ## RuleId[ruleID=Java8MapApi]
 ### RuleId[ruleID=Java8MapApi]
 Can be replaced with single 'Map.computeIfAbsent' method call
@@ -12448,6 +12448,18 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `t`
+in `maven-slf4j-provider/src/main/java/org/slf4j/impl/MavenSimpleLogger.java`
+#### Snippet
+```java
+            }
+
+            t = t.getCause();
+            if ( t != null )
+            {
+```
+
 ### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `path`
 in `maven-model-builder/src/main/java/org/apache/maven/model/path/DefaultPathTranslator.java`
@@ -12533,30 +12545,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/Maven
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `is`
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomBuilder.java`
-#### Snippet
-```java
-            final Xpp3Dom xpp3Dom = build( parser, trim );
-            is.close();
-            is = null;
-
-            return xpp3Dom;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `reader`
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomBuilder.java`
-#### Snippet
-```java
-            final Xpp3Dom xpp3Dom = build( parser, trim, locationBuilder );
-            reader.close();
-            reader = null;
-
-            return xpp3Dom;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `fieldName`
 in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
 #### Snippet
@@ -12569,296 +12557,8 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultM
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `o`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-        if ( o instanceof WrapperProperties )
-        {
-            o = ( (WrapperProperties) o ).getter.get();
-        }
-        return getter.get().equals( o );
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `artifact`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RemoteSnapshotMetadataGenerator.java`
-#### Snippet
-```java
-            if ( snapshotMetadata != null )
-            {
-                artifact = artifact.setVersion( snapshotMetadata.getExpandedVersion( artifact ) );
-            }
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `t`
-in `maven-slf4j-provider/src/main/java/org/slf4j/impl/MavenSimpleLogger.java`
-#### Snippet
-```java
-            }
-
-            t = t.getCause();
-            if ( t != null )
-            {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `spaces`
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/ConsoleMavenTransferListener.java`
-#### Snippet
-```java
-            int n = Math.min( spaces, block.length() );
-            buffer.append( block, 0, n );
-            spaces -= n;
-        }
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `unit`
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
-#### Snippet
-```java
-            if ( unit == null )
-            {
-                unit = ScaleUnit.getScaleUnit( size );
-            }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `o`
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-        if ( o instanceof WrapperProperties )
-        {
-            o = ( (WrapperProperties) o ).getter.get();
-        }
-        return getter.get().equals( o );
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `modelClass`
-in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/velocity/Helper.java`
-#### Snippet
-```java
-            {
-                // superClass can be located outside (not generated by modello)
-                modelClass = modelClass.getModel().getClass( superClass, version, true );
-            }
-            else
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `modelClass`
-in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/velocity/Helper.java`
-#### Snippet
-```java
-            else
-            {
-                modelClass = null;
-            }
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `modelClass`
-in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/velocity/Helper.java`
-#### Snippet
-```java
-        for ( int i = classes.size() - 1; i >= 0; i-- )
-        {
-            modelClass = classes.get( i );
-            Iterator<ModelField> parentIter = fields.iterator();
-            fields = new ArrayList<>();
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `o`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-        if ( o instanceof WrapperProperties )
-        {
-            o = ( (WrapperProperties) o ).getter.get();
-        }
-        return getter.get().equals( o );
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `classifier`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
-#### Snippet
-```java
-        if ( classifier == null )
-        {
-            classifier = artifactHandler.getClassifier();
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `updatePolicy`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java`
-#### Snippet
-```java
-        if ( updatePolicy == null )
-        {
-            updatePolicy = UPDATE_POLICY_DAILY;
-        }
-        this.updatePolicy = updatePolicy;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `checksumPolicy`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java`
-#### Snippet
-```java
-        if ( checksumPolicy == null )
-        {
-            checksumPolicy = DEFAULT_CHECKSUM_POLICY;
-        }
-        this.checksumPolicy = checksumPolicy;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `threadConfiguration`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-        if ( threadConfiguration.endsWith( "C" ) )
-        {
-            threadConfiguration = threadConfiguration.substring( 0, threadConfiguration.length() - 1 );
-
-            if ( !NumberUtils.isParsable( threadConfiguration ) )
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `indent`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-        }
-
-        indent += "  ";
-
-        for ( ExceptionSummary child : summary.getChildren() )
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `version`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-        items = new ListItem();
-
-        version = version.toLowerCase( Locale.ENGLISH );
-
-        ListItem list = items;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `value`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-                {
-                    case 'a':
-                        value = "alpha";
-                        break;
-                    case 'b':
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `value`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-                        break;
-                    case 'b':
-                        value = "beta";
-                        break;
-                    case 'm':
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `value`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-                        break;
-                    case 'm':
-                        value = "milestone";
-                        break;
-                    default:
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `buf`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-        if ( isDigit )
-        {
-            buf = stripLeadingZeroes( buf );
-            if ( buf.length() <= MAX_INTITEM_LENGTH )
-            {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `snapshots`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-        if ( snapshots == null )
-        {
-            snapshots = new ArtifactRepositoryPolicy();
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `releases`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-        if ( releases == null )
-        {
-            releases = new ArtifactRepositoryPolicy();
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `file`
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
-            {
-                // drive-relative Windows path, don't align with project directory but with drive root
-                file = file.getAbsoluteFile();
-            }
-            else
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `file`
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
-            {
-                // an ordinary relative path, align with project directory
-                file = new File( new File( basedir, file.getPath() ).toURI().normalize() ).getAbsoluteFile();
-            }
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `expr`
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
 #### Snippet
 ```java
         if ( expr.startsWith( "${" ) && ( expr.indexOf( '}' ) == expr.length() - 1 ) )
@@ -12894,7 +12594,7 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `expr`
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
 #### Snippet
 ```java
         if ( expr.startsWith( "${" ) && ( expr.indexOf( '}' ) == expr.length() - 1 ) )
@@ -12902,6 +12602,54 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
             expr = expr.substring( 2, expr.length() - 1 );
         }
         return expr;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `file`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+#### Snippet
+```java
+            {
+                // drive-relative Windows path, don't align with project directory but with drive root
+                file = file.getAbsoluteFile();
+            }
+            else
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `file`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+#### Snippet
+```java
+            {
+                // an ordinary relative path, align with project directory
+                file = new File( new File( basedir, file.getPath() ).toURI().normalize() ).getAbsoluteFile();
+            }
+        }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `snapshots`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+        if ( snapshots == null )
+        {
+            snapshots = new ArtifactRepositoryPolicy();
+        }
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `releases`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+        if ( releases == null )
+        {
+            releases = new ArtifactRepositoryPolicy();
+        }
+
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -12917,15 +12665,15 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDepen
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `path`
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+Assignment to method parameter `originalScope`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
 #### Snippet
 ```java
-        if ( path != null )
+        if ( originalScope == null )
         {
-            path = path.trim();
-            if ( path.length() != 0 )
-            {
+            originalScope = Artifact.SCOPE_COMPILE;
+        }
+
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -12977,15 +12725,15 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `originalScope`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+Assignment to method parameter `path`
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
 ```java
-        if ( originalScope == null )
+        if ( path != null )
         {
-            originalScope = Artifact.SCOPE_COMPILE;
-        }
-
+            path = path.trim();
+            if ( path.length() != 0 )
+            {
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -13061,27 +12809,75 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDepend
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `line`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblemCollector.java`
+Assignment to method parameter `artifact`
+in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
 #### Snippet
 ```java
+        if ( !artifact.isRelease() && buildReactor != null )
         {
-            SettingsParseException e = (SettingsParseException) cause;
-            line = e.getLineNumber();
-            column = e.getColumnNumber();
+            artifact = buildReactor.find( artifact );
         }
+
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `column`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblemCollector.java`
+Assignment to method parameter `artifact`
+in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
 #### Snippet
 ```java
-            SettingsParseException e = (SettingsParseException) cause;
-            line = e.getLineNumber();
-            column = e.getColumnNumber();
+        if ( !artifact.isResolved() && ideWorkspace != null )
+        {
+            artifact = ideWorkspace.find( artifact );
         }
 
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `artifact`
+in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
+#### Snippet
+```java
+        if ( !artifact.isResolved() )
+        {
+            artifact = userLocalArtifactRepository.find( artifact );
+        }
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `s`
+in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
+#### Snippet
+```java
+                {
+                    // Take out basedir expression and the leading slash
+                    s = chopLeadingFileSeparator( s.substring( basedirExpr.length() ) );
+                }
+                else
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `s`
+in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
+#### Snippet
+```java
+                else
+                {
+                    s = ".";
+                }
+            }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `path`
+in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
+#### Snippet
+```java
+            if ( path.startsWith( "/" ) || path.startsWith( "\\" ) )
+            {
+                path = path.substring( 1 );
+            }
+        }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -13133,39 +12929,39 @@ in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslat
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `path`
-in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
+Assignment to method parameter `expression`
+in `maven-compat/src/main/java/org/apache/maven/project/interpolation/PathTranslatingPostProcessor.java`
 #### Snippet
 ```java
-            if ( path.startsWith( "/" ) || path.startsWith( "\\" ) )
-            {
-                path = path.substring( 1 );
-            }
+                                      Object value )
+    {
+        expression = ValueSourceUtils.trimPrefix( expression, expressionPrefixes, true );
+
+        if ( projectDir != null && value != null && unprefixedPathKeys.contains( expression ) )
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `model`
+in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
+#### Snippet
+```java
+        try
+        {
+            model = modelReader.read( sReader );
         }
+        catch ( IOException | XmlPullParserException e )
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `s`
-in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
+Assignment to method parameter `repository`
+in `maven-compat/src/main/java/org/apache/maven/artifact/manager/DefaultWagonManager.java`
 #### Snippet
 ```java
-                {
-                    // Take out basedir expression and the leading slash
-                    s = chopLeadingFileSeparator( s.substring( basedirExpr.length() ) );
-                }
-                else
-```
+            log.debug( "Using mirror: " + mirror.getUrl() + " (id: " + id + ")" );
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `s`
-in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
-#### Snippet
-```java
-                else
-                {
-                    s = ".";
-                }
-            }
+            repository = artifactRepositoryFactory.createArtifactRepository( id, mirror.getUrl(),
+                                                                     repository.getLayout(), repository.getSnapshots(),
+                                                                     repository.getReleases() );
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -13226,42 +13022,6 @@ in `maven-core/src/main/java/org/apache/maven/classrealm/DefaultClassRealmManage
             foreignImports = new TreeMap<>();
         }
 
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `expression`
-in `maven-compat/src/main/java/org/apache/maven/project/interpolation/PathTranslatingPostProcessor.java`
-#### Snippet
-```java
-                                      Object value )
-    {
-        expression = ValueSourceUtils.trimPrefix( expression, expressionPrefixes, true );
-
-        if ( projectDir != null && value != null && unprefixedPathKeys.contains( expression ) )
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `model`
-in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
-#### Snippet
-```java
-        try
-        {
-            model = modelReader.read( sReader );
-        }
-        catch ( IOException | XmlPullParserException e )
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `repository`
-in `maven-compat/src/main/java/org/apache/maven/artifact/manager/DefaultWagonManager.java`
-#### Snippet
-```java
-            log.debug( "Using mirror: " + mirror.getUrl() + " (id: " + id + ")" );
-
-            repository = artifactRepositoryFactory.createArtifactRepository( id, mirror.getUrl(),
-                                                                     repository.getLayout(), repository.getSnapshots(),
-                                                                     repository.getReleases() );
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -13337,18 +13097,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `conflictResolvers`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-        if ( conflictResolvers == null )
-        {
-            conflictResolvers = Collections.singletonList( defaultConflictResolver );
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `snapshots`
 in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
 #### Snippet
@@ -13373,37 +13121,289 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtif
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `artifact`
-in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
+Assignment to method parameter `line`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblemCollector.java`
 #### Snippet
 ```java
-        if ( !artifact.isRelease() && buildReactor != null )
         {
-            artifact = buildReactor.find( artifact );
+            SettingsParseException e = (SettingsParseException) cause;
+            line = e.getLineNumber();
+            column = e.getColumnNumber();
+        }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `column`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblemCollector.java`
+#### Snippet
+```java
+            SettingsParseException e = (SettingsParseException) cause;
+            line = e.getLineNumber();
+            column = e.getColumnNumber();
         }
 
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `artifact`
-in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
+Assignment to method parameter `is`
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomBuilder.java`
 #### Snippet
 ```java
-        if ( !artifact.isResolved() && ideWorkspace != null )
+            final Xpp3Dom xpp3Dom = build( parser, trim );
+            is.close();
+            is = null;
+
+            return xpp3Dom;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `reader`
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomBuilder.java`
+#### Snippet
+```java
+            final Xpp3Dom xpp3Dom = build( parser, trim, locationBuilder );
+            reader.close();
+            reader = null;
+
+            return xpp3Dom;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `o`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+        if ( o instanceof WrapperProperties )
         {
-            artifact = ideWorkspace.find( artifact );
+            o = ( (WrapperProperties) o ).getter.get();
+        }
+        return getter.get().equals( o );
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `artifact`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RemoteSnapshotMetadataGenerator.java`
+#### Snippet
+```java
+            if ( snapshotMetadata != null )
+            {
+                artifact = artifact.setVersion( snapshotMetadata.getExpandedVersion( artifact ) );
+            }
+        }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `spaces`
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/ConsoleMavenTransferListener.java`
+#### Snippet
+```java
+            int n = Math.min( spaces, block.length() );
+            buffer.append( block, 0, n );
+            spaces -= n;
+        }
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `unit`
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
+#### Snippet
+```java
+            if ( unit == null )
+            {
+                unit = ScaleUnit.getScaleUnit( size );
+            }
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `classifier`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+        if ( classifier == null )
+        {
+            classifier = artifactHandler.getClassifier();
         }
 
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `artifact`
-in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
+Assignment to method parameter `updatePolicy`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java`
 #### Snippet
 ```java
-        if ( !artifact.isResolved() )
+        if ( updatePolicy == null )
         {
-            artifact = userLocalArtifactRepository.find( artifact );
+            updatePolicy = UPDATE_POLICY_DAILY;
+        }
+        this.updatePolicy = updatePolicy;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `checksumPolicy`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java`
+#### Snippet
+```java
+        if ( checksumPolicy == null )
+        {
+            checksumPolicy = DEFAULT_CHECKSUM_POLICY;
+        }
+        this.checksumPolicy = checksumPolicy;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `value`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+                {
+                    case 'a':
+                        value = "alpha";
+                        break;
+                    case 'b':
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `value`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+                        break;
+                    case 'b':
+                        value = "beta";
+                        break;
+                    case 'm':
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `value`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+                        break;
+                    case 'm':
+                        value = "milestone";
+                        break;
+                    default:
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `version`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+        items = new ListItem();
+
+        version = version.toLowerCase( Locale.ENGLISH );
+
+        ListItem list = items;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `buf`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+        if ( isDigit )
+        {
+            buf = stripLeadingZeroes( buf );
+            if ( buf.length() <= MAX_INTITEM_LENGTH )
+            {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `threadConfiguration`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        if ( threadConfiguration.endsWith( "C" ) )
+        {
+            threadConfiguration = threadConfiguration.substring( 0, threadConfiguration.length() - 1 );
+
+            if ( !NumberUtils.isParsable( threadConfiguration ) )
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `indent`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        }
+
+        indent += "  ";
+
+        for ( ExceptionSummary child : summary.getChildren() )
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `o`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+        if ( o instanceof WrapperProperties )
+        {
+            o = ( (WrapperProperties) o ).getter.get();
+        }
+        return getter.get().equals( o );
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `modelClass`
+in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/velocity/Helper.java`
+#### Snippet
+```java
+            {
+                // superClass can be located outside (not generated by modello)
+                modelClass = modelClass.getModel().getClass( superClass, version, true );
+            }
+            else
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `modelClass`
+in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/velocity/Helper.java`
+#### Snippet
+```java
+            else
+            {
+                modelClass = null;
+            }
+        }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `modelClass`
+in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/velocity/Helper.java`
+#### Snippet
+```java
+        for ( int i = classes.size() - 1; i >= 0; i-- )
+        {
+            modelClass = classes.get( i );
+            Iterator<ModelField> parentIter = fields.iterator();
+            fields = new ArrayList<>();
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `o`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+        if ( o instanceof WrapperProperties )
+        {
+            o = ( (WrapperProperties) o ).getter.get();
+        }
+        return getter.get().equals( o );
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `conflictResolvers`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+        if ( conflictResolvers == null )
+        {
+            conflictResolvers = Collections.singletonList( defaultConflictResolver );
         }
 
 ```
@@ -13472,14 +13472,38 @@ in `maven-model-transform/src/main/java/org/apache/maven/model/transform/BuildTo
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/InputLocation.java`
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/pull/BufferingParser.java`
 #### Snippet
 ```java
-    public InputLocation getLocation( Object key )
+                }
+            }
+            return null;
+        }
+        else
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/path/DefaultModelPathTranslator.java`
+#### Snippet
+```java
     {
-        return locations != null ? locations.get( key ) : null;
+        String newPath = pathTranslator.alignToBaseDirectory( path, basedir );
+        return Objects.equals( path, newPath ) ? null : newPath;
     }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/path/ProfileActivationFilePathInterpolator.java`
+#### Snippet
+```java
+                        return basedir.getAbsolutePath();
+                    }
+                    return null;
+                }
+            } );
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13508,43 +13532,19 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/path/ProfileActivat
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/path/ProfileActivationFilePathInterpolator.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/plugin/DefaultReportingConverter.java`
 #### Snippet
 ```java
-                        return basedir.getAbsolutePath();
-                    }
-                    return null;
-                }
-            } );
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/pull/BufferingParser.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
         }
-        else
-```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/path/DefaultModelPathTranslator.java`
-#### Snippet
-```java
-    {
-        String newPath = pathTranslator.alignToBaseDirectory( path, basedir );
-        return Objects.equals( path, newPath ) ? null : newPath;
+        return null;
     }
 
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/plugin/DefaultReportingConverter.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/FileModelSource.java`
 #### Snippet
 ```java
         }
@@ -13568,35 +13568,11 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultTra
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/FileModelSource.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelCache.java`
 #### Snippet
 ```java
     {
         Object obj = get( groupId, artifactId, version, tag.getName() );
-        return ( obj != null ) ? tag.fromCache( tag.getType().cast( obj ) ) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelCache.java`
-#### Snippet
-```java
-    {
-        Object obj = get( path, tag.getName() );
         return ( obj != null ) ? tag.fromCache( tag.getType().cast( obj ) ) : null;
     }
 
@@ -13616,12 +13592,12 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelCache
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelCache.java`
 #### Snippet
 ```java
-    public Model getRawModel()
     {
-        return null;
+        Object obj = get( path, tag.getName() );
+        return ( obj != null ) ? tag.fromCache( tag.getType().cast( obj ) ) : null;
     }
 
 ```
@@ -13652,6 +13628,18 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuild
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
+#### Snippet
+```java
+    public Model getRawModel()
+    {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/BuildTimestampValueSource.java`
 #### Snippet
 ```java
@@ -13660,30 +13648,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/Build
         return null;
     }
 }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/UrlNormalizingPostProcessor.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/AbstractStringBasedModelInterpolator.java`
-#### Snippet
-```java
-                        return projectDir.getAbsolutePath();
-                    }
-                    return null;
-                }
-            }, PROJECT_PREFIXES, true );
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13700,12 +13664,96 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/Abstr
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/AbstractStringBasedModelInterpolator.java`
+#### Snippet
+```java
+                        return projectDir.getAbsolutePath();
+                    }
+                    return null;
+                }
+            }, PROJECT_PREFIXES, true );
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/PathTranslatingPostProcessor.java`
 #### Snippet
 ```java
         }
 
         return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/UrlNormalizingPostProcessor.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
+#### Snippet
+```java
+        if ( artifact == null )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
+#### Snippet
+```java
+        // The fall-through indicates that the artifact cannot be found;
+        // for instance if package produced nothing or classifier problems.
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
+#### Snippet
+```java
+        // The fall-through indicates that the artifact cannot be found;
+        // for instance if package produced nothing or classifier problems.
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
+#### Snippet
+```java
+        String projectKey = ArtifactUtils.key( artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion() );
+        MavenProject project = projectsByGAV.get( projectKey );
+        return project == null ? null : project.getModel();
     }
 
 ```
@@ -13724,58 +13772,46 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultM
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 #### Snippet
 ```java
-            }
+        if ( artifact == null )
+        {
+            return null;
         }
-        return null;
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+#### Snippet
+```java
+    private static String nullify( String string )
+    {
+        return ( string == null || string.length() <= 0 ) ? null : string;
     }
 
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 #### Snippet
 ```java
     {
-        Dom child = dom.getChild( name );
-        return child != null ? new Xpp3Dom( child, this ) : null;
+        WorkspaceReader reader = session.getWorkspaceReader();
+        return ( reader != null ) ? reader.getRepository() : null;
     }
 
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/xml/XmlReaderRequest.java`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 #### Snippet
 ```java
-            public URL getURL()
-            {
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/PluginsMetadataGenerator.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-        if ( !( source instanceof ModelSource2 ) )
+        if ( artifact == null )
         {
             return null;
         }
@@ -13784,10 +13820,10 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 #### Snippet
 ```java
-        if ( parentPath == null || parentPath.length() <= 0 )
+        if ( artifact == null )
         {
             return null;
         }
@@ -13796,145 +13832,13 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 #### Snippet
 ```java
-                        // gathered with problem collector
-                    }
-                    return null;
-                }
-            };
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-            return modelCache.get( source, tag );
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-                                     + dependency.getManagementKey() + " is missing." )
-                    .setLocation( dependency.getLocation( "" ) ) );
+        if ( dependency == null )
+        {
             return null;
         }
-        if ( artifactId == null || artifactId.length() <= 0 )
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-                                     + dependency.getManagementKey() + " is missing." )
-                    .setLocation( dependency.getLocation( "" ) ) );
-            return null;
-        }
-        if ( version == null || version.length() <= 0 )
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-                                     + dependency.getManagementKey() + " is missing." )
-                    .setLocation( dependency.getLocation( "" ) ) );
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-                    message.toString() ) );
-
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-        }
-
-        return importMgmt != null ? new DependencyManagement( importMgmt ) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-                problems.add( new ModelProblemCollectorRequest( Severity.FATAL, Version.BASE )
-                    .setMessage( e.getMessage() ).setException( e ) );
-                return null;
-            }
-        }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-                    .setMessage( buffer.toString() ).setLocation( dependency.getLocation( "" ) )
-                    .setException( e ) );
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-            {
-                problems.addAll( e.getProblems() );
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-            if ( sources == null )
-            {
-                return null;
-            }
-            return sources.stream().reduce( ( a, b ) ->
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-            return modelCache.get( groupId, artifactId, version, tag );
-        }
-        return null;
-    }
 
 ```
 
@@ -13947,6 +13851,18 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
                     }
                     return null;
                 }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+            return modelCache.get( groupId, artifactId, version, tag );
+        }
+        return null;
+    }
 
 ```
 
@@ -14024,106 +13940,22 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/ResolveFile.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-        if ( file == null )
-        {
-            return null;
-        }
-        else if ( file.isAbsolute() )
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultArtifactDescriptorReader.java`
-#### Snippet
-```java
-                if ( ( getPolicy( session, a, request ) & ArtifactDescriptorPolicy.IGNORE_INVALID ) != 0 )
-                {
-                    return null;
-                }
-                result.addException( exception );
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultArtifactDescriptorReader.java`
-#### Snippet
-```java
-                    if ( ( getPolicy( session, a, request ) & ArtifactDescriptorPolicy.IGNORE_MISSING ) != 0 )
-                    {
-                        return null;
+                        // gathered with problem collector
                     }
-                }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultArtifactDescriptorReader.java`
-#### Snippet
-```java
-                if ( ( getPolicy( session, a, request ) & ArtifactDescriptorPolicy.IGNORE_INVALID ) != 0 )
-                {
                     return null;
                 }
-                result.addException( e );
+            };
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-    private static String reduce( String s )
-    {
-        return ( s != null ? ( s.startsWith( "${" ) && s.endsWith( "}" ) ? null : s ) : null );
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
-#### Snippet
-```java
-    private static String reduce( String s )
-    {
-        return ( s != null ? ( s.startsWith( "${" ) && s.endsWith( "}" ) ? null : s ) : null );
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLogger.java`
-#### Snippet
-```java
-    public Logger getChildLogger( String name )
-    {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jStdoutLogger.java`
-#### Snippet
-```java
-    public String getName()
-    {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
-#### Snippet
-```java
-            }
+            return modelCache.get( source, tag );
         }
         return null;
     }
@@ -14132,70 +13964,10 @@ in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/D
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-                return value;
-            }
-            return null;
-        } );
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
-#### Snippet
-```java
-        if ( getMojos() == null )
-        {
-            return null; // no mojo in this POM
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
-#### Snippet
-```java
-    public static Artifact copyArtifactSafe( Artifact artifact )
-    {
-        return ( artifact != null ) ? copyArtifact( artifact ) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/DefaultArtifactVersion.java`
-#### Snippet
-```java
-        if ( ( s.length() > 1 ) && s.startsWith( "0" ) )
-        {
-            return null;
-        }
-        return tryParseInt( s );
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/DefaultArtifactVersion.java`
-#### Snippet
-```java
-        if ( !isDigits( s ) )
+        if ( !( source instanceof ModelSource2 ) )
         {
             return null;
         }
@@ -14204,107 +13976,95 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/DefaultArt
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/DefaultArtifactVersion.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-            if ( longValue > Integer.MAX_VALUE )
+        if ( parentPath == null || parentPath.length() <= 0 )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+            if ( sources == null )
             {
                 return null;
             }
-            return (int) longValue;
+            return sources.stream().reduce( ( a, b ) ->
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/DefaultArtifactVersion.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-        {
-            // should never happen since checked isDigits(s) before
+                problems.add( new ModelProblemCollectorRequest( Severity.FATAL, Version.BASE )
+                    .setMessage( e.getMessage() ).setException( e ) );
+                return null;
+            }
+        }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+                    .setMessage( buffer.toString() ).setLocation( dependency.getLocation( "" ) )
+                    .setException( e ) );
+                return null;
+            }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+            {
+                problems.addAll( e.getProblems() );
+                return null;
+            }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+                                     + dependency.getManagementKey() + " is missing." )
+                    .setLocation( dependency.getLocation( "" ) ) );
             return null;
         }
-    }
+        if ( artifactId == null || artifactId.length() <= 0 )
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-        else
-        {
+                                     + dependency.getManagementKey() + " is missing." )
+                    .setLocation( dependency.getLocation( "" ) ) );
             return null;
         }
-    }
+        if ( version == null || version.length() <= 0 )
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-        else
-        {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-        if ( spec == null )
-        {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
-#### Snippet
-```java
-        // The fall-through indicates that the artifact cannot be found;
-        // for instance if package produced nothing or classifier problems.
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
-#### Snippet
-```java
-        if ( artifact == null )
-        {
+                                     + dependency.getManagementKey() + " is missing." )
+                    .setLocation( dependency.getLocation( "" ) ) );
             return null;
         }
 
@@ -14312,24 +14072,24 @@ in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-        // The fall-through indicates that the artifact cannot be found;
-        // for instance if package produced nothing or classifier problems.
-        return null;
-    }
+                    message.toString() ) );
+
+            return null;
+        }
 
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-        String projectKey = ArtifactUtils.key( artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion() );
-        MavenProject project = projectsByGAV.get( projectKey );
-        return project == null ? null : project.getModel();
+        }
+
+        return importMgmt != null ? new DependencyManagement( importMgmt ) : null;
     }
 
 ```
@@ -14348,10 +14108,10 @@ in `maven-core/src/main/java/org/apache/maven/graph/ProjectSelector.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
 #### Snippet
 ```java
-        if ( artifact == null )
+        if ( expr == null )
         {
             return null;
         }
@@ -14360,94 +14120,10 @@ in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
 #### Snippet
 ```java
-    {
-        WorkspaceReader reader = session.getWorkspaceReader();
-        return ( reader != null ) ? reader.getRepository() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
-#### Snippet
-```java
-        if ( artifact == null )
-        {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
-#### Snippet
-```java
-        if ( dependency == null )
-        {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
-#### Snippet
-```java
-        if ( artifact == null )
-        {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
-#### Snippet
-```java
-    private static String nullify( String string )
-    {
-        return ( string == null || string.length() <= 0 ) ? null : string;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-        if ( d.getVersion() == null )
-        {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-        catch ( InvalidVersionSpecificationException e )
-        {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-        catch ( InvalidVersionSpecificationException e )
+        if ( expr == null )
         {
             return null;
         }
@@ -14471,10 +14147,22 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
-        catch ( InvalidVersionSpecificationException e )
+        else if ( Artifact.SCOPE_TEST.equals( scope ) || Artifact.SCOPE_PROVIDED.equals( scope ) )
         {
             return null;
         }
+        else if ( Artifact.SCOPE_COMPILE.equals( scope ) && Artifact.SCOPE_COMPILE.equals( inheritedScope ) )
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
 
 ```
 
@@ -14519,10 +14207,46 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
-            }
+        catch ( InvalidVersionSpecificationException e )
+        {
+            return null;
         }
-        return null;
-    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+        catch ( InvalidVersionSpecificationException e )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+        if ( d.getVersion() == null )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+        catch ( InvalidVersionSpecificationException e )
+        {
+            return null;
+        }
 
 ```
 
@@ -14535,42 +14259,6 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
         }
         return null;
     }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-        else if ( Artifact.SCOPE_TEST.equals( scope ) || Artifact.SCOPE_PROVIDED.equals( scope ) )
-        {
-            return null;
-        }
-        else if ( Artifact.SCOPE_COMPILE.equals( scope ) && Artifact.SCOPE_COMPILE.equals( inheritedScope ) )
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
-        if ( expr == null )
-        {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
-#### Snippet
-```java
-        if ( expr == null )
-        {
-            return null;
-        }
 
 ```
 
@@ -14588,48 +14276,12 @@ in `maven-core/src/main/java/org/apache/maven/plugin/DefaultBuildPluginManager.j
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultLegacySupport.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
+    {
+        MavenSession session = getSession();
+        return ( session != null ) ? session.getRepositorySession() : null;
     }
 
 ```
@@ -14648,12 +14300,48 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultLegacySuppo
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultLegacySupport.java`
+in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
 #### Snippet
 ```java
-    {
-        MavenSession session = getSession();
-        return ( session != null ) ? session.getRepositorySession() : null;
+        }
+
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
     }
 
 ```
@@ -14663,7 +14351,7 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginManager.java`
 #### Snippet
 ```java
-        catch ( Exception e )
+        catch ( NoPluginFoundForPrefixException e )
         {
             return null;
         }
@@ -14675,7 +14363,7 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginManager.java`
 #### Snippet
 ```java
-        catch ( NoPluginFoundForPrefixException e )
+        catch ( Exception e )
         {
             return null;
         }
@@ -14768,66 +14456,6 @@ in `maven-core/src/main/java/org/apache/maven/artifact/factory/DefaultArtifactFa
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/DefaultResolutionErrorHandler.java`
-#### Snippet
-```java
-    private static <T> List<T> toList( Collection<T> items )
-    {
-        return ( items != null ) ? new ArrayList<>( items ) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-        cache.remove( cacheKey );
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-        if ( context == null )
-        {
-            return null;
-        }
-        return context.get( key );
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    public String getDefaultGoal()
-    {
-        return getBuild() != null ? getBuild().getDefaultGoal() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
 #### Snippet
 ```java
@@ -14855,10 +14483,10 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
 #### Snippet
 ```java
-                            && !artifact.getDependencyFilter().include( artifact ) )
-                        {
-                            return null;
-                        }
+
+        }
+        return null;
+    }
 
 ```
 
@@ -14876,74 +14504,62 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSour
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
 #### Snippet
 ```java
-        public org.apache.maven.artifact.Artifact find( org.apache.maven.artifact.Artifact artifact )
-        {
-            return null;
-        }
+                            && !artifact.getDependencyFilter().include( artifact ) )
+                        {
+                            return null;
+                        }
 
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/DefaultResolutionErrorHandler.java`
 #### Snippet
 ```java
-        public String pathOf( org.apache.maven.artifact.Artifact artifact )
-        {
-            return null;
-        }
+    private static <T> List<T> toList( Collection<T> items )
+    {
+        return ( items != null ) ? new ArrayList<>( items ) : null;
+    }
 
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
 #### Snippet
 ```java
-        public String getBasedir()
-        {
-            return null;
-        }
+        cache.remove( cacheKey );
+
+        return null;
+    }
 
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
 ```java
-        public ArtifactRepositoryPolicy getReleases()
-        {
-            return null;
-        }
+    public String getDefaultGoal()
+    {
+        return getBuild() != null ? getBuild().getDefaultGoal() : null;
+    }
 
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
 ```java
-        public String pathOfRemoteRepositoryMetadata( ArtifactMetadata artifactMetadata )
+        if ( context == null )
         {
             return null;
         }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-        private String nullify( String str )
-        {
-            return ( str == null || str.length() <= 0 ) ? null : str;
-        }
-
+        return context.get( key );
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -14975,7 +14591,79 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
 #### Snippet
 ```java
+        public String pathOf( org.apache.maven.artifact.Artifact artifact )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        public ArtifactRepositoryLayout getLayout()
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        public org.apache.maven.artifact.Artifact find( org.apache.maven.artifact.Artifact artifact )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        private String nullify( String str )
+        {
+            return ( str == null || str.length() <= 0 ) ? null : str;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
         public String pathOfLocalRepositoryMetadata( ArtifactMetadata metadata, ArtifactRepository repository )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        public ArtifactRepositoryPolicy getReleases()
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        public String getBasedir()
         {
             return null;
         }
@@ -14999,7 +14687,7 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
 #### Snippet
 ```java
-        public ArtifactRepositoryLayout getLayout()
+        public String pathOfRemoteRepositoryMetadata( ArtifactMetadata artifactMetadata )
         {
             return null;
         }
@@ -15011,8 +14699,8 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/ArtifactRepositoryMetadata.java`
 #### Snippet
 ```java
+    public ArtifactRepository getRepository()
     {
-        // Don't want the artifact's version in here, as this is stored in the directory above that
         return null;
     }
 
@@ -15023,8 +14711,8 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/ArtifactRepositoryMetadata.java`
 #### Snippet
 ```java
-    public ArtifactRepository getRepository()
     {
+        // Don't want the artifact's version in here, as this is stored in the directory above that
         return null;
     }
 
@@ -15056,26 +14744,38 @@ in `maven-core/src/main/java/org/apache/maven/internal/aether/MavenChainedWorksp
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
+in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtils.java`
 #### Snippet
 ```java
-    public List<org.eclipse.aether.graph.Dependency> toDependencies( Collection<DependencyCoordinate> dependencies )
-    {
-        return dependencies == null ? null : dependencies.stream()
-                .map( this::toDependency )
-                .collect( Collectors.toList() );
+        if ( settings == null )
+        {
+            return null;
+        }
+        return new org.apache.maven.settings.Settings( settings.getDelegate() );
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
+in `maven-core/src/main/java/org/apache/maven/exception/DefaultExceptionHandler.java`
 #### Snippet
 ```java
-    public List<org.eclipse.aether.artifact.Artifact> toArtifacts( Collection<Artifact> artifacts )
-    {
-        return artifacts == null ? null : artifacts.stream()
-                .map( this::toArtifact )
-                .collect( Collectors.toList() );
+        if ( children.isEmpty() )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/exception/DefaultExceptionHandler.java`
+#### Snippet
+```java
+        else
+        {
+            return null;
+        }
+    }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -15116,34 +14816,46 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtils.java`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
 #### Snippet
 ```java
-        if ( settings == null )
-        {
-            return null;
-        }
-        return new org.apache.maven.settings.Settings( settings.getDelegate() );
+    public List<org.eclipse.aether.graph.Dependency> toDependencies( Collection<DependencyCoordinate> dependencies )
+    {
+        return dependencies == null ? null : dependencies.stream()
+                .map( this::toDependency )
+                .collect( Collectors.toList() );
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/exception/DefaultExceptionHandler.java`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
 #### Snippet
 ```java
-        else
-        {
-            return null;
-        }
-    }
+    public List<org.eclipse.aether.artifact.Artifact> toArtifacts( Collection<Artifact> artifacts )
+    {
+        return artifacts == null ? null : artifacts.stream()
+                .map( this::toArtifact )
+                .collect( Collectors.toList() );
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/exception/DefaultExceptionHandler.java`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/LifecyclePhase.java`
 #### Snippet
 ```java
-        if ( children.isEmpty() )
+        if ( lifecyclePhases == null )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/Lifecycle.java`
+#### Snippet
+```java
+        if ( lphases == null )
         {
             return null;
         }
@@ -15176,25 +14888,13 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/DefaultLifecycle
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/Lifecycle.java`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/ProjectBuildList.java`
 #### Snippet
 ```java
-        if ( lphases == null )
-        {
-            return null;
+            }
         }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/LifecyclePhase.java`
-#### Snippet
-```java
-        if ( lifecyclePhases == null )
-        {
-            return null;
-        }
+        return null;
+    }
 
 ```
 
@@ -15229,18 +14929,6 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultMojoExec
 ```java
         }
 
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/ProjectBuildList.java`
-#### Snippet
-```java
-            }
-        }
         return null;
     }
 
@@ -15287,18 +14975,6 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecyclePluginAnalyzer.java`
 #### Snippet
 ```java
-            if ( e.getCause() instanceof NoSuchElementException )
-            {
-                return null;
-            }
-            throw new RuntimeException( e );
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecyclePluginAnalyzer.java`
-#### Snippet
-```java
         if ( lifecycleMappingForPackaging == null )
         {
             return null;
@@ -15308,14 +14984,14 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycl
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecyclePluginAnalyzer.java`
 #### Snippet
 ```java
-        if ( scopes.isEmpty() )
-        {
-            return null;
-        }
-        else
+            if ( e.getCause() instanceof NoSuchElementException )
+            {
+                return null;
+            }
+            throw new RuntimeException( e );
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -15337,6 +15013,18 @@ in `maven-core/src/main/java/org/apache/maven/toolchain/java/JavaToolchainImpl.j
 ```java
             return toRet.getAbsolutePath();
         }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/toolchain/DefaultToolchainManager.java`
+#### Snippet
+```java
+        }
+
         return null;
     }
 
@@ -15368,14 +15056,14 @@ in `maven-core/src/main/java/org/apache/maven/toolchain/java/JavaToolchainFactor
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/toolchain/DefaultToolchainManager.java`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
 #### Snippet
 ```java
+        if ( scopes.isEmpty() )
+        {
+            return null;
         }
-
-        return null;
-    }
-
+        else
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -15404,61 +15092,25 @@ in `maven-core/src/main/java/org/apache/maven/configuration/internal/EnhancedCon
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecrypter.java`
+in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
 #### Snippet
 ```java
-        throws SecDispatcherException
+    public String getBasedir()
     {
-        return ( str == null ) ? null : securityDispatcher.decrypt( str );
+        return ( userLocalArtifactRepository != null ) ? userLocalArtifactRepository.getBasedir() : null;
     }
 
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecryptionResult.java`
-#### Snippet
-```java
-    public Proxy getProxy()
-    {
-        return proxies.isEmpty() ? null : proxies.get( 0 );
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecryptionResult.java`
-#### Snippet
-```java
-    public Server getServer()
-    {
-        return servers.isEmpty() ? null : servers.get( 0 );
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
+in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
 #### Snippet
 ```java
                 return value;
             }
             return null;
         } );
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
-#### Snippet
-```java
-            return new FileSource( settingsFile );
-        }
-        return null;
-    }
 
 ```
 
@@ -15503,7 +15155,7 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
 #### Snippet
 ```java
-                    return projectDir.getAbsolutePath();
+                    return projectDir.getAbsoluteFile().toPath().toUri().toASCIIString();
                 }
                 return null;
             }
@@ -15515,22 +15167,10 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
 #### Snippet
 ```java
-                    return projectDir.getAbsoluteFile().toPath().toUri().toASCIIString();
+                    return projectDir.getAbsolutePath();
                 }
                 return null;
             }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/project/interpolation/StringSearchModelInterpolator.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
 
 ```
 
@@ -15548,6 +15188,18 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/manager/DefaultWagonMan
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/project/interpolation/StringSearchModelInterpolator.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/MetadataUtils.java`
 #### Snippet
 ```java
@@ -15560,22 +15212,10 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Met
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/GroupRepositoryMetadata.java`
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/MetadataBridge.java`
 #### Snippet
 ```java
-    public String getBaseVersion()
-    {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/GroupRepositoryMetadata.java`
-#### Snippet
-```java
-    public ArtifactRepository getRepository()
+    public File getFile()
     {
         return null;
     }
@@ -15596,10 +15236,22 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Gro
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/MetadataBridge.java`
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/GroupRepositoryMetadata.java`
 #### Snippet
 ```java
-    public File getFile()
+    public String getBaseVersion()
+    {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/GroupRepositoryMetadata.java`
+#### Snippet
+```java
+    public ArtifactRepository getRepository()
     {
         return null;
     }
@@ -15635,7 +15287,7 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/TransferListenerAdapter.java`
 #### Snippet
 ```java
-        if ( event == null )
+        if ( listener == null )
         {
             return null;
         }
@@ -15647,7 +15299,7 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/TransferListenerAdapter.java`
 #### Snippet
 ```java
-        if ( listener == null )
+        if ( event == null )
         {
             return null;
         }
@@ -15683,6 +15335,18 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
 #### Snippet
 ```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
         {
             getLogger().debug( "Skipped unreadable resolution tracking file: " + touchfile );
             return null;
@@ -15700,18 +15364,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateC
                 return null;
             }
         }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -15743,10 +15395,58 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+                    version, groupId, artifactId, version ), e );
+
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
                     version, plugin ), e );
 
             return null;
         }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
 
 ```
 
@@ -15779,44 +15479,8 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
             this.logger.error( String.format( "Invalid version specification '%s' creating dependency artifact '%s'.",
                     d.getVersion(), d ), e );
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-                    version, groupId, artifactId, version ), e );
-
             return null;
         }
 
@@ -15832,18 +15496,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
             return null;
         }
     }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -15911,18 +15563,6 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionResult.java`
 #### Snippet
 ```java
-        throws MetadataResolutionException
-    {
-        return treeRoot == null ? null : new MetadataGraph( treeRoot );
-    }
-    //----------------------------------------------------------------------------
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionResult.java`
-#### Snippet
-```java
         if ( requestType == null )
         {
             return null;
@@ -15968,26 +15608,14 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataReso
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClasspathTransformation.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionResult.java`
 #### Snippet
 ```java
-            if ( dirtyGraph == null || dirtyGraph.isEmpty() )
-            {
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClasspathTransformation.java`
-#### Snippet
-```java
-            if ( cleanGraph == null || cleanGraph.isEmpty() )
-            {
-                return null;
-            }
-
+        throws MetadataResolutionException
+    {
+        return treeRoot == null ? null : new MetadataGraph( treeRoot );
+    }
+    //----------------------------------------------------------------------------
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -15995,7 +15623,7 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
 #### Snippet
 ```java
-        if ( edges == null || edges.isEmpty() )
+        if ( md == null )
         {
             return null;
         }
@@ -16007,7 +15635,7 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
 #### Snippet
 ```java
-        if ( md == null )
+        if ( edges == null || edges.isEmpty() )
         {
             return null;
         }
@@ -16036,6 +15664,54 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGrap
         return null;
     }
     //------------------------------------------------------------------------
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClasspathTransformation.java`
+#### Snippet
+```java
+            if ( dirtyGraph == null || dirtyGraph.isEmpty() )
+            {
+                return null;
+            }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClasspathTransformation.java`
+#### Snippet
+```java
+            if ( cleanGraph == null || cleanGraph.isEmpty() )
+            {
+                return null;
+            }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraphConflictResolver.java`
+#### Snippet
+```java
+        if ( edges == null || edges.isEmpty() )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraphConflictResolver.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -16076,30 +15752,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraph
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraphConflictResolver.java`
-#### Snippet
-```java
-        if ( edges == null || edges.isEmpty() )
-        {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraphConflictResolver.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ClasspathContainer.java`
 #### Snippet
 ```java
@@ -16124,14 +15776,362 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ClasspathCon
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecrypter.java`
 #### Snippet
 ```java
-    public String getBasedir()
+        throws SecDispatcherException
     {
-        return ( userLocalArtifactRepository != null ) ? userLocalArtifactRepository.getBasedir() : null;
+        return ( str == null ) ? null : securityDispatcher.decrypt( str );
     }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecryptionResult.java`
+#### Snippet
+```java
+    public Proxy getProxy()
+    {
+        return proxies.isEmpty() ? null : proxies.get( 0 );
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecryptionResult.java`
+#### Snippet
+```java
+    public Server getServer()
+    {
+        return servers.isEmpty() ? null : servers.get( 0 );
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
+#### Snippet
+```java
+                return value;
+            }
+            return null;
+        } );
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
+#### Snippet
+```java
+            return new FileSource( settingsFile );
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/InputLocation.java`
+#### Snippet
+```java
+    public InputLocation getLocation( Object key )
+    {
+        return locations != null ? locations.get( key ) : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
+#### Snippet
+```java
+        if ( getMojos() == null )
+        {
+            return null; // no mojo in this POM
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/xml/XmlReaderRequest.java`
+#### Snippet
+```java
+            public URL getURL()
+            {
+                return null;
+            }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
+#### Snippet
+```java
+    {
+        Dom child = dom.getChild( name );
+        return child != null ? new Xpp3Dom( child, this ) : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/PluginsMetadataGenerator.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/ResolveFile.java`
+#### Snippet
+```java
+        if ( file == null )
+        {
+            return null;
+        }
+        else if ( file.isAbsolute() )
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
+#### Snippet
+```java
+    private static String reduce( String s )
+    {
+        return ( s != null ? ( s.startsWith( "${" ) && s.endsWith( "}" ) ? null : s ) : null );
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
+#### Snippet
+```java
+    private static String reduce( String s )
+    {
+        return ( s != null ? ( s.startsWith( "${" ) && s.endsWith( "}" ) ? null : s ) : null );
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultArtifactDescriptorReader.java`
+#### Snippet
+```java
+                if ( ( getPolicy( session, a, request ) & ArtifactDescriptorPolicy.IGNORE_INVALID ) != 0 )
+                {
+                    return null;
+                }
+                result.addException( exception );
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultArtifactDescriptorReader.java`
+#### Snippet
+```java
+                    if ( ( getPolicy( session, a, request ) & ArtifactDescriptorPolicy.IGNORE_MISSING ) != 0 )
+                    {
+                        return null;
+                    }
+                }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultArtifactDescriptorReader.java`
+#### Snippet
+```java
+                if ( ( getPolicy( session, a, request ) & ArtifactDescriptorPolicy.IGNORE_INVALID ) != 0 )
+                {
+                    return null;
+                }
+                result.addException( e );
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLogger.java`
+#### Snippet
+```java
+    public Logger getChildLogger( String name )
+    {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jStdoutLogger.java`
+#### Snippet
+```java
+    public String getName()
+    {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
+#### Snippet
+```java
+    public static Artifact copyArtifactSafe( Artifact artifact )
+    {
+        return ( artifact != null ) ? copyArtifact( artifact ) : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/DefaultArtifactVersion.java`
+#### Snippet
+```java
+        if ( ( s.length() > 1 ) && s.startsWith( "0" ) )
+        {
+            return null;
+        }
+        return tryParseInt( s );
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/DefaultArtifactVersion.java`
+#### Snippet
+```java
+        if ( !isDigits( s ) )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/DefaultArtifactVersion.java`
+#### Snippet
+```java
+            if ( longValue > Integer.MAX_VALUE )
+            {
+                return null;
+            }
+            return (int) longValue;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/DefaultArtifactVersion.java`
+#### Snippet
+```java
+        {
+            // should never happen since checked isDigits(s) before
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+        if ( spec == null )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        else
+        {
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        else
+        {
+            return null;
+        }
+    }
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -16161,27 +16161,15 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/Defa
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `projectsSkipped` is redundant
-in `maven-embedder/src/main/java/org/apache/maven/cli/event/ExecutionEventLogger.java`
-#### Snippet
-```java
-
-            final List<MavenProject> allProjects = event.getSession().getAllProjects();
-            final int projectsSkipped = allProjects.size() - projects.size();
-
-            currentVisitedProjectCount = projectsSkipped;
-```
-
-### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `repo` is redundant
+Local variable `policy` is redundant
 in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtils.java`
 #### Snippet
 ```java
-    private static Repository convertToSettingsRepository( org.apache.maven.model.Repository modelRepo )
+    private static RepositoryPolicy convertRepositoryPolicy( org.apache.maven.model.RepositoryPolicy modelPolicy )
     {
-        Repository repo = Repository.newBuilder()
-                        .id( modelRepo.getId() )
-                        .layout( modelRepo.getLayout() )
+        RepositoryPolicy policy = RepositoryPolicy.newBuilder()
+                        .enabled( modelPolicy.isEnabled() )
+                        .updatePolicy( modelPolicy.getUpdatePolicy() )
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
@@ -16197,15 +16185,27 @@ in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtils.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `policy` is redundant
+Local variable `repo` is redundant
 in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtils.java`
 #### Snippet
 ```java
-    private static RepositoryPolicy convertRepositoryPolicy( org.apache.maven.model.RepositoryPolicy modelPolicy )
+    private static Repository convertToSettingsRepository( org.apache.maven.model.Repository modelRepo )
     {
-        RepositoryPolicy policy = RepositoryPolicy.newBuilder()
-                        .enabled( modelPolicy.isEnabled() )
-                        .updatePolicy( modelPolicy.getUpdatePolicy() )
+        Repository repo = Repository.newBuilder()
+                        .id( modelRepo.getId() )
+                        .layout( modelRepo.getLayout() )
+```
+
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `projectsSkipped` is redundant
+in `maven-embedder/src/main/java/org/apache/maven/cli/event/ExecutionEventLogger.java`
+#### Snippet
+```java
+
+            final List<MavenProject> allProjects = event.getSession().getAllProjects();
+            final int projectsSkipped = allProjects.size() - projects.size();
+
+            currentVisitedProjectCount = projectsSkipped;
 ```
 
 ## RuleId[ruleID=BusyWait]
@@ -16276,7 +16276,7 @@ in `maven-core/src/main/java/org/apache/maven/project/ReactorModelPool.java`
 ## RuleId[ruleID=UseBulkOperation]
 ### RuleId[ruleID=UseBulkOperation]
 Iteration can be replaced with bulk 'Map.putAll()' call
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
 #### Snippet
 ```java
                 for ( Map.Entry<Object, Object> e : props.entrySet() )
@@ -16288,7 +16288,7 @@ in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/Immutab
 
 ### RuleId[ruleID=UseBulkOperation]
 Iteration can be replaced with bulk 'Map.putAll()' call
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
 #### Snippet
 ```java
                 for ( Map.Entry<Object, Object> e : props.entrySet() )
@@ -16312,7 +16312,7 @@ in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/Immutable
 
 ### RuleId[ruleID=UseBulkOperation]
 Iteration can be replaced with bulk 'Map.putAll()' call
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
 #### Snippet
 ```java
                 for ( Map.Entry<Object, Object> e : props.entrySet() )
