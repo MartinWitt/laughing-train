@@ -40,6 +40,54 @@ I found 294 bad smells with 23 repairable:
 | RuleId[ruleID=HtmlWrongAttributeValue] | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+Call to `toArray()` with pre-sized array argument 'new Integer\[pgs.size()\]'
+in `reference/src/main/java/org/apache/sling/cms/reference/models/ItemList.java`
+#### Snippet
+```java
+            pgs.add(i);
+        }
+        pages = pgs.toArray(new Integer[pgs.size()]);
+        if (log.isDebugEnabled()) {
+            log.debug("Loaded pages {}", Arrays.toString(pages));
+```
+
+### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+Call to `toArray()` with pre-sized array argument 'new Integer\[pgs.size()\]'
+in `reference/src/main/java/org/apache/sling/cms/reference/models/Search.java`
+#### Snippet
+```java
+            pgs.add(i);
+        }
+        pages = pgs.toArray(new Integer[pgs.size()]);
+        if (log.isDebugEnabled()) {
+            log.debug("Loaded pages {}", Arrays.toString(pages));
+```
+
+### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+Call to `toArray()` with pre-sized array argument 'new String\[values.size()\]'
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/SelectionHandler.java`
+#### Snippet
+```java
+        return Optional.ofNullable(parameterValues).map(v -> {
+            List<String> values = Arrays.stream(v).filter(StringUtils::isNotBlank).collect(Collectors.toList());
+            return values.toArray(new String[values.size()]);
+        }).orElse(new String[0]);
+    }
+```
+
+### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+Call to `toArray()` with pre-sized array argument 'new String\[arguments.size()\]'
+in `feature/src/main/java/org/apache/sling/cms/feature/Main.java`
+#### Snippet
+```java
+        arguments.add(farUrl.toString());
+
+        org.apache.sling.feature.launcher.impl.Main.main(arguments.toArray(new String[arguments.size()]));
+    }
+}
+```
+
+### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 Call to `toArray()` with pre-sized array argument 'new ResourceBundleProvider\[this.providers.size()\]'
 in `core/src/main/java/org/apache/sling/cms/core/i18n/impl/I18NProviderImpl.java`
 #### Snippet
@@ -73,54 +121,6 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/models/PageImpl.java`
         return keywords.toArray(new String[keywords.size()]);
     }
 
-```
-
-### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-Call to `toArray()` with pre-sized array argument 'new String\[values.size()\]'
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/SelectionHandler.java`
-#### Snippet
-```java
-        return Optional.ofNullable(parameterValues).map(v -> {
-            List<String> values = Arrays.stream(v).filter(StringUtils::isNotBlank).collect(Collectors.toList());
-            return values.toArray(new String[values.size()]);
-        }).orElse(new String[0]);
-    }
-```
-
-### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-Call to `toArray()` with pre-sized array argument 'new Integer\[pgs.size()\]'
-in `reference/src/main/java/org/apache/sling/cms/reference/models/ItemList.java`
-#### Snippet
-```java
-            pgs.add(i);
-        }
-        pages = pgs.toArray(new Integer[pgs.size()]);
-        if (log.isDebugEnabled()) {
-            log.debug("Loaded pages {}", Arrays.toString(pages));
-```
-
-### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-Call to `toArray()` with pre-sized array argument 'new Integer\[pgs.size()\]'
-in `reference/src/main/java/org/apache/sling/cms/reference/models/Search.java`
-#### Snippet
-```java
-            pgs.add(i);
-        }
-        pages = pgs.toArray(new Integer[pgs.size()]);
-        if (log.isDebugEnabled()) {
-            log.debug("Loaded pages {}", Arrays.toString(pages));
-```
-
-### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-Call to `toArray()` with pre-sized array argument 'new String\[arguments.size()\]'
-in `feature/src/main/java/org/apache/sling/cms/feature/Main.java`
-#### Snippet
-```java
-        arguments.add(farUrl.toString());
-
-        org.apache.sling.feature.launcher.impl.Main.main(arguments.toArray(new String[arguments.size()]));
-    }
-}
 ```
 
 ## RuleId[ruleID=RedundantOperationOnEmptyContainer]
@@ -163,14 +163,14 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/models/AuthorizableWra
 ## RuleId[ruleID=UnnecessaryModifier]
 ### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
-in `api/src/main/java/org/apache/sling/cms/AuthorizableWrapper.java`
+in `reference/src/main/java/org/apache/sling/cms/reference/SearchService.java`
 #### Snippet
 ```java
-     */
-    @NotNull
-    public String getId();
+	 * @return the appropriate resource resolvers
+	 */
+	public ResourceResolver getResourceResolver(SlingHttpServletRequest request);
+}
 
-    /**
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
@@ -193,6 +193,66 @@ in `api/src/main/java/org/apache/sling/cms/AuthorizableWrapper.java`
      * @return true if the user is a super user
      */
     public boolean isAdministrator();
+
+    /**
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `api/src/main/java/org/apache/sling/cms/AuthorizableWrapper.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    public String getId();
+
+    /**
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `api/src/main/java/org/apache/sling/cms/insights/PageInsightRequest.java`
+#### Snippet
+```java
+     * @throws IOException an exception occurs retrieving the content
+     */
+    public Document getPageDocument() throws IOException;
+
+    /**
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `api/src/main/java/org/apache/sling/cms/insights/PageInsightRequest.java`
+#### Snippet
+```java
+     * @throws IOException an exception occurs retrieving the content
+     */
+    public Element getPageBodyElement() throws IOException;
+
+    /**
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `api/src/main/java/org/apache/sling/cms/insights/PageInsightRequest.java`
+#### Snippet
+```java
+     * @throws IOException an exception occurs retrieving the content
+     */
+    public String getPageHtml() throws IOException;
+
+    public default TYPE getType() {
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `api/src/main/java/org/apache/sling/cms/insights/PageInsightRequest.java`
+#### Snippet
+```java
+     * @return the page
+     */
+    public Page getPage();
 
     /**
 ```
@@ -223,54 +283,6 @@ in `api/src/main/java/org/apache/sling/cms/insights/PageInsightRequest.java`
 
 ### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
-in `api/src/main/java/org/apache/sling/cms/insights/PageInsightRequest.java`
-#### Snippet
-```java
-     * @throws IOException an exception occurs retrieving the content
-     */
-    public String getPageHtml() throws IOException;
-
-    public default TYPE getType() {
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `api/src/main/java/org/apache/sling/cms/insights/PageInsightRequest.java`
-#### Snippet
-```java
-     * @throws IOException an exception occurs retrieving the content
-     */
-    public Element getPageBodyElement() throws IOException;
-
-    /**
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `api/src/main/java/org/apache/sling/cms/insights/PageInsightRequest.java`
-#### Snippet
-```java
-     * @return the page
-     */
-    public Page getPage();
-
-    /**
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `api/src/main/java/org/apache/sling/cms/insights/PageInsightRequest.java`
-#### Snippet
-```java
-     * @throws IOException an exception occurs retrieving the content
-     */
-    public Document getPageDocument() throws IOException;
-
-    /**
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
 in `api/src/main/java/org/apache/sling/cms/insights/InsightRequest.java`
 #### Snippet
 ```java
@@ -286,11 +298,11 @@ Modifier `public` is redundant for interface members
 in `api/src/main/java/org/apache/sling/cms/insights/FileInsightRequest.java`
 #### Snippet
 ```java
-     * @return the file
-     */
-    public File getFile();
+public interface FileInsightRequest extends InsightRequest {
 
-}
+    public default TYPE getType() {
+        return TYPE.FILE;
+    }
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
@@ -298,11 +310,11 @@ Modifier `public` is redundant for interface members
 in `api/src/main/java/org/apache/sling/cms/insights/FileInsightRequest.java`
 #### Snippet
 ```java
-public interface FileInsightRequest extends InsightRequest {
+     * @return the file
+     */
+    public File getFile();
 
-    public default TYPE getType() {
-        return TYPE.FILE;
-    }
+}
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
@@ -327,18 +339,6 @@ public interface UserGeneratedContentService {
     public enum APPROVE_ACTION {
         MOVE, PUBLISH
     }
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `reference/src/main/java/org/apache/sling/cms/reference/SearchService.java`
-#### Snippet
-```java
-	 * @return the appropriate resource resolvers
-	 */
-	public ResourceResolver getResourceResolver(SlingHttpServletRequest request);
-}
-
 ```
 
 ## RuleId[ruleID=Java8MapForEach]
@@ -369,282 +369,6 @@ public class Main {
 
 ## RuleId[ruleID=DataFlowIssue]
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getWorkspace` may produce `NullPointerException`
-in `core/src/main/java/org/apache/sling/cms/core/models/QueryDebugger.java`
-#### Snippet
-```java
-            if (statementParam.isPresent()) {
-
-                QueryManager queryManager = request.getResourceResolver().adaptTo(Session.class).getWorkspace()
-                        .getQueryManager();
-                Query explainQuery = queryManager.createQuery("explain measure " + statementParam.get(), language);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `publishableParent.adaptTo(Page.class)` might be null
-in `core/src/main/java/org/apache/sling/cms/core/internal/DefaultScriptBindingsValueProvider.java`
-#### Snippet
-```java
-        Resource publishableParent = CMSUtils.findPublishableParent(resource);
-        if (publishableParent != null && CMSConstants.NT_PAGE.equals(publishableParent.getResourceType())) {
-            Optional.of(publishableParent.adaptTo(Page.class)).ifPresent(p -> {
-                bindings.put("page", p);
-                ServletRequest request = (ServletRequest) bindings.get("request");
-```
-
-### RuleId[ruleID=DataFlowIssue]
-`null` is returned by the method declared as @NotNull
-in `core/src/main/java/org/apache/sling/cms/core/models/StartContent.java`
-#### Snippet
-```java
-                        log.warn("Failed to get iterator", e);
-                    }
-                    return null;
-                };
-                return StreamSupport.stream(iterable.spliterator(), false).limit(10);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `adaptTo` may produce `NullPointerException`
-in `core/src/main/java/org/apache/sling/cms/core/internal/jobs/FileMetadataExtractorConsumer.java`
-#### Snippet
-```java
-            log.debug("Processing metadata for {}", path);
-            Resource resource = serviceResolver.getResource(path);
-            File file = resource.adaptTo(File.class);
-            log.debug("Retrieved file {}", file);
-            extractor.updateMetadata(file);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Array index is out of bounds
-in `core/src/main/java/org/apache/sling/cms/core/i18n/impl/I18NProviderImpl.java`
-#### Snippet
-```java
-                Value[] val = a.getProperty("profile/locale");
-                if (val != null && val.length == 0) {
-                    return val[0].getString();
-                } else {
-                    return Locale.ENGLISH.toLanguageTag();
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `resource.adaptTo(PageManager.class).getPage()` might be null
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/PageInsightRequestModel.java`
-#### Snippet
-```java
-    @Inject
-    public PageInsightRequestModel(@Self Resource resource, @OSGiService SlingRequestProcessor requestProcessor) {
-        super(resource.adaptTo(PageManager.class).getPage(), requestProcessor);
-    }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getPage` may produce `NullPointerException`
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/PageInsightRequestModel.java`
-#### Snippet
-```java
-    @Inject
-    public PageInsightRequestModel(@Self Resource resource, @OSGiService SlingRequestProcessor requestProcessor) {
-        super(resource.adaptTo(PageManager.class).getPage(), requestProcessor);
-    }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Dereference of `properties.get(k, String[].class)` may produce `NullPointerException`
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/ReferenceOperation.java`
-#### Snippet
-```java
-                }
-            } else if (properties.get(k) instanceof String[]) {
-                for (String v : properties.get(k, String[].class)) {
-                    if (matches(v)) {
-                        log.trace("Found reference in property {}@{}", resource.getPath(), k);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `resolver.getUserID()` might be null
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/AuthorizableWrapperImpl.java`
-#### Snippet
-```java
-
-    public AuthorizableWrapperImpl(ResourceResolver resolver) throws RepositoryException {
-        authorizable = CommonUtils.getUserManager(resolver).getAuthorizable(resolver.getUserID());
-    }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-`null` is returned by the method declared as @NotNull
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/AuthorizableWrapperImpl.java`
-#### Snippet
-```java
-        } catch (RepositoryException e) {
-            log.error("Failed to get ID from authorizable: {}", authorizable, e);
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getResourceType` may produce `NullPointerException`
-in `core/src/main/java/org/apache/sling/cms/core/internal/listeners/FileMetadataExtractorListener.java`
-#### Snippet
-```java
-                Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "sling-cms-metadata"))) {
-            changes.stream().map(rc -> serviceResolver.getResource(rc.getPath()))
-                    .filter(r -> CMSConstants.NT_FILE.equals(r.getResourceType())).forEach(r -> {
-                        log.debug("Queueing resource {}", r);
-                        jobManager.addJob(FileMetadataExtractorConsumer.TOPIC,
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getAuthorizable` may produce `NullPointerException`
-in `core/src/main/java/org/apache/sling/cms/core/internal/operations/ChangePasswordOperation.java`
-#### Snippet
-```java
-            AuthorizableWrapper authWrapper = request.getResource().adaptTo(AuthorizableWrapper.class);
-
-            if (authWrapper.getAuthorizable().isGroup()) {
-                throw new RepositoryException("Authorizable is a group!");
-            }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `handler` might be null
-in `core/src/main/java/org/apache/sling/cms/core/internal/servlets/CmsDefaultErrorHandlerServlet.java`
-#### Snippet
-```java
-        slingResponse.setStatus(errorCode);
-
-        doInclude(slingRequest, slingResponse, handler);
-
-        log.debug("Error handler initialized successfully!");
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `core/src/main/java/org/apache/sling/cms/core/internal/servlets/CmsDefaultErrorHandlerServlet.java`
-#### Snippet
-```java
-                Resource pResource = adminResolver.resolve(slingRequest, slingRequest.getResource().getPath());
-                if (!CMSUtils.isPublished(pResource) || pResource.isResourceType(Resource.RESOURCE_TYPE_NON_EXISTING)) {
-                    errorCode = HttpServletResponse.SC_NOT_FOUND;
-                } else if (UserConstants.DEFAULT_ANONYMOUS_ID.equals(resolver.getUserID())) {
-                    errorCode = HttpServletResponse.SC_UNAUTHORIZED;
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getPath` may produce `NullPointerException`
-in `core/src/main/java/org/apache/sling/cms/core/internal/filters/EditIncludeFilter.java`
-#### Snippet
-```java
-    private void writeDropTarget(Resource resource, PrintWriter writer, String order) {
-        Map<String, Object> replacements = new HashMap<>();
-        replacements.put("parentPath", resource.getParent().getPath());
-        replacements.put("order", order);
-        writeTemplate(writer, replacements, "droptarget.html");
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `request.getResource().adaptTo(PublishableResource.class)` might be null
-in `core/src/main/java/org/apache/sling/cms/core/publication/UnpublishPostOperation.java`
-#### Snippet
-```java
-            response.setPath(request.getResource().getPath());
-            publicationManagerFactory.getPublicationManager()
-                    .unpublish(request.getResource().adaptTo(PublishableResource.class));
-
-            if (processors != null) {
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `request.getResource().adaptTo(PublishableResource.class)` might be null
-in `core/src/main/java/org/apache/sling/cms/core/publication/PublishPostOperation.java`
-#### Snippet
-```java
-            response.setPath(request.getResource().getPath());
-            publicationManagerFactory.getPublicationManager()
-                    .publish(request.getResource().adaptTo(PublishableResource.class));
-
-            if (processors != null) {
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getAuthorizable` may produce `NullPointerException`
-in `core/src/main/java/org/apache/sling/cms/core/internal/operations/MembershipOperation.java`
-#### Snippet
-```java
-            AuthorizableWrapper authWrapper = request.getResource().adaptTo(AuthorizableWrapper.class);
-
-            Authorizable auth = authWrapper.getAuthorizable();
-            response.setPath(auth.getPath());
-            changes.add(Modification.onModified(auth.getPath()));
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getAuthorizable` may produce `NullPointerException`
-in `core/src/main/java/org/apache/sling/cms/core/internal/operations/MembershipOperation.java`
-#### Snippet
-```java
-                    throw new RepositoryException("Failed to resolve authorizable at " + path);
-                }
-                Group group = (Group) resource.adaptTo(AuthorizableWrapper.class).getAuthorizable();
-                group.addMember(auth);
-                changes.add(Modification.onModified(group.getPath()));
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `adaptTo` may produce `NullPointerException`
-in `core/src/main/java/org/apache/sling/cms/core/publication/BulkPublicationJob.java`
-#### Snippet
-```java
-                        .map(rt -> rt.getResource().adaptTo(PublishableResource.class));
-            } else {
-                toPublish = Collections.singletonList(resource.adaptTo(PublishableResource.class)).stream();
-            }
-            toPublish.forEach(pr -> {
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getPath` may produce `NullPointerException`
-in `core/src/main/java/org/apache/sling/cms/core/usergenerated/impl/ApproveUGCOperation.java`
-#### Snippet
-```java
-            log.debug("Approving UGC {}", path);
-
-            response.setParentLocation(request.getResource().getParent().getPath());
-
-            final List<Modification> changes = new ArrayList<>();
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `targetPath` might be null
-in `core/src/main/java/org/apache/sling/cms/core/usergenerated/impl/ApproveUGCOperation.java`
-#### Snippet
-```java
-                    .valueOf(request.getResource().getValueMap().get("approveaction", String.class));
-            if (action == APPROVE_ACTION.MOVE) {
-                ResourceUtil.getOrCreateResource(request.getResourceResolver(), targetPath,
-                        Collections.singletonMap(JcrConstants.JCR_PRIMARYTYPE, JcrResourceConstants.NT_SLING_FOLDER),
-                        JcrResourceConstants.NT_SLING_FOLDER, false);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `put` may produce `NullPointerException`
-in `core/src/main/java/org/apache/sling/cms/core/usergenerated/impl/ApproveUGCOperation.java`
-#### Snippet
-```java
-            } else {
-                ModifiableValueMap mvm = request.getResource().adaptTo(ModifiableValueMap.class);
-                mvm.put("published", true);
-                changes.add(Modification.onModified(request.getResource().getPath()));
-            }
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `equals` may produce `NullPointerException`
 in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/DeleteUserGeneratedContentAction.java`
 #### Snippet
@@ -654,6 +378,30 @@ in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/De
                     .equals(ugcParent.getValueMap().get("user", String.class))) {
                 throw new FormException("Cannot delete content not created by the current user");
             }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `userId` might be null
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/UserProfileFormValueProvider.java`
+#### Snippet
+```java
+            if (session != null) {
+                UserManager userManager = session.getUserManager();
+                User user = (User) userManager.getAuthorizable(userId);
+                
+                formData.put("userId", user.getID());
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getID` may produce `NullPointerException`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/UserProfileFormValueProvider.java`
+#### Snippet
+```java
+                User user = (User) userManager.getAuthorizable(userId);
+                
+                formData.put("userId", user.getID());
+
+                String subpath = providerResource.getValueMap().get(FormConstants.PN_SUBPATH, FormConstants.PATH_PROFILE);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -706,6 +454,18 @@ in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/Re
 
 ### RuleId[ruleID=DataFlowIssue]
 Method invocation `getUserManager` may produce `NullPointerException`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/CreateUserAction.java`
+#### Snippet
+```java
+                    Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, FormConstants.SERVICE_USER))) {
+                JackrabbitSession session = (JackrabbitSession) adminResolver.adaptTo(Session.class);
+                final UserManager userManager = session.getUserManager();
+
+                if (userManager.getAuthorizable(username) == null) {
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getUserManager` may produce `NullPointerException`
 in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/RequestPasswordResetAction.java`
 #### Snippet
 ```java
@@ -738,6 +498,30 @@ in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/Re
                 user.setProperty(PN_RESETTOKEN, vf.createValue(resetToken));
                 user.setProperty(PN_RESETTIMEOUT, vf.createValue(deadline));
 
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getUserManager` may produce `NullPointerException`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/ResetPasswordAction.java`
+#### Snippet
+```java
+
+            JackrabbitSession session = (JackrabbitSession) adminResolver.adaptTo(Session.class);
+            final UserManager userManager = session.getUserManager();
+
+            User user = (User) userManager.getAuthorizable(email);
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `email` might be null
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/ResetPasswordAction.java`
+#### Snippet
+```java
+            final UserManager userManager = session.getUserManager();
+
+            User user = (User) userManager.getAuthorizable(email);
+
+            if (user == null) {
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -777,42 +561,6 @@ in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/Up
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getUserManager` may produce `NullPointerException`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/ResetPasswordAction.java`
-#### Snippet
-```java
-
-            JackrabbitSession session = (JackrabbitSession) adminResolver.adaptTo(Session.class);
-            final UserManager userManager = session.getUserManager();
-
-            User user = (User) userManager.getAuthorizable(email);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `email` might be null
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/ResetPasswordAction.java`
-#### Snippet
-```java
-            final UserManager userManager = session.getUserManager();
-
-            User user = (User) userManager.getAuthorizable(email);
-
-            if (user == null) {
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getUserManager` may produce `NullPointerException`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/CreateUserAction.java`
-#### Snippet
-```java
-                    Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, FormConstants.SERVICE_USER))) {
-                JackrabbitSession session = (JackrabbitSession) adminResolver.adaptTo(Session.class);
-                final UserManager userManager = session.getUserManager();
-
-                if (userManager.getAuthorizable(username) == null) {
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `getInputStream` may produce `NullPointerException`
 in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/TextfieldHandler.java`
 #### Snippet
@@ -822,30 +570,6 @@ in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/Tex
                     formData.put(name, param.getInputStream());
                 } catch (IOException e) {
                     throw new FormException("Failed to read file input: " + name, e);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `userId` might be null
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/UserProfileFormValueProvider.java`
-#### Snippet
-```java
-            if (session != null) {
-                UserManager userManager = session.getUserManager();
-                User user = (User) userManager.getAuthorizable(userId);
-                
-                formData.put("userId", user.getID());
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getID` may produce `NullPointerException`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/UserProfileFormValueProvider.java`
-#### Snippet
-```java
-                User user = (User) userManager.getAuthorizable(userId);
-                
-                formData.put("userId", user.getID());
-
-                String subpath = providerResource.getValueMap().get(FormConstants.PN_SUBPATH, FormConstants.PATH_PROFILE);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -860,19 +584,283 @@ in `feature/src/main/java/org/apache/sling/cms/feature/Main.java`
         org.apache.sling.feature.launcher.impl.Main.main(arguments.toArray(new String[arguments.size()]));
 ```
 
-## RuleId[ruleID=SimplifyStreamApiCallChains]
-### RuleId[ruleID=SimplifyStreamApiCallChains]
-Can be replaced with 'String.join'
-in `core/src/main/java/org/apache/sling/cms/core/publication/ForwardAgentEndpointSynchronization.java`
+### RuleId[ruleID=DataFlowIssue]
+`null` is returned by the method declared as @NotNull
+in `core/src/main/java/org/apache/sling/cms/core/models/StartContent.java`
 #### Snippet
 ```java
-        }).collect(Collectors.toList()).toArray(new String[0]);
-        if (log.isDebugEnabled()) {
-            log.debug("Updating with endpoints: [{}]", Arrays.stream(endpoints).collect(Collectors.joining(",")));
-        }
-        try {
+                        log.warn("Failed to get iterator", e);
+                    }
+                    return null;
+                };
+                return StreamSupport.stream(iterable.spliterator(), false).limit(10);
 ```
 
+### RuleId[ruleID=DataFlowIssue]
+Array index is out of bounds
+in `core/src/main/java/org/apache/sling/cms/core/i18n/impl/I18NProviderImpl.java`
+#### Snippet
+```java
+                Value[] val = a.getProperty("profile/locale");
+                if (val != null && val.length == 0) {
+                    return val[0].getString();
+                } else {
+                    return Locale.ENGLISH.toLanguageTag();
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getWorkspace` may produce `NullPointerException`
+in `core/src/main/java/org/apache/sling/cms/core/models/QueryDebugger.java`
+#### Snippet
+```java
+            if (statementParam.isPresent()) {
+
+                QueryManager queryManager = request.getResourceResolver().adaptTo(Session.class).getWorkspace()
+                        .getQueryManager();
+                Query explainQuery = queryManager.createQuery("explain measure " + statementParam.get(), language);
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `publishableParent.adaptTo(Page.class)` might be null
+in `core/src/main/java/org/apache/sling/cms/core/internal/DefaultScriptBindingsValueProvider.java`
+#### Snippet
+```java
+        Resource publishableParent = CMSUtils.findPublishableParent(resource);
+        if (publishableParent != null && CMSConstants.NT_PAGE.equals(publishableParent.getResourceType())) {
+            Optional.of(publishableParent.adaptTo(Page.class)).ifPresent(p -> {
+                bindings.put("page", p);
+                ServletRequest request = (ServletRequest) bindings.get("request");
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `resource.adaptTo(PageManager.class).getPage()` might be null
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/PageInsightRequestModel.java`
+#### Snippet
+```java
+    @Inject
+    public PageInsightRequestModel(@Self Resource resource, @OSGiService SlingRequestProcessor requestProcessor) {
+        super(resource.adaptTo(PageManager.class).getPage(), requestProcessor);
+    }
+
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getPage` may produce `NullPointerException`
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/PageInsightRequestModel.java`
+#### Snippet
+```java
+    @Inject
+    public PageInsightRequestModel(@Self Resource resource, @OSGiService SlingRequestProcessor requestProcessor) {
+        super(resource.adaptTo(PageManager.class).getPage(), requestProcessor);
+    }
+
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `adaptTo` may produce `NullPointerException`
+in `core/src/main/java/org/apache/sling/cms/core/internal/jobs/FileMetadataExtractorConsumer.java`
+#### Snippet
+```java
+            log.debug("Processing metadata for {}", path);
+            Resource resource = serviceResolver.getResource(path);
+            File file = resource.adaptTo(File.class);
+            log.debug("Retrieved file {}", file);
+            extractor.updateMetadata(file);
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Dereference of `properties.get(k, String[].class)` may produce `NullPointerException`
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/ReferenceOperation.java`
+#### Snippet
+```java
+                }
+            } else if (properties.get(k) instanceof String[]) {
+                for (String v : properties.get(k, String[].class)) {
+                    if (matches(v)) {
+                        log.trace("Found reference in property {}@{}", resource.getPath(), k);
+```
+
+### RuleId[ruleID=DataFlowIssue]
+`null` is returned by the method declared as @NotNull
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/AuthorizableWrapperImpl.java`
+#### Snippet
+```java
+        } catch (RepositoryException e) {
+            log.error("Failed to get ID from authorizable: {}", authorizable, e);
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `resolver.getUserID()` might be null
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/AuthorizableWrapperImpl.java`
+#### Snippet
+```java
+
+    public AuthorizableWrapperImpl(ResourceResolver resolver) throws RepositoryException {
+        authorizable = CommonUtils.getUserManager(resolver).getAuthorizable(resolver.getUserID());
+    }
+
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getResourceType` may produce `NullPointerException`
+in `core/src/main/java/org/apache/sling/cms/core/internal/listeners/FileMetadataExtractorListener.java`
+#### Snippet
+```java
+                Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "sling-cms-metadata"))) {
+            changes.stream().map(rc -> serviceResolver.getResource(rc.getPath()))
+                    .filter(r -> CMSConstants.NT_FILE.equals(r.getResourceType())).forEach(r -> {
+                        log.debug("Queueing resource {}", r);
+                        jobManager.addJob(FileMetadataExtractorConsumer.TOPIC,
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `core/src/main/java/org/apache/sling/cms/core/internal/servlets/CmsDefaultErrorHandlerServlet.java`
+#### Snippet
+```java
+                Resource pResource = adminResolver.resolve(slingRequest, slingRequest.getResource().getPath());
+                if (!CMSUtils.isPublished(pResource) || pResource.isResourceType(Resource.RESOURCE_TYPE_NON_EXISTING)) {
+                    errorCode = HttpServletResponse.SC_NOT_FOUND;
+                } else if (UserConstants.DEFAULT_ANONYMOUS_ID.equals(resolver.getUserID())) {
+                    errorCode = HttpServletResponse.SC_UNAUTHORIZED;
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `handler` might be null
+in `core/src/main/java/org/apache/sling/cms/core/internal/servlets/CmsDefaultErrorHandlerServlet.java`
+#### Snippet
+```java
+        slingResponse.setStatus(errorCode);
+
+        doInclude(slingRequest, slingResponse, handler);
+
+        log.debug("Error handler initialized successfully!");
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getAuthorizable` may produce `NullPointerException`
+in `core/src/main/java/org/apache/sling/cms/core/internal/operations/ChangePasswordOperation.java`
+#### Snippet
+```java
+            AuthorizableWrapper authWrapper = request.getResource().adaptTo(AuthorizableWrapper.class);
+
+            if (authWrapper.getAuthorizable().isGroup()) {
+                throw new RepositoryException("Authorizable is a group!");
+            }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getPath` may produce `NullPointerException`
+in `core/src/main/java/org/apache/sling/cms/core/internal/filters/EditIncludeFilter.java`
+#### Snippet
+```java
+    private void writeDropTarget(Resource resource, PrintWriter writer, String order) {
+        Map<String, Object> replacements = new HashMap<>();
+        replacements.put("parentPath", resource.getParent().getPath());
+        replacements.put("order", order);
+        writeTemplate(writer, replacements, "droptarget.html");
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getAuthorizable` may produce `NullPointerException`
+in `core/src/main/java/org/apache/sling/cms/core/internal/operations/MembershipOperation.java`
+#### Snippet
+```java
+            AuthorizableWrapper authWrapper = request.getResource().adaptTo(AuthorizableWrapper.class);
+
+            Authorizable auth = authWrapper.getAuthorizable();
+            response.setPath(auth.getPath());
+            changes.add(Modification.onModified(auth.getPath()));
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getAuthorizable` may produce `NullPointerException`
+in `core/src/main/java/org/apache/sling/cms/core/internal/operations/MembershipOperation.java`
+#### Snippet
+```java
+                    throw new RepositoryException("Failed to resolve authorizable at " + path);
+                }
+                Group group = (Group) resource.adaptTo(AuthorizableWrapper.class).getAuthorizable();
+                group.addMember(auth);
+                changes.add(Modification.onModified(group.getPath()));
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `request.getResource().adaptTo(PublishableResource.class)` might be null
+in `core/src/main/java/org/apache/sling/cms/core/publication/UnpublishPostOperation.java`
+#### Snippet
+```java
+            response.setPath(request.getResource().getPath());
+            publicationManagerFactory.getPublicationManager()
+                    .unpublish(request.getResource().adaptTo(PublishableResource.class));
+
+            if (processors != null) {
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `request.getResource().adaptTo(PublishableResource.class)` might be null
+in `core/src/main/java/org/apache/sling/cms/core/publication/PublishPostOperation.java`
+#### Snippet
+```java
+            response.setPath(request.getResource().getPath());
+            publicationManagerFactory.getPublicationManager()
+                    .publish(request.getResource().adaptTo(PublishableResource.class));
+
+            if (processors != null) {
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `adaptTo` may produce `NullPointerException`
+in `core/src/main/java/org/apache/sling/cms/core/publication/BulkPublicationJob.java`
+#### Snippet
+```java
+                        .map(rt -> rt.getResource().adaptTo(PublishableResource.class));
+            } else {
+                toPublish = Collections.singletonList(resource.adaptTo(PublishableResource.class)).stream();
+            }
+            toPublish.forEach(pr -> {
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getPath` may produce `NullPointerException`
+in `core/src/main/java/org/apache/sling/cms/core/usergenerated/impl/ApproveUGCOperation.java`
+#### Snippet
+```java
+            log.debug("Approving UGC {}", path);
+
+            response.setParentLocation(request.getResource().getParent().getPath());
+
+            final List<Modification> changes = new ArrayList<>();
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `targetPath` might be null
+in `core/src/main/java/org/apache/sling/cms/core/usergenerated/impl/ApproveUGCOperation.java`
+#### Snippet
+```java
+                    .valueOf(request.getResource().getValueMap().get("approveaction", String.class));
+            if (action == APPROVE_ACTION.MOVE) {
+                ResourceUtil.getOrCreateResource(request.getResourceResolver(), targetPath,
+                        Collections.singletonMap(JcrConstants.JCR_PRIMARYTYPE, JcrResourceConstants.NT_SLING_FOLDER),
+                        JcrResourceConstants.NT_SLING_FOLDER, false);
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `put` may produce `NullPointerException`
+in `core/src/main/java/org/apache/sling/cms/core/usergenerated/impl/ApproveUGCOperation.java`
+#### Snippet
+```java
+            } else {
+                ModifiableValueMap mvm = request.getResource().adaptTo(ModifiableValueMap.class);
+                mvm.put("published", true);
+                changes.add(Modification.onModified(request.getResource().getPath()));
+            }
+```
+
+## RuleId[ruleID=SimplifyStreamApiCallChains]
 ### RuleId[ruleID=SimplifyStreamApiCallChains]
 'Collections.singletonList().stream()' can be replaced with 'Stream.of()'
 in `core/src/main/java/org/apache/sling/cms/core/publication/BulkPublicationJob.java`
@@ -883,6 +871,18 @@ in `core/src/main/java/org/apache/sling/cms/core/publication/BulkPublicationJob.
                 toPublish = Collections.singletonList(resource.adaptTo(PublishableResource.class)).stream();
             }
             toPublish.forEach(pr -> {
+```
+
+### RuleId[ruleID=SimplifyStreamApiCallChains]
+Can be replaced with 'String.join'
+in `core/src/main/java/org/apache/sling/cms/core/publication/ForwardAgentEndpointSynchronization.java`
+#### Snippet
+```java
+        }).collect(Collectors.toList()).toArray(new String[0]);
+        if (log.isDebugEnabled()) {
+            log.debug("Updating with endpoints: [{}]", Arrays.stream(endpoints).collect(Collectors.joining(",")));
+        }
+        try {
 ```
 
 ## RuleId[ruleID=OptionalContainsCollection]
@@ -912,6 +912,18 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/models/AuthorizableWra
 ```
 
 ## RuleId[ruleID=RegExpRedundantEscape]
+### RuleId[ruleID=RegExpRedundantEscape]
+Redundant character escape `\\=` in RegExp
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/UserGeneratedContentAction.java`
+#### Snippet
+```java
+            Arrays.stream(properties.get("additionalProperties", new String[0])).map(v -> {
+                if (v.contains("=")) {
+                    String[] vs = v.split("\\=");
+                    return new ImmutablePair<String, String>(vs[0], vs[1]);
+                } else {
+```
+
 ### RuleId[ruleID=RegExpRedundantEscape]
 Redundant character escape `\\/` in RegExp
 in `core/src/main/java/org/apache/sling/cms/core/internal/models/ReferenceOperation.java`
@@ -1164,31 +1176,7 @@ in `core/src/main/java/org/apache/sling/cms/core/publication/ForwardAgentEndpoin
         }).collect(Collectors.toList()).toArray(new String[0]);
 ```
 
-### RuleId[ruleID=RegExpRedundantEscape]
-Redundant character escape `\\=` in RegExp
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/UserGeneratedContentAction.java`
-#### Snippet
-```java
-            Arrays.stream(properties.get("additionalProperties", new String[0])).map(v -> {
-                if (v.contains("=")) {
-                    String[] vs = v.split("\\=");
-                    return new ImmutablePair<String, String>(vs[0], vs[1]);
-                } else {
-```
-
 ## RuleId[ruleID=ComparatorCombinators]
-### RuleId[ruleID=ComparatorCombinators]
-Can be replaced with 'Comparator.comparing'
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/InsightFactoryImpl.java`
-#### Snippet
-```java
-        List<Insight> insights = providers.stream().filter(ip -> ip.isEnabled(request))
-                .map(ip -> ip.evaluateRequest(request)).collect(Collectors.toList());
-        Collections.sort(insights, (o1, o2) -> o1.getProvider().getTitle().compareTo(o2.getProvider().getTitle()));
-        return insights;
-    }
-```
-
 ### RuleId[ruleID=ComparatorCombinators]
 Can be replaced with 'Comparator.comparing'
 in `core/src/main/java/org/apache/sling/cms/core/models/LocaleList.java`
@@ -1198,6 +1186,18 @@ in `core/src/main/java/org/apache/sling/cms/core/models/LocaleList.java`
         List<Locale> locales = Arrays.asList(DateFormat.getAvailableLocales());
         Collections.sort(locales, (o1,o2) ->  o1.toString().compareTo(o2.toString()));
         return locales;
+    }
+```
+
+### RuleId[ruleID=ComparatorCombinators]
+Can be replaced with 'Comparator.comparing'
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/InsightFactoryImpl.java`
+#### Snippet
+```java
+        List<Insight> insights = providers.stream().filter(ip -> ip.isEnabled(request))
+                .map(ip -> ip.evaluateRequest(request)).collect(Collectors.toList());
+        Collections.sort(insights, (o1, o2) -> o1.getProvider().getTitle().compareTo(o2.getProvider().getTitle()));
+        return insights;
     }
 ```
 
@@ -1225,6 +1225,152 @@ in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/Cr
             Arrays.stream(toset).filter(k -> formData.keySet().contains(k))
                     .forEach(k -> properties.put(k, formData.get(k)));
             properties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
+```
+
+## RuleId[ruleID=UnnecessaryToStringCall]
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/SendEmailAction.java`
+#### Snippet
+```java
+        } catch (final MessagingException e) {
+            log.error("Failed to send message", e);
+            return FormActionResult.failure("Failed to send message: " + e.toString());
+        }
+    }
+```
+
+## RuleId[ruleID=FinalStaticMethod]
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/FormActionResult.java`
+#### Snippet
+```java
+public class FormActionResult {
+
+    public static final FormActionResult failure(String message) {
+        return new FormActionResult(false, message);
+    }
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/FormActionResult.java`
+#### Snippet
+```java
+    }
+
+    public static final FormActionResult success(String message) {
+        return new FormActionResult(true, message);
+    }
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/FormUtils.java`
+#### Snippet
+```java
+    }
+
+    public static final boolean handles(String[] supportedTypes, Resource resource) {
+        return Stream.of(supportedTypes).anyMatch(t -> t.equals(resource.getResourceType()));
+    }
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
+#### Snippet
+```java
+     */
+    @Nullable
+    public static final Resource findParentResourceofType(Resource resource, String type) {
+        if (resource != null) {
+            if (type.equals(resource.getValueMap().get(JcrConstants.JCR_PRIMARYTYPE, String.class))) {
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    public static final <T> List<T> adaptResources(Resource[] resources, Class<T> type) {
+        return adaptResources(Arrays.asList(resources), type);
+    }
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
+#### Snippet
+```java
+     * @return whether or not the resource is published
+     */
+    public static final boolean isPublished(Resource resource) {
+        boolean published = true;
+        Resource publishable = findPublishableParent(resource);
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
+#### Snippet
+```java
+     */
+    @Nullable
+    public static final Resource findPublishableParent(Resource resource) {
+        if (resource != null) {
+            String type = resource.getValueMap().get(JcrConstants.JCR_PRIMARYTYPE, String.class);
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    public static final <T> List<T> adaptResources(Collection<Resource> resources, Class<T> type) {
+        List<T> values = new ArrayList<>();
+        if (resources != null) {
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `core/src/main/java/org/apache/sling/cms/core/internal/CommonUtils.java`
+#### Snippet
+```java
+    }
+
+    public static final UserManager getUserManager(@NotNull ResourceResolver resolver) throws RepositoryException {
+        return Optional.ofNullable(resolver.adaptTo(Session.class)).map(session -> {
+            UserManager userManager = null;
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `core/src/main/java/org/apache/sling/cms/core/internal/CommonUtils.java`
+#### Snippet
+```java
+    }
+
+    public static final String escapeLogMessage(String message){
+        return StringEscapeUtils.escapeHtml4(message.replaceAll("[\\n\\r]"," "));
+    }
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/PageImpl.java`
+#### Snippet
+```java
+public class PageImpl extends PublishableResourceImpl implements Page {
+
+    public static final Page getContainingPage(Resource resource) {
+        Resource pageRsrc = CMSUtils.findParentResourceofType(resource, CMSConstants.NT_PAGE);
+        Page page = null;
 ```
 
 ## RuleId[ruleID=ManualMinMaxCalculation]
@@ -1276,58 +1422,105 @@ in `reference/src/main/java/org/apache/sling/cms/reference/models/Search.java`
         } else {
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/SendEmailAction.java`
+## RuleId[ruleID=BoundedWildcard]
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/RequestParametersValueProvider.java`
 #### Snippet
 ```java
-        } catch (final MessagingException e) {
-            log.error("Failed to send message", e);
-            return FormActionResult.failure("Failed to send message: " + e.toString());
-        }
-    }
+
+    @Override
+    public void loadValues(SlingHttpServletRequest request, Resource providerResource, Map<String, Object> formData) {
+        log.trace("loadFormData");
+        String[] parameters = providerResource.getValueMap().get("allowedParameters", String[].class);
 ```
 
-## RuleId[ruleID=FinalStaticMethod]
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `core/src/main/java/org/apache/sling/cms/core/internal/CommonUtils.java`
-#### Snippet
-```java
-    }
-
-    public static final UserManager getUserManager(@NotNull ResourceResolver resolver) throws RepositoryException {
-        return Optional.ofNullable(resolver.adaptTo(Session.class)).map(session -> {
-            UserManager userManager = null;
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `core/src/main/java/org/apache/sling/cms/core/internal/CommonUtils.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends FormValueProvider`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/FormRequestImpl.java`
 #### Snippet
 ```java
     }
 
-    public static final String escapeLogMessage(String message){
-        return StringEscapeUtils.escapeHtml4(message.replaceAll("[\\n\\r]"," "));
+    private void loadProviders(List<FormValueProvider> formValueProvider) {
+        List<Resource> providers = ResourceTree.stream(getFormResource().getChild("providers"))
+                .map(ResourceTree::getResource).collect(Collectors.toList());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends FieldHandler`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/FormRequestImpl.java`
+#### Snippet
+```java
+    public FormRequestImpl(@Self SlingHttpServletRequest request,
+            @OSGiService(injectionStrategy = InjectionStrategy.OPTIONAL) List<FormValueProvider> formValueProvider,
+            @OSGiService(injectionStrategy = InjectionStrategy.OPTIONAL) List<FieldHandler> fieldHandlers) {
+        this.request = request;
+        this.fieldHandlers = fieldHandlers;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/TextareaHandler.java`
+#### Snippet
+```java
+
+    @Override
+    public void handleField(SlingHttpServletRequest request, Resource fieldResource, Map<String, Object> formData)
+            throws FormException {
+        log.trace("handleField");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/SelectionHandler.java`
+#### Snippet
+```java
+
+    @Override
+    public void handleField(SlingHttpServletRequest request, Resource fieldResource, Map<String, Object> formData)
+            throws FormException {
+        log.trace("handleField");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/UserProfileFormValueProvider.java`
+#### Snippet
+```java
+    }
+
+    private void loadKey(Map<String, Object> formData, String subpath, String key, User user) {
+        Object value = null;
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends FormAction`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/FormHandler.java`
+#### Snippet
+```java
+
+    @Activate
+    public FormHandler(@Reference(policyOption = ReferencePolicyOption.GREEDY) List<FormAction> formActions) {
+        this.formActions = formActions;
     }
 ```
 
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/PageImpl.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/TextfieldHandler.java`
 #### Snippet
 ```java
-public class PageImpl extends PublishableResourceImpl implements Page {
 
-    public static final Page getContainingPage(Resource resource) {
-        Resource pageRsrc = CMSUtils.findParentResourceofType(resource, CMSConstants.NT_PAGE);
-        Page page = null;
+    @Override
+    public void handleField(SlingHttpServletRequest request, Resource fieldResource, Map<String, Object> formData)
+            throws FormException {
+        log.trace("handleField");
 ```
 
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Resource`
 in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
 #### Snippet
 ```java
@@ -1338,91 +1531,18 @@ in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
         if (resources != null) {
 ```
 
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
-#### Snippet
-```java
-     */
-    @Nullable
-    public static final Resource findPublishableParent(Resource resource) {
-        if (resource != null) {
-            String type = resource.getValueMap().get(JcrConstants.JCR_PRIMARYTYPE, String.class);
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
-#### Snippet
-```java
-     */
-    @Nullable
-    public static final Resource findParentResourceofType(Resource resource, String type) {
-        if (resource != null) {
-            if (type.equals(resource.getValueMap().get(JcrConstants.JCR_PRIMARYTYPE, String.class))) {
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
-#### Snippet
-```java
-     * @return whether or not the resource is published
-     */
-    public static final boolean isPublished(Resource resource) {
-        boolean published = true;
-        Resource publishable = findPublishableParent(resource);
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
 in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
 #### Snippet
 ```java
      */
     @NotNull
-    public static final <T> List<T> adaptResources(Resource[] resources, Class<T> type) {
-        return adaptResources(Arrays.asList(resources), type);
-    }
+    public static final <T> List<T> adaptResources(Collection<Resource> resources, Class<T> type) {
+        List<T> values = new ArrayList<>();
+        if (resources != null) {
 ```
 
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/FormUtils.java`
-#### Snippet
-```java
-    }
-
-    public static final boolean handles(String[] supportedTypes, Resource resource) {
-        return Stream.of(supportedTypes).anyMatch(t -> t.equals(resource.getResourceType()));
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/FormActionResult.java`
-#### Snippet
-```java
-    }
-
-    public static final FormActionResult success(String message) {
-        return new FormActionResult(true, message);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/FormActionResult.java`
-#### Snippet
-```java
-public class FormActionResult {
-
-    public static final FormActionResult failure(String message) {
-        return new FormActionResult(false, message);
-    }
-```
-
-## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Map`
 in `core/src/main/java/org/apache/sling/cms/core/models/QueryDebugger.java`
@@ -1433,18 +1553,6 @@ in `core/src/main/java/org/apache/sling/cms/core/models/QueryDebugger.java`
     private void collectMbeanData(String attributeName, List<Map<String, Object>> target)
             throws MalformedObjectNameException, NullPointerException, InstanceNotFoundException,
             AttributeNotFoundException, ReflectionException, MBeanException {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `core/src/main/java/org/apache/sling/cms/core/internal/FileMetadataExtractorImpl.java`
-#### Snippet
-```java
-    }
-
-    private void putMetadata(Map<String, Object> properties, String name, Metadata metadata) {
-        log.trace("Updating property: {}", name);
-        String filtered = Text.escapeIllegalJcrChars(name);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1469,6 +1577,18 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/jobs/OptimizeFilesJob.
     private void collectFiles(Resource root, List<File> files) {
         for (Resource child : root.getChildren()) {
             if (CMSConstants.NT_FILE.equals(child.getResourceType())) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `core/src/main/java/org/apache/sling/cms/core/internal/FileMetadataExtractorImpl.java`
+#### Snippet
+```java
+    }
+
+    private void putMetadata(Map<String, Object> properties, String name, Metadata metadata) {
+        log.trace("Updating property: {}", name);
+        String filtered = Text.escapeIllegalJcrChars(name);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1531,126 +1651,6 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplace
         boolean updated = false;
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Resource`
-in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    public static final <T> List<T> adaptResources(Collection<Resource> resources, Class<T> type) {
-        List<T> values = new ArrayList<>();
-        if (resources != null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `api/src/main/java/org/apache/sling/cms/CMSUtils.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    public static final <T> List<T> adaptResources(Collection<Resource> resources, Class<T> type) {
-        List<T> values = new ArrayList<>();
-        if (resources != null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/TextareaHandler.java`
-#### Snippet
-```java
-
-    @Override
-    public void handleField(SlingHttpServletRequest request, Resource fieldResource, Map<String, Object> formData)
-            throws FormException {
-        log.trace("handleField");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/SelectionHandler.java`
-#### Snippet
-```java
-
-    @Override
-    public void handleField(SlingHttpServletRequest request, Resource fieldResource, Map<String, Object> formData)
-            throws FormException {
-        log.trace("handleField");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/RequestParametersValueProvider.java`
-#### Snippet
-```java
-
-    @Override
-    public void loadValues(SlingHttpServletRequest request, Resource providerResource, Map<String, Object> formData) {
-        log.trace("loadFormData");
-        String[] parameters = providerResource.getValueMap().get("allowedParameters", String[].class);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FormAction`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/FormHandler.java`
-#### Snippet
-```java
-
-    @Activate
-    public FormHandler(@Reference(policyOption = ReferencePolicyOption.GREEDY) List<FormAction> formActions) {
-        this.formActions = formActions;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FormValueProvider`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/FormRequestImpl.java`
-#### Snippet
-```java
-    }
-
-    private void loadProviders(List<FormValueProvider> formValueProvider) {
-        List<Resource> providers = ResourceTree.stream(getFormResource().getChild("providers"))
-                .map(ResourceTree::getResource).collect(Collectors.toList());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FieldHandler`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/FormRequestImpl.java`
-#### Snippet
-```java
-    public FormRequestImpl(@Self SlingHttpServletRequest request,
-            @OSGiService(injectionStrategy = InjectionStrategy.OPTIONAL) List<FormValueProvider> formValueProvider,
-            @OSGiService(injectionStrategy = InjectionStrategy.OPTIONAL) List<FieldHandler> fieldHandlers) {
-        this.request = request;
-        this.fieldHandlers = fieldHandlers;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/TextfieldHandler.java`
-#### Snippet
-```java
-
-    @Override
-    public void handleField(SlingHttpServletRequest request, Resource fieldResource, Map<String, Object> formData)
-            throws FormException {
-        log.trace("handleField");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/UserProfileFormValueProvider.java`
-#### Snippet
-```java
-    }
-
-    private void loadKey(Map<String, Object> formData, String subpath, String key, User user) {
-        Object value = null;
-
-```
-
 ## RuleId[ruleID=NullableProblems]
 ### RuleId[ruleID=NullableProblems]
 Overridden methods are not annotated
@@ -1693,10 +1693,10 @@ Overridden methods are not annotated
 in `api/src/main/java/org/apache/sling/cms/AuthorizableWrapper.java`
 #### Snippet
 ```java
-     * @return the direct membership
+     * @return the transitive membership
      */
     @NotNull
-    Iterator<Group> getDeclaredMembership();
+    Iterator<Group> getMembership();
 
 ```
 
@@ -1729,18 +1729,6 @@ Overridden methods are not annotated
 in `api/src/main/java/org/apache/sling/cms/AuthorizableWrapper.java`
 #### Snippet
 ```java
-     * @return a JackRabbit Authorizable
-     */
-    @NotNull
-    Authorizable getAuthorizable();
-
-```
-
-### RuleId[ruleID=NullableProblems]
-Overridden methods are not annotated
-in `api/src/main/java/org/apache/sling/cms/AuthorizableWrapper.java`
-#### Snippet
-```java
      * @return the declared members of this authorizable
      */
     @NotNull
@@ -1753,10 +1741,22 @@ Overridden methods are not annotated
 in `api/src/main/java/org/apache/sling/cms/AuthorizableWrapper.java`
 #### Snippet
 ```java
-     * @return the transitive membership
+     * @return the direct membership
      */
     @NotNull
-    Iterator<Group> getMembership();
+    Iterator<Group> getDeclaredMembership();
+
+```
+
+### RuleId[ruleID=NullableProblems]
+Overridden methods are not annotated
+in `api/src/main/java/org/apache/sling/cms/AuthorizableWrapper.java`
+#### Snippet
+```java
+     * @return a JackRabbit Authorizable
+     */
+    @NotNull
+    Authorizable getAuthorizable();
 
 ```
 
@@ -1770,6 +1770,18 @@ in `api/src/main/java/org/apache/sling/cms/PageTemplateManager.java`
     @NotNull
     List<PageTemplate> getAvailableTemplates();
 }
+```
+
+### RuleId[ruleID=NullableProblems]
+Overridden method parameters are not annotated
+in `api/src/main/java/org/apache/sling/cms/publication/PublicationManager.java`
+#### Snippet
+```java
+     * @throws PublicationException an exception occurs publishing the resource
+     */
+    void publish(@NotNull PublishableResource resource) throws PublicationException;
+
+    /**
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -1792,18 +1804,6 @@ in `api/src/main/java/org/apache/sling/cms/publication/PublicationManager.java`
      * @throws PublicationException an exception occurs publishing the resource
      */
     void unpublish(@NotNull PublishableResource resource) throws PublicationException;
-
-    /**
-```
-
-### RuleId[ruleID=NullableProblems]
-Overridden method parameters are not annotated
-in `api/src/main/java/org/apache/sling/cms/publication/PublicationManager.java`
-#### Snippet
-```java
-     * @throws PublicationException an exception occurs publishing the resource
-     */
-    void publish(@NotNull PublishableResource resource) throws PublicationException;
 
     /**
 ```
@@ -1848,90 +1848,6 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/models/ComponentPolicy
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/org/apache/sling/cms/core/models/SearchResults.java`
-#### Snippet
-```java
-        }
-
-        term = Text.escapeIllegalXpathSearchChars(request.getParameter("term")).replace("'", "''");
-        this.request = request;
-    }
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/org/apache/sling/cms/core/models/LocaleResource.java`
-#### Snippet
-```java
-    public LocaleResource(Resource resource) {
-        this.locale = Locale
-                .forLanguageTag(resource.getValueMap().get(JcrConstants.JCR_LANGUAGE, "").replace("_", "-"));
-    }
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/org/apache/sling/cms/core/internal/CommonUtils.java`
-#### Snippet
-```java
-
-    public static final String escapeLogMessage(String message){
-        return StringEscapeUtils.escapeHtml4(message.replaceAll("[\\n\\r]"," "));
-    }
-}
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/org/apache/sling/cms/core/models/StartContent.java`
-#### Snippet
-```java
-                        .createQuery(
-                                "SELECT * FROM [nt:hierarchyNode] AS s WHERE ISDESCENDANTNODE([/content]) AND CONTAINS(s.*,'"
-                                        + term.replace("'", "''") + "')",
-                                Query.JCR_SQL2);
-                query.setLimit(10);
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/org/apache/sling/cms/core/internal/operations/CreateGroupOperation.java`
-#### Snippet
-```java
-            }
-            String intermediatePath = StringUtils.substringBeforeLast(request.getResource().getPath(), "/")
-                    .replaceAll("\\/home\\/groups\\/?", "");
-            Group group = userManager.createGroup(name, new SimplePrincipal(name), intermediatePath);
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/org/apache/sling/cms/core/internal/operations/CreateUserOperation.java`
-#### Snippet
-```java
-            }
-            String intermediatePath = StringUtils.substringBeforeLast(request.getResource().getPath(), "/")
-                    .replaceAll("\\/home\\/users\\/?", "");
-
-            User user = userManager.createUser(name, password, new SimplePrincipal(name), intermediatePath);
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/org/apache/sling/cms/core/internal/filters/EditIncludeFilter.java`
-#### Snippet
-```java
-            log.info("Loaded template: {}", en);
-            try (InputStream is = bundle.getEntry(en).openStream()) {
-                templates.put(en.replace(ENTRY_BASE, ""),
-                        StringUtils.substringAfter(IOUtils.toString(is, StandardCharsets.UTF_8), "-->"));
-            }
-```
-
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `reference/src/main/java/org/apache/sling/cms/reference/models/ItemList.java`
@@ -1980,7 +1896,127 @@ in `reference/src/main/java/org/apache/sling/cms/reference/models/Search.java`
             log.debug("Using page {}", page);
 ```
 
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/org/apache/sling/cms/core/models/LocaleResource.java`
+#### Snippet
+```java
+    public LocaleResource(Resource resource) {
+        this.locale = Locale
+                .forLanguageTag(resource.getValueMap().get(JcrConstants.JCR_LANGUAGE, "").replace("_", "-"));
+    }
+
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/org/apache/sling/cms/core/models/SearchResults.java`
+#### Snippet
+```java
+        }
+
+        term = Text.escapeIllegalXpathSearchChars(request.getParameter("term")).replace("'", "''");
+        this.request = request;
+    }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/org/apache/sling/cms/core/models/StartContent.java`
+#### Snippet
+```java
+                        .createQuery(
+                                "SELECT * FROM [nt:hierarchyNode] AS s WHERE ISDESCENDANTNODE([/content]) AND CONTAINS(s.*,'"
+                                        + term.replace("'", "''") + "')",
+                                Query.JCR_SQL2);
+                query.setLimit(10);
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/org/apache/sling/cms/core/internal/CommonUtils.java`
+#### Snippet
+```java
+
+    public static final String escapeLogMessage(String message){
+        return StringEscapeUtils.escapeHtml4(message.replaceAll("[\\n\\r]"," "));
+    }
+}
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/org/apache/sling/cms/core/internal/operations/CreateGroupOperation.java`
+#### Snippet
+```java
+            }
+            String intermediatePath = StringUtils.substringBeforeLast(request.getResource().getPath(), "/")
+                    .replaceAll("\\/home\\/groups\\/?", "");
+            Group group = userManager.createGroup(name, new SimplePrincipal(name), intermediatePath);
+
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/org/apache/sling/cms/core/internal/operations/CreateUserOperation.java`
+#### Snippet
+```java
+            }
+            String intermediatePath = StringUtils.substringBeforeLast(request.getResource().getPath(), "/")
+                    .replaceAll("\\/home\\/users\\/?", "");
+
+            User user = userManager.createUser(name, password, new SimplePrincipal(name), intermediatePath);
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/org/apache/sling/cms/core/internal/filters/EditIncludeFilter.java`
+#### Snippet
+```java
+            log.info("Loaded template: {}", en);
+            try (InputStream is = bundle.getEntry(en).openStream()) {
+                templates.put(en.replace(ENTRY_BASE, ""),
+                        StringUtils.substringAfter(IOUtils.toString(is, StandardCharsets.UTF_8), "-->"));
+            }
+```
+
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/package-info.java`
+#### Snippet
+```java
+ * @version 0.14.0
+ */
+@org.osgi.annotation.versioning.Version("0.14.0")
+package org.apache.sling.cms.reference.forms;
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `reference/src/main/java/org/apache/sling/cms/reference/package-info.java`
+#### Snippet
+```java
+ * Sling CMS Reference
+ */
+@org.osgi.annotation.versioning.Version("1.0.0")
+package org.apache.sling.cms.reference;
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `reference/src/main/java/org/apache/sling/cms/reference/models/package-info.java`
+#### Snippet
+```java
+ * @version 0.9.0
+ */
+@org.osgi.annotation.versioning.Version("0.10.0")
+package org.apache.sling.cms.reference.models;
+
+```
+
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
 in `api/src/main/java/org/apache/sling/cms/package-info.java`
@@ -2050,42 +2086,6 @@ in `api/src/main/java/org/apache/sling/cms/usergenerated/package-info.java`
  */
 @org.osgi.annotation.versioning.Version("0.9.2")
 package org.apache.sling.cms.usergenerated;
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `reference/src/main/java/org/apache/sling/cms/reference/package-info.java`
-#### Snippet
-```java
- * Sling CMS Reference
- */
-@org.osgi.annotation.versioning.Version("1.0.0")
-package org.apache.sling.cms.reference;
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/package-info.java`
-#### Snippet
-```java
- * @version 0.14.0
- */
-@org.osgi.annotation.versioning.Version("0.14.0")
-package org.apache.sling.cms.reference.forms;
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `reference/src/main/java/org/apache/sling/cms/reference/models/package-info.java`
-#### Snippet
-```java
- * @version 0.9.0
- */
-@org.osgi.annotation.versioning.Version("0.10.0")
-package org.apache.sling.cms.reference.models;
 
 ```
 
@@ -2201,7 +2201,7 @@ in `core/src/main/java/org/apache/sling/cms/core/readability/impl/ReadabilitySer
 
 ### RuleId[ruleID=MismatchedCollectionQueryUpdate]
 Contents of collection `modificationSourcesContainingPostfix` are updated, but never queried
-in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplaceOperation.java`
+in `core/src/main/java/org/apache/sling/cms/core/usergenerated/impl/ApproveUGCOperation.java`
 #### Snippet
 ```java
 
@@ -2213,7 +2213,7 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplace
 
 ### RuleId[ruleID=MismatchedCollectionQueryUpdate]
 Contents of collection `allModificationSources` are updated, but never queried
-in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplaceOperation.java`
+in `core/src/main/java/org/apache/sling/cms/core/usergenerated/impl/ApproveUGCOperation.java`
 #### Snippet
 ```java
             // check modifications for remaining postfix and store the base path
@@ -2225,7 +2225,7 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplace
 
 ### RuleId[ruleID=MismatchedCollectionQueryUpdate]
 Contents of collection `modificationSourcesContainingPostfix` are updated, but never queried
-in `core/src/main/java/org/apache/sling/cms/core/usergenerated/impl/ApproveUGCOperation.java`
+in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplaceOperation.java`
 #### Snippet
 ```java
 
@@ -2237,7 +2237,7 @@ in `core/src/main/java/org/apache/sling/cms/core/usergenerated/impl/ApproveUGCOp
 
 ### RuleId[ruleID=MismatchedCollectionQueryUpdate]
 Contents of collection `allModificationSources` are updated, but never queried
-in `core/src/main/java/org/apache/sling/cms/core/usergenerated/impl/ApproveUGCOperation.java`
+in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplaceOperation.java`
 #### Snippet
 ```java
             // check modifications for remaining postfix and store the base path
@@ -2262,6 +2262,30 @@ in `core/src/main/java/org/apache/sling/cms/core/i18n/impl/I18NProviderImpl.java
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `api/src/main/java/org/apache/sling/cms/insights/Insight.java`
+#### Snippet
+```java
+    private boolean scored = false;
+    private List<Message> scoreDetails = new ArrayList<>();
+    private boolean skip = false;
+
+    private boolean succeeded = true;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `api/src/main/java/org/apache/sling/cms/insights/Insight.java`
+#### Snippet
+```java
+    private InsightRequest request;
+    private double score;
+    private boolean scored = false;
+    private List<Message> scoreDetails = new ArrayList<>();
+    private boolean skip = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
 in `core/src/main/java/org/apache/sling/cms/core/models/SearchResults.java`
 #### Snippet
@@ -2287,14 +2311,14 @@ in `core/src/main/java/org/apache/sling/cms/core/models/SearchResults.java`
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/ReferenceOperation.java`
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/ComponentManagerImpl.java`
 #### Snippet
 ```java
-    private static final Logger log = LoggerFactory.getLogger(ReferenceOperation.class);
+    private ResourceResolver resolver;
 
-    private Pattern regex = null;
+    private Map<String, List<Component>> componentCache = null;
 
-    private Resource resource = null;
+    public ComponentManagerImpl(Resource resource) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -2311,14 +2335,14 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/models/ReferenceOperat
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/ComponentManagerImpl.java`
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/ReferenceOperation.java`
 #### Snippet
 ```java
-    private ResourceResolver resolver;
+    private static final Logger log = LoggerFactory.getLogger(ReferenceOperation.class);
 
-    private Map<String, List<Component>> componentCache = null;
+    private Pattern regex = null;
 
-    public ComponentManagerImpl(Resource resource) {
+    private Resource resource = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -2333,137 +2357,17 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/rewriter/ReferenceMapp
     private ConfigurationResourceResolver resolver;
 ```
 
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `api/src/main/java/org/apache/sling/cms/insights/Insight.java`
-#### Snippet
-```java
-    private InsightRequest request;
-    private double score;
-    private boolean scored = false;
-    private List<Message> scoreDetails = new ArrayList<>();
-    private boolean skip = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `api/src/main/java/org/apache/sling/cms/insights/Insight.java`
-#### Snippet
-```java
-    private boolean scored = false;
-    private List<Message> scoreDetails = new ArrayList<>();
-    private boolean skip = false;
-
-    private boolean succeeded = true;
-```
-
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `component`
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/ComponentImpl.java`
-#### Snippet
-```java
-                String parentResourceType = component.getResourceResolver().getParentResourceType(component);
-                if (StringUtils.isNotBlank(parentResourceType)) {
-                    component = component.getResourceResolver().getResource(parentResourceType);
-                    if (component != null) {
-                        return getComponentEditPath(component);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `atts`
-in `core/src/main/java/org/apache/sling/cms/core/internal/rewriter/ReferenceMappingTransformer.java`
-#### Snippet
-```java
-    @Override
-    public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-        atts = mapReferences(atts);
-        contentHandler.startElement(uri, localName, qName, atts);
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `includeEnd`
-in `core/src/main/java/org/apache/sling/cms/core/internal/filters/EditIncludeFilter.java`
+Assignment to method parameter `query`
+in `reference/src/main/java/org/apache/sling/cms/reference/models/ItemList.java`
 #### Snippet
 ```java
 
-        if (StringUtils.isNotEmpty(editPath)) {
-            includeEnd = true;
-            writeEditorMarkup(resource, writer, resourceBundle, shouldWriteDropTarget(request));
-        } else if (component != null && !component.isEditable()) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `includeEnd`
-in `core/src/main/java/org/apache/sling/cms/core/internal/filters/EditIncludeFilter.java`
-#### Snippet
-```java
-            writeEditorMarkup(resource, writer, resourceBundle, shouldWriteDropTarget(request));
-        } else if (component != null && !component.isEditable()) {
-            includeEnd = true;
-            String title = StringUtils.isNotEmpty(component.getTitle()) ? component.getTitle()
-                    : StringUtils.substringAfterLast(resource.getResourceType(), "/");
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `nodeName`
-in `core/src/main/java/org/apache/sling/cms/core/internal/operations/PropertyHintNodeNameGenerator.java`
-#### Snippet
-```java
-        char lastAdded = 0;
-
-        nodeName = nodeName.toLowerCase();
-        for (int i = 0; i < nodeName.length(); i++) {
-            final char c = nodeName.charAt(i);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `updated`
-in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplaceOperation.java`
-#### Snippet
-```java
-                log.trace("Value after replacement: {}", value);
-                properties.put(entry.getKey(), value);
-                updated = true;
-            } else if (rfind != null) {
-                Matcher m = rfind.matcher(value);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `updated`
-in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplaceOperation.java`
-#### Snippet
-```java
-                    log.trace("Value after replacement: {}", value);
-                    properties.put(entry.getKey(), value);
-                    updated = true;
-                }
-            }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `updated`
-in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplaceOperation.java`
-#### Snippet
-```java
-                }
-                properties.put(entry.getKey(), v);
-                updated = true;
-            }
+        if (request.getRequestPathInfo().getSuffix() != null) {
+            query = query.replace("{SUFFIX}", request.getRequestPathInfo().getSuffix());
         }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `word`
-in `core/src/main/java/org/apache/sling/cms/core/readability/impl/ReadabilityServiceImpl.java`
-#### Snippet
-```java
-        for (int index = 0; index < word.length() - 1; index++) {
-            if (isVowel(word.charAt(index)) && isVowel(word.charAt(index + 1)) && index + 2 < word.length()) {
-                word = word.substring(0, index + 1) + word.substring(index + 2);
-            }
-        }
+        log.debug("Listing results of: {}", query);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -2515,15 +2419,111 @@ in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/FormHandle
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `query`
-in `reference/src/main/java/org/apache/sling/cms/reference/models/ItemList.java`
+Assignment to method parameter `component`
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/ComponentImpl.java`
+#### Snippet
+```java
+                String parentResourceType = component.getResourceResolver().getParentResourceType(component);
+                if (StringUtils.isNotBlank(parentResourceType)) {
+                    component = component.getResourceResolver().getResource(parentResourceType);
+                    if (component != null) {
+                        return getComponentEditPath(component);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `atts`
+in `core/src/main/java/org/apache/sling/cms/core/internal/rewriter/ReferenceMappingTransformer.java`
+#### Snippet
+```java
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
+        atts = mapReferences(atts);
+        contentHandler.startElement(uri, localName, qName, atts);
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `nodeName`
+in `core/src/main/java/org/apache/sling/cms/core/internal/operations/PropertyHintNodeNameGenerator.java`
+#### Snippet
+```java
+        char lastAdded = 0;
+
+        nodeName = nodeName.toLowerCase();
+        for (int i = 0; i < nodeName.length(); i++) {
+            final char c = nodeName.charAt(i);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `includeEnd`
+in `core/src/main/java/org/apache/sling/cms/core/internal/filters/EditIncludeFilter.java`
 #### Snippet
 ```java
 
-        if (request.getRequestPathInfo().getSuffix() != null) {
-            query = query.replace("{SUFFIX}", request.getRequestPathInfo().getSuffix());
+        if (StringUtils.isNotEmpty(editPath)) {
+            includeEnd = true;
+            writeEditorMarkup(resource, writer, resourceBundle, shouldWriteDropTarget(request));
+        } else if (component != null && !component.isEditable()) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `includeEnd`
+in `core/src/main/java/org/apache/sling/cms/core/internal/filters/EditIncludeFilter.java`
+#### Snippet
+```java
+            writeEditorMarkup(resource, writer, resourceBundle, shouldWriteDropTarget(request));
+        } else if (component != null && !component.isEditable()) {
+            includeEnd = true;
+            String title = StringUtils.isNotEmpty(component.getTitle()) ? component.getTitle()
+                    : StringUtils.substringAfterLast(resource.getResourceType(), "/");
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `word`
+in `core/src/main/java/org/apache/sling/cms/core/readability/impl/ReadabilityServiceImpl.java`
+#### Snippet
+```java
+        for (int index = 0; index < word.length() - 1; index++) {
+            if (isVowel(word.charAt(index)) && isVowel(word.charAt(index + 1)) && index + 2 < word.length()) {
+                word = word.substring(0, index + 1) + word.substring(index + 2);
+            }
         }
-        log.debug("Listing results of: {}", query);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `updated`
+in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplaceOperation.java`
+#### Snippet
+```java
+                log.trace("Value after replacement: {}", value);
+                properties.put(entry.getKey(), value);
+                updated = true;
+            } else if (rfind != null) {
+                Matcher m = rfind.matcher(value);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `updated`
+in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplaceOperation.java`
+#### Snippet
+```java
+                    log.trace("Value after replacement: {}", value);
+                    properties.put(entry.getKey(), value);
+                    updated = true;
+                }
+            }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `updated`
+in `core/src/main/java/org/apache/sling/cms/core/internal/operations/BulkReplaceOperation.java`
+#### Snippet
+```java
+                }
+                properties.put(entry.getKey(), v);
+                updated = true;
+            }
+        }
 ```
 
 ## RuleId[ruleID=HtmlWrongAttributeValue]
@@ -2542,35 +2542,83 @@ in `core/src/main/resources/res/editinclude/start.html`
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/UserGeneratedContentAction.java`
+#### Snippet
+```java
+                } else {
+                    log.warn("Invalid value: {}", v);
+                    return null;
+                }
+            }).filter(Objects::nonNull).forEach(v -> {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/UserProfileFormValueProvider.java`
+#### Snippet
+```java
+                    } catch (IllegalStateException | RepositoryException e) {
+                        log.warn("Failed to get string value for " + key, e);
+                        return null;
+                    }
+                }).collect(Collectors.toList()).toArray(new String[0]);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `api/src/main/java/org/apache/sling/cms/Reference.java`
+#### Snippet
+```java
+            return pageMgr.getPage();
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/ResetPasswordAction.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/models/StartContent.java`
+#### Snippet
+```java
+                        log.warn("Failed to get iterator", e);
+                    }
+                    return null;
+                };
+                return StreamSupport.stream(iterable.spliterator(), false).limit(10);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/models/StartContent.java`
+#### Snippet
+```java
+            } catch (RepositoryException e) {
+                log.warn("Failed to get resource", e);
+                return null;
+            }
+        }).filter(Objects::nonNull).collect(Collectors.toList());
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeResponse.java`
 #### Snippet
 ```java
     @Override
     public String encodeUrl(String url) {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeResponse.java`
-#### Snippet
-```java
-    @Override
-    public Locale getLocale() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeResponse.java`
-#### Snippet
-```java
-    @Override
-    public String encodeURL(String url) {
         return null;
     }
 
@@ -2602,14 +2650,62 @@ in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeResponse.java
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeResponse.java`
 #### Snippet
 ```java
     @Override
-    public String getRemoteHost() {
+    public String encodeURL(String url) {
         return null;
     }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeResponse.java`
+#### Snippet
+```java
+    @Override
+    public Locale getLocale() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/i18n/impl/I18NProviderImpl.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/i18n/impl/I18NProviderImpl.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/models/QueryDebugger.java`
+#### Snippet
+```java
+                                    } catch (RepositoryException e) {
+                                        log.warn("Exception getting path from row: {}", n, e);
+                                        return null;
+                                    }
+                                })
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2618,43 +2714,7 @@ in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
 #### Snippet
 ```java
     @Override
-    public String getRequestedSessionId() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
-#### Snippet
-```java
-    @Override
-    public String getLocalAddr() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
-#### Snippet
-```java
-    @Override
-    public String getPathTranslated() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
-#### Snippet
-```java
-    @Override
-    public RequestDispatcher getRequestDispatcher(String path) {
+    public String getPathInfo() {
         return null;
     }
 
@@ -2678,7 +2738,67 @@ in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
 #### Snippet
 ```java
     @Override
-    public String getLocalName() {
+    public String getRealPath(String path) {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
+#### Snippet
+```java
+    @Override
+    public ServletInputStream getInputStream() throws IOException {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
+#### Snippet
+```java
+    @Override
+    public String getLocalAddr() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
+#### Snippet
+```java
+    @Override
+    public String getRequestedSessionId() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
+#### Snippet
+```java
+    @Override
+    public String getRemoteHost() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
+#### Snippet
+```java
+    @Override
+    public String getRemoteUser() {
         return null;
     }
 
@@ -2702,7 +2822,19 @@ in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
 #### Snippet
 ```java
     @Override
-    public String getPathInfo() {
+    public String getAuthType() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
+#### Snippet
+```java
+    @Override
+    public String getPathTranslated() {
         return null;
     }
 
@@ -2738,30 +2870,6 @@ in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
 #### Snippet
 ```java
     @Override
-    public ServletInputStream getInputStream() throws IOException {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
-#### Snippet
-```java
-    @Override
-    public Principal getUserPrincipal() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
-#### Snippet
-```java
-    @Override
     public String getServerName() {
         return null;
     }
@@ -2774,7 +2882,7 @@ in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
 #### Snippet
 ```java
     @Override
-    public String getRealPath(String path) {
+    public String getContentType() {
         return null;
     }
 
@@ -2798,18 +2906,6 @@ in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
 #### Snippet
 ```java
     @Override
-    public String getRemoteUser() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
-#### Snippet
-```java
-    @Override
     public String getRemoteAddr() {
         return null;
     }
@@ -2822,7 +2918,19 @@ in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
 #### Snippet
 ```java
     @Override
-    public String getAuthType() {
+    public String getLocalName() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
+#### Snippet
+```java
+    @Override
+    public Principal getUserPrincipal() {
         return null;
     }
 
@@ -2846,69 +2954,9 @@ in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
 #### Snippet
 ```java
     @Override
-    public String getContentType() {
+    public RequestDispatcher getRequestDispatcher(String path) {
         return null;
     }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/models/QueryDebugger.java`
-#### Snippet
-```java
-                                    } catch (RepositoryException e) {
-                                        log.warn("Exception getting path from row: {}", n, e);
-                                        return null;
-                                    }
-                                })
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/models/StartContent.java`
-#### Snippet
-```java
-                        log.warn("Failed to get iterator", e);
-                    }
-                    return null;
-                };
-                return StreamSupport.stream(iterable.spliterator(), false).limit(10);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/models/StartContent.java`
-#### Snippet
-```java
-            } catch (RepositoryException e) {
-                log.warn("Failed to get resource", e);
-                return null;
-            }
-        }).filter(Objects::nonNull).collect(Collectors.toList());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/i18n/impl/I18NProviderImpl.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/i18n/impl/I18NProviderImpl.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
 
 ```
 
@@ -2922,6 +2970,18 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/models/PageImpl.java`
             return null;
         }
     }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/EditableResourceImpl.java`
+#### Snippet
+```java
+            return getComponent().getEditPath();
+        }
+        return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2950,22 +3010,10 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/models/EditableResourc
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/EditableResourceImpl.java`
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/ComponentImpl.java`
 #### Snippet
 ```java
-            return getComponent().getEditPath();
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/SiteImpl.java`
-#### Snippet
-```java
-            return findSiteResource(resource.getParent());
+            }
         }
         return null;
     }
@@ -2986,7 +3034,7 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/models/ComponentImpl.j
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/ComponentImpl.java`
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/PublishableResourceImpl.java`
 #### Snippet
 ```java
             }
@@ -2998,14 +3046,14 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/models/ComponentImpl.j
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/AuthorizableWrapperImpl.java`
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/SiteImpl.java`
 #### Snippet
 ```java
-            } catch (RepositoryException e) {
-                log.error("Failed to get name from group: {}", g, e);
-                return null;
-            }
-        }).iterator();
+            return findSiteResource(resource.getParent());
+        }
+        return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3022,14 +3070,14 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/models/AuthorizableWra
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/PublishableResourceImpl.java`
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/AuthorizableWrapperImpl.java`
 #### Snippet
 ```java
+            } catch (RepositoryException e) {
+                log.error("Failed to get name from group: {}", g, e);
+                return null;
             }
-        }
-        return null;
-    }
-
+        }).iterator();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3068,91 +3116,7 @@ in `core/src/main/java/org/apache/sling/cms/core/publication/PublicationProperty
 
 ```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `api/src/main/java/org/apache/sling/cms/Reference.java`
-#### Snippet
-```java
-            return pageMgr.getPage();
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/ResetPasswordAction.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/UserGeneratedContentAction.java`
-#### Snippet
-```java
-                } else {
-                    log.warn("Invalid value: {}", v);
-                    return null;
-                }
-            }).filter(Objects::nonNull).forEach(v -> {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/UserProfileFormValueProvider.java`
-#### Snippet
-```java
-                    } catch (IllegalStateException | RepositoryException e) {
-                        log.warn("Failed to get string value for " + key, e);
-                        return null;
-                    }
-                }).collect(Collectors.toList()).toArray(new String[0]);
-```
-
 ## RuleId[ruleID=FuseStreamOperations]
-### RuleId[ruleID=FuseStreamOperations]
-Stream may be extended replacing 'sort'
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/InsightFactoryImpl.java`
-#### Snippet
-```java
-    private List<Insight> getInsights(InsightRequest request) {
-        List<Insight> insights = providers.stream().filter(ip -> ip.isEnabled(request))
-                .map(ip -> ip.evaluateRequest(request)).collect(Collectors.toList());
-        Collections.sort(insights, (o1, o2) -> o1.getProvider().getTitle().compareTo(o2.getProvider().getTitle()));
-        return insights;
-```
-
-### RuleId[ruleID=FuseStreamOperations]
-Stream may be extended replacing 'toArray'
-in `core/src/main/java/org/apache/sling/cms/core/publication/ForwardAgentEndpointSynchronization.java`
-#### Snippet
-```java
-            String endpointBase = id.getProperty(InstanceDescription.PROPERTY_ENDPOINTS).split("\\,")[0];
-            return endpointBase + id.getProperty(PublicationPropertyProvider.ENDPOINT_PATHS);
-        }).collect(Collectors.toList()).toArray(new String[0]);
-        if (log.isDebugEnabled()) {
-            log.debug("Updating with endpoints: [{}]", Arrays.stream(endpoints).collect(Collectors.joining(",")));
-```
-
-### RuleId[ruleID=FuseStreamOperations]
-Stream may be extended replacing 'toArray'
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/UpdateProfileAction.java`
-#### Snippet
-```java
-                if (e.getValue() instanceof String[]) {
-                    Value[] values = Arrays.stream(((String[]) e.getValue())).map(valueFactory::createValue)
-                            .collect(Collectors.toList()).toArray(new Value[0]);
-                    user.setProperty(subpath + "/" + e.getKey(), values);
-                } else {
-```
-
 ### RuleId[ruleID=FuseStreamOperations]
 Stream may be extended replacing 'toArray'
 in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/SelectionHandler.java`
@@ -3177,17 +3141,113 @@ in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/
                 value = v[0].getLong();
 ```
 
+### RuleId[ruleID=FuseStreamOperations]
+Stream may be extended replacing 'toArray'
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/UpdateProfileAction.java`
+#### Snippet
+```java
+                if (e.getValue() instanceof String[]) {
+                    Value[] values = Arrays.stream(((String[]) e.getValue())).map(valueFactory::createValue)
+                            .collect(Collectors.toList()).toArray(new Value[0]);
+                    user.setProperty(subpath + "/" + e.getKey(), values);
+                } else {
+```
+
+### RuleId[ruleID=FuseStreamOperations]
+Stream may be extended replacing 'sort'
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/InsightFactoryImpl.java`
+#### Snippet
+```java
+    private List<Insight> getInsights(InsightRequest request) {
+        List<Insight> insights = providers.stream().filter(ip -> ip.isEnabled(request))
+                .map(ip -> ip.evaluateRequest(request)).collect(Collectors.toList());
+        Collections.sort(insights, (o1, o2) -> o1.getProvider().getTitle().compareTo(o2.getProvider().getTitle()));
+        return insights;
+```
+
+### RuleId[ruleID=FuseStreamOperations]
+Stream may be extended replacing 'toArray'
+in `core/src/main/java/org/apache/sling/cms/core/publication/ForwardAgentEndpointSynchronization.java`
+#### Snippet
+```java
+            String endpointBase = id.getProperty(InstanceDescription.PROPERTY_ENDPOINTS).split("\\,")[0];
+            return endpointBase + id.getProperty(PublicationPropertyProvider.ENDPOINT_PATHS);
+        }).collect(Collectors.toList()).toArray(new String[0]);
+        if (log.isDebugEnabled()) {
+            log.debug("Updating with endpoints: [{}]", Arrays.stream(endpoints).collect(Collectors.joining(",")));
+```
+
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/UserGeneratedContentAction.java`
 #### Snippet
 ```java
-    @Override
-    public Cookie[] getCookies() {
-        return new Cookie[0];
+            Map<String, Object> contentProperties = new HashMap<>();
+            contentProperties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
+            Arrays.stream(properties.get("additionalProperties", new String[0])).map(v -> {
+                if (v.contains("=")) {
+                    String[] vs = v.split("\\=");
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/SelectionHandler.java`
+#### Snippet
+```java
+            List<String> values = Arrays.stream(v).filter(StringUtils::isNotBlank).collect(Collectors.toList());
+            return values.toArray(new String[values.size()]);
+        }).orElse(new String[0]);
     }
 
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/UserProfileFormValueProvider.java`
+#### Snippet
+```java
+                        return null;
+                    }
+                }).collect(Collectors.toList()).toArray(new String[0]);
+            } else if (v[0].getType() == PropertyType.LONG) {
+                value = v[0].getLong();
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/CreateUserAction.java`
+#### Snippet
+```java
+                            intermediatePath);
+
+                    String[] groups = properties.get(GROUPS, new String[0]);
+                    for (String g : groups) {
+                        String groupName = sub.replace(g);
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/CreateUserAction.java`
+#### Snippet
+```java
+                    }
+                    log.debug("Updating profile for {}", username);
+                    updateProfile(adminResolver, user, properties.get(PROFILE_PROPERTIES, new String[0]),
+                            request.getFormData());
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/UpdateProfileAction.java`
+#### Snippet
+```java
+                if (e.getValue() instanceof String[]) {
+                    Value[] values = Arrays.stream(((String[]) e.getValue())).map(valueFactory::createValue)
+                            .collect(Collectors.toList()).toArray(new Value[0]);
+                    user.setProperty(subpath + "/" + e.getKey(), values);
+                } else {
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -3204,14 +3264,14 @@ in `core/src/main/java/org/apache/sling/cms/core/i18n/impl/I18NProviderImpl.java
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/PageTemplateImpl.java`
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/FakeRequest.java`
 #### Snippet
 ```java
-    public String[] getAllowedPaths() {
-        if (allowedPaths == null) {
-            return new String[0];
-        }
-        return allowedPaths;
+    @Override
+    public Cookie[] getCookies() {
+        return new Cookie[0];
+    }
+
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -3224,6 +3284,18 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/models/PageImpl.java`
             this.taxonomy = new String[0];
             this.template = null;
             this.title = null;
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/PageTemplateImpl.java`
+#### Snippet
+```java
+    public String[] getAllowedPaths() {
+        if (allowedPaths == null) {
+            return new String[0];
+        }
+        return allowedPaths;
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -3286,79 +3358,67 @@ in `core/src/main/java/org/apache/sling/cms/core/publication/ForwardAgentEndpoin
             log.debug("Updating with endpoints: [{}]", Arrays.stream(endpoints).collect(Collectors.joining(",")));
 ```
 
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/UpdateProfileAction.java`
-#### Snippet
-```java
-                if (e.getValue() instanceof String[]) {
-                    Value[] values = Arrays.stream(((String[]) e.getValue())).map(valueFactory::createValue)
-                            .collect(Collectors.toList()).toArray(new Value[0]);
-                    user.setProperty(subpath + "/" + e.getKey(), values);
-                } else {
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/fields/SelectionHandler.java`
-#### Snippet
-```java
-            List<String> values = Arrays.stream(v).filter(StringUtils::isNotBlank).collect(Collectors.toList());
-            return values.toArray(new String[values.size()]);
-        }).orElse(new String[0]);
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/CreateUserAction.java`
-#### Snippet
-```java
-                            intermediatePath);
-
-                    String[] groups = properties.get(GROUPS, new String[0]);
-                    for (String g : groups) {
-                        String groupName = sub.replace(g);
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/CreateUserAction.java`
-#### Snippet
-```java
-                    }
-                    log.debug("Updating profile for {}", username);
-                    updateProfile(adminResolver, user, properties.get(PROFILE_PROPERTIES, new String[0]),
-                            request.getFormData());
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/UserGeneratedContentAction.java`
-#### Snippet
-```java
-            Map<String, Object> contentProperties = new HashMap<>();
-            contentProperties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
-            Arrays.stream(properties.get("additionalProperties", new String[0])).map(v -> {
-                if (v.contains("=")) {
-                    String[] vs = v.split("\\=");
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
+## RuleId[ruleID=UnusedAssignment]
+### RuleId[ruleID=UnusedAssignment]
+Variable `value` initializer `null` is redundant
 in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/UserProfileFormValueProvider.java`
 #### Snippet
 ```java
-                        return null;
-                    }
-                }).collect(Collectors.toList()).toArray(new String[0]);
-            } else if (v[0].getType() == PropertyType.LONG) {
-                value = v[0].getLong();
+
+    private void loadKey(Map<String, Object> formData, String subpath, String key, User user) {
+        Object value = null;
+
+        try {
 ```
 
-## RuleId[ruleID=UnusedAssignment]
+### RuleId[ruleID=UnusedAssignment]
+Variable `successPage` initializer `null` is redundant
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/FormHandler.java`
+#### Snippet
+```java
+                .map(PageManager::getPage).map(Page::getPath)
+                .orElse(StringUtils.substringBefore(request.getResource().getPath(), "/" + JcrConstants.JCR_CONTENT));
+        String successPage = null;
+        String errorPage = pagePath;
+
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `sub` initializer `null` is redundant
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/FormHandler.java`
+#### Snippet
+```java
+        String errorPage = pagePath;
+
+        StringSubstitutor sub = null;
+        try {
+            log.debug("Extracting form request...");
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `value` initializer `null` is redundant
+in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/UpdateProfileAction.java`
+#### Snippet
+```java
+
+            for (Entry<String, Object> e : request.getFormData().entrySet()) {
+                Value value = null;
+                if (e.getValue() instanceof String[]) {
+                    Value[] values = Arrays.stream(((String[]) e.getValue())).map(valueFactory::createValue)
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `term` initializer `null` is redundant
+in `core/src/main/java/org/apache/sling/cms/core/models/SearchResults.java`
+#### Snippet
+```java
+    private String type = CMSConstants.NT_PAGE;
+    private String path = null;
+    private String term = null;
+    private SlingHttpServletRequest request;
+
+```
+
 ### RuleId[ruleID=UnusedAssignment]
 Variable `insight` initializer `null` is redundant
 in `core/src/main/java/org/apache/sling/cms/core/insights/impl/BaseInsightProvider.java`
@@ -3372,15 +3432,15 @@ in `core/src/main/java/org/apache/sling/cms/core/insights/impl/BaseInsightProvid
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `term` initializer `null` is redundant
-in `core/src/main/java/org/apache/sling/cms/core/models/SearchResults.java`
+Variable `response` initializer `null` is redundant
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/providers/PageSpeedInsightProvider.java`
 #### Snippet
 ```java
-    private String type = CMSConstants.NT_PAGE;
-    private String path = null;
-    private String term = null;
-    private SlingHttpServletRequest request;
+        HttpGet httpGet = new HttpGet(checkUrl);
 
+        CloseableHttpResponse response = null;
+        JsonReader reader = null;
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -3408,27 +3468,15 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/jobs/StartJobServlet.j
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `properties` initializer `null` is redundant
-in `core/src/main/java/org/apache/sling/cms/core/internal/FileMetadataExtractorImpl.java`
+Variable `response` initializer `null` is redundant
+in `core/src/main/java/org/apache/sling/cms/core/insights/impl/providers/HTMLValdiatorInsightProvider.java`
 #### Snippet
 ```java
-                return;
-            }
-            Map<String, Object> properties = null;
-            Resource metadata = content.getChild(CMSConstants.NN_METADATA);
-            if (metadata != null) {
-```
+        I18NDictionary dictionary = i18nProvider.getDictionary(request.getResource().getResourceResolver());
 
-### RuleId[ruleID=UnusedAssignment]
-Variable `regex` initializer `null` is redundant
-in `core/src/main/java/org/apache/sling/cms/core/internal/models/ReferenceOperation.java`
-#### Snippet
-```java
-    private static final Logger log = LoggerFactory.getLogger(ReferenceOperation.class);
-
-    private Pattern regex = null;
-
-    private Resource resource = null;
+        CloseableHttpResponse response = null;
+        JsonReader reader = null;
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -3444,27 +3492,27 @@ in `core/src/main/java/org/apache/sling/cms/core/internal/models/ReferenceOperat
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `response` initializer `null` is redundant
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/providers/PageSpeedInsightProvider.java`
+Variable `regex` initializer `null` is redundant
+in `core/src/main/java/org/apache/sling/cms/core/internal/models/ReferenceOperation.java`
 #### Snippet
 ```java
-        HttpGet httpGet = new HttpGet(checkUrl);
+    private static final Logger log = LoggerFactory.getLogger(ReferenceOperation.class);
 
-        CloseableHttpResponse response = null;
-        JsonReader reader = null;
-        try (CloseableHttpClient client = HttpClients.createDefault()) {
+    private Pattern regex = null;
+
+    private Resource resource = null;
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `response` initializer `null` is redundant
-in `core/src/main/java/org/apache/sling/cms/core/insights/impl/providers/HTMLValdiatorInsightProvider.java`
+Variable `properties` initializer `null` is redundant
+in `core/src/main/java/org/apache/sling/cms/core/internal/FileMetadataExtractorImpl.java`
 #### Snippet
 ```java
-        I18NDictionary dictionary = i18nProvider.getDictionary(request.getResource().getResourceResolver());
-
-        CloseableHttpResponse response = null;
-        JsonReader reader = null;
-        try (CloseableHttpClient client = HttpClients.createDefault()) {
+                return;
+            }
+            Map<String, Object> properties = null;
+            Resource metadata = content.getChild(CMSConstants.NN_METADATA);
+            if (metadata != null) {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -3513,54 +3561,6 @@ in `core/src/main/java/org/apache/sling/cms/core/usergenerated/impl/UserGenerate
         Resource resource = null;
 
         log.debug("Creating content of type {} in bucket {}", bucketConfig.getContentType(), bucketConfig.getBucket());
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `value` initializer `null` is redundant
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/actions/UpdateProfileAction.java`
-#### Snippet
-```java
-
-            for (Entry<String, Object> e : request.getFormData().entrySet()) {
-                Value value = null;
-                if (e.getValue() instanceof String[]) {
-                    Value[] values = Arrays.stream(((String[]) e.getValue())).map(valueFactory::createValue)
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `successPage` initializer `null` is redundant
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/FormHandler.java`
-#### Snippet
-```java
-                .map(PageManager::getPage).map(Page::getPath)
-                .orElse(StringUtils.substringBefore(request.getResource().getPath(), "/" + JcrConstants.JCR_CONTENT));
-        String successPage = null;
-        String errorPage = pagePath;
-
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `sub` initializer `null` is redundant
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/FormHandler.java`
-#### Snippet
-```java
-        String errorPage = pagePath;
-
-        StringSubstitutor sub = null;
-        try {
-            log.debug("Extracting form request...");
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `value` initializer `null` is redundant
-in `reference/src/main/java/org/apache/sling/cms/reference/forms/impl/providers/UserProfileFormValueProvider.java`
-#### Snippet
-```java
-
-    private void loadKey(Map<String, Object> formData, String subpath, String key, User user) {
-        Object value = null;
-
-        try {
 ```
 
 ## RuleId[ruleID=ConstantValue]
