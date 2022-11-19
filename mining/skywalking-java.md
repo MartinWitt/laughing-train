@@ -1,7 +1,7 @@
 # skywalking-java 
  
 # Bad smells
-I found 1442 bad smells with 71 repairable:
+I found 1440 bad smells with 71 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | RuleId[ruleID=ZeroLengthArrayInitialization] | 297 | false |
@@ -18,8 +18,8 @@ I found 1442 bad smells with 71 repairable:
 | RuleId[ruleID=StringConcatenationInsideStringBufferAppend] | 28 | false |
 | RuleId[ruleID=EmptyMethod] | 22 | false |
 | RuleId[ruleID=DataFlowIssue] | 21 | false |
+| RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern] | 21 | false |
 | RuleId[ruleID=UnusedAssignment] | 20 | false |
-| RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern] | 20 | false |
 | RuleId[ruleID=RedundantArrayCreation] | 18 | false |
 | RuleId[ruleID=NestedAssignment] | 17 | false |
 | RuleId[ruleID=NonProtectedConstructorInAbstractClass] | 14 | true |
@@ -41,7 +41,6 @@ I found 1442 bad smells with 71 repairable:
 | RuleId[ruleID=UseOfPropertiesAsHashtable] | 7 | false |
 | RuleId[ruleID=IndexOfReplaceableByContains] | 7 | false |
 | RuleId[ruleID=UnnecessaryToStringCall] | 7 | true |
-| RuleId[ruleID=RedundantSuppression] | 7 | false |
 | RuleId[ruleID=FinalPrivateMethod] | 6 | false |
 | RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment] | 6 | false |
 | RuleId[ruleID=ThrowablePrintStackTrace] | 6 | false |
@@ -50,6 +49,7 @@ I found 1442 bad smells with 71 repairable:
 | RuleId[ruleID=UnnecessaryReturn] | 4 | true |
 | RuleId[ruleID=NonExceptionNameEndsWithException] | 4 | false |
 | RuleId[ruleID=NonSerializableFieldInSerializableClass] | 4 | false |
+| RuleId[ruleID=RedundantSuppression] | 4 | false |
 | RuleId[ruleID=SystemOutErr] | 4 | false |
 | RuleId[ruleID=CastToIncompatibleInterface] | 3 | false |
 | RuleId[ruleID=ManualMinMaxCalculation] | 3 | false |
@@ -186,30 +186,6 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-opentracing-activation/src/ma
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `JDBCPluginConfig.Plugin.JDBC.TRACE_SQL_PARAMETERS` from instance context
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/TraceSqlParametersWatcher.java`
-#### Snippet
-```java
-    public void notify(ConfigChangeEvent value) {
-        if (EventType.DELETE.equals(value.getEventType())) {
-            JDBCPluginConfig.Plugin.JDBC.TRACE_SQL_PARAMETERS = defaultValue;
-        } else {
-            JDBCPluginConfig.Plugin.JDBC.TRACE_SQL_PARAMETERS = Boolean.parseBoolean(value.getNewValue());
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `JDBCPluginConfig.Plugin.JDBC.TRACE_SQL_PARAMETERS` from instance context
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/TraceSqlParametersWatcher.java`
-#### Snippet
-```java
-            JDBCPluginConfig.Plugin.JDBC.TRACE_SQL_PARAMETERS = defaultValue;
-        } else {
-            JDBCPluginConfig.Plugin.JDBC.TRACE_SQL_PARAMETERS = Boolean.parseBoolean(value.getNewValue());
-        }
-    }
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 Assignment to static field `Config.Agent.INSTANCE_NAME` from instance context
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/ServiceInstanceGenerator.java`
 #### Snippet
@@ -270,6 +246,30 @@ in `apm-sniffer/optional-reporter-plugins/kafka-reporter-plugin/src/main/java/or
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `JDBCPluginConfig.Plugin.JDBC.TRACE_SQL_PARAMETERS` from instance context
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/TraceSqlParametersWatcher.java`
+#### Snippet
+```java
+    public void notify(ConfigChangeEvent value) {
+        if (EventType.DELETE.equals(value.getEventType())) {
+            JDBCPluginConfig.Plugin.JDBC.TRACE_SQL_PARAMETERS = defaultValue;
+        } else {
+            JDBCPluginConfig.Plugin.JDBC.TRACE_SQL_PARAMETERS = Boolean.parseBoolean(value.getNewValue());
+```
+
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `JDBCPluginConfig.Plugin.JDBC.TRACE_SQL_PARAMETERS` from instance context
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/TraceSqlParametersWatcher.java`
+#### Snippet
+```java
+            JDBCPluginConfig.Plugin.JDBC.TRACE_SQL_PARAMETERS = defaultValue;
+        } else {
+            JDBCPluginConfig.Plugin.JDBC.TRACE_SQL_PARAMETERS = Boolean.parseBoolean(value.getNewValue());
+        }
+    }
+```
+
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 Assignment to static field `Config.Logging.LEVEL` from instance context
 in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/tools/AgentServiceRule.java`
 #### Snippet
@@ -307,18 +307,6 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-meter-activation/src/main/jav
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 Assignment to static field `METER_SERVICE` from instance context
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-meter-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/meter/CounterConstructInterceptor.java`
-#### Snippet
-```java
-
-        if (METER_SERVICE == null) {
-            METER_SERVICE = ServiceManager.INSTANCE.findService(MeterService.class);
-        }
-        objInst.setSkyWalkingDynamicField(METER_SERVICE.register(counter));
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `METER_SERVICE` from instance context
 in `apm-sniffer/apm-toolkit-activation/apm-toolkit-meter-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/meter/HistogramConstructInterceptor.java`
 #### Snippet
 ```java
@@ -327,6 +315,18 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-meter-activation/src/main/jav
             METER_SERVICE = ServiceManager.INSTANCE.findService(MeterService.class);
         }
         objInst.setSkyWalkingDynamicField(METER_SERVICE.register(histogram));
+```
+
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `METER_SERVICE` from instance context
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-meter-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/meter/CounterConstructInterceptor.java`
+#### Snippet
+```java
+
+        if (METER_SERVICE == null) {
+            METER_SERVICE = ServiceManager.INSTANCE.findService(MeterService.class);
+        }
+        objInst.setSkyWalkingDynamicField(METER_SERVICE.register(counter));
 ```
 
 ## RuleId[ruleID=RegExpRedundantEscape]
@@ -405,18 +405,6 @@ in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java
 
 ### RuleId[ruleID=CastToIncompatibleInterface]
 Cast to incompatible interface `EnhancedInstance`
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/interceptor/TransportClientNodesServiceInterceptor.java`
-#### Snippet
-```java
-            if (allArguments.length >= 2 && allArguments[1] instanceof AdapterActionFuture) {
-                AdapterActionFuture actionFuture = (AdapterActionFuture) allArguments[1];
-                ((EnhancedInstance) actionFuture).setSkyWalkingDynamicField(true);
-            }
-        }
-```
-
-### RuleId[ruleID=CastToIncompatibleInterface]
-Cast to incompatible interface `EnhancedInstance`
 in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/client/TServiceClientInterceptor.java`
 #### Snippet
 ```java
@@ -424,6 +412,18 @@ in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking
             );
             Object dynamicField = ((EnhancedInstance) protocol.getTransport()).getSkyWalkingDynamicField();
             objInst.setSkyWalkingDynamicField(Objects.isNull(dynamicField) ? "UNKNOWN" : dynamicField);
+        }
+```
+
+### RuleId[ruleID=CastToIncompatibleInterface]
+Cast to incompatible interface `EnhancedInstance`
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/interceptor/TransportClientNodesServiceInterceptor.java`
+#### Snippet
+```java
+            if (allArguments.length >= 2 && allArguments[1] instanceof AdapterActionFuture) {
+                AdapterActionFuture actionFuture = (AdapterActionFuture) allArguments[1];
+                ((EnhancedInstance) actionFuture).setSkyWalkingDynamicField(true);
+            }
         }
 ```
 
@@ -455,36 +455,12 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ## RuleId[ruleID=RedundantArrayCreation]
 ### RuleId[ruleID=RedundantArrayCreation]
 Redundant array creation for calling varargs method
-in `apm-sniffer/apm-sdk-plugin/okhttp-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/okhttp/v4/define/CallbackInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/okhttp-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/okhttp/v3/define/CallbackInstrumentation.java`
 #### Snippet
 ```java
     @Override
     protected ClassMatch enhanceClass() {
         return byHierarchyMatch(new String[] {"okhttp3.Callback"});
-    }
-}
-```
-
-### RuleId[ruleID=RedundantArrayCreation]
-Redundant array creation for calling varargs method
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v3/define/ControllerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    protected ClassMatch enhanceClass() {
-        return ClassAnnotationMatch.byClassAnnotationMatch(new String[] {CONTROLLER_ENHANCE_ANNOTATION});
-    }
-
-```
-
-### RuleId[ruleID=RedundantArrayCreation]
-Redundant array creation for calling varargs method
-in `apm-sniffer/apm-sdk-plugin/pulsar-common/src/main/java/org/apache/skywalking/apm/plugin/pulsar/common/define/BaseSendCallbackInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    protected ClassMatch enhanceClass() {
-        return byHierarchyMatch(new String[] {ENHANCE_CLASS});
     }
 }
 ```
@@ -515,14 +491,26 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/jav
 
 ### RuleId[ruleID=RedundantArrayCreation]
 Redundant array creation for calling varargs method
-in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/apache/skywalking/apm/plugin/light4j/define/LightInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/hystrix-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hystrix/v1/define/HystrixCommandInstrumentation.java`
 #### Snippet
 ```java
     @Override
     protected ClassMatch enhanceClass() {
-        return HierarchyMatch.byHierarchyMatch(new String[] {ENHANCE_CLASS});
+        return byHierarchyMatch(new String[] {ENHANCE_CLASS});
     }
 
+```
+
+### RuleId[ruleID=RedundantArrayCreation]
+Redundant array creation for calling varargs method
+in `apm-sniffer/apm-sdk-plugin/okhttp-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/okhttp/v2/define/CallbackInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    protected ClassMatch enhanceClass() {
+        return byHierarchyMatch(new String[]{"com.squareup.okhttp.Callback"});
+    }
+}
 ```
 
 ### RuleId[ruleID=RedundantArrayCreation]
@@ -539,36 +527,12 @@ in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywa
 
 ### RuleId[ruleID=RedundantArrayCreation]
 Redundant array creation for calling varargs method
-in `apm-sniffer/apm-sdk-plugin/okhttp-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/okhttp/v3/define/CallbackInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/apache/skywalking/apm/plugin/light4j/define/LightInstrumentation.java`
 #### Snippet
 ```java
     @Override
     protected ClassMatch enhanceClass() {
-        return byHierarchyMatch(new String[] {"okhttp3.Callback"});
-    }
-}
-```
-
-### RuleId[ruleID=RedundantArrayCreation]
-Redundant array creation for calling varargs method
-in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/CallbackInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    protected ClassMatch enhanceClass() {
-        return byHierarchyMatch(new String[] {ENHANCE_CLASS});
-    }
-}
-```
-
-### RuleId[ruleID=RedundantArrayCreation]
-Redundant array creation for calling varargs method
-in `apm-sniffer/apm-sdk-plugin/hystrix-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hystrix/v1/define/HystrixCommandInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    protected ClassMatch enhanceClass() {
-        return byHierarchyMatch(new String[] {ENHANCE_CLASS});
+        return HierarchyMatch.byHierarchyMatch(new String[] {ENHANCE_CLASS});
     }
 
 ```
@@ -576,6 +540,18 @@ in `apm-sniffer/apm-sdk-plugin/hystrix-1.x-plugin/src/main/java/org/apache/skywa
 ### RuleId[ruleID=RedundantArrayCreation]
 Redundant array creation for calling varargs method
 in `apm-sniffer/apm-sdk-plugin/rocketMQ-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v4/define/SendCallbackInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    protected ClassMatch enhanceClass() {
+        return byHierarchyMatch(new String[] {ENHANCE_CLASS});
+    }
+}
+```
+
+### RuleId[ruleID=RedundantArrayCreation]
+Redundant array creation for calling varargs method
+in `apm-sniffer/apm-sdk-plugin/rocketMQ-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v4/define/ConsumeMessageOrderlyInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -599,43 +575,7 @@ in `apm-sniffer/apm-sdk-plugin/rocketMQ-4.x-plugin/src/main/java/org/apache/skyw
 
 ### RuleId[ruleID=RedundantArrayCreation]
 Redundant array creation for calling varargs method
-in `apm-sniffer/apm-sdk-plugin/rocketMQ-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v4/define/ConsumeMessageOrderlyInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    protected ClassMatch enhanceClass() {
-        return byHierarchyMatch(new String[] {ENHANCE_CLASS});
-    }
-}
-```
-
-### RuleId[ruleID=RedundantArrayCreation]
-Redundant array creation for calling varargs method
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v5/define/GenericActionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    protected ClassMatch enhanceClass() {
-        return byHierarchyMatch(new String[] {"org.elasticsearch.action.GenericAction"});
-    }
-
-```
-
-### RuleId[ruleID=RedundantArrayCreation]
-Redundant array creation for calling varargs method
-in `apm-sniffer/apm-sdk-plugin/okhttp-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/okhttp/v2/define/CallbackInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    protected ClassMatch enhanceClass() {
-        return byHierarchyMatch(new String[]{"com.squareup.okhttp.Callback"});
-    }
-}
-```
-
-### RuleId[ruleID=RedundantArrayCreation]
-Redundant array creation for calling varargs method
-in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/define/SendCallbackInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/define/ConsumeMessageOrderlyInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -659,7 +599,67 @@ in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skyw
 
 ### RuleId[ruleID=RedundantArrayCreation]
 Redundant array creation for calling varargs method
-in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/define/ConsumeMessageOrderlyInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/define/SendCallbackInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    protected ClassMatch enhanceClass() {
+        return byHierarchyMatch(new String[] {ENHANCE_CLASS});
+    }
+}
+```
+
+### RuleId[ruleID=RedundantArrayCreation]
+Redundant array creation for calling varargs method
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v3/define/ControllerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    protected ClassMatch enhanceClass() {
+        return ClassAnnotationMatch.byClassAnnotationMatch(new String[] {CONTROLLER_ENHANCE_ANNOTATION});
+    }
+
+```
+
+### RuleId[ruleID=RedundantArrayCreation]
+Redundant array creation for calling varargs method
+in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/CallbackInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    protected ClassMatch enhanceClass() {
+        return byHierarchyMatch(new String[] {ENHANCE_CLASS});
+    }
+}
+```
+
+### RuleId[ruleID=RedundantArrayCreation]
+Redundant array creation for calling varargs method
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v5/define/GenericActionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    protected ClassMatch enhanceClass() {
+        return byHierarchyMatch(new String[] {"org.elasticsearch.action.GenericAction"});
+    }
+
+```
+
+### RuleId[ruleID=RedundantArrayCreation]
+Redundant array creation for calling varargs method
+in `apm-sniffer/apm-sdk-plugin/okhttp-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/okhttp/v4/define/CallbackInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    protected ClassMatch enhanceClass() {
+        return byHierarchyMatch(new String[] {"okhttp3.Callback"});
+    }
+}
+```
+
+### RuleId[ruleID=RedundantArrayCreation]
+Redundant array creation for calling varargs method
+in `apm-sniffer/apm-sdk-plugin/pulsar-common/src/main/java/org/apache/skywalking/apm/plugin/pulsar/common/define/BaseSendCallbackInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -677,9 +677,9 @@ in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalk
 ```java
     }
 
-    private static final String getOperatorName(String collection, String path) {
-        return "solrJ/" + collection + path;
-    }
+    private static final String toQueryString(SolrParams params) {
+        final StringBuilder sb = new StringBuilder(128);
+        boolean first = true;
 ```
 
 ### RuleId[ruleID=FinalPrivateMethod]
@@ -701,21 +701,9 @@ in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalk
 ```java
     }
 
-    private static final AbstractSpan getSpan(String operatorName, String remotePeer) {
-        return ContextManager.createExitSpan(operatorName, remotePeer)
-                             .setComponent(ComponentsDefine.SOLRJ)
-```
-
-### RuleId[ruleID=FinalPrivateMethod]
-'private' method declared `final`
-in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
-#### Snippet
-```java
-    }
-
-    private static final String toQueryString(SolrParams params) {
-        final StringBuilder sb = new StringBuilder(128);
-        boolean first = true;
+    private static final String getCollection(SolrjInstance instance, Object argument) {
+        if (null == argument) {
+            return instance.getCollection();
 ```
 
 ### RuleId[ruleID=FinalPrivateMethod]
@@ -737,9 +725,21 @@ in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalk
 ```java
     }
 
-    private static final String getCollection(SolrjInstance instance, Object argument) {
-        if (null == argument) {
-            return instance.getCollection();
+    private static final AbstractSpan getSpan(String operatorName, String remotePeer) {
+        return ContextManager.createExitSpan(operatorName, remotePeer)
+                             .setComponent(ComponentsDefine.SOLRJ)
+```
+
+### RuleId[ruleID=FinalPrivateMethod]
+'private' method declared `final`
+in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
+#### Snippet
+```java
+    }
+
+    private static final String getOperatorName(String collection, String path) {
+        return "solrJ/" + collection + path;
+    }
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -756,15 +756,15 @@ in `apm-sniffer/apm-agent/src/main/java/org/apache/skywalking/apm/agent/SkyWalki
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`prefixMatches.size() == 0` can be replaced with 'prefixMatches.isEmpty()'
-in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/ThreadingConfig.java`
+`buffer.size() > 0` can be replaced with '!buffer.isEmpty()'
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/jvm/JVMMetricsSender.java`
 #### Snippet
 ```java
-        }
-
-        if (prefixMatches.size() == 0) {
-            return null;
-        }
+                LinkedList<JVMMetric> buffer = new LinkedList<>();
+                queue.drainTo(buffer);
+                if (buffer.size() > 0) {
+                    builder.addAllMetrics(buffer);
+                    builder.setService(Config.Agent.SERVICE_NAME);
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -792,15 +792,15 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`buffer.size() > 0` can be replaced with '!buffer.isEmpty()'
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/jvm/JVMMetricsSender.java`
+`resources.size() == 0` can be replaced with 'resources.isEmpty()'
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/PluginBootstrap.java`
 #### Snippet
 ```java
-                LinkedList<JVMMetric> buffer = new LinkedList<>();
-                queue.drainTo(buffer);
-                if (buffer.size() > 0) {
-                    builder.addAllMetrics(buffer);
-                    builder.setService(Config.Agent.SERVICE_NAME);
+        List<URL> resources = resolver.getResources();
+
+        if (resources == null || resources.size() == 0) {
+            LOGGER.info("no plugin files (skywalking-plugin.def) found, continue to start application.");
+            return new ArrayList<AbstractClassEnhancePluginDefine>();
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -813,18 +813,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
                     if (pluginDefine.trim().length() == 0 || pluginDefine.startsWith("#")) {
                         continue;
                     }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`resources.size() == 0` can be replaced with 'resources.isEmpty()'
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/PluginBootstrap.java`
-#### Snippet
-```java
-        List<URL> resources = resolver.getResources();
-
-        if (resources == null || resources.size() == 0) {
-            LOGGER.info("no plugin files (skywalking-plugin.def) found, continue to start application.");
-            return new ArrayList<AbstractClassEnhancePluginDefine>();
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -912,39 +900,15 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`requestPath.length() > 0` can be replaced with '!requestPath.isEmpty()'
-in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v5/HttpClientDoExecuteInterceptor.java`
+`operationName.length() == 0` can be replaced with 'operationName.isEmpty()'
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/BaseTraceAnnotationInterceptor.java`
 #### Snippet
 ```java
-        if (isUrl(uri)) {
-            String requestPath = new URL(uri).getPath();
-            return requestPath != null && requestPath.length() > 0 ? requestPath : "/";
-        } else {
-            return uri;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`requestPath.length() > 0` can be replaced with '!requestPath.isEmpty()'
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-webflux-5.x-webclient-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/webclient/WebFluxWebClientInterceptor.java`
-#### Snippet
-```java
-    private String getRequestURIString(URI uri) {
-        String requestPath = uri.getPath();
-        return requestPath != null && requestPath.length() > 0 ? requestPath : "/";
-    }
-
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`requestPath.length() > 0` can be replaced with '!requestPath.isEmpty()'
-in `apm-sniffer/apm-sdk-plugin/httpclient-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v3/HttpClientExecuteInterceptor.java`
-#### Snippet
-```java
-    private String getRequestURI(URI uri) throws URIException {
-        String requestPath = uri.getPath();
-        return requestPath != null && requestPath.length() > 0 ? requestPath : "/";
-    }
-
+        Trace trace = method.getAnnotation(Trace.class);
+        String operationName = trace.operationName();
+        if (operationName.length() == 0 || ToolkitPluginConfig.Plugin.Toolkit.USE_QUALIFIED_NAME_AS_OPERATION_NAME) {
+            operationName = MethodUtil.generateOperationName(method);
+        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -960,87 +924,15 @@ in `apm-sniffer/apm-sdk-plugin/httpClient-4.x-plugin/src/main/java/org/apache/sk
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`socketAddressList.size() > 0` can be replaced with '!socketAddressList.isEmpty()'
-in `apm-sniffer/apm-sdk-plugin/canal-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/canal/CanalInterceptor.java`
+`requestPath.length() > 0` can be replaced with '!requestPath.isEmpty()'
+in `apm-sniffer/apm-sdk-plugin/httpclient-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v3/HttpClientExecuteInterceptor.java`
 #### Snippet
 ```java
-            List<InetSocketAddress> socketAddressList = (List<InetSocketAddress>) ContextManager.getRuntimeContext()
-                                                                                                .get("currentAddress");
-            if (socketAddressList != null && socketAddressList.size() > 0) {
-                for (InetSocketAddress socketAddress : socketAddressList) {
-                    String currentAddress = socketAddress.getAddress().toString() + ":" + socketAddress.getPort();
-```
+    private String getRequestURI(URI uri) throws URIException {
+        String requestPath = uri.getPath();
+        return requestPath != null && requestPath.length() > 0 ? requestPath : "/";
+    }
 
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`operationName.length() == 0` can be replaced with 'operationName.isEmpty()'
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/BaseTraceAnnotationInterceptor.java`
-#### Snippet
-```java
-        Trace trace = method.getAnnotation(Trace.class);
-        String operationName = trace.operationName();
-        if (operationName.length() == 0 || ToolkitPluginConfig.Plugin.Toolkit.USE_QUALIFIED_NAME_AS_OPERATION_NAME) {
-            operationName = MethodUtil.generateOperationName(method);
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`operationName.length() == 0` can be replaced with 'operationName.isEmpty()'
-in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/feign/http/v9/LoadBalancerHttpClientInterceptor.java`
-#### Snippet
-```java
-            }
-        }
-        if (operationName.length() == 0) {
-            operationName = "/";
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`operationName.length() == 0` can be replaced with 'operationName.isEmpty()'
-in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/feign/http/v9/DefaultHttpClientInterceptor.java`
-#### Snippet
-```java
-            }
-        }
-        if (operationName.length() == 0) {
-            operationName = "/";
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`records.size() > 0` can be replaced with '!records.isEmpty()'
-in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/KafkaConsumerInterceptor.java`
-#### Snippet
-```java
-        // The entry span will only be created when the consumer received at least one message.
-        //
-        if (records.size() > 0) {
-            ConsumerEnhanceRequiredInfo requiredInfo = (ConsumerEnhanceRequiredInfo) objInst.getSkyWalkingDynamicField();
-            KafkaContext context = (KafkaContext) ContextManager.getRuntimeContext().get(Constants.KAFKA_FLAG);
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`header.size() > 0` can be replaced with '!header.isEmpty()'
-in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-webflux-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/DispatcherHandlerHandleMethodInterceptor.java`
-#### Snippet
-```java
-            next = next.next();
-            List<String> header = headers.get(next.getHeadKey());
-            if (header != null && header.size() > 0) {
-                next.setHeadValue(header.get(0));
-            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`method.length() == 0` can be replaced with 'method.isEmpty()'
-in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-client-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jetty/v9/client/SyncHttpRequestSendInterceptor.java`
-#### Snippet
-```java
-        String method = request.getMethod();
-
-        if (method == null || method.length() == 0) {
-            method = "GET";
-        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1068,8 +960,32 @@ in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/ConfigInit
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`socketAddressList.size() > 0` can be replaced with '!socketAddressList.isEmpty()'
+in `apm-sniffer/apm-sdk-plugin/canal-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/canal/CanalInterceptor.java`
+#### Snippet
+```java
+            List<InetSocketAddress> socketAddressList = (List<InetSocketAddress>) ContextManager.getRuntimeContext()
+                                                                                                .get("currentAddress");
+            if (socketAddressList != null && socketAddressList.size() > 0) {
+                for (InetSocketAddress socketAddress : socketAddressList) {
+                    String currentAddress = socketAddress.getAddress().toString() + ":" + socketAddress.getPort();
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`requestPath.length() > 0` can be replaced with '!requestPath.isEmpty()'
+in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v5/HttpClientDoExecuteInterceptor.java`
+#### Snippet
+```java
+        if (isUrl(uri)) {
+            String requestPath = new URL(uri).getPath();
+            return requestPath != null && requestPath.length() > 0 ? requestPath : "/";
+        } else {
+            return uri;
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `header.size() > 0` can be replaced with '!header.isEmpty()'
-in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/GlobalPluginExecuteMethodInterceptor.java`
+in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-webflux-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/DispatcherHandlerHandleMethodInterceptor.java`
 #### Snippet
 ```java
             next = next.next();
@@ -1091,19 +1007,91 @@ in `apm-sniffer/apm-sdk-plugin/cassandra-java-driver-3.x-plugin/src/main/java/or
         }
 ```
 
-## RuleId[ruleID=StringBufferReplaceableByString]
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder requestURL` can be replaced with 'String'
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInterceptor.java`
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`header.size() > 0` can be replaced with '!header.isEmpty()'
+in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/GlobalPluginExecuteMethodInterceptor.java`
 #### Snippet
 ```java
-     */
-    private String generateRequestURL(URL url, Invocation invocation) {
-        StringBuilder requestURL = new StringBuilder();
-        requestURL.append(url.getProtocol() + "://");
-        requestURL.append(url.getHost());
+            next = next.next();
+            List<String> header = headers.get(next.getHeadKey());
+            if (header != null && header.size() > 0) {
+                next.setHeadValue(header.get(0));
+            }
 ```
 
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`method.length() == 0` can be replaced with 'method.isEmpty()'
+in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-client-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jetty/v9/client/SyncHttpRequestSendInterceptor.java`
+#### Snippet
+```java
+        String method = request.getMethod();
+
+        if (method == null || method.length() == 0) {
+            method = "GET";
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`requestPath.length() > 0` can be replaced with '!requestPath.isEmpty()'
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-webflux-5.x-webclient-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/webclient/WebFluxWebClientInterceptor.java`
+#### Snippet
+```java
+    private String getRequestURIString(URI uri) {
+        String requestPath = uri.getPath();
+        return requestPath != null && requestPath.length() > 0 ? requestPath : "/";
+    }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`prefixMatches.size() == 0` can be replaced with 'prefixMatches.isEmpty()'
+in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/ThreadingConfig.java`
+#### Snippet
+```java
+        }
+
+        if (prefixMatches.size() == 0) {
+            return null;
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`records.size() > 0` can be replaced with '!records.isEmpty()'
+in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/KafkaConsumerInterceptor.java`
+#### Snippet
+```java
+        // The entry span will only be created when the consumer received at least one message.
+        //
+        if (records.size() > 0) {
+            ConsumerEnhanceRequiredInfo requiredInfo = (ConsumerEnhanceRequiredInfo) objInst.getSkyWalkingDynamicField();
+            KafkaContext context = (KafkaContext) ContextManager.getRuntimeContext().get(Constants.KAFKA_FLAG);
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`operationName.length() == 0` can be replaced with 'operationName.isEmpty()'
+in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/feign/http/v9/LoadBalancerHttpClientInterceptor.java`
+#### Snippet
+```java
+            }
+        }
+        if (operationName.length() == 0) {
+            operationName = "/";
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`operationName.length() == 0` can be replaced with 'operationName.isEmpty()'
+in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/feign/http/v9/DefaultHttpClientInterceptor.java`
+#### Snippet
+```java
+            }
+        }
+        if (operationName.length() == 0) {
+            operationName = "/";
+        }
+```
+
+## RuleId[ruleID=StringBufferReplaceableByString]
 ### RuleId[ruleID=StringBufferReplaceableByString]
 `StringBuilder` can be replaced with 'String'
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/dynamic/ConfigurationDiscoveryService.java`
@@ -1117,51 +1105,39 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder buff` can be replaced with 'String'
-in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v5/HttpClientDoExecuteInterceptor.java`
+`StringBuilder` can be replaced with 'String'
+in `apm-sniffer/apm-sdk-plugin/motan-plugin/src/main/java/org/apache/skywalking/apm/plugin/motan/MotanConsumerInterceptor.java`
 #### Snippet
 ```java
-            return uri;
-        } else {
-            StringBuilder buff = new StringBuilder();
-            buff.append(httpHost.getSchemeName().toLowerCase());
-            buff.append("://");
+     */
+    private static String generateOperationName(URL serviceURI, Request request) {
+        return new StringBuilder(serviceURI.getPath()).append(".")
+                                                      .append(request.getMethodName())
+                                                      .append("(")
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder operationName` can be replaced with 'String'
-in `apm-sniffer/apm-sdk-plugin/baidu-brpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc/ClientInterceptor.java`
+`StringBuilder viewPoint` can be replaced with 'String'
+in `apm-sniffer/apm-sdk-plugin/motan-plugin/src/main/java/org/apache/skywalking/apm/plugin/motan/MotanProviderInterceptor.java`
 #### Snippet
 ```java
 
-    private String generateOperationName(Request request) {
-        StringBuilder operationName = new StringBuilder();
-        operationName.append(request.getServiceName() + "." + request.getMethodName());
-        return operationName.toString();
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder operationName` can be replaced with 'String'
-in `apm-sniffer/apm-sdk-plugin/baidu-brpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc/ServerInterceptor.java`
-#### Snippet
-```java
-
-    private static String generateOperationName(Request request) {
-        StringBuilder operationName = new StringBuilder(request.getServiceName());
-        operationName.append(".").append(request.getMethodName());
-        return operationName.toString();
+    private static String generateViewPoint(Request request) {
+        StringBuilder viewPoint = new StringBuilder(request.getInterfaceName());
+        viewPoint.append("." + request.getMethodName());
+        viewPoint.append("(" + request.getParamtersDesc() + ")");
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
 `StringBuilder requestURL` can be replaced with 'String'
-in `apm-sniffer/apm-sdk-plugin/sofarpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/sofarpc/SofaRpcConsumerInterceptor.java`
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInterceptor.java`
 #### Snippet
 ```java
      */
-    private String generateRequestURL(ProviderInfo providerInfo, SofaRequest sofaRequest) {
+    private String generateRequestURL(URL url, Invocation invocation) {
         StringBuilder requestURL = new StringBuilder();
-        requestURL.append(providerInfo.getProtocolType()).append("://");
-        requestURL.append(providerInfo.getHost());
+        requestURL.append(url.getProtocol() + "://");
+        requestURL.append(url.getHost());
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -1178,18 +1154,6 @@ in `apm-sniffer/apm-sdk-plugin/httpClient-4.x-plugin/src/main/java/org/apache/sk
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
 `StringBuilder requestURL` can be replaced with 'String'
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInterceptor.java`
-#### Snippet
-```java
-     */
-    private String generateRequestURL(URL url, Invocation invocation) {
-        StringBuilder requestURL = new StringBuilder();
-        requestURL.append(url.getProtocol() + "://");
-        requestURL.append(url.getHost());
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder requestURL` can be replaced with 'String'
 in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInterceptor.java`
 #### Snippet
 ```java
@@ -1201,27 +1165,51 @@ in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder viewPoint` can be replaced with 'String'
-in `apm-sniffer/apm-sdk-plugin/motan-plugin/src/main/java/org/apache/skywalking/apm/plugin/motan/MotanProviderInterceptor.java`
+`StringBuilder buff` can be replaced with 'String'
+in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v5/HttpClientDoExecuteInterceptor.java`
 #### Snippet
 ```java
-
-    private static String generateViewPoint(Request request) {
-        StringBuilder viewPoint = new StringBuilder(request.getInterfaceName());
-        viewPoint.append("." + request.getMethodName());
-        viewPoint.append("(" + request.getParamtersDesc() + ")");
+            return uri;
+        } else {
+            StringBuilder buff = new StringBuilder();
+            buff.append(httpHost.getSchemeName().toLowerCase());
+            buff.append("://");
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder` can be replaced with 'String'
-in `apm-sniffer/apm-sdk-plugin/motan-plugin/src/main/java/org/apache/skywalking/apm/plugin/motan/MotanConsumerInterceptor.java`
+`StringBuilder operationName` can be replaced with 'String'
+in `apm-sniffer/apm-sdk-plugin/baidu-brpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc/ServerInterceptor.java`
+#### Snippet
+```java
+
+    private static String generateOperationName(Request request) {
+        StringBuilder operationName = new StringBuilder(request.getServiceName());
+        operationName.append(".").append(request.getMethodName());
+        return operationName.toString();
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder operationName` can be replaced with 'String'
+in `apm-sniffer/apm-sdk-plugin/baidu-brpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc/ClientInterceptor.java`
+#### Snippet
+```java
+
+    private String generateOperationName(Request request) {
+        StringBuilder operationName = new StringBuilder();
+        operationName.append(request.getServiceName() + "." + request.getMethodName());
+        return operationName.toString();
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder requestURL` can be replaced with 'String'
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInterceptor.java`
 #### Snippet
 ```java
      */
-    private static String generateOperationName(URL serviceURI, Request request) {
-        return new StringBuilder(serviceURI.getPath()).append(".")
-                                                      .append(request.getMethodName())
-                                                      .append("(")
+    private String generateRequestURL(URL url, Invocation invocation) {
+        StringBuilder requestURL = new StringBuilder();
+        requestURL.append(url.getProtocol() + "://");
+        requestURL.append(url.getHost());
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -1248,6 +1236,18 @@ in `apm-sniffer/apm-sdk-plugin/baidu-brpc-3.x-plugin/src/main/java/org/apache/sk
         return operationName.toString();
 ```
 
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder requestURL` can be replaced with 'String'
+in `apm-sniffer/apm-sdk-plugin/sofarpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/sofarpc/SofaRpcConsumerInterceptor.java`
+#### Snippet
+```java
+     */
+    private String generateRequestURL(ProviderInfo providerInfo, SofaRequest sofaRequest) {
+        StringBuilder requestURL = new StringBuilder();
+        requestURL.append(providerInfo.getProtocolType()).append("://");
+        requestURL.append(providerInfo.getHost());
+```
+
 ## RuleId[ruleID=UnnecessaryReturn]
 ### RuleId[ruleID=UnnecessaryReturn]
 `return` is unnecessary as the last statement in a 'void' method
@@ -1263,11 +1263,11 @@ in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/
 
 ### RuleId[ruleID=UnnecessaryReturn]
 `return` is unnecessary as the last statement in a 'void' method
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/interceptor/TransportActionNodeProxyExecuteMethodsInterceptor.java`
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/interceptor/AdapterActionFutureActionGetMethodsInterceptor.java`
 #### Snippet
 ```java
-        if (request instanceof DeleteIndexRequest) {
-            parseDeleteIndexRequest((DeleteIndexRequest) request, span);
+        if (response instanceof DeleteResponse) {
+            parseDeleteResponse((DeleteResponse) response, span);
             return;
         }
     }
@@ -1275,11 +1275,11 @@ in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache
 
 ### RuleId[ruleID=UnnecessaryReturn]
 `return` is unnecessary as the last statement in a 'void' method
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/interceptor/AdapterActionFutureActionGetMethodsInterceptor.java`
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/interceptor/TransportActionNodeProxyExecuteMethodsInterceptor.java`
 #### Snippet
 ```java
-        if (response instanceof DeleteResponse) {
-            parseDeleteResponse((DeleteResponse) response, span);
+        if (request instanceof DeleteIndexRequest) {
+            parseDeleteIndexRequest((DeleteIndexRequest) request, span);
             return;
         }
     }
@@ -1297,7 +1297,116 @@ in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache
     }
 ```
 
+## RuleId[ruleID=ManualMinMaxCalculation]
+### RuleId[ruleID=ManualMinMaxCalculation]
+Can be replaced with 'Math.max()' call
+in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingTimer.java`
+#### Snippet
+```java
+        this.counter = MeterBuilder.buildCounter(meterId.copyTo(baseName + "_count", MeterId.MeterType.COUNTER), config);
+        this.sum = MeterBuilder.buildCounter(meterId.copyTo(baseName + "_sum", MeterId.MeterType.COUNTER), config);
+        this.maxAdder = new DoubleAccumulator((a, b) -> a > b ? a : b, 0.000);
+        this.max = MeterFactory.gauge(meterId.copyTo(baseName + "_max", MeterId.MeterType.GAUGE),
+            () -> maxAdder.doubleValue()).build();
+```
+
+### RuleId[ruleID=ManualMinMaxCalculation]
+Can be replaced with 'Math.max()' call
+in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingDistributionSummary.java`
+#### Snippet
+```java
+        this.counter = MeterBuilder.buildCounter(meterId.copyTo(baseName + "_count", MeterId.MeterType.COUNTER), config);
+        this.sum = MeterBuilder.buildCounter(meterId.copyTo(baseName + "_sum", MeterId.MeterType.COUNTER), config);
+        this.maxAdder = new DoubleAccumulator((a, b) -> a > b ? a : b, 0.000);
+        this.max = MeterFactory.gauge(meterId.copyTo(baseName + "_max", MeterId.MeterType.GAUGE),
+            () -> maxAdder.doubleValue()).build();
+```
+
+### RuleId[ruleID=ManualMinMaxCalculation]
+Can be replaced with 'Math.max()' call
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/define/StatementEnhanceInfos.java`
+#### Snippet
+```java
+
+    public void setParameter(int index, final Object parameter) {
+        maxIndex = maxIndex > index ? maxIndex : index;
+        index--; // start from 1
+        if (parameters == null) {
+```
+
 ## RuleId[ruleID=FinalStaticMethod]
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
+#### Snippet
+```java
+    }
+
+    private static final String toQueryString(SolrParams params) {
+        final StringBuilder sb = new StringBuilder(128);
+        boolean first = true;
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
+#### Snippet
+```java
+    }
+
+    private static final SolrParams getParams(SolrParams params) {
+        if (params == null) {
+            return new ModifiableSolrParams();
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
+#### Snippet
+```java
+    }
+
+    private static final String getCollection(SolrjInstance instance, Object argument) {
+        if (null == argument) {
+            return instance.getCollection();
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
+#### Snippet
+```java
+    }
+
+    private static final String getOperatorNameWithAction(String collection, String path, String action) {
+        return "solrJ/" + collection + path + "/" + action;
+    }
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
+#### Snippet
+```java
+    }
+
+    private static final AbstractSpan getSpan(String operatorName, String remotePeer) {
+        return ContextManager.createExitSpan(operatorName, remotePeer)
+                             .setComponent(ComponentsDefine.SOLRJ)
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
+#### Snippet
+```java
+    }
+
+    private static final String getOperatorName(String collection, String path) {
+        return "solrJ/" + collection + path;
+    }
+```
+
 ### RuleId[ruleID=FinalStaticMethod]
 'static' method declared `final`
 in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/commons/ReflectionUtils.java`
@@ -1320,78 +1429,6 @@ public class ReflectionUtils {
     public static final void setValue(Class klass, Object instance, String name, Object value) throws NoSuchFieldException, IllegalAccessException {
         Field field = klass.getDeclaredField(name);
         field.setAccessible(true);
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
-#### Snippet
-```java
-    }
-
-    private static final String getOperatorName(String collection, String path) {
-        return "solrJ/" + collection + path;
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
-#### Snippet
-```java
-    }
-
-    private static final SolrParams getParams(SolrParams params) {
-        if (params == null) {
-            return new ModifiableSolrParams();
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
-#### Snippet
-```java
-    }
-
-    private static final AbstractSpan getSpan(String operatorName, String remotePeer) {
-        return ContextManager.createExitSpan(operatorName, remotePeer)
-                             .setComponent(ComponentsDefine.SOLRJ)
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
-#### Snippet
-```java
-    }
-
-    private static final String toQueryString(SolrParams params) {
-        final StringBuilder sb = new StringBuilder(128);
-        boolean first = true;
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
-#### Snippet
-```java
-    }
-
-    private static final String getOperatorNameWithAction(String collection, String path, String action) {
-        return "solrJ/" + collection + path + "/" + action;
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
-#### Snippet
-```java
-    }
-
-    private static final String getCollection(SolrjInstance instance, Object argument) {
-        if (null == argument) {
-            return instance.getCollection();
 ```
 
 ## RuleId[ruleID=TrivialStringConcatenation]
@@ -1419,114 +1456,17 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
                 Base64.encode(this.getParentServiceInstance()),
 ```
 
-## RuleId[ruleID=ManualMinMaxCalculation]
-### RuleId[ruleID=ManualMinMaxCalculation]
-Can be replaced with 'Math.max()' call
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/define/StatementEnhanceInfos.java`
-#### Snippet
-```java
-
-    public void setParameter(int index, final Object parameter) {
-        maxIndex = maxIndex > index ? maxIndex : index;
-        index--; // start from 1
-        if (parameters == null) {
-```
-
-### RuleId[ruleID=ManualMinMaxCalculation]
-Can be replaced with 'Math.max()' call
-in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingDistributionSummary.java`
-#### Snippet
-```java
-        this.counter = MeterBuilder.buildCounter(meterId.copyTo(baseName + "_count", MeterId.MeterType.COUNTER), config);
-        this.sum = MeterBuilder.buildCounter(meterId.copyTo(baseName + "_sum", MeterId.MeterType.COUNTER), config);
-        this.maxAdder = new DoubleAccumulator((a, b) -> a > b ? a : b, 0.000);
-        this.max = MeterFactory.gauge(meterId.copyTo(baseName + "_max", MeterId.MeterType.GAUGE),
-            () -> maxAdder.doubleValue()).build();
-```
-
-### RuleId[ruleID=ManualMinMaxCalculation]
-Can be replaced with 'Math.max()' call
-in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingTimer.java`
-#### Snippet
-```java
-        this.counter = MeterBuilder.buildCounter(meterId.copyTo(baseName + "_count", MeterId.MeterType.COUNTER), config);
-        this.sum = MeterBuilder.buildCounter(meterId.copyTo(baseName + "_sum", MeterId.MeterType.COUNTER), config);
-        this.maxAdder = new DoubleAccumulator((a, b) -> a > b ? a : b, 0.000);
-        this.max = MeterFactory.gauge(meterId.copyTo(baseName + "_max", MeterId.MeterType.GAUGE),
-            () -> maxAdder.doubleValue()).build();
-```
-
 ## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/buffer/ArrayBlockingQueueBuffer.java`
+Can generalize to `? extends V`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/async-annotation-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/async/SWCallable.java`
 #### Snippet
 ```java
+    private ContextSnapshot snapshot;
 
-    @Override
-    public void obtain(List<T> consumeList) {
-        queue.drainTo(consumeList);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/buffer/Buffer.java`
-#### Snippet
-```java
-    }
-
-    void obtain(List<T> consumeList, int start, int end) {
-        for (int i = start; i < end; i++) {
-            if (buffer[i] != null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ConsumerPool`
-in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/consumer/ConsumerPoolFactory.java`
-#### Snippet
-```java
-    }
-
-    public synchronized boolean createIfAbsent(String poolName, Callable<ConsumerPool> creator) throws Exception {
-        if (pools.containsKey(poolName)) {
-            return false;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/buffer/Channels.java`
-#### Snippet
-```java
-    }
-
-    public void setPartitioner(IDataPartitioner<T> dataPartitioner) {
-        this.dataPartitioner = dataPartitioner;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/buffer/Channels.java`
-#### Snippet
-```java
-    private final long size;
-
-    public Channels(int channelSize, int bufferSize, IDataPartitioner<T> partitioner, BufferStrategy strategy) {
-        this.dataPartitioner = partitioner;
-        this.strategy = strategy;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Signal`
-in `apm-application-toolkit/apm-toolkit-webflux/src/main/java/org/apache/skywalking/apm/toolkit/webflux/WebFluxSkyWalkingOperators.java`
-#### Snippet
-```java
-     * @return consumer of a signal
-     */
-    public static Consumer<Signal> continueTracing(SignalType signalType, Consumer<Signal> consumer) {
-        return signal -> {
-            if (signalType != signal.getType()) {
+    SWCallable(Callable<V> callable, ContextSnapshot snapshot) {
+        this.callable = callable;
+        this.snapshot = snapshot;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1558,6 +1498,18 @@ Can generalize to `? super String`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bootstrap/BootstrapInstrumentBoost.java`
 #### Snippet
 ```java
+     * @param className     to load
+     */
+    private static void loadHighPriorityClass(Map<String, byte[]> loadedTypeMap,
+        String className) throws PluginException {
+        byte[] enhancedInstanceClassFile;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bootstrap/BootstrapInstrumentBoost.java`
+#### Snippet
+```java
      *                          pre-defined in SkyWalking agent core.
      */
     private static void generateDelegator(Map<String, byte[]> classesTypeMap, TypePool typePool,
@@ -1566,15 +1518,51 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bootstrap/BootstrapInstrumentBoost.java`
+Can generalize to `? super T`
+in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/buffer/ArrayBlockingQueueBuffer.java`
 #### Snippet
 ```java
-     * @param className     to load
-     */
-    private static void loadHighPriorityClass(Map<String, byte[]> loadedTypeMap,
-        String className) throws PluginException {
-        byte[] enhancedInstanceClassFile;
+
+    @Override
+    public void obtain(List<T> consumeList) {
+        queue.drainTo(consumeList);
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/buffer/Buffer.java`
+#### Snippet
+```java
+    }
+
+    void obtain(List<T> consumeList, int start, int end) {
+        for (int i = start; i < end; i++) {
+            if (buffer[i] != null) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/buffer/Channels.java`
+#### Snippet
+```java
+    }
+
+    public void setPartitioner(IDataPartitioner<T> dataPartitioner) {
+        this.dataPartitioner = dataPartitioner;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/buffer/Channels.java`
+#### Snippet
+```java
+    private final long size;
+
+    public Channels(int channelSize, int bufferSize, IDataPartitioner<T> partitioner, BufferStrategy strategy) {
+        this.dataPartitioner = partitioner;
+        this.strategy = strategy;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1602,8 +1590,56 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ConsumerPool`
+in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/consumer/ConsumerPoolFactory.java`
+#### Snippet
+```java
+    }
+
+    public synchronized boolean createIfAbsent(String poolName, Callable<ConsumerPool> creator) throws Exception {
+        if (pools.containsKey(poolName)) {
+            return false;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Signal`
+in `apm-application-toolkit/apm-toolkit-webflux/src/main/java/org/apache/skywalking/apm/toolkit/webflux/WebFluxSkyWalkingOperators.java`
+#### Snippet
+```java
+     * @return consumer of a signal
+     */
+    public static Consumer<Signal> continueTracing(SignalType signalType, Consumer<Signal> consumer) {
+        return signal -> {
+            if (signalType != signal.getType()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `apm-sniffer/apm-sdk-plugin/hystrix-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hystrix/v1/SWHystrixConcurrencyStrategyWrapper.java`
+#### Snippet
+```java
+        private final Callable<T> target;
+
+        WrappedCallable(RuntimeContextSnapshot contextSnapshot, Callable<T> target) {
+            this.contextSnapshot = contextSnapshot;
+            this.target = target;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/wrapper/HttpAsyncResponseConsumerWrapper.java`
+#### Snippet
+```java
+    private HttpAsyncResponseConsumer<T> consumer;
+
+    public HttpAsyncResponseConsumerWrapper(HttpAsyncResponseConsumer<T> consumer) {
+        this.consumer = consumer;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super T`
-in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v5/wrapper/FutureCallbackWrapper.java`
+in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/wrapper/FutureCallbackWrapper.java`
 #### Snippet
 ```java
     private FutureCallback<T> callback;
@@ -1614,15 +1650,27 @@ in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/sk
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AbstractSpan`
-in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-client-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/client/MicronautCommons.java`
+Can generalize to `? super String`
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
 #### Snippet
 ```java
     }
 
-    static void finish(MutableHttpRequest<?> request, Consumer<AbstractSpan> action) {
-        try {
-            request.getAttribute(SPAN_KEY)
+    private AbstractSpan toExitAsyncSpan(Context context, BiConsumer<String, String> headers,
+                                         ContextCarrier contextCarrier, AbstractSpan span) {
+        ContextManager.inject(contextCarrier);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
+#### Snippet
+```java
+    }
+
+    private AbstractSpan toExitAsyncSpan(Context context, BiConsumer<String, String> headers,
+                                         ContextCarrier contextCarrier, AbstractSpan span) {
+        ContextManager.inject(contextCarrier);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1638,51 +1686,63 @@ in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
+Can generalize to `? super AbstractSpan`
+in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-client-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/client/MicronautCommons.java`
 #### Snippet
 ```java
     }
 
-    private AbstractSpan toExitAsyncSpan(Context context, BiConsumer<String, String> headers,
-                                         ContextCarrier contextCarrier, AbstractSpan span) {
-        ContextManager.inject(contextCarrier);
+    static void finish(MutableHttpRequest<?> request, Consumer<AbstractSpan> action) {
+        try {
+            request.getAttribute(SPAN_KEY)
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super String`
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
+in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/StringUtil.java`
 #### Snippet
 ```java
     }
 
-    private AbstractSpan toExitAsyncSpan(Context context, BiConsumer<String, String> headers,
-                                         ContextCarrier contextCarrier, AbstractSpan span) {
-        ContextManager.inject(contextCarrier);
+    public static void setIfPresent(String value, Consumer<String> setter) {
+        if (isNotEmpty(value)) {
+            setter.accept(value);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ILoggingEvent`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/log/GRPCLogAppenderInterceptor.java`
+Can generalize to `? super String`
+in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/PropertyPlaceholderHelper.java`
 #### Snippet
 ```java
+
+    protected String parseStringValue(String value, PlaceholderResolver placeholderResolver,
+                                      Set<String> visitedPlaceholders) {
+
+        StringBuilder result = new StringBuilder(value);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends AsyncProcessFunction`
+in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/wrapper/AsyncContext.java`
+#### Snippet
+```java
+    private final Map<String, AsyncProcessFunction> processMapView;
+
+    public AsyncContext(Map<String, AsyncProcessFunction> processMapView) {
+        this.processMapView = processMapView;
     }
-
-    private String transformLogText(final OutputStreamAppender<ILoggingEvent> appender, final ILoggingEvent event) {
-        if (ToolkitConfig.Plugin.Toolkit.Log.TRANSMIT_FORMATTED) {
-            return new String(appender.getEncoder().encode(event));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/async-annotation-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/async/SWCallable.java`
+Can generalize to `? extends ProcessFunction`
+in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/wrapper/Context.java`
 #### Snippet
 ```java
-    private ContextSnapshot snapshot;
+    private final Map<String, ProcessFunction> processMapView;
 
-    SWCallable(Callable<V> callable, ContextSnapshot snapshot) {
-        this.callable = callable;
-        this.snapshot = snapshot;
+    public Context(Map<String, ProcessFunction> processMapView) {
+        this.processMapView = processMapView;
+    }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1690,22 +1750,10 @@ Can generalize to `? super String`
 in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/MethodConfiguration.java`
 #### Snippet
 ```java
-
-    @SuppressWarnings("unchecked")
-    static void addTag(Map<String, Object> configuration, String key, String value) {
-        Map<String, String> tags = (Map<String, String>) configuration.get(Constants.CONFIGURATION_ATTRIBUTE_TAGS);
-        if (tags == null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/MethodConfiguration.java`
-#### Snippet
-```java
     }
 
-    static void setArguments(Map<String, Object> configuration, String[] arguments) {
-        configuration.put(Constants.CONFIGURATION_ATTRIBUTE_ARGUMENTS, arguments);
+    static void setStatic(Map<String, Object> configuration, Boolean isStatic) {
+        configuration.put(Constants.CONFIGURATION_ATTRIBUTE_IS_STATIC, isStatic);
     }
 ```
 
@@ -1738,11 +1786,35 @@ Can generalize to `? super String`
 in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/MethodConfiguration.java`
 #### Snippet
 ```java
+
+    @SuppressWarnings("unchecked")
+    static void addTag(Map<String, Object> configuration, String key, String value) {
+        Map<String, String> tags = (Map<String, String>) configuration.get(Constants.CONFIGURATION_ATTRIBUTE_TAGS);
+        if (tags == null) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/MethodConfiguration.java`
+#### Snippet
+```java
     }
 
-    static void setMethodName(Map<String, Object> configuration, String methodName) {
-        configuration.put(Constants.CONFIGURATION_ATTRIBUTE_METHOD_NAME, methodName);
+    static void setArguments(Map<String, Object> configuration, String[] arguments) {
+        configuration.put(Constants.CONFIGURATION_ATTRIBUTE_ARGUMENTS, arguments);
     }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/MethodConfiguration.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("unchecked")
+    static void addOperationNameSuffixes(Map<String, Object> configuration, String suffix) {
+        List<String> suffixes = (List<String>) configuration.get(Constants.CONFIGURATION_ATTRIBUTE_OPERATION_NAME_SUFFIXES);
+        if (suffixes == null) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1764,33 +1836,21 @@ in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apac
 ```java
     }
 
+    static void setMethodName(Map<String, Object> configuration, String methodName) {
+        configuration.put(Constants.CONFIGURATION_ATTRIBUTE_METHOD_NAME, methodName);
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/MethodConfiguration.java`
+#### Snippet
+```java
+    }
+
     static void setMethod(Map<String, Object> configuration, String method) {
         configuration.put(Constants.CONFIGURATION_ATTRIBUTE_METHOD, method);
     }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/MethodConfiguration.java`
-#### Snippet
-```java
-    }
-
-    static void setStatic(Map<String, Object> configuration, Boolean isStatic) {
-        configuration.put(Constants.CONFIGURATION_ATTRIBUTE_IS_STATIC, isStatic);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/MethodConfiguration.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unchecked")
-    static void addOperationNameSuffixes(Map<String, Object> configuration, String suffix) {
-        List<String> suffixes = (List<String>) configuration.get(Constants.CONFIGURATION_ATTRIBUTE_OPERATION_NAME_SUFFIXES);
-        if (suffixes == null) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1854,20 +1914,20 @@ in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-4.x-plugin/src/main/java/org/
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `apm-application-toolkit/apm-toolkit-trace/src/main/java/org/apache/skywalking/apm/toolkit/trace/CallableWrapper.java`
+Can generalize to `? super ILoggingEvent`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/log/GRPCLogAppenderInterceptor.java`
 #### Snippet
 ```java
     }
 
-    public CallableWrapper(Callable<V> callable) {
-        this.callable = callable;
-    }
+    private String transformLogText(final OutputStreamAppender<ILoggingEvent> appender, final ILoggingEvent event) {
+        if (ToolkitConfig.Plugin.Toolkit.Log.TRANSMIT_FORMATTED) {
+            return new String(appender.getEncoder().encode(event));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super T`
-in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/wrapper/FutureCallbackWrapper.java`
+in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v5/wrapper/FutureCallbackWrapper.java`
 #### Snippet
 ```java
     private FutureCallback<T> callback;
@@ -1886,6 +1946,30 @@ in `apm-application-toolkit/apm-toolkit-trace/src/main/java/org/apache/skywalkin
 
     public ConsumerWrapper(Consumer<V> consumer) {
         this.consumer = consumer;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `apm-application-toolkit/apm-toolkit-trace/src/main/java/org/apache/skywalking/apm/toolkit/trace/CallableWrapper.java`
+#### Snippet
+```java
+    }
+
+    public CallableWrapper(Callable<V> callable) {
+        this.callable = callable;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `apm-application-toolkit/apm-toolkit-trace/src/main/java/org/apache/skywalking/apm/toolkit/trace/SupplierWrapper.java`
+#### Snippet
+```java
+    }
+
+    public SupplierWrapper(Supplier<V> supplier) {
+        this.supplier = supplier;
     }
 ```
 
@@ -1913,271 +1997,7 @@ in `apm-application-toolkit/apm-toolkit-trace/src/main/java/org/apache/skywalkin
     }
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `apm-application-toolkit/apm-toolkit-trace/src/main/java/org/apache/skywalking/apm/toolkit/trace/SupplierWrapper.java`
-#### Snippet
-```java
-    }
-
-    public SupplierWrapper(Supplier<V> supplier) {
-        this.supplier = supplier;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/wrapper/HttpAsyncResponseConsumerWrapper.java`
-#### Snippet
-```java
-    private HttpAsyncResponseConsumer<T> consumer;
-
-    public HttpAsyncResponseConsumerWrapper(HttpAsyncResponseConsumer<T> consumer) {
-        this.consumer = consumer;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `apm-sniffer/apm-sdk-plugin/hystrix-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hystrix/v1/SWHystrixConcurrencyStrategyWrapper.java`
-#### Snippet
-```java
-        private final Callable<T> target;
-
-        WrappedCallable(RuntimeContextSnapshot contextSnapshot, Callable<T> target) {
-            this.contextSnapshot = contextSnapshot;
-            this.target = target;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends AsyncProcessFunction`
-in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/wrapper/AsyncContext.java`
-#### Snippet
-```java
-    private final Map<String, AsyncProcessFunction> processMapView;
-
-    public AsyncContext(Map<String, AsyncProcessFunction> processMapView) {
-        this.processMapView = processMapView;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ProcessFunction`
-in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/wrapper/Context.java`
-#### Snippet
-```java
-    private final Map<String, ProcessFunction> processMapView;
-
-    public Context(Map<String, ProcessFunction> processMapView) {
-        this.processMapView = processMapView;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/StringUtil.java`
-#### Snippet
-```java
-    }
-
-    public static void setIfPresent(String value, Consumer<String> setter) {
-        if (isNotEmpty(value)) {
-            setter.accept(value);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/PropertyPlaceholderHelper.java`
-#### Snippet
-```java
-
-    protected String parseStringValue(String value, PlaceholderResolver placeholderResolver,
-                                      Set<String> visitedPlaceholders) {
-
-        StringBuilder result = new StringBuilder(value);
-```
-
 ## RuleId[ruleID=MissortedModifiers]
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/UnmanagedTransactionInstrumentation.java`
-#### Snippet
-```java
-    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
-    private final static String TRANSACTION_RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.TransactionRunInterceptor";
-    private final static String RUN_RX_METHOD_NAME = "runRx";
-
-    @Override
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/UnmanagedTransactionInstrumentation.java`
-#### Snippet
-```java
-public class UnmanagedTransactionInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
-
-    private final static String ENHANCED_CLASS = "org.neo4j.driver.internal.async.UnmanagedTransaction";
-    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
-    private final static String TRANSACTION_RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.TransactionRunInterceptor";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/UnmanagedTransactionInstrumentation.java`
-#### Snippet
-```java
-
-    private final static String ENHANCED_CLASS = "org.neo4j.driver.internal.async.UnmanagedTransaction";
-    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
-    private final static String TRANSACTION_RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.TransactionRunInterceptor";
-    private final static String RUN_RX_METHOD_NAME = "runRx";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/UnmanagedTransactionInstrumentation.java`
-#### Snippet
-```java
-    private final static String ENHANCED_CLASS = "org.neo4j.driver.internal.async.UnmanagedTransaction";
-    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
-    private final static String TRANSACTION_RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.TransactionRunInterceptor";
-    private final static String RUN_RX_METHOD_NAME = "runRx";
-
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
-#### Snippet
-```java
-    private final static String BEGIN_TRANSACTION_METHOD_NAME = "beginTransactionAsync";
-    private final static String BEGIN_TRANSACTION_ARGUMENT_TYPE = "org.neo4j.driver.AccessMode";
-    private final static String BEGIN_TRANSACTION_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionBeginTransactionInterceptor";
-
-    @Override
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
-#### Snippet
-```java
-    private final static String ACQUIRE_CONNECTION_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionAcquireConnectionInterceptor";
-    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionConstructorInterceptor";
-    private final static String CONSTRUCTOR_ARGUMENT_TYPE = "org.neo4j.driver.internal.DatabaseName";
-    private final static String BEGIN_TRANSACTION_METHOD_NAME = "beginTransactionAsync";
-    private final static String BEGIN_TRANSACTION_ARGUMENT_TYPE = "org.neo4j.driver.AccessMode";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
-#### Snippet
-```java
-    private final static String RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionRunInterceptor";
-    private final static String RUN_RX_METHOD_NAME = "runRx";
-    private final static String ACQUIRE_CONNECTION_METHOD_NAME = "acquireConnection";
-    private final static String ACQUIRE_CONNECTION_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionAcquireConnectionInterceptor";
-    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionConstructorInterceptor";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
-#### Snippet
-```java
-    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
-    private final static String RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionRunInterceptor";
-    private final static String RUN_RX_METHOD_NAME = "runRx";
-    private final static String ACQUIRE_CONNECTION_METHOD_NAME = "acquireConnection";
-    private final static String ACQUIRE_CONNECTION_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionAcquireConnectionInterceptor";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
-#### Snippet
-```java
-    private final static String ACQUIRE_CONNECTION_METHOD_NAME = "acquireConnection";
-    private final static String ACQUIRE_CONNECTION_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionAcquireConnectionInterceptor";
-    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionConstructorInterceptor";
-    private final static String CONSTRUCTOR_ARGUMENT_TYPE = "org.neo4j.driver.internal.DatabaseName";
-    private final static String BEGIN_TRANSACTION_METHOD_NAME = "beginTransactionAsync";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
-#### Snippet
-```java
-    private final static String ENHANCED_CLASS = "org.neo4j.driver.internal.async.NetworkSession";
-    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
-    private final static String RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionRunInterceptor";
-    private final static String RUN_RX_METHOD_NAME = "runRx";
-    private final static String ACQUIRE_CONNECTION_METHOD_NAME = "acquireConnection";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
-#### Snippet
-```java
-
-    private final static String ENHANCED_CLASS = "org.neo4j.driver.internal.async.NetworkSession";
-    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
-    private final static String RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionRunInterceptor";
-    private final static String RUN_RX_METHOD_NAME = "runRx";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
-#### Snippet
-```java
-    private final static String CONSTRUCTOR_ARGUMENT_TYPE = "org.neo4j.driver.internal.DatabaseName";
-    private final static String BEGIN_TRANSACTION_METHOD_NAME = "beginTransactionAsync";
-    private final static String BEGIN_TRANSACTION_ARGUMENT_TYPE = "org.neo4j.driver.AccessMode";
-    private final static String BEGIN_TRANSACTION_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionBeginTransactionInterceptor";
-
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
-#### Snippet
-```java
-    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionConstructorInterceptor";
-    private final static String CONSTRUCTOR_ARGUMENT_TYPE = "org.neo4j.driver.internal.DatabaseName";
-    private final static String BEGIN_TRANSACTION_METHOD_NAME = "beginTransactionAsync";
-    private final static String BEGIN_TRANSACTION_ARGUMENT_TYPE = "org.neo4j.driver.AccessMode";
-    private final static String BEGIN_TRANSACTION_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionBeginTransactionInterceptor";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
-#### Snippet
-```java
-    private final static String RUN_RX_METHOD_NAME = "runRx";
-    private final static String ACQUIRE_CONNECTION_METHOD_NAME = "acquireConnection";
-    private final static String ACQUIRE_CONNECTION_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionAcquireConnectionInterceptor";
-    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionConstructorInterceptor";
-    private final static String CONSTRUCTOR_ARGUMENT_TYPE = "org.neo4j.driver.internal.DatabaseName";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
-#### Snippet
-```java
-public class NetworkSessionInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
-
-    private final static String ENHANCED_CLASS = "org.neo4j.driver.internal.async.NetworkSession";
-    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
-    private final static String RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionRunInterceptor";
-```
-
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `volatile static`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
@@ -2228,50 +2048,26 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/guava-eventbus-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/eventbus/define/EventBusSubscriberInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/Constants.java`
 #### Snippet
 ```java
-public class EventBusSubscriberInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
 
-    private final static String ENHANCE_CLASS = "com.google.common.eventbus.Subscriber";
-    private final static String INVOKE_METHOD_NAME = "invokeSubscriberMethod";
-    private final static String INVOKE_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberInterceptor";
+    public final static String SKYWALKING_CONTEXT_SNAPSHOT = "skywalking-context-snapshot";
+    public final static String SKYWALKING_HTTP_CONTEXT = "skywalking-http-context";
+}
+
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/guava-eventbus-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/eventbus/define/EventBusSubscriberInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/Constants.java`
 #### Snippet
 ```java
+    public final static ThreadLocal<HttpContext> HTTP_CONTEXT_LOCAL = new ThreadLocal<>();
 
-    private final static String ENHANCE_CLASS = "com.google.common.eventbus.Subscriber";
-    private final static String INVOKE_METHOD_NAME = "invokeSubscriberMethod";
-    private final static String INVOKE_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberInterceptor";
-    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberConstructorInterceptor";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/guava-eventbus-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/eventbus/define/EventBusSubscriberInstrumentation.java`
-#### Snippet
-```java
-    private final static String INVOKE_METHOD_NAME = "invokeSubscriberMethod";
-    private final static String INVOKE_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberInterceptor";
-    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberConstructorInterceptor";
-
-    @Override
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/guava-eventbus-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/eventbus/define/EventBusSubscriberInstrumentation.java`
-#### Snippet
-```java
-    private final static String ENHANCE_CLASS = "com.google.common.eventbus.Subscriber";
-    private final static String INVOKE_METHOD_NAME = "invokeSubscriberMethod";
-    private final static String INVOKE_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberInterceptor";
-    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberConstructorInterceptor";
-
+    public final static String SKYWALKING_CONTEXT_SNAPSHOT = "skywalking-context-snapshot";
+    public final static String SKYWALKING_HTTP_CONTEXT = "skywalking-http-context";
+}
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -2284,30 +2080,6 @@ public class Constants {
     public final static ThreadLocal<HttpContext> HTTP_CONTEXT_LOCAL = new ThreadLocal<>();
 
     public final static String SKYWALKING_CONTEXT_SNAPSHOT = "skywalking-context-snapshot";
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/Constants.java`
-#### Snippet
-```java
-    public final static ThreadLocal<HttpContext> HTTP_CONTEXT_LOCAL = new ThreadLocal<>();
-
-    public final static String SKYWALKING_CONTEXT_SNAPSHOT = "skywalking-context-snapshot";
-    public final static String SKYWALKING_HTTP_CONTEXT = "skywalking-http-context";
-}
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/Constants.java`
-#### Snippet
-```java
-
-    public final static String SKYWALKING_CONTEXT_SNAPSHOT = "skywalking-context-snapshot";
-    public final static String SKYWALKING_HTTP_CONTEXT = "skywalking-http-context";
-}
-
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -2339,11 +2111,11 @@ Missorted modifiers `final static`
 in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/define/ConnectionInstrumentation.java`
 #### Snippet
 ```java
+    private final static String INIT_CONNECTION_METHOD_NAME = "initConnection";
     private final static String INIT_CONNECTION_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.clickhouse.InitConnectionMethodInterceptor";
     private final static String CREATE_CLICKHOUSE_STATEMENT_METHOD_NAME = "createClickHouseStatement";
     private final static String CREATE_CLICKHOUSE_STATEMENT_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.clickhouse.ClickHouseStatementMethodInterceptor";
 
-    @Override
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -2351,11 +2123,11 @@ Missorted modifiers `final static`
 in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/define/ConnectionInstrumentation.java`
 #### Snippet
 ```java
-    private final static String INIT_CONNECTION_METHOD_NAME = "initConnection";
     private final static String INIT_CONNECTION_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.clickhouse.InitConnectionMethodInterceptor";
     private final static String CREATE_CLICKHOUSE_STATEMENT_METHOD_NAME = "createClickHouseStatement";
     private final static String CREATE_CLICKHOUSE_STATEMENT_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.clickhouse.ClickHouseStatementMethodInterceptor";
 
+    @Override
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -2375,11 +2147,11 @@ Missorted modifiers `abstract protected`
 in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/AbstractInterceptor.java`
 #### Snippet
 ```java
-                                             Class<?>[] argumentsTypes, MethodInterceptResult result) throws Throwable;
-
-    abstract protected Object afterMethodImpl(EnhancedInstance objInst, Method method, Object[] allArguments,
                                               Class<?>[] argumentsTypes, Object ret) throws Throwable;
 
+    abstract protected void handleMethodExceptionImpl(EnhancedInstance objInst, Method method, Object[] allArguments,
+                                                      Class<?>[] argumentsTypes, Throwable t);
+}
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -2399,10 +2171,10 @@ Missorted modifiers `abstract protected`
 in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/AbstractInterceptor.java`
 #### Snippet
 ```java
-    abstract protected void onConstructImpl(EnhancedInstance objInst, Object[] allArguments);
-
-    abstract protected void beforeMethodImpl(EnhancedInstance objInst, Method method, Object[] allArguments,
                                              Class<?>[] argumentsTypes, MethodInterceptResult result) throws Throwable;
+
+    abstract protected Object afterMethodImpl(EnhancedInstance objInst, Method method, Object[] allArguments,
+                                              Class<?>[] argumentsTypes, Object ret) throws Throwable;
 
 ```
 
@@ -2411,11 +2183,23 @@ Missorted modifiers `abstract protected`
 in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/AbstractInterceptor.java`
 #### Snippet
 ```java
-                                              Class<?>[] argumentsTypes, Object ret) throws Throwable;
+    abstract protected void onConstructImpl(EnhancedInstance objInst, Object[] allArguments);
 
-    abstract protected void handleMethodExceptionImpl(EnhancedInstance objInst, Method method, Object[] allArguments,
-                                                      Class<?>[] argumentsTypes, Throwable t);
-}
+    abstract protected void beforeMethodImpl(EnhancedInstance objInst, Method method, Object[] allArguments,
+                                             Class<?>[] argumentsTypes, MethodInterceptResult result) throws Throwable;
+
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `static abstract`
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
+#### Snippet
+```java
+    }
+
+    static abstract class AbstractContextHolder<S> extends ContextHolder {
+
+        final Local<S> local;
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -2431,15 +2215,231 @@ in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/sk
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `static abstract`
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/guava-eventbus-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/eventbus/define/EventBusSubscriberInstrumentation.java`
 #### Snippet
 ```java
-    }
+    private final static String INVOKE_METHOD_NAME = "invokeSubscriberMethod";
+    private final static String INVOKE_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberInterceptor";
+    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberConstructorInterceptor";
 
-    static abstract class AbstractContextHolder<S> extends ContextHolder {
+    @Override
+```
 
-        final Local<S> local;
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/guava-eventbus-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/eventbus/define/EventBusSubscriberInstrumentation.java`
+#### Snippet
+```java
+public class EventBusSubscriberInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
+
+    private final static String ENHANCE_CLASS = "com.google.common.eventbus.Subscriber";
+    private final static String INVOKE_METHOD_NAME = "invokeSubscriberMethod";
+    private final static String INVOKE_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberInterceptor";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/guava-eventbus-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/eventbus/define/EventBusSubscriberInstrumentation.java`
+#### Snippet
+```java
+
+    private final static String ENHANCE_CLASS = "com.google.common.eventbus.Subscriber";
+    private final static String INVOKE_METHOD_NAME = "invokeSubscriberMethod";
+    private final static String INVOKE_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberInterceptor";
+    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberConstructorInterceptor";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/guava-eventbus-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/eventbus/define/EventBusSubscriberInstrumentation.java`
+#### Snippet
+```java
+    private final static String ENHANCE_CLASS = "com.google.common.eventbus.Subscriber";
+    private final static String INVOKE_METHOD_NAME = "invokeSubscriberMethod";
+    private final static String INVOKE_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberInterceptor";
+    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.guava.eventbus.EventBusSubscriberConstructorInterceptor";
+
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
+#### Snippet
+```java
+    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionConstructorInterceptor";
+    private final static String CONSTRUCTOR_ARGUMENT_TYPE = "org.neo4j.driver.internal.DatabaseName";
+    private final static String BEGIN_TRANSACTION_METHOD_NAME = "beginTransactionAsync";
+    private final static String BEGIN_TRANSACTION_ARGUMENT_TYPE = "org.neo4j.driver.AccessMode";
+    private final static String BEGIN_TRANSACTION_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionBeginTransactionInterceptor";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
+#### Snippet
+```java
+    private final static String BEGIN_TRANSACTION_METHOD_NAME = "beginTransactionAsync";
+    private final static String BEGIN_TRANSACTION_ARGUMENT_TYPE = "org.neo4j.driver.AccessMode";
+    private final static String BEGIN_TRANSACTION_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionBeginTransactionInterceptor";
+
+    @Override
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
+#### Snippet
+```java
+    private final static String CONSTRUCTOR_ARGUMENT_TYPE = "org.neo4j.driver.internal.DatabaseName";
+    private final static String BEGIN_TRANSACTION_METHOD_NAME = "beginTransactionAsync";
+    private final static String BEGIN_TRANSACTION_ARGUMENT_TYPE = "org.neo4j.driver.AccessMode";
+    private final static String BEGIN_TRANSACTION_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionBeginTransactionInterceptor";
+
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/UnmanagedTransactionInstrumentation.java`
+#### Snippet
+```java
+    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
+    private final static String TRANSACTION_RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.TransactionRunInterceptor";
+    private final static String RUN_RX_METHOD_NAME = "runRx";
+
+    @Override
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
+#### Snippet
+```java
+    private final static String ENHANCED_CLASS = "org.neo4j.driver.internal.async.NetworkSession";
+    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
+    private final static String RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionRunInterceptor";
+    private final static String RUN_RX_METHOD_NAME = "runRx";
+    private final static String ACQUIRE_CONNECTION_METHOD_NAME = "acquireConnection";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
+#### Snippet
+```java
+
+    private final static String ENHANCED_CLASS = "org.neo4j.driver.internal.async.NetworkSession";
+    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
+    private final static String RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionRunInterceptor";
+    private final static String RUN_RX_METHOD_NAME = "runRx";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/UnmanagedTransactionInstrumentation.java`
+#### Snippet
+```java
+
+    private final static String ENHANCED_CLASS = "org.neo4j.driver.internal.async.UnmanagedTransaction";
+    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
+    private final static String TRANSACTION_RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.TransactionRunInterceptor";
+    private final static String RUN_RX_METHOD_NAME = "runRx";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
+#### Snippet
+```java
+    private final static String RUN_RX_METHOD_NAME = "runRx";
+    private final static String ACQUIRE_CONNECTION_METHOD_NAME = "acquireConnection";
+    private final static String ACQUIRE_CONNECTION_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionAcquireConnectionInterceptor";
+    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionConstructorInterceptor";
+    private final static String CONSTRUCTOR_ARGUMENT_TYPE = "org.neo4j.driver.internal.DatabaseName";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/UnmanagedTransactionInstrumentation.java`
+#### Snippet
+```java
+public class UnmanagedTransactionInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
+
+    private final static String ENHANCED_CLASS = "org.neo4j.driver.internal.async.UnmanagedTransaction";
+    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
+    private final static String TRANSACTION_RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.TransactionRunInterceptor";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
+#### Snippet
+```java
+    private final static String RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionRunInterceptor";
+    private final static String RUN_RX_METHOD_NAME = "runRx";
+    private final static String ACQUIRE_CONNECTION_METHOD_NAME = "acquireConnection";
+    private final static String ACQUIRE_CONNECTION_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionAcquireConnectionInterceptor";
+    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionConstructorInterceptor";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
+#### Snippet
+```java
+    private final static String ACQUIRE_CONNECTION_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionAcquireConnectionInterceptor";
+    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionConstructorInterceptor";
+    private final static String CONSTRUCTOR_ARGUMENT_TYPE = "org.neo4j.driver.internal.DatabaseName";
+    private final static String BEGIN_TRANSACTION_METHOD_NAME = "beginTransactionAsync";
+    private final static String BEGIN_TRANSACTION_ARGUMENT_TYPE = "org.neo4j.driver.AccessMode";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
+#### Snippet
+```java
+    private final static String ACQUIRE_CONNECTION_METHOD_NAME = "acquireConnection";
+    private final static String ACQUIRE_CONNECTION_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionAcquireConnectionInterceptor";
+    private final static String CONSTRUCTOR_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionConstructorInterceptor";
+    private final static String CONSTRUCTOR_ARGUMENT_TYPE = "org.neo4j.driver.internal.DatabaseName";
+    private final static String BEGIN_TRANSACTION_METHOD_NAME = "beginTransactionAsync";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
+#### Snippet
+```java
+public class NetworkSessionInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
+
+    private final static String ENHANCED_CLASS = "org.neo4j.driver.internal.async.NetworkSession";
+    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
+    private final static String RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionRunInterceptor";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/NetworkSessionInstrumentation.java`
+#### Snippet
+```java
+    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
+    private final static String RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionRunInterceptor";
+    private final static String RUN_RX_METHOD_NAME = "runRx";
+    private final static String ACQUIRE_CONNECTION_METHOD_NAME = "acquireConnection";
+    private final static String ACQUIRE_CONNECTION_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.SessionAcquireConnectionInterceptor";
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/UnmanagedTransactionInstrumentation.java`
+#### Snippet
+```java
+    private final static String ENHANCED_CLASS = "org.neo4j.driver.internal.async.UnmanagedTransaction";
+    private final static String RUN_ASYNC_METHOD_NAME = "runAsync";
+    private final static String TRANSACTION_RUN_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.neo4j.v4x.TransactionRunInterceptor";
+    private final static String RUN_RX_METHOD_NAME = "runRx";
+
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -2481,18 +2481,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=AnonymousHasLambdaAlternative]
-Anonymous new ThreadLocal\>\>() can be replaced with ThreadLocal.withInitial()
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
-#### Snippet
-```java
-            this.local = getLocal(context, localFieldName);
-            this.initContext = getInitContext(context);
-            this.snapshots = new ThreadLocal<LinkedList<Snapshot<S>>>() {
-                @Override
-                protected LinkedList<Snapshot<S>> initialValue() {
-```
-
-### RuleId[ruleID=AnonymousHasLambdaAlternative]
 Anonymous new ThreadLocal() can be replaced with ThreadLocal.withInitial()
 in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/CodecUtils.java`
 #### Snippet
@@ -2502,6 +2490,18 @@ in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/sk
     private static ThreadLocal<ByteArrayOutputStream> REUSED_BOS = new ThreadLocal<ByteArrayOutputStream>() {
         @Override
         protected ByteArrayOutputStream initialValue() {
+```
+
+### RuleId[ruleID=AnonymousHasLambdaAlternative]
+Anonymous new ThreadLocal\>\>() can be replaced with ThreadLocal.withInitial()
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
+#### Snippet
+```java
+            this.local = getLocal(context, localFieldName);
+            this.initContext = getInitContext(context);
+            this.snapshots = new ThreadLocal<LinkedList<Snapshot<S>>>() {
+                @Override
+                protected LinkedList<Snapshot<S>> initialValue() {
 ```
 
 ## RuleId[ruleID=InstanceofIncompatibleInterface]
@@ -2583,6 +2583,18 @@ Result of `File.mkdirs()` is ignored
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bytebuddy/CacheableTransformerDecorator.java`
 #### Snippet
 ```java
+        public void putClassCache(ClassLoader loader, String className, byte[] classfileBuffer) {
+            File cacheFile = getCacheFile(loader, className);
+            cacheFile.getParentFile().mkdirs();
+            FileOutputStream output = null;
+            try {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `File.mkdirs()` is ignored
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bytebuddy/CacheableTransformerDecorator.java`
+#### Snippet
+```java
             File cacheDir = new File(cacheDirBase + "/class-cache-" + RandomString.make());
             if (!cacheDir.exists()) {
                 cacheDir.mkdirs();
@@ -2591,15 +2603,15 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.mkdirs()` is ignored
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bytebuddy/CacheableTransformerDecorator.java`
+Result of `File.delete()` is ignored
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/FileWriter.java`
 #### Snippet
 ```java
-        public void putClassCache(ClassLoader loader, String className, byte[] classfileBuffer) {
-            File cacheFile = getCacheFile(loader, className);
-            cacheFile.getParentFile().mkdirs();
-            FileOutputStream output = null;
-            try {
+            for (int i = Config.Logging.MAX_HISTORY_FILES; i < historyFileArr.length; i++) {
+                File expiredFile = new File(Config.Logging.DIR, historyFileArr[i]);
+                expiredFile.delete();
+            }
+        }
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -2624,18 +2636,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
             logFilePath.mkdirs();
         } else if (!logFilePath.isDirectory()) {
             System.err.println("Log dir(" + Config.Logging.DIR + ") is not a directory.");
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.delete()` is ignored
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/FileWriter.java`
-#### Snippet
-```java
-            for (int i = Config.Logging.MAX_HISTORY_FILES; i < historyFileArr.length; i++) {
-                File expiredFile = new File(Config.Logging.DIR, historyFileArr[i]);
-                expiredFile.delete();
-            }
-        }
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -2665,15 +2665,15 @@ in `apm-sniffer/optional-plugins/fastjson-1.2.x-plugin/src/main/java/org/apache/
 
 ## RuleId[ruleID=RedundantMethodOverride]
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `boot()` is identical to its super method
-in `apm-sniffer/optional-reporter-plugins/kafka-reporter-plugin/src/main/java/org/apache/skywalking/apm/agent/core/kafka/KafkaJVMMetricsSender.java`
+Method `isBootstrapInstrumentation()` is identical to its super method
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/async/CreateMementoInstrumentation.java`
 #### Snippet
 ```java
 
     @Override
-    public void boot() {
+    public boolean isBootstrapInstrumentation() {
+        return false;
     }
-
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
@@ -2701,111 +2701,15 @@ in `apm-sniffer/optional-reporter-plugins/kafka-reporter-plugin/src/main/java/or
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `shutdown()` only delegates to its super method
-in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
+Method `boot()` is identical to its super method
+in `apm-sniffer/optional-reporter-plugins/kafka-reporter-plugin/src/main/java/org/apache/skywalking/apm/agent/core/kafka/KafkaJVMMetricsSender.java`
 #### Snippet
 ```java
 
     @Override
-    public void shutdown() {
-        super.shutdown();
-    }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
-Method `forceSampled()` only delegates to its super method
-in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
-#### Snippet
-```java
-
-    @Override
-    public void forceSampled() {
-        super.forceSampled();
-    }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
-Method `prepare()` only delegates to its super method
-in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
-#### Snippet
-```java
-
-    @Override
-    public void prepare() {
-        super.prepare();
-    }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
-Method `onComplete()` is identical to its super method
-in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
-#### Snippet
-```java
-
-    @Override
-    public void onComplete() {
+    public void boot() {
     }
 
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
-Method `shutdown()` only delegates to its super method
-in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/org/apache/skywalking/apm/plugin/cpu/policy/TraceSamplerCpuPolicyExtendService.java`
-#### Snippet
-```java
-
-    @Override
-    public void shutdown() {
-        super.shutdown();
-    }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
-Method `forceSampled()` only delegates to its super method
-in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/org/apache/skywalking/apm/plugin/cpu/policy/TraceSamplerCpuPolicyExtendService.java`
-#### Snippet
-```java
-
-    @Override
-    public void forceSampled() {
-        super.forceSampled();
-    }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
-Method `onComplete()` is identical to its super method
-in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/org/apache/skywalking/apm/plugin/cpu/policy/TraceSamplerCpuPolicyExtendService.java`
-#### Snippet
-```java
-
-    @Override
-    public void onComplete() {
-    }
-
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
-Method `prepare()` only delegates to its super method
-in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/org/apache/skywalking/apm/plugin/cpu/policy/TraceSamplerCpuPolicyExtendService.java`
-#### Snippet
-```java
-
-    @Override
-    public void prepare() {
-        super.prepare();
-    }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
-Method `isBootstrapInstrumentation()` is identical to its super method
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/async/CreateMementoInstrumentation.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isBootstrapInstrumentation() {
-        return false;
-    }
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
@@ -2820,19 +2724,103 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-webflux-activation/src/main/j
     }
 ```
 
-## RuleId[ruleID=ClassNameSameAsAncestorName]
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Transformer` is the same as one of its superclass' names
-in `apm-sniffer/apm-agent/src/main/java/org/apache/skywalking/apm/agent/SkyWalkingAgent.java`
+### RuleId[ruleID=RedundantMethodOverride]
+Method `prepare()` only delegates to its super method
+in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/org/apache/skywalking/apm/plugin/cpu/policy/TraceSamplerCpuPolicyExtendService.java`
 #### Snippet
 ```java
-    }
 
-    private static class Transformer implements AgentBuilder.Transformer {
-        private PluginFinder pluginFinder;
+    @Override
+    public void prepare() {
+        super.prepare();
+    }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `shutdown()` only delegates to its super method
+in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/org/apache/skywalking/apm/plugin/cpu/policy/TraceSamplerCpuPolicyExtendService.java`
+#### Snippet
+```java
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
+    }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `forceSampled()` only delegates to its super method
+in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/org/apache/skywalking/apm/plugin/cpu/policy/TraceSamplerCpuPolicyExtendService.java`
+#### Snippet
+```java
+
+    @Override
+    public void forceSampled() {
+        super.forceSampled();
+    }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `onComplete()` is identical to its super method
+in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/org/apache/skywalking/apm/plugin/cpu/policy/TraceSamplerCpuPolicyExtendService.java`
+#### Snippet
+```java
+
+    @Override
+    public void onComplete() {
+    }
 
 ```
 
+### RuleId[ruleID=RedundantMethodOverride]
+Method `prepare()` only delegates to its super method
+in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
+#### Snippet
+```java
+
+    @Override
+    public void prepare() {
+        super.prepare();
+    }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `onComplete()` is identical to its super method
+in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
+#### Snippet
+```java
+
+    @Override
+    public void onComplete() {
+    }
+
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `shutdown()` only delegates to its super method
+in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
+#### Snippet
+```java
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
+    }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `forceSampled()` only delegates to its super method
+in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
+#### Snippet
+```java
+
+    @Override
+    public void forceSampled() {
+        super.forceSampled();
+    }
+```
+
+## RuleId[ruleID=ClassNameSameAsAncestorName]
 ### RuleId[ruleID=ClassNameSameAsAncestorName]
 Class name `Listener` is the same as one of its superclass' names
 in `apm-sniffer/apm-agent/src/main/java/org/apache/skywalking/apm/agent/SkyWalkingAgent.java`
@@ -2846,27 +2834,39 @@ in `apm-sniffer/apm-agent/src/main/java/org/apache/skywalking/apm/agent/SkyWalki
 ```
 
 ### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `ServerWebExchangeInstrumentation` is the same as one of its superclass' names
-in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v3x/define/ServerWebExchangeInstrumentation.java`
+Class name `Transformer` is the same as one of its superclass' names
+in `apm-sniffer/apm-agent/src/main/java/org/apache/skywalking/apm/agent/SkyWalkingAgent.java`
 #### Snippet
 ```java
- * when {@link org.springframework.cloud.gateway.config.GatewayEnvironmentPostProcessor} class is exist.
- */
-public class ServerWebExchangeInstrumentation extends
-        org.apache.skywalking.apm.plugin.spring.webflux.v5.define.ServerWebExchangeInstrumentation {
+    }
+
+    private static class Transformer implements AgentBuilder.Transformer {
+        private PluginFinder pluginFinder;
 
 ```
 
 ### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `DispatcherHandlerInstrumentation` is the same as one of its superclass' names
-in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v3x/define/DispatcherHandlerInstrumentation.java`
+Class name `ClientInterceptor` is the same as one of its superclass' names
+in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/client/ClientInterceptor.java`
 #### Snippet
 ```java
- * class when {@link org.springframework.cloud.gateway.config.GatewayEnvironmentPostProcessor} class is exist
- */
-public class DispatcherHandlerInstrumentation extends
-        org.apache.skywalking.apm.plugin.spring.webflux.v5.define.DispatcherHandlerInstrumentation {
+import io.grpc.MethodDescriptor;
 
+public class ClientInterceptor implements io.grpc.ClientInterceptor {
+
+    @Override
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `ServerInterceptor` is the same as one of its superclass' names
+in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/server/ServerInterceptor.java`
+#### Snippet
+```java
+import org.apache.skywalking.apm.util.StringUtil;
+
+public class ServerInterceptor implements io.grpc.ServerInterceptor {
+    @Override
+    public <REQUEST, RESPONSE> ServerCall.Listener<REQUEST> interceptCall(ServerCall<REQUEST, RESPONSE> call,
 ```
 
 ### RuleId[ruleID=ClassNameSameAsAncestorName]
@@ -2895,6 +2895,42 @@ public class DispatcherHandlerInstrumentation extends org.apache.skywalking.apm.
 
 ### RuleId[ruleID=ClassNameSameAsAncestorName]
 Class name `ServerWebExchangeInstrumentation` is the same as one of its superclass' names
+in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/ServerWebExchangeInstrumentation.java`
+#### Snippet
+```java
+ * we can put the snapshot into the enhanced ServerWebExchange object.
+ */
+public class ServerWebExchangeInstrumentation extends
+        org.apache.skywalking.apm.plugin.spring.webflux.v5.define.ServerWebExchangeInstrumentation {
+
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `ServerWebExchangeInstrumentation` is the same as one of its superclass' names
+in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v3x/define/ServerWebExchangeInstrumentation.java`
+#### Snippet
+```java
+ * when {@link org.springframework.cloud.gateway.config.GatewayEnvironmentPostProcessor} class is exist.
+ */
+public class ServerWebExchangeInstrumentation extends
+        org.apache.skywalking.apm.plugin.spring.webflux.v5.define.ServerWebExchangeInstrumentation {
+
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `DispatcherHandlerInstrumentation` is the same as one of its superclass' names
+in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v3x/define/DispatcherHandlerInstrumentation.java`
+#### Snippet
+```java
+ * class when {@link org.springframework.cloud.gateway.config.GatewayEnvironmentPostProcessor} class is exist
+ */
+public class DispatcherHandlerInstrumentation extends
+        org.apache.skywalking.apm.plugin.spring.webflux.v5.define.DispatcherHandlerInstrumentation {
+
+```
+
+### RuleId[ruleID=ClassNameSameAsAncestorName]
+Class name `ServerWebExchangeInstrumentation` is the same as one of its superclass' names
 in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v21x/define/ServerWebExchangeInstrumentation.java`
 #### Snippet
 ```java
@@ -2917,127 +2953,7 @@ public class DispatcherHandlerInstrumentation extends org.apache.skywalking.apm.
     @Override
 ```
 
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `ServerWebExchangeInstrumentation` is the same as one of its superclass' names
-in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/ServerWebExchangeInstrumentation.java`
-#### Snippet
-```java
- * we can put the snapshot into the enhanced ServerWebExchange object.
- */
-public class ServerWebExchangeInstrumentation extends
-        org.apache.skywalking.apm.plugin.spring.webflux.v5.define.ServerWebExchangeInstrumentation {
-
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `ClientInterceptor` is the same as one of its superclass' names
-in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/client/ClientInterceptor.java`
-#### Snippet
-```java
-import io.grpc.MethodDescriptor;
-
-public class ClientInterceptor implements io.grpc.ClientInterceptor {
-
-    @Override
-```
-
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `ServerInterceptor` is the same as one of its superclass' names
-in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/server/ServerInterceptor.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.util.StringUtil;
-
-public class ServerInterceptor implements io.grpc.ServerInterceptor {
-    @Override
-    public <REQUEST, RESPONSE> ServerCall.Listener<REQUEST> interceptCall(ServerCall<REQUEST, RESPONSE> call,
-```
-
 ## RuleId[ruleID=UnnecessarySuperQualifier]
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `apm-application-toolkit/apm-toolkit-log4j-1.x/src/main/java/org/apache/skywalking/apm/toolkit/log/log4j/v1/x/TraceIdPatternParser.java`
-#### Snippet
-```java
-    protected void finalizeConverter(char c) {
-        if ('T' == c) {
-            String option = super.extractOption();
-            if (option != null && option.equals(SKYWALKING_CONTEXT_OPTION)) {
-                addConverter(new SkyWalkingContextPatternConverter());
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/interceptor/CustomizeStaticInterceptor.java`
-#### Snippet
-```java
-    public void handleMethodException(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes,
-        Throwable t, MethodInvocationContext context) {
-        super.handleMethodException(t);
-    }
-}
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/interceptor/CustomizeStaticInterceptor.java`
-#### Snippet
-```java
-    public Object afterMethod(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes,
-        Object ret, MethodInvocationContext context) {
-        super.afterMethod(method, ret, context);
-        return ret;
-    }
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/interceptor/CustomizeStaticInterceptor.java`
-#### Snippet
-```java
-    public void beforeMethod(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes,
-        MethodInvocationContext context) {
-        super.beforeMethod(method, allArguments, context);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/interceptor/CustomizeInstanceInterceptor.java`
-#### Snippet
-```java
-    public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-        MethodInvocationContext context) throws Throwable {
-        super.beforeMethod(method, allArguments, context);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/interceptor/CustomizeInstanceInterceptor.java`
-#### Snippet
-```java
-    public void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
-        Class<?>[] argumentsTypes, Throwable t, MethodInvocationContext context) {
-        super.handleMethodException(t);
-    }
-}
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/interceptor/CustomizeInstanceInterceptor.java`
-#### Snippet
-```java
-    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-        Object ret, MethodInvocationContext context) throws Throwable {
-        super.afterMethod(method, ret, context);
-        return ret;
-    }
-```
-
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
 in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TraceAnnotationMethodInterceptor.java`
@@ -3079,11 +2995,11 @@ Qualifier `super` is unnecessary in this context
 in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TagAnnotationMethodInterceptor.java`
 #### Snippet
 ```java
-    public void beforeMethod(final EnhancedInstance objInst, final Method method, final Object[] allArguments,
-                             final Class<?>[] argumentsTypes, final MethodInterceptResult result) {
-        super.beforeMethod(method, allArguments);
+    public void handleMethodException(final EnhancedInstance objInst, final Method method, final Object[] allArguments,
+                                      final Class<?>[] argumentsTypes, final Throwable t) {
+        super.handleMethodException(t);
     }
-
+}
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -3091,11 +3007,11 @@ Qualifier `super` is unnecessary in this context
 in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TagAnnotationMethodInterceptor.java`
 #### Snippet
 ```java
-    public void handleMethodException(final EnhancedInstance objInst, final Method method, final Object[] allArguments,
-                                      final Class<?>[] argumentsTypes, final Throwable t) {
-        super.handleMethodException(t);
+    public void beforeMethod(final EnhancedInstance objInst, final Method method, final Object[] allArguments,
+                             final Class<?>[] argumentsTypes, final MethodInterceptResult result) {
+        super.beforeMethod(method, allArguments);
     }
-}
+
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -3112,7 +3028,31 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/jav
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TagAnnotationStaticMethodInterceptor.java`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TraceAnnotationStaticMethodInterceptor.java`
+#### Snippet
+```java
+    public Object afterMethod(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes,
+                              Object ret) {
+        super.afterMethod(method, ret);
+        return ret;
+    }
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TraceAnnotationStaticMethodInterceptor.java`
+#### Snippet
+```java
+    public void handleMethodException(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes,
+                                      Throwable t) {
+        super.handleMethodException(t);
+    }
+}
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TraceAnnotationStaticMethodInterceptor.java`
 #### Snippet
 ```java
     public void beforeMethod(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes,
@@ -3148,19 +3088,7 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/jav
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TraceAnnotationStaticMethodInterceptor.java`
-#### Snippet
-```java
-    public Object afterMethod(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes,
-                              Object ret) {
-        super.afterMethod(method, ret);
-        return ret;
-    }
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TraceAnnotationStaticMethodInterceptor.java`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TagAnnotationStaticMethodInterceptor.java`
 #### Snippet
 ```java
     public void beforeMethod(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes,
@@ -3172,14 +3100,74 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/jav
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TraceAnnotationStaticMethodInterceptor.java`
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/interceptor/CustomizeStaticInterceptor.java`
+#### Snippet
+```java
+    public void beforeMethod(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes,
+        MethodInvocationContext context) {
+        super.beforeMethod(method, allArguments, context);
+    }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/interceptor/CustomizeStaticInterceptor.java`
+#### Snippet
+```java
+    public Object afterMethod(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes,
+        Object ret, MethodInvocationContext context) {
+        super.afterMethod(method, ret, context);
+        return ret;
+    }
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/interceptor/CustomizeStaticInterceptor.java`
 #### Snippet
 ```java
     public void handleMethodException(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes,
-                                      Throwable t) {
+        Throwable t, MethodInvocationContext context) {
         super.handleMethodException(t);
     }
 }
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/interceptor/CustomizeInstanceInterceptor.java`
+#### Snippet
+```java
+    public void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
+        Class<?>[] argumentsTypes, Throwable t, MethodInvocationContext context) {
+        super.handleMethodException(t);
+    }
+}
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/interceptor/CustomizeInstanceInterceptor.java`
+#### Snippet
+```java
+    public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+        MethodInvocationContext context) throws Throwable {
+        super.beforeMethod(method, allArguments, context);
+    }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/interceptor/CustomizeInstanceInterceptor.java`
+#### Snippet
+```java
+    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+        Object ret, MethodInvocationContext context) throws Throwable {
+        super.afterMethod(method, ret, context);
+        return ret;
+    }
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -3290,43 +3278,92 @@ in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking
             return readFieldBegin();
 ```
 
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `apm-application-toolkit/apm-toolkit-log4j-1.x/src/main/java/org/apache/skywalking/apm/toolkit/log/log4j/v1/x/TraceIdPatternParser.java`
+#### Snippet
+```java
+    protected void finalizeConverter(char c) {
+        if ('T' == c) {
+            String option = super.extractOption();
+            if (option != null && option.equals(SKYWALKING_CONTEXT_OPTION)) {
+                addConverter(new SkyWalkingContextPatternConverter());
+```
+
+## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`index = index + this.placeholderSuffix.length()` could be simplified to 'index += this.placeholderSuffix.length()'
+in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/PropertyPlaceholderHelper.java`
+#### Snippet
+```java
+                if (withinNestedPlaceholder > 0) {
+                    withinNestedPlaceholder--;
+                    index = index + this.placeholderSuffix.length();
+                } else {
+                    return index;
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`index = index + this.simplePrefix.length()` could be simplified to 'index += this.simplePrefix.length()'
+in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/PropertyPlaceholderHelper.java`
+#### Snippet
+```java
+            } else if (StringUtil.substringMatch(buf, index, this.simplePrefix)) {
+                withinNestedPlaceholder++;
+                index = index + this.simplePrefix.length();
+            } else {
+                index++;
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`operationName = operationName + "BATCH_EXECUTE"` could be simplified to 'operationName += "BATCH_EXECUTE"'
+in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/RedisConnectionMethodInterceptor.java`
+#### Snippet
+```java
+
+        if (allArguments[0] instanceof CommandsData) {
+            operationName = operationName + "BATCH_EXECUTE";
+            CommandsData commands = (CommandsData) allArguments[0];
+            for (CommandData commandData : commands.getCommands()) {
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`operationName = operationName + command` could be simplified to 'operationName += command'
+in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/RedisConnectionMethodInterceptor.java`
+#### Snippet
+```java
+            CommandData commandData = (CommandData) allArguments[0];
+            String command = commandData.getCommand().getName();
+            operationName = operationName + command;
+            addCommandData(dbStatement, commandData);
+        }
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`operationName = operationName + command` could be simplified to 'operationName += command'
+in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/RedisChannelWriterInterceptor.java`
+#### Snippet
+```java
+            RedisCommand<?, ?, ?> redisCommand = (RedisCommand<?, ?, ?>) allArguments[0];
+            String command = redisCommand.getType().name();
+            operationName = operationName + command;
+            dbStatement.append(command);
+            if (LettucePluginConfig.Plugin.Lettuce.TRACE_REDIS_PARAMETERS) {
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`operationName = operationName + "BATCH_WRITE"` could be simplified to 'operationName += "BATCH_WRITE"'
+in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/RedisChannelWriterInterceptor.java`
+#### Snippet
+```java
+        } else if (allArguments[0] instanceof Collection) {
+            Collection<RedisCommand<?, ?, ?>> redisCommands = (Collection<RedisCommand<?, ?, ?>>) allArguments[0];
+            operationName = operationName + "BATCH_WRITE";
+            for (RedisCommand<?, ?, ?> redisCommand : redisCommands) {
+                dbStatement.append(redisCommand.getType().name()).append(";");
+```
+
 ## RuleId[ruleID=NestedAssignment]
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-            String md = entry.getKey();
-            Method method = (Method) entry.getValue();
-            if ((matcher = ReflectUtils.GETTER_METHOD_DESC_PATTERN.matcher(md)).matches()) {
-                String pn = propertyName(matcher.group(1));
-                c2.append(" if( $2.equals(\"")
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-                  .append("(); }");
-                pts.put(pn, method.getReturnType());
-            } else if ((matcher = ReflectUtils.IS_HAS_CAN_METHOD_DESC_PATTERN.matcher(md)).matches()) {
-                String pn = propertyName(matcher.group(1));
-                c2.append(" if( $2.equals(\"")
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-                  .append("(); }");
-                pts.put(pn, method.getReturnType());
-            } else if ((matcher = ReflectUtils.SETTER_METHOD_DESC_PATTERN.matcher(md)).matches()) {
-                Class<?> pt = method.getParameterTypes()[0];
-                String pn = propertyName(matcher.group(1));
-```
-
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/IOUtils.java`
@@ -3415,42 +3452,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-            String md = entry.getKey();
-            Method method = (Method) entry.getValue();
-            if ((matcher = ReflectUtils.GETTER_METHOD_DESC_PATTERN.matcher(md)).matches()) {
-                String pn = propertyName(matcher.group(1));
-                c2.append(" if( $2.equals(\"")
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-                  .append("(); }");
-                pts.put(pn, method.getReturnType());
-            } else if ((matcher = ReflectUtils.IS_HAS_CAN_METHOD_DESC_PATTERN.matcher(md)).matches()) {
-                String pn = propertyName(matcher.group(1));
-                c2.append(" if( $2.equals(\"")
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-                  .append("(); }");
-                pts.put(pn, method.getReturnType());
-            } else if ((matcher = ReflectUtils.SETTER_METHOD_DESC_PATTERN.matcher(md)).matches()) {
-                Class<?> pt = method.getParameterTypes()[0];
-                String pn = propertyName(matcher.group(1));
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
 in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/patch/MakeWrapperInterceptor.java`
 #### Snippet
 ```java
@@ -3497,92 +3498,79 @@ in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/sk
         }
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`operationName = operationName + command` could be simplified to 'operationName += command'
-in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/RedisChannelWriterInterceptor.java`
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
 #### Snippet
 ```java
-            RedisCommand<?, ?, ?> redisCommand = (RedisCommand<?, ?, ?>) allArguments[0];
-            String command = redisCommand.getType().name();
-            operationName = operationName + command;
-            dbStatement.append(command);
-            if (LettucePluginConfig.Plugin.Lettuce.TRACE_REDIS_PARAMETERS) {
+            String md = entry.getKey();
+            Method method = (Method) entry.getValue();
+            if ((matcher = ReflectUtils.GETTER_METHOD_DESC_PATTERN.matcher(md)).matches()) {
+                String pn = propertyName(matcher.group(1));
+                c2.append(" if( $2.equals(\"")
 ```
 
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`operationName = operationName + "BATCH_WRITE"` could be simplified to 'operationName += "BATCH_WRITE"'
-in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/RedisChannelWriterInterceptor.java`
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
 #### Snippet
 ```java
-        } else if (allArguments[0] instanceof Collection) {
-            Collection<RedisCommand<?, ?, ?>> redisCommands = (Collection<RedisCommand<?, ?, ?>>) allArguments[0];
-            operationName = operationName + "BATCH_WRITE";
-            for (RedisCommand<?, ?, ?> redisCommand : redisCommands) {
-                dbStatement.append(redisCommand.getType().name()).append(";");
+                  .append("(); }");
+                pts.put(pn, method.getReturnType());
+            } else if ((matcher = ReflectUtils.IS_HAS_CAN_METHOD_DESC_PATTERN.matcher(md)).matches()) {
+                String pn = propertyName(matcher.group(1));
+                c2.append(" if( $2.equals(\"")
 ```
 
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`operationName = operationName + "BATCH_EXECUTE"` could be simplified to 'operationName += "BATCH_EXECUTE"'
-in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/RedisConnectionMethodInterceptor.java`
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
 #### Snippet
 ```java
-
-        if (allArguments[0] instanceof CommandsData) {
-            operationName = operationName + "BATCH_EXECUTE";
-            CommandsData commands = (CommandsData) allArguments[0];
-            for (CommandData commandData : commands.getCommands()) {
+                  .append("(); }");
+                pts.put(pn, method.getReturnType());
+            } else if ((matcher = ReflectUtils.SETTER_METHOD_DESC_PATTERN.matcher(md)).matches()) {
+                Class<?> pt = method.getParameterTypes()[0];
+                String pn = propertyName(matcher.group(1));
 ```
 
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`operationName = operationName + command` could be simplified to 'operationName += command'
-in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/RedisConnectionMethodInterceptor.java`
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
 #### Snippet
 ```java
-            CommandData commandData = (CommandData) allArguments[0];
-            String command = commandData.getCommand().getName();
-            operationName = operationName + command;
-            addCommandData(dbStatement, commandData);
-        }
+            String md = entry.getKey();
+            Method method = (Method) entry.getValue();
+            if ((matcher = ReflectUtils.GETTER_METHOD_DESC_PATTERN.matcher(md)).matches()) {
+                String pn = propertyName(matcher.group(1));
+                c2.append(" if( $2.equals(\"")
 ```
 
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`index = index + this.placeholderSuffix.length()` could be simplified to 'index += this.placeholderSuffix.length()'
-in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/PropertyPlaceholderHelper.java`
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
 #### Snippet
 ```java
-                if (withinNestedPlaceholder > 0) {
-                    withinNestedPlaceholder--;
-                    index = index + this.placeholderSuffix.length();
-                } else {
-                    return index;
+                  .append("(); }");
+                pts.put(pn, method.getReturnType());
+            } else if ((matcher = ReflectUtils.IS_HAS_CAN_METHOD_DESC_PATTERN.matcher(md)).matches()) {
+                String pn = propertyName(matcher.group(1));
+                c2.append(" if( $2.equals(\"")
 ```
 
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`index = index + this.simplePrefix.length()` could be simplified to 'index += this.simplePrefix.length()'
-in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/PropertyPlaceholderHelper.java`
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
 #### Snippet
 ```java
-            } else if (StringUtil.substringMatch(buf, index, this.simplePrefix)) {
-                withinNestedPlaceholder++;
-                index = index + this.simplePrefix.length();
-            } else {
-                index++;
+                  .append("(); }");
+                pts.put(pn, method.getReturnType());
+            } else if ((matcher = ReflectUtils.SETTER_METHOD_DESC_PATTERN.matcher(md)).matches()) {
+                Class<?> pt = method.getParameterTypes()[0];
+                String pn = propertyName(matcher.group(1));
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-webflux-5.x-webclient-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/webclient/WebFluxWebClientInterceptor.java`
-#### Snippet
-```java
-                    }
-                }
-            }).doOnError(span::log).doFinally(s -> {
-                span.asyncFinish();
-            });
-```
-
 ### RuleId[ruleID=CodeBlock2Expr]
 Statement lambda can be replaced with expression lambda
 in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/RequestUtil.java`
@@ -3593,6 +3581,18 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/ja
         request.getQueryParams().forEach((key, value) -> {
             parameterMap.put(key, value.toArray(new String[0]));
         });
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-webflux-5.x-webclient-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/webclient/WebFluxWebClientInterceptor.java`
+#### Snippet
+```java
+                    }
+                }
+            }).doOnError(span::log).doFinally(s -> {
+                span.asyncFinish();
+            });
 ```
 
 ## RuleId[ruleID=Lombok]
@@ -3622,18 +3622,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `allConsumers` is accessed in both synchronized and unsynchronized contexts
-in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/consumer/BulkConsumePool.java`
-#### Snippet
-```java
- */
-public class BulkConsumePool implements ConsumerPool {
-    private List<MultipleChannelsConsumer> allConsumers;
-    private volatile boolean isStarted = false;
-
-```
-
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `DEFAULT_LOADER` is accessed in both synchronized and unsynchronized contexts
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/loader/AgentClassLoader.java`
@@ -3695,6 +3683,18 @@ public class FileWriter implements IWriter {
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `allConsumers` is accessed in both synchronized and unsynchronized contexts
+in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/consumer/BulkConsumePool.java`
+#### Snippet
+```java
+ */
+public class BulkConsumePool implements ConsumerPool {
+    private List<MultipleChannelsConsumer> allConsumers;
+    private volatile boolean isStarted = false;
+
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `transportAddressesStr` is accessed in both synchronized and unsynchronized contexts
 in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/TransportAddressCache.java`
 #### Snippet
@@ -3724,11 +3724,11 @@ Call to `Hashtable.put()` on properties object
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/SnifferConfigInitializer.java`
 #### Snippet
 ```java
-                throw new IllegalArgumentException("[" + terms + "] is not a key-value pair.");
+            if (key.startsWith(ENV_KEY_PREFIX)) {
+                String realKey = key.substring(ENV_KEY_PREFIX.length());
+                AGENT_SETTINGS.put(realKey, prop.getValue());
             }
-            AGENT_SETTINGS.put(terms.get(0), terms.get(1));
         }
-    }
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -3736,11 +3736,11 @@ Call to `Hashtable.put()` on properties object
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/SnifferConfigInitializer.java`
 #### Snippet
 ```java
-            if (key.startsWith(ENV_KEY_PREFIX)) {
-                String realKey = key.substring(ENV_KEY_PREFIX.length());
-                AGENT_SETTINGS.put(realKey, prop.getValue());
+                throw new IllegalArgumentException("[" + terms + "] is not a key-value pair.");
             }
+            AGENT_SETTINGS.put(terms.get(0), terms.get(1));
         }
+    }
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -4070,123 +4070,15 @@ in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/o
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/Histogram.java`
-#### Snippet
-```java
-
-    public static class Builder extends BaseBuilder<Builder, Histogram> {
-        private double minValue = 0;
-        private List<Double> steps;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/Neo4jPluginConfig.java`
+in `apm-sniffer/apm-sdk-plugin/tomcat-7.x-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat78x/TomcatPluginConfig.java`
 #### Snippet
 ```java
-             * If set to true, the parameters of the cypher would be collected.
+             * This config item controls that whether the Tomcat plugin should collect the parameters of the request.
              */
-            public static boolean TRACE_CYPHER_PARAMETERS = false;
-            /**
-             * For the sake of performance, SkyWalking won't save the entire parameters string into the tag, but only
-```
+            public static boolean COLLECT_HTTP_PARAMS = false;
+        }
 
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/partition/SimpleRollingPartitioner.java`
-#### Snippet
-```java
-public class SimpleRollingPartitioner<T> implements IDataPartitioner<T> {
-    @SuppressWarnings("NonAtomicVolatileUpdate")
-    private volatile int i = 0;
-
-    @Override
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/consumer/BulkConsumePool.java`
-#### Snippet
-```java
-public class BulkConsumePool implements ConsumerPool {
-    private List<MultipleChannelsConsumer> allConsumers;
-    private volatile boolean isStarted = false;
-
-    public BulkConsumePool(String name, int size, long consumeCycle) {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/LettucePluginConfig.java`
-#### Snippet
-```java
-             * If set to true, the parameters of the Redis command would be collected.
-             */
-            public static boolean TRACE_REDIS_PARAMETERS = false;
-            /**
-             * For the sake of performance, SkyWalking won't save Redis parameter string into the tag.
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/JDBCPluginConfig.java`
-#### Snippet
-```java
-             * collected.
-             */
-            public static volatile boolean TRACE_SQL_PARAMETERS = false;
-            /**
-             * For the sake of performance, SkyWalking won't save the entire parameters string into the tag, but only
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/define/StatementEnhanceInfos.java`
-#### Snippet
-```java
-    private String sql;
-    private Object[] parameters;
-    private int maxIndex = 0;
-
-    public StatementEnhanceInfos(ConnectionInfo connectionInfo, String sql, String statementName) {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboPluginConfig.java`
-#### Snippet
-```java
-        public static class Dubbo {
-
-            public static boolean COLLECT_CONSUMER_ARGUMENTS = false;
-
-            public static int CONSUMER_ARGUMENTS_LENGTH_THRESHOLD = 256;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboPluginConfig.java`
-#### Snippet
-```java
-            public static int CONSUMER_ARGUMENTS_LENGTH_THRESHOLD = 256;
-
-            public static boolean COLLECT_PROVIDER_ARGUMENTS = false;
-
-            public static int PROVIDER_ARGUMENTS_LENGTH_THRESHOLD = 256;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/os/OSUtil.java`
-#### Snippet
-```java
-    private static volatile String HOST_NAME;
-    private static volatile List<String> IPV4_LIST;
-    private static volatile int PROCESS_NO = 0;
-
-    public static String getOsName() {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -4203,14 +4095,50 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/os/OSUtil.java`
+#### Snippet
+```java
+    private static volatile String HOST_NAME;
+    private static volatile List<String> IPV4_LIST;
+    private static volatile int PROCESS_NO = 0;
+
+    public static String getOsName() {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/jvm/gc/GCModule.java`
 #### Snippet
 ```java
+    private long lastOGCCollectionTime = 0;
+    private long lastYGCCollectionTime = 0;
+    private long lastNormalGCCount = 0;
+    private long lastNormalGCTime = 0;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/jvm/gc/GCModule.java`
+#### Snippet
+```java
+
     private long lastOGCCount = 0;
     private long lastYGCCount = 0;
     private long lastOGCCollectionTime = 0;
     private long lastYGCCollectionTime = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/jvm/gc/GCModule.java`
+#### Snippet
+```java
+    private long lastYGCCount = 0;
+    private long lastOGCCollectionTime = 0;
+    private long lastYGCCollectionTime = 0;
     private long lastNormalGCCount = 0;
+    private long lastNormalGCTime = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -4230,11 +4158,11 @@ Field initialization to `0` is redundant
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/jvm/gc/GCModule.java`
 #### Snippet
 ```java
-
     private long lastOGCCount = 0;
     private long lastYGCCount = 0;
     private long lastOGCCollectionTime = 0;
     private long lastYGCCollectionTime = 0;
+    private long lastNormalGCCount = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -4247,30 +4175,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
     private long lastOGCCount = 0;
     private long lastYGCCount = 0;
     private long lastOGCCollectionTime = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/jvm/gc/GCModule.java`
-#### Snippet
-```java
-    private long lastOGCCollectionTime = 0;
-    private long lastYGCCollectionTime = 0;
-    private long lastNormalGCCount = 0;
-    private long lastNormalGCTime = 0;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/jvm/gc/GCModule.java`
-#### Snippet
-```java
-    private long lastYGCCount = 0;
-    private long lastOGCCollectionTime = 0;
-    private long lastYGCCollectionTime = 0;
-    private long lastNormalGCCount = 0;
-    private long lastNormalGCTime = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -4302,6 +4206,18 @@ Field initialization to `false` is redundant
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
 #### Snippet
 ```java
+         * If true, skywalking agent will enable periodically resolving DNS to update receiver service addresses.
+         */
+        public static boolean IS_RESOLVE_DNS_PERIODICALLY = false;
+    }
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
+#### Snippet
+```java
          * mode), allow other javaagent to enhance those classes that enhanced by SkyWalking agent.
          */
         public static boolean IS_CACHE_ENHANCED_CLASS = false;
@@ -4314,23 +4230,11 @@ Field initialization to `false` is redundant
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
 #### Snippet
 ```java
-         * Force open TLS for gRPC channel if true.
+         * may ask for these files in order to resolve compatible problem.
          */
-        public static boolean FORCE_TLS = false;
+        public static boolean IS_OPEN_DEBUGGING_CLASS = false;
 
         /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
-#### Snippet
-```java
-         * If true, skywalking agent will enable periodically resolving DNS to update receiver service addresses.
-         */
-        public static boolean IS_RESOLVE_DNS_PERIODICALLY = false;
-    }
-
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -4350,11 +4254,23 @@ Field initialization to `false` is redundant
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
 #### Snippet
 ```java
-         * may ask for these files in order to resolve compatible problem.
+         * Force open TLS for gRPC channel if true.
          */
-        public static boolean IS_OPEN_DEBUGGING_CLASS = false;
+        public static boolean FORCE_TLS = false;
 
         /**
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/meter/Histogram.java`
+#### Snippet
+```java
+
+    public static class Builder extends AbstractBuilder<Builder, Histogram> {
+        private double minValue = 0;
+        private List<Double> steps;
+
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -4379,18 +4295,6 @@ public class EnhanceContext {
     private boolean isEnhanced = false;
     /**
      * The object has already been enhanced or extended. e.g. added the new field, or implemented the new interface
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/meter/Histogram.java`
-#### Snippet
-```java
-
-    public static class Builder extends AbstractBuilder<Builder, Histogram> {
-        private double minValue = 0;
-        private List<Double> steps;
-
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -4466,18 +4370,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/TracingContext.java`
-#### Snippet
-```java
-public class TracingContext implements AbstractTracerContext {
-    private static final ILog LOGGER = LogManager.getLogger(TracingContext.class);
-    private long lastWarningTimestamp = 0;
-
-    /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/TracingContext.java`
 #### Snippet
@@ -4485,6 +4377,18 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
      * @since 8.10.0 replace the removed "firstSpan"(before 8.10.0) reference. see {@link PrimaryEndpoint} for more details.
      */
     private PrimaryEndpoint primaryEndpoint = null;
+
+    /**
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/TracingContext.java`
+#### Snippet
+```java
+public class TracingContext implements AbstractTracerContext {
+    private static final ILog LOGGER = LogManager.getLogger(TracingContext.class);
+    private long lastWarningTimestamp = 0;
 
     /**
 ```
@@ -4514,18 +4418,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/trace/AbstractTracingSpan.java`
-#### Snippet
-```java
-    protected boolean errorOccurred = false;
-
-    protected int componentId = 0;
-
-    /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/trace/AbstractTracingSpan.java`
 #### Snippet
@@ -4533,6 +4425,18 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
      * The flag represents whether the span has been async stopped
      */
     private volatile boolean isAsyncStopped = false;
+
+    /**
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/trace/AbstractTracingSpan.java`
+#### Snippet
+```java
+    protected boolean errorOccurred = false;
+
+    protected int componentId = 0;
 
     /**
 ```
@@ -4574,39 +4478,27 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-application-toolkit/apm-toolkit-logback-1.x/src/main/java/org/apache/skywalking/apm/toolkit/log/logback/v1/x/mdc/LogbackMDCPatternConverter.java`
+Field initialization to `0` is redundant
+in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/partition/SimpleRollingPartitioner.java`
 #### Snippet
 ```java
-
-    private boolean convert4TID = false;
-    private boolean convert4SWCTX = false;
+public class SimpleRollingPartitioner<T> implements IDataPartitioner<T> {
+    @SuppressWarnings("NonAtomicVolatileUpdate")
+    private volatile int i = 0;
 
     @Override
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `apm-application-toolkit/apm-toolkit-logback-1.x/src/main/java/org/apache/skywalking/apm/toolkit/log/logback/v1/x/mdc/LogbackMDCPatternConverter.java`
+in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/consumer/BulkConsumePool.java`
 #### Snippet
 ```java
-    private static final String CONVERT_SKYWALKING_CONTEXT_KEY = "sw_ctx";
+public class BulkConsumePool implements ConsumerPool {
+    private List<MultipleChannelsConsumer> allConsumers;
+    private volatile boolean isStarted = false;
 
-    private boolean convert4TID = false;
-    private boolean convert4SWCTX = false;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-client-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/client/MicronautHttpClientPluginConfig.java`
-#### Snippet
-```java
-             * This config item controls that whether the HttpClient plugin should collect the parameters of the request.
-             */
-            public static boolean COLLECT_HTTP_PARAMS = false;
-        }
-
+    public BulkConsumePool(String name, int size, long consumeCycle) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -4623,86 +4515,26 @@ in `apm-sniffer/apm-sdk-plugin/mongodb-4.x-plugin/src/main/java/org/apache/skywa
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/org/apache/skywalking/apm/plugin/cpu/policy/TraceSamplerCpuPolicyExtendService.java`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/ToolkitPluginConfig.java`
 #### Snippet
 ```java
-    private static final ILog LOGGER = LogManager.getLogger(TraceSamplerCpuPolicyExtendService.class);
-
-    private volatile boolean cpuUsagePercentLimitOn = false;
-    private volatile JVMService jvmService;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/RedissonPluginConfig.java`
-#### Snippet
-```java
-             * If set to true, the parameters of the Redis command would be collected.
+             * operation name, default is false.
              */
-            public static boolean TRACE_REDIS_PARAMETERS = false;
-            /**
-             * For the sake of performance, SkyWalking won't save Redis parameter string into the tag.
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/kafka-commons/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/KafkaContext.java`
-#### Snippet
-```java
+            public static boolean USE_QUALIFIED_NAME_AS_OPERATION_NAME = false;
+        }
     }
-
-    private boolean needStop = false;
-
-    private String operationName;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/tomcat-7.x-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat78x/TomcatPluginConfig.java`
+in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-tx-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/transaction/SpringTXPluginConfig.java`
 #### Snippet
 ```java
-             * This config item controls that whether the Tomcat plugin should collect the parameters of the request.
+             * If true, the transaction definition name will be simplified
              */
-            public static boolean COLLECT_HTTP_PARAMS = false;
+            public static boolean SIMPLIFY_TRANSACTION_DEFINITION_NAME = false;
         }
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/ElasticsearchPluginConfig.java`
-#### Snippet
-```java
-             * If true, trace all the DSL(Domain Specific Language) in ElasticSearch access, default is false.
-             */
-            public static boolean TRACE_DSL = false;
-
-            public static int ELASTICSEARCH_DSL_LENGTH_THRESHOLD = 1024;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/tomcat-10x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat10x/TomcatPluginConfig.java`
-#### Snippet
-```java
-             * This config item controls that whether the Tomcat plugin should collect the parameters of the request.
-             */
-            public static boolean COLLECT_HTTP_PARAMS = false;
-        }
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/httpclient-commons/src/main/java/org/apache/skywalking/apm/plugin/httpclient/HttpClientPluginConfig.java`
-#### Snippet
-```java
-             * This config item controls that whether the HttpClient plugin should collect the parameters of the request.
-             */
-            public static boolean COLLECT_HTTP_PARAMS = false;
-        }
-
+    }
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -4731,42 +4563,6 @@ in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywa
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/SpringMVCPluginConfig.java`
-#### Snippet
-```java
-             * default is false.
-             */
-            public static boolean USE_QUALIFIED_NAME_AS_ENDPOINT_NAME = false;
-
-            /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/SpringMVCPluginConfig.java`
-#### Snippet
-```java
-             * request.
-             */
-            public static boolean COLLECT_HTTP_PARAMS = false;
-        }
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/ToolkitPluginConfig.java`
-#### Snippet
-```java
-             * operation name, default is false.
-             */
-            public static boolean USE_QUALIFIED_NAME_AS_OPERATION_NAME = false;
-        }
-    }
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
 in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/concurrent/match/EitherInterfaceMatch.java`
 #### Snippet
 ```java
@@ -4791,58 +4587,34 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/mai
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/feign/http/v9/FeignPluginConfig.java`
+in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrJPluginConfig.java`
 #### Snippet
 ```java
-             * This config item controls that whether the Feign plugin should collect the http body of the request.
+             * default is false.
              */
-            public static boolean COLLECT_REQUEST_BODY = false;
+            public static boolean TRACE_STATEMENT = false;
 
             /**
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v7/ElasticsearchPluginConfig.java`
+in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrJPluginConfig.java`
 #### Snippet
 ```java
-             * If true, trace all the DSL(Domain Specific Language) in ElasticSearch access, default is false
+             * If true, trace all the operation parameters in Solr request, default is false.
              */
-            public static boolean TRACE_DSL = false;
-
-            public static int ELASTICSEARCH_DSL_LENGTH_THRESHOLD = 1024;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/apache/skywalking/apm/plugin/light4j/Light4JPluginConfig.java`
-#### Snippet
-```java
-             * generating a local span for each.
-             */
-            public static boolean TRACE_HANDLER_CHAIN = false;
+            public static boolean TRACE_OPS_PARAMS = false;
         }
     }
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v3/MongoPluginConfig.java`
+in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-client-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/client/MicronautHttpClientPluginConfig.java`
 #### Snippet
 ```java
-             * include parameters.
-             */
-            public static boolean TRACE_PARAM = false;
-
-            /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/server/MicronautHttpServerPluginConfig.java`
-#### Snippet
-```java
-             * This config item controls that whether the Http plugin should collect the parameters of the request.
+             * This config item controls that whether the HttpClient plugin should collect the parameters of the request.
              */
             public static boolean COLLECT_HTTP_PARAMS = false;
         }
@@ -4850,75 +4622,27 @@ in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/sr
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/TBaseAsyncProcessorInterceptor.java`
+Field initialization to `false` is redundant
+in `apm-application-toolkit/apm-toolkit-logback-1.x/src/main/java/org/apache/skywalking/apm/toolkit/log/logback/v1/x/mdc/LogbackMDCPatternConverter.java`
 #### Snippet
 ```java
- */
-public class TBaseAsyncProcessorInterceptor implements InstanceConstructorInterceptor, InstanceMethodsAroundInterceptor {
-    private Map<String, AsyncProcessFunction> processMapView = null;
+
+    private boolean convert4TID = false;
+    private boolean convert4SWCTX = false;
 
     @Override
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0L` is redundant
-in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/wrapper/AbstractContext.java`
-#### Snippet
-```java
-public abstract class AbstractContext {
-    public String methodName;
-    public long startTime = 0L;
-
-    public abstract String getArguments();
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v5/ElasticsearchPluginConfig.java`
+in `apm-application-toolkit/apm-toolkit-logback-1.x/src/main/java/org/apache/skywalking/apm/toolkit/log/logback/v1/x/mdc/LogbackMDCPatternConverter.java`
 #### Snippet
 ```java
-             * If true, trace all the DSL(Domain Specific Language) in ElasticSearch access, default is false.
-             */
-            public static boolean TRACE_DSL = false;
+    private static final String CONVERT_SKYWALKING_CONTEXT_KEY = "sw_ctx";
 
-            public static int ELASTICSEARCH_DSL_LENGTH_THRESHOLD = 1024;
-```
+    private boolean convert4TID = false;
+    private boolean convert4SWCTX = false;
 
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/FinagleCtxs.java`
-#### Snippet
-```java
-class FinagleCtxs {
-
-    static LocalContext.Key<AbstractSpan> SW_SPAN = null;
-
-    static LocalContext.Key<String> PEER_HOST = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/FinagleCtxs.java`
-#### Snippet
-```java
-    static LocalContext.Key<AbstractSpan> SW_SPAN = null;
-
-    static LocalContext.Key<String> PEER_HOST = null;
-
-    static {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-tx-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/transaction/SpringTXPluginConfig.java`
-#### Snippet
-```java
-             * If true, the transaction definition name will be simplified
-             */
-            public static boolean SIMPLIFY_TRANSACTION_DEFINITION_NAME = false;
-        }
-    }
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -4958,27 +4682,303 @@ in `apm-application-toolkit/apm-toolkit-opentracing/src/main/java/org/apache/sky
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrJPluginConfig.java`
+Field initialization to `0` is redundant
+in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/Histogram.java`
 #### Snippet
 ```java
-             * If true, trace all the operation parameters in Solr request, default is false.
+
+    public static class Builder extends BaseBuilder<Builder, Histogram> {
+        private double minValue = 0;
+        private List<Double> steps;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/TBaseAsyncProcessorInterceptor.java`
+#### Snippet
+```java
+ */
+public class TBaseAsyncProcessorInterceptor implements InstanceConstructorInterceptor, InstanceMethodsAroundInterceptor {
+    private Map<String, AsyncProcessFunction> processMapView = null;
+
+    @Override
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0L` is redundant
+in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/wrapper/AbstractContext.java`
+#### Snippet
+```java
+public abstract class AbstractContext {
+    public String methodName;
+    public long startTime = 0L;
+
+    public abstract String getArguments();
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/SpringMVCPluginConfig.java`
+#### Snippet
+```java
+             * request.
              */
-            public static boolean TRACE_OPS_PARAMS = false;
+            public static boolean COLLECT_HTTP_PARAMS = false;
+        }
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/SpringMVCPluginConfig.java`
+#### Snippet
+```java
+             * default is false.
+             */
+            public static boolean USE_QUALIFIED_NAME_AS_ENDPOINT_NAME = false;
+
+            /**
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/FinagleCtxs.java`
+#### Snippet
+```java
+    static LocalContext.Key<AbstractSpan> SW_SPAN = null;
+
+    static LocalContext.Key<String> PEER_HOST = null;
+
+    static {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/FinagleCtxs.java`
+#### Snippet
+```java
+class FinagleCtxs {
+
+    static LocalContext.Key<AbstractSpan> SW_SPAN = null;
+
+    static LocalContext.Key<String> PEER_HOST = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v3/MongoPluginConfig.java`
+#### Snippet
+```java
+             * include parameters.
+             */
+            public static boolean TRACE_PARAM = false;
+
+            /**
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/apache/skywalking/apm/plugin/light4j/Light4JPluginConfig.java`
+#### Snippet
+```java
+             * generating a local span for each.
+             */
+            public static boolean TRACE_HANDLER_CHAIN = false;
         }
     }
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrJPluginConfig.java`
+in `apm-sniffer/apm-sdk-plugin/httpclient-commons/src/main/java/org/apache/skywalking/apm/plugin/httpclient/HttpClientPluginConfig.java`
 #### Snippet
 ```java
-             * default is false.
+             * This config item controls that whether the HttpClient plugin should collect the parameters of the request.
              */
-            public static boolean TRACE_STATEMENT = false;
+            public static boolean COLLECT_HTTP_PARAMS = false;
+        }
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/RedissonPluginConfig.java`
+#### Snippet
+```java
+             * If set to true, the parameters of the Redis command would be collected.
+             */
+            public static boolean TRACE_REDIS_PARAMETERS = false;
+            /**
+             * For the sake of performance, SkyWalking won't save Redis parameter string into the tag.
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/ElasticsearchPluginConfig.java`
+#### Snippet
+```java
+             * If true, trace all the DSL(Domain Specific Language) in ElasticSearch access, default is false.
+             */
+            public static boolean TRACE_DSL = false;
+
+            public static int ELASTICSEARCH_DSL_LENGTH_THRESHOLD = 1024;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/JDBCPluginConfig.java`
+#### Snippet
+```java
+             * collected.
+             */
+            public static volatile boolean TRACE_SQL_PARAMETERS = false;
+            /**
+             * For the sake of performance, SkyWalking won't save the entire parameters string into the tag, but only
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/define/StatementEnhanceInfos.java`
+#### Snippet
+```java
+    private String sql;
+    private Object[] parameters;
+    private int maxIndex = 0;
+
+    public StatementEnhanceInfos(ConnectionInfo connectionInfo, String sql, String statementName) {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/LettucePluginConfig.java`
+#### Snippet
+```java
+             * If set to true, the parameters of the Redis command would be collected.
+             */
+            public static boolean TRACE_REDIS_PARAMETERS = false;
+            /**
+             * For the sake of performance, SkyWalking won't save Redis parameter string into the tag.
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/kafka-commons/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/KafkaContext.java`
+#### Snippet
+```java
+    }
+
+    private boolean needStop = false;
+
+    private String operationName;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboPluginConfig.java`
+#### Snippet
+```java
+            public static int CONSUMER_ARGUMENTS_LENGTH_THRESHOLD = 256;
+
+            public static boolean COLLECT_PROVIDER_ARGUMENTS = false;
+
+            public static int PROVIDER_ARGUMENTS_LENGTH_THRESHOLD = 256;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboPluginConfig.java`
+#### Snippet
+```java
+        public static class Dubbo {
+
+            public static boolean COLLECT_CONSUMER_ARGUMENTS = false;
+
+            public static int CONSUMER_ARGUMENTS_LENGTH_THRESHOLD = 256;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/tomcat-10x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat10x/TomcatPluginConfig.java`
+#### Snippet
+```java
+             * This config item controls that whether the Tomcat plugin should collect the parameters of the request.
+             */
+            public static boolean COLLECT_HTTP_PARAMS = false;
+        }
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/org/apache/skywalking/apm/plugin/cpu/policy/TraceSamplerCpuPolicyExtendService.java`
+#### Snippet
+```java
+    private static final ILog LOGGER = LogManager.getLogger(TraceSamplerCpuPolicyExtendService.class);
+
+    private volatile boolean cpuUsagePercentLimitOn = false;
+    private volatile JVMService jvmService;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v5/ElasticsearchPluginConfig.java`
+#### Snippet
+```java
+             * If true, trace all the DSL(Domain Specific Language) in ElasticSearch access, default is false.
+             */
+            public static boolean TRACE_DSL = false;
+
+            public static int ELASTICSEARCH_DSL_LENGTH_THRESHOLD = 1024;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/Neo4jPluginConfig.java`
+#### Snippet
+```java
+             * If set to true, the parameters of the cypher would be collected.
+             */
+            public static boolean TRACE_CYPHER_PARAMETERS = false;
+            /**
+             * For the sake of performance, SkyWalking won't save the entire parameters string into the tag, but only
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v7/ElasticsearchPluginConfig.java`
+#### Snippet
+```java
+             * If true, trace all the DSL(Domain Specific Language) in ElasticSearch access, default is false
+             */
+            public static boolean TRACE_DSL = false;
+
+            public static int ELASTICSEARCH_DSL_LENGTH_THRESHOLD = 1024;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/feign/http/v9/FeignPluginConfig.java`
+#### Snippet
+```java
+             * This config item controls that whether the Feign plugin should collect the http body of the request.
+             */
+            public static boolean COLLECT_REQUEST_BODY = false;
 
             /**
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/server/MicronautHttpServerPluginConfig.java`
+#### Snippet
+```java
+             * This config item controls that whether the Http plugin should collect the parameters of the request.
+             */
+            public static boolean COLLECT_HTTP_PARAMS = false;
+        }
+
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -5072,31 +5072,7 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/undertow-worker-thread-pool-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/worker/thread/pool/define/UndertowWorkerThreadPoolInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/undertow-worker-thread-pool-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/worker/thread/pool/define/UndertowWorkerThreadPoolInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-16plus-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v16plus/define/GraphqlInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-12.x-15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v12tov15/define/GraphqlInstrumentation.java`
 #### Snippet
 ```java
 
@@ -5108,7 +5084,7 @@ in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-16plus-plugin/src/main/jav
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/UnmanagedTransactionInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-kafka-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/kafka/define/KafkaTemplateInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -5120,43 +5096,7 @@ in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/ThreadingConfig.java`
-#### Snippet
-```java
-        }
-
-        return LogicalMatchOperation.or(prefixMatches.toArray(new PrefixMatch[0]));
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/define/RunnableInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/define/CallableInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/armeria-0.84.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/armeria/define/Armeria084ServerInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-kafka-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/kafka/define/ListenerConsumerInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -5168,7 +5108,7 @@ in `apm-sniffer/apm-sdk-plugin/armeria-0.84.x-plugin/src/main/java/org/apache/sk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/armeria-0.84.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/armeria/define/Armeria084ClientInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/async-annotation-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/async/define/AsyncExecutionInterceptorInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -5180,7 +5120,7 @@ in `apm-sniffer/apm-sdk-plugin/armeria-0.84.x-plugin/src/main/java/org/apache/sk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/define/DefaultEndpointInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/jsonrpc4j-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jsonrpc4j/define/JsonServiceExporterInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -5192,727 +5132,7 @@ in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywa
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/define/RedisChannelWriterInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-cloud/spring-cloud-feign-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/string/cloud/netflix/feign/v2/define/LoadBalancerFeignClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/kotlin-coroutine-plugin/src/main/java/org/apache/skywalking/apm/plugin/kotlin/coroutine/define/DispatcherInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/define/RedisCommandInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-2.x-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v3/define/PipelineBaseInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-2.x-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v3/define/PipelineInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-2.x-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v3/define/TransactionConstructorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-2.x-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v3/define/MultiKeyPipelineBaseInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/define/AbstractDriverInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public final ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-            // setup static field.
-            wc.getField("pts").set(null, pts);
-            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
-            wc.getField("mns").set(null, mns.toArray(new String[0]));
-            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-            wc.getField("pts").set(null, pts);
-            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
-            wc.getField("mns").set(null, mns.toArray(new String[0]));
-            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
-            int ix = 0;
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
-            wc.getField("mns").set(null, mns.toArray(new String[0]));
-            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
-            int ix = 0;
-            for (Method m : ms.values())
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/OracleURLParser.java`
-#### Snippet
-```java
-        while (true);
-
-        return StringUtil.join(',', hosts.toArray(new String[0]));
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/define/NatsMessageInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/define/NatsConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/AbstractClassEnhancePluginDefine.java`
-#### Snippet
-```java
-     */
-    protected String[] witnessClasses() {
-        return new String[] {};
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/ContextManagerExtendService.java`
-#### Snippet
-```java
-public class ContextManagerExtendService implements BootService, GRPCChannelListener {
-
-    private volatile String[] ignoreSuffixArray = new String[0];
-
-    private volatile GRPCChannelStatus status = GRPCChannelStatus.DISCONNECT;
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/hikaricp-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hikaricp/define/HikariProxyConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/hikaricp-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hikaricp/define/HikariProxyConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/hikaricp-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hikaricp/define/HikariDataSourceInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/hikaricp-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hikaricp/define/HikariDataSourceInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/cxf-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/cxf/v3/client/define/MessageSenderInterceptorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/netty-socketio-plugin/src/main/java/org/apache/skywalking/apm/plugin/netty/socketio/define/NettySocketIOPluginNameSpaceInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/guava-cache-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/cache/define/GuavaCachePluginInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
-#### Snippet
-```java
-    private static final String PATTERN_SEPARATOR = ",";
-    private TracePathMatcher pathMatcher = new FastPathMatcher();
-    private volatile String[] patterns = new String[] {};
-    private TraceIgnorePatternWatcher traceIgnorePatternWatcher;
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
-#### Snippet
-```java
-            patterns = traceIgnorePatternWatcher.getTraceIgnorePathPatterns().split(PATTERN_SEPARATOR);
-        } else {
-            patterns = new String[] {};
-        }
-    }
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/tomcat-thread-pool-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat/thread/pool/define/TomcatThreadExecutorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/tomcat-thread-pool-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat/thread/pool/define/TomcatThreadExecutorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/undertow-plugins/undertow-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/v2x/define/UndertowRootHandlerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/undertow-plugins/undertow-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/v2x/define/UndertowAddListenerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/undertow-plugins/undertow-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/v2x/define/RoutingHandlerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/undertow-plugins/undertow-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/v2x/define/HttpServerExchangeInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/undertow-plugins/undertow-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/v2x/define/UndertowListenerConfigInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-client-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/client/define/MicronautClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/servicecomb-plugin/servicecomb-java-chassis-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/servicecomb/v2/define/ProducerOperationHandlerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/servicecomb-plugin/servicecomb-java-chassis-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/servicecomb/v2/define/TransportClientHandlerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mongodb-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v4/define/MongoDBOperationExecutorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/define/VertxBuilderConstructorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/define/ClusteredMessageConstructorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/okhttp-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/okhttp/v4/define/CallbackInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v3/define/HandlerMethodInvokerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v3/define/InvocableHandlerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v3/define/HandlerMethodInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-webflux-5.x-webclient-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/webclient/define/WebFluxWebClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-webflux-5.x-webclient-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/webclient/define/BodyInserterRequestInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-webflux-5.x-webclient-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/webclient/define/WebFluxWebClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/define/ConnectionManagerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/define/RedisClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/druid-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/druid/v1/define/DruidPooledConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/druid-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/druid/v1/define/DruidPooledConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/druid-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/druid/v1/define/DruidDataSourceStatManagerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/druid-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/druid/v1/define/DruidDataSourceStatManagerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/druid-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/druid/v1/define/DruidDataSourceInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/druid-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/druid/v1/define/DruidDataSourceInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v3x/define/NettyRoutingFilterInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mariadb-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mariadb/v2/define/StatementInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mariadb-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mariadb/v2/define/PreparedStatementInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/baidu-brpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc/define/ClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/baidu-brpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc/define/ServerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mariadb-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mariadb/v2/define/ConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/guava-eventbus-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/eventbus/define/EventBusDispatcherInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/jsonrpc4j-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jsonrpc4j/define/JsonRpcBasicServerInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -5942,6 +5162,30 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main
     @Override
     public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
         return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/async/RingBufferLogEventInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/async/Log4jLogEventInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
     }
 
 ```
@@ -5984,30 +5228,6 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/async/Log4jLogEventInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/async/RingBufferLogEventInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
 in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/async/AsyncAppenderInstrumentation.java`
 #### Snippet
 ```java
@@ -6020,19 +5240,7 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-client-9.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/jetty/v90/client/define/HttpRequestInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpServerRequestWrapperConstructorInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/tomcat-thread-pool-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat/thread/pool/define/TomcatThreadExecutorInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6044,7 +5252,19 @@ in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/ClusteredEventBusSendRemoteInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/tomcat-thread-pool-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat/thread/pool/define/TomcatThreadExecutorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xxljob/define/SimpleJobHandlerInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6056,7 +5276,43 @@ in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/EventBusImplDeliverToHandlerInstrumentation.java`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/AbstractClassEnhancePluginDefine.java`
+#### Snippet
+```java
+     */
+    protected String[] witnessClasses() {
+        return new String[] {};
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/ContextManagerExtendService.java`
+#### Snippet
+```java
+public class ContextManagerExtendService implements BootService, GRPCChannelListener {
+
+    private volatile String[] ignoreSuffixArray = new String[0];
+
+    private volatile GRPCChannelStatus status = GRPCChannelStatus.DISCONNECT;
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-annotation-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/annotations/AbstractSpringBeanInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public final ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/servicecomb-plugin/servicecomb-java-chassis-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/servicecomb/v2/define/ProducerOperationHandlerInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6068,7 +5324,7 @@ in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/RouteImplHandlerInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/servicecomb-plugin/servicecomb-java-chassis-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/servicecomb/v2/define/TransportClientHandlerInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6080,19 +5336,19 @@ in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/RouterContextImplBaseConstructorInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v9/define/GraphqlInstrumentation.java`
 #### Snippet
 ```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
+
+    @Override public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
     }
 
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpContextHandleDispatchResponseInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.1.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v41/define/ExecuteInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6104,31 +5360,7 @@ in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/RoutingContextWrapperConstructorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpServerRequestImplConstructorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpClientRequestImplHandleExceptionInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.1.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v41/define/JDBCRootInvokeInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6140,19 +5372,7 @@ in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-            // setup static field.
-            wc.getField("pts").set(null, pts);
-            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
-            wc.getField("mns").set(null, mns.toArray(new String[0]));
-            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HandlerRegistrationInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.1.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v41/define/ProxyRootInvokeInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6164,31 +5384,7 @@ in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-            wc.getField("pts").set(null, pts);
-            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
-            wc.getField("mns").set(null, mns.toArray(new String[0]));
-            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
-            int ix = 0;
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
-            wc.getField("mns").set(null, mns.toArray(new String[0]));
-            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
-            int ix = 0;
-            for (Method m : ms.values())
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpServerResponseImplHandleExceptionInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.1.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v41/define/ParseInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6200,223 +5396,7 @@ in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpClientRequestImplHandleResponseInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/ServerConnectionHandleMessageInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpContextSendRequestInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/zookeeper-3.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/zookeeper/define/EventThreadInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/pulsar-common/src/main/java/org/apache/skywalking/apm/plugin/pulsar/common/define/BaseMessageInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/pulsar-common/src/main/java/org/apache/skywalking/apm/plugin/pulsar/common/define/BasePulsarConsumerListenerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/pulsar-common/src/main/java/org/apache/skywalking/apm/plugin/pulsar/common/define/BaseSendCallbackInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/pulsar-common/src/main/java/org/apache/skywalking/apm/plugin/pulsar/common/define/BaseTopicMessageInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/bootstrap-plugins/jdk-threadpool-plugin/src/main/java/org/apache/skywalking/apm/plugin/define/ThreadPoolExecutorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/async/LoggingEventInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/async/AsyncAppenderBaseInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/async-annotation-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/async/define/AsyncExecutionInterceptorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/armeria-0.85.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/armeria/define/Armeria098ClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/armeria-0.85.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/armeria/define/Armeria085ServerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/armeria-0.85.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/armeria/define/Armeria086ClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/armeria-0.85.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/armeria/define/Armeria085ClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/jackson-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jackson/define/AbstractInstrumentation.java`
-#### Snippet
-```java
-        }
-
-        return points.toArray(new InstanceMethodsInterceptPoint[0]);
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/jackson-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jackson/define/AbstractInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/define/ParseInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/motan-plugin/src/main/java/org/apache/skywalking/apm/plugin/motan/define/MotanProviderInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6464,7 +5444,115 @@ in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-3.x-plugin
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/TransportServiceInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/define/ParseInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mongodb-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v4/define/MongoDBOperationExecutorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/okhttp-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/okhttp/v3/define/CallbackInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TraceAnnotationActivation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TagAnnotationActivation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanActivation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-tx-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/transaction/define/AbstractPlatformTransactionManagerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/AbstractServerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/undertow-worker-thread-pool-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/worker/thread/pool/define/UndertowWorkerThreadPoolInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/undertow-worker-thread-pool-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/worker/thread/pool/define/UndertowWorkerThreadPoolInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6476,43 +5564,7 @@ in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/TransportServiceInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/TransportActionNodeProxyInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/AdapterActionFutureInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/AdapterActionFutureInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/concurrent/define/FailureCallbackInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6524,43 +5576,319 @@ in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/IndicesClientInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/concurrent/define/SuccessCallbackInstrumentation.java`
 #### Snippet
 ```java
     @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/concurrent/define/ListenableFutureCallbackInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-16plus-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v16plus/define/GraphqlInstrumentation.java`
+#### Snippet
+```java
+
+    @Override public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/hystrix-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hystrix/v1/define/HystrixPluginsInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-cloud/spring-cloud-feign-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/string/cloud/netflix/feign/v2/define/LoadBalancerFeignClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/define/LeaseRequestInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpServerRequestWrapperConstructorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/ClusteredEventBusSendRemoteInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/EventBusImplDeliverToHandlerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/RouterContextImplBaseConstructorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/RouteImplHandlerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpClientRequestImplHandleExceptionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpServerRequestImplConstructorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpContextHandleDispatchResponseInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HandlerRegistrationInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpServerResponseImplHandleExceptionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/ServerConnectionHandleMessageInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpContextSendRequestInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/RoutingContextWrapperConstructorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/define/HttpClientRequestImplHandleResponseInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/define/ClusteredMessageConstructorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-client-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/client/define/MicronautClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/define/VertxBuilderConstructorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/define/AbstractServerImplBuilderInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/define/NettyClientStreamInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
     }
 }
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/IndicesClientInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/define/ShadedNettyClientStreamInstrumentation.java`
 #### Snippet
 ```java
     @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/ClusterClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
     }
 }
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/ClusterClientInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/okhttp-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/okhttp/v2/define/CallbackInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6572,19 +5900,7 @@ in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/RestHighLevelClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v5/define/AbstractConnectionInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/h2-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/h2/define/AbstractConnectionInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6596,7 +5912,19 @@ in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v5/define/CallableInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/define/RewriteInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+    
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/define/ParseInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6608,7 +5936,7 @@ in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v5/define/CacheIpsInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/define/ExecuteInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6620,7 +5948,55 @@ in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v5/define/PreparedStatementInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/define/ProxyRootInvokeInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/define/RouteInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+    
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mssql-jdbc-plugin/src/main/java/org/apache/skywalking/apm/plugin/mssql/jdbc/define/StatementInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/define/JDBCRootInvokeInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mssql-jdbc-plugin/src/main/java/org/apache/skywalking/apm/plugin/mssql/jdbc/define/PreparedStatementInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6632,7 +6008,139 @@ in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v5/define/StatementInstrumentation.java`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-kafka-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/kafka/define/KafkaOnMessageAnnotationInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/druid-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/druid/v1/define/DruidPooledConnectionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/druid-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/druid/v1/define/DruidPooledConnectionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/druid-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/druid/v1/define/DruidDataSourceInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/druid-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/druid/v1/define/DruidDataSourceInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/druid-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/druid/v1/define/DruidDataSourceStatManagerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/druid-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/druid/v1/define/DruidDataSourceStatManagerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/cxf-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/cxf/v3/client/define/MessageSenderInterceptorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v20x/define/HttpClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v20x/define/NettyRoutingFilterInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v20x/define/HttpClientRequestInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/asynchttpclient-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asynchttpclient/v2/define/DefaultAsyncHttpClientInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6680,132 +6188,84 @@ in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apac
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/h2-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/h2/define/AbstractConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/AbstractServerInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/define/TServerInstrumentation.java`
 #### Snippet
 ```java
     @Override
     public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
+        return new InstanceMethodsInterceptPoint[] {};
     }
 }
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/AbstractServerInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/define/transport/TSocketInstrumentation.java`
 #### Snippet
 ```java
     @Override
     public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
+        return new InstanceMethodsInterceptPoint[] {};
     }
 }
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/struts2-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/struts2/define/Struts2Instrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/CallableInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/StatementInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/CacheIpsInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/ConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/PreparedStatementInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public final ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/canal-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/canal/define/ClusterNodeInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/define/client/TAsyncClientInstrumentation.java`
 #### Snippet
 ```java
     @Override
     public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
+        return new InstanceMethodsInterceptPoint[] {};
     }
 
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/optional-plugins/fastjson-1.2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/fastjson/define/FastjsonInstrumentation.java`
+in `apm-sniffer/optional-plugins/mybatis-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mybatis/define/MyBatisShellMethodInstrumentation.java`
 #### Snippet
 ```java
-        }
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
 
-        return points.toArray(new StaticMethodsInterceptPoint[0]);
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/define/ConnectionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/mybatis-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mybatis/define/MyBatisInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-cloud/netflix-plugins/spring-cloud-feign-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/netflix/feign/v11/define/NetflixFeignInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
     }
 
 ```
@@ -6848,7 +6308,7 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/ja
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TraceAnnotationActivation.java`
+in `apm-sniffer/optional-plugins/zookeeper-3.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/zookeeper/define/EventThreadInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6860,7 +6320,43 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/jav
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanActivation.java`
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+            // setup static field.
+            wc.getField("pts").set(null, pts);
+            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
+            wc.getField("mns").set(null, mns.toArray(new String[0]));
+            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+            wc.getField("pts").set(null, pts);
+            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
+            wc.getField("mns").set(null, mns.toArray(new String[0]));
+            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
+            int ix = 0;
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
+            wc.getField("mns").set(null, mns.toArray(new String[0]));
+            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
+            int ix = 0;
+            for (Method m : ms.values())
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/resttemplate-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/resttemplate/sync/define/RestTemplateInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6872,7 +6368,7 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/jav
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/TagAnnotationActivation.java`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/resttemplate-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/resttemplate/async/define/RestTemplateInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6884,7 +6380,115 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/jav
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/bootstrap-plugins/jdk-http-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/http/define/HttpsClientInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/resttemplate-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/resttemplate/async/define/ResponseExtractorFutureInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+
+    }
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/define/AnnotationInstrumentation.java`
+#### Snippet
+```java
+        @Override
+        public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+            return new InstanceMethodsInterceptPoint[0];
+        }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v3/define/v36/MongoDBOperationExecutorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v3/define/v37/MongoDBOperationExecutorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v3/define/v38/MongoDBOperationExecutorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+            // setup static field.
+            wc.getField("pts").set(null, pts);
+            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
+            wc.getField("mns").set(null, mns.toArray(new String[0]));
+            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+            wc.getField("pts").set(null, pts);
+            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
+            wc.getField("mns").set(null, mns.toArray(new String[0]));
+            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
+            int ix = 0;
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
+            wc.getField("mns").set(null, mns.toArray(new String[0]));
+            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
+            int ix = 0;
+            for (Method m : ms.values())
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/AbstractServerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/canal-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/canal/define/ClusterNodeInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6896,7 +6500,7 @@ in `apm-sniffer/bootstrap-plugins/jdk-http-plugin/src/main/java/org/apache/skywa
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/bootstrap-plugins/jdk-http-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/http/define/HttpsClientInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/guava-eventbus-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/eventbus/define/EventBusDispatcherInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6908,7 +6512,7 @@ in `apm-sniffer/bootstrap-plugins/jdk-http-plugin/src/main/java/org/apache/skywa
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/bootstrap-plugins/jdk-http-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/http/define/HttpClientInstrumentation.java`
+in `apm-sniffer/optional-plugins/gson-2.8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/gson/define/GsonToJsonInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6920,19 +6524,7 @@ in `apm-sniffer/bootstrap-plugins/jdk-http-plugin/src/main/java/org/apache/skywa
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/define/RewriteInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-    
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/define/ParseInstrumentation.java`
+in `apm-sniffer/optional-plugins/gson-2.8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/gson/define/GsonFromJsonInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6944,7 +6536,19 @@ in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plug
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/define/ProxyRootInvokeInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-2.x-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v3/define/TransactionConstructorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-2.x-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v3/define/PipelineBaseInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6956,7 +6560,7 @@ in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plug
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/define/ExecuteInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-2.x-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v3/define/PipelineInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6968,7 +6572,7 @@ in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plug
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/define/JDBCRootInvokeInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-2.x-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v3/define/MultiKeyPipelineBaseInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -6980,19 +6584,7 @@ in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plug
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/define/RouteInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-    
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/concurrent/define/FailureCallbackInstrumentation.java`
+in `apm-sniffer/optional-plugins/kotlin-coroutine-plugin/src/main/java/org/apache/skywalking/apm/plugin/kotlin/coroutine/define/DispatcherInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7004,7 +6596,19 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/mai
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/concurrent/define/ListenableFutureCallbackInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v4/define/AbstractWitnessInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    protected String[] witnessClasses() {
+        return new String[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-client-9.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/jetty/v90/client/define/HttpRequestInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7016,7 +6620,19 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/mai
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/concurrent/define/SuccessCallbackInstrumentation.java`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/async/LoggingEventInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/async/AsyncAppenderBaseInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7028,7 +6644,19 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/mai
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xxljob/define/SimpleJobHandlerInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/define/RedisClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/define/ConnectionManagerInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7040,7 +6668,7 @@ in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywa
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/feign/http/v9/define/DefaultHttpClientInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/struts2-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/struts2/define/Struts2Instrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7052,7 +6680,7 @@ in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/a
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/feign/http/v9/define/PathVarInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/armeria-0.85.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/armeria/define/Armeria098ClientInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7064,7 +6692,7 @@ in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/a
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v7/define/AdapterActionFutureInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/armeria-0.85.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/armeria/define/Armeria085ServerInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7076,7 +6704,43 @@ in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v7/define/AdapterActionFutureInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/armeria-0.85.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/armeria/define/Armeria085ClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/armeria-0.85.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/armeria/define/Armeria086ClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v8/define/GraphqlInstrumentation.java`
+#### Snippet
+```java
+
+    @Override public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/TransportActionNodeProxyInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7088,7 +6752,43 @@ in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mssql-jtds-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mssql/jtds/v1/define/StatementInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/TransportServiceInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/TransportServiceInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/IndicesClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/IndicesClientInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7100,7 +6800,115 @@ in `apm-sniffer/apm-sdk-plugin/mssql-jtds-1.x-plugin/src/main/java/org/apache/sk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mssql-jtds-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mssql/jtds/v1/define/PreparedStatementInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/AdapterActionFutureInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/AdapterActionFutureInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/ClusterClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/ClusterClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/define/RestHighLevelClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-webflux-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/define/ServerWebExchangeInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-webflux-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/define/DispatcherHandlerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v4/define/InvocableHandlerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v4/define/HandlerMethodInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/define/AbstractDriverInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7112,7 +6920,7 @@ in `apm-sniffer/apm-sdk-plugin/mssql-jtds-1.x-plugin/src/main/java/org/apache/sk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/kylin-jdbc-2.6.x-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/kylin/define/StatementInstrumentation.java`
+in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/MotanRpcPluginInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7124,7 +6932,7 @@ in `apm-sniffer/apm-sdk-plugin/kylin-jdbc-2.6.x-3.x-4.x-plugin/src/main/java/org
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/kylin-jdbc-2.6.x-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/kylin/define/PreparedStatementInstrumentation.java`
+in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/GrpcPluginInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7136,7 +6944,103 @@ in `apm-sniffer/apm-sdk-plugin/kylin-jdbc-2.6.x-3.x-4.x-plugin/src/main/java/org
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/kylin-jdbc-2.6.x-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/kylin/define/ConnectionInstrumentation.java`
+in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/TarsRpcPluginInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/SofaRpcPluginInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/GlobalPluginInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/OracleURLParser.java`
+#### Snippet
+```java
+        while (true);
+
+        return StringUtil.join(',', hosts.toArray(new String[0]));
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/baidu-brpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc/define/ServerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/baidu-brpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc/define/ClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/ApacheDubboPluginInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/postgresql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/postgresql/define/Jdbc3ConnectionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/postgresql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/postgresql/define/PgPreparedStatementInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7184,30 +7088,6 @@ in `apm-sniffer/apm-sdk-plugin/postgresql-8.x-plugin/src/main/java/org/apache/sk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/postgresql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/postgresql/define/Jdbc3ConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/postgresql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/postgresql/define/PgPreparedStatementInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
 in `apm-sniffer/apm-sdk-plugin/postgresql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/postgresql/define/Jdbc4ConnectionInstrumentation.java`
 #### Snippet
 ```java
@@ -7220,7 +7100,19 @@ in `apm-sniffer/apm-sdk-plugin/postgresql-8.x-plugin/src/main/java/org/apache/sk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/asynchttpclient-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asynchttpclient/v2/define/DefaultAsyncHttpClientInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/hikaricp-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hikaricp/define/HikariProxyConnectionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/hikaricp-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hikaricp/define/HikariProxyConnectionInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7232,7 +7124,7 @@ in `apm-sniffer/apm-sdk-plugin/asynchttpclient-2.x-plugin/src/main/java/org/apac
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v3/define/v36/MongoDBOperationExecutorInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/hikaricp-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hikaricp/define/HikariDataSourceInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7240,6 +7132,18 @@ in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywa
         return new ConstructorInterceptPoint[0];
     }
 
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/hikaricp-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hikaricp/define/HikariDataSourceInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+}
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -7256,7 +7160,7 @@ in `apm-sniffer/apm-sdk-plugin/postgresql-8.x-plugin/src/main/java/org/apache/sk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v3/define/v37/MongoDBOperationExecutorInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/define/RedisChannelWriterInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7268,7 +7172,7 @@ in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywa
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v3/define/v38/MongoDBOperationExecutorInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/define/DefaultEndpointInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7280,7 +7184,7 @@ in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywa
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-cloud/netflix-plugins/spring-cloud-feign-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/netflix/feign/v11/define/NetflixFeignInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/define/RedisCommandInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7292,463 +7196,7 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-cloud/netflix-plugins/sprin
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v9/define/GraphqlInstrumentation.java`
-#### Snippet
-```java
-
-    @Override public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v4/define/AbstractWitnessInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    protected String[] witnessClasses() {
-        return new String[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/jsonrpc4j-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jsonrpc4j/define/JsonServiceExporterInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/jsonrpc4j-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jsonrpc4j/define/JsonRpcBasicServerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/server/define/RouteMatchInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/server/define/RoutingInBoundHandlerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/okhttp-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/okhttp/v3/define/CallbackInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v4/define/InvocableHandlerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v4/define/HandlerMethodInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/define/LeaseRequestInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/ProducerConstructorInterceptor.java`
-#### Snippet
-```java
-        ProducerConfig config = (ProducerConfig) allArguments[0];
-        objInst.setSkyWalkingDynamicField(StringUtil.join(';', config.getList("bootstrap.servers")
-                                                                     .toArray(new String[0])));
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/ConsumerEnhanceRequiredInfo.java`
-#### Snippet
-```java
-
-    public void setBrokerServers(List<String> brokerServers) {
-        this.brokerServers = StringUtil.join(';', brokerServers.toArray(new String[0]));
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/ConsumerEnhanceRequiredInfo.java`
-#### Snippet
-```java
-
-    public void setTopics(Collection<String> topics) {
-        this.topics = StringUtil.join(';', topics.toArray(new String[0]));
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/KafkaTemplateCallbackInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/KafkaProducerMapInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/CallbackInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/impala-jdbc-2.6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/impala/define/StatementInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/impala-jdbc-2.6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/impala/define/PreparedStatementInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/impala-jdbc-2.6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/impala/define/ConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/hystrix-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hystrix/v1/define/HystrixPluginsInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/define/ConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elastic-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/esjob/define/JobExecutorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/define/TServerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[] {};
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/define/client/TAsyncClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[] {};
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/define/transport/TSocketInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[] {};
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/motan-plugin/src/main/java/org/apache/skywalking/apm/plugin/motan/define/MotanProviderInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v20x/define/NettyRoutingFilterInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v20x/define/HttpClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v20x/define/HttpClientRequestInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-kafka-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/kafka/define/KafkaTemplateInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-kafka-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/kafka/define/ListenerConsumerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v21x/define/NettyRoutingFilterInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v21x/define/TcpClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v40/define/ParseInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v40/define/ProxyRootInvokeInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v40/define/JDBCRootInvokeInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v40/define/ExecuteInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mssql-commons/src/main/java/org/apache/skywalking/apm/plugin/mssql/commons/define/AbstractConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-annotation-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/annotations/AbstractSpringBeanInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/define/AopProxyFactoryInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7760,38 +7208,134 @@ in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-annotation-plugi
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/patch/MakeWrapperInterceptor.java`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/define/AopExpressionMatchInstrumentation.java`
 #### Snippet
 ```java
-            // setup static field.
-            wc.getField("pts").set(null, pts);
-            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
-            wc.getField("mns").set(null, mns.toArray(new String[0]));
-            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
+    @Override
+    public final ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/patch/MakeWrapperInterceptor.java`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/define/BeanWrapperImplInstrumentation.java`
 #### Snippet
 ```java
-            wc.getField("pts").set(null, pts);
-            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
-            wc.getField("mns").set(null, mns.toArray(new String[0]));
-            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
-            int ix = 0;
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/patch/MakeWrapperInterceptor.java`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/define/AspectJExpressionPointCutInstrumentation.java`
 #### Snippet
 ```java
-            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
-            wc.getField("mns").set(null, mns.toArray(new String[0]));
-            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
-            int ix = 0;
-            for (Method m : ms.values())
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/elasticjob-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticjob/define/ElasticJobExecutorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+    
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-client-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jetty/v9/client/define/HttpRequestInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/AutowiredAnnotationProcessorInterceptor.java`
+#### Snippet
+```java
+                        candidateConstructors = new Constructor<?>[] {candidateRawConstructors.get(0)};
+                    } else {
+                        candidateConstructors = new Constructor<?>[0];
+                    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/sentinel-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/sentinel/v1/define/SentinelCtSphInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dbcp-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/dbcp/v2/define/DelegatingConnectionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dbcp-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/dbcp/v2/define/DelegatingConnectionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dbcp-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/dbcp/v2/define/BasicDataSourceInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dbcp-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/dbcp/v2/define/BasicDataSourceInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -7832,12 +7376,12 @@ in `apm-sniffer/apm-sdk-plugin/rocketMQ-4.x-plugin/src/main/java/org/apache/skyw
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-webflux-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/define/ServerWebExchangeInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/rocketMQ-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v4/define/ConsumeMessageOrderlyInstrumentation.java`
 #### Snippet
 ```java
     @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
     }
 
 ```
@@ -7856,7 +7400,7 @@ in `apm-sniffer/apm-sdk-plugin/rocketMQ-4.x-plugin/src/main/java/org/apache/skyw
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-webflux-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/define/DispatcherHandlerInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/undertow-plugins/undertow-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/v2x/define/RoutingHandlerInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7868,7 +7412,523 @@ in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-webflux-5.x-plug
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/rocketMQ-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v4/define/ConsumeMessageOrderlyInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/undertow-plugins/undertow-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/v2x/define/UndertowListenerConfigInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/undertow-plugins/undertow-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/v2x/define/UndertowRootHandlerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/undertow-plugins/undertow-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/v2x/define/HttpServerExchangeInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/undertow-plugins/undertow-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/v2x/define/UndertowAddListenerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-webflux-5.x-webclient-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/webclient/define/BodyInserterRequestInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-webflux-5.x-webclient-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/webclient/define/WebFluxWebClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-webflux-5.x-webclient-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/webclient/define/WebFluxWebClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/define/ConsumeMessageOrderlyInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/define/ConsumeMessageConcurrentlyInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/define/SendCallbackInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/define/MQClientAPIImplInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/CacheIpsInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/StatementInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/PreparedStatementInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public final ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/CallableInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/ConnectionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/bootstrap-plugins/jdk-http-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/http/define/HttpsClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/bootstrap-plugins/jdk-http-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/http/define/HttpsClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/bootstrap-plugins/jdk-http-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/http/define/HttpClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+            // setup static field.
+            wc.getField("pts").set(null, pts);
+            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
+            wc.getField("mns").set(null, mns.toArray(new String[0]));
+            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+            wc.getField("pts").set(null, pts);
+            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
+            wc.getField("mns").set(null, mns.toArray(new String[0]));
+            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
+            int ix = 0;
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+            wc.getField("pns").set(null, pts.keySet().toArray(new String[0]));
+            wc.getField("mns").set(null, mns.toArray(new String[0]));
+            wc.getField("dmns").set(null, dmns.toArray(new String[0]));
+            int ix = 0;
+            for (Method m : ms.values())
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/ThreadingConfig.java`
+#### Snippet
+```java
+        }
+
+        return LogicalMatchOperation.or(prefixMatches.toArray(new PrefixMatch[0]));
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/define/CallableInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/define/RunnableInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/impala-jdbc-2.6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/impala/define/PreparedStatementInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v3/define/InvocableHandlerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v3/define/HandlerMethodInvokerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/impala-jdbc-2.6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/impala/define/StatementInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/impala-jdbc-2.6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/impala/define/ConnectionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v3/define/HandlerMethodInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-kafka-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/kafka/define/LegacyListenerConsumerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mariadb-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mariadb/v2/define/StatementInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mariadb-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mariadb/v2/define/PreparedStatementInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mariadb-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mariadb/v2/define/ConnectionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/guava-cache-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/cache/define/GuavaCachePluginInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/define/NatsMessageInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/define/NatsConnectionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/ProducerConstructorInterceptor.java`
+#### Snippet
+```java
+        ProducerConfig config = (ProducerConfig) allArguments[0];
+        objInst.setSkyWalkingDynamicField(StringUtil.join(';', config.getList("bootstrap.servers")
+                                                                     .toArray(new String[0])));
+    }
+}
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/KafkaProducerMapInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/ConsumerEnhanceRequiredInfo.java`
+#### Snippet
+```java
+
+    public void setBrokerServers(List<String> brokerServers) {
+        this.brokerServers = StringUtil.join(';', brokerServers.toArray(new String[0]));
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/KafkaTemplateCallbackInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/ConsumerEnhanceRequiredInfo.java`
+#### Snippet
+```java
+
+    public void setTopics(Collection<String> topics) {
+        this.topics = StringUtil.join(';', topics.toArray(new String[0]));
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/kafka-plugin/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/CallbackInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -7896,8 +7956,8 @@ in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache
 #### Snippet
 ```java
     @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
     }
 
 ```
@@ -7908,8 +7968,8 @@ in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache
 #### Snippet
 ```java
     @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
     }
 
 ```
@@ -7976,31 +8036,31 @@ in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/baidu-brpc-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc3/ServerInstrumentation.java`
+in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
 #### Snippet
 ```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/define/AnnotationInstrumentation.java`
-#### Snippet
-```java
-        @Override
-        public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-            return new InstanceMethodsInterceptPoint[0];
+            patterns = traceIgnorePatternWatcher.getTraceIgnorePathPatterns().split(PATTERN_SEPARATOR);
+        } else {
+            patterns = new String[] {};
         }
+    }
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
+#### Snippet
+```java
+    private static final String PATTERN_SEPARATOR = ",";
+    private TracePathMatcher pathMatcher = new FastPathMatcher();
+    private volatile String[] patterns = new String[] {};
+    private TraceIgnorePatternWatcher traceIgnorePatternWatcher;
 
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-kafka-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/kafka/define/KafkaOnMessageAnnotationInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/kylin-jdbc-2.6.x-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/kylin/define/StatementInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8012,31 +8072,7 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-kafka-activation/src/main/jav
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/define/AopProxyFactoryInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public final ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/define/AopExpressionMatchInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public final ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/define/BeanWrapperImplInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/kylin-jdbc-2.6.x-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/kylin/define/PreparedStatementInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8048,7 +8084,7 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apach
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/define/AspectJExpressionPointCutInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/kylin-jdbc-2.6.x-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/kylin/define/ConnectionInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8060,103 +8096,7 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apach
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/AutowiredAnnotationProcessorInterceptor.java`
-#### Snippet
-```java
-                        candidateConstructors = new Constructor<?>[] {candidateRawConstructors.get(0)};
-                    } else {
-                        candidateConstructors = new Constructor<?>[0];
-                    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.1.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v41/define/JDBCRootInvokeInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.1.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v41/define/ExecuteInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.1.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v41/define/ParseInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.1.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v41/define/ProxyRootInvokeInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v8/define/GraphqlInstrumentation.java`
-#### Snippet
-```java
-
-    @Override public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/okhttp-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/okhttp/v2/define/CallbackInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/gson-2.8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/gson/define/GsonToJsonInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/gson-2.8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/gson/define/GsonFromJsonInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/netty-socketio-plugin/src/main/java/org/apache/skywalking/apm/plugin/netty/socketio/define/NettySocketIOPluginNameSpaceInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8192,7 +8132,7 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-5.x-plugin/src/main
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dbcp-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/dbcp/v2/define/DelegatingConnectionInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/elastic-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/esjob/define/JobExecutorInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8204,31 +8144,7 @@ in `apm-sniffer/apm-sdk-plugin/dbcp-2.x-plugin/src/main/java/org/apache/skywalki
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dbcp-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/dbcp/v2/define/DelegatingConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dbcp-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/dbcp/v2/define/BasicDataSourceInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/dbcp-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/dbcp/v2/define/BasicDataSourceInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/define/UnmanagedTransactionInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8240,7 +8156,7 @@ in `apm-sniffer/apm-sdk-plugin/dbcp-2.x-plugin/src/main/java/org/apache/skywalki
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-client-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jetty/v9/client/define/HttpRequestInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/baidu-brpc-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc3/ServerInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8252,7 +8168,7 @@ in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-client-9.x-plugin/src/main/jav
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/StatementInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/mssql-jtds-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mssql/jtds/v1/define/StatementInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8264,55 +8180,7 @@ in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/CallableInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/CacheIpsInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/ConnectionInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-12.x-15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v12tov15/define/GraphqlInstrumentation.java`
-#### Snippet
-```java
-
-    @Override public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/PreparedStatementInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/mssql-jtds-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mssql/jtds/v1/define/PreparedStatementInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8324,7 +8192,7 @@ in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalk
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mssql-jdbc-plugin/src/main/java/org/apache/skywalking/apm/plugin/mssql/jdbc/define/StatementInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/mssql-commons/src/main/java/org/apache/skywalking/apm/plugin/mssql/commons/define/AbstractConnectionInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8336,7 +8204,235 @@ in `apm-sniffer/apm-sdk-plugin/mssql-jdbc-plugin/src/main/java/org/apache/skywal
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/mssql-jdbc-plugin/src/main/java/org/apache/skywalking/apm/plugin/mssql/jdbc/define/PreparedStatementInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v40/define/JDBCRootInvokeInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v40/define/ExecuteInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v40/define/ParseInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v40/define/ProxyRootInvokeInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/okhttp-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/okhttp/v4/define/CallbackInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-opentracing-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/opentracing/tracer/SkywalkingTracerActivation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/fastjson-1.2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/fastjson/define/FastjsonInstrumentation.java`
+#### Snippet
+```java
+        }
+
+        return points.toArray(new StaticMethodsInterceptPoint[0]);
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/bootstrap-plugins/jdk-threadpool-plugin/src/main/java/org/apache/skywalking/apm/plugin/define/ThreadPoolExecutorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v7/define/AdapterActionFutureInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return new StaticMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v7/define/AdapterActionFutureInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/feign/http/v9/define/DefaultHttpClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/feign/http/v9/define/PathVarInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/server/define/RouteMatchInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/server/define/RoutingInBoundHandlerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/CallableInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/CacheIpsInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/StatementInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/ConnectionInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/armeria-0.84.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/armeria/define/Armeria084ServerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return new ConstructorInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/PreparedStatementInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8348,7 +8444,7 @@ in `apm-sniffer/apm-sdk-plugin/mssql-jdbc-plugin/src/main/java/org/apache/skywal
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-kafka-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/kafka/define/LegacyListenerConsumerInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/armeria-0.84.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/armeria/define/Armeria084ClientInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8360,7 +8456,7 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-kafka-1.x-plugin/src/main/j
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-tx-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/transaction/define/AbstractPlatformTransactionManagerInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v5/define/AbstractConnectionInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8372,7 +8468,7 @@ in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-tx-plugin/src/ma
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/resttemplate-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/resttemplate/sync/define/RestTemplateInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v5/define/CallableInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8384,19 +8480,7 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/resttemplate-4.x-plugin/src/main/j
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/resttemplate-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/resttemplate/async/define/ResponseExtractorFutureInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-
-    }
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/resttemplate-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/resttemplate/async/define/RestTemplateInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v5/define/StatementInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8408,7 +8492,7 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/resttemplate-4.x-plugin/src/main/j
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/optional-plugins/mybatis-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mybatis/define/MyBatisInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v5/define/CacheIpsInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8420,83 +8504,11 @@ in `apm-sniffer/optional-plugins/mybatis-3.x-plugin/src/main/java/org/apache/sky
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/optional-plugins/mybatis-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mybatis/define/MyBatisShellMethodInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v5/define/PreparedStatementInstrumentation.java`
 #### Snippet
 ```java
     @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/GrpcPluginInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/TarsRpcPluginInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/MotanRpcPluginInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/GlobalPluginInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/SofaRpcPluginInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/define/ApacheDubboPluginInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+    public final ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
         return new ConstructorInterceptPoint[0];
     }
 
@@ -8516,7 +8528,19 @@ in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-server-9.x-plugin/src/main/jav
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/define/SendCallbackInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/pulsar-common/src/main/java/org/apache/skywalking/apm/plugin/pulsar/common/define/BaseMessageInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/apm-sdk-plugin/pulsar-common/src/main/java/org/apache/skywalking/apm/plugin/pulsar/common/define/BasePulsarConsumerListenerInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8528,7 +8552,7 @@ in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skyw
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/define/ConsumeMessageConcurrentlyInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/pulsar-common/src/main/java/org/apache/skywalking/apm/plugin/pulsar/common/define/BaseSendCallbackInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8540,7 +8564,19 @@ in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skyw
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/define/MQClientAPIImplInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/pulsar-common/src/main/java/org/apache/skywalking/apm/plugin/pulsar/common/define/BaseTopicMessageInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v3x/define/NettyRoutingFilterInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8552,7 +8588,7 @@ in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skyw
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/define/ConsumeMessageOrderlyInstrumentation.java`
+in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v21x/define/NettyRoutingFilterInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8564,7 +8600,7 @@ in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skyw
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/define/ShadedNettyClientStreamInstrumentation.java`
+in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v21x/define/TcpClientInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8576,7 +8612,19 @@ in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalki
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/define/AbstractServerImplBuilderInstrumentation.java`
+in `apm-sniffer/optional-plugins/jackson-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jackson/define/AbstractInstrumentation.java`
+#### Snippet
+```java
+        }
+
+        return points.toArray(new InstanceMethodsInterceptPoint[0]);
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `apm-sniffer/optional-plugins/jackson-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jackson/define/AbstractInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -8584,54 +8632,6 @@ in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalki
         return new ConstructorInterceptPoint[0];
     }
 
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/define/NettyClientStreamInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[0];
-    }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-opentracing-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/opentracing/tracer/SkywalkingTracerActivation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/optional-plugins/sentinel-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/sentinel/v1/define/SentinelCtSphInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `apm-sniffer/apm-sdk-plugin/elasticjob-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticjob/define/ElasticJobExecutorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
-    
 ```
 
 ## RuleId[ruleID=DoubleBraceInitialization]
@@ -8655,21 +8655,21 @@ in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/
 ```java
 
     @Override
-    public void sendStreamSQL(InputStream content, String sql) throws SQLException {
-        sendStreamSQL(content, sql);
-    }
+    public void sendStreamSQL(InputStream content, String sql, Map<ClickHouseQueryParam, String> additionalDBParams)
+            throws SQLException {
+        sendStreamSQL(content, sql, additionalDBParams);
 ```
 
 ### RuleId[ruleID=InfiniteRecursion]
-Method `sendStreamSQL()` recurses infinitely, and can only end by throwing an exception
+Method `sendCSVStream()` recurses infinitely, and can only end by throwing an exception
 in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/TracedClickHouseStatement.java`
 #### Snippet
 ```java
 
     @Override
-    public void sendStreamSQL(InputStream content, String sql, Map<ClickHouseQueryParam, String> additionalDBParams)
-            throws SQLException {
-        sendStreamSQL(content, sql, additionalDBParams);
+    public void sendCSVStream(InputStream content, String table) throws SQLException {
+        sendCSVStream(content, table);
+    }
 ```
 
 ### RuleId[ruleID=InfiniteRecursion]
@@ -8691,9 +8691,33 @@ in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/
 ```java
 
     @Override
-    public void sendCSVStream(InputStream content, String table) throws SQLException {
-        sendCSVStream(content, table);
+    public void sendCSVStream(InputStream content, String table, Map<ClickHouseQueryParam, String> additionalDBParams)
+            throws SQLException {
+        sendCSVStream(content, table, additionalDBParams);
+```
+
+### RuleId[ruleID=InfiniteRecursion]
+Method `sendStreamSQL()` recurses infinitely, and can only end by throwing an exception
+in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/TracedClickHouseStatement.java`
+#### Snippet
+```java
+
+    @Override
+    public void sendStreamSQL(InputStream content, String sql) throws SQLException {
+        sendStreamSQL(content, sql);
     }
+```
+
+### RuleId[ruleID=InfiniteRecursion]
+Method `sendRowBinaryStream()` recurses infinitely, and can only end by throwing an exception
+in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/TracedClickHouseStatement.java`
+#### Snippet
+```java
+
+    @Override
+    public void sendRowBinaryStream(String sql, Map<ClickHouseQueryParam, String> additionalDBParams,
+            ClickHouseStreamCallback callback) throws SQLException {
+        sendRowBinaryStream(sql, additionalDBParams, callback);
 ```
 
 ### RuleId[ruleID=InfiniteRecursion]
@@ -8720,43 +8744,7 @@ in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/
         sendNativeStream(sql, additionalDBParams, callback);
 ```
 
-### RuleId[ruleID=InfiniteRecursion]
-Method `sendCSVStream()` recurses infinitely, and can only end by throwing an exception
-in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/TracedClickHouseStatement.java`
-#### Snippet
-```java
-
-    @Override
-    public void sendCSVStream(InputStream content, String table, Map<ClickHouseQueryParam, String> additionalDBParams)
-            throws SQLException {
-        sendCSVStream(content, table, additionalDBParams);
-```
-
-### RuleId[ruleID=InfiniteRecursion]
-Method `sendRowBinaryStream()` recurses infinitely, and can only end by throwing an exception
-in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/TracedClickHouseStatement.java`
-#### Snippet
-```java
-
-    @Override
-    public void sendRowBinaryStream(String sql, Map<ClickHouseQueryParam, String> additionalDBParams,
-            ClickHouseStreamCallback callback) throws SQLException {
-        sendRowBinaryStream(sql, additionalDBParams, callback);
-```
-
 ## RuleId[ruleID=CastConflictsWithInstanceof]
-### RuleId[ruleID=CastConflictsWithInstanceof]
-Cast to 'EnhancedInstance' type conflicts with preceding 'instanceof ClusteredMessage' check
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
-#### Snippet
-```java
-            String remotePeer = "localhost";
-            if (clientRequest instanceof ClusteredMessage) {
-                EnhancedInstance enhancedInstance = (EnhancedInstance) clientRequest;
-                if (enhancedInstance.getSkyWalkingDynamicField() != null) {
-                    remotePeer = (String) enhancedInstance.getSkyWalkingDynamicField();
-```
-
 ### RuleId[ruleID=CastConflictsWithInstanceof]
 Cast to 'EnhancedInstance' type conflicts with preceding 'instanceof RingBufferLogEvent' check
 in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/log/GRPCLogAppenderInterceptor.java`
@@ -8770,15 +8758,15 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main
 ```
 
 ### RuleId[ruleID=CastConflictsWithInstanceof]
-Cast to 'TBaseProcessor' type conflicts with preceding 'instanceof TBaseAsyncProcessor' check
-in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/TMultiplexedProcessorRegisterDefaultInterceptor.java`
+Cast to 'EnhancedInstance' type conflicts with preceding 'instanceof ClusteredMessage' check
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
 #### Snippet
 ```java
-            hashMap.putAll(processMapView);
-        } else if (processor instanceof TBaseAsyncProcessor) {
-            Map<String, ProcessFunction> processMapView = ((TBaseProcessor) processor).getProcessMapView();
-            hashMap.putAll(processMapView);
-        } else {
+            String remotePeer = "localhost";
+            if (clientRequest instanceof ClusteredMessage) {
+                EnhancedInstance enhancedInstance = (EnhancedInstance) clientRequest;
+                if (enhancedInstance.getSkyWalkingDynamicField() != null) {
+                    remotePeer = (String) enhancedInstance.getSkyWalkingDynamicField();
 ```
 
 ### RuleId[ruleID=CastConflictsWithInstanceof]
@@ -8794,15 +8782,15 @@ in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/g
 ```
 
 ### RuleId[ruleID=CastConflictsWithInstanceof]
-Cast to 'EnhancedInstance' type conflicts with preceding 'instanceof DefaultServerWebExchange' check
-in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v21x/NettyRoutingFilterInterceptor.java`
+Cast to 'TBaseProcessor' type conflicts with preceding 'instanceof TBaseAsyncProcessor' check
+in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/TMultiplexedProcessorRegisterDefaultInterceptor.java`
 #### Snippet
 ```java
-        EnhancedInstance instance = null;
-        if (o instanceof DefaultServerWebExchange) {
-            instance = (EnhancedInstance) o;
-        } else if (o instanceof ServerWebExchangeDecorator) {
-            ServerWebExchange delegate = ((ServerWebExchangeDecorator) o).getDelegate();
+            hashMap.putAll(processMapView);
+        } else if (processor instanceof TBaseAsyncProcessor) {
+            Map<String, ProcessFunction> processMapView = ((TBaseProcessor) processor).getProcessMapView();
+            hashMap.putAll(processMapView);
+        } else {
 ```
 
 ### RuleId[ruleID=CastConflictsWithInstanceof]
@@ -8841,6 +8829,18 @@ in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/sk
             ServerWebExchange delegate = ((ServerWebExchangeDecorator) o).getDelegate();
 ```
 
+### RuleId[ruleID=CastConflictsWithInstanceof]
+Cast to 'EnhancedInstance' type conflicts with preceding 'instanceof DefaultServerWebExchange' check
+in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v21x/NettyRoutingFilterInterceptor.java`
+#### Snippet
+```java
+        EnhancedInstance instance = null;
+        if (o instanceof DefaultServerWebExchange) {
+            instance = (EnhancedInstance) o;
+        } else if (o instanceof ServerWebExchangeDecorator) {
+            ServerWebExchange delegate = ((ServerWebExchangeDecorator) o).getDelegate();
+```
+
 ## RuleId[ruleID=NonExceptionNameEndsWithException]
 ### RuleId[ruleID=NonExceptionNameEndsWithException]
 Non-exception class name `CommandExecutionException` ends with 'Exception'
@@ -8855,15 +8855,15 @@ public class CommandExecutionException extends Throwable {
 ```
 
 ### RuleId[ruleID=NonExceptionNameEndsWithException]
-Non-exception class name `IgnoredException` ends with 'Exception'
-in `apm-application-toolkit/apm-toolkit-trace/src/main/java/org/apache/skywalking/apm/toolkit/trace/IgnoredException.java`
+Non-exception class name `CallbackWhenException` ends with 'Exception'
+in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/RunnableWithExceptionProtection.java`
 #### Snippet
 ```java
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-public @interface IgnoredException {
-}
+    }
 
+    public interface CallbackWhenException {
+        void handle(Throwable t);
+    }
 ```
 
 ### RuleId[ruleID=NonExceptionNameEndsWithException]
@@ -8879,40 +8879,40 @@ in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/
 ```
 
 ### RuleId[ruleID=NonExceptionNameEndsWithException]
-Non-exception class name `CallbackWhenException` ends with 'Exception'
-in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/RunnableWithExceptionProtection.java`
+Non-exception class name `IgnoredException` ends with 'Exception'
+in `apm-application-toolkit/apm-toolkit-trace/src/main/java/org/apache/skywalking/apm/toolkit/trace/IgnoredException.java`
 #### Snippet
 ```java
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+public @interface IgnoredException {
+}
 
-    public interface CallbackWhenException {
-        void handle(Throwable t);
-    }
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
 ### RuleId[ruleID=UnusedAssignment]
-Variable `databaseEndTag` initializer `url.length()` is redundant
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/ImpalaJdbcURLParser.java`
+Variable `tid` initializer `""` is redundant
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/TraceIdConverterMethodInterceptor.java`
 #### Snippet
 ```java
-        int databaseStartTag = url.indexOf("/", startSize);
-        int firstParamIndex = url.indexOf(";", startSize);
-        int databaseEndTag = url.length();
-        if (databaseStartTag == -1 && firstParamIndex == -1) {
-            return null;
+    public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+        MethodInterceptResult result) throws Throwable {
+        String tid = "";
+
+        //Async Thread, where ContextManager is not active
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `classPath` initializer `""` is redundant
-in `apm-sniffer/apm-sdk-plugin/nutz-plugins/mvc-annotation-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nutz/mvc/PathMappingCache.java`
+Variable `skyWalkingContextStr` initializer `""` is redundant
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/SkyWalkingContextConverterMethodInterceptor.java`
 #### Snippet
 ```java
- */
-public class PathMappingCache {
-    private String classPath = "";
+    public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+        MethodInterceptResult result) throws Throwable {
+        String skyWalkingContextStr = "";
 
-    private ConcurrentHashMap<Method, String> methodPathMapping = new ConcurrentHashMap<Method, String>();
+        //Async Thread, where ContextManager is not active
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -8976,42 +8976,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `tid` initializer `""` is redundant
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/TraceIdConverterMethodInterceptor.java`
-#### Snippet
-```java
-    public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-        MethodInterceptResult result) throws Throwable {
-        String tid = "";
-
-        //Async Thread, where ContextManager is not active
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `skyWalkingContextStr` initializer `""` is redundant
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/SkyWalkingContextConverterMethodInterceptor.java`
-#### Snippet
-```java
-    public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-        MethodInterceptResult result) throws Throwable {
-        String skyWalkingContextStr = "";
-
-        //Async Thread, where ContextManager is not active
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `classPath` initializer `""` is redundant
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/PathMappingCache.java`
-#### Snippet
-```java
-    private static final String PATH_SEPARATOR = "/";
-
-    private String classPath = "";
-
-    private ConcurrentHashMap<Method, String> methodPathMapping = new ConcurrentHashMap<Method, String>();
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `activeSpan` initializer `null` is redundant
 in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanErrorThrowableInteceptor.java`
 #### Snippet
@@ -9072,15 +9036,27 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/jav
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `SW_SPAN` initializer `null` is redundant
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/FinagleCtxs.java`
+Variable `span` initializer `null` is redundant
+in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
 #### Snippet
 ```java
-class FinagleCtxs {
+            if (action == null) {
+                if (update instanceof UpdateRequest) {
+                    AbstractSpan span = null;
 
-    static LocalContext.Key<AbstractSpan> SW_SPAN = null;
+                    UpdateRequest ur = (UpdateRequest) update;
+```
 
-    static LocalContext.Key<String> PEER_HOST = null;
+### RuleId[ruleID=UnusedAssignment]
+Variable `classPath` initializer `""` is redundant
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/PathMappingCache.java`
+#### Snippet
+```java
+    private static final String PATH_SEPARATOR = "/";
+
+    private String classPath = "";
+
+    private ConcurrentHashMap<Method, String> methodPathMapping = new ConcurrentHashMap<Method, String>();
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -9093,6 +9069,18 @@ in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/sk
     static LocalContext.Key<String> PEER_HOST = null;
 
     static {
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `SW_SPAN` initializer `null` is redundant
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/FinagleCtxs.java`
+#### Snippet
+```java
+class FinagleCtxs {
+
+    static LocalContext.Key<AbstractSpan> SW_SPAN = null;
+
+    static LocalContext.Key<String> PEER_HOST = null;
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -9120,15 +9108,27 @@ in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/sk
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `span` initializer `null` is redundant
-in `apm-sniffer/apm-sdk-plugin/solrj-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/solrj/SolrClientInterceptor.java`
+Variable `databaseEndTag` initializer `url.length()` is redundant
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/ImpalaJdbcURLParser.java`
 #### Snippet
 ```java
-            if (action == null) {
-                if (update instanceof UpdateRequest) {
-                    AbstractSpan span = null;
+        int databaseStartTag = url.indexOf("/", startSize);
+        int firstParamIndex = url.indexOf(";", startSize);
+        int databaseEndTag = url.length();
+        if (databaseStartTag == -1 && firstParamIndex == -1) {
+            return null;
+```
 
-                    UpdateRequest ur = (UpdateRequest) update;
+### RuleId[ruleID=UnusedAssignment]
+Variable `classPath` initializer `""` is redundant
+in `apm-sniffer/apm-sdk-plugin/nutz-plugins/mvc-annotation-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nutz/mvc/PathMappingCache.java`
+#### Snippet
+```java
+ */
+public class PathMappingCache {
+    private String classPath = "";
+
+    private ConcurrentHashMap<Method, String> methodPathMapping = new ConcurrentHashMap<Method, String>();
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -9157,18 +9157,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Condition `null != key` is always `true`
-in `apm-application-toolkit/apm-toolkit-logback-1.x/src/main/java/org/apache/skywalking/apm/toolkit/log/logback/v1/x/mdc/LogbackMDCPatternConverter.java`
-#### Snippet
-```java
-        super.start();
-        String[] key = OptionHelper.extractDefaultReplacement(getFirstOption());
-        if (null != key && key.length > 0) {
-            String variableName = key[0];
-            if (CONVERT_TRACE_ID_KEY.equals(variableName)) {
-```
-
-### RuleId[ruleID=ConstantValue]
 Value `ret` is always 'null'
 in `apm-sniffer/apm-sdk-plugin/activemq-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/activemq/MessageConsumerDequeueInterceptor.java`
 #### Snippet
@@ -9181,15 +9169,27 @@ in `apm-sniffer/apm-sdk-plugin/activemq-5.x-plugin/src/main/java/org/apache/skyw
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Condition `httpStatus != null` is always `true`
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-webflux-5.x-webclient-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/webclient/WebFluxWebClientInterceptor.java`
+Condition `isMatch` is always `false`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/concurrent/match/ListenableFutureCallbackMatch.java`
 #### Snippet
 ```java
-            return ret1.doOnSuccess(clientResponse -> {
-                HttpStatus httpStatus = clientResponse.statusCode();
-                if (httpStatus != null) {
-                    Tags.HTTP_RESPONSE_STATUS_CODE.set(span, httpStatus.value());
-                    if (httpStatus.isError()) {
+            TypeDescription.Generic superClazz = clazz.getSuperClass();
+            if (superClazz != null && !clazz.getTypeName().equals("java.lang.Object")) {
+                isMatch = isMatch || matchExactClass(superClazz);
+            }
+        }
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `null != key` is always `true`
+in `apm-application-toolkit/apm-toolkit-logback-1.x/src/main/java/org/apache/skywalking/apm/toolkit/log/logback/v1/x/mdc/LogbackMDCPatternConverter.java`
+#### Snippet
+```java
+        super.start();
+        String[] key = OptionHelper.extractDefaultReplacement(getFirstOption());
+        if (null != key && key.length > 0) {
+            String variableName = key[0];
+            if (CONVERT_TRACE_ID_KEY.equals(variableName)) {
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -9202,18 +9202,6 @@ in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apac
         if (evalContext == null || evalContext.isEmpty()) {
             SpanDataHolder spanDataHolder = new SpanDataHolder(
                 ContextManager.createLocalSpan(operationName),
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `isMatch` is always `false`
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/concurrent/match/ListenableFutureCallbackMatch.java`
-#### Snippet
-```java
-            TypeDescription.Generic superClazz = clazz.getSuperClass();
-            if (superClazz != null && !clazz.getTypeName().equals("java.lang.Object")) {
-                isMatch = isMatch || matchExactClass(superClazz);
-            }
-        }
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -9254,6 +9242,18 @@ in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/
         return objInst.getClass().equals(ExceptionHandler.class);
     }
 }
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `httpStatus != null` is always `true`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-webflux-5.x-webclient-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/webclient/WebFluxWebClientInterceptor.java`
+#### Snippet
+```java
+            return ret1.doOnSuccess(clientResponse -> {
+                HttpStatus httpStatus = clientResponse.statusCode();
+                if (httpStatus != null) {
+                    Tags.HTTP_RESPONSE_STATUS_CODE.set(span, httpStatus.value());
+                    if (httpStatus.isError()) {
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -9356,258 +9356,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
 ### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
 String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/PostgreSQLURLParser.java`
-#### Snippet
-```java
-            for (String host : hostSegment) {
-                if (host.split(":").length == 1) {
-                    sb.append(host + ":" + DEFAULT_PORT + ",");
-                } else {
-                    sb.append(host + ",");
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/PostgreSQLURLParser.java`
-#### Snippet
-```java
-                    sb.append(host + ":" + DEFAULT_PORT + ",");
-                } else {
-                    sb.append(host + ",");
-                }
-            }
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-        }
-
-        c3.append(" throw new " + NoSuchMethodException.class.getName() + "(\"Not found method \\\"\"+$2+\"\\\" in class " + c
-            .getName() + ".\"); }");
-
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-            }
-        }
-        c1.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
-            .getName() + ".\"); }");
-        c2.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-        c1.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
-            .getName() + ".\"); }");
-        c2.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
-            .getName() + ".\"); }");
-
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInterceptor.java`
-#### Snippet
-```java
-    private String generateRequestURL(URL url, Invocation invocation) {
-        StringBuilder requestURL = new StringBuilder();
-        requestURL.append(url.getProtocol() + "://");
-        requestURL.append(url.getHost());
-        requestURL.append(":" + url.getPort() + "/");
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInterceptor.java`
-#### Snippet
-```java
-        requestURL.append(url.getProtocol() + "://");
-        requestURL.append(url.getHost());
-        requestURL.append(":" + url.getPort() + "/");
-        requestURL.append(generateOperationName(url, invocation));
-        return requestURL.toString();
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInterceptor.java`
-#### Snippet
-```java
-        operationName.append(groupStr);
-        operationName.append(requestURL.getPath());
-        operationName.append("." + invocation.getMethodName() + "(");
-        for (Class<?> classes : invocation.getParameterTypes()) {
-            operationName.append(classes.getSimpleName() + ",");
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInterceptor.java`
-#### Snippet
-```java
-        operationName.append("." + invocation.getMethodName() + "(");
-        for (Class<?> classes : invocation.getParameterTypes()) {
-            operationName.append(classes.getSimpleName() + ",");
-        }
-
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/baidu-brpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc/ClientInterceptor.java`
-#### Snippet
-```java
-    private String generateOperationName(Request request) {
-        StringBuilder operationName = new StringBuilder();
-        operationName.append(request.getServiceName() + "." + request.getMethodName());
-        return operationName.toString();
-    }
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-        }
-
-        c3.append(" throw new " + NoSuchMethodException.class.getName() + "(\"Not found method \\\"\"+$2+\"\\\" in class " + c
-            .getName() + ".\"); }");
-
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-            }
-        }
-        c1.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
-            .getName() + ".\"); }");
-        c2.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-        c1.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
-            .getName() + ".\"); }");
-        c2.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
-            .getName() + ".\"); }");
-
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInterceptor.java`
-#### Snippet
-```java
-        operationName.append(groupStr);
-        operationName.append(requestURL.getPath());
-        operationName.append("." + invocation.getMethodName() + "(");
-        for (Class<?> classes : invocation.getParameterTypes()) {
-            operationName.append(classes.getSimpleName() + ",");
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInterceptor.java`
-#### Snippet
-```java
-        operationName.append("." + invocation.getMethodName() + "(");
-        for (Class<?> classes : invocation.getParameterTypes()) {
-            operationName.append(classes.getSimpleName() + ",");
-        }
-
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInterceptor.java`
-#### Snippet
-```java
-    private String generateRequestURL(URL url, Invocation invocation) {
-        StringBuilder requestURL = new StringBuilder();
-        requestURL.append(url.getProtocol() + "://");
-        requestURL.append(url.getHost());
-        requestURL.append(":" + url.getPort() + "/");
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInterceptor.java`
-#### Snippet
-```java
-        requestURL.append(url.getProtocol() + "://");
-        requestURL.append(url.getHost());
-        requestURL.append(":" + url.getPort() + "/");
-        requestURL.append(generateOperationName(url, invocation));
-        return requestURL.toString();
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInterceptor.java`
-#### Snippet
-```java
-        operationName.append(groupStr);
-        operationName.append(requestURL.getPath());
-        operationName.append("." + invocation.getMethodName() + "(");
-        for (Class<?> classes : invocation.getParameterTypes()) {
-            operationName.append(classes.getSimpleName() + ",");
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInterceptor.java`
-#### Snippet
-```java
-        operationName.append("." + invocation.getMethodName() + "(");
-        for (Class<?> classes : invocation.getParameterTypes()) {
-            operationName.append(classes.getSimpleName() + ",");
-        }
-
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInterceptor.java`
-#### Snippet
-```java
-    private String generateRequestURL(URL url, Invocation invocation) {
-        StringBuilder requestURL = new StringBuilder();
-        requestURL.append(url.getProtocol() + "://");
-        requestURL.append(url.getHost());
-        requestURL.append(":" + url.getPort() + "/");
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInterceptor.java`
-#### Snippet
-```java
-        requestURL.append(url.getProtocol() + "://");
-        requestURL.append(url.getHost());
-        requestURL.append(":" + url.getPort() + "/");
-        requestURL.append(generateOperationName(url, invocation));
-        return requestURL.toString();
-```
-
-### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-String concatenation as argument to `StringBuilder.append()` call
 in `apm-sniffer/apm-sdk-plugin/motan-plugin/src/main/java/org/apache/skywalking/apm/plugin/motan/MotanProviderInterceptor.java`
 #### Snippet
 ```java
@@ -9628,6 +9376,54 @@ in `apm-sniffer/apm-sdk-plugin/motan-plugin/src/main/java/org/apache/skywalking/
         viewPoint.append("(" + request.getParamtersDesc() + ")");
         return viewPoint.toString();
     }
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInterceptor.java`
+#### Snippet
+```java
+        operationName.append(groupStr);
+        operationName.append(requestURL.getPath());
+        operationName.append("." + invocation.getMethodName() + "(");
+        for (Class<?> classes : invocation.getParameterTypes()) {
+            operationName.append(classes.getSimpleName() + ",");
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInterceptor.java`
+#### Snippet
+```java
+        operationName.append("." + invocation.getMethodName() + "(");
+        for (Class<?> classes : invocation.getParameterTypes()) {
+            operationName.append(classes.getSimpleName() + ",");
+        }
+
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInterceptor.java`
+#### Snippet
+```java
+    private String generateRequestURL(URL url, Invocation invocation) {
+        StringBuilder requestURL = new StringBuilder();
+        requestURL.append(url.getProtocol() + "://");
+        requestURL.append(url.getHost());
+        requestURL.append(":" + url.getPort() + "/");
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInterceptor.java`
+#### Snippet
+```java
+        requestURL.append(url.getProtocol() + "://");
+        requestURL.append(url.getHost());
+        requestURL.append(":" + url.getPort() + "/");
+        requestURL.append(generateOperationName(url, invocation));
+        return requestURL.toString();
 ```
 
 ### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
@@ -9668,14 +9464,86 @@ in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-conflict-patch/src/main/java/org/apache
 
 ### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
 String concatenation as argument to `StringBuilder.append()` call
-in `apm-sniffer/apm-sdk-plugin/baidu-brpc-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc3/ClientInterceptor.java`
+in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
 #### Snippet
 ```java
-    private String generateOperationName(Request request) {
-        StringBuilder operationName = new StringBuilder();
-        operationName.append(request.getServiceName() + "." + request.getMethodName());
-        return operationName.toString();
-    }
+        }
+
+        c3.append(" throw new " + NoSuchMethodException.class.getName() + "(\"Not found method \\\"\"+$2+\"\\\" in class " + c
+            .getName() + ".\"); }");
+
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+            }
+        }
+        c1.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
+            .getName() + ".\"); }");
+        c2.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+        c1.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
+            .getName() + ".\"); }");
+        c2.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
+            .getName() + ".\"); }");
+
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInterceptor.java`
+#### Snippet
+```java
+    private String generateRequestURL(URL url, Invocation invocation) {
+        StringBuilder requestURL = new StringBuilder();
+        requestURL.append(url.getProtocol() + "://");
+        requestURL.append(url.getHost());
+        requestURL.append(":" + url.getPort() + "/");
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInterceptor.java`
+#### Snippet
+```java
+        requestURL.append(url.getProtocol() + "://");
+        requestURL.append(url.getHost());
+        requestURL.append(":" + url.getPort() + "/");
+        requestURL.append(generateOperationName(url, invocation));
+        return requestURL.toString();
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInterceptor.java`
+#### Snippet
+```java
+        operationName.append(groupStr);
+        operationName.append(requestURL.getPath());
+        operationName.append("." + invocation.getMethodName() + "(");
+        for (Class<?> classes : invocation.getParameterTypes()) {
+            operationName.append(classes.getSimpleName() + ",");
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInterceptor.java`
+#### Snippet
+```java
+        operationName.append("." + invocation.getMethodName() + "(");
+        for (Class<?> classes : invocation.getParameterTypes()) {
+            operationName.append(classes.getSimpleName() + ",");
+        }
+
 ```
 
 ### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
@@ -9688,6 +9556,138 @@ in `apm-sniffer/apm-sdk-plugin/cassandra-java-driver-3.x-plugin/src/main/java/or
             hosts.append(inetSocketAddress.getHostName() + ":" + inetSocketAddress.getPort() + ",");
         }
 
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/PostgreSQLURLParser.java`
+#### Snippet
+```java
+            for (String host : hostSegment) {
+                if (host.split(":").length == 1) {
+                    sb.append(host + ":" + DEFAULT_PORT + ",");
+                } else {
+                    sb.append(host + ",");
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/PostgreSQLURLParser.java`
+#### Snippet
+```java
+                    sb.append(host + ":" + DEFAULT_PORT + ",");
+                } else {
+                    sb.append(host + ",");
+                }
+            }
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/baidu-brpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc/ClientInterceptor.java`
+#### Snippet
+```java
+    private String generateOperationName(Request request) {
+        StringBuilder operationName = new StringBuilder();
+        operationName.append(request.getServiceName() + "." + request.getMethodName());
+        return operationName.toString();
+    }
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+        }
+
+        c3.append(" throw new " + NoSuchMethodException.class.getName() + "(\"Not found method \\\"\"+$2+\"\\\" in class " + c
+            .getName() + ".\"); }");
+
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+            }
+        }
+        c1.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
+            .getName() + ".\"); }");
+        c2.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+        c1.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
+            .getName() + ".\"); }");
+        c2.append(" throw new " + NoSuchPropertyException.class.getName() + "(\"Not found property \\\"\"+$2+\"\\\" filed or setter method in class " + c
+            .getName() + ".\"); }");
+
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInterceptor.java`
+#### Snippet
+```java
+    private String generateRequestURL(URL url, Invocation invocation) {
+        StringBuilder requestURL = new StringBuilder();
+        requestURL.append(url.getProtocol() + "://");
+        requestURL.append(url.getHost());
+        requestURL.append(":" + url.getPort() + "/");
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInterceptor.java`
+#### Snippet
+```java
+        requestURL.append(url.getProtocol() + "://");
+        requestURL.append(url.getHost());
+        requestURL.append(":" + url.getPort() + "/");
+        requestURL.append(generateOperationName(url, invocation));
+        return requestURL.toString();
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInterceptor.java`
+#### Snippet
+```java
+        operationName.append(groupStr);
+        operationName.append(requestURL.getPath());
+        operationName.append("." + invocation.getMethodName() + "(");
+        for (Class<?> classes : invocation.getParameterTypes()) {
+            operationName.append(classes.getSimpleName() + ",");
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInterceptor.java`
+#### Snippet
+```java
+        operationName.append("." + invocation.getMethodName() + "(");
+        for (Class<?> classes : invocation.getParameterTypes()) {
+            operationName.append(classes.getSimpleName() + ",");
+        }
+
+```
+
+### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+String concatenation as argument to `StringBuilder.append()` call
+in `apm-sniffer/apm-sdk-plugin/baidu-brpc-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/baidu/brpc3/ClientInterceptor.java`
+#### Snippet
+```java
+    private String generateOperationName(Request request) {
+        StringBuilder operationName = new StringBuilder();
+        operationName.append(request.getServiceName() + "." + request.getMethodName());
+        return operationName.toString();
+    }
 ```
 
 ## RuleId[ruleID=IOResource]
@@ -9718,30 +9718,6 @@ in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apac
 ## RuleId[ruleID=RedundantLengthCheck]
 ### RuleId[ruleID=RedundantLengthCheck]
 Redundant array length check
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-
-    private static boolean hasMethods(Method[] methods) {
-        if (methods == null || methods.length == 0) {
-            return false;
-        }
-```
-
-### RuleId[ruleID=RedundantLengthCheck]
-Redundant array length check
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/ClassEnhancePluginDefine.java`
-#### Snippet
-```java
-        StaticMethodsInterceptPoint[] staticMethodsInterceptPoints = getStaticMethodsInterceptPoints();
-        String enhanceOriginClassName = typeDescription.getTypeName();
-        if (staticMethodsInterceptPoints == null || staticMethodsInterceptPoints.length == 0) {
-            return newClassBuilder;
-        }
-```
-
-### RuleId[ruleID=RedundantLengthCheck]
-Redundant array length check
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassEnhancePluginDefineV2.java`
 #### Snippet
 ```java
@@ -9754,25 +9730,13 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ### RuleId[ruleID=RedundantLengthCheck]
 Redundant array length check
-in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/ClassEnhancePluginDefine.java`
 #### Snippet
 ```java
-    @Override
-    public boolean trySampling(final String operationName) {
-        if (patterns.length > 0) {
-            for (String pattern : patterns) {
-                if (pathMatcher.match(pattern, operationName)) {
-```
-
-### RuleId[ruleID=RedundantLengthCheck]
-Redundant array length check
-in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
-#### Snippet
-```java
-
-    private static boolean hasMethods(Method[] methods) {
-        if (methods == null || methods.length == 0) {
-            return false;
+        StaticMethodsInterceptPoint[] staticMethodsInterceptPoints = getStaticMethodsInterceptPoints();
+        String enhanceOriginClassName = typeDescription.getTypeName();
+        if (staticMethodsInterceptPoints == null || staticMethodsInterceptPoints.length == 0) {
+            return newClassBuilder;
         }
 ```
 
@@ -9836,17 +9800,101 @@ in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-conflict-patch/src/main/java/org/apache
         }
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MeterCenter` has only 'static' members, and lacks a 'private' constructor
-in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/MeterCenter.java`
+### RuleId[ruleID=RedundantLengthCheck]
+Redundant array length check
+in `apm-sniffer/apm-sdk-plugin/dubbo-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/dubbo/patch/MakeWrapperInterceptor.java`
 #### Snippet
 ```java
- * don't support this.
- */
-public class MeterCenter {
 
+    private static boolean hasMethods(Method[] methods) {
+        if (methods == null || methods.length == 0) {
+            return false;
+        }
+```
+
+### RuleId[ruleID=RedundantLengthCheck]
+Redundant array length check
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-conflict-patch/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/patch/MakeWrapperInterceptor.java`
+#### Snippet
+```java
+
+    private static boolean hasMethods(Method[] methods) {
+        if (methods == null || methods.length == 0) {
+            return false;
+        }
+```
+
+### RuleId[ruleID=RedundantLengthCheck]
+Redundant array length check
+in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/TraceIgnoreExtendService.java`
+#### Snippet
+```java
+    @Override
+    public boolean trySampling(final String operationName) {
+        if (patterns.length > 0) {
+            for (String pattern : patterns) {
+                if (pathMatcher.match(pattern, operationName)) {
+```
+
+## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/pulsar-2.2-2.7-plugin/src/main/java/org/apache/skywalking/apm/plugin/pulsar/define/Constants.java`
+#### Snippet
+```java
+ * Pulsar 2.7.x plugin constants
+ */
+public class Constants {
+
+    public static final String[] WITNESS_PULSAR_27X_CLASSES = new String[] {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `JsonRpcConstants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/jsonrpc4j-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jsonrpc4j/JsonRpcConstants.java`
+#### Snippet
+```java
+import org.apache.skywalking.apm.agent.core.context.tag.StringTag;
+
+public class JsonRpcConstants {
+    public static final StringTag JSON_RPC_METHOD_TAG = new StringTag(1, "jsonrpc.method");
+}
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `SkyWalkingAgent` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent/src/main/java/org/apache/skywalking/apm/agent/SkyWalkingAgent.java`
+#### Snippet
+```java
+ * The main entrance of sky-walking agent, based on javaagent mechanism.
+ */
+public class SkyWalkingAgent {
+    private static ILog LOGGER = LogManager.getLogger(SkyWalkingAgent.class);
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Log4j2SkyWalkingContextOutputAppender` has only 'static' members, and lacks a 'private' constructor
+in `apm-application-toolkit/apm-toolkit-log4j-2.x/src/main/java/org/apache/skywalking/apm/toolkit/log/log4j/v2/x/Log4j2SkyWalkingContextOutputAppender.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.toolkit.log.log4j.v2.x;
+
+public class Log4j2SkyWalkingContextOutputAppender {
     /**
+     * As default, append "SW_CTX: N/A" to the output message, if SkyWalking agent in active mode, append the real SkyWalking context
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Log4j2OutputAppender` has only 'static' members, and lacks a 'private' constructor
+in `apm-application-toolkit/apm-toolkit-log4j-2.x/src/main/java/org/apache/skywalking/apm/toolkit/log/log4j/v2/x/Log4j2OutputAppender.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.toolkit.log.log4j.v2.x;
+
+public class Log4j2OutputAppender {
+    /**
+     * As default, append "TID: N/A" to the output message, if SkyWalking agent in active mode, append the real traceId
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -9874,255 +9922,51 @@ public class CommandDeserializer {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MeterFactory` has only 'static' members, and lacks a 'private' constructor
-in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/MeterFactory.java`
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xxljob/Constants.java`
 #### Snippet
 ```java
-import java.util.function.Supplier;
+import static net.bytebuddy.matcher.ElementMatchers.takesArguments;
 
-public class MeterFactory {
+public class Constants {
 
-    /**
+    public static final String XXL_IJOB_HANDLER = "com.xxl.job.core.handler.IJobHandler";
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Neo4jPluginConstants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/Neo4jPluginConstants.java`
-#### Snippet
-```java
- * Constants for neo4j plugin
- */
-public final class Neo4jPluginConstants {
-
-    public static final String EMPTY_STRING = "";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Neo4j` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/Neo4jPluginConfig.java`
-#### Snippet
-```java
-
-        @PluginConfig(root = Neo4jPluginConfig.class)
-        public static class Neo4j {
-
-            /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CypherUtils` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/util/CypherUtils.java`
-#### Snippet
-```java
- * Cypher language utils
- */
-public final class CypherUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ComponentsDefine` has only 'static' members, and lacks a 'private' constructor
-in `apm-protocol/apm-network/src/main/java/org/apache/skywalking/apm/network/trace/component/ComponentsDefine.java`
-#### Snippet
-```java
- * The supported list of skywalking java sniffer.
- */
-public class ComponentsDefine {
-
-    public static final OfficialComponent TOMCAT = new OfficialComponent(1, "Tomcat");
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `EnvUtil` has only 'static' members, and lacks a 'private' constructor
-in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/EnvUtil.java`
-#### Snippet
-```java
- * Read value from system env.
- */
-public class EnvUtil {
-    public static int getInt(String envName, int defaultValue) {
-        int value = defaultValue;
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SkyWalkingAgent` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent/src/main/java/org/apache/skywalking/apm/agent/SkyWalkingAgent.java`
-#### Snippet
-```java
- * The main entrance of sky-walking agent, based on javaagent mechanism.
- */
-public class SkyWalkingAgent {
-    private static ILog LOGGER = LogManager.getLogger(SkyWalkingAgent.class);
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `JdkThreading` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/JDKThreadingPluginConfig.java`
+Class `Tomcat` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/tomcat-7.x-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat78x/TomcatPluginConfig.java`
 #### Snippet
 ```java
     public static class Plugin {
-        @PluginConfig(root = JDKThreadingPluginConfig.class)
-        public static class JdkThreading {
-
+        @PluginConfig(root = TomcatPluginConfig.class)
+        public static class Tomcat {
             /**
+             * This config item controls that whether the Tomcat plugin should collect the parameters of the request.
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ThreadingConfig` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/ThreadingConfig.java`
+Class `Http` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/tomcat-7.x-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat78x/TomcatPluginConfig.java`
 #### Snippet
 ```java
-import static org.apache.skywalking.apm.agent.core.plugin.match.PrefixMatch.nameStartsWith;
 
-public class ThreadingConfig {
-    private static final ILog LOGGER = LogManager.getLogger(ThreadingConfig.class);
-
+        @PluginConfig(root = TomcatPluginConfig.class)
+        public static class Http {
+            /**
+             * When either {@link Tomcat#COLLECT_HTTP_PARAMS} is enabled, how many characters to keep and send to the
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/pulsar-2.8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/pulsar/v28x/define/Constants.java`
+in `apm-sniffer/apm-sdk-plugin/tomcat-7.x-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat78x/Constants.java`
 #### Snippet
 ```java
- * Pulsar 2.8.x plugin constants
- */
-public class Constants {
-
-    public static final WitnessMethod WITNESS_PULSAR_28X_METHOD = new WitnessMethod(
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Lettuce` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/LettucePluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = LettucePluginConfig.class)
-        public static class Lettuce {
-            /**
-             * If set to true, the parameters of the Redis command would be collected.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Jedis` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-2.x-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v3/JedisPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = JedisPluginConfig.class)
-        public static class Jedis {
-            /**
-             * If set to true, the parameters of the Redis command would be collected.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `JDBC` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/JDBCPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = JDBCPluginConfig.class)
-        public static class JDBC {
-            /**
-             * If set to true, the parameters of the sql (typically {@link java.sql.PreparedStatement}) would be
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SqlBodyUtil` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/SqlBodyUtil.java`
-#### Snippet
-```java
- * Sql body utility
- */
-public class SqlBodyUtil {
-    private static final String EMPTY_STRING = "";
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `StatementTracing` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/StatementTracing.java`
-#### Snippet
-```java
- * java.sql.Statement}.
- */
-public class StatementTracing {
-    public static <R> R execute(java.sql.Statement realStatement, ConnectionInfo connectInfo, String method, String sql,
-        Executable<R> exec) throws SQLException {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `PreparedStatementTracing` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/PreparedStatementTracing.java`
-#### Snippet
-```java
- * java.sql.PreparedStatement}.
- */
-public class PreparedStatementTracing {
-
-    public static <R> R execute(java.sql.PreparedStatement realStatement, ConnectionInfo connectInfo, String method,
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CallableStatementTracing` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/CallableStatementTracing.java`
-#### Snippet
-```java
- * java.sql.CallableStatement}.
- */
-public class CallableStatementTracing {
-
-    public static <R> R execute(java.sql.CallableStatement realStatement, ConnectionInfo connectInfo, String method,
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/define/Constants.java`
-#### Snippet
-```java
-import java.util.Set;
+package org.apache.skywalking.apm.plugin.tomcat78x;
 
 public class Constants {
-    public static final String CREATE_STATEMENT_INTERCEPT_CLASS = "org.apache.skywalking.apm.plugin.jdbc.JDBCStatementInterceptor";
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `URLParser` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/URLParser.java`
-#### Snippet
-```java
- * some url cannot be parsed, such as Oracle connection url with multiple host.
- */
-public class URLParser {
-
-    private static final String MYSQL_JDBC_URL_PREFIX = "jdbc:mysql";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Dubbo` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboPluginConfig.java`
-#### Snippet
-```java
-
-        @PluginConfig(root = DubboPluginConfig.class)
-        public static class Dubbo {
-
-            public static boolean COLLECT_CONSUMER_ARGUMENTS = false;
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `NatsCommons` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/NatsCommons.java`
-#### Snippet
-```java
-import java.util.Optional;
-
-public class NatsCommons {
-
-    private static final String SID = "sid";
+    public static final String FORWARD_REQUEST_FLAG = "SW_FORWARD_REQUEST_FLAG";
+}
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -10138,6 +9982,18 @@ public class ProcessorUtil {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ComponentsDefine` has only 'static' members, and lacks a 'private' constructor
+in `apm-protocol/apm-network/src/main/java/org/apache/skywalking/apm/network/trace/component/ComponentsDefine.java`
+#### Snippet
+```java
+ * The supported list of skywalking java sniffer.
+ */
+public class ComponentsDefine {
+
+    public static final OfficialComponent TOMCAT = new OfficialComponent(1, "Tomcat");
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `OSUtil` has only 'static' members, and lacks a 'private' constructor
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/os/OSUtil.java`
 #### Snippet
@@ -10147,18 +10003,6 @@ import org.apache.skywalking.apm.network.common.v3.KeyStringValuePair;
 public class OSUtil {
     private static volatile String OS_NAME;
     private static volatile String HOST_NAME;
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `AgentPackagePath` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/boot/AgentPackagePath.java`
-#### Snippet
-```java
- * mechanism fails, the agent will exit directly.
- */
-public class AgentPackagePath {
-    private static final ILog LOGGER = LogManager.getLogger(AgentPackagePath.class);
-
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -10183,6 +10027,18 @@ import org.apache.skywalking.apm.network.common.v3.KeyStringValuePair;
 public class LoadedLibraryCollector {
 
     private static final ILog LOGGER = LogManager.getLogger(LoadedLibraryCollector.class);
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `AgentPackagePath` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/boot/AgentPackagePath.java`
+#### Snippet
+```java
+ * mechanism fails, the agent will exit directly.
+ */
+public class AgentPackagePath {
+    private static final ILog LOGGER = LogManager.getLogger(AgentPackagePath.class);
+
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -10222,15 +10078,15 @@ public class MethodUtil {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Log` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
+Class `FileUtils` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/FileUtils.java`
 #### Snippet
 ```java
-    }
+import java.nio.file.Files;
 
-    public static class Log {
-        /**
-         * The max size of message to send to server.Default is 10 MB.
+public class FileUtils {
+
+    /**
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -10246,122 +10102,26 @@ public class SnifferConfigInitializer {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Profile` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
+Class `PrivateKeyUtil` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/PrivateKeyUtil.java`
 #### Snippet
 ```java
-    }
-
-    public static class Profile {
-        /**
-         * If true, skywalking agent will enable profile when user create a new profile task. Otherwise disable
+ * Util intends to parse PKCS#1 and PKCS#8 at same time.
+ */
+public class PrivateKeyUtil {
+    private static final String PKCS_1_PEM_HEADER = "-----BEGIN RSA PRIVATE KEY-----";
+    private static final String PKCS_1_PEM_FOOTER = "-----END RSA PRIVATE KEY-----";
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Plugin` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
+Class `InstanceJsonPropertiesUtil` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/InstanceJsonPropertiesUtil.java`
 #### Snippet
 ```java
-    }
+import org.apache.skywalking.apm.util.StringUtil;
 
-    public static class Plugin {
-        /**
-         * Control the length of the peer field.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Logging` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
-#### Snippet
-```java
-    }
-
-    public static class Logging {
-        /**
-         * Log file name.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Correlation` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
-#### Snippet
-```java
-    }
-
-    public static class Correlation {
-        /**
-         * Max element count in the correlation context.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Jvm` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
-#### Snippet
-```java
-    }
-
-    public static class Jvm {
-        /**
-         * The buffer size of collected JVM info.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `OsInfo` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
-#### Snippet
-```java
-    }
-
-    public static class OsInfo {
-        /**
-         * Limit the length of the ipv4 list size.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Agent` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
-#### Snippet
-```java
-public class Config {
-
-    public static class Agent {
-        /**
-         * Namespace represents a subnet, such as kubernetes namespace, or 172.10.*.*.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Meter` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
-#### Snippet
-```java
-    }
-
-    public static class Meter {
-        /**
-         * If true, skywalking agent will enable sending meters. Otherwise disable meter report.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `StatusCheck` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
-#### Snippet
-```java
-    }
-
-    public static class StatusCheck {
-        /**
-         * Listed exceptions would not be treated as an error. Because in some codes, the exception is being used as a
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Buffer` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
-#### Snippet
-```java
-    }
-
-    public static class Buffer {
-        public static int CHANNEL_SIZE = 5;
+public class InstanceJsonPropertiesUtil {
+    private static final Gson GSON = new Gson();
 
 ```
 
@@ -10378,51 +10138,135 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `PrivateKeyUtil` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/PrivateKeyUtil.java`
+Class `OsInfo` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
 #### Snippet
 ```java
- * Util intends to parse PKCS#1 and PKCS#8 at same time.
- */
-public class PrivateKeyUtil {
-    private static final String PKCS_1_PEM_HEADER = "-----BEGIN RSA PRIVATE KEY-----";
-    private static final String PKCS_1_PEM_FOOTER = "-----END RSA PRIVATE KEY-----";
+    }
+
+    public static class OsInfo {
+        /**
+         * Limit the length of the ipv4 list size.
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `FileUtils` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/FileUtils.java`
+Class `StatusCheck` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
 #### Snippet
 ```java
-import java.nio.file.Files;
+    }
 
-public class FileUtils {
-
-    /**
+    public static class StatusCheck {
+        /**
+         * Listed exceptions would not be treated as an error. Because in some codes, the exception is being used as a
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `InstanceJsonPropertiesUtil` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/InstanceJsonPropertiesUtil.java`
+Class `Log` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
 #### Snippet
 ```java
-import org.apache.skywalking.apm.util.StringUtil;
+    }
 
-public class InstanceJsonPropertiesUtil {
-    private static final Gson GSON = new Gson();
+    public static class Log {
+        /**
+         * The max size of message to send to server.Default is 10 MB.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Plugin` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
+#### Snippet
+```java
+    }
+
+    public static class Plugin {
+        /**
+         * Control the length of the peer field.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Meter` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
+#### Snippet
+```java
+    }
+
+    public static class Meter {
+        /**
+         * If true, skywalking agent will enable sending meters. Otherwise disable meter report.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Profile` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
+#### Snippet
+```java
+    }
+
+    public static class Profile {
+        /**
+         * If true, skywalking agent will enable profile when user create a new profile task. Otherwise disable
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Agent` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
+#### Snippet
+```java
+public class Config {
+
+    public static class Agent {
+        /**
+         * Namespace represents a subnet, such as kubernetes namespace, or 172.10.*.*.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Logging` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
+#### Snippet
+```java
+    }
+
+    public static class Logging {
+        /**
+         * Log file name.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Buffer` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
+#### Snippet
+```java
+    }
+
+    public static class Buffer {
+        public static int CHANNEL_SIZE = 5;
 
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CustomizeExpression` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/CustomizeExpression.java`
+Class `Jvm` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
 #### Snippet
 ```java
- */
+    }
 
-public class CustomizeExpression {
+    public static class Jvm {
+        /**
+         * The buffer size of collected JVM info.
+```
 
-    private static final ILog LOGGER = LogManager.getLogger(CustomizeExpression.class);
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Correlation` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/Config.java`
+#### Snippet
+```java
+    }
+
+    public static class Correlation {
+        /**
+         * Max element count in the correlation context.
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -10435,6 +10279,18 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 public class MeterFactory {
 
     /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CustomizeExpression` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/CustomizeExpression.java`
+#### Snippet
+```java
+ */
+
+public class CustomizeExpression {
+
+    private static final ILog LOGGER = LogManager.getLogger(CustomizeExpression.class);
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -10498,13 +10354,13 @@ public class ConstructorInterTemplate {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `InstanceMethodInterTemplate` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bootstrap/template/InstanceMethodInterTemplate.java`
+Class `InstanceMethodInterWithOverrideArgsTemplate` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bootstrap/template/InstanceMethodInterWithOverrideArgsTemplate.java`
 #### Snippet
 ```java
  * This class wouldn't be loaded in real env. This is a class template for dynamic class generation.
  */
-public class InstanceMethodInterTemplate {
+public class InstanceMethodInterWithOverrideArgsTemplate {
     /**
      * This field is never set in the template, but has value in the runtime.
 ```
@@ -10522,6 +10378,18 @@ public class StaticMethodInterTemplate {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `InstanceMethodInterTemplate` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bootstrap/template/InstanceMethodInterTemplate.java`
+#### Snippet
+```java
+ * This class wouldn't be loaded in real env. This is a class template for dynamic class generation.
+ */
+public class InstanceMethodInterTemplate {
+    /**
+     * This field is never set in the template, but has value in the runtime.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `StaticMethodInterWithOverrideArgsTemplate` has only 'static' members, and lacks a 'private' constructor
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bootstrap/template/StaticMethodInterWithOverrideArgsTemplate.java`
 #### Snippet
@@ -10534,15 +10402,15 @@ public class StaticMethodInterWithOverrideArgsTemplate {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `InstanceMethodInterWithOverrideArgsTemplate` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bootstrap/template/InstanceMethodInterWithOverrideArgsTemplate.java`
+Class `InstanceMethodInterV2Template` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bootstrap/template/v2/InstanceMethodInterV2Template.java`
 #### Snippet
 ```java
  * This class wouldn't be loaded in real env. This is a class template for dynamic class generation.
  */
-public class InstanceMethodInterWithOverrideArgsTemplate {
+public class InstanceMethodInterV2Template {
+
     /**
-     * This field is never set in the template, but has value in the runtime.
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -10553,18 +10421,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
  * This class wouldn't be loaded in real env. This is a class template for dynamic class generation.
  */
 public class StaticMethodInterV2WithOverrideArgsTemplate {
-    /**
-     * This field is never set in the template, but has value in the runtime.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `StaticMethodInterV2Template` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bootstrap/template/v2/StaticMethodInterV2Template.java`
-#### Snippet
-```java
- * This class wouldn't be loaded in real env. This is a class template for dynamic class generation.
- */
-public class StaticMethodInterV2Template {
     /**
      * This field is never set in the template, but has value in the runtime.
 ```
@@ -10582,15 +10438,15 @@ public class ArrayTypeNameChecker {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `InstanceMethodInterV2Template` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bootstrap/template/v2/InstanceMethodInterV2Template.java`
+Class `StaticMethodInterV2Template` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bootstrap/template/v2/StaticMethodInterV2Template.java`
 #### Snippet
 ```java
  * This class wouldn't be loaded in real env. This is a class template for dynamic class generation.
  */
-public class InstanceMethodInterV2Template {
-
+public class StaticMethodInterV2Template {
     /**
+     * This field is never set in the template, but has value in the runtime.
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -10702,18 +10558,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `LogManager` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/api/LogManager.java`
-#### Snippet
-```java
- * <p> Created by xin on 2016/11/10.
- */
-public class LogManager {
-    private static LogResolver RESOLVER = new PatternLogResolver();
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `WriterFactory` has only 'static' members, and lacks a 'private' constructor
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/WriterFactory.java`
 #### Snippet
@@ -10726,363 +10570,51 @@ public class WriterFactory {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Kafka` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-reporter-plugins/kafka-reporter-plugin/src/main/java/org/apache/skywalking/apm/agent/core/kafka/KafkaReporterPluginConfig.java`
+Class `LogManager` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/api/LogManager.java`
+#### Snippet
+```java
+ * <p> Created by xin on 2016/11/10.
+ */
+public class LogManager {
+    private static LogResolver RESOLVER = new PatternLogResolver();
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `EnvUtil` has only 'static' members, and lacks a 'private' constructor
+in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/EnvUtil.java`
+#### Snippet
+```java
+ * Read value from system env.
+ */
+public class EnvUtil {
+    public static int getInt(String envName, int defaultValue) {
+        int value = defaultValue;
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `SpringAnnotation` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-annotation-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/annotations/SpringAnnotationConfig.java`
 #### Snippet
 ```java
     public static class Plugin {
-        @PluginConfig(root = KafkaReporterPluginConfig.class)
-        public static class Kafka {
+        @PluginConfig(root = SpringAnnotationConfig.class)
+        public static class SpringAnnotation {
             /**
-             * <B>bootstrap_servers</B>: A list of host/port pairs to use for establishing the initial connection to the Kafka cluster.
+             * regex expression to match spring bean classname
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `GuavaCacheOperationConvertor` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/guava-cache-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/cache/GuavaCacheOperationConvertor.java`
+Class `Constant` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.1.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v41/Constant.java`
 #### Snippet
 ```java
-import java.util.Optional;
-
-public class GuavaCacheOperationConvertor {
-
-    public static Optional<String> parseOperation(String cmd) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `GuavaCache` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/guava-cache-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/cache/GuavaCachePluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = GuavaCachePluginConfig.class)
-        public static class GuavaCache {
-            /**
-             * Operation represent a cache span is "write" or "read" action , and "op"(operation) is tagged with key "cache.op" usually
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Trace` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/conf/IgnoreConfig.java`
-#### Snippet
-```java
-public class IgnoreConfig {
-
-    public static class Trace {
-        /**
-         * If the operation name of the first span is matching, this segment should be ignored /path/?   Match any
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Log4j2SkyWalkingContextOutputAppender` has only 'static' members, and lacks a 'private' constructor
-in `apm-application-toolkit/apm-toolkit-log4j-2.x/src/main/java/org/apache/skywalking/apm/toolkit/log/log4j/v2/x/Log4j2SkyWalkingContextOutputAppender.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.toolkit.log.log4j.v2.x;
-
-public class Log4j2SkyWalkingContextOutputAppender {
+ * The type Constant.
+ */
+public final class Constant {
+    
     /**
-     * As default, append "SW_CTX: N/A" to the output message, if SkyWalking agent in active mode, append the real SkyWalking context
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Log4j2OutputAppender` has only 'static' members, and lacks a 'private' constructor
-in `apm-application-toolkit/apm-toolkit-log4j-2.x/src/main/java/org/apache/skywalking/apm/toolkit/log/log4j/v2/x/Log4j2OutputAppender.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.toolkit.log.log4j.v2.x;
-
-public class Log4j2OutputAppender {
-    /**
-     * As default, append "TID: N/A" to the output message, if SkyWalking agent in active mode, append the real traceId
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `IgnoreConfigInitializer` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/conf/IgnoreConfigInitializer.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.util.PropertyPlaceholderHelper;
-
-public class IgnoreConfigInitializer {
-    private static final ILog LOGGER = LogManager.getLogger(IgnoreConfigInitializer.class);
-    private static final String CONFIG_FILE_NAME = "/config/apm-trace-ignore-plugin.config";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SegmentRefAssert` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/tools/SegmentRefAssert.java`
-#### Snippet
-```java
-import static org.hamcrest.MatcherAssert.assertThat;
-
-public class SegmentRefAssert {
-    public static void assertSegmentId(TraceSegmentRef ref, String segmentId) {
-        assertThat(SegmentRefHelper.getTraceSegmentId(ref).toString(), is(segmentId));
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SegmentRefHelper` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SegmentRefHelper.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.agent.core.context.trace.TraceSegmentRef;
-
-public class SegmentRefHelper {
-    public static String getPeerHost(TraceSegmentRef ref) {
-        try {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `FieldSetter` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/FieldSetter.java`
-#### Snippet
-```java
-import java.lang.reflect.Field;
-
-public class FieldSetter {
-
-    public static <T> void setValue(Object instance, String fieldName,
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `FieldGetter` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/FieldGetter.java`
-#### Snippet
-```java
-import java.lang.reflect.Field;
-
-public class FieldGetter {
-    @SuppressWarnings("TypeParameterUnusedInFormals")
-    public static <T> T getValue(Object instance,
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/undertow-plugins/undertow-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/v2x/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.undertow.v2x;
-
-public class Constants {
-    public static final String FORWARD_REQUEST_FLAG = "SW_FORWARD_REQUEST_FLAG";
-}
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SegmentHelper` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SegmentHelper.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.agent.core.context.trace.TraceSegment;
-
-public class SegmentHelper {
-
-    public static List<AbstractTracingSpan> getSpans(TraceSegment traceSegment) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SpanAssert` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/tools/SpanAssert.java`
-#### Snippet
-```java
-import static org.junit.Assert.assertThat;
-
-public class SpanAssert {
-    public static void assertLogSize(AbstractSpan span, int exceptedSize) {
-        assertThat(SpanHelper.getLogs(span).size(), is(exceptedSize));
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Http` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-client-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/client/MicronautHttpClientPluginConfig.java`
-#### Snippet
-```java
-
-        @PluginConfig(root = MicronautHttpClientPluginConfig.class)
-        public static class Http {
-            /**
-             * When either {@link MicronautHttpClient#COLLECT_HTTP_PARAMS} is enabled, how many characters to keep and send to the
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MicronautHttpClient` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-client-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/client/MicronautHttpClientPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = MicronautHttpClientPluginConfig.class)
-        public static class MicronautHttpClient {
-            /**
-             * This config item controls that whether the HttpClient plugin should collect the parameters of the request.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SpanHelper` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.agent.core.context.util.TagValuePair;
-
-public class SpanHelper {
-    public static int getParentSpanId(AbstractSpan tracingSpan) {
-        try {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v5/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.httpclient.v5;
-
-public class Constants {
-
-    public static String SKYWALKING_CONTEXT_SNAPSHOT = "skywalking-context-snapshot";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MongoDB` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/mongodb-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v4/support/MongoPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = MongoPluginConfig.class)
-        public static class MongoDB {
-            /**
-             * If true, trace all the parameters in MongoDB access, default is false. Only trace the operation, not
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CpuPolicy` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/org/apache/skywalking/apm/plugin/cpu/policy/conf/TraceSamplerCpuPolicyPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = TraceSamplerCpuPolicyPluginConfig.class)
-        public static class CpuPolicy {
-            public static double SAMPLE_CPU_USAGE_PERCENT_LIMIT = -1;
-        }
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MicronautCommons` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-client-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/client/MicronautCommons.java`
-#### Snippet
-```java
-import java.util.function.Consumer;
-
-public class MicronautCommons {
-
-    private static final String SPAN_KEY = "CORS_SPAN";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Redisson` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/RedissonPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = RedissonPluginConfig.class)
-        public static class Redisson {
-            /**
-             * If set to true, the parameters of the Redis command would be collected.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ClassUtil` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/util/ClassUtil.java`
-#### Snippet
-```java
-import java.lang.reflect.Field;
-
-public class ClassUtil {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MeterIdConverter` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-meter-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/meter/util/MeterIdConverter.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-public class MeterIdConverter {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/kafka-commons/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.kafka.define;
-
-public class Constants {
-
-    public static final String KAFKA_FLAG = "SW_KAFKA_FLAG";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `InterceptorMethod` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/kafka-commons/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/InterceptorMethod.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.agent.core.context.ContextManager;
-
-public class InterceptorMethod {
-
-    public static void beginKafkaPollAndInvokeIteration(String operationName) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/tomcat-7.x-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat78x/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.tomcat78x;
-
-public class Constants {
-    public static final String FORWARD_REQUEST_FLAG = "SW_FORWARD_REQUEST_FLAG";
-}
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Http` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/tomcat-7.x-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat78x/TomcatPluginConfig.java`
-#### Snippet
-```java
-
-        @PluginConfig(root = TomcatPluginConfig.class)
-        public static class Http {
-            /**
-             * When either {@link Tomcat#COLLECT_HTTP_PARAMS} is enabled, how many characters to keep and send to the
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Tomcat` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/tomcat-7.x-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat78x/TomcatPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = TomcatPluginConfig.class)
-        public static class Tomcat {
-            /**
-             * This config item controls that whether the Tomcat plugin should collect the parameters of the request.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ZooOpt` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/zookeeper-3.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/zookeeper/ZooOpt.java`
-#### Snippet
-```java
-import org.apache.zookeeper.proto.SyncRequest;
-
-class ZooOpt {
-
-    private static final Map<Integer, String> OPTS = new HashMap<>();
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -11098,147 +10630,51 @@ public final class Constant {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Elasticsearch` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/ElasticsearchPluginConfig.java`
+Class `MongoDB` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/mongodb-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v4/support/MongoPluginConfig.java`
 #### Snippet
 ```java
     public static class Plugin {
-        @PluginConfig(root = ElasticsearchPluginConfig.class)
-        public static class Elasticsearch {
+        @PluginConfig(root = MongoPluginConfig.class)
+        public static class MongoDB {
             /**
-             * If true, trace all the DSL(Domain Specific Language) in ElasticSearch access, default is false.
+             * If true, trace all the parameters in MongoDB access, default is false. Only trace the operation, not
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/interceptor/Constants.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.agent.core.context.tag.Tags;
-
-public class Constants {
-    //interceptor class
-    public static final String REST_HIGH_LEVEL_CLIENT_CON_INTERCEPTOR = "org.apache.skywalking.apm.plugin.elasticsearch.v6.interceptor.RestHighLevelClientConInterceptor";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v5/define/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.jdbc.mysql.v5.define;
-
-public class Constants {
-    public static final String WITNESS_MYSQL_5X_CLASS = "com.mysql.jdbc.ConnectionImpl";
-}
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Http` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/tomcat-10x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat10x/TomcatPluginConfig.java`
-#### Snippet
-```java
-
-        @PluginConfig(root = TomcatPluginConfig.class)
-        public static class Http {
-            /**
-             * When either {@link Tomcat#COLLECT_HTTP_PARAMS} is enabled, how many characters to keep and send to the
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Tomcat` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/tomcat-10x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat10x/TomcatPluginConfig.java`
+Class `Toolkit` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/ToolkitPluginConfig.java`
 #### Snippet
 ```java
     public static class Plugin {
-        @PluginConfig(root = TomcatPluginConfig.class)
-        public static class Tomcat {
+        @PluginConfig(root = ToolkitPluginConfig.class)
+        public static class Toolkit {
             /**
-             * This config item controls that whether the Tomcat plugin should collect the parameters of the request.
+             * If true, the fully qualified method name will be used as the operation name instead of the given
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/tomcat-10x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat10x/Constants.java`
+Class `TagUtil` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/util/TagUtil.java`
 #### Snippet
 ```java
-package org.apache.skywalking.apm.plugin.tomcat10x;
+import org.apache.skywalking.apm.toolkit.trace.Tag;
 
-public class Constants {
-    public static final String FORWARD_REQUEST_FLAG = "SW_FORWARD_REQUEST_FLAG";
-}
+public class TagUtil {
+    public static void tagSpan(final AbstractSpan span, final Map<String, Object> context,
+                                     final Tag tag) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Customize` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/CustomizePluginConfig.java`
+Class `SpringTransaction` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-tx-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/transaction/SpringTXPluginConfig.java`
 #### Snippet
 ```java
     public static class Plugin {
-        @PluginConfig(root = CustomizePluginConfig.class)
-        public static class Customize {
+        @PluginConfig(root = SpringTXPluginConfig.class)
+        public static class SpringTransaction {
+
             /**
-             * Custom enhancement class configuration file path, recommended to use an absolute path.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/constants/Constants.java`
-#### Snippet
-```java
- */
-
-public class Constants {
-
-    public static final String OPERATION_NAME_SEPARATOR = "/";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CustomizeUtil` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/util/CustomizeUtil.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class CustomizeUtil {
-
-    private static final Map<String, Class> JAVA_CLASS = new HashMap<String, Class>();
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `HttpClient` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/httpclient-commons/src/main/java/org/apache/skywalking/apm/plugin/httpclient/HttpClientPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = HttpClientPluginConfig.class)
-        public static class HttpClient {
-            /**
-             * This config item controls that whether the HttpClient plugin should collect the parameters of the request.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Http` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/httpclient-commons/src/main/java/org/apache/skywalking/apm/plugin/httpclient/HttpClientPluginConfig.java`
-#### Snippet
-```java
-
-        @PluginConfig(root = HttpClientPluginConfig.class)
-        public static class Http {
-            /**
-             * When either {@link HttpClient#COLLECT_HTTP_PARAMS} is enabled, how many characters to keep and send to the
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Memcached` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/xmemcached-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xmemcached/v2/MemcachedPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = MemcachedPluginConfig.class)
-        public static class Memcached {
-            /**
-             * Operation represent a cache span is "write" or "read" action , and "op"(operation) is tagged with key "cache.op" usually
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -11255,354 +10691,6 @@ in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywa
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.jdbc.mysql.v6.define;
-
-public class Constants {
-    public static final String WITNESS_MYSQL_6X_CLASS = "com.mysql.cj.api.MysqlConnection";
-}
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MethodConfiguration` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/MethodConfiguration.java`
-#### Snippet
-```java
- */
-
-public class MethodConfiguration {
-
-    static String getMethod(Map<String, Object> configuration) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `InfluxDB` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/influxdb-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/influxdb/InfluxDBPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = InfluxDBPluginConfig.class)
-        public static class InfluxDB {
-            /**
-             * If set to true, the parameters of the InfluxQL would be collected.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/influxdb-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/influxdb/define/Constants.java`
-#### Snippet
-```java
- * @since 2020/6/6
- */
-public class Constants {
-
-  public static final String DB_TYPE = "InfluxDB";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Http` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/SpringMVCPluginConfig.java`
-#### Snippet
-```java
-
-        @PluginConfig(root = SpringMVCPluginConfig.class)
-        public static class Http {
-            /**
-             * When either {@link Plugin.SpringMVC#COLLECT_HTTP_PARAMS} is enabled, how many characters to keep and send
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SpringMVC` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/SpringMVCPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = SpringMVCPluginConfig.class)
-        public static class SpringMVC {
-            /**
-             * If true, the fully qualified method name will be used as the endpoint name instead of the request URL,
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/Constants.java`
-#### Snippet
-```java
- * Interceptor class name constant variables
- */
-public class Constants {
-    public static final String GET_BEAN_INTERCEPTOR = "org.apache.skywalking.apm.plugin.spring.mvc.commons.interceptor.GetBeanInterceptor";
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Toolkit` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/ToolkitPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = ToolkitPluginConfig.class)
-        public static class Toolkit {
-            /**
-             * If true, the fully qualified method name will be used as the operation name instead of the given
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ParsePathUtil` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/ParsePathUtil.java`
-#### Snippet
-```java
- * Tools for parsing path from annotation
- */
-public class ParsePathUtil {
-
-    public static String recursiveParseMethodAnnotation(Method method, Function<Method, String> parseFunc) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `TagUtil` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/util/TagUtil.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.toolkit.trace.Tag;
-
-public class TagUtil {
-    public static void tagSpan(final AbstractSpan span, final Map<String, Object> context,
-                                     final Tag tag) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `RequestUtil` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/RequestUtil.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class RequestUtil {
-    public static void collectHttpParam(HttpServletRequest request, AbstractSpan span) {
-        final Map<String, String[]> parameterMap = request.getParameterMap();
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/pulsar-2.2-2.7-plugin/src/main/java/org/apache/skywalking/apm/plugin/pulsar/define/Constants.java`
-#### Snippet
-```java
- * Pulsar 2.7.x plugin constants
- */
-public class Constants {
-
-    public static final String[] WITNESS_PULSAR_27X_CLASSES = new String[] {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constant` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/Constant.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.shardingsphere.v500;
-
-public final class Constant {
-
-    public static final String CONTEXT_SNAPSHOT = "CONTEXT_SNAPSHOT";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xxljob/Constants.java`
-#### Snippet
-```java
-import static net.bytebuddy.matcher.ElementMatchers.takesArguments;
-
-public class Constants {
-
-    public static final String XXL_IJOB_HANDLER = "com.xxl.job.core.handler.IJobHandler";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Feign` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/feign/http/v9/FeignPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = FeignPluginConfig.class)
-        public static class Feign {
-            /**
-             * This config item controls that whether the Feign plugin should collect the http body of the request.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Elasticsearch` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v7/ElasticsearchPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = ElasticsearchPluginConfig.class)
-        public static class Elasticsearch {
-            /**
-             * If true, trace all the DSL(Domain Specific Language) in ElasticSearch access, default is false
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v7/Constants.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.agent.core.context.tag.Tags;
-
-public class Constants {
-
-    //witnessClasses
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Variables` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/postgresql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/postgresql/Variables.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.jdbc.postgresql;
-
-public final class Variables {
-    public static final String PG_PREPARED_STATEMENT_EXECUTE_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.postgresql.PreparedStatementExecuteMethodsInterceptor";
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/postgresql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/postgresql/define/Constants.java`
-#### Snippet
-```java
- * Interceptor class name constant variable
- */
-public class Constants {
-    public static final String CREATE_STATEMENT_INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.jdbc.postgresql.CreateStatementInterceptor";
-    public static final String CREATE_PREPARED_STATEMENT_INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.jdbc.postgresql.CreatePreparedStatementInterceptor";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Light4J` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/apache/skywalking/apm/plugin/light4j/Light4JPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = Light4JPluginConfig.class)
-        public static class Light4J {
-            /**
-             * If true, trace all middleware/business handlers that are part of the Light4J handler chain for a request,
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MongoDB` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v3/MongoPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = MongoPluginConfig.class)
-        public static class MongoDB {
-            /**
-             * If true, trace all the parameters in MongoDB access, default is false. Only trace the operation, not
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `JsonRpcConstants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/jsonrpc4j-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jsonrpc4j/JsonRpcConstants.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.agent.core.context.tag.StringTag;
-
-public class JsonRpcConstants {
-    public static final StringTag JSON_RPC_METHOD_TAG = new StringTag(1, "jsonrpc.method");
-}
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Jedis` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v4/JedisPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = JedisPluginConfig.class)
-        public static class Jedis {
-            /**
-             * If set to true, the parameters of the Redis command would be collected.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MicronautHttpServer` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/server/MicronautHttpServerPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = MicronautHttpServerPluginConfig.class)
-        public static class MicronautHttpServer {
-            /**
-             * This config item controls that whether the Http plugin should collect the parameters of the request.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Http` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/server/MicronautHttpServerPluginConfig.java`
-#### Snippet
-```java
-
-        @PluginConfig(root = MicronautHttpServerPluginConfig.class)
-        public static class Http {
-            /**
-             * When either {@link MicronautHttpServer#COLLECT_HTTP_PARAMS} is enabled, how many characters to keep and send to the
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MicronautCommons` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/server/MicronautCommons.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.util.StringUtil;
-
-class MicronautCommons {
-    static final String SPAN_KEY = "CORS_SPAN";
-    static final String SKY_CONTEXT_SNAPSHOT_KEY = "CORS_SNAPSHOT";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/Constants.java`
-#### Snippet
-```java
-import org.apache.http.protocol.HttpContext;
-
-public class Constants {
-
-    public final static ThreadLocal<HttpContext> HTTP_CONTEXT_LOCAL = new ThreadLocal<>();
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ActiveSpan` has only 'static' members, and lacks a 'private' constructor
-in `apm-application-toolkit/apm-toolkit-trace/src/main/java/org/apache/skywalking/apm/toolkit/trace/ActiveSpan.java`
-#### Snippet
-```java
- * provide custom api that set tag for current active span.
- */
-public class ActiveSpan {
-    /**
-     * @param key   tag key
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `TraceContext` has only 'static' members, and lacks a 'private' constructor
-in `apm-application-toolkit/apm-toolkit-trace/src/main/java/org/apache/skywalking/apm/toolkit/trace/TraceContext.java`
-#### Snippet
-```java
- * <p>
- */
-public class TraceContext {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
 in `apm-sniffer/apm-sdk-plugin/hystrix-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hystrix/v1/Constants.java`
 #### Snippet
 ```java
@@ -11611,390 +10699,6 @@ package org.apache.skywalking.apm.plugin.hystrix.v1;
 public class Constants {
 
     public static final String ISOLATE_STRATEGY_KEY_IN_RUNNING_CONTEXT = "ISOLATE_STRATEGY";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ConnectionCache` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/mysql-common/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/ConnectionCache.java`
-#### Snippet
-```java
-import java.util.concurrent.ConcurrentHashMap;
-
-public class ConnectionCache {
-    private static final ConcurrentHashMap<String, ConnectionInfo> CONNECTIONS_MAP = new ConcurrentHashMap<String, ConnectionInfo>();
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/mysql-common/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.jdbc.mysql;
-
-public class Constants {
-    public static final String CREATE_CALLABLE_STATEMENT_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.mysql.CreateCallableStatementInterceptor";
-    public static final String CREATE_PREPARED_STATEMENT_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.mysql.CreatePreparedStatementInterceptor";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Ehcache` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/ehcache-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/ehcache/v2/EhcachePluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = EhcachePluginConfig.class)
-        public static class Ehcache {
-            /**
-             * Operation represent a cache span is "write" or "read" action , and "op"(operation) is tagged with key "cache.op" usually
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ClickHouseStatementTracingWrapper` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/ClickHouseStatementTracingWrapper.java`
-#### Snippet
-```java
- *
- */
-public class ClickHouseStatementTracingWrapper {
-
-    public static <T> T of(ConnectionInfo connectionInfo, String methodName, String sql,
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `EncacheOperationConvertor` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/ehcache-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/ehcache/v2/EncacheOperationConvertor.java`
-#### Snippet
-```java
-import java.util.Optional;
-
-public class EncacheOperationConvertor {
-
-    public static Optional<String> parseOperation(String cmd) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ReflectionUtils` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/commons/ReflectionUtils.java`
-#### Snippet
-```java
-import java.lang.reflect.Field;
-
-public class ReflectionUtils {
-
-    public static final void setValue(Class klass, Object instance, String name, Object value) throws NoSuchFieldException, IllegalAccessException {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constant` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v40/Constant.java`
-#### Snippet
-```java
- * The type Constant.
- */
-public final class Constant {
-    
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/mssql-commons/src/main/java/org/apache/skywalking/apm/plugin/mssql/commons/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.mssql.commons;
-
-public class Constants {
-    public static final String CREATE_CALLABLE_STATEMENT_INTERCEPTOR = "org.apache.skywalking.apm.plugin.mssql.commons.CreateCallableStatementInterceptor";
-    public static final String CREATE_PREPARED_STATEMENT_INTERCEPTOR = "org.apache.skywalking.apm.plugin.mssql.commons.CreatePreparedStatementInterceptor";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SpringAnnotation` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-annotation-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/annotations/SpringAnnotationConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = SpringAnnotationConfig.class)
-        public static class SpringAnnotation {
-            /**
-             * regex expression to match spring bean classname
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Elasticsearch` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v5/ElasticsearchPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = ElasticsearchPluginConfig.class)
-        public static class Elasticsearch {
-            /**
-             * If true, trace all the DSL(Domain Specific Language) in ElasticSearch access, default is false.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Util` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v5/Util.java`
-#### Snippet
-```java
-import static org.apache.skywalking.apm.util.StringUtil.isEmpty;
-
-class Util {
-
-    static String wrapperNullStringValue(String value) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v5/Constants.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.agent.core.context.tag.Tags;
-
-public class Constants {
-
-    public static final String INET_SOCKET_TRANSPORT_ADDRESS_WITNESS_CLASS = "org.elasticsearch.common.transport.InetSocketTransportAddress";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.finagle;
-
-public class Constants {
-
-    public static final String PENDING_OP_NAME = "pending";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `FinagleCtxs` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/FinagleCtxs.java`
-#### Snippet
-```java
-import java.lang.reflect.Constructor;
-
-class FinagleCtxs {
-
-    static LocalContext.Key<AbstractSpan> SW_SPAN = null;
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ContextCarrierHelper` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextCarrierHelper.java`
-#### Snippet
-```java
-import static org.apache.skywalking.apm.plugin.finagle.FinagleCtxs.getSWContextCarrier;
-
-class ContextCarrierHelper {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MeterBuilder` has only 'static' members, and lacks a 'private' constructor
-in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/MeterBuilder.java`
-#### Snippet
-```java
- * Help to build the meter
- */
-public class MeterBuilder {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ContextHolderFactory` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
-#### Snippet
-```java
- * {@link ContextHolder#remove(Object)}.
- */
-class ContextHolderFactory {
-
-    /*
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MatchUtil` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/MatchUtil.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class MatchUtil {
-
-    private static List<Method> METHODS = new ArrayList<Method>(2);
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CodecUtils` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/CodecUtils.java`
-#### Snippet
-```java
-import static org.apache.skywalking.apm.plugin.finagle.Constants.EMPTY_SWCONTEXTCARRIER;
-
-public class CodecUtils {
-
-    static ILog LOGGER = LogManager.getLogger(CodecUtils.class);
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constant` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.1.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v41/Constant.java`
-#### Snippet
-```java
- * The type Constant.
- */
-public final class Constant {
-    
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.jdbc.mysql.v8.define;
-
-public class Constants {
-    public static final String WITNESS_MYSQL_8X_CLASS = "com.mysql.cj.interceptors.QueryInterceptor";
-}
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Log` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logging-common/src/main/java/org/apache/skywalking/apm/toolkit/logging/common/log/ToolkitConfig.java`
-#### Snippet
-```java
-        public static class Toolkit {
-            @PluginConfig(root = ToolkitConfig.class)
-            public static class Log {
-                /**
-                 * Whether or not to transmit logged data as formatted or un-formatted.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `PlaceholderConfigurerSupport` has only 'static' members, and lacks a 'private' constructor
-in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/PlaceholderConfigurerSupport.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.util;
-
-public class PlaceholderConfigurerSupport {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SpringTransaction` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-tx-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/transaction/SpringTXPluginConfig.java`
-#### Snippet
-```java
-    public static class Plugin {
-        @PluginConfig(root = SpringTXPluginConfig.class)
-        public static class SpringTransaction {
-
-            /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `StringUtil` has only 'static' members, and lacks a 'private' constructor
-in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/StringUtil.java`
-#### Snippet
-```java
-import java.util.function.Consumer;
-
-public final class StringUtil {
-    public static boolean isEmpty(String str) {
-        return str == null || str.length() == 0;
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `RestTemplateRuntimeContextHelper` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/resttemplate-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/resttemplate/helper/RestTemplateRuntimeContextHelper.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.agent.core.context.ContextManager;
-
-public class RestTemplateRuntimeContextHelper {
-
-    private static final String REST_TEMPLATE_CONTEXT_CARRIER_KEY_IN_RUNTIME_CONTEXT = "REST_TEMPLATE_CONTEXT_CARRIER";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/mybatis-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mybatis/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.mybatis;
-
-public class Constants {
-    public static final String MYBATIS_SHELL_METHOD_NAME = "mybatis_shell_method_name";
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ConfigInitializer` has only 'static' members, and lacks a 'private' constructor
-in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/ConfigInitializer.java`
-#### Snippet
-```java
- * <p>
- */
-public class ConfigInitializer {
-
-    public static void initialize(Properties properties, Class<?> rootConfigType) throws IllegalAccessException {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constant` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/Constant.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.shenyu.v24x;
-
-public class Constant {
-    public static final String SKYWALKING_CONTEXT_SNAPSHOT = "SKYWALKING_CONTEXT_SNAPSHOT";
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-server-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jetty/v9/server/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.jetty.v9.server;
-
-public class Constants {
-    public static final String FORWARD_REQUEST_FLAG = "SW_FORWARD_REQUEST_FLAG";
-}
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CommonUtil` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/util/CommonUtil.java`
-#### Snippet
-```java
-import org.springframework.web.server.adapter.DefaultServerWebExchange;
-
-public class CommonUtil {
-
-    public static EnhancedInstance getEnhancedServerWebExchange(Object o) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `apm-sniffer/apm-sdk-plugin/cassandra-java-driver-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/cassandra/java/driver/v3/Constants.java`
-#### Snippet
-```java
-package org.apache.skywalking.apm.plugin.cassandra.java.driver.v3;
-
-public class Constants {
-    public static final String CASSANDRA_OP_PREFIX = "Cassandra/";
-    public static final String CASSANDRA_DB_TYPE = "cassandra";
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -12023,6 +10727,42 @@ public class SolrjTags {
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/Constants.java`
+#### Snippet
+```java
+import org.apache.http.protocol.HttpContext;
+
+public class Constants {
+
+    public final static ThreadLocal<HttpContext> HTTP_CONTEXT_LOCAL = new ThreadLocal<>();
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MicronautHttpClient` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-client-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/client/MicronautHttpClientPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = MicronautHttpClientPluginConfig.class)
+        public static class MicronautHttpClient {
+            /**
+             * This config item controls that whether the HttpClient plugin should collect the parameters of the request.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Http` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-client-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/client/MicronautHttpClientPluginConfig.java`
+#### Snippet
+```java
+
+        @PluginConfig(root = MicronautHttpClientPluginConfig.class)
+        public static class Http {
+            /**
+             * When either {@link MicronautHttpClient#COLLECT_HTTP_PARAMS} is enabled, how many characters to keep and send to the
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
 in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/Constants.java`
 #### Snippet
 ```java
@@ -12046,6 +10786,690 @@ public class OperationNameFormatUtil {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Kafka` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-reporter-plugins/kafka-reporter-plugin/src/main/java/org/apache/skywalking/apm/agent/core/kafka/KafkaReporterPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = KafkaReporterPluginConfig.class)
+        public static class Kafka {
+            /**
+             * <B>bootstrap_servers</B>: A list of host/port pairs to use for establishing the initial connection to the Kafka cluster.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MicronautCommons` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-client-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/client/MicronautCommons.java`
+#### Snippet
+```java
+import java.util.function.Consumer;
+
+public class MicronautCommons {
+
+    private static final String SPAN_KEY = "CORS_SPAN";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constant` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-5.0.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v500/Constant.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.shardingsphere.v500;
+
+public final class Constant {
+
+    public static final String CONTEXT_SNAPSHOT = "CONTEXT_SNAPSHOT";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `PlaceholderConfigurerSupport` has only 'static' members, and lacks a 'private' constructor
+in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/PlaceholderConfigurerSupport.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.util;
+
+public class PlaceholderConfigurerSupport {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `StringUtil` has only 'static' members, and lacks a 'private' constructor
+in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/StringUtil.java`
+#### Snippet
+```java
+import java.util.function.Consumer;
+
+public final class StringUtil {
+    public static boolean isEmpty(String str) {
+        return str == null || str.length() == 0;
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MeterCenter` has only 'static' members, and lacks a 'private' constructor
+in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/MeterCenter.java`
+#### Snippet
+```java
+ * don't support this.
+ */
+public class MeterCenter {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ConfigInitializer` has only 'static' members, and lacks a 'private' constructor
+in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/ConfigInitializer.java`
+#### Snippet
+```java
+ * <p>
+ */
+public class ConfigInitializer {
+
+    public static void initialize(Properties properties, Class<?> rootConfigType) throws IllegalAccessException {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Customize` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/CustomizePluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = CustomizePluginConfig.class)
+        public static class Customize {
+            /**
+             * Custom enhancement class configuration file path, recommended to use an absolute path.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CustomizeUtil` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/util/CustomizeUtil.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public class CustomizeUtil {
+
+    private static final Map<String, Class> JAVA_CLASS = new HashMap<String, Class>();
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MeterFactory` has only 'static' members, and lacks a 'private' constructor
+in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/MeterFactory.java`
+#### Snippet
+```java
+import java.util.function.Supplier;
+
+public class MeterFactory {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/constants/Constants.java`
+#### Snippet
+```java
+ */
+
+public class Constants {
+
+    public static final String OPERATION_NAME_SEPARATOR = "/";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ReflectionUtils` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/commons/ReflectionUtils.java`
+#### Snippet
+```java
+import java.lang.reflect.Field;
+
+public class ReflectionUtils {
+
+    public static final void setValue(Class klass, Object instance, String name, Object value) throws NoSuchFieldException, IllegalAccessException {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ClickHouseStatementTracingWrapper` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/ClickHouseStatementTracingWrapper.java`
+#### Snippet
+```java
+ *
+ */
+public class ClickHouseStatementTracingWrapper {
+
+    public static <T> T of(ConnectionInfo connectionInfo, String methodName, String sql,
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MethodConfiguration` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/MethodConfiguration.java`
+#### Snippet
+```java
+ */
+
+public class MethodConfiguration {
+
+    static String getMethod(Map<String, Object> configuration) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/mybatis-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mybatis/Constants.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.mybatis;
+
+public class Constants {
+    public static final String MYBATIS_SHELL_METHOD_NAME = "mybatis_shell_method_name";
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/Constants.java`
+#### Snippet
+```java
+ * Interceptor class name constant variables
+ */
+public class Constants {
+    public static final String GET_BEAN_INTERCEPTOR = "org.apache.skywalking.apm.plugin.spring.mvc.commons.interceptor.GetBeanInterceptor";
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Http` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/SpringMVCPluginConfig.java`
+#### Snippet
+```java
+
+        @PluginConfig(root = SpringMVCPluginConfig.class)
+        public static class Http {
+            /**
+             * When either {@link Plugin.SpringMVC#COLLECT_HTTP_PARAMS} is enabled, how many characters to keep and send
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `SpringMVC` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/SpringMVCPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = SpringMVCPluginConfig.class)
+        public static class SpringMVC {
+            /**
+             * If true, the fully qualified method name will be used as the endpoint name instead of the request URL,
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ParsePathUtil` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/ParsePathUtil.java`
+#### Snippet
+```java
+ * Tools for parsing path from annotation
+ */
+public class ParsePathUtil {
+
+    public static String recursiveParseMethodAnnotation(Method method, Function<Method, String> parseFunc) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `RequestUtil` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/RequestUtil.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public class RequestUtil {
+    public static void collectHttpParam(HttpServletRequest request, AbstractSpan span) {
+        final Map<String, String[]> parameterMap = request.getParameterMap();
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `RestTemplateRuntimeContextHelper` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/resttemplate-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/resttemplate/helper/RestTemplateRuntimeContextHelper.java`
+#### Snippet
+```java
+import org.apache.skywalking.apm.agent.core.context.ContextManager;
+
+public class RestTemplateRuntimeContextHelper {
+
+    private static final String REST_TEMPLATE_CONTEXT_CARRIER_KEY_IN_RUNTIME_CONTEXT = "REST_TEMPLATE_CONTEXT_CARRIER";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/Constants.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.finagle;
+
+public class Constants {
+
+    public static final String PENDING_OP_NAME = "pending";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ContextCarrierHelper` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextCarrierHelper.java`
+#### Snippet
+```java
+import static org.apache.skywalking.apm.plugin.finagle.FinagleCtxs.getSWContextCarrier;
+
+class ContextCarrierHelper {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `FinagleCtxs` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/FinagleCtxs.java`
+#### Snippet
+```java
+import java.lang.reflect.Constructor;
+
+class FinagleCtxs {
+
+    static LocalContext.Key<AbstractSpan> SW_SPAN = null;
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ZooOpt` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/zookeeper-3.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/zookeeper/ZooOpt.java`
+#### Snippet
+```java
+import org.apache.zookeeper.proto.SyncRequest;
+
+class ZooOpt {
+
+    private static final Map<Integer, String> OPTS = new HashMap<>();
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MongoDB` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/mongodb-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/mongodb/v3/MongoPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = MongoPluginConfig.class)
+        public static class MongoDB {
+            /**
+             * If true, trace all the parameters in MongoDB access, default is false. Only trace the operation, not
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CodecUtils` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/CodecUtils.java`
+#### Snippet
+```java
+import static org.apache.skywalking.apm.plugin.finagle.Constants.EMPTY_SWCONTEXTCARRIER;
+
+public class CodecUtils {
+
+    static ILog LOGGER = LogManager.getLogger(CodecUtils.class);
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ContextHolderFactory` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
+#### Snippet
+```java
+ * {@link ContextHolder#remove(Object)}.
+ */
+class ContextHolderFactory {
+
+    /*
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MeterBuilder` has only 'static' members, and lacks a 'private' constructor
+in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/MeterBuilder.java`
+#### Snippet
+```java
+ * Help to build the meter
+ */
+public class MeterBuilder {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Jedis` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-2.x-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v3/JedisPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = JedisPluginConfig.class)
+        public static class Jedis {
+            /**
+             * If set to true, the parameters of the Redis command would be collected.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Light4J` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/apache/skywalking/apm/plugin/light4j/Light4JPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = Light4JPluginConfig.class)
+        public static class Light4J {
+            /**
+             * If true, trace all middleware/business handlers that are part of the Light4J handler chain for a request,
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Jedis` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/jedis-plugins/jedis-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jedis/v4/JedisPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = JedisPluginConfig.class)
+        public static class Jedis {
+            /**
+             * If set to true, the parameters of the Redis command would be collected.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `HttpClient` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/httpclient-commons/src/main/java/org/apache/skywalking/apm/plugin/httpclient/HttpClientPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = HttpClientPluginConfig.class)
+        public static class HttpClient {
+            /**
+             * This config item controls that whether the HttpClient plugin should collect the parameters of the request.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Http` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/httpclient-commons/src/main/java/org/apache/skywalking/apm/plugin/httpclient/HttpClientPluginConfig.java`
+#### Snippet
+```java
+
+        @PluginConfig(root = HttpClientPluginConfig.class)
+        public static class Http {
+            /**
+             * When either {@link HttpClient#COLLECT_HTTP_PARAMS} is enabled, how many characters to keep and send to the
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/pulsar-2.8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/pulsar/v28x/define/Constants.java`
+#### Snippet
+```java
+ * Pulsar 2.8.x plugin constants
+ */
+public class Constants {
+
+    public static final WitnessMethod WITNESS_PULSAR_28X_METHOD = new WitnessMethod(
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Redisson` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/RedissonPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = RedissonPluginConfig.class)
+        public static class Redisson {
+            /**
+             * If set to true, the parameters of the Redis command would be collected.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ClassUtil` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/util/ClassUtil.java`
+#### Snippet
+```java
+import java.lang.reflect.Field;
+
+public class ClassUtil {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Log` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logging-common/src/main/java/org/apache/skywalking/apm/toolkit/logging/common/log/ToolkitConfig.java`
+#### Snippet
+```java
+        public static class Toolkit {
+            @PluginConfig(root = ToolkitConfig.class)
+            public static class Log {
+                /**
+                 * Whether or not to transmit logged data as formatted or un-formatted.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v5/Constants.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.httpclient.v5;
+
+public class Constants {
+
+    public static String SKYWALKING_CONTEXT_SNAPSHOT = "skywalking-context-snapshot";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Elasticsearch` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/ElasticsearchPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = ElasticsearchPluginConfig.class)
+        public static class Elasticsearch {
+            /**
+             * If true, trace all the DSL(Domain Specific Language) in ElasticSearch access, default is false.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/interceptor/Constants.java`
+#### Snippet
+```java
+import org.apache.skywalking.apm.agent.core.context.tag.Tags;
+
+public class Constants {
+    //interceptor class
+    public static final String REST_HIGH_LEVEL_CLIENT_CON_INTERCEPTOR = "org.apache.skywalking.apm.plugin.elasticsearch.v6.interceptor.RestHighLevelClientConInterceptor";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/cassandra-java-driver-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/cassandra/java/driver/v3/Constants.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.cassandra.java.driver.v3;
+
+public class Constants {
+    public static final String CASSANDRA_OP_PREFIX = "Cassandra/";
+    public static final String CASSANDRA_DB_TYPE = "cassandra";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `JDBC` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/JDBCPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = JDBCPluginConfig.class)
+        public static class JDBC {
+            /**
+             * If set to true, the parameters of the sql (typically {@link java.sql.PreparedStatement}) would be
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `SqlBodyUtil` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/SqlBodyUtil.java`
+#### Snippet
+```java
+ * Sql body utility
+ */
+public class SqlBodyUtil {
+    private static final String EMPTY_STRING = "";
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/define/Constants.java`
+#### Snippet
+```java
+import java.util.Set;
+
+public class Constants {
+    public static final String CREATE_STATEMENT_INTERCEPT_CLASS = "org.apache.skywalking.apm.plugin.jdbc.JDBCStatementInterceptor";
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `PreparedStatementTracing` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/PreparedStatementTracing.java`
+#### Snippet
+```java
+ * java.sql.PreparedStatement}.
+ */
+public class PreparedStatementTracing {
+
+    public static <R> R execute(java.sql.PreparedStatement realStatement, ConnectionInfo connectInfo, String method,
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CallableStatementTracing` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/CallableStatementTracing.java`
+#### Snippet
+```java
+ * java.sql.CallableStatement}.
+ */
+public class CallableStatementTracing {
+
+    public static <R> R execute(java.sql.CallableStatement realStatement, ConnectionInfo connectInfo, String method,
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `StatementTracing` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/StatementTracing.java`
+#### Snippet
+```java
+ * java.sql.Statement}.
+ */
+public class StatementTracing {
+    public static <R> R execute(java.sql.Statement realStatement, ConnectionInfo connectInfo, String method, String sql,
+        Executable<R> exec) throws SQLException {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `URLParser` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/URLParser.java`
+#### Snippet
+```java
+ * some url cannot be parsed, such as Oracle connection url with multiple host.
+ */
+public class URLParser {
+
+    private static final String MYSQL_JDBC_URL_PREFIX = "jdbc:mysql";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constant` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/Constant.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.shenyu.v24x;
+
+public class Constant {
+    public static final String SKYWALKING_CONTEXT_SNAPSHOT = "SKYWALKING_CONTEXT_SNAPSHOT";
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CommonUtil` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/shenyu-2.4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shenyu/v24x/util/CommonUtil.java`
+#### Snippet
+```java
+import org.springframework.web.server.adapter.DefaultServerWebExchange;
+
+public class CommonUtil {
+
+    public static EnhancedInstance getEnhancedServerWebExchange(Object o) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `InfluxDB` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/influxdb-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/influxdb/InfluxDBPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = InfluxDBPluginConfig.class)
+        public static class InfluxDB {
+            /**
+             * If set to true, the parameters of the InfluxQL would be collected.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/influxdb-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/influxdb/define/Constants.java`
+#### Snippet
+```java
+ * @since 2020/6/6
+ */
+public class Constants {
+
+  public static final String DB_TYPE = "InfluxDB";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Variables` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/postgresql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/postgresql/Variables.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.jdbc.postgresql;
+
+public final class Variables {
+    public static final String PG_PREPARED_STATEMENT_EXECUTE_METHOD_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.postgresql.PreparedStatementExecuteMethodsInterceptor";
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/postgresql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/postgresql/define/Constants.java`
+#### Snippet
+```java
+ * Interceptor class name constant variable
+ */
+public class Constants {
+    public static final String CREATE_STATEMENT_INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.jdbc.postgresql.CreateStatementInterceptor";
+    public static final String CREATE_PREPARED_STATEMENT_INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.jdbc.postgresql.CreatePreparedStatementInterceptor";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Lettuce` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/lettuce-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/lettuce/v5/LettucePluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = LettucePluginConfig.class)
+        public static class Lettuce {
+            /**
+             * If set to true, the parameters of the Redis command would be collected.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MatchUtil` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/MatchUtil.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class MatchUtil {
+
+    private static List<Method> METHODS = new ArrayList<Method>(2);
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Constants` has only 'static' members, and lacks a 'private' constructor
 in `apm-sniffer/optional-plugins/sentinel-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/sentinel/v1/Constants.java`
 #### Snippet
@@ -12057,31 +11481,583 @@ public class Constants {
 }
 ```
 
-## RuleId[ruleID=DataFlowIssue]
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `parse` may produce `NullPointerException`
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/URLParser.java`
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/undertow-plugins/undertow-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/undertow/v2x/Constants.java`
 #### Snippet
 ```java
-            parser = new ImpalaJdbcURLParser(url);
-        }
-        return parser.parse();
-    }
+package org.apache.skywalking.apm.plugin.undertow.v2x;
+
+public class Constants {
+    public static final String FORWARD_REQUEST_FLAG = "SW_FORWARD_REQUEST_FLAG";
 }
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getStatus` will produce `NullPointerException`
-in `apm-sniffer/apm-sdk-plugin/nutz-plugins/http-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nutz/http/sync/SenderSendInterceptor.java`
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/Constants.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.jdbc.mysql.v8.define;
+
+public class Constants {
+    public static final String WITNESS_MYSQL_8X_CLASS = "com.mysql.cj.interceptors.QueryInterceptor";
+}
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `FieldSetter` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/FieldSetter.java`
+#### Snippet
+```java
+import java.lang.reflect.Field;
+
+public class FieldSetter {
+
+    public static <T> void setValue(Object instance, String fieldName,
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `FieldGetter` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/FieldGetter.java`
+#### Snippet
+```java
+import java.lang.reflect.Field;
+
+public class FieldGetter {
+    @SuppressWarnings("TypeParameterUnusedInFormals")
+    public static <T> T getValue(Object instance,
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `SegmentRefAssert` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/tools/SegmentRefAssert.java`
+#### Snippet
+```java
+import static org.hamcrest.MatcherAssert.assertThat;
+
+public class SegmentRefAssert {
+    public static void assertSegmentId(TraceSegmentRef ref, String segmentId) {
+        assertThat(SegmentRefHelper.getTraceSegmentId(ref).toString(), is(segmentId));
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `SegmentRefHelper` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SegmentRefHelper.java`
+#### Snippet
+```java
+import org.apache.skywalking.apm.agent.core.context.trace.TraceSegmentRef;
+
+public class SegmentRefHelper {
+    public static String getPeerHost(TraceSegmentRef ref) {
+        try {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `JdkThreading` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/JDKThreadingPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = JDKThreadingPluginConfig.class)
+        public static class JdkThreading {
+
+            /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ThreadingConfig` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/ThreadingConfig.java`
+#### Snippet
+```java
+import static org.apache.skywalking.apm.agent.core.plugin.match.PrefixMatch.nameStartsWith;
+
+public class ThreadingConfig {
+    private static final ILog LOGGER = LogManager.getLogger(ThreadingConfig.class);
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `SegmentHelper` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SegmentHelper.java`
+#### Snippet
+```java
+import org.apache.skywalking.apm.agent.core.context.trace.TraceSegment;
+
+public class SegmentHelper {
+
+    public static List<AbstractTracingSpan> getSpans(TraceSegment traceSegment) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `SpanAssert` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/tools/SpanAssert.java`
+#### Snippet
+```java
+import static org.junit.Assert.assertThat;
+
+public class SpanAssert {
+    public static void assertLogSize(AbstractSpan span, int exceptedSize) {
+        assertThat(SpanHelper.getLogs(span).size(), is(exceptedSize));
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ActiveSpan` has only 'static' members, and lacks a 'private' constructor
+in `apm-application-toolkit/apm-toolkit-trace/src/main/java/org/apache/skywalking/apm/toolkit/trace/ActiveSpan.java`
+#### Snippet
+```java
+ * provide custom api that set tag for current active span.
+ */
+public class ActiveSpan {
+    /**
+     * @param key   tag key
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `TraceContext` has only 'static' members, and lacks a 'private' constructor
+in `apm-application-toolkit/apm-toolkit-trace/src/main/java/org/apache/skywalking/apm/toolkit/trace/TraceContext.java`
+#### Snippet
+```java
+ * <p>
+ */
+public class TraceContext {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/kafka-commons/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/Constants.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.kafka.define;
+
+public class Constants {
+
+    public static final String KAFKA_FLAG = "SW_KAFKA_FLAG";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `SpanHelper` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
+#### Snippet
+```java
+import org.apache.skywalking.apm.agent.core.context.util.TagValuePair;
+
+public class SpanHelper {
+    public static int getParentSpanId(AbstractSpan tracingSpan) {
+        try {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `InterceptorMethod` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/kafka-commons/src/main/java/org/apache/skywalking/apm/plugin/kafka/define/InterceptorMethod.java`
+#### Snippet
+```java
+import org.apache.skywalking.apm.agent.core.context.ContextManager;
+
+public class InterceptorMethod {
+
+    public static void beginKafkaPollAndInvokeIteration(String operationName) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `GuavaCacheOperationConvertor` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/guava-cache-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/cache/GuavaCacheOperationConvertor.java`
+#### Snippet
+```java
+import java.util.Optional;
+
+public class GuavaCacheOperationConvertor {
+
+    public static Optional<String> parseOperation(String cmd) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `GuavaCache` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/guava-cache-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/cache/GuavaCachePluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = GuavaCachePluginConfig.class)
+        public static class GuavaCache {
+            /**
+             * Operation represent a cache span is "write" or "read" action , and "op"(operation) is tagged with key "cache.op" usually
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Dubbo` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboPluginConfig.java`
 #### Snippet
 ```java
 
-        if (response == null) {
-            Tags.HTTP_RESPONSE_STATUS_CODE.set(span, response.getStatus());
-            if (response.getStatus() >= 400) {
-                span.errorOccurred();
+        @PluginConfig(root = DubboPluginConfig.class)
+        public static class Dubbo {
+
+            public static boolean COLLECT_CONSUMER_ARGUMENTS = false;
 ```
 
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Tomcat` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/tomcat-10x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat10x/TomcatPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = TomcatPluginConfig.class)
+        public static class Tomcat {
+            /**
+             * This config item controls that whether the Tomcat plugin should collect the parameters of the request.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Http` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/tomcat-10x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat10x/TomcatPluginConfig.java`
+#### Snippet
+```java
+
+        @PluginConfig(root = TomcatPluginConfig.class)
+        public static class Http {
+            /**
+             * When either {@link Tomcat#COLLECT_HTTP_PARAMS} is enabled, how many characters to keep and send to the
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/tomcat-10x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat10x/Constants.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.tomcat10x;
+
+public class Constants {
+    public static final String FORWARD_REQUEST_FLAG = "SW_FORWARD_REQUEST_FLAG";
+}
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `NatsCommons` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/NatsCommons.java`
+#### Snippet
+```java
+import java.util.Optional;
+
+public class NatsCommons {
+
+    private static final String SID = "sid";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CpuPolicy` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/trace-sampler-cpu-policy-plugin/src/main/java/org/apache/skywalking/apm/plugin/cpu/policy/conf/TraceSamplerCpuPolicyPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = TraceSamplerCpuPolicyPluginConfig.class)
+        public static class CpuPolicy {
+            public static double SAMPLE_CPU_USAGE_PERCENT_LIMIT = -1;
+        }
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v5/Constants.java`
+#### Snippet
+```java
+import org.apache.skywalking.apm.agent.core.context.tag.Tags;
+
+public class Constants {
+
+    public static final String INET_SOCKET_TRANSPORT_ADDRESS_WITNESS_CLASS = "org.elasticsearch.common.transport.InetSocketTransportAddress";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Elasticsearch` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v5/ElasticsearchPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = ElasticsearchPluginConfig.class)
+        public static class Elasticsearch {
+            /**
+             * If true, trace all the DSL(Domain Specific Language) in ElasticSearch access, default is false.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Util` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v5/Util.java`
+#### Snippet
+```java
+import static org.apache.skywalking.apm.util.StringUtil.isEmpty;
+
+class Util {
+
+    static String wrapperNullStringValue(String value) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Trace` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/conf/IgnoreConfig.java`
+#### Snippet
+```java
+public class IgnoreConfig {
+
+    public static class Trace {
+        /**
+         * If the operation name of the first span is matching, this segment should be ignored /path/?   Match any
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `IgnoreConfigInitializer` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/conf/IgnoreConfigInitializer.java`
+#### Snippet
+```java
+import org.apache.skywalking.apm.util.PropertyPlaceholderHelper;
+
+public class IgnoreConfigInitializer {
+    private static final ILog LOGGER = LogManager.getLogger(IgnoreConfigInitializer.class);
+    private static final String CONFIG_FILE_NAME = "/config/apm-trace-ignore-plugin.config";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Neo4jPluginConstants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/Neo4jPluginConstants.java`
+#### Snippet
+```java
+ * Constants for neo4j plugin
+ */
+public final class Neo4jPluginConstants {
+
+    public static final String EMPTY_STRING = "";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Neo4j` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/Neo4jPluginConfig.java`
+#### Snippet
+```java
+
+        @PluginConfig(root = Neo4jPluginConfig.class)
+        public static class Neo4j {
+
+            /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CypherUtils` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/util/CypherUtils.java`
+#### Snippet
+```java
+ * Cypher language utils
+ */
+public final class CypherUtils {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ConnectionCache` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/mysql-common/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/ConnectionCache.java`
+#### Snippet
+```java
+import java.util.concurrent.ConcurrentHashMap;
+
+public class ConnectionCache {
+    private static final ConcurrentHashMap<String, ConnectionInfo> CONNECTIONS_MAP = new ConcurrentHashMap<String, ConnectionInfo>();
+
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/mysql-common/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/Constants.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.jdbc.mysql;
+
+public class Constants {
+    public static final String CREATE_CALLABLE_STATEMENT_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.mysql.CreateCallableStatementInterceptor";
+    public static final String CREATE_PREPARED_STATEMENT_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.mysql.CreatePreparedStatementInterceptor";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/mssql-commons/src/main/java/org/apache/skywalking/apm/plugin/mssql/commons/Constants.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.mssql.commons;
+
+public class Constants {
+    public static final String CREATE_CALLABLE_STATEMENT_INTERCEPTOR = "org.apache.skywalking.apm.plugin.mssql.commons.CreateCallableStatementInterceptor";
+    public static final String CREATE_PREPARED_STATEMENT_INTERCEPTOR = "org.apache.skywalking.apm.plugin.mssql.commons.CreatePreparedStatementInterceptor";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constant` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/shardingsphere-plugins/sharding-sphere-4.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/shardingsphere/v40/Constant.java`
+#### Snippet
+```java
+ * The type Constant.
+ */
+public final class Constant {
+    
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Ehcache` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/ehcache-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/ehcache/v2/EhcachePluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = EhcachePluginConfig.class)
+        public static class Ehcache {
+            /**
+             * Operation represent a cache span is "write" or "read" action , and "op"(operation) is tagged with key "cache.op" usually
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `EncacheOperationConvertor` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/optional-plugins/ehcache-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/ehcache/v2/EncacheOperationConvertor.java`
+#### Snippet
+```java
+import java.util.Optional;
+
+public class EncacheOperationConvertor {
+
+    public static Optional<String> parseOperation(String cmd) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Memcached` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/xmemcached-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xmemcached/v2/MemcachedPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = MemcachedPluginConfig.class)
+        public static class Memcached {
+            /**
+             * Operation represent a cache span is "write" or "read" action , and "op"(operation) is tagged with key "cache.op" usually
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Elasticsearch` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v7/ElasticsearchPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = ElasticsearchPluginConfig.class)
+        public static class Elasticsearch {
+            /**
+             * If true, trace all the DSL(Domain Specific Language) in ElasticSearch access, default is false
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v7/Constants.java`
+#### Snippet
+```java
+import org.apache.skywalking.apm.agent.core.context.tag.Tags;
+
+public class Constants {
+
+    //witnessClasses
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Feign` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/feign/http/v9/FeignPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = FeignPluginConfig.class)
+        public static class Feign {
+            /**
+             * This config item controls that whether the Feign plugin should collect the http body of the request.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Http` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/server/MicronautHttpServerPluginConfig.java`
+#### Snippet
+```java
+
+        @PluginConfig(root = MicronautHttpServerPluginConfig.class)
+        public static class Http {
+            /**
+             * When either {@link MicronautHttpServer#COLLECT_HTTP_PARAMS} is enabled, how many characters to keep and send to the
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MicronautHttpServer` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/server/MicronautHttpServerPluginConfig.java`
+#### Snippet
+```java
+    public static class Plugin {
+        @PluginConfig(root = MicronautHttpServerPluginConfig.class)
+        public static class MicronautHttpServer {
+            /**
+             * This config item controls that whether the Http plugin should collect the parameters of the request.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/Constants.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.jdbc.mysql.v6.define;
+
+public class Constants {
+    public static final String WITNESS_MYSQL_6X_CLASS = "com.mysql.cj.api.MysqlConnection";
+}
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MicronautCommons` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/micronaut-plugins/micronaut-http-server-plugin/src/main/java/org/apache/skywalking/apm/plugin/micronaut/http/server/MicronautCommons.java`
+#### Snippet
+```java
+import org.apache.skywalking.apm.util.StringUtil;
+
+class MicronautCommons {
+    static final String SPAN_KEY = "CORS_SPAN";
+    static final String SKY_CONTEXT_SNAPSHOT_KEY = "CORS_SNAPSHOT";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v5/define/Constants.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.jdbc.mysql.v5.define;
+
+public class Constants {
+    public static final String WITNESS_MYSQL_5X_CLASS = "com.mysql.jdbc.ConnectionImpl";
+}
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-server-9.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jetty/v9/server/Constants.java`
+#### Snippet
+```java
+package org.apache.skywalking.apm.plugin.jetty.v9.server;
+
+public class Constants {
+    public static final String FORWARD_REQUEST_FLAG = "SW_FORWARD_REQUEST_FLAG";
+}
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MeterIdConverter` has only 'static' members, and lacks a 'private' constructor
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-meter-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/meter/util/MeterIdConverter.java`
+#### Snippet
+```java
+import java.util.stream.Collectors;
+
+public class MeterIdConverter {
+
+    /**
+```
+
+## RuleId[ruleID=DataFlowIssue]
 ### RuleId[ruleID=DataFlowIssue]
 Method invocation `exists` may produce `NullPointerException`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/boot/AgentPackagePath.java`
@@ -12155,18 +12131,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `toString` may produce `NullPointerException`
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/tools/SegmentRefAssert.java`
-#### Snippet
-```java
-public class SegmentRefAssert {
-    public static void assertSegmentId(TraceSegmentRef ref, String segmentId) {
-        assertThat(SegmentRefHelper.getTraceSegmentId(ref).toString(), is(segmentId));
-    }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Argument `activeSpan` might be null
 in `apm-sniffer/apm-sdk-plugin/activemq-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/activemq/ActiveMQProducerInterceptor.java`
 #### Snippet
@@ -12176,6 +12140,42 @@ in `apm-sniffer/apm-sdk-plugin/activemq-5.x-plugin/src/main/java/org/apache/skyw
         SpanLayer.asMQ(activeSpan);
         activeSpan.setComponent(ComponentsDefine.ACTIVEMQ_PRODUCER);
         CarrierItem next = contextCarrier.items();
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `get` may produce `NullPointerException`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/CorrelationContextGetInterceptor.java`
+#### Snippet
+```java
+    public void beforeMethod(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes, MethodInterceptResult result) {
+        final String key = (String) allArguments[0];
+        final Optional<String> data = ContextManager.getCorrelationContext().get(key);
+
+        result.defineReturnValue(data);
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `put` may produce `NullPointerException`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/CorrelationContextPutInterceptor.java`
+#### Snippet
+```java
+        final String key = (String) allArguments[0];
+        final String value = (String) allArguments[1];
+        final Optional<String> previous = ContextManager.getCorrelationContext().put(key, value);
+
+        result.defineReturnValue(previous);
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Casting `processor` to `TBaseProcessor` will produce `ClassCastException` for any non-null value
+in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/TMultiplexedProcessorRegisterDefaultInterceptor.java`
+#### Snippet
+```java
+            hashMap.putAll(processMapView);
+        } else if (processor instanceof TBaseAsyncProcessor) {
+            Map<String, ProcessFunction> processMapView = ((TBaseProcessor) processor).getProcessMapView();
+            hashMap.putAll(processMapView);
+        } else {
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -12215,18 +12215,6 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/ja
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `get` may produce `NullPointerException`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/CorrelationContextGetInterceptor.java`
-#### Snippet
-```java
-    public void beforeMethod(Class clazz, Method method, Object[] allArguments, Class<?>[] parameterTypes, MethodInterceptResult result) {
-        final String key = (String) allArguments[0];
-        final Optional<String> data = ContextManager.getCorrelationContext().get(key);
-
-        result.defineReturnValue(data);
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
 in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/interceptor/AbstractMethodInterceptor.java`
 #### Snippet
@@ -12235,54 +12223,6 @@ in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/ja
         if (method.getParameterTypes().length > 0) {
             operationName = operationName.deleteCharAt(operationName.length() - 1);
         }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `put` may produce `NullPointerException`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/CorrelationContextPutInterceptor.java`
-#### Snippet
-```java
-        final String key = (String) allArguments[0];
-        final String value = (String) allArguments[1];
-        final Optional<String> previous = ContextManager.getCorrelationContext().put(key, value);
-
-        result.defineReturnValue(previous);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Casting `processor` to `TBaseProcessor` will produce `ClassCastException` for any non-null value
-in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/TMultiplexedProcessorRegisterDefaultInterceptor.java`
-#### Snippet
-```java
-            hashMap.putAll(processMapView);
-        } else if (processor instanceof TBaseAsyncProcessor) {
-            Map<String, ProcessFunction> processMapView = ((TBaseProcessor) processor).getProcessMapView();
-            hashMap.putAll(processMapView);
-        } else {
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `setSkyWalkingDynamicField` may produce `NullPointerException`
-in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-webflux-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/DispatcherHandlerHandleMethodInterceptor.java`
-#### Snippet
-```java
-        Tags.URL.set(span, exchange.getRequest().getURI().toString());
-        HTTP.METHOD.set(span, exchange.getRequest().getMethodValue());
-        instance.setSkyWalkingDynamicField(ContextManager.capture());
-        span.prepareForAsync();
-        ContextManager.stopSpan(span);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `prepareForAsync` may produce `NullPointerException`
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ClientTracingFilterInterceptor.java`
-#### Snippet
-```java
-            ContextManager.stopSpan(finagleSpan);
-        } else {
-            finagleSpan.prepareForAsync();
-            ContextManager.stopSpan(finagleSpan);
 
 ```
 
@@ -12308,6 +12248,66 @@ in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/sk
             finagleSpan.prepareForAsync();
             ContextManager.stopSpan(finagleSpan);
             ((Future<?>) ret).addEventListener(new FutureEventListener<Object>() {
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `prepareForAsync` may produce `NullPointerException`
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ClientTracingFilterInterceptor.java`
+#### Snippet
+```java
+            ContextManager.stopSpan(finagleSpan);
+        } else {
+            finagleSpan.prepareForAsync();
+            ContextManager.stopSpan(finagleSpan);
+
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `setSkyWalkingDynamicField` may produce `NullPointerException`
+in `apm-sniffer/optional-plugins/optional-spring-plugins/spring-webflux-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/webflux/v5/DispatcherHandlerHandleMethodInterceptor.java`
+#### Snippet
+```java
+        Tags.URL.set(span, exchange.getRequest().getURI().toString());
+        HTTP.METHOD.set(span, exchange.getRequest().getMethodValue());
+        instance.setSkyWalkingDynamicField(ContextManager.capture());
+        span.prepareForAsync();
+        ContextManager.stopSpan(span);
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `parse` may produce `NullPointerException`
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/URLParser.java`
+#### Snippet
+```java
+            parser = new ImpalaJdbcURLParser(url);
+        }
+        return parser.parse();
+    }
+}
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `toString` may produce `NullPointerException`
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/tools/SegmentRefAssert.java`
+#### Snippet
+```java
+public class SegmentRefAssert {
+    public static void assertSegmentId(TraceSegmentRef ref, String segmentId) {
+        assertThat(SegmentRefHelper.getTraceSegmentId(ref).toString(), is(segmentId));
+    }
+
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getStatus` will produce `NullPointerException`
+in `apm-sniffer/apm-sdk-plugin/nutz-plugins/http-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nutz/http/sync/SenderSendInterceptor.java`
+#### Snippet
+```java
+
+        if (response == null) {
+            Tags.HTTP_RESPONSE_STATUS_CODE.set(span, response.getStatus());
+            if (response.getStatus() >= 400) {
+                span.errorOccurred();
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -12337,13 +12337,13 @@ in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
 ### RuleId[ruleID=StringOperationCanBeSimplified]
-Call to `toString()` is redundant
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/tools/SegmentRefAssert.java`
+`toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
+in `apm-sniffer/apm-sdk-plugin/httpClient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpClient/v4/HttpClientExecuteInterceptor.java`
 #### Snippet
 ```java
-public class SegmentRefAssert {
-    public static void assertSegmentId(TraceSegmentRef ref, String segmentId) {
-        assertThat(SegmentRefHelper.getTraceSegmentId(ref).toString(), is(segmentId));
+    private int port(HttpHost httpHost) {
+        int port = httpHost.getPort();
+        return port > 0 ? port : "https".equals(httpHost.getSchemeName().toLowerCase()) ? 443 : 80;
     }
 
 ```
@@ -12361,13 +12361,13 @@ in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/sk
 ```
 
 ### RuleId[ruleID=StringOperationCanBeSimplified]
-`toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
-in `apm-sniffer/apm-sdk-plugin/httpClient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpClient/v4/HttpClientExecuteInterceptor.java`
+Call to `toString()` is redundant
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/tools/SegmentRefAssert.java`
 #### Snippet
 ```java
-    private int port(HttpHost httpHost) {
-        int port = httpHost.getPort();
-        return port > 0 ? port : "https".equals(httpHost.getSchemeName().toLowerCase()) ? 443 : 80;
+public class SegmentRefAssert {
+    public static void assertSegmentId(TraceSegmentRef ref, String segmentId) {
+        assertThat(SegmentRefHelper.getTraceSegmentId(ref).toString(), is(segmentId));
     }
 
 ```
@@ -12387,18 +12387,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ### RuleId[ruleID=Convert2MethodRef]
 Lambda can be replaced with method reference
-in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingDistributionSummary.java`
-#### Snippet
-```java
-        this.maxAdder = new DoubleAccumulator((a, b) -> a > b ? a : b, 0.000);
-        this.max = MeterFactory.gauge(meterId.copyTo(baseName + "_max", MeterId.MeterType.GAUGE),
-            () -> maxAdder.doubleValue()).build();
-
-        this.histogram = MeterBuilder.buildHistogram(meterId, supportsAggregablePercentiles, distributionStatisticConfig, false);
-```
-
-### RuleId[ruleID=Convert2MethodRef]
-Lambda can be replaced with method reference
 in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingTimer.java`
 #### Snippet
 ```java
@@ -12407,6 +12395,18 @@ in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/ap
             () -> maxAdder.doubleValue()).build();
 
         this.histogram = MeterBuilder.buildHistogram(meterId, supportsAggregablePercentiles, distributionStatisticConfig, true);
+```
+
+### RuleId[ruleID=Convert2MethodRef]
+Lambda can be replaced with method reference
+in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingDistributionSummary.java`
+#### Snippet
+```java
+        this.maxAdder = new DoubleAccumulator((a, b) -> a > b ? a : b, 0.000);
+        this.max = MeterFactory.gauge(meterId.copyTo(baseName + "_max", MeterId.MeterType.GAUGE),
+            () -> maxAdder.doubleValue()).build();
+
+        this.histogram = MeterBuilder.buildHistogram(meterId, supportsAggregablePercentiles, distributionStatisticConfig, false);
 ```
 
 ### RuleId[ruleID=Convert2MethodRef]
@@ -12458,6 +12458,43 @@ in `apm-sniffer/optional-plugins/fastjson-1.2.x-plugin/src/main/java/org/apache/
         ContextManager.stopSpan();
 ```
 
+## RuleId[ruleID=RedundantCollectionOperation]
+### RuleId[ruleID=RedundantCollectionOperation]
+Unnecessary 'containsKey()' check
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInterceptor.java`
+#### Snippet
+```java
+                next = next.next();
+                rpcContext.setAttachment(next.getHeadKey(), next.getHeadValue());
+                if (invocation.getAttachments().containsKey(next.getHeadKey())) {
+                    invocation.getAttachments().remove(next.getHeadKey());
+                }
+```
+
+### RuleId[ruleID=RedundantCollectionOperation]
+Unnecessary 'containsKey()' check
+in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInterceptor.java`
+#### Snippet
+```java
+                next = next.next();
+                rpcContext.getAttachments().put(next.getHeadKey(), next.getHeadValue());
+                if (invocation.getAttachments().containsKey(next.getHeadKey())) {
+                    invocation.getAttachments().remove(next.getHeadKey());
+                }
+```
+
+### RuleId[ruleID=RedundantCollectionOperation]
+Unnecessary 'containsKey()' check
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInterceptor.java`
+#### Snippet
+```java
+                next = next.next();
+                attachment.setAttachment(next.getHeadKey(), next.getHeadValue());
+                if (invocation.getAttachments().containsKey(next.getHeadKey())) {
+                    invocation.getAttachments().remove(next.getHeadKey());
+                }
+```
+
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'pluginSelector' in a Serializable class
@@ -12507,52 +12544,15 @@ in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/cor
     MockContextSnapshot() {
 ```
 
-## RuleId[ruleID=RedundantCollectionOperation]
-### RuleId[ruleID=RedundantCollectionOperation]
-Unnecessary 'containsKey()' check
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInterceptor.java`
-#### Snippet
-```java
-                next = next.next();
-                attachment.setAttachment(next.getHeadKey(), next.getHeadValue());
-                if (invocation.getAttachments().containsKey(next.getHeadKey())) {
-                    invocation.getAttachments().remove(next.getHeadKey());
-                }
-```
-
-### RuleId[ruleID=RedundantCollectionOperation]
-Unnecessary 'containsKey()' check
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInterceptor.java`
-#### Snippet
-```java
-                next = next.next();
-                rpcContext.setAttachment(next.getHeadKey(), next.getHeadValue());
-                if (invocation.getAttachments().containsKey(next.getHeadKey())) {
-                    invocation.getAttachments().remove(next.getHeadKey());
-                }
-```
-
-### RuleId[ruleID=RedundantCollectionOperation]
-Unnecessary 'containsKey()' check
-in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInterceptor.java`
-#### Snippet
-```java
-                next = next.next();
-                rpcContext.getAttachments().put(next.getHeadKey(), next.getHeadValue());
-                if (invocation.getAttachments().containsKey(next.getHeadKey())) {
-                    invocation.getAttachments().remove(next.getHeadKey());
-                }
-```
-
 ## RuleId[ruleID=AbstractMethodCallInConstructor]
 ### RuleId[ruleID=AbstractMethodCallInConstructor]
 Call to 'abstract' method `getType()` during object construction
-in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/BaseBuilder.java`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/meter/AbstractBuilder.java`
 #### Snippet
 ```java
             throw new IllegalArgumentException("Meter name cannot be null");
         }
-        this.meterId = new MeterId(name, getType());
+        this.meterId = new MeterId(name, getType(), new ArrayList<>());
     }
 
 ```
@@ -12571,17 +12571,29 @@ in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalkin
 
 ### RuleId[ruleID=AbstractMethodCallInConstructor]
 Call to 'abstract' method `getType()` during object construction
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/meter/AbstractBuilder.java`
+in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/BaseBuilder.java`
 #### Snippet
 ```java
             throw new IllegalArgumentException("Meter name cannot be null");
         }
-        this.meterId = new MeterId(name, getType(), new ArrayList<>());
+        this.meterId = new MeterId(name, getType());
     }
 
 ```
 
 ## RuleId[ruleID=CatchMayIgnoreException]
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/os/OSUtil.java`
+#### Snippet
+```java
+                    }
+                }
+            } catch (SocketException e) {
+
+            }
+```
+
 ### RuleId[ruleID=CatchMayIgnoreException]
 Empty `catch` block
 in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/EnvUtil.java`
@@ -12632,13 +12644,109 @@ in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/
 
 ### RuleId[ruleID=CatchMayIgnoreException]
 Empty `catch` block
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/os/OSUtil.java`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanErrorThrowableInteceptor.java`
 #### Snippet
 ```java
-                    }
-                }
-            } catch (SocketException e) {
+            activeSpan = ContextManager.activeSpan();
+            activeSpan.log((Throwable) allArguments[0]);
+        } catch (NullPointerException e) {
+        }
+    }
+```
 
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanInfoInterceptor.java`
+#### Snippet
+```java
+            activeSpan.log(System.currentTimeMillis(), event);
+
+        } catch (NullPointerException e) {
+        }
+    }
+```
+
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanDebugInterceptor.java`
+#### Snippet
+```java
+            activeSpan.log(System.currentTimeMillis(), event);
+
+        } catch (NullPointerException e) {
+        }
+    }
+```
+
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanErrorMsgInterceptor.java`
+#### Snippet
+```java
+            activeSpan.log(System.currentTimeMillis(), event);
+
+        } catch (NullPointerException e) {
+        }
+    }
+```
+
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanErrorInterceptor.java`
+#### Snippet
+```java
+            activeSpan = ContextManager.activeSpan();
+            activeSpan.errorOccurred();
+        } catch (NullPointerException e) {
+        }
+    }
+```
+
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v8/GraphqlInterceptor.java`
+#### Snippet
+```java
+            Tags.LOGIC_ENDPOINT.set(span, Tags.VAL_LOCAL_SPAN_AS_LOGIC_ENDPOINT);
+            span.setComponent(ComponentsDefine.GRAPHQL);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+        }
+    }
+```
+
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v8/GraphqlInterceptor.java`
+#### Snippet
+```java
+            }
+            dealException(t);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+        }
+    }
+```
+
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v8/GraphqlInterceptor.java`
+#### Snippet
+```java
+            }
+            ContextManager.stopSpan();
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+        }
+        return ret;
+```
+
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/bootstrap-plugins/jdk-http-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/http/HttpClientParseHttpInterceptor.java`
+#### Snippet
+```java
+                try {
+                    return Integer.valueOf(results[1]);
+                } catch (Exception e) {
+                }
             }
 ```
 
@@ -12732,18 +12840,6 @@ in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/tes
 #### Snippet
 ```java
             try {
-                return FieldGetter.getParentFieldValue(tracingSpan, "parentSpanId");
-            } catch (Exception e1) {
-
-            }
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
-#### Snippet
-```java
-            try {
                 return FieldGetter.getParentFieldValue(tracingSpan, "errorOccurred");
             } catch (Exception e1) {
 
@@ -12757,6 +12853,54 @@ in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/tes
 ```java
             try {
                 return FieldGetter.getParentFieldValue(tracingSpan, "componentName");
+            } catch (Exception e1) {
+
+            }
+```
+
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
+#### Snippet
+```java
+            try {
+                return FieldGetter.getParentFieldValue(tracingSpan, "peer");
+            } catch (Exception e1) {
+
+            }
+```
+
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
+#### Snippet
+```java
+            try {
+                return FieldGetter.getParentFieldValue(tracingSpan, "layer");
+            } catch (Exception e1) {
+
+            }
+```
+
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
+#### Snippet
+```java
+            try {
+                return FieldGetter.getParentFieldValue(tracingSpan, "parentSpanId");
+            } catch (Exception e1) {
+
+            }
+```
+
+### RuleId[ruleID=CatchMayIgnoreException]
+Empty `catch` block
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
+#### Snippet
+```java
+                    return logs;
+                }
             } catch (Exception e1) {
 
             }
@@ -12788,42 +12932,6 @@ in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/tes
 
 ### RuleId[ruleID=CatchMayIgnoreException]
 Empty `catch` block
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
-#### Snippet
-```java
-            try {
-                return FieldGetter.getParentFieldValue(tracingSpan, "layer");
-            } catch (Exception e1) {
-
-            }
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
-#### Snippet
-```java
-                    return logs;
-                }
-            } catch (Exception e1) {
-
-            }
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
-#### Snippet
-```java
-            try {
-                return FieldGetter.getParentFieldValue(tracingSpan, "peer");
-            } catch (Exception e1) {
-
-            }
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
 in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/ConnectionCreateOldInterceptor.java`
 #### Snippet
 ```java
@@ -12832,114 +12940,6 @@ in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalk
             } catch (Throwable t) { }
             ConnectionInfo connectionInfo = ConnectionCache.get(allArguments[1].toString(), allArguments[2].toString(), database);
             ((EnhancedInstance) ret).setSkyWalkingDynamicField(connectionInfo);
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanErrorThrowableInteceptor.java`
-#### Snippet
-```java
-            activeSpan = ContextManager.activeSpan();
-            activeSpan.log((Throwable) allArguments[0]);
-        } catch (NullPointerException e) {
-        }
-    }
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanInfoInterceptor.java`
-#### Snippet
-```java
-            activeSpan.log(System.currentTimeMillis(), event);
-
-        } catch (NullPointerException e) {
-        }
-    }
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanDebugInterceptor.java`
-#### Snippet
-```java
-            activeSpan.log(System.currentTimeMillis(), event);
-
-        } catch (NullPointerException e) {
-        }
-    }
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanErrorMsgInterceptor.java`
-#### Snippet
-```java
-            activeSpan.log(System.currentTimeMillis(), event);
-
-        } catch (NullPointerException e) {
-        }
-    }
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanErrorInterceptor.java`
-#### Snippet
-```java
-            activeSpan = ContextManager.activeSpan();
-            activeSpan.errorOccurred();
-        } catch (NullPointerException e) {
-        }
-    }
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
-in `apm-sniffer/bootstrap-plugins/jdk-http-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/http/HttpClientParseHttpInterceptor.java`
-#### Snippet
-```java
-                try {
-                    return Integer.valueOf(results[1]);
-                } catch (Exception e) {
-                }
-            }
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
-in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v8/GraphqlInterceptor.java`
-#### Snippet
-```java
-            Tags.LOGIC_ENDPOINT.set(span, Tags.VAL_LOCAL_SPAN_AS_LOGIC_ENDPOINT);
-            span.setComponent(ComponentsDefine.GRAPHQL);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-        }
-    }
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
-in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v8/GraphqlInterceptor.java`
-#### Snippet
-```java
-            }
-            dealException(t);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-        }
-    }
-```
-
-### RuleId[ruleID=CatchMayIgnoreException]
-Empty `catch` block
-in `apm-sniffer/apm-sdk-plugin/graphql-plugin/graphql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/graphql/v8/GraphqlInterceptor.java`
-#### Snippet
-```java
-            }
-            ContextManager.stopSpan();
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-        }
-        return ret;
 ```
 
 ## RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -13080,42 +13080,6 @@ public class MongoRemotePeerHelper {
 
 ### RuleId[ruleID=RedundantSuppression]
 Redundant suppression
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/ClusteredEventBusSendRemoteInterceptor.java`
-#### Snippet
-```java
-    @Override
-    @SuppressWarnings("rawtypes")
-    public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-        MethodInterceptResult result) throws Throwable {
-        ContextManager.getRuntimeContext().remove(VertxContext.STOP_SPAN_NECESSARY + "." + getClass().getName());
-```
-
-### RuleId[ruleID=RedundantSuppression]
-Redundant suppression
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/EventBusImplDeliverToHandlerInterceptor.java`
-#### Snippet
-```java
-    @Override
-    @SuppressWarnings("rawtypes")
-    public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-                             MethodInterceptResult result) throws Throwable {
-        ContextManager.getRuntimeContext().remove(VertxContext.STOP_SPAN_NECESSARY + "." + getClass().getName());
-```
-
-### RuleId[ruleID=RedundantSuppression]
-Redundant suppression
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/HandlerRegistrationInterceptor.java`
-#### Snippet
-```java
-    @Override
-    @SuppressWarnings("rawtypes")
-    public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-                             MethodInterceptResult result) throws Throwable {
-        ContextManager.getRuntimeContext().remove(VertxContext.STOP_SPAN_NECESSARY + "." + getClass().getName());
-```
-
-### RuleId[ruleID=RedundantSuppression]
-Redundant suppression
 in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/CustomizeConfiguration.java`
 #### Snippet
 ```java
@@ -13140,6 +13104,30 @@ in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apac
 
 ## RuleId[ruleID=UnnecessaryBoxing]
 ### RuleId[ruleID=UnnecessaryBoxing]
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/loader/CustomizeInstrumentationLoader.java`
+#### Snippet
+```java
+            for (String enhanceClass : enhanceClasses) {
+                String[] classDesc = CustomizeUtil.getClassDesc(enhanceClass);
+                AbstractClassEnhancePluginDefine plugin = (AbstractClassEnhancePluginDefine) Class.forName(Boolean.valueOf(classDesc[1]) ? CustomizeStaticInstrumentation.class
+                    .getName() : CustomizeInstanceInstrumentation.class.getName(), true, classLoader)
+                                                                                                  .getConstructor(String.class)
+```
+
+### RuleId[ruleID=UnnecessaryBoxing]
+Redundant boxing, `Integer.parseInt()` call can be used instead
+in `apm-sniffer/apm-sdk-plugin/canal-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/canal/ClusterNodeConstructInterceptor.java`
+#### Snippet
+```java
+            String[] strs = StringUtils.split(address, ":");
+            if (strs != null && strs.length == 2) {
+                addresses.add(new InetSocketAddress(strs[0], Integer.valueOf(strs[1])));
+            }
+        }
+```
+
+### RuleId[ruleID=UnnecessaryBoxing]
 Redundant boxing, `Integer.parseInt()` call can be used instead
 in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/PostgreSQLURLParser.java`
 #### Snippet
@@ -13149,6 +13137,30 @@ in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/
                 return new ConnectionInfo(ComponentsDefine.POSTGRESQL_DRIVER, DB_TYPE, hostAndPort[0], Integer.valueOf(hostAndPort[1]), fetchDatabaseNameFromURL());
             } else {
                 return new ConnectionInfo(ComponentsDefine.POSTGRESQL_DRIVER, DB_TYPE, hostAndPort[0], DEFAULT_PORT, fetchDatabaseNameFromURL());
+```
+
+### RuleId[ruleID=UnnecessaryBoxing]
+Redundant boxing, `Integer.parseInt()` call can be used instead
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/ImpalaJdbcURLParser.java`
+#### Snippet
+```java
+            String[] hostAndPort = hostSegment[0].split(":");
+            if (hostAndPort.length != 1) {
+                return new ConnectionInfo(component, DB_TYPE, hostAndPort[0], Integer.valueOf(hostAndPort[1]), fetchDatabaseNameFromURL(location
+                        .endIndex()));
+            } else {
+```
+
+### RuleId[ruleID=UnnecessaryBoxing]
+Redundant boxing, `Integer.parseInt()` call can be used instead
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/MssqlJtdsURLParser.java`
+#### Snippet
+```java
+                if (hostAndPort.length != 1) {
+                    return new ConnectionInfo(
+                        component, dbType, hostAndPort[0], Integer.valueOf(hostAndPort[1]),
+                        fetchDatabaseNameFromURL(location.endIndex())
+                    );
 ```
 
 ### RuleId[ruleID=UnnecessaryBoxing]
@@ -13177,30 +13189,6 @@ in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/
 
 ### RuleId[ruleID=UnnecessaryBoxing]
 Redundant boxing, `Integer.parseInt()` call can be used instead
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/MssqlJtdsURLParser.java`
-#### Snippet
-```java
-                if (hostAndPort.length != 1) {
-                    return new ConnectionInfo(
-                        component, dbType, hostAndPort[0], Integer.valueOf(hostAndPort[1]),
-                        fetchDatabaseNameFromURL(location.endIndex())
-                    );
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Redundant boxing, `Integer.parseInt()` call can be used instead
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/ImpalaJdbcURLParser.java`
-#### Snippet
-```java
-            String[] hostAndPort = hostSegment[0].split(":");
-            if (hostAndPort.length != 1) {
-                return new ConnectionInfo(component, DB_TYPE, hostAndPort[0], Integer.valueOf(hostAndPort[1]), fetchDatabaseNameFromURL(location
-                        .endIndex()));
-            } else {
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Redundant boxing, `Integer.parseInt()` call can be used instead
 in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/MssqlJdbcURLParser.java`
 #### Snippet
 ```java
@@ -13223,43 +13211,7 @@ in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/
     }
 ```
 
-### RuleId[ruleID=UnnecessaryBoxing]
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/loader/CustomizeInstrumentationLoader.java`
-#### Snippet
-```java
-            for (String enhanceClass : enhanceClasses) {
-                String[] classDesc = CustomizeUtil.getClassDesc(enhanceClass);
-                AbstractClassEnhancePluginDefine plugin = (AbstractClassEnhancePluginDefine) Class.forName(Boolean.valueOf(classDesc[1]) ? CustomizeStaticInstrumentation.class
-                    .getName() : CustomizeInstanceInstrumentation.class.getName(), true, classLoader)
-                                                                                                  .getConstructor(String.class)
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Redundant boxing, `Integer.parseInt()` call can be used instead
-in `apm-sniffer/apm-sdk-plugin/canal-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/canal/ClusterNodeConstructInterceptor.java`
-#### Snippet
-```java
-            String[] strs = StringUtils.split(address, ":");
-            if (strs != null && strs.length == 2) {
-                addresses.add(new InetSocketAddress(strs[0], Integer.valueOf(strs[1])));
-            }
-        }
-```
-
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for field 'histogram'
-in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingDistributionSummary.java`
-#### Snippet
-```java
-     * Histogram of summary
-     */
-    private final Optional<Histogram> histogram;
-
-    protected SkywalkingDistributionSummary(Id id, MeterId meterId, SkywalkingConfig config, Clock clock,
-```
-
 ### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 `Optional` used as type for field 'histogram'
 in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingTimer.java`
@@ -13270,6 +13222,18 @@ in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/ap
     private final Optional<Histogram> histogram;
 
     protected SkywalkingTimer(Id id, MeterId meterId, SkywalkingConfig config, Clock clock,
+```
+
+### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+`Optional` used as type for field 'histogram'
+in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingDistributionSummary.java`
+#### Snippet
+```java
+     * Histogram of summary
+     */
+    private final Optional<Histogram> histogram;
+
+    protected SkywalkingDistributionSummary(Id id, MeterId meterId, SkywalkingConfig config, Clock clock,
 ```
 
 ## RuleId[ruleID=NonStrictComparisonCanBeEquality]
@@ -13398,18 +13362,6 @@ in `test/plugin/scenarios/kotlin-coroutine-scenario/pom.xml`
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
 ### RuleId[ruleID=ConditionCoveredByFurtherCondition]
-Condition 'ret != null' covered by subsequent condition 'ret instanceof EnhancedInstance'
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/JDBCDriverInterceptor.java`
-#### Snippet
-```java
-    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-        Object ret) throws Throwable {
-        if (ret != null && ret instanceof EnhancedInstance) {
-            ((EnhancedInstance) ret).setSkyWalkingDynamicField(URLParser.parser((String) allArguments[0]));
-        }
-```
-
-### RuleId[ruleID=ConditionCoveredByFurtherCondition]
 Condition '"true".equalsIgnoreCase(...)' covered by subsequent condition '!"false".equalsIgnoreCase(...)'
 in `apm-application-toolkit/apm-toolkit-log4j-2.x/src/main/java/org/apache/skywalking/apm/toolkit/log/log4j/v2/x/log/GRPCLogClientAppender.java`
 #### Snippet
@@ -13419,6 +13371,18 @@ in `apm-application-toolkit/apm-toolkit-log4j-2.x/src/main/java/org/apache/skywa
         final boolean ignoreExceptions = "true".equalsIgnoreCase(ignore) || !"false".equalsIgnoreCase(ignore);
         return new GRPCLogClientAppender(appenderName, layout, filter, ignoreExceptions);
     }
+```
+
+### RuleId[ruleID=ConditionCoveredByFurtherCondition]
+Condition 'ret != null' covered by subsequent condition 'ret instanceof EnhancedInstance'
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/JDBCDriverInterceptor.java`
+#### Snippet
+```java
+    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+        Object ret) throws Throwable {
+        if (ret != null && ret instanceof EnhancedInstance) {
+            ((EnhancedInstance) ret).setSkyWalkingDynamicField(URLParser.parser((String) allArguments[0]));
+        }
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -13488,9 +13452,45 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 #### Snippet
 ```java
 
-    private static Object matcherArray(String expression, Object o) {
+    private static Object matcherList(String expression, Object o) {
         int index = Integer.parseInt(expression.replace("[", "").replace("]", ""));
-        return o != null && Array.getLength(o) > index ? Array.get(o, index) : null;
+        List l = (List) o;
+        return l != null && l.size() > index ? l.get(index) : null;
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/CustomizeExpression.java`
+#### Snippet
+```java
+
+    private static Object matcherList(String expression, Object o) {
+        int index = Integer.parseInt(expression.replace("[", "").replace("]", ""));
+        List l = (List) o;
+        return l != null && l.size() > index ? l.get(index) : null;
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/CustomizeExpression.java`
+#### Snippet
+```java
+
+    private static Object matcherMap(String expression, Object o) {
+        String key = expression.replace("['", "").replace("']", "");
+        return ((Map) o).get(key);
+    }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/CustomizeExpression.java`
+#### Snippet
+```java
+
+    private static Object matcherMap(String expression, Object o) {
+        String key = expression.replace("['", "").replace("']", "");
+        return ((Map) o).get(key);
     }
 ```
 
@@ -13512,22 +13512,10 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 #### Snippet
 ```java
 
-    private static Object matcherList(String expression, Object o) {
+    private static Object matcherArray(String expression, Object o) {
         int index = Integer.parseInt(expression.replace("[", "").replace("]", ""));
-        List l = (List) o;
-        return l != null && l.size() > index ? l.get(index) : null;
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/CustomizeExpression.java`
-#### Snippet
-```java
-
-    private static Object matcherList(String expression, Object o) {
-        int index = Integer.parseInt(expression.replace("[", "").replace("]", ""));
-        List l = (List) o;
-        return l != null && l.size() > index ? l.get(index) : null;
+        return o != null && Array.getLength(o) > index ? Array.get(o, index) : null;
+    }
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -13540,30 +13528,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
                 Method m = o.getClass().getMethod(expression.replace("()", ""));
                 m.setAccessible(true);
                 return m.invoke(o);
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/CustomizeExpression.java`
-#### Snippet
-```java
-
-    private static Object matcherMap(String expression, Object o) {
-        String key = expression.replace("['", "").replace("']", "");
-        return ((Map) o).get(key);
-    }
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/CustomizeExpression.java`
-#### Snippet
-```java
-
-    private static Object matcherMap(String expression, Object o) {
-        String key = expression.replace("['", "").replace("']", "");
-        return ((Map) o).get(key);
-    }
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -13603,15 +13567,15 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `apm-sniffer/apm-sdk-plugin/rabbitmq-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rabbitmq/ChannelNConstructorInterceptor.java`
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `apm-sniffer/apm-sdk-plugin/activemq-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/activemq/ActiveMQProducerConstructorInterceptor.java`
 #### Snippet
 ```java
     public void onConstruct(EnhancedInstance objInst, Object[] allArguments) {
-        Connection connection = (Connection) allArguments[0];
-        String url = connection.getAddress().toString().replace("/", "") + ":" + connection.getPort();
-        objInst.setSkyWalkingDynamicField(url);
+        ActiveMQSession session = (ActiveMQSession) allArguments[0];
+        objInst.setSkyWalkingDynamicField(session.getConnection().getTransport().getRemoteAddress().split("//")[1]);
     }
+}
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -13627,13 +13591,25 @@ in `apm-sniffer/apm-sdk-plugin/activemq-5.x-plugin/src/main/java/org/apache/skyw
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `apm-sniffer/apm-sdk-plugin/activemq-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/activemq/ActiveMQProducerConstructorInterceptor.java`
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx3/VertxContext.java`
 #### Snippet
 ```java
-    public void onConstruct(EnhancedInstance objInst, Object[] allArguments) {
-        ActiveMQSession session = (ActiveMQSession) allArguments[0];
-        objInst.setSkyWalkingDynamicField(session.getConnection().getTransport().getRemoteAddress().split("//")[1]);
+        double version;
+        try {
+            version = Double.parseDouble(VersionCommand.getVersion().replaceFirst("\\.", ""));
+        } catch (Throwable ignored) {
+            version = 3.00;
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/PathMappingCache.java`
+#### Snippet
+```java
+            methodPath = PATH_SEPARATOR + methodPath;
+        }
+        methodPathMapping.put(method, (classPath + methodPath).replace("//", "/"));
     }
 }
 ```
@@ -13652,411 +13628,75 @@ in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skyw
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/PathMappingCache.java`
+in `apm-sniffer/apm-sdk-plugin/rabbitmq-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rabbitmq/ChannelNConstructorInterceptor.java`
 #### Snippet
 ```java
-            methodPath = PATH_SEPARATOR + methodPath;
-        }
-        methodPathMapping.put(method, (classPath + methodPath).replace("//", "/"));
+    public void onConstruct(EnhancedInstance objInst, Object[] allArguments) {
+        Connection connection = (Connection) allArguments[0];
+        String url = connection.getAddress().toString().replace("/", "") + ":" + connection.getPort();
+        objInst.setSkyWalkingDynamicField(url);
     }
-}
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.kafka.clients.producer` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-kafka-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/kafka/KafkaTemplateCallbackInterceptor.java`
+#### Snippet
+```java
+    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+                              Object ret) throws Throwable {
+        return new CallbackAdapter((org.apache.kafka.clients.producer.Callback) ret, objInst);
+    }
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
-in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/JDKThreadingPluginConfig.java`
-#### Snippet
-```java
-
-            /**
-             * Threading classes ({@link java.lang.Runnable} and {@link java.util.concurrent.Callable} and their
-             * subclasses, including anonymous inner classes) whose name matches any one of the {@code
-             * THREADING_CLASS_PREFIXES} (splitted by ,) will be instrumented
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/JDBCStatementInterceptor.java`
-#### Snippet
-```java
-            return ret;
-        }
-        return new SWStatement((Connection) objInst, (java.sql.Statement) ret, (ConnectionInfo) objInst.getSkyWalkingDynamicField());
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/StatementTracing.java`
-#### Snippet
-```java
-
-    public interface Executable<R> {
-        R exe(java.sql.Statement realStatement, String sql) throws SQLException;
-    }
-}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/StatementTracing.java`
-#### Snippet
-```java
- */
-public class StatementTracing {
-    public static <R> R execute(java.sql.Statement realStatement, ConnectionInfo connectInfo, String method, String sql,
-        Executable<R> exec) throws SQLException {
-        try {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/PreparedStatementTracing.java`
-#### Snippet
-```java
-
-    public interface Executable<R> {
-        R exe(java.sql.PreparedStatement realConnection, String sql) throws SQLException;
-    }
-}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/PreparedStatementTracing.java`
-#### Snippet
-```java
-public class PreparedStatementTracing {
-
-    public static <R> R execute(java.sql.PreparedStatement realStatement, ConnectionInfo connectInfo, String method,
-        String sql, Executable<R> exec) throws SQLException {
-        final AbstractSpan span = ContextManager.createExitSpan(connectInfo.getDBType() + "/JDBC/PreparedStatement/" + method, connectInfo
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/CallableStatementTracing.java`
-#### Snippet
-```java
-public class CallableStatementTracing {
-
-    public static <R> R execute(java.sql.CallableStatement realStatement, ConnectionInfo connectInfo, String method,
-        String sql, Executable<R> exec) throws SQLException {
-        AbstractSpan span = ContextManager.createExitSpan(connectInfo.getDBType() + "/JDBC/CallableStatement/" + method, connectInfo
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/CallableStatementTracing.java`
-#### Snippet
-```java
-
-    public interface Executable<R> {
-        R exe(java.sql.CallableStatement realConnection, String sql) throws SQLException;
-    }
-}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
-        return StatementTracing.execute(realStatement, connectInfo, "executeUpdate", sql, new StatementTracing.Executable<Integer>() {
-            @Override
-            public Integer exe(java.sql.Statement realStatement, String sql) throws SQLException {
-                return realStatement.executeUpdate(sql);
-            }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
-        return StatementTracing.execute(realStatement, connectInfo, "execute", sql, new StatementTracing.Executable<Boolean>() {
-            @Override
-            public Boolean exe(java.sql.Statement realStatement, String sql) throws SQLException {
-                return realStatement.execute(sql, columnNames);
-            }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
-        return StatementTracing.execute(realStatement, connectInfo, "executeUpdate", sql, new StatementTracing.Executable<Integer>() {
-            @Override
-            public Integer exe(java.sql.Statement realStatement, String sql) throws SQLException {
-                return realStatement.executeUpdate(sql, columnIndexes);
-            }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
-        return StatementTracing.execute(realStatement, connectInfo, "executeUpdate", sql, new StatementTracing.Executable<Integer>() {
-            @Override
-            public Integer exe(java.sql.Statement realStatement, String sql) throws SQLException {
-                return realStatement.executeUpdate(sql, autoGeneratedKeys);
-            }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
-        return StatementTracing.execute(realStatement, connectInfo, "executeBatch", "", new StatementTracing.Executable<int[]>() {
-            @Override
-            public int[] exe(java.sql.Statement realStatement, String sql) throws SQLException {
-                return realStatement.executeBatch();
-            }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
-        return StatementTracing.execute(realStatement, connectInfo, "execute", sql, new StatementTracing.Executable<Boolean>() {
-            @Override
-            public Boolean exe(java.sql.Statement realStatement, String sql) throws SQLException {
-                return realStatement.execute(sql);
-            }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
-        return StatementTracing.execute(realStatement, connectInfo, "execute", sql, new StatementTracing.Executable<Boolean>() {
-            @Override
-            public Boolean exe(java.sql.Statement realStatement, String sql) throws SQLException {
-                return realStatement.execute(sql, autoGeneratedKeys);
-            }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
-    private ConnectionInfo connectInfo;
-
-    public SWStatement(Connection realConnection, java.sql.Statement realStatement, ConnectionInfo connectInfo) {
-        this.realConnection = realConnection;
-        this.realStatement = realStatement;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
-        return StatementTracing.execute(realStatement, connectInfo, "executeQuery", sql, new StatementTracing.Executable<ResultSet>() {
-            @Override
-            public ResultSet exe(java.sql.Statement realStatement, String sql) throws SQLException {
-                return realStatement.executeQuery(sql);
-            }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
-public class SWStatement implements java.sql.Statement {
-    private Connection realConnection;
-    private java.sql.Statement realStatement;
-    private ConnectionInfo connectInfo;
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
- */
-
-public class SWStatement implements java.sql.Statement {
-    private Connection realConnection;
-    private java.sql.Statement realStatement;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
-        return StatementTracing.execute(realStatement, connectInfo, "execute", sql, new StatementTracing.Executable<Boolean>() {
-            @Override
-            public Boolean exe(java.sql.Statement realStatement, String sql) throws SQLException {
-                return realStatement.execute(sql, columnIndexes);
-            }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
-#### Snippet
-```java
-        return StatementTracing.execute(realStatement, connectInfo, "executeUpdate", sql, new StatementTracing.Executable<Integer>() {
-            @Override
-            public Integer exe(java.sql.Statement realStatement, String sql) throws SQLException {
-                return realStatement.executeUpdate(sql, columnNames);
-            }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/converters/ThrowableConverter.java`
-#### Snippet
-```java
-    public static String format(Throwable t) {
-        ByteArrayOutputStream buf = new ByteArrayOutputStream();
-        t.printStackTrace(new java.io.PrintWriter(buf, true));
-        String expMessage = buf.toString();
-        try {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.skywalking.apm.agent.core.kafka` is unnecessary and can be removed
-in `apm-sniffer/optional-reporter-plugins/kafka-reporter-plugin/src/main/java/org/apache/skywalking/apm/agent/core/kafka/KafkaLogReporterServiceClient.java`
-#### Snippet
-```java
-
-    @Override
-    public void onStatusChanged(final org.apache.skywalking.apm.agent.core.kafka.KafkaConnectionStatus status) {
-        if (status == KafkaConnectionStatus.CONNECTED) {
-            producer = ServiceManager.INSTANCE.findService(KafkaProducerManager.class).getProducer();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `reactor.netty.http.client` is unnecessary and can be removed
-in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v3x/HttpClientFinalizerConstructorInterceptor.java`
-#### Snippet
-```java
- * Intercept the constructor and inject {@link EnhanceObjectCache}.
- * <p>
- * The first constructor argument is {@link reactor.netty.http.client.HttpClientConfig} class instance which can get the
- * request uri string.
- */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.jetty.client` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-client-9.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/jetty/v90/client/SyncHttpRequestSendInterceptor.java`
-#### Snippet
-```java
-         * The method is null if the client using GET method.
-         *
-         * @see org.eclipse.jetty.client.HttpRequest#GET(String uri)
-         * @see org.eclipse.jetty.client.HttpRequest( org.eclipse.jetty.client.HttpClient client, long conversation, java.net.URI uri)
-         */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.eclipse.jetty.client` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-client-9.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/jetty/v90/client/SyncHttpRequestSendInterceptor.java`
-#### Snippet
-```java
-         *
-         * @see org.eclipse.jetty.client.HttpRequest#GET(String uri)
-         * @see org.eclipse.jetty.client.HttpRequest( org.eclipse.jetty.client.HttpClient client, long conversation, java.net.URI uri)
-         */
-        if (request.getMethod() != null) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/util/CustomizeUtil.java`
-#### Snippet
-```java
-        JAVA_CLASS.put("float.class", float.class);
-        JAVA_CLASS.put("double.class", double.class);
-        JAVA_CLASS.put("java.util.List", java.util.List.class);
-        JAVA_CLASS.put("java.util.Map", java.util.Map.class);
-    }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/util/CustomizeUtil.java`
-#### Snippet
-```java
-        JAVA_CLASS.put("double.class", double.class);
-        JAVA_CLASS.put("java.util.List", java.util.List.class);
-        JAVA_CLASS.put("java.util.Map", java.util.Map.class);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.quartz.spi` is unnecessary and can be removed
-in `apm-sniffer/optional-plugins/quartz-scheduler-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/quartz/JobRunShellConstructorInterceptor.java`
+in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xxljob/MethodJobHandlerConstructorInterceptor.java`
 #### Snippet
 ```java
 
 /**
- * Intercept method of {@link org.quartz.core.JobRunShell#JobRunShell(org.quartz.Scheduler, org.quartz.spi.TriggerFiredBundle)}.
- * cache the execute job details
+ * Intercept method of {@link com.xxl.job.core.handler.impl.MethodJobHandler#MethodJobHandler(java.lang.Object, java.lang.reflect.Method, java.lang.reflect.Method, java.lang.reflect.Method)}.
+ * cache the job target method details.
  */
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.quartz` is unnecessary and can be removed
-in `apm-sniffer/optional-plugins/quartz-scheduler-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/quartz/JobExecuteStateMethodInterceptor.java`
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xxljob/MethodJobHandlerConstructorInterceptor.java`
 #### Snippet
 ```java
 
 /**
- * Intercept method of {@link JobRunShell#notifyJobListenersComplete(org.quartz.JobExecutionContext, org.quartz.JobExecutionException)}.
- * record the quartz job execute exception.
+ * Intercept method of {@link com.xxl.job.core.handler.impl.MethodJobHandler#MethodJobHandler(java.lang.Object, java.lang.reflect.Method, java.lang.reflect.Method, java.lang.reflect.Method)}.
+ * cache the job target method details.
  */
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `scala.collection` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/play-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/play/v2x/HttpFiltersInterceptor.java`
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xxljob/MethodJobHandlerConstructorInterceptor.java`
 #### Snippet
 ```java
-        List<Object> filters = new ArrayList<>(seq.size() + 1);
-        filters.add(filter);
-        filters.addAll(scala.collection.JavaConverters.asJavaCollection(seq));
-        return scala.collection.JavaConverters.asScalaBuffer(filters).toList();
-    }
+
+/**
+ * Intercept method of {@link com.xxl.job.core.handler.impl.MethodJobHandler#MethodJobHandler(java.lang.Object, java.lang.reflect.Method, java.lang.reflect.Method, java.lang.reflect.Method)}.
+ * cache the job target method details.
+ */
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `scala.collection` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/play-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/play/v2x/HttpFiltersInterceptor.java`
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xxljob/MethodJobHandlerConstructorInterceptor.java`
 #### Snippet
 ```java
-        filters.add(filter);
-        filters.addAll(scala.collection.JavaConverters.asJavaCollection(seq));
-        return scala.collection.JavaConverters.asScalaBuffer(filters).toList();
-    }
 
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.skywalking.apm.toolkit.trace` is unnecessary and can be removed
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/BaseTraceAnnotationInterceptor.java`
-#### Snippet
-```java
-        final Map<String, Object> context = CustomizeExpression.evaluationContext(allArguments);
-
-        final org.apache.skywalking.apm.toolkit.trace.Tags tags = method.getAnnotation(Tags.class);
-        if (tags != null && tags.value().length > 0) {
-            for (final Tag tag : tags.value()) {
+/**
+ * Intercept method of {@link com.xxl.job.core.handler.impl.MethodJobHandler#MethodJobHandler(java.lang.Object, java.lang.reflect.Method, java.lang.reflect.Method, java.lang.reflect.Method)}.
+ * cache the job target method details.
+ */
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -14080,54 +13720,6 @@ in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywa
 /**
  * Intercept method of {@link com.xxl.job.core.handler.impl.ScriptJobHandler#ScriptJobHandler(int, long, java.lang.String, com.xxl.job.core.glue.GlueTypeEnum)}.
  * cache the script job details.
- */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xxljob/MethodJobHandlerConstructorInterceptor.java`
-#### Snippet
-```java
-
-/**
- * Intercept method of {@link com.xxl.job.core.handler.impl.MethodJobHandler#MethodJobHandler(java.lang.Object, java.lang.reflect.Method, java.lang.reflect.Method, java.lang.reflect.Method)}.
- * cache the job target method details.
- */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xxljob/MethodJobHandlerConstructorInterceptor.java`
-#### Snippet
-```java
-
-/**
- * Intercept method of {@link com.xxl.job.core.handler.impl.MethodJobHandler#MethodJobHandler(java.lang.Object, java.lang.reflect.Method, java.lang.reflect.Method, java.lang.reflect.Method)}.
- * cache the job target method details.
- */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xxljob/MethodJobHandlerConstructorInterceptor.java`
-#### Snippet
-```java
-
-/**
- * Intercept method of {@link com.xxl.job.core.handler.impl.MethodJobHandler#MethodJobHandler(java.lang.Object, java.lang.reflect.Method, java.lang.reflect.Method, java.lang.reflect.Method)}.
- * cache the job target method details.
- */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/xxljob/MethodJobHandlerConstructorInterceptor.java`
-#### Snippet
-```java
-
-/**
- * Intercept method of {@link com.xxl.job.core.handler.impl.MethodJobHandler#MethodJobHandler(java.lang.Object, java.lang.reflect.Method, java.lang.reflect.Method, java.lang.reflect.Method)}.
- * cache the job target method details.
  */
 ```
 
@@ -14168,6 +13760,534 @@ in `apm-sniffer/apm-sdk-plugin/xxl-job-2.x-plugin/src/main/java/org/apache/skywa
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/converters/ThrowableConverter.java`
+#### Snippet
+```java
+    public static String format(Throwable t) {
+        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+        t.printStackTrace(new java.io.PrintWriter(buf, true));
+        String expMessage = buf.toString();
+        try {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.skywalking.apm.toolkit.trace` is unnecessary and can be removed
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/BaseTraceAnnotationInterceptor.java`
+#### Snippet
+```java
+        final Map<String, Object> context = CustomizeExpression.evaluationContext(allArguments);
+
+        final org.apache.skywalking.apm.toolkit.trace.Tags tags = method.getAnnotation(Tags.class);
+        if (tags != null && tags.value().length > 0) {
+            for (final Tag tag : tags.value()) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.protobuf` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/client/ClientCallsGenericCallInterceptor.java`
+#### Snippet
+```java
+            MethodInterceptResult result) {
+        // only trace async generic call. Determine if the request parameter is a DynamicMessage
+        if (allArguments[1] instanceof com.google.protobuf.DynamicMessage) {
+            ContextManager.getRuntimeContext().put(GENERIC_CALL_METHOD, method.getName());
+        }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.skywalking.apm.agent.core.kafka` is unnecessary and can be removed
+in `apm-sniffer/optional-reporter-plugins/kafka-reporter-plugin/src/main/java/org/apache/skywalking/apm/agent/core/kafka/KafkaLogReporterServiceClient.java`
+#### Snippet
+```java
+
+    @Override
+    public void onStatusChanged(final org.apache.skywalking.apm.agent.core.kafka.KafkaConnectionStatus status) {
+        if (status == KafkaConnectionStatus.CONNECTED) {
+            producer = ServiceManager.INSTANCE.findService(KafkaProducerManager.class).getProducer();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `scala.collection` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/play-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/play/v2x/HttpFiltersInterceptor.java`
+#### Snippet
+```java
+        List<Object> filters = new ArrayList<>(seq.size() + 1);
+        filters.add(filter);
+        filters.addAll(scala.collection.JavaConverters.asJavaCollection(seq));
+        return scala.collection.JavaConverters.asScalaBuffer(filters).toList();
+    }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `scala.collection` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/play-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/play/v2x/HttpFiltersInterceptor.java`
+#### Snippet
+```java
+        filters.add(filter);
+        filters.addAll(scala.collection.JavaConverters.asJavaCollection(seq));
+        return scala.collection.JavaConverters.asScalaBuffer(filters).toList();
+    }
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/util/CustomizeUtil.java`
+#### Snippet
+```java
+        JAVA_CLASS.put("float.class", float.class);
+        JAVA_CLASS.put("double.class", double.class);
+        JAVA_CLASS.put("java.util.List", java.util.List.class);
+        JAVA_CLASS.put("java.util.Map", java.util.Map.class);
+    }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/util/CustomizeUtil.java`
+#### Snippet
+```java
+        JAVA_CLASS.put("double.class", double.class);
+        JAVA_CLASS.put("java.util.List", java.util.List.class);
+        JAVA_CLASS.put("java.util.Map", java.util.Map.class);
+    }
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `ru.yandex.clickhouse` is unnecessary and can be removed
+in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/ClickHouseStatementMethodInterceptor.java`
+#### Snippet
+```java
+ * This interceptor is used to replace {@link org.apache.skywalking.apm.plugin.jdbc.JDBCStatementInterceptor}.
+ * Because return value type of {@link ClickHouseConnectionImpl#createStatement()} method is {@link
+ * ru.yandex.clickhouse.ClickHouseStatement} instead of {@link java.sql.Statement}.
+ */
+public class ClickHouseStatementMethodInterceptor implements InstanceMethodsAroundInterceptor {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `scala.collection.immutable` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
+#### Snippet
+```java
+    }
+
+    static class MapLocalContextHolder extends ContextHolderFactory.AbstractContextHolder<scala.collection.immutable.Map<LocalContext.Key, Object>> {
+
+        private static final String LOCAL_FIELD_NAME = "local";
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `scala.collection.immutable` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
+#### Snippet
+```java
+
+        @Override
+        protected scala.collection.immutable.Map<Buf, Object> getUpdatedContext(scala.collection.immutable.Map<Buf, Object> currentContext, Object key, Object value) {
+            checkKeyType(key);
+            try {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `scala.collection.immutable` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
+#### Snippet
+```java
+
+        @Override
+        protected scala.collection.immutable.Map<Buf, Object> getUpdatedContext(scala.collection.immutable.Map<Buf, Object> currentContext, Object key, Object value) {
+            checkKeyType(key);
+            try {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `scala.collection.immutable` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
+#### Snippet
+```java
+
+        @Override
+        protected scala.collection.immutable.Map<LocalContext.Key, Object> getUpdatedContext(scala.collection.immutable.Map<LocalContext.Key, Object> currentContext, Object key, Object value) {
+            checkKeyType(key);
+            return currentContext.updated((LocalContext.Key) key, value);
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `scala.collection.immutable` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
+#### Snippet
+```java
+
+        @Override
+        protected scala.collection.immutable.Map<LocalContext.Key, Object> getUpdatedContext(scala.collection.immutable.Map<LocalContext.Key, Object> currentContext, Object key, Object value) {
+            checkKeyType(key);
+            return currentContext.updated((LocalContext.Key) key, value);
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `scala.collection.immutable` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
+#### Snippet
+```java
+    }
+
+    static class MapMarshalledContextHolder extends ContextHolderFactory.AbstractContextHolder<scala.collection.immutable.Map<Buf, Object>> {
+
+        private static final String LOCAL_FIELD_NAME = "local";
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `io.micrometer.core.instrument` is unnecessary, and can be replaced with an import
+in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingMeterRegistry.java`
+#### Snippet
+```java
+
+    @Override
+    protected io.micrometer.core.instrument.Counter newCounter(Meter.Id id) {
+        final MeterId meterId = convertId(id);
+        return new SkywalkingCounter(id, MeterBuilder.buildCounter(meterId, config));
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `io.micrometer.core.instrument` is unnecessary, and can be replaced with an import
+in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingMeterRegistry.java`
+#### Snippet
+```java
+
+    @Override
+    protected <T> io.micrometer.core.instrument.Gauge newGauge(Meter.Id id, T obj, ToDoubleFunction<T> valueFunction) {
+        final MeterId meterId = convertId(id);
+        MeterFactory.gauge(meterId, () -> valueFunction.applyAsDouble(obj)).build();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.networknt.exception` is unnecessary and can be removed
+in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/apache/skywalking/apm/plugin/light4j/HandleRequestInterceptor.java`
+#### Snippet
+```java
+/**
+ * {@link HandleRequestInterceptor} creates an entry span before the execution of {@link
+ * com.networknt.exception.ExceptionHandler#handleRequest(HttpServerExchange)} in the I/O thread.
+ * <p>
+ * If the {@link Light4JPluginConfig.Plugin.Light4J#TRACE_HANDLER_CHAIN} flag is set, additionally a local span is produced
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.networknt.handler` is unnecessary and can be removed
+in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/apache/skywalking/apm/plugin/light4j/HandleRequestInterceptor.java`
+#### Snippet
+```java
+ * <p>
+ * If the {@link Light4JPluginConfig.Plugin.Light4J#TRACE_HANDLER_CHAIN} flag is set, additionally a local span is produced
+ * for each {@link com.networknt.handler.MiddlewareHandler} and business handler before their respective {@link
+ * com.networknt.handler.LightHttpHandler#handleRequest(HttpServerExchange)} method executes. Since {@link
+ * com.networknt.handler.LightHttpHandler} is implemented by various middleware and business handlers and the Light4J
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.eclipse.jetty.client` is unnecessary and can be removed
+in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-client-9.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/jetty/v90/client/SyncHttpRequestSendInterceptor.java`
+#### Snippet
+```java
+         * The method is null if the client using GET method.
+         *
+         * @see org.eclipse.jetty.client.HttpRequest#GET(String uri)
+         * @see org.eclipse.jetty.client.HttpRequest( org.eclipse.jetty.client.HttpClient client, long conversation, java.net.URI uri)
+         */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.eclipse.jetty.client` is unnecessary and can be removed
+in `apm-sniffer/apm-sdk-plugin/jetty-plugin/jetty-client-9.0-plugin/src/main/java/org/apache/skywalking/apm/plugin/jetty/v90/client/SyncHttpRequestSendInterceptor.java`
+#### Snippet
+```java
+         *
+         * @see org.eclipse.jetty.client.HttpRequest#GET(String uri)
+         * @see org.eclipse.jetty.client.HttpRequest( org.eclipse.jetty.client.HttpClient client, long conversation, java.net.URI uri)
+         */
+        if (request.getMethod() != null) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/JDBCStatementInterceptor.java`
+#### Snippet
+```java
+            return ret;
+        }
+        return new SWStatement((Connection) objInst, (java.sql.Statement) ret, (ConnectionInfo) objInst.getSkyWalkingDynamicField());
+    }
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/PreparedStatementTracing.java`
+#### Snippet
+```java
+public class PreparedStatementTracing {
+
+    public static <R> R execute(java.sql.PreparedStatement realStatement, ConnectionInfo connectInfo, String method,
+        String sql, Executable<R> exec) throws SQLException {
+        final AbstractSpan span = ContextManager.createExitSpan(connectInfo.getDBType() + "/JDBC/PreparedStatement/" + method, connectInfo
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/PreparedStatementTracing.java`
+#### Snippet
+```java
+
+    public interface Executable<R> {
+        R exe(java.sql.PreparedStatement realConnection, String sql) throws SQLException;
+    }
+}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/CallableStatementTracing.java`
+#### Snippet
+```java
+
+    public interface Executable<R> {
+        R exe(java.sql.CallableStatement realConnection, String sql) throws SQLException;
+    }
+}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/CallableStatementTracing.java`
+#### Snippet
+```java
+public class CallableStatementTracing {
+
+    public static <R> R execute(java.sql.CallableStatement realStatement, ConnectionInfo connectInfo, String method,
+        String sql, Executable<R> exec) throws SQLException {
+        AbstractSpan span = ContextManager.createExitSpan(connectInfo.getDBType() + "/JDBC/CallableStatement/" + method, connectInfo
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/StatementTracing.java`
+#### Snippet
+```java
+ */
+public class StatementTracing {
+    public static <R> R execute(java.sql.Statement realStatement, ConnectionInfo connectInfo, String method, String sql,
+        Executable<R> exec) throws SQLException {
+        try {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/StatementTracing.java`
+#### Snippet
+```java
+
+    public interface Executable<R> {
+        R exe(java.sql.Statement realStatement, String sql) throws SQLException;
+    }
+}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+        return StatementTracing.execute(realStatement, connectInfo, "execute", sql, new StatementTracing.Executable<Boolean>() {
+            @Override
+            public Boolean exe(java.sql.Statement realStatement, String sql) throws SQLException {
+                return realStatement.execute(sql, columnNames);
+            }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+        return StatementTracing.execute(realStatement, connectInfo, "executeUpdate", sql, new StatementTracing.Executable<Integer>() {
+            @Override
+            public Integer exe(java.sql.Statement realStatement, String sql) throws SQLException {
+                return realStatement.executeUpdate(sql, columnIndexes);
+            }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+        return StatementTracing.execute(realStatement, connectInfo, "executeQuery", sql, new StatementTracing.Executable<ResultSet>() {
+            @Override
+            public ResultSet exe(java.sql.Statement realStatement, String sql) throws SQLException {
+                return realStatement.executeQuery(sql);
+            }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+        return StatementTracing.execute(realStatement, connectInfo, "executeUpdate", sql, new StatementTracing.Executable<Integer>() {
+            @Override
+            public Integer exe(java.sql.Statement realStatement, String sql) throws SQLException {
+                return realStatement.executeUpdate(sql, columnNames);
+            }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+        return StatementTracing.execute(realStatement, connectInfo, "executeUpdate", sql, new StatementTracing.Executable<Integer>() {
+            @Override
+            public Integer exe(java.sql.Statement realStatement, String sql) throws SQLException {
+                return realStatement.executeUpdate(sql);
+            }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+        return StatementTracing.execute(realStatement, connectInfo, "execute", sql, new StatementTracing.Executable<Boolean>() {
+            @Override
+            public Boolean exe(java.sql.Statement realStatement, String sql) throws SQLException {
+                return realStatement.execute(sql, autoGeneratedKeys);
+            }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+        return StatementTracing.execute(realStatement, connectInfo, "executeUpdate", sql, new StatementTracing.Executable<Integer>() {
+            @Override
+            public Integer exe(java.sql.Statement realStatement, String sql) throws SQLException {
+                return realStatement.executeUpdate(sql, autoGeneratedKeys);
+            }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+    private ConnectionInfo connectInfo;
+
+    public SWStatement(Connection realConnection, java.sql.Statement realStatement, ConnectionInfo connectInfo) {
+        this.realConnection = realConnection;
+        this.realStatement = realStatement;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+        return StatementTracing.execute(realStatement, connectInfo, "execute", sql, new StatementTracing.Executable<Boolean>() {
+            @Override
+            public Boolean exe(java.sql.Statement realStatement, String sql) throws SQLException {
+                return realStatement.execute(sql, columnIndexes);
+            }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+        return StatementTracing.execute(realStatement, connectInfo, "executeBatch", "", new StatementTracing.Executable<int[]>() {
+            @Override
+            public int[] exe(java.sql.Statement realStatement, String sql) throws SQLException {
+                return realStatement.executeBatch();
+            }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+        return StatementTracing.execute(realStatement, connectInfo, "execute", sql, new StatementTracing.Executable<Boolean>() {
+            @Override
+            public Boolean exe(java.sql.Statement realStatement, String sql) throws SQLException {
+                return realStatement.execute(sql);
+            }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+ */
+
+public class SWStatement implements java.sql.Statement {
+    private Connection realConnection;
+    private java.sql.Statement realStatement;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWStatement.java`
+#### Snippet
+```java
+public class SWStatement implements java.sql.Statement {
+    private Connection realConnection;
+    private java.sql.Statement realStatement;
+    private ConnectionInfo connectInfo;
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.rocketmq.common.protocol.header` is unnecessary and can be removed
+in `apm-sniffer/apm-sdk-plugin/rocketMQ-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v4/MessageSendInterceptor.java`
+#### Snippet
+```java
+/**
+ * {@link MessageSendInterceptor} create exit span when the method {@link org.apache.rocketmq.client.impl.MQClientAPIImpl#sendMessage(String,
+ * String, Message, org.apache.rocketmq.common.protocol.header.SendMessageRequestHeader, long,
+ * org.apache.rocketmq.client.impl.CommunicationMode, org.apache.rocketmq.client.producer.SendCallback,
+ * org.apache.rocketmq.client.impl.producer.TopicPublishInfo, org.apache.rocketmq.client.impl.factory.MQClientInstance,
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.alibaba.rocketmq.common.protocol.header` is unnecessary and can be removed
+in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/MessageSendInterceptor.java`
+#### Snippet
+```java
+/**
+ * {@link MessageSendInterceptor} create exit span when the method {@link com.alibaba.rocketmq.client.impl.MQClientAPIImpl#sendMessage(String,
+ * String, Message, com.alibaba.rocketmq.common.protocol.header.SendMessageRequestHeader, long,
+ * com.alibaba.rocketmq.client.impl.CommunicationMode, com.alibaba.rocketmq.client.producer.SendCallback,
+ * com.alibaba.rocketmq.client.impl.producer.TopicPublishInfo, com.alibaba.rocketmq.client.impl.factory.MQClientInstance,
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/JDKThreadingPluginConfig.java`
+#### Snippet
+```java
+
+            /**
+             * Threading classes ({@link java.lang.Runnable} and {@link java.util.concurrent.Callable} and their
+             * subclasses, including anonymous inner classes) whose name matches any one of the {@code
+             * THREADING_CLASS_PREFIXES} (splitted by ,) will be instrumented
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.skywalking.apm.plugin.jdbc.kylin.define` is unnecessary and can be removed
 in `apm-sniffer/apm-sdk-plugin/kylin-jdbc-2.6.x-3.x-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/kylin/define/PreparedStatementIgnoredSetterInstrumentation.java`
 #### Snippet
@@ -14177,6 +14297,54 @@ public class PreparedStatementIgnoredSetterInstrumentation extends
         org.apache.skywalking.apm.plugin.jdbc.kylin.define.PreparedStatementInstrumentation {
 
     @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.skywalking.apm.plugin.spring.mvc.v5` is unnecessary and can be removed
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v5/InvokeInterceptor.java`
+#### Snippet
+```java
+         * First, we put the slot in the RuntimeContext,
+         * as well as the MethodInvocationContext (MIC),
+         * so that we can access it in the {@link org.apache.skywalking.apm.plugin.spring.mvc.v5.InvokeInterceptor#afterMethod}
+         * Then we fetch the slot from {@link org.apache.skywalking.apm.plugin.spring.mvc.commons.interceptor.AbstractMethodInterceptor#afterMethod}
+         * and fulfill the slot with the real AbstractSpan.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `reactor.core.publisher` is unnecessary and can be removed
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v5/InvokeInterceptor.java`
+#### Snippet
+```java
+         * and fulfill the slot with the real AbstractSpan.
+         * Afterwards, we can safely remove the RuntimeContext.
+         * Finally, when the lambda executes in the {@link reactor.core.publisher.Mono#doFinally},
+         * ref of span could be acquired from MIC.
+         */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.quartz.spi` is unnecessary and can be removed
+in `apm-sniffer/optional-plugins/quartz-scheduler-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/quartz/JobRunShellConstructorInterceptor.java`
+#### Snippet
+```java
+
+/**
+ * Intercept method of {@link org.quartz.core.JobRunShell#JobRunShell(org.quartz.Scheduler, org.quartz.spi.TriggerFiredBundle)}.
+ * cache the execute job details
+ */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.quartz` is unnecessary and can be removed
+in `apm-sniffer/optional-plugins/quartz-scheduler-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/quartz/JobExecuteStateMethodInterceptor.java`
+#### Snippet
+```java
+
+/**
+ * Intercept method of {@link JobRunShell#notifyJobListenersComplete(org.quartz.JobExecutionContext, org.quartz.JobExecutionException)}.
+ * record the quartz job execute exception.
+ */
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -14216,207 +14384,15 @@ in `apm-sniffer/apm-sdk-plugin/feign-default-http-9.x-plugin/src/main/java/org/a
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.networknt.exception` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/apache/skywalking/apm/plugin/light4j/HandleRequestInterceptor.java`
+Qualifier `reactor.netty.http.client` is unnecessary and can be removed
+in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v3x/HttpClientFinalizerConstructorInterceptor.java`
 #### Snippet
 ```java
-/**
- * {@link HandleRequestInterceptor} creates an entry span before the execution of {@link
- * com.networknt.exception.ExceptionHandler#handleRequest(HttpServerExchange)} in the I/O thread.
+ * Intercept the constructor and inject {@link EnhanceObjectCache}.
  * <p>
- * If the {@link Light4JPluginConfig.Plugin.Light4J#TRACE_HANDLER_CHAIN} flag is set, additionally a local span is produced
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.networknt.handler` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/apache/skywalking/apm/plugin/light4j/HandleRequestInterceptor.java`
-#### Snippet
-```java
- * <p>
- * If the {@link Light4JPluginConfig.Plugin.Light4J#TRACE_HANDLER_CHAIN} flag is set, additionally a local span is produced
- * for each {@link com.networknt.handler.MiddlewareHandler} and business handler before their respective {@link
- * com.networknt.handler.LightHttpHandler#handleRequest(HttpServerExchange)} method executes. Since {@link
- * com.networknt.handler.LightHttpHandler} is implemented by various middleware and business handlers and the Light4J
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `ru.yandex.clickhouse` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/clickhouse-0.3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/clickhouse/ClickHouseStatementMethodInterceptor.java`
-#### Snippet
-```java
- * This interceptor is used to replace {@link org.apache.skywalking.apm.plugin.jdbc.JDBCStatementInterceptor}.
- * Because return value type of {@link ClickHouseConnectionImpl#createStatement()} method is {@link
- * ru.yandex.clickhouse.ClickHouseStatement} instead of {@link java.sql.Statement}.
+ * The first constructor argument is {@link reactor.netty.http.client.HttpClientConfig} class instance which can get the
+ * request uri string.
  */
-public class ClickHouseStatementMethodInterceptor implements InstanceMethodsAroundInterceptor {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.kafka.clients.producer` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/spring-kafka-2.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/kafka/KafkaTemplateCallbackInterceptor.java`
-#### Snippet
-```java
-    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-                              Object ret) throws Throwable {
-        return new CallbackAdapter((org.apache.kafka.clients.producer.Callback) ret, objInst);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.rocketmq.common.protocol.header` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/rocketMQ-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v4/MessageSendInterceptor.java`
-#### Snippet
-```java
-/**
- * {@link MessageSendInterceptor} create exit span when the method {@link org.apache.rocketmq.client.impl.MQClientAPIImpl#sendMessage(String,
- * String, Message, org.apache.rocketmq.common.protocol.header.SendMessageRequestHeader, long,
- * org.apache.rocketmq.client.impl.CommunicationMode, org.apache.rocketmq.client.producer.SendCallback,
- * org.apache.rocketmq.client.impl.producer.TopicPublishInfo, org.apache.rocketmq.client.impl.factory.MQClientInstance,
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `io.micrometer.core.instrument` is unnecessary, and can be replaced with an import
-in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingMeterRegistry.java`
-#### Snippet
-```java
-
-    @Override
-    protected io.micrometer.core.instrument.Counter newCounter(Meter.Id id) {
-        final MeterId meterId = convertId(id);
-        return new SkywalkingCounter(id, MeterBuilder.buildCounter(meterId, config));
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `io.micrometer.core.instrument` is unnecessary, and can be replaced with an import
-in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/apache/skywalking/apm/meter/micrometer/SkywalkingMeterRegistry.java`
-#### Snippet
-```java
-
-    @Override
-    protected <T> io.micrometer.core.instrument.Gauge newGauge(Meter.Id id, T obj, ToDoubleFunction<T> valueFunction) {
-        final MeterId meterId = convertId(id);
-        MeterFactory.gauge(meterId, () -> valueFunction.applyAsDouble(obj)).build();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `scala.collection.immutable` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
-#### Snippet
-```java
-
-        @Override
-        protected scala.collection.immutable.Map<Buf, Object> getUpdatedContext(scala.collection.immutable.Map<Buf, Object> currentContext, Object key, Object value) {
-            checkKeyType(key);
-            try {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `scala.collection.immutable` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
-#### Snippet
-```java
-
-        @Override
-        protected scala.collection.immutable.Map<Buf, Object> getUpdatedContext(scala.collection.immutable.Map<Buf, Object> currentContext, Object key, Object value) {
-            checkKeyType(key);
-            try {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `scala.collection.immutable` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
-#### Snippet
-```java
-    }
-
-    static class MapMarshalledContextHolder extends ContextHolderFactory.AbstractContextHolder<scala.collection.immutable.Map<Buf, Object>> {
-
-        private static final String LOCAL_FIELD_NAME = "local";
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `scala.collection.immutable` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
-#### Snippet
-```java
-    }
-
-    static class MapLocalContextHolder extends ContextHolderFactory.AbstractContextHolder<scala.collection.immutable.Map<LocalContext.Key, Object>> {
-
-        private static final String LOCAL_FIELD_NAME = "local";
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `scala.collection.immutable` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
-#### Snippet
-```java
-
-        @Override
-        protected scala.collection.immutable.Map<LocalContext.Key, Object> getUpdatedContext(scala.collection.immutable.Map<LocalContext.Key, Object> currentContext, Object key, Object value) {
-            checkKeyType(key);
-            return currentContext.updated((LocalContext.Key) key, value);
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `scala.collection.immutable` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/ContextHolderFactory.java`
-#### Snippet
-```java
-
-        @Override
-        protected scala.collection.immutable.Map<LocalContext.Key, Object> getUpdatedContext(scala.collection.immutable.Map<LocalContext.Key, Object> currentContext, Object key, Object value) {
-            checkKeyType(key);
-            return currentContext.updated((LocalContext.Key) key, value);
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.skywalking.apm.plugin.spring.mvc.v5` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v5/InvokeInterceptor.java`
-#### Snippet
-```java
-         * First, we put the slot in the RuntimeContext,
-         * as well as the MethodInvocationContext (MIC),
-         * so that we can access it in the {@link org.apache.skywalking.apm.plugin.spring.mvc.v5.InvokeInterceptor#afterMethod}
-         * Then we fetch the slot from {@link org.apache.skywalking.apm.plugin.spring.mvc.commons.interceptor.AbstractMethodInterceptor#afterMethod}
-         * and fulfill the slot with the real AbstractSpan.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `reactor.core.publisher` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/v5/InvokeInterceptor.java`
-#### Snippet
-```java
-         * and fulfill the slot with the real AbstractSpan.
-         * Afterwards, we can safely remove the RuntimeContext.
-         * Finally, when the lambda executes in the {@link reactor.core.publisher.Mono#doFinally},
-         * ref of span could be acquired from MIC.
-         */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.alibaba.rocketmq.common.protocol.header` is unnecessary and can be removed
-in `apm-sniffer/apm-sdk-plugin/rocketMQ-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/rocketMQ/v3/MessageSendInterceptor.java`
-#### Snippet
-```java
-/**
- * {@link MessageSendInterceptor} create exit span when the method {@link com.alibaba.rocketmq.client.impl.MQClientAPIImpl#sendMessage(String,
- * String, Message, com.alibaba.rocketmq.common.protocol.header.SendMessageRequestHeader, long,
- * com.alibaba.rocketmq.client.impl.CommunicationMode, com.alibaba.rocketmq.client.producer.SendCallback,
- * com.alibaba.rocketmq.client.impl.producer.TopicPublishInfo, com.alibaba.rocketmq.client.impl.factory.MQClientInstance,
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.protobuf` is unnecessary, and can be replaced with an import
-in `apm-sniffer/apm-sdk-plugin/grpc-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/grpc/v1/client/ClientCallsGenericCallInterceptor.java`
-#### Snippet
-```java
-            MethodInterceptResult result) {
-        // only trace async generic call. Determine if the request parameter is a DynamicMessage
-        if (allArguments[1] instanceof com.google.protobuf.DynamicMessage) {
-            ContextManager.getRuntimeContext().put(GENERIC_CALL_METHOD, method.getName());
-        }
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
@@ -14461,11 +14437,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/FileWriter.java`
 #### Snippet
 ```java
-                fileSize += message.length();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                switchFile();
+            fileSize = Long.valueOf(new File(logFilePath, Config.Logging.FILE_NAME).length()).intValue();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -14485,62 +14461,14 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/FileWriter.java`
 #### Snippet
 ```java
-            fileSize = Long.valueOf(new File(logFilePath, Config.Logging.FILE_NAME).length()).intValue();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
+                fileSize += message.length();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                switchFile();
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `BaseMeter()` of an abstract class should not be declared 'public'
-in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/BaseMeter.java`
-#### Snippet
-```java
-
-public abstract class BaseMeter {
-    public BaseMeter(MeterId meterId) {
-    }
-
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `BaseBuilder()` of an abstract class should not be declared 'public'
-in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/BaseBuilder.java`
-#### Snippet
-```java
-     * Build a new meter build, meter name is required
-     */
-    public BaseBuilder(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("Meter name cannot be null");
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `BaseBuilder()` of an abstract class should not be declared 'public'
-in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/BaseBuilder.java`
-#### Snippet
-```java
-     * Build a new meter build from exists meter id
-     */
-    public BaseBuilder(MeterId meterId) {
-        if (meterId == null) {
-            throw new IllegalArgumentException("Meter id cannot be null");
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AbstractURLParser()` of an abstract class should not be declared 'public'
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/AbstractURLParser.java`
-#### Snippet
-```java
-    protected String url;
-
-    public AbstractURLParser(String url) {
-        this.url = url;
-    }
-```
-
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `GCModule()` of an abstract class should not be declared 'public'
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/jvm/gc/GCModule.java`
@@ -14650,6 +14578,42 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `BaseMeter()` of an abstract class should not be declared 'public'
+in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/BaseMeter.java`
+#### Snippet
+```java
+
+public abstract class BaseMeter {
+    public BaseMeter(MeterId meterId) {
+    }
+
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `BaseBuilder()` of an abstract class should not be declared 'public'
+in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/BaseBuilder.java`
+#### Snippet
+```java
+     * Build a new meter build from exists meter id
+     */
+    public BaseBuilder(MeterId meterId) {
+        if (meterId == null) {
+            throw new IllegalArgumentException("Meter id cannot be null");
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `BaseBuilder()` of an abstract class should not be declared 'public'
+in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/BaseBuilder.java`
+#### Snippet
+```java
+     * Build a new meter build, meter name is required
+     */
+    public BaseBuilder(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Meter name cannot be null");
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `AbstractProtocolWrapper()` of an abstract class should not be declared 'public'
 in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking/apm/plugin/thrift/wrapper/AbstractProtocolWrapper.java`
 #### Snippet
@@ -14661,6 +14625,18 @@ in `apm-sniffer/apm-sdk-plugin/thrift-plugin/src/main/java/org/apache/skywalking
     }
 ```
 
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `AbstractURLParser()` of an abstract class should not be declared 'public'
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/AbstractURLParser.java`
+#### Snippet
+```java
+    protected String url;
+
+    public AbstractURLParser(String url) {
+        this.url = url;
+    }
+```
+
 ## RuleId[ruleID=Anonymous2MethodRef]
 ### RuleId[ruleID=Anonymous2MethodRef]
 Anonymous new StatementTracing.Executable() can be replaced with method reference
@@ -14668,10 +14644,10 @@ in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/
 #### Snippet
 ```java
     @Override
-    public ResultSet executeQuery(String sql) throws SQLException {
-        return StatementTracing.execute(realStatement, connectInfo, "executeQuery", sql, new StatementTracing.Executable<ResultSet>() {
+    public boolean execute(String sql) throws SQLException {
+        return StatementTracing.execute(realStatement, connectInfo, "execute", sql, new StatementTracing.Executable<Boolean>() {
             @Override
-            public ResultSet exe(java.sql.Statement realStatement, String sql) throws SQLException {
+            public Boolean exe(java.sql.Statement realStatement, String sql) throws SQLException {
 ```
 
 ### RuleId[ruleID=Anonymous2MethodRef]
@@ -14692,22 +14668,10 @@ in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/
 #### Snippet
 ```java
     @Override
-    public boolean execute(String sql) throws SQLException {
-        return StatementTracing.execute(realStatement, connectInfo, "execute", sql, new StatementTracing.Executable<Boolean>() {
-            @Override
-            public Boolean exe(java.sql.Statement realStatement, String sql) throws SQLException {
-```
-
-### RuleId[ruleID=Anonymous2MethodRef]
-Anonymous new PreparedStatementTracing.Executable() can be replaced with method reference
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWPreparedStatement.java`
-#### Snippet
-```java
-    @Override
     public ResultSet executeQuery(String sql) throws SQLException {
-        return PreparedStatementTracing.execute(realStatement, connectInfo, "executeQuery", sql, new PreparedStatementTracing.Executable<ResultSet>() {
+        return StatementTracing.execute(realStatement, connectInfo, "executeQuery", sql, new StatementTracing.Executable<ResultSet>() {
             @Override
-            public ResultSet exe(PreparedStatement realStatement, String sql) throws SQLException {
+            public ResultSet exe(java.sql.Statement realStatement, String sql) throws SQLException {
 ```
 
 ### RuleId[ruleID=Anonymous2MethodRef]
@@ -14735,15 +14699,15 @@ in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/
 ```
 
 ### RuleId[ruleID=Anonymous2MethodRef]
-Anonymous new CallableStatementTracing.Executable() can be replaced with method reference
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWCallableStatement.java`
+Anonymous new PreparedStatementTracing.Executable() can be replaced with method reference
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWPreparedStatement.java`
 #### Snippet
 ```java
     @Override
-    public boolean execute(String sql) throws SQLException {
-        return CallableStatementTracing.execute(realStatement, connectInfo, "execute", sql, new CallableStatementTracing.Executable<Boolean>() {
+    public ResultSet executeQuery(String sql) throws SQLException {
+        return PreparedStatementTracing.execute(realStatement, connectInfo, "executeQuery", sql, new PreparedStatementTracing.Executable<ResultSet>() {
             @Override
-            public Boolean exe(CallableStatement realStatement, String sql) throws SQLException {
+            public ResultSet exe(PreparedStatement realStatement, String sql) throws SQLException {
 ```
 
 ### RuleId[ruleID=Anonymous2MethodRef]
@@ -14756,6 +14720,18 @@ in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/
         return CallableStatementTracing.execute(realStatement, connectInfo, "executeUpdate", sql, new CallableStatementTracing.Executable<Integer>() {
             @Override
             public Integer exe(CallableStatement realStatement, String sql) throws SQLException {
+```
+
+### RuleId[ruleID=Anonymous2MethodRef]
+Anonymous new CallableStatementTracing.Executable() can be replaced with method reference
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/trace/SWCallableStatement.java`
+#### Snippet
+```java
+    @Override
+    public boolean execute(String sql) throws SQLException {
+        return CallableStatementTracing.execute(realStatement, connectInfo, "execute", sql, new CallableStatementTracing.Executable<Boolean>() {
+            @Override
+            public Boolean exe(CallableStatement realStatement, String sql) throws SQLException {
 ```
 
 ### RuleId[ruleID=Anonymous2MethodRef]
@@ -14785,15 +14761,15 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ## RuleId[ruleID=Convert2Lambda]
 ### RuleId[ruleID=Convert2Lambda]
-Anonymous new FilenameFilter() can be replaced with lambda
+Anonymous new Runnable() can be replaced with lambda
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/FileWriter.java`
 #### Snippet
 ```java
-    private String[] getHistoryFilePath() {
-        File path = new File(Config.Logging.DIR);
-        String[] pathArr = path.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
+        final ArrayList<String> outputLogs = new ArrayList<String>(200);
+        Executors.newSingleThreadScheduledExecutor(new DefaultNamedThreadFactory("LogFileWriter"))
+                 .scheduleAtFixedRate(new RunnableWithExceptionProtection(new Runnable() {
+                     @Override
+                     public void run() {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -14845,6 +14821,18 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
+Anonymous new FilenameFilter() can be replaced with lambda
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/FileWriter.java`
+#### Snippet
+```java
+    private String[] getHistoryFilePath() {
+        File path = new File(Config.Logging.DIR);
+        String[] pathArr = path.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+```
+
+### RuleId[ruleID=Convert2Lambda]
 Anonymous new Comparator() can be replaced with lambda
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/FileWriter.java`
 #### Snippet
@@ -14854,30 +14842,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
             Arrays.sort(historyFileArr, new Comparator<String>() {
                 @Override
                 public int compare(String o1, String o2) {
-```
-
-### RuleId[ruleID=Convert2Lambda]
-Anonymous new Runnable() can be replaced with lambda
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/FileWriter.java`
-#### Snippet
-```java
-        final ArrayList<String> outputLogs = new ArrayList<String>(200);
-        Executors.newSingleThreadScheduledExecutor(new DefaultNamedThreadFactory("LogFileWriter"))
-                 .scheduleAtFixedRate(new RunnableWithExceptionProtection(new Runnable() {
-                     @Override
-                     public void run() {
-```
-
-### RuleId[ruleID=Convert2Lambda]
-Anonymous new Function\>() can be replaced with lambda
-in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v20x/HttpClientRequestInterceptor.java`
-#### Snippet
-```java
-
-        Function<? super HttpClientRequest, ? extends Publisher<Void>> handler = (Function<? super HttpClientRequest, ? extends Publisher<Void>>) allArguments[2];
-        allArguments[2] = new Function<HttpClientRequest, Publisher<Void>>() {
-            @Override
-            public Publisher<Void> apply(final HttpClientRequest httpClientRequest) {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -14893,6 +14857,18 @@ in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/g
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
+Anonymous new Function\>() can be replaced with lambda
+in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.0.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v20x/HttpClientRequestInterceptor.java`
+#### Snippet
+```java
+
+        Function<? super HttpClientRequest, ? extends Publisher<Void>> handler = (Function<? super HttpClientRequest, ? extends Publisher<Void>>) allArguments[2];
+        allArguments[2] = new Function<HttpClientRequest, Publisher<Void>>() {
+            @Override
+            public Publisher<Void> apply(final HttpClientRequest httpClientRequest) {
+```
+
+### RuleId[ruleID=Convert2Lambda]
 Anonymous new BiFunction\>() can be replaced with lambda
 in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/gateway-2.1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/spring/cloud/gateway/v21x/HttpClientFinalizerSendInterceptor.java`
 #### Snippet
@@ -14905,54 +14881,6 @@ in `apm-sniffer/optional-plugins/optional-spring-plugins/optional-spring-cloud/g
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `size`
-in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/consumer/BulkConsumePool.java`
-#### Snippet
-```java
-
-    public BulkConsumePool(String name, int size, long consumeCycle) {
-        size = EnvUtil.getInt(name + "_THREAD", size);
-        allConsumers = new ArrayList<MultipleChannelsConsumer>(size);
-        for (int i = 0; i < size; i++) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `bufferSize`
-in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/DataCarrier.java`
-#### Snippet
-```java
-    public DataCarrier(String name, String envPrefix, int channelSize, int bufferSize, BufferStrategy strategy) {
-        this.name = name;
-        bufferSize = EnvUtil.getInt(envPrefix + "_BUFFER_SIZE", bufferSize);
-        channelSize = EnvUtil.getInt(envPrefix + "_CHANNEL_SIZE", channelSize);
-        channels = new Channels<>(channelSize, bufferSize, new SimpleRollingPartitioner<T>(), strategy);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `channelSize`
-in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/DataCarrier.java`
-#### Snippet
-```java
-        this.name = name;
-        bufferSize = EnvUtil.getInt(envPrefix + "_BUFFER_SIZE", bufferSize);
-        channelSize = EnvUtil.getInt(envPrefix + "_CHANNEL_SIZE", channelSize);
-        channels = new Channels<>(channelSize, bufferSize, new SimpleRollingPartitioner<T>(), strategy);
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/define/StatementEnhanceInfos.java`
-#### Snippet
-```java
-    public void setParameter(int index, final Object parameter) {
-        maxIndex = maxIndex > index ? maxIndex : index;
-        index--; // start from 1
-        if (parameters == null) {
-            final int initialSize = Math.max(16, maxIndex);
-```
-
 ### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `agentOptions`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/conf/SnifferConfigInitializer.java`
@@ -15075,66 +15003,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `newClassBuilder`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/ClassEnhancePluginDefine.java`
-#### Snippet
-```java
-        if (!typeDescription.isAssignableTo(EnhancedInstance.class)) {
-            if (!context.isObjectExtended()) {
-                newClassBuilder = newClassBuilder.defineField(
-                    CONTEXT_ATTR_NAME, Object.class, ACC_PRIVATE | ACC_VOLATILE)
-                                                 .implement(EnhancedInstance.class)
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `newClassBuilder`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassEnhancePluginDefineV2.java`
-#### Snippet
-```java
-            if (staticMethodsInterceptV2Point.isOverrideArgs()) {
-                if (isBootstrapInstrumentation()) {
-                    newClassBuilder = newClassBuilder.method(
-                        isStatic().and(staticMethodsInterceptV2Point.getMethodsMatcher()))
-                                                     .intercept(MethodDelegation.withDefaultConfiguration()
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `newClassBuilder`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassEnhancePluginDefineV2.java`
-#### Snippet
-```java
-                                                                                .to(BootstrapInstrumentBoost.forInternalDelegateClass(interceptor)));
-                } else {
-                    newClassBuilder = newClassBuilder.method(
-                        isStatic().and(staticMethodsInterceptV2Point.getMethodsMatcher()))
-                                                     .intercept(MethodDelegation.withDefaultConfiguration()
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `newClassBuilder`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassEnhancePluginDefineV2.java`
-#### Snippet
-```java
-            } else {
-                if (isBootstrapInstrumentation()) {
-                    newClassBuilder = newClassBuilder.method(
-                        isStatic().and(staticMethodsInterceptV2Point.getMethodsMatcher()))
-                                                     .intercept(MethodDelegation.withDefaultConfiguration()
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `newClassBuilder`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassEnhancePluginDefineV2.java`
-#### Snippet
-```java
-                                                                                .to(BootstrapInstrumentBoost.forInternalDelegateClass(interceptor)));
-                } else {
-                    newClassBuilder = newClassBuilder.method(
-                        isStatic().and(staticMethodsInterceptV2Point.getMethodsMatcher()))
-                                                     .intercept(MethodDelegation.withDefaultConfiguration()
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `newClassBuilder`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassEnhancePluginDefineV2.java`
 #### Snippet
 ```java
@@ -15143,18 +15011,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
                 newClassBuilder = newClassBuilder.defineField(
                     CONTEXT_ATTR_NAME, Object.class, ACC_PRIVATE | ACC_VOLATILE)
                                                  .implement(EnhancedInstance.class)
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `newClassBuilder`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/ClassEnhancePluginDefine.java`
-#### Snippet
-```java
-            for (ConstructorInterceptPoint constructorInterceptPoint : constructorInterceptPoints) {
-                if (isBootstrapInstrumentation()) {
-                    newClassBuilder = newClassBuilder.constructor(constructorInterceptPoint.getConstructorMatcher())
-                                                     .intercept(SuperMethodCall.INSTANCE.andThen(MethodDelegation.withDefaultConfiguration()
-                                                                                                                 .to(BootstrapInstrumentBoost
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -15227,6 +15083,78 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
                         newClassBuilder = newClassBuilder.method(junction)
                                                          .intercept(MethodDelegation.withDefaultConfiguration()
                                                                                     .to(new InstMethodsInterV2(interceptor, classLoader)));
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `newClassBuilder`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassEnhancePluginDefineV2.java`
+#### Snippet
+```java
+            if (staticMethodsInterceptV2Point.isOverrideArgs()) {
+                if (isBootstrapInstrumentation()) {
+                    newClassBuilder = newClassBuilder.method(
+                        isStatic().and(staticMethodsInterceptV2Point.getMethodsMatcher()))
+                                                     .intercept(MethodDelegation.withDefaultConfiguration()
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `newClassBuilder`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassEnhancePluginDefineV2.java`
+#### Snippet
+```java
+                                                                                .to(BootstrapInstrumentBoost.forInternalDelegateClass(interceptor)));
+                } else {
+                    newClassBuilder = newClassBuilder.method(
+                        isStatic().and(staticMethodsInterceptV2Point.getMethodsMatcher()))
+                                                     .intercept(MethodDelegation.withDefaultConfiguration()
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `newClassBuilder`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassEnhancePluginDefineV2.java`
+#### Snippet
+```java
+            } else {
+                if (isBootstrapInstrumentation()) {
+                    newClassBuilder = newClassBuilder.method(
+                        isStatic().and(staticMethodsInterceptV2Point.getMethodsMatcher()))
+                                                     .intercept(MethodDelegation.withDefaultConfiguration()
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `newClassBuilder`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassEnhancePluginDefineV2.java`
+#### Snippet
+```java
+                                                                                .to(BootstrapInstrumentBoost.forInternalDelegateClass(interceptor)));
+                } else {
+                    newClassBuilder = newClassBuilder.method(
+                        isStatic().and(staticMethodsInterceptV2Point.getMethodsMatcher()))
+                                                     .intercept(MethodDelegation.withDefaultConfiguration()
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `newClassBuilder`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/ClassEnhancePluginDefine.java`
+#### Snippet
+```java
+        if (!typeDescription.isAssignableTo(EnhancedInstance.class)) {
+            if (!context.isObjectExtended()) {
+                newClassBuilder = newClassBuilder.defineField(
+                    CONTEXT_ATTR_NAME, Object.class, ACC_PRIVATE | ACC_VOLATILE)
+                                                 .implement(EnhancedInstance.class)
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `newClassBuilder`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/ClassEnhancePluginDefine.java`
+#### Snippet
+```java
+            for (ConstructorInterceptPoint constructorInterceptPoint : constructorInterceptPoints) {
+                if (isBootstrapInstrumentation()) {
+                    newClassBuilder = newClassBuilder.constructor(constructorInterceptPoint.getConstructorMatcher())
+                                                     .intercept(SuperMethodCall.INSTANCE.andThen(MethodDelegation.withDefaultConfiguration()
+                                                                                                                 .to(BootstrapInstrumentBoost
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -15354,11 +15282,11 @@ Assignment to method parameter `operationName`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/ContextManager.java`
 #### Snippet
 ```java
-
-    public static AbstractSpan createExitSpan(String operationName, String remotePeer) {
+        AbstractSpan span;
+        AbstractTracerContext context;
         operationName = StringUtil.cut(operationName, OPERATION_NAME_THRESHOLD);
-        AbstractTracerContext context = getOrCreate(operationName, false);
-        return context.createExitSpan(operationName, remotePeer);
+        if (carrier != null && carrier.isValid()) {
+            SamplingService samplingService = ServiceManager.INSTANCE.findService(SamplingService.class);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -15378,11 +15306,11 @@ Assignment to method parameter `operationName`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/ContextManager.java`
 #### Snippet
 ```java
-        AbstractSpan span;
-        AbstractTracerContext context;
+
+    public static AbstractSpan createExitSpan(String operationName, String remotePeer) {
         operationName = StringUtil.cut(operationName, OPERATION_NAME_THRESHOLD);
-        if (carrier != null && carrier.isValid()) {
-            SamplingService samplingService = ServiceManager.INSTANCE.findService(SamplingService.class);
+        AbstractTracerContext context = getOrCreate(operationName, false);
+        return context.createExitSpan(operationName, remotePeer);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -15422,6 +15350,78 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `size`
+in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/consumer/BulkConsumePool.java`
+#### Snippet
+```java
+
+    public BulkConsumePool(String name, int size, long consumeCycle) {
+        size = EnvUtil.getInt(name + "_THREAD", size);
+        allConsumers = new ArrayList<MultipleChannelsConsumer>(size);
+        for (int i = 0; i < size; i++) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `bufferSize`
+in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/DataCarrier.java`
+#### Snippet
+```java
+    public DataCarrier(String name, String envPrefix, int channelSize, int bufferSize, BufferStrategy strategy) {
+        this.name = name;
+        bufferSize = EnvUtil.getInt(envPrefix + "_BUFFER_SIZE", bufferSize);
+        channelSize = EnvUtil.getInt(envPrefix + "_CHANNEL_SIZE", channelSize);
+        channels = new Channels<>(channelSize, bufferSize, new SimpleRollingPartitioner<T>(), strategy);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `channelSize`
+in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/DataCarrier.java`
+#### Snippet
+```java
+        this.name = name;
+        bufferSize = EnvUtil.getInt(envPrefix + "_BUFFER_SIZE", bufferSize);
+        channelSize = EnvUtil.getInt(envPrefix + "_CHANNEL_SIZE", channelSize);
+        channels = new Channels<>(channelSize, bufferSize, new SimpleRollingPartitioner<T>(), strategy);
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `methodPath`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/PathMappingCache.java`
+#### Snippet
+```java
+    public void addPathMapping(Method method, String methodPath) {
+        if (!StringUtil.isEmpty(methodPath) && !methodPath.startsWith(PATH_SEPARATOR) && !classPath.endsWith(PATH_SEPARATOR)) {
+            methodPath = PATH_SEPARATOR + methodPath;
+        }
+        methodPathMapping.put(method, (classPath + methodPath).replace("//", "/"));
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `classPath`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/PathMappingCache.java`
+#### Snippet
+```java
+    public PathMappingCache(String classPath) {
+        if (!StringUtil.isEmpty(classPath) && !classPath.startsWith(PATH_SEPARATOR)) {
+            classPath = PATH_SEPARATOR + classPath;
+        }
+        this.classPath = classPath;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `index`
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/define/StatementEnhanceInfos.java`
+#### Snippet
+```java
+    public void setParameter(int index, final Object parameter) {
+        maxIndex = maxIndex > index ? maxIndex : index;
+        index--; // start from 1
+        if (parameters == null) {
+            final int initialSize = Math.max(16, maxIndex);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `p`
 in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/matcher/FastPathMatcher.java`
 #### Snippet
@@ -15431,30 +15431,6 @@ in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/sk
             case '/': p++;
         }
 
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `s`
-in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/matcher/FastPathMatcher.java`
-#### Snippet
-```java
-                }
-
-                s++;
-                continue;
-            }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `s`
-in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/matcher/FastPathMatcher.java`
-#### Snippet
-```java
-                // Check '/' is the last char of string
-                if (sc == '/') return s == str.length() - 1;
-                s++;
-            }
-        }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -15518,27 +15494,27 @@ in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/sk
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `methodPath`
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/PathMappingCache.java`
+Assignment to method parameter `s`
+in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/matcher/FastPathMatcher.java`
 #### Snippet
 ```java
-    public void addPathMapping(Method method, String methodPath) {
-        if (!StringUtil.isEmpty(methodPath) && !methodPath.startsWith(PATH_SEPARATOR) && !classPath.endsWith(PATH_SEPARATOR)) {
-            methodPath = PATH_SEPARATOR + methodPath;
+                // Check '/' is the last char of string
+                if (sc == '/') return s == str.length() - 1;
+                s++;
+            }
         }
-        methodPathMapping.put(method, (classPath + methodPath).replace("//", "/"));
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `classPath`
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/PathMappingCache.java`
+Assignment to method parameter `s`
+in `apm-sniffer/optional-plugins/trace-ignore-plugin/src/main/java/org/apache/skywalking/apm/plugin/trace/ignore/matcher/FastPathMatcher.java`
 #### Snippet
 ```java
-    public PathMappingCache(String classPath) {
-        if (!StringUtil.isEmpty(classPath) && !classPath.startsWith(PATH_SEPARATOR)) {
-            classPath = PATH_SEPARATOR + classPath;
-        }
-        this.classPath = classPath;
+                }
+
+                s++;
+                continue;
+            }
 ```
 
 ## RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
@@ -15569,187 +15545,7 @@ in `apm-sniffer/apm-sdk-plugin/hystrix-1.x-plugin/src/main/java/org/apache/skywa
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/BaseMeter.java`
-#### Snippet
-```java
-     */
-    public MeterId getMeterId() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/MeterCenter.java`
-#### Snippet
-```java
-     */
-    public static BaseMeter removeMeter(MeterId id) {
-        return null;
-    }
-}
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/SessionBeginTransactionInterceptor.java`
-#### Snippet
-```java
-        return transactionStage.thenApply(transaction -> {
-            if (transaction == null) {
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/SessionAcquireConnectionInterceptor.java`
-#### Snippet
-```java
-        return connectionStage.thenApply(connection -> {
-            if (connection == null) {
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/ThreadingConfig.java`
-#### Snippet
-```java
-
-        if (jointPrefixes == null || jointPrefixes.trim().isEmpty()) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/ThreadingConfig.java`
-#### Snippet
-```java
-
-        if (prefixMatches.size() == 0) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/define/RunnableInstrumentation.java`
-#### Snippet
-```java
-
-        if (prefixMatches == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/define/CallableInstrumentation.java`
-#### Snippet
-```java
-
-        if (prefixMatches == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/H2URLParser.java`
-#### Snippet
-```java
-            };
-        } else {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/H2URLParser.java`
-#### Snippet
-```java
-            };
-        } else {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/MysqlURLParser.java`
-#### Snippet
-```java
-        int parameterStartTag = url.indexOf("?", startSize);
-        if (parameterStartTag < databaseStartTag && parameterStartTag != -1) {
-            return null;
-        }
-        if (databaseStartTag == -1) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/MysqlURLParser.java`
-#### Snippet
-```java
-        }
-        if (databaseStartTag == -1) {
-            return null;
-        }
-        int databaseEndTag = url.indexOf("?", databaseStartTag);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/MssqlJtdsURLParser.java`
-#### Snippet
-```java
-        int databaseStartTag = url.indexOf("/", startSize);
-        if (databaseStartTag == -1) {
-            return null;
-        }
-        int databaseEndTag = url.indexOf(";", databaseStartTag);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/ImpalaJdbcURLParser.java`
-#### Snippet
-```java
-        int databaseEndTag = url.length();
-        if (databaseStartTag == -1 && firstParamIndex == -1) {
-            return null;
-        } else {
-            String subUrl = url.substring(startSize, firstParamIndex);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/ImpalaJdbcURLParser.java`
-#### Snippet
-```java
-            int schemaIndex = subUrl.indexOf("/");
-            if (schemaIndex == -1) {
-                return null;
-            } else {
-                databaseEndTag = firstParamIndex;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInstrumentation.java`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v1/x/SkyWalkingContextPatternConverterActivation.java`
 #### Snippet
 ```java
     @Override
@@ -15761,50 +15557,50 @@ in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalk
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/SubscriptionNextMsgInterceptor.java`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v1/x/TraceIdPatternConverterActivation.java`
 #### Snippet
 ```java
-    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes, Object ret) throws Throwable {
-        if (ret == null) {
-            return null;
-        }
-        // set by  NatsSubscriptionConstructorInterceptor
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/WriterSendMessageBatchInterceptor.java`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v1/x/log/GRPCLogAppenderActivation.java`
 #### Snippet
 ```java
-    private NatsMessage next(Object message) throws IllegalAccessException {
-        if (NEXT_FIELD == null) {
-            return null;
-        }
-        if (!(message instanceof NatsMessage)) {
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/WriterSendMessageBatchInterceptor.java`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/log/GRPCLogAppenderActivation.java`
 #### Snippet
 ```java
-        }
-        if (!(message instanceof NatsMessage)) {
-            return null;
-        }
-        return (NatsMessage) NEXT_FIELD.get(message);
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/NatsCommons.java`
+in `apm-sniffer/apm-sdk-plugin/tomcat-7.x-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat78x/define/TomcatInstrumentation.java`
 #### Snippet
 ```java
-    static MessageHandler buildTraceMsgHandler(String servers, MessageHandler msgHandler) {
-        if (msgHandler == null) {
-            return null;
-        }
-        return msg -> {
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -15825,7 +15621,7 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 #### Snippet
 ```java
     @Override
-    protected String getOldGCName() {
+    protected String getNewGCName() {
         return null;
     }
 
@@ -15837,7 +15633,7 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 #### Snippet
 ```java
     @Override
-    protected String getNewGCName() {
+    protected String getOldGCName() {
         return null;
     }
 
@@ -15920,9 +15716,9 @@ Return of `null`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/CustomizeExpression.java`
 #### Snippet
 ```java
-    private static Object matcherArray(String expression, Object o) {
         int index = Integer.parseInt(expression.replace("[", "").replace("]", ""));
-        return o != null && Array.getLength(o) > index ? Array.get(o, index) : null;
+        List l = (List) o;
+        return l != null && l.size() > index ? l.get(index) : null;
     }
 
 ```
@@ -15932,9 +15728,9 @@ Return of `null`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/util/CustomizeExpression.java`
 #### Snippet
 ```java
+    private static Object matcherArray(String expression, Object o) {
         int index = Integer.parseInt(expression.replace("[", "").replace("]", ""));
-        List l = (List) o;
-        return l != null && l.size() > index ? l.get(index) : null;
+        return o != null && Array.getLength(o) > index ? Array.get(o, index) : null;
     }
 
 ```
@@ -15989,6 +15785,18 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/PluginResourcesResolver.java`
+#### Snippet
+```java
+            LOGGER.error("read resources failure.", e);
+        }
+        return null;
+    }
+}
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/AbstractClassEnhancePluginDefine.java`
 #### Snippet
 ```java
@@ -16037,18 +15845,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/PluginResourcesResolver.java`
-#### Snippet
-```java
-            LOGGER.error("read resources failure.", e);
-        }
-        return null;
-    }
-}
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/loader/AgentClassLoader.java`
 #### Snippet
 ```java
@@ -16068,18 +15864,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
     public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
         return null;
     }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bytebuddy/CacheableTransformerDecorator.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
 
 ```
 
@@ -16105,6 +15889,18 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
         return null;
     }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/BootstrapInterRuntimeAssist.java`
+#### Snippet
+```java
+            log.error(e, "Interceptor[{}] not found", className);
+        }
+        return null;
+    }
+}
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -16145,26 +15941,14 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/BootstrapInterRuntimeAssist.java`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/bytebuddy/CacheableTransformerDecorator.java`
 #### Snippet
 ```java
-            log.error(e, "Interceptor[{}] not found", className);
+                }
+            }
+            return null;
         }
-        return null;
-    }
-}
-```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassStaticMethodsEnhancePluginDefineV2.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptV2Point[] getInstanceMethodsInterceptV2Points() {
-        return null;
-    }
-}
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -16181,47 +15965,11 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassInstanceMethodsEnhancePluginDefineV2.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptV2Point[] getStaticMethodsInterceptV2Points() {
-        return null;
-    }
-}
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/ClassEnhancePluginDefine.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptV2Point[] getStaticMethodsInterceptV2Points() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/ClassEnhancePluginDefine.java`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassStaticMethodsEnhancePluginDefineV2.java`
 #### Snippet
 ```java
     @Override
     public InstanceMethodsInterceptV2Point[] getInstanceMethodsInterceptV2Points() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassEnhancePluginDefineV2.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
         return null;
     }
 }
@@ -16241,6 +15989,54 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassEnhancePluginDefineV2.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return null;
+    }
+}
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/ClassEnhancePluginDefine.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptV2Point[] getInstanceMethodsInterceptV2Points() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/ClassEnhancePluginDefine.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptV2Point[] getStaticMethodsInterceptV2Points() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/plugin/interceptor/enhance/v2/ClassInstanceMethodsEnhancePluginDefineV2.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptV2Point[] getStaticMethodsInterceptV2Points() {
+        return null;
+    }
+}
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/IgnoredTracerContext.java`
 #### Snippet
 ```java
@@ -16256,10 +16052,10 @@ Return of `null`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/ContextManager.java`
 #### Snippet
 ```java
-        final AbstractTracerContext tracerContext = get();
-        if (tracerContext == null) {
-            return null;
-        }
+    public static String getPrimaryEndpointName() {
+        AbstractTracerContext context = CONTEXT.get();
+        return Objects.nonNull(context) ? context.getPrimaryEndpointName() : null;
+    }
 
 ```
 
@@ -16268,10 +16064,10 @@ Return of `null`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/context/ContextManager.java`
 #### Snippet
 ```java
-    public static String getPrimaryEndpointName() {
-        AbstractTracerContext context = CONTEXT.get();
-        return Objects.nonNull(context) ? context.getPrimaryEndpointName() : null;
-    }
+        final AbstractTracerContext tracerContext = get();
+        if (tracerContext == null) {
+            return null;
+        }
 
 ```
 
@@ -16340,8 +16136,8 @@ Return of `null`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/FileWriter.java`
 #### Snippet
 ```java
-                    new File(Config.Logging.DIR, Config.Logging.FILE_NAME).renameTo(new File(Config.Logging.DIR, Config.Logging.FILE_NAME + new SimpleDateFormat(".yyyy_MM_dd_HH_mm_ss")
-                        .format(new Date())));
+                public Object call() throws Exception {
+                    fileOutputStream.close();
                     return null;
                 }
             });
@@ -16364,8 +16160,8 @@ Return of `null`
 in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/logging/core/FileWriter.java`
 #### Snippet
 ```java
-                public Object call() throws Exception {
-                    fileOutputStream.close();
+                    new File(Config.Logging.DIR, Config.Logging.FILE_NAME).renameTo(new File(Config.Logging.DIR, Config.Logging.FILE_NAME + new SimpleDateFormat(".yyyy_MM_dd_HH_mm_ss")
+                        .format(new Date())));
                     return null;
                 }
             });
@@ -16385,7 +16181,31 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v1/x/TraceIdPatternConverterActivation.java`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/IgnoredExceptionAnnotationActivation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanSetOperationNameInterceptor.java`
+#### Snippet
+```java
+                              final Class<?>[] parameterTypes,
+                              final Object ret) {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -16397,7 +16217,19 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-1.x-activation/src/main
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v1/x/SkyWalkingContextPatternConverterActivation.java`
+in `apm-sniffer/apm-sdk-plugin/hystrix-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hystrix/v1/SWHystrixLifecycleForwardingRequestVariable.java`
+#### Snippet
+```java
+    public T get() {
+        if (!HystrixRequestContext.isCurrentThreadInitialized()) {
+            return null;
+        }
+        return super.get();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/httpClient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpClient/v4/define/HttpClientInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -16409,7 +16241,7 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-1.x-activation/src/main
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v1/x/log/GRPCLogAppenderActivation.java`
+in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/define/HttpAsyncClientInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -16421,7 +16253,55 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-1.x-activation/src/main
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SegmentRefHelper.java`
+in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/define/HttpAsyncRequestExecutorInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/HttpAsyncRequestExecutorInterceptor.java`
+#### Snippet
+```java
+        HttpContext contextInConn = conn.getContext();
+        if (Objects.isNull(contextInConn)) {
+            return null;
+        }
+        context = (HttpContext) contextInConn.getAttribute(Constants.SKYWALKING_HTTP_CONTEXT);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/HttpAsyncRequestExecutorInterceptor.java`
+#### Snippet
+```java
+        conn.getContext().removeAttribute(Constants.SKYWALKING_HTTP_CONTEXT);
+        if (Objects.isNull(context)) {
+            return null;
+        }
+        ContextSnapshot snapshot = (ContextSnapshot) contextInConn.getAttribute(Constants.SKYWALKING_CONTEXT_SNAPSHOT);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
+#### Snippet
+```java
+                                           TagExtractor<R> tagExtractor) {
+        if (TracingPolicy.IGNORE.equals(policy)) {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
 #### Snippet
 ```java
         }
@@ -16433,11 +16313,35 @@ in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/tes
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SegmentRefHelper.java`
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
+#### Snippet
+```java
+                                        TagExtractor<R> tagExtractor) {
+        if (TracingPolicy.IGNORE.equals(policy) || request == null) {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
 #### Snippet
 ```java
         }
 
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/httpclient-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v3/define/HttpClientInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
         return null;
     }
 
@@ -16457,11 +16361,35 @@ in `apm-sniffer/optional-reporter-plugins/kafka-reporter-plugin/src/main/java/or
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SegmentHelper.java`
+in `apm-sniffer/apm-sdk-plugin/resteasy-plugin/resteasy-server-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/resteasy/v4/server/define/SynchronousDispatcherInstrumentation.java`
 #### Snippet
 ```java
-        }
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/hutool-plugins/hutool-http-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hutool/http/v5/define/HutoolHttpInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-application-toolkit/apm-toolkit-opentracing/src/main/java/org/apache/skywalking/apm/toolkit/opentracing/SkywalkingContext.java`
+#### Snippet
+```java
+    @Override
+    public Iterable<Map.Entry<String, String>> baggageItems() {
         return null;
     }
 }
@@ -16469,11 +16397,35 @@ in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/tes
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
+in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/StringUtil.java`
 #### Snippet
 ```java
+    public static String trim(final String str, final char ch) {
+        if (isEmpty(str)) {
+            return null;
         }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/StringUtil.java`
+#### Snippet
+```java
+    public static String join(final char delimiter, final String... strings) {
+        if (strings.length == 0) {
+            return null;
+        }
+        if (strings.length == 1) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-application-toolkit/apm-toolkit-opentracing/src/main/java/org/apache/skywalking/apm/toolkit/opentracing/SkywalkingActiveSpan.java`
+#### Snippet
+```java
+    @Override
+    public String getBaggageItem(String key) {
         return null;
     }
 
@@ -16481,11 +16433,11 @@ in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/tes
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
+in `apm-application-toolkit/apm-toolkit-opentracing/src/main/java/org/apache/skywalking/apm/toolkit/opentracing/SkywalkingSpan.java`
 #### Snippet
 ```java
-        }
-
+    @Override
+    public String getBaggageItem(String key) {
         return null;
     }
 
@@ -16493,7 +16445,43 @@ in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/tes
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
+in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/BaseMeter.java`
+#### Snippet
+```java
+     */
+    public MeterId getMeterId() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-application-toolkit/apm-toolkit-meter/src/main/java/org/apache/skywalking/apm/toolkit/meter/MeterCenter.java`
+#### Snippet
+```java
+     */
+    public static BaseMeter removeMeter(MeterId id) {
+        return null;
+    }
+}
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/ConfigInitializer.java`
+#### Snippet
+```java
+    private static Object convertToTypicalType(Type type, String value) {
+        if (StringUtil.isBlank(value)) {
+            return null;
+        }
+        Object result = null;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/ParsePathUtil.java`
 #### Snippet
 ```java
             }
@@ -16501,6 +16489,186 @@ in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/tes
         return null;
     }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/CustomizeConfiguration.java`
+#### Snippet
+```java
+            LOGGER.error(e, "Failed to resolver, className is {}, methodDesc is {}.", className, methodDesc);
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/define/ClientTracingFilterInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/define/ServerTracingFilterInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/CodecUtils.java`
+#### Snippet
+```java
+            return decodeStringFromBytes(bytes);
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/guava-eventbus-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/eventbus/EventBusDispatchInterceptor.java`
+#### Snippet
+```java
+    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+            Object ret) throws Throwable {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/apache/skywalking/apm/plugin/light4j/define/LightInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/LogbackSkyWalkingContextPatternConverterActivation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/log/GRPCLogAppenderActivation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/LogbackPatternConverterActivation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/mdc/MDCConverterActivation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/logstash/SkyWalkingContextJsonProviderActivation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/logstash/TraceIdJsonProviderActivation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/logstash/TcpSocketAppenderActivation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/ConnectionManagerInterceptor.java`
+#### Snippet
+```java
+        } else {
+            LOGGER.warn("redisson not support this version");
+            return null;
+        }
+    }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -16541,11 +16709,11 @@ in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/sk
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
+in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/interceptor/TransportClientNodesServiceInterceptor.java`
 #### Snippet
 ```java
-                                        TagExtractor<R> tagExtractor) {
-        if (TracingPolicy.IGNORE.equals(policy) || request == null) {
+        @Override
+        public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes, Object ret) throws Throwable {
             return null;
         }
 
@@ -16553,67 +16721,7 @@ in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
-#### Snippet
-```java
-                                           TagExtractor<R> tagExtractor) {
-        if (TracingPolicy.IGNORE.equals(policy)) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/vertx-plugins/vertx-core-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/vertx4/SWVertxTracer.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/redisson-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/redisson/v3/ConnectionManagerInterceptor.java`
-#### Snippet
-```java
-        } else {
-            LOGGER.warn("redisson not support this version");
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/guava-eventbus-plugin/src/main/java/org/apache/skywalking/apm/plugin/guava/eventbus/EventBusDispatchInterceptor.java`
-#### Snippet
-```java
-    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-            Object ret) throws Throwable {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/httpclient-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v3/define/HttpClientInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/cassandra-java-driver-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/cassandra/java/driver/v3/define/DefaultResultSetFutureInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -16625,7 +16733,391 @@ in `apm-sniffer/apm-sdk-plugin/httpclient-3.x-plugin/src/main/java/org/apache/sk
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-log4j-2.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/log4j/v2/x/log/GRPCLogAppenderActivation.java`
+in `apm-sniffer/apm-sdk-plugin/cassandra-java-driver-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/cassandra/java/driver/v3/define/SessionManagerInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/ImpalaJdbcURLParser.java`
+#### Snippet
+```java
+        int databaseEndTag = url.length();
+        if (databaseStartTag == -1 && firstParamIndex == -1) {
+            return null;
+        } else {
+            String subUrl = url.substring(startSize, firstParamIndex);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/ImpalaJdbcURLParser.java`
+#### Snippet
+```java
+            int schemaIndex = subUrl.indexOf("/");
+            if (schemaIndex == -1) {
+                return null;
+            } else {
+                databaseEndTag = firstParamIndex;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/MssqlJtdsURLParser.java`
+#### Snippet
+```java
+        int databaseStartTag = url.indexOf("/", startSize);
+        if (databaseStartTag == -1) {
+            return null;
+        }
+        int databaseEndTag = url.indexOf(";", databaseStartTag);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/H2URLParser.java`
+#### Snippet
+```java
+            };
+        } else {
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/H2URLParser.java`
+#### Snippet
+```java
+            };
+        } else {
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/MysqlURLParser.java`
+#### Snippet
+```java
+        int parameterStartTag = url.indexOf("?", startSize);
+        if (parameterStartTag < databaseStartTag && parameterStartTag != -1) {
+            return null;
+        }
+        if (databaseStartTag == -1) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/jdbc-commons/src/main/java/org/apache/skywalking/apm/plugin/jdbc/connectionurl/parser/MysqlURLParser.java`
+#### Snippet
+```java
+        }
+        if (databaseStartTag == -1) {
+            return null;
+        }
+        int databaseEndTag = url.indexOf("?", databaseStartTag);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/AutowiredAnnotationProcessorInterceptor.java`
+#### Snippet
+```java
+            }
+
+            return candidateConstructors.length > 0 ? candidateConstructors : null;
+        }
+        return ret;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/resteasy-plugin/resteasy-server-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/resteasy/v3/server/define/SynchronousDispatcherInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/AbstractMysqlInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/AbstractMysqlInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/AbstractMysqlInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SegmentRefHelper.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SegmentRefHelper.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/ThreadingConfig.java`
+#### Snippet
+```java
+
+        if (jointPrefixes == null || jointPrefixes.trim().isEmpty()) {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/ThreadingConfig.java`
+#### Snippet
+```java
+
+        if (prefixMatches.size() == 0) {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SegmentHelper.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+}
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/define/CallableInstrumentation.java`
+#### Snippet
+```java
+
+        if (prefixMatches == null) {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/bootstrap-plugins/jdk-threading-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdk/threading/define/RunnableInstrumentation.java`
+#### Snippet
+```java
+
+        if (prefixMatches == null) {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-test-tools/src/main/java/org/apache/skywalking/apm/agent/test/helper/SpanHelper.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-webflux-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/webflux/WebFluxSkyWalkingOperatorsActivation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/SubscriptionNextMsgInterceptor.java`
+#### Snippet
+```java
+    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes, Object ret) throws Throwable {
+        if (ret == null) {
+            return null;
+        }
+        // set by  NatsSubscriptionConstructorInterceptor
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/dubbo-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo3/DubboInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/WriterSendMessageBatchInterceptor.java`
+#### Snippet
+```java
+    private NatsMessage next(Object message) throws IllegalAccessException {
+        if (NEXT_FIELD == null) {
+            return null;
+        }
+        if (!(message instanceof NatsMessage)) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/WriterSendMessageBatchInterceptor.java`
+#### Snippet
+```java
+        }
+        if (!(message instanceof NatsMessage)) {
+            return null;
+        }
+        return (NatsMessage) NEXT_FIELD.get(message);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/nats-2.14.x-2.15.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/nats/client/NatsCommons.java`
+#### Snippet
+```java
+    static MessageHandler buildTraceMsgHandler(String servers, MessageHandler msgHandler) {
+        if (msgHandler == null) {
+            return null;
+        }
+        return msg -> {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/tomcat-10x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat10x/define/TomcatInstrumentation.java`
+#### Snippet
+```java
+    @Override
+    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/SessionBeginTransactionInterceptor.java`
+#### Snippet
+```java
+        return transactionStage.thenApply(transaction -> {
+            if (transaction == null) {
+                return null;
+            }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/neo4j-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/neo4j/v4x/SessionAcquireConnectionInterceptor.java`
+#### Snippet
+```java
+        return connectionStage.thenApply(connection -> {
+            if (connection == null) {
+                return null;
+            }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `apm-sniffer/apm-sdk-plugin/sofarpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/sofarpc/SofaRpcProviderInstrumentation.java`
 #### Snippet
 ```java
     @Override
@@ -16649,47 +17141,11 @@ in `apm-sniffer/apm-sdk-plugin/sofarpc-plugin/src/main/java/org/apache/skywalkin
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-sdk-plugin/sofarpc-plugin/src/main/java/org/apache/skywalking/apm/plugin/sofarpc/SofaRpcProviderInstrumentation.java`
+in `apm-sniffer/apm-toolkit-activation/apm-toolkit-opentracing-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/opentracing/tracer/SkywalkingTracerInjectInterceptor.java`
 #### Snippet
 ```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
+        }
 
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/hutool-plugins/hutool-http-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hutool/http/v5/define/HutoolHttpInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/pulsar-common/src/main/java/org/apache/skywalking/apm/plugin/pulsar/common/PulsarConsumerListenerInterceptor.java`
-#### Snippet
-```java
-    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-            Object ret) throws Throwable {
-        return ret == null ? null : (MessageListener) (consumer, message) -> {
-            final MessageEnhanceRequiredInfo requiredInfo = (MessageEnhanceRequiredInfo) ((EnhancedInstance) message)
-                    .getSkyWalkingDynamicField();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/tomcat-7.x-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat78x/define/TomcatInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
         return null;
     }
 
@@ -16757,11 +17213,11 @@ in `apm-sniffer/bootstrap-plugins/jdk-threadpool-plugin/src/main/java/org/apache
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/LogbackSkyWalkingContextPatternConverterActivation.java`
+in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/AbstractMysqlInstrumentation.java`
 #### Snippet
 ```java
     @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
         return null;
     }
 
@@ -16769,11 +17225,11 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/ma
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/LogbackPatternConverterActivation.java`
+in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/AbstractMysqlInstrumentation.java`
 #### Snippet
 ```java
     @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
         return null;
     }
 
@@ -16781,85 +17237,13 @@ in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/ma
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/log/GRPCLogAppenderActivation.java`
+in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/AbstractMysqlInstrumentation.java`
 #### Snippet
 ```java
     @Override
     public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
         return null;
     }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/mdc/MDCConverterActivation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/logstash/SkyWalkingContextJsonProviderActivation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/logstash/TraceIdJsonProviderActivation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-logback-1.x-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/log/logback/v1/x/logstash/TcpSocketAppenderActivation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/httpClient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpClient/v4/define/HttpClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/elasticsearch-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/elasticsearch/v6/interceptor/TransportClientNodesServiceInterceptor.java`
-#### Snippet
-```java
-        @Override
-        public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes, Object ret) throws Throwable {
-            return null;
-        }
 
 ```
 
@@ -16901,422 +17285,14 @@ in `apm-sniffer/apm-sdk-plugin/mysql-5.x-plugin/src/main/java/org/apache/skywalk
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `apm-sniffer/apm-sdk-plugin/tomcat-10x-plugin/src/main/java/org/apache/skywalking/apm/plugin/tomcat10x/define/TomcatInstrumentation.java`
+in `apm-sniffer/apm-sdk-plugin/pulsar-common/src/main/java/org/apache/skywalking/apm/plugin/pulsar/common/PulsarConsumerListenerInterceptor.java`
 #### Snippet
 ```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/dubbo-2.7.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/asf/dubbo/DubboInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/dubbo-plugin/src/main/java/org/apache/skywalking/apm/plugin/dubbo/DubboInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/AbstractMysqlInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/AbstractMysqlInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/mysql-6.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v6/define/AbstractMysqlInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/IgnoredExceptionAnnotationActivation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-commons/src/main/java/org/apache/skywalking/apm/plugin/spring/mvc/commons/ParsePathUtil.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/optional-plugins/customize-enhance-plugin/src/main/java/org/apache/skywalking/apm/plugin/customize/conf/CustomizeConfiguration.java`
-#### Snippet
-```java
-            LOGGER.error(e, "Failed to resolver, className is {}, methodDesc is {}.", className, methodDesc);
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-trace-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/trace/ActiveSpanSetOperationNameInterceptor.java`
-#### Snippet
-```java
-                              final Class<?>[] parameterTypes,
-                              final Object ret) {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/light4j-plugins/light4j-plugin/src/main/java/org/apache/skywalking/apm/plugin/light4j/define/LightInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/resteasy-plugin/resteasy-server-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/resteasy/v4/server/define/SynchronousDispatcherInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/define/HttpAsyncRequestExecutorInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/define/HttpAsyncClientInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/HttpAsyncRequestExecutorInterceptor.java`
-#### Snippet
-```java
-        HttpContext contextInConn = conn.getContext();
-        if (Objects.isNull(contextInConn)) {
-            return null;
-        }
-        context = (HttpContext) contextInConn.getAttribute(Constants.SKYWALKING_HTTP_CONTEXT);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/httpasyncclient-4.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpasyncclient/v4/HttpAsyncRequestExecutorInterceptor.java`
-#### Snippet
-```java
-        conn.getContext().removeAttribute(Constants.SKYWALKING_HTTP_CONTEXT);
-        if (Objects.isNull(context)) {
-            return null;
-        }
-        ContextSnapshot snapshot = (ContextSnapshot) contextInConn.getAttribute(Constants.SKYWALKING_CONTEXT_SNAPSHOT);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/hystrix-1.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/hystrix/v1/SWHystrixLifecycleForwardingRequestVariable.java`
-#### Snippet
-```java
-    public T get() {
-        if (!HystrixRequestContext.isCurrentThreadInitialized()) {
-            return null;
-        }
-        return super.get();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/define/ServerTracingFilterInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/define/ClientTracingFilterInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/finagle-6.25.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/finagle/CodecUtils.java`
-#### Snippet
-```java
-            return decodeStringFromBytes(bytes);
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/spring-plugins/core-patch/src/main/java/org/apache/skywalking/apm/plugin/spring/patch/AutowiredAnnotationProcessorInterceptor.java`
-#### Snippet
-```java
-            }
-
-            return candidateConstructors.length > 0 ? candidateConstructors : null;
-        }
-        return ret;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/AbstractMysqlInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/AbstractMysqlInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/mysql-8.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/jdbc/mysql/v8/define/AbstractMysqlInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/resteasy-plugin/resteasy-server-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/resteasy/v3/server/define/SynchronousDispatcherInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-application-toolkit/apm-toolkit-opentracing/src/main/java/org/apache/skywalking/apm/toolkit/opentracing/SkywalkingContext.java`
-#### Snippet
-```java
-    @Override
-    public Iterable<Map.Entry<String, String>> baggageItems() {
-        return null;
-    }
-}
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/StringUtil.java`
-#### Snippet
-```java
-    public static String join(final char delimiter, final String... strings) {
-        if (strings.length == 0) {
-            return null;
-        }
-        if (strings.length == 1) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/StringUtil.java`
-#### Snippet
-```java
-    public static String trim(final String str, final char ch) {
-        if (isEmpty(str)) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-application-toolkit/apm-toolkit-opentracing/src/main/java/org/apache/skywalking/apm/toolkit/opentracing/SkywalkingActiveSpan.java`
-#### Snippet
-```java
-    @Override
-    public String getBaggageItem(String key) {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-application-toolkit/apm-toolkit-opentracing/src/main/java/org/apache/skywalking/apm/toolkit/opentracing/SkywalkingSpan.java`
-#### Snippet
-```java
-    @Override
-    public String getBaggageItem(String key) {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-commons/apm-util/src/main/java/org/apache/skywalking/apm/util/ConfigInitializer.java`
-#### Snippet
-```java
-    private static Object convertToTypicalType(Type type, String value) {
-        if (StringUtil.isBlank(value)) {
-            return null;
-        }
-        Object result = null;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/cassandra-java-driver-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/cassandra/java/driver/v3/define/DefaultResultSetFutureInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-sdk-plugin/cassandra-java-driver-3.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/cassandra/java/driver/v3/define/SessionManagerInstrumentation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-webflux-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/webflux/WebFluxSkyWalkingOperatorsActivation.java`
-#### Snippet
-```java
-    @Override
-    public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `apm-sniffer/apm-toolkit-activation/apm-toolkit-opentracing-activation/src/main/java/org/apache/skywalking/apm/toolkit/activation/opentracing/tracer/SkywalkingTracerInjectInterceptor.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
+    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+            Object ret) throws Throwable {
+        return ret == null ? null : (MessageListener) (consumer, message) -> {
+            final MessageEnhanceRequiredInfo requiredInfo = (MessageEnhanceRequiredInfo) ((EnhancedInstance) message)
+                    .getSkyWalkingDynamicField();
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -17354,30 +17330,6 @@ in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/cor
         String[] pathArr = path.list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-```
-
-### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `requestURI` is redundant
-in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v5/HttpClientDoExecuteInterceptor.java`
-#### Snippet
-```java
-
-        String uri = httpRequest.getUri().toString();
-        String requestURI = getRequestURI(uri);
-        String operationName = requestURI;
-        AbstractSpan span = ContextManager.createExitSpan(operationName, contextCarrier, remotePeer);
-```
-
-### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `operationName` is redundant
-in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v5/HttpClientDoExecuteInterceptor.java`
-#### Snippet
-```java
-        String uri = httpRequest.getUri().toString();
-        String requestURI = getRequestURI(uri);
-        String operationName = requestURI;
-        AbstractSpan span = ContextManager.createExitSpan(operationName, contextCarrier, remotePeer);
-
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
@@ -17452,7 +17404,43 @@ in `apm-application-toolkit/apm-toolkit-micrometer-registry/src/main/java/org/ap
     }
 ```
 
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `requestURI` is redundant
+in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v5/HttpClientDoExecuteInterceptor.java`
+#### Snippet
+```java
+
+        String uri = httpRequest.getUri().toString();
+        String requestURI = getRequestURI(uri);
+        String operationName = requestURI;
+        AbstractSpan span = ContextManager.createExitSpan(operationName, contextCarrier, remotePeer);
+```
+
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `operationName` is redundant
+in `apm-sniffer/apm-sdk-plugin/httpclient-5.x-plugin/src/main/java/org/apache/skywalking/apm/plugin/httpclient/v5/HttpClientDoExecuteInterceptor.java`
+#### Snippet
+```java
+        String uri = httpRequest.getUri().toString();
+        String requestURI = getRequestURI(uri);
+        String operationName = requestURI;
+        AbstractSpan span = ContextManager.createExitSpan(operationName, contextCarrier, remotePeer);
+
+```
+
 ## RuleId[ruleID=BusyWait]
+### RuleId[ruleID=BusyWait]
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/profile/ProfileThread.java`
+#### Snippet
+```java
+            long needToSleep = (currentLoopStartTime + maxSleepPeriod) - System.currentTimeMillis();
+            needToSleep = needToSleep > 0 ? needToSleep : maxSleepPeriod;
+            Thread.sleep(needToSleep);
+        }
+    }
+```
+
 ### RuleId[ruleID=BusyWait]
 Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/datacarrier/consumer/MultipleChannelsConsumer.java`
@@ -17475,18 +17463,6 @@ in `apm-commons/apm-datacarrier/src/main/java/org/apache/skywalking/apm/commons/
                     Thread.sleep(consumeCycle);
                 } catch (InterruptedException e) {
                 }
-```
-
-### RuleId[ruleID=BusyWait]
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `apm-sniffer/apm-agent-core/src/main/java/org/apache/skywalking/apm/agent/core/profile/ProfileThread.java`
-#### Snippet
-```java
-            long needToSleep = (currentLoopStartTime + maxSleepPeriod) - System.currentTimeMillis();
-            needToSleep = needToSleep > 0 ? needToSleep : maxSleepPeriod;
-            Thread.sleep(needToSleep);
-        }
-    }
 ```
 
 ## RuleId[ruleID=UseBulkOperation]
