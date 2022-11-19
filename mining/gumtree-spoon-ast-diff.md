@@ -17,8 +17,8 @@ I found 51 bad smells with 9 repairable:
 | RuleId[ruleID=UnusedAssignment] | 2 | false |
 | RuleId[ruleID=DataFlowIssue] | 1 | false |
 | RuleId[ruleID=StringOperationCanBeSimplified] | 1 | false |
-| RuleId[ruleID=CommentedOutCode] | 1 | false |
 | RuleId[ruleID=DeprecatedIsStillUsed] | 1 | false |
+| RuleId[ruleID=CommentedOutCode] | 1 | false |
 | RuleId[ruleID=KeySetIterationMayUseEntrySet] | 1 | false |
 | RuleId[ruleID=UnnecessaryToStringCall] | 1 | true |
 | RuleId[ruleID=EqualsBetweenInconvertibleTypes] | 1 | false |
@@ -86,11 +86,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ### RuleId[ruleID=UnnecessarySemicolon]
@@ -98,11 +98,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -118,19 +118,6 @@ in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 
 ```
 
-## RuleId[ruleID=CommentedOutCode]
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (2 lines)
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-		// 1000 OK
-		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
-		// System.setProperty("gumtree.match.bu.size","10");
-		// System.setProperty("gt.bum.szt", "1000");
-	}
-```
-
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'getNode' is still used
@@ -141,6 +128,19 @@ in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 	@Deprecated
 	public CtElement getNode() {
 		return node;
+	}
+```
+
+## RuleId[ruleID=CommentedOutCode]
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (2 lines)
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+		// 1000 OK
+		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
+		// System.setProperty("gumtree.match.bu.size","10");
+		// System.setProperty("gt.bum.szt", "1000");
 	}
 ```
 
@@ -184,18 +184,6 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`factory.Type().getAll().size() == 0` can be replaced with 'factory.Type().getAll().isEmpty()'
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-		compiler.build();
-
-		if (factory.Type().getAll().size() == 0) {
-			return null;
-		}
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `rootOperations.size() == 0` can be replaced with 'rootOperations.isEmpty()'
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
@@ -204,6 +192,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	public String toString() {
 		if (rootOperations.size() == 0) {
 			return "no AST change";
+		}
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`factory.Type().getAll().size() == 0` can be replaced with 'factory.Type().getAll().isEmpty()'
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+		compiler.build();
+
+		if (factory.Type().getAll().size() == 0) {
+			return null;
 		}
 ```
 
@@ -234,15 +234,15 @@ in `src/main/java/gumtree/spoon/builder/jsonsupport/OperationNodePainter.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends NodePainter`
-in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
 ```java
+	 * @return
+	 */
+	public static List<Operation> replaceMove(MappingStore mapping, List<Operation> ops, boolean all) {
+		List<Operation> newOps = new ArrayList<>();
 
-	@SuppressWarnings("unused")
-	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
-
-		JsonObject o = new JsonObject();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -258,27 +258,15 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+Can generalize to `? extends NodePainter`
+in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-	 * @return
-	 */
-	public static List<Operation> replaceMove(MappingStore mapping, List<Operation> ops, boolean all) {
-		List<Operation> newOps = new ArrayList<>();
 
-```
+	@SuppressWarnings("unused")
+	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	}
-
-	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
-		List<Operation> collect = actions.stream().map(action -> {
-
+		JsonObject o = new JsonObject();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -294,15 +282,15 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Operation`
+Can generalize to `? extends Action`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
+	}
 
-	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
-			String nodeLabel) {
-		return operations.stream()
+	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
+		List<Operation> collect = actions.stream().map(action -> {
+
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -327,6 +315,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
 		return rootOperations.stream() //
 				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+
+	@Override
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
+			String nodeLabel) {
+		return operations.stream()
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -370,6 +370,18 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 
 ## RuleId[ruleID=SystemOutErr]
 ### RuleId[ruleID=SystemOutErr]
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	@Override
+	public void debugInformation() {
+		System.err.println(toDebugString());
+	}
+
+```
+
+### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
@@ -391,18 +403,6 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 		System.out.println(result.toString());
 	}
 }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	@Override
-	public void debugInformation() {
-		System.err.println(toDebugString());
-	}
-
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -459,15 +459,15 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+Field initialization to `null` is redundant
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
-	private final TreeContext treeContext;
-	private final Stack<Tree> nodes = new Stack<>();
-	boolean nolabel = false;
+	private TreeContext context;
 
-	TreeScanner(TreeContext treeContext, Tree root) {
+	private GumtreeProperties properties = null;
+
+	private Matcher matcher = new CompositeMatchers.ClassicGumtree();
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -483,15 +483,15 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+Field initialization to `false` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
 ```java
-	private TreeContext context;
+	private final TreeContext treeContext;
+	private final Stack<Tree> nodes = new Stack<>();
+	boolean nolabel = false;
 
-	private GumtreeProperties properties = null;
-
-	private Matcher matcher = new CompositeMatchers.ClassicGumtree();
+	TreeScanner(TreeContext treeContext, Tree root) {
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -535,7 +535,7 @@ public class CtVirtualElement extends CtWrapper<String> {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-19-19-28-56.094.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-19-23-38-09.028.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -572,11 +572,11 @@ in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
-	/** returns the new version of the node (only for update) */
-	public CtElement getDstNode() {
+			first = first.getParent();
+		}
 		return null;
 	}
 
@@ -596,11 +596,11 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 #### Snippet
 ```java
-			first = first.getParent();
-		}
+	/** returns the new version of the node (only for update) */
+	public CtElement getDstNode() {
 		return null;
 	}
 
