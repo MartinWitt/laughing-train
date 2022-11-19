@@ -82,18 +82,6 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public String printPackageInfo(CtPackage ctPackage) {
-		return null;
-	}
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-	@Override
 	public String printModuleInfo(CtModule ctModule) {
 		return null;
 	}
@@ -107,6 +95,18 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 ```java
 	@Override
 	public Map<Integer, Integer> getLineNumberMapping() {
+		return null;
+	}
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+	@Override
+	public String printPackageInfo(CtPackage ctPackage) {
 		return null;
 	}
 
