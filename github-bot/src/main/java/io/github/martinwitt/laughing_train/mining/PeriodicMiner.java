@@ -87,10 +87,22 @@ public class PeriodicMiner {
                 .subscribe()
                 .with(
                         v -> {
-                            logger.atInfo().log("Finished mining. Next project starting now.");
+                            if (v.body() instanceof QodanaResult.Success success) {
+                                if (success.result().isEmpty()) {
+                                    registry.counter("qodana.failure").increment();
+                                } else {
+                                    registry.counter("qodana.success").increment();
+                                    logger.atInfo().log(
+                                            "Finished mining with %s results. Next project starting now.",
+                                            success.result().size());
+                                }
+                            } else {
+                                registry.counter("qodana.failure").increment();
+                            }
                             mineRandomRepo();
                         },
                         e -> {
+                            registry.counter("qodana.failure").increment();
                             logger.atInfo().log("Failed mining" + e.getMessage());
                             mineRandomRepo();
                         });
