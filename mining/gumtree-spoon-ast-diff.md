@@ -86,11 +86,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ### RuleId[ruleID=UnnecessarySemicolon]
@@ -98,11 +98,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -234,6 +234,18 @@ in `src/main/java/gumtree/spoon/builder/jsonsupport/OperationNodePainter.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends NodePainter`
+in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+#### Snippet
+```java
+
+	@SuppressWarnings("unused")
+	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
+
+		JsonObject o = new JsonObject();
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
@@ -258,30 +270,6 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	}
-
-	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
-		List<Operation> collect = actions.stream().map(action -> {
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
-			String nodeLabel) {
-		return operations.stream()
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
@@ -291,6 +279,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	private String toDebugString(List<Operation> ops) {
 		String result = "";
 		for (Operation operation : ops) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+
+	@Override
+	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
+		return rootOperations.stream() //
+				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -312,21 +312,21 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```java
 
 	@Override
-	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
-		return rootOperations.stream() //
-				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
+			String nodeLabel) {
+		return operations.stream()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends NodePainter`
-in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
+	}
 
-	@SuppressWarnings("unused")
-	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
+	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
+		List<Operation> collect = actions.stream().map(action -> {
 
-		JsonObject o = new JsonObject();
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -460,18 +460,6 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-	private final TreeContext treeContext;
-	private final Stack<Tree> nodes = new Stack<>();
-	boolean nolabel = false;
-
-	TreeScanner(TreeContext treeContext, Tree root) {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
 ```java
@@ -480,6 +468,18 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 	private boolean includeComments = false;
 
 	public AstComparator() {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+	private final TreeContext treeContext;
+	private final Stack<Tree> nodes = new Stack<>();
+	boolean nolabel = false;
+
+	TreeScanner(TreeContext treeContext, Tree root) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -535,7 +535,7 @@ public class CtVirtualElement extends CtWrapper<String> {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-20-17-38-16.913.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-20-19-02-52.524.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -572,18 +572,6 @@ in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
-#### Snippet
-```java
-	/** returns the new version of the node (only for update) */
-	public CtElement getDstNode() {
-		return null;
-	}
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
 ```java
@@ -591,6 +579,18 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 		if (factory.Type().getAll().size() == 0) {
 			return null;
 		}
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
+#### Snippet
+```java
+	/** returns the new version of the node (only for update) */
+	public CtElement getDstNode() {
+		return null;
+	}
 
 ```
 
