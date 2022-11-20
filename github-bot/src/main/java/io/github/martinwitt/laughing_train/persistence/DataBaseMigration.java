@@ -45,7 +45,17 @@ public class DataBaseMigration {
         removeBadSmellsWithoutIdentifier();
         removeBadSmellsWithWrongIdentifier();
         setDefaultSourceFolders();
+        removeBadSmellsWithMissingProject();
         logger.atInfo().log("Finished migrating database");
+    }
+
+    private void removeBadSmellsWithMissingProject() {
+        for (Project project : Project.<Project>listAll()) {
+            if (project.commitHashes == null || project.commitHashes.isEmpty() || project.projectUrl.endsWith(".git")) {
+                project.delete();
+                BadSmell.mongoCollection().deleteMany(Filters.eq("projectName", project.projectName));
+            }
+        }
     }
 
     private void removeDuplicatedBadSmells() {

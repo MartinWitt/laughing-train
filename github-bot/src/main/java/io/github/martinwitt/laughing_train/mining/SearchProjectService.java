@@ -48,16 +48,15 @@ public class SearchProjectService {
             return Uni.createFrom()
                     .item(Project.findByProjectName(repo.getName()).get(0));
         }
-        Project project = new Project(repo.getName(), repo.getHttpTransportUrl());
+        Project project = new Project(repo.getName(), repo.getHtmlUrl().toString());
         project.persist();
-        ProjectConfig.ofProjectUrl(repo.getHttpTransportUrl()).persistOrUpdate();
-        registry.summary("mining.github.search.projects", "name", repo.getName());
+        ProjectConfig.ofProjectUrl(repo.getHtmlUrl().toString()).persistOrUpdate();
         return Uni.createFrom().item(project);
     }
 
     private @Nullable GHRepository findRandomRepositoryOnGithub() {
         try {
-            GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
+            GitHub github = GitHub.connectAnonymously();
             var repos = github.searchRepositories()
                     .q("language:java")
                     .org(getRandomOrgName())
