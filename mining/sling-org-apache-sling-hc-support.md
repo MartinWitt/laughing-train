@@ -4,14 +4,27 @@
 I found 8 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RuleId[ruleID=UnnecessarySemicolon] | 1 | false |
 | RuleId[ruleID=DataFlowIssue] | 1 | false |
-| RuleId[ruleID=SimplifyStreamApiCallChains] | 1 | false |
+| RuleId[ruleID=UnnecessarySemicolon] | 1 | false |
 | RuleId[ruleID=NestedAssignment] | 1 | false |
-| RuleId[ruleID=WhileCanBeForeach] | 1 | false |
+| RuleId[ruleID=SimplifyStreamApiCallChains] | 1 | false |
 | RuleId[ruleID=InnerClassMayBeStatic] | 1 | true |
+| RuleId[ruleID=WhileCanBeForeach] | 1 | false |
 | RuleId[ruleID=BoundedWildcard] | 1 | false |
 | RuleId[ruleID=UseBulkOperation] | 1 | false |
+## RuleId[ruleID=DataFlowIssue]
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `read` may produce `NullPointerException`
+in `src/main/java/org/apache/sling/hc/support/impl/ScriptedHealthCheck.java`
+#### Snippet
+```java
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = is.read(buffer)) != -1) {
+                        result.write(buffer, 0, length);
+                    }
+```
+
 ## RuleId[ruleID=UnnecessarySemicolon]
 ### RuleId[ruleID=UnnecessarySemicolon]
 Unnecessary semicolon `;`
@@ -25,9 +38,9 @@ in `src/main/java/org/apache/sling/hc/support/impl/ScriptedHealthCheck.java`
                     int length;
 ```
 
-## RuleId[ruleID=DataFlowIssue]
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `read` may produce `NullPointerException`
+## RuleId[ruleID=NestedAssignment]
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
 in `src/main/java/org/apache/sling/hc/support/impl/ScriptedHealthCheck.java`
 #### Snippet
 ```java
@@ -51,17 +64,17 @@ in `src/main/java/org/apache/sling/hc/support/impl/ScriptedHealthCheck.java`
             }catch(IOException | URISyntaxException e) {
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
+## RuleId[ruleID=InnerClassMayBeStatic]
+### RuleId[ruleID=InnerClassMayBeStatic]
+Inner class `ScriptHelperBinding` may be 'static'
 in `src/main/java/org/apache/sling/hc/support/impl/ScriptedHealthCheck.java`
 #### Snippet
 ```java
-                    byte[] buffer = new byte[1024];
-                    int length;
-                    while ((length = is.read(buffer)) != -1) {
-                        result.write(buffer, 0, length);
-                    }
+
+        // Script Helper for OSGi available as binding 'scriptHelper'
+        class ScriptHelperBinding {
+            
+            private final BundleContext bundleContext;
 ```
 
 ## RuleId[ruleID=WhileCanBeForeach]
@@ -75,19 +88,6 @@ in `src/main/java/org/apache/sling/hc/support/impl/ScriptedHealthCheck.java`
                     while (i.hasNext()) {
                         final ServiceReference<?> ref = i.next();
                         this.bundleContext.ungetService(ref);
-```
-
-## RuleId[ruleID=InnerClassMayBeStatic]
-### RuleId[ruleID=InnerClassMayBeStatic]
-Inner class `ScriptHelperBinding` may be 'static'
-in `src/main/java/org/apache/sling/hc/support/impl/ScriptedHealthCheck.java`
-#### Snippet
-```java
-
-        // Script Helper for OSGi available as binding 'scriptHelper'
-        class ScriptHelperBinding {
-            
-            private final BundleContext bundleContext;
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
