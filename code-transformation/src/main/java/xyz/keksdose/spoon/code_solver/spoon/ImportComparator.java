@@ -1,5 +1,6 @@
 package xyz.keksdose.spoon.code_solver.spoon;
 
+import com.google.errorprone.annotations.Var;
 import java.util.Comparator;
 import spoon.experimental.CtUnresolvedImport;
 import spoon.reflect.declaration.CtImport;
@@ -19,11 +20,11 @@ public class ImportComparator implements Comparator<CtImport> {
             String str2 = removeSuffixSemicolon(imp2.toString());
             return str1.compareTo(str2);
         }
-        int valueImport1 = getImportKindOrder(imp1.getImportKind());
+        @Var int valueImport1 = getImportKindOrder(imp1.getImportKind());
         if (imp1.getImportKind() == CtImportKind.UNRESOLVED) {
             valueImport1 = analyseUnresolvedImport((CtUnresolvedImport) imp1);
         }
-        int valueImport2 = getImportKindOrder(imp2.getImportKind());
+        @Var int valueImport2 = getImportKindOrder(imp2.getImportKind());
         if (imp2.getImportKind() == CtImportKind.UNRESOLVED) {
             valueImport2 = analyseUnresolvedImport((CtUnresolvedImport) imp2);
         }

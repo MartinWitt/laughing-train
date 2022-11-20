@@ -8,6 +8,7 @@
 
 package spoon.reflect.visitor;
 
+import com.google.errorprone.annotations.Var;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -144,7 +145,7 @@ public abstract class ImportAnalyzer<U> extends AbstractProcessor<CtElement> {
                         return ScanningMode.SKIP_ALL;
                     }
                     if (parent instanceof CtExecutableReference) {
-                        CtElement parent2 = null;
+                        @Var CtElement parent2 = null;
                         if (parent.isParentInitialized()) {
                             parent2 = parent.getParent();
                         }

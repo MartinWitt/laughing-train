@@ -1,6 +1,7 @@
 package io.github.martinwitt.laughing_train.persistence;
 
 import com.google.common.flogger.FluentLogger;
+import com.google.errorprone.annotations.Var;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
@@ -131,7 +132,7 @@ public class DataBaseMigration {
 
     private void removeProjectHashesWithoutResults() {
         for (Project project : Project.<Project>listAll()) {
-            boolean changed = false;
+            @Var boolean changed = false;
             for (String hash : new ArrayList<>(project.commitHashes)) {
                 if (BadSmell.findByCommitHash(hash) == null
                         || BadSmell.findByCommitHash(hash).isEmpty()) {

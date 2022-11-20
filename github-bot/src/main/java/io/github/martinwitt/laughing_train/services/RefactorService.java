@@ -1,6 +1,7 @@
 package io.github.martinwitt.laughing_train.services;
 
 import com.google.common.flogger.FluentLogger;
+import com.google.errorprone.annotations.Var;
 import io.github.martinwitt.laughing_train.BranchNameSupplier;
 import io.github.martinwitt.laughing_train.ChangelogPrinter;
 import io.github.martinwitt.laughing_train.Config;
@@ -152,7 +153,7 @@ public class RefactorService {
     }
 
     private GHRepository createForkIfMissing(ProjectResult.Success success, GitHub github) throws IOException {
-        GHRepository repository = github.getRepository(success.project().getOwnerRepoName());
+        @Var GHRepository repository = github.getRepository(success.project().getOwnerRepoName());
         if (github.getMyself().getRepository(success.project().name()) == null) {
             repository = repository.fork();
         } else {
@@ -178,16 +179,15 @@ public class RefactorService {
     private String createPullRequestTitle(List<? extends Change> changes) {
         String title = "refactor: refactor bad smell %s";
         if (changes.stream().map(Change::getBadSmell).distinct().count() == 1) {
-            title = String.format(title, changes.get(0).getBadSmell().getName().asText());
+            return String.format(title, changes.get(0).getBadSmell().getName().asText());
         } else {
-            title = String.format(
+            return String.format(
                     title,
                     changes.stream()
                             .map(v -> v.getBadSmell().getName().asText())
                             .distinct()
                             .collect(Collectors.joining(", ")));
         }
-        return title;
     }
 
     private void createCommit(GHRepository repo, Path dir, List<? extends Change> changes, GHRef ref)

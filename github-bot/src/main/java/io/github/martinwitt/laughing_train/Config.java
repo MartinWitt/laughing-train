@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import com.google.common.flogger.FluentLogger;
+import com.google.errorprone.annotations.Var;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -109,7 +110,7 @@ public class Config {
 
     @JsonIgnore
     public String regenerateConfig() {
-        String options = "";
+        @Var String options = "";
         try {
             options = markdownPrinter.toYamlMarkdown(MAPPER.writeValueAsString(this));
         } catch (JsonProcessingException e) {

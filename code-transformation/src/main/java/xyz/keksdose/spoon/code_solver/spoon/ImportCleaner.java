@@ -8,6 +8,7 @@
 
 package xyz.keksdose.spoon.code_solver.spoon;
 
+import com.google.errorprone.annotations.Var;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -362,7 +363,7 @@ public class ImportCleaner extends ImportAnalyzer<ImportCleaner.Context> {
      * @return true if at least one import with the same package exists
      */
     private boolean removeAllTypeImportWithPackage(Set<CtImport> imports, String packageName) {
-        boolean found = false;
+        @Var boolean found = false;
         for (Iterator<CtImport> iter = imports.iterator(); iter.hasNext(); ) {
             CtImport newImport = iter.next();
             if (newImport.getImportKind() == CtImportKind.TYPE) {
