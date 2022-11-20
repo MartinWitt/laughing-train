@@ -205,30 +205,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableIn
 ```
 
 ### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-Call to `toArray()` with pre-sized array argument 'new CombineHiveInputSplit\[result.size()\]'
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
-#### Snippet
-```java
-
-    LOG.info("number of splits " + result.size());
-    return result.toArray(new CombineHiveInputSplit[result.size()]);
-  }
-
-```
-
-### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-Call to `toArray()` with pre-sized array argument 'new Path\[paths.size()\]'
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
-#### Snippet
-```java
-        try {
-          List<Path> paths = Utilities.getInputPathsTez(job, mrwork);
-          dirs = paths.toArray(new Path[paths.size()]);
-        } catch (Exception e) {
-          throw new IOException("Could not create input files", e);
-```
-
-### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 Call to `toArray()` with pre-sized array argument 'new CombineFileSplit\[combineFileSplits.size()\]'
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
 #### Snippet
@@ -250,6 +226,30 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveIn
             .toArray(new HadoopShimsSecure.InputSplitShim[inputSplitShims.size()]);
       }
     }
+```
+
+### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+Call to `toArray()` with pre-sized array argument 'new Path\[paths.size()\]'
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
+#### Snippet
+```java
+        try {
+          List<Path> paths = Utilities.getInputPathsTez(job, mrwork);
+          dirs = paths.toArray(new Path[paths.size()]);
+        } catch (Exception e) {
+          throw new IOException("Could not create input files", e);
+```
+
+### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+Call to `toArray()` with pre-sized array argument 'new CombineHiveInputSplit\[result.size()\]'
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
+#### Snippet
+```java
+
+    LOG.info("number of splits " + result.size());
+    return result.toArray(new CombineHiveInputSplit[result.size()]);
+  }
+
 ```
 
 ### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
@@ -331,54 +331,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.
 #### Snippet
 ```java
 
-  public Long getTotalLogFilesSize() {
-    Long totalLogFilesSize = 0L;
-    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
-      for (HoodieWriteStat writeStat : entry.getValue()) {
-```
-
-### RuleId[ruleID=WrapperTypeMayBePrimitive]
-Type may be primitive
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
-#### Snippet
-```java
-
-  public Long getTotalUpsertTime() {
-    Long totalUpsertTime = 0L;
-    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
-      for (HoodieWriteStat writeStat : entry.getValue()) {
-```
-
-### RuleId[ruleID=WrapperTypeMayBePrimitive]
-Type may be primitive
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
-#### Snippet
-```java
-
-  public Long getTotalScanTime() {
-    Long totalScanTime = 0L;
-    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
-      for (HoodieWriteStat writeStat : entry.getValue()) {
-```
-
-### RuleId[ruleID=WrapperTypeMayBePrimitive]
-Type may be primitive
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
-#### Snippet
-```java
-
-  public Long getTotalLogFilesCompacted() {
-    Long totalLogFiles = 0L;
-    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
-      for (HoodieWriteStat writeStat : entry.getValue()) {
-```
-
-### RuleId[ruleID=WrapperTypeMayBePrimitive]
-Type may be primitive
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
-#### Snippet
-```java
-
   public Long getTotalLogRecordsCompacted() {
     Long totalLogRecords = 0L;
     for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
@@ -403,8 +355,56 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.
 #### Snippet
 ```java
 
+  public Long getTotalLogFilesCompacted() {
+    Long totalLogFiles = 0L;
+    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
+      for (HoodieWriteStat writeStat : entry.getValue()) {
+```
+
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
+Type may be primitive
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
+#### Snippet
+```java
+
+  public Long getTotalUpsertTime() {
+    Long totalUpsertTime = 0L;
+    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
+      for (HoodieWriteStat writeStat : entry.getValue()) {
+```
+
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
+Type may be primitive
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
+#### Snippet
+```java
+
   public Long getTotalCompactedRecordsUpdated() {
     Long totalUpdateRecords = 0L;
+    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
+      for (HoodieWriteStat writeStat : entry.getValue()) {
+```
+
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
+Type may be primitive
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
+#### Snippet
+```java
+
+  public Long getTotalScanTime() {
+    Long totalScanTime = 0L;
+    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
+      for (HoodieWriteStat writeStat : entry.getValue()) {
+```
+
+### RuleId[ruleID=WrapperTypeMayBePrimitive]
+Type may be primitive
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
+#### Snippet
+```java
+
+  public Long getTotalLogFilesSize() {
+    Long totalLogFilesSize = 0L;
     for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
       for (HoodieWriteStat writeStat : entry.getValue()) {
 ```
@@ -716,15 +716,27 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/Spar
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `shutdownThread` from instance context
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
+#### Snippet
+```java
+  private void addShutDownHook() {
+    if (null == shutdownThread) {
+      shutdownThread = new Thread(() -> {
+        try {
+          hbaseConnection.close();
+```
+
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 Assignment to static field `hbaseConnection` from instance context
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
 #### Snippet
 ```java
-      synchronized (SparkHoodieHBaseIndex.class) {
-        if (hbaseConnection == null || hbaseConnection.isClosed()) {
-          hbaseConnection = getHBaseConnection();
-        }
+    synchronized (SparkHoodieHBaseIndex.class) {
+      if (hbaseConnection == null || hbaseConnection.isClosed()) {
+        hbaseConnection = getHBaseConnection();
       }
+    }
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -744,23 +756,11 @@ Assignment to static field `hbaseConnection` from instance context
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
 #### Snippet
 ```java
-    synchronized (SparkHoodieHBaseIndex.class) {
-      if (hbaseConnection == null || hbaseConnection.isClosed()) {
-        hbaseConnection = getHBaseConnection();
+      synchronized (SparkHoodieHBaseIndex.class) {
+        if (hbaseConnection == null || hbaseConnection.isClosed()) {
+          hbaseConnection = getHBaseConnection();
+        }
       }
-    }
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `shutdownThread` from instance context
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
-#### Snippet
-```java
-  private void addShutDownHook() {
-    if (null == shutdownThread) {
-      shutdownThread = new Thread(() -> {
-        try {
-          hbaseConnection.close();
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -949,6 +949,18 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/HoodieLogFileCommand.jav
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`config.getSplitStrings(META_SYNC_PARTITION_FIELDS).size() > 0` can be replaced with '!config.getSplitStrings(META_SYNC_PARTITION_FIELDS).isEmpty()'
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/QueryBasedDDLExecutor.java`
+#### Snippet
+```java
+      String newSchemaStr = HiveSchemaUtil.generateSchemaString(newSchema, config.getSplitStrings(META_SYNC_PARTITION_FIELDS), config.getBoolean(HIVE_SUPPORT_TIMESTAMP_TYPE));
+      // Cascade clause should not be present for non-partitioned tables
+      String cascadeClause = config.getSplitStrings(META_SYNC_PARTITION_FIELDS).size() > 0 ? " cascade" : "";
+      StringBuilder sqlBuilder = new StringBuilder("ALTER TABLE ").append(HIVE_ESCAPE_CHARACTER)
+          .append(databaseName).append(HIVE_ESCAPE_CHARACTER).append(".")
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `zkConnectUrl.length() > 0` can be replaced with '!zkConnectUrl.isEmpty()'
 in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/transaction/lock/HiveMetastoreBasedLockProvider.java`
 #### Snippet
@@ -982,18 +994,6 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/transaction/lock
     if (zkSessionTimeout.length() > 0) {
       hiveConf.set("hive.zookeeper.session.timeout", zkSessionTimeout);
     }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`config.getSplitStrings(META_SYNC_PARTITION_FIELDS).size() > 0` can be replaced with '!config.getSplitStrings(META_SYNC_PARTITION_FIELDS).isEmpty()'
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/QueryBasedDDLExecutor.java`
-#### Snippet
-```java
-      String newSchemaStr = HiveSchemaUtil.generateSchemaString(newSchema, config.getSplitStrings(META_SYNC_PARTITION_FIELDS), config.getBoolean(HIVE_SUPPORT_TIMESTAMP_TYPE));
-      // Cascade clause should not be present for non-partitioned tables
-      String cascadeClause = config.getSplitStrings(META_SYNC_PARTITION_FIELDS).size() > 0 ? " cascade" : "";
-      StringBuilder sqlBuilder = new StringBuilder("ALTER TABLE ").append(HIVE_ESCAPE_CHARACTER)
-          .append(databaseName).append(HIVE_ESCAPE_CHARACTER).append(".")
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1057,18 +1057,6 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/clustering
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`rolloverPaths.size() == 0` can be replaced with 'rolloverPaths.isEmpty()'
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkMergeHandle.java`
-#### Snippet
-```java
-  public void finalizeWrite() {
-    // The file visibility should be kept by the configured ConsistencyGuard instance.
-    if (rolloverPaths.size() == 0) {
-      // only one flush action, no need to roll over
-      return;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `rolloverPaths.size() > 0` can be replaced with '!rolloverPaths.isEmpty()'
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkMergeHandle.java`
 #### Snippet
@@ -1078,6 +1066,18 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkMergeHan
     return rolloverPaths.size() > 0 ? rolloverPaths.get(0) : newFilePath;
   }
 }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`rolloverPaths.size() == 0` can be replaced with 'rolloverPaths.isEmpty()'
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkMergeHandle.java`
+#### Snippet
+```java
+  public void finalizeWrite() {
+    // The file visibility should be kept by the configured ConsistencyGuard instance.
+    if (rolloverPaths.size() == 0) {
+      // only one flush action, no need to roll over
+      return;
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1129,18 +1129,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/Spar
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`partitionPaths.size() > 0` can be replaced with '!partitionPaths.isEmpty()'
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
-#### Snippet
-```java
-        List<String> partitionPaths =
-            FSUtils.getAllPartitionPaths(context, config.getMetadataConfig(), table.getMetaClient().getBasePath());
-        if (partitionPaths != null && partitionPaths.size() > 0) {
-          context.setJobStatus(this.getClass().getSimpleName(), "Getting ExistingFileIds of all partitions: " + config.getTableName());
-          partitionToExistingFileIds = partitionPaths.stream().parallel()
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `lr.getMatchingRecordKeys().size() > 0` can be replaced with '!lr.getMatchingRecordKeys().isEmpty()'
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/SparkHoodieBloomIndexHelper.java`
 #### Snippet
@@ -1150,6 +1138,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/Spar
         .filter(lr -> lr.getMatchingRecordKeys().size() > 0)
         .flatMapToPair(lookupResult -> lookupResult.getMatchingRecordKeys().stream()
             .map(recordKey -> new Tuple2<>(new HoodieKey(recordKey, lookupResult.getPartitionPath()),
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`partitionPaths.size() > 0` can be replaced with '!partitionPaths.isEmpty()'
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
+#### Snippet
+```java
+        List<String> partitionPaths =
+            FSUtils.getAllPartitionPaths(context, config.getMetadataConfig(), table.getMetaClient().getBasePath());
+        if (partitionPaths != null && partitionPaths.size() > 0) {
+          context.setJobStatus(this.getClass().getSimpleName(), "Getting ExistingFileIds of all partitions: " + config.getTableName());
+          partitionToExistingFileIds = partitionPaths.stream().parallel()
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1169,11 +1169,11 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDR
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/MultipleSparkJobExecutionStrategy.java`
 #### Snippet
 ```java
-    List<ClusteringOperation> clusteringOps = clusteringGroup.getSlices().stream()
-        .map(ClusteringOperation::create).collect(Collectors.toList());
+  private HoodieData<HoodieRecord<T>> readRecordsForGroup(JavaSparkContext jsc, HoodieClusteringGroup clusteringGroup, String instantTime) {
+    List<ClusteringOperation> clusteringOps = clusteringGroup.getSlices().stream().map(ClusteringOperation::create).collect(Collectors.toList());
     boolean hasLogFiles = clusteringOps.stream().anyMatch(op -> op.getDeltaFilePaths().size() > 0);
-    SQLContext sqlContext = new SQLContext(jsc.sc());
-
+    if (hasLogFiles) {
+      // if there are log files, we read all records into memory for a file group and apply updates.
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1181,11 +1181,11 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clusterin
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/MultipleSparkJobExecutionStrategy.java`
 #### Snippet
 ```java
-  private HoodieData<HoodieRecord<T>> readRecordsForGroup(JavaSparkContext jsc, HoodieClusteringGroup clusteringGroup, String instantTime) {
-    List<ClusteringOperation> clusteringOps = clusteringGroup.getSlices().stream().map(ClusteringOperation::create).collect(Collectors.toList());
+    List<ClusteringOperation> clusteringOps = clusteringGroup.getSlices().stream()
+        .map(ClusteringOperation::create).collect(Collectors.toList());
     boolean hasLogFiles = clusteringOps.stream().anyMatch(op -> op.getDeltaFilePaths().size() > 0);
-    if (hasLogFiles) {
-      // if there are log files, we read all records into memory for a file group and apply updates.
+    SQLContext sqlContext = new SQLContext(jsc.sc());
+
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1198,6 +1198,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKe
     if (key != null && key.length() > 0) {
       return key;
     } else {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`lr.getMatchingRecordKeys().size() > 0` can be replaced with '!lr.getMatchingRecordKeys().isEmpty()'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/ListBasedHoodieBloomIndexHelper.java`
+#### Snippet
+```java
+
+    keyLookupResults = keyLookupResults.stream().filter(
+        lr -> lr.getMatchingRecordKeys().size() > 0).collect(toList());
+    return context.parallelize(keyLookupResults).flatMap(lookupResult ->
+        lookupResult.getMatchingRecordKeys().stream()
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1249,30 +1261,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppend
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`lr.getMatchingRecordKeys().size() > 0` can be replaced with '!lr.getMatchingRecordKeys().isEmpty()'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/ListBasedHoodieBloomIndexHelper.java`
-#### Snippet
-```java
-
-    keyLookupResults = keyLookupResults.stream().filter(
-        lr -> lr.getMatchingRecordKeys().size() > 0).collect(toList());
-    return context.parallelize(keyLookupResults).flatMap(lookupResult ->
-        lookupResult.getMatchingRecordKeys().stream()
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`partitions.size() > 0` can be replaced with '!partitions.isEmpty()'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
-#### Snippet
-```java
-  private void clearMetadataTablePartitionsConfig(Option<MetadataPartitionType> partitionType, boolean clearAll) {
-    Set<String> partitions = metaClient.getTableConfig().getMetadataPartitions();
-    if (clearAll && partitions.size() > 0) {
-      LOG.info("Clear hoodie.table.metadata.partitions in hoodie.properties");
-      metaClient.getTableConfig().setValue(TABLE_METADATA_PARTITIONS.key(), EMPTY_STRING);
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `pendingCleanInstants.size() > 0` can be replaced with '!pendingCleanInstants.isEmpty()'
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/clean/CleanActionExecutor.java`
 #### Snippet
@@ -1294,6 +1282,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/cl
     return cleanMetadataList.size() > 0 ? cleanMetadataList.get(cleanMetadataList.size() - 1) : null;
   }
 }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`partitions.size() > 0` can be replaced with '!partitions.isEmpty()'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
+#### Snippet
+```java
+  private void clearMetadataTablePartitionsConfig(Option<MetadataPartitionType> partitionType, boolean clearAll) {
+    Set<String> partitions = metaClient.getTableConfig().getMetadataPartitions();
+    if (clearAll && partitions.size() > 0) {
+      LOG.info("Clear hoodie.table.metadata.partitions in hoodie.properties");
+      metaClient.getTableConfig().setValue(TABLE_METADATA_PARTITIONS.key(), EMPTY_STRING);
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1393,15 +1393,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`list.size() == 0` can be replaced with 'list.isEmpty()'
-in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
+`addresses.size() > 0` can be replaced with '!addresses.isEmpty()'
+in `hudi-common/src/main/java/org/apache/hudi/common/util/NetworkUtils.java`
 #### Snippet
 ```java
-
-  public static String join(final List<String> list, final String separator) {
-    if (list == null || list.size() == 0) {
-      return null;
-    }
+            .filter(NetworkUtils::validAddress)
+            .collect(Collectors.toList());
+        if (addresses.size() > 0) {
+          // IPv4 has higher priority
+          InetAddress address = addresses.stream()
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1417,15 +1417,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`addresses.size() > 0` can be replaced with '!addresses.isEmpty()'
-in `hudi-common/src/main/java/org/apache/hudi/common/util/NetworkUtils.java`
+`list.size() == 0` can be replaced with 'list.isEmpty()'
+in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
 #### Snippet
 ```java
-            .filter(NetworkUtils::validAddress)
-            .collect(Collectors.toList());
-        if (addresses.size() > 0) {
-          // IPv4 has higher priority
-          InetAddress address = addresses.stream()
+
+  public static String join(final List<String> list, final String separator) {
+    if (list == null || list.size() == 0) {
+      return null;
+    }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1465,6 +1465,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/CompactionOperation.j
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`deltaPaths.size() > 0` can be replaced with '!deltaPaths.isEmpty()'
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/LogReaderUtils.java`
+#### Snippet
+```java
+    List<String> deltaPaths = logFiles.stream().sorted(HoodieLogFile.getReverseLogFileComparator()).map(s -> s.getPath().toString())
+        .collect(Collectors.toList());
+    if (deltaPaths.size() > 0) {
+      Map<String, HoodieLogFile> deltaFilePathToFileStatus = logFiles.stream().map(entry -> Pair.of(entry.getPath().toString(), entry))
+          .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `p.length() > 0` can be replaced with '!p.isEmpty()'
 in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.java`
 #### Snippet
@@ -1489,15 +1501,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.jav
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`deltaPaths.size() > 0` can be replaced with '!deltaPaths.isEmpty()'
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/LogReaderUtils.java`
+`logFiles.size() > 0` can be replaced with '!logFiles.isEmpty()'
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatReader.java`
 #### Snippet
 ```java
-    List<String> deltaPaths = logFiles.stream().sorted(HoodieLogFile.getReverseLogFileComparator()).map(s -> s.getPath().toString())
-        .collect(Collectors.toList());
-    if (deltaPaths.size() > 0) {
-      Map<String, HoodieLogFile> deltaFilePathToFileStatus = logFiles.stream().map(entry -> Pair.of(entry.getPath().toString(), entry))
-          .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
+    this.enableInlineReading = enableRecordLookups;
+    this.internalSchema = internalSchema == null ? InternalSchema.getEmptyInternalSchema() : internalSchema;
+    if (logFiles.size() > 0) {
+      HoodieLogFile nextLogFile = logFiles.remove(0);
+      this.currentReader = new HoodieLogFileReader(fs, nextLogFile, readerSchema, bufferSize, readBlocksLazily, false,
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1510,18 +1522,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatRe
     } else if (logFiles.size() > 0) {
       try {
         HoodieLogFile nextLogFile = logFiles.remove(0);
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`logFiles.size() > 0` can be replaced with '!logFiles.isEmpty()'
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatReader.java`
-#### Snippet
-```java
-    this.enableInlineReading = enableRecordLookups;
-    this.internalSchema = internalSchema == null ? InternalSchema.getEmptyInternalSchema() : internalSchema;
-    if (logFiles.size() > 0) {
-      HoodieLogFile nextLogFile = logFiles.remove(0);
-      this.currentReader = new HoodieLogFileReader(fs, nextLogFile, readerSchema, bufferSize, readBlocksLazily, false,
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1693,18 +1693,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieCombineRe
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`latestFileSlices.size() == 0` can be replaced with 'latestFileSlices.isEmpty()'
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
-#### Snippet
-```java
-      final List<FileSlice> latestFileSlices = HoodieTableMetadataUtil
-          .getPartitionLatestFileSlices(metaClient.get(), fsView, partitionType.getPartitionPath());
-      if (latestFileSlices.size() == 0 && !partitionType.getPartitionPath().equals(MetadataPartitionType.FILES.getPartitionPath())) {
-        return getFileGroupCount(partitionType, metadataConfig);
-      }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `danglingFilePaths.size() > 0` can be replaced with '!danglingFilePaths.isEmpty()'
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
 #### Snippet
@@ -1717,15 +1705,15 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValida
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`relativeFilePathsToDelete.size() > 0` can be replaced with '!relativeFilePathsToDelete.isEmpty()'
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+`latestFileSlices.size() == 0` can be replaced with 'latestFileSlices.isEmpty()'
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
 #### Snippet
 ```java
-          .flatMap(e -> e.getValue().stream())
-          .collect(Collectors.toList());
-      if (relativeFilePathsToDelete.size() > 0) {
-        if (!backupFiles(relativeFilePathsToDelete)) {
-          LOG.error("Error backing up dangling files. Exiting...");
+      final List<FileSlice> latestFileSlices = HoodieTableMetadataUtil
+          .getPartitionLatestFileSlices(metaClient.get(), fsView, partitionType.getPartitionPath());
+      if (latestFileSlices.size() == 0 && !partitionType.getPartitionPath().equals(MetadataPartitionType.FILES.getPartitionPath())) {
+        return getFileGroupCount(partitionType, metadataConfig);
+      }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1762,6 +1750,18 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveIn
     if (combinablePaths.size() > 0) {
       FileInputFormat.setInputPaths(job, combinablePaths.toArray(new Path[0]));
       Map<Path, PartitionDesc> pathToPartitionInfo = this.pathToPartitionInfo != null ? this.pathToPartitionInfo
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`relativeFilePathsToDelete.size() > 0` can be replaced with '!relativeFilePathsToDelete.isEmpty()'
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+          .flatMap(e -> e.getValue().stream())
+          .collect(Collectors.toList());
+      if (relativeFilePathsToDelete.size() > 0) {
+        if (!backupFiles(relativeFilePathsToDelete)) {
+          LOG.error("Error backing up dangling files. Exiting...");
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1813,42 +1813,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/checkpointing/KafkaCo
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`ws.getErrors().size() > 0` can be replaced with '!ws.getErrors().isEmpty()'
-in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/transaction/ConnectTransactionCoordinator.java`
-#### Snippet
-```java
-          allWriteStatuses.stream().filter(WriteStatus::hasErrors).limit(100).forEach(ws -> {
-            LOG.error("Global error :", ws.getGlobalError());
-            if (ws.getErrors().size() > 0) {
-              ws.getErrors().forEach((key, value) -> LOG.trace("Error for key:" + key + " is " + value));
-            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`buckets.size() > 0` can be replaced with '!buckets.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteFunction.java`
-#### Snippet
-```java
-    }
-    final List<WriteStatus> writeStatus;
-    if (buckets.size() > 0) {
-      writeStatus = new ArrayList<>();
-      this.buckets.values()
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`records.size() > 0` can be replaced with '!records.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteFunction.java`
-#### Snippet
-```java
-          .forEach(bucket -> {
-            List<HoodieRecord> records = bucket.writeBuffer();
-            if (records.size() > 0) {
-              if (config.getBoolean(FlinkOptions.PRE_COMBINE)) {
-                records = FlinkWriteHelper.newInstance().deduplicateRecords(records, (HoodieIndex) null, -1,
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `this.buckets.size() > 0` can be replaced with '!this.buckets.isEmpty()'
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteFunction.java`
 #### Snippet
@@ -1885,15 +1849,39 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWr
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`ws.getErrors().size() > 0` can be replaced with '!ws.getErrors().isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteOperatorCoordinator.java`
+`buckets.size() > 0` can be replaced with '!buckets.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteFunction.java`
 #### Snippet
 ```java
-        LOG.error("Global error for partition path {} and fileID {}: {}",
-            ws.getGlobalError(), ws.getPartitionPath(), ws.getFileId());
-        if (ws.getErrors().size() > 0) {
-          ws.getErrors().forEach((key, value) -> LOG.trace("Error for key:" + key + " and value " + value));
-        }
+    }
+    final List<WriteStatus> writeStatus;
+    if (buckets.size() > 0) {
+      writeStatus = new ArrayList<>();
+      this.buckets.values()
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`records.size() > 0` can be replaced with '!records.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteFunction.java`
+#### Snippet
+```java
+          .forEach(bucket -> {
+            List<HoodieRecord> records = bucket.writeBuffer();
+            if (records.size() > 0) {
+              if (config.getBoolean(FlinkOptions.PRE_COMBINE)) {
+                records = FlinkWriteHelper.newInstance().deduplicateRecords(records, (HoodieIndex) null, -1,
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`ws.getErrors().size() > 0` can be replaced with '!ws.getErrors().isEmpty()'
+in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/transaction/ConnectTransactionCoordinator.java`
+#### Snippet
+```java
+          allWriteStatuses.stream().filter(WriteStatus::hasErrors).limit(100).forEach(ws -> {
+            LOG.error("Global error :", ws.getGlobalError());
+            if (ws.getErrors().size() > 0) {
+              ws.getErrors().forEach((key, value) -> LOG.trace("Error for key:" + key + " is " + value));
+            }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1906,6 +1894,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWr
     if (writeResults.size() == 0) {
       // No data has written, reset the buffer and returns early
       reset();
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`ws.getErrors().size() > 0` can be replaced with '!ws.getErrors().isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteOperatorCoordinator.java`
+#### Snippet
+```java
+        LOG.error("Global error for partition path {} and fileID {}: {}",
+            ws.getGlobalError(), ws.getPartitionPath(), ws.getFileId());
+        if (ws.getErrors().size() > 0) {
+          ws.getErrors().forEach((key, value) -> LOG.trace("Error for key:" + key + " and value " + value));
+        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1957,18 +1957,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clusteri
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`types.size() == 0` can be replaced with 'types.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/AvroSchemaConverter.java`
-#### Snippet
-```java
-   */
-  private static boolean recordTypesOfSameNumFields(List<Schema> types) {
-    if (types == null || types.size() == 0) {
-      return false;
-    }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `partitions.size() > 0` can be replaced with '!partitions.isEmpty()'
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSink.java`
 #### Snippet
@@ -1977,6 +1965,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieT
     // #applyOverwrite should have been invoked.
     if (this.overwrite && partitions.size() > 0) {
       this.conf.setString(FlinkOptions.OPERATION, WriteOperationType.INSERT_OVERWRITE.value());
+    }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`types.size() == 0` can be replaced with 'types.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/AvroSchemaConverter.java`
+#### Snippet
+```java
+   */
+  private static boolean recordTypesOfSameNumFields(List<Schema> types) {
+    if (types == null || types.size() == 0) {
+      return false;
     }
 ```
 
@@ -2060,7 +2060,7 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieT
     fileIndex.setPartitionPaths(requiredPartitionPaths);
     List<String> relPartitionPaths = fileIndex.getOrBuildPartitionPaths();
     if (relPartitionPaths.size() == 0) {
-      return new FileStatus[0];
+      return Collections.emptyList();
     }
 ```
 
@@ -2072,7 +2072,7 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieT
     fileIndex.setPartitionPaths(requiredPartitionPaths);
     List<String> relPartitionPaths = fileIndex.getOrBuildPartitionPaths();
     if (relPartitionPaths.size() == 0) {
-      return Collections.emptyList();
+      return new FileStatus[0];
     }
 ```
 
@@ -2134,18 +2134,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/FileIn
     if (this.filters == null || this.filters.size() == 0) {
       return null;
     }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`this.inputSplits.size() == 0` can be replaced with 'this.inputSplits.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
-#### Snippet
-```java
-
-    public boolean isEmpty() {
-      return this.inputSplits.size() == 0;
-    }
-
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2257,6 +2245,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/Increm
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`this.inputSplits.size() == 0` can be replaced with 'this.inputSplits.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
+#### Snippet
+```java
+
+    public boolean isEmpty() {
+      return this.inputSplits.size() == 0;
+    }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `filtered.size() > 0` can be replaced with '!filtered.isEmpty()'
 in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
 #### Snippet
@@ -2359,18 +2359,6 @@ Empty string used in concatenation
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
 #### Snippet
 ```java
-          newV.putDouble(i, isInt ? oldV.getInt(i) : oldV.getLong(i));
-        } else if (newType instanceof StringType) {
-          newV.putByteArray(i, ((isInt ? oldV.getInt(i) : oldV.getLong(i)) + "").getBytes(StandardCharsets.UTF_8));
-        } else if (newType instanceof DecimalType) {
-          Decimal oldDecimal = Decimal.apply(isInt ? oldV.getInt(i) : oldV.getLong(i));
-```
-
-### RuleId[ruleID=TrivialStringConcatenation]
-Empty string used in concatenation
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
-#### Snippet
-```java
         // float -> double/string/decimal
         if (newType instanceof DoubleType) {
           newV.putDouble(i, Double.valueOf(oldV.getFloat(i) + ""));
@@ -2392,14 +2380,14 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/Spa
 
 ### RuleId[ruleID=TrivialStringConcatenation]
 Empty string used in concatenation
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
 #### Snippet
 ```java
-        if (oldSchema.getType() == Schema.Type.FLOAT) {
-          // java float cannot convert to double directly, deal with float precision change
-          return Double.valueOf(oldValue + "");
-        } else if (oldSchema.getType() == Schema.Type.INT) {
-          return ((Integer) oldValue).doubleValue();
+          newV.putDouble(i, isInt ? oldV.getInt(i) : oldV.getLong(i));
+        } else if (newType instanceof StringType) {
+          newV.putByteArray(i, ((isInt ? oldV.getInt(i) : oldV.getLong(i)) + "").getBytes(StandardCharsets.UTF_8));
+        } else if (newType instanceof DecimalType) {
+          Decimal oldDecimal = Decimal.apply(isInt ? oldV.getInt(i) : oldV.getLong(i));
 ```
 
 ### RuleId[ruleID=TrivialStringConcatenation]
@@ -2412,6 +2400,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/NumericUtils.java`
     String pre = "KMGTPE".charAt(exp - 1) + "";
     return String.format("%.1f %sB", bytes / Math.pow(1024, exp), pre);
   }
+```
+
+### RuleId[ruleID=TrivialStringConcatenation]
+Empty string used in concatenation
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
+        if (oldSchema.getType() == Schema.Type.FLOAT) {
+          // java float cannot convert to double directly, deal with float precision change
+          return Double.valueOf(oldValue + "");
+        } else if (oldSchema.getType() == Schema.Type.INT) {
+          return ((Integer) oldValue).doubleValue();
 ```
 
 ### RuleId[ruleID=TrivialStringConcatenation]
@@ -2468,11 +2468,59 @@ Primitive type members cannot be annotated
 in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 #### Snippet
 ```java
+     * Total time taken by a Hoodie Insert to a file.
+     */
+    @Nullable
+    private long totalCreateTime;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
      * Total time taken by a Hoodie Merge for an existing file.
      */
     @Nullable
     private long totalUpsertTime;
 
+```
+
+### RuleId[ruleID=NullableProblems]
+Getter for @Nullable field might be annotated @Nullable itself
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+  }
+
+  public Long getMaxEventTime() {
+    return maxEventTime;
+  }
+```
+
+### RuleId[ruleID=NullableProblems]
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+   * Total number of corrupt blocks seen in a compaction operation.
+   */
+  @Nullable
+  private long totalCorruptLogBlock;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+    }
+
+    public void setTotalCreateTime(@Nullable long totalCreateTime) {
+      this.totalCreateTime = totalCreateTime;
+    }
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -2504,10 +2552,10 @@ Primitive type members cannot be annotated
 in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 #### Snippet
 ```java
-   * Total number of rollback blocks seen in a compaction operation.
+   * Total number of log blocks seen in a compaction operation.
    */
   @Nullable
-  private long totalRollbackBlocks;
+  private long totalLogBlocks;
 
 ```
 
@@ -2516,10 +2564,70 @@ Primitive type members cannot be annotated
 in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 #### Snippet
 ```java
-     * Total time taken to read and merge logblocks in a log file.
-     */
+   * Total number of log records that were compacted by a compaction operation.
+   */
+  @Nullable
+  private long totalLogRecords;
+
+```
+
+### RuleId[ruleID=NullableProblems]
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+    }
+
     @Nullable
-    private long totalScanTime;
+    public long getTotalUpsertTime() {
+      return totalUpsertTime;
+```
+
+### RuleId[ruleID=NullableProblems]
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+    }
+
+    public void setTotalUpsertTime(@Nullable long totalUpsertTime) {
+      this.totalUpsertTime = totalUpsertTime;
+    }
+```
+
+### RuleId[ruleID=NullableProblems]
+Setter parameter for @Nullable field might be annotated @Nullable itself
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+  }
+
+  public void setPartitionPath(String partitionPath) {
+    this.partitionPath = partitionPath;
+  }
+```
+
+### RuleId[ruleID=NullableProblems]
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+    }
+
+    @Nullable
+    public long getTotalCreateTime() {
+      return totalCreateTime;
+```
+
+### RuleId[ruleID=NullableProblems]
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+   * Total number of rollback blocks seen in a compaction operation.
+   */
+  @Nullable
+  private long totalRollbackBlocks;
 
 ```
 
@@ -2552,10 +2660,22 @@ Primitive type members cannot be annotated
 in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 #### Snippet
 ```java
-   * Total number of log records that were compacted by a compaction operation.
-   */
-  @Nullable
-  private long totalLogRecords;
+    }
+
+    public void setTotalScanTime(@Nullable long totalScanTime) {
+      this.totalScanTime = totalScanTime;
+    }
+```
+
+### RuleId[ruleID=NullableProblems]
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+     * Total time taken to read and merge logblocks in a log file.
+     */
+    @Nullable
+    private long totalScanTime;
 
 ```
 
@@ -2564,11 +2684,11 @@ Primitive type members cannot be annotated
 in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 #### Snippet
 ```java
-    private long totalCreateTime;
+   * Total number of log files compacted for a file slice with this base fileid.
+   */
+  @Nullable
+  private long totalLogFilesCompacted;
 
-    @Nullable
-    public long getTotalScanTime() {
-      return totalScanTime;
 ```
 
 ### RuleId[ruleID=NullableProblems]
@@ -2590,141 +2710,21 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 ```java
   }
 
-  public Long getMaxEventTime() {
-    return maxEventTime;
-  }
-```
-
-### RuleId[ruleID=NullableProblems]
-Setter parameter for @Nullable field might be annotated @Nullable itself
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-  }
-
-  public void setPartitionPath(String partitionPath) {
-    this.partitionPath = partitionPath;
-  }
-```
-
-### RuleId[ruleID=NullableProblems]
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-    }
-
-    @Nullable
-    public long getTotalCreateTime() {
-      return totalCreateTime;
-```
-
-### RuleId[ruleID=NullableProblems]
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-    }
-
-    public void setTotalScanTime(@Nullable long totalScanTime) {
-      this.totalScanTime = totalScanTime;
-    }
-```
-
-### RuleId[ruleID=NullableProblems]
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-    }
-
-    @Nullable
-    public long getTotalUpsertTime() {
-      return totalUpsertTime;
-```
-
-### RuleId[ruleID=NullableProblems]
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-   * Total number of log blocks seen in a compaction operation.
-   */
-  @Nullable
-  private long totalLogBlocks;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-     * Total time taken by a Hoodie Insert to a file.
-     */
-    @Nullable
-    private long totalCreateTime;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-   * Total number of corrupt blocks seen in a compaction operation.
-   */
-  @Nullable
-  private long totalCorruptLogBlock;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-   * Total number of log files compacted for a file slice with this base fileid.
-   */
-  @Nullable
-  private long totalLogFilesCompacted;
-
-```
-
-### RuleId[ruleID=NullableProblems]
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-    }
-
-    public void setTotalCreateTime(@Nullable long totalCreateTime) {
-      this.totalCreateTime = totalCreateTime;
-    }
-```
-
-### RuleId[ruleID=NullableProblems]
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-    }
-
-    public void setTotalUpsertTime(@Nullable long totalUpsertTime) {
-      this.totalUpsertTime = totalUpsertTime;
-    }
-```
-
-### RuleId[ruleID=NullableProblems]
-Getter for @Nullable field might be annotated @Nullable itself
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-  }
-
   public String getPartitionPath() {
     return partitionPath;
   }
+```
+
+### RuleId[ruleID=NullableProblems]
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+    private long totalCreateTime;
+
+    @Nullable
+    public long getTotalScanTime() {
+      return totalScanTime;
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -2758,8 +2758,8 @@ Result of `HoodieCLI.getTableMetaClient()` is ignored
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
 #### Snippet
 ```java
-      @ShellOption(value = "--sparkMaster", defaultValue = SparkUtil.DEFAULT_SPARK_MASTER, help = "Spark master") final String master
-  ) throws IOException {
+                     @ShellOption(value = {"--readonly"}, defaultValue = "false",
+                         help = "Open in read-only mode") final boolean readOnly) throws Exception {
     HoodieCLI.getTableMetaClient();
     Path metadataPath = new Path(getMetadataTableBasePath(HoodieCLI.basePath));
     try {
@@ -2770,8 +2770,8 @@ Result of `HoodieCLI.getTableMetaClient()` is ignored
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
 #### Snippet
 ```java
-  @ShellMethod(key = "metadata delete", value = "Remove the Metadata Table")
-  public String delete() throws Exception {
+      @ShellOption(value = "--sparkMaster", defaultValue = SparkUtil.DEFAULT_SPARK_MASTER, help = "Spark master") final String master
+  ) throws IOException {
     HoodieCLI.getTableMetaClient();
     Path metadataPath = new Path(getMetadataTableBasePath(HoodieCLI.basePath));
     try {
@@ -2794,6 +2794,18 @@ Result of `HoodieCLI.getTableMetaClient()` is ignored
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
 #### Snippet
 ```java
+      @ShellOption(value = "--sparkMaster", defaultValue = SparkUtil.DEFAULT_SPARK_MASTER, help = "Spark master") final String master
+  ) throws IOException {
+    HoodieCLI.getTableMetaClient();
+    initJavaSparkContext(Option.of(master));
+    HoodieMetadataConfig config = HoodieMetadataConfig.newBuilder().enable(true).build();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `HoodieCLI.getTableMetaClient()` is ignored
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
+#### Snippet
+```java
   @ShellMethod(key = "metadata stats", value = "Print stats about the metadata")
   public String stats() throws IOException {
     HoodieCLI.getTableMetaClient();
@@ -2806,8 +2818,8 @@ Result of `HoodieCLI.getTableMetaClient()` is ignored
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
 #### Snippet
 ```java
-                     @ShellOption(value = {"--readonly"}, defaultValue = "false",
-                         help = "Open in read-only mode") final boolean readOnly) throws Exception {
+  @ShellMethod(key = "metadata delete", value = "Remove the Metadata Table")
+  public String delete() throws Exception {
     HoodieCLI.getTableMetaClient();
     Path metadataPath = new Path(getMetadataTableBasePath(HoodieCLI.basePath));
     try {
@@ -2823,30 +2835,6 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
     HoodieCLI.getTableMetaClient();
     HoodieMetadataConfig config = HoodieMetadataConfig.newBuilder().enable(true).build();
     HoodieBackedTableMetadata metadataReader = new HoodieBackedTableMetadata(
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `HoodieCLI.getTableMetaClient()` is ignored
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
-#### Snippet
-```java
-      @ShellOption(value = "--sparkMaster", defaultValue = SparkUtil.DEFAULT_SPARK_MASTER, help = "Spark master") final String master
-  ) throws IOException {
-    HoodieCLI.getTableMetaClient();
-    initJavaSparkContext(Option.of(master));
-    HoodieMetadataConfig config = HoodieMetadataConfig.newBuilder().enable(true).build();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.mkdirs()` is ignored
-in `hudi-common/src/main/java/org/apache/hudi/common/util/FileIOUtils.java`
-#### Snippet
-```java
-  public static void mkdir(File directory) throws IOException {
-    if (!directory.exists()) {
-      directory.mkdirs();
-    }
-
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -2874,27 +2862,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/FileIOUtils.java`
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.delete()` is ignored
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDiskMap.java`
+Result of `File.mkdirs()` is ignored
+in `hudi-common/src/main/java/org/apache/hudi/common/util/FileIOUtils.java`
 #### Snippet
 ```java
-        }
-      }
-      writeOnlyFile.delete();
-      this.iterators.forEach(ClosableIterator::close);
-    } catch (Exception e) {
-```
+  public static void mkdir(File directory) throws IOException {
+    if (!directory.exists()) {
+      directory.mkdirs();
+    }
 
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.delete()` is ignored
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDiskMap.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      // delete the file for any sort of exception
-      writeOnlyFile.delete();
-    } finally {
-      super.close();
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -2931,6 +2907,54 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDisk
     writeOnlyFile.createNewFile();
     LOG.debug("Spilling to file location " + writeOnlyFile.getAbsolutePath());
     // Make sure file is deleted when JVM exits
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `File.delete()` is ignored
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDiskMap.java`
+#### Snippet
+```java
+        }
+      }
+      writeOnlyFile.delete();
+      this.iterators.forEach(ClosableIterator::close);
+    } catch (Exception e) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `File.delete()` is ignored
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDiskMap.java`
+#### Snippet
+```java
+    } catch (Exception e) {
+      // delete the file for any sort of exception
+      writeOnlyFile.delete();
+    } finally {
+      super.close();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `File.mkdirs()` is ignored
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+      LOG.info("Creating Partition To File groups map using external spillable Map. Max Mem=" + maxMemoryForFileGroupMap
+          + ", BaseDir=" + baseStoreDir);
+      new File(baseStoreDir).mkdirs();
+      return (Map<String, List<HoodieFileGroup>>) (new ExternalSpillableMap<>(maxMemoryForFileGroupMap, baseStoreDir,
+          new DefaultSizeEstimator(), new DefaultSizeEstimator<>(),
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `File.mkdirs()` is ignored
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+      LOG.info("Creating Pending Log Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingLogCompaction
+          + ", BaseDir=" + baseStoreDir);
+      new File(baseStoreDir).mkdirs();
+      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> pendingMap = new ExternalSpillableMap<>(
+          maxMemoryForPendingLogCompaction, baseStoreDir, new DefaultSizeEstimator(), new DefaultSizeEstimator<>(),
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -2974,35 +2998,11 @@ Result of `File.mkdirs()` is ignored
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
 #### Snippet
 ```java
-      LOG.info("Creating Pending Log Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingLogCompaction
-          + ", BaseDir=" + baseStoreDir);
-      new File(baseStoreDir).mkdirs();
-      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> pendingMap = new ExternalSpillableMap<>(
-          maxMemoryForPendingLogCompaction, baseStoreDir, new DefaultSizeEstimator(), new DefaultSizeEstimator<>(),
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.mkdirs()` is ignored
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
       LOG.info("Creating bootstrap base File Map using external spillable Map. Max Mem=" + maxMemoryForBootstrapBaseFile
           + ", BaseDir=" + baseStoreDir);
       new File(baseStoreDir).mkdirs();
       Map<HoodieFileGroupId, BootstrapBaseFileMapping> pendingMap = new ExternalSpillableMap<>(
           maxMemoryForBootstrapBaseFile, baseStoreDir, new DefaultSizeEstimator(), new DefaultSizeEstimator<>(),
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.mkdirs()` is ignored
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-      LOG.info("Creating Partition To File groups map using external spillable Map. Max Mem=" + maxMemoryForFileGroupMap
-          + ", BaseDir=" + baseStoreDir);
-      new File(baseStoreDir).mkdirs();
-      return (Map<String, List<HoodieFileGroup>>) (new ExternalSpillableMap<>(maxMemoryForFileGroupMap, baseStoreDir,
-          new DefaultSizeEstimator(), new DefaultSizeEstimator<>(),
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -3116,18 +3116,6 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/HoodieFlin
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `isWorkloadProfileNeeded()` is identical to its super method
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/commit/BaseFlinkCommitActionExecutor.java`
-#### Snippet
-```java
-
-  @Override
-  protected boolean isWorkloadProfileNeeded() {
-    return true;
-  }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
 Method `getCommitActionType()` is identical to its super method
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/commit/BaseFlinkCommitActionExecutor.java`
 #### Snippet
@@ -3140,6 +3128,18 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/com
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
+Method `isWorkloadProfileNeeded()` is identical to its super method
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/commit/BaseFlinkCommitActionExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  protected boolean isWorkloadProfileNeeded() {
+    return true;
+  }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
 Method `start()` is identical to its super method
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/HoodieBloomIndexCheckFunction.java`
 #### Snippet
@@ -3164,18 +3164,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/Hood
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `start()` is identical to its super method
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/HoodieMetadataBloomIndexCheckFunction.java`
-#### Snippet
-```java
-
-    @Override
-    protected void start() {
-    }
-
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
 Method `end()` is identical to its super method
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/HoodieMetadataBloomIndexCheckFunction.java`
 #### Snippet
@@ -3185,6 +3173,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/Hood
     protected void end() {
     }
   }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `start()` is identical to its super method
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/HoodieMetadataBloomIndexCheckFunction.java`
+#### Snippet
+```java
+
+    @Override
+    protected void start() {
+    }
+
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
@@ -3200,18 +3200,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bucket/Hoo
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `scheduleRollback()` is identical to its super method
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/HoodieSparkMergeOnReadTable.java`
-#### Snippet
-```java
-
-  @Override
-  public Option<HoodieRollbackPlan> scheduleRollback(HoodieEngineContext context,
-                                                     String instantTime,
-                                                     HoodieInstant instantToRollback, boolean skipTimelinePublish, boolean shouldRollbackUsingMarkers) {
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
 Method `finalizeWrite()` only delegates to its super method
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/HoodieSparkMergeOnReadTable.java`
 #### Snippet
@@ -3221,6 +3209,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/HoodieSpar
   public void finalizeWrite(HoodieEngineContext context, String instantTs, List<HoodieWriteStat> stats)
       throws HoodieIOException {
     // delegate to base class for MOR tables
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `scheduleRollback()` is identical to its super method
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/HoodieSparkMergeOnReadTable.java`
+#### Snippet
+```java
+
+  @Override
+  public Option<HoodieRollbackPlan> scheduleRollback(HoodieEngineContext context,
+                                                     String instantTime,
+                                                     HoodieInstant instantToRollback, boolean skipTimelinePublish, boolean shouldRollbackUsingMarkers) {
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
@@ -3260,18 +3260,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/storage/Hood
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `end()` is identical to its super method
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/HoodieBaseBloomIndexCheckFunction.java`
-#### Snippet
-```java
-
-    @Override
-    protected void end() {
-    }
-  }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
 Method `start()` is identical to its super method
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/HoodieBaseBloomIndexCheckFunction.java`
 #### Snippet
@@ -3284,14 +3272,14 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Hoo
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `getWriterSchemaWithMetaFields()` is identical to its super method
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
+Method `end()` is identical to its super method
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/HoodieBaseBloomIndexCheckFunction.java`
 #### Snippet
 ```java
 
-  @Override
-  public Schema getWriterSchemaWithMetaFields() {
-    return writeSchemaWithMetaFields;
+    @Override
+    protected void end() {
+    }
   }
 ```
 
@@ -3305,6 +3293,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
     public void finish() {}
 
     @Override
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `getWriterSchemaWithMetaFields()` is identical to its super method
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
+#### Snippet
+```java
+
+  @Override
+  public Schema getWriterSchemaWithMetaFields() {
+    return writeSchemaWithMetaFields;
+  }
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
@@ -3417,7 +3417,7 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Type.java`
 
 ### RuleId[ruleID=RedundantMethodOverride]
 Method `withPositionChange()` is identical to its super method
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChanges.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChange.java`
 #### Snippet
 ```java
 
@@ -3429,7 +3429,7 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChange
 
 ### RuleId[ruleID=RedundantMethodOverride]
 Method `withPositionChange()` is identical to its super method
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChange.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChanges.java`
 #### Snippet
 ```java
 
@@ -3568,18 +3568,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/WorkloadS
 #### Snippet
 ```java
         location.getFileId(),
-        Pair.of(location.getInstantTime(), numInserts + accNumInserts));
-    return this.numInserts += numInserts;
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/WorkloadStat.java`
-#### Snippet
-```java
-        location.getFileId(),
         Pair.of(location.getInstantTime(), numUpdates + accNumUpdates));
     return this.numUpdates += numUpdates;
   }
@@ -3593,6 +3581,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/WorkloadS
 ```java
 
   public long addInserts(long numInserts) {
+    return this.numInserts += numInserts;
+  }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/WorkloadStat.java`
+#### Snippet
+```java
+        location.getFileId(),
+        Pair.of(location.getInstantTime(), numInserts + accNumInserts));
     return this.numInserts += numInserts;
   }
 
@@ -3744,18 +3744,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/FailSafeConsistencyGuard
 ```
 
 ### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`temp = temp | (((long) paddedBytes[i] & 0xff) << (7 - i) * 8)` could be simplified to 'temp \|= (((long) paddedBytes\[i\] \& 0xff) \<\< (7 - i) \* 8)'
-in `hudi-common/src/main/java/org/apache/hudi/common/util/BinaryUtil.java`
-#### Snippet
-```java
-    long temp = 0L;
-    for (int i = 7; i >= 0; i--) {
-      temp = temp | (((long) paddedBytes[i] & 0xff) << (7 - i) * 8);
-    }
-    return temp;
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 `temp = (byte) (temp << (bpos - apos))` could be simplified to 'temp \<\<= (bpos - apos)'
 in `hudi-common/src/main/java/org/apache/hudi/common/util/BinaryUtil.java`
 #### Snippet
@@ -3777,6 +3765,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/BinaryUtil.java`
       temp = (byte) (temp >> (apos - bpos));
     }
     byte atemp = (byte) (a & (1 << (7 - apos)));
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`temp = temp | (((long) paddedBytes[i] & 0xff) << (7 - i) * 8)` could be simplified to 'temp \|= (((long) paddedBytes\[i\] \& 0xff) \<\< (7 - i) \* 8)'
+in `hudi-common/src/main/java/org/apache/hudi/common/util/BinaryUtil.java`
+#### Snippet
+```java
+    long temp = 0L;
+    for (int i = 7; i >= 0; i--) {
+      temp = temp | (((long) paddedBytes[i] & 0xff) << (7 - i) * 8);
+    }
+    return temp;
 ```
 
 ### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
@@ -3866,18 +3866,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHood
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `currentTxnOwnerInstant` is accessed in both synchronized and unsynchronized contexts
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/transaction/TransactionManager.java`
-#### Snippet
-```java
-  private final LockManager lockManager;
-  private final boolean isOptimisticConcurrencyControlEnabled;
-  private Option<HoodieInstant> currentTxnOwnerInstant = Option.empty();
-  private Option<HoodieInstant> lastCompletedTxnOwnerInstant = Option.empty();
-
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `lastCompletedTxnOwnerInstant` is accessed in both synchronized and unsynchronized contexts
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/transaction/TransactionManager.java`
 #### Snippet
@@ -3887,6 +3875,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/transact
   private Option<HoodieInstant> lastCompletedTxnOwnerInstant = Option.empty();
 
   public TransactionManager(HoodieWriteConfig config, FileSystem fs) {
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `currentTxnOwnerInstant` is accessed in both synchronized and unsynchronized contexts
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/transaction/TransactionManager.java`
+#### Snippet
+```java
+  private final LockManager lockManager;
+  private final boolean isOptimisticConcurrencyControlEnabled;
+  private Option<HoodieInstant> currentTxnOwnerInstant = Option.empty();
+  private Option<HoodieInstant> lastCompletedTxnOwnerInstant = Option.empty();
+
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -3926,27 +3926,15 @@ in `hudi-common/src/main/java/org/apache/hudi/util/Lazy.java`
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `rocksDb` is accessed in both synchronized and unsynchronized contexts
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDbDiskMap.java`
-#### Snippet
-```java
-  // Stores the key and corresponding value's latest metadata spilled to disk
-  private final Set<T> keySet;
-  private RocksDBDAO rocksDb;
-
-  public RocksDbDiskMap(String rocksDbStoragePath) throws IOException {
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `closed` is accessed in both synchronized and unsynchronized contexts
+Field `managedHandlesMap` is accessed in both synchronized and unsynchronized contexts
 in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDBDAO.java`
 #### Snippet
 ```java
+  private static final Logger LOG = LogManager.getLogger(RocksDBDAO.class);
+
+  private transient ConcurrentHashMap<String, ColumnFamilyHandle> managedHandlesMap;
   private transient ConcurrentHashMap<String, ColumnFamilyDescriptor> managedDescriptorMap;
   private transient RocksDB rocksDB;
-  private boolean closed = false;
-  private final String rocksDBBasePath;
-  private long totalBytesWritten;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -3962,39 +3950,63 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDBDAO.
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `managedHandlesMap` is accessed in both synchronized and unsynchronized contexts
+Field `closed` is accessed in both synchronized and unsynchronized contexts
 in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDBDAO.java`
 #### Snippet
 ```java
-  private static final Logger LOG = LogManager.getLogger(RocksDBDAO.class);
-
-  private transient ConcurrentHashMap<String, ColumnFamilyHandle> managedHandlesMap;
   private transient ConcurrentHashMap<String, ColumnFamilyDescriptor> managedDescriptorMap;
   private transient RocksDB rocksDB;
+  private boolean closed = false;
+  private final String rocksDBBasePath;
+  private long totalBytesWritten;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `totalLogRecords` is accessed in both synchronized and unsynchronized contexts
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+Field `rocksDb` is accessed in both synchronized and unsynchronized contexts
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDbDiskMap.java`
 #### Snippet
 ```java
-  private AtomicLong totalLogBlocks = new AtomicLong(0);
-  // Total log records read - for metrics
-  private AtomicLong totalLogRecords = new AtomicLong(0);
-  // Total number of rollbacks written across all log files
-  private AtomicLong totalRollbacks = new AtomicLong(0);
+  // Stores the key and corresponding value's latest metadata spilled to disk
+  private final Set<T> keySet;
+  private RocksDBDAO rocksDb;
+
+  public RocksDbDiskMap(String rocksDbStoragePath) throws IOException {
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `totalLogBlocks` is accessed in both synchronized and unsynchronized contexts
+Field `partitionName` is accessed in both synchronized and unsynchronized contexts
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
 #### Snippet
 ```java
-  private final String path;
-  // Total log blocks read - for metrics
-  private AtomicLong totalLogBlocks = new AtomicLong(0);
-  // Total log records read - for metrics
-  private AtomicLong totalLogRecords = new AtomicLong(0);
+  private float progress = 0.0f;
+  // Partition name
+  private Option<String> partitionName;
+  // Populate meta fields for the records
+  private boolean populateMetaFields = true;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `currentInstantLogBlocks` is accessed in both synchronized and unsynchronized contexts
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+#### Snippet
+```java
+  private AtomicLong totalCorruptBlocks = new AtomicLong(0);
+  // Store the last instant log blocks (needed to implement rollback)
+  private Deque<HoodieLogBlock> currentInstantLogBlocks = new ArrayDeque<>();
+  // Enables full scan of log records
+  protected final boolean forceFullScan;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `progress` is accessed in both synchronized and unsynchronized contexts
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+#### Snippet
+```java
+  private int totalScannedLogFiles;
+  // Progress
+  private float progress = 0.0f;
+  // Partition name
+  private Option<String> partitionName;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -4022,15 +4034,27 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLog
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `simpleKeyGenFields` is accessed in both synchronized and unsynchronized contexts
+Field `totalLogRecords` is accessed in both synchronized and unsynchronized contexts
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
 #### Snippet
 ```java
-  private final Properties payloadProps = new Properties();
-  // simple key gen fields
-  private Option<Pair<String, String>> simpleKeyGenFields = Option.empty();
-  // Log File Paths
-  protected final List<String> logFilePaths;
+  private AtomicLong totalLogBlocks = new AtomicLong(0);
+  // Total log records read - for metrics
+  private AtomicLong totalLogRecords = new AtomicLong(0);
+  // Total number of rollbacks written across all log files
+  private AtomicLong totalRollbacks = new AtomicLong(0);
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `totalLogBlocks` is accessed in both synchronized and unsynchronized contexts
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+#### Snippet
+```java
+  private final String path;
+  // Total log blocks read - for metrics
+  private AtomicLong totalLogBlocks = new AtomicLong(0);
+  // Total log records read - for metrics
+  private AtomicLong totalLogRecords = new AtomicLong(0);
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -4046,6 +4070,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLog
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `simpleKeyGenFields` is accessed in both synchronized and unsynchronized contexts
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+#### Snippet
+```java
+  private final Properties payloadProps = new Properties();
+  // simple key gen fields
+  private Option<Pair<String, String>> simpleKeyGenFields = Option.empty();
+  // Log File Paths
+  protected final List<String> logFilePaths;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `totalRollbacks` is accessed in both synchronized and unsynchronized contexts
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
 #### Snippet
@@ -4058,42 +4094,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLog
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `currentInstantLogBlocks` is accessed in both synchronized and unsynchronized contexts
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
-#### Snippet
-```java
-  private AtomicLong totalCorruptBlocks = new AtomicLong(0);
-  // Store the last instant log blocks (needed to implement rollback)
-  private Deque<HoodieLogBlock> currentInstantLogBlocks = new ArrayDeque<>();
-  // Enables full scan of log records
-  protected final boolean forceFullScan;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `partitionName` is accessed in both synchronized and unsynchronized contexts
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
-#### Snippet
-```java
-  private float progress = 0.0f;
-  // Partition name
-  private Option<String> partitionName;
-  // Populate meta fields for the records
-  private boolean populateMetaFields = true;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `progress` is accessed in both synchronized and unsynchronized contexts
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
-#### Snippet
-```java
-  private int totalScannedLogFiles;
-  // Progress
-  private float progress = 0.0f;
-  // Partition name
-  private Option<String> partitionName;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `counters` is accessed in both synchronized and unsynchronized contexts
 in `hudi-common/src/main/java/org/apache/hudi/common/metrics/LocalRegistry.java`
 #### Snippet
@@ -4102,6 +4102,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/metrics/LocalRegistry.java`
 public class LocalRegistry implements Registry {
   ConcurrentHashMap<String, Counter> counters = new ConcurrentHashMap<>();
   private final String name;
+
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `indexByPartitionReader` is accessed in both synchronized and unsynchronized contexts
+in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
+#### Snippet
+```java
+
+    // Index Readers
+    private transient HFile.Reader indexByPartitionReader;
+    private transient HFile.Reader indexByFileIdReader;
 
 ```
 
@@ -4118,27 +4130,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootst
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `indexByPartitionReader` is accessed in both synchronized and unsynchronized contexts
-in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
+Field `taskID` is accessed in both synchronized and unsynchronized contexts
+in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/factory/CollectSinkTableFactory.java`
 #### Snippet
 ```java
+    protected transient List<Row> localResult;
 
-    // Index Readers
-    private transient HFile.Reader indexByPartitionReader;
-    private transient HFile.Reader indexByFileIdReader;
+    private int taskID;
 
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `dataBuffer` is accessed in both synchronized and unsynchronized contexts
-in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/source/ContinuousFileSource.java`
-#### Snippet
-```java
-  public static class BoundedSourceFunction implements SourceFunction<String>, CheckpointListener {
-    private final Path path;
-    private List<String> dataBuffer;
-
-    private final int checkpoints;
+    protected CollectSinkFunction(DynamicTableSink.DataStructureConverter converter, RowTypeInfo rowTypeInfo) {
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -4154,15 +4154,15 @@ in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/qui
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `taskID` is accessed in both synchronized and unsynchronized contexts
-in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/factory/CollectSinkTableFactory.java`
+Field `dataBuffer` is accessed in both synchronized and unsynchronized contexts
+in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/source/ContinuousFileSource.java`
 #### Snippet
 ```java
-    protected transient List<Row> localResult;
+  public static class BoundedSourceFunction implements SourceFunction<String>, CheckpointListener {
+    private final Path path;
+    private List<String> dataBuffer;
 
-    private int taskID;
-
-    protected CollectSinkFunction(DynamicTableSink.DataStructureConverter converter, RowTypeInfo rowTypeInfo) {
+    private final int checkpoints;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -4202,18 +4202,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `issuedInstant` is accessed in both synchronized and unsynchronized contexts
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/StreamReadMonitoringFunction.java`
-#### Snippet
-```java
-  private volatile boolean isRunning = true;
-
-  private String issuedInstant;
-
-  private transient ListState<String> instantState;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `checkpointLock` is accessed in both synchronized and unsynchronized contexts
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/StreamReadMonitoringFunction.java`
 #### Snippet
@@ -4226,15 +4214,15 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/Stream
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `dispatchingThreadFuture` is accessed in both synchronized and unsynchronized contexts
-in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handlers/MarkerHandler.java`
+Field `issuedInstant` is accessed in both synchronized and unsynchronized contexts
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/StreamReadMonitoringFunction.java`
 #### Snippet
 ```java
-  private final Object firstCreationRequestSeenLock = new Object();
-  private transient HoodieEngineContext hoodieEngineContext;
-  private ScheduledFuture<?> dispatchingThreadFuture;
-  private boolean firstCreationRequestSeen;
+  private volatile boolean isRunning = true;
 
+  private String issuedInstant;
+
+  private transient ListState<String> instantState;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -4247,6 +4235,18 @@ in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handler
   private boolean firstCreationRequestSeen;
 
   public MarkerHandler(Configuration conf, TimelineService.Config timelineServiceConfig,
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `dispatchingThreadFuture` is accessed in both synchronized and unsynchronized contexts
+in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handlers/MarkerHandler.java`
+#### Snippet
+```java
+  private final Object firstCreationRequestSeenLock = new Object();
+  private transient HoodieEngineContext hoodieEngineContext;
+  private ScheduledFuture<?> dispatchingThreadFuture;
+  private boolean firstCreationRequestSeen;
+
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -4292,6 +4292,18 @@ Call to `concat()` can be replaced with '+' expression
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
 #### Snippet
 ```java
+  public static String getBloomFilterIndexKey(PartitionIndexID partitionIndexID, FileIndexID fileIndexID) {
+    return partitionIndexID.asBase64EncodedString()
+        .concat(fileIndexID.asBase64EncodedString());
+  }
+
+```
+
+### RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
+Call to `concat()` can be replaced with '+' expression
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
+#### Snippet
+```java
   public static String getColumnStatsIndexKey(PartitionIndexID partitionIndexID, FileIndexID fileIndexID, ColumnIndexID columnIndexID) {
     return columnIndexID.asBase64EncodedString()
         .concat(partitionIndexID.asBase64EncodedString())
@@ -4306,18 +4318,6 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.jav
 ```java
     return columnIndexID.asBase64EncodedString()
         .concat(partitionIndexID.asBase64EncodedString())
-        .concat(fileIndexID.asBase64EncodedString());
-  }
-
-```
-
-### RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-Call to `concat()` can be replaced with '+' expression
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
-#### Snippet
-```java
-  public static String getBloomFilterIndexKey(PartitionIndexID partitionIndexID, FileIndexID fileIndexID) {
-    return partitionIndexID.asBase64EncodedString()
         .concat(fileIndexID.asBase64EncodedString());
   }
 
@@ -4374,18 +4374,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/transform/SqlFileBase
 ## RuleId[ruleID=DuplicateThrows]
 ### RuleId[ruleID=DuplicateThrows]
 There is a more general exception, 'java.io.IOException', in the throws list already.
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieRetryWrapperFileSystem.java`
-#### Snippet
-```java
-
-  @Override
-  public FileStatus[] listStatus(Path f) throws FileNotFoundException, IOException {
-    return (FileStatus[]) new RetryHelper(maxRetryIntervalMs, maxRetryNumbers, initialRetryIntervalMs, retryExceptionsList).tryWith(() -> fileSystem.listStatus(f)).start();
-  }
-```
-
-### RuleId[ruleID=DuplicateThrows]
-There is a more general exception, 'java.io.IOException', in the throws list already.
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InMemoryFileSystem.java`
 #### Snippet
 ```java
@@ -4393,6 +4381,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InMemoryFileSyste
   @Override
   public FileStatus[] listStatus(Path inlinePath) throws FileNotFoundException, IOException {
     throw new UnsupportedOperationException("No support for listStatus");
+  }
+```
+
+### RuleId[ruleID=DuplicateThrows]
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieRetryWrapperFileSystem.java`
+#### Snippet
+```java
+
+  @Override
+  public FileStatus[] listStatus(Path f) throws FileNotFoundException, IOException {
+    return (FileStatus[]) new RetryHelper(maxRetryIntervalMs, maxRetryNumbers, initialRetryIntervalMs, retryExceptionsList).tryWith(() -> fileSystem.listStatus(f)).start();
   }
 ```
 
@@ -4426,11 +4426,11 @@ Lock operations on a class may have unforeseen side-effects
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
 #### Snippet
 ```java
-      List<WriteStatus> writeStatusList = new ArrayList<>();
-      // Grab the global HBase connection
-      synchronized (SparkHoodieHBaseIndex.class) {
-        if (hbaseConnection == null || hbaseConnection.isClosed()) {
-          hbaseConnection = getHBaseConnection();
+    }
+
+    synchronized (SparkHoodieHBaseIndex.class) {
+      if (hbaseConnection == null || hbaseConnection.isClosed()) {
+        hbaseConnection = getHBaseConnection();
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -4438,11 +4438,11 @@ Lock operations on a class may have unforeseen side-effects
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
 #### Snippet
 ```java
-    }
-
-    synchronized (SparkHoodieHBaseIndex.class) {
-      if (hbaseConnection == null || hbaseConnection.isClosed()) {
-        hbaseConnection = getHBaseConnection();
+      List<WriteStatus> writeStatusList = new ArrayList<>();
+      // Grab the global HBase connection
+      synchronized (SparkHoodieHBaseIndex.class) {
+        if (hbaseConnection == null || hbaseConnection.isClosed()) {
+          hbaseConnection = getHBaseConnection();
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -4462,11 +4462,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
-  private UTF8StringPartitionPathFormatter getUTF8StringPartitionPathFormatter() {
-    if (utf8StringPartitionPathFormatter == null) {
+  protected void tryInitRowAccessor(StructType schema) {
+    if (this.rowAccessor == null) {
       synchronized (this) {
-        if (utf8StringPartitionPathFormatter == null) {
-          this.utf8StringPartitionPathFormatter = new UTF8StringPartitionPathFormatter(
+        if (this.rowAccessor == null) {
+          this.rowAccessor = new SparkRowAccessor(schema);
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -4486,11 +4486,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
-  protected void tryInitRowAccessor(StructType schema) {
-    if (this.rowAccessor == null) {
+  private UTF8StringPartitionPathFormatter getUTF8StringPartitionPathFormatter() {
+    if (utf8StringPartitionPathFormatter == null) {
       synchronized (this) {
-        if (this.rowAccessor == null) {
-          this.rowAccessor = new SparkRowAccessor(schema);
+        if (utf8StringPartitionPathFormatter == null) {
+          this.utf8StringPartitionPathFormatter = new UTF8StringPartitionPathFormatter(
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -4729,6 +4729,18 @@ The value changed at `idx++` is never used
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.java`
 #### Snippet
 ```java
+        row[idx++] = fs.getLogFiles().filter(lf -> lf.getBaseCommitTime().equals(fs.getBaseInstantTime()))
+            .collect(Collectors.toList()).toString();
+        row[idx++] = fs.getLogFiles().filter(lf -> !lf.getBaseCommitTime().equals(fs.getBaseInstantTime()))
+            .collect(Collectors.toList()).toString();
+      }
+```
+
+### RuleId[ruleID=UnusedAssignment]
+The value changed at `idx++` is never used
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.java`
+#### Snippet
+```java
         row[idx++] = fs.getLogFiles().count();
         row[idx++] = fs.getLogFiles().mapToLong(HoodieLogFile::getFileSize).sum();
         row[idx++] = fs.getLogFiles().collect(Collectors.toList()).toString();
@@ -4737,15 +4749,15 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.ja
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-The value changed at `idx++` is never used
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.java`
+Variable `metadata` initializer `null` is redundant
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ExportCommand.java`
 #### Snippet
 ```java
-        row[idx++] = fs.getLogFiles().filter(lf -> lf.getBaseCommitTime().equals(fs.getBaseInstantTime()))
-            .collect(Collectors.toList()).toString();
-        row[idx++] = fs.getLogFiles().filter(lf -> !lf.getBaseCommitTime().equals(fs.getBaseInstantTime()))
-            .collect(Collectors.toList()).toString();
-      }
+            }
+
+            GenericRecord metadata = null;
+            switch (action) {
+              case HoodieTimeline.CLEAN_ACTION:
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -4770,18 +4782,6 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ExportCommand.java`
       byte[] data = null;
       switch (instant.getAction()) {
         case HoodieTimeline.CLEAN_ACTION: {
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `metadata` initializer `null` is redundant
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ExportCommand.java`
-#### Snippet
-```java
-            }
-
-            GenericRecord metadata = null;
-            switch (action) {
-              case HoodieTimeline.CLEAN_ACTION:
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -4857,18 +4857,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieKeyLoo
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `oldNumWrites` initializer `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
-#### Snippet
-```java
-    }
-
-    long oldNumWrites = 0;
-    try {
-      HoodieFileReader reader = HoodieFileReaderFactory.getFileReader(hoodieTable.getHadoopConf(), oldFilePath);
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `finalIndexPartitionInfos` initializer `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/index/RunIndexActionExecutor.java`
 #### Snippet
@@ -4878,6 +4866,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/in
       List<HoodieIndexPartitionInfo> finalIndexPartitionInfos = null;
       if (!firstTimeInitializingMetadataTable) {
         // start indexing for each partition
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `oldNumWrites` initializer `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
+#### Snippet
+```java
+    }
+
+    long oldNumWrites = 0;
+    try {
+      HoodieFileReader reader = HoodieFileReaderFactory.getFileReader(hoodieTable.getHadoopConf(), oldFilePath);
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -4893,18 +4893,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/Fi
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `instants` initializer `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieTimelineArchiver.java`
-#### Snippet
-```java
-   */
-  private boolean deleteAllInstantsOlderOrEqualsInAuxMetaFolder(HoodieInstant thresholdInstant) throws IOException {
-    List<HoodieInstant> instants = null;
-    boolean success = true;
-    try {
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `plan` initializer `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieTimelineArchiver.java`
 #### Snippet
@@ -4914,6 +4902,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieTi
         HoodieMergeArchiveFilePlan plan = null;
         try {
           plan = TimelineMetadataUtils.deserializeAvroMetadata(FileIOUtils.readDataFromPath(fs, planPath).get(), HoodieMergeArchiveFilePlan.class);
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `instants` initializer `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieTimelineArchiver.java`
+#### Snippet
+```java
+   */
+  private boolean deleteAllInstantsOlderOrEqualsInAuxMetaFolder(HoodieInstant thresholdInstant) throws IOException {
+    List<HoodieInstant> instants = null;
+    boolean success = true;
+    try {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -4953,18 +4953,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/FileIOUtils.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `bigDecimal` initializer `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
-#### Snippet
-```java
-                  || oldSchema.getType() == Schema.Type.FLOAT) {
-            LogicalTypes.Decimal decimal = (LogicalTypes.Decimal) newSchema.getLogicalType();
-            BigDecimal bigDecimal = null;
-            if (oldSchema.getType() == Schema.Type.STRING) {
-              bigDecimal = new java.math.BigDecimal(oldValue.toString())
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `bytes` initializer `null` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
@@ -4977,15 +4965,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `markers` initializer `new HashSet<>()` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
+Variable `bigDecimal` initializer `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 #### Snippet
 ```java
-  public static Set<String> readMarkersFromFile(Path markersFilePath, SerializableConfiguration conf) {
-    FSDataInputStream fsDataInputStream = null;
-    Set<String> markers = new HashSet<>();
-    try {
-      LOG.debug("Read marker file: " + markersFilePath);
+                  || oldSchema.getType() == Schema.Type.FLOAT) {
+            LogicalTypes.Decimal decimal = (LogicalTypes.Decimal) newSchema.getLogicalType();
+            BigDecimal bigDecimal = null;
+            if (oldSchema.getType() == Schema.Type.STRING) {
+              bigDecimal = new java.math.BigDecimal(oldValue.toString())
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -4998,6 +4986,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
     Option<MarkerType> content = Option.empty();
     try {
       if (!doesMarkerTypeFileExist(fileSystem, markerDir)) {
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `markers` initializer `new HashSet<>()` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
+#### Snippet
+```java
+  public static Set<String> readMarkersFromFile(Path markersFilePath, SerializableConfiguration conf) {
+    FSDataInputStream fsDataInputStream = null;
+    Set<String> markers = new HashSet<>();
+    try {
+      LOG.debug("Read marker file: " + markersFilePath);
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -5073,18 +5073,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/HoodieIncrSou
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `source` initializer `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodieIncrSource.java`
-#### Snippet
-```java
-    }
-
-    Dataset<Row> source = null;
-    // Do incremental pull. Set end instant if available.
-    if (queryTypeAndInstantEndpts.getKey().equals(DataSourceReadOptions.QUERY_TYPE_INCREMENTAL_OPT_VAL())) {
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `sparkOptionsMap` initializer `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodieIncrSource.java`
 #### Snippet
@@ -5094,6 +5082,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodi
       Map<String, String> sparkOptionsMap = null;
       try {
         sparkOptionsMap = mapper.readValue(props.getString(Config.SPARK_DATASOURCE_OPTIONS), Map.class);
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `source` initializer `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodieIncrSource.java`
+#### Snippet
+```java
+    }
+
+    Dataset<Row> source = null;
+    // Do incremental pull. Set end instant if available.
+    if (queryTypeAndInstantEndpts.getKey().equals(DataSourceReadOptions.QUERY_TYPE_INCREMENTAL_OPT_VAL())) {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -5173,10 +5173,10 @@ Variable `curAvroRecord` initializer `null` is redundant
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
 #### Snippet
 ```java
-      public boolean hasNext() {
-        while (recordsIterator.hasNext()) {
+        while (logRecordsKeyIterator.hasNext()) {
+          String curAvroKey = logRecordsKeyIterator.next();
           Option<IndexedRecord> curAvroRecord = null;
-          final HoodieAvroRecord<?> hoodieRecord = (HoodieAvroRecord) recordsIterator.next();
+          final HoodieAvroRecord<?> hoodieRecord = (HoodieAvroRecord) scanner.getRecords().get(curAvroKey);
           try {
 ```
 
@@ -5185,10 +5185,10 @@ Variable `curAvroRecord` initializer `null` is redundant
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
 #### Snippet
 ```java
-        while (logRecordsKeyIterator.hasNext()) {
-          String curAvroKey = logRecordsKeyIterator.next();
+      public boolean hasNext() {
+        while (recordsIterator.hasNext()) {
           Option<IndexedRecord> curAvroRecord = null;
-          final HoodieAvroRecord<?> hoodieRecord = (HoodieAvroRecord) scanner.getRecords().get(curAvroKey);
+          final HoodieAvroRecord<?> hoodieRecord = (HoodieAvroRecord) recordsIterator.next();
           try {
 ```
 
@@ -5476,30 +5476,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimel
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
 #### Snippet
 ```java
-          }));
-        }).collect(Collectors.groupingBy(Pair::getKey));
-    partitionFiles.entrySet().stream().forEach(e -> {
-      removeFileSlicesForPartition(timeline, instant, e.getKey(),
-          e.getValue().stream().map(x -> x.getValue()).collect(Collectors.toList()));
-```
-
-### RuleId[ruleID=SimplifyStreamApiCallChains]
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
-#### Snippet
-```java
-                                              HoodieTimeline timeline,
-                                              HoodieInstant instant) {
-    partitionToWriteStats.entrySet().stream().forEach(entry -> {
-      String partition = entry.getKey();
-      if (isPartitionAvailableInStore(partition)) {
-```
-
-### RuleId[ruleID=SimplifyStreamApiCallChains]
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
-#### Snippet
-```java
 
     // First remove pending compaction instants which were completed
     diffResult.getFinishedCompactionInstants().stream().forEach(instant -> {
@@ -5524,11 +5500,47 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimel
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
 #### Snippet
 ```java
+                                              HoodieTimeline timeline,
+                                              HoodieInstant instant) {
+    partitionToWriteStats.entrySet().stream().forEach(entry -> {
+      String partition = entry.getKey();
+      if (isPartitionAvailableInStore(partition)) {
+```
+
+### RuleId[ruleID=SimplifyStreamApiCallChains]
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
+#### Snippet
+```java
         HoodieReplaceCommitMetadata.fromBytes(timeline.getInstantDetails(instant).get(), HoodieReplaceCommitMetadata.class);
     updatePartitionWriteFileGroups(replaceMetadata.getPartitionToWriteStats(), timeline, instant);
     replaceMetadata.getPartitionToReplaceFileIds().entrySet().stream().forEach(entry -> {
       String partition = entry.getKey();
       Map<HoodieFileGroupId, HoodieInstant> replacedFileIds = entry.getValue().stream()
+```
+
+### RuleId[ruleID=SimplifyStreamApiCallChains]
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
+#### Snippet
+```java
+          }));
+        }).collect(Collectors.groupingBy(Pair::getKey));
+    partitionFiles.entrySet().stream().forEach(e -> {
+      removeFileSlicesForPartition(timeline, instant, e.getKey(),
+          e.getValue().stream().map(x -> x.getValue()).collect(Collectors.toList()));
+```
+
+### RuleId[ruleID=SimplifyStreamApiCallChains]
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FileSliceDTO.java`
+#### Snippet
+```java
+    FileSlice slice = new FileSlice(dto.partitionPath, dto.baseInstantTime, dto.fileId);
+    slice.setBaseFile(BaseFileDTO.toHoodieBaseFile(dto.baseFile));
+    dto.logFiles.stream().forEach(lf -> slice.addLogFile(LogFileDTO.toHoodieLogFile(lf)));
+    return slice;
+  }
 ```
 
 ### RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -5553,18 +5565,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
           replacedFileGroupsInPartition.stream().forEach(fgToReplacedInstant -> {
             rocksDB.putInBatch(batch, schemaHelper.getColFamilyForReplacedFileGroups(),
                 schemaHelper.getKeyForReplacedFileGroup(fgToReplacedInstant.getKey()), fgToReplacedInstant.getValue());
-```
-
-### RuleId[ruleID=SimplifyStreamApiCallChains]
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FileSliceDTO.java`
-#### Snippet
-```java
-    FileSlice slice = new FileSlice(dto.partitionPath, dto.baseInstantTime, dto.fileId);
-    slice.setBaseFile(BaseFileDTO.toHoodieBaseFile(dto.baseFile));
-    dto.logFiles.stream().forEach(lf -> slice.addLogFile(LogFileDTO.toHoodieLogFile(lf)));
-    return slice;
-  }
 ```
 
 ### RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -5616,18 +5616,6 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/AvroSchemaEv
 ```
 
 ### RuleId[ruleID=SimplifyStreamApiCallChains]
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/InternalSchemaUtils.java`
-#### Snippet
-```java
-    // find top parent field ID. eg: a.b.c, f.g.h, only collect id of a and f ignore all child field.
-    List<Integer> topParentFieldIds = new ArrayList<>();
-    names.stream().forEach(f -> {
-      int id = schema.findIdByName(f.split("\\.")[0]);
-      if (!topParentFieldIds.contains(id)) {
-```
-
-### RuleId[ruleID=SimplifyStreamApiCallChains]
 Can be replaced with 'String.join'
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/InternalSchemaUtils.java`
 #### Snippet
@@ -5637,6 +5625,18 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/InternalSche
       result = parentNames.stream().collect(Collectors.joining(".")) + "." + result;
     }
     return result;
+```
+
+### RuleId[ruleID=SimplifyStreamApiCallChains]
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/InternalSchemaUtils.java`
+#### Snippet
+```java
+    // find top parent field ID. eg: a.b.c, f.g.h, only collect id of a and f ignore all child field.
+    List<Integer> topParentFieldIds = new ArrayList<>();
+    names.stream().forEach(f -> {
+      int id = schema.findIdByName(f.split("\\.")[0]);
+      if (!topParentFieldIds.contains(id)) {
 ```
 
 ### RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -5936,27 +5936,27 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKe
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `utf8StringPartitionPathFormatter` accessed in synchronized context
+Non-private field `this.rowAccessor` accessed in synchronized context
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
-    if (utf8StringPartitionPathFormatter == null) {
+    if (this.rowAccessor == null) {
       synchronized (this) {
-        if (utf8StringPartitionPathFormatter == null) {
-          this.utf8StringPartitionPathFormatter = new UTF8StringPartitionPathFormatter(
-              UTF8StringPartitionPathFormatter.UTF8StringBuilder::new, hiveStylePartitioning, encodePartitionPath);
+        if (this.rowAccessor == null) {
+          this.rowAccessor = new SparkRowAccessor(schema);
+        }
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `this.utf8StringPartitionPathFormatter` accessed in synchronized context
+Non-private field `this.rowAccessor` accessed in synchronized context
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
       synchronized (this) {
-        if (utf8StringPartitionPathFormatter == null) {
-          this.utf8StringPartitionPathFormatter = new UTF8StringPartitionPathFormatter(
-              UTF8StringPartitionPathFormatter.UTF8StringBuilder::new, hiveStylePartitioning, encodePartitionPath);
+        if (this.rowAccessor == null) {
+          this.rowAccessor = new SparkRowAccessor(schema);
         }
+      }
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
@@ -5984,51 +5984,27 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKe
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `this.rowAccessor` accessed in synchronized context
+Non-private field `utf8StringPartitionPathFormatter` accessed in synchronized context
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
-    if (this.rowAccessor == null) {
+    if (utf8StringPartitionPathFormatter == null) {
       synchronized (this) {
-        if (this.rowAccessor == null) {
-          this.rowAccessor = new SparkRowAccessor(schema);
-        }
+        if (utf8StringPartitionPathFormatter == null) {
+          this.utf8StringPartitionPathFormatter = new UTF8StringPartitionPathFormatter(
+              UTF8StringPartitionPathFormatter.UTF8StringBuilder::new, hiveStylePartitioning, encodePartitionPath);
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `this.rowAccessor` accessed in synchronized context
+Non-private field `this.utf8StringPartitionPathFormatter` accessed in synchronized context
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
       synchronized (this) {
-        if (this.rowAccessor == null) {
-          this.rowAccessor = new SparkRowAccessor(schema);
+        if (utf8StringPartitionPathFormatter == null) {
+          this.utf8StringPartitionPathFormatter = new UTF8StringPartitionPathFormatter(
+              UTF8StringPartitionPathFormatter.UTF8StringBuilder::new, hiveStylePartitioning, encodePartitionPath);
         }
-      }
-```
-
-### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `activeTimeline` accessed in synchronized context
-in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient.java`
-#### Snippet
-```java
-   */
-  public synchronized HoodieActiveTimeline reloadActiveTimeline() {
-    activeTimeline = new HoodieActiveTimeline(this);
-    return activeTimeline;
-  }
-```
-
-### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `activeTimeline` accessed in synchronized context
-in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient.java`
-#### Snippet
-```java
-  public synchronized HoodieActiveTimeline reloadActiveTimeline() {
-    activeTimeline = new HoodieActiveTimeline(this);
-    return activeTimeline;
-  }
-
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
@@ -6062,6 +6038,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient
 ```java
       activeTimeline = new HoodieActiveTimeline(this);
     }
+    return activeTimeline;
+  }
+
+```
+
+### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+Non-private field `activeTimeline` accessed in synchronized context
+in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient.java`
+#### Snippet
+```java
+   */
+  public synchronized HoodieActiveTimeline reloadActiveTimeline() {
+    activeTimeline = new HoodieActiveTimeline(this);
+    return activeTimeline;
+  }
+```
+
+### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+Non-private field `activeTimeline` accessed in synchronized context
+in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient.java`
+#### Snippet
+```java
+  public synchronized HoodieActiveTimeline reloadActiveTimeline() {
+    activeTimeline = new HoodieActiveTimeline(this);
     return activeTimeline;
   }
 
@@ -6242,14 +6242,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/BinaryUtil.java`
 ## RuleId[ruleID=SystemOutErr]
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-cli/src/main/java/org/apache/hudi/cli/utils/HiveUtil.java`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/Main.java`
 #### Snippet
 ```java
-        count = rs.getLong("cnt");
-      }
-      System.out.println("Total records in " + source.getTableConfig().getTableName() + " is " + count);
-      return count;
-    } finally {
+
+  public static void main(String[] args) throws IOException {
+    System.out.println("Main called");
+    SpringApplication.run(Main.class, args);
+  }
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -6266,14 +6266,14 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/utils/HiveUtil.java`
 
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-cli/src/main/java/org/apache/hudi/cli/Main.java`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/utils/HiveUtil.java`
 #### Snippet
 ```java
-
-  public static void main(String[] args) throws IOException {
-    System.out.println("Main called");
-    SpringApplication.run(Main.class, args);
-  }
+        count = rs.getLong("cnt");
+      }
+      System.out.println("Total records in " + source.getTableConfig().getTableName() + " is " + count);
+      return count;
+    } finally {
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -6797,6 +6797,30 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
 #### Snippet
 ```java
+    startService();
+    final String driverHost = InetAddress.getLocalHost().getHostAddress();
+    System.out.println("Driver Hostname is :" + driverHost);
+    List<String> messages = new ArrayList<>();
+    IntStream.range(0, cfg.numPartitions).forEach(i -> messages.add("Hello World"));
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
+#### Snippet
+```java
+    context.setJobStatus(this.getClass().getSimpleName(), "Sending requests to driver host");
+    List<String> gotMessages = context.map(messages, msg -> sendRequest(driverHost, cfg.serverPort), messages.size());
+    System.out.println("Got Messages :" + gotMessages);
+    ValidationUtils.checkArgument(gotMessages.equals(messages), "Got expected reply from Server");
+  }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
+#### Snippet
+```java
     try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
 
       System.out.println("Sleeping for " + cfg.delaySecs + " secs ");
@@ -6842,30 +6866,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineSer
 
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
-#### Snippet
-```java
-    startService();
-    final String driverHost = InetAddress.getLocalHost().getHostAddress();
-    System.out.println("Driver Hostname is :" + driverHost);
-    List<String> messages = new ArrayList<>();
-    IntStream.range(0, cfg.numPartitions).forEach(i -> messages.add("Hello World"));
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
-#### Snippet
-```java
-    context.setJobStatus(this.getClass().getSimpleName(), "Sending requests to driver host");
-    List<String> gotMessages = context.map(messages, msg -> sendRequest(driverHost, cfg.serverPort), messages.size());
-    System.out.println("Got Messages :" + gotMessages);
-    ValidationUtils.checkArgument(gotMessages.equals(messages), "Got expected reply from Server");
-  }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
@@ -6898,18 +6898,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdmin
             System.out.println(r);
           }
           serializeOperationResult(fs, r);
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPerf.java`
-#### Snippet
-```java
-      Option<FileSlice> c = fsView.getLatestFileSlice(partition, fileId);
-      long endTs = System.currentTimeMillis();
-      System.out.println("Latest File Slice for part=" + partition + ", fileId=" + fileId + ", Slice=" + c + ", Time="
-          + (endTs - beginTs));
-      latencyHistogram.update(endTs - beginTs);
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -6970,6 +6958,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPe
       System.out.println("Timeline Server Host Address=" + hostAddr + ", port=" + timelineServer.getServerPort());
       while (true) {
         try {
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPerf.java`
+#### Snippet
+```java
+      Option<FileSlice> c = fsView.getLatestFileSlice(partition, fileId);
+      long endTs = System.currentTimeMillis();
+      System.out.println("Latest File Slice for part=" + partition + ", fileId=" + fileId + ", Slice=" + c + ", Time="
+          + (endTs - beginTs));
+      latencyHistogram.update(endTs - beginTs);
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -7099,6 +7099,18 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/QueryBasedDD
 in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
 #### Snippet
 ```java
+    // schema.
+    // HDrone sync should not fail because of this.
+    finalStr = finalStr.replaceAll("-", "_");
+    return finalStr;
+  }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
+#### Snippet
+```java
           continue;
         }
         tableColumnType = tableColumnType.replaceAll("\\s+", "");
@@ -7128,18 +7140,6 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaU
         expectedType = expectedType.replaceAll("`", "");
 
         if (!tableColumnType.equalsIgnoreCase(expectedType)) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
-#### Snippet
-```java
-    // schema.
-    // HDrone sync should not fail because of this.
-    finalStr = finalStr.replaceAll("-", "_");
-    return finalStr;
-  }
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -7240,25 +7240,25 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/DayBasedCompactionStrategy.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/BoundedPartitionAwareCompactionStrategy.java`
 #### Snippet
 ```java
-  @Override
-  public List<String> filterPartitionPaths(HoodieWriteConfig writeConfig, List<String> allPartitionPaths) {
-    return allPartitionPaths.stream().map(partition -> partition.replace("/", "-"))
+        dateFormat.get().format(getDateAtOffsetFromToday(-1 * writeConfig.getTargetPartitionsPerDayBasedCompaction()));
+    // Get all partitions and sort them
+    return partitionPaths.stream().map(partition -> partition.replace("/", "-"))
         .sorted(Comparator.reverseOrder()).map(partitionPath -> partitionPath.replace("-", "/"))
-        .collect(Collectors.toList()).subList(0, writeConfig.getTargetPartitionsPerDayBasedCompaction());
+        .filter(e -> DayBasedCompactionStrategy.comparator.compare(earliestPartitionPathToCompact, e) >= 0).collect(Collectors.toList());
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/DayBasedCompactionStrategy.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/BoundedPartitionAwareCompactionStrategy.java`
 #### Snippet
 ```java
-  public List<String> filterPartitionPaths(HoodieWriteConfig writeConfig, List<String> allPartitionPaths) {
-    return allPartitionPaths.stream().map(partition -> partition.replace("/", "-"))
+    // Get all partitions and sort them
+    return partitionPaths.stream().map(partition -> partition.replace("/", "-"))
         .sorted(Comparator.reverseOrder()).map(partitionPath -> partitionPath.replace("-", "/"))
-        .collect(Collectors.toList()).subList(0, writeConfig.getTargetPartitionsPerDayBasedCompaction());
+        .filter(e -> DayBasedCompactionStrategy.comparator.compare(earliestPartitionPathToCompact, e) >= 0).collect(Collectors.toList());
   }
 ```
 
@@ -7288,25 +7288,25 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/BoundedPartitionAwareCompactionStrategy.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/DayBasedCompactionStrategy.java`
 #### Snippet
 ```java
-        dateFormat.get().format(getDateAtOffsetFromToday(-1 * writeConfig.getTargetPartitionsPerDayBasedCompaction()));
-    // Get all partitions and sort them
-    return partitionPaths.stream().map(partition -> partition.replace("/", "-"))
+  @Override
+  public List<String> filterPartitionPaths(HoodieWriteConfig writeConfig, List<String> allPartitionPaths) {
+    return allPartitionPaths.stream().map(partition -> partition.replace("/", "-"))
         .sorted(Comparator.reverseOrder()).map(partitionPath -> partitionPath.replace("-", "/"))
-        .filter(e -> DayBasedCompactionStrategy.comparator.compare(earliestPartitionPathToCompact, e) >= 0).collect(Collectors.toList());
+        .collect(Collectors.toList()).subList(0, writeConfig.getTargetPartitionsPerDayBasedCompaction());
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/BoundedPartitionAwareCompactionStrategy.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/DayBasedCompactionStrategy.java`
 #### Snippet
 ```java
-    // Get all partitions and sort them
-    return partitionPaths.stream().map(partition -> partition.replace("/", "-"))
+  public List<String> filterPartitionPaths(HoodieWriteConfig writeConfig, List<String> allPartitionPaths) {
+    return allPartitionPaths.stream().map(partition -> partition.replace("/", "-"))
         .sorted(Comparator.reverseOrder()).map(partitionPath -> partitionPath.replace("-", "/"))
-        .filter(e -> DayBasedCompactionStrategy.comparator.compare(earliestPartitionPathToCompact, e) >= 0).collect(Collectors.toList());
+        .collect(Collectors.toList()).subList(0, writeConfig.getTargetPartitionsPerDayBasedCompaction());
   }
 ```
 
@@ -7327,10 +7327,10 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InLineFSUtils.java`
 #### Snippet
 ```java
-    assertInlineFSPath(inlinePath);
+    assertInlineFSPath(inlineFSPath);
 
-    String[] slices = inlinePath.toString().split("[?&=]");
-    return Long.parseLong(slices[slices.length - 1]);
+    String[] slices = inlineFSPath.toString().split("[?&=]");
+    return Long.parseLong(slices[slices.length - 3]);
   }
 ```
 
@@ -7339,10 +7339,10 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InLineFSUtils.jav
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InLineFSUtils.java`
 #### Snippet
 ```java
-    assertInlineFSPath(inlineFSPath);
+    assertInlineFSPath(inlinePath);
 
-    String[] slices = inlineFSPath.toString().split("[?&=]");
-    return Long.parseLong(slices[slices.length - 3]);
+    String[] slices = inlinePath.toString().split("[?&=]");
+    return Long.parseLong(slices[slices.length - 1]);
   }
 ```
 
@@ -7575,18 +7575,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieTimeli
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfiguration.java`
-#### Snippet
-```java
-
-  private String[] splitProperty(String line) {
-    line = line.replaceAll("\\s+", " ");
-    String delimiter = line.contains("=") ? "=" : " ";
-    int ind = line.indexOf(delimiter);
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfiguration.java`
 #### Snippet
@@ -7596,6 +7584,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfigu
     return line.contains("=") || line.matches(".*\\s.*");
   }
 }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfiguration.java`
+#### Snippet
+```java
+
+  private String[] splitProperty(String line) {
+    line = line.replaceAll("\\s+", " ");
+    String delimiter = line.contains("=") ? "=" : " ";
+    int ind = line.indexOf(delimiter);
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -7663,11 +7663,11 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/transform/SqlQueryBas
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/transform/FlatteningTransformer.java`
 #### Snippet
 ```java
+        selectSQLQuery.append(colName);
+        selectSQLQuery.append(" as ");
+        selectSQLQuery.append(colName.replace(".", "_"));
+      }
 
-    // tmp table name doesn't like dashes
-    String tmpTable = TMP_TABLE.concat(UUID.randomUUID().toString().replace("-", "_"));
-    LOG.info("Registering tmp table : " + tmpTable);
-    rowDataset.createOrReplaceTempView(tmpTable);
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -7675,11 +7675,11 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/transform/FlatteningT
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/transform/FlatteningTransformer.java`
 #### Snippet
 ```java
-        selectSQLQuery.append(colName);
-        selectSQLQuery.append(" as ");
-        selectSQLQuery.append(colName.replace(".", "_"));
-      }
 
+    // tmp table name doesn't like dashes
+    String tmpTable = TMP_TABLE.concat(UUID.randomUUID().toString().replace("-", "_"));
+    LOG.info("Registering tmp table : " + tmpTable);
+    rowDataset.createOrReplaceTempView(tmpTable);
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -7769,15 +7769,15 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnRe
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `HoodieSyncTool()` of an abstract class should not be declared 'public'
-in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieSyncTool.java`
+Constructor `QueryBasedDDLExecutor()` of an abstract class should not be declared 'public'
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/QueryBasedDDLExecutor.java`
 #### Snippet
 ```java
-  protected Configuration hadoopConf;
+  protected final PartitionValueExtractor partitionValueExtractor;
 
-  public HoodieSyncTool(Properties props) {
-    this(props, ConfigUtils.createHadoopConf(props));
-  }
+  public QueryBasedDDLExecutor(HiveSyncConfig config) {
+    this.config = config;
+    this.databaseName = config.getStringOrDefault(META_SYNC_DATABASE_NAME);
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -7799,8 +7799,20 @@ in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieS
 ```java
 
   @Deprecated
-  public HoodieSyncTool(TypedProperties props, Configuration conf, FileSystem fs) {
-    this(props, conf);
+  public HoodieSyncTool(Properties props, FileSystem fileSystem) {
+    this(props, fileSystem.getConf());
+  }
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `HoodieSyncTool()` of an abstract class should not be declared 'public'
+in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieSyncTool.java`
+#### Snippet
+```java
+  protected Configuration hadoopConf;
+
+  public HoodieSyncTool(Properties props) {
+    this(props, ConfigUtils.createHadoopConf(props));
   }
 ```
 
@@ -7811,8 +7823,8 @@ in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieS
 ```java
 
   @Deprecated
-  public HoodieSyncTool(Properties props, FileSystem fileSystem) {
-    this(props, fileSystem.getConf());
+  public HoodieSyncTool(TypedProperties props, Configuration conf, FileSystem fs) {
+    this(props, conf);
   }
 ```
 
@@ -7826,18 +7838,6 @@ in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieS
   public HoodieSyncClient(HoodieSyncConfig config) {
     this.config = config;
     this.partitionValueExtractor = ReflectionUtils.loadClass(config.getStringOrDefault(META_SYNC_PARTITION_EXTRACTOR_CLASS));
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `QueryBasedDDLExecutor()` of an abstract class should not be declared 'public'
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/QueryBasedDDLExecutor.java`
-#### Snippet
-```java
-  protected final PartitionValueExtractor partitionValueExtractor;
-
-  public QueryBasedDDLExecutor(HiveSyncConfig config) {
-    this.config = config;
-    this.databaseName = config.getStringOrDefault(META_SYNC_DATABASE_NAME);
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -7869,7 +7869,7 @@ Constructor `BaseJavaCommitActionExecutor()` of an abstract class should not be 
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/BaseJavaCommitActionExecutor.java`
 #### Snippet
 ```java
-  private static final Logger LOG = LogManager.getLogger(BaseJavaCommitActionExecutor.class);
+  }
 
   public BaseJavaCommitActionExecutor(HoodieEngineContext context,
                                        HoodieWriteConfig config,
@@ -7881,7 +7881,7 @@ Constructor `BaseJavaCommitActionExecutor()` of an abstract class should not be 
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/BaseJavaCommitActionExecutor.java`
 #### Snippet
 ```java
-  }
+  private static final Logger LOG = LogManager.getLogger(BaseJavaCommitActionExecutor.class);
 
   public BaseJavaCommitActionExecutor(HoodieEngineContext context,
                                        HoodieWriteConfig config,
@@ -7917,7 +7917,7 @@ Constructor `BaseFlinkCommitActionExecutor()` of an abstract class should not be
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/commit/BaseFlinkCommitActionExecutor.java`
 #### Snippet
 ```java
-  protected HoodieWriteHandle<?, ?, ?, ?> writeHandle;
+  }
 
   public BaseFlinkCommitActionExecutor(HoodieEngineContext context,
                                        HoodieWriteHandle<?, ?, ?, ?> writeHandle,
@@ -7929,7 +7929,7 @@ Constructor `BaseFlinkCommitActionExecutor()` of an abstract class should not be
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/commit/BaseFlinkCommitActionExecutor.java`
 #### Snippet
 ```java
-  }
+  protected HoodieWriteHandle<?, ?, ?, ?> writeHandle;
 
   public BaseFlinkCommitActionExecutor(HoodieEngineContext context,
                                        HoodieWriteHandle<?, ?, ?, ?> writeHandle,
@@ -8061,9 +8061,9 @@ Constructor `SpatialCurveSortPartitionerBase()` of an abstract class should not 
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/SpatialCurveSortPartitionerBase.java`
 #### Snippet
 ```java
-  }
+  private final HoodieClusteringConfig.SpatialCurveCompositionStrategyType curveCompositionStrategyType;
 
-  public SpatialCurveSortPartitionerBase(String[] orderByColumns,
+  public SpatialCurveSortPartitionerBase(String orderByColumns,
                                          HoodieClusteringConfig.LayoutOptimizationStrategy layoutOptStrategy,
                                          HoodieClusteringConfig.SpatialCurveCompositionStrategyType curveCompositionStrategyType) {
 ```
@@ -8073,9 +8073,9 @@ Constructor `SpatialCurveSortPartitionerBase()` of an abstract class should not 
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/SpatialCurveSortPartitionerBase.java`
 #### Snippet
 ```java
-  private final HoodieClusteringConfig.SpatialCurveCompositionStrategyType curveCompositionStrategyType;
+  }
 
-  public SpatialCurveSortPartitionerBase(String orderByColumns,
+  public SpatialCurveSortPartitionerBase(String[] orderByColumns,
                                          HoodieClusteringConfig.LayoutOptimizationStrategy layoutOptStrategy,
                                          HoodieClusteringConfig.SpatialCurveCompositionStrategyType curveCompositionStrategyType) {
 ```
@@ -8121,18 +8121,6 @@ Constructor `AsyncCompactService()` of an abstract class should not be declared 
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncCompactService.java`
 #### Snippet
 ```java
-  }
-
-  public AsyncCompactService(HoodieEngineContext context, BaseHoodieWriteClient client, boolean runInDaemonMode) {
-    super(client.getConfig(), runInDaemonMode);
-    this.context = context;
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AsyncCompactService()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncCompactService.java`
-#### Snippet
-```java
   private transient BaseCompactor compactor;
 
   public AsyncCompactService(HoodieEngineContext context, BaseHoodieWriteClient client) {
@@ -8141,15 +8129,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncComp
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AsyncClusteringService()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncClusteringService.java`
+Constructor `AsyncCompactService()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncCompactService.java`
 #### Snippet
 ```java
-  private transient BaseClusterer clusteringClient;
-
-  public AsyncClusteringService(HoodieEngineContext context, BaseHoodieWriteClient writeClient) {
-    this(context, writeClient, false);
   }
+
+  public AsyncCompactService(HoodieEngineContext context, BaseHoodieWriteClient client, boolean runInDaemonMode) {
+    super(client.getConfig(), runInDaemonMode);
+    this.context = context;
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -8162,6 +8150,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncClus
   public AsyncClusteringService(HoodieEngineContext context, BaseHoodieWriteClient writeClient, boolean runInDaemonMode) {
     super(writeClient.getConfig(), runInDaemonMode);
     this.clusteringClient = createClusteringClient(writeClient);
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `AsyncClusteringService()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncClusteringService.java`
+#### Snippet
+```java
+  private transient BaseClusterer clusteringClient;
+
+  public AsyncClusteringService(HoodieEngineContext context, BaseHoodieWriteClient writeClient) {
+    this(context, writeClient, false);
+  }
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -8237,18 +8237,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/cl
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `ClusteringPlanStrategy()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/cluster/strategy/ClusteringPlanStrategy.java`
-#### Snippet
-```java
-  }
-
-  public ClusteringPlanStrategy(HoodieTable table, HoodieEngineContext engineContext, HoodieWriteConfig writeConfig) {
-    this.writeConfig = writeConfig;
-    this.hoodieTable = table;
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `BaseCommitActionExecutor()` of an abstract class should not be declared 'public'
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/commit/BaseCommitActionExecutor.java`
 #### Snippet
@@ -8258,6 +8246,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
   public BaseCommitActionExecutor(HoodieEngineContext context, HoodieWriteConfig config,
                                   HoodieTable<T, I, K, O> table, String instantTime, WriteOperationType operationType,
                                   Option<Map<String, String>> extraMetadata) {
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `ClusteringPlanStrategy()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/cluster/strategy/ClusteringPlanStrategy.java`
+#### Snippet
+```java
+  }
+
+  public ClusteringPlanStrategy(HoodieTable table, HoodieEngineContext engineContext, HoodieWriteConfig writeConfig) {
+    this.writeConfig = writeConfig;
+    this.hoodieTable = table;
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -8349,11 +8349,11 @@ Constructor `BaseRollbackActionExecutor()` of an abstract class should not be de
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/rollback/BaseRollbackActionExecutor.java`
 #### Snippet
 ```java
-  }
+  protected HoodieInstant resolvedInstant;
 
   public BaseRollbackActionExecutor(HoodieEngineContext context,
-      HoodieWriteConfig config,
-      HoodieTable<T, I, K, O> table,
+                                    HoodieWriteConfig config,
+                                    HoodieTable<T, I, K, O> table,
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -8361,11 +8361,11 @@ Constructor `BaseRollbackActionExecutor()` of an abstract class should not be de
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/rollback/BaseRollbackActionExecutor.java`
 #### Snippet
 ```java
-  protected HoodieInstant resolvedInstant;
+  }
 
   public BaseRollbackActionExecutor(HoodieEngineContext context,
-                                    HoodieWriteConfig config,
-                                    HoodieTable<T, I, K, O> table,
+      HoodieWriteConfig config,
+      HoodieTable<T, I, K, O> table,
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -8381,18 +8381,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/bootstra
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `BootstrapModeSelector()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/bootstrap/selector/BootstrapModeSelector.java`
-#### Snippet
-```java
-  protected final HoodieWriteConfig writeConfig;
-
-  public BootstrapModeSelector(HoodieWriteConfig writeConfig) {
-    this.writeConfig = writeConfig;
-  }
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `BootstrapPartitionPathTranslator()` of an abstract class should not be declared 'public'
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/bootstrap/translator/BootstrapPartitionPathTranslator.java`
 #### Snippet
@@ -8401,6 +8389,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/bootstra
 
   public BootstrapPartitionPathTranslator(TypedProperties properties) {
     this.properties = properties;
+  }
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `BootstrapModeSelector()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/bootstrap/selector/BootstrapModeSelector.java`
+#### Snippet
+```java
+  protected final HoodieWriteConfig writeConfig;
+
+  public BootstrapModeSelector(HoodieWriteConfig writeConfig) {
+    this.writeConfig = writeConfig;
   }
 ```
 
@@ -8537,6 +8537,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/HoodieExecutorBa
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `DiskMap()` of an abstract class should not be declared 'public'
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/DiskMap.java`
+#### Snippet
+```java
+  protected final String diskMapPath;
+
+  public DiskMap(String basePath, String prefix) throws IOException {
+    this.diskMapPath =
+        String.format("%s/%s-%s-%s", basePath, SUBFOLDER_PREFIX, prefix, UUID.randomUUID().toString());
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `BaseHoodieWriteClient()` of an abstract class should not be declared 'public'
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
 #### Snippet
@@ -8561,18 +8573,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHood
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `DiskMap()` of an abstract class should not be declared 'public'
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/DiskMap.java`
-#### Snippet
-```java
-  protected final String diskMapPath;
-
-  public DiskMap(String basePath, String prefix) throws IOException {
-    this.diskMapPath =
-        String.format("%s/%s-%s-%s", basePath, SUBFOLDER_PREFIX, prefix, UUID.randomUUID().toString());
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `BaseAvroPayload()` of an abstract class should not be declared 'public'
 in `hudi-common/src/main/java/org/apache/hudi/common/model/BaseAvroPayload.java`
 #### Snippet
@@ -8589,18 +8589,6 @@ Constructor `AbstractDebeziumAvroPayload()` of an abstract class should not be d
 in `hudi-common/src/main/java/org/apache/hudi/common/model/debezium/AbstractDebeziumAvroPayload.java`
 #### Snippet
 ```java
-  private static final Logger LOG = LogManager.getLogger(AbstractDebeziumAvroPayload.class);
-
-  public AbstractDebeziumAvroPayload(GenericRecord record, Comparable orderingVal) {
-    super(record, orderingVal);
-  }
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AbstractDebeziumAvroPayload()` of an abstract class should not be declared 'public'
-in `hudi-common/src/main/java/org/apache/hudi/common/model/debezium/AbstractDebeziumAvroPayload.java`
-#### Snippet
-```java
   }
 
   public AbstractDebeziumAvroPayload(Option<GenericRecord> record) {
@@ -8609,15 +8597,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/debezium/AbstractDebe
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `HoodieRecord()` of an abstract class should not be declared 'public'
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieRecord.java`
+Constructor `AbstractDebeziumAvroPayload()` of an abstract class should not be declared 'public'
+in `hudi-common/src/main/java/org/apache/hudi/common/model/debezium/AbstractDebeziumAvroPayload.java`
 #### Snippet
 ```java
-  }
+  private static final Logger LOG = LogManager.getLogger(AbstractDebeziumAvroPayload.class);
 
-  public HoodieRecord(HoodieKey key, T data, HoodieOperation operation) {
-    this.key = key;
-    this.data = data;
+  public AbstractDebeziumAvroPayload(GenericRecord record, Comparable orderingVal) {
+    super(record, orderingVal);
+  }
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -8642,6 +8630,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieRecord.java`
   public HoodieRecord() {
   }
 
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `HoodieRecord()` of an abstract class should not be declared 'public'
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieRecord.java`
+#### Snippet
+```java
+  }
+
+  public HoodieRecord(HoodieKey key, T data, HoodieOperation operation) {
+    this.key = key;
+    this.data = data;
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -8717,6 +8717,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieEngineContext.
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `IndexWriter()` of an abstract class should not be declared 'public'
+in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/BootstrapIndex.java`
+#### Snippet
+```java
+    protected final HoodieTableMetaClient metaClient;
+
+    public IndexWriter(HoodieTableMetaClient metaClient) {
+      this.metaClient = metaClient;
+    }
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 Constructor `IndexReader()` of an abstract class should not be declared 'public'
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/BootstrapIndex.java`
 #### Snippet
@@ -8738,18 +8750,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/BootstrapIn
   public BootstrapIndex(HoodieTableMetaClient metaClient) {
     this.metaClient = metaClient;
   }
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `IndexWriter()` of an abstract class should not be declared 'public'
-in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/BootstrapIndex.java`
-#### Snippet
-```java
-    protected final HoodieTableMetaClient metaClient;
-
-    public IndexWriter(HoodieTableMetaClient metaClient) {
-      this.metaClient = metaClient;
-    }
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -9031,18 +9031,6 @@ in `hudi-aws/src/main/java/org/apache/hudi/aws/transaction/lock/DynamoDBBasedLoc
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `globRegex`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.java`
-#### Snippet
-```java
-      throws IOException {
-
-    globRegex = globRegex == null ? "" : globRegex;
-
-    HoodieTableFileSystemView fsView = buildFileSystemView(globRegex, maxInstant, baseFileOnly, includeMaxInstant,
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `maxInstant`
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.java`
 #### Snippet
@@ -9055,27 +9043,15 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.ja
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startTs`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/DiffCommand.java`
+Assignment to method parameter `globRegex`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.java`
 #### Snippet
 ```java
-  private HoodieDefaultTimeline getTimelineInRange(String startTs, String endTs, boolean includeArchivedTimeline) {
-    if (isNullOrEmpty(startTs)) {
-      startTs = getTimeDaysAgo(10);
-    }
-    if (isNullOrEmpty(endTs)) {
-```
+      throws IOException {
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endTs`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/DiffCommand.java`
-#### Snippet
-```java
-    }
-    if (isNullOrEmpty(endTs)) {
-      endTs = getTimeDaysAgo(1);
-    }
-    checkArgument(nonEmpty(startTs), "startTs is null or empty");
+    globRegex = globRegex == null ? "" : globRegex;
+
+    HoodieTableFileSystemView fsView = buildFileSystemView(globRegex, maxInstant, baseFileOnly, includeMaxInstant,
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -9103,11 +9079,35 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CommitsCommand.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `startTs`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/DiffCommand.java`
+#### Snippet
+```java
+  private HoodieDefaultTimeline getTimelineInRange(String startTs, String endTs, boolean includeArchivedTimeline) {
+    if (isNullOrEmpty(startTs)) {
+      startTs = getTimeDaysAgo(10);
+    }
+    if (isNullOrEmpty(endTs)) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `endTs`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/DiffCommand.java`
+#### Snippet
+```java
+    }
+    if (isNullOrEmpty(endTs)) {
+      endTs = getTimeDaysAgo(1);
+    }
+    checkArgument(nonEmpty(startTs), "startTs is null or empty");
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `sparkPropertiesPath`
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/RepairsCommand.java`
 #### Snippet
 ```java
-          help = "Spark executor memory") final String sparkMemory) throws Exception {
+    }
     if (StringUtils.isNullOrEmpty(sparkPropertiesPath)) {
       sparkPropertiesPath =
           Utils.getDefaultPropertiesFile(JavaConverters.mapAsScalaMapConverter(System.getenv()).asScala());
@@ -9131,7 +9131,7 @@ Assignment to method parameter `sparkPropertiesPath`
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/RepairsCommand.java`
 #### Snippet
 ```java
-    }
+          help = "Spark executor memory") final String sparkMemory) throws Exception {
     if (StringUtils.isNullOrEmpty(sparkPropertiesPath)) {
       sparkPropertiesPath =
           Utils.getDefaultPropertiesFile(JavaConverters.mapAsScalaMapConverter(System.getenv()).asScala());
@@ -9187,30 +9187,6 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/ColumnNameX
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `newFileName`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkMergeHandle.java`
-#### Snippet
-```java
-
-        rolloverPaths.add(newFilePath);
-        newFileName = newFileNameWithRollover(rollNumber++);
-        newFilePath = makeNewFilePath(partitionPath, newFileName);
-        LOG.warn("Duplicate write for MERGE bucket with path: " + oldFilePath + ", rolls over to new path: " + newFilePath);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `result`
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
-#### Snippet
-```java
-  private static String removeSurroundingTick(String result) {
-    if (result.startsWith("`") && result.endsWith("`")) {
-      result = result.substring(1, result.length() - 1);
-    }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `prevType`
 in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
 #### Snippet
@@ -9239,6 +9215,18 @@ Assignment to method parameter `result`
 in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
 #### Snippet
 ```java
+  private static String removeSurroundingTick(String result) {
+    if (result.startsWith("`") && result.endsWith("`")) {
+      result = result.substring(1, result.length() - 1);
+    }
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `result`
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
+#### Snippet
+```java
   private static String tickSurround(String result) {
     if (!result.startsWith("`")) {
       result = "`" + result;
@@ -9256,6 +9244,18 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaU
       result = result + "`";
     }
     return result;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `newFileName`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkMergeHandle.java`
+#### Snippet
+```java
+
+        rolloverPaths.add(newFilePath);
+        newFileName = newFileNameWithRollover(rollNumber++);
+        newFilePath = makeNewFilePath(partitionPath, newFileName);
+        LOG.warn("Duplicate write for MERGE bucket with path: " + oldFilePath + ", rolls over to new path: " + newFilePath);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -9295,18 +9295,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Key
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `avroRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
-#### Snippet
-```java
-    Option recordMetadata = ((HoodieRecordPayload) record.getData()).getMetadata();
-    if (HoodieOperation.isDelete(record.getOperation())) {
-      avroRecord = Option.empty();
-    }
-    try {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `partitionPaths`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/cluster/strategy/PartitionAwareClusteringPlanStrategy.java`
 #### Snippet
@@ -9316,6 +9304,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/cl
       partitionPaths = partitionPaths.stream()
           .filter(partition -> Pattern.matches(pattern, partition))
           .collect(Collectors.toList());
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `avroRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
+#### Snippet
+```java
+    Option recordMetadata = ((HoodieRecordPayload) record.getData()).getMetadata();
+    if (HoodieOperation.isDelete(record.getOperation())) {
+      avroRecord = Option.empty();
+    }
+    try {
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -9415,30 +9415,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `name`
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
-#### Snippet
-```java
-  public static String sanitizeName(String name) {
-    if (name.substring(0, 1).matches(INVALID_AVRO_FIRST_CHAR_IN_NAMES)) {
-      name = name.replaceFirst(INVALID_AVRO_FIRST_CHAR_IN_NAMES, MASK_FOR_INVALID_CHARS_IN_NAMES);
-    }
-    return name.replaceAll(INVALID_AVRO_CHARS_IN_NAMES, MASK_FOR_INVALID_CHARS_IN_NAMES);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `value`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-
-    if (value == null && matchValue != null) {
-      value = matchValue;
-    }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `avroSchema`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
@@ -9475,15 +9451,27 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
+Assignment to method parameter `value`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
 ```java
 
-    // copy data from buffer
-    len = Math.min(len, (int) (this.validLastPosition - this.currentPosition));
-    int buffOff = (int) (this.currentPosition - this.startPosition);
-    System.arraycopy(this.dataBuffer.array(), buffOff, b, off, len);
+    if (value == null && matchValue != null) {
+      value = matchValue;
+    }
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `name`
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
+  public static String sanitizeName(String name) {
+    if (name.substring(0, 1).matches(INVALID_AVRO_FIRST_CHAR_IN_NAMES)) {
+      name = name.replaceFirst(INVALID_AVRO_FIRST_CHAR_IN_NAMES, MASK_FOR_INVALID_CHARS_IN_NAMES);
+    }
+    return name.replaceAll(INVALID_AVRO_CHARS_IN_NAMES, MASK_FOR_INVALID_CHARS_IN_NAMES);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -9520,6 +9508,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFi
     len = Math.min(len, (int) (this.validLastPosition - this.currentPosition));
     int buffOff = (int) (this.currentPosition - this.startPosition);
     System.arraycopy(b, off, this.dataBuffer.array(), buffOff, len);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `len`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
+#### Snippet
+```java
+
+    // copy data from buffer
+    len = Math.min(len, (int) (this.validLastPosition - this.currentPosition));
+    int buffOff = (int) (this.currentPosition - this.startPosition);
+    System.arraycopy(this.dataBuffer.array(), buffOff, b, off, len);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -9563,6 +9563,18 @@ Assignment to method parameter `metadata`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/versioning/MetadataMigrator.java`
 #### Snippet
 ```java
+    while (newVersion <= latestVersion) {
+      VersionMigrator<T> upgrader = migrators.get(newVersion);
+      metadata = upgrader.upgradeFrom(metadata);
+      newVersion += 1;
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `metadata`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/versioning/MetadataMigrator.java`
+#### Snippet
+```java
     while (newVersion >= targetVersion) {
       VersionMigrator<T> downgrader = migrators.get(newVersion);
       metadata = downgrader.downgradeFrom(metadata);
@@ -9576,18 +9588,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/versioning/M
 #### Snippet
 ```java
     while (newVersion <= targetVersion) {
-      VersionMigrator<T> upgrader = migrators.get(newVersion);
-      metadata = upgrader.upgradeFrom(metadata);
-      newVersion += 1;
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `metadata`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/versioning/MetadataMigrator.java`
-#### Snippet
-```java
-    while (newVersion <= latestVersion) {
       VersionMigrator<T> upgrader = migrators.get(newVersion);
       metadata = upgrader.upgradeFrom(metadata);
       newVersion += 1;
@@ -9703,18 +9703,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/Debe
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `records`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
-#### Snippet
-```java
-    // filter dupes if needed
-    if (cfg.filterDupes) {
-      records = DataSourceUtils.dropDuplicates(jssc, records, writeClient.getConfig());
-    }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `targetSchema`
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
 #### Snippet
@@ -9724,6 +9712,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSy
       targetSchema = HoodieAvroUtils.removeFields(targetSchema, getPartitionColumns(keyGenerator, props));
     }
     registerAvroSchemas(sourceSchema, targetSchema);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `records`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
+#### Snippet
+```java
+    // filter dupes if needed
+    if (cfg.filterDupes) {
+      records = DataSourceUtils.dropDuplicates(jssc, records, writeClient.getConfig());
+    }
+
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -9919,18 +9919,6 @@ in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/f
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `value`
-in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
-#### Snippet
-```java
-      case DATE:
-        if (value instanceof LocalDate) {
-          value = Date.valueOf((LocalDate) value);
-        }
-        return createVectorFromConstant(
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `rowId`
 in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RunLengthDecoder.java`
 #### Snippet
@@ -9976,6 +9964,18 @@ in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/f
         rowCount -= metaData.getRowCount();
       }
     }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `value`
+in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
+#### Snippet
+```java
+      case DATE:
+        if (value instanceof LocalDate) {
+          value = Date.valueOf((LocalDate) value);
+        }
+        return createVectorFromConstant(
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -10310,6 +10310,18 @@ Return of `null`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
+  static UTF8String toUTF8String(Object o) {
+    if (o == null) {
+      return null;
+    } else if (o instanceof UTF8String) {
+      return (UTF8String) o;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
+#### Snippet
+```java
 
   private static String toString(Object o) {
     return o == null ? null : o.toString();
@@ -10331,18 +10343,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKe
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
-#### Snippet
-```java
-  static UTF8String toUTF8String(Object o) {
-    if (o == null) {
-      return null;
-    } else if (o instanceof UTF8String) {
-      return (UTF8String) o;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCDCLogger.java`
 #### Snippet
 ```java
@@ -10350,6 +10350,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCDCLog
   private GenericRecord removeCommitMetadata(GenericRecord record) {
     return record == null ? null : HoodieAvroUtils.rewriteRecordWithNewSchema(record, dataSchema, Collections.emptyMap());
   }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieWriteHandle.java`
+#### Snippet
+```java
+    @Override
+    public Object get(int i) {
+      return null;
+    }
 
 ```
 
@@ -10372,18 +10384,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieWriteH
 ```java
     @Override
     public Schema getSchema() {
-      return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieWriteHandle.java`
-#### Snippet
-```java
-    @Override
-    public Object get(int i) {
       return null;
     }
 
@@ -10478,9 +10478,9 @@ Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/parser/HoodieDateTimeParser.java`
 #### Snippet
 ```java
-      outputTimeZone = config.getString(KeyGeneratorOptions.Config.TIMESTAMP_OUTPUT_TIMEZONE_FORMAT_PROP, "");
+      inputTimeZone = config.getString(KeyGeneratorOptions.Config.TIMESTAMP_INPUT_TIMEZONE_FORMAT_PROP, "");
     }
-    return !outputTimeZone.trim().isEmpty() ? DateTimeZone.forTimeZone(TimeZone.getTimeZone(outputTimeZone)) : null;
+    return !inputTimeZone.trim().isEmpty() ? DateTimeZone.forTimeZone(TimeZone.getTimeZone(inputTimeZone)) : null;
   }
 
 ```
@@ -10490,9 +10490,9 @@ Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/parser/HoodieDateTimeParser.java`
 #### Snippet
 ```java
-      inputTimeZone = config.getString(KeyGeneratorOptions.Config.TIMESTAMP_INPUT_TIMEZONE_FORMAT_PROP, "");
+      outputTimeZone = config.getString(KeyGeneratorOptions.Config.TIMESTAMP_OUTPUT_TIMEZONE_FORMAT_PROP, "");
     }
-    return !inputTimeZone.trim().isEmpty() ? DateTimeZone.forTimeZone(TimeZone.getTimeZone(inputTimeZone)) : null;
+    return !outputTimeZone.trim().isEmpty() ? DateTimeZone.forTimeZone(TimeZone.getTimeZone(outputTimeZone)) : null;
   }
 
 ```
@@ -10514,57 +10514,9 @@ Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-      cleanTimer = createTimer(cleanTimerName);
-    }
-    return cleanTimer == null ? null : cleanTimer.time();
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-      compactionTimer = createTimer(commitTimerName);
-    }
-    return compactionTimer == null ? null : compactionTimer.time();
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-
-  String getMetricsName(String action, String metric) {
-    return config == null ? null : String.format("%s.%s.%s", config.getMetricReporterMetricsNamePrefix(), action, metric);
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
       deltaCommitTimer = createTimer(deltaCommitTimerName);
     }
     return deltaCommitTimer == null ? null : deltaCommitTimer.time();
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-      logCompactionTimer = createTimer(commitTimerName);
-    }
-    return logCompactionTimer == null ? null : logCompactionTimer.time();
   }
 
 ```
@@ -10586,9 +10538,9 @@ Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-      indexTimer = createTimer(indexTimerName);
+      commitTimer = createTimer(commitTimerName);
     }
-    return indexTimer == null ? null : indexTimer.time();
+    return commitTimer == null ? null : commitTimer.time();
   }
 
 ```
@@ -10598,9 +10550,9 @@ Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-      conflictResolutionTimer = createTimer(conflictResolutionTimerName);
+      compactionTimer = createTimer(commitTimerName);
     }
-    return conflictResolutionTimer == null ? null : conflictResolutionTimer.time();
+    return compactionTimer == null ? null : compactionTimer.time();
   }
 
 ```
@@ -10610,9 +10562,9 @@ Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-      clusteringTimer = createTimer(replaceCommitTimerName);
+      logCompactionTimer = createTimer(commitTimerName);
     }
-    return clusteringTimer == null ? null : clusteringTimer.time();
+    return logCompactionTimer == null ? null : logCompactionTimer.time();
   }
 
 ```
@@ -10634,9 +10586,45 @@ Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-      commitTimer = createTimer(commitTimerName);
+      indexTimer = createTimer(indexTimerName);
     }
-    return commitTimer == null ? null : commitTimer.time();
+    return indexTimer == null ? null : indexTimer.time();
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+
+  String getMetricsName(String action, String metric) {
+    return config == null ? null : String.format("%s.%s.%s", config.getMetricReporterMetricsNamePrefix(), action, metric);
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+      conflictResolutionTimer = createTimer(conflictResolutionTimerName);
+    }
+    return conflictResolutionTimer == null ? null : conflictResolutionTimer.time();
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+      cleanTimer = createTimer(cleanTimerName);
+    }
+    return cleanTimer == null ? null : cleanTimer.time();
   }
 
 ```
@@ -10649,6 +10637,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieM
 
   private Timer createTimer(String name) {
     return config.isMetricsOn() ? Metrics.getInstance().getRegistry().timer(name) : null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+      clusteringTimer = createTimer(replaceCommitTimerName);
+    }
+    return clusteringTimer == null ? null : clusteringTimer.time();
   }
 
 ```
@@ -10670,8 +10670,8 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/TimedFSDataInputStream.java`
 #### Snippet
 ```java
-        path, buffer.length, () -> {
-          super.readFully(position, buffer);
+        path, length, () -> {
+          super.readFully(position, buffer, offset, length);
           return null;
         });
   }
@@ -10682,20 +10682,8 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/TimedFSDataInputStream.java`
 #### Snippet
 ```java
-        path, length, () -> {
-          super.readFully(position, buffer, offset, length);
-          return null;
-        });
-  }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/SizeAwareFSDataOutputStream.java`
-#### Snippet
-```java
-          bytesWritten.addAndGet(len);
-          super.write(b, off, len);
+        path, buffer.length, () -> {
+          super.readFully(position, buffer);
           return null;
         });
   }
@@ -10715,14 +10703,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/SizeAwareFSDataOutputStr
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InMemoryFileSystem.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/SizeAwareFSDataOutputStream.java`
 #### Snippet
 ```java
-  @Override
-  public FSDataOutputStream append(Path path, int i, Progressable progressable) throws IOException {
-    return null;
+          bytesWritten.addAndGet(len);
+          super.write(b, off, len);
+          return null;
+        });
   }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -10743,9 +10731,33 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InMemoryFileSyste
 #### Snippet
 ```java
   @Override
+  public FSDataOutputStream append(Path path, int i, Progressable progressable) throws IOException {
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InMemoryFileSystem.java`
+#### Snippet
+```java
+  @Override
   public Path getWorkingDirectory() {
     return null;
   }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/OrcReaderIterator.java`
+#### Snippet
+```java
+    // No more records left to read from ORC file
+    if (!ensureBatch()) {
+      return null;
+    }
 
 ```
 
@@ -10767,7 +10779,7 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
 #### Snippet
 ```java
     }
-    String val = matcher.group(9);
+    String val = matcher.group(8);
     return val == null ? null : Integer.parseInt(val);
   }
 
@@ -10779,21 +10791,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
 #### Snippet
 ```java
     }
-    String val = matcher.group(8);
+    String val = matcher.group(9);
     return val == null ? null : Integer.parseInt(val);
   }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/OrcReaderIterator.java`
-#### Snippet
-```java
-    // No more records left to read from ORC file
-    if (!ensureBatch()) {
-      return null;
-    }
 
 ```
 
@@ -10814,11 +10814,11 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
 #### Snippet
 ```java
-  public static String join(final List<String> list, final String separator) {
-    if (list == null || list.size() == 0) {
+  public static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements) {
+    if (elements == null) {
       return null;
     }
-    return org.apache.hadoop.util.StringUtils.join(separator, list.toArray(new String[0]));
+    return String.join(delimiter, elements);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -10826,11 +10826,11 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
 #### Snippet
 ```java
-  public static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements) {
-    if (elements == null) {
+  public static String join(final String[] array, final String separator) {
+    if (array == null) {
       return null;
     }
-    return String.join(delimiter, elements);
+    return org.apache.hadoop.util.StringUtils.join(separator, array);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -10850,35 +10850,23 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
 #### Snippet
 ```java
-  public static String join(final String[] array, final String separator) {
-    if (array == null) {
+  public static String join(final List<String> list, final String separator) {
+    if (list == null || list.size() == 0) {
       return null;
     }
-    return org.apache.hadoop.util.StringUtils.join(separator, array);
+    return org.apache.hadoop.util.StringUtils.join(separator, list.toArray(new String[0]));
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
 ```java
-    if (record.getSchema().getField(key) == null) {
-      if (returnNullIfNotFound) {
-        return null;
-      } else {
-        // Since avro 1.10, arvo will throw AvroRuntimeException("Not a valid schema field: " + key)
-```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
-#### Snippet
-```java
-  public static final String AVRO_VERSION = Schema.class.getPackage().getImplementationVersion();
-  private static final ThreadLocal<BinaryEncoder> BINARY_ENCODER = ThreadLocal.withInitial(() -> null);
-  private static final ThreadLocal<BinaryDecoder> BINARY_DECODER = ThreadLocal.withInitial(() -> null);
+    if (colVector.isNull[vectorPos]) {
+      return null;
+    }
 
-  private static final long MILLIS_PER_DAY = 86400000L;
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -10946,35 +10934,35 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 #### Snippet
 ```java
+    if (record.getSchema().getField(key) == null) {
+      if (returnNullIfNotFound) {
+        return null;
+      } else {
+        // Since avro 1.10, arvo will throw AvroRuntimeException("Not a valid schema field: " + key)
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
+  public static final String AVRO_VERSION = Schema.class.getPackage().getImplementationVersion();
+  private static final ThreadLocal<BinaryEncoder> BINARY_ENCODER = ThreadLocal.withInitial(() -> null);
+  private static final ThreadLocal<BinaryDecoder> BINARY_DECODER = ThreadLocal.withInitial(() -> null);
+
+  private static final long MILLIS_PER_DAY = 86400000L;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
 
   public static final String AVRO_VERSION = Schema.class.getPackage().getImplementationVersion();
   private static final ThreadLocal<BinaryEncoder> BINARY_ENCODER = ThreadLocal.withInitial(() -> null);
   private static final ThreadLocal<BinaryDecoder> BINARY_DECODER = ThreadLocal.withInitial(() -> null);
 
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-
-    if (colVector.isNull[vectorPos]) {
-      return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
-#### Snippet
-```java
-  public HoodieCleanMetadata clean(String cleanInstantTime, boolean scheduleInline, boolean skipLocking) throws HoodieIOException {
-    if (!tableServicesEnabled(config)) {
-      return null;
-    }
-    final Timer.Context timerContext = metrics.getCleanCtx();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11015,14 +11003,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDbDiskMap.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDBDAO.java`
 #### Snippet
 ```java
-  public R get(Object key) {
-    if (!containsKey(key)) {
-      return null;
-    }
-    return getRocksDb().get(ROCKSDB_COL_FAMILY, (T) key);
+    try {
+      byte[] val = getRocksDB().get(managedHandlesMap.get(columnFamilyName), SerializationUtils.serialize(key));
+      return val == null ? null : SerializationUtils.deserialize(val);
+    } catch (Exception e) {
+      throw new HoodieException(e);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11039,14 +11027,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDBDAO.
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDBDAO.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDbDiskMap.java`
 #### Snippet
 ```java
-    try {
-      byte[] val = getRocksDB().get(managedHandlesMap.get(columnFamilyName), SerializationUtils.serialize(key));
-      return val == null ? null : SerializationUtils.deserialize(val);
-    } catch (Exception e) {
-      throw new HoodieException(e);
+  public R get(Object key) {
+    if (!containsKey(key)) {
+      return null;
+    }
+    return getRocksDb().get(ROCKSDB_COL_FAMILY, (T) key);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11059,6 +11047,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDisk
       return null;
     }
     return get(entry);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
+#### Snippet
+```java
+  public HoodieCleanMetadata clean(String cleanInstantTime, boolean scheduleInline, boolean skipLocking) throws HoodieIOException {
+    if (!tableServicesEnabled(config)) {
+      return null;
+    }
+    final Timer.Context timerContext = metrics.getCleanCtx();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11123,50 +11123,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/LogReaderUtils.ja
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FSPermissionDTO.java`
 #### Snippet
 ```java
-            .map(Pair::getValue).reduce(null,
-                (x, y) -> ((x == null) ? y
-                    : (y == null) ? null
-                        : HoodieTimeline.compareTimestamps(x.getCommitTime(), HoodieTimeline.GREATER_THAN, y.getCommitTime())
-                            ? x
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-        .map(Pair::getValue).reduce(null,
-            (x, y) -> ((x == null) ? y
-                : (y == null) ? null
-                    : HoodieTimeline.compareTimestamps(x.getBaseInstantTime(), HoodieTimeline.GREATER_THAN, y.getBaseInstantTime()
-            ) ? x : y)));
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-                    fs.getBaseFile().orElseGet(() -> {
-                      oldSlice.getBaseFile().ifPresent(newFileSlice::setBaseFile);
-                      return null;
-                    });
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-                      return newFileSlice;
-                    }
-                    return null;
-                  }
-                  default:
+  public static FSPermissionDTO fromFsPermission(FsPermission permission) {
+    if (null == permission) {
+      return null;
+    }
+    FSPermissionDTO dto = new FSPermissionDTO();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11183,14 +11147,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FSPermis
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FSPermissionDTO.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FilePathDTO.java`
 #### Snippet
 ```java
-  public static FSPermissionDTO fromFsPermission(FsPermission permission) {
-    if (null == permission) {
+  public static FilePathDTO fromPath(Path path) {
+    if (null == path) {
       return null;
     }
-    FSPermissionDTO dto = new FSPermissionDTO();
+    FilePathDTO dto = new FilePathDTO();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11203,18 +11167,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FilePath
       return null;
     }
 
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FilePathDTO.java`
-#### Snippet
-```java
-  public static FilePathDTO fromPath(Path path) {
-    if (null == path) {
-      return null;
-    }
-    FilePathDTO dto = new FilePathDTO();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11267,11 +11219,59 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FileStat
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+            .map(Pair::getValue).reduce(null,
+                (x, y) -> ((x == null) ? y
+                    : (y == null) ? null
+                        : HoodieTimeline.compareTimestamps(x.getCommitTime(), HoodieTimeline.GREATER_THAN, y.getCommitTime())
+                            ? x
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+        .map(Pair::getValue).reduce(null,
+            (x, y) -> ((x == null) ? y
+                : (y == null) ? null
+                    : HoodieTimeline.compareTimestamps(x.getBaseInstantTime(), HoodieTimeline.GREATER_THAN, y.getBaseInstantTime()
+            ) ? x : y)));
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+                    fs.getBaseFile().orElseGet(() -> {
+                      oldSlice.getBaseFile().ifPresent(newFileSlice::setBaseFile);
+                      return null;
+                    });
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+                      return newFileSlice;
+                    }
+                    return null;
+                  }
+                  default:
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/BaseFileDTO.java`
 #### Snippet
 ```java
-  public static HoodieBaseFile toHoodieBaseFile(BaseFileDTO dto) {
-    if (null == dto) {
+  public static BaseFileDTO fromHoodieBaseFile(BaseFile baseFile) {
+    if (null == baseFile) {
       return null;
     }
 
@@ -11294,8 +11294,8 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/BaseFileDTO.java`
 #### Snippet
 ```java
-  public static BaseFileDTO fromHoodieBaseFile(BaseFile baseFile) {
-    if (null == baseFile) {
+  public static HoodieBaseFile toHoodieBaseFile(BaseFileDTO dto) {
+    if (null == dto) {
       return null;
     }
 
@@ -11318,11 +11318,23 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/FileStatusUtils.java`
 #### Snippet
 ```java
-  public static Path toPath(HoodiePath path) {
-    if (null == path) {
+  public static HoodieFSPermission fromFSPermission(FsPermission fsPermission) {
+    if (null == fsPermission) {
       return null;
     }
-    return new Path(path.getUri());
+    String userAction = fsPermission.getUserAction() != null ? fsPermission.getUserAction().name() : null;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/FileStatusUtils.java`
+#### Snippet
+```java
+  public static HoodieFileStatus fromFileStatus(FileStatus fileStatus) {
+    if (null == fileStatus) {
+      return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11354,44 +11366,20 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/FileStatusUtils.java`
 #### Snippet
 ```java
+  public static Path toPath(HoodiePath path) {
+    if (null == path) {
+      return null;
+    }
+    return new Path(path.getUri());
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/FileStatusUtils.java`
+#### Snippet
+```java
   public static FileStatus toFileStatus(HoodieFileStatus fileStatus) {
     if (null == fileStatus) {
-      return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/FileStatusUtils.java`
-#### Snippet
-```java
-  public static HoodieFileStatus fromFileStatus(FileStatus fileStatus) {
-    if (null == fileStatus) {
-      return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/FileStatusUtils.java`
-#### Snippet
-```java
-  public static HoodieFSPermission fromFSPermission(FsPermission fsPermission) {
-    if (null == fsPermission) {
-      return null;
-    }
-    String userAction = fsPermission.getUserAction() != null ? fsPermission.getUserAction().name() : null;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
-#### Snippet
-```java
-        return valueField.type();
-      }
       return null;
     }
 
@@ -11403,18 +11391,6 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
 #### Snippet
 ```java
         return elementField;
-      }
-      return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
-#### Snippet
-```java
-        return elementType();
       }
       return null;
     }
@@ -11438,10 +11414,70 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
 #### Snippet
 ```java
+        return valueField.type();
+      }
+      return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+#### Snippet
+```java
         return field.type();
       }
       return null;
     }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+#### Snippet
+```java
+        return elementType();
+      }
+      return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
+#### Snippet
+```java
+  public Field findField(String name) {
+    if (name == null || name.isEmpty()) {
+      return null;
+    }
+    Integer id = buildNameToId().get(name);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
+#### Snippet
+```java
+      return buildIdToField().get(id);
+    }
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
+#### Snippet
+```java
+      return field.type();
+    }
+    return null;
+  }
 
 ```
 
@@ -11471,11 +11507,11 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.jav
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
 #### Snippet
 ```java
-      return field.type();
-    }
+
+  public T field(Types.Field field, T fieldResult) {
     return null;
   }
 
@@ -11483,23 +11519,59 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.jav
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
 #### Snippet
 ```java
-  public Field findField(String name) {
-    if (name == null || name.isEmpty()) {
-      return null;
-    }
-    Integer id = buildNameToId().get(name);
+
+  public T record(Types.RecordType record, List<T> fieldResults) {
+    return null;
+  }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
 #### Snippet
 ```java
-      return buildIdToField().get(id);
-    }
+
+  public T schema(InternalSchema schema, T recordResult) {
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
+#### Snippet
+```java
+
+  public T map(Types.MapType map, T keyResult, T valueResult) {
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
+#### Snippet
+```java
+
+  public T primitive(Type.PrimitiveType primitive) {
+    return null;
+  }
+}
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
+#### Snippet
+```java
+
+  public T array(Types.ArrayType array, T elementResult) {
     return null;
   }
 
@@ -11567,78 +11639,6 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChange
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
-#### Snippet
-```java
-
-  public T array(Types.ArrayType array, T elementResult) {
-    return null;
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
-#### Snippet
-```java
-
-  public T record(Types.RecordType record, List<T> fieldResults) {
-    return null;
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
-#### Snippet
-```java
-
-  public T map(Types.MapType map, T keyResult, T valueResult) {
-    return null;
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
-#### Snippet
-```java
-
-  public T primitive(Type.PrimitiveType primitive) {
-    return null;
-  }
-}
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
-#### Snippet
-```java
-
-  public T schema(InternalSchema schema, T recordResult) {
-    return null;
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
-#### Snippet
-```java
-
-  public T field(Types.Field field, T fieldResult) {
-    return null;
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/convert/AvroInternalSchemaConverter.java`
 #### Snippet
 ```java
@@ -11666,11 +11666,11 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
 #### Snippet
 ```java
-                //          currently)
-                newFileInfo.getIsDeleted()
-                    ? null
-                    : new HoodieMetadataFileInfo(Math.max(newFileInfo.getSize(), oldFileInfo.getSize()), false));
-      });
+  private static Object wrapStatisticValue(Comparable<?> statValue) {
+    if (statValue == null) {
+      return null;
+    } else if (statValue instanceof Date || statValue instanceof LocalDate) {
+      // NOTE: Due to breaking changes in code-gen b/w Avro 1.8.2 and 1.10, we can't
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11702,11 +11702,11 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
 #### Snippet
 ```java
-  private static Object wrapStatisticValue(Comparable<?> statValue) {
-    if (statValue == null) {
-      return null;
-    } else if (statValue instanceof Date || statValue instanceof LocalDate) {
-      // NOTE: Due to breaking changes in code-gen b/w Avro 1.8.2 and 1.10, we can't
+                //          currently)
+                newFileInfo.getIsDeleted()
+                    ? null
+                    : new HoodieMetadataFileInfo(Math.max(newFileInfo.getSize(), oldFileInfo.getSize()), false));
+      });
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11716,6 +11716,18 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieHFileRecordReader.
 ```java
   @Override
   public NullWritable createKey() {
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieROTablePathFilter.java`
+#### Snippet
+```java
+      return path.getParent().getParent().getParent();
+    }
     return null;
   }
 
@@ -11755,18 +11767,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableIn
       return null;
     }
     setInputPaths(job, incrementalInputPaths.get());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieROTablePathFilter.java`
-#### Snippet
-```java
-      return path.getParent().getParent().getParent();
-    }
-    return null;
-  }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11870,6 +11870,18 @@ Return of `null`
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HiveAvroSerializer.java`
 #### Snippet
 ```java
+        throw new HoodieException("Received UNKNOWN primitive category.");
+      case VOID:
+        return null;
+      default: // All other primitive types are simple
+        return fieldOI.getPrimitiveJavaObject(structFieldData);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HiveAvroSerializer.java`
+#### Snippet
+```java
   private Object serialize(TypeInfo typeInfo, ObjectInspector fieldOI, Object structFieldData, Schema schema) throws HoodieException {
     if (null == structFieldData) {
       return null;
@@ -11879,14 +11891,26 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HiveAvroSerializer
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HiveAvroSerializer.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HiveIncrementalPuller.java`
 #### Snippet
 ```java
-        throw new HoodieException("Received UNKNOWN primitive category.");
-      case VOID:
-        return null;
-      default: // All other primitive types are simple
-        return fieldOI.getPrimitiveJavaObject(structFieldData);
+      }
+    }
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HiveIncrementalPuller.java`
+#### Snippet
+```java
+                  .filterCompletedInstants().getInstants().collect(Collectors.toList())
+              + " and from commit time is " + config.fromCommitTime);
+      return null;
+    }
+    LOG.info("Syncing commits " + commitsToSync);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11911,30 +11935,6 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.j
         return null;
 
       default:
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HiveIncrementalPuller.java`
-#### Snippet
-```java
-                  .filterCompletedInstants().getInstants().collect(Collectors.toList())
-              + " and from commit time is " + config.fromCommitTime);
-      return null;
-    }
-    LOG.info("Syncing commits " + commitsToSync);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HiveIncrementalPuller.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11966,11 +11966,11 @@ Return of `null`
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/UtilHelpers.java`
 #### Snippet
 ```java
-                                                    JavaSparkContext jssc) throws IOException {
-    try {
-      return StringUtils.isNullOrEmpty(schemaProviderClass) ? null
-          : (SchemaProvider) ReflectionUtils.loadClass(schemaProviderClass, cfg, jssc);
-    } catch (Throwable e) {
+  public static JsonKafkaSourcePostProcessor createJsonKafkaSourcePostProcessor(String postProcessorClassNames, TypedProperties props) throws IOException {
+    if (StringUtils.isNullOrEmpty(postProcessorClassNames)) {
+      return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -11978,11 +11978,11 @@ Return of `null`
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/UtilHelpers.java`
 #### Snippet
 ```java
-  public static JsonKafkaSourcePostProcessor createJsonKafkaSourcePostProcessor(String postProcessorClassNames, TypedProperties props) throws IOException {
-    if (StringUtils.isNullOrEmpty(postProcessorClassNames)) {
-      return null;
-    }
-
+                                                    JavaSparkContext jssc) throws IOException {
+    try {
+      return StringUtils.isNullOrEmpty(schemaProviderClass) ? null
+          : (SchemaProvider) ReflectionUtils.loadClass(schemaProviderClass, cfg, jssc);
+    } catch (Throwable e) {
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12086,9 +12086,21 @@ Return of `null`
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
 #### Snippet
 ```java
-      hiveSyncTimer = createTimer(hiveSyncTimerName);
+
+  String getMetricsName(String action, String metric) {
+    return config == null ? null : String.format("%s.%s.%s", config.getMetricReporterMetricsNamePrefix(), action, metric);
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
+#### Snippet
+```java
+      metaSyncTimer = createTimer(metaSyncTimerName);
     }
-    return hiveSyncTimer == null ? null : hiveSyncTimer.time();
+    return metaSyncTimer == null ? null : metaSyncTimer.time();
   }
 
 ```
@@ -12110,9 +12122,9 @@ Return of `null`
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
 #### Snippet
 ```java
-
-  String getMetricsName(String action, String metric) {
-    return config == null ? null : String.format("%s.%s.%s", config.getMetricReporterMetricsNamePrefix(), action, metric);
+      hiveSyncTimer = createTimer(hiveSyncTimerName);
+    }
+    return hiveSyncTimer == null ? null : hiveSyncTimer.time();
   }
 
 ```
@@ -12125,18 +12137,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieD
       overallTimer = createTimer(overallTimerName);
     }
     return overallTimer == null ? null : overallTimer.time();
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
-#### Snippet
-```java
-      metaSyncTimer = createTimer(metaSyncTimerName);
-    }
-    return metaSyncTimer == null ? null : metaSyncTimer.time();
   }
 
 ```
@@ -12203,6 +12203,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/AvroToRo
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/DataTypeUtils.java`
+#### Snippet
+```java
+  public static Object resolvePartition(String partition, DataType type) {
+    if (partition == null) {
+      return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/RowDataToAvroConverters.java`
 #### Snippet
 ```java
@@ -12223,18 +12235,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/RowDataT
                 return null;
               }
             };
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/DataTypeUtils.java`
-#### Snippet
-```java
-  public static Object resolvePartition(String partition, DataType type) {
-    if (partition == null) {
-      return null;
-    }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12278,11 +12278,11 @@ Return of `null`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FormatUtils.java`
 #### Snippet
 ```java
-
-  private static Object getVal(IndexedRecord record, int pos) {
-    return pos == -1 ? null : record.get(pos);
-  }
-
+      producers.add(new FunctionBasedQueueProducer<>(buffer -> {
+        scanner.scan();
+        return null;
+      }));
+      return producers;
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12290,11 +12290,11 @@ Return of `null`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FormatUtils.java`
 #### Snippet
 ```java
-      producers.add(new FunctionBasedQueueProducer<>(buffer -> {
-        scanner.scan();
-        return null;
-      }));
-      return producers;
+
+  private static Object getVal(IndexedRecord record, int pos) {
+    return pos == -1 ? null : record.get(pos);
+  }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12347,18 +12347,6 @@ in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/f
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ColumnStatsIndices.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/ArrayColumnReader.java`
 #### Snippet
 ```java
@@ -12366,6 +12354,18 @@ in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/f
     if (dictionaryValue == null) {
       return null;
     }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ColumnStatsIndices.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
 
 ```
 
@@ -12399,7 +12399,7 @@ in `hudi-spark-datasource/hudi-spark2/src/main/java/org/apache/hudi/internal/Def
 #### Snippet
 ```java
   @Override
-  public DataSourceReader createReader(DataSourceOptions options) {
+  public DataSourceReader createReader(StructType schema, DataSourceOptions options) {
     return null;
   }
 
@@ -12411,7 +12411,7 @@ in `hudi-spark-datasource/hudi-spark2/src/main/java/org/apache/hudi/internal/Def
 #### Snippet
 ```java
   @Override
-  public DataSourceReader createReader(StructType schema, DataSourceOptions options) {
+  public DataSourceReader createReader(DataSourceOptions options) {
     return null;
   }
 
@@ -12528,18 +12528,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/com
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `rec` is redundant
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/bootstrap/OrcBootstrapMetadataHandler.java`
-#### Snippet
-```java
-        gr.put(HoodieRecord.RECORD_KEY_METADATA_FIELD, recKey);
-        BootstrapRecordPayload payload = new BootstrapRecordPayload(gr);
-        HoodieRecord rec = new HoodieAvroRecord(new HoodieKey(recKey, partitionPath), payload);
-        return rec;
-      }, table.getPreExecuteRunnable());
-```
-
-### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `numRSAlive` is redundant
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
 #### Snippet
@@ -12561,6 +12549,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/Spar
       int numTasks = numTasksDuringPut;
       int maxParallelPutsTask = Math.max(1, Math.min(numTasks, maxExecutors));
       int multiPutBatchSizePerSecPerTask = Math.max(1, (int) Math.ceil(maxReqPerSec / maxParallelPutsTask));
+```
+
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `rec` is redundant
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/bootstrap/OrcBootstrapMetadataHandler.java`
+#### Snippet
+```java
+        gr.put(HoodieRecord.RECORD_KEY_METADATA_FIELD, recKey);
+        BootstrapRecordPayload payload = new BootstrapRecordPayload(gr);
+        HoodieRecord rec = new HoodieAvroRecord(new HoodieKey(recKey, partitionPath), payload);
+        return rec;
+      }, table.getPreExecuteRunnable());
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
@@ -12648,18 +12648,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `executionStrategy` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/HoodieCompactor.java`
-#### Snippet
-```java
-      return new CompactionExecutionHelper();
-    } else {
-      CompactionExecutionHelper executionStrategy = ReflectionUtils.loadClass(compactionPlan.getStrategy().getCompactorClassName());
-      return executionStrategy;
-    }
-```
-
-### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `maxInstantTime` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/HoodieCompactor.java`
 #### Snippet
@@ -12669,6 +12657,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
     String maxInstantTime = metaClient
         .getActiveTimeline().getTimelineOfActions(CollectionUtils.createSet(HoodieTimeline.COMMIT_ACTION,
             HoodieTimeline.ROLLBACK_ACTION, HoodieTimeline.DELTA_COMMIT_ACTION))
+```
+
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `executionStrategy` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/HoodieCompactor.java`
+#### Snippet
+```java
+      return new CompactionExecutionHelper();
+    } else {
+      CompactionExecutionHelper executionStrategy = ReflectionUtils.loadClass(compactionPlan.getStrategy().getCompactorClassName());
+      return executionStrategy;
+    }
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
@@ -12696,18 +12696,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InLineFileSystem.
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `julianDays` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
-#### Snippet
-```java
-    long millisUtc = date.getTime();
-    long millisLocal = millisUtc + TimeZone.getDefault().getOffset(millisUtc);
-    int julianDays = Math.toIntExact(Math.floorDiv(millisLocal, MILLIS_PER_DAY));
-    return julianDays;
-  }
-```
-
-### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `nullUnion` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
@@ -12717,6 +12705,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
         final TypeDescription nullUnion = TypeDescription.createUnion();
         return nullUnion;
       case LONG:
+```
+
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `julianDays` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
+    long millisUtc = date.getTime();
+    long millisLocal = millisUtc + TimeZone.getDefault().getOffset(millisUtc);
+    int julianDays = Math.toIntExact(Math.floorDiv(millisLocal, MILLIS_PER_DAY));
+    return julianDays;
+  }
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
@@ -12744,18 +12744,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/FileSystemViewSt
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `fgInpendingClustering` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-
-  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToPendingClusteringMap(final Map<HoodieFileGroupId, HoodieInstant> fileGroupsInClustering) {
-    Map<HoodieFileGroupId, HoodieInstant> fgInpendingClustering = new ConcurrentHashMap<>(fileGroupsInClustering);
-    return fgInpendingClustering;
-  }
-```
-
-### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `replacedFileGroupsMap` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
 #### Snippet
@@ -12764,6 +12752,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
   protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
     Map<HoodieFileGroupId, HoodieInstant> replacedFileGroupsMap = new ConcurrentHashMap<>(replacedFileGroups);
     return replacedFileGroupsMap;
+  }
+```
+
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `fgInpendingClustering` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+
+  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToPendingClusteringMap(final Map<HoodieFileGroupId, HoodieInstant> fileGroupsInClustering) {
+    Map<HoodieFileGroupId, HoodieInstant> fgInpendingClustering = new ConcurrentHashMap<>(fileGroupsInClustering);
+    return fgInpendingClustering;
   }
 ```
 
@@ -12784,11 +12784,11 @@ Local variable `configProperty` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/config/ConfigProperty.java`
 #### Snippet
 ```java
-    public <T> ConfigProperty<T> defaultValue(T value) {
-      Objects.requireNonNull(value);
-      ConfigProperty<T> configProperty = new ConfigProperty<>(key, value, "", Option.empty(), Option.empty(), Option.empty(), Collections.emptySet());
+
+    public ConfigProperty<String> noDefaultValue() {
+      ConfigProperty<String> configProperty = new ConfigProperty<>(key, null, "", Option.empty(),
+          Option.empty(), Option.empty(), Collections.emptySet());
       return configProperty;
-    }
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
@@ -12796,11 +12796,11 @@ Local variable `configProperty` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/config/ConfigProperty.java`
 #### Snippet
 ```java
-
-    public ConfigProperty<String> noDefaultValue() {
-      ConfigProperty<String> configProperty = new ConfigProperty<>(key, null, "", Option.empty(),
-          Option.empty(), Option.empty(), Collections.emptySet());
+    public <T> ConfigProperty<T> defaultValue(T value) {
+      Objects.requireNonNull(value);
+      ConfigProperty<T> configProperty = new ConfigProperty<>(key, value, "", Option.empty(), Option.empty(), Option.empty(), Collections.emptySet());
       return configProperty;
+    }
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
@@ -13060,18 +13060,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/upgrade/T
 
 ### RuleId[ruleID=ObsoleteCollection]
 Obsolete collection type `Hashtable<>` used
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/upgrade/UpgradeDowngrade.java`
-#### Snippet
-```java
-    // Perform the actual upgrade/downgrade; this has to be idempotent, for now.
-    LOG.info("Attempting to move table from version " + fromVersion + " to " + toVersion);
-    Map<ConfigProperty, String> tableProps = new Hashtable<>();
-    if (fromVersion.versionCode() < toVersion.versionCode()) {
-      // upgrade
-```
-
-### RuleId[ruleID=ObsoleteCollection]
-Obsolete collection type `Hashtable<>` used
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/upgrade/OneToTwoUpgradeHandler.java`
 #### Snippet
 ```java
@@ -13080,6 +13068,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/upgrade/O
     Map<ConfigProperty, String> tablePropsToAdd = new Hashtable<>();
     tablePropsToAdd.put(HoodieTableConfig.PARTITION_FIELDS, upgradeDowngradeHelper.getPartitionColumns(config));
     tablePropsToAdd.put(HoodieTableConfig.RECORDKEY_FIELDS, config.getString(KeyGeneratorOptions.RECORDKEY_FIELD_NAME.key()));
+```
+
+### RuleId[ruleID=ObsoleteCollection]
+Obsolete collection type `Hashtable<>` used
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/upgrade/UpgradeDowngrade.java`
+#### Snippet
+```java
+    // Perform the actual upgrade/downgrade; this has to be idempotent, for now.
+    LOG.info("Attempting to move table from version " + fromVersion + " to " + toVersion);
+    Map<ConfigProperty, String> tableProps = new Hashtable<>();
+    if (fromVersion.versionCode() < toVersion.versionCode()) {
+      // upgrade
 ```
 
 ## RuleId[ruleID=RedundantArrayCreation]
@@ -13233,54 +13233,6 @@ Duplicate branch in 'switch'
 in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
 ```java
-      case SHORT:
-        // smallint (16 bit), use int to hold it
-        return Schema.create(Schema.Type.INT);
-      case INT:
-        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MILLIS, but there is no way to distinguish
-```
-
-### RuleId[ruleID=DuplicateBranchesInSwitch]
-Duplicate branch in 'switch'
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-      case INT:
-        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MILLIS, but there is no way to distinguish
-        return Schema.create(Schema.Type.INT);
-      case LONG:
-        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MICROS, but there is no way to distinguish
-```
-
-### RuleId[ruleID=DuplicateBranchesInSwitch]
-Duplicate branch in 'switch'
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-      case SHORT:
-        // smallint (16 bit), use int to hold it
-        return Schema.create(Schema.Type.INT);
-      case INT:
-        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MILLIS, but there is no way to distinguish
-```
-
-### RuleId[ruleID=DuplicateBranchesInSwitch]
-Duplicate branch in 'switch'
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-      case INT:
-        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MILLIS, but there is no way to distinguish
-        return Schema.create(Schema.Type.INT);
-      case LONG:
-        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MICROS, but there is no way to distinguish
-```
-
-### RuleId[ruleID=DuplicateBranchesInSwitch]
-Duplicate branch in 'switch'
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
       case DATE:
         // convert to daysSinceEpoch for LogicalType.Date
         return (int) ((LongColumnVector) colVector).vector[vectorPos];
@@ -13313,6 +13265,66 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 ```
 
 ### RuleId[ruleID=DuplicateBranchesInSwitch]
+Duplicate branch in 'switch'
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
+      case SHORT:
+        // smallint (16 bit), use int to hold it
+        return Schema.create(Schema.Type.INT);
+      case INT:
+        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MILLIS, but there is no way to distinguish
+```
+
+### RuleId[ruleID=DuplicateBranchesInSwitch]
+Duplicate branch in 'switch'
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
+      case INT:
+        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MILLIS, but there is no way to distinguish
+        return Schema.create(Schema.Type.INT);
+      case LONG:
+        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MICROS, but there is no way to distinguish
+```
+
+### RuleId[ruleID=DuplicateBranchesInSwitch]
+Duplicate branch in 'switch'
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
+      case SHORT:
+        // smallint (16 bit), use int to hold it
+        return Schema.create(Schema.Type.INT);
+      case INT:
+        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MILLIS, but there is no way to distinguish
+```
+
+### RuleId[ruleID=DuplicateBranchesInSwitch]
+Duplicate branch in 'switch'
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
+      case INT:
+        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MILLIS, but there is no way to distinguish
+        return Schema.create(Schema.Type.INT);
+      case LONG:
+        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MICROS, but there is no way to distinguish
+```
+
+### RuleId[ruleID=DuplicateBranchesInSwitch]
+Branch in 'switch' is a duplicate of the default branch
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVersion.java`
+#### Snippet
+```java
+    switch (super.getVersion()) {
+      case DEFAULT_VERSION:
+        return true;
+      default:
+        return true;
+```
+
+### RuleId[ruleID=DuplicateBranchesInSwitch]
 Branch in 'switch' is a duplicate of the default branch
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVersion.java`
 #### Snippet
@@ -13355,32 +13367,20 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVe
 ```java
     switch (super.getVersion()) {
       case DEFAULT_VERSION:
-        return true;
-      default:
-        return true;
-```
-
-### RuleId[ruleID=DuplicateBranchesInSwitch]
-Branch in 'switch' is a duplicate of the default branch
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVersion.java`
-#### Snippet
-```java
-    switch (super.getVersion()) {
-      case DEFAULT_VERSION:
-        return true;
-      default:
-        return true;
-```
-
-### RuleId[ruleID=DuplicateBranchesInSwitch]
-Branch in 'switch' is a duplicate of the default branch
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVersion.java`
-#### Snippet
-```java
-    switch (super.getVersion()) {
-      case DEFAULT_VERSION:
         return false;
       case 1:
+        return true;
+```
+
+### RuleId[ruleID=DuplicateBranchesInSwitch]
+Branch in 'switch' is a duplicate of the default branch
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVersion.java`
+#### Snippet
+```java
+    switch (super.getVersion()) {
+      case DEFAULT_VERSION:
+        return true;
+      default:
         return true;
 ```
 
@@ -13425,11 +13425,11 @@ Duplicate branch in 'switch'
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
 #### Snippet
 ```java
-        return ParquetHiveSerDe.class.getName();
+        return MapredParquetOutputFormat.class.getName();
       case HFILE:
-        return ParquetHiveSerDe.class.getName();
+        return MapredParquetOutputFormat.class.getName();
       case ORC:
-        return OrcSerde.class.getName();
+        return OrcOutputFormat.class.getName();
 ```
 
 ### RuleId[ruleID=DuplicateBranchesInSwitch]
@@ -13437,11 +13437,11 @@ Duplicate branch in 'switch'
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
 #### Snippet
 ```java
-        return MapredParquetOutputFormat.class.getName();
+        return ParquetHiveSerDe.class.getName();
       case HFILE:
-        return MapredParquetOutputFormat.class.getName();
+        return ParquetHiveSerDe.class.getName();
       case ORC:
-        return OrcOutputFormat.class.getName();
+        return OrcSerde.class.getName();
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
@@ -13832,15 +13832,15 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKe
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `success &= metaClient.getFs().delete(metaFile, false)`
+Non-short-circuit boolean expression `success &= result.getValue()`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieTimelineArchiver.java`
 #### Snippet
 ```java
-      Path metaFile = new Path(metaClient.getMetaAuxiliaryPath(), deleteInstant.getFileName());
-      if (metaClient.getFs().exists(metaFile)) {
-        success &= metaClient.getFs().delete(metaFile, false);
-        LOG.info("Deleted instant file in auxiliary meta path : " + metaFile);
-      }
+    for (Map.Entry<String, Boolean> result : resultDeleteInstantFiles.entrySet()) {
+      LOG.info("Archived and deleted instant file " + result.getKey() + " : " + result.getValue());
+      success &= result.getValue();
+    }
+    return success;
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
@@ -13868,15 +13868,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieTi
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `success &= result.getValue()`
+Non-short-circuit boolean expression `success &= metaClient.getFs().delete(metaFile, false)`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieTimelineArchiver.java`
 #### Snippet
 ```java
-    for (Map.Entry<String, Boolean> result : resultDeleteInstantFiles.entrySet()) {
-      LOG.info("Archived and deleted instant file " + result.getKey() + " : " + result.getValue());
-      success &= result.getValue();
-    }
-    return success;
+      Path metaFile = new Path(metaClient.getMetaAuxiliaryPath(), deleteInstant.getFileName());
+      if (metaClient.getFs().exists(metaFile)) {
+        success &= metaClient.getFs().delete(metaFile, false);
+        LOG.info("Deleted instant file in auxiliary meta path : " + metaFile);
+      }
 ```
 
 ### RuleId[ruleID=NonShortCircuitBoolean]
@@ -14111,18 +14111,6 @@ public abstract class SchemaProvider implements Serializable {
 
 ## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Comparable`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/Table.java`
-#### Snippet
-```java
-   * @param row Row
-   */
-  public Table add(List<Comparable> row) {
-    if (finishedAdding) {
-      throw new IllegalStateException("Container already marked done for adding. No more entries can be added.");
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Function`
 in `hudi-cli/src/main/java/org/apache/hudi/cli/Table.java`
 #### Snippet
@@ -14132,6 +14120,18 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/Table.java`
       TableHeader rowHeader, Map<String, Function<Object, String>> fieldNameToConverterMap,
       boolean addRowNo, Option<String> orderingFieldNameOptional,
       Option<Boolean> isDescendingOptional, Option<Integer> limitOptional) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Comparable`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/Table.java`
+#### Snippet
+```java
+   * @param row Row
+   */
+  public Table add(List<Comparable> row) {
+    if (finishedAdding) {
+      throw new IllegalStateException("Container already marked done for adding. No more entries can be added.");
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -14171,6 +14171,18 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/utils/SparkTempViewProvider.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieInstant`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CommitsCommand.java`
+#### Snippet
+```java
+  }
+
+  private Option<HoodieCommitMetadata> getHoodieCommitMetadata(HoodieTimeline timeline, Option<HoodieInstant> hoodieInstant) throws IOException {
+    if (hoodieInstant.isPresent()) {
+      return Option.of(TimelineUtils.getCommitMetadata(hoodieInstant.get(), timeline));
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super HoodieWriteStat`
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/DiffCommand.java`
 #### Snippet
@@ -14192,18 +14204,6 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/DiffCommand.java`
                             String value, BiFunction<HoodieWriteStat, String, Boolean> checker) {
     if (checker.apply(hoodieWriteStat, value)) {
       rows.add(new Comparable[] {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieInstant`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CommitsCommand.java`
-#### Snippet
-```java
-  }
-
-  private Option<HoodieCommitMetadata> getHoodieCommitMetadata(HoodieTimeline timeline, Option<HoodieInstant> hoodieInstant) throws IOException {
-    if (hoodieInstant.isPresent()) {
-      return Option.of(TimelineUtils.getCommitMetadata(hoodieInstant.get(), timeline));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -14255,18 +14255,6 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/HiveSyncTool.jav
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Map`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
-#### Snippet
-```java
-  private String getFormattedDate(
-      String instantTimestamp, HoodieInstant.State state,
-      Map<String, Map<HoodieInstant.State, HoodieInstantWithModTime>> instantInfoMap,
-      boolean showTimeSeconds) {
-    Long timeMs = null;
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super ResultSet`
 in `hudi-sync/hudi-adb-sync/src/main/java/org/apache/hudi/sync/adb/HoodieAdbJdbcClient.java`
 #### Snippet
@@ -14276,6 +14264,18 @@ in `hudi-sync/hudi-adb-sync/src/main/java/org/apache/hudi/sync/adb/HoodieAdbJdbc
   private <T> T executeQuerySQL(String sql, Function<ResultSet, T> function) {
     Statement stmt = null;
     try {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Map`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
+#### Snippet
+```java
+  private String getFormattedDate(
+      String instantTimestamp, HoodieInstant.State state,
+      Map<String, Map<HoodieInstant.State, HoodieInstantWithModTime>> instantInfoMap,
+      boolean showTimeSeconds) {
+    Long timeMs = null;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -14291,30 +14291,6 @@ in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieS
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FieldSchema`
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/HoodieHiveSyncClient.java`
-#### Snippet
-```java
-
-  @Override
-  public void updateTableComments(String tableName, List<FieldSchema> fromMetastore, List<FieldSchema> fromStorage) {
-    Map<String, FieldSchema> metastoreMap = fromMetastore.stream().collect(Collectors.toMap(f -> f.getName().toLowerCase(Locale.ROOT), f -> f));
-    Map<String, FieldSchema> storageMap = fromStorage.stream().collect(Collectors.toMap(f -> f.getName().toLowerCase(Locale.ROOT), f -> f));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FieldSchema`
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/HoodieHiveSyncClient.java`
-#### Snippet
-```java
-
-  @Override
-  public void updateTableComments(String tableName, List<FieldSchema> fromMetastore, List<FieldSchema> fromStorage) {
-    Map<String, FieldSchema> metastoreMap = fromMetastore.stream().collect(Collectors.toMap(f -> f.getName().toLowerCase(Locale.ROOT), f -> f));
-    Map<String, FieldSchema> storageMap = fromStorage.stream().collect(Collectors.toMap(f -> f.getName().toLowerCase(Locale.ROOT), f -> f));
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Pair`
 in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/HMSDDLExecutor.java`
 #### Snippet
@@ -14324,6 +14300,30 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/HMSDDLExecut
   public void updateTableComments(String tableName, Map<String, Pair<String, String>> alterSchema) {
     try {
       Table table = client.getTable(databaseName, tableName);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends FieldSchema`
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/HoodieHiveSyncClient.java`
+#### Snippet
+```java
+
+  @Override
+  public void updateTableComments(String tableName, List<FieldSchema> fromMetastore, List<FieldSchema> fromStorage) {
+    Map<String, FieldSchema> metastoreMap = fromMetastore.stream().collect(Collectors.toMap(f -> f.getName().toLowerCase(Locale.ROOT), f -> f));
+    Map<String, FieldSchema> storageMap = fromStorage.stream().collect(Collectors.toMap(f -> f.getName().toLowerCase(Locale.ROOT), f -> f));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends FieldSchema`
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/HoodieHiveSyncClient.java`
+#### Snippet
+```java
+
+  @Override
+  public void updateTableComments(String tableName, List<FieldSchema> fromMetastore, List<FieldSchema> fromStorage) {
+    Map<String, FieldSchema> metastoreMap = fromMetastore.stream().collect(Collectors.toMap(f -> f.getName().toLowerCase(Locale.ROOT), f -> f));
+    Map<String, FieldSchema> storageMap = fromStorage.stream().collect(Collectors.toMap(f -> f.getName().toLowerCase(Locale.ROOT), f -> f));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -14367,11 +14367,11 @@ Can generalize to `? extends ClusteringOperation`
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/JavaExecutionStrategy.java`
 #### Snippet
 ```java
-   * Read records from baseFiles and apply updates.
+   * Read records from baseFiles.
    */
-  private List<HoodieRecord<T>> readRecordsForGroupWithLogs(List<ClusteringOperation> clusteringOps,
-                                                            String instantTime) {
-    HoodieWriteConfig config = getWriteConfig();
+  private List<HoodieRecord<T>> readRecordsForGroupBaseFiles(List<ClusteringOperation> clusteringOps) {
+    List<HoodieRecord<T>> records = new ArrayList<>();
+    clusteringOps.forEach(clusteringOp -> {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -14379,11 +14379,11 @@ Can generalize to `? extends ClusteringOperation`
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/JavaExecutionStrategy.java`
 #### Snippet
 ```java
-   * Read records from baseFiles.
+   * Read records from baseFiles and apply updates.
    */
-  private List<HoodieRecord<T>> readRecordsForGroupBaseFiles(List<ClusteringOperation> clusteringOps) {
-    List<HoodieRecord<T>> records = new ArrayList<>();
-    clusteringOps.forEach(clusteringOp -> {
+  private List<HoodieRecord<T>> readRecordsForGroupWithLogs(List<ClusteringOperation> clusteringOps,
+                                                            String instantTime) {
+    HoodieWriteConfig config = getWriteConfig();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -14411,18 +14411,6 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/comm
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/BaseJavaCommitActionExecutor.java`
-#### Snippet
-```java
-  }
-
-  protected Pair<HashMap<String, WorkloadStat>, WorkloadStat> buildProfile(List<HoodieRecord<T>> inputRecords) {
-    HashMap<String, WorkloadStat> partitionPathStatMap = new HashMap<>();
-    WorkloadStat globalStat = new WorkloadStat();
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super List`
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/BaseJavaCommitActionExecutor.java`
 #### Snippet
@@ -14435,6 +14423,18 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/comm
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/BaseJavaCommitActionExecutor.java`
+#### Snippet
+```java
+  }
+
+  protected Pair<HashMap<String, WorkloadStat>, WorkloadStat> buildProfile(List<HoodieRecord<T>> inputRecords) {
+    HashMap<String, WorkloadStat> partitionPathStatMap = new HashMap<>();
+    WorkloadStat globalStat = new WorkloadStat();
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super List`>
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/JavaDeleteHelper.java`
 #### Snippet
@@ -14444,6 +14444,18 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/comm
                                                         BaseCommitActionExecutor<EmptyHoodieRecordPayload, List<HoodieRecord<EmptyHoodieRecordPayload>>, List<HoodieKey>, List<WriteStatus>, R> deleteExecutor) {
     try {
       HoodieWriteMetadata<List<WriteStatus>> result = null;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Type`
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
+#### Snippet
+```java
+   * @return : Equivalent 'struct' Hive schema
+   */
+  private static String createHiveStruct(List<Type> parquetFields, boolean supportTimestamp, boolean doFormat) {
+    StringBuilder struct = new StringBuilder();
+    struct.append(doFormat ? "STRUCT< " : "STRUCT<");
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -14468,18 +14480,6 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkConcatAn
                                      Iterator<HoodieRecord<T>> recordItr, String partitionPath, String fileId,
                                      TaskContextSupplier taskContextSupplier, Path basePath) {
     super(config, instantTime, hoodieTable, Collections.emptyIterator(), partitionPath, fileId, taskContextSupplier, basePath);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Type`
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
-#### Snippet
-```java
-   * @return : Equivalent 'struct' Hive schema
-   */
-  private static String createHiveStruct(List<Type> parquetFields, boolean supportTimestamp, boolean doFormat) {
-    StringBuilder struct = new StringBuilder();
-    struct.append(doFormat ? "STRUCT< " : "STRUCT<");
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -14513,8 +14513,8 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/Hoo
 ```java
 
   @Override
-  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
-    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
+  public <I, O> List<O> map(List<I> data, SerializableFunction<I, O> func, int parallelism) {
+    return data.stream().parallel().map(throwingMapWrapper(func)).collect(toList());
   }
 ```
 
@@ -14525,21 +14525,21 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/Hoo
 ```java
 
   @Override
-  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
-    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
+  public <I, O> List<O> map(List<I> data, SerializableFunction<I, O> func, int parallelism) {
+    return data.stream().parallel().map(throwingMapWrapper(func)).collect(toList());
   }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Iterator`
+Can generalize to `? extends O`
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
 #### Snippet
 ```java
 
   @Override
-  public <I, K, V> Stream<ImmutablePair<K, V>> mapPartitionsToPairAndReduceByKey(Stream<I> data, SerializablePairFlatMapFunction<Iterator<I>, K, V> flatMapToPairFunc,
-                                                                                 SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return throwingFlatMapToPairWrapper(flatMapToPairFunc).apply(data.parallel().iterator())
+  public <I, O> List<O> map(List<I> data, SerializableFunction<I, O> func, int parallelism) {
+    return data.stream().parallel().map(throwingMapWrapper(func)).collect(toList());
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -14657,8 +14657,8 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/Hoo
 ```java
 
   @Override
-  public <I, O> List<O> map(List<I> data, SerializableFunction<I, O> func, int parallelism) {
-    return data.stream().parallel().map(throwingMapWrapper(func)).collect(toList());
+  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
+    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
   }
 ```
 
@@ -14669,21 +14669,21 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/Hoo
 ```java
 
   @Override
-  public <I, O> List<O> map(List<I> data, SerializableFunction<I, O> func, int parallelism) {
-    return data.stream().parallel().map(throwingMapWrapper(func)).collect(toList());
+  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
+    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
   }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends O`
+Can generalize to `? super Iterator`
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
 #### Snippet
 ```java
 
   @Override
-  public <I, O> List<O> map(List<I> data, SerializableFunction<I, O> func, int parallelism) {
-    return data.stream().parallel().map(throwingMapWrapper(func)).collect(toList());
-  }
+  public <I, K, V> Stream<ImmutablePair<K, V>> mapPartitionsToPairAndReduceByKey(Stream<I> data, SerializablePairFlatMapFunction<Iterator<I>, K, V> flatMapToPairFunc,
+                                                                                 SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return throwingFlatMapToPairWrapper(flatMapToPairFunc).apply(data.parallel().iterator())
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -14837,6 +14837,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaR
 ```java
 
   @Override
+  public <K, V> HoodiePairData<K, V> mapToPair(SerializablePairFunction<T, K, V> func) {
+    return HoodieJavaPairRDD.of(rddData.mapToPair(input -> {
+      Pair<K, V> pair = func.call(input);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaRDD.java`
+#### Snippet
+```java
+
+  @Override
   public <O> HoodieData<O> flatMap(SerializableFunction<T, Iterator<O>> func) {
     return HoodieJavaRDD.of(rddData.flatMap(e -> func.apply(e)));
   }
@@ -14855,18 +14867,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaR
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaRDD.java`
-#### Snippet
-```java
-
-  @Override
-  public <K, V> HoodiePairData<K, V> mapToPair(SerializablePairFunction<T, K, V> func) {
-    return HoodieJavaPairRDD.of(rddData.mapToPair(input -> {
-      Pair<K, V> pair = func.call(input);
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Pair`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaPairRDD.java`
 #### Snippet
@@ -14879,15 +14879,27 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaP
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends W`
+Can generalize to `? super Pair`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaPairRDD.java`
 #### Snippet
 ```java
 
   @Override
-  public <W> HoodiePairData<K, Pair<V, Option<W>>> leftOuterJoin(HoodiePairData<K, W> other) {
-    return HoodieJavaPairRDD.of(JavaPairRDD.fromJavaRDD(
-        pairRDDData.leftOuterJoin(HoodieJavaPairRDD.getJavaPairRDD(other))
+  public <O> HoodieData<O> map(SerializableFunction<Pair<K, V>, O> func) {
+    return HoodieJavaRDD.of(pairRDDData.map(
+        tuple -> func.apply(new ImmutablePair<>(tuple._1, tuple._2))));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends O`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaPairRDD.java`
+#### Snippet
+```java
+
+  @Override
+  public <O> HoodieData<O> map(SerializableFunction<Pair<K, V>, O> func) {
+    return HoodieJavaRDD.of(pairRDDData.map(
+        tuple -> func.apply(new ImmutablePair<>(tuple._1, tuple._2))));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -14927,27 +14939,15 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaP
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Pair`
+Can generalize to `? extends W`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaPairRDD.java`
 #### Snippet
 ```java
 
   @Override
-  public <O> HoodieData<O> map(SerializableFunction<Pair<K, V>, O> func) {
-    return HoodieJavaRDD.of(pairRDDData.map(
-        tuple -> func.apply(new ImmutablePair<>(tuple._1, tuple._2))));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends O`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaPairRDD.java`
-#### Snippet
-```java
-
-  @Override
-  public <O> HoodieData<O> map(SerializableFunction<Pair<K, V>, O> func) {
-    return HoodieJavaRDD.of(pairRDDData.map(
-        tuple -> func.apply(new ImmutablePair<>(tuple._1, tuple._2))));
+  public <W> HoodiePairData<K, Pair<V, Option<W>>> leftOuterJoin(HoodiePairData<K, W> other) {
+    return HoodieJavaPairRDD.of(JavaPairRDD.fromJavaRDD(
+        pairRDDData.leftOuterJoin(HoodieJavaPairRDD.getJavaPairRDD(other))
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -14975,14 +14975,74 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/com
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends WriteStatus`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
+#### Snippet
+```java
+  }
+
+  Map<String, Integer> mapFileWithInsertsToUniquePartition(JavaRDD<WriteStatus> writeStatusRDD) {
+    final Map<String, Integer> fileIdPartitionMap = new HashMap<>();
+    int partitionIndex = 0;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends WriteStatus`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
+#### Snippet
+```java
+  }
+
+  Tuple2<Long, Integer> getHBasePutAccessParallelism(final JavaRDD<WriteStatus> writeStatusRDD) {
+    final JavaPairRDD<Long, Integer> insertOnlyWriteStatusRDD = writeStatusRDD
+        .filter(w -> w.getStat().getNumInserts() > 0).mapToPair(w -> new Tuple2<>(w.getStat().getNumInserts(), 1));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Mutation`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
+#### Snippet
+```java
+   * Helper method to facilitate performing mutations (including puts and deletes) in Hbase.
+   */
+  private void doMutations(BufferedMutator mutator, List<Mutation> mutations, RateLimiter limiter) throws IOException {
+    if (mutations.isEmpty()) {
+      return;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends I`
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
 #### Snippet
 ```java
 
   @Override
-  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
-    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(Collectors.toList());
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super I`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends I`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
+    data.forEach(throwingForeachWrapper(consumer));
   }
 ```
 
@@ -14993,9 +15053,21 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/Ho
 ```java
 
   @Override
-  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
-    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(Collectors.toList());
+  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
+    data.forEach(throwingForeachWrapper(consumer));
   }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Pair`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
+#### Snippet
+```java
+  @Override
+  public <I, K, V> List<V> reduceByKey(
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return data.stream().parallel()
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15095,50 +15167,14 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/Ho
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
-#### Snippet
-```java
-  @Override
-  public <I, K, V> List<V> reduceByKey(
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return data.stream().parallel()
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends I`
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
 #### Snippet
 ```java
 
   @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super I`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends I`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
-    data.forEach(throwingForeachWrapper(consumer));
+  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
+    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(Collectors.toList());
   }
 ```
 
@@ -15149,45 +15185,9 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/Ho
 ```java
 
   @Override
-  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
-    data.forEach(throwingForeachWrapper(consumer));
+  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
+    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(Collectors.toList());
   }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends WriteStatus`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
-#### Snippet
-```java
-  }
-
-  Map<String, Integer> mapFileWithInsertsToUniquePartition(JavaRDD<WriteStatus> writeStatusRDD) {
-    final Map<String, Integer> fileIdPartitionMap = new HashMap<>();
-    int partitionIndex = 0;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends WriteStatus`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
-#### Snippet
-```java
-  }
-
-  Tuple2<Long, Integer> getHBasePutAccessParallelism(final JavaRDD<WriteStatus> writeStatusRDD) {
-    final JavaPairRDD<Long, Integer> insertOnlyWriteStatusRDD = writeStatusRDD
-        .filter(w -> w.getStat().getNumInserts() > 0).mapToPair(w -> new Tuple2<>(w.getStat().getNumInserts(), 1));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Mutation`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
-#### Snippet
-```java
-   * Helper method to facilitate performing mutations (including puts and deletes) in Hbase.
-   */
-  private void doMutations(BufferedMutator mutator, List<Mutation> mutations, RateLimiter limiter) throws IOException {
-    if (mutations.isEmpty()) {
-      return;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15203,39 +15203,15 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/del
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends WriteStatus`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
+Can generalize to `? extends Pair`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/SparkHoodieBloomIndexHelper.java`
 #### Snippet
 ```java
-  public Map<String, List<String>> getPartitionToReplacedFileIds(
-      WriteOperationType writeOperationType,
-      List<WriteStatus> writeStatuses) {
-    HoodieFlinkTable<T> table = getHoodieTable();
-    switch (writeOperationType) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Map`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
-#### Snippet
-```java
-      String compactionInstantTime,
-      HoodieCommitMetadata metadata,
-      Option<Map<String, String>> extraMetadata) {
-    HoodieFlinkTable<T> table = getHoodieTable();
-    extraMetadata.ifPresent(m -> m.forEach(metadata::addMetadata));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
-#### Snippet
-```java
-
-  @Override
-  protected List<WriteStatus> postWrite(HoodieWriteMetadata<List<WriteStatus>> result,
-                                        String instantTime,
-                                        HoodieTable hoodieTable) {
+      HoodieWriteConfig config, HoodieEngineContext context, HoodieTable hoodieTable,
+      HoodiePairData<String, String> partitionRecordKeyPairs,
+      HoodieData<Pair<String, HoodieKey>> fileComparisonPairs,
+      Map<String, List<BloomIndexFileInfo>> partitionToFileInfo,
+      Map<String, Long> recordsPerPartition) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15263,15 +15239,39 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/Spar
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/SparkHoodieBloomIndexHelper.java`
+Can generalize to `? extends WriteStatus`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
 #### Snippet
 ```java
-      HoodieWriteConfig config, HoodieEngineContext context, HoodieTable hoodieTable,
-      HoodiePairData<String, String> partitionRecordKeyPairs,
-      HoodieData<Pair<String, HoodieKey>> fileComparisonPairs,
-      Map<String, List<BloomIndexFileInfo>> partitionToFileInfo,
-      Map<String, Long> recordsPerPartition) {
+  public Map<String, List<String>> getPartitionToReplacedFileIds(
+      WriteOperationType writeOperationType,
+      List<WriteStatus> writeStatuses) {
+    HoodieFlinkTable<T> table = getHoodieTable();
+    switch (writeOperationType) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
+#### Snippet
+```java
+
+  @Override
+  protected List<WriteStatus> postWrite(HoodieWriteMetadata<List<WriteStatus>> result,
+                                        String instantTime,
+                                        HoodieTable hoodieTable) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Map`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
+#### Snippet
+```java
+      String compactionInstantTime,
+      HoodieCommitMetadata metadata,
+      Option<Map<String, String>> extraMetadata) {
+    HoodieFlinkTable<T> table = getHoodieTable();
+    extraMetadata.ifPresent(m -> m.forEach(metadata::addMetadata));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15323,30 +15323,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/Spa
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super HoodieData`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
-#### Snippet
-```java
-  }
-
-  protected HoodieData<WriteStatus> updateIndex(HoodieData<WriteStatus> writeStatuses, HoodieWriteMetadata<HoodieData<WriteStatus>> result) {
-    // cache writeStatusRDD before updating index, so that all actions before this are not triggered again for future
-    // RDD actions that are performed after updating the index.
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
-#### Snippet
-```java
-   * Count the number of updates/inserts for each file in each partition.
-   */
-  private Pair<HashMap<String, WorkloadStat>, WorkloadStat> buildProfile(HoodieData<HoodieRecord<T>> inputRecords) {
-    HashMap<String, WorkloadStat> partitionPathStatMap = new HashMap<>();
-    WorkloadStat globalStat = new WorkloadStat();
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends HoodieRecord`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
 #### Snippet
@@ -15371,27 +15347,27 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/com
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieFileGroupId`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/SparkSingleFileSortExecutionStrategy.java`
-#### Snippet
-```java
-                                                                 Map<String, String> strategyParams,
-                                                                 Schema schema,
-                                                                 List<HoodieFileGroupId> fileGroupIdList,
-                                                                 boolean shouldPreserveHoodieMetadata,
-                                                                 Map<String, String> extraMetadata) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Map`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/bootstrap/SparkBootstrapCommitActionExecutor.java`
+Can generalize to `? super HoodieData`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
 #### Snippet
 ```java
   }
 
-  protected void commit(Option<Map<String, String>> extraMetadata, HoodieWriteMetadata<HoodieData<WriteStatus>> result, List<HoodieWriteStat> stats) {
-    String actionType = table.getMetaClient().getCommitActionType();
-    LOG.info("Committing " + instantTime + ", action Type " + actionType);
+  protected HoodieData<WriteStatus> updateIndex(HoodieData<WriteStatus> writeStatuses, HoodieWriteMetadata<HoodieData<WriteStatus>> result) {
+    // cache writeStatusRDD before updating index, so that all actions before this are not triggered again for future
+    // RDD actions that are performed after updating the index.
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
+#### Snippet
+```java
+   * Count the number of updates/inserts for each file in each partition.
+   */
+  private Pair<HashMap<String, WorkloadStat>, WorkloadStat> buildProfile(HoodieData<HoodieRecord<T>> inputRecords) {
+    HashMap<String, WorkloadStat> partitionPathStatMap = new HashMap<>();
+    WorkloadStat globalStat = new WorkloadStat();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15407,6 +15383,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/boo
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Map`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/bootstrap/SparkBootstrapCommitActionExecutor.java`
+#### Snippet
+```java
+  }
+
+  protected void commit(Option<Map<String, String>> extraMetadata, HoodieWriteMetadata<HoodieData<WriteStatus>> result, List<HoodieWriteStat> stats) {
+    String actionType = table.getMetaClient().getCommitActionType();
+    LOG.info("Committing " + instantTime + ", action Type " + actionType);
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ClusteringOperation`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/SingleSparkJobExecutionStrategy.java`
 #### Snippet
@@ -15416,6 +15404,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clusterin
   private Iterator<HoodieRecord<T>> readRecordsForGroupBaseFiles(List<ClusteringOperation> clusteringOps) {
     List<Iterator<HoodieRecord<T>>> iteratorsForPartition = clusteringOps.stream().map(clusteringOp -> {
 
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieFileGroupId`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/SparkSingleFileSortExecutionStrategy.java`
+#### Snippet
+```java
+                                                                 Map<String, String> strategyParams,
+                                                                 Schema schema,
+                                                                 List<HoodieFileGroupId> fileGroupIdList,
+                                                                 boolean shouldPreserveHoodieMetadata,
+                                                                 Map<String, String> extraMetadata) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15431,87 +15431,27 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clusterin
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends StringBuilder`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/PartitionPathFormatterBase.java`
-#### Snippet
-```java
-  private final boolean useEncoding;
-
-  PartitionPathFormatterBase(Supplier<StringBuilder<S>> stringBuilderFactory,
-                             boolean useHiveStylePartitioning,
-                             boolean useEncoding) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Map`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDWriteClient.java`
-#### Snippet
-```java
-
-  @Override
-  public void commitCompaction(String compactionInstantTime, HoodieCommitMetadata metadata, Option<Map<String, String>> extraMetadata) {
-    HoodieSparkTable<T> table = HoodieSparkTable.create(config, context);
-    extraMetadata.ifPresent(m -> m.forEach(metadata::addMetadata));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends JavaRDD`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDWriteClient.java`
-#### Snippet
-```java
-
-  @Override
-  protected JavaRDD<WriteStatus> postWrite(HoodieWriteMetadata<JavaRDD<WriteStatus>> result,
-                                           String instantTime,
-                                           HoodieTable hoodieTable) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Map`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDWriteClient.java`
-#### Snippet
-```java
-
-  @Override
-  public void commitLogCompaction(String logCompactionInstantTime, HoodieCommitMetadata metadata, Option<Map<String, String>> extraMetadata) {
-    HoodieSparkTable<T> table = HoodieSparkTable.create(config, context);
-    extraMetadata.ifPresent(m -> m.forEach(metadata::addMetadata));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClusteringOperation`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/MultipleSparkJobExecutionStrategy.java`
-#### Snippet
-```java
-   */
-  private HoodieData<HoodieRecord<T>> readRecordsForGroupBaseFiles(JavaSparkContext jsc,
-                                                                List<ClusteringOperation> clusteringOps) {
-    SerializableConfiguration hadoopConf = new SerializableConfiguration(getHoodieTable().getHadoopConf());
-    HoodieWriteConfig writeConfig = getWriteConfig();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClusteringOperation`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/MultipleSparkJobExecutionStrategy.java`
-#### Snippet
-```java
-   */
-  private HoodieData<HoodieRecord<T>> readRecordsForGroupWithLogs(JavaSparkContext jsc,
-                                                               List<ClusteringOperation> clusteringOps,
-                                                               String instantTime) {
-    HoodieWriteConfig config = getWriteConfig();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
+Can generalize to `? extends I`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
+
   @Override
-  public <I, K, V> List<V> reduceByKey(
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
-        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
+      Pair<K, V> pair = mapToPairFunc.call(input);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super I`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
+      Pair<K, V> pair = mapToPairFunc.call(input);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15519,11 +15459,11 @@ Can generalize to `? super V`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
+
   @Override
-  public <I, K, V> List<V> reduceByKey(
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
-        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
+      Pair<K, V> pair = mapToPairFunc.call(input);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15531,11 +15471,11 @@ Can generalize to `? super V`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
+
   @Override
-  public <I, K, V> List<V> reduceByKey(
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
-        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
+      Pair<K, V> pair = mapToPairFunc.call(input);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15543,11 +15483,11 @@ Can generalize to `? extends V`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
+
   @Override
-  public <I, K, V> List<V> reduceByKey(
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
-        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
+      Pair<K, V> pair = mapToPairFunc.call(input);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15557,8 +15497,8 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/Ho
 ```java
 
   @Override
-  public <I, O> List<O> map(List<I> data, SerializableFunction<I, O> func, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).map(func::apply).collect();
+  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
+    javaSparkContext.parallelize(data, parallelism).foreach(consumer::accept);
   }
 ```
 
@@ -15569,8 +15509,8 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/Ho
 ```java
 
   @Override
-  public <I, O> List<O> map(List<I> data, SerializableFunction<I, O> func, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).map(func::apply).collect();
+  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
+    javaSparkContext.parallelize(data, parallelism).foreach(consumer::accept);
   }
 ```
 
@@ -15659,51 +15599,15 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/Ho
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends I`
+Can generalize to `? extends Pair`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
-
   @Override
-  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
-    javaSparkContext.parallelize(data, parallelism).foreach(consumer::accept);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super I`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
-    javaSparkContext.parallelize(data, parallelism).foreach(consumer::accept);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends I`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
-      Pair<K, V> pair = mapToPairFunc.call(input);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super I`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
-      Pair<K, V> pair = mapToPairFunc.call(input);
+  public <I, K, V> List<V> reduceByKey(
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
+        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15711,11 +15615,11 @@ Can generalize to `? super V`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
-
   @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
-      Pair<K, V> pair = mapToPairFunc.call(input);
+  public <I, K, V> List<V> reduceByKey(
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
+        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15723,11 +15627,11 @@ Can generalize to `? super V`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
-
   @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
-      Pair<K, V> pair = mapToPairFunc.call(input);
+  public <I, K, V> List<V> reduceByKey(
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
+        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15735,11 +15639,11 @@ Can generalize to `? extends V`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
-
   @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
-      Pair<K, V> pair = mapToPairFunc.call(input);
+  public <I, K, V> List<V> reduceByKey(
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
+        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15767,51 +15671,99 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/Ho
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends PartitionPathFormatterBase.StringBuilder`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
+Can generalize to `? extends I`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
 
-  private <S> S combineRecordKeyInternal(
-      Supplier<PartitionPathFormatterBase.StringBuilder<S>> builderFactory,
-      Function<Object, S> converter,
-      Function<S, S> emptyKeyPartHandler,
+  @Override
+  public <I, O> List<O> map(List<I> data, SerializableFunction<I, O> func, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).map(func::apply).collect();
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends S`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
+Can generalize to `? super I`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
-  private <S> S combineRecordKeyInternal(
-      Supplier<PartitionPathFormatterBase.StringBuilder<S>> builderFactory,
-      Function<Object, S> converter,
-      Function<S, S> emptyKeyPartHandler,
-      Object... recordKeyParts
+
+  @Override
+  public <I, O> List<O> map(List<I> data, SerializableFunction<I, O> func, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).map(func::apply).collect();
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super S`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
+Can generalize to `? extends StringBuilder`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/PartitionPathFormatterBase.java`
 #### Snippet
 ```java
-      Supplier<PartitionPathFormatterBase.StringBuilder<S>> builderFactory,
-      Function<Object, S> converter,
-      Function<S, S> emptyKeyPartHandler,
-      Object... recordKeyParts
-  ) {
+  private final boolean useEncoding;
+
+  PartitionPathFormatterBase(Supplier<StringBuilder<S>> stringBuilderFactory,
+                             boolean useHiveStylePartitioning,
+                             boolean useEncoding) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends S`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
+Can generalize to `? extends ClusteringOperation`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/MultipleSparkJobExecutionStrategy.java`
 #### Snippet
 ```java
-      Supplier<PartitionPathFormatterBase.StringBuilder<S>> builderFactory,
-      Function<Object, S> converter,
-      Function<S, S> emptyKeyPartHandler,
-      Object... recordKeyParts
-  ) {
+   */
+  private HoodieData<HoodieRecord<T>> readRecordsForGroupBaseFiles(JavaSparkContext jsc,
+                                                                List<ClusteringOperation> clusteringOps) {
+    SerializableConfiguration hadoopConf = new SerializableConfiguration(getHoodieTable().getHadoopConf());
+    HoodieWriteConfig writeConfig = getWriteConfig();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ClusteringOperation`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/MultipleSparkJobExecutionStrategy.java`
+#### Snippet
+```java
+   */
+  private HoodieData<HoodieRecord<T>> readRecordsForGroupWithLogs(JavaSparkContext jsc,
+                                                               List<ClusteringOperation> clusteringOps,
+                                                               String instantTime) {
+    HoodieWriteConfig config = getWriteConfig();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Map`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDWriteClient.java`
+#### Snippet
+```java
+
+  @Override
+  public void commitCompaction(String compactionInstantTime, HoodieCommitMetadata metadata, Option<Map<String, String>> extraMetadata) {
+    HoodieSparkTable<T> table = HoodieSparkTable.create(config, context);
+    extraMetadata.ifPresent(m -> m.forEach(metadata::addMetadata));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends JavaRDD`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDWriteClient.java`
+#### Snippet
+```java
+
+  @Override
+  protected JavaRDD<WriteStatus> postWrite(HoodieWriteMetadata<JavaRDD<WriteStatus>> result,
+                                           String instantTime,
+                                           HoodieTable hoodieTable) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Map`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDWriteClient.java`
+#### Snippet
+```java
+
+  @Override
+  public void commitLogCompaction(String logCompactionInstantTime, HoodieCommitMetadata metadata, Option<Map<String, String>> extraMetadata) {
+    HoodieSparkTable<T> table = HoodieSparkTable.create(config, context);
+    extraMetadata.ifPresent(m -> m.forEach(metadata::addMetadata));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15870,6 +15822,54 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKe
       Function<Object, S> converter,
       Function<S, S> emptyKeyPartHandler,
       Predicate<S> isNullOrEmptyKeyPartPredicate,
+      Object... recordKeyParts
+  ) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends PartitionPathFormatterBase.StringBuilder`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
+#### Snippet
+```java
+
+  private <S> S combineRecordKeyInternal(
+      Supplier<PartitionPathFormatterBase.StringBuilder<S>> builderFactory,
+      Function<Object, S> converter,
+      Function<S, S> emptyKeyPartHandler,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends S`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
+#### Snippet
+```java
+  private <S> S combineRecordKeyInternal(
+      Supplier<PartitionPathFormatterBase.StringBuilder<S>> builderFactory,
+      Function<Object, S> converter,
+      Function<S, S> emptyKeyPartHandler,
+      Object... recordKeyParts
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super S`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
+#### Snippet
+```java
+      Supplier<PartitionPathFormatterBase.StringBuilder<S>> builderFactory,
+      Function<Object, S> converter,
+      Function<S, S> emptyKeyPartHandler,
+      Object... recordKeyParts
+  ) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends S`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
+#### Snippet
+```java
+      Supplier<PartitionPathFormatterBase.StringBuilder<S>> builderFactory,
+      Function<Object, S> converter,
+      Function<S, S> emptyKeyPartHandler,
       Object... recordKeyParts
   ) {
 ```
@@ -15884,18 +15884,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieKeyLoc
                                       Pair<String, HoodieBaseFile> partitionPathBaseFilePair, Option<BaseKeyGenerator> keyGeneratorOpt) {
     super(config, hoodieTable, Pair.of(partitionPathBaseFilePair.getLeft(), partitionPathBaseFilePair.getRight().getFileId()));
     this.partitionPathBaseFilePair = partitionPathBaseFilePair;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/RDDConsistentBucketPartitioner.java`
-#### Snippet
-```java
-   * the mapping from partition to its bucket identifier is constructed.
-   */
-  private Map<String, ConsistentBucketIdentifier> initializeBucketIdentifier(JavaRDD<HoodieRecord<T>> records) {
-    return records.map(HoodieRecord::getPartitionPath).distinct().collect().stream()
-        .collect(Collectors.toMap(p -> p, p -> getBucketIdentifier(p)));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15924,6 +15912,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkin
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/RDDConsistentBucketPartitioner.java`
+#### Snippet
+```java
+   * the mapping from partition to its bucket identifier is constructed.
+   */
+  private Map<String, ConsistentBucketIdentifier> initializeBucketIdentifier(JavaRDD<HoodieRecord<T>> records) {
+    return records.map(HoodieRecord::getPartitionPath).distinct().collect().stream()
+        .collect(Collectors.toMap(p -> p, p -> getBucketIdentifier(p)));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieRecord`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieConcatHandle.java`
 #### Snippet
 ```java
@@ -15932,6 +15932,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieConcat
                             Iterator<HoodieRecord<T>> recordItr, String partitionPath, String fileId,
                             TaskContextSupplier taskContextSupplier, Option<BaseKeyGenerator> keyGeneratorOpt) {
     super(config, instantTime, hoodieTable, Collections.emptyIterator(), partitionPath, fileId, taskContextSupplier, keyGeneratorOpt);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Exception`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieWriteHandle.java`
+#### Snippet
+```java
+   * Perform the actual writing of the given record into the backing file.
+   */
+  public void write(HoodieRecord record, Option<IndexedRecord> avroRecord, Option<Exception> exception) {
+    Option recordMetadata = ((HoodieRecordPayload) record.getData()).getMetadata();
+    if (exception.isPresent() && exception.get() instanceof Throwable) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15947,15 +15959,39 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieWriteH
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Exception`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieWriteHandle.java`
+Can generalize to `? extends GenericRecord`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
 #### Snippet
 ```java
-   * Perform the actual writing of the given record into the backing file.
-   */
-  public void write(HoodieRecord record, Option<IndexedRecord> avroRecord, Option<Exception> exception) {
-    Option recordMetadata = ((HoodieRecordPayload) record.getData()).getMetadata();
-    if (exception.isPresent() && exception.get() instanceof Throwable) {
+  }
+
+  private String getPartitionPath(Option<GenericRecord> record, Option<Row> row, Option<Pair<InternalRow, StructType>> internalRowStructTypePair) {
+    if (getPartitionPathFields() == null) {
+      throw new HoodieKeyException("Unable to find field names for partition path in cfg");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Row`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
+#### Snippet
+```java
+  }
+
+  private String getPartitionPath(Option<GenericRecord> record, Option<Row> row, Option<Pair<InternalRow, StructType>> internalRowStructTypePair) {
+    if (getPartitionPathFields() == null) {
+      throw new HoodieKeyException("Unable to find field names for partition path in cfg");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Pair`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
+#### Snippet
+```java
+  }
+
+  private String getPartitionPath(Option<GenericRecord> record, Option<Row> row, Option<Pair<InternalRow, StructType>> internalRowStructTypePair) {
+    if (getPartitionPathFields() == null) {
+      throw new HoodieKeyException("Unable to find field names for partition path in cfg");
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -15983,18 +16019,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Key
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/IntervalTreeBasedIndexFileFilter.java`
-#### Snippet
-```java
-   * @param partitionToFileIndexInfo Map of partition to List of {@link BloomIndexFileInfo}s
-   */
-  IntervalTreeBasedIndexFileFilter(final Map<String, List<BloomIndexFileInfo>> partitionToFileIndexInfo) {
-    partitionToFileIndexInfo.forEach((partition, bloomIndexFiles) -> {
-      // Note that the interval tree implementation doesn't have auto-balancing to ensure logN search time.
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends HoodieRecordLocation`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/HoodieIndexUtils.java`
 #### Snippet
@@ -16004,6 +16028,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/HoodieInd
   public static HoodieRecord getTaggedRecord(HoodieRecord inputRecord, Option<HoodieRecordLocation> location) {
     HoodieRecord<?> record = inputRecord;
     if (location.isPresent()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/IntervalTreeBasedIndexFileFilter.java`
+#### Snippet
+```java
+   * @param partitionToFileIndexInfo Map of partition to List of {@link BloomIndexFileInfo}s
+   */
+  IntervalTreeBasedIndexFileFilter(final Map<String, List<BloomIndexFileInfo>> partitionToFileIndexInfo) {
+    partitionToFileIndexInfo.forEach((partition, bloomIndexFiles) -> {
+      // Note that the interval tree implementation doesn't have auto-balancing to ensure logN search time.
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16031,27 +16067,39 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Lis
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+Can generalize to `? extends HoodieKey`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieSimpleIndex.java`
 #### Snippet
 ```java
-  }
+   */
+  protected HoodiePairData<HoodieKey, HoodieRecordLocation> fetchRecordLocationsForAffectedPartitions(
+      HoodieData<HoodieKey> hoodieKeys, HoodieEngineContext context, HoodieTable hoodieTable,
+      int parallelism) {
+    List<String> affectedPartitionPathList =
+```
 
-  private Option<IndexedRecord> getInsertValue(HoodieRecord<T> hoodieRecord) throws IOException {
-    if (useWriterSchema) {
-      return hoodieRecord.getData().getInsertValue(tableSchemaWithMetaFields, recordProperties);
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieSimpleIndex.java`
+#### Snippet
+```java
+   */
+  protected <R> HoodieData<HoodieRecord<R>> tagLocationInternal(
+      HoodieData<HoodieRecord<R>> inputRecords, HoodieEngineContext context,
+      HoodieTable hoodieTable) {
+    if (config.getSimpleIndexUseCaching()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Pair`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/ListBasedHoodieBloomIndexHelper.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieSimpleIndex.java`
 #### Snippet
 ```java
-      HoodieWriteConfig config, HoodieEngineContext context, HoodieTable hoodieTable,
-      HoodiePairData<String, String> partitionRecordKeyPairs,
-      HoodieData<Pair<String, HoodieKey>> fileComparisonPairs,
-      Map<String, List<BloomIndexFileInfo>> partitionToFileInfo, Map<String, Long> recordsPerPartition) {
-    List<Pair<String, HoodieKey>> fileComparisonPairList =
+  protected HoodiePairData<HoodieKey, HoodieRecordLocation> fetchRecordLocations(
+      HoodieEngineContext context, HoodieTable hoodieTable, int parallelism,
+      List<Pair<String, HoodieBaseFile>> baseFiles) {
+    int fetchParallelism = Math.max(1, Math.min(baseFiles.size(), parallelism));
+
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16091,39 +16139,27 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Hoo
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieKey`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieSimpleIndex.java`
-#### Snippet
-```java
-   */
-  protected HoodiePairData<HoodieKey, HoodieRecordLocation> fetchRecordLocationsForAffectedPartitions(
-      HoodieData<HoodieKey> hoodieKeys, HoodieEngineContext context, HoodieTable hoodieTable,
-      int parallelism) {
-    List<String> affectedPartitionPathList =
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Pair`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieSimpleIndex.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/ListBasedHoodieBloomIndexHelper.java`
 #### Snippet
 ```java
-  protected HoodiePairData<HoodieKey, HoodieRecordLocation> fetchRecordLocations(
-      HoodieEngineContext context, HoodieTable hoodieTable, int parallelism,
-      List<Pair<String, HoodieBaseFile>> baseFiles) {
-    int fetchParallelism = Math.max(1, Math.min(baseFiles.size(), parallelism));
-
+      HoodieWriteConfig config, HoodieEngineContext context, HoodieTable hoodieTable,
+      HoodiePairData<String, String> partitionRecordKeyPairs,
+      HoodieData<Pair<String, HoodieKey>> fileComparisonPairs,
+      Map<String, List<BloomIndexFileInfo>> partitionToFileInfo, Map<String, Long> recordsPerPartition) {
+    List<Pair<String, HoodieKey>> fileComparisonPairList =
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieSimpleIndex.java`
+Can generalize to `? extends WriteStatus`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/inmemory/HoodieInMemoryHashIndex.java`
 #### Snippet
 ```java
-   */
-  protected <R> HoodieData<HoodieRecord<R>> tagLocationInternal(
-      HoodieData<HoodieRecord<R>> inputRecords, HoodieEngineContext context,
+  @Override
+  public HoodieData<WriteStatus> updateLocation(
+      HoodieData<WriteStatus> writeStatuses, HoodieEngineContext context,
       HoodieTable hoodieTable) {
-    if (config.getSimpleIndexUseCaching()) {
+    return writeStatuses.map(writeStatus -> {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16139,15 +16175,63 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/inmemory/
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends WriteStatus`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/inmemory/HoodieInMemoryHashIndex.java`
+Can generalize to `? extends T`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+#### Snippet
+```java
+  }
+
+  private Option<IndexedRecord> getInsertValue(HoodieRecord<T> hoodieRecord) throws IOException {
+    if (useWriterSchema) {
+      return hoodieRecord.getData().getInsertValue(tableSchemaWithMetaFields, recordProperties);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
+#### Snippet
+```java
+   */
+  private <R> HoodieData<HoodieRecord<R>> getTaggedRecords(
+      HoodiePairData<String, HoodieRecord<R>> incomingRecords,
+      HoodiePairData<HoodieKey, HoodieRecordLocation> existingRecords) {
+    HoodiePairData<String, Pair<String, HoodieRecordLocation>> existingRecordByRecordKey =
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieKey`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
+#### Snippet
+```java
+  private <R> HoodieData<HoodieRecord<R>> getTaggedRecords(
+      HoodiePairData<String, HoodieRecord<R>> incomingRecords,
+      HoodiePairData<HoodieKey, HoodieRecordLocation> existingRecords) {
+    HoodiePairData<String, Pair<String, HoodieRecordLocation>> existingRecordByRecordKey =
+        existingRecords.mapToPair(
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieRecordLocation`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
+#### Snippet
+```java
+  private <R> HoodieData<HoodieRecord<R>> getTaggedRecords(
+      HoodiePairData<String, HoodieRecord<R>> incomingRecords,
+      HoodiePairData<HoodieKey, HoodieRecordLocation> existingRecords) {
+    HoodiePairData<String, Pair<String, HoodieRecordLocation>> existingRecordByRecordKey =
+        existingRecords.mapToPair(
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
 #### Snippet
 ```java
   @Override
-  public HoodieData<WriteStatus> updateLocation(
-      HoodieData<WriteStatus> writeStatuses, HoodieEngineContext context,
+  protected <R> HoodieData<HoodieRecord<R>> tagLocationInternal(
+      HoodieData<HoodieRecord<R>> inputRecords, HoodieEngineContext context,
       HoodieTable hoodieTable) {
-    return writeStatuses.map(writeStatus -> {
+
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16175,78 +16259,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Hoo
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
-#### Snippet
-```java
-  @Override
-  protected <R> HoodieData<HoodieRecord<R>> tagLocationInternal(
-      HoodieData<HoodieRecord<R>> inputRecords, HoodieEngineContext context,
-      HoodieTable hoodieTable) {
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
-#### Snippet
-```java
-   */
-  private <R> HoodieData<HoodieRecord<R>> getTaggedRecords(
-      HoodiePairData<String, HoodieRecord<R>> incomingRecords,
-      HoodiePairData<HoodieKey, HoodieRecordLocation> existingRecords) {
-    HoodiePairData<String, Pair<String, HoodieRecordLocation>> existingRecordByRecordKey =
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieKey`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
-#### Snippet
-```java
-  private <R> HoodieData<HoodieRecord<R>> getTaggedRecords(
-      HoodiePairData<String, HoodieRecord<R>> incomingRecords,
-      HoodiePairData<HoodieKey, HoodieRecordLocation> existingRecords) {
-    HoodiePairData<String, Pair<String, HoodieRecordLocation>> existingRecordByRecordKey =
-        existingRecords.mapToPair(
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieRecordLocation`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
-#### Snippet
-```java
-  private <R> HoodieData<HoodieRecord<R>> getTaggedRecords(
-      HoodiePairData<String, HoodieRecord<R>> incomingRecords,
-      HoodiePairData<HoodieKey, HoodieRecordLocation> existingRecords) {
-    HoodiePairData<String, Pair<String, HoodieRecordLocation>> existingRecordByRecordKey =
-        existingRecords.mapToPair(
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
-#### Snippet
-```java
-  }
-
-  protected boolean writeRecord(HoodieRecord<T> hoodieRecord, Option<IndexedRecord> indexedRecord, boolean isDelete) {
-    Option recordMetadata = hoodieRecord.getData().getMetadata();
-    if (!partitionPath.equals(hoodieRecord.getPartitionPath())) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
-#### Snippet
-```java
-   * Load the new incoming records in a map and return partitionPath.
-   */
-  protected void init(String fileId, Iterator<HoodieRecord<T>> newRecordsItr) {
-    initializeIncomingRecordsMap();
-    while (newRecordsItr.hasNext()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super I`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/commit/BaseWriteHelper.java`
 #### Snippet
@@ -16259,87 +16271,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`>
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
-#### Snippet
-```java
-  }
-
-  private void deleteInvalidFilesByPartitions(HoodieEngineContext context, Map<String, List<Pair<String, String>>> invalidFilesByPartition) {
-    // Now delete partially written files
-    context.setJobStatus(this.getClass().getSimpleName(), "Delete invalid files generated during the write operation: " + config.getTableName());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
-#### Snippet
-```java
-   */
-  private void rollbackInflightInstant(HoodieInstant inflightInstant,
-                                       Function<String, Option<HoodiePendingRollbackInfo>> getPendingRollbackInstantFunc) {
-    final String commitTime = getPendingRollbackInstantFunc.apply(inflightInstant.getTimestamp()).map(entry
-        -> entry.getRollbackInstant().getTimestamp()).orElse(HoodieActiveTimeline.createNewInstantTime());
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Pair`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/clean/CleanActionExecutor.java`
 #### Snippet
 ```java
   }
 
-  private boolean waitForCondition(String partitionPath, Stream<Pair<String, String>> partitionFilePaths, FileVisibility visibility) {
-    final FileSystem fileSystem = metaClient.getRawFs();
-    List<String> fileList = partitionFilePaths.map(Pair::getValue).collect(Collectors.toList());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`>
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
-#### Snippet
-```java
-   * @param visibility Appear/Disappear
-   */
-  private void waitForAllFiles(HoodieEngineContext context, Map<String, List<Pair<String, String>>> groupByPartition, FileVisibility visibility) {
-    // This will either ensure all files to be deleted are present.
-    context.setJobStatus(this.getClass().getSimpleName(), "Wait for all files to appear/disappear: " + config.getTableName());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieWriteStat`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
-#### Snippet
-```java
-  protected void reconcileAgainstMarkers(HoodieEngineContext context,
-                                         String instantTs,
-                                         List<HoodieWriteStat> stats,
-                                         boolean consistencyCheckEnabled) throws HoodieIOException {
-    try {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
-#### Snippet
-```java
-   */
-  public HoodieCreateHandle(HoodieWriteConfig config, String instantTime, HoodieTable<T, I, K, O> hoodieTable,
-      String partitionPath, String fileId, Map<String, HoodieRecord<T>> recordMap,
-      TaskContextSupplier taskContextSupplier) {
-    this(config, instantTime, hoodieTable, partitionPath, fileId, taskContextSupplier, config.isPreserveHoodieCommitMetadataForCompaction());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
-#### Snippet
-```java
-   * @param inflightInstant Inflight Compaction Instant
-   */
-  public void rollbackInflightLogCompaction(HoodieInstant inflightInstant, Function<String, Option<HoodiePendingRollbackInfo>> getPendingRollbackInstantFunc) {
-    final String commitTime = getPendingRollbackInstantFunc.apply(inflightInstant.getTimestamp()).map(entry
-        -> entry.getRollbackInstant().getTimestamp()).orElse(HoodieActiveTimeline.createNewInstantTime());
+  private static Stream<Pair<String, PartitionCleanStat>> deleteFilesFunc(Iterator<Pair<String, CleanFileInfo>> cleanFileInfo, HoodieTable table) {
+    Map<String, PartitionCleanStat> partitionCleanStatMap = new HashMap<>();
+    FileSystem fs = table.getMetaClient().getFs();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16367,15 +16307,99 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
+#### Snippet
+```java
+   */
+  private void rollbackInflightInstant(HoodieInstant inflightInstant,
+                                       Function<String, Option<HoodiePendingRollbackInfo>> getPendingRollbackInstantFunc) {
+    final String commitTime = getPendingRollbackInstantFunc.apply(inflightInstant.getTimestamp()).map(entry
+        -> entry.getRollbackInstant().getTimestamp()).orElse(HoodieActiveTimeline.createNewInstantTime());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieWriteStat`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
+#### Snippet
+```java
+  protected void reconcileAgainstMarkers(HoodieEngineContext context,
+                                         String instantTs,
+                                         List<HoodieWriteStat> stats,
+                                         boolean consistencyCheckEnabled) throws HoodieIOException {
+    try {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
+#### Snippet
+```java
+   * @param inflightInstant Inflight Compaction Instant
+   */
+  public void rollbackInflightLogCompaction(HoodieInstant inflightInstant, Function<String, Option<HoodiePendingRollbackInfo>> getPendingRollbackInstantFunc) {
+    final String commitTime = getPendingRollbackInstantFunc.apply(inflightInstant.getTimestamp()).map(entry
+        -> entry.getRollbackInstant().getTimestamp()).orElse(HoodieActiveTimeline.createNewInstantTime());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`>
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
+#### Snippet
+```java
+   * @param visibility Appear/Disappear
+   */
+  private void waitForAllFiles(HoodieEngineContext context, Map<String, List<Pair<String, String>>> groupByPartition, FileVisibility visibility) {
+    // This will either ensure all files to be deleted are present.
+    context.setJobStatus(this.getClass().getSimpleName(), "Wait for all files to appear/disappear: " + config.getTableName());
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Pair`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/clean/CleanActionExecutor.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
 #### Snippet
 ```java
   }
 
-  private static Stream<Pair<String, PartitionCleanStat>> deleteFilesFunc(Iterator<Pair<String, CleanFileInfo>> cleanFileInfo, HoodieTable table) {
-    Map<String, PartitionCleanStat> partitionCleanStatMap = new HashMap<>();
-    FileSystem fs = table.getMetaClient().getFs();
+  private boolean waitForCondition(String partitionPath, Stream<Pair<String, String>> partitionFilePaths, FileVisibility visibility) {
+    final FileSystem fileSystem = metaClient.getRawFs();
+    List<String> fileList = partitionFilePaths.map(Pair::getValue).collect(Collectors.toList());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`>
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
+#### Snippet
+```java
+  }
+
+  private void deleteInvalidFilesByPartitions(HoodieEngineContext context, Map<String, List<Pair<String, String>>> invalidFilesByPartition) {
+    // Now delete partially written files
+    context.setJobStatus(this.getClass().getSimpleName(), "Delete invalid files generated during the write operation: " + config.getTableName());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
+#### Snippet
+```java
+  }
+
+  protected boolean writeRecord(HoodieRecord<T> hoodieRecord, Option<IndexedRecord> indexedRecord, boolean isDelete) {
+    Option recordMetadata = hoodieRecord.getData().getMetadata();
+    if (!partitionPath.equals(hoodieRecord.getPartitionPath())) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
+#### Snippet
+```java
+   * Load the new incoming records in a map and return partitionPath.
+   */
+  protected void init(String fileId, Iterator<HoodieRecord<T>> newRecordsItr) {
+    initializeIncomingRecordsMap();
+    while (newRecordsItr.hasNext()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16388,6 +16412,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
                                                                   Option<HoodieBaseFile> oldDataFileOpt) throws IOException {
     Iterator<List<WriteStatus>> result;
     // If the dataFile is present, perform updates else perform inserts into a new base file.
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super HoodieData`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/commit/BaseCommitActionExecutor.java`
+#### Snippet
+```java
+  }
+
+  private HoodieData<WriteStatus> updateIndex(HoodieData<WriteStatus> writeStatuses, HoodieWriteMetadata<HoodieData<WriteStatus>> result) {
+    Instant indexStartTime = Instant.now();
+    // Update the index back
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16415,15 +16451,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/cl
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super HoodieData`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/commit/BaseCommitActionExecutor.java`
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
 #### Snippet
 ```java
-  }
-
-  private HoodieData<WriteStatus> updateIndex(HoodieData<WriteStatus> writeStatuses, HoodieWriteMetadata<HoodieData<WriteStatus>> result) {
-    Instant indexStartTime = Instant.now();
-    // Update the index back
+   */
+  public HoodieCreateHandle(HoodieWriteConfig config, String instantTime, HoodieTable<T, I, K, O> hoodieTable,
+      String partitionPath, String fileId, Map<String, HoodieRecord<T>> recordMap,
+      TaskContextSupplier taskContextSupplier) {
+    this(config, instantTime, hoodieTable, partitionPath, fileId, taskContextSupplier, config.isPreserveHoodieCommitMetadataForCompaction());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16443,11 +16479,11 @@ Can generalize to `? extends HoodieCommitMetadata`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/rollback/ListingBasedRollbackStrategy.java`
 #### Snippet
 ```java
-
-  private Boolean checkCommitMetadataCompleted(HoodieInstant instantToRollback,
-                                               Option<HoodieCommitMetadata> commitMetadataOptional) {
-    return commitMetadataOptional.isPresent() && instantToRollback.isCompleted()
-        && !WriteOperationType.UNKNOWN.equals(commitMetadataOptional.get().getOperationType());
+  private FileStatus[] fetchFilesFromInstant(HoodieInstant instantToRollback, String partitionPath, String basePath,
+                                             String baseFileExtension, HoodieWrapperFileSystem fs,
+                                             Option<HoodieCommitMetadata> commitMetadataOptional,
+                                             Boolean isCommitMetadataCompleted) throws IOException {
+    if (isCommitMetadataCompleted) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16455,11 +16491,11 @@ Can generalize to `? extends HoodieCommitMetadata`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/rollback/ListingBasedRollbackStrategy.java`
 #### Snippet
 ```java
-  private FileStatus[] fetchFilesFromInstant(HoodieInstant instantToRollback, String partitionPath, String basePath,
-                                             String baseFileExtension, HoodieWrapperFileSystem fs,
-                                             Option<HoodieCommitMetadata> commitMetadataOptional,
-                                             Boolean isCommitMetadataCompleted) throws IOException {
-    if (isCommitMetadataCompleted) {
+
+  private Boolean checkCommitMetadataCompleted(HoodieInstant instantToRollback,
+                                               Option<HoodieCommitMetadata> commitMetadataOptional) {
+    return commitMetadataOptional.isPresent() && instantToRollback.isCompleted()
+        && !WriteOperationType.UNKNOWN.equals(commitMetadataOptional.get().getOperationType());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16619,114 +16655,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/bootstra
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieLogFile`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
-#### Snippet
-```java
-    }
-
-    public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean executed, boolean success,
-        Option<Exception> exception) {
-      super(
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieLogFile`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
-#### Snippet
-```java
-    }
-
-    public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean executed, boolean success,
-        Option<Exception> exception) {
-      super(
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieTableFileSystemView`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
-#### Snippet
-```java
-  protected static List<Pair<HoodieLogFile, HoodieLogFile>> getRenamingActionsToAlignWithCompactionOperation(
-      HoodieTableMetaClient metaClient, String compactionInstant, CompactionOperation op,
-      Option<HoodieTableFileSystemView> fsViewOpt) {
-    HoodieTableFileSystemView fileSystemView = fsViewOpt.isPresent() ? fsViewOpt.get()
-        : new HoodieTableFileSystemView(metaClient, metaClient.getCommitsAndCompactionTimeline());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieLogFile`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
-#### Snippet
-```java
-    public RenameOpResult() {}
-
-    public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean success, Option<Exception> exception) {
-      super(
-          new RenameInfo(op.getKey().getFileId(), op.getKey().getPath().toString(), op.getRight().getPath().toString()),
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieLogFile`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
-#### Snippet
-```java
-    public RenameOpResult() {}
-
-    public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean success, Option<Exception> exception) {
-      super(
-          new RenameInfo(op.getKey().getFileId(), op.getKey().getPath().toString(), op.getRight().getPath().toString()),
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieTableFileSystemView`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
-#### Snippet
-```java
-  public List<Pair<HoodieLogFile, HoodieLogFile>> getRenamingActionsForUnschedulingCompactionOperation(
-      HoodieTableMetaClient metaClient, String compactionInstant, CompactionOperation operation,
-      Option<HoodieTableFileSystemView> fsViewOpt, boolean skipValidation) throws IOException {
-    List<Pair<HoodieLogFile, HoodieLogFile>> result = new ArrayList<>();
-    HoodieTableFileSystemView fileSystemView = fsViewOpt.isPresent() ? fsViewOpt.get()
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieTableFileSystemView`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
-#### Snippet
-```java
-   */
-  private ValidationOpResult validateCompactionOperation(HoodieTableMetaClient metaClient, String compactionInstant,
-      CompactionOperation operation, Option<HoodieTableFileSystemView> fsViewOpt) throws IOException {
-    HoodieTableFileSystemView fileSystemView = fsViewOpt.isPresent() ? fsViewOpt.get()
-        : new HoodieTableFileSystemView(metaClient, metaClient.getCommitsAndCompactionTimeline());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
-#### Snippet
-```java
-   */
-  private List<RenameOpResult> runRenamingOps(HoodieTableMetaClient metaClient,
-      List<Pair<HoodieLogFile, HoodieLogFile>> renameActions, int parallelism, boolean dryRun) {
-    if (renameActions.isEmpty()) {
-      LOG.info("No renaming of log-files needed. Proceeding to removing file-id from compaction-plan");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/common/table/log/HoodieFileSliceReader.java`
-#### Snippet
-```java
-  }
-
-  private HoodieFileSliceReader(Iterator<HoodieRecord<T>> recordsItr) {
-    this.recordsIterator = recordsItr;
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends HoodieFileReader`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/common/table/log/HoodieFileSliceReader.java`
 #### Snippet
@@ -16751,6 +16679,114 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/common/table/lo
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/common/table/log/HoodieFileSliceReader.java`
+#### Snippet
+```java
+  }
+
+  private HoodieFileSliceReader(Iterator<HoodieRecord<T>> recordsItr) {
+    this.recordsIterator = recordsItr;
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieTableFileSystemView`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
+#### Snippet
+```java
+   */
+  private ValidationOpResult validateCompactionOperation(HoodieTableMetaClient metaClient, String compactionInstant,
+      CompactionOperation operation, Option<HoodieTableFileSystemView> fsViewOpt) throws IOException {
+    HoodieTableFileSystemView fileSystemView = fsViewOpt.isPresent() ? fsViewOpt.get()
+        : new HoodieTableFileSystemView(metaClient, metaClient.getCommitsAndCompactionTimeline());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieTableFileSystemView`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
+#### Snippet
+```java
+  protected static List<Pair<HoodieLogFile, HoodieLogFile>> getRenamingActionsToAlignWithCompactionOperation(
+      HoodieTableMetaClient metaClient, String compactionInstant, CompactionOperation op,
+      Option<HoodieTableFileSystemView> fsViewOpt) {
+    HoodieTableFileSystemView fileSystemView = fsViewOpt.isPresent() ? fsViewOpt.get()
+        : new HoodieTableFileSystemView(metaClient, metaClient.getCommitsAndCompactionTimeline());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieTableFileSystemView`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
+#### Snippet
+```java
+  public List<Pair<HoodieLogFile, HoodieLogFile>> getRenamingActionsForUnschedulingCompactionOperation(
+      HoodieTableMetaClient metaClient, String compactionInstant, CompactionOperation operation,
+      Option<HoodieTableFileSystemView> fsViewOpt, boolean skipValidation) throws IOException {
+    List<Pair<HoodieLogFile, HoodieLogFile>> result = new ArrayList<>();
+    HoodieTableFileSystemView fileSystemView = fsViewOpt.isPresent() ? fsViewOpt.get()
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieLogFile`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
+#### Snippet
+```java
+    }
+
+    public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean executed, boolean success,
+        Option<Exception> exception) {
+      super(
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieLogFile`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
+#### Snippet
+```java
+    }
+
+    public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean executed, boolean success,
+        Option<Exception> exception) {
+      super(
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Pair`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
+#### Snippet
+```java
+   */
+  private List<RenameOpResult> runRenamingOps(HoodieTableMetaClient metaClient,
+      List<Pair<HoodieLogFile, HoodieLogFile>> renameActions, int parallelism, boolean dryRun) {
+    if (renameActions.isEmpty()) {
+      LOG.info("No renaming of log-files needed. Proceeding to removing file-id from compaction-plan");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieLogFile`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
+#### Snippet
+```java
+    public RenameOpResult() {}
+
+    public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean success, Option<Exception> exception) {
+      super(
+          new RenameInfo(op.getKey().getFileId(), op.getKey().getPath().toString(), op.getRight().getPath().toString()),
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieLogFile`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
+#### Snippet
+```java
+    public RenameOpResult() {}
+
+    public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean success, Option<Exception> exception) {
+      super(
+          new RenameInfo(op.getKey().getFileId(), op.getKey().getPath().toString(), op.getRight().getPath().toString()),
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Path`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieTimelineArchiver.java`
 #### Snippet
@@ -16767,10 +16803,10 @@ Can generalize to `? extends BaseKeyGenerator`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/KeyGenUtils.java`
 #### Snippet
 ```java
-   * @return the partition path for the passed in generic record.
+   * @return the record key for the passed in generic record.
    */
-  public static String getPartitionPathFromGenericRecord(GenericRecord genericRecord, Option<BaseKeyGenerator> keyGeneratorOpt) {
-    return keyGeneratorOpt.isPresent() ? keyGeneratorOpt.get().getPartitionPath(genericRecord) : genericRecord.get(HoodieRecord.PARTITION_PATH_METADATA_FIELD).toString();
+  public static String getRecordKeyFromGenericRecord(GenericRecord genericRecord, Option<BaseKeyGenerator> keyGeneratorOpt) {
+    return keyGeneratorOpt.isPresent() ? keyGeneratorOpt.get().getRecordKey(genericRecord) : genericRecord.get(HoodieRecord.RECORD_KEY_METADATA_FIELD).toString();
   }
 ```
 
@@ -16779,10 +16815,10 @@ Can generalize to `? extends BaseKeyGenerator`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/KeyGenUtils.java`
 #### Snippet
 ```java
-   * @return the record key for the passed in generic record.
+   * @return the partition path for the passed in generic record.
    */
-  public static String getRecordKeyFromGenericRecord(GenericRecord genericRecord, Option<BaseKeyGenerator> keyGeneratorOpt) {
-    return keyGeneratorOpt.isPresent() ? keyGeneratorOpt.get().getRecordKey(genericRecord) : genericRecord.get(HoodieRecord.RECORD_KEY_METADATA_FIELD).toString();
+  public static String getPartitionPathFromGenericRecord(GenericRecord genericRecord, Option<BaseKeyGenerator> keyGeneratorOpt) {
+    return keyGeneratorOpt.isPresent() ? keyGeneratorOpt.get().getPartitionPath(genericRecord) : genericRecord.get(HoodieRecord.PARTITION_PATH_METADATA_FIELD).toString();
   }
 ```
 
@@ -16823,15 +16859,15 @@ in `hudi-common/src/main/java/org/apache/hudi/util/Lazy.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieHFileReader.java`
+Can generalize to `? extends FileStatus`
+in `hudi-common/src/main/java/org/apache/hudi/common/HoodieRollbackStat.java`
 #### Snippet
 ```java
-   * Reads all the records with given schema and filtering keys.
-   */
-  public static <R extends IndexedRecord> List<R> readRecords(HoodieHFileReader<R> reader,
-                                                              List<String> keys,
-                                                              Schema schema) throws IOException {
+    private String partitionPath;
+
+    public Builder withDeletedFileResults(Map<FileStatus, Boolean> deletedFiles) {
+      // noinspection Convert2MethodRef
+      successDeleteFiles = deletedFiles.entrySet().stream().filter(s -> s.getValue())
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16847,15 +16883,27 @@ in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieHFileReader.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FileStatus`
-in `hudi-common/src/main/java/org/apache/hudi/common/HoodieRollbackStat.java`
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieHFileReader.java`
 #### Snippet
 ```java
-    private String partitionPath;
+   * Reads all the records with given schema and filtering keys.
+   */
+  public static <R extends IndexedRecord> List<R> readRecords(HoodieHFileReader<R> reader,
+                                                              List<String> keys,
+                                                              Schema schema) throws IOException {
+```
 
-    public Builder withDeletedFileResults(Map<FileStatus, Boolean> deletedFiles) {
-      // noinspection Convert2MethodRef
-      successDeleteFiles = deletedFiles.entrySet().stream().filter(s -> s.getValue())
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieData.java`
+#### Snippet
+```java
+  HoodieData<T> repartition(int parallelism);
+
+  default <O> HoodieData<T> distinctWithKey(SerializableFunction<T, O> keyGetter, int parallelism) {
+    return mapToPair(i -> Pair.of(keyGetter.apply(i), i))
+        .reduceByKey((value1, value2) -> value1, parallelism)
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16883,27 +16931,27 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metadata/Hoodie
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieData.java`
+Can generalize to `? extends T`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/Option.java`
 #### Snippet
 ```java
-  HoodieData<T> repartition(int parallelism);
-
-  default <O> HoodieData<T> distinctWithKey(SerializableFunction<T, O> keyGetter, int parallelism) {
-    return mapToPair(i -> Pair.of(keyGetter.apply(i), i))
-        .reduceByKey((value1, value2) -> value1, parallelism)
+   * @return Option
+   */
+  public static <T> Option<T> fromJavaOptional(Optional<T> v) {
+    return Option.ofNullable(v.orElse(null));
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieInstant`
-in `hudi-common/src/main/java/org/apache/hudi/common/HoodieCleanStat.java`
+Can generalize to `? super T`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListData.java`
 #### Snippet
 ```java
-    }
 
-    public Builder withEarliestCommitRetained(Option<HoodieInstant> earliestCommitToRetain) {
-      this.earliestCommitToRetain =
-          (earliestCommitToRetain.isPresent()) ? earliestCommitToRetain.get().getTimestamp() : "";
+  @Override
+  public HoodieData<T> filter(SerializableFunction<T, Boolean> filterFunc) {
+    return new HoodieListData<>(asStream().filter(r -> throwingMapWrapper(filterFunc).apply(r)), lazy);
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16943,30 +16991,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListData.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListData.java`
-#### Snippet
-```java
-
-  @Override
-  public HoodieData<T> filter(SerializableFunction<T, Boolean> filterFunc) {
-    return new HoodieListData<>(asStream().filter(r -> throwingMapWrapper(filterFunc).apply(r)), lazy);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/Option.java`
-#### Snippet
-```java
-   * @return Option
-   */
-  public static <T> Option<T> fromJavaOptional(Optional<T> v) {
-    return Option.ofNullable(v.orElse(null));
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetReaderIterator.java`
 #### Snippet
@@ -16979,6 +17003,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetReaderIterator.
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieInstant`
+in `hudi-common/src/main/java/org/apache/hudi/common/HoodieCleanStat.java`
+#### Snippet
+```java
+    }
+
+    public Builder withEarliestCommitRetained(Option<HoodieInstant> earliestCommitToRetain) {
+      this.earliestCommitToRetain =
+          (earliestCommitToRetain.isPresent()) ? earliestCommitToRetain.get().getTimestamp() : "";
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super FileStatus`
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
 #### Snippet
@@ -16988,6 +17024,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
       Predicate<FileStatus> subPathPredicate, SerializableFunction<Pair<String, SerializableConfiguration>, T> pairFunction) {
     Map<String, T> result = new HashMap<>();
     try {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super FileStatus`
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
+#### Snippet
+```java
+   * @throws IOException -
+   */
+  public static void processFiles(FileSystem fs, String basePathStr, Function<FileStatus, Boolean> consumer,
+                                  boolean excludeMetaFolder) throws IOException {
+    PathFilter pathFilter = excludeMetaFolder ? getExcludeMetaPathFilter() : ALLOW_ALL_FILTER;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17015,18 +17063,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super FileStatus`
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
-#### Snippet
-```java
-   * @throws IOException -
-   */
-  public static void processFiles(FileSystem fs, String basePathStr, Function<FileStatus, Boolean> consumer,
-                                  boolean excludeMetaFolder) throws IOException {
-    PathFilter pathFilter = excludeMetaFolder ? getExcludeMetaPathFilter() : ALLOW_ALL_FILTER;
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends CompletableFuture`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/FutureUtils.java`
 #### Snippet
@@ -17036,18 +17072,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/FutureUtils.java`
   public static <T> CompletableFuture<List<T>> allOf(@Nonnull List<CompletableFuture<T>> futures) {
     return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
         .thenApply(aVoid ->
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FileSlice`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/ClusteringUtils.java`
-#### Snippet
-```java
-  }
-
-  private static Map<String, Double> buildMetrics(List<FileSlice> fileSlices) {
-    int numLogFiles = 0;
-    long totalLogFileSize = 0;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17075,27 +17099,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/CommitUtils.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends GenericRecord`
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+Can generalize to `? extends FileSlice`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/ClusteringUtils.java`
 #### Snippet
 ```java
-   * @return a iterator of rewrote GeneriRcords
-   */
-  public static Iterator<GenericRecord> rewriteRecordWithNewSchema(Iterator<GenericRecord> oldRecords, Schema newSchema, Map<String, String> renameCols) {
-    if (oldRecords == null || newSchema == null) {
-      return Collections.emptyIterator();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends GenericRecord`
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
-#### Snippet
-```java
-   * To better understand conversion rules please check {@link #rewriteRecord(GenericRecord, Schema)}
-   */
-  public static List<GenericRecord> rewriteRecords(List<GenericRecord> records, Schema newSchema) {
-    return records.stream().map(r -> rewriteRecord(r, newSchema)).collect(Collectors.toList());
   }
+
+  private static Map<String, Double> buildMetrics(List<FileSlice> fileSlices) {
+    int numLogFiles = 0;
+    long totalLogFileSize = 0;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17135,6 +17147,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends GenericRecord`
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
+   * To better understand conversion rules please check {@link #rewriteRecord(GenericRecord, Schema)}
+   */
+  public static List<GenericRecord> rewriteRecords(List<GenericRecord> records, Schema newSchema) {
+    return records.stream().map(r -> rewriteRecord(r, newSchema)).collect(Collectors.toList());
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends GenericRecord`
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
+   * @return a iterator of rewrote GeneriRcords
+   */
+  public static Iterator<GenericRecord> rewriteRecordWithNewSchema(Iterator<GenericRecord> oldRecords, Schema newSchema, Map<String, String> renameCols) {
+    if (oldRecords == null || newSchema == null) {
+      return Collections.emptyIterator();
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/RetryHelper.java`
 #### Snippet
@@ -17151,11 +17187,23 @@ Can generalize to `? extends E`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
 #### Snippet
 ```java
-   * Returns difference b/w {@code one} {@link Set} of elements and {@code another}
+   * Combines provided {@link List}s into one, returning new instance of {@link ArrayList}
    */
-  public static <E> Set<E> diff(Collection<E> one, Collection<E> another) {
-    Set<E> diff = new HashSet<>(one);
-    diff.removeAll(another);
+  public static <E> List<E> combine(List<E> one, List<E> another) {
+    ArrayList<E> combined = new ArrayList<>(one.size() + another.size());
+    combined.addAll(one);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   * Combines provided {@link List}s into one, returning new instance of {@link ArrayList}
+   */
+  public static <E> List<E> combine(List<E> one, List<E> another) {
+    ArrayList<E> combined = new ArrayList<>(one.size() + another.size());
+    combined.addAll(one);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17168,42 +17216,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
   public static <T> List<T> createImmutableList(final List<T> list) {
     return Collections.unmodifiableList(list);
   }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-  }
-
-  public static <K,V> Map<K,V> createImmutableMap(final Map<K,V> map) {
-    return Collections.unmodifiableMap(map);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-  }
-
-  public static <K,V> Map<K,V> createImmutableMap(final Map<K,V> map) {
-    return Collections.unmodifiableMap(map);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   * Collects provided {@link Iterator} to a {@link Stream}
-   */
-  public static <T> Stream<T> toStream(Iterator<T> iterator) {
-    return StreamSupport.stream(
-        Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED),
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17223,6 +17235,54 @@ Can generalize to `? extends K`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
 #### Snippet
 ```java
+  }
+
+  public static <K,V> Map<K,V> createImmutableMap(final Map<K,V> map) {
+    return Collections.unmodifiableMap(map);
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+  }
+
+  public static <K,V> Map<K,V> createImmutableMap(final Map<K,V> map) {
+    return Collections.unmodifiableMap(map);
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   * Returns difference b/w {@code one} {@link Set} of elements and {@code another}
+   */
+  public static <E> Set<E> diff(Collection<E> one, Collection<E> another) {
+    Set<E> diff = new HashSet<>(one);
+    diff.removeAll(another);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   * Collects provided {@link Iterator} to a {@link Stream}
+   */
+  public static <T> Stream<T> toStream(Iterator<T> iterator) {
+    return StreamSupport.stream(
+        Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED),
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
    *       values from the first one
    */
   public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another) {
@@ -17267,27 +17327,87 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
+Can generalize to `? extends K`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
 #### Snippet
 ```java
-   * Combines provided {@link List}s into one, returning new instance of {@link ArrayList}
+   *       values from the first one
    */
-  public static <E> List<E> combine(List<E> one, List<E> another) {
-    ArrayList<E> combined = new ArrayList<>(one.size() + another.size());
-    combined.addAll(one);
+  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
+    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
+    combined.putAll(one);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
+Can generalize to `? extends V`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
 #### Snippet
 ```java
-   * Combines provided {@link List}s into one, returning new instance of {@link ArrayList}
+   *       values from the first one
    */
-  public static <E> List<E> combine(List<E> one, List<E> another) {
-    ArrayList<E> combined = new ArrayList<>(one.size() + another.size());
-    combined.addAll(one);
+  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
+    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
+    combined.putAll(one);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   *       values from the first one
+   */
+  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
+    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
+    combined.putAll(one);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   *       values from the first one
+   */
+  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
+    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
+    combined.putAll(one);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   *       values from the first one
+   */
+  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
+    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
+    combined.putAll(one);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   *       values from the first one
+   */
+  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
+    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
+    combined.putAll(one);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   *       values from the first one
+   */
+  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
+    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
+    combined.putAll(one);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17303,87 +17423,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+Can generalize to `? super I`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/IteratorBasedQueueProducer.java`
 #### Snippet
 ```java
-   *       values from the first one
-   */
-  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
-    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
-    combined.putAll(one);
-```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   *       values from the first one
-   */
-  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
-    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
-    combined.putAll(one);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   *       values from the first one
-   */
-  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
-    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
-    combined.putAll(one);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   *       values from the first one
-   */
-  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
-    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
-    combined.putAll(one);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   *       values from the first one
-   */
-  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
-    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
-    combined.putAll(one);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   *       values from the first one
-   */
-  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
-    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
-    combined.putAll(one);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   *       values from the first one
-   */
-  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
-    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
-    combined.putAll(one);
+  @Override
+  public void produce(HoodieMessageQueue<I, ?> queue) throws Exception {
+    LOG.info("starting to buffer records");
+    while (inputIterator.hasNext()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17399,18 +17447,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/IteratorBasedQue
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super I`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/IteratorBasedQueueProducer.java`
-#### Snippet
-```java
-
-  @Override
-  public void produce(HoodieMessageQueue<I, ?> queue) throws Exception {
-    LOG.info("starting to buffer records");
-    while (inputIterator.hasNext()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super HoodieMessageQueue`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/FunctionBasedQueueProducer.java`
 #### Snippet
@@ -17420,30 +17456,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/FunctionBasedQue
   public FunctionBasedQueueProducer(Function<HoodieMessageQueue<I, ?>, Boolean> producerFunction) {
     this.producerFunction = producerFunction;
   }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super I`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/DisruptorMessageQueue.java`
-#### Snippet
-```java
-  private boolean isDisruptorClosed = false;
-
-  public DisruptorMessageQueue(Option<Integer> bufferSize, Function<I, O> transformFunction, Option<String> waitStrategyName, int totalProducers, Runnable preExecuteRunnable) {
-    WaitStrategy waitStrategy = WaitStrategyFactory.build(waitStrategyName);
-    CustomizedThreadFactory threadFactory = new CustomizedThreadFactory("disruptor", true, preExecuteRunnable);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends O`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/DisruptorMessageQueue.java`
-#### Snippet
-```java
-  private boolean isDisruptorClosed = false;
-
-  public DisruptorMessageQueue(Option<Integer> bufferSize, Function<I, O> transformFunction, Option<String> waitStrategyName, int totalProducers, Runnable preExecuteRunnable) {
-    WaitStrategy waitStrategy = WaitStrategyFactory.build(waitStrategyName);
-    CustomizedThreadFactory threadFactory = new CustomizedThreadFactory("disruptor", true, preExecuteRunnable);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17483,6 +17495,42 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryQ
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super I`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/DisruptorMessageQueue.java`
+#### Snippet
+```java
+  private boolean isDisruptorClosed = false;
+
+  public DisruptorMessageQueue(Option<Integer> bufferSize, Function<I, O> transformFunction, Option<String> waitStrategyName, int totalProducers, Runnable preExecuteRunnable) {
+    WaitStrategy waitStrategy = WaitStrategyFactory.build(waitStrategyName);
+    CustomizedThreadFactory threadFactory = new CustomizedThreadFactory("disruptor", true, preExecuteRunnable);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends O`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/DisruptorMessageQueue.java`
+#### Snippet
+```java
+  private boolean isDisruptorClosed = false;
+
+  public DisruptorMessageQueue(Option<Integer> bufferSize, Function<I, O> transformFunction, Option<String> waitStrategyName, int totalProducers, Runnable preExecuteRunnable) {
+    WaitStrategy waitStrategy = WaitStrategyFactory.build(waitStrategyName);
+    CustomizedThreadFactory threadFactory = new CustomizedThreadFactory("disruptor", true, preExecuteRunnable);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends GenericRecord`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
+#### Snippet
+```java
+    }
+
+    private HoodieKeyIterator(ClosableIterator<GenericRecord> nestedItr, Option<BaseKeyGenerator> keyGenerator) {
+      this.nestedItr = nestedItr;
+      if (keyGenerator.isPresent()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
 #### Snippet
@@ -17504,90 +17552,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
       HoodieColumnRangeMetadata<T> another
   ) {
     final T minValue;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends GenericRecord`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
-#### Snippet
-```java
-    }
-
-    private HoodieKeyIterator(ClosableIterator<GenericRecord> nestedItr, Option<BaseKeyGenerator> keyGenerator) {
-      this.nestedItr = nestedItr;
-      if (keyGenerator.isPresent()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
-#### Snippet
-```java
-
-  @Override
-  public <L, W> HoodiePairData<L, W> mapToPair(SerializablePairFunction<Pair<K, V>, L, W> mapToPairFunc) {
-    return new HoodieListPairData<>(asStream().map(p -> throwingMapToPairWrapper(mapToPairFunc).apply(p)), lazy);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
-#### Snippet
-```java
-
-  @Override
-  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
-    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
-        Collectors.groupingBy(
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
-#### Snippet
-```java
-
-  @Override
-  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
-    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
-        Collectors.groupingBy(
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
-#### Snippet
-```java
-
-  @Override
-  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
-    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
-        Collectors.groupingBy(
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
-#### Snippet
-```java
-  }
-
-  private static <K, V> Stream<Pair<K, V>> explode(Map<K, List<V>> data) {
-    return data.entrySet().stream()
-        .flatMap(e -> e.getValue().stream().map(v -> Pair.of(e.getKey(), v)));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
-#### Snippet
-```java
-  }
-
-  private static <K, V> Stream<Pair<K, V>> explode(Map<K, List<V>> data) {
-    return data.entrySet().stream()
-        .flatMap(e -> e.getValue().stream().map(v -> Pair.of(e.getKey(), v)));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17639,27 +17603,75 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/DefaultHoodieRecordPa
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpillableMap.java`
+Can generalize to `? extends K`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
 #### Snippet
 ```java
-    private final Iterator<R> diskLazyFileIterator;
+  }
 
-    public IteratorWrapper(Iterator<R> inMemoryIterator, Iterator<R> diskLazyFileIterator) {
-      this.inMemoryIterator = inMemoryIterator;
-      this.diskLazyFileIterator = diskLazyFileIterator;
+  private static <K, V> Stream<Pair<K, V>> explode(Map<K, List<V>> data) {
+    return data.entrySet().stream()
+        .flatMap(e -> e.getValue().stream().map(v -> Pair.of(e.getKey(), v)));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpillableMap.java`
+Can generalize to `? extends List`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
 #### Snippet
 ```java
-    private final Iterator<R> diskLazyFileIterator;
+  }
 
-    public IteratorWrapper(Iterator<R> inMemoryIterator, Iterator<R> diskLazyFileIterator) {
-      this.inMemoryIterator = inMemoryIterator;
-      this.diskLazyFileIterator = diskLazyFileIterator;
+  private static <K, V> Stream<Pair<K, V>> explode(Map<K, List<V>> data) {
+    return data.entrySet().stream()
+        .flatMap(e -> e.getValue().stream().map(v -> Pair.of(e.getKey(), v)));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
+#### Snippet
+```java
+
+  @Override
+  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
+    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
+        Collectors.groupingBy(
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
+#### Snippet
+```java
+
+  @Override
+  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
+    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
+        Collectors.groupingBy(
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
+#### Snippet
+```java
+
+  @Override
+  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
+    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
+        Collectors.groupingBy(
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
+#### Snippet
+```java
+
+  @Override
+  public <L, W> HoodiePairData<L, W> mapToPair(SerializablePairFunction<Pair<K, V>, L, W> mapToPairFunc) {
+    return new HoodieListPairData<>(asStream().map(p -> throwingMapToPairWrapper(mapToPairFunc).apply(p)), lazy);
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17684,6 +17696,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpi
                               SizeEstimator<R> valueSizeEstimator, DiskMapType diskMapType, boolean isCompressionEnabled) throws IOException {
     this.inMemoryMap = new HashMap<>();
     this.baseFilePath = baseFilePath;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpillableMap.java`
+#### Snippet
+```java
+    private final Iterator<R> diskLazyFileIterator;
+
+    public IteratorWrapper(Iterator<R> inMemoryIterator, Iterator<R> diskLazyFileIterator) {
+      this.inMemoryIterator = inMemoryIterator;
+      this.diskLazyFileIterator = diskLazyFileIterator;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpillableMap.java`
+#### Snippet
+```java
+    private final Iterator<R> diskLazyFileIterator;
+
+    public IteratorWrapper(Iterator<R> inMemoryIterator, Iterator<R> diskLazyFileIterator) {
+      this.inMemoryIterator = inMemoryIterator;
+      this.diskLazyFileIterator = diskLazyFileIterator;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17723,6 +17759,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/AWSDmsAvroPayload.jav
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieRecord.java`
+#### Snippet
+```java
+  }
+
+  public HoodieRecord(HoodieRecord<T> record) {
+    this(record.key, record.data);
+    this.currentLocation = record.currentLocation;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends HoodieBaseFile`
 in `hudi-common/src/main/java/org/apache/hudi/common/model/CompactionOperation.java`
 #### Snippet
@@ -17747,42 +17795,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/CompactionOperation.j
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieRecord.java`
-#### Snippet
-```java
-  }
-
-  public HoodieRecord(HoodieRecord<T> record) {
-    this(record.key, record.data);
-    this.currentLocation = record.currentLocation;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Properties`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.java`
-#### Snippet
-```java
-  }
-
-  private static void modify(FileSystem fs, Path metadataFolder, Properties modifyProps, BiConsumer<Properties, Properties> modifyFn) {
-    Path cfgPath = new Path(metadataFolder, HOODIE_PROPERTIES_FILE);
-    Path backupCfgPath = new Path(metadataFolder, HOODIE_PROPERTIES_FILE_BACKUP);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Properties`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.java`
-#### Snippet
-```java
-  }
-
-  private static void modify(FileSystem fs, Path metadataFolder, Properties modifyProps, BiConsumer<Properties, Properties> modifyFn) {
-    Path cfgPath = new Path(metadataFolder, HOODIE_PROPERTIES_FILE);
-    Path backupCfgPath = new Path(metadataFolder, HOODIE_PROPERTIES_FILE_BACKUP);
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends HoodieLogFile`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/LogReaderUtils.java`
 #### Snippet
@@ -17792,6 +17804,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/LogReaderUtils.ja
   public static Schema readLatestSchemaFromLogFiles(String basePath, List<HoodieLogFile> logFiles, Configuration config)
       throws IOException {
     HoodieTableMetaClient metaClient = HoodieTableMetaClient.builder().setConf(config).setBasePath(basePath).build();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Properties`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.java`
+#### Snippet
+```java
+  }
+
+  private static void modify(FileSystem fs, Path metadataFolder, Properties modifyProps, BiConsumer<Properties, Properties> modifyFn) {
+    Path cfgPath = new Path(metadataFolder, HOODIE_PROPERTIES_FILE);
+    Path backupCfgPath = new Path(metadataFolder, HOODIE_PROPERTIES_FILE_BACKUP);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Properties`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.java`
+#### Snippet
+```java
+  }
+
+  private static void modify(FileSystem fs, Path metadataFolder, Properties modifyProps, BiConsumer<Properties, Properties> modifyFn) {
+    Path cfgPath = new Path(metadataFolder, HOODIE_PROPERTIES_FILE);
+    Path backupCfgPath = new Path(metadataFolder, HOODIE_PROPERTIES_FILE_BACKUP);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17831,78 +17867,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieParqu
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends IndexedRecord`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieAvroDataBlock.java`
-#### Snippet
-```java
-
-  @Override
-  protected byte[] serializeRecords(List<IndexedRecord> records) throws IOException {
-    Schema schema = new Schema.Parser().parse(super.getLogBlockHeader().get(HeaderMetadataType.SCHEMA));
-    GenericDatumWriter<IndexedRecord> writer = new GenericDatumWriter<>(schema);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieLogBlock`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
-#### Snippet
-```java
-   * Process the set of log blocks belonging to the last instant which is read fully.
-   */
-  private void processQueuedBlocksForInstant(Deque<HoodieLogBlock> logBlocks, int numLogFilesSeen,
-                                             Option<KeySpec> keySpecOpt) throws Exception {
-    while (!logBlocks.isEmpty()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
-#### Snippet
-```java
-                                               final String payloadClassFQN, final String preCombineField,
-                                               final boolean withOperationField,
-                                               final Option<Pair<String, String>> simpleKeyGenFields,
-                                               final Option<String> partitionName) {
-    if (this.populateMetaFields) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends KeySpec`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
-#### Snippet
-```java
-  }
-
-  private ClosableIterator<IndexedRecord> getRecordsIterator(HoodieDataBlock dataBlock, Option<KeySpec> keySpecOpt) throws IOException {
-    if (keySpecOpt.isPresent()) {
-      KeySpec keySpec = keySpecOpt.get();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends InstantRange`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
-#### Snippet
-```java
-  protected AbstractHoodieLogRecordReader(FileSystem fs, String basePath, List<String> logFilePaths,
-                                          Schema readerSchema, String latestInstantTime, boolean readBlocksLazily,
-                                          boolean reverseReader, int bufferSize, Option<InstantRange> instantRange,
-                                          boolean withOperationField, boolean forceFullScan,
-                                          Option<String> partitionName, InternalSchema internalSchema, boolean useScanV2) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieTableMetadata`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/FileSystemViewManager.java`
-#### Snippet
-```java
-   */
-  private static HoodieTableFileSystemView createInMemoryFileSystemView(HoodieMetadataConfig metadataConfig, FileSystemViewStorageConfig viewConf,
-                                                                        HoodieTableMetaClient metaClient, SerializableSupplier<HoodieTableMetadata> metadataSupplier) {
-    LOG.info("Creating InMemory based view for basePath " + metaClient.getBasePath());
-    HoodieTimeline timeline = metaClient.getActiveTimeline().filterCompletedAndCompactionInstants();
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super HoodieTableMetaClient`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/FileSystemViewManager.java`
 #### Snippet
@@ -17939,6 +17903,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/FileSystemViewMa
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieTableMetadata`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/FileSystemViewManager.java`
+#### Snippet
+```java
+   */
+  private static HoodieTableFileSystemView createInMemoryFileSystemView(HoodieMetadataConfig metadataConfig, FileSystemViewStorageConfig viewConf,
+                                                                        HoodieTableMetaClient metaClient, SerializableSupplier<HoodieTableMetadata> metadataSupplier) {
+    LOG.info("Creating InMemory based view for basePath " + metaClient.getBasePath());
+    HoodieTimeline timeline = metaClient.getActiveTimeline().filterCompletedAndCompactionInstants();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends IndexedRecord`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieAvroDataBlock.java`
+#### Snippet
+```java
+
+  @Override
+  protected byte[] serializeRecords(List<IndexedRecord> records) throws IOException {
+    Schema schema = new Schema.Parser().parse(super.getLogBlockHeader().get(HeaderMetadataType.SCHEMA));
+    GenericDatumWriter<IndexedRecord> writer = new GenericDatumWriter<>(schema);
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieDataBlock.java`
 #### Snippet
@@ -17963,246 +17951,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieDataB
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T1`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
-      Function3<T1, T2, T3, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T2`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
-      Function3<T1, T2, T3, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T3`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
-      Function3<T1, T2, T3, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
-      Function3<T1, T2, T3, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T1`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-
-  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
-      Function3<T1, T2, T3, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T2`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-
-  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
-      Function3<T1, T2, T3, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T3`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-
-  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
-      Function3<T1, T2, T3, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-
-  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
-      Function3<T1, T2, T3, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <R> R execute(Function0<R> preferredFunction, Function0<R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <R> R execute(Function0<R> preferredFunction, Function0<R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T1`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
-      Function2<T1, T2, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T2`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
-      Function2<T1, T2, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
-      Function2<T1, T2, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T1`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-
-  private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
-      Function2<T1, T2, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T2`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-
-  private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
-      Function2<T1, T2, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-
-  private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
-      Function2<T1, T2, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T1`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T1`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends HoodieWriteStat`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTablePreCommitFileSystemView.java`
 #### Snippet
@@ -18215,6 +17963,318 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTablePreCo
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T1`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
+      Function2<T1, T2, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T2`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
+      Function2<T1, T2, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
+      Function2<T1, T2, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T1`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+
+  private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
+      Function2<T1, T2, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T2`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+
+  private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
+      Function2<T1, T2, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+
+  private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
+      Function2<T1, T2, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <R> R execute(Function0<R> preferredFunction, Function0<R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <R> R execute(Function0<R> preferredFunction, Function0<R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T1`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T1`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T1`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
+      Function3<T1, T2, T3, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T2`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
+      Function3<T1, T2, T3, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T3`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
+      Function3<T1, T2, T3, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
+      Function3<T1, T2, T3, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T1`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+
+  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
+      Function3<T1, T2, T3, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T2`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+
+  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
+      Function3<T1, T2, T3, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T3`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+
+  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
+      Function3<T1, T2, T3, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+
+  private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
+      Function3<T1, T2, T3, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieLogBlock`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+#### Snippet
+```java
+   * Process the set of log blocks belonging to the last instant which is read fully.
+   */
+  private void processQueuedBlocksForInstant(Deque<HoodieLogBlock> logBlocks, int numLogFilesSeen,
+                                             Option<KeySpec> keySpecOpt) throws Exception {
+    while (!logBlocks.isEmpty()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+#### Snippet
+```java
+                                               final String payloadClassFQN, final String preCombineField,
+                                               final boolean withOperationField,
+                                               final Option<Pair<String, String>> simpleKeyGenFields,
+                                               final Option<String> partitionName) {
+    if (this.populateMetaFields) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends InstantRange`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+#### Snippet
+```java
+  protected AbstractHoodieLogRecordReader(FileSystem fs, String basePath, List<String> logFilePaths,
+                                          Schema readerSchema, String latestInstantTime, boolean readBlocksLazily,
+                                          boolean reverseReader, int bufferSize, Option<InstantRange> instantRange,
+                                          boolean withOperationField, boolean forceFullScan,
+                                          Option<String> partitionName, InternalSchema internalSchema, boolean useScanV2) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends KeySpec`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+#### Snippet
+```java
+  }
+
+  private ClosableIterator<IndexedRecord> getRecordsIterator(HoodieDataBlock dataBlock, Option<KeySpec> keySpecOpt) throws IOException {
+    if (keySpecOpt.isPresent()) {
+      KeySpec keySpec = keySpecOpt.get();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieFileGroupId`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+  @Override
+  protected Map<HoodieFileGroupId, Pair<String, CompactionOperation>> createFileIdToPendingLogCompactionMap(
+      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> fgIdToPendingLogCompaction) {
+    try {
+      LOG.info("Creating Pending Log Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingLogCompaction
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+  @Override
+  protected Map<HoodieFileGroupId, Pair<String, CompactionOperation>> createFileIdToPendingLogCompactionMap(
+      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> fgIdToPendingLogCompaction) {
+    try {
+      LOG.info("Creating Pending Log Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingLogCompaction
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends HoodieFileGroupId`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
 #### Snippet
@@ -18284,30 +18344,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBase
   protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToPendingClusteringMap(final Map<HoodieFileGroupId, HoodieInstant> fileGroupsInClustering) {
     try {
       LOG.info("Creating file group id to clustering instant map using external spillable Map. Max Mem=" + maxMemoryForClusteringFileGroups
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieFileGroupId`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-  @Override
-  protected Map<HoodieFileGroupId, Pair<String, CompactionOperation>> createFileIdToPendingLogCompactionMap(
-      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> fgIdToPendingLogCompaction) {
-    try {
-      LOG.info("Creating Pending Log Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingLogCompaction
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-  @Override
-  protected Map<HoodieFileGroupId, Pair<String, CompactionOperation>> createFileIdToPendingLogCompactionMap(
-      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> fgIdToPendingLogCompaction) {
-    try {
-      LOG.info("Creating Pending Log Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingLogCompaction
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -18335,6 +18371,42 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBase
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  protected void resetPendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+    // Build fileId to Pending Log Compaction Instants
+    this.fgIdToPendingLogCompaction = createFileIdToPendingLogCompactionMap(operations.map(entry ->
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  protected void removePendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+    operations.forEach(opInstantPair -> {
+      ValidationUtils.checkArgument(fgIdToPendingLogCompaction.containsKey(opInstantPair.getValue().getFileGroupId()),
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  protected void addPendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+    operations.forEach(opInstantPair -> {
+      ValidationUtils.checkArgument(!fgIdToPendingLogCompaction.containsKey(opInstantPair.getValue().getFileGroupId()),
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends HoodieFileGroup`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
 #### Snippet
@@ -18344,42 +18416,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
   protected void storePartitionView(String partitionPath, List<HoodieFileGroup> fileGroups) {
     LOG.debug("Adding file-groups for partition :" + partitionPath + ", #FileGroups=" + fileGroups.size());
     List<HoodieFileGroup> newList = new ArrayList<>(fileGroups);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  protected void removePendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    operations.forEach(opInstantPair -> {
-      ValidationUtils.checkArgument(fgIdToPendingCompaction.containsKey(opInstantPair.getValue().getFileGroupId()),
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  void removeFileGroupsInPendingClustering(Stream<Pair<HoodieFileGroupId, HoodieInstant>> fileGroups) {
-    fileGroups.forEach(fileGroupInstantPair -> {
-      ValidationUtils.checkArgument(fgIdToPendingClustering.containsKey(fileGroupInstantPair.getLeft()),
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  void addFileGroupsInPendingClustering(Stream<Pair<HoodieFileGroupId, HoodieInstant>> fileGroups) {
-    fileGroups.forEach(fileGroupInstantPair -> {
-      ValidationUtils.checkArgument(fgIdToPendingClustering.containsKey(fileGroupInstantPair.getLeft()),
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -18419,30 +18455,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  protected void removePendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    operations.forEach(opInstantPair -> {
-      ValidationUtils.checkArgument(fgIdToPendingLogCompaction.containsKey(opInstantPair.getValue().getFileGroupId()),
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends BootstrapBaseFileMapping`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  void addBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
-    bootstrapBaseFileStream.forEach(bootstrapBaseFile -> {
-      ValidationUtils.checkArgument(!fgIdToBootstrapBaseFile.containsKey(bootstrapBaseFile.getFileGroupId()),
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends HoodieFileGroupId`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
 #### Snippet
@@ -18464,6 +18476,66 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
   protected void addReplacedFileGroups(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
     fgIdToReplaceInstants.putAll(replacedFileGroups);
   }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends BootstrapBaseFileMapping`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  void addBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+    bootstrapBaseFileStream.forEach(bootstrapBaseFile -> {
+      ValidationUtils.checkArgument(!fgIdToBootstrapBaseFile.containsKey(bootstrapBaseFile.getFileGroupId()),
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  protected void removePendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+    operations.forEach(opInstantPair -> {
+      ValidationUtils.checkArgument(fgIdToPendingCompaction.containsKey(opInstantPair.getValue().getFileGroupId()),
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends BootstrapBaseFileMapping`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  void resetBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+    // Build fileId to bootstrap Data File
+    this.fgIdToBootstrapBaseFile = createFileIdToBootstrapBaseFileMap(bootstrapBaseFileStream
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieFileGroupId`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
+    Map<HoodieFileGroupId, HoodieInstant> replacedFileGroupsMap = new ConcurrentHashMap<>(replacedFileGroups);
+    return replacedFileGroupsMap;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieInstant`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
+    Map<HoodieFileGroupId, HoodieInstant> replacedFileGroupsMap = new ConcurrentHashMap<>(replacedFileGroups);
+    return replacedFileGroupsMap;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -18485,45 +18557,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
 ```java
 
   @Override
-  protected void addPendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    operations.forEach(opInstantPair -> {
-      ValidationUtils.checkArgument(!fgIdToPendingLogCompaction.containsKey(opInstantPair.getValue().getFileGroupId()),
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieFileGroupId`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
-    Map<HoodieFileGroupId, HoodieInstant> replacedFileGroupsMap = new ConcurrentHashMap<>(replacedFileGroups);
-    return replacedFileGroupsMap;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieInstant`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
-    Map<HoodieFileGroupId, HoodieInstant> replacedFileGroupsMap = new ConcurrentHashMap<>(replacedFileGroups);
-    return replacedFileGroupsMap;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  protected void resetPendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    // Build fileId to Pending Log Compaction Instants
-    this.fgIdToPendingLogCompaction = createFileIdToPendingLogCompactionMap(operations.map(entry ->
+  void removeFileGroupsInPendingClustering(Stream<Pair<HoodieFileGroupId, HoodieInstant>> fileGroups) {
+    fileGroups.forEach(fileGroupInstantPair -> {
+      ValidationUtils.checkArgument(fgIdToPendingClustering.containsKey(fileGroupInstantPair.getLeft()),
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -18539,15 +18575,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends BootstrapBaseFileMapping`
+Can generalize to `? extends Pair`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
 #### Snippet
 ```java
 
   @Override
-  void resetBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
-    // Build fileId to bootstrap Data File
-    this.fgIdToBootstrapBaseFile = createFileIdToBootstrapBaseFileMap(bootstrapBaseFileStream
+  void addFileGroupsInPendingClustering(Stream<Pair<HoodieFileGroupId, HoodieInstant>> fileGroups) {
+    fileGroups.forEach(fileGroupInstantPair -> {
+      ValidationUtils.checkArgument(fgIdToPendingClustering.containsKey(fileGroupInstantPair.getLeft()),
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -18611,15 +18647,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieTimeli
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FileSlice`
+Can generalize to `? extends BootstrapBaseFileMapping`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
 #### Snippet
 ```java
-  }
 
-  private Stream<HoodieFileGroup> getFileGroups(Stream<FileSlice> sliceStream) {
-    return sliceStream.map(s -> Pair.of(Pair.of(s.getPartitionPath(), s.getFileId()), s))
-        .collect(Collectors.groupingBy(Pair::getKey)).entrySet().stream().map(slicePair -> {
+  @Override
+  void removeBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+    rocksDB.writeBatch(batch -> {
+      bootstrapBaseFileStream.forEach(externalBaseFile -> {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -18641,57 +18677,21 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 ```java
 
   @Override
+  void addFileGroupsInPendingClustering(Stream<Pair<HoodieFileGroupId, HoodieInstant>> fileGroups) {
+    rocksDB.writeBatch(batch ->
+        fileGroups.forEach(fgIdToClusterInstant -> {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
   void removePendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
     rocksDB.writeBatch(batch ->
         operations.forEach(opInstantPair -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  void removePendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    rocksDB.writeBatch(batch ->
-        operations.forEach(opInstantPair -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  protected void addPendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    rocksDB.writeBatch(batch ->
-        operations.forEach(opInstantPair -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends BootstrapBaseFileMapping`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  void addBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
-    rocksDB.writeBatch(batch -> {
-      bootstrapBaseFileStream.forEach(externalBaseFile -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieFileGroup`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-   * This is overridden to incrementally apply file-slices to rocks DB
-   */
-  protected void applyDeltaFileSlicesToPartitionView(String partition, List<HoodieFileGroup> deltaFileGroups,
-      DeltaApplyMode mode) {
-    rocksDB.writeBatch(batch ->
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -18713,21 +18713,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 ```java
 
   @Override
-  protected void resetPendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    rocksDB.writeBatch(batch -> {
-      operations.forEach(opPair ->
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends BootstrapBaseFileMapping`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  void resetBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
-    rocksDB.writeBatch(batch -> {
-      bootstrapBaseFileStream.forEach(externalBaseFile -> {
+  void removePendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+    rocksDB.writeBatch(batch ->
+        operations.forEach(opInstantPair -> {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -18737,9 +18725,21 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 ```java
 
   @Override
-  void addFileGroupsInPendingClustering(Stream<Pair<HoodieFileGroupId, HoodieInstant>> fileGroups) {
-    rocksDB.writeBatch(batch ->
-        fileGroups.forEach(fgIdToClusterInstant -> {
+  protected void resetPendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+    rocksDB.writeBatch(batch -> {
+      operations.forEach(opPair ->
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieFileGroup`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  protected void storePartitionView(String partitionPath, List<HoodieFileGroup> fileGroups) {
+    LOG.info("Resetting and adding new partition (" + partitionPath + ") to ROCKSDB based file-system view at "
+        + config.getRocksdbBasePath() + ", Total file-groups=" + fileGroups.size());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -18767,15 +18767,27 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieFileGroup`
+Can generalize to `? extends BootstrapBaseFileMapping`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
 #### Snippet
 ```java
 
   @Override
-  protected void storePartitionView(String partitionPath, List<HoodieFileGroup> fileGroups) {
-    LOG.info("Resetting and adding new partition (" + partitionPath + ") to ROCKSDB based file-system view at "
-        + config.getRocksdbBasePath() + ", Total file-groups=" + fileGroups.size());
+  void addBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+    rocksDB.writeBatch(batch -> {
+      bootstrapBaseFileStream.forEach(externalBaseFile -> {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends FileSlice`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private Stream<HoodieFileGroup> getFileGroups(Stream<FileSlice> sliceStream) {
+    return sliceStream.map(s -> Pair.of(Pair.of(s.getPartitionPath(), s.getFileId()), s))
+        .collect(Collectors.groupingBy(Pair::getKey)).entrySet().stream().map(slicePair -> {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -18785,9 +18797,33 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 ```java
 
   @Override
-  void removeBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+  void resetBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
     rocksDB.writeBatch(batch -> {
       bootstrapBaseFileStream.forEach(externalBaseFile -> {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  protected void addPendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+    rocksDB.writeBatch(batch ->
+        operations.forEach(opInstantPair -> {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieFileGroup`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+   * This is overridden to incrementally apply file-slices to rocks DB
+   */
+  protected void applyDeltaFileSlicesToPartitionView(String partition, List<HoodieFileGroup> deltaFileGroups,
+      DeltaApplyMode mode) {
+    rocksDB.writeBatch(batch ->
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -18803,18 +18839,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieInstant`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieDefaultTimeline.java`
-#### Snippet
-```java
-  private String timelineHash;
-
-  public HoodieDefaultTimeline(Stream<HoodieInstant> instants, Function<HoodieInstant, Option<byte[]>> details) {
-    this.details = details;
-    setInstants(instants.collect(Collectors.toList()));
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super HoodieInstant`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieDefaultTimeline.java`
 #### Snippet
@@ -18827,51 +18851,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieDefaul
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieBaseFile`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/AbstractTableFileSystemView.java`
+Can generalize to `? extends HoodieInstant`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieDefaultTimeline.java`
 #### Snippet
 ```java
-  }
+  private String timelineHash;
 
-  protected List<HoodieFileGroup> buildFileGroups(Stream<HoodieBaseFile> baseFileStream,
-      Stream<HoodieLogFile> logFileStream, HoodieTimeline timeline, boolean addPendingCompactionFileSlice) {
-    Map<Pair<String, String>, List<HoodieBaseFile>> baseFiles =
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieLogFile`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/AbstractTableFileSystemView.java`
-#### Snippet
-```java
-
-  protected List<HoodieFileGroup> buildFileGroups(Stream<HoodieBaseFile> baseFileStream,
-      Stream<HoodieLogFile> logFileStream, HoodieTimeline timeline, boolean addPendingCompactionFileSlice) {
-    Map<Pair<String, String>, List<HoodieBaseFile>> baseFiles =
-        baseFileStream.collect(Collectors.groupingBy(baseFile -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super I`
-in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.java`
-#### Snippet
-```java
-  }
-
-  public static <I, O> Function<I, Stream<O>> throwingFlatMapWrapper(SerializableFunction<I, Stream<O>> throwingFlatMapFunction) {
-    return v1 -> {
-      try {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Stream`
-in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.java`
-#### Snippet
-```java
-  }
-
-  public static <I, O> Function<I, Stream<O>> throwingFlatMapWrapper(SerializableFunction<I, Stream<O>> throwingFlatMapFunction) {
-    return v1 -> {
-      try {
+  public HoodieDefaultTimeline(Stream<HoodieInstant> instants, Function<HoodieInstant, Option<byte[]>> details) {
+    this.details = details;
+    setInstants(instants.collect(Collectors.toList()));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -18894,18 +18882,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.ja
 public class FunctionWrapper {
 
   public static <I, O> Function<I, O> throwingMapWrapper(SerializableFunction<I, O> throwingMapFunction) {
-    return v1 -> {
-      try {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super I`
-in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.java`
-#### Snippet
-```java
-  }
-
-  public static <I, K, V> Function<I, Pair<K, V>> throwingMapToPairWrapper(SerializablePairFunction<I, K, V> throwingPairFunction) {
     return v1 -> {
       try {
 ```
@@ -18951,6 +18927,18 @@ Can generalize to `? super I`
 in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.java`
 #### Snippet
 ```java
+  }
+
+  public static <I, K, V> Function<I, Pair<K, V>> throwingMapToPairWrapper(SerializablePairFunction<I, K, V> throwingPairFunction) {
+    return v1 -> {
+      try {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super I`
+in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.java`
+#### Snippet
+```java
 
   public static <I, K, V> Function<I, Stream<Pair<K, V>>> throwingFlatMapToPairWrapper(
       SerializablePairFlatMapFunction<I, K, V> throwingPairFlatMapFunction) {
@@ -18968,6 +18956,54 @@ in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.ja
   public static <I> Consumer<I> throwingForeachWrapper(SerializableConsumer<I> throwingConsumer) {
     return v1 -> {
       try {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super I`
+in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.java`
+#### Snippet
+```java
+  }
+
+  public static <I, O> Function<I, Stream<O>> throwingFlatMapWrapper(SerializableFunction<I, Stream<O>> throwingFlatMapFunction) {
+    return v1 -> {
+      try {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Stream`
+in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.java`
+#### Snippet
+```java
+  }
+
+  public static <I, O> Function<I, Stream<O>> throwingFlatMapWrapper(SerializableFunction<I, Stream<O>> throwingFlatMapFunction) {
+    return v1 -> {
+      try {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieBaseFile`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/AbstractTableFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  protected List<HoodieFileGroup> buildFileGroups(Stream<HoodieBaseFile> baseFileStream,
+      Stream<HoodieLogFile> logFileStream, HoodieTimeline timeline, boolean addPendingCompactionFileSlice) {
+    Map<Pair<String, String>, List<HoodieBaseFile>> baseFiles =
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieLogFile`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/AbstractTableFileSystemView.java`
+#### Snippet
+```java
+
+  protected List<HoodieFileGroup> buildFileGroups(Stream<HoodieBaseFile> baseFileStream,
+      Stream<HoodieLogFile> logFileStream, HoodieTimeline timeline, boolean addPendingCompactionFileSlice) {
+    Map<Pair<String, String>, List<HoodieBaseFile>> baseFiles =
+        baseFileStream.collect(Collectors.groupingBy(baseFile -> {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19043,6 +19079,18 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchemaBuil
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends InternalSchema`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/SerDeHelper.java`
+#### Snippet
+```java
+   * @return a string
+   */
+  public static String toJson(List<InternalSchema> internalSchemas) {
+    try {
+      StringWriter writer = new StringWriter();
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Types.Field`
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChangesHelper.java`
 #### Snippet
@@ -19064,18 +19112,6 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChange
   public static List<Types.Field> applyAddChange2Fields(List<Types.Field> fields, ArrayList<Types.Field> adds, ArrayList<TableChange.ColumnPositionChange> pchanges) {
     if (adds == null && pchanges == null) {
       return fields;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends InternalSchema`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/SerDeHelper.java`
-#### Snippet
-```java
-   * @return a string
-   */
-  public static String toJson(List<InternalSchema> internalSchemas) {
-    try {
-      StringWriter writer = new StringWriter();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19115,6 +19151,18 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/InternalSch
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/convert/AvroInternalSchemaConverter.java`
+#### Snippet
+```java
+   * @return a hudi type match avro schema.
+   */
+  private static Type visitAvroSchemaToBuildType(Schema schema, Deque<String> visited, Boolean firstVisitRoot, AtomicInteger nextId) {
+    switch (schema.getType()) {
+      case RECORD:
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Type`
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/convert/AvroInternalSchemaConverter.java`
 #### Snippet
@@ -19139,18 +19187,6 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/convert/AvroIntern
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/convert/AvroInternalSchemaConverter.java`
-#### Snippet
-```java
-   * @return a hudi type match avro schema.
-   */
-  private static Type visitAvroSchemaToBuildType(Schema schema, Deque<String> visited, Boolean firstVisitRoot, AtomicInteger nextId) {
-    switch (schema.getType()) {
-      case RECORD:
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Pair`
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataMergedLogRecordReader.java`
 #### Snippet
@@ -19160,6 +19196,42 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataMergedLogRe
                                                final Option<Pair<String, String>> simpleKeyGenFields,
                                                final Option<String> partitionName) {
     if (hoodieTableConfig.populateMetaFields()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Path`
+in `hudi-common/src/main/java/org/apache/hudi/metadata/BaseTableMetadata.java`
+#### Snippet
+```java
+  }
+
+  Map<String, FileStatus[]> fetchAllFilesInPartitionPaths(List<Path> partitionPaths) throws IOException {
+    Map<String, Path> partitionIdToPathMap =
+        partitionPaths.parallelStream()
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends I`
+in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
+    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
+  }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super I`
+in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
+    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19187,15 +19259,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineCon
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
+Can generalize to `? super Iterator`
 in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
 #### Snippet
 ```java
   @Override
-  public <I, K, V> List<V> reduceByKey(
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return data.stream().parallel()
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
+  public <I, K, V> Stream<ImmutablePair<K, V>> mapPartitionsToPairAndReduceByKey(
+      Stream<I> data, SerializablePairFlatMapFunction<Iterator<I>, K, V> flatMapToPairFunc,
+      SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return throwingFlatMapToPairWrapper(flatMapToPairFunc).apply(data.parallel().iterator())
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19253,8 +19325,8 @@ in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineCon
 ```java
 
   @Override
-  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
-    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
+  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
+    data.stream().forEach(throwingForeachWrapper(consumer));
   }
 ```
 
@@ -19265,21 +19337,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineCon
 ```java
 
   @Override
-  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
-    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
+  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
+    data.stream().forEach(throwingForeachWrapper(consumer));
   }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Iterator`
-in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
-#### Snippet
-```java
-  @Override
-  public <I, K, V> Stream<ImmutablePair<K, V>> mapPartitionsToPairAndReduceByKey(
-      Stream<I> data, SerializablePairFlatMapFunction<Iterator<I>, K, V> flatMapToPairFunc,
-      SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return throwingFlatMapToPairWrapper(flatMapToPairFunc).apply(data.parallel().iterator())
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19319,39 +19379,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineCon
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends I`
+Can generalize to `? extends Pair`
 in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
 #### Snippet
 ```java
-
   @Override
-  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
-    data.stream().forEach(throwingForeachWrapper(consumer));
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super I`
-in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
-    data.stream().forEach(throwingForeachWrapper(consumer));
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Path`
-in `hudi-common/src/main/java/org/apache/hudi/metadata/BaseTableMetadata.java`
-#### Snippet
-```java
-  }
-
-  Map<String, FileStatus[]> fetchAllFilesInPartitionPaths(List<Path> partitionPaths) throws IOException {
-    Map<String, Path> partitionIdToPathMap =
-        partitionPaths.parallelStream()
+  public <I, K, V> List<V> reduceByKey(
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return data.stream().parallel()
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19395,11 +19431,11 @@ Can generalize to `? super Long`
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieBackedTableMetadata.java`
 #### Snippet
 ```java
-                                                                                  List<String> keys,
-                                                                                  boolean fullKey,
-                                                                                  List<Long> timings) {
+                                                                                                             boolean fullKeys,
+                                                                                                             Map<String, Option<HoodieRecord<HoodieMetadataPayload>>> logRecords,
+                                                                                                             List<Long> timings,
+                                                                                                             String partitionName) throws IOException {
     HoodieTimer timer = HoodieTimer.start();
-
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19407,11 +19443,11 @@ Can generalize to `? super Long`
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieBackedTableMetadata.java`
 #### Snippet
 ```java
-                                                                                                             boolean fullKeys,
-                                                                                                             Map<String, Option<HoodieRecord<HoodieMetadataPayload>>> logRecords,
-                                                                                                             List<Long> timings,
-                                                                                                             String partitionName) throws IOException {
+                                                                                  List<String> keys,
+                                                                                  boolean fullKey,
+                                                                                  List<Long> timings) {
     HoodieTimer timer = HoodieTimer.start();
+
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19517,9 +19553,9 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/SchemaEvolutionContext.j
 ```java
   }
 
-  public void setColumnTypeList(JobConf job, List<Types.Field> fields) {
-    List<TypeInfo> fullTypeInfos = TypeInfoUtils.getTypeInfosFromTypeString(job.get(serdeConstants.LIST_COLUMN_TYPES));
-    List<Integer> tmpColIdList = Arrays.stream(job.get(ColumnProjectionUtils.READ_COLUMN_IDS_CONF_STR).split(","))
+  private void setColumnNameList(JobConf job, List<Types.Field> fields) {
+    if (fields == null) {
+      return;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19529,21 +19565,9 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/SchemaEvolutionContext.j
 ```java
   }
 
-  private void setColumnNameList(JobConf job, List<Types.Field> fields) {
-    if (fields == null) {
-      return;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Schema.Field`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieRealtimeRecordReaderUtils.java`
-#### Snippet
-```java
-   * Generate a reader schema off the provided writeSchema, to just project out the provided columns.
-   */
-  public static Schema generateProjectionSchema(Schema writeSchema, Map<String, Schema.Field> schemaFieldsMap,
-                                                List<String> fieldNames) {
-    /**
+  public void setColumnTypeList(JobConf job, List<Types.Field> fields) {
+    List<TypeInfo> fullTypeInfos = TypeInfoUtils.getTypeInfosFromTypeString(job.get(serdeConstants.LIST_COLUMN_TYPES));
+    List<Integer> tmpColIdList = Arrays.stream(job.get(ColumnProjectionUtils.READ_COLUMN_IDS_CONF_STR).split(","))
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19559,15 +19583,15 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/AbstractRealtim
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieInstant`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
+Can generalize to `? extends Schema.Field`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieRealtimeRecordReaderUtils.java`
 #### Snippet
 ```java
+   * Generate a reader schema off the provided writeSchema, to just project out the provided columns.
    */
-  public static List<FileStatus> filterIncrementalFileStatus(Job job, HoodieTableMetaClient tableMetaClient,
-      HoodieTimeline timeline, FileStatus[] fileStatuses, List<HoodieInstant> commitsToCheck) throws IOException {
-    TableFileSystemView.BaseFileOnlyView roView = new HoodieTableFileSystemView(tableMetaClient, timeline, fileStatuses);
-    List<String> commitsList = commitsToCheck.stream().map(HoodieInstant::getTimestamp).collect(Collectors.toList());
+  public static Schema generateProjectionSchema(Schema writeSchema, Map<String, Schema.Field> schemaFieldsMap,
+                                                List<String> fieldNames) {
+    /**
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19575,11 +19599,23 @@ Can generalize to `? extends HoodieCommitMetadata`
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
 #### Snippet
 ```java
-   * @return the partition path set
+   * @return the affected file status array
    */
-  public static Set<String> getWritePartitionPaths(List<HoodieCommitMetadata> metadataList) {
-    return metadataList.stream()
-        .map(HoodieCommitMetadata::getWritePartitionPaths)
+  public static FileStatus[] listAffectedFilesForCommits(Configuration hadoopConf, Path basePath, List<HoodieCommitMetadata> metadataList) {
+    // TODO: Use HoodieMetaTable to extract affected file directly.
+    HashMap<String, FileStatus> fullPathToFileStatus = new HashMap<>();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieTableMetaClient`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
+#### Snippet
+```java
+   */
+  public static Map<HoodieTableMetaClient, List<FileStatus>> groupFileStatusForSnapshotPaths(
+      FileStatus[] fileStatuses, String fileExtension, Collection<HoodieTableMetaClient> metaClientList) {
+    // This assumes the paths for different tables are grouped together
+    Map<HoodieTableMetaClient, List<FileStatus>> grouped = new HashMap<>();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19607,30 +19643,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatU
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Path`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
-#### Snippet
-```java
-   * @return partition path to table meta client mapping
-   */
-  public static Map<Path, HoodieTableMetaClient> getTableMetaClientByPartitionPath(Configuration conf, Set<Path> partitions) {
-    Map<Path, HoodieTableMetaClient> metaClientMap = new HashMap<>();
-    return partitions.stream().collect(Collectors.toMap(Function.identity(), p -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieCommitMetadata`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
-#### Snippet
-```java
-   * @return the affected file status array
-   */
-  public static FileStatus[] listAffectedFilesForCommits(Configuration hadoopConf, Path basePath, List<HoodieCommitMetadata> metadataList) {
-    // TODO: Use HoodieMetaTable to extract affected file directly.
-    HashMap<String, FileStatus> fullPathToFileStatus = new HashMap<>();
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends HoodieTableMetaClient`
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
 #### Snippet
@@ -19655,27 +19667,39 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatU
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieTableMetaClient`
+Can generalize to `? extends HoodieInstant`
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
 #### Snippet
 ```java
    */
-  public static Map<HoodieTableMetaClient, List<FileStatus>> groupFileStatusForSnapshotPaths(
-      FileStatus[] fileStatuses, String fileExtension, Collection<HoodieTableMetaClient> metaClientList) {
-    // This assumes the paths for different tables are grouped together
-    Map<HoodieTableMetaClient, List<FileStatus>> grouped = new HashMap<>();
+  public static List<FileStatus> filterIncrementalFileStatus(Job job, HoodieTableMetaClient tableMetaClient,
+      HoodieTimeline timeline, FileStatus[] fileStatuses, List<HoodieInstant> commitsToCheck) throws IOException {
+    TableFileSystemView.BaseFileOnlyView roView = new HoodieTableFileSystemView(tableMetaClient, timeline, fileStatuses);
+    List<String> commitsList = commitsToCheck.stream().map(HoodieInstant::getTimestamp).collect(Collectors.toList());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends TypeInfo`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HiveAvroSerializer.java`
+Can generalize to `? extends HoodieCommitMetadata`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
 #### Snippet
 ```java
-  private static final Logger LOG = LogManager.getLogger(HiveAvroSerializer.class);
+   * @return the partition path set
+   */
+  public static Set<String> getWritePartitionPaths(List<HoodieCommitMetadata> metadataList) {
+    return metadataList.stream()
+        .map(HoodieCommitMetadata::getWritePartitionPaths)
+```
 
-  public HiveAvroSerializer(ObjectInspector objectInspector, List<String> columnNames, List<TypeInfo> columnTypes) {
-    this.columnNames = columnNames;
-    this.columnTypes = columnTypes;
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Path`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
+#### Snippet
+```java
+   * @return partition path to table meta client mapping
+   */
+  public static Map<Path, HoodieTableMetaClient> getTableMetaClientByPartitionPath(Configuration conf, Set<Path> partitions) {
+    Map<Path, HoodieTableMetaClient> metaClientMap = new HashMap<>();
+    return partitions.stream().collect(Collectors.toMap(Function.identity(), p -> {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19688,6 +19712,18 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieCombineRe
       List<RecordReader> readers) {
     try {
       ValidationUtils.checkArgument(((HoodieCombineRealtimeFileSplit) split).getRealtimeFileSplits().size() == readers
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends TypeInfo`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HiveAvroSerializer.java`
+#### Snippet
+```java
+  private static final Logger LOG = LogManager.getLogger(HiveAvroSerializer.class);
+
+  public HiveAvroSerializer(ObjectInspector objectInspector, List<String> columnNames, List<TypeInfo> columnTypes) {
+    this.columnNames = columnNames;
+    this.columnTypes = columnTypes;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19739,18 +19775,6 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.j
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super CombineFileSplit`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
-#### Snippet
-```java
-  }
-
-  private void processPaths(JobConf job, CombineFileInputFormatShim combine, List<CombineFileSplit> iss, Path... path)
-      throws IOException {
-    JobConf currJob = new JobConf(job);
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends CombineFileSplit`
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
 #### Snippet
@@ -19760,6 +19784,18 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveIn
   private List<CombineFileSplit> sampleSplits(List<CombineFileSplit> splits) {
     HashMap<String, SplitSample> nameToSamples = mrwork.getNameToSplitSample();
     List<CombineFileSplit> retLists = new ArrayList<>();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super CombineFileSplit`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
+#### Snippet
+```java
+  }
+
+  private void processPaths(JobConf job, CombineFileInputFormatShim combine, List<CombineFileSplit> iss, Path... path)
+      throws IOException {
+    JobConf currJob = new JobConf(job);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19784,18 +19820,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/postprocessor/
   public ChainedSchemaPostProcessor(TypedProperties props, JavaSparkContext jssc, List<SchemaPostProcessor> processors) {
     super(props, jssc);
     this.processors = processors;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FileSplit`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
-#### Snippet
-```java
-  }
-
-  private static boolean containsIncrementalQuerySplits(List<FileSplit> fileSplits) {
-    return fileSplits.stream().anyMatch(HoodieRealtimeInputFormatUtils::doesBelongToIncrementalQuery);
-  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19856,6 +19880,18 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnRe
   private static List<FileSplit> filterIncrementalQueryFileSplits(List<FileSplit> fileSplits) {
     return fileSplits.stream().filter(HoodieRealtimeInputFormatUtils::doesBelongToIncrementalQuery)
         .collect(Collectors.toList());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends FileSplit`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
+#### Snippet
+```java
+  }
+
+  private static boolean containsIncrementalQuerySplits(List<FileSplit> fileSplits) {
+    return fileSplits.stream().anyMatch(HoodieRealtimeInputFormatUtils::doesBelongToIncrementalQuery);
+  }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19947,11 +19983,11 @@ Can generalize to `? extends Message`
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/CloudObjectsSelector.java`
 #### Snippet
 ```java
-   * functionality, due to https://github.com/apache/hudi/blob/master/style/checkstyle.xml#L270
+   * Delete batch of messages from queue.
    */
-  protected List<List<Message>> createListPartitions(List<Message> singleList, int eachBatchSize) {
-    List<List<Message>> listPartitions = new ArrayList<>();
-    if (singleList.size() == 0 || eachBatchSize < 1) {
+  protected void deleteBatchOfMessages(AmazonSQS sqs, String queueUrl, List<Message> messagesToBeDeleted) {
+    DeleteMessageBatchRequest deleteBatchReq =
+        new DeleteMessageBatchRequest().withQueueUrl(queueUrl);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -19959,11 +19995,11 @@ Can generalize to `? extends Message`
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/CloudObjectsSelector.java`
 #### Snippet
 ```java
-   * Delete batch of messages from queue.
+   * functionality, due to https://github.com/apache/hudi/blob/master/style/checkstyle.xml#L270
    */
-  protected void deleteBatchOfMessages(AmazonSQS sqs, String queueUrl, List<Message> messagesToBeDeleted) {
-    DeleteMessageBatchRequest deleteBatchReq =
-        new DeleteMessageBatchRequest().withQueueUrl(queueUrl);
+  protected List<List<Message>> createListPartitions(List<Message> singleList, int eachBatchSize) {
+    List<List<Message>> listPartitions = new ArrayList<>();
+    if (singleList.size() == 0 || eachBatchSize < 1) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20027,18 +20063,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/Kafka
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends WriteStatus`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteOperatorCoordinator.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings("unchecked")
-  private void doCommit(String instant, List<WriteStatus> writeResults) {
-    // commit or rollback
-    long totalErrorRecords = writeResults.stream().map(WriteStatus::getTotalErrorRecords).reduce(Long::sum).orElse(0L);
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends TimestampBasedAvroKeyGenerator`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/RowDataKeyGen.java`
 #### Snippet
@@ -20051,39 +20075,15 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/Row
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super SparkRDDWriteClient`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
+Can generalize to `? extends WriteStatus`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteOperatorCoordinator.java`
 #### Snippet
 ```java
-  public DeltaSync(HoodieDeltaStreamer.Config cfg, SparkSession sparkSession, SchemaProvider schemaProvider,
-                   TypedProperties props, JavaSparkContext jssc, FileSystem fs, Configuration conf,
-                   Function<SparkRDDWriteClient, Boolean> onInitializingHoodieWriteClient) throws IOException {
-
-    this.cfg = cfg;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieTimeline`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
-#### Snippet
-```java
-  }
-
-  private Option<String> getLastPendingClusteringInstant(Option<HoodieTimeline> commitTimelineOpt) {
-    if (commitTimelineOpt.isPresent()) {
-      Option<HoodieInstant> pendingClusteringInstant = commitTimelineOpt.get().filterPendingReplaceTimeline().lastInstant();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieTimeline`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
-#### Snippet
-```java
-   * @throws IOException
    */
-  private Option<String> getCheckpointToResume(Option<HoodieTimeline> commitTimelineOpt) throws IOException {
-    Option<String> resumeCheckpointStr = Option.empty();
-    Option<HoodieInstant> lastCommit = commitTimelineOpt.get().lastInstant();
+  @SuppressWarnings("unchecked")
+  private void doCommit(String instant, List<WriteStatus> writeResults) {
+    // commit or rollback
+    long totalErrorRecords = writeResults.stream().map(WriteStatus::getTotalErrorRecords).reduce(Long::sum).orElse(0L);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20111,15 +20111,39 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bucket/B
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends CompactionCommitEvent`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/CompactionCommitSink.java`
+Can generalize to `? extends HoodieTimeline`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
 #### Snippet
 ```java
+  }
 
-  @SuppressWarnings("unchecked")
-  private void doCommit(String instant, Collection<CompactionCommitEvent> events) throws IOException {
-    List<WriteStatus> statuses = events.stream()
-        .map(CompactionCommitEvent::getWriteStatuses)
+  private Option<String> getLastPendingClusteringInstant(Option<HoodieTimeline> commitTimelineOpt) {
+    if (commitTimelineOpt.isPresent()) {
+      Option<HoodieInstant> pendingClusteringInstant = commitTimelineOpt.get().filterPendingReplaceTimeline().lastInstant();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieTimeline`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
+#### Snippet
+```java
+   * @throws IOException
+   */
+  private Option<String> getCheckpointToResume(Option<HoodieTimeline> commitTimelineOpt) throws IOException {
+    Option<String> resumeCheckpointStr = Option.empty();
+    Option<HoodieInstant> lastCommit = commitTimelineOpt.get().lastInstant();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super SparkRDDWriteClient`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
+#### Snippet
+```java
+  public DeltaSync(HoodieDeltaStreamer.Config cfg, SparkSession sparkSession, SchemaProvider schemaProvider,
+                   TypedProperties props, JavaSparkContext jssc, FileSystem fs, Configuration conf,
+                   Function<SparkRDDWriteClient, Boolean> onInitializingHoodieWriteClient) throws IOException {
+
+    this.cfg = cfg;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20147,15 +20171,15 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/transfor
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClusteringCommitEvent`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/ClusteringCommitSink.java`
+Can generalize to `? extends CompactionCommitEvent`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/CompactionCommitSink.java`
 #### Snippet
 ```java
-  }
 
-  private void doCommit(String instant, HoodieClusteringPlan clusteringPlan, List<ClusteringCommitEvent> events) {
+  @SuppressWarnings("unchecked")
+  private void doCommit(String instant, Collection<CompactionCommitEvent> events) throws IOException {
     List<WriteStatus> statuses = events.stream()
-        .map(ClusteringCommitEvent::getWriteStatuses)
+        .map(CompactionCommitEvent::getWriteStatuses)
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20168,6 +20192,30 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
   private void processRecord(HoodieRecord<?> record, Collector<O> out) throws Exception {
     // 1. put the record into the BucketAssigner;
     // 2. look up the state for location, if the record has a location, just send it out;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ClusteringCommitEvent`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/ClusteringCommitSink.java`
+#### Snippet
+```java
+  }
+
+  private void doCommit(String instant, HoodieClusteringPlan clusteringPlan, List<ClusteringCommitEvent> events) {
+    List<WriteStatus> statuses = events.stream()
+        .map(ClusteringCommitEvent::getWriteStatuses)
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieInstant`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/profile/WriteProfile.java`
+#### Snippet
+```java
+   * whose instant does not belong to the given instants {@code instants}.
+   */
+  private void cleanMetadataCache(Stream<HoodieInstant> instants) {
+    Set<String> timestampSet = instants.map(HoodieInstant::getTimestamp).collect(Collectors.toSet());
+    this.metadataCache.keySet().retainAll(timestampSet);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20195,39 +20243,15 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieInstant`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/profile/WriteProfile.java`
+Can generalize to `? extends HoodieCommitMetadata`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/profile/WriteProfiles.java`
 #### Snippet
 ```java
-   * whose instant does not belong to the given instants {@code instants}.
-   */
-  private void cleanMetadataCache(Stream<HoodieInstant> instants) {
-    Set<String> timestampSet = instants.map(HoodieInstant::getTimestamp).collect(Collectors.toSet());
-    this.metadataCache.keySet().retainAll(timestampSet);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClusteringOperation`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/ClusteringOperator.java`
-#### Snippet
-```java
-   * Read records from baseFiles and get iterator.
-   */
-  private Iterator<RowData> readRecordsForGroupBaseFiles(List<ClusteringOperation> clusteringOps) {
-    List<Iterator<RowData>> iteratorsForPartition = clusteringOps.stream().map(clusteringOp -> {
-      Iterable<IndexedRecord> indexedRecords = () -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClusteringOperation`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/ClusteringOperator.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings("unchecked")
-  private Iterator<RowData> readRecordsForGroupWithLogs(List<ClusteringOperation> clusteringOps, String instantTime) {
-    List<Iterator<RowData>> recordIterators = new ArrayList<>();
-
+      Path basePath,
+      Configuration hadoopConf,
+      List<HoodieCommitMetadata> metadataList,
+      HoodieTableType tableType) {
+    Map<String, FileStatus> uniqueIdToFileStatus = new HashMap<>();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20243,15 +20267,27 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieCommitMetadata`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/profile/WriteProfiles.java`
+Can generalize to `? extends ClusteringOperation`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/ClusteringOperator.java`
 #### Snippet
 ```java
-      Path basePath,
-      Configuration hadoopConf,
-      List<HoodieCommitMetadata> metadataList,
-      HoodieTableType tableType) {
-    Map<String, FileStatus> uniqueIdToFileStatus = new HashMap<>();
+   */
+  @SuppressWarnings("unchecked")
+  private Iterator<RowData> readRecordsForGroupWithLogs(List<ClusteringOperation> clusteringOps, String instantTime) {
+    List<Iterator<RowData>> recordIterators = new ArrayList<>();
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ClusteringOperation`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/ClusteringOperator.java`
+#### Snippet
+```java
+   * Read records from baseFiles and get iterator.
+   */
+  private Iterator<RowData> readRecordsForGroupBaseFiles(List<ClusteringOperation> clusteringOps) {
+    List<Iterator<RowData>> iteratorsForPartition = clusteringOps.stream().map(clusteringOp -> {
+      Iterable<IndexedRecord> indexedRecords = () -> {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20411,18 +20447,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends DataType`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
-#### Snippet
-```java
-      Configuration conf,
-      MergeOnReadTableState tableState,
-      List<DataType> fieldTypes,
-      String defaultPartName,
-      long limit,
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends RowData`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
 #### Snippet
@@ -20432,6 +20456,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
     SkipMergeIterator(ParquetColumnarRowSplitReader reader, ClosableIterator<RowData> iterator) {
       this.reader = reader;
       this.iterator = iterator;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends RowData`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
+#### Snippet
+```java
+    private final ClosableIterator<RowData> iterator;
+
+    public LogFileOnlyIterator(ClosableIterator<RowData> iterator) {
+      this.iterator = iterator;
+    }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20459,27 +20495,15 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends RowData`
+Can generalize to `? extends DataType`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
 #### Snippet
 ```java
-    private final ClosableIterator<RowData> iterator;
-
-    public LogFileOnlyIterator(ClosableIterator<RowData> iterator) {
-      this.iterator = iterator;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super MergeOnReadInputSplit`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/StreamReadMonitoringFunction.java`
-#### Snippet
-```java
-
-  @VisibleForTesting
-  public void monitorDirAndForwardSplits(SourceContext<MergeOnReadInputSplit> context) {
-    HoodieTableMetaClient metaClient = getOrCreateMetaClient();
-    if (metaClient == null) {
+      Configuration conf,
+      MergeOnReadTableState tableState,
+      List<DataType> fieldTypes,
+      String defaultPartName,
+      long limit,
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20504,6 +20528,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog
   public static List<String> getFieldNames(List<FieldSchema> fieldSchemas) {
     return fieldSchemas.stream().map(FieldSchema::getName).collect(Collectors.toList());
   }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super MergeOnReadInputSplit`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/StreamReadMonitoringFunction.java`
+#### Snippet
+```java
+
+  @VisibleForTesting
+  public void monitorDirAndForwardSplits(SourceContext<MergeOnReadInputSplit> context) {
+    HoodieTableMetaClient metaClient = getOrCreateMetaClient();
+    if (metaClient == null) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20579,15 +20615,15 @@ in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/f
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super LogicalType`
+Can generalize to `? extends RowData`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ColumnStatsIndices.java`
 #### Snippet
 ```java
-      Object rawVal,
-      LogicalType logicalType,
-      Map<LogicalType, AvroToRowDataConverters.AvroToRowDataConverter> converters) {
-    AvroToRowDataConverters.AvroToRowDataConverter converter =
-        converters.computeIfAbsent(logicalType, k -> AvroToRowDataConverters.createConverter(logicalType));
+   * @return reshaped table according to the format outlined above
+   */
+  public static Pair<List<RowData>, String[]> transposeColumnStatsIndex(List<RowData> colStats, String[] queryColumns, RowType tableSchema) {
+
+    Map<String, LogicalType> tableFieldTypeMap = tableSchema.getFields().stream()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20603,15 +20639,15 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends RowData`
+Can generalize to `? super LogicalType`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ColumnStatsIndices.java`
 #### Snippet
 ```java
-   * @return reshaped table according to the format outlined above
-   */
-  public static Pair<List<RowData>, String[]> transposeColumnStatsIndex(List<RowData> colStats, String[] queryColumns, RowType tableSchema) {
-
-    Map<String, LogicalType> tableFieldTypeMap = tableSchema.getFields().stream()
+      Object rawVal,
+      LogicalType logicalType,
+      Map<LogicalType, AvroToRowDataConverters.AvroToRowDataConverter> converters) {
+    AvroToRowDataConverters.AvroToRowDataConverter converter =
+        converters.computeIfAbsent(logicalType, k -> AvroToRowDataConverters.createConverter(logicalType));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20663,18 +20699,6 @@ in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/HDFSParqu
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieRecord`
-in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
-#### Snippet
-```java
-  }
-
-  public static List<String> convertToStringList(List<HoodieRecord> records) {
-    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
-        .collect(Collectors.toList());
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Row`
 in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
 #### Snippet
@@ -20699,6 +20723,18 @@ in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUti
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HoodieRecord`
+in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
+#### Snippet
+```java
+  }
+
+  public static List<String> convertToStringList(List<HoodieRecord> records) {
+    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
+        .collect(Collectors.toList());
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends ColumnDescriptor`
 in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
 #### Snippet
@@ -20708,18 +20744,6 @@ in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/f
   private static List<ColumnDescriptor> filterDescriptors(int depth, Type type, List<ColumnDescriptor> columns) throws ParquetRuntimeException {
     List<ColumnDescriptor> filtered = new ArrayList<>();
     for (ColumnDescriptor descriptor : columns) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MarkerCreationFuture`
-in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handlers/marker/MarkerDirState.java`
-#### Snippet
-```java
-   */
-  public void processMarkerCreationRequests(
-      final List<MarkerCreationFuture> pendingMarkerCreationFutures, int fileIndex) {
-    if (pendingMarkerCreationFutures.isEmpty()) {
-      markFileAsAvailable(fileIndex);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20735,51 +20759,15 @@ in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handler
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `hudi-spark-datasource/hudi-spark-common/src/main/java/org/apache/hudi/DataSourceUtils.java`
+Can generalize to `? extends MarkerCreationFuture`
+in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handlers/marker/MarkerDirState.java`
 #### Snippet
 ```java
-   * @param schema schema of the dataset being written
    */
-  public static void tryOverrideParquetWriteLegacyFormatProperty(Map<String, String> properties, StructType schema) {
-    if (DataTypeUtils.hasSmallPrecisionDecimalType(schema)
-        && properties.get(HoodieStorageConfig.PARQUET_WRITE_LEGACY_FORMAT_ENABLED.key()) == null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `hudi-spark-datasource/hudi-spark-common/src/main/java/org/apache/hudi/DataSourceUtils.java`
-#### Snippet
-```java
-   * @param schema schema of the dataset being written
-   */
-  public static void tryOverrideParquetWriteLegacyFormatProperty(Map<String, String> properties, StructType schema) {
-    if (DataTypeUtils.hasSmallPrecisionDecimalType(schema)
-        && properties.get(HoodieStorageConfig.PARQUET_WRITE_LEGACY_FORMAT_ENABLED.key()) == null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieInstant`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
-#### Snippet
-```java
-   * @deprecated please use {@link #getTableAvroSchema(HoodieInstant, boolean)} instead
-   */
-  public MessageType readSchemaFromLastCompaction(Option<HoodieInstant> lastCompactionCommitOpt) throws Exception {
-    HoodieActiveTimeline activeTimeline = metaClient.getActiveTimeline();
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HoodieInstant`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
-#### Snippet
-```java
-  }
-
-  private Schema getTableAvroSchemaInternal(boolean includeMetadataFields, Option<HoodieInstant> instantOpt) {
-    Schema schema =
-        (instantOpt.isPresent()
+  public void processMarkerCreationRequests(
+      final List<MarkerCreationFuture> pendingMarkerCreationFutures, int fileIndex) {
+    if (pendingMarkerCreationFutures.isEmpty()) {
+      markFileAsAvailable(fileIndex);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -20807,39 +20795,51 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.j
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends GenericRecord`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
+Can generalize to `? extends HoodieInstant`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
 #### Snippet
 ```java
-  }
+   * @deprecated please use {@link #getTableAvroSchema(HoodieInstant, boolean)} instead
+   */
+  public MessageType readSchemaFromLastCompaction(Option<HoodieInstant> lastCompactionCommitOpt) throws Exception {
+    HoodieActiveTimeline activeTimeline = metaClient.getActiveTimeline();
 
-  private String getPartitionPath(Option<GenericRecord> record, Option<Row> row, Option<Pair<InternalRow, StructType>> internalRowStructTypePair) {
-    if (getPartitionPathFields() == null) {
-      throw new HoodieKeyException("Unable to find field names for partition path in cfg");
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Row`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
+Can generalize to `? extends HoodieInstant`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
 #### Snippet
 ```java
   }
 
-  private String getPartitionPath(Option<GenericRecord> record, Option<Row> row, Option<Pair<InternalRow, StructType>> internalRowStructTypePair) {
-    if (getPartitionPathFields() == null) {
-      throw new HoodieKeyException("Unable to find field names for partition path in cfg");
+  private Schema getTableAvroSchemaInternal(boolean includeMetadataFields, Option<HoodieInstant> instantOpt) {
+    Schema schema =
+        (instantOpt.isPresent()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Pair`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
+Can generalize to `? super String`
+in `hudi-spark-datasource/hudi-spark-common/src/main/java/org/apache/hudi/DataSourceUtils.java`
 #### Snippet
 ```java
-  }
+   * @param schema schema of the dataset being written
+   */
+  public static void tryOverrideParquetWriteLegacyFormatProperty(Map<String, String> properties, StructType schema) {
+    if (DataTypeUtils.hasSmallPrecisionDecimalType(schema)
+        && properties.get(HoodieStorageConfig.PARQUET_WRITE_LEGACY_FORMAT_ENABLED.key()) == null) {
+```
 
-  private String getPartitionPath(Option<GenericRecord> record, Option<Row> row, Option<Pair<InternalRow, StructType>> internalRowStructTypePair) {
-    if (getPartitionPathFields() == null) {
-      throw new HoodieKeyException("Unable to find field names for partition path in cfg");
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `hudi-spark-datasource/hudi-spark-common/src/main/java/org/apache/hudi/DataSourceUtils.java`
+#### Snippet
+```java
+   * @param schema schema of the dataset being written
+   */
+  public static void tryOverrideParquetWriteLegacyFormatProperty(Map<String, String> properties, StructType schema) {
+    if (DataTypeUtils.hasSmallPrecisionDecimalType(schema)
+        && properties.get(HoodieStorageConfig.PARQUET_WRITE_LEGACY_FORMAT_ENABLED.key()) == null) {
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -20925,10 +20925,10 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
 #### Snippet
 ```java
-    public int parallelism = 200;
 
-    @Parameter(names = {"--ignore-failed", "-ig"}, description = "Ignore data table validate failure and continue.", required = false)
-    public boolean ignoreFailed = false;
+    @Parameter(names = {"--assume-date-partitioning"}, description = "Should HoodieWriteClient assume the data is partitioned by dates, i.e three levels from base path."
+        + "This is a stop-gap to support tables created by versions < 0.3.1. Will be removed eventually", required = false)
+    public Boolean assumeDatePartitioning = false;
 
 ```
 
@@ -20937,10 +20937,10 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
 #### Snippet
 ```java
+    public int parallelism = 200;
 
-    @Parameter(names = {"--assume-date-partitioning"}, description = "Should HoodieWriteClient assume the data is partitioned by dates, i.e three levels from base path."
-        + "This is a stop-gap to support tables created by versions < 0.3.1. Will be removed eventually", required = false)
-    public Boolean assumeDatePartitioning = false;
+    @Parameter(names = {"--ignore-failed", "-ig"}, description = "Ignore data table validate failure and continue.", required = false)
+    public boolean ignoreFailed = false;
 
 ```
 
@@ -20997,47 +20997,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--mode", "-m"}, description = "Set job mode: Set \"schedule\" means make a compact plan; "
-        + "Set \"execute\" means execute a compact plan at given instant which means --instant-time is needed here; "
-        + "Set \"scheduleAndExecute\" means make a compact plan first and execute that plan immediately", required = false)
-    public String runningMode = null;
-    @Parameter(names = {"--strategy", "-st"}, description = "Strategy Class", required = false)
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
-    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
-    public String schemaFile = null;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
     @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
+    public String sparkMemory = null;
     @Parameter(names = {"--retry", "-rt"}, description = "number of retries", required = false)
     public int retry = 0;
     @Parameter(names = {"--schedule", "-sc"}, description = "Schedule compaction", required = false)
-    public Boolean runSchedule = false;
-    @Parameter(names = {"--mode", "-m"}, description = "Set job mode: Set \"schedule\" means make a compact plan; "
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
-    public String tableName = null;
-    @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
-    public String compactionInstantTime = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21057,23 +21021,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
-    public String compactionInstantTime = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
-    public int parallelism = 200;
-    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
     @Parameter(names = {"--retry", "-rt"}, description = "number of retries", required = false)
     public int retry = 0;
     @Parameter(names = {"--schedule", "-sc"}, description = "Schedule compaction", required = false)
+    public Boolean runSchedule = false;
+    @Parameter(names = {"--mode", "-m"}, description = "Set job mode: Set \"schedule\" means make a compact plan; "
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21090,38 +21042,50 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 
 ### RuleId[ruleID=DefaultAnnotationParam]
 Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
-    public int parallelism = 2;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
+    @Parameter(names = {"--mode", "-m"}, description = "Set job mode: Set \"schedule\" means make a compact plan; "
+        + "Set \"execute\" means execute a compact plan at given instant which means --instant-time is needed here; "
+        + "Set \"scheduleAndExecute\" means make a compact plan first and execute that plan immediately", required = false)
+    public String runningMode = null;
+    @Parameter(names = {"--strategy", "-st"}, description = "Strategy Class", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
 Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
-        + "and log files from the table", required = false)
-    public String backupPath = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
-    public int parallelism = 2;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
+    @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
+    public String compactionInstantTime = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
 Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
+    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
+    public String schemaFile = null;
     @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
     public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
-    public String sparkMemory = "1g";
-    @Parameter(names = {"--assume-date-partitioning", "-dp"}, description = "whether the partition path "
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
+#### Snippet
+```java
+    @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
+    public String compactionInstantTime = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
+    public int parallelism = 200;
+    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21141,11 +21105,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
 #### Snippet
 ```java
-    public String runningMode = null;
-    @Parameter(names = {"--start-instant-time", "-si"}, description = "Starting Instant time "
-        + "for repair (inclusive)", required = false)
-    public String startingInstantTime = null;
-    @Parameter(names = {"--end-instant-time", "-ei"}, description = "Ending Instant time "
+    public String endingInstantTime = null;
+    @Parameter(names = {"--backup-path", "-bp"}, description = "Backup path for storing dangling data "
+        + "and log files from the table", required = false)
+    public String backupPath = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21165,11 +21129,95 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
 #### Snippet
 ```java
-    public String endingInstantTime = null;
-    @Parameter(names = {"--backup-path", "-bp"}, description = "Backup path for storing dangling data "
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
+    public int parallelism = 2;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    public String runningMode = null;
+    @Parameter(names = {"--start-instant-time", "-si"}, description = "Starting Instant time "
+        + "for repair (inclusive)", required = false)
+    public String startingInstantTime = null;
+    @Parameter(names = {"--end-instant-time", "-ei"}, description = "Ending Instant time "
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
+    public String sparkMemory = "1g";
+    @Parameter(names = {"--assume-date-partitioning", "-dp"}, description = "whether the partition path "
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
         + "and log files from the table", required = false)
     public String backupPath = null;
     @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
+    public int parallelism = 2;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--skip-validation", "-sv"}, description = "Skip Validation", required = false)
+    public boolean skipValidation = false;
+    @Parameter(names = {"--output-path", "-ot"}, description = "Output Path", required = false)
+    public String outputPath = null;
+    @Parameter(names = {"--print-output", "-pt"}, description = "Print Output", required = false)
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--dry-run", "-dr"}, description = "Dry Run Mode", required = false)
+    public boolean dryRun = false;
+    @Parameter(names = {"--skip-validation", "-sv"}, description = "Skip Validation", required = false)
+    public boolean skipValidation = false;
+    @Parameter(names = {"--output-path", "-ot"}, description = "Output Path", required = false)
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--instant-time", "-in"}, description = "Compaction Instant time", required = false)
+    public String compactionInstantTime = null;
+    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
+    public String partitionPath = null;
+    @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--base-path", "-bp"}, description = "Base path for the table", required = true)
+    public String basePath = null;
+    @Parameter(names = {"--instant-time", "-in"}, description = "Compaction Instant time", required = false)
+    public String compactionInstantTime = null;
+    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21201,11 +21249,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--skip-validation", "-sv"}, description = "Skip Validation", required = false)
-    public boolean skipValidation = false;
-    @Parameter(names = {"--output-path", "-ot"}, description = "Output Path", required = false)
-    public String outputPath = null;
-    @Parameter(names = {"--print-output", "-pt"}, description = "Print Output", required = false)
+    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
+    public String partitionPath = null;
+    @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
+    public String fileId = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21218,78 +21266,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdmin
     @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
     public int parallelism = 3;
     @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = true)
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--dry-run", "-dr"}, description = "Dry Run Mode", required = false)
-    public boolean dryRun = false;
-    @Parameter(names = {"--skip-validation", "-sv"}, description = "Skip Validation", required = false)
-    public boolean skipValidation = false;
-    @Parameter(names = {"--output-path", "-ot"}, description = "Output Path", required = false)
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
-    public String partitionPath = null;
-    @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
-    public String fileId = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--base-path", "-bp"}, description = "Base path for the table", required = true)
-    public String basePath = null;
-    @Parameter(names = {"--instant-time", "-in"}, description = "Compaction Instant time", required = false)
-    public String compactionInstantTime = null;
-    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--instant-time", "-in"}, description = "Compaction Instant time", required = false)
-    public String compactionInstantTime = null;
-    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
-    public String partitionPath = null;
-    @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-        + " default 'SlashEncodedDayPartitionValueExtractor'.", required = false)
-    public String partitionValueExtractorClass = "org.apache.hudi.hive.SlashEncodedDayPartitionValueExtractor";
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--hive-partition-field"}, description = "Comma separated list of field in the hive table to use for determining hive partition columns.", required = false)
-    public String hivePartitionsField = "";
-    @Parameter(names = {"--hive-sync-use-jdbc"}, description = "Use JDBC when hive synchronization.", required = false)
-    public boolean hiveUseJdbc = true;
-    @Parameter(names = {"--hive-metastore-uris"}, description = "hive meta store uris to use.", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21309,23 +21285,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--hive-sync-mode"}, description = "Mode to choose for Hive ops. Valid values are hms, jdbc and hiveql.", required = false)
-    public String hiveSyncMode = "hms";
-    @Parameter(names = {"--hive-sync-ignore-exception"}, description = "Ignore hive sync exception.", required = false)
-    public boolean hiveSyncIgnoreException = false;
-    @Parameter(names = {"--hive-partition-value-extractor-class"}, description = "Class which implements PartitionValueExtractor to extract the partition values,"
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
+    @Parameter(names = {"--hive-database", "-db"}, description = "Database to sync to.", required = false)
+    public String hiveDataBase = null;
     @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
     public String hiveTableName = null;
     @Parameter(names = {"--hive-user-name", "-user"}, description = "hive user name to use.", required = false)
-    public String hiveUserName = "hive";
-    @Parameter(names = {"--hive-pass-word", "-pass"}, description = "hive password to use.", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21333,11 +21297,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
+    @Parameter(names = {"--hive-sync-use-jdbc"}, description = "Use JDBC when hive synchronization.", required = false)
+    public boolean hiveUseJdbc = true;
     @Parameter(names = {"--hive-metastore-uris"}, description = "hive meta store uris to use.", required = false)
     public String hiveHMSUris = null;
     @Parameter(names = {"--hive-sync-mode"}, description = "Mode to choose for Hive ops. Valid values are hms, jdbc and hiveql.", required = false)
-    public String hiveSyncMode = "hms";
-    @Parameter(names = {"--hive-sync-ignore-exception"}, description = "Ignore hive sync exception.", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21345,11 +21309,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert/upsert/delete", required = false)
-    public int parallelism = 1500;
-    @Parameter(names = {"--instant-time", "-it"}, description = "instant time for delete table partitions operation.", required = false)
-    public String instantTime = null;
-    @Parameter(names = {"--sync-hive-meta", "-sync"}, description = "Sync information to HMS.", required = false)
+    public boolean hiveSyncIgnoreException = false;
+    @Parameter(names = {"--hive-partition-value-extractor-class"}, description = "Class which implements PartitionValueExtractor to extract the partition values,"
+        + " default 'SlashEncodedDayPartitionValueExtractor'.", required = false)
+    public String partitionValueExtractorClass = "org.apache.hudi.hive.SlashEncodedDayPartitionValueExtractor";
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21357,11 +21321,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--partitions", "-p"}, description = "Comma separated list of partitions to delete.", required = true)
-    public String partitions = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert/upsert/delete", required = false)
-    public int parallelism = 1500;
-    @Parameter(names = {"--instant-time", "-it"}, description = "instant time for delete table partitions operation.", required = false)
+    @Parameter(names = {"--hive-jdbc-url", "-jdbc"}, description = "hive url to use.", required = false)
+    public String hiveURL = "jdbc:hive2://localhost:10000";
+    @Parameter(names = {"--hive-partition-field"}, description = "Comma separated list of field in the hive table to use for determining hive partition columns.", required = false)
+    public String hivePartitionsField = "";
+    @Parameter(names = {"--hive-sync-use-jdbc"}, description = "Use JDBC when hive synchronization.", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21393,11 +21357,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--hive-database", "-db"}, description = "Database to sync to.", required = false)
-    public String hiveDataBase = null;
-    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
-    public String hiveTableName = null;
-    @Parameter(names = {"--hive-user-name", "-user"}, description = "hive user name to use.", required = false)
+    @Parameter(names = {"--hive-sync-mode"}, description = "Mode to choose for Hive ops. Valid values are hms, jdbc and hiveql.", required = false)
+    public String hiveSyncMode = "hms";
+    @Parameter(names = {"--hive-sync-ignore-exception"}, description = "Ignore hive sync exception.", required = false)
+    public boolean hiveSyncIgnoreException = false;
+    @Parameter(names = {"--hive-partition-value-extractor-class"}, description = "Class which implements PartitionValueExtractor to extract the partition values,"
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21417,6 +21381,30 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
+    @Parameter(names = {"--partitions", "-p"}, description = "Comma separated list of partitions to delete.", required = true)
+    public String partitions = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert/upsert/delete", required = false)
+    public int parallelism = 1500;
+    @Parameter(names = {"--instant-time", "-it"}, description = "instant time for delete table partitions operation.", required = false)
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--hive-partition-field"}, description = "Comma separated list of field in the hive table to use for determining hive partition columns.", required = false)
+    public String hivePartitionsField = "";
+    @Parameter(names = {"--hive-sync-use-jdbc"}, description = "Use JDBC when hive synchronization.", required = false)
+    public boolean hiveUseJdbc = true;
+    @Parameter(names = {"--hive-metastore-uris"}, description = "hive meta store uris to use.", required = false)
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
     @Parameter(names = {"--hive-pass-word", "-pass"}, description = "hive password to use.", required = false)
     public String hivePassWord = "hive";
     @Parameter(names = {"--hive-jdbc-url", "-jdbc"}, description = "hive url to use.", required = false)
@@ -21429,23 +21417,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-    public boolean hiveSyncIgnoreException = false;
-    @Parameter(names = {"--hive-partition-value-extractor-class"}, description = "Class which implements PartitionValueExtractor to extract the partition values,"
-        + " default 'SlashEncodedDayPartitionValueExtractor'.", required = false)
-    public String partitionValueExtractorClass = "org.apache.hudi.hive.SlashEncodedDayPartitionValueExtractor";
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--hive-sync-use-jdbc"}, description = "Use JDBC when hive synchronization.", required = false)
-    public boolean hiveUseJdbc = true;
     @Parameter(names = {"--hive-metastore-uris"}, description = "hive meta store uris to use.", required = false)
     public String hiveHMSUris = null;
     @Parameter(names = {"--hive-sync-mode"}, description = "Mode to choose for Hive ops. Valid values are hms, jdbc and hiveql.", required = false)
+    public String hiveSyncMode = "hms";
+    @Parameter(names = {"--hive-sync-ignore-exception"}, description = "Ignore hive sync exception.", required = false)
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21453,11 +21429,47 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--hive-jdbc-url", "-jdbc"}, description = "hive url to use.", required = false)
-    public String hiveURL = "jdbc:hive2://localhost:10000";
-    @Parameter(names = {"--hive-partition-field"}, description = "Comma separated list of field in the hive table to use for determining hive partition columns.", required = false)
-    public String hivePartitionsField = "";
-    @Parameter(names = {"--hive-sync-use-jdbc"}, description = "Use JDBC when hive synchronization.", required = false)
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert/upsert/delete", required = false)
+    public int parallelism = 1500;
+    @Parameter(names = {"--instant-time", "-it"}, description = "instant time for delete table partitions operation.", required = false)
+    public String instantTime = null;
+    @Parameter(names = {"--sync-hive-meta", "-sync"}, description = "Sync information to HMS.", required = false)
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
+    public String hiveTableName = null;
+    @Parameter(names = {"--hive-user-name", "-user"}, description = "hive user name to use.", required = false)
+    public String hiveUserName = "hive";
+    @Parameter(names = {"--hive-pass-word", "-pass"}, description = "hive password to use.", required = false)
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+        + " default 'SlashEncodedDayPartitionValueExtractor'.", required = false)
+    public String partitionValueExtractorClass = "org.apache.hudi.hive.SlashEncodedDayPartitionValueExtractor";
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    public boolean validateAllColumnStats = false;
+
+    @Parameter(names = {"--validate-bloom-filters"}, description = "Validate bloom filters of base files", required = false)
+    public boolean validateBloomFilters = false;
+
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -21469,114 +21481,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableVa
 
     @Parameter(names = {"--validate-latest-base-files"}, description = "Validate latest base files for all partitions.", required = false)
     public boolean validateLatestBaseFiles = false;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    public boolean continuous = false;
-
-    @Parameter(names = {"--skip-data-files-for-cleaning"}, description = "Skip to compare the data files which are under deletion by cleaner", required = false)
-    public boolean skipDataFilesForCleaning = false;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    public Integer minValidateIntervalSeconds = 10 * 60;
-
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for valuation", required = false)
-    public int parallelism = 200;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    public boolean validateAllFileGroups = false;
-
-    @Parameter(names = {"--validate-all-column-stats"}, description = "Validate column stats for all columns in the schema", required = false)
-    public boolean validateAllColumnStats = false;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    public boolean validateLatestBaseFiles = false;
-
-    @Parameter(names = {"--validate-all-file-groups"}, description = "Validate all file groups, and all file slices within file groups.", required = false)
-    public boolean validateAllFileGroups = false;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    public boolean skipDataFilesForCleaning = false;
-
-    @Parameter(names = {"--validate-latest-file-slices"}, description = "Validate latest file slices for all partitions.", required = false)
-    public boolean validateLatestFileSlices = false;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--assume-date-partitioning"}, description = "Should HoodieWriteClient assume the data is partitioned by dates, i.e three levels from base path."
-        + "This is a stop-gap to support tables created by versions < 0.3.1. Will be removed eventually", required = false)
-    public Boolean assumeDatePartitioning = false;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    public String sparkMaster = null;
-
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
-    public String sparkMemory = "1g";
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    public boolean ignoreFailed = false;
-
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
-        + "Can use --min-validate-interval-seconds to control validation frequency", required = false)
-    public boolean continuous = false;
 
 ```
 
@@ -21597,10 +21501,106 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
 #### Snippet
 ```java
+
+    @Parameter(names = {"--assume-date-partitioning"}, description = "Should HoodieWriteClient assume the data is partitioned by dates, i.e three levels from base path."
+        + "This is a stop-gap to support tables created by versions < 0.3.1. Will be removed eventually", required = false)
+    public Boolean assumeDatePartitioning = false;
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    public boolean ignoreFailed = false;
+
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    public Integer minValidateIntervalSeconds = 10 * 60;
+
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for valuation", required = false)
+    public int parallelism = 200;
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    public boolean skipDataFilesForCleaning = false;
+
+    @Parameter(names = {"--validate-latest-file-slices"}, description = "Validate latest file slices for all partitions.", required = false)
+    public boolean validateLatestFileSlices = false;
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    public boolean validateLatestBaseFiles = false;
+
+    @Parameter(names = {"--validate-all-file-groups"}, description = "Validate all file groups, and all file slices within file groups.", required = false)
+    public boolean validateAllFileGroups = false;
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    public String sparkMaster = null;
+
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
+    public String sparkMemory = "1g";
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    public boolean validateAllFileGroups = false;
+
+    @Parameter(names = {"--validate-all-column-stats"}, description = "Validate column stats for all columns in the schema", required = false)
     public boolean validateAllColumnStats = false;
 
-    @Parameter(names = {"--validate-bloom-filters"}, description = "Validate bloom filters of base files", required = false)
-    public boolean validateBloomFilters = false;
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+
+    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
+        + "Can use --min-validate-interval-seconds to control validation frequency", required = false)
+    public boolean continuous = false;
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    public boolean continuous = false;
+
+    @Parameter(names = {"--skip-data-files-for-cleaning"}, description = "Skip to compare the data files which are under deletion by cleaner", required = false)
+    public boolean skipDataFilesForCleaning = false;
 
 ```
 
@@ -21613,6 +21613,30 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieD
 
     @Parameter(names = {"--base-file-format"}, description = "File format for the base files. PARQUET (or) HFILE", required = false)
     public String baseFileFormat = "PARQUET";
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/FlinkCompactionConfig.java`
+#### Snippet
+```java
+  @Parameter(names = {"--archive-min-commits"},
+      description = "Min number of commits to keep before archiving older commits into a sequential log, default 20.",
+      required = false)
+  public Integer archiveMinCommits = 20;
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/FlinkCompactionConfig.java`
+#### Snippet
+```java
+  public Integer compactionDeltaSeconds = 3600;
+
+  @Parameter(names = {"--clean-async-enabled"}, description = "Whether to cleanup the old commits immediately on new commits, enabled by default", required = false)
+  public Boolean cleanAsyncEnable = false;
 
 ```
 
@@ -21645,22 +21669,10 @@ Redundant default parameter value assignment
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/FlinkCompactionConfig.java`
 #### Snippet
 ```java
-  public Integer compactionDeltaSeconds = 3600;
+  public Integer archiveMaxCommits = 30;
 
-  @Parameter(names = {"--clean-async-enabled"}, description = "Whether to cleanup the old commits immediately on new commits, enabled by default", required = false)
-  public Boolean cleanAsyncEnable = false;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/FlinkCompactionConfig.java`
-#### Snippet
-```java
-  public String compactionPlanInstant;
-
-  @Parameter(names = {"--spillable_map_path"}, description = "Default file path prefix for spillable map.", required = false)
-  public String spillableMapPath = HoodieMemoryConfig.SPILLABLE_MAP_BASE_PATH.defaultValue();
+  @Parameter(names = {"--compaction-max-memory"}, description = "Max memory in MB for compaction spillable map, default 100MB.", required = false)
+  public Integer compactionMaxMemory = 100;
 
 ```
 
@@ -21681,22 +21693,10 @@ Redundant default parameter value assignment
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/FlinkCompactionConfig.java`
 #### Snippet
 ```java
-  @Parameter(names = {"--archive-min-commits"},
-      description = "Min number of commits to keep before archiving older commits into a sequential log, default 20.",
-      required = false)
-  public Integer archiveMinCommits = 20;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/FlinkCompactionConfig.java`
-#### Snippet
-```java
-          + "'num_or_time': trigger compaction when NUM_COMMITS or TIME_ELAPSED is satisfied.\n"
-          + "Default is 'num_commits'",
-      required = false)
   public String compactionTriggerStrategy = NUM_COMMITS;
+
+  @Parameter(names = {"--compaction-delta-commits"}, description = "Max delta commits needed to trigger compaction, default 5 commits", required = false)
+  public Integer compactionDeltaCommits = 1;
 
 ```
 
@@ -21717,10 +21717,10 @@ Redundant default parameter value assignment
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/FlinkCompactionConfig.java`
 #### Snippet
 ```java
+          + "'num_or_time': trigger compaction when NUM_COMMITS or TIME_ELAPSED is satisfied.\n"
+          + "Default is 'num_commits'",
+      required = false)
   public String compactionTriggerStrategy = NUM_COMMITS;
-
-  @Parameter(names = {"--compaction-delta-commits"}, description = "Max delta commits needed to trigger compaction, default 5 commits", required = false)
-  public Integer compactionDeltaCommits = 1;
 
 ```
 
@@ -21733,18 +21733,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/
 
   @Parameter(names = {"--compaction-target-io"}, description = "Target IO per compaction (both read and write) for batching compaction, default 512000M.", required = false)
   public Long compactionTargetIo = 512000L;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/FlinkCompactionConfig.java`
-#### Snippet
-```java
-  public Integer archiveMaxCommits = 30;
-
-  @Parameter(names = {"--compaction-max-memory"}, description = "Max memory in MB for compaction spillable map, default 100MB.", required = false)
-  public Integer compactionMaxMemory = 100;
 
 ```
 
@@ -21774,61 +21762,13 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/
 
 ### RuleId[ruleID=DefaultAnnotationParam]
 Redundant default parameter value assignment
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/compact/FlinkCompactionConfig.java`
 #### Snippet
 ```java
-  @Parameter(names = {"--archive-min-commits"},
-      description = "Min number of commits to keep before archiving older commits into a sequential log, default 20.",
-      required = false)
-  public Integer archiveMinCommits = 20;
+  public String compactionPlanInstant;
 
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
-#### Snippet
-```java
-  public String sortColumns = "";
-
-  @Parameter(names = {"--max-num-groups"}, description = "Maximum number of groups to create as part of ClusteringPlan. Increasing groups will increase parallelism. default 30", required = false)
-  public Integer maxNumGroups = 30;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
-#### Snippet
-```java
-
-  @Parameter(names = {"--schedule", "-sc"}, description = "Schedule the clustering plan in this job.\n"
-      + "Default is false", required = false)
-  public Boolean schedule = false;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
-#### Snippet
-```java
-  public String planPartitionFilterMode = "NONE";
-
-  @Parameter(names = {"--target-file-max-bytes"}, description = "Each group can produce 'N' (CLUSTERING_MAX_GROUP_SIZE/CLUSTERING_TARGET_FILE_SIZE) output file groups, default 1 GB", required = false)
-  public Long targetFileMaxBytes = 1024 * 1024 * 1024L;
-
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
-#### Snippet
-```java
-  public String clusteringInstantTime = null;
-
-  @Parameter(names = {"--clean-async-enabled"}, description = "Whether to cleanup the old commits immediately on new commits, disabled by default", required = false)
-  public Boolean cleanAsyncEnable = false;
+  @Parameter(names = {"--spillable_map_path"}, description = "Default file path prefix for spillable map.", required = false)
+  public String spillableMapPath = HoodieMemoryConfig.SPILLABLE_MAP_BASE_PATH.defaultValue();
 
 ```
 
@@ -21849,10 +21789,34 @@ Redundant default parameter value assignment
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
 #### Snippet
 ```java
-      description = "Number of commits to retain. So data will be retained for num_of_commits * time_between_commits (scheduled).\n"
-          + "This also directly translates into how much you can incrementally pull on this table, default 10",
+  public Integer skipFromLatestPartitions = 0;
+
+  @Parameter(names = {"--sort-columns"}, description = "Columns to sort the data by when clustering.", required = false)
+  public String sortColumns = "";
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
+#### Snippet
+```java
+  public String planPartitionFilterMode = "NONE";
+
+  @Parameter(names = {"--target-file-max-bytes"}, description = "Each group can produce 'N' (CLUSTERING_MAX_GROUP_SIZE/CLUSTERING_TARGET_FILE_SIZE) output file groups, default 1 GB", required = false)
+  public Long targetFileMaxBytes = 1024 * 1024 * 1024L;
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
+#### Snippet
+```java
+  @Parameter(names = {"--archive-min-commits"},
+      description = "Min number of commits to keep before archiving older commits into a sequential log, default 20.",
       required = false)
-  public Integer cleanRetainCommits = 10;
+  public Integer archiveMinCommits = 20;
 
 ```
 
@@ -21861,22 +21825,10 @@ Redundant default parameter value assignment
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
 #### Snippet
 ```java
-  //  Clustering Options
-  // ------------------------------------------------------------------------
-  @Parameter(names = {"--clustering-delta-commits"}, description = "Max delta commits needed to trigger clustering, default 4 commits", required = false)
-  public Integer clusteringDeltaCommits = 1;
+  public String clusteringInstantTime = null;
 
-```
-
-### RuleId[ruleID=DefaultAnnotationParam]
-Redundant default parameter value assignment
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
-#### Snippet
-```java
+  @Parameter(names = {"--clean-async-enabled"}, description = "Whether to cleanup the old commits immediately on new commits, disabled by default", required = false)
   public Boolean cleanAsyncEnable = false;
-
-  @Parameter(names = {"--plan-strategy-class"}, description = "Config to provide a strategy class to generator clustering plan", required = false)
-  public String planStrategyClass = FlinkSizeBasedClusteringPlanStrategy.class.getName();
 
 ```
 
@@ -21897,10 +21849,34 @@ Redundant default parameter value assignment
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
 #### Snippet
 ```java
-  @Parameter(names = {"--archive-max-commits"},
-      description = "Max number of commits to keep before archiving older commits into a sequential log, default 30.",
+  public Long smallFileLimit = 600L;
+
+  @Parameter(names = {"--skip-from-latest-partitions"}, description = "Number of partitions to skip from latest when choosing partitions to create ClusteringPlan, default 0", required = false)
+  public Integer skipFromLatestPartitions = 0;
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
+#### Snippet
+```java
+      description = "Number of commits to retain. So data will be retained for num_of_commits * time_between_commits (scheduled).\n"
+          + "This also directly translates into how much you can incrementally pull on this table, default 10",
       required = false)
-  public Integer archiveMaxCommits = 30;
+  public Integer cleanRetainCommits = 10;
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
+#### Snippet
+```java
+
+  @Parameter(names = {"--schedule", "-sc"}, description = "Schedule the clustering plan in this job.\n"
+      + "Default is false", required = false)
+  public Boolean schedule = false;
 
 ```
 
@@ -21921,10 +21897,10 @@ Redundant default parameter value assignment
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
 #### Snippet
 ```java
-  public Long smallFileLimit = 600L;
+  public Boolean cleanAsyncEnable = false;
 
-  @Parameter(names = {"--skip-from-latest-partitions"}, description = "Number of partitions to skip from latest when choosing partitions to create ClusteringPlan, default 0", required = false)
-  public Integer skipFromLatestPartitions = 0;
+  @Parameter(names = {"--plan-strategy-class"}, description = "Config to provide a strategy class to generator clustering plan", required = false)
+  public String planStrategyClass = FlinkSizeBasedClusteringPlanStrategy.class.getName();
 
 ```
 
@@ -21933,10 +21909,10 @@ Redundant default parameter value assignment
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
 #### Snippet
 ```java
-  @Parameter(names = {"--seq"}, description = "Clustering plan execution sequence, two options are supported:\n"
-      + "1). FIFO: execute the oldest plan first;\n"
-      + "2). LIFO: execute the latest plan first, by default FIFO", required = false)
-  public String clusteringSeq = SEQ_FIFO;
+  //  Clustering Options
+  // ------------------------------------------------------------------------
+  @Parameter(names = {"--clustering-delta-commits"}, description = "Max delta commits needed to trigger clustering, default 4 commits", required = false)
+  public Integer clusteringDeltaCommits = 1;
 
 ```
 
@@ -21957,10 +21933,10 @@ Redundant default parameter value assignment
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
 #### Snippet
 ```java
-  public Integer skipFromLatestPartitions = 0;
-
-  @Parameter(names = {"--sort-columns"}, description = "Columns to sort the data by when clustering.", required = false)
   public String sortColumns = "";
+
+  @Parameter(names = {"--max-num-groups"}, description = "Maximum number of groups to create as part of ClusteringPlan. Increasing groups will increase parallelism. default 30", required = false)
+  public Integer maxNumGroups = 30;
 
 ```
 
@@ -21973,6 +21949,30 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clusteri
 
   @Parameter(names = {"--small-file-limit"}, description = "Files smaller than the size specified here are candidates for clustering, default 600 MB", required = false)
   public Long smallFileLimit = 600L;
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
+#### Snippet
+```java
+  @Parameter(names = {"--archive-max-commits"},
+      description = "Max number of commits to keep before archiving older commits into a sequential log, default 30.",
+      required = false)
+  public Integer archiveMaxCommits = 30;
+
+```
+
+### RuleId[ruleID=DefaultAnnotationParam]
+Redundant default parameter value assignment
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/FlinkClusteringConfig.java`
+#### Snippet
+```java
+  @Parameter(names = {"--seq"}, description = "Clustering plan execution sequence, two options are supported:\n"
+      + "1). FIFO: execute the oldest plan first;\n"
+      + "2). LIFO: execute the latest plan first, by default FIFO", required = false)
+  public String clusteringSeq = SEQ_FIFO;
 
 ```
 
@@ -22248,18 +22248,6 @@ Qualifier `super` is unnecessary in this context
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroParquetWriter.java`
 #### Snippet
 ```java
-  @Override
-  public void writeAvro(String key, IndexedRecord object) throws IOException {
-    super.write(object);
-    if (populateMetaFields) {
-      writeSupport.add(key);
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroParquetWriter.java`
-#### Snippet
-```java
       prepRecordWithMetadata(key, avroRecord, instantTime,
           taskContextSupplier.getPartitionIdSupplier().get(), getWrittenRecordCount(), fileName);
       super.write(avroRecord);
@@ -22277,6 +22265,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/storage/Hood
       super.write(avroRecord);
     }
   }
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroParquetWriter.java`
+#### Snippet
+```java
+  @Override
+  public void writeAvro(String key, IndexedRecord object) throws IOException {
+    super.write(object);
+    if (populateMetaFields) {
+      writeSupport.add(key);
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -22309,7 +22309,19 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVe
 #### Snippet
 ```java
   @Override
-  public boolean hasFooter() {
+  public boolean hasContent() {
+    switch (super.getVersion()) {
+      case DEFAULT_VERSION:
+        return true;
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVersion.java`
+#### Snippet
+```java
+  @Override
+  public boolean hasLogBlockLength() {
     switch (super.getVersion()) {
       case DEFAULT_VERSION:
         return false;
@@ -22321,7 +22333,7 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVe
 #### Snippet
 ```java
   @Override
-  public boolean hasContent() {
+  public boolean hasContentLength() {
     switch (super.getVersion()) {
       case DEFAULT_VERSION:
         return true;
@@ -22345,7 +22357,7 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVe
 #### Snippet
 ```java
   @Override
-  public boolean hasHeader() {
+  public boolean hasFooter() {
     switch (super.getVersion()) {
       case DEFAULT_VERSION:
         return false;
@@ -22369,34 +22381,10 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVe
 #### Snippet
 ```java
   @Override
-  public boolean hasContentLength() {
-    switch (super.getVersion()) {
-      case DEFAULT_VERSION:
-        return true;
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVersion.java`
-#### Snippet
-```java
-  @Override
-  public boolean hasLogBlockLength() {
+  public boolean hasHeader() {
     switch (super.getVersion()) {
       case DEFAULT_VERSION:
         return false;
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieParquetDataBlock.java`
-#### Snippet
-```java
-    }
-
-    Schema writerSchema = new Schema.Parser().parse(super.getLogBlockHeader().get(HeaderMetadataType.SCHEMA));
-
-    HoodieAvroWriteSupport writeSupport = new HoodieAvroWriteSupport(
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -22413,6 +22401,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieAvroD
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieParquetDataBlock.java`
+#### Snippet
+```java
+    }
+
+    Schema writerSchema = new Schema.Parser().parse(super.getLogBlockHeader().get(HeaderMetadataType.SCHEMA));
+
+    HoodieAvroWriteSupport writeSupport = new HoodieAvroWriteSupport(
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
 in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryExecutor.java`
 #### Snippet
 ```java
@@ -22421,18 +22421,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryE
     super.close();
   }
 
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieAvroDataBlock.java`
-#### Snippet
-```java
-  @Override
-  protected byte[] serializeRecords(List<IndexedRecord> records) throws IOException {
-    Schema schema = new Schema.Parser().parse(super.getLogBlockHeader().get(HeaderMetadataType.SCHEMA));
-    GenericDatumWriter<IndexedRecord> writer = new GenericDatumWriter<>(schema);
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -22449,14 +22437,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieHFile
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieDataBlock.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieAvroDataBlock.java`
 #### Snippet
 ```java
-    this.keyFieldName = keyFieldName;
-    // If no reader-schema has been provided assume writer-schema as one
-    this.readerSchema = readerSchema.orElseGet(() -> getWriterSchema(super.getLogBlockHeader()));
-    this.enablePointLookups = enablePointLookups;
-    this.internalSchema = internalSchema == null ? InternalSchema.getEmptyInternalSchema() : internalSchema;
+  @Override
+  protected byte[] serializeRecords(List<IndexedRecord> records) throws IOException {
+    Schema schema = new Schema.Parser().parse(super.getLogBlockHeader().get(HeaderMetadataType.SCHEMA));
+    GenericDatumWriter<IndexedRecord> writer = new GenericDatumWriter<>(schema);
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -22469,6 +22457,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieDataB
     this.readerSchema = getWriterSchema(super.getLogBlockHeader());
     this.enablePointLookups = false;
   }
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieDataBlock.java`
+#### Snippet
+```java
+    this.keyFieldName = keyFieldName;
+    // If no reader-schema has been provided assume writer-schema as one
+    this.readerSchema = readerSchema.orElseGet(() -> getWriterSchema(super.getLogBlockHeader()));
+    this.enablePointLookups = enablePointLookups;
+    this.internalSchema = internalSchema == null ? InternalSchema.getEmptyInternalSchema() : internalSchema;
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -22493,18 +22493,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/TypedProperties.java
     Object oval = super.get(key);
     String sval = (oval != null) ? String.valueOf(oval) : null;
     return ((sval == null) && (defaults != null)) ? defaults.getProperty(key) : sval;
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/DisruptorExecutor.java`
-#### Snippet
-```java
-  protected void postAction() {
-    try {
-      super.close();
-      queue.close();
-    } catch (IOException e) {
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -22541,6 +22529,18 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveIn
         super.setMaxSplitSize(minSize);
       }
       LOG.info("mapreduce.input.fileinputformat.split.minsize=" + minSize
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/DisruptorExecutor.java`
+#### Snippet
+```java
+  protected void postAction() {
+    try {
+      super.close();
+      queue.close();
+    } catch (IOException e) {
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -22658,11 +22658,11 @@ Statement lambda can be replaced with expression lambda
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
 #### Snippet
 ```java
-          HoodieRollbackMetadata metadata = TimelineMetadataUtils
-              .deserializeAvroMetadata(timeline.getInstantDetails(rollbackInstant).get(), HoodieRollbackMetadata.class);
-          metadata.getCommitsRollback().forEach(instant -> {
-            rollbackInfoMap.computeIfAbsent(instant, k -> new ArrayList<>())
-                .add(rollbackInstant.getTimestamp());
+          return HoodieActiveTimeline.VALID_EXTENSIONS_IN_ACTIVE_TIMELINE.contains(extension);
+        })).map(HoodieInstantWithModTime::new);
+    instantStream.forEach(instant -> {
+      instantMap.computeIfAbsent(instant.getTimestamp(), t -> new HashMap<>())
+          .put(instant.getState(), instant);
 ```
 
 ### RuleId[ruleID=CodeBlock2Expr]
@@ -22670,11 +22670,11 @@ Statement lambda can be replaced with expression lambda
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
 #### Snippet
 ```java
-          return HoodieActiveTimeline.VALID_EXTENSIONS_IN_ACTIVE_TIMELINE.contains(extension);
-        })).map(HoodieInstantWithModTime::new);
-    instantStream.forEach(instant -> {
-      instantMap.computeIfAbsent(instant.getTimestamp(), t -> new HashMap<>())
-          .put(instant.getState(), instant);
+          HoodieRollbackMetadata metadata = TimelineMetadataUtils
+              .deserializeAvroMetadata(timeline.getInstantDetails(rollbackInstant).get(), HoodieRollbackMetadata.class);
+          metadata.getCommitsRollback().forEach(instant -> {
+            rollbackInfoMap.computeIfAbsent(instant, k -> new ArrayList<>())
+                .add(rollbackInstant.getTimestamp());
 ```
 
 ### RuleId[ruleID=CodeBlock2Expr]
@@ -22695,18 +22695,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/datadog
 #### Snippet
 ```java
 
-    PayloadBuilder withTags(List<String> tags) {
-      series.forEach(seriesItem -> {
-        ((ObjectNode) seriesItem)
-            .putArray("tags")
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/datadog/DatadogReporter.java`
-#### Snippet
-```java
-
     builder.withMetricType(MetricType.gauge);
     gauges.forEach((metricName, metric) -> {
       builder.addGauge(prefix(metricName), now, (long) metric.getValue());
@@ -22715,158 +22703,14 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/datadog
 
 ### RuleId[ruleID=CodeBlock2Expr]
 Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/datadog/DatadogReporter.java`
 #### Snippet
 ```java
-  public FileStatus[] globStatus(Path pathPattern, PathFilter filter) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.globStatus.name(), pathPattern, () -> {
-      return fileSystem.globStatus(convertToDefaultPath(pathPattern), filter);
-    });
-  }
-```
 
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-      throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), overwrite, bufferSize, progress));
-    });
-  }
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public boolean delete(Path f) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.delete.name(), f, () -> {
-      return delete(f, true);
-    });
-  }
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public FSDataOutputStream create(Path f) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f)));
-    });
-  }
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-      throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f,
-          fileSystem.create(convertToDefaultPath(f), overwrite, bufferSize, replication, blockSize));
-    });
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public FSDataOutputStream create(Path f, boolean overwrite, int bufferSize) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), overwrite, bufferSize));
-    });
-  }
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-                                   short replication, long blockSize, Progressable progress, Options.ChecksumOpt checksumOpt) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), permission, flags, bufferSize, replication,
-          blockSize, progress, checksumOpt));
-    });
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public FileStatus[] listStatus(Path[] files, PathFilter filter) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.listStatus.name(), files.length > 0 ? files[0] : null, () -> {
-      return fileSystem.listStatus(convertDefaults(files), filter);
-    });
-  }
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public FileStatus[] globStatus(Path pathPattern) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.globStatus.name(), pathPattern, () -> {
-      return fileSystem.globStatus(convertToDefaultPath(pathPattern));
-    });
-  }
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public FileStatus[] listStatus(Path f) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.listStatus.name(), f, () -> {
-      return fileSystem.listStatus(convertToDefaultPath(f));
-    });
-  }
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-                                   short replication, long blockSize, Progressable progress) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f,
-          fileSystem.create(convertToDefaultPath(f), permission, flags, bufferSize, replication, blockSize, progress));
-    });
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public FileStatus[] listStatus(Path[] files) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.listStatus.name(), files.length > 0 ? files[0] : null, () -> {
-      return fileSystem.listStatus(convertDefaults(files));
-    });
-  }
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public FSDataOutputStream create(Path f, boolean overwrite) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), overwrite));
-    });
-  }
+    PayloadBuilder withTags(List<String> tags) {
+      series.forEach(seriesItem -> {
+        ((ObjectNode) seriesItem)
+            .putArray("tags")
 ```
 
 ### RuleId[ruleID=CodeBlock2Expr]
@@ -22886,33 +22730,9 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
 #### Snippet
 ```java
-  public FSDataOutputStream create(Path f, Progressable progress) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), progress));
-    });
-  }
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public RemoteIterator<LocatedFileStatus> listFiles(Path f, boolean recursive) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.listFiles.name(), f, () -> {
-      return fileSystem.listFiles(convertToDefaultPath(f), recursive);
-    });
-  }
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public FSDataOutputStream create(Path f, short replication) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), replication));
+  public FileStatus[] listStatus(Path[] files) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.listStatus.name(), files.length > 0 ? files[0] : null, () -> {
+      return fileSystem.listStatus(convertDefaults(files));
     });
   }
 ```
@@ -22934,9 +22754,189 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
 #### Snippet
 ```java
+  public FSDataOutputStream create(Path f) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f)));
+    });
+  }
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+                                   short replication, long blockSize, Progressable progress) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
+      return wrapOutputStream(f,
+          fileSystem.create(convertToDefaultPath(f), permission, flags, bufferSize, replication, blockSize, progress));
+    });
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FileStatus[] globStatus(Path pathPattern) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.globStatus.name(), pathPattern, () -> {
+      return fileSystem.globStatus(convertToDefaultPath(pathPattern));
+    });
+  }
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+      throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
+      return wrapOutputStream(f,
+          fileSystem.create(convertToDefaultPath(f), overwrite, bufferSize, replication, blockSize));
+    });
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public RemoteIterator<LocatedFileStatus> listFiles(Path f, boolean recursive) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.listFiles.name(), f, () -> {
+      return fileSystem.listFiles(convertToDefaultPath(f), recursive);
+    });
+  }
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FileStatus[] listStatus(Path f) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.listStatus.name(), f, () -> {
+      return fileSystem.listStatus(convertToDefaultPath(f));
+    });
+  }
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FSDataOutputStream create(Path f, short replication) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), replication));
+    });
+  }
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FileStatus[] globStatus(Path pathPattern, PathFilter filter) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.globStatus.name(), pathPattern, () -> {
+      return fileSystem.globStatus(convertToDefaultPath(pathPattern), filter);
+    });
+  }
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FSDataOutputStream create(Path f, boolean overwrite, int bufferSize) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), overwrite, bufferSize));
+    });
+  }
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FSDataOutputStream create(Path f, boolean overwrite) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), overwrite));
+    });
+  }
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+                                   short replication, long blockSize, Progressable progress, Options.ChecksumOpt checksumOpt) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), permission, flags, bufferSize, replication,
+          blockSize, progress, checksumOpt));
+    });
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public boolean delete(Path f) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.delete.name(), f, () -> {
+      return delete(f, true);
+    });
+  }
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FSDataOutputStream create(Path f, Progressable progress) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), progress));
+    });
+  }
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FileStatus[] listStatus(Path[] files, PathFilter filter) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.listStatus.name(), files.length > 0 ? files[0] : null, () -> {
+      return fileSystem.listStatus(convertDefaults(files), filter);
+    });
+  }
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
   public FileStatus[] listStatus(Path f, PathFilter filter) throws IOException {
     return executeFuncWithTimeMetrics(MetricName.listStatus.name(), f, () -> {
       return fileSystem.listStatus(convertToDefaultPath(f), filter);
+    });
+  }
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+      throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), overwrite, bufferSize, progress));
     });
   }
 ```
@@ -22958,6 +22958,18 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryExecutor.java`
 #### Snippet
 ```java
+
+    return CompletableFuture.allOf(producers.stream().map(producer -> {
+      return CompletableFuture.supplyAsync(() -> {
+        try {
+          producer.produce(queue);
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryExecutor.java`
+#### Snippet
+```java
   protected CompletableFuture<E> startConsumer() {
     return consumer.map(consumer -> {
       return CompletableFuture.supplyAsync(() -> {
@@ -22967,14 +22979,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryE
 
 ### RuleId[ruleID=CodeBlock2Expr]
 Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryExecutor.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
 #### Snippet
 ```java
+        TimelineMetadataUtils.deserializeAvroMetadata(timeline.getInstantDetails(instant).get(), HoodieRollbackMetadata.class);
 
-    return CompletableFuture.allOf(producers.stream().map(producer -> {
-      return CompletableFuture.supplyAsync(() -> {
-        try {
-          producer.produce(queue);
+    metadata.getPartitionMetadata().entrySet().stream().forEach(e -> {
+      removeFileSlicesForPartition(timeline, instant, e.getKey(), e.getValue().getSuccessDeleteFiles());
+    });
 ```
 
 ### RuleId[ruleID=CodeBlock2Expr]
@@ -23015,38 +23027,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimel
 
 ### RuleId[ruleID=CodeBlock2Expr]
 Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
-#### Snippet
-```java
-        TimelineMetadataUtils.deserializeAvroMetadata(timeline.getInstantDetails(instant).get(), HoodieRollbackMetadata.class);
-
-    metadata.getPartitionMetadata().entrySet().stream().forEach(e -> {
-      removeFileSlicesForPartition(timeline, instant, e.getKey(), e.getValue().getSuccessDeleteFiles());
-    });
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
 #### Snippet
 ```java
-      // Now add them
-      rocksDB.writeBatch(batch ->
-          replacedFileGroupsInPartition.stream().forEach(fgToReplacedInstant -> {
-            rocksDB.putInBatch(batch, schemaHelper.getColFamilyForReplacedFileGroups(),
-                schemaHelper.getKeyForReplacedFileGroup(fgToReplacedInstant.getKey()), fgToReplacedInstant.getValue());
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-  void resetBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+  @Override
+  void removeBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
     rocksDB.writeBatch(batch -> {
       bootstrapBaseFileStream.forEach(externalBaseFile -> {
-        rocksDB.putInBatch(batch, schemaHelper.getColFamilyForBootstrapBaseFile(),
-            schemaHelper.getKeyForBootstrapBaseFile(externalBaseFile.getFileGroupId()), externalBaseFile);
+        ValidationUtils.checkArgument(
 ```
 
 ### RuleId[ruleID=CodeBlock2Expr]
@@ -23066,11 +23054,23 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
 #### Snippet
 ```java
-  @Override
-  void removeBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+  void resetBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
     rocksDB.writeBatch(batch -> {
       bootstrapBaseFileStream.forEach(externalBaseFile -> {
-        ValidationUtils.checkArgument(
+        rocksDB.putInBatch(batch, schemaHelper.getColFamilyForBootstrapBaseFile(),
+            schemaHelper.getKeyForBootstrapBaseFile(externalBaseFile.getFileGroupId()), externalBaseFile);
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+      // Now add them
+      rocksDB.writeBatch(batch ->
+          replacedFileGroupsInPartition.stream().forEach(fgToReplacedInstant -> {
+            rocksDB.putInBatch(batch, schemaHelper.getColFamilyForReplacedFileGroups(),
+                schemaHelper.getKeyForReplacedFileGroup(fgToReplacedInstant.getKey()), fgToReplacedInstant.getValue());
 ```
 
 ### RuleId[ruleID=CodeBlock2Expr]
@@ -23095,6 +23095,30 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/convert/AvroIntern
         schema.getTypes().stream().forEach(t -> {
           fTypes.add(visitAvroSchemaToBuildType(t, visited, false, nextId));
         });
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
+#### Snippet
+```java
+      validatePayload(type, filesystemMetadata);
+
+      filesystemMetadata.forEach((key, fileInfo) -> {
+        combinedFileInfo.merge(key, fileInfo,
+            // Combine previous record w/ the new one, new records taking precedence over
+```
+
+### RuleId[ruleID=CodeBlock2Expr]
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
+#### Snippet
+```java
+  private static void validatePayload(int type, Map<String, HoodieMetadataFileInfo> filesystemMetadata) {
+    if (type == METADATA_TYPE_FILE_LIST) {
+      filesystemMetadata.forEach((fileName, fileInfo) -> {
+        checkState(fileInfo.getIsDeleted() || fileInfo.getSize() > 0, "Existing files should have size > 0");
+      });
 ```
 
 ### RuleId[ruleID=CodeBlock2Expr]
@@ -23135,26 +23159,14 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieBackedTableMetadata
 
 ### RuleId[ruleID=CodeBlock2Expr]
 Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
 #### Snippet
 ```java
-  private static void validatePayload(int type, Map<String, HoodieMetadataFileInfo> filesystemMetadata) {
-    if (type == METADATA_TYPE_FILE_LIST) {
-      filesystemMetadata.forEach((fileName, fileInfo) -> {
-        checkState(fileInfo.getIsDeleted() || fileInfo.getSize() > 0, "Existing files should have size > 0");
-      });
-```
 
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
-#### Snippet
-```java
-      validatePayload(type, filesystemMetadata);
-
-      filesystemMetadata.forEach((key, fileInfo) -> {
-        combinedFileInfo.merge(key, fileInfo,
-            // Combine previous record w/ the new one, new records taking precedence over
+        // Extract appended file name from the absolute paths saved in getAppendFiles()
+        pm.getRollbackLogFiles().forEach((path, size) -> {
+          partitionToAppendedFiles.get(partition).merge(new Path(path).getName(), size, fileMergeFn);
+        });
 ```
 
 ### RuleId[ruleID=CodeBlock2Expr]
@@ -23167,18 +23179,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/DisruptorExecuto
       return CompletableFuture.supplyAsync(() -> {
         try {
           producer.produce(queue);
-```
-
-### RuleId[ruleID=CodeBlock2Expr]
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
-#### Snippet
-```java
-
-        // Extract appended file name from the absolute paths saved in getAppendFiles()
-        pm.getRollbackLogFiles().forEach((path, size) -> {
-          partitionToAppendedFiles.get(partition).merge(new Path(path).getName(), size, fileMergeFn);
-        });
 ```
 
 ### RuleId[ruleID=CodeBlock2Expr]
@@ -23376,14 +23376,14 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/boo
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.put()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
 #### Snippet
 ```java
-      // If the format can not record the operation field, nullify the DELETE payload manually.
-      boolean nullifyPayload = HoodieOperation.isDelete(hoodieRecord.getOperation()) && !config.allowOperationMetadataField();
-      recordProperties.put(HoodiePayloadProps.PAYLOAD_IS_UPDATE_RECORD_FOR_MOR, String.valueOf(isUpdateRecord));
-      Option<IndexedRecord> avroRecord = nullifyPayload ? Option.empty() : getInsertValue(hoodieRecord);
-      if (avroRecord.isPresent()) {
+    //         - Expected to bear this config
+    //         - Can't be stubbed out w/ null
+    filtered.put(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key(), "");
+    return filtered;
+  }
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -23396,6 +23396,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppend
     this.recordProperties.putAll(config.getProps());
   }
 
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+#### Snippet
+```java
+      // If the format can not record the operation field, nullify the DELETE payload manually.
+      boolean nullifyPayload = HoodieOperation.isDelete(hoodieRecord.getOperation()) && !config.allowOperationMetadataField();
+      recordProperties.put(HoodiePayloadProps.PAYLOAD_IS_UPDATE_RECORD_FOR_MOR, String.valueOf(isUpdateRecord));
+      Option<IndexedRecord> avroRecord = nullifyPayload ? Option.empty() : getInsertValue(hoodieRecord);
+      if (avroRecord.isPresent()) {
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -23416,93 +23428,9 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
 #### Snippet
 ```java
 
-    public Builder withConsistencyGuardConfig(ConsistencyGuardConfig consistencyGuardConfig) {
-      writeConfig.getProps().putAll(consistencyGuardConfig.getProps());
-      isConsistencyGuardSet = true;
-      return this;
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withIndexConfig(HoodieIndexConfig indexConfig) {
-      writeConfig.getProps().putAll(indexConfig.getProps());
-      isIndexConfigSet = true;
-      return this;
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withMemoryConfig(HoodieMemoryConfig memoryConfig) {
-      writeConfig.getProps().putAll(memoryConfig.getProps());
-      isMemoryConfigSet = true;
-      return this;
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withMetricsConfig(HoodieMetricsConfig metricsConfig) {
-      writeConfig.getProps().putAll(metricsConfig.getProps());
-      isMetricsConfigSet = true;
-      return this;
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withCompactionConfig(HoodieCompactionConfig compactionConfig) {
-      writeConfig.getProps().putAll(compactionConfig.getProps());
-      isCompactionConfigSet = true;
-      return this;
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withCleanConfig(HoodieCleanConfig cleanConfig) {
-      writeConfig.getProps().putAll(cleanConfig.getProps());
-      isCleanConfigSet = true;
-      return this;
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withArchivalConfig(HoodieArchivalConfig cleanConfig) {
-      writeConfig.getProps().putAll(cleanConfig.getProps());
-      isArchivalConfigSet = true;
-      return this;
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withClusteringConfig(HoodieClusteringConfig clusteringConfig) {
-      writeConfig.getProps().putAll(clusteringConfig.getProps());
-      isClusteringConfigSet = true;
+    public Builder withLayoutConfig(HoodieLayoutConfig layoutConfig) {
+      writeConfig.getProps().putAll(layoutConfig.getProps());
+      isLayoutConfigSet = true;
       return this;
 ```
 
@@ -23524,6 +23452,30 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
 #### Snippet
 ```java
 
+    public Builder withClusteringConfig(HoodieClusteringConfig clusteringConfig) {
+      writeConfig.getProps().putAll(clusteringConfig.getProps());
+      isClusteringConfigSet = true;
+      return this;
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withCompactionConfig(HoodieCompactionConfig compactionConfig) {
+      writeConfig.getProps().putAll(compactionConfig.getProps());
+      isCompactionConfigSet = true;
+      return this;
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
     public Builder withCallbackConfig(HoodieWriteCommitCallbackConfig callbackConfig) {
       writeConfig.getProps().putAll(callbackConfig.getProps());
       isCallbackConfigSet = true;
@@ -23536,9 +23488,9 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
 #### Snippet
 ```java
 
-    public Builder withFileSystemViewConfig(FileSystemViewStorageConfig viewStorageConfig) {
-      writeConfig.getProps().putAll(viewStorageConfig.getProps());
-      isViewConfigSet = true;
+    public Builder withPayloadConfig(HoodiePayloadConfig payloadConfig) {
+      writeConfig.getProps().putAll(payloadConfig.getProps());
+      isPayloadConfigSet = true;
       return this;
 ```
 
@@ -23548,9 +23500,9 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
 #### Snippet
 ```java
 
-    public Builder withPreCommitValidatorConfig(HoodiePreCommitValidatorConfig validatorConfig) {
-      writeConfig.getProps().putAll(validatorConfig.getProps());
-      isPreCommitValidationConfigSet = true;
+    public Builder withIndexConfig(HoodieIndexConfig indexConfig) {
+      writeConfig.getProps().putAll(indexConfig.getProps());
+      isIndexConfigSet = true;
       return this;
 ```
 
@@ -23584,22 +23536,10 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
 #### Snippet
 ```java
 
-    public Builder withLayoutConfig(HoodieLayoutConfig layoutConfig) {
-      writeConfig.getProps().putAll(layoutConfig.getProps());
-      isLayoutConfigSet = true;
+    public Builder withMemoryConfig(HoodieMemoryConfig memoryConfig) {
+      writeConfig.getProps().putAll(memoryConfig.getProps());
+      isMemoryConfigSet = true;
       return this;
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withProps(Map kvprops) {
-      writeConfig.getProps().putAll(kvprops);
-      return this;
-    }
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -23644,9 +23584,81 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
 #### Snippet
 ```java
 
-    public Builder withPayloadConfig(HoodiePayloadConfig payloadConfig) {
-      writeConfig.getProps().putAll(payloadConfig.getProps());
-      isPayloadConfigSet = true;
+    public Builder withProps(Map kvprops) {
+      writeConfig.getProps().putAll(kvprops);
+      return this;
+    }
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withFileSystemViewConfig(FileSystemViewStorageConfig viewStorageConfig) {
+      writeConfig.getProps().putAll(viewStorageConfig.getProps());
+      isViewConfigSet = true;
+      return this;
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withArchivalConfig(HoodieArchivalConfig cleanConfig) {
+      writeConfig.getProps().putAll(cleanConfig.getProps());
+      isArchivalConfigSet = true;
+      return this;
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withPreCommitValidatorConfig(HoodiePreCommitValidatorConfig validatorConfig) {
+      writeConfig.getProps().putAll(validatorConfig.getProps());
+      isPreCommitValidationConfigSet = true;
+      return this;
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withCleanConfig(HoodieCleanConfig cleanConfig) {
+      writeConfig.getProps().putAll(cleanConfig.getProps());
+      isCleanConfigSet = true;
+      return this;
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withMetricsConfig(HoodieMetricsConfig metricsConfig) {
+      writeConfig.getProps().putAll(metricsConfig.getProps());
+      isMetricsConfigSet = true;
+      return this;
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withConsistencyGuardConfig(ConsistencyGuardConfig consistencyGuardConfig) {
+      writeConfig.getProps().putAll(consistencyGuardConfig.getProps());
+      isConsistencyGuardSet = true;
       return this;
 ```
 
@@ -23723,18 +23735,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/OrderedProperties.ja
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `hudi-common/src/main/java/org/apache/hudi/common/config/OrderedProperties.java`
-#### Snippet
-```java
-        keys.add(e.getKey());
-      }
-      super.put(e.getKey(), e.getValue());
-    }
-  }
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.putIfAbsent()` on properties object
 in `hudi-common/src/main/java/org/apache/hudi/common/config/OrderedProperties.java`
 #### Snippet
@@ -23744,6 +23744,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/OrderedProperties.ja
     return super.putIfAbsent(key, value);
   }
 
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `hudi-common/src/main/java/org/apache/hudi/common/config/OrderedProperties.java`
+#### Snippet
+```java
+        keys.add(e.getKey());
+      }
+      super.put(e.getKey(), e.getValue());
+    }
+  }
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -23771,18 +23783,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/TypedProperties.java
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfiguration.java`
-#### Snippet
-```java
-  // test only
-  public static TypedProperties addToGlobalProps(String key, String value) {
-    GLOBAL_PROPS.put(key, value);
-    return GLOBAL_PROPS;
-  }
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.putAll()` on properties object
 in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfiguration.java`
 #### Snippet
@@ -23795,27 +23795,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfigu
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `hudi-common/src/main/java/org/apache/hudi/common/config/HoodieConfig.java`
+Call to `Hashtable.put()` on properties object
+in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfiguration.java`
 #### Snippet
 ```java
-
-  public void setDefault(HoodieConfig config) {
-    props.putAll(config.getProps());
+  // test only
+  public static TypedProperties addToGlobalProps(String key, String value) {
+    GLOBAL_PROPS.put(key, value);
+    return GLOBAL_PROPS;
   }
-
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putAll()` on properties object
-in `hudi-common/src/main/java/org/apache/hudi/common/config/HoodieConfig.java`
-#### Snippet
-```java
-    if (includeGlobalProps) {
-      TypedProperties mergedProps = DFSPropertiesConfiguration.getGlobalProps();
-      mergedProps.putAll(props);
-      return mergedProps;
-    } else {
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -23840,6 +23828,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/HoodieConfig.java`
         return Option.ofNullable(props.get(alternative));
       }
     }
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `hudi-common/src/main/java/org/apache/hudi/common/config/HoodieConfig.java`
+#### Snippet
+```java
+    if (includeGlobalProps) {
+      TypedProperties mergedProps = DFSPropertiesConfiguration.getGlobalProps();
+      mergedProps.putAll(props);
+      return mergedProps;
+    } else {
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putAll()` on properties object
+in `hudi-common/src/main/java/org/apache/hudi/common/config/HoodieConfig.java`
+#### Snippet
+```java
+
+  public void setDefault(HoodieConfig config) {
+    props.putAll(config.getProps());
+  }
+
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -24240,30 +24252,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieM
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.put()` on properties object
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/DebeziumSource.java`
-#### Snippet
-```java
-    super(props, sparkContext, sparkSession, schemaProvider);
-
-    props.put(NATIVE_KAFKA_KEY_DESERIALIZER_PROP, StringDeserializer.class.getName());
-    deserializerClassName = props.getString(DataSourceWriteOptions.KAFKA_AVRO_VALUE_DESERIALIZER_CLASS().key(),
-        DataSourceWriteOptions.KAFKA_AVRO_VALUE_DESERIALIZER_CLASS().defaultValue());
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/DebeziumSource.java`
-#### Snippet
-```java
-
-    try {
-      props.put(NATIVE_KAFKA_VALUE_DESERIALIZER_PROP, Class.forName(deserializerClassName).getName());
-    } catch (ClassNotFoundException e) {
-      String error = "Could not load custom avro kafka deserializer: " + deserializerClassName;
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
 in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/kafka/KafkaControlProducer.java`
 #### Snippet
 ```java
@@ -24296,6 +24284,30 @@ in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/kafka/KafkaControlP
     props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, ByteArraySerializer.class);
 
     producer = new KafkaProducer<>(
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/DebeziumSource.java`
+#### Snippet
+```java
+    super(props, sparkContext, sparkSession, schemaProvider);
+
+    props.put(NATIVE_KAFKA_KEY_DESERIALIZER_PROP, StringDeserializer.class.getName());
+    deserializerClassName = props.getString(DataSourceWriteOptions.KAFKA_AVRO_VALUE_DESERIALIZER_CLASS().key(),
+        DataSourceWriteOptions.KAFKA_AVRO_VALUE_DESERIALIZER_CLASS().defaultValue());
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/DebeziumSource.java`
+#### Snippet
+```java
+
+    try {
+      props.put(NATIVE_KAFKA_VALUE_DESERIALIZER_PROP, Class.forName(deserializerClassName).getName());
+    } catch (ClassNotFoundException e) {
+      String error = "Could not load custom avro kafka deserializer: " + deserializerClassName;
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -24371,18 +24383,6 @@ in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/writers/KafkaConnec
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/utils/KafkaConnectUtils.java`
-#### Snippet
-```java
-  public static int getLatestNumPartitions(String bootstrapServers, String topicName) {
-    Properties props = new Properties();
-    props.put("bootstrap.servers", bootstrapServers);
-    try {
-      AdminClient client = AdminClient.create(props);
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.get()` on properties object
 in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/utils/KafkaConnectUtils.java`
 #### Snippet
@@ -24392,6 +24392,18 @@ in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/utils/KafkaConnectU
       hadoopConf.set(prop.toString(), connectConfigs.getProps().get(prop.toString()).toString());
     });
     return hadoopConf;
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.put()` on properties object
+in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/utils/KafkaConnectUtils.java`
+#### Snippet
+```java
+  public static int getLatestNumPartitions(String bootstrapServers, String topicName) {
+    Properties props = new Properties();
+    props.put("bootstrap.servers", bootstrapServers);
+    try {
+      AdminClient client = AdminClient.create(props);
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -24503,6 +24515,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/FileIn
 ```
 
 ### RuleId[ruleID=UseOfPropertiesAsHashtable]
+Call to `Hashtable.putIfAbsent()` on properties object
+in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/BootstrapExecutorUtils.java`
+#### Snippet
+```java
+
+    // Add more defaults if full bootstrap requested
+    this.props.putIfAbsent(DataSourceWriteOptions.PAYLOAD_CLASS_NAME().key(),
+        DataSourceWriteOptions.PAYLOAD_CLASS_NAME().defaultValue());
+    /*
+```
+
+### RuleId[ruleID=UseOfPropertiesAsHashtable]
 Call to `Hashtable.putAll()` on properties object
 in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/BootstrapExecutorUtils.java`
 #### Snippet
@@ -24548,30 +24572,6 @@ in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/Bootstrap
         metaProps.put(HIVE_SYNC_BUCKET_SYNC_SPEC.key(), HiveSyncConfig.getBucketSpec(props.getString(BUCKET_INDEX_HASH_FIELD.key()),
             props.getInteger(BUCKET_INDEX_NUM_BUCKETS.key())));
       }
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.putIfAbsent()` on properties object
-in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/BootstrapExecutorUtils.java`
-#### Snippet
-```java
-
-    // Add more defaults if full bootstrap requested
-    this.props.putIfAbsent(DataSourceWriteOptions.PAYLOAD_CLASS_NAME().key(),
-        DataSourceWriteOptions.PAYLOAD_CLASS_NAME().defaultValue());
-    /*
-```
-
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
-#### Snippet
-```java
-    //         - Expected to bear this config
-    //         - Can't be stubbed out w/ null
-    filtered.put(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key(), "");
-    return filtered;
-  }
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -24761,11 +24761,11 @@ Field initialization to `false` is redundant
 in `hudi-gcp/src/main/java/org/apache/hudi/gcp/bigquery/BigQuerySyncConfig.java`
 #### Snippet
 ```java
-    public List<String> partitionFields = new ArrayList<>();
-    @Parameter(names = {"--use-file-listing-from-metadata"}, description = "Fetch file listing from Hudi's metadata")
-    public boolean useFileListingFromMetadata = false;
     @Parameter(names = {"--assume-date-partitioning"}, description = "Assume standard yyyy/mm/dd partitioning, this"
         + " exists to support backward compatibility. If you use hoodie 0.3.x, do not set this parameter")
+    public boolean assumeDatePartitioning = false;
+
+    public boolean isHelp() {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -24773,11 +24773,11 @@ Field initialization to `false` is redundant
 in `hudi-gcp/src/main/java/org/apache/hudi/gcp/bigquery/BigQuerySyncConfig.java`
 #### Snippet
 ```java
+    public List<String> partitionFields = new ArrayList<>();
+    @Parameter(names = {"--use-file-listing-from-metadata"}, description = "Fetch file listing from Hudi's metadata")
+    public boolean useFileListingFromMetadata = false;
     @Parameter(names = {"--assume-date-partitioning"}, description = "Assume standard yyyy/mm/dd partitioning, this"
         + " exists to support backward compatibility. If you use hoodie 0.3.x, do not set this parameter")
-    public boolean assumeDatePartitioning = false;
-
-    public boolean isHelp() {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -24929,11 +24929,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
 #### Snippet
 ```java
-
   private static final Logger LOG = LogManager.getLogger(SparkHoodieHBaseIndex.class);
   private static Connection hbaseConnection = null;
   private HBaseIndexQPSResourceAllocator hBaseIndexQPSResourceAllocator = null;
   private int maxQpsPerRegionServer;
+  private long totalNumInserts;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -24941,11 +24941,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
 #### Snippet
 ```java
+
   private static final Logger LOG = LogManager.getLogger(SparkHoodieHBaseIndex.class);
   private static Connection hbaseConnection = null;
   private HBaseIndexQPSResourceAllocator hBaseIndexQPSResourceAllocator = null;
   private int maxQpsPerRegionServer;
-  private long totalNumInserts;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -24974,18 +24974,6 @@ public class CreateHandleFactory<T extends HoodieRecordPayload, I, K, O> extends
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCDCLogger.java`
-#### Snippet
-```java
-
-  // Average cdc record size. This size is updated at the end of every log block flushed to disk
-  private long averageCDCRecordSize = 0;
-
-  // Number of records that must be written to meet the max block size for a log block
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/WriteHandleFactory.java`
 #### Snippet
 ```java
@@ -24994,6 +24982,18 @@ public abstract class WriteHandleFactory<T extends HoodieRecordPayload, I, K, O>
   private int numFilesWritten = 0;
 
   public abstract HoodieWriteHandle<T, I, K, O> create(HoodieWriteConfig config, String commitTime, HoodieTable<T, I, K, O> hoodieTable,
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCDCLogger.java`
+#### Snippet
+```java
+
+  // Average cdc record size. This size is updated at the end of every log block flushed to disk
+  private long averageCDCRecordSize = 0;
+
+  // Number of records that must be written to meet the max block size for a log block
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25025,11 +25025,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/KeyRangeNode.java`
 #### Snippet
 ```java
+  private String rightSubTreeMax = null;
   private String leftSubTreeMax = null;
   private String rightSubTreeMin = null;
   private String leftSubTreeMin = null;
   private KeyRangeNode left = null;
-  private KeyRangeNode right = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25061,107 +25061,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/KeyRangeNode.java`
 #### Snippet
 ```java
-  private String rightSubTreeMax = null;
   private String leftSubTreeMax = null;
   private String rightSubTreeMin = null;
   private String leftSubTreeMin = null;
   private KeyRangeNode left = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
-#### Snippet
-```java
-
-  // Average record size for a HoodieRecord. This size is updated at the end of every log block flushed to disk
-  private long averageRecordSize = 0;
-  // Flag used to initialize some metadata
-  private boolean doInit = true;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
-#### Snippet
-```java
-  protected long recordsWritten = 0;
-  // Total number of records deleted during an append
-  protected long recordsDeleted = 0;
-  // Total number of records updated during an append
-  protected long updatedRecordsWritten = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
-#### Snippet
-```java
-  protected long recordsDeleted = 0;
-  // Total number of records updated during an append
-  protected long updatedRecordsWritten = 0;
-  // Total number of new records inserted into the delta file
-  protected long insertRecordsWritten = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
-#### Snippet
-```java
-  private boolean isLogCompaction = false;
-  // use writer schema for log compaction.
-  private boolean useWriterSchema = false;
-
-  private Properties recordProperties = new Properties();
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
-#### Snippet
-```java
-  protected final List<WriteStatus> statuses;
-  // Total number of records written during an append
-  protected long recordsWritten = 0;
-  // Total number of records deleted during an append
-  protected long recordsDeleted = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
-#### Snippet
-```java
-  private String baseInstantTime;
-  // This is used to distinguish between normal append and logcompaction's append operation.
-  private boolean isLogCompaction = false;
-  // use writer schema for log compaction.
-  private boolean useWriterSchema = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
-#### Snippet
-```java
-  protected long estimatedNumberOfBytesWritten;
-  // Number of records that must be written to meet the max block size for a log block
-  private int numberOfRecords = 0;
-  // Max block size to limit to for a log block
-  private final int maxBlockSize = config.getLogFileDataBlockMaxSize();
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
-#### Snippet
-```java
-  protected long updatedRecordsWritten = 0;
-  // Total number of new records inserted into the delta file
-  protected long insertRecordsWritten = 0;
-
-  // Average record size for a HoodieRecord. This size is updated at the end of every log block flushed to disk
+  private KeyRangeNode right = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25190,14 +25094,98 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/WorkloadS
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
 #### Snippet
 ```java
-  protected Set<String> writtenRecordKeys;
-  protected HoodieFileWriter<IndexedRecord> fileWriter;
-  private boolean preserveMetadata = false;
+  private boolean isLogCompaction = false;
+  // use writer schema for log compaction.
+  private boolean useWriterSchema = false;
 
-  protected Path newFilePath;
+  private Properties recordProperties = new Properties();
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+#### Snippet
+```java
+  protected long updatedRecordsWritten = 0;
+  // Total number of new records inserted into the delta file
+  protected long insertRecordsWritten = 0;
+
+  // Average record size for a HoodieRecord. This size is updated at the end of every log block flushed to disk
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+#### Snippet
+```java
+  protected long recordsDeleted = 0;
+  // Total number of records updated during an append
+  protected long updatedRecordsWritten = 0;
+  // Total number of new records inserted into the delta file
+  protected long insertRecordsWritten = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+#### Snippet
+```java
+  protected long recordsWritten = 0;
+  // Total number of records deleted during an append
+  protected long recordsDeleted = 0;
+  // Total number of records updated during an append
+  protected long updatedRecordsWritten = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+#### Snippet
+```java
+
+  // Average record size for a HoodieRecord. This size is updated at the end of every log block flushed to disk
+  private long averageRecordSize = 0;
+  // Flag used to initialize some metadata
+  private boolean doInit = true;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+#### Snippet
+```java
+  protected long estimatedNumberOfBytesWritten;
+  // Number of records that must be written to meet the max block size for a log block
+  private int numberOfRecords = 0;
+  // Max block size to limit to for a log block
+  private final int maxBlockSize = config.getLogFileDataBlockMaxSize();
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+#### Snippet
+```java
+  private String baseInstantTime;
+  // This is used to distinguish between normal append and logcompaction's append operation.
+  private boolean isLogCompaction = false;
+  // use writer schema for log compaction.
+  private boolean useWriterSchema = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+#### Snippet
+```java
+  protected final List<WriteStatus> statuses;
+  // Total number of records written during an append
+  protected long recordsWritten = 0;
+  // Total number of records deleted during an append
+  protected long recordsDeleted = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25249,27 +25237,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeH
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
 #### Snippet
 ```java
-  protected long recordsWritten = 0;
-  protected long insertRecordsWritten = 0;
-  protected long recordsDeleted = 0;
-  private Map<String, HoodieRecord<T>> recordMap;
-  private boolean useWriterSchema = false;
-```
+  protected Set<String> writtenRecordKeys;
+  protected HoodieFileWriter<IndexedRecord> fileWriter;
+  private boolean preserveMetadata = false;
 
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
-#### Snippet
-```java
-  protected final HoodieFileWriter<IndexedRecord> fileWriter;
-  protected final Path path;
-  protected long recordsWritten = 0;
-  protected long insertRecordsWritten = 0;
-  protected long recordsDeleted = 0;
+  protected Path newFilePath;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25289,11 +25265,47 @@ Field initialization to `0` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
 #### Snippet
 ```java
+  protected final HoodieFileWriter<IndexedRecord> fileWriter;
+  protected final Path path;
+  protected long recordsWritten = 0;
+  protected long insertRecordsWritten = 0;
+  protected long recordsDeleted = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
+#### Snippet
+```java
+  protected long recordsWritten = 0;
+  protected long insertRecordsWritten = 0;
+  protected long recordsDeleted = 0;
+  private Map<String, HoodieRecord<T>> recordMap;
+  private boolean useWriterSchema = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
+#### Snippet
+```java
   protected final Path path;
   protected long recordsWritten = 0;
   protected long insertRecordsWritten = 0;
   protected long recordsDeleted = 0;
   private Map<String, HoodieRecord<T>> recordMap;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieInternalWriteStatus.java`
+#### Snippet
+```java
+
+  private long totalRecords = 0;
+  private long totalErrorRecords = 0;
+  private Throwable globalError = null;
+
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25313,23 +25325,47 @@ Field initialization to `0` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieInternalWriteStatus.java`
 #### Snippet
 ```java
-
-  private long totalRecords = 0;
-  private long totalErrorRecords = 0;
-  private Throwable globalError = null;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieInternalWriteStatus.java`
-#### Snippet
-```java
   private HoodieWriteStat stat;
 
   private long totalRecords = 0;
   private long totalErrorRecords = 0;
   private Throwable globalError = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
+#### Snippet
+```java
+  private HoodieWriteStat stat = null;
+
+  private long totalRecords = 0;
+  private long totalErrorRecords = 0;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
+#### Snippet
+```java
+  private String partitionPath = null;
+
+  private HoodieWriteStat stat = null;
+
+  private long totalRecords = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
+#### Snippet
+```java
+  private Throwable globalError = null;
+
+  private String fileId = null;
+
+  private String partitionPath = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25349,11 +25385,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
 #### Snippet
 ```java
+  private String fileId = null;
+
   private String partitionPath = null;
 
   private HoodieWriteStat stat = null;
-
-  private long totalRecords = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25369,39 +25405,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteSta
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/LazyIterableIterator.java`
 #### Snippet
 ```java
-  private String fileId = null;
 
-  private String partitionPath = null;
-
-  private HoodieWriteStat stat = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
-#### Snippet
-```java
-  private HoodieWriteStat stat = null;
-
-  private long totalRecords = 0;
-  private long totalErrorRecords = 0;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
-#### Snippet
-```java
-  private Throwable globalError = null;
-
-  private String fileId = null;
-
-  private String partitionPath = null;
+  protected Iterator<I> inputItr;
+  private boolean consumed = false;
+  private boolean startCalled = false;
+  private boolean endCalled = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25414,18 +25426,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/La
   private boolean endCalled = false;
 
   public LazyIterableIterator(Iterator<I> in) {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/LazyIterableIterator.java`
-#### Snippet
-```java
-
-  protected Iterator<I> inputItr;
-  private boolean consumed = false;
-  private boolean startCalled = false;
-  private boolean endCalled = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25481,11 +25481,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-  private Timer deltaCommitTimer = null;
-  private Timer finalizeTimer = null;
-  private Timer compactionTimer = null;
-  private Timer logCompactionTimer = null;
-  private Timer clusteringTimer = null;
+  public String replaceCommitTimerName = null;
+  public String finalizeTimerName = null;
+  public String compactionTimerName = null;
+  public String indexTimerName = null;
+  private String conflictResolutionTimerName = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25505,11 +25505,59 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
+  private Timer commitTimer = null;
+  private Timer deltaCommitTimer = null;
+  private Timer finalizeTimer = null;
+  private Timer compactionTimer = null;
+  private Timer logCompactionTimer = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  private Timer clusteringTimer = null;
+  private Timer indexTimer = null;
+  private Timer conflictResolutionTimer = null;
+  private Counter conflictResolutionSuccessCounter = null;
+  private Counter conflictResolutionFailureCounter = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  private Timer indexTimer = null;
   private Timer conflictResolutionTimer = null;
   private Counter conflictResolutionSuccessCounter = null;
   private Counter conflictResolutionFailureCounter = null;
 
-  public HoodieMetrics(HoodieWriteConfig config) {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  private String conflictResolutionTimerName = null;
+  private String conflictResolutionSuccessCounterName = null;
+  private String conflictResolutionFailureCounterName = null;
+  private HoodieWriteConfig config;
+  private String tableName;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  public String commitTimerName = null;
+  public String logCompactionTimerName = null;
+  public String deltaCommitTimerName = null;
+  public String replaceCommitTimerName = null;
+  public String finalizeTimerName = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25529,23 +25577,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-  public String logCompactionTimerName = null;
-  public String deltaCommitTimerName = null;
-  public String replaceCommitTimerName = null;
-  public String finalizeTimerName = null;
-  public String compactionTimerName = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private Timer finalizeTimer = null;
-  private Timer compactionTimer = null;
   private Timer logCompactionTimer = null;
   private Timer clusteringTimer = null;
   private Timer indexTimer = null;
+  private Timer conflictResolutionTimer = null;
+  private Counter conflictResolutionSuccessCounter = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25558,18 +25594,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieM
   private Timer commitTimer = null;
   private Timer deltaCommitTimer = null;
   private Timer finalizeTimer = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private Timer logCompactionTimer = null;
-  private Timer clusteringTimer = null;
-  private Timer indexTimer = null;
-  private Timer conflictResolutionTimer = null;
-  private Counter conflictResolutionSuccessCounter = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25589,59 +25613,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-  public String replaceCommitTimerName = null;
-  public String finalizeTimerName = null;
-  public String compactionTimerName = null;
-  public String indexTimerName = null;
-  private String conflictResolutionTimerName = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private Timer indexTimer = null;
-  private Timer conflictResolutionTimer = null;
-  private Counter conflictResolutionSuccessCounter = null;
-  private Counter conflictResolutionFailureCounter = null;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private Timer clusteringTimer = null;
-  private Timer indexTimer = null;
-  private Timer conflictResolutionTimer = null;
-  private Counter conflictResolutionSuccessCounter = null;
-  private Counter conflictResolutionFailureCounter = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private Timer compactionTimer = null;
-  private Timer logCompactionTimer = null;
-  private Timer clusteringTimer = null;
-  private Timer indexTimer = null;
-  private Timer conflictResolutionTimer = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private Timer commitTimer = null;
-  private Timer deltaCommitTimer = null;
   private Timer finalizeTimer = null;
   private Timer compactionTimer = null;
   private Timer logCompactionTimer = null;
+  private Timer clusteringTimer = null;
+  private Timer indexTimer = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25661,23 +25637,23 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
+  public String compactionTimerName = null;
+  public String indexTimerName = null;
+  private String conflictResolutionTimerName = null;
+  private String conflictResolutionSuccessCounterName = null;
+  private String conflictResolutionFailureCounterName = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  public String logCompactionTimerName = null;
   public String deltaCommitTimerName = null;
   public String replaceCommitTimerName = null;
   public String finalizeTimerName = null;
   public String compactionTimerName = null;
-  public String indexTimerName = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private HoodieWriteConfig config;
-  private String tableName;
-  private Timer rollbackTimer = null;
-  private Timer cleanTimer = null;
-  private Timer commitTimer = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25690,18 +25666,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieM
   public String commitTimerName = null;
   public String logCompactionTimerName = null;
   public String deltaCommitTimerName = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  public String indexTimerName = null;
-  private String conflictResolutionTimerName = null;
-  private String conflictResolutionSuccessCounterName = null;
-  private String conflictResolutionFailureCounterName = null;
-  private HoodieWriteConfig config;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25721,11 +25685,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-  private String conflictResolutionTimerName = null;
-  private String conflictResolutionSuccessCounterName = null;
-  private String conflictResolutionFailureCounterName = null;
-  private HoodieWriteConfig config;
-  private String tableName;
+  private Timer conflictResolutionTimer = null;
+  private Counter conflictResolutionSuccessCounter = null;
+  private Counter conflictResolutionFailureCounter = null;
+
+  public HoodieMetrics(HoodieWriteConfig config) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25733,11 +25697,35 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-  public String commitTimerName = null;
-  public String logCompactionTimerName = null;
+  private HoodieWriteConfig config;
+  private String tableName;
+  private Timer rollbackTimer = null;
+  private Timer cleanTimer = null;
+  private Timer commitTimer = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
   public String deltaCommitTimerName = null;
   public String replaceCommitTimerName = null;
   public String finalizeTimerName = null;
+  public String compactionTimerName = null;
+  public String indexTimerName = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  public String indexTimerName = null;
+  private String conflictResolutionTimerName = null;
+  private String conflictResolutionSuccessCounterName = null;
+  private String conflictResolutionFailureCounterName = null;
+  private HoodieWriteConfig config;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25757,23 +25745,23 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-  public String compactionTimerName = null;
-  public String indexTimerName = null;
-  private String conflictResolutionTimerName = null;
-  private String conflictResolutionSuccessCounterName = null;
-  private String conflictResolutionFailureCounterName = null;
+  private Timer compactionTimer = null;
+  private Timer logCompactionTimer = null;
+  private Timer clusteringTimer = null;
+  private Timer indexTimer = null;
+  private Timer conflictResolutionTimer = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-    private boolean isBootstrapConfigSet = false;
-    private boolean isMemoryConfigSet = false;
-    private boolean isViewConfigSet = false;
-    private boolean isConsistencyGuardSet = false;
-    private boolean isCallbackConfigSet = false;
+  private Timer deltaCommitTimer = null;
+  private Timer finalizeTimer = null;
+  private Timer compactionTimer = null;
+  private Timer logCompactionTimer = null;
+  private Timer clusteringTimer = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25786,150 +25774,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
     private boolean isLockConfigSet = false;
     private boolean isPreCommitValidationConfigSet = false;
     private boolean isMetricsJmxConfigSet = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isConsistencyGuardSet = false;
-    private boolean isCallbackConfigSet = false;
-    private boolean isPayloadConfigSet = false;
-    private boolean isMetadataConfigSet = false;
-    private boolean isLockConfigSet = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isCleanConfigSet = false;
-    private boolean isArchivalConfigSet = false;
-    private boolean isClusteringConfigSet = false;
-    private boolean isOptimizeConfigSet = false;
-    private boolean isMetricsConfigSet = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    protected final HoodieWriteConfig writeConfig = new HoodieWriteConfig();
-    protected EngineType engineType = EngineType.SPARK;
-    private boolean isIndexConfigSet = false;
-    private boolean isStorageConfigSet = false;
-    private boolean isCompactionConfigSet = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isPreCommitValidationConfigSet = false;
-    private boolean isMetricsJmxConfigSet = false;
-    private boolean isMetricsGraphiteConfigSet = false;
-    private boolean isLayoutConfigSet = false;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isMetricsConfigSet = false;
-    private boolean isBootstrapConfigSet = false;
-    private boolean isMemoryConfigSet = false;
-    private boolean isViewConfigSet = false;
-    private boolean isConsistencyGuardSet = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isArchivalConfigSet = false;
-    private boolean isClusteringConfigSet = false;
-    private boolean isOptimizeConfigSet = false;
-    private boolean isMetricsConfigSet = false;
-    private boolean isBootstrapConfigSet = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isStorageConfigSet = false;
-    private boolean isCompactionConfigSet = false;
-    private boolean isCleanConfigSet = false;
-    private boolean isArchivalConfigSet = false;
-    private boolean isClusteringConfigSet = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isMetadataConfigSet = false;
-    private boolean isLockConfigSet = false;
-    private boolean isPreCommitValidationConfigSet = false;
-    private boolean isMetricsJmxConfigSet = false;
-    private boolean isMetricsGraphiteConfigSet = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isCallbackConfigSet = false;
-    private boolean isPayloadConfigSet = false;
-    private boolean isMetadataConfigSet = false;
-    private boolean isLockConfigSet = false;
-    private boolean isPreCommitValidationConfigSet = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isViewConfigSet = false;
-    private boolean isConsistencyGuardSet = false;
-    private boolean isCallbackConfigSet = false;
-    private boolean isPayloadConfigSet = false;
-    private boolean isMetadataConfigSet = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isOptimizeConfigSet = false;
-    private boolean isMetricsConfigSet = false;
-    private boolean isBootstrapConfigSet = false;
-    private boolean isMemoryConfigSet = false;
-    private boolean isViewConfigSet = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isClusteringConfigSet = false;
-    private boolean isOptimizeConfigSet = false;
-    private boolean isMetricsConfigSet = false;
-    private boolean isBootstrapConfigSet = false;
-    private boolean isMemoryConfigSet = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25949,11 +25793,35 @@ Field initialization to `false` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
 #### Snippet
 ```java
-    protected EngineType engineType = EngineType.SPARK;
-    private boolean isIndexConfigSet = false;
+    private boolean isClusteringConfigSet = false;
+    private boolean isOptimizeConfigSet = false;
+    private boolean isMetricsConfigSet = false;
+    private boolean isBootstrapConfigSet = false;
+    private boolean isMemoryConfigSet = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isMemoryConfigSet = false;
+    private boolean isViewConfigSet = false;
+    private boolean isConsistencyGuardSet = false;
+    private boolean isCallbackConfigSet = false;
+    private boolean isPayloadConfigSet = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
     private boolean isStorageConfigSet = false;
     private boolean isCompactionConfigSet = false;
     private boolean isCleanConfigSet = false;
+    private boolean isArchivalConfigSet = false;
+    private boolean isClusteringConfigSet = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25973,11 +25841,131 @@ Field initialization to `false` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
 #### Snippet
 ```java
+    protected EngineType engineType = EngineType.SPARK;
+    private boolean isIndexConfigSet = false;
+    private boolean isStorageConfigSet = false;
+    private boolean isCompactionConfigSet = false;
+    private boolean isCleanConfigSet = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isConsistencyGuardSet = false;
+    private boolean isCallbackConfigSet = false;
+    private boolean isPayloadConfigSet = false;
+    private boolean isMetadataConfigSet = false;
+    private boolean isLockConfigSet = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isArchivalConfigSet = false;
+    private boolean isClusteringConfigSet = false;
+    private boolean isOptimizeConfigSet = false;
+    private boolean isMetricsConfigSet = false;
+    private boolean isBootstrapConfigSet = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isCleanConfigSet = false;
+    private boolean isArchivalConfigSet = false;
+    private boolean isClusteringConfigSet = false;
+    private boolean isOptimizeConfigSet = false;
+    private boolean isMetricsConfigSet = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isBootstrapConfigSet = false;
     private boolean isMemoryConfigSet = false;
     private boolean isViewConfigSet = false;
     private boolean isConsistencyGuardSet = false;
     private boolean isCallbackConfigSet = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isViewConfigSet = false;
+    private boolean isConsistencyGuardSet = false;
+    private boolean isCallbackConfigSet = false;
     private boolean isPayloadConfigSet = false;
+    private boolean isMetadataConfigSet = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isPreCommitValidationConfigSet = false;
+    private boolean isMetricsJmxConfigSet = false;
+    private boolean isMetricsGraphiteConfigSet = false;
+    private boolean isLayoutConfigSet = false;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isMetadataConfigSet = false;
+    private boolean isLockConfigSet = false;
+    private boolean isPreCommitValidationConfigSet = false;
+    private boolean isMetricsJmxConfigSet = false;
+    private boolean isMetricsGraphiteConfigSet = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isCompactionConfigSet = false;
+    private boolean isCleanConfigSet = false;
+    private boolean isArchivalConfigSet = false;
+    private boolean isClusteringConfigSet = false;
+    private boolean isOptimizeConfigSet = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isMetricsConfigSet = false;
+    private boolean isBootstrapConfigSet = false;
+    private boolean isMemoryConfigSet = false;
+    private boolean isViewConfigSet = false;
+    private boolean isConsistencyGuardSet = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isOptimizeConfigSet = false;
+    private boolean isMetricsConfigSet = false;
+    private boolean isBootstrapConfigSet = false;
+    private boolean isMemoryConfigSet = false;
+    private boolean isViewConfigSet = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -25997,23 +25985,23 @@ Field initialization to `false` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
 #### Snippet
 ```java
+    protected final HoodieWriteConfig writeConfig = new HoodieWriteConfig();
+    protected EngineType engineType = EngineType.SPARK;
+    private boolean isIndexConfigSet = false;
+    private boolean isStorageConfigSet = false;
     private boolean isCompactionConfigSet = false;
-    private boolean isCleanConfigSet = false;
-    private boolean isArchivalConfigSet = false;
-    private boolean isClusteringConfigSet = false;
-    private boolean isOptimizeConfigSet = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/BaseHoodieTableFileIndex.java`
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
 #### Snippet
 ```java
-
-  // NOTE: It always contains either all partition paths, or null if it is not initialized yet
-  private transient volatile List<PartitionPath> cachedAllPartitionPaths = null;
-
-  private transient HoodieTableMetadata tableMetadata = null;
+    private boolean isCallbackConfigSet = false;
+    private boolean isPayloadConfigSet = false;
+    private boolean isMetadataConfigSet = false;
+    private boolean isLockConfigSet = false;
+    private boolean isPreCommitValidationConfigSet = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26030,38 +26018,14 @@ in `hudi-common/src/main/java/org/apache/hudi/BaseHoodieTableFileIndex.java`
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieHFileReader.java`
+in `hudi-common/src/main/java/org/apache/hudi/BaseHoodieTableFileIndex.java`
 #### Snippet
 ```java
-    private final Schema readerSchema;
 
-    private GenericRecord next = null;
+  // NOTE: It always contains either all partition paths, or null if it is not initialized yet
+  private transient volatile List<PartitionPath> cachedAllPartitionPaths = null;
 
-    RecordByKeyPrefixIterator(HFileScanner scanner, List<String> keyPrefixes, Schema writerSchema, Schema readerSchema) throws IOException {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieHFileReader.java`
-#### Snippet
-```java
-    class KeyPrefixIterator implements Iterator<GenericRecord> {
-      private GenericRecord next = null;
-      private boolean eof = false;
-
-      @Override
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieHFileReader.java`
-#### Snippet
-```java
-    private final Schema writerSchema;
-
-    private GenericRecord next = null;
-
-    RecordByKeyIterator(HFileScanner scanner, List<String> keys, Schema writerSchema, Schema readerSchema) throws IOException {
+  private transient HoodieTableMetadata tableMetadata = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26086,6 +26050,42 @@ in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieHFileReader.java`
     private GenericRecord next = null;
 
     RecordIterator(HFileScanner scanner, Schema writerSchema, Schema readerSchema) {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieHFileReader.java`
+#### Snippet
+```java
+    private final Schema writerSchema;
+
+    private GenericRecord next = null;
+
+    RecordByKeyIterator(HFileScanner scanner, List<String> keys, Schema writerSchema, Schema readerSchema) throws IOException {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieHFileReader.java`
+#### Snippet
+```java
+    private final Schema readerSchema;
+
+    private GenericRecord next = null;
+
+    RecordByKeyPrefixIterator(HFileScanner scanner, List<String> keyPrefixes, Schema writerSchema, Schema readerSchema) throws IOException {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieHFileReader.java`
+#### Snippet
+```java
+    class KeyPrefixIterator implements Iterator<GenericRecord> {
+      private GenericRecord next = null;
+      private boolean eof = false;
+
+      @Override
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26125,30 +26125,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metadata/Hoodie
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
-#### Snippet
-```java
-  private long validLastPosition = 0L;
-  private long diskPosition = 0L;
-  private boolean isDirty = false;
-  private boolean isClosed = false;
-  private boolean isEOF = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
-#### Snippet
-```java
-  private long diskPosition = 0L;
-  private boolean isDirty = false;
-  private boolean isClosed = false;
-  private boolean isEOF = false;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0L` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
 #### Snippet
@@ -26158,6 +26134,54 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFi
   private long diskPosition = 0L;
   private boolean isDirty = false;
   private boolean isClosed = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
+#### Snippet
+```java
+  private long diskPosition = 0L;
+  private boolean isDirty = false;
+  private boolean isClosed = false;
+  private boolean isEOF = false;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
+#### Snippet
+```java
+  private long validLastPosition = 0L;
+  private long diskPosition = 0L;
+  private boolean isDirty = false;
+  private boolean isClosed = false;
+  private boolean isEOF = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0L` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
+#### Snippet
+```java
+  private long startPosition = 0L;
+  private long currentPosition = 0L;
+  private long validLastPosition = 0L;
+  private long diskPosition = 0L;
+  private boolean isDirty = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0L` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
+#### Snippet
+```java
+  private ByteBuffer dataBuffer;
+  private long startPosition = 0L;
+  private long currentPosition = 0L;
+  private long validLastPosition = 0L;
+  private long diskPosition = 0L;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26185,54 +26209,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFi
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0L` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
-#### Snippet
-```java
-  private ByteBuffer dataBuffer;
-  private long startPosition = 0L;
-  private long currentPosition = 0L;
-  private long validLastPosition = 0L;
-  private long diskPosition = 0L;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0L` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
-#### Snippet
-```java
-  private long startPosition = 0L;
-  private long currentPosition = 0L;
-  private long validLastPosition = 0L;
-  private long diskPosition = 0L;
-  private boolean isDirty = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
-#### Snippet
-```java
-
-  protected final transient HoodieMetrics metrics;
-  protected transient Timer.Context writeTimer = null;
-  protected transient Timer.Context compactionTimer;
-  protected transient Timer.Context clusteringTimer;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/DisruptorMessageQueue.java`
-#### Snippet
-```java
-  private final Lock closeLocker = new ReentrantLock();
-
-  private boolean isDisruptorClosed = false;
-
-  public DisruptorMessageQueue(Option<Integer> bufferSize, Function<I, O> transformFunction, Option<String> waitStrategyName, int totalProducers, Runnable preExecuteRunnable) {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryQueueIterable.java`
 #### Snippet
@@ -26254,6 +26230,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryQ
   public long avgRecordSizeInBytes = 0;
 
   /** Indicates number of samples collected so far. **/
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/DisruptorMessageQueue.java`
+#### Snippet
+```java
+  private final Lock closeLocker = new ReentrantLock();
+
+  private boolean isDisruptorClosed = false;
+
+  public DisruptorMessageQueue(Option<Integer> bufferSize, Function<I, O> transformFunction, Option<String> waitStrategyName, int totalProducers, Runnable preExecuteRunnable) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26290,6 +26278,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/LazyFileIte
   private transient Thread shutdownThread = null;
 
   public LazyFileIterable(String filePath, Map<T, BitCaskDiskMap.ValueMetadata> map) {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
+#### Snippet
+```java
+
+  protected final transient HoodieMetrics metrics;
+  protected transient Timer.Context writeTimer = null;
+  protected transient Timer.Context compactionTimer;
+  protected transient Timer.Context clusteringTimer;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26357,11 +26357,11 @@ Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieMergedLogRecordScanner.java`
 #### Snippet
 ```java
+    private boolean autoScan = true;
+    // operation field default false
     private boolean withOperationField = false;
     // Use scanV2 method.
     private boolean useScanV2 = false;
-
-    @Override
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26369,11 +26369,11 @@ Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieMergedLogRecordScanner.java`
 #### Snippet
 ```java
-    private boolean autoScan = true;
-    // operation field default false
     private boolean withOperationField = false;
     // Use scanV2 method.
     private boolean useScanV2 = false;
+
+    @Override
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26453,11 +26453,11 @@ Field initialization to `0` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieAvroDataBlock.java`
 #### Snippet
 ```java
+    private final ThreadLocal<BinaryDecoder> decoderCache = new ThreadLocal<>();
 
     private int totalRecords = 0;
     private int readRecords = 0;
 
-    private RecordIterator(Schema readerSchema, Schema writerSchema, byte[] content, InternalSchema internalSchema) throws IOException {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26465,11 +26465,11 @@ Field initialization to `0` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieAvroDataBlock.java`
 #### Snippet
 ```java
-    private final ThreadLocal<BinaryDecoder> decoderCache = new ThreadLocal<>();
 
     private int totalRecords = 0;
     private int readRecords = 0;
 
+    private RecordIterator(Schema readerSchema, Schema writerSchema, byte[] content, InternalSchema internalSchema) throws IOException {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26521,42 +26521,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
-#### Snippet
-```java
-    private final Field keyField;
-    private final Field valueField;
-    private transient List<Field> fields = null;
-
-    private MapType(Field keyField, Field valueField) {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
-#### Snippet
-```java
-    private final Field[] fields;
-
-    private transient Map<String, Field> nameToFields = null;
-    private transient Map<Integer, Field> idToFields = null;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
-#### Snippet
-```java
-
-    private transient Map<String, Field> nameToFields = null;
-    private transient Map<Integer, Field> idToFields = null;
-
-    private RecordType(List<Field> fields) {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
 #### Snippet
@@ -26594,6 +26558,54 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootst
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+#### Snippet
+```java
+    private final Field[] fields;
+
+    private transient Map<String, Field> nameToFields = null;
+    private transient Map<Integer, Field> idToFields = null;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+#### Snippet
+```java
+
+    private transient Map<String, Field> nameToFields = null;
+    private transient Map<Integer, Field> idToFields = null;
+
+    private RecordType(List<Field> fields) {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+#### Snippet
+```java
+    private final Field keyField;
+    private final Field valueField;
+    private transient List<Field> fields = null;
+
+    private MapType(Field keyField, Field valueField) {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
+#### Snippet
+```java
+  private long versionId;
+
+  private transient Map<Integer, Field> idToField = null;
+  private transient Map<String, Integer> nameToId = null;
+  private transient Map<Integer, String> idToName = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
 #### Snippet
 ```java
@@ -26617,18 +26629,6 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.jav
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
-#### Snippet
-```java
-  private long versionId;
-
-  private transient Map<Integer, Field> idToField = null;
-  private transient Map<String, Integer> nameToId = null;
-  private transient Map<Integer, String> idToName = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataMergedLogRecordReader.java`
 #### Snippet
@@ -26645,6 +26645,18 @@ Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/metadata/BaseTableMetadata.java`
 #### Snippet
 ```java
+  protected boolean isMetadataTableEnabled;
+  protected boolean isBloomFilterIndexEnabled = false;
+  protected boolean isColumnStatsIndexEnabled = false;
+
+  protected BaseTableMetadata(HoodieEngineContext engineContext, HoodieMetadataConfig metadataConfig,
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/metadata/BaseTableMetadata.java`
+#### Snippet
+```java
 
   protected boolean isMetadataTableEnabled;
   protected boolean isBloomFilterIndexEnabled = false;
@@ -26653,15 +26665,15 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/BaseTableMetadata.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/metadata/BaseTableMetadata.java`
+Field initialization to `null` is redundant
+in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/HoodieFlinkQuickstart.java`
 #### Snippet
 ```java
-  protected boolean isMetadataTableEnabled;
-  protected boolean isBloomFilterIndexEnabled = false;
-  protected boolean isColumnStatsIndexEnabled = false;
 
-  protected BaseTableMetadata(HoodieEngineContext engineContext, HoodieMetadataConfig metadataConfig,
+public final class HoodieFlinkQuickstart {
+  private EnvironmentSettings settings = null;
+  private TableEnvironment streamTableEnv = null;
+
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26678,14 +26690,14 @@ public final class HoodieFlinkQuickstart {
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/HoodieFlinkQuickstart.java`
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
 #### Snippet
 ```java
-
-public final class HoodieFlinkQuickstart {
-  private EnvironmentSettings settings = null;
-  private TableEnvironment streamTableEnv = null;
-
+  private String key = null;
+  private int type = 0;
+  private Map<String, HoodieMetadataFileInfo> filesystemMetadata = null;
+  private HoodieMetadataBloomFilter bloomFilterMetadata = null;
+  private HoodieMetadataColumnStats columnStatMetadata = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26705,23 +26717,11 @@ Field initialization to `null` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
 #### Snippet
 ```java
-  private static final Lazy<DateWrapper.Builder> DATE_WRAPPER_BUILDER_STUB = Lazy.lazily(DateWrapper::newBuilder);
-
-  private String key = null;
-  private int type = 0;
-  private Map<String, HoodieMetadataFileInfo> filesystemMetadata = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
-#### Snippet
-```java
-  private String key = null;
   private int type = 0;
   private Map<String, HoodieMetadataFileInfo> filesystemMetadata = null;
   private HoodieMetadataBloomFilter bloomFilterMetadata = null;
   private HoodieMetadataColumnStats columnStatMetadata = null;
+
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26741,11 +26741,11 @@ Field initialization to `null` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
 #### Snippet
 ```java
+  private static final Lazy<DateWrapper.Builder> DATE_WRAPPER_BUILDER_STUB = Lazy.lazily(DateWrapper::newBuilder);
+
+  private String key = null;
   private int type = 0;
   private Map<String, HoodieMetadataFileInfo> filesystemMetadata = null;
-  private HoodieMetadataBloomFilter bloomFilterMetadata = null;
-  private HoodieMetadataColumnStats columnStatMetadata = null;
-
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26798,14 +26798,14 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieRealtimeB
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCleaner.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotExporter.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-        + "hoodie client for cleaning")
-    public String propsFilePath = null;
 
-    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
+    @Parameter(names = {"--output-partitioner"}, description = "A class to facilitate custom repartitioning")
+    public String outputPartitioner = null;
+  }
+
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26822,38 +26822,26 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotExporte
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotExporter.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCleaner.java`
 #### Snippet
 ```java
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+        + "hoodie client for cleaning")
+    public String propsFilePath = null;
 
-    @Parameter(names = {"--output-partitioner"}, description = "A class to facilitate custom repartitioning")
-    public String outputPartitioner = null;
-  }
-
+    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
 #### Snippet
 ```java
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-    @Parameter(names = {"--num-partitions", "-n"}, description = "Num Partitions")
-    public Integer numPartitions = 100;
-```
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+        + "hoodie client")
+    public String propsFilePath = null;
 
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
+    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26866,6 +26854,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValida
     public boolean ignoreFailed = false;
 
     @Parameter(names = {"--assume-date-partitioning"}, description = "Should HoodieWriteClient assume the data is partitioned by dates, i.e three levels from base path."
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
+#### Snippet
+```java
+  public static class Config implements Serializable {
+    @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
+    public String basePath = null;
+
+    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26885,18 +26885,6 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
 #### Snippet
 ```java
-  public static class Config implements Serializable {
-    @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
-    public String basePath = null;
-
-    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
-#### Snippet
-```java
 
     @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
     public String sparkMaster = null;
@@ -26906,38 +26894,26 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValida
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-        + "hoodie client")
-    public String propsFilePath = null;
 
-    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
-        + "Set \"execute\" means execute a compact plan at given instant which means --instant-time is needed here; "
-        + "Set \"scheduleAndExecute\" means make a compact plan first and execute that plan immediately", required = false)
-    public String runningMode = null;
-    @Parameter(names = {"--strategy", "-st"}, description = "Strategy Class", required = false)
-    public String strategyClassName = LogFileSizeBasedCompactionStrategy.class.getName();
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
-    public String schemaFile = null;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
     public String sparkMaster = null;
     @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
     public String sparkMemory = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
+#### Snippet
+```java
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+    @Parameter(names = {"--num-partitions", "-n"}, description = "Num Partitions")
+    public Integer numPartitions = 100;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26957,23 +26933,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
-    public String tableName = null;
-    @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
-    public String compactionInstantTime = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
-    public int parallelism = 200;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
-  public static class Config implements Serializable {
-    @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
     public String basePath = null;
     @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
     public String tableName = null;
+    @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
+    public String compactionInstantTime = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -26993,11 +26957,35 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
+  public static class Config implements Serializable {
+    @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
     public String basePath = null;
     @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
     public String tableName = null;
-    @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
-    public String compactionInstantTime = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
+#### Snippet
+```java
+    public int parallelism = 200;
+    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
+    public String schemaFile = null;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
+#### Snippet
+```java
+        + "Set \"execute\" means execute a compact plan at given instant which means --instant-time is needed here; "
+        + "Set \"scheduleAndExecute\" means make a compact plan first and execute that plan immediately", required = false)
+    public String runningMode = null;
+    @Parameter(names = {"--strategy", "-st"}, description = "Strategy Class", required = false)
+    public String strategyClassName = LogFileSizeBasedCompactionStrategy.class.getName();
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27017,35 +27005,155 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
+    public String tableName = null;
+    @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
+    public String compactionInstantTime = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
     public int parallelism = 200;
-    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
+#### Snippet
+```java
     public String schemaFile = null;
     @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
     public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
+#### Snippet
+```java
+
+    private boolean hoodieFilter = false;
+    private boolean isRealTime = false;
+
+    protected HoodieParquetInputFormat createParquetInputFormat() {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
+#### Snippet
+```java
+      implements org.apache.hadoop.hive.shims.HadoopShims.CombineFileInputFormatShim<K, V> {
+
+    private boolean hoodieFilter = false;
+    private boolean isRealTime = false;
+
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
 #### Snippet
 ```java
-    public int parallelism = 2;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
-    public String sparkMemory = "1g";
+        + "the earliest scheduled clustering instant time is used by default. "
+        + "When set \"--mode scheduleAndExecute\" this instant-time will be ignored.")
+    public String clusteringInstantTime = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert")
+    public int parallelism = 1;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
 #### Snippet
 ```java
-        + "Set \"dry_run\" means only looking for dangling data and log files; "
-        + "Set \"undo\" means undoing the repair by copying back the files from backup directory", required = true)
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+        + "hoodie client for clustering")
+    public String propsFilePath = null;
+
+    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+#### Snippet
+```java
+        + "Set \"execute\" means execute a cluster plan at given instant which means --instant-time is needed here; "
+        + "Set \"scheduleAndExecute\" means make a cluster plan first and execute that plan immediately")
     public String runningMode = null;
-    @Parameter(names = {"--start-instant-time", "-si"}, description = "Starting Instant time "
-        + "for repair (inclusive)", required = false)
+
+    @Parameter(names = {"--help", "-h"}, help = true)
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+#### Snippet
+```java
+  public static class Config implements Serializable {
+    @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
+    public String basePath = null;
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+#### Snippet
+```java
+    public int parallelism = 1;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+#### Snippet
+```java
+    public String sparkMemory = null;
+    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
+    public int retry = 0;
+
+    @Parameter(names = {"--schedule", "-sc"}, description = "Schedule clustering @desperate soon please use \"--mode schedule\" instead")
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+#### Snippet
+```java
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
+    public int retry = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+#### Snippet
+```java
+    @Parameter(names = {"--job-max-processing-time-ms", "-jt"}, description = "Take effect when using --mode/-m scheduleAndExecute and --retry-last-failed-clustering-job/-rc true. "
+        + "If maxProcessingTimeMs passed but clustering job is still unfinished, hoodie would consider this job as failed and relaunch.")
+    public long maxProcessingTimeMs = 0;
+
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+#### Snippet
+```java
+    public String basePath = null;
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
+    @Parameter(names = {"--instant-time", "-it"}, description = "Clustering Instant time, only used when set --mode execute. "
+        + "If the instant time is not provided with --mode execute, "
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27058,30 +27166,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java
     public String endingInstantTime = null;
     @Parameter(names = {"--backup-path", "-bp"}, description = "Backup path for storing dangling data "
         + "and log files from the table", required = false)
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--start-instant-time", "-si"}, description = "Starting Instant time "
-        + "for repair (inclusive)", required = false)
-    public String startingInstantTime = null;
-    @Parameter(names = {"--end-instant-time", "-ei"}, description = "Ending Instant time "
-        + "for repair (inclusive)", required = false)
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-        + "hoodie client for table repair")
-    public String propsFilePath = null;
-
-    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27109,27 +27193,51 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
 #### Snippet
 ```java
-
-    private boolean hoodieFilter = false;
-    private boolean isRealTime = false;
-
-    protected HoodieParquetInputFormat createParquetInputFormat() {
+        + "Set \"dry_run\" means only looking for dangling data and log files; "
+        + "Set \"undo\" means undoing the repair by copying back the files from backup directory", required = true)
+    public String runningMode = null;
+    @Parameter(names = {"--start-instant-time", "-si"}, description = "Starting Instant time "
+        + "for repair (inclusive)", required = false)
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
 #### Snippet
 ```java
-      implements org.apache.hadoop.hive.shims.HadoopShims.CombineFileInputFormatShim<K, V> {
+    public int parallelism = 2;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
+    public String sparkMemory = "1g";
+```
 
-    private boolean hoodieFilter = false;
-    private boolean isRealTime = false;
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--start-instant-time", "-si"}, description = "Starting Instant time "
+        + "for repair (inclusive)", required = false)
+    public String startingInstantTime = null;
+    @Parameter(names = {"--end-instant-time", "-ei"}, description = "Ending Instant time "
+        + "for repair (inclusive)", required = false)
+```
 
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+        + "hoodie client for table repair")
+    public String propsFilePath = null;
+
+    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27170,110 +27278,50 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotCopier.
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
-    public int retry = 0;
+    public boolean skipValidation = false;
+    @Parameter(names = {"--output-path", "-ot"}, description = "Output Path", required = false)
+    public String outputPath = null;
+    @Parameter(names = {"--print-output", "-pt"}, description = "Print Output", required = false)
+    public boolean printOutput = true;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
+#### Snippet
+```java
+    public boolean dryRun = false;
+    @Parameter(names = {"--skip-validation", "-sv"}, description = "Skip Validation", required = false)
+    public boolean skipValidation = false;
+    @Parameter(names = {"--output-path", "-ot"}, description = "Output Path", required = false)
+    public String outputPath = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-        + "hoodie client for clustering")
-    public String propsFilePath = null;
-
-    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
+    public String compactionInstantTime = null;
+    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
+    public String partitionPath = null;
+    @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
+    public String fileId = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
-#### Snippet
-```java
-  public static class Config implements Serializable {
-    @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
-    public String basePath = null;
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
-    public String tableName = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
-#### Snippet
-```java
-    public int parallelism = 1;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
-#### Snippet
-```java
-        + "the earliest scheduled clustering instant time is used by default. "
-        + "When set \"--mode scheduleAndExecute\" this instant-time will be ignored.")
-    public String clusteringInstantTime = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert")
-    public int parallelism = 1;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
-#### Snippet
-```java
-        + "Set \"execute\" means execute a cluster plan at given instant which means --instant-time is needed here; "
-        + "Set \"scheduleAndExecute\" means make a cluster plan first and execute that plan immediately")
-    public String runningMode = null;
-
-    @Parameter(names = {"--help", "-h"}, help = true)
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
-#### Snippet
-```java
-    public String sparkMemory = null;
-    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
-    public int retry = 0;
-
-    @Parameter(names = {"--schedule", "-sc"}, description = "Schedule clustering @desperate soon please use \"--mode schedule\" instead")
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
-#### Snippet
-```java
-    @Parameter(names = {"--job-max-processing-time-ms", "-jt"}, description = "Take effect when using --mode/-m scheduleAndExecute and --retry-last-failed-clustering-job/-rc true. "
-        + "If maxProcessingTimeMs passed but clustering job is still unfinished, hoodie would consider this job as failed and relaunch.")
-    public long maxProcessingTimeMs = 0;
-
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
     public String basePath = null;
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
-    public String tableName = null;
-    @Parameter(names = {"--instant-time", "-it"}, description = "Clustering Instant time, only used when set --mode execute. "
-        + "If the instant time is not provided with --mode execute, "
+    @Parameter(names = {"--instant-time", "-in"}, description = "Compaction Instant time", required = false)
+    public String compactionInstantTime = null;
+    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
+    public String partitionPath = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27286,6 +27334,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdmin
     public boolean dryRun = false;
     @Parameter(names = {"--skip-validation", "-sv"}, description = "Skip Validation", required = false)
     public boolean skipValidation = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
+#### Snippet
+```java
+    public int parallelism = 3;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = true)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27305,59 +27365,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
-    public boolean skipValidation = false;
-    @Parameter(names = {"--output-path", "-ot"}, description = "Output Path", required = false)
-    public String outputPath = null;
-    @Parameter(names = {"--print-output", "-pt"}, description = "Print Output", required = false)
-    public boolean printOutput = true;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
-#### Snippet
-```java
-    public int parallelism = 3;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = true)
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
-#### Snippet
-```java
-    public boolean dryRun = false;
-    @Parameter(names = {"--skip-validation", "-sv"}, description = "Skip Validation", required = false)
-    public boolean skipValidation = false;
-    @Parameter(names = {"--output-path", "-ot"}, description = "Output Path", required = false)
-    public String outputPath = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
-#### Snippet
-```java
     public String partitionPath = null;
     @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
     public String fileId = null;
     @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
     public int parallelism = 3;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
-#### Snippet
-```java
-    public String basePath = null;
-    @Parameter(names = {"--instant-time", "-in"}, description = "Compaction Instant time", required = false)
-    public String compactionInstantTime = null;
-    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
-    public String partitionPath = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27374,26 +27386,14 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdmin
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
-#### Snippet
-```java
-    public String compactionInstantTime = null;
-    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
-    public String partitionPath = null;
-    @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
-    public String fileId = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-    public String partitionValueExtractorClass = "org.apache.hudi.hive.SlashEncodedDayPartitionValueExtractor";
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
-    public String sparkMemory = "1g";
+    public boolean syncToHive = false;
+    @Parameter(names = {"--hive-database", "-db"}, description = "Database to sync to.", required = false)
+    public String hiveDataBase = null;
+    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
+    public String hiveTableName = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27406,54 +27406,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsT
     public boolean syncToHive = false;
     @Parameter(names = {"--hive-database", "-db"}, description = "Database to sync to.", required = false)
     public String hiveDataBase = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    public String hiveSyncMode = "hms";
-    @Parameter(names = {"--hive-sync-ignore-exception"}, description = "Ignore hive sync exception.", required = false)
-    public boolean hiveSyncIgnoreException = false;
-    @Parameter(names = {"--hive-partition-value-extractor-class"}, description = "Class which implements PartitionValueExtractor to extract the partition values,"
-        + " default 'SlashEncodedDayPartitionValueExtractor'.", required = false)
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    public int parallelism = 1500;
-    @Parameter(names = {"--instant-time", "-it"}, description = "instant time for delete table partitions operation.", required = false)
-    public String instantTime = null;
-    @Parameter(names = {"--sync-hive-meta", "-sync"}, description = "Sync information to HMS.", required = false)
-    public boolean syncToHive = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    public String hiveDataBase = null;
-    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
-    public String hiveTableName = null;
-    @Parameter(names = {"--hive-user-name", "-user"}, description = "hive user name to use.", required = false)
-    public String hiveUserName = "hive";
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    public boolean syncToHive = false;
-    @Parameter(names = {"--hive-database", "-db"}, description = "Database to sync to.", required = false)
-    public String hiveDataBase = null;
-    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
-    public String hiveTableName = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27473,11 +27425,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-    public String tableName = null;
-    @Parameter(names = {"--partitions", "-p"}, description = "Comma separated list of partitions to delete.", required = true)
-    public String partitions = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert/upsert/delete", required = false)
-    public int parallelism = 1500;
+    public String hiveDataBase = null;
+    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
+    public String hiveTableName = null;
+    @Parameter(names = {"--hive-user-name", "-user"}, description = "hive user name to use.", required = false)
+    public String hiveUserName = "hive";
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27497,11 +27449,23 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-        + "Set \"delete\" means mask/tombstone these partitions and corresponding data files table partitions and let cleaner delete these files later;"
-        + "Set \"dry_run\" means only looking for the table partitions will be deleted and corresponding data files.", required = true)
-    public String runningMode = null;
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
     public String tableName = null;
+    @Parameter(names = {"--partitions", "-p"}, description = "Comma separated list of partitions to delete.", required = true)
+    public String partitions = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert/upsert/delete", required = false)
+    public int parallelism = 1500;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    public String hiveSyncMode = "hms";
+    @Parameter(names = {"--hive-sync-ignore-exception"}, description = "Ignore hive sync exception.", required = false)
+    public boolean hiveSyncIgnoreException = false;
+    @Parameter(names = {"--hive-partition-value-extractor-class"}, description = "Class which implements PartitionValueExtractor to extract the partition values,"
+        + " default 'SlashEncodedDayPartitionValueExtractor'.", required = false)
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27521,11 +27485,83 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
+    public int parallelism = 1500;
+    @Parameter(names = {"--instant-time", "-it"}, description = "instant time for delete table partitions operation.", required = false)
+    public String instantTime = null;
+    @Parameter(names = {"--sync-hive-meta", "-sync"}, description = "Sync information to HMS.", required = false)
+    public boolean syncToHive = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+        + "Set \"delete\" means mask/tombstone these partitions and corresponding data files table partitions and let cleaner delete these files later;"
+        + "Set \"dry_run\" means only looking for the table partitions will be deleted and corresponding data files.", required = true)
+    public String runningMode = null;
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
   public static class Config implements Serializable {
     @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
     public String basePath = null;
     @Parameter(names = {"--mode", "-m"}, description = "Set job mode: "
         + "Set \"delete\" means mask/tombstone these partitions and corresponding data files table partitions and let cleaner delete these files later;"
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    public String partitionValueExtractorClass = "org.apache.hudi.hive.SlashEncodedDayPartitionValueExtractor";
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
+    public String sparkMemory = "1g";
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
+#### Snippet
+```java
+    public String tableName = null;
+    @Parameter(names = {"--instant-time", "-it"}, description = "Indexing Instant time")
+    public String indexInstantTime = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = true)
+    public int parallelism = 1;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
+#### Snippet
+```java
+    public String sparkMemory = null;
+    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
+    public int retry = 0;
+    @Parameter(names = {"--index-types", "-ixt"}, description = "Comma-separated index types to be built, e.g. BLOOM_FILTERS,COLUMN_STATS", required = true)
+    public String indexTypes = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
+#### Snippet
+```java
+    public String basePath = null;
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
+    @Parameter(names = {"--instant-time", "-it"}, description = "Indexing Instant time")
+    public String indexInstantTime = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27545,18 +27581,6 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
 #### Snippet
 ```java
-        + "Set \"scheduleandExecute\" to generate an indexing plan first and execute that plan immediately;"
-        + "Set \"dropindex\" to drop the index types specified in --index-types;")
-    public String runningMode = null;
-    @Parameter(names = {"--help", "-h"}, help = true)
-    public Boolean help = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
-#### Snippet
-```java
   public static class Config implements Serializable {
     @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
     public String basePath = null;
@@ -27569,11 +27593,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
 #### Snippet
 ```java
-    public String basePath = null;
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
-    public String tableName = null;
-    @Parameter(names = {"--instant-time", "-it"}, description = "Indexing Instant time")
-    public String indexInstantTime = null;
+    public int parallelism = 1;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27605,35 +27629,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
 #### Snippet
 ```java
-    public int parallelism = 1;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
-#### Snippet
-```java
-    public String sparkMemory = null;
-    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
-    public int retry = 0;
-    @Parameter(names = {"--index-types", "-ixt"}, description = "Comma-separated index types to be built, e.g. BLOOM_FILTERS,COLUMN_STATS", required = true)
-    public String indexTypes = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
-#### Snippet
-```java
-    public String tableName = null;
-    @Parameter(names = {"--instant-time", "-it"}, description = "Indexing Instant time")
-    public String indexInstantTime = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = true)
-    public int parallelism = 1;
+        + "Set \"scheduleandExecute\" to generate an indexing plan first and execute that plan immediately;"
+        + "Set \"dropindex\" to drop the index types specified in --index-types;")
+    public String runningMode = null;
+    @Parameter(names = {"--help", "-h"}, help = true)
+    public Boolean help = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27654,6 +27654,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableVa
 #### Snippet
 ```java
 
+    @Parameter(names = {"--validate-bloom-filters"}, description = "Validate bloom filters of base files", required = false)
+    public boolean validateBloomFilters = false;
+
+    @Parameter(names = {"--min-validate-interval-seconds"},
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+
     @Parameter(names = {"--validate-latest-base-files"}, description = "Validate latest base files for all partitions.", required = false)
     public boolean validateLatestBaseFiles = false;
 
@@ -27666,46 +27678,10 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableVa
 #### Snippet
 ```java
 
-    @Parameter(names = {"--skip-data-files-for-cleaning"}, description = "Skip to compare the data files which are under deletion by cleaner", required = false)
-    public boolean skipDataFilesForCleaning = false;
+    @Parameter(names = {"--ignore-failed", "-ig"}, description = "Ignore metadata validate failure and continue.", required = false)
+    public boolean ignoreFailed = false;
 
-    @Parameter(names = {"--validate-latest-file-slices"}, description = "Validate latest file slices for all partitions.", required = false)
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--validate-all-column-stats"}, description = "Validate column stats for all columns in the schema", required = false)
-    public boolean validateAllColumnStats = false;
-
-    @Parameter(names = {"--validate-bloom-filters"}, description = "Validate bloom filters of base files", required = false)
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--validate-all-file-groups"}, description = "Validate all file groups, and all file slices within file groups.", required = false)
-    public boolean validateAllFileGroups = false;
-
-    @Parameter(names = {"--validate-all-column-stats"}, description = "Validate column stats for all columns in the schema", required = false)
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--validate-latest-file-slices"}, description = "Validate latest file slices for all partitions.", required = false)
-    public boolean validateLatestFileSlices = false;
-
-    @Parameter(names = {"--validate-latest-base-files"}, description = "Validate latest base files for all partitions.", required = false)
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27725,11 +27701,11 @@ Field initialization to `false` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
-        + "Can use --min-validate-interval-seconds to control validation frequency", required = false)
-    public boolean continuous = false;
 
-    @Parameter(names = {"--skip-data-files-for-cleaning"}, description = "Skip to compare the data files which are under deletion by cleaner", required = false)
+    @Parameter(names = {"--validate-latest-file-slices"}, description = "Validate latest file slices for all partitions.", required = false)
+    public boolean validateLatestFileSlices = false;
+
+    @Parameter(names = {"--validate-latest-base-files"}, description = "Validate latest base files for all partitions.", required = false)
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27750,10 +27726,10 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableVa
 #### Snippet
 ```java
 
-    @Parameter(names = {"--ignore-failed", "-ig"}, description = "Ignore metadata validate failure and continue.", required = false)
-    public boolean ignoreFailed = false;
+    @Parameter(names = {"--validate-all-file-groups"}, description = "Validate all file groups, and all file slices within file groups.", required = false)
+    public boolean validateAllFileGroups = false;
 
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    @Parameter(names = {"--validate-all-column-stats"}, description = "Validate column stats for all columns in the schema", required = false)
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27762,10 +27738,22 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableVa
 #### Snippet
 ```java
 
-    @Parameter(names = {"--validate-bloom-filters"}, description = "Validate bloom filters of base files", required = false)
-    public boolean validateBloomFilters = false;
+    @Parameter(names = {"--validate-all-column-stats"}, description = "Validate column stats for all columns in the schema", required = false)
+    public boolean validateAllColumnStats = false;
 
-    @Parameter(names = {"--min-validate-interval-seconds"},
+    @Parameter(names = {"--validate-bloom-filters"}, description = "Validate bloom filters of base files", required = false)
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
+        + "Can use --min-validate-interval-seconds to control validation frequency", required = false)
+    public boolean continuous = false;
+
+    @Parameter(names = {"--skip-data-files-for-cleaning"}, description = "Skip to compare the data files which are under deletion by cleaner", required = false)
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27778,6 +27766,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableVa
     public String propsFilePath = null;
 
     @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+
+    @Parameter(names = {"--skip-data-files-for-cleaning"}, description = "Skip to compare the data files which are under deletion by cleaner", required = false)
+    public boolean skipDataFilesForCleaning = false;
+
+    @Parameter(names = {"--validate-latest-file-slices"}, description = "Validate latest file slices for all partitions.", required = false)
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27797,18 +27797,6 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
 #### Snippet
 ```java
-  public String overallTimerName = null;
-  public String hiveSyncTimerName = null;
-  public String metaSyncTimerName = null;
-  private transient Timer overallTimer = null;
-  public transient Timer hiveSyncTimer = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
-#### Snippet
-```java
   private transient Timer overallTimer = null;
   public transient Timer hiveSyncTimer = null;
   public transient Timer metaSyncTimer = null;
@@ -27821,11 +27809,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
 #### Snippet
 ```java
-  public String hiveSyncTimerName = null;
   public String metaSyncTimerName = null;
   private transient Timer overallTimer = null;
   public transient Timer hiveSyncTimer = null;
   public transient Timer metaSyncTimer = null;
+
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27833,11 +27821,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
 #### Snippet
 ```java
+
+  public String overallTimerName = null;
+  public String hiveSyncTimerName = null;
   public String metaSyncTimerName = null;
   private transient Timer overallTimer = null;
-  public transient Timer hiveSyncTimer = null;
-  public transient Timer metaSyncTimer = null;
-
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27857,11 +27845,35 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
 #### Snippet
 ```java
+  public String hiveSyncTimerName = null;
+  public String metaSyncTimerName = null;
+  private transient Timer overallTimer = null;
+  public transient Timer hiveSyncTimer = null;
+  public transient Timer metaSyncTimer = null;
+```
 
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
+#### Snippet
+```java
   public String overallTimerName = null;
   public String hiveSyncTimerName = null;
   public String metaSyncTimerName = null;
   private transient Timer overallTimer = null;
+  public transient Timer hiveSyncTimer = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieMultiTableDeltaStreamer.java`
+#### Snippet
+```java
+        + "allows a SQL query templated to be passed as a transformation function). "
+        + "Pass a comma-separated list of subclass names to chain the transformations.")
+    public List<String> transformerClassNames = null;
+
+    @Parameter(names = {"--source-limit"}, description = "Maximum amount of data to read from source. "
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -27889,12 +27901,96 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieM
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieMultiTableDeltaStreamer.java`
+Field initialization to `0L` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteFunction.java`
 #### Snippet
 ```java
-        + "allows a SQL query templated to be passed as a transformation function). "
-        + "Pass a comma-separated list of subclass names to chain the transformations.")
+   */
+  private static class TotalSizeTracer {
+    private long bufferSize = 0L;
+    private final double maxBufferSize;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0L` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteFunction.java`
+#### Snippet
+```java
+
+    private long lastRecordSize = -1L;
+    private long totalSize = 0L;
+
+    BufferSizeDetector(double batchSizeMb) {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/BulkInsertWriterHelper.java`
+#### Snippet
+```java
+  private String lastKnownPartitionPath = null;
+  private final String fileIdPrefix;
+  private int numFilesWritten = 0;
+  protected final Map<String, HoodieRowDataCreateHandle> handles = new HashMap<>();
+  @Nullable protected final RowDataKeyGen keyGen;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/BulkInsertWriterHelper.java`
+#### Snippet
+```java
+  private final List<HoodieInternalWriteStatus> writeStatusList = new ArrayList<>();
+  protected HoodieRowDataCreateHandle handle;
+  private String lastKnownPartitionPath = null;
+  private final String fileIdPrefix;
+  private int numFilesWritten = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/RowDataKeyGen.java`
+#### Snippet
+```java
+  private RowData.FieldGetter recordKeyFieldGetter;
+
+  private boolean simplePartitionPath = false;
+  private RowData.FieldGetter partitionPathFieldGetter;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/RowDataKeyGen.java`
+#### Snippet
+```java
+
+  // efficient code path
+  private boolean simpleRecordKey = false;
+  private RowData.FieldGetter recordKeyFieldGetter;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamer.java`
+#### Snippet
+```java
+        + " For Sources that return Dataset<Row>, the schema is obtained implicitly. "
+        + "However, this CLI option allows overriding the schemaprovider returned by Source.")
+    public String schemaProviderClassName = null;
+
+    @Parameter(names = {"--transformer-class"},
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamer.java`
+#### Snippet
+```java
+            + "allows a SQL query templated to be passed as a transformation function). "
+            + "Pass a comma-separated list of subclass names to chain the transformations.")
     public List<String> transformerClassNames = null;
 
     @Parameter(names = {"--source-limit"}, description = "Maximum amount of data to read from source. "
@@ -27925,102 +28021,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieD
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamer.java`
-#### Snippet
-```java
-            + "allows a SQL query templated to be passed as a transformation function). "
-            + "Pass a comma-separated list of subclass names to chain the transformations.")
-    public List<String> transformerClassNames = null;
-
-    @Parameter(names = {"--source-limit"}, description = "Maximum amount of data to read from source. "
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamer.java`
-#### Snippet
-```java
-        + " For Sources that return Dataset<Row>, the schema is obtained implicitly. "
-        + "However, this CLI option allows overriding the schemaprovider returned by Source.")
-    public String schemaProviderClassName = null;
-
-    @Parameter(names = {"--transformer-class"},
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/BulkInsertWriterHelper.java`
-#### Snippet
-```java
-  private final List<HoodieInternalWriteStatus> writeStatusList = new ArrayList<>();
-  protected HoodieRowDataCreateHandle handle;
-  private String lastKnownPartitionPath = null;
-  private final String fileIdPrefix;
-  private int numFilesWritten = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/BulkInsertWriterHelper.java`
-#### Snippet
-```java
-  private String lastKnownPartitionPath = null;
-  private final String fileIdPrefix;
-  private int numFilesWritten = 0;
-  protected final Map<String, HoodieRowDataCreateHandle> handles = new HashMap<>();
-  @Nullable protected final RowDataKeyGen keyGen;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0L` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteFunction.java`
-#### Snippet
-```java
-   */
-  private static class TotalSizeTracer {
-    private long bufferSize = 0L;
-    private final double maxBufferSize;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0L` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteFunction.java`
-#### Snippet
-```java
-
-    private long lastRecordSize = -1L;
-    private long totalSize = 0L;
-
-    BufferSizeDetector(double batchSizeMb) {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/RowDataKeyGen.java`
-#### Snippet
-```java
-
-  // efficient code path
-  private boolean simpleRecordKey = false;
-  private RowData.FieldGetter recordKeyFieldGetter;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/RowDataKeyGen.java`
-#### Snippet
-```java
-  private RowData.FieldGetter recordKeyFieldGetter;
-
-  private boolean simplePartitionPath = false;
-  private RowData.FieldGetter partitionPathFieldGetter;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0L` is redundant
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/utils/TimeWait.java`
 #### Snippet
@@ -28030,6 +28030,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/utils/Ti
   private long waitingTime = 0L;
 
   private TimeWait(long timeout, long interval, String action) {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/event/WriteMetadataEvent.java`
+#### Snippet
+```java
+    private String instantTime;
+    private boolean lastBatch = false;
+    private boolean endInput = false;
+    private boolean bootstrap = false;
+
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -28054,18 +28066,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/event/Wr
     private boolean bootstrap = false;
 
     public WriteMetadataEvent build() {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/event/WriteMetadataEvent.java`
-#### Snippet
-```java
-    private String instantTime;
-    private boolean lastBatch = false;
-    private boolean endInput = false;
-    private boolean bootstrap = false;
-
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -28117,6 +28117,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/BucketAssigner.java`
+#### Snippet
+```java
+    final SmallFileAssignState[] states;
+    int assignIdx = 0;
+    boolean noSpace = false;
+
+    SmallFileAssign(SmallFileAssignState[] states) {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/BucketAssigner.java`
 #### Snippet
@@ -28130,18 +28142,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/BucketAssigner.java`
-#### Snippet
-```java
-    final SmallFileAssignState[] states;
-    int assignIdx = 0;
-    boolean noSpace = false;
-
-    SmallFileAssign(SmallFileAssignState[] states) {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSink.java`
 #### Snippet
 ```java
@@ -28150,6 +28150,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieT
   private boolean overwrite = false;
 
   public HoodieTableSink(Configuration conf, ResolvedSchema schema) {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
+#### Snippet
+```java
+    protected String defaultPartName;
+    protected long limit = -1;
+    protected boolean emitDelete = false;
+
+    public Builder config(Configuration conf) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -28174,18 +28186,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
     private boolean readLogs = false;
 
     private final Set<String> keyToSkip = new HashSet<>();
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
-#### Snippet
-```java
-    protected String defaultPartName;
-    protected long limit = -1;
-    protected boolean emitDelete = false;
-
-    public Builder config(Configuration conf) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -28238,18 +28238,6 @@ in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/f
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
-#### Snippet
-```java
-    private Set<String> requiredPartitions;
-    // skip compaction
-    private boolean skipCompaction = false;
-
-    public Builder() {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
 in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/ArrayColumnReader.java`
 #### Snippet
 ```java
@@ -28258,6 +28246,18 @@ in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/f
   private boolean eof = false;
 
   // flag to indicate if it's the first time to read parquet data page with this instance
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
+#### Snippet
+```java
+    private Set<String> requiredPartitions;
+    // skip compaction
+    private boolean skipCompaction = false;
+
+    public Builder() {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -28325,11 +28325,11 @@ Field initialization to `null` is redundant
 in `hudi-spark-datasource/hudi-spark-common/src/main/java/org/apache/hudi/internal/BaseDefaultSource.java`
 #### Snippet
 ```java
-public class BaseDefaultSource {
 
   protected SparkSession sparkSession = null;
   protected Configuration configuration = null;
 
+  protected SparkSession getSparkSession() {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -28337,11 +28337,11 @@ Field initialization to `null` is redundant
 in `hudi-spark-datasource/hudi-spark-common/src/main/java/org/apache/hudi/internal/BaseDefaultSource.java`
 #### Snippet
 ```java
+public class BaseDefaultSource {
 
   protected SparkSession sparkSession = null;
   protected Configuration configuration = null;
 
-  protected SparkSession getSparkSession() {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -28385,11 +28385,11 @@ Field initialization to `false` is redundant
 in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/TimelineService.java`
 #### Snippet
 ```java
-      private String rocksDBPath = FileSystemViewStorageConfig.ROCKSDB_BASE_PATH.defaultValue();
-      private int numThreads = DEFAULT_NUM_THREADS;
-      private boolean async = false;
-      private boolean compress = true;
-      private boolean enableMarkerRequests = false;
+
+    @Parameter(names = {"--async"}, description = "Use asyncronous request processing")
+    public boolean async = false;
+
+    @Parameter(names = {"--compress"}, description = "Compress output using gzip")
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -28397,11 +28397,11 @@ Field initialization to `false` is redundant
 in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/TimelineService.java`
 #### Snippet
 ```java
-
-    @Parameter(names = {"--async"}, description = "Use asyncronous request processing")
-    public boolean async = false;
-
-    @Parameter(names = {"--compress"}, description = "Compress output using gzip")
+      private String rocksDBPath = FileSystemViewStorageConfig.ROCKSDB_BASE_PATH.defaultValue();
+      private int numThreads = DEFAULT_NUM_THREADS;
+      private boolean async = false;
+      private boolean compress = true;
+      private boolean enableMarkerRequests = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -28445,6 +28445,42 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
 #### Snippet
 ```java
+    public String format = null;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    @Parameter(names = {"--target-path", "-tp"}, description = "Base path for the target hoodie table",
+        required = true)
+    public String targetPath = null;
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    public String schemaFile = null;
+    @Parameter(names = {"--format", "-f"}, description = "Format for the input data.", validateValueWith = FormatValidator.class)
+    public String format = null;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
+    public String sparkMaster = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
     public String rowKey = null;
     @Parameter(names = {"--partition-key-field", "-pk"}, description = "Partition key field name", required = true)
     public String partitionKey = null;
@@ -28469,35 +28505,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
 #### Snippet
 ```java
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
-    public int retry = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public String schemaFile = null;
-    @Parameter(names = {"--format", "-f"}, description = "Format for the input data.", validateValueWith = FormatValidator.class)
-    public String format = null;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
-    public String sparkMaster = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public String targetPath = null;
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
-    public String tableName = null;
-    @Parameter(names = {"--table-type", "-tt"}, description = "Table type", required = true)
-    public String tableType = null;
+    public String command = "INSERT";
+    @Parameter(names = {"--src-path", "-sp"}, description = "Base path for the input table", required = true)
+    public String srcPath = null;
+    @Parameter(names = {"--target-path", "-tp"}, description = "Base path for the target hoodie table",
+        required = true)
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -28517,47 +28529,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
 #### Snippet
 ```java
-    public String command = "INSERT";
-    @Parameter(names = {"--src-path", "-sp"}, description = "Base path for the input table", required = true)
-    public String srcPath = null;
-    @Parameter(names = {"--target-path", "-tp"}, description = "Base path for the target hoodie table",
-        required = true)
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public String format = null;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    @Parameter(names = {"--target-path", "-tp"}, description = "Base path for the target hoodie table",
-        required = true)
-    public String targetPath = null;
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
     public String tableName = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-        + "hoodie client for importing")
-    public String propsFilePath = null;
-    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
-        + "(using the CLI parameter \"--props\") can also be passed command line using this parameter. This can be repeated",
+    @Parameter(names = {"--table-type", "-tt"}, description = "Table type", required = true)
+    public String tableType = null;
+    @Parameter(names = {"--row-key-field", "-rk"}, description = "Row key field name", required = true)
+    public String rowKey = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -28577,11 +28553,35 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
 #### Snippet
 ```java
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
+    public int retry = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    public String targetPath = null;
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
     public String tableName = null;
     @Parameter(names = {"--table-type", "-tt"}, description = "Table type", required = true)
     public String tableType = null;
-    @Parameter(names = {"--row-key-field", "-rk"}, description = "Row key field name", required = true)
-    public String rowKey = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+        + "hoodie client for importing")
+    public String propsFilePath = null;
+    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
+        + "(using the CLI parameter \"--props\") can also be passed command line using this parameter. This can be repeated",
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -28779,18 +28779,6 @@ public class HeapArrayVector extends AbstractHeapVector
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `WritableColumnVector`
-in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapMapColumnVector.java`
-#### Snippet
-```java
- */
-public class HeapMapColumnVector extends AbstractHeapVector
-    implements WritableColumnVector, MapColumnVector {
-
-  private long[] offsets;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `WritableColumnVector`
 in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapRowColumnVector.java`
 #### Snippet
 ```java
@@ -28799,6 +28787,18 @@ public class HeapRowColumnVector extends AbstractHeapVector
     implements WritableColumnVector, RowColumnVector {
 
   public WritableColumnVector[] vectors;
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `WritableColumnVector`
+in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapMapColumnVector.java`
+#### Snippet
+```java
+ */
+public class HeapMapColumnVector extends AbstractHeapVector
+    implements WritableColumnVector, MapColumnVector {
+
+  private long[] offsets;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -28815,18 +28815,6 @@ public class HeapArrayVector extends AbstractHeapVector
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `WritableColumnVector`
-in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapMapColumnVector.java`
-#### Snippet
-```java
- */
-public class HeapMapColumnVector extends AbstractHeapVector
-    implements WritableColumnVector, MapColumnVector {
-
-  private long[] offsets;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `WritableColumnVector`
 in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapRowColumnVector.java`
 #### Snippet
 ```java
@@ -28835,6 +28823,18 @@ public class HeapRowColumnVector extends AbstractHeapVector
     implements WritableColumnVector, RowColumnVector {
 
   public WritableColumnVector[] vectors;
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `WritableColumnVector`
+in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapMapColumnVector.java`
+#### Snippet
+```java
+ */
+public class HeapMapColumnVector extends AbstractHeapVector
+    implements WritableColumnVector, MapColumnVector {
+
+  private long[] offsets;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -29337,18 +29337,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.jav
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieCommandBlock.java`
-#### Snippet
-```java
-  @Override
-  public byte[] getContentBytes() {
-    return new byte[0];
-  }
-}
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieParquetDataBlock.java`
 #### Snippet
 ```java
@@ -29361,14 +29349,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieParqu
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RemoteHoodieTableFileSystemView.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieCommandBlock.java`
 #### Snippet
 ```java
-  public Stream<FileSlice> getLatestFileSliceInRange(List<String> commitsToReturn) {
-    Map<String, String> paramsMap =
-        getParams(INSTANTS_PARAM, StringUtils.join(commitsToReturn.toArray(new String[0]), ","));
-    try {
-      List<FileSliceDTO> dataFiles = executeRequest(LATEST_SLICES_RANGE_INSTANT_URL, paramsMap,
+  @Override
+  public byte[] getContentBytes() {
+    return new byte[0];
+  }
+}
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -29385,6 +29373,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RemoteHoodieTabl
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RemoteHoodieTableFileSystemView.java`
+#### Snippet
+```java
+  public Stream<FileSlice> getLatestFileSliceInRange(List<String> commitsToReturn) {
+    Map<String, String> paramsMap =
+        getParams(INSTANTS_PARAM, StringUtils.join(commitsToReturn.toArray(new String[0]), ","));
+    try {
+      List<FileSliceDTO> dataFiles = executeRequest(LATEST_SLICES_RANGE_INSTANT_URL, paramsMap,
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/AbstractTableFileSystemView.java`
 #### Snippet
 ```java
@@ -29393,6 +29393,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/AbstractTableFil
         return new FileStatus[0];
       } else {
         // in case the partition path was created by another caller
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
+#### Snippet
+```java
+        if (bytes.isPresent()) {
+          indexByPartitionWriter
+              .append(new KeyValue(Bytes.toBytes(getPartitionKey(partitionPath)), new byte[0], new byte[0],
+                  HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, bytes.get()));
+          numPartitionKeysAdded++;
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
+#### Snippet
+```java
+        if (bytes.isPresent()) {
+          indexByPartitionWriter
+              .append(new KeyValue(Bytes.toBytes(getPartitionKey(partitionPath)), new byte[0], new byte[0],
+                  HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, bytes.get()));
+          numPartitionKeysAdded++;
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -29493,26 +29517,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootst
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
 #### Snippet
 ```java
-        if (bytes.isPresent()) {
-          indexByPartitionWriter
-              .append(new KeyValue(Bytes.toBytes(getPartitionKey(partitionPath)), new byte[0], new byte[0],
-                  HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, bytes.get()));
-          numPartitionKeysAdded++;
-```
+      nameToId = InternalSchemaBuilder.getBuilder().buildNameToId(record);
+    }
+    return Arrays.asList(nameToId.keySet().toArray(new String[0]));
+  }
 
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
-#### Snippet
-```java
-        if (bytes.isPresent()) {
-          indexByPartitionWriter
-              .append(new KeyValue(Bytes.toBytes(getPartitionKey(partitionPath)), new byte[0], new byte[0],
-                  HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, bytes.get()));
-          numPartitionKeysAdded++;
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -29523,18 +29535,6 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.jav
         StringUtils.join(record.fields().stream()
             .map(f -> " " + f)
             .collect(Collectors.toList()).toArray(new String[0]), "\n"));
-  }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
-#### Snippet
-```java
-      nameToId = InternalSchemaBuilder.getBuilder().buildNameToId(record);
-    }
-    return Arrays.asList(nameToId.keySet().toArray(new String[0]));
   }
 
 ```
@@ -29592,35 +29592,35 @@ Allocation of zero length array
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableInputFormat.java`
 #### Snippet
 ```java
+      FileStatus externalFileStatus = file.getBootstrapFileStatus();
+      FileSplit externalFileSplit = makeSplit(externalFileStatus.getPath(), 0, externalFileStatus.getLen(),
+          new String[0], new String[0]);
+      return new BootstrapBaseFileSplit(split, externalFileSplit);
+    } catch (IOException e) {
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableInputFormat.java`
+#### Snippet
+```java
+      FileStatus externalFileStatus = file.getBootstrapFileStatus();
+      FileSplit externalFileSplit = makeSplit(externalFileStatus.getPath(), 0, externalFileStatus.getLen(),
+          new String[0], new String[0]);
+      return new BootstrapBaseFileSplit(split, externalFileSplit);
+    } catch (IOException e) {
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableInputFormat.java`
+#### Snippet
+```java
       returns.addAll(listStatusForSnapshotMode(job, tableMetaClientMap, snapshotPaths));
     }
     return returns.toArray(new FileStatus[0]);
   }
 
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableInputFormat.java`
-#### Snippet
-```java
-      FileStatus externalFileStatus = file.getBootstrapFileStatus();
-      FileSplit externalFileSplit = makeSplit(externalFileStatus.getPath(), 0, externalFileStatus.getLen(),
-          new String[0], new String[0]);
-      return new BootstrapBaseFileSplit(split, externalFileSplit);
-    } catch (IOException e) {
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableInputFormat.java`
-#### Snippet
-```java
-      FileStatus externalFileStatus = file.getBootstrapFileStatus();
-      FileSplit externalFileSplit = makeSplit(externalFileStatus.getPath(), 0, externalFileStatus.getLen(),
-          new String[0], new String[0]);
-      return new BootstrapBaseFileSplit(split, externalFileSplit);
-    } catch (IOException e) {
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -29712,18 +29712,6 @@ Allocation of zero length array
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
 #### Snippet
 ```java
-        .listAffectedFilesForCommits(job, new Path(tableMetaClient.getBasePath()), metadataList));
-    // step3
-    HoodieTableFileSystemView fsView = new HoodieTableFileSystemView(tableMetaClient, commitsTimelineToReturn, affectedFileStatus.toArray(new FileStatus[0]));
-    // build fileGroup from fsView
-    Path basePath = new Path(tableMetaClient.getBasePath());
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
-#### Snippet
-```java
     try {
       String[] hosts = split.getLocationInfo() != null ? Arrays.stream(split.getLocationInfo())
           .filter(x -> !x.isInMemory()).toArray(String[]::new) : new String[0];
@@ -29741,6 +29729,18 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnRe
           .filter(SplitLocationInfo::isInMemory).toArray(String[]::new) : new String[0];
       FileSplit baseSplit = new FileSplit(split.getPath(), split.getStart(), split.getLength(),
           hosts, inMemoryHosts);
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
+#### Snippet
+```java
+        .listAffectedFilesForCommits(job, new Path(tableMetaClient.getBasePath()), metadataList));
+    // step3
+    HoodieTableFileSystemView fsView = new HoodieTableFileSystemView(tableMetaClient, commitsTimelineToReturn, affectedFileStatus.toArray(new FileStatus[0]));
+    // build fileGroup from fsView
+    Path basePath = new Path(tableMetaClient.getBasePath());
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -29809,7 +29809,7 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
 #### Snippet
 ```java
     metadataList.forEach(metadata ->
-        uniqueIdToFileStatus.putAll(getFilesToReadOfInstant(basePath, metadata, fs, tableType)));
+        uniqueIdToFileStatus.putAll(getFilesToReadOfInstant(basePath, metadata, hadoopConf, tableType)));
     return uniqueIdToFileStatus.values().toArray(new FileStatus[0]);
   }
 
@@ -29821,7 +29821,7 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
 #### Snippet
 ```java
     metadataList.forEach(metadata ->
-        uniqueIdToFileStatus.putAll(getFilesToReadOfInstant(basePath, metadata, hadoopConf, tableType)));
+        uniqueIdToFileStatus.putAll(getFilesToReadOfInstant(basePath, metadata, fs, tableType)));
     return uniqueIdToFileStatus.values().toArray(new FileStatus[0]);
   }
 
@@ -29904,6 +29904,18 @@ Allocation of zero length array
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FilePathUtils.java`
 #### Snippet
 ```java
+  public static String[] extractPartitionKeys(org.apache.flink.configuration.Configuration conf) {
+    if (FlinkOptions.isDefaultValueDefined(conf, FlinkOptions.PARTITION_PATH_FIELD)) {
+      return new String[0];
+    }
+    return conf.getString(FlinkOptions.PARTITION_PATH_FIELD).split(",");
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FilePathUtils.java`
+#### Snippet
+```java
               path,
               hivePartition,
               partitionKeys.toArray(new String[0]))
@@ -29913,14 +29925,14 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FilePathUtils.java`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
 #### Snippet
 ```java
-  public static String[] extractPartitionKeys(org.apache.flink.configuration.Configuration conf) {
-    if (FlinkOptions.isDefaultValueDefined(conf, FlinkOptions.PARTITION_PATH_FIELD)) {
-      return new String[0];
-    }
-    return conf.getString(FlinkOptions.PARTITION_PATH_FIELD).split(",");
+  @Override
+  public MergeOnReadInputSplit[] createInputSplits(int minNumSplits) {
+    return this.tableState.getInputSplits().toArray(new MergeOnReadInputSplit[0]);
+  }
+
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -29949,66 +29961,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
-#### Snippet
-```java
-  @Override
-  public MergeOnReadInputSplit[] createInputSplits(int minNumSplits) {
-    return this.tableState.getInputSplits().toArray(new MergeOnReadInputSplit[0]);
-  }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
-#### Snippet
-```java
-    List<String> relPartitionPaths = fileIndex.getOrBuildPartitionPaths();
-    if (relPartitionPaths.size() == 0) {
-      return new FileStatus[0];
-    }
-    return fileIndex.getFilesInPartitions();
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
-#### Snippet
-```java
-
-  private String getSourceOperatorName(String operatorName) {
-    String[] schemaFieldNames = this.schema.getColumnNames().toArray(new String[0]);
-    List<String> fields = Arrays.stream(this.requiredPos)
-        .mapToObj(i -> schemaFieldNames[i])
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
-#### Snippet
-```java
-
-  private DataType getProducedDataType() {
-    String[] schemaFieldNames = this.schema.getColumnNames().toArray(new String[0]);
-    DataType[] schemaTypes = this.schema.getColumnDataTypes().toArray(new DataType[0]);
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
-#### Snippet
-```java
-  private DataType getProducedDataType() {
-    String[] schemaFieldNames = this.schema.getColumnNames().toArray(new String[0]);
-    DataType[] schemaTypes = this.schema.getColumnDataTypes().toArray(new DataType[0]);
-
-    return DataTypes.ROW(Arrays.stream(this.requiredPos)
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
 #### Snippet
 ```java
@@ -30033,6 +29985,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieT
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
+#### Snippet
+```java
+
+  private String getSourceOperatorName(String operatorName) {
+    String[] schemaFieldNames = this.schema.getColumnNames().toArray(new String[0]);
+    List<String> fields = Arrays.stream(this.requiredPos)
+        .mapToObj(i -> schemaFieldNames[i])
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/HiveSchemaUtils.java`
 #### Snippet
 ```java
@@ -30045,6 +30009,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
+#### Snippet
+```java
+    List<String> relPartitionPaths = fileIndex.getOrBuildPartitionPaths();
+    if (relPartitionPaths.size() == 0) {
+      return new FileStatus[0];
+    }
+    return fileIndex.getFilesInPartitions();
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/HiveSchemaUtils.java`
 #### Snippet
 ```java
@@ -30053,6 +30029,30 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog
     final DataType[] fieldTypes = dataType.getChildren().toArray(new DataType[0]);
 
     List<FieldSchema> columns = new ArrayList<>(fieldNames.length);
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
+#### Snippet
+```java
+
+  private DataType getProducedDataType() {
+    String[] schemaFieldNames = this.schema.getColumnNames().toArray(new String[0]);
+    DataType[] schemaTypes = this.schema.getColumnDataTypes().toArray(new DataType[0]);
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
+#### Snippet
+```java
+  private DataType getProducedDataType() {
+    String[] schemaFieldNames = this.schema.getColumnNames().toArray(new String[0]);
+    DataType[] schemaTypes = this.schema.getColumnDataTypes().toArray(new DataType[0]);
+
+    return DataTypes.ROW(Arrays.stream(this.requiredPos)
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -30117,18 +30117,6 @@ in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/f
 
 ## RuleId[ruleID=NonFinalFieldOfException]
 ### RuleId[ruleID=NonFinalFieldOfException]
-Non-final field `fieldName` of exception class
-in `hudi-common/src/main/java/org/apache/hudi/avro/MercifulJsonConverter.java`
-#### Snippet
-```java
-
-    private Object value;
-    private String fieldName;
-    private Schema schema;
-
-```
-
-### RuleId[ruleID=NonFinalFieldOfException]
 Non-final field `value` of exception class
 in `hudi-common/src/main/java/org/apache/hudi/avro/MercifulJsonConverter.java`
 #### Snippet
@@ -30150,6 +30138,18 @@ in `hudi-common/src/main/java/org/apache/hudi/avro/MercifulJsonConverter.java`
     private Schema schema;
 
     public HoodieJsonToAvroConversionException(Object value, String fieldName, Schema schema) {
+```
+
+### RuleId[ruleID=NonFinalFieldOfException]
+Non-final field `fieldName` of exception class
+in `hudi-common/src/main/java/org/apache/hudi/avro/MercifulJsonConverter.java`
+#### Snippet
+```java
+
+    private Object value;
+    private String fieldName;
+    private Schema schema;
+
 ```
 
 ### RuleId[ruleID=NonFinalFieldOfException]
@@ -30376,11 +30376,11 @@ in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineCon
 in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/HoodieFlinkQuickstart.java`
 #### Snippet
 ```java
-      // use the source table schema as the sink schema if the source table was specified, .
-      ObjectPath objectPath = new ObjectPath(tEnv.getCurrentDatabase(), sourceTable);
-      TableSchema schema = tEnv.getCatalog(tEnv.getCurrentCatalog()).get().getTable(objectPath).getSchema();
-      sinkDDL = QuickstartConfigurations.getCollectSinkDDL("sink", schema);
-    } else {
+    // wait to finish
+    try {
+      tableResult.getJobClient().get().getJobExecutionResult().get();
+    } catch (InterruptedException | ExecutionException ex) {
+      // ignored
 ```
 
 ### RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -30388,11 +30388,11 @@ in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/qui
 in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/HoodieFlinkQuickstart.java`
 #### Snippet
 ```java
-    // wait to finish
-    try {
-      tableResult.getJobClient().get().getJobExecutionResult().get();
-    } catch (InterruptedException | ExecutionException ex) {
-      // ignored
+      // use the source table schema as the sink schema if the source table was specified, .
+      ObjectPath objectPath = new ObjectPath(tEnv.getCurrentDatabase(), sourceTable);
+      TableSchema schema = tEnv.getCatalog(tEnv.getCurrentCatalog()).get().getTable(objectPath).getSchema();
+      sinkDDL = QuickstartConfigurations.getCollectSinkDDL("sink", schema);
+    } else {
 ```
 
 ### RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -30541,30 +30541,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/Spar
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Condition `newType instanceof DecimalType` is always `true`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
-#### Snippet
-```java
-          int days = org.apache.spark.sql.catalyst.util.DateTimeUtils.fromJavaDate(Date.valueOf(oldV.getUTF8String(i).toString()));
-          newV.putInt(i, days);
-        } else if (newType instanceof DecimalType) {
-          DecimalType decimalType = (DecimalType) newType;
-          java.math.BigDecimal bigDecimal = new java.math.BigDecimal(oldV.getUTF8String(i).toString().trim());
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `oldV != null` is always `true`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
-#### Snippet
-```java
-    DataType oldType = oldV.dataType();  // old colType eg: floatType
-    DataType newType = newV.dataType();  // new colType eg: doubleType
-    if (oldV != null && newType != null) {
-      if (oldType instanceof BooleanType) {
-        return false;
-```
-
-### RuleId[ruleID=ConstantValue]
 Condition `newType instanceof StringType` is always `true`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
 #### Snippet
@@ -30582,9 +30558,9 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/Spa
 #### Snippet
 ```java
         } else if (newType instanceof StringType) {
-          newV.putByteArray(i, ((isInt ? oldV.getInt(i) : oldV.getLong(i)) + "").getBytes(StandardCharsets.UTF_8));
+          newV.putByteArray(i, (oldV.getFloat(i) + "").getBytes(StandardCharsets.UTF_8));
         } else if (newType instanceof DecimalType) {
-          Decimal oldDecimal = Decimal.apply(isInt ? oldV.getInt(i) : oldV.getLong(i));
+          Decimal oldDecimal = Decimal.apply(oldV.getFloat(i));
           oldDecimal.changePrecision(((DecimalType) newType).precision(), ((DecimalType) newType).scale());
 ```
 
@@ -30606,10 +30582,34 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/Spa
 #### Snippet
 ```java
         } else if (newType instanceof StringType) {
-          newV.putByteArray(i, (oldV.getFloat(i) + "").getBytes(StandardCharsets.UTF_8));
+          newV.putByteArray(i, ((isInt ? oldV.getInt(i) : oldV.getLong(i)) + "").getBytes(StandardCharsets.UTF_8));
         } else if (newType instanceof DecimalType) {
-          Decimal oldDecimal = Decimal.apply(oldV.getFloat(i));
+          Decimal oldDecimal = Decimal.apply(isInt ? oldV.getInt(i) : oldV.getLong(i));
           oldDecimal.changePrecision(((DecimalType) newType).precision(), ((DecimalType) newType).scale());
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `oldV != null` is always `true`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
+#### Snippet
+```java
+    DataType oldType = oldV.dataType();  // old colType eg: floatType
+    DataType newType = newV.dataType();  // new colType eg: doubleType
+    if (oldV != null && newType != null) {
+      if (oldType instanceof BooleanType) {
+        return false;
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `newType instanceof DecimalType` is always `true`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
+#### Snippet
+```java
+          int days = org.apache.spark.sql.catalyst.util.DateTimeUtils.fromJavaDate(Date.valueOf(oldV.getUTF8String(i).toString()));
+          newV.putInt(i, days);
+        } else if (newType instanceof DecimalType) {
+          DecimalType decimalType = (DecimalType) newType;
+          java.math.BigDecimal bigDecimal = new java.math.BigDecimal(oldV.getUTF8String(i).toString().trim());
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -30646,30 +30646,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/PartitionPathEncodeUti
     return c >= 0 && c < charToEscape.size() && charToEscape.get(c);
   }
 
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `value == null && matchValue != null` is always `false`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-    }
-
-    if (value == null && matchValue != null) {
-      value = matchValue;
-    }
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `matchValue != null` is always `false` when reached
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-    }
-
-    if (value == null && matchValue != null) {
-      value = matchValue;
-    }
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -30718,6 +30694,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
         if (stringType == null || !stringType.equals(StringType.String)) {
           int stringLength = ((BytesColumnVector) colVector).length[vectorPos];
           int stringOffset = ((BytesColumnVector) colVector).start[vectorPos];
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `value == null && matchValue != null` is always `false`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
+    }
+
+    if (value == null && matchValue != null) {
+      value = matchValue;
+    }
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `matchValue != null` is always `false` when reached
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
+    }
+
+    if (value == null && matchValue != null) {
+      value = matchValue;
+    }
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -31183,11 +31183,11 @@ String concatenation as argument to `StringBuilder.append()` call
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/KafkaOffsetGen.java`
 #### Snippet
 ```java
-
-    StringBuilder sb = new StringBuilder();
-    sb.append(topicName + ",");
-    for (Map.Entry<TopicPartition, OffsetAndTimestamp> map : offsetAndTimestamp.entrySet()) {
-      if (map.getValue() != null) {
+      StringBuilder sb = new StringBuilder();
+      // at least 1 partition will be present.
+      sb.append(ranges[0].topic() + ",");
+      sb.append(Arrays.stream(ranges).map(r -> String.format("%s:%d", r.partition(), r.untilOffset()))
+              .collect(Collectors.joining(",")));
 ```
 
 ### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
@@ -31195,11 +31195,11 @@ String concatenation as argument to `StringBuilder.append()` call
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/KafkaOffsetGen.java`
 #### Snippet
 ```java
-      StringBuilder sb = new StringBuilder();
-      // at least 1 partition will be present.
-      sb.append(ranges[0].topic() + ",");
-      sb.append(Arrays.stream(ranges).map(r -> String.format("%s:%d", r.partition(), r.untilOffset()))
-              .collect(Collectors.joining(",")));
+
+    StringBuilder sb = new StringBuilder();
+    sb.append(topicName + ",");
+    for (Map.Entry<TopicPartition, OffsetAndTimestamp> map : offsetAndTimestamp.entrySet()) {
+      if (map.getValue() != null) {
 ```
 
 ### RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
@@ -31312,18 +31312,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieLogBl
 ```
 
 ### RuleId[ruleID=IOResource]
-'InflaterInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieAvroDataBlock.java`
-#### Snippet
-```java
-
-  private static String decompress(byte[] bytes) {
-    InputStream in = new InflaterInputStream(new ByteArrayInputStream(bytes));
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    try {
-```
-
-### RuleId[ruleID=IOResource]
 'DataOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieDeleteBlock.java`
 #### Snippet
@@ -31333,6 +31321,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieDelet
     DataOutputStream output = new DataOutputStream(baos);
     byte[] bytesToWrite = SerializationUtils.serialize(getRecordsToDelete());
     output.writeInt(version);
+```
+
+### RuleId[ruleID=IOResource]
+'InflaterInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieAvroDataBlock.java`
+#### Snippet
+```java
+
+  private static String decompress(byte[] bytes) {
+    InputStream in = new InflaterInputStream(new ByteArrayInputStream(bytes));
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    try {
 ```
 
 ### RuleId[ruleID=IOResource]
@@ -31460,18 +31460,6 @@ public class HoodieCliSparkConfig {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `HoodieAWSCredentialsProviderFactory` has only 'static' members, and lacks a 'private' constructor
-in `hudi-aws/src/main/java/org/apache/hudi/aws/credentials/HoodieAWSCredentialsProviderFactory.java`
-#### Snippet
-```java
- * Factory class for Hoodie AWSCredentialsProvider.
- */
-public class HoodieAWSCredentialsProviderFactory {
-  public static AWSCredentialsProvider getAwsCredentialsProvider(Properties props) {
-    return getAwsCredentialsProviderChain(props);
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `S3Utils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-aws/src/main/java/org/apache/hudi/aws/utils/S3Utils.java`
 #### Snippet
@@ -31496,15 +31484,27 @@ public class HoodieTableHeaderFields {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `HiveUtil` has only 'static' members, and lacks a 'private' constructor
-in `hudi-cli/src/main/java/org/apache/hudi/cli/utils/HiveUtil.java`
+Class `Main` has only 'static' members, and lacks a 'private' constructor
+in `hudi-cli/src/main/java/org/apache/hudi/cli/Main.java`
 #### Snippet
 ```java
- * Hive connection related utilities.
  */
-public class HiveUtil {
+@SpringBootApplication
+public class Main {
 
-  private static final String DRIVER_NAME = "org.apache.hive.jdbc.HiveDriver";
+  public static void main(String[] args) throws IOException {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `HoodieAWSCredentialsProviderFactory` has only 'static' members, and lacks a 'private' constructor
+in `hudi-aws/src/main/java/org/apache/hudi/aws/credentials/HoodieAWSCredentialsProviderFactory.java`
+#### Snippet
+```java
+ * Factory class for Hoodie AWSCredentialsProvider.
+ */
+public class HoodieAWSCredentialsProviderFactory {
+  public static AWSCredentialsProvider getAwsCredentialsProvider(Properties props) {
+    return getAwsCredentialsProviderChain(props);
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -31520,15 +31520,15 @@ public class HoodieCLI {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `hudi-cli/src/main/java/org/apache/hudi/cli/Main.java`
+Class `HiveUtil` has only 'static' members, and lacks a 'private' constructor
+in `hudi-cli/src/main/java/org/apache/hudi/cli/utils/HiveUtil.java`
 #### Snippet
 ```java
+ * Hive connection related utilities.
  */
-@SpringBootApplication
-public class Main {
+public class HiveUtil {
 
-  public static void main(String[] args) throws IOException {
+  private static final String DRIVER_NAME = "org.apache.hive.jdbc.HiveDriver";
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -31580,18 +31580,6 @@ public class HiveSyncConfigHolder {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SparkMain` has only 'static' members, and lacks a 'private' constructor
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/SparkMain.java`
-#### Snippet
-```java
- * This class deals with initializing spark context based on command entered to hudi-cli.
- */
-public class SparkMain {
-
-  private static final Logger LOG = LogManager.getLogger(SparkMain.class);
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `ColumnNameXLator` has only 'static' members, and lacks a 'private' constructor
 in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/ColumnNameXLator.java`
 #### Snippet
@@ -31628,15 +31616,15 @@ public class SyncUtilHelpers {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `TableUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/util/TableUtils.java`
+Class `Parquet2SparkSchemaUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/util/Parquet2SparkSchemaUtils.java`
 #### Snippet
 ```java
-package org.apache.hudi.sync.common.util;
+ * in spark project.
+ */
+public class Parquet2SparkSchemaUtils {
 
-public final class TableUtils {
-
-  public static String tableId(String database, String table) {
+  public static String convertToSparkSchemaJson(GroupType parquetSchema) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -31652,6 +31640,18 @@ public class SparkDataSourceTableUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `TableUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/util/TableUtils.java`
+#### Snippet
+```java
+package org.apache.hudi.sync.common.util;
+
+public final class TableUtils {
+
+  public static String tableId(String database, String table) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `ConfigUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/util/ConfigUtils.java`
 #### Snippet
@@ -31661,18 +31661,6 @@ import java.util.Properties;
 public class ConfigUtils {
   /**
    * Config stored in hive serde properties to tell query engine (spark/flink) to
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Parquet2SparkSchemaUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/util/Parquet2SparkSchemaUtils.java`
-#### Snippet
-```java
- * in spark project.
- */
-public class Parquet2SparkSchemaUtils {
-
-  public static String convertToSparkSchemaJson(GroupType parquetSchema) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -31725,7 +31713,7 @@ public class Main {
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `packaging/hudi-presto-bundle/src/main/java/org/apache/hudi/presto/bundle/Main.java`
+in `packaging/hudi-trino-bundle/src/main/java/org/apache/hudi/trino/bundle/Main.java`
 #### Snippet
 ```java
  * This class does not have anything to do with Hudi but is there to keep mvn javadocs/source plugin happy.
@@ -31737,7 +31725,7 @@ public class Main {
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `packaging/hudi-trino-bundle/src/main/java/org/apache/hudi/trino/bundle/Main.java`
+in `packaging/hudi-presto-bundle/src/main/java/org/apache/hudi/presto/bundle/Main.java`
 #### Snippet
 ```java
  * This class does not have anything to do with Hudi but is there to keep mvn javadocs/source plugin happy.
@@ -31844,15 +31832,15 @@ public final class JavaHoodieIndexFactory {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `HoodieRowDataFileWriterFactory` has only 'static' members, and lacks a 'private' constructor
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/HoodieRowDataFileWriterFactory.java`
+Class `SparkMain` has only 'static' members, and lacks a 'private' constructor
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/SparkMain.java`
 #### Snippet
 ```java
- * Factory to assist in instantiating a new {@link HoodieRowDataFileWriter}.
+ * This class deals with initializing spark context based on command entered to hudi-cli.
  */
-public class HoodieRowDataFileWriterFactory {
+public class SparkMain {
 
-  /**
+  private static final Logger LOG = LogManager.getLogger(SparkMain.class);
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -31868,6 +31856,18 @@ public class HiveSchemaUtil {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `HoodieRowDataFileWriterFactory` has only 'static' members, and lacks a 'private' constructor
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/HoodieRowDataFileWriterFactory.java`
+#### Snippet
+```java
+ * Factory to assist in instantiating a new {@link HoodieRowDataFileWriter}.
+ */
+public class HoodieRowDataFileWriterFactory {
+
+  /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `FlinkClientUtil` has only 'static' members, and lacks a 'private' constructor
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/util/FlinkClientUtil.java`
 #### Snippet
@@ -31880,18 +31880,6 @@ public class FlinkClientUtil {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `FlinkHoodieIndexFactory` has only 'static' members, and lacks a 'private' constructor
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/index/FlinkHoodieIndexFactory.java`
-#### Snippet
-```java
- * A factory to generate Flink {@link HoodieIndex}.
- */
-public final class FlinkHoodieIndexFactory {
-  public static HoodieIndex createIndex(HoodieFlinkEngineContext context, HoodieWriteConfig config) {
-    // first use index class config to create index.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `WriteStatMerger` has only 'static' members, and lacks a 'private' constructor
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/util/WriteStatMerger.java`
 #### Snippet
@@ -31901,6 +31889,18 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/util/WriteStatMe
 public class WriteStatMerger {
   public static HoodieWriteStat merge(HoodieWriteStat stat1, HoodieWriteStat stat2) {
     if (stat1 instanceof HoodieDeltaWriteStat) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `FlinkHoodieIndexFactory` has only 'static' members, and lacks a 'private' constructor
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/index/FlinkHoodieIndexFactory.java`
+#### Snippet
+```java
+ * A factory to generate Flink {@link HoodieIndex}.
+ */
+public final class FlinkHoodieIndexFactory {
+  public static HoodieIndex createIndex(HoodieFlinkEngineContext context, HoodieWriteConfig config) {
+    // first use index class config to create index.
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -32144,18 +32144,6 @@ public class SavepointHelpers {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `BootstrapUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/bootstrap/BootstrapUtils.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-public class BootstrapUtils {
-
-  /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `WriteMarkersFactory` has only 'static' members, and lacks a 'private' constructor
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/WriteMarkersFactory.java`
 #### Snippet
@@ -32165,6 +32153,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/Wr
 public class WriteMarkersFactory {
   private static final Logger LOG = LogManager.getLogger(WriteMarkersFactory.class);
 
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `BootstrapUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/bootstrap/BootstrapUtils.java`
+#### Snippet
+```java
+import java.util.stream.Collectors;
+
+public class BootstrapUtils {
+
+  /**
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -32216,18 +32216,6 @@ public class FileSliceMetricUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `EmbeddedTimelineServerHelper` has only 'static' members, and lacks a 'private' constructor
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/embedded/EmbeddedTimelineServerHelper.java`
-#### Snippet
-```java
- * Helper class to instantiate embedded timeline service.
- */
-public class EmbeddedTimelineServerHelper {
-
-  private static final Logger LOG = LogManager.getLogger(EmbeddedTimelineService.class);
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `MetadataConversionUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/MetadataConversionUtils.java`
 #### Snippet
@@ -32240,15 +32228,15 @@ public class MetadataConversionUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `TransactionUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/TransactionUtils.java`
+Class `EmbeddedTimelineServerHelper` has only 'static' members, and lacks a 'private' constructor
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/embedded/EmbeddedTimelineServerHelper.java`
 #### Snippet
 ```java
-import java.util.stream.Stream;
+ * Helper class to instantiate embedded timeline service.
+ */
+public class EmbeddedTimelineServerHelper {
 
-public class TransactionUtils {
-
-  private static final Logger LOG = LogManager.getLogger(TransactionUtils.class);
+  private static final Logger LOG = LogManager.getLogger(EmbeddedTimelineService.class);
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -32264,6 +32252,18 @@ public class HeartbeatUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `TransactionUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/TransactionUtils.java`
+#### Snippet
+```java
+import java.util.stream.Stream;
+
+public class TransactionUtils {
+
+  private static final Logger LOG = LogManager.getLogger(TransactionUtils.class);
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `HoodieAvroKeyGeneratorFactory` has only 'static' members, and lacks a 'private' constructor
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/factory/HoodieAvroKeyGeneratorFactory.java`
 #### Snippet
@@ -32276,18 +32276,6 @@ public class HoodieAvroKeyGeneratorFactory {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `KeyGenUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/KeyGenUtils.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class KeyGenUtils {
-
-  protected static final String NULL_RECORDKEY_PLACEHOLDER = "__null__";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `MetricsReporterFactory` has only 'static' members, and lacks a 'private' constructor
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/MetricsReporterFactory.java`
 #### Snippet
@@ -32297,6 +32285,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/Metrics
 public class MetricsReporterFactory {
 
   private static final Logger LOG = LogManager.getLogger(MetricsReporterFactory.class);
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `KeyGenUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/KeyGenUtils.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class KeyGenUtils {
+
+  protected static final String NULL_RECORDKEY_PLACEHOLDER = "__null__";
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -32432,6 +32432,18 @@ public class PartitionPathEncodeUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ValidationUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/ValidationUtils.java`
+#### Snippet
+```java
+ * Simple utility to test validation conditions (to replace Guava's PreConditions)
+ */
+public class ValidationUtils {
+
+  /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `SpillableMapUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-common/src/main/java/org/apache/hudi/common/util/SpillableMapUtils.java`
 #### Snippet
@@ -32444,13 +32456,13 @@ public class SpillableMapUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ValidationUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/ValidationUtils.java`
+Class `Base64CodecUtil` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/Base64CodecUtil.java`
 #### Snippet
 ```java
- * Simple utility to test validation conditions (to replace Guava's PreConditions)
- */
-public class ValidationUtils {
+import java.util.Base64;
+
+public final class Base64CodecUtil {
 
   /**
 ```
@@ -32468,15 +32480,15 @@ public class FSUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Base64CodecUtil` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/Base64CodecUtil.java`
+Class `ObjectSizeCalculator` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/ObjectSizeCalculator.java`
 #### Snippet
 ```java
-import java.util.Base64;
-
-public final class Base64CodecUtil {
-
+ * @author Attila Szegedi
+ */
+public class ObjectSizeCalculator {
   /**
+   * Given an object, returns the total allocated size, in bytes, of the object and all other objects reachable from it.
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -32492,18 +32504,6 @@ public class FileIOUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ObjectSizeCalculator` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/ObjectSizeCalculator.java`
-#### Snippet
-```java
- * @author Attila Szegedi
- */
-public class ObjectSizeCalculator {
-  /**
-   * Given an object, returns the total allocated size, in bytes, of the object and all other objects reachable from it.
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `FutureUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-common/src/main/java/org/apache/hudi/common/util/FutureUtils.java`
 #### Snippet
@@ -32513,30 +32513,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/FutureUtils.java`
 public class FutureUtils {
 
   /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
-#### Snippet
-```java
- * Simple utility for operations on strings.
- */
-public class StringUtils {
-
-  public static final String EMPTY_STRING = "";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ClusteringUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/ClusteringUtils.java`
-#### Snippet
-```java
- * Helper class to generate clustering plan from metadata.
- */
-public class ClusteringUtils {
-
-  private static final Logger LOG = LogManager.getLogger(ClusteringUtils.class);
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -32552,6 +32528,18 @@ public class NetworkUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
+#### Snippet
+```java
+ * Simple utility for operations on strings.
+ */
+public class StringUtils {
+
+  public static final String EMPTY_STRING = "";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `CommitUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-common/src/main/java/org/apache/hudi/common/util/CommitUtils.java`
 #### Snippet
@@ -32564,27 +32552,15 @@ public class CommitUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `HoodieAvroUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+Class `ClusteringUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/ClusteringUtils.java`
 #### Snippet
 ```java
- * Helper class to do common stuff across Avro.
+ * Helper class to generate clustering plan from metadata.
  */
-public class HoodieAvroUtils {
+public class ClusteringUtils {
 
-  public static final String AVRO_VERSION = Schema.class.getPackage().getImplementationVersion();
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ReflectionUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/ReflectionUtils.java`
-#### Snippet
-```java
- * A utility class for reflection.
- */
-public class ReflectionUtils {
-
-  private static final Logger LOG = LogManager.getLogger(ReflectionUtils.class);
+  private static final Logger LOG = LogManager.getLogger(ClusteringUtils.class);
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -32612,15 +32588,27 @@ public class AvroOrcUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `DateTimeUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/DateTimeUtils.java`
+Class `HoodieAvroUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 #### Snippet
 ```java
-import java.util.stream.Collectors;
+ * Helper class to do common stuff across Avro.
+ */
+public class HoodieAvroUtils {
 
-public class DateTimeUtils {
-  private static final Map<String, ChronoUnit> LABEL_TO_UNIT_MAP =
-      Collections.unmodifiableMap(initMap());
+  public static final String AVRO_VERSION = Schema.class.getPackage().getImplementationVersion();
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ReflectionUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/ReflectionUtils.java`
+#### Snippet
+```java
+ * A utility class for reflection.
+ */
+public class ReflectionUtils {
+
+  private static final Logger LOG = LogManager.getLogger(ReflectionUtils.class);
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -32636,15 +32624,15 @@ public class CleanerUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MarkerUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
+Class `DateTimeUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/DateTimeUtils.java`
 #### Snippet
 ```java
- * A utility class for marker related operations.
- */
-public class MarkerUtils {
-  public static final String MARKERS_FILENAME_PREFIX = "MARKERS";
-  public static final String MARKER_TYPE_FILENAME = MARKERS_FILENAME_PREFIX + ".type";
+import java.util.stream.Collectors;
+
+public class DateTimeUtils {
+  private static final Map<String, ChronoUnit> LABEL_TO_UNIT_MAP =
+      Collections.unmodifiableMap(initMap());
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -32657,6 +32645,18 @@ import java.util.List;
 public class ThreadUtils {
 
   /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MarkerUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
+#### Snippet
+```java
+ * A utility class for marker related operations.
+ */
+public class MarkerUtils {
+  public static final String MARKERS_FILENAME_PREFIX = "MARKERS";
+  public static final String MARKER_TYPE_FILENAME = MARKERS_FILENAME_PREFIX + ".type";
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -32696,18 +32696,6 @@ public class CollectionUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CompactionUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CompactionUtils.java`
-#### Snippet
-```java
- * Helper class to generate compaction plan from FileGroup/FileSlice abstraction.
- */
-public class CompactionUtils {
-
-  public static final Integer COMPACTION_METADATA_VERSION_1 = CompactionV1MigrationHandler.VERSION;
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `WaitStrategyFactory` has only 'static' members, and lacks a 'private' constructor
 in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/WaitStrategyFactory.java`
 #### Snippet
@@ -32729,6 +32717,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ArrayUtils.
 public class ArrayUtils {
 
   /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CompactionUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CompactionUtils.java`
+#### Snippet
+```java
+ * Helper class to generate compaction plan from FileGroup/FileSlice abstraction.
+ */
+public class CompactionUtils {
+
+  public static final Integer COMPACTION_METADATA_VERSION_1 = CompactionV1MigrationHandler.VERSION;
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -32972,18 +32972,6 @@ public class HoodieSparkBootstrapExample {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `HoodieExampleSparkUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-examples/hudi-examples-spark/src/main/java/org/apache/hudi/examples/common/HoodieExampleSparkUtils.java`
-#### Snippet
-```java
- * Bunch of util methods.
- */
-public class HoodieExampleSparkUtils {
-
-  private static Map<String, String> defaultConf() {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `HoodieWriteClientExample` has only 'static' members, and lacks a 'private' constructor
 in `hudi-examples/hudi-examples-spark/src/main/java/org/apache/hudi/examples/spark/HoodieWriteClientExample.java`
 #### Snippet
@@ -32993,6 +32981,18 @@ in `hudi-examples/hudi-examples-spark/src/main/java/org/apache/hudi/examples/spa
 public class HoodieWriteClientExample {
 
   private static final Logger LOG = LogManager.getLogger(HoodieWriteClientExample.class);
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `HoodieExampleSparkUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-examples/hudi-examples-spark/src/main/java/org/apache/hudi/examples/common/HoodieExampleSparkUtils.java`
+#### Snippet
+```java
+ * Bunch of util methods.
+ */
+public class HoodieExampleSparkUtils {
+
+  private static Map<String, String> defaultConf() {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -33093,18 +33093,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/SchemaPostProc
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Config` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/ProtoClassBasedSchemaProvider.java`
-#### Snippet
-```java
-   * Configs supported.
-   */
-  public static class Config {
-    private static final String PROTO_SCHEMA_PROVIDER_PREFIX = "hoodie.deltastreamer.schemaprovider.proto";
-    public static final ConfigProperty<String> PROTO_SCHEMA_CLASS_NAME = ConfigProperty.key(PROTO_SCHEMA_PROVIDER_PREFIX + ".class.name")
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Config` has only 'static' members, and lacks a 'private' constructor
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/SparkAvroPostProcessor.java`
 #### Snippet
 ```java
@@ -33113,6 +33101,18 @@ public class SparkAvroPostProcessor extends SchemaPostProcessor {
   public static class Config {
     public static final String SPARK_AVRO_POST_PROCESSOR_PROP_ENABLE =
             "hoodie.deltastreamer.schemaprovider.spark_avro_post_processor.enable";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Config` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/ProtoClassBasedSchemaProvider.java`
+#### Snippet
+```java
+   * Configs supported.
+   */
+  public static class Config {
+    private static final String PROTO_SCHEMA_PROVIDER_PREFIX = "hoodie.deltastreamer.schemaprovider.proto";
+    public static final ConfigProperty<String> PROTO_SCHEMA_CLASS_NAME = ConfigProperty.key(PROTO_SCHEMA_PROVIDER_PREFIX + ".class.name")
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -33164,18 +33164,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/PulsarSource.
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `UtilHelpers` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/UtilHelpers.java`
-#### Snippet
-```java
- * Bunch of helper methods.
- */
-public class UtilHelpers {
-
-  public static final String EXECUTE = "execute";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Config` has only 'static' members, and lacks a 'private' constructor
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/HoodieIncrSource.java`
 #### Snippet
@@ -33200,6 +33188,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodi
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `UtilHelpers` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/UtilHelpers.java`
+#### Snippet
+```java
+ * Bunch of helper methods.
+ */
+public class UtilHelpers {
+
+  public static final String EXECUTE = "execute";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `IncrSourceCloudStorageHelper` has only 'static' members, and lacks a 'private' constructor
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/IncrSourceCloudStorageHelper.java`
 #### Snippet
@@ -33209,6 +33209,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/IncrS
 public class IncrSourceCloudStorageHelper {
 
   private static final Logger LOG = LogManager.getLogger(IncrSourceCloudStorageHelper.class);
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Config` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/CloudObjectsSelector.java`
+#### Snippet
+```java
+   * Configs supported.
+   */
+  public static class Config {
+    private static final String HOODIE_DELTASTREAMER_S3_SOURCE = "hoodie.deltastreamer.s3.source";
+    /**
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -33236,30 +33248,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/DFSPa
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `IncrSourceHelper` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/IncrSourceHelper.java`
-#### Snippet
-```java
-import static org.apache.hudi.utilities.sources.HoodieIncrSource.Config.READ_LATEST_INSTANT_ON_MISSING_CKPT;
-
-public class IncrSourceHelper {
-
-  private static final String DEFAULT_BEGIN_TIMESTAMP = "000";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Config` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/CloudObjectsSelector.java`
-#### Snippet
-```java
-   * Configs supported.
-   */
-  public static class Config {
-    private static final String HOODIE_DELTASTREAMER_S3_SOURCE = "hoodie.deltastreamer.s3.source";
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `CloudObjectsSelectorCommon` has only 'static' members, and lacks a 'private' constructor
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/CloudObjectsSelectorCommon.java`
 #### Snippet
@@ -33272,15 +33260,15 @@ public class CloudObjectsSelectorCommon {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Config` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/DatePartitionPathSelector.java`
+Class `IncrSourceHelper` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/IncrSourceHelper.java`
 #### Snippet
 ```java
+import static org.apache.hudi.utilities.sources.HoodieIncrSource.Config.READ_LATEST_INSTANT_ON_MISSING_CKPT;
 
-  /** Configs supported. */
-  public static class Config {
-    public static final String DATE_FORMAT = "hoodie.deltastreamer.source.dfs.datepartitioned.date.format";
-    public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
+public class IncrSourceHelper {
+
+  private static final String DEFAULT_BEGIN_TIMESTAMP = "000";
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -33293,6 +33281,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/gcs/G
 public class GcsIngestionConfig {
 
   /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Config` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/DatePartitionPathSelector.java`
+#### Snippet
+```java
+
+  /** Configs supported. */
+  public static class Config {
+    public static final String DATE_FORMAT = "hoodie.deltastreamer.source.dfs.datepartitioned.date.format";
+    public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -33356,15 +33356,15 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/Kafka
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Helpers` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieMultiTableDeltaStreamer.java`
+Class `SchedulerConfGenerator` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/SchedulerConfGenerator.java`
 #### Snippet
 ```java
-  }
+ * spark.scheduler.mode=FAIR at spark-submit time
+ */
+public class SchedulerConfGenerator {
 
-  public static class Helpers {
-
-    static String getDefaultConfigFilePath(String configFolder, String database, String currentTable) {
+  private static final Logger LOG = LogManager.getLogger(SchedulerConfGenerator.class);
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -33380,15 +33380,15 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieM
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SchedulerConfGenerator` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/SchedulerConfGenerator.java`
+Class `Helpers` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieMultiTableDeltaStreamer.java`
 #### Snippet
 ```java
- * spark.scheduler.mode=FAIR at spark-submit time
- */
-public class SchedulerConfGenerator {
+  }
 
-  private static final Logger LOG = LogManager.getLogger(SchedulerConfGenerator.class);
+  public static class Helpers {
+
+    static String getDefaultConfigFilePath(String configFolder, String database, String currentTable) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -33452,18 +33452,6 @@ public class ExpressionUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ViewStorageProperties` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/ViewStorageProperties.java`
-#### Snippet
-```java
- * Helper class to read/write {@link FileSystemViewStorageConfig}.
- */
-public class ViewStorageProperties {
-  private static final Logger LOG = LoggerFactory.getLogger(ViewStorageProperties.class);
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `AvroToRowDataConverters` has only 'static' members, and lacks a 'private' constructor
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/AvroToRowDataConverters.java`
 #### Snippet
@@ -33476,15 +33464,15 @@ public class AvroToRowDataConverters {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `FlinkWriteClients` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/FlinkWriteClients.java`
+Class `ViewStorageProperties` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/ViewStorageProperties.java`
 #### Snippet
 ```java
- * Utilities for {@link org.apache.hudi.client.HoodieFlinkWriteClient}.
+ * Helper class to read/write {@link FileSystemViewStorageConfig}.
  */
-public class FlinkWriteClients {
+public class ViewStorageProperties {
+  private static final Logger LOG = LoggerFactory.getLogger(ViewStorageProperties.class);
 
-  /**
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -33512,15 +33500,27 @@ public class ClusteringUtil {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `HoodiePipeline` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/HoodiePipeline.java`
+Class `FlinkWriteClients` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/FlinkWriteClients.java`
 #### Snippet
 ```java
- *  </pre>
+ * Utilities for {@link org.apache.hudi.client.HoodieFlinkWriteClient}.
  */
-public class HoodiePipeline {
+public class FlinkWriteClients {
 
-  private static final Logger LOG = LogManager.getLogger(HoodiePipeline.class);
+  /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `DataTypeUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/DataTypeUtils.java`
+#### Snippet
+```java
+ * Utilities for {@link org.apache.flink.table.types.DataType}.
+ */
+public class DataTypeUtils {
+  /**
+   * Returns whether the given type is TIMESTAMP type.
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -33548,15 +33548,15 @@ public class StreamerUtil {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `DataTypeUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/DataTypeUtils.java`
+Class `HoodiePipeline` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/HoodiePipeline.java`
 #### Snippet
 ```java
- * Utilities for {@link org.apache.flink.table.types.DataType}.
+ *  </pre>
  */
-public class DataTypeUtils {
-  /**
-   * Returns whether the given type is TIMESTAMP type.
+public class HoodiePipeline {
+
+  private static final Logger LOG = LogManager.getLogger(HoodiePipeline.class);
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -33608,18 +33608,6 @@ public class HoodieCatalogUtil {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `TableOptionProperties` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/TableOptionProperties.java`
-#### Snippet
-```java
- * Helper class to read/write flink table options as a map.
- */
-public class TableOptionProperties {
-  private static final Logger LOG = LoggerFactory.getLogger(TableOptionProperties.class);
-
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `HiveSchemaUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/HiveSchemaUtils.java`
 #### Snippet
@@ -33629,6 +33617,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog
 public class HiveSchemaUtils {
   /**
    * Get field names from field schemas.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `TableOptionProperties` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/TableOptionProperties.java`
+#### Snippet
+```java
+ * Helper class to read/write flink table options as a map.
+ */
+public class TableOptionProperties {
+  private static final Logger LOG = LoggerFactory.getLogger(TableOptionProperties.class);
+
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -33716,18 +33716,6 @@ public class Utils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ParquetSplitReaderUtil` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
-#### Snippet
-```java
- * based TIMESTAMP_MILLIS as ConvertedType, should remove when Flink supports that.
- */
-public class ParquetSplitReaderUtil {
-
-  /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Utils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/adapter/Utils.java`
 #### Snippet
@@ -33737,6 +33725,18 @@ in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/adapter
 public class Utils {
   public static <O> SourceFunction.SourceContext<O> getSourceContext(
       TimeCharacteristic timeCharacteristic,
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ParquetSplitReaderUtil` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
+#### Snippet
+```java
+ * based TIMESTAMP_MILLIS as ConvertedType, should remove when Flink supports that.
+ */
+public class ParquetSplitReaderUtil {
+
+  /**
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -33950,10 +33950,10 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/SimpleKey
 #### Snippet
 ```java
     //       record-key field
-    if (recordKeyValues[0] == null) {
+    if (recordKeys[0] == null) {
       return handleNullRecordKey(null);
-    } else if (recordKeyValues[0] instanceof UTF8String) {
-      return requireNonNullNonEmptyKey((UTF8String) recordKeyValues[0]);
+    } else {
+      return requireNonNullNonEmptyKey(recordKeys[0].toString());
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -33962,10 +33962,10 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/SimpleKey
 #### Snippet
 ```java
     //       record-key field
-    if (recordKeys[0] == null) {
+    if (recordKeyValues[0] == null) {
       return handleNullRecordKey(null);
-    } else {
-      return requireNonNullNonEmptyKey(recordKeys[0].toString());
+    } else if (recordKeyValues[0] instanceof UTF8String) {
+      return requireNonNullNonEmptyKey((UTF8String) recordKeyValues[0]);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -33978,42 +33978,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieWriteH
     if (exception.isPresent() && exception.get() instanceof Throwable) {
       // Not throwing exception from here, since we don't want to fail the entire job for a single record
       writeStatus.markFailure(record, exception.get(), recordMetadata);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
-#### Snippet
-```java
-        if (combinedAvroRecord.isPresent() && combinedAvroRecord.get().equals(IGNORE_RECORD)) {
-          // If it is an IGNORE_RECORD, just copy the old record, and do not update the new record.
-          copyOldRecord = true;
-        } else if (writeUpdateRecord(hoodieRecord, oldRecord, combinedAvroRecord)) {
-          /*
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getTotalCreateTime` may produce `NullPointerException`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
-#### Snippet
-```java
-      LOG.info(String.format("CreateHandle for partitionPath %s fileID %s, took %d ms.",
-          writeStatus.getStat().getPartitionPath(), writeStatus.getStat().getFileId(),
-          writeStatus.getStat().getRuntimeStats().getTotalCreateTime()));
-
-      return Collections.singletonList(writeStatus);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `close` may produce `NullPointerException`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/commit/BaseMergeHelper.java`
-#### Snippet
-```java
-    } finally {
-      try {
-        inStream.close();
-      } catch (IOException ioe) {
-        throw new HoodieException(ioe.getMessage(), ioe);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -34038,6 +34002,42 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/cl
         partitionCleanStat.addDeletedFileResult(deletePath.getName(), deletedFileResult, false);
       }
     });
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `close` may produce `NullPointerException`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/commit/BaseMergeHelper.java`
+#### Snippet
+```java
+    } finally {
+      try {
+        inStream.close();
+      } catch (IOException ioe) {
+        throw new HoodieException(ioe.getMessage(), ioe);
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
+#### Snippet
+```java
+        if (combinedAvroRecord.isPresent() && combinedAvroRecord.get().equals(IGNORE_RECORD)) {
+          // If it is an IGNORE_RECORD, just copy the old record, and do not update the new record.
+          copyOldRecord = true;
+        } else if (writeUpdateRecord(hoodieRecord, oldRecord, combinedAvroRecord)) {
+          /*
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `getTotalCreateTime` may produce `NullPointerException`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
+#### Snippet
+```java
+      LOG.info(String.format("CreateHandle for partitionPath %s fileID %s, took %d ms.",
+          writeStatus.getStat().getPartitionPath(), writeStatus.getStat().getFileId(),
+          writeStatus.getStat().getRuntimeStats().getTotalCreateTime()));
+
+      return Collections.singletonList(writeStatus);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -34600,8 +34600,8 @@ in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieS
 ```java
 
   @Deprecated
-  public HoodieSyncTool(TypedProperties props, Configuration conf, FileSystem fs) {
-    this(props, conf);
+  public HoodieSyncTool(Properties props, FileSystem fileSystem) {
+    this(props, fileSystem.getConf());
   }
 ```
 
@@ -34612,8 +34612,8 @@ in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieS
 ```java
 
   @Deprecated
-  public HoodieSyncTool(Properties props, FileSystem fileSystem) {
-    this(props, fileSystem.getConf());
+  public HoodieSyncTool(TypedProperties props, Configuration conf, FileSystem fs) {
+    this(props, conf);
   }
 ```
 
@@ -34687,6 +34687,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/HoodieRea
 public class HoodieReadClient<T extends HoodieRecordPayload<T>> extends SparkRDDReadClient<T> {
 
   public HoodieReadClient(HoodieSparkEngineContext context, String basePath) {
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'CustomKeyGenerator' is still used
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class CustomKeyGenerator extends BuiltinKeyGenerator {
+
+  private final CustomAvroKeyGenerator customAvroKeyGenerator;
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -34819,18 +34831,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.j
 public class HDFSParquetImporter implements Serializable {
 
   private static final long serialVersionUID = 1L;
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'CustomKeyGenerator' is still used
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class CustomKeyGenerator extends BuiltinKeyGenerator {
-
-  private final CustomAvroKeyGenerator customAvroKeyGenerator;
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -34971,30 +34971,6 @@ Lambda can be replaced with method reference
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
 #### Snippet
 ```java
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return data.stream().parallel()
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
-        .map(list -> list.stream().map(e -> e.getValue()).reduce(throwingReduceWrapper(reduceFunc)).orElse(null))
-        .filter(Objects::nonNull)
-```
-
-### RuleId[ruleID=Convert2MethodRef]
-Lambda can be replaced with method reference
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
-#### Snippet
-```java
-    return data.stream().parallel()
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
-        .map(list -> list.stream().map(e -> e.getValue()).reduce(throwingReduceWrapper(reduceFunc)).orElse(null))
-        .filter(Objects::nonNull)
-        .collect(Collectors.toList());
-```
-
-### RuleId[ruleID=Convert2MethodRef]
-Lambda can be replaced with method reference
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
-#### Snippet
-```java
   public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
     return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
         .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
@@ -35008,6 +34984,30 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/Ho
 #### Snippet
 ```java
     return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
+        .map(list -> list.stream().map(e -> e.getValue()).reduce(throwingReduceWrapper(reduceFunc)).orElse(null))
+        .filter(Objects::nonNull)
+        .collect(Collectors.toList());
+```
+
+### RuleId[ruleID=Convert2MethodRef]
+Lambda can be replaced with method reference
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
+#### Snippet
+```java
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return data.stream().parallel()
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
+        .map(list -> list.stream().map(e -> e.getValue()).reduce(throwingReduceWrapper(reduceFunc)).orElse(null))
+        .filter(Objects::nonNull)
+```
+
+### RuleId[ruleID=Convert2MethodRef]
+Lambda can be replaced with method reference
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
+#### Snippet
+```java
+    return data.stream().parallel()
         .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
         .map(list -> list.stream().map(e -> e.getValue()).reduce(throwingReduceWrapper(reduceFunc)).orElse(null))
         .filter(Objects::nonNull)
@@ -35211,6 +35211,18 @@ Lambda can be replaced with method reference
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/io/FileBasedInternalSchemaStorageManager.java`
 #### Snippet
 ```java
+      FileSystem fs = baseSchemaPath.getFileSystem(conf);
+      if (fs.exists(baseSchemaPath)) {
+        List<String> candidateSchemaFiles = Arrays.stream(fs.listStatus(baseSchemaPath)).filter(f -> f.isFile())
+            .map(file -> file.getPath().getName()).collect(Collectors.toList());
+        List<String> residualSchemaFiles = candidateSchemaFiles.stream().filter(f -> !validateCommits.contains(f.split("\\.")[0])).collect(Collectors.toList());
+```
+
+### RuleId[ruleID=Convert2MethodRef]
+Lambda can be replaced with method reference
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/io/FileBasedInternalSchemaStorageManager.java`
+#### Snippet
+```java
   private List<String> getValidInstants() {
     return getMetaClient().getCommitsTimeline()
         .filterCompletedInstants().getInstants().map(f -> f.getTimestamp()).collect(Collectors.toList());
@@ -35228,18 +35240,6 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/io/FileBasedIntern
         List<String> candidateSchemaFiles = Arrays.stream(fs.listStatus(baseSchemaPath)).filter(f -> f.isFile())
             .map(file -> file.getPath().getName()).collect(Collectors.toList());
         List<String> validateSchemaFiles = candidateSchemaFiles.stream().filter(f -> validateCommits.contains(f.split("\\.")[0])).collect(Collectors.toList());
-```
-
-### RuleId[ruleID=Convert2MethodRef]
-Lambda can be replaced with method reference
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/io/FileBasedInternalSchemaStorageManager.java`
-#### Snippet
-```java
-      FileSystem fs = baseSchemaPath.getFileSystem(conf);
-      if (fs.exists(baseSchemaPath)) {
-        List<String> candidateSchemaFiles = Arrays.stream(fs.listStatus(baseSchemaPath)).filter(f -> f.isFile())
-            .map(file -> file.getPath().getName()).collect(Collectors.toList());
-        List<String> residualSchemaFiles = candidateSchemaFiles.stream().filter(f -> !validateCommits.contains(f.split("\\.")[0])).collect(Collectors.toList());
 ```
 
 ### RuleId[ruleID=Convert2MethodRef]
@@ -35523,42 +35523,6 @@ Lambda can be replaced with method reference
 in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
 #### Snippet
 ```java
-
-  public static List<String> convertToStringList(List<HoodieRecord> records) {
-    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
-        .collect(Collectors.toList());
-  }
-```
-
-### RuleId[ruleID=Convert2MethodRef]
-Lambda can be replaced with method reference
-in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
-#### Snippet
-```java
-
-  public static List<String> convertToStringList(List<HoodieRecord> records) {
-    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
-        .collect(Collectors.toList());
-  }
-```
-
-### RuleId[ruleID=Convert2MethodRef]
-Lambda can be replaced with method reference
-in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
-#### Snippet
-```java
-
-  public static List<String> convertToStringList(List<HoodieRecord> records) {
-    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
-        .collect(Collectors.toList());
-  }
-```
-
-### RuleId[ruleID=Convert2MethodRef]
-Lambda can be replaced with method reference
-in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
-#### Snippet
-```java
               ? convertToString(row.getAs("uuid"), row.getAs("partitionpath"), null) :
               convertToString(row.getAs("uuid"), row.getAs("partitionpath"), row.getAs("ts"))
           ).filter(os -> os.isPresent()).map(os -> os.get())
@@ -35576,6 +35540,42 @@ in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUti
           ).filter(os -> os.isPresent()).map(os -> os.get())
           .collect(Collectors.toList());
     }
+```
+
+### RuleId[ruleID=Convert2MethodRef]
+Lambda can be replaced with method reference
+in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
+#### Snippet
+```java
+
+  public static List<String> convertToStringList(List<HoodieRecord> records) {
+    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
+        .collect(Collectors.toList());
+  }
+```
+
+### RuleId[ruleID=Convert2MethodRef]
+Lambda can be replaced with method reference
+in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
+#### Snippet
+```java
+
+  public static List<String> convertToStringList(List<HoodieRecord> records) {
+    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
+        .collect(Collectors.toList());
+  }
+```
+
+### RuleId[ruleID=Convert2MethodRef]
+Lambda can be replaced with method reference
+in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
+#### Snippet
+```java
+
+  public static List<String> convertToStringList(List<HoodieRecord> records) {
+    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
+        .collect(Collectors.toList());
+  }
 ```
 
 ## RuleId[ruleID=ComparatorCombinators]
@@ -35727,18 +35727,6 @@ in `hudi-sync/hudi-datahub-sync/src/main/java/org/apache/hudi/sync/datahub/confi
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'path' in a Serializable class
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/HoodieRowDataCreateHandle.java`
-#### Snippet
-```java
-  protected final HoodieRowDataFileWriter fileWriter;
-  private final String partitionPath;
-  private final Path path;
-  private final String fileId;
-  private final boolean preserveHoodieMetadata;
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'currTimer' in a Serializable class
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/HoodieRowDataCreateHandle.java`
 #### Snippet
@@ -35752,14 +35740,14 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/H
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'path' in a Serializable class
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/row/HoodieRowCreateHandle.java`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/HoodieRowDataCreateHandle.java`
 #### Snippet
 ```java
-
+  protected final HoodieRowDataFileWriter fileWriter;
   private final String partitionPath;
   private final Path path;
   private final String fileId;
-
+  private final boolean preserveHoodieMetadata;
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -35772,6 +35760,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/row/H
   private final HoodieTimer currTimer;
 
   protected final HoodieInternalRowFileWriter fileWriter;
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'path' in a Serializable class
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/row/HoodieRowCreateHandle.java`
+#### Snippet
+```java
+
+  private final String partitionPath;
+  private final Path path;
+  private final String fileId;
+
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -35835,18 +35835,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/SerializationUtils.jav
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'decompressBaos' in a Serializable class
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDiskMap.java`
-#### Snippet
-```java
-    // Caching ByteArrayOutputStreams to avoid recreating it for every operation
-    private final ByteArrayOutputStream compressBaos;
-    private final ByteArrayOutputStream decompressBaos;
-    private final byte[] decompressIntermediateBuffer;
-
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'compressBaos' in a Serializable class
 in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDiskMap.java`
 #### Snippet
@@ -35859,15 +35847,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDisk
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'schemaHelper' in a Serializable class
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+Non-serializable field 'decompressBaos' in a Serializable class
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDiskMap.java`
 #### Snippet
 ```java
-  private final FileSystemViewStorageConfig config;
+    // Caching ByteArrayOutputStreams to avoid recreating it for every operation
+    private final ByteArrayOutputStream compressBaos;
+    private final ByteArrayOutputStream decompressBaos;
+    private final byte[] decompressIntermediateBuffer;
 
-  private final RocksDBSchemaHelper schemaHelper;
-
-  private RocksDBDAO rocksDB;
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -35880,6 +35868,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
   private RocksDBDAO rocksDB;
 
   private boolean closed = false;
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'schemaHelper' in a Serializable class
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+  private final FileSystemViewStorageConfig config;
+
+  private final RocksDBSchemaHelper schemaHelper;
+
+  private RocksDBDAO rocksDB;
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -35919,15 +35919,15 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/SchemaProvider
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'dumpPath' in a Serializable class
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPerf.java`
+Non-serializable field 'jssc' in a Serializable class
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/SchemaPostProcessor.java`
 #### Snippet
 ```java
-  private static class Dumper implements Serializable {
+  protected TypedProperties config;
 
-    private final Path dumpPath;
-    private final FileSystem fileSystem;
-    private FSDataOutputStream outputStream;
+  protected JavaSparkContext jssc;
+
+  protected SchemaPostProcessor(TypedProperties props, JavaSparkContext jssc) {
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -35943,15 +35943,15 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPe
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'jssc' in a Serializable class
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/SchemaPostProcessor.java`
+Non-serializable field 'dumpPath' in a Serializable class
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPerf.java`
 #### Snippet
 ```java
-  protected TypedProperties config;
+  private static class Dumper implements Serializable {
 
-  protected JavaSparkContext jssc;
-
-  protected SchemaPostProcessor(TypedProperties props, JavaSparkContext jssc) {
+    private final Path dumpPath;
+    private final FileSystem fileSystem;
+    private FSDataOutputStream outputStream;
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -35967,18 +35967,6 @@ public class GcsEventsSource extends RowSource {
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'pathSelector' in a Serializable class
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsSource.java`
-#### Snippet
-```java
-public class S3EventsSource extends RowSource implements Closeable {
-
-  private final S3EventsMetaSelector pathSelector;
-  private final List<Message> processedMessages = new ArrayList<>();
-  AmazonSQS sqs;
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'offsetGen' in a Serializable class
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/KafkaSource.java`
 #### Snippet
@@ -35991,15 +35979,15 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/KafkaSource.j
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'pulsarConsumer' in a Serializable class
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/PulsarSource.java`
+Non-serializable field 'pathSelector' in a Serializable class
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsSource.java`
 #### Snippet
 ```java
-  // NOTE: We're keeping the client so that we can shut it down properly
-  private final Lazy<PulsarClient> pulsarClient;
-  private final Lazy<Consumer<byte[]>> pulsarConsumer;
+public class S3EventsSource extends RowSource implements Closeable {
 
-  public PulsarSource(TypedProperties props,
+  private final S3EventsMetaSelector pathSelector;
+  private final List<Message> processedMessages = new ArrayList<>();
+  AmazonSQS sqs;
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -36012,6 +36000,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/PulsarSource.
   private final Lazy<PulsarClient> pulsarClient;
   private final Lazy<Consumer<byte[]>> pulsarConsumer;
 
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'pulsarConsumer' in a Serializable class
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/PulsarSource.java`
+#### Snippet
+```java
+  // NOTE: We're keeping the client so that we can shut it down properly
+  private final Lazy<PulsarClient> pulsarClient;
+  private final Lazy<Consumer<byte[]>> pulsarConsumer;
+
+  public PulsarSource(TypedProperties props,
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -36051,18 +36051,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/CleanFun
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'path' in a Serializable class
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/meta/CkpMetadata.java`
-#### Snippet
-```java
-
-  private final FileSystem fs;
-  protected final Path path;
-
-  private List<CkpMessage> messages;
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'constructor' in a Serializable class
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/utils/PayloadCreation.java`
 #### Snippet
@@ -36072,6 +36060,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/utils/Pa
   private final Constructor<?> constructor;
   private final String preCombineField;
 
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'path' in a Serializable class
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/meta/CkpMetadata.java`
+#### Snippet
+```java
+
+  private final FileSystem fs;
+  protected final Path path;
+
+  private List<CkpMessage> messages;
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -36135,18 +36135,6 @@ in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/SchemaPro
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'configuration' in a Serializable class
-in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/BootstrapExecutorUtils.java`
-#### Snippet
-```java
-   * Hadoop Configuration.
-   */
-  private final Configuration configuration;
-
-  /**
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'cfg' in a Serializable class
 in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/BootstrapExecutorUtils.java`
 #### Snippet
@@ -36154,6 +36142,18 @@ in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/Bootstrap
    * Config.
    */
   private final Config cfg;
+
+  /**
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'configuration' in a Serializable class
+in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/BootstrapExecutorUtils.java`
+#### Snippet
+```java
+   * Hadoop Configuration.
+   */
+  private final Configuration configuration;
 
   /**
 ```
@@ -36226,11 +36226,11 @@ Unnecessary `toString()` call
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
 #### Snippet
 ```java
-      FileStatus[] statuses = HoodieCLI.fs.listStatus(metadataPath);
-      if (statuses.length > 0) {
-        throw new RuntimeException("Metadata directory (" + metadataPath.toString() + ") not empty.");
-      }
     } catch (FileNotFoundException e) {
+      // Metadata directory does not exist
+      throw new RuntimeException("Metadata directory (" + metadataPath.toString() + ") does not exist.");
+    }
+
 ```
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
@@ -36238,11 +36238,11 @@ Unnecessary `toString()` call
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
 #### Snippet
 ```java
+      FileStatus[] statuses = HoodieCLI.fs.listStatus(metadataPath);
+      if (statuses.length > 0) {
+        throw new RuntimeException("Metadata directory (" + metadataPath.toString() + ") not empty.");
+      }
     } catch (FileNotFoundException e) {
-      // Metadata directory does not exist
-      throw new RuntimeException("Metadata directory (" + metadataPath.toString() + ") does not exist.");
-    }
-
 ```
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
@@ -36310,9 +36310,9 @@ Unnecessary `toString()` call
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/TimelineServerBasedWriteMarkers.java`
 #### Snippet
 ```java
+          DELETE_MARKER_DIR_URL, paramsMap, new TypeReference<Boolean>() {}, RequestMethod.POST);
     } catch (IOException e) {
-      throw new HoodieRemoteException("Failed to get CREATE and MERGE data file paths in "
-          + markerDirPath.toString(), e);
+      throw new HoodieRemoteException("Failed to delete marker directory " + markerDirPath.toString(), e);
     }
   }
 ```
@@ -36334,9 +36334,9 @@ Unnecessary `toString()` call
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/TimelineServerBasedWriteMarkers.java`
 #### Snippet
 ```java
-          ALL_MARKERS_URL, paramsMap, new TypeReference<Set<String>>() {}, RequestMethod.GET);
     } catch (IOException e) {
-      throw new HoodieRemoteException("Failed to get all markers in " + markerDirPath.toString(), e);
+      throw new HoodieRemoteException("Failed to get CREATE and MERGE data file paths in "
+          + markerDirPath.toString(), e);
     }
   }
 ```
@@ -36346,9 +36346,9 @@ Unnecessary `toString()` call
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/TimelineServerBasedWriteMarkers.java`
 #### Snippet
 ```java
-          DELETE_MARKER_DIR_URL, paramsMap, new TypeReference<Boolean>() {}, RequestMethod.POST);
+          ALL_MARKERS_URL, paramsMap, new TypeReference<Set<String>>() {}, RequestMethod.GET);
     } catch (IOException e) {
-      throw new HoodieRemoteException("Failed to delete marker directory " + markerDirPath.toString(), e);
+      throw new HoodieRemoteException("Failed to get all markers in " + markerDirPath.toString(), e);
     }
   }
 ```
@@ -36379,18 +36379,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/KeyGenUt
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
 Unnecessary `toString()` call
-in `hudi-common/src/main/java/org/apache/hudi/avro/MercifulJsonConverter.java`
-#### Snippet
-```java
-          return Pair.of(true, new GenericData.EnumSymbol(schema, value.toString()));
-        }
-        throw new HoodieJsonToAvroConversionException(String.format("Symbol %s not in enum", value.toString()),
-            schema.getFullName(), schema);
-      }
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
 in `hudi-common/src/main/java/org/apache/hudi/common/HoodieJsonPayload.java`
 #### Snippet
 ```java
@@ -36399,6 +36387,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/HoodieJsonPayload.java`
       throw new HoodieException("Field :" + field + " not found in payload => " + node.toString());
     }
     return node.get(field).textValue();
+```
+
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `hudi-common/src/main/java/org/apache/hudi/avro/MercifulJsonConverter.java`
+#### Snippet
+```java
+          return Pair.of(true, new GenericData.EnumSymbol(schema, value.toString()));
+        }
+        throw new HoodieJsonToAvroConversionException(String.format("Symbol %s not in enum", value.toString()),
+            schema.getFullName(), schema);
+      }
 ```
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
@@ -36502,9 +36502,9 @@ Unnecessary `toString()` call
 in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
 #### Snippet
 ```java
-      bufferedWriter.write(markerType.toString());
+      content = Option.of(MarkerType.valueOf(FileIOUtils.readAsUTFString(fsDataInputStream)));
     } catch (IOException e) {
-      throw new HoodieException("Failed to create marker type file " + markerTypeFilePath.toString()
+      throw new HoodieIOException("Cannot read marker type file " + markerTypeFilePath.toString()
           + "; " + e.getMessage(), e);
     } finally {
 ```
@@ -36526,9 +36526,9 @@ Unnecessary `toString()` call
 in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
 #### Snippet
 ```java
-      content = Option.of(MarkerType.valueOf(FileIOUtils.readAsUTFString(fsDataInputStream)));
+      bufferedWriter.write(markerType.toString());
     } catch (IOException e) {
-      throw new HoodieIOException("Cannot read marker type file " + markerTypeFilePath.toString()
+      throw new HoodieException("Failed to create marker type file " + markerTypeFilePath.toString()
           + "; " + e.getMessage(), e);
     } finally {
 ```
@@ -36715,18 +36715,6 @@ in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handler
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
 Unnecessary `toString()` call
-in `hudi-spark-datasource/hudi-spark-common/src/main/java/org/apache/hudi/DataSourceUtils.java`
-#### Snippet
-```java
-        return client.insertOverwriteTable(hoodieRecords, instantTime);
-      default:
-        throw new HoodieException("Not a valid operation type for doWriteOperation: " + operation.toString());
-    }
-  }
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
 in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
 #### Snippet
 ```java
@@ -36735,6 +36723,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.j
           LOG.debug("Using latest table schema to rewrite incoming records " + tableSchema.toString());
         }
       }
+```
+
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `hudi-spark-datasource/hudi-spark-common/src/main/java/org/apache/hudi/DataSourceUtils.java`
+#### Snippet
+```java
+        return client.insertOverwriteTable(hoodieRecords, instantTime);
+      default:
+        throw new HoodieException("Not a valid operation type for doWriteOperation: " + operation.toString());
+    }
+  }
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
@@ -36814,18 +36814,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfigu
 
 ### RuleId[ruleID=StringEqualsEmptyString]
 `equals("")` can be replaced with 'isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteOperatorCoordinator.java`
-#### Snippet
-```java
-        StreamerUtil.createMetaClient(conf).getActiveTimeline().filterCompletedInstants();
-    executor.execute(() -> {
-      if (instant.equals("") || completedTimeline.containsInstant(instant)) {
-        // the last instant committed successfully
-        reset();
-```
-
-### RuleId[ruleID=StringEqualsEmptyString]
-`equals("")` can be replaced with 'isEmpty()'
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/RowDataKeyGen.java`
 #### Snippet
 ```java
@@ -36834,6 +36822,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/Row
       if (this.partitionPathFields[0].equals("")) {
         this.nonPartitioned = true;
       } else {
+```
+
+### RuleId[ruleID=StringEqualsEmptyString]
+`equals("")` can be replaced with 'isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteOperatorCoordinator.java`
+#### Snippet
+```java
+        StreamerUtil.createMetaClient(conf).getActiveTimeline().filterCompletedInstants();
+    executor.execute(() -> {
+      if (instant.equals("") || completedTimeline.containsInstant(instant)) {
+        // the last instant committed successfully
+        reset();
 ```
 
 ## RuleId[ruleID=UnnecessaryBoxing]
@@ -36979,8 +36979,8 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient
 ```java
    * @deprecated
    */
-  public HoodieTableMetaClient() {
-  }
+  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
 
 ```
 
@@ -36991,8 +36991,8 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient
 ```java
    * @deprecated
    */
-  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-    in.defaultReadObject();
+  public HoodieTableMetaClient() {
+  }
 
 ```
 
@@ -37027,9 +37027,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieArchiv
 ```java
    * @deprecated
    */
-  public HoodieArchivedTimeline() {
+  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
   }
-
 ```
 
 ### RuleId[ruleID=MissingDeprecatedAnnotation]
@@ -37039,9 +37039,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieArchiv
 ```java
    * @deprecated
    */
-  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-    in.defaultReadObject();
+  public HoodieArchivedTimeline() {
   }
+
 ```
 
 ### RuleId[ruleID=MissingDeprecatedAnnotation]
@@ -37086,30 +37086,6 @@ Qualifier `scala.collection` is unnecessary, and can be replaced with an import
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
 #### Snippet
 ```java
-    HoodieCLI.initFS(initialized);
-    String sparkPropertiesPath =
-        Utils.getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
-    SparkLauncher sparkLauncher = SparkUtil.initLauncher(sparkPropertiesPath);
-    sparkLauncher.addAppArgs(SparkCommand.COMPACT_SCHEDULE_AND_EXECUTE.toString(), master, sparkMemory, client.getBasePath(),
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `scala.collection` is unnecessary, and can be replaced with an import
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
-#### Snippet
-```java
-    }
-    String sparkPropertiesPath =
-        Utils.getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
-    SparkLauncher sparkLauncher = SparkUtil.initLauncher(sparkPropertiesPath);
-    sparkLauncher.addAppArgs(SparkCommand.COMPACT_RUN.toString(), master, sparkMemory, client.getBasePath(),
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `scala.collection` is unnecessary, and can be replaced with an import
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
-#### Snippet
-```java
     try {
       String sparkPropertiesPath = Utils
           .getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
@@ -37134,11 +37110,35 @@ Qualifier `scala.collection` is unnecessary, and can be replaced with an import
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
 #### Snippet
 ```java
-    try {
-      String sparkPropertiesPath = Utils
-          .getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
-      SparkLauncher sparkLauncher = SparkUtil.initLauncher(sparkPropertiesPath);
-      sparkLauncher.addAppArgs(SparkCommand.COMPACT_VALIDATE.toString(), master, sparkMemory, client.getBasePath(),
+    }
+    String sparkPropertiesPath =
+        Utils.getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
+    SparkLauncher sparkLauncher = SparkUtil.initLauncher(sparkPropertiesPath);
+    sparkLauncher.addAppArgs(SparkCommand.COMPACT_RUN.toString(), master, sparkMemory, client.getBasePath(),
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `scala.collection` is unnecessary, and can be replaced with an import
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
+#### Snippet
+```java
+
+    String sparkPropertiesPath =
+        Utils.getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
+    SparkLauncher sparkLauncher = SparkUtil.initLauncher(sparkPropertiesPath);
+    String cmd = SparkCommand.COMPACT_SCHEDULE.toString();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `scala.collection` is unnecessary, and can be replaced with an import
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
+#### Snippet
+```java
+    HoodieCLI.initFS(initialized);
+    String sparkPropertiesPath =
+        Utils.getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
+    SparkLauncher sparkLauncher = SparkUtil.initLauncher(sparkPropertiesPath);
+    sparkLauncher.addAppArgs(SparkCommand.COMPACT_SCHEDULE_AND_EXECUTE.toString(), master, sparkMemory, client.getBasePath(),
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -37158,11 +37158,11 @@ Qualifier `scala.collection` is unnecessary, and can be replaced with an import
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
 #### Snippet
 ```java
-
-    String sparkPropertiesPath =
-        Utils.getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
-    SparkLauncher sparkLauncher = SparkUtil.initLauncher(sparkPropertiesPath);
-    String cmd = SparkCommand.COMPACT_SCHEDULE.toString();
+    try {
+      String sparkPropertiesPath = Utils
+          .getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
+      SparkLauncher sparkLauncher = SparkUtil.initLauncher(sparkPropertiesPath);
+      sparkLauncher.addAppArgs(SparkCommand.COMPACT_VALIDATE.toString(), master, sparkMemory, client.getBasePath(),
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -37590,10 +37590,10 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
 #### Snippet
 ```java
-   * @deprecated
-   */
-  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-    in.defaultReadObject();
+  }
+
+  private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+    out.defaultWriteObject();
   }
 ```
 
@@ -37602,10 +37602,10 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
 #### Snippet
 ```java
-  }
-
-  private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-    out.defaultWriteObject();
+   * @deprecated
+   */
+  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
   }
 ```
 
@@ -37622,6 +37622,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/OrderedProperties.ja
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `hudi-common/src/main/java/org/apache/hudi/common/config/TypedProperties.java`
+#### Snippet
+```java
+
+/**
+ * Type-aware extension of {@link java.util.Properties}.
+ */
+public class TypedProperties extends Properties implements Serializable {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieArchivedTimeline.java`
 #### Snippet
@@ -37634,15 +37646,27 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieArchiv
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `hudi-common/src/main/java/org/apache/hudi/common/config/TypedProperties.java`
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/AvroSchemaEvolutionUtils.java`
 #### Snippet
 ```java
+      String rawName = splitPoint > 0 ? name.substring(splitPoint + 1) : name;
+      // try to infer add position.
+      java.util.Optional<String> inferPosition =
+          colNamesFromIncoming.stream().filter(c ->
+              c.lastIndexOf(".") == splitPoint
+```
 
-/**
- * Type-aware extension of {@link java.util.Properties}.
- */
-public class TypedProperties extends Properties implements Serializable {
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieActiveTimeline.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
+  }
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -37667,18 +37691,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieActive
    *  {@link org.apache.hudi.common.table.timeline.HoodieInstantTimeGenerator#SECS_INSTANT_TIMESTAMP_FORMAT}.
    * @return Date of instant timestamp
    */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieActiveTimeline.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-    in.defaultReadObject();
-  }
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -37727,18 +37739,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieActive
    *  {@link org.apache.hudi.common.table.timeline.HoodieInstantTimeGenerator#SECS_INSTANT_TIMESTAMP_FORMAT}.
    * @return {@code Option<Date>} of instant timestamp, {@code Option.empty} if invalid timestamp
    */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/AvroSchemaEvolutionUtils.java`
-#### Snippet
-```java
-      String rawName = splitPoint > 0 ? name.substring(splitPoint + 1) : name;
-      // try to infer add position.
-      java.util.Optional<String> inferPosition =
-          colNamesFromIncoming.stream().filter(c ->
-              c.lastIndexOf(".") == splitPoint
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -37886,18 +37886,6 @@ public class ChangelogModes {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hudi.client` is unnecessary and can be removed
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/FlinkWriteClients.java`
-#### Snippet
-```java
-
-/**
- * Utilities for {@link org.apache.hudi.client.HoodieFlinkWriteClient}.
- */
-public class FlinkWriteClients {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.flink.api.common.io` is unnecessary and can be removed
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/InputFormats.java`
 #### Snippet
@@ -37907,6 +37895,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/InputFor
  * Utilities for all kinds of {@link org.apache.flink.api.common.io.InputFormat}s.
  */
 public class InputFormats {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hudi.client` is unnecessary and can be removed
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/FlinkWriteClients.java`
+#### Snippet
+```java
+
+/**
+ * Utilities for {@link org.apache.hudi.client.HoodieFlinkWriteClient}.
+ */
+public class FlinkWriteClients {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -38090,18 +38090,6 @@ in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/f
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hudi.util` is unnecessary and can be removed
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ColumnStatsIndices.java`
-#### Snippet
-```java
-        metadataTable.getRecordsByKeyPrefixes(encodedTargetColumnNames, HoodieTableMetadataUtil.PARTITION_NAME_COLUMN_STATS, false);
-
-    org.apache.hudi.util.AvroToRowDataConverters.AvroToRowDataConverter converter =
-        AvroToRowDataConverters.createRowConverter((RowType) METADATA_DATA_TYPE.getLogicalType());
-    return records.collectAsList().stream().parallel().map(record -> {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.parquet.column` is unnecessary, and can be replaced with an import
 in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/Int64TimestampColumnReader.java`
 #### Snippet
@@ -38111,6 +38099,18 @@ in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/f
       org.apache.parquet.column.Dictionary dictionary,
       int id,
       ChronoUnit unit) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hudi.util` is unnecessary and can be removed
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ColumnStatsIndices.java`
+#### Snippet
+```java
+        metadataTable.getRecordsByKeyPrefixes(encodedTargetColumnNames, HoodieTableMetadataUtil.PARTITION_NAME_COLUMN_STATS, false);
+
+    org.apache.hudi.util.AvroToRowDataConverters.AvroToRowDataConverter converter =
+        AvroToRowDataConverters.createRowConverter((RowType) METADATA_DATA_TYPE.getLogicalType());
+    return records.collectAsList().stream().parallel().map(record -> {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -38215,6 +38215,18 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
 #### Snippet
 ```java
+          limit, sortByField, descending, headerOnly, true, showTimeSeconds, false);
+    } catch (IOException e) {
+      e.printStackTrace();
+      return e.getMessage();
+    }
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
+#### Snippet
+```java
     } catch (IOException e) {
       LOG.error(String.format("Error reading rollback info of %s", instant));
       e.printStackTrace();
@@ -38227,7 +38239,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
 #### Snippet
 ```java
-          limit, sortByField, descending, headerOnly, true, showTimeSeconds, showRollbackInfo);
+          limit, sortByField, descending, headerOnly, true, showTimeSeconds, false);
     } catch (IOException e) {
       e.printStackTrace();
       return e.getMessage();
@@ -38263,19 +38275,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
 #### Snippet
 ```java
-          limit, sortByField, descending, headerOnly, true, showTimeSeconds, false);
-    } catch (IOException e) {
-      e.printStackTrace();
-      return e.getMessage();
-    }
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
-#### Snippet
-```java
-          limit, sortByField, descending, headerOnly, true, showTimeSeconds, false);
+          limit, sortByField, descending, headerOnly, true, showTimeSeconds, showRollbackInfo);
     } catch (IOException e) {
       e.printStackTrace();
       return e.getMessage();
@@ -38372,14 +38372,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.
 ## RuleId[ruleID=BigDecimalMethodWithoutRoundingCalled]
 ### RuleId[ruleID=BigDecimalMethodWithoutRoundingCalled]
 'BigDecimal.setScale()' called without a rounding mode argument
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
 ```java
-              bytes = ((GenericFixed) oldValue).bytes();
-              LogicalTypes.Decimal decimal = (LogicalTypes.Decimal) realOldSchema.getLogicalType();
-              BigDecimal bd = new BigDecimal(new BigInteger(bytes), decimal.getScale()).setScale(((LogicalTypes.Decimal) newSchema.getLogicalType()).getScale());
-              return DECIMAL_CONVERSION.toFixed(bd, newSchema, newSchema.getLogicalType());
-            }
+        BigDecimal bigDecimal = ((DecimalColumnVector) colVector).vector[vectorPos]
+            .getHiveDecimal().bigDecimalValue()
+            .setScale(((LogicalTypes.Decimal) logicalType).getScale());
+        Schema.Type baseType = avroSchema.getType();
+        if (baseType.equals(Schema.Type.FIXED)) {
 ```
 
 ### RuleId[ruleID=BigDecimalMethodWithoutRoundingCalled]
@@ -38408,14 +38408,14 @@ in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 
 ### RuleId[ruleID=BigDecimalMethodWithoutRoundingCalled]
 'BigDecimal.setScale()' called without a rounding mode argument
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 #### Snippet
 ```java
-        BigDecimal bigDecimal = ((DecimalColumnVector) colVector).vector[vectorPos]
-            .getHiveDecimal().bigDecimalValue()
-            .setScale(((LogicalTypes.Decimal) logicalType).getScale());
-        Schema.Type baseType = avroSchema.getType();
-        if (baseType.equals(Schema.Type.FIXED)) {
+              bytes = ((GenericFixed) oldValue).bytes();
+              LogicalTypes.Decimal decimal = (LogicalTypes.Decimal) realOldSchema.getLogicalType();
+              BigDecimal bd = new BigDecimal(new BigInteger(bytes), decimal.getScale()).setScale(((LogicalTypes.Decimal) newSchema.getLogicalType()).getScale());
+              return DECIMAL_CONVERSION.toFixed(bd, newSchema, newSchema.getLogicalType());
+            }
 ```
 
 ### RuleId[ruleID=BigDecimalMethodWithoutRoundingCalled]
