@@ -46,18 +46,6 @@ class PoolImplUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `TimerHolder` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
-#### Snippet
-```java
-     * {@link Timer} creates a {@link Thread}, an IODH is used.
-     */
-    static class TimerHolder {
-        static final Timer MIN_IDLE_TIMER = new Timer(true);
-    }
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `PoolUtils` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
 #### Snippet
@@ -67,6 +55,18 @@ in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
 public final class PoolUtils {
 
     /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `TimerHolder` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
+#### Snippet
+```java
+     * {@link Timer} creates a {@link Thread}, an IODH is used.
+     */
+    static class TimerHolder {
+        static final Timer MIN_IDLE_TIMER = new Timer(true);
+    }
 ```
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
@@ -83,18 +83,6 @@ in `src/main/java/org/apache/commons/pool2/TrackedUse.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getIdleSoftEvictTimeDuration' is still used
-in `src/main/java/org/apache/commons/pool2/impl/EvictionConfig.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Duration getIdleSoftEvictTimeDuration() {
-        return idleSoftEvictDuration;
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'getIdleEvictTime' is still used
 in `src/main/java/org/apache/commons/pool2/impl/EvictionConfig.java`
 #### Snippet
@@ -103,6 +91,18 @@ in `src/main/java/org/apache/commons/pool2/impl/EvictionConfig.java`
     @Deprecated
     public long getIdleEvictTime() {
         return idleEvictDuration.toMillis();
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getIdleSoftEvictTimeDuration' is still used
+in `src/main/java/org/apache/commons/pool2/impl/EvictionConfig.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public Duration getIdleSoftEvictTimeDuration() {
+        return idleSoftEvictDuration;
     }
 ```
 
@@ -155,13 +155,37 @@ in `src/main/java/org/apache/commons/pool2/impl/AbandonedConfig.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getIdleTimeMillis' is still used
+Deprecated member 'getIdleTime' is still used
 in `src/main/java/org/apache/commons/pool2/PooledObject.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    long getIdleTimeMillis();
+    default Duration getIdleTime() {
+        return Duration.ofMillis(getIdleTimeMillis());
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getLastReturnTime' is still used
+in `src/main/java/org/apache/commons/pool2/PooledObject.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    long getLastReturnTime();
+
+    /**
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getCreateTime' is still used
+in `src/main/java/org/apache/commons/pool2/PooledObject.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    long getCreateTime();
 
     /**
 ```
@@ -179,18 +203,6 @@ in `src/main/java/org/apache/commons/pool2/PooledObject.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getLastReturnTime' is still used
-in `src/main/java/org/apache/commons/pool2/PooledObject.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    long getLastReturnTime();
-
-    /**
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'getLastUsedTime' is still used
 in `src/main/java/org/apache/commons/pool2/PooledObject.java`
 #### Snippet
@@ -198,6 +210,18 @@ in `src/main/java/org/apache/commons/pool2/PooledObject.java`
      */
     @Deprecated
     long getLastUsedTime();
+
+    /**
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/pool2/PooledObject.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    long getIdleTimeMillis();
 
     /**
 ```
@@ -227,219 +251,39 @@ in `src/main/java/org/apache/commons/pool2/PooledObject.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getIdleTime' is still used
-in `src/main/java/org/apache/commons/pool2/PooledObject.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    default Duration getIdleTime() {
-        return Duration.ofMillis(getIdleTimeMillis());
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getCreateTime' is still used
-in `src/main/java/org/apache/commons/pool2/PooledObject.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    long getCreateTime();
-
-    /**
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'setMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final void setMinEvictableIdleTimeMillis(final long minEvictableIdleTimeMillis) {
-        setMinEvictableIdleTime(Duration.ofMillis(minEvictableIdleTimeMillis));
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getRemoveAbandonedTimeout' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public int getRemoveAbandonedTimeout() {
-        return (int) getRemoveAbandonedTimeoutDuration().getSeconds();
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'setMinEvictableIdleTime' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final void setMinEvictableIdleTime(final Duration minEvictableIdleTime) {
-        this.minEvictableIdleDuration = PoolImplUtils.nonNull(minEvictableIdleTime, BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION);
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final long getMinEvictableIdleTimeMillis() {
-        return minEvictableIdleDuration.toMillis();
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'setTimeBetweenEvictionRunsMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final void setTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
-        setTimeBetweenEvictionRuns(Duration.ofMillis(timeBetweenEvictionRunsMillis));
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getTimeBetweenEvictionRuns' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final Duration getTimeBetweenEvictionRuns() {
-        return durationBetweenEvictionRuns;
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getEvictorShutdownTimeout' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final Duration getEvictorShutdownTimeout() {
-        return evictorShutdownTimeoutDuration;
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'setSoftMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final void setSoftMinEvictableIdleTimeMillis(final long softMinEvictableIdleTimeMillis) {
-        setSoftMinEvictableIdleTime(Duration.ofMillis(softMinEvictableIdleTimeMillis));
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getMaxWaitMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final long getMaxWaitMillis() {
-        return maxWaitDuration.toMillis();
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'setSoftMinEvictableIdleTime' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final void setSoftMinEvictableIdleTime(final Duration softMinEvictableIdleTime) {
-        this.softMinEvictableIdleDuration = PoolImplUtils.nonNull(softMinEvictableIdleTime, BaseObjectPoolConfig.DEFAULT_SOFT_MIN_EVICTABLE_IDLE_DURATION);
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getSoftMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final long getSoftMinEvictableIdleTimeMillis() {
-        return softMinEvictableIdleDuration.toMillis();
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getMinEvictableIdleTime' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final Duration getMinEvictableIdleTime() {
-        return minEvictableIdleDuration;
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'getEvictorShutdownTimeoutMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public final long getEvictorShutdownTimeoutMillis() {
+    public long getEvictorShutdownTimeoutMillis() {
         return evictorShutdownTimeoutDuration.toMillis();
     }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getSoftMinEvictableIdleTime' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+Deprecated member 'getEvictorShutdownTimeout' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public final Duration getSoftMinEvictableIdleTime() {
-        return softMinEvictableIdleDuration;
+    public Duration getEvictorShutdownTimeout() {
+        return evictorShutdownTimeoutDuration;
     }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'setMaxWaitMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+Deprecated member 'DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public final void setMaxWaitMillis(final long maxWaitMillis) {
-        setMaxWait(Duration.ofMillis(maxWaitMillis));
-    }
-```
+    public static final Duration DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME =
+            Duration.ofMillis(DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS);
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getTimeBetweenEvictionRunsMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final long getTimeBetweenEvictionRunsMillis() {
-        return durationBetweenEvictionRuns.toMillis();
-    }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -455,61 +299,37 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getEvictorShutdownTimeoutMillis' is still used
+Deprecated member 'getTimeBetweenEvictionRuns' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public long getEvictorShutdownTimeoutMillis() {
-        return evictorShutdownTimeoutDuration.toMillis();
+    public Duration getTimeBetweenEvictionRuns() {
+        return durationBetweenEvictionRuns;
     }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'DEFAULT_EVICTOR_SHUTDOWN_TIMEOUT_MILLIS' is still used
+Deprecated member 'getMaxWaitMillis' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final long DEFAULT_EVICTOR_SHUTDOWN_TIMEOUT_MILLIS = 10L * 1000L;
-
-    /**
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public long getMinEvictableIdleTimeMillis() {
-        return minEvictableIdleDuration.toMillis();
+    public long getMaxWaitMillis() {
+        return maxWaitDuration.toMillis();
     }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getMinEvictableIdleTime' is still used
+Deprecated member 'DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public Duration getMinEvictableIdleTime() {
-        return minEvictableIdleDuration;
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'DEFAULT_MIN_EVICTABLE_IDLE_TIME_MILLIS' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final long DEFAULT_MIN_EVICTABLE_IDLE_TIME_MILLIS = 1000L * 60L * 30L;
+    public static final long DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS = -1;
 
     /**
 ```
@@ -527,13 +347,61 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS' is still used
+Deprecated member 'DEFAULT_MIN_EVICTABLE_IDLE_TIME' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final long DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS = -1;
+    public static final Duration DEFAULT_MIN_EVICTABLE_IDLE_TIME =
+            Duration.ofMillis(DEFAULT_MIN_EVICTABLE_IDLE_TIME_MILLIS);
+
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'setTimeBetweenEvictionRunsMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void setTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
+        setTimeBetweenEvictionRuns(Duration.ofMillis(timeBetweenEvictionRunsMillis));
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getMinEvictableIdleTime' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public Duration getMinEvictableIdleTime() {
+        return minEvictableIdleDuration;
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'DEFAULT_TIME_BETWEEN_EVICTION_RUNS_MILLIS' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final long DEFAULT_TIME_BETWEEN_EVICTION_RUNS_MILLIS = -1L;
+
+    /**
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'DEFAULT_EVICTOR_SHUTDOWN_TIMEOUT_MILLIS' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final long DEFAULT_EVICTOR_SHUTDOWN_TIMEOUT_MILLIS = 10L * 1000L;
 
     /**
 ```
@@ -551,87 +419,219 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME' is still used
+Deprecated member 'getMinEvictableIdleTimeMillis' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final Duration DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME =
-            Duration.ofMillis(DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS);
-
+    public long getMinEvictableIdleTimeMillis() {
+        return minEvictableIdleDuration.toMillis();
+    }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'DEFAULT_MIN_EVICTABLE_IDLE_TIME' is still used
+Deprecated member 'DEFAULT_MIN_EVICTABLE_IDLE_TIME_MILLIS' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final Duration DEFAULT_MIN_EVICTABLE_IDLE_TIME =
-            Duration.ofMillis(DEFAULT_MIN_EVICTABLE_IDLE_TIME_MILLIS);
+    public static final long DEFAULT_MIN_EVICTABLE_IDLE_TIME_MILLIS = 1000L * 60L * 30L;
 
+    /**
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getMaxWaitMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
+Deprecated member 'getMinEvictableIdleTime' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public long getMaxWaitMillis() {
-        return maxWaitDuration.toMillis();
+    public final Duration getMinEvictableIdleTime() {
+        return minEvictableIdleDuration;
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'setMaxWaitMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final void setMaxWaitMillis(final long maxWaitMillis) {
+        setMaxWait(Duration.ofMillis(maxWaitMillis));
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final long getMinEvictableIdleTimeMillis() {
+        return minEvictableIdleDuration.toMillis();
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getTimeBetweenEvictionRunsMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final long getTimeBetweenEvictionRunsMillis() {
+        return durationBetweenEvictionRuns.toMillis();
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getSoftMinEvictableIdleTime' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final Duration getSoftMinEvictableIdleTime() {
+        return softMinEvictableIdleDuration;
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getEvictorShutdownTimeoutMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final long getEvictorShutdownTimeoutMillis() {
+        return evictorShutdownTimeoutDuration.toMillis();
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'setSoftMinEvictableIdleTime' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final void setSoftMinEvictableIdleTime(final Duration softMinEvictableIdleTime) {
+        this.softMinEvictableIdleDuration = PoolImplUtils.nonNull(softMinEvictableIdleTime, BaseObjectPoolConfig.DEFAULT_SOFT_MIN_EVICTABLE_IDLE_DURATION);
     }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'getEvictorShutdownTimeout' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public Duration getEvictorShutdownTimeout() {
+    public final Duration getEvictorShutdownTimeout() {
         return evictorShutdownTimeoutDuration;
     }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getTimeBetweenEvictionRuns' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Duration getTimeBetweenEvictionRuns() {
-        return durationBetweenEvictionRuns;
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'setTimeBetweenEvictionRunsMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public void setTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
+    public final void setTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
         setTimeBetweenEvictionRuns(Duration.ofMillis(timeBetweenEvictionRunsMillis));
     }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'DEFAULT_TIME_BETWEEN_EVICTION_RUNS_MILLIS' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
+Deprecated member 'getMaxWaitMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final long DEFAULT_TIME_BETWEEN_EVICTION_RUNS_MILLIS = -1L;
+    public final long getMaxWaitMillis() {
+        return maxWaitDuration.toMillis();
+    }
+```
 
-    /**
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'setMinEvictableIdleTime' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final void setMinEvictableIdleTime(final Duration minEvictableIdleTime) {
+        this.minEvictableIdleDuration = PoolImplUtils.nonNull(minEvictableIdleTime, BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION);
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'setMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final void setMinEvictableIdleTimeMillis(final long minEvictableIdleTimeMillis) {
+        setMinEvictableIdleTime(Duration.ofMillis(minEvictableIdleTimeMillis));
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getSoftMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final long getSoftMinEvictableIdleTimeMillis() {
+        return softMinEvictableIdleDuration.toMillis();
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getRemoveAbandonedTimeout' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public int getRemoveAbandonedTimeout() {
+        return (int) getRemoveAbandonedTimeoutDuration().getSeconds();
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'setSoftMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final void setSoftMinEvictableIdleTimeMillis(final long softMinEvictableIdleTimeMillis) {
+        setSoftMinEvictableIdleTime(Duration.ofMillis(softMinEvictableIdleTimeMillis));
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getTimeBetweenEvictionRuns' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final Duration getTimeBetweenEvictionRuns() {
+        return durationBetweenEvictionRuns;
+    }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -653,9 +653,9 @@ in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
 ```java
      */
     @Deprecated
-    public static <T, E extends Exception> void prefill(final ObjectPool<T, E> pool, final int count)
-            throws E, IllegalArgumentException {
-        if (pool == null) {
+    public static <K, V, E extends Exception> void prefill(final KeyedObjectPool<K, V, E> keyedPool,
+            final K key, final int count) throws E,
+            IllegalArgumentException {
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -665,9 +665,9 @@ in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
 ```java
      */
     @Deprecated
-    public static <K, V, E extends Exception> void prefill(final KeyedObjectPool<K, V, E> keyedPool,
-            final K key, final int count) throws E,
-            IllegalArgumentException {
+    public static <T, E extends Exception> void prefill(final ObjectPool<T, E> pool, final int count)
+            throws E, IllegalArgumentException {
+        if (pool == null) {
 ```
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -737,6 +737,18 @@ in `src/main/java/org/apache/commons/pool2/impl/SoftReferenceObjectPool.java`
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### RuleId[ruleID=StringBufferReplaceableByString]
 `StringBuilder builder` can be replaced with 'String'
+in `src/main/java/org/apache/commons/pool2/proxy/JdkProxySource.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("JdkProxySource [classLoader=");
+        builder.append(classLoader);
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder builder` can be replaced with 'String'
 in `src/main/java/org/apache/commons/pool2/proxy/CglibProxySource.java`
 #### Snippet
 ```java
@@ -749,14 +761,14 @@ in `src/main/java/org/apache/commons/pool2/proxy/CglibProxySource.java`
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
 `StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/pool2/impl/EvictionConfig.java`
+in `src/main/java/org/apache/commons/pool2/proxy/BaseProxyHandler.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("EvictionConfig [idleEvictDuration=");
-        builder.append(idleEvictDuration);
+        builder.append(getClass().getName());
+        builder.append(" [pooledObject=");
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -773,18 +785,6 @@ in `src/main/java/org/apache/commons/pool2/proxy/ProxiedObjectPool.java`
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
 `StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/pool2/proxy/JdkProxySource.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("JdkProxySource [classLoader=");
-        builder.append(classLoader);
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder builder` can be replaced with 'String'
 in `src/main/java/org/apache/commons/pool2/proxy/ProxiedKeyedObjectPool.java`
 #### Snippet
 ```java
@@ -793,18 +793,6 @@ in `src/main/java/org/apache/commons/pool2/proxy/ProxiedKeyedObjectPool.java`
         final StringBuilder builder = new StringBuilder();
         builder.append("ProxiedKeyedObjectPool [pool=");
         builder.append(pool);
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/pool2/impl/DefaultPooledObjectInfo.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("DefaultPooledObjectInfo [pooledObject=");
-        builder.append(pooledObject);
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -821,14 +809,26 @@ in `src/main/java/org/apache/commons/pool2/impl/EvictionTimer.java`
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
 `StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/pool2/proxy/BaseProxyHandler.java`
+in `src/main/java/org/apache/commons/pool2/impl/DefaultPooledObjectInfo.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getClass().getName());
-        builder.append(" [pooledObject=");
+        builder.append("DefaultPooledObjectInfo [pooledObject=");
+        builder.append(pooledObject);
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder builder` can be replaced with 'String'
+in `src/main/java/org/apache/commons/pool2/impl/EvictionConfig.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("EvictionConfig [idleEvictDuration=");
+        builder.append(idleEvictDuration);
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -887,20 +887,8 @@ in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder();
-            sb.append("SynchronizedKeyedObjectPool");
-            sb.append("{keyedPool=").append(keyedPool);
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder sb` can be replaced with 'String'
-in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
-#### Snippet
-```java
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder();
-            sb.append("ObjectPoolMinIdleTimerTask");
-            sb.append("{minIdle=").append(minIdle);
+            sb.append("SynchronizedPoolableObjectFactory");
+            sb.append("{factory=").append(factory);
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -935,8 +923,8 @@ in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder();
-            sb.append("SynchronizedKeyedPooledObjectFactory");
-            sb.append("{keyedFactory=").append(keyedFactory);
+            sb.append("ObjectPoolMinIdleTimerTask");
+            sb.append("{minIdle=").append(minIdle);
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -947,8 +935,20 @@ in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder();
-            sb.append("SynchronizedPoolableObjectFactory");
-            sb.append("{factory=").append(factory);
+            sb.append("SynchronizedKeyedObjectPool");
+            sb.append("{keyedPool=").append(keyedPool);
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder sb` can be replaced with 'String'
+in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
+#### Snippet
+```java
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder();
+            sb.append("SynchronizedKeyedPooledObjectFactory");
+            sb.append("{keyedFactory=").append(keyedFactory);
 ```
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
@@ -1053,15 +1053,15 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/pool2/proxy/ProxiedObjectPool.java`
+Can generalize to `? extends K`
+in `src/main/java/org/apache/commons/pool2/KeyedObjectPool.java`
 #### Snippet
 ```java
-     * @param proxySource The source of the proxy objects
+     * @see #addObjects(Object, int)
      */
-    public ProxiedObjectPool(final ObjectPool<T, E> pool, final ProxySource<T> proxySource) {
-        this.pool = pool;
-        this.proxySource = proxySource;
+    default void addObjects(final Collection<K> keys, final int count) throws E, IllegalArgumentException {
+        if (keys == null) {
+            throw new IllegalArgumentException(PoolUtils.MSG_NULL_KEYS);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1077,18 +1077,6 @@ in `src/main/java/org/apache/commons/pool2/proxy/JdkProxySource.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/pool2/proxy/ProxiedKeyedObjectPool.java`
-#### Snippet
-```java
-     * @param proxySource The source of the proxy objects
-     */
-    public ProxiedKeyedObjectPool(final KeyedObjectPool<K, V, E> pool,
-            final ProxySource<V> proxySource) {
-        this.pool = pool;
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super PooledObject`
 in `src/main/java/org/apache/commons/pool2/impl/DefaultPooledObject.java`
 #### Snippet
@@ -1098,18 +1086,6 @@ in `src/main/java/org/apache/commons/pool2/impl/DefaultPooledObject.java`
             final Deque<PooledObject<T>> idleQueue) {
         if (state == PooledObjectState.EVICTION) {
             state = PooledObjectState.IDLE;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `src/main/java/org/apache/commons/pool2/impl/EvictionTimer.java`
-#### Snippet
-```java
-         * @param ref the reference to track.
-         */
-        private WeakRunner(final WeakReference<R> ref) {
-           this.ref = ref;
-        }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1125,15 +1101,39 @@ in `src/main/java/org/apache/commons/pool2/proxy/BaseProxyHandler.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `src/main/java/org/apache/commons/pool2/KeyedObjectPool.java`
+Can generalize to `? extends E`
+in `src/main/java/org/apache/commons/pool2/proxy/ProxiedObjectPool.java`
 #### Snippet
 ```java
-     * @see #addObjects(Object, int)
+     * @param proxySource The source of the proxy objects
      */
-    default void addObjects(final Collection<K> keys, final int count) throws E, IllegalArgumentException {
-        if (keys == null) {
-            throw new IllegalArgumentException(PoolUtils.MSG_NULL_KEYS);
+    public ProxiedObjectPool(final ObjectPool<T, E> pool, final ProxySource<T> proxySource) {
+        this.pool = pool;
+        this.proxySource = proxySource;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `src/main/java/org/apache/commons/pool2/proxy/ProxiedKeyedObjectPool.java`
+#### Snippet
+```java
+     * @param proxySource The source of the proxy objects
+     */
+    public ProxiedKeyedObjectPool(final KeyedObjectPool<K, V, E> pool,
+            final ProxySource<V> proxySource) {
+        this.pool = pool;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends R`
+in `src/main/java/org/apache/commons/pool2/impl/EvictionTimer.java`
+#### Snippet
+```java
+         * @param ref the reference to track.
+         */
+        private WeakRunner(final WeakReference<R> ref) {
+           this.ref = ref;
+        }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1185,18 +1185,6 @@ in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
-#### Snippet
-```java
-         *             if the pool is null
-         */
-        SynchronizedObjectPool(final ObjectPool<T, E> pool)
-                throws IllegalArgumentException {
-            if (pool == null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super K`
 in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
 #### Snippet
@@ -1213,35 +1201,35 @@ Can generalize to `? extends E`
 in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
 #### Snippet
 ```java
-         *             if the factory is null
-         */
-        SynchronizedPooledObjectFactory(final PooledObjectFactory<T, E> factory)
-                throws IllegalArgumentException {
-            if (factory == null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
-#### Snippet
-```java
-         *             if keyedPool is null
-         */
-        SynchronizedKeyedObjectPool(final KeyedObjectPool<K, V, E> keyedPool)
-                throws IllegalArgumentException {
-            if (keyedPool == null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
-#### Snippet
-```java
          * @see #factor
          */
         public ErodingObjectPool(final ObjectPool<T, E> pool, final float factor) {
             this.pool = pool;
             this.factor = new ErodingFactor(factor);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
+#### Snippet
+```java
+         *             if the pool is null
+         */
+        SynchronizedObjectPool(final ObjectPool<T, E> pool)
+                throws IllegalArgumentException {
+            if (pool == null) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
+#### Snippet
+```java
+         *             if the factory is null
+         */
+        SynchronizedPooledObjectFactory(final PooledObjectFactory<T, E> factory)
+                throws IllegalArgumentException {
+            if (factory == null) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1268,7 +1256,31 @@ in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
                 throw new IllegalArgumentException(
 ```
 
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
+#### Snippet
+```java
+         *             if keyedPool is null
+         */
+        SynchronizedKeyedObjectPool(final KeyedObjectPool<K, V, E> keyedPool)
+                throws IllegalArgumentException {
+            if (keyedPool == null) {
+```
+
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+Non-private field `evictionIterator` accessed in synchronized context
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+                    EvictionTimer.cancel(evictor, evictorShutdownTimeoutDuration, true);
+                    evictor = null;
+                    evictionIterator = null;
+                    evictor = new Evictor();
+                    EvictionTimer.schedule(evictor, delay, delay);
+```
+
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
 Non-private field `evictionIterator` accessed in synchronized context
 in `src/main/java/org/apache/commons/pool2/impl/GenericObjectPool.java`
@@ -1344,30 +1356,6 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericObjectPool.java`
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
 Non-private field `closed` accessed in synchronized context
 in `src/main/java/org/apache/commons/pool2/impl/GenericObjectPool.java`
-#### Snippet
-```java
-            stopEvictor();
-
-            closed = true;
-            // This clear removes any idle objects
-            clear();
-```
-
-### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `evictionIterator` accessed in synchronized context
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-                    EvictionTimer.cancel(evictor, evictorShutdownTimeoutDuration, true);
-                    evictor = null;
-                    evictionIterator = null;
-                    evictor = new Evictor();
-                    EvictionTimer.schedule(evictor, delay, delay);
-```
-
-### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-Non-private field `closed` accessed in synchronized context
-in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
 #### Snippet
 ```java
             stopEvictor();
@@ -1485,6 +1473,18 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
                     }
 ```
 
+### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+Non-private field `closed` accessed in synchronized context
+in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
+#### Snippet
+```java
+            stopEvictor();
+
+            closed = true;
+            // This clear removes any idle objects
+            clear();
+```
+
 ## RuleId[ruleID=RedundantSuppression]
 ### RuleId[ruleID=RedundantSuppression]
 Redundant suppression
@@ -1562,18 +1562,6 @@ in `src/main/java/org/apache/commons/pool2/impl/SecurityManagerCallStack.java`
 
 ### RuleId[ruleID=UnnecessaryBoxing]
 Unnecessary boxing
-in `src/main/java/org/apache/commons/pool2/impl/DefaultPooledObjectInfo.java`
-#### Snippet
-```java
-
-    private String getTimeMillisFormatted(final long millis) {
-        return new SimpleDateFormat(PATTERN).format(Long.valueOf(millis));
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
 in `src/main/java/org/apache/commons/pool2/impl/PoolImplUtils.java`
 #### Snippet
 ```java
@@ -1598,14 +1586,14 @@ in `src/main/java/org/apache/commons/pool2/impl/ThrowableCallStack.java`
 
 ### RuleId[ruleID=UnnecessaryBoxing]
 Unnecessary boxing
-in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
+in `src/main/java/org/apache/commons/pool2/impl/DefaultPooledObjectInfo.java`
 #### Snippet
 ```java
+
+    private String getTimeMillisFormatted(final long millis) {
+        return new SimpleDateFormat(PATTERN).format(Long.valueOf(millis));
     }
 
-    private static final Integer ZERO = Integer.valueOf(0);
-
-    // JMX specific attributes
 ```
 
 ### RuleId[ruleID=UnnecessaryBoxing]
@@ -1618,6 +1606,18 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
                 e -> Integer.valueOf(e.getValue().getAllObjects().size() - e.getValue().getIdleObjects().size()),
                 (t, u) -> u));
     }
+```
+
+### RuleId[ruleID=UnnecessaryBoxing]
+Unnecessary boxing
+in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
+#### Snippet
+```java
+    }
+
+    private static final Integer ZERO = Integer.valueOf(0);
+
+    // JMX specific attributes
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -1708,18 +1708,6 @@ in `src/main/java/org/apache/commons/pool2/impl/SoftReferenceObjectPool.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
-#### Snippet
-```java
-        try {
-            if (a.length < count) {
-                a = (T[])java.lang.reflect.Array.newInstance
-                    (a.getClass().getComponentType(), count);
-            }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
 #### Snippet
@@ -1731,6 +1719,18 @@ in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
         try {
 ```
 
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang.reflect` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
+#### Snippet
+```java
+        try {
+            if (a.length < count) {
+                a = (T[])java.lang.reflect.Array.newInstance
+                    (a.getClass().getComponentType(), count);
+            }
+```
+
 ## RuleId[ruleID=NestedAssignment]
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
@@ -1739,31 +1739,7 @@ in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
 ```java
         try {
             E x;
-            while ( (x = unlinkLast()) == null) {
-                if (nanos <= 0) {
-                    return null;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
-#### Snippet
-```java
-        try {
-            E x;
             while ( (x = unlinkFirst()) == null) {
-                notEmpty.await();
-            }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
-#### Snippet
-```java
-        try {
-            E x;
-            while ( (x = unlinkLast()) == null) {
                 notEmpty.await();
             }
 ```
@@ -1788,6 +1764,30 @@ in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
         try {
             E x;
             while ((x = unlinkFirst()) == null) {
+                if (nanos <= 0) {
+                    return null;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
+#### Snippet
+```java
+        try {
+            E x;
+            while ( (x = unlinkLast()) == null) {
+                notEmpty.await();
+            }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
+#### Snippet
+```java
+        try {
+            E x;
+            while ( (x = unlinkLast()) == null) {
                 if (nanos <= 0) {
                     return null;
 ```
@@ -1819,18 +1819,6 @@ in `src/main/java/org/apache/commons/pool2/impl/EvictionTimer.java`
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `destroyCount` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/pool2/impl/SoftReferenceObjectPool.java`
-#### Snippet
-```java
-
-    /** Total number of instances that have been destroyed */
-    private long destroyCount; // @GuardedBy("this")
-
-
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `numActive` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/commons/pool2/impl/SoftReferenceObjectPool.java`
 #### Snippet
@@ -1855,27 +1843,15 @@ in `src/main/java/org/apache/commons/pool2/impl/SoftReferenceObjectPool.java`
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `makeObjectCount` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/pool2/impl/GenericObjectPool.java`
+Field `destroyCount` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/pool2/impl/SoftReferenceObjectPool.java`
 #### Snippet
 ```java
-    private final AtomicLong createCount = new AtomicLong();
 
-    private long makeObjectCount;
+    /** Total number of instances that have been destroyed */
+    private long destroyCount; // @GuardedBy("this")
 
-    private final Object makeObjectCountLock = new Object();
-```
 
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `evictionIterator` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-    final Object evictionLock = new Object();
-    private Evictor evictor; // @GuardedBy("evictionLock")
-    EvictionIterator evictionIterator; // @GuardedBy("evictionLock")
-
-    /**
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -1900,6 +1876,30 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
     private Evictor evictor; // @GuardedBy("evictionLock")
     EvictionIterator evictionIterator; // @GuardedBy("evictionLock")
 
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `evictionIterator` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+    final Object evictionLock = new Object();
+    private Evictor evictor; // @GuardedBy("evictionLock")
+    EvictionIterator evictionIterator; // @GuardedBy("evictionLock")
+
+    /**
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `makeObjectCount` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/pool2/impl/GenericObjectPool.java`
+#### Snippet
+```java
+    private final AtomicLong createCount = new AtomicLong();
+
+    private long makeObjectCount;
+
+    private final Object makeObjectCountLock = new Object();
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -1965,18 +1965,6 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 
 ## RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
 ### RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
-Synchronization on local variable `p`
-in `src/main/java/org/apache/commons/pool2/impl/GenericObjectPool.java`
-#### Snippet
-```java
-                    "Invalidated object not currently part of this pool");
-        }
-        synchronized (p) {
-            if (p.getState() != PooledObjectState.INVALID) {
-                destroy(p, destroyMode);
-```
-
-### RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
 Synchronization on method parameter `pooledObject`
 in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
@@ -2001,15 +1989,15 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 ```
 
 ### RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
-Synchronization on method parameter `toDestroy`
-in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
+Synchronization on local variable `p`
+in `src/main/java/org/apache/commons/pool2/impl/GenericObjectPool.java`
 #### Snippet
 ```java
-        try {
-            boolean isIdle;
-            synchronized(toDestroy) {
-                // Check idle state directly
-                isIdle = toDestroy.getState().equals(PooledObjectState.IDLE);
+                    "Invalidated object not currently part of this pool");
+        }
+        synchronized (p) {
+            if (p.getState() != PooledObjectState.INVALID) {
+                destroy(p, destroyMode);
 ```
 
 ### RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
@@ -2024,7 +2012,31 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
                 destroy(key, p, true, destroyMode);
 ```
 
+### RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
+Synchronization on method parameter `toDestroy`
+in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
+#### Snippet
+```java
+        try {
+            boolean isIdle;
+            synchronized(toDestroy) {
+                // Check idle state directly
+                isIdle = toDestroy.getState().equals(PooledObjectState.IDLE);
+```
+
 ## RuleId[ruleID=ReturnNull]
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/pool2/impl/PoolImplUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
 in `src/main/java/org/apache/commons/pool2/impl/PoolImplUtils.java`
@@ -2063,26 +2075,14 @@ in `src/main/java/org/apache/commons/pool2/impl/PoolImplUtils.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/org/apache/commons/pool2/impl/PoolImplUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
 #### Snippet
 ```java
-        lock.lock();
-        try {
-            return first == null ? null : first.item;
-        } finally {
-            lock.unlock();
+        final Node<E> f = first;
+        if (f == null) {
+            return null;
+        }
+        final Node<E> n = f.next;
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2114,6 +2114,30 @@ Return of `null`
 in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
 #### Snippet
 ```java
+            while ((x = unlinkFirst()) == null) {
+                if (nanos <= 0) {
+                    return null;
+                }
+                nanos = notEmpty.awaitNanos(nanos);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
+#### Snippet
+```java
+        lock.lock();
+        try {
+            return first == null ? null : first.item;
+        } finally {
+            lock.unlock();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
+#### Snippet
+```java
             while ( (x = unlinkLast()) == null) {
                 if (nanos <= 0) {
                     return null;
@@ -2135,26 +2159,14 @@ in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
+in `src/main/java/org/apache/commons/pool2/impl/AbandonedConfig.java`
 #### Snippet
 ```java
-            while ((x = unlinkFirst()) == null) {
-                if (nanos <= 0) {
-                    return null;
-                }
-                nanos = notEmpty.awaitNanos(nanos);
-```
+     */
+    public static AbandonedConfig copy(final AbandonedConfig abandonedConfig) {
+        return abandonedConfig == null ? null : new AbandonedConfig(abandonedConfig);
+    }
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/pool2/impl/LinkedBlockingDeque.java`
-#### Snippet
-```java
-        final Node<E> f = first;
-        if (f == null) {
-            return null;
-        }
-        final Node<E> n = f.next;
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2179,18 +2191,6 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericObjectPool.java`
                 return null;
             }
         } catch (final Throwable e) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/pool2/impl/AbandonedConfig.java`
-#### Snippet
-```java
-     */
-    public static AbandonedConfig copy(final AbandonedConfig abandonedConfig) {
-        return abandonedConfig == null ? null : new AbandonedConfig(abandonedConfig);
-    }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2232,7 +2232,7 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-20-03-32-03.513.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-20-07-59-39.539.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -2243,18 +2243,6 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-20-03-32-03.513.
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/pool2/impl/DefaultPooledObject.java`
-#### Snippet
-```java
-        result.append(object.toString());
-        result.append(", State: ");
-        synchronized (this) {
-            result.append(state.toString());
-        }
-```
-
 ### RuleId[ruleID=SynchronizeOnThis]
 Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/org/apache/commons/pool2/impl/PooledSoftReference.java`
@@ -2268,6 +2256,18 @@ in `src/main/java/org/apache/commons/pool2/impl/PooledSoftReference.java`
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/commons/pool2/impl/DefaultPooledObject.java`
+#### Snippet
+```java
+        result.append(object.toString());
+        result.append(", State: ");
+        synchronized (this) {
+            result.append(state.toString());
+        }
+```
+
+### RuleId[ruleID=SynchronizeOnThis]
 Lock operations on a class may have unforeseen side-effects
 in `src/main/java/org/apache/commons/pool2/impl/EvictionTimer.java`
 #### Snippet
@@ -2277,6 +2277,18 @@ in `src/main/java/org/apache/commons/pool2/impl/EvictionTimer.java`
             synchronized (EvictionTimer.class) {
                 for (final Entry<WeakReference<BaseGenericObjectPool<?, ?>.Evictor>, WeakRunner<BaseGenericObjectPool<?, ?>.Evictor>> entry : TASK_MAP
                         .entrySet()) {
+```
+
+### RuleId[ruleID=SynchronizeOnThis]
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/commons/pool2/impl/SoftReferenceObjectPool.java`
+#### Snippet
+```java
+        }
+        numActive--;
+        notifyAll(); // numActive has changed
+    }
+
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -2301,18 +2313,6 @@ in `src/main/java/org/apache/commons/pool2/impl/SoftReferenceObjectPool.java`
         notifyAll(); // numActive has changed
 
         if (shouldDestroy && factory != null) {
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/pool2/impl/SoftReferenceObjectPool.java`
-#### Snippet
-```java
-        }
-        numActive--;
-        notifyAll(); // numActive has changed
-    }
-
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -2341,18 +2341,6 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericObjectPool.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `objectDeque` initializer `null` is redundant
-in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
-#### Snippet
-```java
-    private ObjectDeque<T> register(final K k) {
-        Lock lock = keyLock.readLock();
-        ObjectDeque<T> objectDeque = null;
-        try {
-            lock.lock();
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `underTest` initializer `null` is redundant
 in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
 #### Snippet
@@ -2362,6 +2350,18 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
             PooledObject<T> underTest = null;
             final EvictionPolicy<T> evictionPolicy = getEvictionPolicy();
 
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `objectDeque` initializer `null` is redundant
+in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
+#### Snippet
+```java
+    private ObjectDeque<T> register(final K k) {
+        Lock lock = keyLock.readLock();
+        ObjectDeque<T> objectDeque = null;
+        try {
+            lock.lock();
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
