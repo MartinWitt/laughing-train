@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import com.google.common.flogger.FluentLogger;
+import com.google.errorprone.annotations.Var;
 import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.quarkiverse.githubapp.event.Issue;
 import java.io.Closeable;
@@ -102,6 +103,7 @@ public class App {
 
     private void refreshConfig(GHEventPayload.Issue issueComment) throws JsonProcessingException {
         String body = issueComment.getIssue().getBody();
+        @Var
         String newConfig = body.substring(body.indexOf("<!-- config-start -->"), body.indexOf("<!-- config-end -->"));
         newConfig = newConfig.replace("```yaml", "").replace("```", "");
         newConfig = newConfig.replace("<!-- config-start -->", "").replace("<!-- config-end -->", "");

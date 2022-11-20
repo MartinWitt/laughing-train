@@ -22,6 +22,7 @@ import com.github.dockerjava.core.DockerClientImpl;
 import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import com.google.common.flogger.FluentLogger;
+import com.google.errorprone.annotations.Var;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class QodanaAnalyzer {
         this.sourceFileRoot = builder.sourceFileRoot;
     }
 
-    public List<AnalyzerResult> runQodana(Path sourceRoot) {
+    public List<AnalyzerResult> runQodana(@Var Path sourceRoot) {
         sourceRoot = fixWindowsPath(sourceRoot);
         logger.atInfo().log("Running Qodana on %s", sourceRoot);
         copyQodanaRules(sourceRoot);
@@ -74,26 +75,6 @@ public class QodanaAnalyzer {
                 logger.atInfo().log("Found qodana image %s", qodana.get().getId());
                 return executeQodana(sourceRoot, dockerClient, qodana.get());
             }
-        } catch (Exception e) {
-            logger.atSevere().withCause(e).log("Error running qodana");
-        }
-        return List.of();
-    }
-
-    @Deprecated
-    public List<AnalyzerResult> runQodanaNoCacheDelete(Path sourceRoot) {
-        sourceRoot = fixWindowsPath(sourceRoot);
-        logger.atInfo().log("Running Qodana on %s", sourceRoot);
-        copyQodanaRules(sourceRoot);
-        DockerClientConfig standard =
-                DefaultDockerClientConfig.createDefaultConfigBuilder().build();
-        DockerHttpClient httpClient = createHttpClient(standard);
-        try (DockerClient dockerClient = DockerClientImpl.getInstance(standard, httpClient)) {
-            Optional<Image> qodana = findQodanaImage(dockerClient);
-            if (qodana.isPresent()) {
-                return executeQodana(sourceRoot, dockerClient, qodana.get());
-            }
-            logger.atSevere().log("Could not find qodana image");
         } catch (Exception e) {
             logger.atSevere().withCause(e).log("Error running qodana");
         }
@@ -233,9 +214,9 @@ public class QodanaAnalyzer {
                 .toString()
                 .endsWith(Path.of("/src/main/java").toString())) {
             if (sourceRoot.getRoot() == null) {
-                sourceRoot = sourceRoot.subpath(0, sourceRoot.getNameCount() - 3);
+                return sourceRoot.subpath(0, sourceRoot.getNameCount() - 3);
             } else {
-                sourceRoot = Paths.get(
+                return Paths.get(
                         sourceRoot.getRoot().toString(),
                         sourceRoot.subpath(0, sourceRoot.getNameCount() - 3).toString());
             }

@@ -1,5 +1,6 @@
 package xyz.keksdose.spoon.code_solver.api;
 
+import com.google.errorprone.annotations.Var;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -97,7 +98,7 @@ public class QodanaBuilder {
     }
 
     public QodanaRefactor build() {
-        var builder = qodanaCreatorSupplier.get();
+        @Var var builder = qodanaCreatorSupplier.get();
         for (UnaryOperator<QodanaRefactor.Builder> function : qodanaCreator) {
             builder = function.apply(builder);
         }
