@@ -94,7 +94,7 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public Map<Integer, Integer> getLineNumberMapping() {
+	public String printPackageInfo(CtPackage ctPackage) {
 		return null;
 	}
 
@@ -106,7 +106,7 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public String printPackageInfo(CtPackage ctPackage) {
+	public Map<Integer, Integer> getLineNumberMapping() {
 		return null;
 	}
 
