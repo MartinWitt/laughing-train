@@ -185,6 +185,19 @@ in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
             }
 ```
 
+## RuleId[ruleID=UnnecessarySemicolon]
+### RuleId[ruleID=UnnecessarySemicolon]
+Unnecessary semicolon `;`
+in `client/src/main/java/com/microsoft/durabletask/TaskOrchestratorResult.java`
+#### Snippet
+```java
+
+    public TaskOrchestratorResult(Collection<OrchestratorService.OrchestratorAction> actions, String customStatus) {
+        this.actions = Collections.unmodifiableCollection(actions);;
+        this.customStatus = customStatus;
+    }
+```
+
 ## RuleId[ruleID=DataFlowIssue]
 ### RuleId[ruleID=DataFlowIssue]
 Method invocation `readOutputAs` may produce `NullPointerException`
@@ -211,6 +224,18 @@ in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
+Argument `serializedInput` might be null
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
+#### Snippet
+```java
+        if (input != null) {
+            String serializedInput = this.dataConverter.serialize(input);
+            builder.setInput(StringValue.of(serializedInput));
+        }
+
+```
+
+### RuleId[ruleID=DataFlowIssue]
 Argument `serializeOutput` might be null
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 #### Snippet
@@ -232,31 +257,6 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
             builder.setInput(StringValue.of(serializedPayload));
         }
 
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `serializedInput` might be null
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
-#### Snippet
-```java
-        if (input != null) {
-            String serializedInput = this.dataConverter.serialize(input);
-            builder.setInput(StringValue.of(serializedInput));
-        }
-
-```
-
-## RuleId[ruleID=UnnecessarySemicolon]
-### RuleId[ruleID=UnnecessarySemicolon]
-Unnecessary semicolon `;`
-in `client/src/main/java/com/microsoft/durabletask/TaskOrchestratorResult.java`
-#### Snippet
-```java
-
-    public TaskOrchestratorResult(Collection<OrchestratorService.OrchestratorAction> actions, String customStatus) {
-        this.actions = Collections.unmodifiableCollection(actions);;
-        this.customStatus = customStatus;
-    }
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -399,30 +399,6 @@ public class TaskFailedException extends RuntimeException {
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
-#### Snippet
-```java
-        public <T> T getInput(Class<T> targetType) {
-            if (this.rawInput == null) {
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
 #### Snippet
 ```java
@@ -442,6 +418,30 @@ in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
         if (ts == null) {
             return null;
         }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
+#### Snippet
+```java
+        public <T> T getInput(Class<T> targetType) {
+            if (this.rawInput == null) {
+                return null;
+            }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
 
 ```
 
@@ -470,6 +470,18 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`argValue.trim().length() == 0` can be replaced with 'argValue.trim().isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
+#### Snippet
+```java
+    static @Nonnull String throwIfArgumentNullOrWhiteSpace(String argValue, String argName) {
+        throwIfArgumentNull(argValue, argName);
+        if (argValue.trim().length() == 0){
+            throw new IllegalArgumentException("The argument '" + argName + "' was empty or contained only whitespace.");
+        }
+```
+
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `this.rpcBaseUrl.length() == 0` can be replaced with 'this.rpcBaseUrl.isEmpty()'
 in `azurefunctions/src/main/java/com/microsoft/durabletask/azurefunctions/DurableClientContext.java`
@@ -507,18 +519,6 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcWorkerBuilder.
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`argValue.trim().length() == 0` can be replaced with 'argValue.trim().isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
-#### Snippet
-```java
-    static @Nonnull String throwIfArgumentNullOrWhiteSpace(String argValue, String argName) {
-        throwIfArgumentNull(argValue, argName);
-        if (argValue.trim().length() == 0){
-            throw new IllegalArgumentException("The argument '" + argName + "' was empty or contained only whitespace.");
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `jsonText.length() == 0` can be replaced with 'jsonText.isEmpty()'
 in `client/src/main/java/com/microsoft/durabletask/JacksonDataConverter.java`
 #### Snippet
@@ -543,18 +543,6 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`this.outstandingEvents.size() > 0` can be replaced with '!this.outstandingEvents.isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
-#### Snippet
-```java
-        
-        private boolean waitingForEvents() {
-            return this.outstandingEvents.size() > 0;
-        }
-
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `this.rawInput.length() == 0` can be replaced with 'this.rawInput.isEmpty()'
 in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
 #### Snippet
@@ -564,6 +552,18 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
             if (this.rawInput == null || this.rawInput.length() == 0) {
                 return null;
             }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`this.outstandingEvents.size() > 0` can be replaced with '!this.outstandingEvents.isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
+#### Snippet
+```java
+        
+        private boolean waitingForEvents() {
+            return this.outstandingEvents.size() > 0;
+        }
+
 ```
 
 ## RuleId[ruleID=NonStaticFinalLogger]
@@ -650,18 +650,6 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
-        super(message, cause, enableSuppression, writableStackTrace);
-        this.exceptions = exceptions;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Exception`
-in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
-#### Snippet
-```java
-    }
-
     CompositeTaskFailedException(Throwable cause, List<Exception> exceptions) {
         super(cause);
         this.exceptions = exceptions;
@@ -674,8 +662,20 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(String message, Throwable cause, List<Exception> exceptions) {
-        super(message, cause);
+    CompositeTaskFailedException(List<Exception> exceptions) {
+        this.exceptions = exceptions;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Exception`
+in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
+#### Snippet
+```java
+    }
+
+    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
+        super(message, cause, enableSuppression, writableStackTrace);
         this.exceptions = exceptions;
 ```
 
@@ -698,9 +698,9 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(List<Exception> exceptions) {
+    CompositeTaskFailedException(String message, Throwable cause, List<Exception> exceptions) {
+        super(message, cause);
         this.exceptions = exceptions;
-    }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -733,6 +733,18 @@ Missorted modifiers `static @Nonnull`
 in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
 #### Snippet
 ```java
+    }
+
+    static @Nonnull String throwIfArgumentNullOrWhiteSpace(String argValue, String argName) {
+        throwIfArgumentNull(argValue, argName);
+        if (argValue.trim().length() == 0){
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `static @Nonnull`
+in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
+#### Snippet
+```java
     final static Duration maxDuration = Duration.ofSeconds(Long.MAX_VALUE, 999999999L);
 
     static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
@@ -750,17 +762,5 @@ final class Helpers {
     final static Duration maxDuration = Duration.ofSeconds(Long.MAX_VALUE, 999999999L);
 
     static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `static @Nonnull`
-in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
-#### Snippet
-```java
-    }
-
-    static @Nonnull String throwIfArgumentNullOrWhiteSpace(String argValue, String argName) {
-        throwIfArgumentNull(argValue, argName);
-        if (argValue.trim().length() == 0){
 ```
 
