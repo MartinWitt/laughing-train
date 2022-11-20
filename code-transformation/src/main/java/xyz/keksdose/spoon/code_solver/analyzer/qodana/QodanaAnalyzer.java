@@ -42,7 +42,7 @@ import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 public class QodanaAnalyzer {
 
-    private static final int QODANA_TIME_LIMIT = 14;
+    private static final int QODANA_TIME_LIMIT = 25;
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private String resultFolder;
     private String qodanaImageName;
