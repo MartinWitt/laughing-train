@@ -229,18 +229,6 @@ in `src/core/src/main/java/org/apache/jmeter/engine/util/CompoundVariable.java`
 ```
 
 ### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-Call to `toArray()` with pre-sized array argument 'new String\[paths.size()\]'
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TestBeanGUI.java`
-#### Snippet
-```java
-            paths.addAll(Arrays.asList(JOrphanUtils.split(s, ",", "")));// $NON-NLS-1$ // $NON-NLS-2$
-        }
-        PropertyEditorManager.setEditorSearchPath(paths.toArray(new String[paths.size()]));
-    }
-
-```
-
-### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 Call to `toArray()` with pre-sized array argument 'new AssertionResult\[assertionResults.size()\]'
 in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
 #### Snippet
@@ -260,6 +248,18 @@ in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
             return EMPTY_SR;
         }
         return subResults.toArray(new SampleResult[subResults.size()]);
+    }
+
+```
+
+### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+Call to `toArray()` with pre-sized array argument 'new String\[paths.size()\]'
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TestBeanGUI.java`
+#### Snippet
+```java
+            paths.addAll(Arrays.asList(JOrphanUtils.split(s, ",", "")));// $NON-NLS-1$ // $NON-NLS-2$
+        }
+        PropertyEditorManager.setEditorSearchPath(paths.toArray(new String[paths.size()]));
     }
 
 ```
@@ -337,6 +337,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/config/gui/U
 ```
 
 ### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+Call to `toArray()` with pre-sized array argument 'new TestElement\[children.size()\]'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
+#### Snippet
+```java
+                target.deliverSampler(sampler,
+                         children
+                                .toArray(new TestElement[children.size()]),
+                        result);
+            }
+```
+
+### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 Call to `toArray()` with pre-sized array argument 'new InetAddress\[addresses.size()\]'
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/DNSCacheManager.java`
 #### Snippet
@@ -373,18 +385,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/Acce
 ```
 
 ### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-Call to `toArray()` with pre-sized array argument 'new TestElement\[children.size()\]'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
-#### Snippet
-```java
-                target.deliverSampler(sampler,
-                         children
-                                .toArray(new TestElement[children.size()]),
-                        result);
-            }
-```
-
-### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 Call to `toArray()` with pre-sized array argument 'new Header\[allHeaders.size()\]'
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPJavaImpl.java`
 #### Snippet
@@ -397,25 +397,13 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
 ```
 
 ### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-Call to `toArray()` with pre-sized array argument 'new Header\[result.size()\]'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+Call to `toArray()` with pre-sized array argument 'new String\[METHODLIST.size()\]'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
 #### Snippet
 ```java
-            }
-        }
-        return result.toArray(new Header[result.size()]);
-    }
 
-```
-
-### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-Call to `toArray()` with pre-sized array argument 'new Header\[result.size()\]'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-            result.add(new HeaderAdapter(header));
-        }
-        return result.toArray(new Header[result.size()]);
+    public static String[] getValidMethodsAsArray() {
+        return METHODLIST.toArray(new String[METHODLIST.size()]);
     }
 
 ```
@@ -430,18 +418,6 @@ in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/config/DataS
         String[] modes = modesSet.toArray(new String[modesSet.size()]);
         p.setValue(TAGS, modes);
         p = property("poolPreparedStatements");
-```
-
-### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-Call to `toArray()` with pre-sized array argument 'new String\[METHODLIST.size()\]'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
-#### Snippet
-```java
-
-    public static String[] getValidMethodsAsArray() {
-        return METHODLIST.toArray(new String[METHODLIST.size()]);
-    }
-
 ```
 
 ### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
@@ -564,6 +540,30 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVi
 
 ```
 
+### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+Call to `toArray()` with pre-sized array argument 'new Header\[result.size()\]'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+            result.add(new HeaderAdapter(header));
+        }
+        return result.toArray(new Header[result.size()]);
+    }
+
+```
+
+### RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+Call to `toArray()` with pre-sized array argument 'new Header\[result.size()\]'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+            }
+        }
+        return result.toArray(new Header[result.size()]);
+    }
+
+```
+
 ## RuleId[ruleID=Finalize]
 ### RuleId[ruleID=Finalize]
 'finalize()' should not be overridden
@@ -640,18 +640,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/TreeState.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
-Modifier `static` is redundant for inner classes of interfaces
-in `src/core/src/main/java/org/apache/jmeter/gui/TreeState.java`
-#### Snippet
-```java
-    }
-
-    static final class TreeStateImpl implements TreeState {
-
-        // GUI tree expansion state
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
 in `src/core/src/main/java/org/apache/jmeter/gui/TreeState.java`
 #### Snippet
@@ -661,6 +649,18 @@ in `src/core/src/main/java/org/apache/jmeter/gui/TreeState.java`
     public static TreeState from(GuiPackage guiPackage) {
         if (guiPackage == null) {
             return NOTHING;
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `static` is redundant for inner classes of interfaces
+in `src/core/src/main/java/org/apache/jmeter/gui/TreeState.java`
+#### Snippet
+```java
+    }
+
+    static final class TreeStateImpl implements TreeState {
+
+        // GUI tree expansion state
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
@@ -718,20 +718,8 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/render
 ```java
     }
 
-    public static <T> MessageRenderer<T> getInstance(Class<T> type) {
-        return RendererFactory.getInstance().getInstance(type);
-    }
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/render/Renderers.java`
-#### Snippet
-```java
-    }
-
-    public static MessageRenderer<Map<String,Object>> getMap() {
-        return RendererFactory.getInstance().getMap();
+    public static MessageRenderer<byte[]> getBinary() {
+        return RendererFactory.getInstance().getBinary();
     }
 ```
 
@@ -766,8 +754,20 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/render
 ```java
     }
 
-    public static MessageRenderer<byte[]> getBinary() {
-        return RendererFactory.getInstance().getBinary();
+    public static MessageRenderer<Map<String,Object>> getMap() {
+        return RendererFactory.getInstance().getMap();
+    }
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/render/Renderers.java`
+#### Snippet
+```java
+    }
+
+    public static <T> MessageRenderer<T> getInstance(Class<T> type) {
+        return RendererFactory.getInstance().getInstance(type);
     }
 ```
 
@@ -800,9 +800,9 @@ Modifier `public` is redundant for interface members
 in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbMetricsSender.java`
 #### Snippet
 ```java
-     * Write metrics to InfluxDB with HTTP API with InfluxDB's Line Protocol
+     * @throws Exception when setup fails
      */
-    public void writeAndSendMetrics();
+    public void setup(String influxDBUrl, String influxDBToken) throws Exception; // NOSONAR
 
     /**
 ```
@@ -836,11 +836,11 @@ Modifier `public` is redundant for interface members
 in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbMetricsSender.java`
 #### Snippet
 ```java
-     * Destroy sender
+     * Write metrics to InfluxDB with HTTP API with InfluxDB's Line Protocol
      */
-    public void destroy();
+    public void writeAndSendMetrics();
 
-}
+    /**
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
@@ -848,11 +848,11 @@ Modifier `public` is redundant for interface members
 in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbMetricsSender.java`
 #### Snippet
 ```java
-     * @throws Exception when setup fails
+     * Destroy sender
      */
-    public void setup(String influxDBUrl, String influxDBToken) throws Exception; // NOSONAR
+    public void destroy();
 
-    /**
+}
 ```
 
 ## RuleId[ruleID=PointlessArithmeticExpression]
@@ -1021,11 +1021,11 @@ Assignment to static field `instanceCount` from instance context
 in `src/core/src/main/java/org/apache/jmeter/reporters/Summariser.java`
 #### Snippet
 ```java
-                ACCUMULATORS.put(myName, myTotals);
-            }
-            instanceCount++;
-        }
-    }
+        Set<Map.Entry<String, Totals>> totals = null;
+        synchronized (LOCK) {
+            instanceCount--;
+            if (instanceCount <= 0){
+                totals = ACCUMULATORS.entrySet();
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -1033,11 +1033,11 @@ Assignment to static field `instanceCount` from instance context
 in `src/core/src/main/java/org/apache/jmeter/reporters/Summariser.java`
 #### Snippet
 ```java
-        Set<Map.Entry<String, Totals>> totals = null;
-        synchronized (LOCK) {
-            instanceCount--;
-            if (instanceCount <= 0){
-                totals = ACCUMULATORS.entrySet();
+                ACCUMULATORS.put(myName, myTotals);
+            }
+            instanceCount++;
+        }
+    }
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -1189,18 +1189,6 @@ in `src/core/src/main/java/org/apache/jmeter/engine/ClientJMeterEngine.java`
 
 ### RuleId[ruleID=FinalPrivateMethod]
 'private' method declared `final`
-in `src/core/src/main/java/org/apache/jmeter/functions/gui/FunctionHelper.java`
-#### Snippet
-```java
-     * @return String function name with __ prefix
-     */
-    private static final String getFunctionName(String text) {
-        return FUNCTION_PREFIX+text;
-    }
-```
-
-### RuleId[ruleID=FinalPrivateMethod]
-'private' method declared `final`
 in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TextAreaEditor.java`
 #### Snippet
 ```java
@@ -1209,6 +1197,18 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TextAreaEditor.java`
     private final void init() {// called from ctor, so must not be overridable
         textUI.discardAllEdits();
         textUI.addFocusListener(this);
+```
+
+### RuleId[ruleID=FinalPrivateMethod]
+'private' method declared `final`
+in `src/core/src/main/java/org/apache/jmeter/functions/gui/FunctionHelper.java`
+#### Snippet
+```java
+     * @return String function name with __ prefix
+     */
+    private static final String getFunctionName(String text) {
+        return FUNCTION_PREFIX+text;
+    }
 ```
 
 ### RuleId[ruleID=FinalPrivateMethod]
@@ -1394,6 +1394,30 @@ in `src/core/src/main/java/org/apache/jmeter/save/converters/TestResultWrapperCo
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`clazz.length()>0` can be replaced with '!clazz.isEmpty()'
+in `src/core/src/main/java/org/apache/jmeter/save/converters/ConversionHelp.java`
+#### Snippet
+```java
+    private static void saveClass(TestElement el, HierarchicalStreamWriter writer, String prop){
+        String clazz=el.getPropertyAsString(prop);
+        if (clazz.length()>0) {
+            writer.addAttribute(propertyToAttribute.get(prop),SaveService.classToAlias(clazz));
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`item.length() > 0` can be replaced with '!item.isEmpty()'
+in `src/core/src/main/java/org/apache/jmeter/save/converters/ConversionHelp.java`
+#### Snippet
+```java
+            boolean encode){
+        String item=el.getPropertyAsString(prop);
+        if (item.length() > 0) {
+            if (encode) {
+                item=ConversionHelp.encode(item);
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `name.length() != 0` can be replaced with '!name.isEmpty()'
 in `src/core/src/main/java/org/apache/jmeter/save/converters/ConversionHelp.java`
 #### Snippet
@@ -1418,30 +1442,6 @@ in `src/core/src/main/java/org/apache/jmeter/save/converters/ConversionHelp.java
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`item.length() > 0` can be replaced with '!item.isEmpty()'
-in `src/core/src/main/java/org/apache/jmeter/save/converters/ConversionHelp.java`
-#### Snippet
-```java
-            boolean encode){
-        String item=el.getPropertyAsString(prop);
-        if (item.length() > 0) {
-            if (encode) {
-                item=ConversionHelp.encode(item);
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`clazz.length()>0` can be replaced with '!clazz.isEmpty()'
-in `src/core/src/main/java/org/apache/jmeter/save/converters/ConversionHelp.java`
-#### Snippet
-```java
-    private static void saveClass(TestElement el, HierarchicalStreamWriter writer, String prop){
-        String clazz=el.getPropertyAsString(prop);
-        if (clazz.length()>0) {
-            writer.addAttribute(propertyToAttribute.get(prop),SaveService.classToAlias(clazz));
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `fileName.length() == 0` can be replaced with 'fileName.isEmpty()'
 in `src/core/src/main/java/org/apache/jmeter/util/BeanShellTestElement.java`
 #### Snippet
@@ -1451,18 +1451,6 @@ in `src/core/src/main/java/org/apache/jmeter/util/BeanShellTestElement.java`
         if (fileName.length() == 0) {
             return bsh.eval(getScript());
         }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`responseData.length() > 0` can be replaced with '!responseData.isEmpty()'
-in `src/core/src/main/java/org/apache/jmeter/save/converters/SampleResultConverter.java`
-#### Snippet
-```java
-        } else if (nodeName.equals(TAG_RESPONSE_DATA)) {
-            final String responseData = (String) subItem;
-            if (responseData.length() > 0) {
-                final String dataEncoding = res.getDataEncodingWithDefault();
-                try {
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1478,6 +1466,18 @@ in `src/core/src/main/java/org/apache/jmeter/save/converters/SampleResultConvert
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`responseData.length() > 0` can be replaced with '!responseData.isEmpty()'
+in `src/core/src/main/java/org/apache/jmeter/save/converters/SampleResultConverter.java`
+#### Snippet
+```java
+        } else if (nodeName.equals(TAG_RESPONSE_DATA)) {
+            final String responseData = (String) subItem;
+            if (responseData.length() > 0) {
+                final String dataEncoding = res.getDataEncodingWithDefault();
+                try {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `serverfile.length() > 0` can be replaced with '!serverfile.isEmpty()'
 in `src/core/src/main/java/org/apache/jmeter/util/BeanShellServer.java`
 #### Snippet
@@ -1487,18 +1487,6 @@ in `src/core/src/main/java/org/apache/jmeter/util/BeanShellServer.java`
             if (serverfile.length() > 0) {
                 try {
                     source.invoke(instance, serverfile);
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`fileEncoding.length() > 0` can be replaced with '!fileEncoding.isEmpty()'
-in `src/core/src/main/java/org/apache/jmeter/save/SaveService.java`
-#### Snippet
-```java
-    // Used by ResultCollector when creating output files
-    public static String getFileEncoding(String dflt){
-        if(fileEncoding != null && fileEncoding.length() > 0) {
-            return fileEncoding;
-        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1522,6 +1510,18 @@ in `src/core/src/main/java/org/apache/jmeter/save/SaveService.java`
         // Check if we have a encoding to use from properties
         if(fileEncoding != null && fileEncoding.length() > 0) {
             return Charset.forName(fileEncoding);
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`fileEncoding.length() > 0` can be replaced with '!fileEncoding.isEmpty()'
+in `src/core/src/main/java/org/apache/jmeter/save/SaveService.java`
+#### Snippet
+```java
+    // Used by ResultCollector when creating output files
+    public static String getFileEncoding(String dflt){
+        if(fileEncoding != null && fileEncoding.length() > 0) {
+            return fileEncoding;
         }
 ```
 
@@ -1569,7 +1569,7 @@ in `src/core/src/main/java/org/apache/jmeter/util/BSFTestElement.java`
         BSFEngine bsfEngine = mgr.loadScriptingEngine(getScriptLanguage());
         final String scriptFile = getFilename();
         if (scriptFile.length() == 0) {
-            return bsfEngine.eval("[script]",0,0,getScript());
+            bsfEngine.exec("[script]",0,0,getScript());
         } else {// we have a file, read and process it
 ```
 
@@ -1581,20 +1581,8 @@ in `src/core/src/main/java/org/apache/jmeter/util/BSFTestElement.java`
         BSFEngine bsfEngine = mgr.loadScriptingEngine(getScriptLanguage());
         final String scriptFile = getFilename();
         if (scriptFile.length() == 0) {
-            bsfEngine.exec("[script]",0,0,getScript());
+            return bsfEngine.eval("[script]",0,0,getScript());
         } else {// we have a file, read and process it
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`parameters.length() == 0` can be replaced with 'parameters.isEmpty()'
-in `src/core/src/main/java/org/apache/jmeter/engine/util/CompoundVariable.java`
-#### Snippet
-```java
-    public void setParameters(String parameters) throws InvalidVariableException {
-        this.rawParameters = parameters;
-        if (parameters == null || parameters.length() == 0) {
-            return;
-        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1610,15 +1598,15 @@ in `src/core/src/main/java/org/apache/jmeter/engine/util/CompoundVariable.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`buffer.length() == 0` can be replaced with 'buffer.isEmpty()'
-in `src/core/src/main/java/org/apache/jmeter/engine/util/FunctionParser.java`
+`parameters.length() == 0` can be replaced with 'parameters.isEmpty()'
+in `src/core/src/main/java/org/apache/jmeter/engine/util/CompoundVariable.java`
 #### Snippet
 ```java
-                } else if (current[0] == ')' && functionRecursion == 0 && parenRecursion == 0) {
-                    // Detect functionName() so this does not generate empty string as the parameter
-                    if (buffer.length() == 0 && result.isEmpty()){
-                        return result;
-                    }
+    public void setParameters(String parameters) throws InvalidVariableException {
+        this.rawParameters = parameters;
+        if (parameters == null || parameters.length() == 0) {
+            return;
+        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1646,6 +1634,18 @@ in `src/core/src/main/java/org/apache/jmeter/engine/util/FunctionParser.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`buffer.length() == 0` can be replaced with 'buffer.isEmpty()'
+in `src/core/src/main/java/org/apache/jmeter/engine/util/FunctionParser.java`
+#### Snippet
+```java
+                } else if (current[0] == ')' && functionRecursion == 0 && parenRecursion == 0) {
+                    // Detect functionName() so this does not generate empty string as the parameter
+                    if (buffer.length() == 0 && result.isEmpty()){
+                        return result;
+                    }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `apdexPerTransaction.trim().length() == 0` can be replaced with 'apdexPerTransaction.trim().isEmpty()'
 in `src/core/src/main/java/org/apache/jmeter/report/config/ReportGeneratorConfiguration.java`
 #### Snippet
@@ -1670,18 +1670,6 @@ in `src/core/src/main/java/org/apache/jmeter/control/gui/WhileControllerGui.java
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`seconds.getText().length() > 0` can be replaced with '!seconds.getText().isEmpty()'
-in `src/core/src/main/java/org/apache/jmeter/control/gui/RunTimeGui.java`
-#### Snippet
-```java
-        configureTestElement(lc);
-        if (lc instanceof RunTime) {
-            if (seconds.getText().length() > 0) {
-                ((RunTime) lc).setRuntime(seconds.getText());
-            } else {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `loops.getText().length() > 0` can be replaced with '!loops.getText().isEmpty()'
 in `src/core/src/main/java/org/apache/jmeter/control/gui/LoopControlPanel.java`
 #### Snippet
@@ -1690,6 +1678,18 @@ in `src/core/src/main/java/org/apache/jmeter/control/gui/LoopControlPanel.java`
         if (lc instanceof LoopController) {
             if (loops.getText().length() > 0) {
                 ((LoopController) lc).setLoops(loops.getText());
+            } else {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`seconds.getText().length() > 0` can be replaced with '!seconds.getText().isEmpty()'
+in `src/core/src/main/java/org/apache/jmeter/control/gui/RunTimeGui.java`
+#### Snippet
+```java
+        configureTestElement(lc);
+        if (lc instanceof RunTime) {
+            if (seconds.getText().length() > 0) {
+                ((RunTime) lc).setRuntime(seconds.getText());
             } else {
 ```
 
@@ -1754,18 +1754,6 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/WrapperEditor.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`getBasedir().length() > 0` can be replaced with '!getBasedir().isEmpty()'
-in `src/core/src/main/java/org/apache/jmeter/testelement/TestPlan.java`
-#### Snippet
-```java
-    @Override
-    public void testStarted() {
-        if (getBasedir() != null && getBasedir().length() > 0) {
-            try {
-                FileServer.getFileServer().setBasedir(FileServer.getFileServer().getBaseDir() + getBasedir());
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `tn.length()==0` can be replaced with 'tn.isEmpty()'
 in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
 #### Snippet
@@ -1790,11 +1778,35 @@ in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`getBasedir().length() > 0` can be replaced with '!getBasedir().isEmpty()'
+in `src/core/src/main/java/org/apache/jmeter/testelement/TestPlan.java`
+#### Snippet
+```java
+    @Override
+    public void testStarted() {
+        if (getBasedir() != null && getBasedir().length() > 0) {
+            try {
+                FileServer.getFileServer().setBasedir(FileServer.getFileServer().getBaseDir() + getBasedir());
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `val.length()==0` can be replaced with 'val.isEmpty()'
 in `src/core/src/main/java/org/apache/jmeter/testelement/property/AbstractProperty.java`
 #### Snippet
 ```java
-    public long getLongValue() {
+    public float getFloatValue() {
+        String val = getStringValue();
+        if (val == null || val.length()==0) {
+            return 0;
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`val.length()==0` can be replaced with 'val.isEmpty()'
+in `src/core/src/main/java/org/apache/jmeter/testelement/property/AbstractProperty.java`
+#### Snippet
+```java
+    public int getIntValue() {
         String val = getStringValue();
         if (val == null || val.length()==0) {
             return 0;
@@ -1830,19 +1842,7 @@ in `src/core/src/main/java/org/apache/jmeter/testelement/property/AbstractProper
 in `src/core/src/main/java/org/apache/jmeter/testelement/property/AbstractProperty.java`
 #### Snippet
 ```java
-    public int getIntValue() {
-        String val = getStringValue();
-        if (val == null || val.length()==0) {
-            return 0;
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`val.length()==0` can be replaced with 'val.isEmpty()'
-in `src/core/src/main/java/org/apache/jmeter/testelement/property/AbstractProperty.java`
-#### Snippet
-```java
-    public float getFloatValue() {
+    public long getLongValue() {
         String val = getStringValue();
         if (val == null || val.length()==0) {
             return 0;
@@ -2006,15 +2006,63 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/Publis
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`recvQueue.trim().length() == 0` can be replaced with 'recvQueue.trim().isEmpty()'
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
+`STATUS_PREFIX.length() > 0` can be replaced with '!STATUS_PREFIX.isEmpty()'
+in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
 #### Snippet
 ```java
-    private boolean useTemporyQueue() {
-        String recvQueue = getReceiveQueue();
-        return recvQueue == null || recvQueue.trim().length() == 0;
-    }
+        boolean isSuccessful = exception == null;
+        // Reset the status code if the message contains one
+        if (!StringUtils.isEmpty(readResponse) && STATUS_PREFIX.length() > 0) {
+            int i = readResponse.indexOf(STATUS_PREFIX);
+            int j = readResponse.indexOf(STATUS_SUFFIX, i + STATUS_PREFIX.length());
+```
 
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`getPropertyAsString(SO_LINGER,"").length() > 0` can be replaced with '!getPropertyAsString(SO_LINGER,"").isEmpty()'
+in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
+#### Snippet
+```java
+                SocketAddress sockaddr = new InetSocketAddress(getServer(), getPort());
+                con = new Socket(); // NOSONAR socket is either cache in ThreadLocal for reuse and closed at end of thread or closed here
+                if (getPropertyAsString(SO_LINGER,"").length() > 0){
+                    con.setSoLinger(true, getSoLinger());
+                }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`STATUS_PROPERTIES.length() > 0` can be replaced with '!STATUS_PROPERTIES.isEmpty()'
+in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
+#### Snippet
+```java
+        log.debug("Status prefix={}, suffix={}, properties={}",
+                STATUS_PREFIX, STATUS_SUFFIX, STATUS_PROPERTIES); //$NON-NLS-1$
+        if (STATUS_PROPERTIES.length() > 0) {
+            File f = new File(STATUS_PROPERTIES);
+            try (FileInputStream fis = new FileInputStream(f)){
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`clazz.length()==0` can be replaced with 'clazz.isEmpty()'
+in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
+#### Snippet
+```java
+    public String getClassname() {
+        String clazz = getPropertyAsString(CLASSNAME,"");
+        if (clazz==null || clazz.length()==0){
+            clazz = JMeterUtils.getPropDefault("tcp.handler", "TCPClientImpl"); //$NON-NLS-1$ $NON-NLS-2$
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`getPropertyAsString(EOL_BYTE, "").length()>0` can be replaced with '!getPropertyAsString(EOL_BYTE, "").isEmpty()'
+in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
+#### Snippet
+```java
+        try {
+            tcpClient = (TCPClient) javaClass.getDeclaredConstructor().newInstance();
+            if (getPropertyAsString(EOL_BYTE, "").length()>0){
+                tcpClient.setEolByte(getEolByte());
+                log.info("Using eolByte={}", getEolByte());
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2026,18 +2074,6 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSam
         String expiration = getPropertyAsString(JMS_EXPIRATION);
         if (expiration.length() == 0) {
             return Utils.DEFAULT_NO_EXPIRY;
-        } else {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`priority.length() == 0` can be replaced with 'priority.isEmpty()'
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
-#### Snippet
-```java
-    public String getPriority() {
-        String priority = getPropertyAsString(JMS_PRIORITY);
-        if (priority.length() == 0) {
-            return Utils.DEFAULT_PRIORITY_4;
         } else {
 ```
 
@@ -2066,63 +2102,27 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSam
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`STATUS_PROPERTIES.length() > 0` can be replaced with '!STATUS_PROPERTIES.isEmpty()'
-in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
+`recvQueue.trim().length() == 0` can be replaced with 'recvQueue.trim().isEmpty()'
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
 #### Snippet
 ```java
-        log.debug("Status prefix={}, suffix={}, properties={}",
-                STATUS_PREFIX, STATUS_SUFFIX, STATUS_PROPERTIES); //$NON-NLS-1$
-        if (STATUS_PROPERTIES.length() > 0) {
-            File f = new File(STATUS_PROPERTIES);
-            try (FileInputStream fis = new FileInputStream(f)){
+    private boolean useTemporyQueue() {
+        String recvQueue = getReceiveQueue();
+        return recvQueue == null || recvQueue.trim().length() == 0;
+    }
+
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`getPropertyAsString(EOL_BYTE, "").length()>0` can be replaced with '!getPropertyAsString(EOL_BYTE, "").isEmpty()'
-in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
+`priority.length() == 0` can be replaced with 'priority.isEmpty()'
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
 #### Snippet
 ```java
-        try {
-            tcpClient = (TCPClient) javaClass.getDeclaredConstructor().newInstance();
-            if (getPropertyAsString(EOL_BYTE, "").length()>0){
-                tcpClient.setEolByte(getEolByte());
-                log.info("Using eolByte={}", getEolByte());
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`STATUS_PREFIX.length() > 0` can be replaced with '!STATUS_PREFIX.isEmpty()'
-in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
-#### Snippet
-```java
-        boolean isSuccessful = exception == null;
-        // Reset the status code if the message contains one
-        if (!StringUtils.isEmpty(readResponse) && STATUS_PREFIX.length() > 0) {
-            int i = readResponse.indexOf(STATUS_PREFIX);
-            int j = readResponse.indexOf(STATUS_SUFFIX, i + STATUS_PREFIX.length());
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`clazz.length()==0` can be replaced with 'clazz.isEmpty()'
-in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
-#### Snippet
-```java
-    public String getClassname() {
-        String clazz = getPropertyAsString(CLASSNAME,"");
-        if (clazz==null || clazz.length()==0){
-            clazz = JMeterUtils.getPropDefault("tcp.handler", "TCPClientImpl"); //$NON-NLS-1$ $NON-NLS-2$
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`getPropertyAsString(SO_LINGER,"").length() > 0` can be replaced with '!getPropertyAsString(SO_LINGER,"").isEmpty()'
-in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
-#### Snippet
-```java
-                SocketAddress sockaddr = new InetSocketAddress(getServer(), getPort());
-                con = new Socket(); // NOSONAR socket is either cache in ThreadLocal for reuse and closed at end of thread or closed here
-                if (getPropertyAsString(SO_LINGER,"").length() > 0){
-                    con.setSoLinger(true, getSoLinger());
-                }
+    public String getPriority() {
+        String priority = getPropertyAsString(JMS_PRIORITY);
+        if (priority.length() == 0) {
+            return Utils.DEFAULT_PRIORITY_4;
+        } else {
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2150,6 +2150,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/gui/HTTPArgu
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`resultFileName.length()>0` can be replaced with '!resultFileName.isEmpty()'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/HTTPResultConverter.java`
+#### Snippet
+```java
+        // If we have a file, but no data, then read the file
+        String resultFileName = res.getResultFileName();
+        if (resultFileName.length()>0
+        &&  res.getResponseData().length == 0) {
+            readFile(resultFileName,res);
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `charSet.length() > 0` can be replaced with '!charSet.isEmpty()'
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/ConversionUtils.java`
 #### Snippet
@@ -2174,15 +2186,15 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/Convers
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`resultFileName.length()>0` can be replaced with '!resultFileName.isEmpty()'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/HTTPResultConverter.java`
+`getValue().length() > 0` can be replaced with '!getValue().isEmpty()'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/HTTPArgument.java`
 #### Snippet
 ```java
-        // If we have a file, but no data, then read the file
-        String resultFileName = res.getResultFileName();
-        if (resultFileName.length()>0
-        &&  res.getResponseData().length == 0) {
-            readFile(resultFileName,res);
+    public boolean isUseEquals() {
+        boolean eq = getPropertyAsBoolean(USE_EQUALS);
+        if (getMetaData().equals("=") || (getValue() != null && getValue().length() > 0)) {
+            setUseEquals(true);
+            return true;
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2219,18 +2231,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/HTTPFil
             || getMimeType().length() > 0; // TODO should we allow mimetype only?
     }
 
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`getValue().length() > 0` can be replaced with '!getValue().isEmpty()'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/HTTPArgument.java`
-#### Snippet
-```java
-    public boolean isUseEquals() {
-        boolean eq = getPropertyAsBoolean(USE_EQUALS);
-        if (getMetaData().equals("=") || (getValue() != null && getValue().length() > 0)) {
-            setUseEquals(true);
-            return true;
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2342,18 +2342,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Defaul
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`cv.length()==0` can be replaced with 'cv.isEmpty()'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CookieManager.java`
-#### Snippet
-```java
-        removeMatchingCookies(c); // Can't have two matching cookies
-
-        if (DELETE_NULL_COOKIES && (null == cv || cv.length()==0)) {
-            if (log.isDebugEnabled()) {
-                log.debug("Dropping cookie with null value {}", c.toString());
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `st[_path].length()==0` can be replaced with 'st\[_path\].isEmpty()'
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CookieManager.java`
 #### Snippet
@@ -2363,6 +2351,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/Cook
                     if (st[_path].length()==0) {
                         st[_path] = "/"; //$NON-NLS-1$
                     }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`cv.length()==0` can be replaced with 'cv.isEmpty()'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CookieManager.java`
+#### Snippet
+```java
+        removeMatchingCookies(c); // Can't have two matching cookies
+
+        if (DELETE_NULL_COOKIES && (null == cv || cv.length()==0)) {
+            if (log.isDebugEnabled()) {
+                log.debug("Dropping cookie with null value {}", c.toString());
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2411,18 +2411,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/PutW
             if(!hasContentTypeHeader && files.length == 1 && files[0].getMimeType().length() > 0) {
                 connection.setRequestProperty(HTTPConstants.HEADER_CONTENT_TYPE, files[0].getMimeType());
             }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`alias.length() == 0` can be replaced with 'alias.isEmpty()'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerFactory.java`
-#### Snippet
-```java
-     */
-    public static HTTPSamplerBase newInstance(String alias) {
-        if (alias ==null || alias.length() == 0) {
-            return new HTTPSamplerProxy();
-        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2486,6 +2474,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/Post
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`alias.length() == 0` can be replaced with 'alias.isEmpty()'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerFactory.java`
+#### Snippet
+```java
+     */
+    public static HTTPSamplerBase newInstance(String alias) {
+        if (alias ==null || alias.length() == 0) {
+            return new HTTPSamplerProxy();
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `contentEncoding.length() > 0` can be replaced with '!contentEncoding.isEmpty()'
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPFileImpl.java`
 #### Snippet
@@ -2495,6 +2495,30 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
             if (contentEncoding.length() > 0) {
                 ctb.append("; charset="); // $NON-NLS-1$
                 ctb.append(contentEncoding);
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`ipSource.trim().length() > 0` can be replaced with '!ipSource.trim().isEmpty()'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPAbstractImpl.java`
+#### Snippet
+```java
+    protected InetAddress getIpSourceAddress() throws UnknownHostException, SocketException {
+        final String ipSource = getIpSource();
+        if (ipSource.trim().length() > 0) {
+            Class<? extends InetAddress> ipClass = null;
+            final SourceType sourceType = HTTPSamplerBase.SourceType.values()[testElement.getIpSourceType()];
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`PROXY_HOST.length() > 0` can be replaced with '!PROXY_HOST.isEmpty()'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHCAbstractImpl.java`
+#### Snippet
+```java
+    protected static final int PROXY_PORT = Integer.parseInt(System.getProperty("http.proxyPort","0"));
+
+    protected static final boolean PROXY_DEFINED = PROXY_HOST.length() > 0 && PROXY_PORT > 0;
+
+    protected static final String PROXY_USER = JMeterUtils.getPropDefault(JMeter.HTTP_PROXY_USER,"");
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2519,30 +2543,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
         if (localHostOrIP.length() > 0) {
             try {
                 inet = InetAddress.getByName(localHostOrIP);
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`PROXY_HOST.length() > 0` can be replaced with '!PROXY_HOST.isEmpty()'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHCAbstractImpl.java`
-#### Snippet
-```java
-    protected static final int PROXY_PORT = Integer.parseInt(System.getProperty("http.proxyPort","0"));
-
-    protected static final boolean PROXY_DEFINED = PROXY_HOST.length() > 0 && PROXY_PORT > 0;
-
-    protected static final String PROXY_USER = JMeterUtils.getPropDefault(JMeter.HTTP_PROXY_USER,"");
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`ipSource.trim().length() > 0` can be replaced with '!ipSource.trim().isEmpty()'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPAbstractImpl.java`
-#### Snippet
-```java
-    protected InetAddress getIpSourceAddress() throws UnknownHostException, SocketException {
-        final String ipSource = getIpSource();
-        if (ipSource.trim().length() > 0) {
-            Class<? extends InetAddress> ipClass = null;
-            final SourceType sourceType = HTTPSamplerBase.SourceType.values()[testElement.getIpSourceType()];
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2582,42 +2582,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`label.length() == 0` can be replaced with 'label.isEmpty()'
-in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/test/JavaTest.java`
-#### Snippet
-```java
-
-        label = context.getParameter(LABEL_NAME, "");
-        if (label.length() == 0) {
-            label = context.getParameter(TestElement.NAME); // default to name of element
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`samplerData.length() > 0` can be replaced with '!samplerData.isEmpty()'
-in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/test/JavaTest.java`
-#### Snippet
-```java
-        results.setSampleLabel(label);
-
-        if (samplerData != null && samplerData.length() > 0) {
-            results.setSamplerData(samplerData);
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`resultData.length() > 0` can be replaced with '!resultData.isEmpty()'
-in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/test/JavaTest.java`
-#### Snippet
-```java
-            results.setSentBytes(samplerData.length());
-        }
-        if (resultData != null && resultData.length() > 0) {
-            results.setResponseData(resultData, null);
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `query.length() > 0` can be replaced with '!query.isEmpty()'
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/RequestViewHTTP.java`
 #### Snippet
@@ -2654,63 +2618,39 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`file.getMimeType().length() > 0` can be replaced with '!file.getMimeType().isEmpty()'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+`label.length() == 0` can be replaced with 'label.isEmpty()'
+in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/test/JavaTest.java`
 #### Snippet
 ```java
-        final HTTPFileArg file = files.length > 0? files[0] : null;
-        String contentTypeValue;
-        if(file != null && file.getMimeType() != null && file.getMimeType().length() > 0) {
-            contentTypeValue = file.getMimeType();
-            entity.setHeader(HEADER_CONTENT_TYPE, contentTypeValue); // we provide the MIME type here
+
+        label = context.getParameter(LABEL_NAME, "");
+        if (label.length() == 0) {
+            label = context.getParameter(TestElement.NAME); // default to name of element
+        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`urlContentEncoding.length() == 0` can be replaced with 'urlContentEncoding.isEmpty()'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+`samplerData.length() > 0` can be replaced with '!samplerData.isEmpty()'
+in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/test/JavaTest.java`
 #### Snippet
 ```java
-        List<NameValuePair> nvps = new ArrayList<>();
-        String urlContentEncoding = contentEncoding;
-        if (urlContentEncoding == null || urlContentEncoding.length() == 0) {
-            // Use the default encoding for urls
-            urlContentEncoding = EncoderCache.URL_ARGUMENT_ENCODING;
+        results.setSampleLabel(label);
+
+        if (samplerData != null && samplerData.length() > 0) {
+            results.setSamplerData(samplerData);
+        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`contentTypeHeader.getValue().length() > 0` can be replaced with '!contentTypeHeader.getValue().isEmpty()'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+`resultData.length() > 0` can be replaced with '!resultData.isEmpty()'
+in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/test/JavaTest.java`
 #### Snippet
 ```java
-            // This allows the user to specify their own content-type for a POST request
-            Header contentTypeHeader = entityEnclosingRequest.getFirstHeader(HTTPConstants.HEADER_CONTENT_TYPE);
-            boolean hasContentTypeHeader = contentTypeHeader != null && contentTypeHeader.getValue() != null && contentTypeHeader.getValue().length() > 0;
-            // If there are no arguments, we can send a file as the body of the request
-            // TODO: needs a multiple file upload scenario
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`file.getMimeType().length() > 0` can be replaced with '!file.getMimeType().isEmpty()'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
-#### Snippet
-```java
-                if(!hasContentTypeHeader) {
-                    // Allow the mimetype of the file to control the content type
-                    if(file.getMimeType() != null && file.getMimeType().length() > 0) {
-                        entityEnclosingRequest.setHeader(HTTPConstants.HEADER_CONTENT_TYPE, file.getMimeType());
-                    }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`file.getMimeType().length() > 0` can be replaced with '!file.getMimeType().isEmpty()'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
-#### Snippet
-```java
-                    if(!hasContentTypeHeader) {
-                        HTTPFileArg file = files.length > 0? files[0] : null;
-                        if(file != null && file.getMimeType() != null && file.getMimeType().length() > 0) {
-                            entityEnclosingRequest.setHeader(HTTPConstants.HEADER_CONTENT_TYPE, file.getMimeType());
-                        }
+            results.setSentBytes(samplerData.length());
+        }
+        if (resultData != null && resultData.length() > 0) {
+            results.setResponseData(resultData, null);
+        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2774,6 +2714,66 @@ in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/Bean
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`urlContentEncoding.length() == 0` can be replaced with 'urlContentEncoding.isEmpty()'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+        List<NameValuePair> nvps = new ArrayList<>();
+        String urlContentEncoding = contentEncoding;
+        if (urlContentEncoding == null || urlContentEncoding.length() == 0) {
+            // Use the default encoding for urls
+            urlContentEncoding = EncoderCache.URL_ARGUMENT_ENCODING;
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`file.getMimeType().length() > 0` can be replaced with '!file.getMimeType().isEmpty()'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+        final HTTPFileArg file = files.length > 0? files[0] : null;
+        String contentTypeValue;
+        if(file != null && file.getMimeType() != null && file.getMimeType().length() > 0) {
+            contentTypeValue = file.getMimeType();
+            entity.setHeader(HEADER_CONTENT_TYPE, contentTypeValue); // we provide the MIME type here
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`contentTypeHeader.getValue().length() > 0` can be replaced with '!contentTypeHeader.getValue().isEmpty()'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+            // This allows the user to specify their own content-type for a POST request
+            Header contentTypeHeader = entityEnclosingRequest.getFirstHeader(HTTPConstants.HEADER_CONTENT_TYPE);
+            boolean hasContentTypeHeader = contentTypeHeader != null && contentTypeHeader.getValue() != null && contentTypeHeader.getValue().length() > 0;
+            // If there are no arguments, we can send a file as the body of the request
+            // TODO: needs a multiple file upload scenario
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`file.getMimeType().length() > 0` can be replaced with '!file.getMimeType().isEmpty()'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+                if(!hasContentTypeHeader) {
+                    // Allow the mimetype of the file to control the content type
+                    if(file.getMimeType() != null && file.getMimeType().length() > 0) {
+                        entityEnclosingRequest.setHeader(HTTPConstants.HEADER_CONTENT_TYPE, file.getMimeType());
+                    }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`file.getMimeType().length() > 0` can be replaced with '!file.getMimeType().isEmpty()'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+                    if(!hasContentTypeHeader) {
+                        HTTPFileArg file = files.length > 0? files[0] : null;
+                        if(file != null && file.getMimeType() != null && file.getMimeType().length() > 0) {
+                            entityEnclosingRequest.setHeader(HTTPConstants.HEADER_CONTENT_TYPE, file.getMimeType());
+                        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `_username.length() > 0` can be replaced with '!_username.isEmpty()'
 in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/config/DataSourceElement.java`
 #### Snippet
@@ -2790,11 +2790,11 @@ in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/config/DataS
 in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
 #### Snippet
 ```java
-                for(int i = 0; i < varnames.length && i < outputValues.size(); i++) {
-                    String name = varnames[i].trim();
-                    if (name.length()>0){ // Save the value in the variable if present
-                        Object o = outputValues.get(i);
-                        if( o instanceof java.sql.ResultSet ) {
+            if (i <= varNames.length) { // i starts at 1
+                String name = varNames[i - 1].trim();
+                if (name.length()>0){ // Save the value in the variable if present
+                    jmvars.put(name+UNDERSCORE+currentIterationIndex, o == null ? null : o.toString());
+                }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2826,11 +2826,11 @@ in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBC
 in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
 #### Snippet
 ```java
-            if (i <= varNames.length) { // i starts at 1
-                String name = varNames[i - 1].trim();
-                if (name.length()>0){ // Save the value in the variable if present
-                    jmvars.put(name+UNDERSCORE+currentIterationIndex, o == null ? null : o.toString());
-                }
+                for(int i = 0; i < varnames.length && i < outputValues.size(); i++) {
+                    String name = varnames[i].trim();
+                    if (name.length()>0){ // Save the value in the variable if present
+                        Object o = outputValues.get(i);
+                        if( o instanceof java.sql.ResultSet ) {
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2858,15 +2858,15 @@ in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/Ldap
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`item.getValue().length() == 0` can be replaced with 'item.getValue().isEmpty()'
-in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPExtSampler.java`
+`name.length() > 0` can be replaced with '!name.isEmpty()'
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/mail/sampler/MailReaderSampler.java`
 #### Snippet
 ```java
-            BasicAttribute attr;
-            LDAPArgument item = (LDAPArgument) iter.next().getObjectValue();
-            if (item.getValue().length() == 0) {
-                attr = new BasicAttribute(item.getName());
-            } else {
+        sb.append("://");
+        String name = getUserName();
+        if (name.length() > 0){
+            sb.append(name);
+            sb.append("@");
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -2906,6 +2906,18 @@ in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAP
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`item.getValue().length() == 0` can be replaced with 'item.getValue().isEmpty()'
+in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPExtSampler.java`
+#### Snippet
+```java
+            BasicAttribute attr;
+            LDAPArgument item = (LDAPArgument) iter.next().getObjectValue();
+            if (item.getValue().length() == 0) {
+                attr = new BasicAttribute(item.getName());
+            } else {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `srName.length() > 0` can be replaced with '!srName.isEmpty()'
 in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPExtSampler.java`
 #### Snippet
@@ -2942,18 +2954,6 @@ in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAP
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`name.length() > 0` can be replaced with '!name.isEmpty()'
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/mail/sampler/MailReaderSampler.java`
-#### Snippet
-```java
-        sb.append("://");
-        String name = getUserName();
-        if (name.length() > 0){
-            sb.append(name);
-            sb.append("@");
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `attachments.length() > 0` can be replaced with '!attachments.isEmpty()'
 in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/gui/SmtpPanel.java`
 #### Snippet
@@ -2963,30 +2963,6 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/gui/
         if (attachments.length() > 0) {
             tfAttachment.setText(attachments
                             + SmtpSampler.FILENAME_SEPARATOR
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`label.length() == 0` can be replaced with 'label.isEmpty()'
-in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUnitSampler.java`
-#### Snippet
-```java
-                    // accessible. if we didn't it would throw an exception
-                    // and cause a NPE.
-                    if (label == null || label.length() == 0) {
-                        label = className;
-                    }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`rlabel.length()== 0` can be replaced with 'rlabel.isEmpty()'
-in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUnitSampler.java`
-#### Snippet
-```java
-    private void initializeTestObject() {
-        String rlabel = getConstructorString();
-        if (rlabel.length()== 0) {
-            rlabel = JUnitSampler.class.getName();
-        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3062,15 +3038,27 @@ in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/control/gui
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`varName.length() > 0` can be replaced with '!varName.isEmpty()'
-in `src/functions/src/main/java/org/apache/jmeter/functions/AbstractHostIPName.java`
+`label.length() == 0` can be replaced with 'label.isEmpty()'
+in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUnitSampler.java`
 #### Snippet
 ```java
-            if (vars != null) {// May be null if function is used on TestPlan
-                String varName = ((CompoundVariable) values[0]).execute().trim();
-                if (varName.length() > 0) {
-                    vars.put(varName, value);
-                }
+                    // accessible. if we didn't it would throw an exception
+                    // and cause a NPE.
+                    if (label == null || label.length() == 0) {
+                        label = className;
+                    }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`rlabel.length()== 0` can be replaced with 'rlabel.isEmpty()'
+in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUnitSampler.java`
+#### Snippet
+```java
+    private void initializeTestObject() {
+        String rlabel = getConstructorString();
+        if (rlabel.length()== 0) {
+            rlabel = JUnitSampler.class.getName();
+        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3098,42 +3086,6 @@ in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/mongo/
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`myName.length() > 0` can be replaced with '!myName.isEmpty()'
-in `src/functions/src/main/java/org/apache/jmeter/functions/FileToString.java`
-#### Snippet
-```java
-        }
-
-        if (myName.length() > 0) {
-            JMeterVariables vars = getVariables();
-            if (vars != null) {// Can be null if called from Config item testEnded() method
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`varName.length() > 0` can be replaced with '!varName.isEmpty()'
-in `src/functions/src/main/java/org/apache/jmeter/functions/BeanShell.java`
-#### Snippet
-```java
-                resultStr = bshOut.toString();
-            }
-            if (vars != null && varName.length() > 0) {// vars will be null on TestPlan
-                vars.put(varName, resultStr);
-            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`varName.length() > 0` can be replaced with '!varName.isEmpty()'
-in `src/functions/src/main/java/org/apache/jmeter/functions/Groovy.java`
-#### Snippet
-```java
-            }
-
-            if (varName.length() > 0 && vars != null) {// vars will be null on TestPlan
-                vars.put(varName, resultStr);
-            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `connectionTimeout.length() > 0` can be replaced with '!connectionTimeout.isEmpty()'
 in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/SendMailCommand.java`
 #### Snippet
@@ -3142,6 +3094,30 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/prot
         String connectionTimeout = connectionTimeOut.trim();
         if (connectionTimeout.length() > 0) { // OK, it has been supplied
             return connectionTimeout;
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`port.length() > 0` can be replaced with '!port.isEmpty()'
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/SendMailCommand.java`
+#### Snippet
+```java
+    private String getPort() {
+        String port = smtpPort.trim();
+        if (port.length() > 0) { // OK, it has been supplied
+            return port;
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`timeout.length() > 0` can be replaced with '!timeout.isEmpty()'
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/SendMailCommand.java`
+#### Snippet
+```java
+    public String getTimeout() {
+        String timeout = timeOut.trim();
+        if (timeout.length() > 0) { // OK, it has been supplied
+            return timeout;
         }
 ```
 
@@ -3158,27 +3134,51 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/prot
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`timeout.length() > 0` can be replaced with '!timeout.isEmpty()'
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/SendMailCommand.java`
+`varName.length() > 0` can be replaced with '!varName.isEmpty()'
+in `src/functions/src/main/java/org/apache/jmeter/functions/AbstractHostIPName.java`
 #### Snippet
 ```java
-    public String getTimeout() {
-        String timeout = timeOut.trim();
-        if (timeout.length() > 0) { // OK, it has been supplied
-            return timeout;
-        }
+            if (vars != null) {// May be null if function is used on TestPlan
+                String varName = ((CompoundVariable) values[0]).execute().trim();
+                if (varName.length() > 0) {
+                    vars.put(varName, value);
+                }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`port.length() > 0` can be replaced with '!port.isEmpty()'
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/SendMailCommand.java`
+`varName.length() > 0` can be replaced with '!varName.isEmpty()'
+in `src/functions/src/main/java/org/apache/jmeter/functions/BeanShell.java`
 #### Snippet
 ```java
-    private String getPort() {
-        String port = smtpPort.trim();
-        if (port.length() > 0) { // OK, it has been supplied
-            return port;
+                resultStr = bshOut.toString();
+            }
+            if (vars != null && varName.length() > 0) {// vars will be null on TestPlan
+                vars.put(varName, resultStr);
+            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`myName.length() > 0` can be replaced with '!myName.isEmpty()'
+in `src/functions/src/main/java/org/apache/jmeter/functions/FileToString.java`
+#### Snippet
+```java
         }
+
+        if (myName.length() > 0) {
+            JMeterVariables vars = getVariables();
+            if (vars != null) {// Can be null if called from Config item testEnded() method
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`varName.length() > 0` can be replaced with '!varName.isEmpty()'
+in `src/functions/src/main/java/org/apache/jmeter/functions/Groovy.java`
+#### Snippet
+```java
+            }
+
+            if (varName.length() > 0 && vars != null) {// vars will be null on TestPlan
+                vars.put(varName, resultStr);
+            }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3203,42 +3203,6 @@ in `src/functions/src/main/java/org/apache/jmeter/functions/SamplerName.java`
                 if (varName.length() > 0) {
                     vars.put(varName, name);
                 }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`varTrim.length() > 0` can be replaced with '!varTrim.isEmpty()'
-in `src/functions/src/main/java/org/apache/jmeter/functions/Random.java`
-#### Snippet
-```java
-            JMeterVariables vars = getVariables();
-            final String varTrim = varName.execute().trim();
-            if (vars != null && varTrim.length() > 0){// vars will be null on TestPlan
-                vars.put(varTrim, randString);
-            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`priorityString.length() == 0` can be replaced with 'priorityString.isEmpty()'
-in `src/functions/src/main/java/org/apache/jmeter/functions/LogFunction2.java`
-#### Snippet
-```java
-        if (values.length > 1) { // We have a default
-            priorityString = ((CompoundVariable) values[1]).execute();
-            if (priorityString.length() == 0) {
-                priorityString = DEFAULT_PRIORITY;
-            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`varName.length() > 0` can be replaced with '!varName.isEmpty()'
-in `src/functions/src/main/java/org/apache/jmeter/functions/LongSum.java`
-#### Snippet
-```java
-
-        String totalString = Long.toString(sum);
-        if (vars != null && varName != null && varName.length() > 0){// vars will be null on TestPlan
-            vars.put(varName, totalString);
-        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3278,6 +3242,42 @@ in `src/functions/src/main/java/org/apache/jmeter/functions/LogFunction.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`varTrim.length() > 0` can be replaced with '!varTrim.isEmpty()'
+in `src/functions/src/main/java/org/apache/jmeter/functions/Random.java`
+#### Snippet
+```java
+            JMeterVariables vars = getVariables();
+            final String varTrim = varName.execute().trim();
+            if (vars != null && varTrim.length() > 0){// vars will be null on TestPlan
+                vars.put(varTrim, randString);
+            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`priorityString.length() == 0` can be replaced with 'priorityString.isEmpty()'
+in `src/functions/src/main/java/org/apache/jmeter/functions/LogFunction2.java`
+#### Snippet
+```java
+        if (values.length > 1) { // We have a default
+            priorityString = ((CompoundVariable) values[1]).execute();
+            if (priorityString.length() == 0) {
+                priorityString = DEFAULT_PRIORITY;
+            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`varName.length() > 0` can be replaced with '!varName.isEmpty()'
+in `src/functions/src/main/java/org/apache/jmeter/functions/LongSum.java`
+#### Snippet
+```java
+
+        String totalString = Long.toString(sum);
+        if (vars != null && varName != null && varName.length() > 0){// vars will be null on TestPlan
+            vars.put(varName, totalString);
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `variableName.length() > 0` can be replaced with '!variableName.isEmpty()'
 in `src/functions/src/main/java/org/apache/jmeter/functions/Property.java`
 #### Snippet
@@ -3287,6 +3287,18 @@ in `src/functions/src/main/java/org/apache/jmeter/functions/Property.java`
             if (variableName.length() > 0) {// Allow for empty name
                 final JMeterVariables variables = getVariables();
                 if (variables != null) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`alias.length() == 0` can be replaced with 'alias.isEmpty()'
+in `src/functions/src/main/java/org/apache/jmeter/functions/FileWrapper.java`
+#### Snippet
+```java
+        log.info("Opening {} as {}", file, alias);
+        file = checkDefault(file);
+        if (alias.length() == 0) {
+            log.error("Alias cannot be empty");
+            return;
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3323,18 +3335,6 @@ in `src/functions/src/main/java/org/apache/jmeter/functions/FileWrapper.java`
             if (fileContainers.size() == 1 && defaultFile.length() > 0) {
                 log.warn("Using default: {}", defaultFile);
                 file = defaultFile;
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`alias.length() == 0` can be replaced with 'alias.isEmpty()'
-in `src/functions/src/main/java/org/apache/jmeter/functions/FileWrapper.java`
-#### Snippet
-```java
-        log.info("Opening {} as {}", file, alias);
-        file = checkDefault(file);
-        if (alias.length() == 0) {
-            log.error("Alias cannot be empty");
-            return;
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3494,6 +3494,18 @@ in `src/components/src/main/java/org/apache/jmeter/extractor/XPathExtractor.java
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`prop.length() == 0` can be replaced with 'prop.isEmpty()'
+in `src/components/src/main/java/org/apache/jmeter/extractor/BoundaryExtractor.java`
+#### Snippet
+```java
+    public boolean useBody() {
+        String prop = getPropertyAsString(MATCH_AGAINST);
+        return prop.length() == 0 || USE_BODY.equalsIgnoreCase(prop);
+    }
+
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `textToParse.length() > 0` can be replaced with '!textToParse.isEmpty()'
 in `src/components/src/main/java/org/apache/jmeter/extractor/json/render/AbstractRenderAsJsonRenderer.java`
 #### Snippet
@@ -3515,18 +3527,6 @@ in `src/components/src/main/java/org/apache/jmeter/extractor/json/render/Abstrac
                 && this.expressionField.getText().length() > 0) {
             this.resultField.setText(process(textToParse));
             this.resultField.setCaretPosition(0); // go to first line
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`prop.length() == 0` can be replaced with 'prop.isEmpty()'
-in `src/components/src/main/java/org/apache/jmeter/extractor/BoundaryExtractor.java`
-#### Snippet
-```java
-    public boolean useBody() {
-        String prop = getPropertyAsString(MATCH_AGAINST);
-        return prop.length() == 0 || USE_BODY.equalsIgnoreCase(prop);
-    }
-
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3614,18 +3614,6 @@ in `src/components/src/main/java/org/apache/jmeter/assertions/SMIMEAssertion.jav
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`issuer.length() > 0` can be replaced with '!issuer.isEmpty()'
-in `src/components/src/main/java/org/apache/jmeter/assertions/SMIMEAssertion.java`
-#### Snippet
-```java
-            X509CertificateHolder cert, StringBuilder failureMessage) {
-        String issuer = testElement.getIssuerDn();
-        if (issuer.length() > 0) {
-            String subject = testElement.getSignerDn();
-            final X500Name issuerX500Name = cert.getIssuer();
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `subject.length() > 0` can be replaced with '!subject.isEmpty()'
 in `src/components/src/main/java/org/apache/jmeter/assertions/SMIMEAssertion.java`
 #### Snippet
@@ -3635,6 +3623,18 @@ in `src/components/src/main/java/org/apache/jmeter/assertions/SMIMEAssertion.jav
         if (subject.length() > 0) {
             final X500Name certPrincipal = cert.getSubject();
             log.debug("DN from cert: {}", certPrincipal);
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`issuer.length() > 0` can be replaced with '!issuer.isEmpty()'
+in `src/components/src/main/java/org/apache/jmeter/assertions/SMIMEAssertion.java`
+#### Snippet
+```java
+            X509CertificateHolder cert, StringBuilder failureMessage) {
+        String issuer = testElement.getIssuerDn();
+        if (issuer.length() > 0) {
+            String subject = testElement.getSignerDn();
+            final X500Name issuerX500Name = cert.getIssuer();
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3662,18 +3662,6 @@ in `src/components/src/main/java/org/apache/jmeter/assertions/gui/AssertionGui.j
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`_title.length() == 0` can be replaced with '_title.isEmpty()'
-in `src/components/src/main/java/org/apache/jmeter/visualizers/AxisGraph.java`
-#### Snippet
-```java
-            }
-            // if the "Title of Graph" is empty, we can assume some default
-            if (_title.length() == 0 ) {
-                _title = JMeterUtils.getResString("aggregate_graph_title"); //$NON-NLS-1$
-            }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `textToParse.length() > 0` can be replaced with '!textToParse.isEmpty()'
 in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXPath.java`
 #### Snippet
@@ -3691,6 +3679,42 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXPath.jav
 #### Snippet
 ```java
     private void executeAndShowXPathTester(String textToParse, XPathExtractor extractor) {
+        if (textToParse != null && textToParse.length() > 0
+                && this.xpathExpressionField.getText().length() > 0) {
+            this.xpathResultField.setText(process(textToParse, extractor));
+            this.xpathResultField.setCaretPosition(0); // go to first line
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`_title.length() == 0` can be replaced with '_title.isEmpty()'
+in `src/components/src/main/java/org/apache/jmeter/visualizers/AxisGraph.java`
+#### Snippet
+```java
+            }
+            // if the "Title of Graph" is empty, we can assume some default
+            if (_title.length() == 0 ) {
+                _title = JMeterUtils.getResString("aggregate_graph_title"); //$NON-NLS-1$
+            }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`textToParse.length() > 0` can be replaced with '!textToParse.isEmpty()'
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXPath2.java`
+#### Snippet
+```java
+     */
+    private void executeAndShowXPathTester(String textToParse, XPath2Extractor extractor) {
+        if (textToParse != null && textToParse.length() > 0
+                && this.xpathExpressionField.getText().length() > 0) {
+            this.xpathResultField.setText(process(textToParse, extractor));
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`this.xpathExpressionField.getText().length() > 0` can be replaced with '!this.xpathExpressionField.getText().isEmpty()'
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXPath2.java`
+#### Snippet
+```java
+    private void executeAndShowXPathTester(String textToParse, XPath2Extractor extractor) {
         if (textToParse != null && textToParse.length() > 0
                 && this.xpathExpressionField.getText().length() > 0) {
             this.xpathResultField.setText(process(textToParse, extractor));
@@ -3734,30 +3758,6 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsBoundaryE
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`textToParse.length() > 0` can be replaced with '!textToParse.isEmpty()'
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXPath2.java`
-#### Snippet
-```java
-     */
-    private void executeAndShowXPathTester(String textToParse, XPath2Extractor extractor) {
-        if (textToParse != null && textToParse.length() > 0
-                && this.xpathExpressionField.getText().length() > 0) {
-            this.xpathResultField.setText(process(textToParse, extractor));
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`this.xpathExpressionField.getText().length() > 0` can be replaced with '!this.xpathExpressionField.getText().isEmpty()'
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXPath2.java`
-#### Snippet
-```java
-    private void executeAndShowXPathTester(String textToParse, XPath2Extractor extractor) {
-        if (textToParse != null && textToParse.length() > 0
-                && this.xpathExpressionField.getText().length() > 0) {
-            this.xpathResultField.setText(process(textToParse, extractor));
-            this.xpathResultField.setCaretPosition(0); // go to first line
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `_title.length() == 0` can be replaced with '_title.isEmpty()'
 in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphChart.java`
 #### Snippet
@@ -3779,42 +3779,6 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/SearchTextExtensi
             if (results != null && results.getText().length() > 0
                     && pattern != null) {
 
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`text.length() > 0` can be replaced with '!text.isEmpty()'
-in `src/components/src/main/java/org/apache/jmeter/visualizers/XMLDefaultMutableTreeNode.java`
-#### Snippet
-```java
-    private void initTextNode(Text node, DefaultMutableTreeNode mTreeNode) throws SAXException {
-        String text = node.getNodeValue().trim();
-        if (text != null && text.length() > 0) {
-            XMLDefaultMutableTreeNode textNode = new XMLDefaultMutableTreeNode(text, node);
-            mTreeNode.add(textNode);
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`data.length() > 0` can be replaced with '!data.isEmpty()'
-in `src/components/src/main/java/org/apache/jmeter/visualizers/XMLDefaultMutableTreeNode.java`
-#### Snippet
-```java
-    private void initCDATASectionNode(CDATASection node, DefaultMutableTreeNode mTreeNode) throws SAXException {
-        String data = node.getData();
-        if (data != null && data.length() > 0) {
-            String value = "<!-[CDATA" + node.getData() + "]]>"; // $NON-NLS-1$ $NON-NLS-2$
-            XMLDefaultMutableTreeNode commentNode = new XMLDefaultMutableTreeNode(value, node);
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`data.length() > 0` can be replaced with '!data.isEmpty()'
-in `src/components/src/main/java/org/apache/jmeter/visualizers/XMLDefaultMutableTreeNode.java`
-#### Snippet
-```java
-    private void initCommentNode(Comment node, DefaultMutableTreeNode mTreeNode) throws SAXException {
-        String data = node.getData();
-        if (data != null && data.length() > 0) {
-            String value = "<!--" + node.getData() + "-->"; // $NON-NLS-1$ $NON-NLS-2$
-            XMLDefaultMutableTreeNode commentNode = new XMLDefaultMutableTreeNode(value, node);
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3842,27 +3806,51 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsCssJQuery
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`samplerMatchLabel.getText().length() > 0` can be replaced with '!samplerMatchLabel.getText().isEmpty()'
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
+`text.length() > 0` can be replaced with '!text.isEmpty()'
+in `src/components/src/main/java/org/apache/jmeter/visualizers/XMLDefaultMutableTreeNode.java`
 #### Snippet
 ```java
-            }
-            if (eventSource == applyFilterBtn && samplerSelection.isSelected() && samplerMatchLabel.getText() != null
-                    && samplerMatchLabel.getText().length() > 0) {
-                pattern = createPattern(samplerMatchLabel.getText());
-            } else if (forceReloadData) {
+    private void initTextNode(Text node, DefaultMutableTreeNode mTreeNode) throws SAXException {
+        String text = node.getNodeValue().trim();
+        if (text != null && text.length() > 0) {
+            XMLDefaultMutableTreeNode textNode = new XMLDefaultMutableTreeNode(text, node);
+            mTreeNode.add(textNode);
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`getFile().length() > 0` can be replaced with '!getFile().isEmpty()'
+`data.length() > 0` can be replaced with '!data.isEmpty()'
+in `src/components/src/main/java/org/apache/jmeter/visualizers/XMLDefaultMutableTreeNode.java`
+#### Snippet
+```java
+    private void initCommentNode(Comment node, DefaultMutableTreeNode mTreeNode) throws SAXException {
+        String data = node.getData();
+        if (data != null && data.length() > 0) {
+            String value = "<!--" + node.getData() + "-->"; // $NON-NLS-1$ $NON-NLS-2$
+            XMLDefaultMutableTreeNode commentNode = new XMLDefaultMutableTreeNode(value, node);
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`data.length() > 0` can be replaced with '!data.isEmpty()'
+in `src/components/src/main/java/org/apache/jmeter/visualizers/XMLDefaultMutableTreeNode.java`
+#### Snippet
+```java
+    private void initCDATASectionNode(CDATASection node, DefaultMutableTreeNode mTreeNode) throws SAXException {
+        String data = node.getData();
+        if (data != null && data.length() > 0) {
+            String value = "<!-[CDATA" + node.getData() + "]]>"; // $NON-NLS-1$ $NON-NLS-2$
+            XMLDefaultMutableTreeNode commentNode = new XMLDefaultMutableTreeNode(value, node);
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`iyas.length() != 0` can be replaced with '!iyas.isEmpty()'
 in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
 #### Snippet
 ```java
-                pattern = null;
-            }
-            if (getFile() != null && getFile().length() > 0) {
-                // Reload data from file
-                clearData();
+        int incrYAxisScale = 0;
+        String iyas = incrScaleYAxis.getText();
+        if (iyas.length() != 0) {
+            incrYAxisScale = Integer.parseInt(iyas);
+        }
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3902,15 +3890,51 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisu
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`iyas.length() != 0` can be replaced with '!iyas.isEmpty()'
+`samplerMatchLabel.getText().length() > 0` can be replaced with '!samplerMatchLabel.getText().isEmpty()'
 in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
 #### Snippet
 ```java
-        int incrYAxisScale = 0;
-        String iyas = incrScaleYAxis.getText();
-        if (iyas.length() != 0) {
-            incrYAxisScale = Integer.parseInt(iyas);
+            }
+            if (eventSource == applyFilterBtn && samplerSelection.isSelected() && samplerMatchLabel.getText() != null
+                    && samplerMatchLabel.getText().length() > 0) {
+                pattern = createPattern(samplerMatchLabel.getText());
+            } else if (forceReloadData) {
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`getFile().length() > 0` can be replaced with '!getFile().isEmpty()'
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
+#### Snippet
+```java
+                pattern = null;
+            }
+            if (getFile() != null && getFile().length() > 0) {
+                // Reload data from file
+                clearData();
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`VIEWERS_ORDER.length() > 0` can be replaced with '!VIEWERS_ORDER.isEmpty()'
+in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+#### Snippet
+```java
         }
+        String defaultRenderer = expandToClassname(".RenderAsText"); // $NON-NLS-1$
+        if (VIEWERS_ORDER.length() > 0) {
+            defaultRenderer = expandToClassname(VIEWERS_ORDER.split(",", 2)[0]);
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`VIEWERS_ORDER.length() > 0` can be replaced with '!VIEWERS_ORDER.isEmpty()'
+in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+#### Snippet
+```java
+            }
+        }
+        if (VIEWERS_ORDER.length() > 0) {
+            Arrays.stream(VIEWERS_ORDER.split(","))
+                    .map(this::expandToClassname)
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -3985,30 +4009,6 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualiz
         graphPanel.setData(this.getData());
 ```
 
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`VIEWERS_ORDER.length() > 0` can be replaced with '!VIEWERS_ORDER.isEmpty()'
-in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
-#### Snippet
-```java
-        }
-        String defaultRenderer = expandToClassname(".RenderAsText"); // $NON-NLS-1$
-        if (VIEWERS_ORDER.length() > 0) {
-            defaultRenderer = expandToClassname(VIEWERS_ORDER.split(",", 2)[0]);
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`VIEWERS_ORDER.length() > 0` can be replaced with '!VIEWERS_ORDER.isEmpty()'
-in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
-#### Snippet
-```java
-            }
-        }
-        if (VIEWERS_ORDER.length() > 0) {
-            Arrays.stream(VIEWERS_ORDER.split(","))
-                    .map(this::expandToClassname)
-```
-
 ## RuleId[ruleID=FinalStaticMethod]
 ### RuleId[ruleID=FinalStaticMethod]
 'static' method declared `final`
@@ -4063,10 +4063,10 @@ in `src/core/src/main/java/org/apache/jmeter/engine/ClientJMeterEngine.java`
 in `src/core/src/main/java/org/apache/jmeter/samplers/SampleSaveConfiguration.java`
 #### Snippet
 ```java
-     * @return the getter method name
+     * @return the setter method name
      */
-    public static final String getterName(String configName) {
-        return CONFIG_GETTER_PREFIX + configName;
+    public static final String setterName(String configName) {
+        return CONFIG_SETTER_PREFIX + configName;
     }
 ```
 
@@ -4075,10 +4075,10 @@ in `src/core/src/main/java/org/apache/jmeter/samplers/SampleSaveConfiguration.ja
 in `src/core/src/main/java/org/apache/jmeter/samplers/SampleSaveConfiguration.java`
 #### Snippet
 ```java
-     * @return the setter method name
+     * @return the getter method name
      */
-    public static final String setterName(String configName) {
-        return CONFIG_SETTER_PREFIX + configName;
+    public static final String getterName(String configName) {
+        return CONFIG_GETTER_PREFIX + configName;
     }
 ```
 
@@ -4147,18 +4147,6 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/GuiUtils.java`
 in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphProperties.java`
 #### Snippet
 ```java
-     * @return array of String containing stroke widths
-     */
-    public static final String[] getStrokeWidth() {
-        String[] strokeWidth = new String[STROKE_WIDTH.length];
-        System.arraycopy(STROKE_WIDTH, 0, strokeWidth, 0, STROKE_WIDTH.length);
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphProperties.java`
-#### Snippet
-```java
      * @return array of String containing font sizes
      */
     public static final String[] getFontSize() {
@@ -4168,38 +4156,14 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphProperti
 
 ### RuleId[ruleID=FinalStaticMethod]
 'static' method declared `final`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/AbstractInfluxdbMetricsSender.java`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphProperties.java`
 #### Snippet
 ```java
-     * \ to escape List of special characters : commas , equal sign = spaces
+     * @return array of String containing stroke widths
      */
-    static final String tagToStringValue(String s) {
-        return s.trim()
-                .replace(" ", "\\ ")
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/AbstractInfluxdbMetricsSender.java`
-#### Snippet
-```java
-     * \ to escape " character
-     */
-    static final String fieldToStringValue(String s) {
-        return s.trim()
-                .replace("\"", "\\\"");
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
-#### Snippet
-```java
-
-    // Column formats
-    static final Format[] getFormatters() {
-        return new Format[]{
-            null, // Label
+    public static final String[] getStrokeWidth() {
+        String[] strokeWidth = new String[STROKE_WIDTH.length];
+        System.arraycopy(STROKE_WIDTH, 0, strokeWidth, 0, STROKE_WIDTH.length);
 ```
 
 ### RuleId[ruleID=FinalStaticMethod]
@@ -4212,18 +4176,6 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualiz
     static final TableCellRenderer[] getRenderers() {
         return new TableCellRenderer[]{
             null, // Label
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
-#### Snippet
-```java
-    }
-
-    static final Object[][] getGraphColumnsMsgParameters() {
-        return new Object[][] {
-            null,
 ```
 
 ### RuleId[ruleID=FinalStaticMethod]
@@ -4248,6 +4200,54 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualiz
     static final Object[][] getColumnsMsgParameters() {
         return new Object[][] { null,
             null,
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
+#### Snippet
+```java
+    }
+
+    static final Object[][] getGraphColumnsMsgParameters() {
+        return new Object[][] {
+            null,
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
+#### Snippet
+```java
+
+    // Column formats
+    static final Format[] getFormatters() {
+        return new Format[]{
+            null, // Label
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/AbstractInfluxdbMetricsSender.java`
+#### Snippet
+```java
+     * \ to escape " character
+     */
+    static final String fieldToStringValue(String s) {
+        return s.trim()
+                .replace("\"", "\\\"");
+```
+
+### RuleId[ruleID=FinalStaticMethod]
+'static' method declared `final`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/AbstractInfluxdbMetricsSender.java`
+#### Snippet
+```java
+     * \ to escape List of special characters : commas , equal sign = spaces
+     */
+    static final String tagToStringValue(String s) {
+        return s.trim()
+                .replace(" ", "\\ ")
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -4351,7 +4351,7 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/impl/HitsPer
 
 ### RuleId[ruleID=RedundantMethodOverride]
 Method `setGranularity()` only delegates to its super method
-in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/impl/TotalTPSGraphConsumer.java`
+in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/impl/BytesThroughputGraphConsumer.java`
 #### Snippet
 ```java
      */
@@ -4363,7 +4363,7 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/impl/TotalTP
 
 ### RuleId[ruleID=RedundantMethodOverride]
 Method `setGranularity()` only delegates to its super method
-in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/impl/BytesThroughputGraphConsumer.java`
+in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/impl/TotalTPSGraphConsumer.java`
 #### Snippet
 ```java
      */
@@ -4422,14 +4422,14 @@ in `src/core/src/main/java/org/apache/jmeter/reporters/ResultSaver.java`
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `setDomain()` only delegates to its super method
+Method `setProtocol()` is identical to its super method
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AccessLogSampler.java`
 #### Snippet
 ```java
      */
     @Override
-    public void setDomain(String domain) { // N.B. Must be in this class for the TestBean code to work
-        super.setDomain(domain);
+    public void setProtocol(String value) {
+        setProperty(PROTOCOL, value.toLowerCase(java.util.Locale.ENGLISH));
     }
 ```
 
@@ -4446,14 +4446,14 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/Acce
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `setProtocol()` is identical to its super method
+Method `setDomain()` only delegates to its super method
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AccessLogSampler.java`
 #### Snippet
 ```java
      */
     @Override
-    public void setProtocol(String value) {
-        setProperty(PROTOCOL, value.toLowerCase(java.util.Locale.ENGLISH));
+    public void setDomain(String domain) { // N.B. Must be in this class for the TestBean code to work
+        super.setDomain(domain);
     }
 ```
 
@@ -4471,18 +4471,6 @@ in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JSR2
 
 ### RuleId[ruleID=RedundantMethodOverride]
 Method `expectsModification()` is identical to its super method
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
-#### Snippet
-```java
-    /** {@inheritDoc} */
-    @Override
-    public boolean expectsModification() {
-        return false;
-    }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
-Method `expectsModification()` is identical to its super method
 in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/config/MongoSourceElement.java`
 #### Snippet
 ```java
@@ -4490,18 +4478,6 @@ in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/config
     @Override
     public boolean expectsModification() {
         return false;
-    }
-```
-
-### RuleId[ruleID=RedundantMethodOverride]
-Method `clone()` only delegates to its super method
-in `src/components/src/main/java/org/apache/jmeter/timers/JSR223Timer.java`
-#### Snippet
-```java
-
-    @Override
-    public Object clone() {
-        return super.clone();
     }
 ```
 
@@ -4519,7 +4495,7 @@ in `src/generator/src/main/java/org/apache/jmeter/visualizers/GenerateTreeGui.ja
 
 ### RuleId[ruleID=RedundantMethodOverride]
 Method `clone()` only delegates to its super method
-in `src/components/src/main/java/org/apache/jmeter/timers/BeanShellTimer.java`
+in `src/components/src/main/java/org/apache/jmeter/timers/JSR223Timer.java`
 #### Snippet
 ```java
 
@@ -4532,6 +4508,18 @@ in `src/components/src/main/java/org/apache/jmeter/timers/BeanShellTimer.java`
 ### RuleId[ruleID=RedundantMethodOverride]
 Method `clone()` only delegates to its super method
 in `src/components/src/main/java/org/apache/jmeter/timers/BSFTimer.java`
+#### Snippet
+```java
+
+    @Override
+    public Object clone() {
+        return super.clone();
+    }
+```
+
+### RuleId[ruleID=RedundantMethodOverride]
+Method `clone()` only delegates to its super method
+in `src/components/src/main/java/org/apache/jmeter/timers/BeanShellTimer.java`
 #### Snippet
 ```java
 
@@ -4697,19 +4685,19 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/AbstractB
     }
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`updateFile = updateFile + JMX_FILE_EXTENSION` could be simplified to 'updateFile += JMX_FILE_EXTENSION'
-in `src/core/src/main/java/org/apache/jmeter/gui/action/Save.java`
+### RuleId[ruleID=RedundantMethodOverride]
+Method `expectsModification()` is identical to its super method
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
 #### Snippet
 ```java
-        // Make sure the file ends with proper extension
-        if(FilenameUtils.getExtension(updateFile).isEmpty()) {
-            updateFile = updateFile + JMX_FILE_EXTENSION;
-        }
-        // Check if the user is trying to save to an existing file
+    /** {@inheritDoc} */
+    @Override
+    public boolean expectsModification() {
+        return false;
+    }
 ```
 
+## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 ### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 `filename = filename + TIFF_EXTENSION` could be simplified to 'filename += TIFF_EXTENSION'
 in `src/core/src/main/java/org/apache/jmeter/save/SaveGraphicsService.java`
@@ -4720,6 +4708,18 @@ in `src/core/src/main/java/org/apache/jmeter/save/SaveGraphicsService.java`
             filename = filename + TIFF_EXTENSION;
             this.saveTIFFWithBatik(filename, image);
         }
+```
+
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`updateFile = updateFile + JMX_FILE_EXTENSION` could be simplified to 'updateFile += JMX_FILE_EXTENSION'
+in `src/core/src/main/java/org/apache/jmeter/gui/action/Save.java`
+#### Snippet
+```java
+        // Make sure the file ends with proper extension
+        if(FilenameUtils.getExtension(updateFile).isEmpty()) {
+            updateFile = updateFile + JMX_FILE_EXTENSION;
+        }
+        // Check if the user is trying to save to an existing file
 ```
 
 ### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
@@ -4949,11 +4949,11 @@ Result of assignment expression used
 in `src/core/src/main/java/org/apache/jmeter/save/CSVSaveService.java`
 #### Snippet
 ```java
-        CharArrayWriter baos = new CharArrayWriter(200);
-        boolean push = false;
-        while (-1 != (ch = infile.read())) {
-            push = false;
-            switch (state) {
+            // not
+            // If so, then need to check whether the reader is at EOF
+            while ((parts = csvReadFile(dataReader, delim)).length != 0) {
+                lineNumber++;
+                SampleEvent event = CSVSaveService.makeResultFromDelimitedString(parts, saveConfig, lineNumber);
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -4961,11 +4961,11 @@ Result of assignment expression used
 in `src/core/src/main/java/org/apache/jmeter/save/CSVSaveService.java`
 #### Snippet
 ```java
-            // not
-            // If so, then need to check whether the reader is at EOF
-            while ((parts = csvReadFile(dataReader, delim)).length != 0) {
-                lineNumber++;
-                SampleEvent event = CSVSaveService.makeResultFromDelimitedString(parts, saveConfig, lineNumber);
+        CharArrayWriter baos = new CharArrayWriter(200);
+        boolean push = false;
+        while (-1 != (ch = infile.read())) {
+            push = false;
+            switch (state) {
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -5018,18 +5018,6 @@ in `src/core/src/main/java/org/apache/jmeter/samplers/DiskStoreSampleSender.java
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `src/core/src/main/java/org/apache/jmeter/samplers/AsynchSampleSender.java`
-#### Snippet
-```java
-                    // try to process as many as possible
-                    // The == comparison is not an error
-                    while (!(eof = e == FINAL_EVENT) && e != null) {
-                        l.add(e);
-                        e = queue.poll(); // returns null if nothing on queue currently
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
 in `src/core/src/main/java/org/apache/jmeter/threads/ThreadGroup.java`
 #### Snippet
 ```java
@@ -5038,6 +5026,18 @@ in `src/core/src/main/java/org/apache/jmeter/threads/ThreadGroup.java`
                 while(running && (now = System.currentTimeMillis()) < end) {
                     long togo = end - now;
                     if (togo < pause) {
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `src/core/src/main/java/org/apache/jmeter/samplers/AsynchSampleSender.java`
+#### Snippet
+```java
+                    // try to process as many as possible
+                    // The == comparison is not an error
+                    while (!(eof = e == FINAL_EVENT) && e != null) {
+                        l.add(e);
+                        e = queue.poll(); // returns null if nothing on queue currently
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -5117,7 +5117,7 @@ Result of assignment expression used
 in `src/jorphan/src/main/java/org/apache/jorphan/collections/Data.java`
 #### Snippet
 ```java
-    public void setColumnValue(String column, Object value) {
+    public void addColumnValue(String column, Object value) {
         List<Object> tempList;
         if ((tempList = data.get(column)) == null) {
             tempList = new ArrayList<>();
@@ -5129,7 +5129,7 @@ Result of assignment expression used
 in `src/jorphan/src/main/java/org/apache/jorphan/collections/Data.java`
 #### Snippet
 ```java
-    public void addColumnValue(String column, Object value) {
+    public void setColumnValue(String column, Object value) {
         List<Object> tempList;
         if ((tempList = data.get(column)) == null) {
             tempList = new ArrayList<>();
@@ -5186,6 +5186,30 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/HttpRe
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
+#### Snippet
+```java
+            break;
+        case JMETER_KEYSTORE:
+            hashAlias = keyAlias = ProxyControl.JMETER_SERVER_ALIAS;
+            break;
+        case USER_KEYSTORE:
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
+#### Snippet
+```java
+            break;
+        case USER_KEYSTORE:
+            hashAlias = keyAlias = ProxyControl.CERT_ALIAS;
+            break;
+        default:
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/HttpMirrorThread.java`
 #### Snippet
 ```java
@@ -5234,18 +5258,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/Http
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/HeaderManager.java`
-#### Snippet
-```java
-        try (BufferedReader reader = Files.newBufferedReader(file.toPath(), Charset.defaultCharset())) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                try {
-                    if (line.startsWith("#") || JOrphanUtils.isBlank(line)) {// $NON-NLS-1$
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CookieManager.java`
 #### Snippet
 ```java
@@ -5258,6 +5270,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/Cook
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/HeaderManager.java`
+#### Snippet
+```java
+        try (BufferedReader reader = Files.newBufferedReader(file.toPath(), Charset.defaultCharset())) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    if (line.startsWith("#") || JOrphanUtils.isBlank(line)) {// $NON-NLS-1$
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/PostWriter.java`
 #### Snippet
 ```java
@@ -5266,30 +5290,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/Post
             while ((read = in.read(buf)) > 0) {
                 out.write(buf, 0, read);
             }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
-#### Snippet
-```java
-            break;
-        case JMETER_KEYSTORE:
-            hashAlias = keyAlias = ProxyControl.JMETER_SERVER_ALIAS;
-            break;
-        case USER_KEYSTORE:
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
-#### Snippet
-```java
-            break;
-        case USER_KEYSTORE:
-            hashAlias = keyAlias = ProxyControl.CERT_ALIAS;
-            break;
-        default:
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -5330,14 +5330,14 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+in `src/bshclient/src/main/java/org/apache/jmeter/util/BeanShellClient.java`
 #### Snippet
 ```java
-        try (BufferedReader reader = Files.newBufferedReader(file.toPath(), Charset.defaultCharset())){
-            String line;
-            while ((line = reader.readLine()) != null) {
-                try {
-                    if (line.startsWith("#") || JOrphanUtils.isBlank(line)) { //$NON-NLS-1$
+            int x = 0;
+            try {
+                while ((x = is.read()) > -1) {
+                    char c = (char) x;
+                    System.out.print(c);
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -5350,18 +5350,6 @@ in `src/bshclient/src/main/java/org/apache/jmeter/util/BeanShellClient.java`
                 while ((b = fis.read()) != -1) {
                     os.write(b);
                 }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/bshclient/src/main/java/org/apache/jmeter/util/BeanShellClient.java`
-#### Snippet
-```java
-            int x = 0;
-            try {
-                while ((x = is.read()) > -1) {
-                    char c = (char) x;
-                    System.out.print(c);
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -5398,6 +5386,18 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/BackendLi
                         while (!(endOfLoop = sampleResult == FINAL_SAMPLE_RESULT) && sampleResult != null) {
                             sampleResults.add(sampleResult);
                             if (isDebugEnabled) {
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+#### Snippet
+```java
+        try (BufferedReader reader = Files.newBufferedReader(file.toPath(), Charset.defaultCharset())){
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    if (line.startsWith("#") || JOrphanUtils.isBlank(line)) { //$NON-NLS-1$
 ```
 
 ## RuleId[ruleID=ListRemoveInLoop]
@@ -5452,18 +5452,6 @@ in `src/core/src/main/java/org/apache/jmeter/util/JSR223TestElement.java`
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `ownerThread` is accessed in both synchronized and unsynchronized contexts
-in `src/core/src/main/java/org/apache/jmeter/engine/RemoteJMeterEngineImpl.java`
-#### Snippet
-```java
-    private transient JMeterEngine backingEngine;
-
-    private transient Thread ownerThread;
-
-    // Should we create our own copy of the RMI registry?
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `backingEngine` is accessed in both synchronized and unsynchronized contexts
 in `src/core/src/main/java/org/apache/jmeter/engine/RemoteJMeterEngineImpl.java`
 #### Snippet
@@ -5473,6 +5461,18 @@ in `src/core/src/main/java/org/apache/jmeter/engine/RemoteJMeterEngineImpl.java`
     private transient JMeterEngine backingEngine;
 
     private transient Thread ownerThread;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `ownerThread` is accessed in both synchronized and unsynchronized contexts
+in `src/core/src/main/java/org/apache/jmeter/engine/RemoteJMeterEngineImpl.java`
+#### Snippet
+```java
+    private transient JMeterEngine backingEngine;
+
+    private transient Thread ownerThread;
+
+    // Should we create our own copy of the RMI registry?
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -5512,18 +5512,6 @@ in `src/core/src/main/java/org/apache/jmeter/samplers/StatisticalSampleSender.ja
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `timeStamp` is accessed in both synchronized and unsynchronized contexts
-in `src/core/src/main/java/org/apache/jmeter/reporters/ResultSaver.java`
-#### Snippet
-```java
-
-    //@GuardedBy("LOCK")
-    private String timeStamp;
-
-    //@GuardedBy("LOCK")
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `numberPadLength` is accessed in both synchronized and unsynchronized contexts
 in `src/core/src/main/java/org/apache/jmeter/reporters/ResultSaver.java`
 #### Snippet
@@ -5533,6 +5521,18 @@ in `src/core/src/main/java/org/apache/jmeter/reporters/ResultSaver.java`
     private int numberPadLength;
 
     /**
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `timeStamp` is accessed in both synchronized and unsynchronized contexts
+in `src/core/src/main/java/org/apache/jmeter/reporters/ResultSaver.java`
+#### Snippet
+```java
+
+    //@GuardedBy("LOCK")
+    private String timeStamp;
+
+    //@GuardedBy("LOCK")
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -5548,18 +5548,6 @@ in `src/core/src/main/java/org/apache/jmeter/reporters/Summariser.java`
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `firstTime` is accessed in both synchronized and unsynchronized contexts
-in `src/core/src/main/java/org/apache/jmeter/visualizers/SamplingStatCalculator.java`
-#### Snippet
-```java
-    private double maxThroughput;
-
-    private long firstTime;
-
-    private String label;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `maxThroughput` is accessed in both synchronized and unsynchronized contexts
 in `src/core/src/main/java/org/apache/jmeter/visualizers/SamplingStatCalculator.java`
 #### Snippet
@@ -5569,6 +5557,18 @@ in `src/core/src/main/java/org/apache/jmeter/visualizers/SamplingStatCalculator.
     private double maxThroughput;
 
     private long firstTime;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `firstTime` is accessed in both synchronized and unsynchronized contexts
+in `src/core/src/main/java/org/apache/jmeter/visualizers/SamplingStatCalculator.java`
+#### Snippet
+```java
+    private double maxThroughput;
+
+    private long firstTime;
+
+    private String label;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -5596,18 +5596,6 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/layout/VerticalLayout.java`
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `anchor` is accessed in both synchronized and unsynchronized contexts
-in `src/jorphan/src/main/java/org/apache/jorphan/gui/layout/VerticalLayout.java`
-#### Snippet
-```java
-     * overlarge space.
-     */
-    private int anchor;
-
-    // Constructors
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `alignment` is accessed in both synchronized and unsynchronized contexts
 in `src/jorphan/src/main/java/org/apache/jorphan/gui/layout/VerticalLayout.java`
 #### Snippet
@@ -5617,6 +5605,18 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/layout/VerticalLayout.java`
     private int alignment;
 
     /**
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `anchor` is accessed in both synchronized and unsynchronized contexts
+in `src/jorphan/src/main/java/org/apache/jorphan/gui/layout/VerticalLayout.java`
+#### Snippet
+```java
+     * overlarge space.
+     */
+    private int anchor;
+
+    // Constructors
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -5668,15 +5668,15 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyC
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `port` is accessed in both synchronized and unsynchronized contexts
+Field `keyPassword` is accessed in both synchronized and unsynchronized contexts
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
 #### Snippet
 ```java
-    private Map<String, String> formEncodings;
-
-    private String port; // For identifying log messages
-
     private KeyStore keyStore; // keystore for SSL keys; fixed at config except for dynamic host key generation
+
+    private String keyPassword;
+
+    /**
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -5692,15 +5692,15 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `keyPassword` is accessed in both synchronized and unsynchronized contexts
+Field `port` is accessed in both synchronized and unsynchronized contexts
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
 #### Snippet
 ```java
+    private Map<String, String> formEncodings;
+
+    private String port; // For identifying log messages
+
     private KeyStore keyStore; // keystore for SSL keys; fixed at config except for dynamic host key generation
-
-    private String keyPassword;
-
-    /**
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -5740,18 +5740,6 @@ in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/control/gui
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `values` is accessed in both synchronized and unsynchronized contexts
-in `src/functions/src/main/java/org/apache/jmeter/functions/Groovy.java`
-#### Snippet
-```java
-    }
-
-    private Object[] values;
-    private ScriptEngine scriptEngine;
-
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `scriptEngine` is accessed in both synchronized and unsynchronized contexts
 in `src/functions/src/main/java/org/apache/jmeter/functions/Groovy.java`
 #### Snippet
@@ -5760,6 +5748,18 @@ in `src/functions/src/main/java/org/apache/jmeter/functions/Groovy.java`
     private Object[] values;
     private ScriptEngine scriptEngine;
 
+
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `values` is accessed in both synchronized and unsynchronized contexts
+in `src/functions/src/main/java/org/apache/jmeter/functions/Groovy.java`
+#### Snippet
+```java
+    }
+
+    private Object[] values;
+    private ScriptEngine scriptEngine;
 
 ```
 
@@ -5788,6 +5788,18 @@ in `src/components/src/main/java/org/apache/jmeter/timers/SyncTimer.java`
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `globalIteration` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/control/ThroughputController.java`
+#### Snippet
+```java
+    // They are initialised by testStarted() so don't need to be serialised
+    private transient MutableInteger globalNumExecutions;
+    private transient MutableInteger globalIteration;
+    private transient Object counterLock = new Object(); // ensure counts are updated correctly
+
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `runThisTime` is accessed in both synchronized and unsynchronized contexts
 in `src/components/src/main/java/org/apache/jmeter/control/ThroughputController.java`
 #### Snippet
@@ -5797,18 +5809,6 @@ in `src/components/src/main/java/org/apache/jmeter/control/ThroughputController.
     private boolean runThisTime;
 
     public ThroughputController() {
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `globalNumExecutions` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/control/ThroughputController.java`
-#### Snippet
-```java
-    // These items are shared between threads in a group by the clone() method
-    // They are initialised by testStarted() so don't need to be serialised
-    private transient MutableInteger globalNumExecutions;
-    private transient MutableInteger globalIteration;
-    private transient Object counterLock = new Object(); // ensure counts are updated correctly
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -5824,27 +5824,15 @@ in `src/components/src/main/java/org/apache/jmeter/control/ThroughputController.
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `globalIteration` is accessed in both synchronized and unsynchronized contexts
+Field `globalNumExecutions` is accessed in both synchronized and unsynchronized contexts
 in `src/components/src/main/java/org/apache/jmeter/control/ThroughputController.java`
 #### Snippet
 ```java
+    // These items are shared between threads in a group by the clone() method
     // They are initialised by testStarted() so don't need to be serialised
     private transient MutableInteger globalNumExecutions;
     private transient MutableInteger globalIteration;
     private transient Object counterLock = new Object(); // ensure counts are updated correctly
-
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `sampleResult` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/extractor/json/render/AbstractRenderAsJsonRenderer.java`
-#### Snippet
-```java
-    private JTabbedPane rightSide;
-
-    private SampleResult sampleResult;
-
-    /** {@inheritDoc} */
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -5860,6 +5848,18 @@ in `src/components/src/main/java/org/apache/jmeter/extractor/json/render/Abstrac
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `sampleResult` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/extractor/json/render/AbstractRenderAsJsonRenderer.java`
+#### Snippet
+```java
+    private JTabbedPane rightSide;
+
+    private SampleResult sampleResult;
+
+    /** {@inheritDoc} */
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `lock` is accessed in both synchronized and unsynchronized contexts
 in `src/components/src/main/java/org/apache/jmeter/modifiers/UserParameters.java`
 #### Snippet
@@ -5872,18 +5872,6 @@ in `src/components/src/main/java/org/apache/jmeter/modifiers/UserParameters.java
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `successCount` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/reporters/MailerModel.java`
-#### Snippet
-```java
-    private long failureCount = 0;
-
-    private long successCount = 0;
-
-    private boolean failureMsgSent = false;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `failureCount` is accessed in both synchronized and unsynchronized contexts
 in `src/components/src/main/java/org/apache/jmeter/reporters/MailerModel.java`
 #### Snippet
@@ -5893,6 +5881,18 @@ in `src/components/src/main/java/org/apache/jmeter/reporters/MailerModel.java`
     private long failureCount = 0;
 
     private long successCount = 0;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `successCount` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/reporters/MailerModel.java`
+#### Snippet
+```java
+    private long failureCount = 0;
+
+    private long successCount = 0;
+
+    private boolean failureMsgSent = false;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -5921,6 +5921,18 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/AssertionVisualiz
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `rightSide` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXPath2.java`
+#### Snippet
+```java
+    private JSyntaxTextArea xpathResultField;
+
+    private JTabbedPane rightSide;
+
+    // Should we return fragment as text, rather than text of fragment?
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `rightSide` is accessed in both synchronized and unsynchronized contexts
 in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsBoundaryExtractor.java`
 #### Snippet
 ```java
@@ -5929,6 +5941,30 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsBoundaryE
     private JTabbedPane rightSide;
 
     /**
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `table` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
+#### Snippet
+```java
+    private ObjectTableModel model = null;
+
+    private JTable table = null;
+
+    private JTextField dataField = null;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `model` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
+#### Snippet
+```java
+            "table_visualizer_connect"};    // $NON-NLS-1$
+
+    private ObjectTableModel model = null;
+
+    private JTable table = null;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -5941,6 +5977,42 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.j
     private JTextField averageField = null;
 
     private JTextField deviationField = null;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `autoscroll` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
+#### Snippet
+```java
+    private JScrollPane tableScrollPanel = null;
+
+    private JCheckBox autoscroll = null;
+
+    private JCheckBox childSamples = null;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `noSamplesField` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
+#### Snippet
+```java
+    private JTextField deviationField = null;
+
+    private JTextField noSamplesField = null;
+
+    private JScrollPane tableScrollPanel = null;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `dataField` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
+#### Snippet
+```java
+    private JTable table = null;
+
+    private JTextField dataField = null;
+
+    private JTextField averageField = null;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -5968,75 +6040,15 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.j
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `dataField` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
+Field `newRows` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/StatVisualizer.java`
 #### Snippet
 ```java
-    private JTable table = null;
+    private final Map<String, SamplingStatCalculator> tableRows = new ConcurrentHashMap<>();
 
-    private JTextField dataField = null;
+    private Deque<SamplingStatCalculator> newRows = new ConcurrentLinkedDeque<>();
 
-    private JTextField averageField = null;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `noSamplesField` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
-#### Snippet
-```java
-    private JTextField deviationField = null;
-
-    private JTextField noSamplesField = null;
-
-    private JScrollPane tableScrollPanel = null;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `autoscroll` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
-#### Snippet
-```java
-    private JScrollPane tableScrollPanel = null;
-
-    private JCheckBox autoscroll = null;
-
-    private JCheckBox childSamples = null;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `model` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
-#### Snippet
-```java
-            "table_visualizer_connect"};    // $NON-NLS-1$
-
-    private ObjectTableModel model = null;
-
-    private JTable table = null;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `table` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
-#### Snippet
-```java
-    private ObjectTableModel model = null;
-
-    private JTable table = null;
-
-    private JTextField dataField = null;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `rightSide` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXPath2.java`
-#### Snippet
-```java
-    private JSyntaxTextArea xpathResultField;
-
-    private JTabbedPane rightSide;
-
-    // Should we return fragment as text, rather than text of fragment?
+    private volatile boolean dataChanged;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -6049,18 +6061,6 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/StatVisualizer.ja
     private transient ObjectTableModel model;
 
     /** Lock used to protect tableRows update + model update */
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `newRows` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/StatVisualizer.java`
-#### Snippet
-```java
-    private final Map<String, SamplingStatCalculator> tableRows = new ConcurrentHashMap<>();
-
-    private Deque<SamplingStatCalculator> newRows = new ConcurrentLinkedDeque<>();
-
-    private volatile boolean dataChanged;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -6088,6 +6088,30 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsRegexp.ja
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `model` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/SummaryReport.java`
+#### Snippet
+```java
+        new JCheckBox(JMeterUtils.getResString("aggregate_graph_use_group_name"));            //$NON-NLS-1$
+
+    private transient ObjectTableModel model;
+
+    /**
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `minStartTime` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
+#### Snippet
+```java
+            new JLabeledTextField(JMeterUtils.getResString("aggregate_graph_increment_scale"), 5); //$NON-NLS-1$
+
+    private long minStartTime = Long.MAX_VALUE;
+
+    private long maxStartTime = Long.MIN_VALUE;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `durationTest` is accessed in both synchronized and unsynchronized contexts
 in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
 #### Snippet
@@ -6112,27 +6136,27 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisu
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `minStartTime` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
+Field `rightSide` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.java`
 #### Snippet
 ```java
-            new JLabeledTextField(JMeterUtils.getResString("aggregate_graph_increment_scale"), 5); //$NON-NLS-1$
 
-    private long minStartTime = Long.MAX_VALUE;
+    /** holds the tabbed panes */
+    protected JTabbedPane rightSide;
 
-    private long maxStartTime = Long.MIN_VALUE;
+    private int lastSelectedTab;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `model` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/SummaryReport.java`
+Field `userObject` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.java`
 #### Snippet
 ```java
-        new JCheckBox(JMeterUtils.getResString("aggregate_graph_use_group_name"));            //$NON-NLS-1$
+    private int lastSelectedTab;
 
-    private transient ObjectTableModel model;
+    private Object userObject = null; // Could be SampleResult or AssertionResult
 
-    /**
+    private SampleResult sampleResult = null;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -6172,75 +6196,99 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/BackendLi
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `rightSide` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.java`
+Field `jTree` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
 #### Snippet
 ```java
-
-    /** holds the tabbed panes */
-    protected JTabbedPane rightSide;
-
-    private int lastSelectedTab;
+    private DefaultMutableTreeNode root;
+    private DefaultTreeModel treeModel;
+    private JTree jTree;
+    private Component leftSide;
+    private JTabbedPane rightSide;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `userObject` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.java`
+Field `autoScrollCB` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
 #### Snippet
 ```java
-    private int lastSelectedTab;
-
-    private Object userObject = null; // Could be SampleResult or AssertionResult
-
-    private SampleResult sampleResult = null;
+    private Object resultsObject = null;
+    private TreeSelectionEvent lastSelectionEvent;
+    private JCheckBox autoScrollCB;
+    private final Queue<SampleResult> buffer;
+    private boolean dataChanged;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `samplersToFilter` is accessed in both synchronized and unsynchronized contexts
+Field `selectRenderPanel` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+#### Snippet
+```java
+    private Component leftSide;
+    private JTabbedPane rightSide;
+    private JComboBox<ResultRenderer> selectRenderPanel;
+    private int selectedTab;
+    private ResultRenderer resultsRender = null;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `treeModel` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+#### Snippet
+```java
+    private JSplitPane mainSplit;
+    private DefaultMutableTreeNode root;
+    private DefaultTreeModel treeModel;
+    private JTree jTree;
+    private Component leftSide;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `root` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+#### Snippet
+```java
+
+    private JSplitPane mainSplit;
+    private DefaultMutableTreeNode root;
+    private DefaultTreeModel treeModel;
+    private JTree jTree;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `newRows` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
+#### Snippet
+```java
+    private Pattern pattern = null;
+
+    private Deque<SamplingStatCalculator> newRows = new ConcurrentLinkedDeque<>();
+
+    public StatGraphVisualizer() {
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `model` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
+#### Snippet
+```java
+    private JScrollPane myScrollPane;
+
+    private transient ObjectTableModel model;
+
+    /**
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `summaryOnly` is accessed in both synchronized and unsynchronized contexts
 in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/GraphiteBackendListenerClient.java`
 #### Snippet
 ```java
+    private static final Object LOCK = new Object();
+
+    private boolean summaryOnly;
     private String samplersList = ""; //$NON-NLS-1$
     private boolean useRegexpForSamplersList;
-    private Set<String> samplersToFilter;
-    private Map<String, Float> okPercentiles;
-    private Map<String, Float> koPercentiles;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `graphiteMetricsManager` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/GraphiteBackendListenerClient.java`
-#### Snippet
-```java
-    private Map<String, Float> allPercentiles;
-
-    private GraphiteMetricsSender graphiteMetricsManager;
-
-    private ScheduledExecutorService scheduler;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `pattern` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/GraphiteBackendListenerClient.java`
-#### Snippet
-```java
-    private ScheduledFuture<?> timerHandle;
-
-    private Pattern pattern;
-
-    public GraphiteBackendListenerClient() {
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `okPercentiles` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/GraphiteBackendListenerClient.java`
-#### Snippet
-```java
-    private boolean useRegexpForSamplersList;
-    private Set<String> samplersToFilter;
-    private Map<String, Float> okPercentiles;
-    private Map<String, Float> koPercentiles;
-    private Map<String, Float> allPercentiles;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -6256,15 +6304,51 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `allPercentiles` is accessed in both synchronized and unsynchronized contexts
+Field `okPercentiles` is accessed in both synchronized and unsynchronized contexts
 in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/GraphiteBackendListenerClient.java`
 #### Snippet
 ```java
+    private boolean useRegexpForSamplersList;
+    private Set<String> samplersToFilter;
     private Map<String, Float> okPercentiles;
     private Map<String, Float> koPercentiles;
     private Map<String, Float> allPercentiles;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `graphiteMetricsManager` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/GraphiteBackendListenerClient.java`
+#### Snippet
+```java
+    private Map<String, Float> allPercentiles;
 
     private GraphiteMetricsSender graphiteMetricsManager;
+
+    private ScheduledExecutorService scheduler;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `samplersToFilter` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/GraphiteBackendListenerClient.java`
+#### Snippet
+```java
+    private String samplersList = ""; //$NON-NLS-1$
+    private boolean useRegexpForSamplersList;
+    private Set<String> samplersToFilter;
+    private Map<String, Float> okPercentiles;
+    private Map<String, Float> koPercentiles;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `pattern` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/GraphiteBackendListenerClient.java`
+#### Snippet
+```java
+    private ScheduledFuture<?> timerHandle;
+
+    private Pattern pattern;
+
+    public GraphiteBackendListenerClient() {
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -6280,15 +6364,15 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `summaryOnly` is accessed in both synchronized and unsynchronized contexts
+Field `allPercentiles` is accessed in both synchronized and unsynchronized contexts
 in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/GraphiteBackendListenerClient.java`
 #### Snippet
 ```java
-    private static final Object LOCK = new Object();
+    private Map<String, Float> okPercentiles;
+    private Map<String, Float> koPercentiles;
+    private Map<String, Float> allPercentiles;
 
-    private boolean summaryOnly;
-    private String samplersList = ""; //$NON-NLS-1$
-    private boolean useRegexpForSamplersList;
+    private GraphiteMetricsSender graphiteMetricsManager;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -6313,78 +6397,6 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/
     private InfluxdbMetricsSender influxDBMetricsManager;
     private String measurement;
 
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `koPercentiles` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
-#### Snippet
-```java
-    private Pattern samplersToFilter;
-    private Map<String, Float> okPercentiles;
-    private Map<String, Float> koPercentiles;
-    private Map<String, Float> allPercentiles;
-    private String testTitle;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `samplersToFilter` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
-#### Snippet
-```java
-    private String measurement = "DEFAULT_MEASUREMENT";
-    private String samplersRegex = "";
-    private Pattern samplersToFilter;
-    private Map<String, Float> okPercentiles;
-    private Map<String, Float> koPercentiles;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `summaryOnly` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
-#### Snippet
-```java
-    }
-
-    private boolean summaryOnly;
-    private String measurement = "DEFAULT_MEASUREMENT";
-    private String samplersRegex = "";
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `measurement` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
-#### Snippet
-```java
-
-    private boolean summaryOnly;
-    private String measurement = "DEFAULT_MEASUREMENT";
-    private String samplersRegex = "";
-    private Pattern samplersToFilter;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `okPercentiles` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
-#### Snippet
-```java
-    private String samplersRegex = "";
-    private Pattern samplersToFilter;
-    private Map<String, Float> okPercentiles;
-    private Map<String, Float> koPercentiles;
-    private Map<String, Float> allPercentiles;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `applicationName` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
-#### Snippet
-```java
-    private String testTitle;
-    private String testTags;
-    private String applicationName = "";
-    private String userTag = "";
-    private InfluxdbMetricsSender influxdbMetricsManager;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -6424,183 +6436,75 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `model` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
+Field `okPercentiles` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
 #### Snippet
 ```java
-    private JScrollPane myScrollPane;
-
-    private transient ObjectTableModel model;
-
-    /**
+    private String samplersRegex = "";
+    private Pattern samplersToFilter;
+    private Map<String, Float> okPercentiles;
+    private Map<String, Float> koPercentiles;
+    private Map<String, Float> allPercentiles;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `newRows` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
+Field `measurement` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
 #### Snippet
 ```java
-    private Pattern pattern = null;
 
-    private Deque<SamplingStatCalculator> newRows = new ConcurrentLinkedDeque<>();
-
-    public StatGraphVisualizer() {
+    private boolean summaryOnly;
+    private String measurement = "DEFAULT_MEASUREMENT";
+    private String samplersRegex = "";
+    private Pattern samplersToFilter;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `autoScrollCB` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+Field `applicationName` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
 #### Snippet
 ```java
-    private Object resultsObject = null;
-    private TreeSelectionEvent lastSelectionEvent;
-    private JCheckBox autoScrollCB;
-    private final Queue<SampleResult> buffer;
-    private boolean dataChanged;
+    private String testTitle;
+    private String testTags;
+    private String applicationName = "";
+    private String userTag = "";
+    private InfluxdbMetricsSender influxdbMetricsManager;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `jTree` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+Field `summaryOnly` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
 #### Snippet
 ```java
-    private DefaultMutableTreeNode root;
-    private DefaultTreeModel treeModel;
-    private JTree jTree;
-    private Component leftSide;
-    private JTabbedPane rightSide;
+    }
+
+    private boolean summaryOnly;
+    private String measurement = "DEFAULT_MEASUREMENT";
+    private String samplersRegex = "";
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `treeModel` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+Field `koPercentiles` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
 #### Snippet
 ```java
-    private JSplitPane mainSplit;
-    private DefaultMutableTreeNode root;
-    private DefaultTreeModel treeModel;
-    private JTree jTree;
-    private Component leftSide;
+    private Pattern samplersToFilter;
+    private Map<String, Float> okPercentiles;
+    private Map<String, Float> koPercentiles;
+    private Map<String, Float> allPercentiles;
+    private String testTitle;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `root` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+Field `samplersToFilter` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
 #### Snippet
 ```java
-
-    private JSplitPane mainSplit;
-    private DefaultMutableTreeNode root;
-    private DefaultTreeModel treeModel;
-    private JTree jTree;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `selectRenderPanel` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
-#### Snippet
-```java
-    private Component leftSide;
-    private JTabbedPane rightSide;
-    private JComboBox<ResultRenderer> selectRenderPanel;
-    private int selectedTab;
-    private ResultRenderer resultsRender = null;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `successes` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
-#### Snippet
-```java
-     */
-    private DescriptiveStatistics pctResponseStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(SLIDING_WINDOW_SIZE);
-    private int successes;
-    private int failures;
-    private int hits;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `pctResponseStats` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
-#### Snippet
-```java
-     * Timeboxed percentiles don't makes sense
-     */
-    private DescriptiveStatistics pctResponseStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(SLIDING_WINDOW_SIZE);
-    private int successes;
-    private int failures;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `allResponsesStats` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
-#### Snippet
-```java
-     * Response times for All samples
-     */
-    private DescriptiveStatistics allResponsesStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(LARGE_SLIDING_WINDOW_SIZE);
-    /**
-     *  OK, KO, ALL stats
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `receivedBytes` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
-#### Snippet
-```java
-    private Map<ErrorMetric, Integer> errors = new HashMap<>();
-    private long sentBytes;
-    private long receivedBytes;
-
-
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `failures` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
-#### Snippet
-```java
-    private DescriptiveStatistics pctResponseStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(SLIDING_WINDOW_SIZE);
-    private int successes;
-    private int failures;
-    private int hits;
-    private Map<ErrorMetric, Integer> errors = new HashMap<>();
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `errors` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
-#### Snippet
-```java
-    private int failures;
-    private int hits;
-    private Map<ErrorMetric, Integer> errors = new HashMap<>();
-    private long sentBytes;
-    private long receivedBytes;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `koResponsesStats` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
-#### Snippet
-```java
-     * Response times for KO samples
-     */
-    private DescriptiveStatistics koResponsesStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(LARGE_SLIDING_WINDOW_SIZE);
-    /**
-     * Response times for All samples
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `okResponsesStats` is accessed in both synchronized and unsynchronized contexts
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
-#### Snippet
-```java
-     * Response times for OK samples
-     */
-    private DescriptiveStatistics okResponsesStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(LARGE_SLIDING_WINDOW_SIZE);
-    /**
-     * Response times for KO samples
+    private String measurement = "DEFAULT_MEASUREMENT";
+    private String samplersRegex = "";
+    private Pattern samplersToFilter;
+    private Map<String, Float> okPercentiles;
+    private Map<String, Float> koPercentiles;
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -6616,6 +6520,30 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMe
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `koResponsesStats` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
+#### Snippet
+```java
+     * Response times for KO samples
+     */
+    private DescriptiveStatistics koResponsesStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(LARGE_SLIDING_WINDOW_SIZE);
+    /**
+     * Response times for All samples
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `receivedBytes` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
+#### Snippet
+```java
+    private Map<ErrorMetric, Integer> errors = new HashMap<>();
+    private long sentBytes;
+    private long receivedBytes;
+
+
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `sentBytes` is accessed in both synchronized and unsynchronized contexts
 in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
 #### Snippet
@@ -6625,6 +6553,78 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMe
     private long sentBytes;
     private long receivedBytes;
 
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `okResponsesStats` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
+#### Snippet
+```java
+     * Response times for OK samples
+     */
+    private DescriptiveStatistics okResponsesStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(LARGE_SLIDING_WINDOW_SIZE);
+    /**
+     * Response times for KO samples
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `errors` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
+#### Snippet
+```java
+    private int failures;
+    private int hits;
+    private Map<ErrorMetric, Integer> errors = new HashMap<>();
+    private long sentBytes;
+    private long receivedBytes;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `successes` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
+#### Snippet
+```java
+     */
+    private DescriptiveStatistics pctResponseStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(SLIDING_WINDOW_SIZE);
+    private int successes;
+    private int failures;
+    private int hits;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `failures` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
+#### Snippet
+```java
+    private DescriptiveStatistics pctResponseStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(SLIDING_WINDOW_SIZE);
+    private int successes;
+    private int failures;
+    private int hits;
+    private Map<ErrorMetric, Integer> errors = new HashMap<>();
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `allResponsesStats` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
+#### Snippet
+```java
+     * Response times for All samples
+     */
+    private DescriptiveStatistics allResponsesStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(LARGE_SLIDING_WINDOW_SIZE);
+    /**
+     *  OK, KO, ALL stats
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `pctResponseStats` is accessed in both synchronized and unsynchronized contexts
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMetric.java`
+#### Snippet
+```java
+     * Timeboxed percentiles don't makes sense
+     */
+    private DescriptiveStatistics pctResponseStats = DescriptiveStatisticsFactory.createDescriptiveStatistics(SLIDING_WINDOW_SIZE);
+    private int successes;
+    private int failures;
 ```
 
 ## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
@@ -6732,9 +6732,9 @@ in `src/functions/src/main/java/org/apache/jmeter/functions/XPathFileContainer.j
 ```java
     }
 
-    public XPathFileContainer(String file, String xpath) throws FileNotFoundException, IOException,
-            ParserConfigurationException, SAXException, TransformerException {
-        log.debug("XPath({}) xpath {}", file, xpath);
+    private NodeList load(String xpath) throws IOException, FileNotFoundException, ParserConfigurationException, SAXException,
+            TransformerException {
+        NodeList nl = null;
 ```
 
 ### RuleId[ruleID=DuplicateThrows]
@@ -6744,9 +6744,9 @@ in `src/functions/src/main/java/org/apache/jmeter/functions/XPathFileContainer.j
 ```java
     }
 
-    private NodeList load(String xpath) throws IOException, FileNotFoundException, ParserConfigurationException, SAXException,
-            TransformerException {
-        NodeList nl = null;
+    public XPathFileContainer(String file, String xpath) throws FileNotFoundException, IOException,
+            ParserConfigurationException, SAXException, TransformerException {
+        log.debug("XPath({}) xpath {}", file, xpath);
 ```
 
 ### RuleId[ruleID=DuplicateThrows]
@@ -6839,6 +6839,18 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/config/DataSourceElement.java`
 #### Snippet
 ```java
+    @Override
+    public void testEnded() {
+        synchronized (this) {
+            if (dbcpDataSource != null) {
+                try {
+```
+
+### RuleId[ruleID=SynchronizeOnThis]
+Lock operations on 'this' may have unforeseen side-effects
+in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/config/DataSourceElement.java`
+#### Snippet
+```java
     public Object clone() {
         DataSourceElement el = (DataSourceElement) super.clone();
         synchronized (this) {
@@ -6856,18 +6868,6 @@ in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/config/DataS
                 synchronized(this){
                     dbcpDataSource = src;
                     variables.putObject(poolName, new DataSourceComponentImpl(dbcpDataSource));
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/config/DataSourceElement.java`
-#### Snippet
-```java
-    @Override
-    public void testEnded() {
-        synchronized (this) {
-            if (dbcpDataSource != null) {
-                try {
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -6961,11 +6961,11 @@ Variable `table` initializer `null` is redundant
 in `src/core/src/main/java/org/apache/jmeter/gui/util/TextBoxDialoger.java`
 #### Snippet
 ```java
-    public static class TextBoxDoubleClick extends MouseAdapter {
+    public static class TextBoxDoubleClickPressed extends MouseAdapter {
 
         private JTable table = null;
 
-        public TextBoxDoubleClick(JTable table) {
+        public TextBoxDoubleClickPressed(JTable table) {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -6973,11 +6973,11 @@ Variable `table` initializer `null` is redundant
 in `src/core/src/main/java/org/apache/jmeter/gui/util/TextBoxDialoger.java`
 #### Snippet
 ```java
-    public static class TextBoxDoubleClickPressed extends MouseAdapter {
+    public static class TextBoxDoubleClick extends MouseAdapter {
 
         private JTable table = null;
 
-        public TextBoxDoubleClickPressed(JTable table) {
+        public TextBoxDoubleClick(JTable table) {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -6993,18 +6993,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/util/FileDialoger.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `cloner` initializer `null` is redundant
-in `src/core/src/main/java/org/apache/jmeter/gui/action/Start.java`
-#### Snippet
-```java
-     */
-    private ListedHashTree cloneTree(HashTree testTree, RunMode runMode) {
-        TreeCloner cloner = null;
-        switch (runMode) {
-            case VALIDATION:
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `runMode` initializer `null` is redundant
 in `src/core/src/main/java/org/apache/jmeter/gui/action/Start.java`
 #### Snippet
@@ -7014,6 +7002,18 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/Start.java`
             RunMode runMode = null;
             if(isValidation) {
                 runMode = RunMode.VALIDATION;
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `cloner` initializer `null` is redundant
+in `src/core/src/main/java/org/apache/jmeter/gui/action/Start.java`
+#### Snippet
+```java
+     */
+    private ListedHashTree cloneTree(HashTree testTree, RunMode runMode) {
+        TreeCloner cloner = null;
+        switch (runMode) {
+            case VALIDATION:
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7053,18 +7053,6 @@ in `src/core/src/main/java/org/apache/jmeter/util/TrustAllSSLSocketFactory.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `wrapper` initializer `null` is redundant
-in `src/core/src/main/java/org/apache/jmeter/save/SaveService.java`
-#### Snippet
-```java
-    private static HashTree readTree(InputStream inputStream, File file)
-            throws IOException {
-        ScriptWrapper wrapper = null;
-        try {
-            // Get the InputReader to use
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `r` initializer `null` is redundant
 in `src/core/src/main/java/org/apache/jmeter/util/BeanShellInterpreter.java`
 #### Snippet
@@ -7074,6 +7062,18 @@ in `src/core/src/main/java/org/apache/jmeter/util/BeanShellInterpreter.java`
         Object r = null;
         final String errorString = "Error invoking bsh method: ";
         try {
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `wrapper` initializer `null` is redundant
+in `src/core/src/main/java/org/apache/jmeter/save/SaveService.java`
+#### Snippet
+```java
+    private static HashTree readTree(InputStream inputStream, File file)
+            throws IOException {
+        ScriptWrapper wrapper = null;
+        try {
+            // Get the InputReader to use
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7149,18 +7149,6 @@ in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `fos` initializer `null` is redundant
-in `src/core/src/main/java/org/apache/jmeter/report/core/AbstractSampleWriter.java`
-#### Snippet
-```java
-     */
-    public void setOutputFile(File output) {
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(output); // NOSONAR
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `val` initializer `null` is redundant
 in `src/core/src/main/java/org/apache/jmeter/util/XPathUtil.java`
 #### Snippet
@@ -7170,6 +7158,18 @@ in `src/core/src/main/java/org/apache/jmeter/util/XPathUtil.java`
         String val = null;
         XObject xObject = XPathAPI.eval(document, xPathQuery, getPrefixResolver(document));
         final int objectType = xObject.getType();
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `fos` initializer `null` is redundant
+in `src/core/src/main/java/org/apache/jmeter/report/core/AbstractSampleWriter.java`
+#### Snippet
+```java
+     */
+    public void setOutputFile(File output) {
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(output); // NOSONAR
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7281,15 +7281,27 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/CsvFileSampleSourc
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `displayName` initializer `true` is redundant
-in `src/core/src/main/java/org/apache/jmeter/control/gui/RunTimeGui.java`
+Variable `s` initializer `null` is redundant
+in `src/core/src/main/java/org/apache/jmeter/report/processor/ExternalSampleSorter.java`
 #### Snippet
 ```java
-     * intended to be used as a subpanel for another component.
-     */
-    private boolean displayName = true;
+            super.setConsumedMetadata(readSampleMetadata, 0);
+            startConsuming();
+            Sample s = null;
+            while ((s = csvReader.readSample()) != null) {
+                consume(s, 0);
+```
 
-    /**
+### RuleId[ruleID=UnusedAssignment]
+Variable `chunkSize` initializer `DEFAULT_CHUNK_SIZE` is redundant
+in `src/core/src/main/java/org/apache/jmeter/report/processor/ExternalSampleSorter.java`
+#### Snippet
+```java
+    private static final int DEFAULT_CHUNK_SIZE = 50000;
+
+    private long chunkSize = DEFAULT_CHUNK_SIZE;
+
+    private SampleComparator sampleComparator;
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7317,27 +7329,15 @@ in `src/core/src/main/java/org/apache/jmeter/control/gui/LoopControlPanel.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `s` initializer `null` is redundant
-in `src/core/src/main/java/org/apache/jmeter/report/processor/ExternalSampleSorter.java`
+Variable `displayName` initializer `true` is redundant
+in `src/core/src/main/java/org/apache/jmeter/control/gui/RunTimeGui.java`
 #### Snippet
 ```java
-            super.setConsumedMetadata(readSampleMetadata, 0);
-            startConsuming();
-            Sample s = null;
-            while ((s = csvReader.readSample()) != null) {
-                consume(s, 0);
-```
+     * intended to be used as a subpanel for another component.
+     */
+    private boolean displayName = true;
 
-### RuleId[ruleID=UnusedAssignment]
-Variable `chunkSize` initializer `DEFAULT_CHUNK_SIZE` is redundant
-in `src/core/src/main/java/org/apache/jmeter/report/processor/ExternalSampleSorter.java`
-#### Snippet
-```java
-    private static final int DEFAULT_CHUNK_SIZE = 50000;
-
-    private long chunkSize = DEFAULT_CHUNK_SIZE;
-
-    private SampleComparator sampleComparator;
+    /**
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7389,18 +7389,6 @@ in `src/jorphan/src/main/java/org/apache/commons/cli/avalon/CLArgsParser.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `readFunctors` initializer `new ArrayList<>()` is redundant
-in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableModel.java`
-#### Snippet
-```java
-    private transient ArrayList<Class<?>> classes = new ArrayList<>();
-
-    private transient ArrayList<Functor> readFunctors = new ArrayList<>();
-
-    private transient ArrayList<Functor> writeFunctors = new ArrayList<>();
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `writeFunctors` initializer `new ArrayList<>()` is redundant
 in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableModel.java`
 #### Snippet
@@ -7413,6 +7401,18 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableModel.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
+Variable `readFunctors` initializer `new ArrayList<>()` is redundant
+in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableModel.java`
+#### Snippet
+```java
+    private transient ArrayList<Class<?>> classes = new ArrayList<>();
+
+    private transient ArrayList<Functor> readFunctors = new ArrayList<>();
+
+    private transient ArrayList<Functor> writeFunctors = new ArrayList<>();
+```
+
+### RuleId[ruleID=UnusedAssignment]
 Variable `on` initializer `null` is redundant
 in `src/jorphan/src/main/java/org/apache/jorphan/util/HeapDumper.java`
 #### Snippet
@@ -7422,6 +7422,18 @@ in `src/jorphan/src/main/java/org/apache/jorphan/util/HeapDumper.java`
         ObjectName on = null;
         Exception ex = null;
         try {
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `instance` initializer `null` is redundant
+in `src/jorphan/src/main/java/org/apache/jorphan/reflect/ClassTools.java`
+#### Snippet
+```java
+     */
+    public static Object construct(String className) throws JMeterException {
+        Object instance = null;
+        try {
+            instance = ClassUtils.getClass(className).getDeclaredConstructor().newInstance();
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7446,18 +7458,6 @@ in `src/jorphan/src/main/java/org/apache/jorphan/reflect/ClassTools.java`
         Object instance = null;
         try {
             Class<?> clazz = ClassUtils.getClass(className);
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `instance` initializer `null` is redundant
-in `src/jorphan/src/main/java/org/apache/jorphan/reflect/ClassTools.java`
-#### Snippet
-```java
-     */
-    public static Object construct(String className) throws JMeterException {
-        Object instance = null;
-        try {
-            instance = ClassUtils.getClass(className).getDeclaredConstructor().newInstance();
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7533,18 +7533,6 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/Publis
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `x` initializer `0` is redundant
-in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/BinaryTCPClientImpl.java`
-#### Snippet
-```java
-        try {
-            byte[] buffer = new byte[4096];
-            int x = 0;
-            boolean first = true;
-            while ((x = is.read(buffer)) > -1) {
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `displayName` initializer `true` is redundant
 in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/config/gui/TCPConfigGui.java`
 #### Snippet
@@ -7557,15 +7545,39 @@ in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/config/gui/TCP
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `jmsProperties` initializer `null` is redundant
+Variable `x` initializer `0` is redundant
+in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/BinaryTCPClientImpl.java`
+#### Snippet
+```java
+        try {
+            byte[] buffer = new byte[4096];
+            int x = 0;
+            boolean first = true;
+            while ((x = is.read(buffer)) > -1) {
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `val` initializer `1` is redundant
 in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
 #### Snippet
 ```java
-    public JMSProperties getJMSProperties() {
-        Object o = getProperty(JMS_PROPERTIES).getObjectValue();
-        JMSProperties jmsProperties = null;
-        // Backward compatibility with versions <= 2.10
-        if (o instanceof Arguments) {
+
+    private int getNumberOfSamplesToAggregateAsInt() {
+        int val = 1;
+        try {
+            val = getPropertyAsInt(JMS_NUMBEROFSAMPLES);
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `reply` initializer `null` is redundant
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
+#### Snippet
+```java
+        String retVal = null;
+        QueueReceiver consumer = null;
+        Message reply = null;
+        String queueName = null;
+        try {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7593,27 +7605,15 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSam
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `reply` initializer `null` is redundant
+Variable `jmsProperties` initializer `null` is redundant
 in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
 #### Snippet
 ```java
-        String retVal = null;
-        QueueReceiver consumer = null;
-        Message reply = null;
-        String queueName = null;
-        try {
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `val` initializer `1` is redundant
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
-#### Snippet
-```java
-
-    private int getNumberOfSamplesToAggregateAsInt() {
-        int val = 1;
-        try {
-            val = getPropertyAsInt(JMS_NUMBEROFSAMPLES);
+    public JMSProperties getJMSProperties() {
+        Object o = getProperty(JMS_PROPERTIES).getObjectValue();
+        JMSProperties jmsProperties = null;
+        // Backward compatibility with versions <= 2.10
+        if (o instanceof Arguments) {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7773,15 +7773,15 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/Reso
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `headersModel` initializer `null` is redundant
+Variable `requestModel` initializer `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/RequestViewHTTP.java`
 #### Snippet
 ```java
+    private JPanel paneParsed;
+
+    private ObjectTableModel requestModel = null;
+
     private ObjectTableModel paramsModel = null;
-
-    private ObjectTableModel headersModel = null;
-
-    private static final String[] COLUMNS_REQUEST = new String[] {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7797,39 +7797,15 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `requestModel` initializer `null` is redundant
+Variable `headersModel` initializer `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/RequestViewHTTP.java`
 #### Snippet
 ```java
-    private JPanel paneParsed;
-
-    private ObjectTableModel requestModel = null;
-
     private ObjectTableModel paramsModel = null;
-```
 
-### RuleId[ruleID=UnusedAssignment]
-Variable `httpClient` initializer `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
-#### Snippet
-```java
-        HTTPSampleResult res = createSampleResult(url, method);
+    private ObjectTableModel headersModel = null;
 
-        CloseableHttpClient httpClient = null;
-        HttpRequestBase httpRequest = null;
-        HttpContext localContext = new BasicHttpContext();
-```
-
-### RuleId[ruleID=UnusedAssignment]
-Variable `httpRequest` initializer `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
-#### Snippet
-```java
-
-        CloseableHttpClient httpClient = null;
-        HttpRequestBase httpRequest = null;
-        HttpContext localContext = new BasicHttpContext();
-        HttpClientContext clientContext = HttpClientContext.adapt(localContext);
+    private static final String[] COLUMNS_REQUEST = new String[] {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7881,6 +7857,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
+Variable `item` initializer `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
+#### Snippet
+```java
+        boolean first = true;
+        while (iter.hasNext()) {
+            HTTPArgument item = null;
+            /*
+             * N.B. Revision 323346 introduced the ClassCast check, but then used iter.next()
+```
+
+### RuleId[ruleID=UnusedAssignment]
 Variable `res` initializer `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
 #### Snippet
@@ -7893,15 +7881,27 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `item` initializer `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
+Variable `httpClient` initializer `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
 #### Snippet
 ```java
-        boolean first = true;
-        while (iter.hasNext()) {
-            HTTPArgument item = null;
-            /*
-             * N.B. Revision 323346 introduced the ClassCast check, but then used iter.next()
+        HTTPSampleResult res = createSampleResult(url, method);
+
+        CloseableHttpClient httpClient = null;
+        HttpRequestBase httpRequest = null;
+        HttpContext localContext = new BasicHttpContext();
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `httpRequest` initializer `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+
+        CloseableHttpClient httpClient = null;
+        HttpRequestBase httpRequest = null;
+        HttpContext localContext = new BasicHttpContext();
+        HttpClientContext clientContext = HttpClientContext.adapt(localContext);
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7917,6 +7917,18 @@ in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/config/gui/L
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
+Variable `displayName` initializer `true` is redundant
+in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/config/gui/LdapExtConfigGui.java`
+#### Snippet
+```java
+    private ButtonGroup bGroup = new ButtonGroup();
+
+    private boolean displayName = true;
+
+    private ArgumentsPanel tableAddPanel = new ArgumentsPanel(JMeterUtils.getResString("addtest")); // $NON-NLS-1$
+```
+
+### RuleId[ruleID=UnusedAssignment]
 Variable `isSuccessful` initializer `false` is redundant
 in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPSampler.java`
 #### Snippet
@@ -7929,15 +7941,15 @@ in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAP
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `displayName` initializer `true` is redundant
-in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/config/gui/LdapExtConfigGui.java`
+Variable `sslcontext` initializer `null` is redundant
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/TrustAllSSLSocketFactory.java`
 #### Snippet
 ```java
-    private ButtonGroup bGroup = new ButtonGroup();
-
-    private boolean displayName = true;
-
-    private ArgumentsPanel tableAddPanel = new ArgumentsPanel(JMeterUtils.getResString("addtest")); // $NON-NLS-1$
+     */
+    public TrustAllSSLSocketFactory(){
+        SSLContext sslcontext = null;
+        try {
+            sslcontext = SSLContext.getInstance("TLS"); // $NON-NLS-1$
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7953,15 +7965,15 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/prot
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `sslcontext` initializer `null` is redundant
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/TrustAllSSLSocketFactory.java`
+Variable `mongo` initializer `null` is redundant
+in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/mongo/MongoDB.java`
 #### Snippet
 ```java
-     */
-    public TrustAllSSLSocketFactory(){
-        SSLContext sslcontext = null;
-        try {
-            sslcontext = SSLContext.getInstance("TLS"); // $NON-NLS-1$
+
+    // Mongo is Thread Safe
+    private Mongo mongo = null;
+
+    public MongoDB(
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -7989,18 +8001,6 @@ in `src/functions/src/main/java/org/apache/jmeter/functions/UrlDecode.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `mongo` initializer `null` is redundant
-in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/mongo/MongoDB.java`
-#### Snippet
-```java
-
-    // Mongo is Thread Safe
-    private Mongo mongo = null;
-
-    public MongoDB(
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `decodeString` initializer `""` is redundant
 in `src/functions/src/main/java/org/apache/jmeter/functions/UrlEncode.java`
 #### Snippet
@@ -8025,15 +8025,15 @@ in `src/functions/src/main/java/org/apache/jmeter/functions/XPathFileContainer.j
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `resultStr` initializer `null` is redundant
+Variable `resultStr` initializer `""` is redundant
 in `src/functions/src/main/java/org/apache/jmeter/functions/JavaScript.java`
 #### Snippet
 ```java
-            throws InvalidVariableException {
-        Context cx = Context.enter();
-        String resultStr = null;
-        try {
+        // Allow variable to be omitted
+        String varName = values.length < 2 ? null : ((CompoundVariable) values[1]).execute().trim();
+        String resultStr = "";
 
+        if(useRhinoEngine) {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -8049,15 +8049,15 @@ in `src/functions/src/main/java/org/apache/jmeter/functions/JavaScript.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `resultStr` initializer `""` is redundant
+Variable `resultStr` initializer `null` is redundant
 in `src/functions/src/main/java/org/apache/jmeter/functions/JavaScript.java`
 #### Snippet
 ```java
-        // Allow variable to be omitted
-        String varName = values.length < 2 ? null : ((CompoundVariable) values[1]).execute().trim();
-        String resultStr = "";
+            throws InvalidVariableException {
+        Context cx = Context.enter();
+        String resultStr = null;
+        try {
 
-        if(useRhinoEngine) {
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
@@ -8282,11 +8282,11 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/
 in `src/protocol/native/src/main/java/org/apache/jmeter/protocol/system/gui/SystemSamplerGui.java`
 #### Snippet
 ```java
-        checkReturnCode.addItemListener(this);
-        desiredReturnCode = new JLabeledTextField(JMeterUtils.getResString("expected_return_code_title")); // $NON-NLS-1$
-        desiredReturnCode.setSize(desiredReturnCode.getSize().height, 30);
-        panel.add(checkReturnCode);
-        panel.add(Box.createHorizontalStrut(5));
+                JMeterUtils.getResString("timeout_config_box_title"))); // $NON-NLS-1$
+        timeout = new JLabeledTextField(JMeterUtils.getResString("timeout_title")); // $NON-NLS-1$
+        timeout.setSize(timeout.getSize().height, 30);
+        panel.add(timeout);
+        return panel;
 ```
 
 ### RuleId[ruleID=SuspiciousNameCombination]
@@ -8294,11 +8294,11 @@ in `src/protocol/native/src/main/java/org/apache/jmeter/protocol/system/gui/Syst
 in `src/protocol/native/src/main/java/org/apache/jmeter/protocol/system/gui/SystemSamplerGui.java`
 #### Snippet
 ```java
-                JMeterUtils.getResString("timeout_config_box_title"))); // $NON-NLS-1$
-        timeout = new JLabeledTextField(JMeterUtils.getResString("timeout_title")); // $NON-NLS-1$
-        timeout.setSize(timeout.getSize().height, 30);
-        panel.add(timeout);
-        return panel;
+        checkReturnCode.addItemListener(this);
+        desiredReturnCode = new JLabeledTextField(JMeterUtils.getResString("expected_return_code_title")); // $NON-NLS-1$
+        desiredReturnCode.setSize(desiredReturnCode.getSize().height, 30);
+        panel.add(checkReturnCode);
+        panel.add(Box.createHorizontalStrut(5));
 ```
 
 ### RuleId[ruleID=SuspiciousNameCombination]
@@ -8501,18 +8501,6 @@ Unnecessary string length argument
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/curl/BasicCurlParser.java`
 #### Snippet
 ```java
-         */
-        public void setLimitRate(String limitRate) {
-            String unit = limitRate.substring(limitRate.length() - 1, limitRate.length()).toLowerCase();
-            int value = Integer.parseInt(limitRate.substring(0, limitRate.length() - 1).toLowerCase());
-            switch (unit) {
-```
-
-### RuleId[ruleID=StringOperationCanBeSimplified]
-Unnecessary string length argument
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/curl/BasicCurlParser.java`
-#### Snippet
-```java
                 try {
                     return postdata.substring(0, index + 1) + URLEncoder
                             .encode(postdata.substring(index + 1, postdata.length()), StandardCharsets.UTF_8.name());
@@ -8530,6 +8518,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/curl/BasicCu
                             postdata.substring(index + 1, postdata.length()) + " cannot be encoded", e);
                 }
             }
+```
+
+### RuleId[ruleID=StringOperationCanBeSimplified]
+Unnecessary string length argument
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/curl/BasicCurlParser.java`
+#### Snippet
+```java
+         */
+        public void setLimitRate(String limitRate) {
+            String unit = limitRate.substring(limitRate.length() - 1, limitRate.length()).toLowerCase();
+            int value = Integer.parseInt(limitRate.substring(0, limitRate.length() - 1).toLowerCase());
+            switch (unit) {
 ```
 
 ## RuleId[ruleID=HasPlatformType]
@@ -8988,8 +8988,8 @@ in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.jav
                 builder.append(getInputVal())
                 .append(getSeparator())
                 .append(Integer.toString(loopCount+1)).toString();
-        if (context.getVariables().getObject(inputVariable) != null) {
-            return false;
+        final JMeterVariables variables = context.getVariables();
+        final Object currentVariable = variables.getObject(inputVariable);
 ```
 
 ### RuleId[ruleID=UnnecessaryCallToStringValueOf]
@@ -9000,8 +9000,8 @@ in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.jav
                 builder.append(getInputVal())
                 .append(getSeparator())
                 .append(Integer.toString(loopCount+1)).toString();
-        final JMeterVariables variables = context.getVariables();
-        final Object currentVariable = variables.getObject(inputVariable);
+        if (context.getVariables().getObject(inputVariable) != null) {
+            return false;
 ```
 
 ### RuleId[ruleID=UnnecessaryCallToStringValueOf]
@@ -9109,10 +9109,10 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/Loopbac
 #### Snippet
 ```java
         @Override
-        public synchronized int read(byte[] b, int off, int len) {
-            buf=os.getBuffer();
-            count=buf.length;
-            return super.read(b, off, len);
+        public synchronized int read() {
+            buf=os.getBuffer();   // make sure buffer details
+            count=buf.length; // track the output
+            return super.read();
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
@@ -9120,10 +9120,10 @@ Non-private field `count` accessed in synchronized context
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/LoopbackHTTPSocket.java`
 #### Snippet
 ```java
-        public synchronized int read(byte[] b, int off, int len) {
-            buf=os.getBuffer();
-            count=buf.length;
-            return super.read(b, off, len);
+        public synchronized int read() {
+            buf=os.getBuffer();   // make sure buffer details
+            count=buf.length; // track the output
+            return super.read();
         }
 ```
 
@@ -9132,10 +9132,10 @@ Non-private field `buf` accessed in synchronized context
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/LoopbackHTTPSocket.java`
 #### Snippet
 ```java
-        public synchronized int read(byte[] b, int off, int len) {
-            buf=os.getBuffer();
-            count=buf.length;
-            return super.read(b, off, len);
+        public synchronized int read() {
+            buf=os.getBuffer();   // make sure buffer details
+            count=buf.length; // track the output
+            return super.read();
         }
 ```
 
@@ -9145,10 +9145,10 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/Loopbac
 #### Snippet
 ```java
         @Override
-        public synchronized int read() {
-            buf=os.getBuffer();   // make sure buffer details
-            count=buf.length; // track the output
-            return super.read();
+        public synchronized int read(byte[] b, int off, int len) {
+            buf=os.getBuffer();
+            count=buf.length;
+            return super.read(b, off, len);
 ```
 
 ### RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
@@ -9156,10 +9156,10 @@ Non-private field `count` accessed in synchronized context
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/LoopbackHTTPSocket.java`
 #### Snippet
 ```java
-        public synchronized int read() {
-            buf=os.getBuffer();   // make sure buffer details
-            count=buf.length; // track the output
-            return super.read();
+        public synchronized int read(byte[] b, int off, int len) {
+            buf=os.getBuffer();
+            count=buf.length;
+            return super.read(b, off, len);
         }
 ```
 
@@ -9168,10 +9168,10 @@ Non-private field `buf` accessed in synchronized context
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/LoopbackHTTPSocket.java`
 #### Snippet
 ```java
-        public synchronized int read() {
-            buf=os.getBuffer();   // make sure buffer details
-            count=buf.length; // track the output
-            return super.read();
+        public synchronized int read(byte[] b, int off, int len) {
+            buf=os.getBuffer();
+            count=buf.length;
+            return super.read(b, off, len);
         }
 ```
 
@@ -9621,6 +9621,90 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
 #### Snippet
 ```java
+    private static void waitForSignals(final List<JMeterEngine> engines, DatagramSocket socket) {
+        byte[] buf = new byte[80];
+        System.out.println("Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port "+socket.getLocalPort());//NOSONAR
+        DatagramPacket request = new DatagramPacket(buf, buf.length);
+        try {
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
+                if (address.isLoopbackAddress()){
+                    String command = new String(request.getData(), request.getOffset(), request.getLength(), StandardCharsets.US_ASCII);
+                    System.out.println("Command: "+command+" received from "+address);//NOSONAR
+                    log.info("Command: {} received from {}", command, address);
+                    switch(command) {
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
+                            break;
+                        default:
+                            System.out.println("Command: "+command+" not recognised ");//NOSONAR
+                    }
+                }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
+            }
+        } catch (Exception e) {
+            System.out.println(e);//NOSONAR
+        } finally {
+            socket.close();
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
+            if(inputStream != null) {
+                String text = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+                System.out.println(text);//NOSONAR
+            }
+        } catch (Exception e1) { //NOSONAR No logging here
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
+            }
+        } catch (Exception e1) { //NOSONAR No logging here
+            System.out.println(JMeterUtils.getJMeterCopyright());//NOSONAR
+            System.out.println("Version " + JMeterUtils.getJMeterVersion());//NOSONAR
+        }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
+        } catch (Exception e1) { //NOSONAR No logging here
+            System.out.println(JMeterUtils.getJMeterCopyright());//NOSONAR
+            System.out.println("Version " + JMeterUtils.getJMeterVersion());//NOSONAR
+        }
+    }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
                 clonedTree.add(clonedTree.getArray()[0], testListener);
                 DistributedRunner distributedRunner=new DistributedRunner(this.remoteProps);
                 distributedRunner.setStdout(System.out); // NOSONAR
@@ -9650,6 +9734,78 @@ in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
             System.out.println("Error in NonGUIDriver " + e.toString());//NOSONAR
             log.error("Error in NonGUIDriver", e);
             throw new ConfigurationException("Error in NonGUIDriver " + e.getMessage(), e);
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
+                waiter.start();
+            } else {
+                System.out.println("Failed to create UDP port");//NOSONAR
+            }
+        }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
+                    bindings.put("props", props); // $NON-NLS-1$ (this name is fixed)
+                    // For use in debugging:
+                    bindings.put("OUT", System.out); // NOSONAR $NON-NLS-1$ (this name is fixed)
+                    engine.eval(reader, bindings);
+                } catch (IOException | ScriptException ex) {
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
+                        // This is a daemon thread, which should only reach here if there are other
+                        // non-daemon threads still active
+                        System.out.println("The JVM should have exited but did not.");//NOSONAR
+                        System.out.println("The following non-daemon threads are still running (DestroyJavaVM is OK):");//NOSONAR
+                        JOrphanUtils.displayThreads(false);
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
+                        // non-daemon threads still active
+                        System.out.println("The JVM should have exited but did not.");//NOSONAR
+                        System.out.println("The following non-daemon threads are still running (DestroyJavaVM is OK):");//NOSONAR
+                        JOrphanUtils.displayThreads(false);
+                    }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
+                    log.info("Dashboard generated");
+                } catch (Exception ex) {
+                    System.err.println("Error generating the report: "+ex);//NOSONAR
+                    log.error("Error generating the report: {}", ex.getMessage(), ex);
+                }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
+
+    private static void println(String str) {
+        System.out.println(str);//NOSONAR
+    }
+
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -9786,162 +9942,6 @@ in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
 
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-                    bindings.put("props", props); // $NON-NLS-1$ (this name is fixed)
-                    // For use in debugging:
-                    bindings.put("OUT", System.out); // NOSONAR $NON-NLS-1$ (this name is fixed)
-                    engine.eval(reader, bindings);
-                } catch (IOException | ScriptException ex) {
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-
-    private static void println(String str) {
-        System.out.println(str);//NOSONAR
-    }
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-                        // This is a daemon thread, which should only reach here if there are other
-                        // non-daemon threads still active
-                        System.out.println("The JVM should have exited but did not.");//NOSONAR
-                        System.out.println("The following non-daemon threads are still running (DestroyJavaVM is OK):");//NOSONAR
-                        JOrphanUtils.displayThreads(false);
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-                        // non-daemon threads still active
-                        System.out.println("The JVM should have exited but did not.");//NOSONAR
-                        System.out.println("The following non-daemon threads are still running (DestroyJavaVM is OK):");//NOSONAR
-                        JOrphanUtils.displayThreads(false);
-                    }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-                    log.info("Dashboard generated");
-                } catch (Exception ex) {
-                    System.err.println("Error generating the report: "+ex);//NOSONAR
-                    log.error("Error generating the report: {}", ex.getMessage(), ex);
-                }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-    private static void waitForSignals(final List<JMeterEngine> engines, DatagramSocket socket) {
-        byte[] buf = new byte[80];
-        System.out.println("Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port "+socket.getLocalPort());//NOSONAR
-        DatagramPacket request = new DatagramPacket(buf, buf.length);
-        try {
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-                if (address.isLoopbackAddress()){
-                    String command = new String(request.getData(), request.getOffset(), request.getLength(), StandardCharsets.US_ASCII);
-                    System.out.println("Command: "+command+" received from "+address);//NOSONAR
-                    log.info("Command: {} received from {}", command, address);
-                    switch(command) {
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-                            break;
-                        default:
-                            System.out.println("Command: "+command+" not recognised ");//NOSONAR
-                    }
-                }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-            }
-        } catch (Exception e) {
-            System.out.println(e);//NOSONAR
-        } finally {
-            socket.close();
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-            if(inputStream != null) {
-                String text = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
-                System.out.println(text);//NOSONAR
-            }
-        } catch (Exception e1) { //NOSONAR No logging here
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-            }
-        } catch (Exception e1) { //NOSONAR No logging here
-            System.out.println(JMeterUtils.getJMeterCopyright());//NOSONAR
-            System.out.println("Version " + JMeterUtils.getJMeterVersion());//NOSONAR
-        }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-        } catch (Exception e1) { //NOSONAR No logging here
-            System.out.println(JMeterUtils.getJMeterCopyright());//NOSONAR
-            System.out.println("Version " + JMeterUtils.getJMeterVersion());//NOSONAR
-        }
-    }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
-#### Snippet
-```java
-                waiter.start();
-            } else {
-                System.out.println("Failed to create UDP port");//NOSONAR
-            }
-        }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/core/src/main/java/org/apache/jmeter/gui/action/What.java`
 #### Snippet
 ```java
@@ -10029,9 +10029,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
 #### Snippet
 ```java
-        GuiPackage instance = GuiPackage.getInstance();
         if (instance == null) {
-            System.out.println(errorMsg); // NOSONAR intentional
+            log.info(msg);
+            System.out.println(msg); // NOSONAR intentional
             return; // Done
         }
 ```
@@ -10053,9 +10053,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
 #### Snippet
 ```java
+        GuiPackage instance = GuiPackage.getInstance();
         if (instance == null) {
-            log.info(msg);
-            System.out.println(msg); // NOSONAR intentional
+            System.out.println(errorMsg); // NOSONAR intentional
             return; // Done
         }
 ```
@@ -10101,30 +10101,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/core/src/main/java/org/apache/jmeter/engine/StandardJMeterEngine.java`
 #### Snippet
 ```java
-                    pause(1000); // Allow RMI to complete
-                    log.info("Bye from {}", host);
-                    System.out.println("Bye from "+host); // NOSONAR Intentional
-                    System.exit(0); // NOSONAR Intentional
-                }
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/engine/StandardJMeterEngine.java`
-#### Snippet
-```java
-            Instant now = Instant.now();
-            String nowAsString = formatLikeDate(now);
-            System.out.println("Finished the test on host "  // NOSONAR Intentional
-                    + host + " @ " + nowAsString + " (" + now.toEpochMilli() + ')'
-                    +(EXIT_AFTER_TEST ? " - exit requested." : ""));
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/core/src/main/java/org/apache/jmeter/engine/StandardJMeterEngine.java`
-#### Snippet
-```java
                         if (SYSTEM_EXIT_ON_STOP_FAIL) { // default is true
                             log.error("Exiting");
                             System.out.println("Fatal error, could not stop test, exiting"); // NOSONAR Intentional
@@ -10154,6 +10130,30 @@ in `src/core/src/main/java/org/apache/jmeter/engine/StandardJMeterEngine.java`
             System.out.println("Starting the test on host "  // NOSONAR Intentional
                     + host + " @ " + nowAsString + " (" + now.toEpochMilli() + ')');
         }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/engine/StandardJMeterEngine.java`
+#### Snippet
+```java
+                    pause(1000); // Allow RMI to complete
+                    log.info("Bye from {}", host);
+                    System.out.println("Bye from "+host); // NOSONAR Intentional
+                    System.exit(0); // NOSONAR Intentional
+                }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/core/src/main/java/org/apache/jmeter/engine/StandardJMeterEngine.java`
+#### Snippet
+```java
+            Instant now = Instant.now();
+            String nowAsString = formatLikeDate(now);
+            System.out.println("Finished the test on host "  // NOSONAR Intentional
+                    + host + " @ " + nowAsString + " (" + now.toEpochMilli() + ')'
+                    +(EXIT_AFTER_TEST ? " - exit requested." : ""));
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -10257,18 +10257,6 @@ Uses of `System.err` should probably be replaced with more robust logging
 in `src/launcher/src/main/java/org/apache/jmeter/NewDriver.java`
 #### Snippet
 ```java
-            return builder.toString();
-        } catch (Exception ex) {
-            System.err.println("Error replacing date format in file name:"+fileName+", error:"+ex.getMessage()); // NOSONAR
-        }
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/launcher/src/main/java/org/apache/jmeter/NewDriver.java`
-#### Snippet
-```java
     public static void main(String[] args) {
         if(!EXCEPTIONS_IN_INIT.isEmpty()) {
             System.err.println("Configuration error during init, see exceptions:"+exceptionsToString(EXCEPTIONS_IN_INIT)); // NOSONAR Intentional System.err use
@@ -10286,6 +10274,18 @@ in `src/launcher/src/main/java/org/apache/jmeter/NewDriver.java`
                 System.err.println("JMeter home directory was detected as: "+JMETER_INSTALLATION_DIRECTORY); // NOSONAR Intentional System.err use
             }
         }
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/launcher/src/main/java/org/apache/jmeter/NewDriver.java`
+#### Snippet
+```java
+            return builder.toString();
+        } catch (Exception ex) {
+            System.err.println("Error replacing date format in file name:"+fileName+", error:"+ex.getMessage()); // NOSONAR
+        }
+
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -10377,35 +10377,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/protocol/junit-sample/src/main/java/test/Junit4AnnotationsTest.java`
 #### Snippet
 ```java
-    @After
-    public void after() {
-        System.out.println("after");
-    }
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/protocol/junit-sample/src/main/java/test/Junit4AnnotationsTest.java`
-#### Snippet
-```java
     @BeforeClass
     public static void beforeClass() {
         System.out.println("beforeClass");
     }
 
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/protocol/junit-sample/src/main/java/test/Junit4AnnotationsTest.java`
-#### Snippet
-```java
-    @AfterClass
-    public static void afterClass() {
-        System.out.println("afterClass");
-    }
-}
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -10425,6 +10401,18 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/protocol/junit-sample/src/main/java/test/Junit4AnnotationsTest.java`
 #### Snippet
 ```java
+    @After
+    public void after() {
+        System.out.println("after");
+    }
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/protocol/junit-sample/src/main/java/test/Junit4AnnotationsTest.java`
+#### Snippet
+```java
     @Test
     public void test() {
         System.out.println("test");
@@ -10434,48 +10422,12 @@ in `src/protocol/junit-sample/src/main/java/test/Junit4AnnotationsTest.java`
 
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest2.java`
+in `src/protocol/junit-sample/src/main/java/test/Junit4AnnotationsTest.java`
 #### Snippet
 ```java
-    public SubDummyTest2(String arg0) {
-        super(arg0);
-        System.out.println("public SubDummyTest2("+arg0+")");
-    }
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest2.java`
-#### Snippet
-```java
-    private SubDummyTest2() {
-        super();
-        System.out.println("private SubDummyTest2()");
-    }
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest2.java`
-#### Snippet
-```java
-
-    public void oneTimeSetUp() {
-        System.out.println("SubDummyTest2#oneTimeSetUp(): "+getName());
-    }
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest2.java`
-#### Snippet
-```java
-
-    public void oneTimeTearDown() {
-        System.out.println("SubDummyTest2#oneTimeTearDown(): "+getName());
+    @AfterClass
+    public static void afterClass() {
+        System.out.println("afterClass");
     }
 }
 ```
@@ -10521,9 +10473,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest.java`
 #### Snippet
 ```java
-    public SubDummyTest() {
-        super();
-        System.out.println("public SubDummyTest()");
+    public SubDummyTest(String arg0) {
+        super(arg0);
+        System.out.println("public SubDummyTest("+arg0+")");
     }
 
 ```
@@ -10533,9 +10485,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest.java`
 #### Snippet
 ```java
-    public SubDummyTest(String arg0) {
-        super(arg0);
-        System.out.println("public SubDummyTest("+arg0+")");
+    public SubDummyTest() {
+        super();
+        System.out.println("public SubDummyTest()");
     }
 
 ```
@@ -10554,12 +10506,48 @@ in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest.java`
 
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/protocol/junit-sample/src/main/java/woolfel/DummyTestCase.java`
+in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest2.java`
 #### Snippet
 ```java
-    public DummyTestCase() {
+
+    public void oneTimeTearDown() {
+        System.out.println("SubDummyTest2#oneTimeTearDown(): "+getName());
+    }
+}
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest2.java`
+#### Snippet
+```java
+    public SubDummyTest2(String arg0) {
+        super(arg0);
+        System.out.println("public SubDummyTest2("+arg0+")");
+    }
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest2.java`
+#### Snippet
+```java
+    private SubDummyTest2() {
         super();
-        System.out.println("public DummyTestCase()");
+        System.out.println("private SubDummyTest2()");
+    }
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest2.java`
+#### Snippet
+```java
+
+    public void oneTimeSetUp() {
+        System.out.println("SubDummyTest2#oneTimeSetUp(): "+getName());
     }
 
 ```
@@ -10569,9 +10557,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/protocol/junit-sample/src/main/java/woolfel/DummyTestCase.java`
 #### Snippet
 ```java
-    @Override
-    public void tearDown(){
-        System.out.println("DummyTestCase#tearDown(): "+getName());
+    protected DummyTestCase(String arg0) {
+        super(arg0);
+        System.out.println("protected DummyTestCase("+arg0+")");
     }
 
 ```
@@ -10593,11 +10581,59 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/protocol/junit-sample/src/main/java/woolfel/DummyTestCase.java`
 #### Snippet
 ```java
-    protected DummyTestCase(String arg0) {
-        super(arg0);
-        System.out.println("protected DummyTestCase("+arg0+")");
+    @Override
+    public void tearDown(){
+        System.out.println("DummyTestCase#tearDown(): "+getName());
     }
 
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/protocol/junit-sample/src/main/java/woolfel/DummyTestCase.java`
+#### Snippet
+```java
+    public DummyTestCase() {
+        super();
+        System.out.println("public DummyTestCase()");
+    }
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/bshclient/src/main/java/org/apache/jmeter/util/BeanShellClient.java`
+#### Snippet
+```java
+        @SuppressWarnings("CatchAndPrintStackTrace")
+        public void run(){
+            System.out.println("Reading responses from server ...");
+            int x = 0;
+            try {
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/bshclient/src/main/java/org/apache/jmeter/util/BeanShellClient.java`
+#### Snippet
+```java
+                while ((x = is.read()) > -1) {
+                    char c = (char) x;
+                    System.out.print(c);
+                }
+            } catch (IOException e) {
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/bshclient/src/main/java/org/apache/jmeter/util/BeanShellClient.java`
+#### Snippet
+```java
+                e.printStackTrace(); // NOSONAR No way to log here
+            } finally {
+                System.out.println("... disconnected from server.");
+            }
+        }
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -10658,42 +10694,6 @@ in `src/bshclient/src/main/java/org/apache/jmeter/util/BeanShellClient.java`
         System.out.println("Connecting to BSH server on "+host+":"+portString);
 
         try (Socket sock = new Socket(host,port);
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/bshclient/src/main/java/org/apache/jmeter/util/BeanShellClient.java`
-#### Snippet
-```java
-        @SuppressWarnings("CatchAndPrintStackTrace")
-        public void run(){
-            System.out.println("Reading responses from server ...");
-            int x = 0;
-            try {
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/bshclient/src/main/java/org/apache/jmeter/util/BeanShellClient.java`
-#### Snippet
-```java
-                while ((x = is.read()) > -1) {
-                    char c = (char) x;
-                    System.out.print(c);
-                }
-            } catch (IOException e) {
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/bshclient/src/main/java/org/apache/jmeter/util/BeanShellClient.java`
-#### Snippet
-```java
-                e.printStackTrace(); // NOSONAR No way to log here
-            } finally {
-                System.out.println("... disconnected from server.");
-            }
-        }
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -10866,18 +10866,6 @@ in `src/core/src/main/java/org/apache/jmeter/util/HttpSSLProtocolSocketFactory.j
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
-#### Snippet
-```java
-        String value = JMeterUtils.getResString(key);
-        if(value != null) {
-            return value.replaceFirst("(?m)\\s*?:\\s*$", ""); // $NON-NLS-1$ $NON-NLS-2$
-        } else {
-            return null;
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
 #### Snippet
@@ -10887,6 +10875,18 @@ in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
                 return strVal.trim().split("\\s+");
             }
         } catch (Exception e) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
+#### Snippet
+```java
+        String value = JMeterUtils.getResString(key);
+        if(value != null) {
+            return value.replaceFirst("(?m)\\s*?:\\s*$", ""); // $NON-NLS-1$ $NON-NLS-2$
+        } else {
+            return null;
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -11010,6 +11010,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/curl/BasicCu
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/gui/action/ParseCurlCommandAction.java`
+#### Snippet
+```java
+
+    public List<String> readFromTextPanel(String commands) {
+        String[] cs = commands.split("curl");
+        List<String> s = new ArrayList<>();
+        for (int i = 1; i < cs.length; i++) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/HttpRequestHdr.java`
 #### Snippet
@@ -11046,15 +11058,15 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/HttpRe
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/gui/action/ParseCurlCommandAction.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/config/gui/UrlConfigGui.java`
 #### Snippet
 ```java
-
-    public List<String> readFromTextPanel(String commands) {
-        String[] cs = commands.split("curl");
-        List<String> s = new ArrayList<>();
-        for (int i = 1; i < cs.length; i++) {
+            String value = arg.getValue();
+            if (crlfToLF) {
+                value = value.replaceAll("\r\n", "\n"); // See modifyTestElement
+            }
+            postBody.append(value);
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -11067,18 +11079,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/config/gui/U
             HTTPArgument arg = new HTTPArgument("", text.replaceAll("\n","\r\n"), false);
             arg.setAlwaysEncoded(false);
             args.addArgument(arg);
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/config/gui/UrlConfigGui.java`
-#### Snippet
-```java
-            String value = arg.getValue();
-            if (crlfToLF) {
-                value = value.replaceAll("\r\n", "\n"); // See modifyTestElement
-            }
-            postBody.append(value);
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -11119,6 +11119,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Defaul
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
+#### Snippet
+```java
+        for (int i = 0; i < headerLines.length; i++) {
+            String line = headerLines[i];
+            String[] parts = line.split(":\\s+", 2); // $NON-NLS-1$
+            if (parts.length == 2) {
+                if (HTTPConstants.TRANSFER_ENCODING.equalsIgnoreCase(parts[0])) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/HttpMirrorThread.java`
 #### Snippet
 ```java
@@ -11142,18 +11154,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/DNSC
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
-#### Snippet
-```java
-        for (int i = 0; i < headerLines.length; i++) {
-            String line = headerLines[i];
-            String[] parts = line.split(":\\s+", 2); // $NON-NLS-1$
-            if (parts.length == 2) {
-                if (HTTPConstants.TRANSFER_ENCODING.equalsIgnoreCase(parts[0])) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPJavaImpl.java`
 #### Snippet
@@ -11163,78 +11163,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
             res.setHeadersSize(responseHeaders.replaceAll("\n", "\r\n") // $NON-NLS-1$ $NON-NLS-2$
                     .length() + 2); // add 2 for a '\r\n' at end of headers (before data)
             if (log.isDebugEnabled()) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
-#### Snippet
-```java
-                            int port = getPortFromHostHeader(headerValue, url.getPort());
-                            // remove any port specification
-                            headerValue = headerValue.replaceFirst(":\\d+$", ""); // $NON-NLS-1$ $NON-NLS-2$
-                            if (port != -1 && port == url.getDefaultPort()) {
-                                port = -1; // no need to specify the port if it is the default
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-    private Header[] asHeaders(String allHeaders) {
-        List<Header> result = new ArrayList<>();
-        for (String line: allHeaders.split("\\n")) {
-            String[] splitted = line.split(": ", 2);
-            if (splitted.length == 2) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-        List<Header> result = new ArrayList<>();
-        for (String line: allHeaders.split("\\n")) {
-            String[] splitted = line.split(": ", 2);
-            if (splitted.length == 2) {
-                result.add(new BasicHeader(splitted[0], splitted[1]));
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-    private static final int DEFAULT_MAX_SIZE = 5000;
-    private static final long ONE_YEAR_MS = 365*24*60*60*1000L;
-    private static final String[] CACHEABLE_METHODS = JMeterUtils.getPropDefault("cacheable_methods", "GET").split("[ ,]");
-    private static final String CONTROLLED_BY_THREAD = "CacheManager.controlledByThread";// $NON-NLS-1$
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-            return null;
-        }
-        final Set<String> names = new HashSet<>(Arrays.asList(headerName.split(",\\s*")));
-        final Map<String, List<String>> values = new HashMap<>();
-        for (final String name: names) {
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-            long maxAgeInSecs = Long.parseLong(cacheControl
-                    .substring(cacheControl.indexOf(maxAge) + maxAge.length())
-                    .split("[, ]")[0] // Bug 51932 - allow for optional trailing
-                                      // attributes
-            );
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -11250,6 +11178,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+                            int port = getPortFromHostHeader(headerValue, url.getPort());
+                            // remove any port specification
+                            headerValue = headerValue.replaceFirst(":\\d+$", ""); // $NON-NLS-1$ $NON-NLS-2$
+                            if (port != -1 && port == url.getDefaultPort()) {
+                                port = -1; // no need to specify the port if it is the default
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/SmtpSampler.java`
 #### Snippet
@@ -11259,6 +11199,18 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/Smtp
         if (getPropertyAsString(MAIL_FROM).matches(".*@.*")) {
             sendMailCmd.setSender(encodeAddress(getPropertyAsString(MAIL_FROM)));
         }
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/AbstractInfluxdbMetricsSender.java`
+#### Snippet
+```java
+    static final String fieldToStringValue(String s) {
+        return s.trim()
+                .replace("\"", "\\\"");
+    }
+
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -11310,18 +11262,90 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/AbstractInfluxdbMetricsSender.java`
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
 #### Snippet
 ```java
-    static final String fieldToStringValue(String s) {
-        return s.trim()
-                .replace("\"", "\\\"");
-    }
+            return null;
+        }
+        final Set<String> names = new HashSet<>(Arrays.asList(headerName.split(",\\s*")));
+        final Map<String, List<String>> values = new HashMap<>();
+        for (final String name: names) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+    private static final int DEFAULT_MAX_SIZE = 5000;
+    private static final long ONE_YEAR_MS = 365*24*60*60*1000L;
+    private static final String[] CACHEABLE_METHODS = JMeterUtils.getPropDefault("cacheable_methods", "GET").split("[ ,]");
+    private static final String CONTROLLED_BY_THREAD = "CacheManager.controlledByThread";// $NON-NLS-1$
 
 ```
 
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+    private Header[] asHeaders(String allHeaders) {
+        List<Header> result = new ArrayList<>();
+        for (String line: allHeaders.split("\\n")) {
+            String[] splitted = line.split(": ", 2);
+            if (splitted.length == 2) {
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+        List<Header> result = new ArrayList<>();
+        for (String line: allHeaders.split("\\n")) {
+            String[] splitted = line.split(": ", 2);
+            if (splitted.length == 2) {
+                result.add(new BasicHeader(splitted[0], splitted[1]));
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+            long maxAgeInSecs = Long.parseLong(cacheControl
+                    .substring(cacheControl.indexOf(maxAge) + maxAge.length())
+                    .split("[, ]")[0] // Bug 51932 - allow for optional trailing
+                                      // attributes
+            );
+```
+
 ## RuleId[ruleID=TestCaseWithConstructor]
+### RuleId[ruleID=TestCaseWithConstructor]
+Initialization logic in constructor `SubDummyTest()` instead of 'setup()' life cycle method
+in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest.java`
+#### Snippet
+```java
+    }
+
+    public SubDummyTest(String arg0) {
+        super(arg0);
+        System.out.println("public SubDummyTest("+arg0+")");
+```
+
+### RuleId[ruleID=TestCaseWithConstructor]
+Initialization logic in constructor `SubDummyTest()` instead of 'setup()' life cycle method
+in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest.java`
+#### Snippet
+```java
+public class SubDummyTest extends DummyTestCase {
+
+    public SubDummyTest() {
+        super();
+        System.out.println("public SubDummyTest()");
+```
+
 ### RuleId[ruleID=TestCaseWithConstructor]
 Initialization logic in constructor `SubDummyTest2()` instead of 'setup()' life cycle method
 in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest2.java`
@@ -11347,27 +11371,15 @@ in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest2.java`
 ```
 
 ### RuleId[ruleID=TestCaseWithConstructor]
-Initialization logic in constructor `SubDummyTest()` instead of 'setup()' life cycle method
-in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest.java`
-#### Snippet
-```java
-public class SubDummyTest extends DummyTestCase {
-
-    public SubDummyTest() {
-        super();
-        System.out.println("public SubDummyTest()");
-```
-
-### RuleId[ruleID=TestCaseWithConstructor]
-Initialization logic in constructor `SubDummyTest()` instead of 'setup()' life cycle method
-in `src/protocol/junit-sample/src/main/java/woolfel/SubDummyTest.java`
+Initialization logic in constructor `DummyTestCase()` instead of 'setup()' life cycle method
+in `src/protocol/junit-sample/src/main/java/woolfel/DummyTestCase.java`
 #### Snippet
 ```java
     }
 
-    public SubDummyTest(String arg0) {
+    protected DummyTestCase(String arg0) {
         super(arg0);
-        System.out.println("public SubDummyTest("+arg0+")");
+        System.out.println("protected DummyTestCase("+arg0+")");
 ```
 
 ### RuleId[ruleID=TestCaseWithConstructor]
@@ -11380,18 +11392,6 @@ public class DummyTestCase extends TestCase {
     public DummyTestCase() {
         super();
         System.out.println("public DummyTestCase()");
-```
-
-### RuleId[ruleID=TestCaseWithConstructor]
-Initialization logic in constructor `DummyTestCase()` instead of 'setup()' life cycle method
-in `src/protocol/junit-sample/src/main/java/woolfel/DummyTestCase.java`
-#### Snippet
-```java
-    }
-
-    protected DummyTestCase(String arg0) {
-        super(arg0);
-        System.out.println("protected DummyTestCase("+arg0+")");
 ```
 
 ## RuleId[ruleID=CaughtExceptionImmediatelyRethrown]
@@ -11457,18 +11457,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/logging/GuiLogEventAppender.jav
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `subTree`
-in `src/core/src/main/java/org/apache/jmeter/gui/action/Save.java`
-#### Snippet
-```java
-            if (fullSave) { // Only update the stored copy of the tree for a full save
-                FileServer.getFileServer().setScriptName(new File(newFile).getName());
-                subTree = GuiPackage.getInstance().getTreeModel().getTestPlan(); // refetch, because convertSubTree affects it
-                ActionRouter.getInstance().doActionNow(new ActionEvent(subTree, e.getID(), ActionNames.SUB_TREE_SAVED));
-            }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `filename`
 in `src/core/src/main/java/org/apache/jmeter/save/SaveGraphicsService.java`
 #### Snippet
@@ -11490,6 +11478,18 @@ in `src/core/src/main/java/org/apache/jmeter/save/SaveGraphicsService.java`
             filename = filename + TIFF_EXTENSION;
             this.saveTIFFWithBatik(filename, image);
         }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `subTree`
+in `src/core/src/main/java/org/apache/jmeter/gui/action/Save.java`
+#### Snippet
+```java
+            if (fullSave) { // Only update the stored copy of the tree for a full save
+                FileServer.getFileServer().setScriptName(new File(newFile).getName());
+                subTree = GuiPackage.getInstance().getTreeModel().getTestPlan(); // refetch, because convertSubTree affects it
+                ActionRouter.getInstance().doActionNow(new ActionEvent(subTree, e.getID(), ActionNames.SUB_TREE_SAVED));
+            }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -11577,18 +11577,6 @@ in `src/core/src/main/java/org/apache/jmeter/report/dashboard/HtmlTemplateExport
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `chunkSize`
-in `src/core/src/main/java/org/apache/jmeter/report/processor/ExternalSampleSorter.java`
-#### Snippet
-```java
-    public void setChunkSize(long chunkSize) {
-        if (chunkSize < 50000) {
-            chunkSize = 50000;
-        }
-        this.chunkSize = chunkSize;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `out`
 in `src/core/src/main/java/org/apache/jmeter/report/processor/ExternalSampleSorter.java`
 #### Snippet
@@ -11598,6 +11586,18 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/ExternalSampleSort
             out = getChunkFile();
         }
 
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `chunkSize`
+in `src/core/src/main/java/org/apache/jmeter/report/processor/ExternalSampleSorter.java`
+#### Snippet
+```java
+    public void setChunkSize(long chunkSize) {
+        if (chunkSize < 50000) {
+            chunkSize = 50000;
+        }
+        this.chunkSize = chunkSize;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -11690,10 +11690,10 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/Publis
 #### Snippet
 ```java
         // Bug 59173
-        if (Utils.DEFAULT_NO_EXPIRY.equals(s)) {
+        if (Utils.DEFAULT_PRIORITY_4.equals(s)) {
             s = ""; // $NON-NLS-1$ make sure the default is not saved explicitly
         }
-        setProperty(JMS_EXPIRATION, s); // always need to save the field
+        setProperty(JMS_PRIORITY, s); // always need to save the field
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -11702,10 +11702,10 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/Publis
 #### Snippet
 ```java
         // Bug 59173
-        if (Utils.DEFAULT_PRIORITY_4.equals(s)) {
+        if (Utils.DEFAULT_NO_EXPIRY.equals(s)) {
             s = ""; // $NON-NLS-1$ make sure the default is not saved explicitly
         }
-        setProperty(JMS_PRIORITY, s); // always need to save the field
+        setProperty(JMS_EXPIRATION, s); // always need to save the field
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -11718,18 +11718,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/Convers
         url = url.trim();
         if(url.length() < 4 || !url.contains(SLASHDOTDOT)) {
             return url;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `mimetype`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/HTTPFileArg.java`
-#### Snippet
-```java
-            return mimetype;
-        }
-        mimetype = StringUtils.defaultString(mimetype, "");
-        if (StringUtils.isBlank(path)) {
-            return mimetype;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -11754,6 +11742,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/HTTPArg
                 value = URLDecoder.decode(value, contentEncoding);
             } catch (UnsupportedEncodingException e) {
                 log.error("{} encoding not supported!", contentEncoding);
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `mimetype`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/HTTPFileArg.java`
+#### Snippet
+```java
+            return mimetype;
+        }
+        mimetype = StringUtils.defaultString(mimetype, "");
+        if (StringUtils.isBlank(path)) {
+            return mimetype;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -11889,6 +11889,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/parser/HtmlP
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `result`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
+#### Snippet
+```java
+    private static SampleResult generateErrorResult(SampleResult result, HttpRequestHdr request, Exception e, String msg) {
+        if (result == null) {
+            result = new SampleResult();
+            ByteArrayOutputStream text = new ByteArrayOutputStream(200);
+            e.printStackTrace(new PrintStream(text)); // NOSONAR we store the Stacktrace in the result
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `policy`
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/HC4CookieHandler.java`
 #### Snippet
@@ -11910,18 +11922,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
             impl = DEFAULT_CLASSNAME;
         }
         if (IMPL_JAVA.equals(impl) || HTTP_SAMPLER_JAVA.equals(impl)) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `result`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
-#### Snippet
-```java
-    private static SampleResult generateErrorResult(SampleResult result, HttpRequestHdr request, Exception e, String msg) {
-        if (result == null) {
-            result = new SampleResult();
-            ByteArrayOutputStream text = new ByteArrayOutputStream(200);
-            e.printStackTrace(new PrintStream(text)); // NOSONAR we store the Stacktrace in the result
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -11965,11 +11965,11 @@ Assignment to method parameter `file`
 in `src/functions/src/main/java/org/apache/jmeter/functions/FileWrapper.java`
 #### Snippet
 ```java
-                log.warn("Cannot perform initial open using alias {}", file);
-            } else {
-                file = checkDefault(file);
-                log.info("Attaching {}", file);
-                open(file, file);
+     */
+    public static void endRow(String file) {
+        file = checkDefault(file);
+        Map<String, FileWrapper> my = filePacks.get();
+        FileWrapper fw = my.get(file);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -11977,11 +11977,11 @@ Assignment to method parameter `file`
 in `src/functions/src/main/java/org/apache/jmeter/functions/FileWrapper.java`
 #### Snippet
 ```java
-     */
-    public static void endRow(String file) {
+    public static synchronized void open(String file, String alias) {
+        log.info("Opening {} as {}", file, alias);
         file = checkDefault(file);
-        Map<String, FileWrapper> my = filePacks.get();
-        FileWrapper fw = my.get(file);
+        if (alias.length() == 0) {
+            log.error("Alias cannot be empty");
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -12001,11 +12001,11 @@ Assignment to method parameter `file`
 in `src/functions/src/main/java/org/apache/jmeter/functions/FileWrapper.java`
 #### Snippet
 ```java
-    public static synchronized void open(String file, String alias) {
-        log.info("Opening {} as {}", file, alias);
-        file = checkDefault(file);
-        if (alias.length() == 0) {
-            log.error("Alias cannot be empty");
+                log.warn("Cannot perform initial open using alias {}", file);
+            } else {
+                file = checkDefault(file);
+                log.info("Attaching {}", file);
+                open(file, file);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -12050,7 +12050,7 @@ in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java
 #### Snippet
 ```java
                 log.debug("RegexExtractor: Match found!");
-                matches.add(matcher.getMatch());
+                matches.add(matcher.toMatchResult());
                 found++;
             } else {
                 break;
@@ -12062,7 +12062,7 @@ in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java
 #### Snippet
 ```java
                 log.debug("RegexExtractor: Match found!");
-                matches.add(matcher.toMatchResult());
+                matches.add(matcher.getMatch());
                 found++;
             } else {
                 break;
@@ -12105,6 +12105,18 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/AxisGraph.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `_title`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphChart.java`
+#### Snippet
+```java
+            // if the title graph is empty, we can assume some default
+            if (_title.length() == 0 ) {
+                _title = JMeterUtils.getResString("graph_resp_time_title"); //$NON-NLS-1$
+            }
+            this.setPreferredSize(new Dimension(_width,_height));
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `_width`
 in `src/components/src/main/java/org/apache/jmeter/visualizers/LineGraph.java`
 #### Snippet
@@ -12124,18 +12136,6 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/LineGraph.java`
             }
             if (_height == 0) {
                 _height = 250;
-            }
-            this.setPreferredSize(new Dimension(_width,_height));
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `_title`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphChart.java`
-#### Snippet
-```java
-            // if the title graph is empty, we can assume some default
-            if (_title.length() == 0 ) {
-                _title = JMeterUtils.getResString("graph_resp_time_title"); //$NON-NLS-1$
             }
             this.setPreferredSize(new Dimension(_width,_height));
 ```
@@ -12280,6 +12280,18 @@ in `src/core/src/main/java/org/apache/jmeter/gui/NamePanel.java`
 #### Snippet
 ```java
     @Override
+    public Collection<String> getMenuCategories() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/gui/NamePanel.java`
+#### Snippet
+```java
+    @Override
     public JPopupMenu createPopupMenu() {
         return null;
     }
@@ -12296,18 +12308,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/NamePanel.java`
         return null;
     }
 }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/gui/NamePanel.java`
-#### Snippet
-```java
-    @Override
-    public Collection<String> getMenuCategories() {
-        return null;
-    }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12344,30 +12344,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/menu/StaticJMeterGUIComponent.j
             return null;
         }
         if (groups.length != 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeModel.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/gui/MainFrame.java`
-#### Snippet
-```java
-                    return "";
-                } else {
-                    return null;
-                }
-            }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12432,6 +12408,30 @@ in `src/core/src/main/java/org/apache/jmeter/gui/GuiPackage.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeModel.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeNode.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            log.error("Can't get popup menu for gui", e);
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeNode.java`
 #### Snippet
 ```java
@@ -12468,11 +12468,23 @@ in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeNode.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeNode.java`
+in `src/core/src/main/java/org/apache/jmeter/gui/MainFrame.java`
 #### Snippet
 ```java
-        } catch (Exception e) {
-            log.error("Can't get popup menu for gui", e);
+                    return "";
+                } else {
+                    return null;
+                }
+            }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/gui/util/JSyntaxTextArea.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            log.error("Error reading {} for JSyntaxTextArea", name, e);
             return null;
         }
     }
@@ -12504,14 +12516,14 @@ in `src/core/src/main/java/org/apache/jmeter/gui/util/JMeterToolBar.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/gui/util/JSyntaxTextArea.java`
+in `src/core/src/main/java/org/apache/jmeter/gui/util/FileDialoger.java`
 #### Snippet
 ```java
-        } catch (IOException e) {
-            log.error("Error reading {} for JSyntaxTextArea", name, e);
-            return null;
-        }
-    }
+           return jfc;
+       }
+       return null;
+   }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12528,18 +12540,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/util/FileDialoger.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/gui/util/FileDialoger.java`
-#### Snippet
-```java
-           return jfc;
-       }
-       return null;
-   }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/gui/action/Copy.java`
 #### Snippet
 ```java
@@ -12548,6 +12548,18 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/Copy.java`
         return null;
     }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/gui/action/HtmlReportGenerator.java`
+#### Snippet
+```java
+    private String checkFile(File fileToCheck) {
+        if (fileToCheck.exists() && fileToCheck.canRead() && fileToCheck.isFile()) {
+            return null;
+        } else {
+            return MessageFormat.format(JMeterUtils.getResString(NO_FILE), fileToCheck);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12572,18 +12584,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/HtmlReportGenerator.java
                     return null;
                 } else {
                     return MessageFormat.format(JMeterUtils.getResString(CANNOT_CREATE_DIRECTORY), directoryToCheck);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/gui/action/HtmlReportGenerator.java`
-#### Snippet
-```java
-    private String checkFile(File fileToCheck) {
-        if (fileToCheck.exists() && fileToCheck.canRead() && fileToCheck.isFile()) {
-            return null;
-        } else {
-            return MessageFormat.format(JMeterUtils.getResString(NO_FILE), fileToCheck);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12619,42 +12619,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/SearchTreeDialog.java`
         }
         return null;
     }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/gui/action/ActionRouter.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/gui/action/ActionRouter.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/gui/logging/GuiLogEventAppender.java`
-#### Snippet
-```java
-        if (name == null) {
-            LOGGER.error("No name provided for GuiLogEventAppender");
-            return null;
-        }
 
 ```
 
@@ -12696,6 +12660,42 @@ in `src/core/src/main/java/org/apache/jmeter/rmi/RmiUtils.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/gui/logging/GuiLogEventAppender.java`
+#### Snippet
+```java
+        if (name == null) {
+            LOGGER.error("No name provided for GuiLogEventAppender");
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/gui/action/ActionRouter.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/gui/action/ActionRouter.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/gui/action/template/TemplateManager.java`
 #### Snippet
 ```java
@@ -12704,18 +12704,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/template/TemplateManager
                 return null;
             }
         }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/save/converters/LongPropertyConverter.java`
-#### Snippet
-```java
-        final String name = ConversionHelp.getPropertyName(reader, context);
-        if (name == null) {
-            return null;
-        }
-        LongProperty prop = new LongProperty(name, Long.parseLong(reader.getValue()));
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12732,26 +12720,14 @@ in `src/core/src/main/java/org/apache/jmeter/save/converters/IntegerPropertyConv
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/gui/action/Save.java`
+in `src/core/src/main/java/org/apache/jmeter/save/converters/LongPropertyConverter.java`
 #### Snippet
 ```java
-                + JMX_FILE_EXTENSION);
-        if (chooser == null) {
+        final String name = ConversionHelp.getPropertyName(reader, context);
+        if (name == null) {
             return null;
         }
-        String updateFile = chooser.getSelectedFile().getAbsolutePath();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/gui/action/Save.java`
-#### Snippet
-```java
-                    JOptionPane.QUESTION_MESSAGE);
-            if (response == JOptionPane.CLOSED_OPTION || response == JOptionPane.NO_OPTION) {
-                return null; // Do not save, user does not want to overwrite
-            }
-        }
+        LongProperty prop = new LongProperty(name, Long.parseLong(reader.getValue()));
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12792,6 +12768,30 @@ in `src/core/src/main/java/org/apache/jmeter/save/converters/TestElementConverte
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/gui/action/Save.java`
+#### Snippet
+```java
+                + JMX_FILE_EXTENSION);
+        if (chooser == null) {
+            return null;
+        }
+        String updateFile = chooser.getSelectedFile().getAbsolutePath();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/gui/action/Save.java`
+#### Snippet
+```java
+                    JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.CLOSED_OPTION || response == JOptionPane.NO_OPTION) {
+                return null; // Do not save, user does not want to overwrite
+            }
+        }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/save/converters/BooleanPropertyConverter.java`
 #### Snippet
 ```java
@@ -12807,11 +12807,11 @@ Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/save/converters/ConversionHelp.java`
 #### Snippet
 ```java
-        // Delete any properties whose name converts to the empty string
-        if (name.length() != 0 && newName.length()==0) {
+        // Only decode strings if inVersion = 1.0
+        if (p == null) {
             return null;
         }
-        return newName;
+        try {
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12819,11 +12819,11 @@ Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/save/converters/ConversionHelp.java`
 #### Snippet
 ```java
-        // Only decode strings if inVersion = 1.0
-        if (p == null) {
+        // Delete any properties whose name converts to the empty string
+        if (name.length() != 0 && newName.length()==0) {
             return null;
         }
-        try {
+        return newName;
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -12876,11 +12876,11 @@ in `src/core/src/main/java/org/apache/jmeter/util/SSLManager.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/save/CSVSaveService.java`
+in `src/core/src/main/java/org/apache/jmeter/config/gui/ObsoleteGui.java`
 #### Snippet
 ```java
-            return matcher.group(2);
-        }
+    @Override
+    public Collection<String> getMenuCategories() {
         return null;
     }
 
@@ -12888,13 +12888,13 @@ in `src/core/src/main/java/org/apache/jmeter/save/CSVSaveService.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/save/CSVSaveService.java`
+in `src/core/src/main/java/org/apache/jmeter/config/gui/ObsoleteGui.java`
 #### Snippet
 ```java
-
-        if (parts == null) {
-            return null; // failed to recognise the header
-        }
+    @Override
+    public JPopupMenu createPopupMenu() {
+        return null;
+    }
 
 ```
 
@@ -12927,6 +12927,18 @@ Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/save/CSVSaveService.java`
 #### Snippet
 ```java
+
+        if (parts == null) {
+            return null; // failed to recognise the header
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/save/CSVSaveService.java`
+#### Snippet
+```java
             return matcher.getMatch().group(2);
         }
         return null;
@@ -12936,23 +12948,11 @@ in `src/core/src/main/java/org/apache/jmeter/save/CSVSaveService.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/config/gui/ObsoleteGui.java`
+in `src/core/src/main/java/org/apache/jmeter/save/CSVSaveService.java`
 #### Snippet
 ```java
-    @Override
-    public JPopupMenu createPopupMenu() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/config/gui/ObsoleteGui.java`
-#### Snippet
-```java
-    @Override
-    public Collection<String> getMenuCategories() {
+            return matcher.group(2);
+        }
         return null;
     }
 
@@ -13011,30 +13011,6 @@ Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
 #### Snippet
 ```java
-            return value.replaceFirst("(?m)\\s*?:\\s*$", ""); // $NON-NLS-1$ $NON-NLS-2$
-        } else {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
-#### Snippet
-```java
-            log.warn("Exception '{}' occurred when fetching String property:'{}'", e.getMessage(), propName);
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
-#### Snippet
-```java
             } else {
                 log.warn("no icon for {}", name);
                 return null;
@@ -13059,11 +13035,35 @@ Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
 #### Snippet
 ```java
+            return value.replaceFirst("(?m)\\s*?:\\s*$", ""); // $NON-NLS-1$ $NON-NLS-2$
+        } else {
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
+#### Snippet
+```java
     private static String getResStringDefault(String key, String defaultValue, Locale forcedLocale) {
         if (key == null) {
             return null;
         }
         // Resource keys cannot contain spaces, and are forced to lower case
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
+#### Snippet
+```java
+            log.warn("Exception '{}' occurred when fetching String property:'{}'", e.getMessage(), propName);
+        }
+        return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13080,18 +13080,6 @@ in `src/core/src/main/java/org/apache/jmeter/engine/DistributedRunner.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/report/dashboard/AbstractDataExporter.java`
-#### Snippet
-```java
-        String[] pathItems = StringUtils.split(data, '.');
-        if (pathItems == null || !(root instanceof MapResultData)) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/engine/util/FunctionParser.java`
 #### Snippet
 ```java
@@ -13100,6 +13088,18 @@ in `src/core/src/main/java/org/apache/jmeter/engine/util/FunctionParser.java`
             return null;
         }
         log.warn("Probably an invalid function string: {}", buffer);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/report/dashboard/AbstractDataExporter.java`
+#### Snippet
+```java
+        String[] pathItems = StringUtils.split(data, '.');
+        if (pathItems == null || !(root instanceof MapResultData)) {
+            return null;
+        }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13152,18 +13152,6 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/LatencyValue
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/ElapsedTimeValueSelector.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/ConnectTimeValueSelector.java`
 #### Snippet
 ```java
@@ -13172,6 +13160,18 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/ConnectTimeV
         return null;
     }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/ElapsedTimeValueSelector.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13248,6 +13248,30 @@ in `src/core/src/main/java/org/apache/jmeter/control/WhileController.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/control/LoopController.java`
+#### Snippet
+```java
+                }
+                resetBreakLoop();
+                return null;
+            }
+            return super.next();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/control/LoopController.java`
+#### Snippet
+```java
+                resetLoopCount();
+            }
+            return null;
+        }
+        return next();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/control/RunTime.java`
 #### Snippet
 ```java
@@ -13272,26 +13296,14 @@ in `src/core/src/main/java/org/apache/jmeter/control/RunTime.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/control/LoopController.java`
+in `src/core/src/main/java/org/apache/jmeter/control/GenericController.java`
 #### Snippet
 ```java
-                }
-                resetBreakLoop();
-                return null;
-            }
-            return super.next();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/control/LoopController.java`
-#### Snippet
-```java
-                resetLoopCount();
-            }
-            return null;
+            throw new NextIsNullException();
         }
-        return next();
+        return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13320,11 +13332,11 @@ in `src/core/src/main/java/org/apache/jmeter/control/GenericController.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/control/GenericController.java`
+in `src/core/src/main/java/org/apache/jmeter/control/gui/WorkBenchGui.java`
 #### Snippet
 ```java
-            throw new NextIsNullException();
-        }
+    @Override
+    public Collection<String> getMenuCategories() {
         return null;
     }
 
@@ -13352,18 +13364,6 @@ in `src/core/src/main/java/org/apache/jmeter/control/IfController.java`
             return null;
         }
     }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/control/gui/WorkBenchGui.java`
-#### Snippet
-```java
-    @Override
-    public Collection<String> getMenuCategories() {
-        return null;
-    }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13404,30 +13404,6 @@ in `src/core/src/main/java/org/apache/jmeter/reporters/AbstractListenerElement.j
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleSaveConfiguration.java`
-#### Snippet
-```java
-            return new SimpleDateFormat(dateFormat);
-        } else {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleSaveConfiguration.java`
-#### Snippet
-```java
-            log.error("Invalid pattern value {} for property {}", temporaryTimestampFormat, TIME_STAMP_FORMAT_PROP,
-                    ex);
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/testbeans/TestBeanBeanInfo.java`
 #### Snippet
 ```java
@@ -13452,14 +13428,26 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/TestBeanBeanInfo.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/reporters/ResultCollector.java`
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleSaveConfiguration.java`
 #### Snippet
 ```java
-            throws IOException {
-        if (pFilename == null || pFilename.length() == 0) {
+            log.error("Invalid pattern value {} for property {}", temporaryTimestampFormat, TIME_STAMP_FORMAT_PROP,
+                    ex);
             return null;
         }
-        if(log.isDebugEnabled()) {
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleSaveConfiguration.java`
+#### Snippet
+```java
+            return new SimpleDateFormat(dateFormat);
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13500,6 +13488,18 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/BooleanPropertyEditor
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/reporters/ResultCollector.java`
+#### Snippet
+```java
+            throws IOException {
+        if (pFilename == null || pFilename.length() == 0) {
+            return null;
+        }
+        if(log.isDebugEnabled()) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/WrapperEditor.java`
 #### Snippet
 ```java
@@ -13516,7 +13516,7 @@ in `src/core/src/main/java/org/apache/jmeter/testelement/AbstractTestElementBean
 #### Snippet
 ```java
     @Override
-    public BeanDescriptor getBeanDescriptor() {
+    public Image getIcon(int iconKind) {
         return null;
     }
 
@@ -13528,7 +13528,7 @@ in `src/core/src/main/java/org/apache/jmeter/testelement/AbstractTestElementBean
 #### Snippet
 ```java
     @Override
-    public Image getIcon(int iconKind) {
+    public BeanDescriptor getBeanDescriptor() {
         return null;
     }
 
@@ -13560,30 +13560,6 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TestBeanGUI.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/testelement/property/NullProperty.java`
-#### Snippet
-```java
-    @Override
-    public Object getObjectValue() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TableEditor.java`
-#### Snippet
-```java
-    @Override
-    public String getAsText() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/ComboStringEditor.java`
 #### Snippet
 ```java
@@ -13592,6 +13568,18 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/ComboStringEditor.jav
             return null;
         }
         final int item = combo.getSelectedIndex();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/testelement/property/NullProperty.java`
+#### Snippet
+```java
+    @Override
+    public Object getObjectValue() {
+        return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13620,26 +13608,14 @@ in `src/core/src/main/java/org/apache/jmeter/testelement/property/CollectionProp
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/testelement/property/AbstractProperty.java`
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TableEditor.java`
 #### Snippet
 ```java
-        } catch (Exception e) {// should not happen
-            log.error("Cannot create copy of {}", coll.getClass(), e);
-            return null;
-        }
+    @Override
+    public String getAsText() {
+        return null;
     }
-```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/core/src/main/java/org/apache/jmeter/testelement/property/AbstractProperty.java`
-#### Snippet
-```java
-        } catch (Exception e) {// should not happen
-            log.error("Cannot create copy of {}", coll.getClass(), e);
-            return null;
-        }
-    }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13652,6 +13628,30 @@ in `src/core/src/main/java/org/apache/jmeter/testelement/property/AbstractProper
         return null;
     }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/testelement/property/AbstractProperty.java`
+#### Snippet
+```java
+        } catch (Exception e) {// should not happen
+            log.error("Cannot create copy of {}", coll.getClass(), e);
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/core/src/main/java/org/apache/jmeter/testelement/property/AbstractProperty.java`
+#### Snippet
+```java
+        } catch (Exception e) {// should not happen
+            log.error("Cannot create copy of {}", coll.getClass(), e);
+            return null;
+        }
+    }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13695,6 +13695,18 @@ Return of `null`
 in `src/jorphan/src/main/java/org/apache/jorphan/gui/AbstractTreeTableModel.java`
 #### Snippet
 ```java
+
+    public Object getChild(Object parent, int index) {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/jorphan/src/main/java/org/apache/jorphan/gui/AbstractTreeTableModel.java`
+#### Snippet
+```java
     @Override
     public Object getValueAt(Object node, int col) {
         return null;
@@ -13716,11 +13728,23 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/AbstractTreeTableModel.java
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/jorphan/src/main/java/org/apache/jorphan/gui/AbstractTreeTableModel.java`
+in `src/jorphan/src/main/java/org/apache/commons/cli/avalon/CLArgsParser.java`
 #### Snippet
 ```java
+        }
 
-    public Object getChild(Object parent, int index) {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/jorphan/src/main/java/org/apache/commons/cli/avalon/CLArgsParser.java`
+#### Snippet
+```java
+        }
+
         return null;
     }
 
@@ -13736,30 +13760,6 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/JLabeledTextField.java`
             return null;
         }
        return mTextField.getToolTipText();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/jorphan/src/main/java/org/apache/commons/cli/avalon/CLArgsParser.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/jorphan/src/main/java/org/apache/commons/cli/avalon/CLArgsParser.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13824,18 +13824,6 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableSorter.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/jorphan/src/main/java/org/apache/jorphan/reflect/Functor.java`
-#### Snippet
-```java
-    private Class<?> getPrimitive(Class<?> t) {
-        if (t == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/jorphan/src/main/java/org/apache/jorphan/util/JOrphanUtils.java`
 #### Snippet
 ```java
@@ -13860,26 +13848,14 @@ in `src/jorphan/src/main/java/org/apache/jorphan/util/JOrphanUtils.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/testkit/src/main/java/org/apache/jmeter/testkit/ResourceLocator.java`
+in `src/jorphan/src/main/java/org/apache/jorphan/reflect/Functor.java`
 #### Snippet
 ```java
-        Path nioPath = getResourcePath(basetype, path);
-        if (nioPath == null) {
+    private Class<?> getPrimitive(Class<?> t) {
+        if (t == null) {
             return null;
         }
-        return nioPath.toString();
-```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/testkit/src/main/java/org/apache/jmeter/testkit/ResourceLocator.java`
-#### Snippet
-```java
-        URL url = basetype.getResource(path);
-        if (url == null) {
-            return null;
-        }
-        Path nioPath;
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -13908,6 +13884,30 @@ in `src/jorphan/src/main/java/org/apache/jorphan/collections/Data.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `src/testkit/src/main/java/org/apache/jmeter/testkit/ResourceLocator.java`
+#### Snippet
+```java
+        URL url = basetype.getResource(path);
+        if (url == null) {
+            return null;
+        }
+        Path nioPath;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/testkit/src/main/java/org/apache/jmeter/testkit/ResourceLocator.java`
+#### Snippet
+```java
+        Path nioPath = getResourcePath(basetype, path);
+        if (nioPath == null) {
+            return null;
+        }
+        return nioPath.toString();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
 #### Snippet
 ```java
@@ -13923,9 +13923,9 @@ Return of `null`
 in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
 #### Snippet
 ```java
-            return t.getArray();
-        }
-        return null;
+    public Object[] getArray(Collection<?> treePath) {
+        HashTree tree = getTreePath(treePath);
+        return (tree != null) ? tree.getArray() : null;
     }
 
 ```
@@ -13935,9 +13935,9 @@ Return of `null`
 in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
 #### Snippet
 ```java
-    public Object[] getArray(Collection<?> treePath) {
-        HashTree tree = getTreePath(treePath);
-        return (tree != null) ? tree.getArray() : null;
+            return t.getArray();
+        }
+        return null;
     }
 
 ```
@@ -13968,26 +13968,14 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/Utils.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/control/gui/JMSPropertiesPanel.java`
+in `src/jorphan/src/main/java/org/apache/jorphan/exec/SystemCommand.java`
 #### Snippet
 ```java
-                    return "jms_properties_type";
-                default:
-                    return null;
-            }
-        }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/control/gui/JMSPropertiesPanel.java`
-#### Snippet
-```java
-                    return property.getType();
-                default:
-                    return null;
-            }
-        }
+        String in = JOrphanUtils.nullifyIfEmptyTrimmed(path);
+        if (in == null) {
+            return null;
+        } else {
+            return new FileOutputStream(path);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -14004,14 +13992,26 @@ in `src/jorphan/src/main/java/org/apache/jorphan/exec/SystemCommand.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/jorphan/src/main/java/org/apache/jorphan/exec/SystemCommand.java`
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/control/gui/JMSPropertiesPanel.java`
 #### Snippet
 ```java
-        String in = JOrphanUtils.nullifyIfEmptyTrimmed(path);
-        if (in == null) {
-            return null;
-        } else {
-            return new FileOutputStream(path);
+                    return property.getType();
+                default:
+                    return null;
+            }
+        }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/control/gui/JMSPropertiesPanel.java`
+#### Snippet
+```java
+                    return "jms_properties_type";
+                default:
+                    return null;
+            }
+        }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -14043,18 +14043,6 @@ Return of `null`
 in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
 #### Snippet
 ```java
-        Class<?> javaClass = getClass(getClassname());
-        if (javaClass == null){
-            return null;
-        }
-        try {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
-#### Snippet
-```java
                 log.warn("Unknown host for {}", getLabel(), e);//$NON-NLS-1$
                 cp.put(ERRKEY, e.toString());
                 return null;
@@ -14072,6 +14060,18 @@ in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSam
                 return null;
             }
         }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
+#### Snippet
+```java
+        Class<?> javaClass = getClass(getClassname());
+        if (javaClass == null){
+            return null;
+        }
+        try {
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -14208,6 +14208,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accessl
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/gui/action/ParseCurlCommandAction.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/HttpRequestHdr.java`
 #### Snippet
 ```java
@@ -14235,18 +14247,6 @@ Return of `null`
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/config/MultipartUrlConfig.java`
 #### Snippet
 ```java
-            return localMatcher.getMatch().group(1).trim();
-        }
-        return null;
-    }
-}
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/config/MultipartUrlConfig.java`
-#### Snippet
-```java
             return matcher.group(1).trim();
         }
         return null;
@@ -14256,14 +14256,14 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/config/Multi
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/gui/action/ParseCurlCommandAction.java`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/config/MultipartUrlConfig.java`
 #### Snippet
 ```java
-            }
+            return localMatcher.getMatch().group(1).trim();
         }
         return null;
     }
-
+}
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -14307,18 +14307,6 @@ Return of `null`
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
-#### Snippet
-```java
                                 case BEARER_AUTH:
                                     // This one will need to be correlated manually by user
                                     return null;
@@ -14336,6 +14324,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyC
                                     return null;
                                 }
                             } else {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -14364,10 +14364,58 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/gui/Pr
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
+#### Snippet
+```java
+            return alias;
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
+#### Snippet
+```java
+        if (keyStore == null) {
+            log.error("{} No keystore available, cannot record SSL", port);
+            return null;
+        }
+        final String hashAlias;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
+#### Snippet
+```java
+            } catch (IOException | GeneralSecurityException e) {
+                log.error("{} Problem with keystore", port, e);
+                return null;
+            }
+            break;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
+#### Snippet
+```java
+                log.error("{} Problem with keystore", port, e);
+            }
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/HttpMirrorThread.java`
 #### Snippet
 ```java
-            return matcher.group(1);
+            return localMatcher.getMatch().group(1);
         }
         return null;
     }
@@ -14379,7 +14427,7 @@ Return of `null`
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/HttpMirrorThread.java`
 #### Snippet
 ```java
-            return localMatcher.getMatch().group(1);
+            return matcher.group(1);
         }
         return null;
     }
@@ -14448,50 +14496,14 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/Head
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPAbstractImpl.java`
 #### Snippet
 ```java
-            return alias;
+            throw new UnknownHostException("Cannot find interface " + ipSource);
         }
-        return null;
+        return null; // did not want to spoof the IP address
     }
 
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
-#### Snippet
-```java
-        if (keyStore == null) {
-            log.error("{} No keystore available, cannot record SSL", port);
-            return null;
-        }
-        final String hashAlias;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
-#### Snippet
-```java
-            } catch (IOException | GeneralSecurityException e) {
-                log.error("{} Problem with keystore", port, e);
-                return null;
-            }
-            break;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
-#### Snippet
-```java
-                log.error("{} Problem with keystore", port, e);
-            }
-            return null;
-        }
-    }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -14508,18 +14520,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPAbstractImpl.java`
-#### Snippet
-```java
-            throw new UnknownHostException("Cannot find interface " + ipSource);
-        }
-        return null; // did not want to spoof the IP address
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/modifier/RegExUserParameters.java`
 #### Snippet
 ```java
@@ -14532,131 +14532,11 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/modifier/Reg
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
-#### Snippet
-```java
-        private Authorization getAuthorizationForAuthScope(AuthScope authScope) {
-            if (authScope == null) {
-                return null;
-            }
-            if (authManager == null) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
-#### Snippet
-```java
-            if (authManager == null) {
-                log.debug("No authManager found");
-                return null;
-            }
-            for (JMeterProperty authProp : authManager.getAuthObjects()) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
-#### Snippet
-```java
-            final Authorization authorization = getAuthorizationForAuthScope(authScope);
-            if (authorization == null) {
-                return null;
-            }
-            return new UsernamePasswordCredentials(authorization.getUser(), authorization.getPass());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/AbstractJavaSamplerClient.java`
 #### Snippet
 ```java
     @Override
     public Arguments getDefaultParameters() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-    private String getHeader(HttpResponse method, String name) {
-        org.apache.http.Header hdr = method.getLastHeader(name);
-        return hdr != null ? hdr.getValue() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-        if (entry == null) {
-            log.debug("No entry found for url {}", url);
-            return null;
-        }
-        if (entry.getVaryHeader() == null) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-                log.debug("Entry {} found, but it should depend on vary {} for url {}", entry, entry.getVaryHeader(), url);
-            }
-            return null;
-        }
-        Pair<String, String> varyPair = getVaryHeader(entry.getVaryHeader(), headers);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-            return getEntry(varyUrl(url, entry.getVaryHeader(), varyPair.getRight()), null);
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-    private Pair<String, String> getVaryHeader(String headerName, Header[] reqHeaders) {
-        if (headerName == null) {
-            return null;
-        }
-        final Set<String> names = new HashSet<>(Arrays.asList(headerName.split(",\\s*")));
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/config/gui/LDAPArgumentsPanel.java`
-#### Snippet
-```java
-    @Override
-    public Collection<String> getMenuCategories() {
         return null;
     }
 
@@ -14700,11 +14580,59 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/mail/sampler/MailFileFolder.java`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+            final Authorization authorization = getAuthorizationForAuthScope(authScope);
+            if (authorization == null) {
+                return null;
+            }
+            return new UsernamePasswordCredentials(authorization.getUser(), authorization.getPass());
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+        private Authorization getAuthorizationForAuthScope(AuthScope authScope) {
+            if (authScope == null) {
+                return null;
+            }
+            if (authManager == null) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+            if (authManager == null) {
+                log.debug("No authManager found");
+                return null;
+            }
+            for (JMeterProperty authProp : authManager.getAuthObjects()) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/config/gui/LDAPArgumentsPanel.java`
 #### Snippet
 ```java
     @Override
-    public Folder getParent() throws MessagingException {
+    public Collection<String> getMenuCategories() {
         return null;
     }
 
@@ -14724,26 +14652,14 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/mail/sampler/Mail
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPExtSampler.java`
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/mail/sampler/MailFileFolder.java`
 #### Snippet
 ```java
-        int count = 0;
-        if (reqAttr.length() == 0) {
-            return null; // NOSONAR null means all , empty array means nothing
-        }
-        if (!reqAttr.endsWith(SEMI_COLON)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/SmtpSampler.java`
-#### Snippet
-```java
-            return addresses;
-        } else {
-            return null;
-        }
+    @Override
+    public Folder getParent() throws MessagingException {
+        return null;
     }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -14760,74 +14676,26 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/Smtp
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/SmtpSampler.java`
 #### Snippet
 ```java
-        @Override
-        public String getPassword() {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
-#### Snippet
-```java
-    public Authorization getAuthForURL(URL url) {
-        if (!isSupportedProtocol(url)) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
-#### Snippet
-```java
-            log.debug("Did not match against auth'n entry: {}", uRL);
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
-#### Snippet
-```java
-        Authorization auth = getAuthForURL(url);
-        if (auth == null) {
-            return null;
-        }
-        return auth.toBasicHeader();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
-#### Snippet
-```java
-                    authorization.getUser(), authorization.getPass());
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
-#### Snippet
-```java
-        @Override
-        public Principal getUserPrincipal() {
+            return addresses;
+        } else {
             return null;
         }
     }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPExtSampler.java`
+#### Snippet
+```java
+        int count = 0;
+        if (reqAttr.length() == 0) {
+            return null; // NOSONAR null means all , empty array means nothing
+        }
+        if (!reqAttr.endsWith(SEMI_COLON)) {
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -14916,14 +14784,14 @@ in `src/components/src/main/java/org/apache/jmeter/control/OnceOnlyController.ja
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.java`
+in `src/components/src/main/java/org/apache/jmeter/control/ThroughputController.java`
 #### Snippet
 ```java
-                reInitialize();
-                resetLoopCount();
-                return null;
-            }
             return super.next();
+        }
+        return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -14940,14 +14808,14 @@ in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.jav
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/components/src/main/java/org/apache/jmeter/control/ThroughputController.java`
+in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.java`
 #### Snippet
 ```java
+                reInitialize();
+                resetLoopCount();
+                return null;
+            }
             return super.next();
-        }
-        return null;
-    }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -14988,6 +14856,30 @@ in `src/components/src/main/java/org/apache/jmeter/extractor/HtmlExtractor.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java`
+#### Snippet
+```java
+
+        if (matchSize <= 0 || entry > matchSize){
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java`
+#### Snippet
+```java
+
+        if (matchSize <= 0 || entry > matchSize){
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `src/components/src/main/java/org/apache/jmeter/extractor/json/jsonpath/JSONManager.java`
 #### Snippet
 ```java
@@ -14995,30 +14887,6 @@ in `src/components/src/main/java/org/apache/jmeter/extractor/json/jsonpath/JSONM
         }
         return obj == null ? null : obj.toString();
     }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java`
-#### Snippet
-```java
-
-        if (matchSize <= 0 || entry > matchSize){
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java`
-#### Snippet
-```java
-
-        if (matchSize <= 0 || entry > matchSize){
-            return null;
-        }
 
 ```
 
@@ -15132,11 +15000,11 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/AbstractB
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/BackendListenerClient.java`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/BackendListener.java`
 #### Snippet
 ```java
-     */
-    default Arguments getDefaultParameters() {
+            log.error("{}\tException initialising: {}", whoAmI(), name, e);
+        }
         return null;
     }
 
@@ -15144,11 +15012,11 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/BackendLi
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/BackendListener.java`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/BackendListenerClient.java`
 #### Snippet
 ```java
-            log.error("{}\tException initialising: {}", whoAmI(), name, e);
-        }
+     */
+    default Arguments getDefaultParameters() {
         return null;
     }
 
@@ -15190,6 +15058,138 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualiz
 
 ```
 
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+    private Pair<String, String> getVaryHeader(String headerName, Header[] reqHeaders) {
+        if (headerName == null) {
+            return null;
+        }
+        final Set<String> names = new HashSet<>(Arrays.asList(headerName.split(",\\s*")));
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+    private String getHeader(HttpResponse method, String name) {
+        org.apache.http.Header hdr = method.getLastHeader(name);
+        return hdr != null ? hdr.getValue() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+        if (entry == null) {
+            log.debug("No entry found for url {}", url);
+            return null;
+        }
+        if (entry.getVaryHeader() == null) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+                log.debug("Entry {} found, but it should depend on vary {} for url {}", entry, entry.getVaryHeader(), url);
+            }
+            return null;
+        }
+        Pair<String, String> varyPair = getVaryHeader(entry.getVaryHeader(), headers);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+            return getEntry(varyUrl(url, entry.getVaryHeader(), varyPair.getRight()), null);
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+#### Snippet
+```java
+        @Override
+        public Principal getUserPrincipal() {
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+#### Snippet
+```java
+                    authorization.getUser(), authorization.getPass());
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+#### Snippet
+```java
+    public Authorization getAuthForURL(URL url) {
+        if (!isSupportedProtocol(url)) {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+#### Snippet
+```java
+            log.debug("Did not match against auth'n entry: {}", uRL);
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+#### Snippet
+```java
+        Authorization auth = getAuthForURL(url);
+        if (auth == null) {
+            return null;
+        }
+        return auth.toBasicHeader();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+#### Snippet
+```java
+        @Override
+        public String getPassword() {
+            return null;
+        }
+
+```
+
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `initialTestFile` is redundant
@@ -15201,18 +15201,6 @@ in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
                     String initialTestFile = testFile;
                     JMeterGuiLauncher.startGui(initialTestFile);
                     startOptionalServers();
-```
-
-### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `prop` is redundant
-in `src/core/src/main/java/org/apache/jmeter/save/converters/LongPropertyConverter.java`
-#### Snippet
-```java
-            return null;
-        }
-        LongProperty prop = new LongProperty(name, Long.parseLong(reader.getValue()));
-        return prop;
-    }
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
@@ -15229,12 +15217,12 @@ in `src/core/src/main/java/org/apache/jmeter/save/converters/IntegerPropertyConv
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `prop` is redundant
-in `src/core/src/main/java/org/apache/jmeter/save/converters/StringPropertyConverter.java`
+in `src/core/src/main/java/org/apache/jmeter/save/converters/LongPropertyConverter.java`
 #### Snippet
 ```java
+            return null;
         }
-        final String value = ConversionHelp.getPropertyValue(reader, context, name);
-        StringProperty prop = new StringProperty(name, value);
+        LongProperty prop = new LongProperty(name, Long.parseLong(reader.getValue()));
         return prop;
     }
 ```
@@ -15248,6 +15236,18 @@ in `src/core/src/main/java/org/apache/jmeter/save/converters/SampleEventConverte
             UnmarshallingContext context) {
         SampleEvent evt = new SampleEvent();
         return evt;
+    }
+```
+
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `prop` is redundant
+in `src/core/src/main/java/org/apache/jmeter/save/converters/StringPropertyConverter.java`
+#### Snippet
+```java
+        }
+        final String value = ConversionHelp.getPropertyValue(reader, context, name);
+        StringProperty prop = new StringProperty(name, value);
+        return prop;
     }
 ```
 
@@ -15348,18 +15348,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/HttpRe
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `len` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AjpSampler.java`
-#### Snippet
-```java
-        }
-        getInt();
-        int len = getInt();
-        int toRead = len;
-        int cpos = inpos;
-```
-
-### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `fullUrl` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
 #### Snippet
@@ -15369,6 +15357,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.
         String fullUrl = url.toString();
         String urlWithoutQuery = fullUrl;
         String query = url.getQuery();
+```
+
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `len` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AjpSampler.java`
+#### Snippet
+```java
+        }
+        getInt();
+        int len = getInt();
+        int toRead = len;
+        int cpos = inpos;
 ```
 
 ### RuleId[ruleID=UnnecessaryLocalVariable]
@@ -15731,18 +15731,6 @@ Obsolete collection type `Hashtable` used
 in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
 #### Snippet
 ```java
-    private void printEnvironment(Context context) throws NamingException {
-        try {
-            Hashtable<?, ?> env = context.getEnvironment();
-            if (env != null) {
-                LOGGER.debug("Initial Context Properties");
-```
-
-### RuleId[ruleID=ObsoleteCollection]
-Obsolete collection type `Hashtable` used
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
-#### Snippet
-```java
     @SuppressWarnings("JdkObsolete")
     private Context getInitialContext() throws NamingException {
         Hashtable<String, String> table = new Hashtable<>();
@@ -15760,6 +15748,18 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSam
         Hashtable<String, String> table = new Hashtable<>();
 
         if (getInitialContextFactory() != null && getInitialContextFactory().trim().length() > 0) {
+```
+
+### RuleId[ruleID=ObsoleteCollection]
+Obsolete collection type `Hashtable` used
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
+#### Snippet
+```java
+    private void printEnvironment(Context context) throws NamingException {
+        try {
+            Hashtable<?, ?> env = context.getEnvironment();
+            if (env != null) {
+                LOGGER.debug("Initial Context Properties");
 ```
 
 ### RuleId[ruleID=ObsoleteCollection]
@@ -16002,18 +16002,6 @@ Redundant array creation for calling varargs method
 in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUnitSampler.java`
 #### Snippet
 ```java
-                protectable = () -> {
-                    try {
-                        m.invoke(theClazz, new Object[0]);
-                    } catch (InvocationTargetException e) {
-                        /*
-```
-
-### RuleId[ruleID=RedundantArrayCreation]
-Redundant array creation for calling varargs method
-in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUnitSampler.java`
-#### Snippet
-```java
             try {
                 if (setUpMethod != null){
                     setUpMethod.invoke(this.testObject,new Object[0]);
@@ -16031,6 +16019,18 @@ in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUn
                     tearDownMethod.invoke(testObject,new Object[0]);
                 }
             } catch (InvocationTargetException e) {
+```
+
+### RuleId[ruleID=RedundantArrayCreation]
+Redundant array creation for calling varargs method
+in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUnitSampler.java`
+#### Snippet
+```java
+                protectable = () -> {
+                    try {
+                        m.invoke(theClazz, new Object[0]);
+                    } catch (InvocationTargetException e) {
+                        /*
 ```
 
 ### RuleId[ruleID=RedundantArrayCreation]
@@ -16271,8 +16271,8 @@ in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBC
 in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.java`
 #### Snippet
 ```java
+        }
         JMeterContext context = getThreadContext();
-
         StringBuilder builder = new StringBuilder(
                 getInputVal().length()+getSeparator().length()+3);
         String inputVariable =
@@ -16283,8 +16283,8 @@ in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.jav
 in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.java`
 #### Snippet
 ```java
-        }
         JMeterContext context = getThreadContext();
+
         StringBuilder builder = new StringBuilder(
                 getInputVal().length()+getSeparator().length()+3);
         String inputVariable =
@@ -16303,15 +16303,15 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder` can be replaced with 'String'
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/TextGraphiteMetricsSender.java`
+`StringBuilder builder` can be replaced with 'String'
+in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
 #### Snippet
 ```java
-    @Override
-    public void addMetric(long timestamp, String contextName, String metricName, String metricValue) {
-        String name = new StringBuilder(50)
-                .append(prefix)
-                .append(contextName)
+            int len = res.getResponseDataAsString().length();
+            if (MAX_DISPLAY_SIZE > 0 && len > MAX_DISPLAY_SIZE) {
+                StringBuilder builder = new StringBuilder(MAX_DISPLAY_SIZE + 100);
+                builder.append(JMeterUtils.getResString("view_results_response_too_large_message")) //$NON-NLS-1$
+                    .append(len).append(" > Max: ").append(MAX_DISPLAY_SIZE)
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -16327,15 +16327,15 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder tag` can be replaced with 'String'
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
+`StringBuilder` can be replaced with 'String'
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/TextGraphiteMetricsSender.java`
 #### Snippet
 ```java
-            return;
-        }
-        StringBuilder tag = new StringBuilder(95);
-        tag.append(TAG_APPLICATION).append(applicationName);
-        tag.append(TAG_TRANSACTION).append(transaction);
+    @Override
+    public void addMetric(long timestamp, String contextName, String metricName, String metricValue) {
+        String name = new StringBuilder(50)
+                .append(prefix)
+                .append(contextName)
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -16367,6 +16367,18 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/
 in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
 #### Snippet
 ```java
+            return;
+        }
+        StringBuilder tag = new StringBuilder(95);
+        tag.append(TAG_APPLICATION).append(applicationName);
+        tag.append(TAG_TRANSACTION).append(transaction);
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder tag` can be replaced with 'String'
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
+#### Snippet
+```java
         UserMetric userMetrics = getUserMetrics();
         // For JMETER context
         StringBuilder tag = new StringBuilder(80);
@@ -16384,18 +16396,6 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/
         StringBuilder field = new StringBuilder(80);
         field.append(METRIC_MIN_ACTIVE_THREADS).append(userMetrics.getMinActiveThreads()).append(',');
         field.append(METRIC_MAX_ACTIVE_THREADS).append(userMetrics.getMaxActiveThreads()).append(',');
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder builder` can be replaced with 'String'
-in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
-#### Snippet
-```java
-            int len = res.getResponseDataAsString().length();
-            if (MAX_DISPLAY_SIZE > 0 && len > MAX_DISPLAY_SIZE) {
-                StringBuilder builder = new StringBuilder(MAX_DISPLAY_SIZE + 100);
-                builder.append(JMeterUtils.getResString("view_results_response_too_large_message")) //$NON-NLS-1$
-                    .append(len).append(" > Max: ").append(MAX_DISPLAY_SIZE)
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -16539,6 +16539,18 @@ Can generalize to `? extends JMeterEngine`
 in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
 #### Snippet
 ```java
+    }
+
+    private static void waitForSignals(final List<JMeterEngine> engines, DatagramSocket socket) {
+        byte[] buf = new byte[80];
+        System.out.println("Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port "+socket.getLocalPort());//NOSONAR
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends JMeterEngine`
+in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+#### Snippet
+```java
         }
 
         public void setStartedRemoteEngines(List<JMeterEngine> engines) {
@@ -16547,15 +16559,39 @@ in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends JMeterEngine`
-in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
+Can generalize to `? extends MenuInfo`
+in `src/core/src/main/java/org/apache/jmeter/gui/util/MenuFactory.java`
+#### Snippet
+```java
+     */
+    private static JMenu makeMenu(
+            Collection<MenuInfo> menuInfo, String actionCommand, String menuName) {
+
+        JMenu menu = new JMenu(menuName);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`
+in `src/core/src/main/java/org/apache/jmeter/gui/util/MenuFactory.java`
 #### Snippet
 ```java
     }
 
-    private static void waitForSignals(final List<JMeterEngine> engines, DatagramSocket socket) {
-        byte[] buf = new byte[80];
-        System.out.println("Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port "+socket.getLocalPort());//NOSONAR
+    private static void sortMenus(Collection<List<MenuInfo>> menus) {
+        for (List<MenuInfo> menu : menus) {
+            menu.sort(Comparator.comparing(MenuInfo::getLabel));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`
+in `src/core/src/main/java/org/apache/jmeter/gui/util/MenuFactory.java`
+#### Snippet
+```java
+    }
+
+    private static void separateItemsWithExplicitOrder(Collection<List<MenuInfo>> menus) {
+        for (List<MenuInfo> menu : menus) {
+            Optional<MenuInfo> firstDefaultSortItem = menu.stream()
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16583,39 +16619,15 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/LoadRecentProject.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `src/core/src/main/java/org/apache/jmeter/gui/util/MenuFactory.java`
+Can generalize to `? extends JMeterTreeNode`
+in `src/core/src/main/java/org/apache/jmeter/gui/action/SearchTreeDialog.java`
 #### Snippet
 ```java
-    }
-
-    private static void sortMenus(Collection<List<MenuInfo>> menus) {
-        for (List<MenuInfo> menu : menus) {
-            menu.sort(Comparator.comparing(MenuInfo::getLabel));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MenuInfo`
-in `src/core/src/main/java/org/apache/jmeter/gui/util/MenuFactory.java`
-#### Snippet
-```java
+     * @param nodes Set of {@link JMeterTreeNode} to mark
      */
-    private static JMenu makeMenu(
-            Collection<MenuInfo> menuInfo, String actionCommand, String menuName) {
-
-        JMenu menu = new JMenu(menuName);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `src/core/src/main/java/org/apache/jmeter/gui/util/MenuFactory.java`
-#### Snippet
-```java
-    }
-
-    private static void separateItemsWithExplicitOrder(Collection<List<MenuInfo>> menus) {
-        for (List<MenuInfo> menu : menus) {
-            Optional<MenuInfo> firstDefaultSortItem = menu.stream()
+    private void markConcernedNodes(boolean expand, Set<JMeterTreeNode> nodes) {
+        GuiPackage guiInstance = GuiPackage.getInstance();
+        JTree jTree = guiInstance.getMainFrame().getTree();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16631,15 +16643,15 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/Restart.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends JMeterTreeNode`
-in `src/core/src/main/java/org/apache/jmeter/gui/action/SearchTreeDialog.java`
+Can generalize to `? super String`
+in `src/core/src/main/java/org/apache/jmeter/gui/action/ActionRouter.java`
 #### Snippet
 ```java
-     * @param nodes Set of {@link JMeterTreeNode} to mark
+     * @param actionListeners {@link Set}
      */
-    private void markConcernedNodes(boolean expand, Set<JMeterTreeNode> nodes) {
-        GuiPackage guiInstance = GuiPackage.getInstance();
-        JTree jTree = guiInstance.getMainFrame().getTree();
+    private void addActionListener(Class<?> action, ActionListener listener, Map<String, Set<ActionListener>> actionListeners) {
+        if (action != null) {
+            Set<ActionListener> set = actionListeners.get(action.getName());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16664,18 +16676,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/ActionRouter.java`
     private void actionPerformed(Class<? extends Command> action, ActionEvent e, Map<String, Set<ActionListener>> actionListeners) {
         if (action != null) {
             Set<ActionListener> listenerSet = actionListeners.get(action.getName());
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `src/core/src/main/java/org/apache/jmeter/gui/action/ActionRouter.java`
-#### Snippet
-```java
-     * @param actionListeners {@link Set}
-     */
-    private void addActionListener(Class<?> action, ActionListener listener, Map<String, Set<ActionListener>> actionListeners) {
-        if (action != null) {
-            Set<ActionListener> set = actionListeners.get(action.getName());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16707,11 +16707,11 @@ Can generalize to `? extends File`
 in `src/core/src/main/java/org/apache/jmeter/gui/action/Save.java`
 #### Snippet
 ```java
-     *            {@link List} of {@link File}
+     * @return {@link List} of {@link File} that are expired
      */
-    private int getHighestVersionNumber(Pattern backupPattern, List<File> backupFiles) {
-        return backupFiles.stream().map(backupFile -> backupPattern.matcher(backupFile.getName()))
-                .filter(matcher -> matcher.find() && matcher.groupCount() > 0)
+    private List<File> expiredBackupFiles(List<File> backupFiles) {
+        if (BACKUP_MAX_HOURS > 0) {
+            final long expiryMillis = System.currentTimeMillis() - (1L * BACKUP_MAX_HOURS * MS_PER_HOUR);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16719,11 +16719,11 @@ Can generalize to `? extends File`
 in `src/core/src/main/java/org/apache/jmeter/gui/action/Save.java`
 #### Snippet
 ```java
-     * @return {@link List} of {@link File} that are expired
+     *            {@link List} of {@link File}
      */
-    private List<File> expiredBackupFiles(List<File> backupFiles) {
-        if (BACKUP_MAX_HOURS > 0) {
-            final long expiryMillis = System.currentTimeMillis() - (1L * BACKUP_MAX_HOURS * MS_PER_HOUR);
+    private int getHighestVersionNumber(Pattern backupPattern, List<File> backupFiles) {
+        return backupFiles.stream().map(backupFile -> backupPattern.matcher(backupFile.getName()))
+                .filter(matcher -> matcher.find() && matcher.groupCount() > 0)
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16763,18 +16763,6 @@ in `src/core/src/main/java/org/apache/jmeter/engine/StandardJMeterEngine.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends JMeterProperty`
-in `src/core/src/main/java/org/apache/jmeter/engine/util/ValueReplacer.java`
-#### Snippet
-```java
-    }
-
-    private void setProperties(TestElement el, Collection<JMeterProperty> newProps) {
-        el.clear();
-        for (JMeterProperty jmp : newProps) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super String`
 in `src/core/src/main/java/org/apache/jmeter/util/XPathUtil.java`
 #### Snippet
@@ -16796,6 +16784,18 @@ in `src/core/src/main/java/org/apache/jmeter/util/XPathUtil.java`
             List<String> matchStrings, boolean fragment,
             int matchNumber, String namespaces)
             throws SaxonApiException, FactoryConfigurationError {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends JMeterProperty`
+in `src/core/src/main/java/org/apache/jmeter/engine/util/ValueReplacer.java`
+#### Snippet
+```java
+    }
+
+    private void setProperties(TestElement el, Collection<JMeterProperty> newProps) {
+        el.clear();
+        for (JMeterProperty jmp : newProps) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16895,15 +16895,15 @@ in `src/core/src/main/java/org/apache/jmeter/samplers/RemoteSampleListenerImpl.j
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Controller`
-in `src/core/src/main/java/org/apache/jmeter/threads/TestCompiler.java`
+Can generalize to `? extends SampleEvent`
+in `src/core/src/main/java/org/apache/jmeter/samplers/AsynchSampleSender.java`
 #### Snippet
 ```java
-     * @param maybeController
-     */
-    private void addDirectParentControllers(List<Controller> controllers, TestElement maybeController) {
-        if (maybeController instanceof Controller) {
-            log.debug("adding controller: {} to sampler config", maybeController);
+        private final RemoteSampleListener listener;
+
+        private Worker(BlockingQueue<SampleEvent> q, RemoteSampleListener l){
+            queue = q;
+            listener = l;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16919,39 +16919,15 @@ in `src/core/src/main/java/org/apache/jmeter/threads/TestCompiler.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends SampleEvent`
-in `src/core/src/main/java/org/apache/jmeter/samplers/AsynchSampleSender.java`
+Can generalize to `? super Controller`
+in `src/core/src/main/java/org/apache/jmeter/threads/TestCompiler.java`
 #### Snippet
 ```java
-        private final RemoteSampleListener listener;
-
-        private Worker(BlockingQueue<SampleEvent> q, RemoteSampleListener l){
-            queue = q;
-            listener = l;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Assertion`
-in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
-#### Snippet
-```java
-    }
-
-    private void checkAssertions(List<Assertion> assertions, SampleResult parent, JMeterContext threadContext) {
-        for (Assertion assertion : assertions) {
-            TestBeanHelper.prepare((TestElement) assertion);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Timer`
-in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
-#### Snippet
-```java
-     * @param timers to be used for calculating the delay
+     * @param maybeController
      */
-    private void delay(List<Timer> timers) {
-        long totalDelay = 0;
-        for (Timer timer : timers) {
+    private void addDirectParentControllers(List<Controller> controllers, TestElement maybeController) {
+        if (maybeController instanceof Controller) {
+            log.debug("adding controller: {} to sampler config", maybeController);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16967,15 +16943,15 @@ in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends PreProcessor`
+Can generalize to `? extends Assertion`
 in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
 #### Snippet
 ```java
     }
 
-    private void runPreProcessors(List<PreProcessor> preProcessors) {
-        for (PreProcessor ex : preProcessors) {
-            if (log.isDebugEnabled()) {
+    private void checkAssertions(List<Assertion> assertions, SampleResult parent, JMeterContext threadContext) {
+        for (Assertion assertion : assertions) {
+            TestBeanHelper.prepare((TestElement) assertion);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -16988,6 +16964,30 @@ in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
             Consumer<FindTestElementsUpToRootTraverser> consumer) {
         TransactionSampler transactionSampler = null;
         if (sampler instanceof TransactionSampler) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends PreProcessor`
+in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
+#### Snippet
+```java
+    }
+
+    private void runPreProcessors(List<PreProcessor> preProcessors) {
+        for (PreProcessor ex : preProcessors) {
+            if (log.isDebugEnabled()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Timer`
+in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
+#### Snippet
+```java
+     * @param timers to be used for calculating the delay
+     */
+    private void delay(List<Timer> timers) {
+        long totalDelay = 0;
+        for (Timer timer : timers) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17015,18 +17015,6 @@ in `src/core/src/main/java/org/apache/jmeter/testelement/AbstractTestElement.jav
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Component`
-in `src/jorphan/src/main/java/org/apache/jorphan/gui/DynamicStyle.java`
-#### Snippet
-```java
-    }
-
-    private static void collectComponents(Component root, List<Component> components) {
-        if (root == null) {
-            // E.g. getTabComponentAt might return null
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super T`
 in `src/jorphan/src/main/java/org/apache/jorphan/gui/DynamicStyle.java`
 #### Snippet
@@ -17036,6 +17024,18 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/DynamicStyle.java`
     public <T extends JComponent> T withDynamic(T component, Consumer<T> onUpdateUi) {
         // Explicit component update is required since the component already exists
         // and we can't want to wait for the next LaF change
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Component`
+in `src/jorphan/src/main/java/org/apache/jorphan/gui/DynamicStyle.java`
+#### Snippet
+```java
+    }
+
+    private static void collectComponents(Component root, List<Component> components) {
+        if (root == null) {
+            // E.g. getTabComponentAt might return null
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17212,10 +17212,10 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/modifier/Anc
 #### Snippet
 ```java
 
-    private void addFramesetUrls(Document html, HTTPSampleResult result,
-       HTTPSamplerBase config, List<HTTPSamplerBase> potentialLinks) {
-       String base = "";
-       NodeList baseList = html.getElementsByTagName("base"); // $NON-NLS-1$
+    private void addAnchorUrls(Document html, HTTPSampleResult result, HTTPSamplerBase config,
+            List<HTTPSamplerBase> potentialLinks) {
+        String base = "";
+        NodeList baseList = html.getElementsByTagName("base"); // $NON-NLS-1$
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17224,10 +17224,10 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/modifier/Anc
 #### Snippet
 ```java
 
-    private void addAnchorUrls(Document html, HTTPSampleResult result, HTTPSamplerBase config,
-            List<HTTPSamplerBase> potentialLinks) {
-        String base = "";
-        NodeList baseList = html.getElementsByTagName("base"); // $NON-NLS-1$
+    private void addFramesetUrls(Document html, HTTPSampleResult result,
+       HTTPSamplerBase config, List<HTTPSamplerBase> potentialLinks) {
+       String base = "";
+       NodeList baseList = html.getElementsByTagName("base"); // $NON-NLS-1$
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17255,6 +17255,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super AuthState`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+     */
+    private void saveProxyAuth(
+            MutableTriple<CloseableHttpClient, AuthState, PoolingHttpClientConnectionManager> triple,
+            HttpContext localContext) {
+        triple.setMiddle((AuthState) localContext.getAttribute(HttpClientContext.PROXY_AUTH_STATE));
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends AuthState`
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
 #### Snippet
@@ -17279,18 +17291,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AuthState`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
-#### Snippet
-```java
-     */
-    private void saveProxyAuth(
-            MutableTriple<CloseableHttpClient, AuthState, PoolingHttpClientConnectionManager> triple,
-            HttpContext localContext) {
-        triple.setMiddle((AuthState) localContext.getAttribute(HttpClientContext.PROXY_AUTH_STATE));
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super Map`
 in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
 #### Snippet
@@ -17303,15 +17303,15 @@ in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBC
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends SearchResult`
-in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPExtSampler.java`
+Can generalize to `? extends Header`
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/SmtpSampler.java`
 #### Snippet
 ```java
-    }
 
-    private void sortResults(final List<SearchResult> sortedResults) {
-        sortedResults.sort(new Comparator<SearchResult>() {
-            private int compareToReverse(final String s1, final String s2) {
+    @SuppressWarnings("JdkObsolete")
+    private void writeHeaders(Enumeration<Header> headers, StringBuilder sb) {
+        while (headers.hasMoreElements()) {
+            Header header = headers.nextElement();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17339,15 +17339,15 @@ in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAP
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Header`
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/SmtpSampler.java`
+Can generalize to `? extends SearchResult`
+in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPExtSampler.java`
 #### Snippet
 ```java
+    }
 
-    @SuppressWarnings("JdkObsolete")
-    private void writeHeaders(Enumeration<Header> headers, StringBuilder sb) {
-        while (headers.hasMoreElements()) {
-            Header header = headers.nextElement();
+    private void sortResults(final List<SearchResult> sortedResults) {
+        sortedResults.sort(new Comparator<SearchResult>() {
+            private int compareToReverse(final String s1, final String s2) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17387,18 +17387,6 @@ in `src/components/src/main/java/org/apache/jmeter/extractor/JoddExtractor.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super MatchResult`
-in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java`
-#### Snippet
-```java
-
-    private int matchStrings(int matchNumber, Perl5Matcher matcher,
-            Pattern pattern, List<MatchResult> matches, int found,
-            String inputString) {
-        PatternMatcherInput input = new PatternMatcherInput(inputString);
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super java.util.regex.MatchResult`
 in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java`
 #### Snippet
@@ -17411,18 +17399,6 @@ in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MatchResult`
-in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java`
-#### Snippet
-```java
-     * @return MatchResult
-     */
-    private MatchResult getCorrectMatch(List<MatchResult> matches, int entry) {
-        int matchSize = matches.size();
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends java.util.regex.MatchResult`
 in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java`
 #### Snippet
@@ -17430,6 +17406,30 @@ in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java
     }
 
     private java.util.regex.MatchResult getCorrectMatchJavaRegex(List<java.util.regex.MatchResult> matches, int entry) {
+        int matchSize = matches.size();
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super MatchResult`
+in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java`
+#### Snippet
+```java
+
+    private int matchStrings(int matchNumber, Perl5Matcher matcher,
+            Pattern pattern, List<MatchResult> matches, int found,
+            String inputString) {
+        PatternMatcherInput input = new PatternMatcherInput(inputString);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MatchResult`
+in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java`
+#### Snippet
+```java
+     * @return MatchResult
+     */
+    private MatchResult getCorrectMatch(List<MatchResult> matches, int entry) {
         int matchSize = matches.size();
 
 ```
@@ -17447,63 +17447,15 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXML.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super SocketConnectionInfos`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/TextGraphiteMetricsSender.java`
+Can generalize to `? super TreePath`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
 #### Snippet
 ```java
-    /** Setup used for testing, or if explicit customisation is required. */
-    public void setup(SocketConnectionInfos socketConnectionInfos,
-                      GenericKeyedObjectPool<SocketConnectionInfos, SocketOutputStream> socketOutputStreamPool,
-                      String prefix) {
-        this.socketConnectionInfos = socketConnectionInfos;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends SampleResult`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/GraphiteBackendListenerClient.java`
-#### Snippet
-```java
-
-    @Override
-    public void handleSampleResults(List<SampleResult> sampleResults, BackendListenerContext context) {
-        boolean samplersToFilterMatch;
-        synchronized (LOCK) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends SampleResult`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxDBRawBackendListenerClient.java`
-#### Snippet
-```java
-    @Override
-    public void handleSampleResults(
-            List<SampleResult> sampleResults, BackendListenerContext context) {
-        log.debug("Handling {} sample results", sampleResults.size());
-        synchronized (LOCK) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super SocketConnectionInfos`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/PickleGraphiteMetricsSender.java`
-#### Snippet
-```java
-    /** Setup used for testing, or if explicit customisation is required. */
-    public void setup(SocketConnectionInfos socketConnectionInfos,
-                      GenericKeyedObjectPool<SocketConnectionInfos, SocketOutputStream> socketOutputStreamPool,
-                      String prefix) {
-        this.socketConnectionInfos = socketConnectionInfos;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends SampleResult`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
-#### Snippet
-```java
-
-    @Override
-    public void handleSampleResults(List<SampleResult> sampleResults, BackendListenerContext context) {
-        synchronized (LOCK) {
-            UserMetric userMetrics = getUserMetrics();
+    private TreePath checkExpandedOrSelected(List<TreeNode> path,
+            Object item, Object oldSelectedObject,
+            Set<Object> oldExpandedObjects, Set<TreePath> newExpandedPaths,
+            TreePath defaultPath, DefaultMutableTreeNode extensionNode) {
+        TreePath result = defaultPath;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -17531,15 +17483,63 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVi
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super TreePath`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+Can generalize to `? super SocketConnectionInfos`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/PickleGraphiteMetricsSender.java`
 #### Snippet
 ```java
-    private TreePath checkExpandedOrSelected(List<TreeNode> path,
-            Object item, Object oldSelectedObject,
-            Set<Object> oldExpandedObjects, Set<TreePath> newExpandedPaths,
-            TreePath defaultPath, DefaultMutableTreeNode extensionNode) {
-        TreePath result = defaultPath;
+    /** Setup used for testing, or if explicit customisation is required. */
+    public void setup(SocketConnectionInfos socketConnectionInfos,
+                      GenericKeyedObjectPool<SocketConnectionInfos, SocketOutputStream> socketOutputStreamPool,
+                      String prefix) {
+        this.socketConnectionInfos = socketConnectionInfos;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends SampleResult`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/GraphiteBackendListenerClient.java`
+#### Snippet
+```java
+
+    @Override
+    public void handleSampleResults(List<SampleResult> sampleResults, BackendListenerContext context) {
+        boolean samplersToFilterMatch;
+        synchronized (LOCK) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super SocketConnectionInfos`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/TextGraphiteMetricsSender.java`
+#### Snippet
+```java
+    /** Setup used for testing, or if explicit customisation is required. */
+    public void setup(SocketConnectionInfos socketConnectionInfos,
+                      GenericKeyedObjectPool<SocketConnectionInfos, SocketOutputStream> socketOutputStreamPool,
+                      String prefix) {
+        this.socketConnectionInfos = socketConnectionInfos;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends SampleResult`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxDBRawBackendListenerClient.java`
+#### Snippet
+```java
+    @Override
+    public void handleSampleResults(
+            List<SampleResult> sampleResults, BackendListenerContext context) {
+        log.debug("Handling {} sample results", sampleResults.size());
+        synchronized (LOCK) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends SampleResult`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/InfluxdbBackendListenerClient.java`
+#### Snippet
+```java
+
+    @Override
+    public void handleSampleResults(List<SampleResult> sampleResults, BackendListenerContext context) {
+        synchronized (LOCK) {
+            UserMetric userMetrics = getUserMetrics();
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -17560,18 +17560,6 @@ Missorted modifiers `final static`
 in `src/core/src/main/java/org/apache/jmeter/util/JMeterTreeNodeTransferable.java`
 #### Snippet
 ```java
-    public final static DataFlavor JMETER_TREE_NODE_ARRAY_DATA_FLAVOR = new DataFlavor(JMeterTreeNode[].class, JMeterTreeNode[].class.getName());
-
-    private final static DataFlavor[] DATA_FLAVORS = new DataFlavor[]{JMETER_TREE_NODE_ARRAY_DATA_FLAVOR};
-
-    private byte[] data = null;
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `src/core/src/main/java/org/apache/jmeter/util/JMeterTreeNodeTransferable.java`
-#### Snippet
-```java
 public class JMeterTreeNodeTransferable implements Transferable {
 
     public final static DataFlavor JMETER_TREE_NODE_ARRAY_DATA_FLAVOR = new DataFlavor(JMeterTreeNode[].class, JMeterTreeNode[].class.getName());
@@ -17580,15 +17568,15 @@ public class JMeterTreeNodeTransferable implements Transferable {
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `abstract public`
-in `src/core/src/main/java/org/apache/jmeter/report/core/SampleWriter.java`
+Missorted modifiers `final static`
+in `src/core/src/main/java/org/apache/jmeter/util/JMeterTreeNodeTransferable.java`
 #### Snippet
 ```java
- * @since 3.0
- */
-abstract public class SampleWriter implements Closeable {
+    public final static DataFlavor JMETER_TREE_NODE_ARRAY_DATA_FLAVOR = new DataFlavor(JMeterTreeNode[].class, JMeterTreeNode[].class.getName());
 
-    /**
+    private final static DataFlavor[] DATA_FLAVORS = new DataFlavor[]{JMETER_TREE_NODE_ARRAY_DATA_FLAVOR};
+
+    private byte[] data = null;
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -17601,6 +17589,18 @@ in `src/core/src/main/java/org/apache/jmeter/report/core/SampleWriter.java`
     abstract public long write(Sample sample);
 }
 
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `abstract public`
+in `src/core/src/main/java/org/apache/jmeter/report/core/SampleWriter.java`
+#### Snippet
+```java
+ * @since 3.0
+ */
+abstract public class SampleWriter implements Closeable {
+
+    /**
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -17634,9 +17634,9 @@ in `src/core/src/main/java/org/apache/jmeter/functions/AbstractFunction.java`
 ```java
      */
     @Override
-    abstract public String getReferenceKey();
+    abstract public String execute(SampleResult previousResult, Sampler currentSampler) throws InvalidVariableException;
 
-    /**
+    public String execute() throws InvalidVariableException {
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -17658,9 +17658,9 @@ in `src/core/src/main/java/org/apache/jmeter/functions/AbstractFunction.java`
 ```java
      */
     @Override
-    abstract public String execute(SampleResult previousResult, Sampler currentSampler) throws InvalidVariableException;
+    abstract public String getReferenceKey();
 
-    public String execute() throws InvalidVariableException {
+    /**
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -17692,35 +17692,11 @@ Missorted modifiers `final static`
 in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/sampler/MongoScriptSampler.java`
 #### Snippet
 ```java
-    public final static String DATABASE = "MongoScriptSampler.database"; //$NON-NLS-1$
-    public final static String USERNAME = "MongoScriptSampler.username"; //$NON-NLS-1$
-    public final static String PASSWORD = "MongoScriptSampler.password"; //$NON-NLS-1$ NOSONAR It's not a password
-    public final static String SCRIPT = "MongoScriptSampler.script"; //$NON-NLS-1$
-
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/sampler/MongoScriptSampler.java`
-#### Snippet
-```java
 
     public final static String DATABASE = "MongoScriptSampler.database"; //$NON-NLS-1$
     public final static String USERNAME = "MongoScriptSampler.username"; //$NON-NLS-1$
     public final static String PASSWORD = "MongoScriptSampler.password"; //$NON-NLS-1$ NOSONAR It's not a password
     public final static String SCRIPT = "MongoScriptSampler.script"; //$NON-NLS-1$
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/sampler/MongoScriptSampler.java`
-#### Snippet
-```java
-    public final static String SOURCE = "MongoScriptSampler.source"; //$NON-NLS-1$
-
-    public final static String DATABASE = "MongoScriptSampler.database"; //$NON-NLS-1$
-    public final static String USERNAME = "MongoScriptSampler.username"; //$NON-NLS-1$
-    public final static String PASSWORD = "MongoScriptSampler.password"; //$NON-NLS-1$ NOSONAR It's not a password
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -17745,6 +17721,30 @@ in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/sample
     public final static String SCRIPT = "MongoScriptSampler.script"; //$NON-NLS-1$
 
 
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/sampler/MongoScriptSampler.java`
+#### Snippet
+```java
+    public final static String DATABASE = "MongoScriptSampler.database"; //$NON-NLS-1$
+    public final static String USERNAME = "MongoScriptSampler.username"; //$NON-NLS-1$
+    public final static String PASSWORD = "MongoScriptSampler.password"; //$NON-NLS-1$ NOSONAR It's not a password
+    public final static String SCRIPT = "MongoScriptSampler.script"; //$NON-NLS-1$
+
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/sampler/MongoScriptSampler.java`
+#### Snippet
+```java
+    public final static String SOURCE = "MongoScriptSampler.source"; //$NON-NLS-1$
+
+    public final static String DATABASE = "MongoScriptSampler.database"; //$NON-NLS-1$
+    public final static String USERNAME = "MongoScriptSampler.username"; //$NON-NLS-1$
+    public final static String PASSWORD = "MongoScriptSampler.password"; //$NON-NLS-1$ NOSONAR It's not a password
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -17865,42 +17865,6 @@ Qualifier `super` is unnecessary in this context
 in `src/core/src/main/java/org/apache/jmeter/gui/util/JSyntaxTextArea.java`
 #### Snippet
 ```java
-          // TODO: Log a message?
-          // But how to find the name of the offending GUI element in the case of a TestBean?
-          super.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
-        } else {
-          final String style = languageProperties.getProperty(language);
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/gui/util/JSyntaxTextArea.java`
-#### Snippet
-```java
-          final String style = languageProperties.getProperty(language);
-          if (style == null) {
-              super.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
-          } else {
-              super.setSyntaxEditingStyle(style);
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/gui/util/JSyntaxTextArea.java`
-#### Snippet
-```java
-              super.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
-          } else {
-              super.setSyntaxEditingStyle(style);
-          }
-        }
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/gui/util/JSyntaxTextArea.java`
-#### Snippet
-```java
     public JSyntaxTextArea(int rows, int cols, boolean disableUndo) {
         super(rows, cols);
         super.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
@@ -17946,6 +17910,42 @@ in `src/core/src/main/java/org/apache/jmeter/gui/util/JSyntaxTextArea.java`
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/gui/util/JSyntaxTextArea.java`
+#### Snippet
+```java
+          // TODO: Log a message?
+          // But how to find the name of the offending GUI element in the case of a TestBean?
+          super.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
+        } else {
+          final String style = languageProperties.getProperty(language);
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/gui/util/JSyntaxTextArea.java`
+#### Snippet
+```java
+          final String style = languageProperties.getProperty(language);
+          if (style == null) {
+              super.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
+          } else {
+              super.setSyntaxEditingStyle(style);
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/gui/util/JSyntaxTextArea.java`
+#### Snippet
+```java
+              super.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
+          } else {
+              super.setSyntaxEditingStyle(style);
+          }
+        }
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
 in `src/core/src/main/java/org/apache/jmeter/gui/util/TristateCheckBox.java`
 #### Snippet
 ```java
@@ -17976,6 +17976,18 @@ in `src/core/src/main/java/org/apache/jmeter/config/gui/SimpleConfigGui.java`
                     .getColumnValue(COLUMN_NAMES_1)));
         }
         super.configureTestElement(el);
+    }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/report/processor/RequestsSummaryConsumer.java`
+#### Snippet
+```java
+            }
+        }
+        super.produce(sample, channel);
     }
 
 ```
@@ -18018,18 +18030,6 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/RequestsSummaryCon
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/report/processor/RequestsSummaryConsumer.java`
-#### Snippet
-```java
-            }
-        }
-        super.produce(sample, channel);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
 in `src/core/src/main/java/org/apache/jmeter/config/gui/ArgumentsPanel.java`
 #### Snippet
 ```java
@@ -18038,18 +18038,6 @@ in `src/core/src/main/java/org/apache/jmeter/config/gui/ArgumentsPanel.java`
         super.configureTestElement(args);
     }
 
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/report/processor/NormalizerSampleConsumer.java`
-#### Snippet
-```java
-    @Override
-    public void stopConsuming() {
-        super.stopProducing();
-    }
-}
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -18078,6 +18066,18 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/NormalizerSampleCo
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/report/processor/NormalizerSampleConsumer.java`
+#### Snippet
+```java
+    @Override
+    public void stopConsuming() {
+        super.stopProducing();
+    }
+}
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
 in `src/core/src/main/java/org/apache/jmeter/report/processor/FilterConsumer.java`
 #### Snippet
 ```java
@@ -18086,6 +18086,18 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/FilterConsumer.jav
             super.produce(sample, channel);
         }
     }
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/report/processor/FilterConsumer.java`
+#### Snippet
+```java
+    @Override
+    public void stopConsuming() {
+        super.stopProducing();
+    }
+}
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -18114,14 +18126,26 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/FilterConsumer.jav
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/report/processor/FilterConsumer.java`
+in `src/core/src/main/java/org/apache/jmeter/report/processor/AggregateConsumer.java`
 #### Snippet
 ```java
-    @Override
-    public void stopConsuming() {
-        super.stopProducing();
+        int channelCount = getConsumedChannelCount();
+        for (int i = 0; i < channelCount; i++) {
+            super.setProducedMetadata(getConsumedMetadata(i), i);
+        }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/report/processor/AggregateConsumer.java`
+#### Snippet
+```java
+        }
+
+        super.startProducing();
     }
-}
+
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -18141,95 +18165,11 @@ Qualifier `super` is unnecessary in this context
 in `src/core/src/main/java/org/apache/jmeter/report/processor/AggregateConsumer.java`
 #### Snippet
 ```java
-        int channelCount = getConsumedChannelCount();
-        for (int i = 0; i < channelCount; i++) {
-            super.setProducedMetadata(getConsumedMetadata(i), i);
-        }
-
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/report/processor/AggregateConsumer.java`
-#### Snippet
-```java
-        }
-
-        super.startProducing();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/report/processor/AggregateConsumer.java`
-#### Snippet
-```java
     public void consume(Sample sample, int channel) {
         aggregator.addValue(selector.select(sample));
         super.produce(sample, channel);
     }
 
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/report/processor/TaggerConsumer.java`
-#### Snippet
-```java
-            TIndex index = sampleIndexer.calculateIndex(sample);
-            Sample indexedSample = createIndexedSample(sample, channel, index);
-            super.produce(indexedSample, channel);
-        }
-    }
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/report/processor/TaggerConsumer.java`
-#### Snippet
-```java
-        }
-        initProducedMetadata();
-        super.startProducing();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/report/processor/TaggerConsumer.java`
-#### Snippet
-```java
-    @Override
-    public void stopConsuming() {
-        super.stopProducing();
-    }
-}
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/report/processor/TaggerConsumer.java`
-#### Snippet
-```java
-            // Add a sample builder for the current channel
-            builders.add(new SampleBuilder(producedMetadata));
-            super.setProducedMetadata(producedMetadata, i);
-        }
-    }
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/report/processor/AbstractSummaryConsumer.java`
-#### Snippet
-```java
-        setDataToContext(getName(), result);
-
-        super.stopProducing();
-
-        // Reset infos
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -18270,6 +18210,78 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/AbstractSummaryCon
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/report/processor/AbstractSummaryConsumer.java`
+#### Snippet
+```java
+        setDataToContext(getName(), result);
+
+        super.stopProducing();
+
+        // Reset infos
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/report/processor/TaggerConsumer.java`
+#### Snippet
+```java
+        }
+        initProducedMetadata();
+        super.startProducing();
+    }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/report/processor/TaggerConsumer.java`
+#### Snippet
+```java
+            // Add a sample builder for the current channel
+            builders.add(new SampleBuilder(producedMetadata));
+            super.setProducedMetadata(producedMetadata, i);
+        }
+    }
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/report/processor/TaggerConsumer.java`
+#### Snippet
+```java
+    @Override
+    public void stopConsuming() {
+        super.stopProducing();
+    }
+}
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/report/processor/TaggerConsumer.java`
+#### Snippet
+```java
+            TIndex index = sampleIndexer.calculateIndex(sample);
+            Sample indexedSample = createIndexedSample(sample, channel, index);
+            super.produce(indexedSample, channel);
+        }
+    }
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/AbstractGraphConsumer.java`
+#### Snippet
+```java
+        }
+
+        super.produce(sample, channel);
+    }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
 in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/AbstractGraphConsumer.java`
 #### Snippet
 ```java
@@ -18302,66 +18314,6 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/AbstractGrap
         super.startProducing();
     }
 
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/AbstractGraphConsumer.java`
-#### Snippet
-```java
-        }
-
-        super.produce(sample, channel);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/control/TransactionController.java`
-#### Snippet
-```java
-            pauseTime = 0;
-        }
-        boolean isLast = current==super.subControllersAndSamplers.size();
-        Sampler returnValue = super.next();
-        if (returnValue == null && isLast) // Must be the end of the controller
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/control/IfController.java`
-#### Snippet
-```java
-    @Override
-    public void triggerEndOfLoop() {
-        super.initializeSubControllers();
-        super.triggerEndOfLoop();
-    }
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/control/gui/WorkBenchGui.java`
-#### Snippet
-```java
-    @SuppressWarnings("deprecation")
-    public void modifyTestElement(TestElement wb) {
-        super.configureTestElement(wb);
-        ((org.apache.jmeter.testelement.WorkBench) wb).setSaveWorkBench(saveWorkBench.isSelected());
-    }
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/core/src/main/java/org/apache/jmeter/control/gui/TestPlanGui.java`
-#### Snippet
-```java
-    @Override
-    public void modifyTestElement(TestElement plan) {
-        super.configureTestElement(plan);
-        if (plan instanceof TestPlan) {
-            TestPlan tp = (TestPlan) plan;
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -18410,6 +18362,54 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/ExternalSampleSort
         super.stopProducing();
         if (this.pool != null) {
             this.pool.shutdown();
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/control/gui/WorkBenchGui.java`
+#### Snippet
+```java
+    @SuppressWarnings("deprecation")
+    public void modifyTestElement(TestElement wb) {
+        super.configureTestElement(wb);
+        ((org.apache.jmeter.testelement.WorkBench) wb).setSaveWorkBench(saveWorkBench.isSelected());
+    }
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/control/TransactionController.java`
+#### Snippet
+```java
+            pauseTime = 0;
+        }
+        boolean isLast = current==super.subControllersAndSamplers.size();
+        Sampler returnValue = super.next();
+        if (returnValue == null && isLast) // Must be the end of the controller
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/control/IfController.java`
+#### Snippet
+```java
+    @Override
+    public void triggerEndOfLoop() {
+        super.initializeSubControllers();
+        super.triggerEndOfLoop();
+    }
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/core/src/main/java/org/apache/jmeter/control/gui/TestPlanGui.java`
+#### Snippet
+```java
+    @Override
+    public void modifyTestElement(TestElement plan) {
+        super.configureTestElement(plan);
+        if (plan instanceof TestPlan) {
+            TestPlan tp = (TestPlan) plan;
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -18489,30 +18489,6 @@ Qualifier `super` is unnecessary in this context
 in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableModel.java`
 #### Snippet
 ```java
-    public void clearData() {
-        objects.clear();
-        super.fireTableDataChanged();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableModel.java`
-#### Snippet
-```java
-        subList.clear();
-        objects.addAll(to, backup);
-        super.fireTableDataChanged();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableModel.java`
-#### Snippet
-```java
                 if (setMethod != null) {
                     setMethod.invoke(value, new Object[] { cellValue });
                     super.fireTableDataChanged();
@@ -18528,6 +18504,18 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableModel.java`
     public void insertRow(Object value, int index) {
         objects.add(index, value);
         super.fireTableRowsInserted(index, index);
+    }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableModel.java`
+#### Snippet
+```java
+    public void clearData() {
+        objects.clear();
+        super.fireTableDataChanged();
     }
 
 ```
@@ -18558,6 +18546,18 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableModel.java`
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
+in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableModel.java`
+#### Snippet
+```java
+        subList.clear();
+        objects.addAll(to, backup);
+        super.fireTableDataChanged();
+    }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
 in `src/protocol/ftp/src/main/java/org/apache/jmeter/protocol/ftp/control/gui/FtpTestSamplerGui.java`
 #### Snippet
 ```java
@@ -18573,11 +18573,11 @@ Qualifier `super` is unnecessary in this context
 in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/control/gui/JMSSamplerGui.java`
 #### Snippet
 ```java
-    public TestElement createTestElement() {
-        JMSSampler sampler = new JMSSampler();
-        super.configureTestElement(sampler);
-        transfer(sampler);
-        return sampler;
+    @Override
+    public void modifyTestElement(TestElement element) {
+        super.configureTestElement(element);
+        if (!(element instanceof JMSSampler)) {
+            return;
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -18585,11 +18585,11 @@ Qualifier `super` is unnecessary in this context
 in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/control/gui/JMSSamplerGui.java`
 #### Snippet
 ```java
-    @Override
-    public void modifyTestElement(TestElement element) {
-        super.configureTestElement(element);
-        if (!(element instanceof JMSSampler)) {
-            return;
+    public TestElement createTestElement() {
+        JMSSampler sampler = new JMSSampler();
+        super.configureTestElement(sampler);
+        transfer(sampler);
+        return sampler;
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -18718,8 +18718,8 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/Acce
 #### Snippet
 ```java
      */
-    public void setImageParsing(boolean imageParsing) {
-        super.setImageParser(imageParsing);
+    public boolean isImageParsing() {
+        return super.isImageParser();
     }
 
 ```
@@ -18730,8 +18730,8 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/Acce
 #### Snippet
 ```java
      */
-    public boolean isImageParsing() {
-        return super.isImageParser();
+    public void setImageParsing(boolean imageParsing) {
+        super.setImageParser(imageParsing);
     }
 
 ```
@@ -18798,24 +18798,24 @@ in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/control/gui/
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
-in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/config/gui/LDAPArgumentsPanel.java`
-#### Snippet
-```java
-            }
-        }
-        super.configureTestElement(args);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
 in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/control/gui/LdapExtTestSamplerGui.java`
 #### Snippet
 ```java
         sampler.clear();
         sampler.addTestElement(ldapDefaultPanel.createTestElement());
         super.configureTestElement(sampler);
+    }
+
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/config/gui/LDAPArgumentsPanel.java`
+#### Snippet
+```java
+            }
+        }
+        super.configureTestElement(args);
     }
 
 ```
@@ -18846,14 +18846,14 @@ in `src/protocol/native/src/main/java/org/apache/jmeter/protocol/system/gui/Syst
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
-in `src/components/src/main/java/org/apache/jmeter/timers/gui/ConstantTimerGui.java`
+in `src/components/src/main/java/org/apache/jmeter/timers/ConstantThroughputTimer.java`
 #### Snippet
 ```java
-    @Override
-    public void modifyTestElement(TestElement timer) {
-        super.configureTestElement(timer);
-        ((ConstantTimer) timer).setDelay(delayField.getText());
-    }
+                            log.debug("Converted {}={} to mode={} using Locale: {}", pn, objectValue, tmpMode,
+                                    rb.getLocale());
+                            super.setProperty(pn, tmpMode);
+                            return;
+                        }
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -18870,14 +18870,14 @@ in `src/components/src/main/java/org/apache/jmeter/timers/gui/AbstractRandomTime
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
-in `src/components/src/main/java/org/apache/jmeter/timers/ConstantThroughputTimer.java`
+in `src/components/src/main/java/org/apache/jmeter/timers/gui/ConstantTimerGui.java`
 #### Snippet
 ```java
-                            log.debug("Converted {}={} to mode={} using Locale: {}", pn, objectValue, tmpMode,
-                                    rb.getLocale());
-                            super.setProperty(pn, tmpMode);
-                            return;
-                        }
+    @Override
+    public void modifyTestElement(TestElement timer) {
+        super.configureTestElement(timer);
+        ((ConstantTimer) timer).setDelay(delayField.getText());
+    }
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -18890,6 +18890,30 @@ in `src/components/src/main/java/org/apache/jmeter/sampler/gui/TestActionGui.jav
         super.configureTestElement(element);
         TestAction ta = (TestAction) element;
         ta.setAction(action);
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/components/src/main/java/org/apache/jmeter/extractor/gui/BoundaryExtractorGui.java`
+#### Snippet
+```java
+    @Override
+    public void modifyTestElement(TestElement extractor) {
+        super.configureTestElement(extractor);
+        if (extractor instanceof BoundaryExtractor) {
+            BoundaryExtractor boundary = (BoundaryExtractor) extractor;
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/components/src/main/java/org/apache/jmeter/extractor/gui/HtmlExtractorGui.java`
+#### Snippet
+```java
+    @Override
+    public void modifyTestElement(TestElement extractor) {
+        super.configureTestElement(extractor);
+        if (extractor instanceof HtmlExtractor) {
+            HtmlExtractor htmlExtractor = (HtmlExtractor) extractor;
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -18914,30 +18938,6 @@ in `src/components/src/main/java/org/apache/jmeter/extractor/gui/XPathExtractorG
         super.configureTestElement(extractor);
         if ( extractor instanceof XPathExtractor){
             XPathExtractor xpath = (XPathExtractor)extractor;
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/components/src/main/java/org/apache/jmeter/extractor/gui/HtmlExtractorGui.java`
-#### Snippet
-```java
-    @Override
-    public void modifyTestElement(TestElement extractor) {
-        super.configureTestElement(extractor);
-        if (extractor instanceof HtmlExtractor) {
-            HtmlExtractor htmlExtractor = (HtmlExtractor) extractor;
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
-in `src/components/src/main/java/org/apache/jmeter/extractor/gui/BoundaryExtractorGui.java`
-#### Snippet
-```java
-    @Override
-    public void modifyTestElement(TestElement extractor) {
-        super.configureTestElement(extractor);
-        if (extractor instanceof BoundaryExtractor) {
-            BoundaryExtractor boundary = (BoundaryExtractor) extractor;
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -19014,18 +19014,6 @@ in `src/components/src/main/java/org/apache/jmeter/modifiers/gui/UserParametersG
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
-in `src/components/src/main/java/org/apache/jmeter/assertions/gui/XPath2AssertionGui.java`
-#### Snippet
-```java
-    @Override
-    public void modifyTestElement(TestElement el) {
-        super.configureTestElement(el);
-        if (el instanceof XPath2Assertion) {
-            XPath2Assertion assertion = (XPath2Assertion) el;
-```
-
-### RuleId[ruleID=UnnecessarySuperQualifier]
-Qualifier `super` is unnecessary in this context
 in `src/components/src/main/java/org/apache/jmeter/assertions/gui/BeanShellAssertionGui.java`
 #### Snippet
 ```java
@@ -19046,6 +19034,18 @@ in `src/components/src/main/java/org/apache/jmeter/assertions/gui/JSONPathAssert
         super.configureTestElement(element);
         if (element instanceof JSONPathAssertion) {
             JSONPathAssertion jpAssertion = (JSONPathAssertion) element;
+```
+
+### RuleId[ruleID=UnnecessarySuperQualifier]
+Qualifier `super` is unnecessary in this context
+in `src/components/src/main/java/org/apache/jmeter/assertions/gui/XPath2AssertionGui.java`
+#### Snippet
+```java
+    @Override
+    public void modifyTestElement(TestElement el) {
+        super.configureTestElement(el);
+        if (el instanceof XPath2Assertion) {
+            XPath2Assertion assertion = (XPath2Assertion) el;
 ```
 
 ### RuleId[ruleID=UnnecessarySuperQualifier]
@@ -19116,9 +19116,9 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/DynamicStyle.java`
 #### Snippet
 ```java
     @API(since = "5.3", status = API.Status.EXPERIMENTAL)
-    public <T extends JComponent> T withBorder(T component, String resource) {
+    public <T extends JComponent> T withFont(T component, String resource) {
         return withDynamic(component, c -> {
-            c.setBorder(UIManager.getBorder(resource));
+            c.setFont(UIManager.getFont(resource));
         });
 ```
 
@@ -19128,9 +19128,9 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/DynamicStyle.java`
 #### Snippet
 ```java
     @API(since = "5.3", status = API.Status.EXPERIMENTAL)
-    public <T extends JComponent> T withFont(T component, String resource) {
+    public <T extends JComponent> T withBorder(T component, String resource) {
         return withDynamic(component, c -> {
-            c.setFont(UIManager.getFont(resource));
+            c.setBorder(UIManager.getBorder(resource));
         });
 ```
 
@@ -19811,26 +19811,14 @@ in `src/core/src/main/java/org/apache/jmeter/gui/UndoHistory.java`
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeTransferHandler.java`
-#### Snippet
-```java
-
-    // hold the nodes that should be removed on drop
-    private List<JMeterTreeNode> nodesForRemoval = null;
-
-    public JMeterTreeTransferHandler() {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
 in `src/core/src/main/java/org/apache/jmeter/gui/GuiPackage.java`
 #### Snippet
 ```java
+
+    /** The currently selected node in the tree. */
     private JMeterTreeNode currentNode = null;
 
     private boolean currentNodeUpdated = false;
-
-    /** The model for JMeter's test tree. */
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -19846,15 +19834,27 @@ in `src/core/src/main/java/org/apache/jmeter/gui/GuiPackage.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `src/core/src/main/java/org/apache/jmeter/gui/GuiPackage.java`
 #### Snippet
 ```java
-
-    /** The currently selected node in the tree. */
     private JMeterTreeNode currentNode = null;
 
     private boolean currentNodeUpdated = false;
+
+    /** The model for JMeter's test tree. */
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeTransferHandler.java`
+#### Snippet
+```java
+
+    // hold the nodes that should be removed on drop
+    private List<JMeterTreeNode> nodesForRemoval = null;
+
+    public JMeterTreeTransferHandler() {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -19867,18 +19867,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/util/FilePanelEntry.java`
     private boolean onlyDirectories = false;
 
     // Mainly needed for unit test Serializable tests
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/core/src/main/java/org/apache/jmeter/gui/util/TextBoxDialoger.java`
-#### Snippet
-```java
-    public static class TextBoxDoubleClick extends MouseAdapter {
-
-        private JTable table = null;
-
-        public TextBoxDoubleClick(JTable table) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -19907,14 +19895,14 @@ in `src/core/src/main/java/org/apache/jmeter/gui/util/TextBoxDialoger.java`
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `src/core/src/main/java/org/apache/jmeter/gui/util/FileListPanel.java`
+in `src/core/src/main/java/org/apache/jmeter/gui/util/TextBoxDialoger.java`
 #### Snippet
 ```java
-    private static final long serialVersionUID = 1L;
+    public static class TextBoxDoubleClick extends MouseAdapter {
 
-    private JTable files = null;
+        private JTable table = null;
 
-    private transient ObjectTableModel tableModel = null;
+        public TextBoxDoubleClick(JTable table) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -19927,6 +19915,18 @@ in `src/core/src/main/java/org/apache/jmeter/gui/util/FileListPanel.java`
     private transient ObjectTableModel tableModel = null;
 
     private static final String ACTION_BROWSE = "browse"; // $NON-NLS-1$
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/core/src/main/java/org/apache/jmeter/gui/util/FileListPanel.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    private JTable files = null;
+
+    private transient ObjectTableModel tableModel = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20026,15 +20026,15 @@ in `src/core/src/main/java/org/apache/jmeter/util/ScriptingBeanInfoSupport.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
+Field initialization to `null` is redundant
 in `src/core/src/main/java/org/apache/jmeter/util/BeanShellTestElement.java`
 #### Snippet
 ```java
-    private String script; // script (if file not provided)
 
-    private boolean resetInterpreter = false;
-    //-- For TestBean implementations only
 
+    private transient BeanShellInterpreter bshInterpreter = null;
+
+    private transient boolean hasInitFile = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20050,39 +20050,15 @@ in `src/core/src/main/java/org/apache/jmeter/util/BeanShellTestElement.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `src/core/src/main/java/org/apache/jmeter/util/BeanShellTestElement.java`
 #### Snippet
 ```java
+    private String script; // script (if file not provided)
 
+    private boolean resetInterpreter = false;
+    //-- For TestBean implementations only
 
-    private transient BeanShellInterpreter bshInterpreter = null;
-
-    private transient boolean hasInitFile = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
-#### Snippet
-```java
-    private double mean = 0;
-
-    private double deviation = 0;
-
-    private int count = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
-#### Snippet
-```java
-    private long minimum = Long.MAX_VALUE;
-
-    private int errors = 0;
-
-    private final String label;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20102,47 +20078,35 @@ Field initialization to `0` is redundant
 in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
 #### Snippet
 ```java
+    private double sumOfSquares = 0;
+
+    private double mean = 0;
+
+    private double deviation = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
+#### Snippet
+```java
+    private long minimum = Long.MAX_VALUE;
+
+    private int errors = 0;
+
+    private final String label;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
+#### Snippet
+```java
     private double deviation = 0;
 
     private int count = 0;
 
     private long bytes = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
-#### Snippet
-```java
-    private double sum = 0;
-
-    private double sumOfSquares = 0;
-
-    private double mean = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
-#### Snippet
-```java
-    private final String label;
-
-    private long startTime = 0;
-
-    private long elapsedTime = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
-#### Snippet
-```java
-public class Calculator {
-
-    private double sum = 0;
-
-    private double sumOfSquares = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20162,6 +20126,42 @@ Field initialization to `0` is redundant
 in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
 #### Snippet
 ```java
+    private double mean = 0;
+
+    private double deviation = 0;
+
+    private int count = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
+#### Snippet
+```java
+public class Calculator {
+
+    private double sum = 0;
+
+    private double sumOfSquares = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
+#### Snippet
+```java
+    private final String label;
+
+    private long startTime = 0;
+
+    private long elapsedTime = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
+#### Snippet
+```java
     private int count = 0;
 
     private long bytes = 0;
@@ -20174,11 +20174,11 @@ Field initialization to `0` is redundant
 in `src/core/src/main/java/org/apache/jmeter/util/Calculator.java`
 #### Snippet
 ```java
+    private double sum = 0;
+
     private double sumOfSquares = 0;
 
     private double mean = 0;
-
-    private double deviation = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20230,18 +20230,6 @@ in `src/core/src/main/java/org/apache/jmeter/util/JsseSSLManager.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/core/src/main/java/org/apache/jmeter/util/SSLManager.java`
-#### Snippet
-```java
-
-    /** Cache the TrustStore instance - null if no truststore name was provided */
-    private KeyStore trustStore = null;
-    // Have we yet tried to load the truststore?
-    private volatile boolean truststoreLoaded=false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `src/core/src/main/java/org/apache/jmeter/util/SSLManager.java`
 #### Snippet
@@ -20255,14 +20243,14 @@ in `src/core/src/main/java/org/apache/jmeter/util/SSLManager.java`
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
+in `src/core/src/main/java/org/apache/jmeter/util/SSLManager.java`
 #### Snippet
 ```java
-    // What host am I running on?
-    private static String localHostIP = null;
-    private static String localHostName = null;
-    private static String localHostFullName = null;
 
+    /** Cache the TrustStore instance - null if no truststore name was provided */
+    private KeyStore trustStore = null;
+    // Have we yet tried to load the truststore?
+    private volatile boolean truststoreLoaded=false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20282,11 +20270,11 @@ Field initialization to `null` is redundant
 in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
 #### Snippet
 ```java
-
     // What host am I running on?
     private static String localHostIP = null;
     private static String localHostName = null;
     private static String localHostFullName = null;
+
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20299,6 +20287,18 @@ in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
     private static volatile boolean ignoreResources = false; // Special flag for use in debugging resources
 
     private static final ThreadLocal<Perl5Matcher> localMatcher = ThreadLocal.withInitial(Perl5Matcher::new);
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/core/src/main/java/org/apache/jmeter/util/JMeterUtils.java`
+#### Snippet
+```java
+
+    // What host am I running on?
+    private static String localHostIP = null;
+    private static String localHostName = null;
+    private static String localHostFullName = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20386,18 +20386,6 @@ abstract class Job<T> implements Runnable {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/core/src/main/java/org/apache/jmeter/report/processor/FilterConsumer.java`
-#### Snippet
-```java
-    private SamplePredicate samplePredicate;
-
-    private boolean reverseFilter = false;
-
-    /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0L` is redundant
 in `src/core/src/main/java/org/apache/jmeter/report/processor/MinAggregator.java`
 #### Snippet
@@ -20407,6 +20395,18 @@ public class MinAggregator implements Aggregator {
     private long count = 0L;
     private double value = Double.MAX_VALUE;
 
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/core/src/main/java/org/apache/jmeter/report/processor/FilterConsumer.java`
+#### Snippet
+```java
+    private SamplePredicate samplePredicate;
+
+    private boolean reverseFilter = false;
+
+    /**
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20446,39 +20446,15 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/ErrorsSummaryConsu
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/report/processor/TimeRateAggregator.java`
-#### Snippet
-```java
-public class TimeRateAggregator implements Aggregator {
-
-    private long count = 0;
-    private long granularity = 1;
-    private double value = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/report/processor/TimeRateAggregator.java`
-#### Snippet
-```java
-    private long count = 0;
-    private long granularity = 1;
-    private double value = 0;
-
-    /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0L` is redundant
 in `src/core/src/main/java/org/apache/jmeter/report/processor/StatisticsSummaryData.java`
 #### Snippet
 ```java
+    private long firstTime = Long.MAX_VALUE;
+    private long endTime = Long.MIN_VALUE;
     private long bytes = 0L;
     private long sentBytes = 0L;
     private long errors = 0L;
-    private long total = 0L;
-    private final MeanAggregator mean;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20510,11 +20486,35 @@ Field initialization to `0L` is redundant
 in `src/core/src/main/java/org/apache/jmeter/report/processor/StatisticsSummaryData.java`
 #### Snippet
 ```java
-    private long firstTime = Long.MAX_VALUE;
-    private long endTime = Long.MIN_VALUE;
     private long bytes = 0L;
     private long sentBytes = 0L;
     private long errors = 0L;
+    private long total = 0L;
+    private final MeanAggregator mean;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/report/processor/TimeRateAggregator.java`
+#### Snippet
+```java
+    private long count = 0;
+    private long granularity = 1;
+    private double value = 0;
+
+    /**
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/report/processor/TimeRateAggregator.java`
+#### Snippet
+```java
+public class TimeRateAggregator implements Aggregator {
+
+    private long count = 0;
+    private long granularity = 1;
+    private double value = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20579,26 +20579,14 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/graph/impl/CustomG
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/control/RunTime.java`
+in `src/core/src/main/java/org/apache/jmeter/control/LoopController.java`
 #### Snippet
 ```java
-    private long startTime = 0;
+    private static final String CONTINUE_FOREVER = "LoopController.continue_forever"; // $NON-NLS-1$
 
-    private int loopCount = 0; // for getIterCount
+    private transient int loopCount = 0;
 
-    public RunTime() {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/control/RunTime.java`
-#### Snippet
-```java
-    private static final String SECONDS = "RunTime.seconds"; //$NON-NLS-1$
-
-    private long startTime = 0;
-
-    private int loopCount = 0; // for getIterCount
+    /**
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20663,14 +20651,26 @@ in `src/core/src/main/java/org/apache/jmeter/control/TransactionSampler.java`
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/control/LoopController.java`
+in `src/core/src/main/java/org/apache/jmeter/control/RunTime.java`
 #### Snippet
 ```java
-    private static final String CONTINUE_FOREVER = "LoopController.continue_forever"; // $NON-NLS-1$
+    private static final String SECONDS = "RunTime.seconds"; //$NON-NLS-1$
 
-    private transient int loopCount = 0;
+    private long startTime = 0;
 
-    /**
+    private int loopCount = 0; // for getIterCount
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/control/RunTime.java`
+#### Snippet
+```java
+    private long startTime = 0;
+
+    private int loopCount = 0; // for getIterCount
+
+    public RunTime() {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20692,21 +20692,9 @@ in `src/core/src/main/java/org/apache/jmeter/threads/JMeterContextService.java`
 ```java
 
     //@GuardedBy(JMeterContextService.class)
-    private static int numberOfThreadsFinished = 0;
+    private static int totalThreads = 0;
 
-    //@GuardedBy(JMeterContextService.class)
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/threads/JMeterContextService.java`
-#### Snippet
-```java
-
-    //@GuardedBy(JMeterContextService.class)
-    private static long testStart = 0;
-
-    //@GuardedBy(JMeterContextService.class)
+    private static UnmodifiableJMeterVariables variables;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20728,9 +20716,9 @@ in `src/core/src/main/java/org/apache/jmeter/threads/JMeterContextService.java`
 ```java
 
     //@GuardedBy(JMeterContextService.class)
-    private static int totalThreads = 0;
+    private static int numberOfThreadsFinished = 0;
 
-    private static UnmodifiableJMeterVariables variables;
+    //@GuardedBy(JMeterContextService.class)
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20741,6 +20729,18 @@ in `src/core/src/main/java/org/apache/jmeter/threads/JMeterContextService.java`
 
     //@GuardedBy(JMeterContextService.class)
     private static int numberOfActiveThreads = 0;
+
+    //@GuardedBy(JMeterContextService.class)
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/threads/JMeterContextService.java`
+#### Snippet
+```java
+
+    //@GuardedBy(JMeterContextService.class)
+    private static long testStart = 0;
 
     //@GuardedBy(JMeterContextService.class)
 ```
@@ -20771,102 +20771,6 @@ in `src/core/src/main/java/org/apache/jmeter/threads/ThreadGroup.java`
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/reporters/ResultSaver.java`
-#### Snippet
-```java
-    // File name sequence number
-    //@GuardedBy("LOCK")
-    private long sequenceNumber = 0;
-
-    //@GuardedBy("LOCK")
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/reporters/Summariser.java`
-#### Snippet
-```java
-
-        /** Time of last summary (to prevent double reporting) */
-        private long last = 0;
-
-        private final SummariserRunningSample delta = new SummariserRunningSample("DELTA");
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/core/src/main/java/org/apache/jmeter/reporters/Summariser.java`
-#### Snippet
-```java
-     * However the contents do need to be synchronized.
-     */
-    private transient Totals myTotals = null;
-
-    // Name of the accumulator. Set up by testStarted().
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleSaveConfiguration.java`
-#### Snippet
-```java
-
-    // Don't save this - only needed for processing CSV headers currently
-    private transient int varCount = 0;
-
-    public SampleSaveConfiguration() {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
-#### Snippet
-```java
-    private int initialDelay = 0;
-
-    private int threadNum = 0;
-
-    private long startTime = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
-#### Snippet
-```java
-    private AbstractThreadGroup threadGroup;
-
-    private StandardJMeterEngine engine = null; // For access to stop methods.
-
-    /*
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
-#### Snippet
-```java
-
-    // based on this scheduler is enabled or disabled
-    private boolean scheduler = false;
-
-    // Gives access to parent thread threadGroup
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
-#### Snippet
-```java
-    private long startTime = 0;
-
-    private long endTime = 0;
-
-    private final boolean isSameUserOnNextIteration;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
 in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
 #### Snippet
 ```java
@@ -20887,6 +20791,114 @@ in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
     private int initialDelay = 0;
 
     private int threadNum = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
+#### Snippet
+```java
+    private AbstractThreadGroup threadGroup;
+
+    private StandardJMeterEngine engine = null; // For access to stop methods.
+
+    /*
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
+#### Snippet
+```java
+    private long startTime = 0;
+
+    private long endTime = 0;
+
+    private final boolean isSameUserOnNextIteration;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
+#### Snippet
+```java
+    private int initialDelay = 0;
+
+    private int threadNum = 0;
+
+    private long startTime = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/core/src/main/java/org/apache/jmeter/threads/JMeterThread.java`
+#### Snippet
+```java
+
+    // based on this scheduler is enabled or disabled
+    private boolean scheduler = false;
+
+    // Gives access to parent thread threadGroup
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/reporters/ResultSaver.java`
+#### Snippet
+```java
+    // File name sequence number
+    //@GuardedBy("LOCK")
+    private long sequenceNumber = 0;
+
+    //@GuardedBy("LOCK")
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/core/src/main/java/org/apache/jmeter/reporters/Summariser.java`
+#### Snippet
+```java
+     * However the contents do need to be synchronized.
+     */
+    private transient Totals myTotals = null;
+
+    // Name of the accumulator. Set up by testStarted().
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/reporters/Summariser.java`
+#### Snippet
+```java
+
+        /** Time of last summary (to prevent double reporting) */
+        private long last = 0;
+
+        private final SummariserRunningSample delta = new SummariserRunningSample("DELTA");
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleSaveConfiguration.java`
+#### Snippet
+```java
+
+    // Don't save this - only needed for processing CSV headers currently
+    private transient int varCount = 0;
+
+    public SampleSaveConfiguration() {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/testbeans/BeanInfoSupport.java`
+#### Snippet
+```java
+
+    /** Number of groups created so far by createPropertyGroup. */
+    private int numCreatedGroups = 0;
+
+    /**
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20914,18 +20926,6 @@ in `src/core/src/main/java/org/apache/jmeter/reporters/ResultCollector.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/testbeans/BeanInfoSupport.java`
-#### Snippet
-```java
-
-    /** Number of groups created so far by createPropertyGroup. */
-    private int numCreatedGroups = 0;
-
-    /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
 in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/WrapperEditor.java`
 #### Snippet
@@ -20939,14 +20939,194 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/WrapperEditor.java`
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
 #### Snippet
 ```java
 
-    @SuppressWarnings("unused") // TODO - use or remove
-    private int scrollerCount = 0;
+    /** elapsed time */
+    private long elapsedTime = 0;
 
-    /**
+    /** time to first response */
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+    private long startTime = 0;
+
+    private long endTime = 0;
+
+    private long idleTime = 0;// Allow for non-sample time
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+
+    /** Should thread terminate? */
+    private boolean stopThread = false;
+
+    /** Should test terminate? */
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+    private long endTime = 0;
+
+    private long idleTime = 0;// Allow for non-sample time
+
+    /** Start of pause (if any) */
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+
+    /** Currently active threads in this thread group */
+    private volatile int groupThreads = 0;
+
+    /** Currently active threads in all thread groups */
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+    private long timeStamp = 0;
+
+    private long startTime = 0;
+
+    private long endTime = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+
+    /** Currently active threads in all thread groups */
+    private volatile int allThreads = 0;
+
+    private final long nanoTimeOffset;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+    private long bytes = 0; // Allows override of sample size in case sampler does not want to store all the data
+
+    private int headersSize = 0;
+
+    private long bodySize = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+
+    /** time to first response */
+    private long latency = 0;
+
+    /** time to end connecting */
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+    private int headersSize = 0;
+
+    private long bodySize = 0;
+
+    /** Currently active threads in this thread group */
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+
+    /** Should test terminate? */
+    private boolean stopTest = false;
+
+    /** Should test terminate abruptly? */
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+
+    /** Should test terminate abruptly? */
+    private boolean stopTestNow = false;
+
+    private int sampleCount = 1;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+
+    /** Start of pause (if any) */
+    private long pauseTime = 0;
+
+    private List<AssertionResult> assertionResults;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+    private int sampleCount = 1;
+
+    private long bytes = 0; // Allows override of sample size in case sampler does not want to store all the data
+
+    private int headersSize = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+
+    /** time to end connecting */
+    private long connectTime = 0;
+
+    /** Way to signal what to do on Test */
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+     * the time stamp - can be start or end
+     */
+    private long timeStamp = 0;
+
+    private long startTime = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -20986,18 +21166,6 @@ in `src/core/src/main/java/org/apache/jmeter/testelement/TestPlan.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/core/src/main/java/org/apache/jmeter/testelement/property/TestElementProperty.java`
-#### Snippet
-```java
-    private TestElement value;
-
-    private transient TestElement savedValue = null;
-
-    public TestElementProperty(String name, TestElement value) {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/ComboStringEditor.java`
 #### Snippet
@@ -21010,195 +21178,15 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/ComboStringEditor.jav
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+Field initialization to `null` is redundant
+in `src/core/src/main/java/org/apache/jmeter/testelement/property/TestElementProperty.java`
 #### Snippet
 ```java
-    private long bytes = 0; // Allows override of sample size in case sampler does not want to store all the data
+    private TestElement value;
 
-    private int headersSize = 0;
+    private transient TestElement savedValue = null;
 
-    private long bodySize = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-    private int sampleCount = 1;
-
-    private long bytes = 0; // Allows override of sample size in case sampler does not want to store all the data
-
-    private int headersSize = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-
-    /** Currently active threads in this thread group */
-    private volatile int groupThreads = 0;
-
-    /** Currently active threads in all thread groups */
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-    private long endTime = 0;
-
-    private long idleTime = 0;// Allow for non-sample time
-
-    /** Start of pause (if any) */
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-
-    /** Currently active threads in all thread groups */
-    private volatile int allThreads = 0;
-
-    private final long nanoTimeOffset;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-    private long startTime = 0;
-
-    private long endTime = 0;
-
-    private long idleTime = 0;// Allow for non-sample time
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-
-    /** Should test terminate abruptly? */
-    private boolean stopTestNow = false;
-
-    private int sampleCount = 1;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-
-    /** Should thread terminate? */
-    private boolean stopThread = false;
-
-    /** Should test terminate? */
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-
-    /** Start of pause (if any) */
-    private long pauseTime = 0;
-
-    private List<AssertionResult> assertionResults;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-
-    /** time to first response */
-    private long latency = 0;
-
-    /** time to end connecting */
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-     * the time stamp - can be start or end
-     */
-    private long timeStamp = 0;
-
-    private long startTime = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-
-    /** Should test terminate? */
-    private boolean stopTest = false;
-
-    /** Should test terminate abruptly? */
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-
-    /** elapsed time */
-    private long elapsedTime = 0;
-
-    /** time to first response */
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-    private int headersSize = 0;
-
-    private long bodySize = 0;
-
-    /** Currently active threads in this thread group */
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-
-    /** time to end connecting */
-    private long connectTime = 0;
-
-    /** Way to signal what to do on Test */
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-    private long timeStamp = 0;
-
-    private long startTime = 0;
-
-    private long endTime = 0;
+    public TestElementProperty(String name, TestElement value) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21214,6 +21202,18 @@ in `src/core/src/main/java/org/apache/jmeter/testelement/property/MapProperty.ja
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("unused") // TODO - use or remove
+    private int scrollerCount = 0;
+
+    /**
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
 in `src/core/src/main/java/org/apache/jmeter/testelement/AbstractTestElement.java`
 #### Snippet
@@ -21226,18 +21226,6 @@ in `src/core/src/main/java/org/apache/jmeter/testelement/AbstractTestElement.jav
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/core/src/main/java/org/apache/jmeter/testelement/AbstractTestElement.java`
-#### Snippet
-```java
-    private transient Set<JMeterProperty> temporaryProperties;
-
-    private transient boolean runningVersion = false;
-
-    // Thread-specific variables saved here to save recalculation
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
 in `src/core/src/main/java/org/apache/jmeter/testelement/AbstractTestElement.java`
 #### Snippet
@@ -21247,6 +21235,18 @@ in `src/core/src/main/java/org/apache/jmeter/testelement/AbstractTestElement.jav
     private transient JMeterContext threadContext = null;
 
     private transient String threadName = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/core/src/main/java/org/apache/jmeter/testelement/AbstractTestElement.java`
+#### Snippet
+```java
+    private transient Set<JMeterProperty> temporaryProperties;
+
+    private transient boolean runningVersion = false;
+
+    // Thread-specific variables saved here to save recalculation
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21314,11 +21314,11 @@ Field initialization to `null` is redundant
 in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableSorter.java`
 #### Snippet
 ```java
-    private SortKey sortkey;
-
-    private Comparator<Row> comparator  = null;
-    private ArrayList<Row>  viewToModel = new ArrayList<>();
     private int[]           modelToView = new int[0];
+
+    private Comparator<Row>  primaryComparator = null;
+    private Comparator<?>[]  valueComparators;
+    private Comparator<Row>  fallbackComparator;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21326,11 +21326,11 @@ Field initialization to `null` is redundant
 in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableSorter.java`
 #### Snippet
 ```java
-    private int[]           modelToView = new int[0];
+    private SortKey sortkey;
 
-    private Comparator<Row>  primaryComparator = null;
-    private Comparator<?>[]  valueComparators;
-    private Comparator<Row>  fallbackComparator;
+    private Comparator<Row> comparator  = null;
+    private ArrayList<Row>  viewToModel = new ArrayList<>();
+    private int[]           modelToView = new int[0];
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21350,11 +21350,11 @@ Field initialization to `0` is redundant
 in `src/jorphan/src/main/java/org/apache/jorphan/math/StatCalculator.java`
 #### Snippet
 ```java
-    private double sum = 0;
-
-    private double sumOfSquares = 0;
-
     private double mean = 0;
+
+    private double deviation = 0;
+
+    private long count = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21367,6 +21367,18 @@ in `src/jorphan/src/main/java/org/apache/jorphan/math/StatCalculator.java`
     private double sum = 0;
 
     private double sumOfSquares = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/jorphan/src/main/java/org/apache/jorphan/math/StatCalculator.java`
+#### Snippet
+```java
+    private double sumOfSquares = 0;
+
+    private double mean = 0;
+
+    private double deviation = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21398,23 +21410,11 @@ Field initialization to `0` is redundant
 in `src/jorphan/src/main/java/org/apache/jorphan/math/StatCalculator.java`
 #### Snippet
 ```java
+    private double sum = 0;
+
     private double sumOfSquares = 0;
 
     private double mean = 0;
-
-    private double deviation = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/jorphan/src/main/java/org/apache/jorphan/math/StatCalculator.java`
-#### Snippet
-```java
-    private double mean = 0;
-
-    private double deviation = 0;
-
-    private long count = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21506,18 +21506,6 @@ Field initialization to `null` is redundant
 in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
 #### Snippet
 ```java
-    private transient QueueSender producer;
-
-    private transient Receiver receiverThread = null;
-
-    private transient Throwable thrown = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
-#### Snippet
-```java
     private transient Throwable thrown = null;
 
     private transient Context context = null;
@@ -21535,6 +21523,18 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSam
     private transient Throwable thrown = null;
 
     private transient Context context = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
+#### Snippet
+```java
+    private transient QueueSender producer;
+
+    private transient Receiver receiverThread = null;
+
+    private transient Throwable thrown = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21602,18 +21602,6 @@ Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/TCLogParser.java`
 #### Snippet
 ```java
-    protected boolean useFILE = true;
-
-    protected File SOURCE = null;
-
-    protected String FILENAME = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/TCLogParser.java`
-#### Snippet
-```java
     protected File SOURCE = null;
 
     protected String FILENAME = null;
@@ -21626,11 +21614,11 @@ Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/TCLogParser.java`
 #### Snippet
 ```java
+    protected String FILENAME = null;
 
-    /** The path to the access log file */
-    protected String URL_PATH = null;
+    protected BufferedReader READER = null;
 
-    protected boolean useFILE = true;
+    /** Handles to supporting classes */
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21650,11 +21638,23 @@ Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/TCLogParser.java`
 #### Snippet
 ```java
+    protected boolean useFILE = true;
+
+    protected File SOURCE = null;
+
     protected String FILENAME = null;
+```
 
-    protected BufferedReader READER = null;
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/TCLogParser.java`
+#### Snippet
+```java
 
-    /** Handles to supporting classes */
+    /** The path to the access log file */
+    protected String URL_PATH = null;
+
+    protected boolean useFILE = true;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21662,47 +21662,11 @@ Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
 #### Snippet
 ```java
-    protected ArrayList<Pattern> INCPATTERNS = new ArrayList<>();
+    protected String OLDEXT = null;
 
-    protected String NEWFILE = null;
-
-    public LogFilter() {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
-#### Snippet
-```java
-    protected String[] EXCFILE = null;
-
-    protected boolean FILEFILTER = false;
-
-    protected boolean USEFILE = true;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
-#### Snippet
-```java
-    protected String[] INCPTRN = null;
-
-    protected String[] EXCPTRN = null;
-
-    protected boolean PTRNFILTER = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
-#### Snippet
-```java
     protected String NEWEXT = null;
 
     protected String[] INCFILE = null;
-
-    protected String[] EXCFILE = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21710,11 +21674,11 @@ Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
 #### Snippet
 ```java
-    protected String[] INCFILE = null;
+    protected boolean CHANGEEXT = false;
 
-    protected String[] EXCFILE = null;
+    protected String OLDEXT = null;
 
-    protected boolean FILEFILTER = false;
+    protected String NEWEXT = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21734,6 +21698,18 @@ Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
 #### Snippet
 ```java
+    protected String[] INCPTRN = null;
+
+    protected String[] EXCPTRN = null;
+
+    protected boolean PTRNFILTER = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
+#### Snippet
+```java
     protected boolean USEFILE = true;
 
     protected String[] INCPTRN = null;
@@ -21746,11 +21722,35 @@ Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
 #### Snippet
 ```java
-    protected String OLDEXT = null;
+    protected ArrayList<Pattern> INCPATTERNS = new ArrayList<>();
 
+    protected String NEWFILE = null;
+
+    public LogFilter() {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
+#### Snippet
+```java
+    protected String[] INCFILE = null;
+
+    protected String[] EXCFILE = null;
+
+    protected boolean FILEFILTER = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
+#### Snippet
+```java
     protected String NEWEXT = null;
 
     protected String[] INCFILE = null;
+
+    protected String[] EXCFILE = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21766,15 +21766,15 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accessl
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
 #### Snippet
 ```java
-    protected boolean CHANGEEXT = false;
+    protected String[] EXCFILE = null;
 
-    protected String OLDEXT = null;
+    protected boolean FILEFILTER = false;
 
-    protected String NEWEXT = null;
+    protected boolean USEFILE = true;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21802,90 +21802,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/gui/action/P
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
-#### Snippet
-```java
-
-    // accessed from Swing-Thread, only
-    private String oldPrefix = null;
-
-    private transient javax.swing.Timer sampleWorkerTimer;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
-#### Snippet
-```java
-    private volatile boolean addAssertions = false;
-
-    private volatile int groupingMode = 0;
-
-    private volatile boolean samplerRedirectAutomatically = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
-#### Snippet
-```java
-    private volatile boolean samplerRedirectAutomatically = false;
-
-    private volatile boolean samplerFollowRedirects = false;
-
-    private volatile boolean useKeepAlive = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
-#### Snippet
-```java
-    private volatile boolean notifyChildSamplerListenersOfFilteredSamples = true;
-
-    private volatile boolean regexMatch = false;
-
-    private Set<Class<?>> addableInterfaces = new HashSet<>(
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
-#### Snippet
-```java
-    private volatile boolean useKeepAlive = false;
-
-    private volatile boolean samplerDownloadImages = false;
-
-    private volatile boolean notifyChildSamplerListenersOfFilteredSamples = true;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
-#### Snippet
-```java
-    private transient KeyStore keyStore;
-
-    private volatile boolean addAssertions = false;
-
-    private volatile int groupingMode = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
-#### Snippet
-```java
-    private volatile int groupingMode = 0;
-
-    private volatile boolean samplerRedirectAutomatically = false;
-
-    private volatile boolean samplerFollowRedirects = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
 #### Snippet
@@ -21895,18 +21811,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyC
     private volatile boolean useKeepAlive = false;
 
     private volatile boolean samplerDownloadImages = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
-#### Snippet
-```java
-
-    // Although this field is mutable, it is only accessed within the synchronized method deliverSampler()
-    private static String LAST_REDIRECT = null;
-
-    private static final boolean USE_JAVA_REGEX = !JMeterUtils.getPropDefault(
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21923,6 +21827,102 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyC
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
+#### Snippet
+```java
+    private volatile boolean useKeepAlive = false;
+
+    private volatile boolean samplerDownloadImages = false;
+
+    private volatile boolean notifyChildSamplerListenersOfFilteredSamples = true;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
+#### Snippet
+```java
+    private volatile int groupingMode = 0;
+
+    private volatile boolean samplerRedirectAutomatically = false;
+
+    private volatile boolean samplerFollowRedirects = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
+#### Snippet
+```java
+
+    // accessed from Swing-Thread, only
+    private String oldPrefix = null;
+
+    private transient javax.swing.Timer sampleWorkerTimer;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
+#### Snippet
+```java
+    private transient KeyStore keyStore;
+
+    private volatile boolean addAssertions = false;
+
+    private volatile int groupingMode = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
+#### Snippet
+```java
+    private volatile boolean notifyChildSamplerListenersOfFilteredSamples = true;
+
+    private volatile boolean regexMatch = false;
+
+    private Set<Class<?>> addableInterfaces = new HashSet<>(
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
+#### Snippet
+```java
+
+    // Although this field is mutable, it is only accessed within the synchronized method deliverSampler()
+    private static String LAST_REDIRECT = null;
+
+    private static final boolean USE_JAVA_REGEX = !JMeterUtils.getPropDefault(
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
+#### Snippet
+```java
+    private volatile boolean samplerRedirectAutomatically = false;
+
+    private volatile boolean samplerFollowRedirects = false;
+
+    private volatile boolean useKeepAlive = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyControl.java`
+#### Snippet
+```java
+    private volatile boolean addAssertions = false;
+
+    private volatile int groupingMode = 0;
+
+    private volatile boolean samplerRedirectAutomatically = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/DefaultSamplerCreator.java`
 #### Snippet
 ```java
@@ -21935,26 +21935,14 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Defaul
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AjpSampler.java`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
 #### Snippet
 ```java
-    private int inpos = 0;
-    private int outpos = 0;
-    private transient String stringBody = null;
-    private transient InputStream body = null;
 
-```
+    /** Socket to client. */
+    private Socket clientSocket = null;
 
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AjpSampler.java`
-#### Snippet
-```java
-    static final int MAX_SEND_SIZE = 8*1024 - 4 - 4;
-
-    private transient Socket channel = null;
-    private transient Socket activeChannel = null;
-    private int lastPort = -1;
+    /** Target to receive the generated sampler. */
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21986,11 +21974,11 @@ Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AjpSampler.java`
 #### Snippet
 ```java
-    private String lastHost = null;
-    private String localName = null;
-    private String localAddress = null;
-    private final byte [] inbuf = new byte[8*1024];
-    private final byte [] outbuf = new byte[8*1024];
+    private int inpos = 0;
+    private int outpos = 0;
+    private transient String stringBody = null;
+    private transient InputStream body = null;
+
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -21998,11 +21986,11 @@ Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AjpSampler.java`
 #### Snippet
 ```java
+
+    private transient Socket channel = null;
+    private transient Socket activeChannel = null;
     private int lastPort = -1;
     private String lastHost = null;
-    private String localName = null;
-    private String localAddress = null;
-    private final byte [] inbuf = new byte[8*1024];
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22022,18 +22010,6 @@ Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AjpSampler.java`
 #### Snippet
 ```java
-
-    private transient Socket channel = null;
-    private transient Socket activeChannel = null;
-    private int lastPort = -1;
-    private String lastHost = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AjpSampler.java`
-#### Snippet
-```java
     private transient Socket activeChannel = null;
     private int lastPort = -1;
     private String lastHost = null;
@@ -22043,26 +22019,38 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AjpS
 
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Proxy.java`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AjpSampler.java`
 #### Snippet
 ```java
-
-    /** Socket to client. */
-    private Socket clientSocket = null;
-
-    /** Target to receive the generated sampler. */
+    private String lastHost = null;
+    private String localName = null;
+    private String localAddress = null;
+    private final byte [] inbuf = new byte[8*1024];
+    private final byte [] outbuf = new byte[8*1024];
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AccessLogSampler.java`
+Field initialization to `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AjpSampler.java`
 #### Snippet
 ```java
-    private transient Filter filter;
+    static final int MAX_SEND_SIZE = 8*1024 - 4 - 4;
 
-    private int count = 0;
+    private transient Socket channel = null;
+    private transient Socket activeChannel = null;
+    private int lastPort = -1;
+```
 
-    private boolean started = false;
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AjpSampler.java`
+#### Snippet
+```java
+    private int lastPort = -1;
+    private String lastHost = null;
+    private String localName = null;
+    private String localAddress = null;
+    private final byte [] inbuf = new byte[8*1024];
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22090,6 +22078,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/Acce
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/AccessLogSampler.java`
+#### Snippet
+```java
+    private transient Filter filter;
+
+    private int count = 0;
+
+    private boolean started = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/ResourcesDownloader.java`
 #### Snippet
@@ -22099,30 +22099,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/Reso
     private ThreadPoolExecutor concurrentExecutor = null;
 
     private ResourcesDownloader() {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/RequestViewHTTP.java`
-#### Snippet
-```java
-    private ObjectTableModel paramsModel = null;
-
-    private ObjectTableModel headersModel = null;
-
-    private static final String[] COLUMNS_REQUEST = new String[] {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/RequestViewHTTP.java`
-#### Snippet
-```java
-    private JTable tableRequest = null;
-
-    private JTable tableParams = null;
-
-    private JTable tableHeaders = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22142,11 +22118,11 @@ Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/RequestViewHTTP.java`
 #### Snippet
 ```java
-    private JTable tableParams = null;
+    private JPanel paneParsed;
 
-    private JTable tableHeaders = null;
+    private ObjectTableModel requestModel = null;
 
-    // Request headers column renderers
+    private ObjectTableModel paramsModel = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22166,11 +22142,35 @@ Field initialization to `null` is redundant
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/RequestViewHTTP.java`
 #### Snippet
 ```java
-    private JPanel paneParsed;
+    private JTable tableRequest = null;
 
-    private ObjectTableModel requestModel = null;
+    private JTable tableParams = null;
 
+    private JTable tableHeaders = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/RequestViewHTTP.java`
+#### Snippet
+```java
     private ObjectTableModel paramsModel = null;
+
+    private ObjectTableModel headersModel = null;
+
+    private static final String[] COLUMNS_REQUEST = new String[] {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/RequestViewHTTP.java`
+#### Snippet
+```java
+    private JTable tableParams = null;
+
+    private JTable tableHeaders = null;
+
+    // Request headers column renderers
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22190,9 +22190,9 @@ Field initialization to `null` is redundant
 in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JavaSampler.java`
 #### Snippet
 ```java
-     * client.
+     * the sample.
      */
-    private transient JavaSamplerContext context = null;
+    private transient JavaSamplerClient javaClient = null;
 
     /**
 ```
@@ -22202,9 +22202,9 @@ Field initialization to `null` is redundant
 in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JavaSampler.java`
 #### Snippet
 ```java
-     * the sample.
+     * client.
      */
-    private transient JavaSamplerClient javaClient = null;
+    private transient JavaSamplerContext context = null;
 
     /**
 ```
@@ -22270,30 +22270,6 @@ in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/mongo/
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/functions/src/main/java/org/apache/jmeter/functions/BeanShell.java`
-#### Snippet
-```java
-    private Object[] values;
-
-    private BeanShellInterpreter bshInterpreter = null;
-
-    public BeanShell() {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/functions/src/main/java/org/apache/jmeter/functions/TimeShift.java`
-#### Snippet
-```java
-
-    /** Date time format cache handler **/
-    private Cache<LocaleFormatObject, DateTimeFormatter> dateTimeFormatterCache = null;
-
-    public TimeShift() {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
 in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/SendMailCommand.java`
 #### Snippet
@@ -22310,35 +22286,23 @@ Field initialization to `false` is redundant
 in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/SendMailCommand.java`
 #### Snippet
 ```java
-    private boolean useSSL = false;
-    private boolean useStartTLS = false;
-    private boolean trustAllCerts = false;
-    private boolean enforceStartTLS = false;
-    private boolean sendEmlMessage = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/SendMailCommand.java`
-#### Snippet
-```java
-
-    private boolean useSSL = false;
-    private boolean useStartTLS = false;
-    private boolean trustAllCerts = false;
-    private boolean enforceStartTLS = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/SendMailCommand.java`
-#### Snippet
-```java
     private boolean useStartTLS = false;
     private boolean trustAllCerts = false;
     private boolean enforceStartTLS = false;
     private boolean sendEmlMessage = false;
     private boolean enableDebug;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/SendMailCommand.java`
+#### Snippet
+```java
+
+    private boolean useSSL = false;
+    private boolean useStartTLS = false;
+    private boolean trustAllCerts = false;
+    private boolean enforceStartTLS = false;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22363,6 +22327,42 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/prot
     private boolean useSSL = false;
     private boolean useStartTLS = false;
     private boolean trustAllCerts = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/SendMailCommand.java`
+#### Snippet
+```java
+    private boolean useSSL = false;
+    private boolean useStartTLS = false;
+    private boolean trustAllCerts = false;
+    private boolean enforceStartTLS = false;
+    private boolean sendEmlMessage = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/functions/src/main/java/org/apache/jmeter/functions/BeanShell.java`
+#### Snippet
+```java
+    private Object[] values;
+
+    private BeanShellInterpreter bshInterpreter = null;
+
+    public BeanShell() {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/functions/src/main/java/org/apache/jmeter/functions/TimeShift.java`
+#### Snippet
+```java
+
+    /** Date time format cache handler **/
+    private Cache<LocaleFormatObject, DateTimeFormatter> dateTimeFormatterCache = null;
+
+    public TimeShift() {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22406,11 +22406,11 @@ Field initialization to `false` is redundant
 in `src/components/src/main/java/org/apache/jmeter/config/CSVDataSet.java`
 #### Snippet
 ```java
-    private transient String shareMode;
-
     private boolean firstLineIsNames = false;
 
     private boolean ignoreFirstLine = false;
+
+    private Object readResolve(){
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22418,11 +22418,11 @@ Field initialization to `false` is redundant
 in `src/components/src/main/java/org/apache/jmeter/config/CSVDataSet.java`
 #### Snippet
 ```java
+    private transient String shareMode;
+
     private boolean firstLineIsNames = false;
 
     private boolean ignoreFirstLine = false;
-
-    private Object readResolve(){
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22478,18 +22478,6 @@ Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/control/IncludeController.java`
 #### Snippet
 ```java
-                ""); //$NON-NLS-1$
-
-    private HashTree subtree = null;
-    private TestElement sub = null;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/control/IncludeController.java`
-#### Snippet
-```java
 
     private HashTree subtree = null;
     private TestElement sub = null;
@@ -22498,15 +22486,15 @@ in `src/components/src/main/java/org/apache/jmeter/control/IncludeController.jav
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.java`
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/control/IncludeController.java`
 #### Snippet
 ```java
-    private static final String INDEX_DEFAULT_VALUE = ""; // start/end index default value for string getters and setters
+                ""); //$NON-NLS-1$
 
-    private int loopCount = 0;
+    private HashTree subtree = null;
+    private TestElement sub = null;
 
-    private boolean breakLoop;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22519,6 +22507,18 @@ in `src/components/src/main/java/org/apache/jmeter/control/ThroughputController.
     private int numExecutions = 0;
 
     /** Index of the current iteration. 0-based. */
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.java`
+#### Snippet
+```java
+    private static final String INDEX_DEFAULT_VALUE = ""; // start/end index default value for string getters and setters
+
+    private int loopCount = 0;
+
+    private boolean breakLoop;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22543,90 +22543,6 @@ in `src/components/src/main/java/org/apache/jmeter/control/gui/ModuleControllerG
     private JMeterTreeNode selected = null;
 
     /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/assertions/gui/JSONPathAssertionGui.java`
-#### Snippet
-```java
-    private static final String JSON_ASSERTION_TITLE = "json_assertion_title";
-
-    protected JTextField jsonPath = null;
-    protected JSyntaxTextArea jsonValue = null;
-    protected JCheckBox jsonValidation = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/assertions/gui/JSONPathAssertionGui.java`
-#### Snippet
-```java
-    protected JTextField jsonPath = null;
-    protected JSyntaxTextArea jsonValue = null;
-    protected JCheckBox jsonValidation = null;
-    protected JCheckBox expectNull = null;
-    protected JCheckBox invert = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/assertions/gui/JSONPathAssertionGui.java`
-#### Snippet
-```java
-
-    protected JTextField jsonPath = null;
-    protected JSyntaxTextArea jsonValue = null;
-    protected JCheckBox jsonValidation = null;
-    protected JCheckBox expectNull = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/assertions/gui/JSONPathAssertionGui.java`
-#### Snippet
-```java
-    protected JCheckBox jsonValidation = null;
-    protected JCheckBox expectNull = null;
-    protected JCheckBox invert = null;
-    protected JCheckBox isRegex;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/assertions/gui/JSONPathAssertionGui.java`
-#### Snippet
-```java
-    protected JSyntaxTextArea jsonValue = null;
-    protected JCheckBox jsonValidation = null;
-    protected JCheckBox expectNull = null;
-    protected JCheckBox invert = null;
-    protected JCheckBox isRegex;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/components/src/main/java/org/apache/jmeter/reporters/MailerModel.java`
-#### Snippet
-```java
-    private long failureCount = 0;
-
-    private long successCount = 0;
-
-    private boolean failureMsgSent = false;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/components/src/main/java/org/apache/jmeter/reporters/MailerModel.java`
-#### Snippet
-```java
-    private static final String MAIL_SMTP_STARTTLS = "mail.smtp.starttls.enable"; //$NON-NLS-1$
-
-    private long failureCount = 0;
-
-    private long successCount = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22666,6 +22582,126 @@ in `src/components/src/main/java/org/apache/jmeter/reporters/MailerModel.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/components/src/main/java/org/apache/jmeter/reporters/MailerModel.java`
+#### Snippet
+```java
+    private static final String MAIL_SMTP_STARTTLS = "mail.smtp.starttls.enable"; //$NON-NLS-1$
+
+    private long failureCount = 0;
+
+    private long successCount = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/components/src/main/java/org/apache/jmeter/reporters/MailerModel.java`
+#### Snippet
+```java
+    private long failureCount = 0;
+
+    private long successCount = 0;
+
+    private boolean failureMsgSent = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/assertions/gui/JSONPathAssertionGui.java`
+#### Snippet
+```java
+    protected JSyntaxTextArea jsonValue = null;
+    protected JCheckBox jsonValidation = null;
+    protected JCheckBox expectNull = null;
+    protected JCheckBox invert = null;
+    protected JCheckBox isRegex;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/assertions/gui/JSONPathAssertionGui.java`
+#### Snippet
+```java
+    protected JTextField jsonPath = null;
+    protected JSyntaxTextArea jsonValue = null;
+    protected JCheckBox jsonValidation = null;
+    protected JCheckBox expectNull = null;
+    protected JCheckBox invert = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/assertions/gui/JSONPathAssertionGui.java`
+#### Snippet
+```java
+    private static final String JSON_ASSERTION_TITLE = "json_assertion_title";
+
+    protected JTextField jsonPath = null;
+    protected JSyntaxTextArea jsonValue = null;
+    protected JCheckBox jsonValidation = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/assertions/gui/JSONPathAssertionGui.java`
+#### Snippet
+```java
+
+    protected JTextField jsonPath = null;
+    protected JSyntaxTextArea jsonValue = null;
+    protected JCheckBox jsonValidation = null;
+    protected JCheckBox expectNull = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/assertions/gui/JSONPathAssertionGui.java`
+#### Snippet
+```java
+    protected JCheckBox jsonValidation = null;
+    protected JCheckBox expectNull = null;
+    protected JCheckBox invert = null;
+    protected JCheckBox isRegex;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/assertions/gui/HTMLAssertionGui.java`
+#### Snippet
+```java
+    private JComboBox<String> docTypeBox = null;
+
+    private JRadioButton htmlRadioButton = null;
+
+    private JRadioButton xhtmlRadioButton = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/assertions/gui/HTMLAssertionGui.java`
+#### Snippet
+```java
+    private JRadioButton htmlRadioButton = null;
+
+    private JRadioButton xhtmlRadioButton = null;
+
+    private JRadioButton xmlRadioButton = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/assertions/gui/HTMLAssertionGui.java`
+#### Snippet
+```java
+    private JTextField warningThresholdField = null;
+
+    private JCheckBox errorsOnly = null;
+
+    private JComboBox<String> docTypeBox = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/assertions/gui/HTMLAssertionGui.java`
 #### Snippet
@@ -22694,11 +22730,11 @@ Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/assertions/gui/HTMLAssertionGui.java`
 #### Snippet
 ```java
-    private JRadioButton htmlRadioButton = null;
+    private JTextField errorThresholdField = null;
 
-    private JRadioButton xhtmlRadioButton = null;
+    private JTextField warningThresholdField = null;
 
-    private JRadioButton xmlRadioButton = null;
+    private JCheckBox errorsOnly = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22718,47 +22754,11 @@ Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/assertions/gui/HTMLAssertionGui.java`
 #### Snippet
 ```java
-    private JTextField warningThresholdField = null;
-
-    private JCheckBox errorsOnly = null;
-
-    private JComboBox<String> docTypeBox = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/assertions/gui/HTMLAssertionGui.java`
-#### Snippet
-```java
-    private JTextField errorThresholdField = null;
-
-    private JTextField warningThresholdField = null;
-
-    private JCheckBox errorsOnly = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/assertions/gui/HTMLAssertionGui.java`
-#### Snippet
-```java
     private JRadioButton xhtmlRadioButton = null;
 
     private JRadioButton xmlRadioButton = null;
 
     private FilePanel filePanel = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/assertions/gui/HTMLAssertionGui.java`
-#### Snippet
-```java
-    private JComboBox<String> docTypeBox = null;
-
-    private JRadioButton htmlRadioButton = null;
-
-    private JRadioButton xhtmlRadioButton = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22802,30 +22802,6 @@ Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
 #### Snippet
 ```java
-    private JTextField dataField = null;
-
-    private JTextField averageField = null;
-
-    private JTextField deviationField = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
-#### Snippet
-```java
-    private JTextField averageField = null;
-
-    private JTextField deviationField = null;
-
-    private JTextField noSamplesField = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
-#### Snippet
-```java
     private JCheckBox autoscroll = null;
 
     private JCheckBox childSamples = null;
@@ -22838,47 +22814,11 @@ Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
 #### Snippet
 ```java
-    private JTextField noSamplesField = null;
+    private ObjectTableModel model = null;
 
-    private JScrollPane tableScrollPanel = null;
-
-    private JCheckBox autoscroll = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
-#### Snippet
-```java
-    private JScrollPane tableScrollPanel = null;
-
-    private JCheckBox autoscroll = null;
-
-    private JCheckBox childSamples = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
-#### Snippet
-```java
-    private JTextField deviationField = null;
-
-    private JTextField noSamplesField = null;
-
-    private JScrollPane tableScrollPanel = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
-#### Snippet
-```java
     private JTable table = null;
 
     private JTextField dataField = null;
-
-    private JTextField averageField = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22898,11 +22838,83 @@ Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
 #### Snippet
 ```java
-    private ObjectTableModel model = null;
+    private JTextField dataField = null;
 
+    private JTextField averageField = null;
+
+    private JTextField deviationField = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
+#### Snippet
+```java
+    private JScrollPane tableScrollPanel = null;
+
+    private JCheckBox autoscroll = null;
+
+    private JCheckBox childSamples = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
+#### Snippet
+```java
+    private JTextField deviationField = null;
+
+    private JTextField noSamplesField = null;
+
+    private JScrollPane tableScrollPanel = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
+#### Snippet
+```java
     private JTable table = null;
 
     private JTextField dataField = null;
+
+    private JTextField averageField = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
+#### Snippet
+```java
+    private JTextField noSamplesField = null;
+
+    private JScrollPane tableScrollPanel = null;
+
+    private JCheckBox autoscroll = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
+#### Snippet
+```java
+    private JTextField averageField = null;
+
+    private JTextField deviationField = null;
+
+    private JTextField noSamplesField = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/components/src/main/java/org/apache/jmeter/visualizers/SearchTextExtension.java`
+#### Snippet
+```java
+    public static class JEditorPaneSearchProvider implements ISearchTextExtensionProvider {
+
+        private static volatile int LAST_POSITION_DEFAULT = 0;
+        private static final Color HIGHLIGHT_COLOR = Color.GREEN;
+        private JEditorPane results;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -22927,30 +22939,6 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/LineGraph.java`
     protected int shape_counter = 0;
     protected int paint_counter = -1;
 
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/components/src/main/java/org/apache/jmeter/visualizers/SearchTextExtension.java`
-#### Snippet
-```java
-    public static class JEditorPaneSearchProvider implements ISearchTextExtensionProvider {
-
-        private static volatile int LAST_POSITION_DEFAULT = 0;
-        private static final Color HIGHLIGHT_COLOR = Color.GREEN;
-        private JEditorPane results;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
-#### Snippet
-```java
-    private int colorIdx = 0;
-
-    private Pattern pattern = null;
-
-    private final List<Color> listColors = Colors.getColors();
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -23002,15 +22990,27 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisu
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
+Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
 #### Snippet
 ```java
-    private final Map<String, Map<Long, StatCalculatorLong>> pList = new LinkedHashMap<>();
+    private final transient Object lockInterval = new Object();
 
-    private long durationTest = 0;
+    private RespTimeGraphChart graphPanel = null;
 
+    private final JTabbedPane tabbedGraph = new JTabbedPane(SwingConstants.TOP);
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
+#### Snippet
+```java
     private int colorIdx = 0;
+
+    private Pattern pattern = null;
+
+    private final List<Color> listColors = Colors.getColors();
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -23026,27 +23026,15 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisu
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
+Field initialization to `0` is redundant
 in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
 #### Snippet
 ```java
-    private final transient Object lockInterval = new Object();
+    private final Map<String, Map<Long, StatCalculatorLong>> pList = new LinkedHashMap<>();
 
-    private RespTimeGraphChart graphPanel = null;
+    private long durationTest = 0;
 
-    private final JTabbedPane tabbedGraph = new JTabbedPane(SwingConstants.TOP);
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.java`
-#### Snippet
-```java
-
-    // to save last select tab (raw/parsed)
-    private int lastResultTabIndex= 0;
-
-    // Result column renderers
+    private int colorIdx = 0;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -23078,23 +23066,11 @@ Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.java`
 #### Snippet
 ```java
-    private JTable tableResHeaders = null;
+    private Object userObject = null; // Could be SampleResult or AssertionResult
 
-    private JTable tableResFields = null;
+    private SampleResult sampleResult = null;
 
-    private JTabbedPane tabbedResult = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.java`
-#### Snippet
-```java
-    private JTabbedPane tabbedResult = null;
-
-    private JScrollPane paneRaw = null;
-
-    private JSplitPane paneParsed = null;
+    private AssertionResult assertionResult = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -23114,11 +23090,11 @@ Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.java`
 #### Snippet
 ```java
-    private Object userObject = null; // Could be SampleResult or AssertionResult
+    private JTabbedPane tabbedResult = null;
 
-    private SampleResult sampleResult = null;
+    private JScrollPane paneRaw = null;
 
-    private AssertionResult assertionResult = null;
+    private JSplitPane paneParsed = null;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -23138,6 +23114,30 @@ Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.java`
 #### Snippet
 ```java
+    private SampleResult sampleResult = null;
+
+    private AssertionResult assertionResult = null;
+
+    protected SearchTextExtension searchTextExtension;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.java`
+#### Snippet
+```java
+
+    // to save last select tab (raw/parsed)
+    private int lastResultTabIndex= 0;
+
+    // Result column renderers
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.java`
+#### Snippet
+```java
     private int lastSelectedTab;
 
     private Object userObject = null; // Could be SampleResult or AssertionResult
@@ -23150,11 +23150,47 @@ Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/visualizers/SamplerResultTab.java`
 #### Snippet
 ```java
-    private SampleResult sampleResult = null;
+    private JTable tableResHeaders = null;
 
-    private AssertionResult assertionResult = null;
+    private JTable tableResFields = null;
 
-    protected SearchTextExtension searchTextExtension;
+    private JTabbedPane tabbedResult = null;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+#### Snippet
+```java
+    private int selectedTab;
+    private ResultRenderer resultsRender = null;
+    private Object resultsObject = null;
+    private TreeSelectionEvent lastSelectionEvent;
+    private JCheckBox autoScrollCB;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+#### Snippet
+```java
+    private JComboBox<ResultRenderer> selectRenderPanel;
+    private int selectedTab;
+    private ResultRenderer resultsRender = null;
+    private Object resultsObject = null;
+    private TreeSelectionEvent lastSelectionEvent;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
+#### Snippet
+```java
+    private String yAxisTitle = JMeterUtils.getResString("aggregate_graph_ms");        //$NON-NLS-1$
+
+    private boolean saveGraphToFile = false;
+
+    private int defaultWidth = 400;
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -23186,18 +23222,6 @@ Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
 #### Snippet
 ```java
-    private int nbColToGraph = 1;
-
-    private Pattern pattern = null;
-
-    private Deque<SamplingStatCalculator> newRows = new ConcurrentLinkedDeque<>();
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
-#### Snippet
-```java
     private JPanel settingsPane = null;
 
     private JSplitPane spane = null;
@@ -23206,39 +23230,15 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualiz
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
+Field initialization to `null` is redundant
 in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
 #### Snippet
 ```java
-    private String yAxisTitle = JMeterUtils.getResString("aggregate_graph_ms");        //$NON-NLS-1$
+    private int nbColToGraph = 1;
 
-    private boolean saveGraphToFile = false;
+    private Pattern pattern = null;
 
-    private int defaultWidth = 400;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
-#### Snippet
-```java
-    private int selectedTab;
-    private ResultRenderer resultsRender = null;
-    private Object resultsObject = null;
-    private TreeSelectionEvent lastSelectionEvent;
-    private JCheckBox autoScrollCB;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
-#### Snippet
-```java
-    private JComboBox<ResultRenderer> selectRenderPanel;
-    private int selectedTab;
-    private ResultRenderer resultsRender = null;
-    private Object resultsObject = null;
-    private TreeSelectionEvent lastSelectionEvent;
+    private Deque<SamplingStatCalculator> newRows = new ConcurrentLinkedDeque<>();
 ```
 
 ## RuleId[ruleID=PrivatePropertyName]
@@ -23341,24 +23341,24 @@ public class Argument extends AbstractTestElement implements Serializable {
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/core/src/main/java/org/apache/jmeter/engine/JMeterEngineException.java`
-#### Snippet
-```java
- * Exception class for use by {@link JMeterEngine#runTest()} and {@link RemoteJMeterEngine#rrunTest()}
- */
-public class JMeterEngineException extends Exception implements Serializable {
-    private static final long serialVersionUID = 240L;
-
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
 in `src/core/src/main/java/org/apache/jmeter/config/Arguments.java`
 #### Snippet
 ```java
  *
  */
 public class Arguments extends ConfigTestElement implements Serializable, Iterable<JMeterProperty> {
+    private static final long serialVersionUID = 240L;
+
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
+in `src/core/src/main/java/org/apache/jmeter/engine/JMeterEngineException.java`
+#### Snippet
+```java
+ * Exception class for use by {@link JMeterEngine#runTest()} and {@link RemoteJMeterEngine#rrunTest()}
+ */
+public class JMeterEngineException extends Exception implements Serializable {
     private static final long serialVersionUID = 240L;
 
 ```
@@ -23401,18 +23401,6 @@ public class WhileController extends GenericController implements Serializable, 
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/core/src/main/java/org/apache/jmeter/control/RunTime.java`
-#### Snippet
-```java
- * Runtime Controller that runs its children until configured Runtime(s) is exceeded
- */
-public class RunTime extends GenericController implements Serializable {
-
-    private static final long serialVersionUID = 240L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
 in `src/core/src/main/java/org/apache/jmeter/control/LoopController.java`
 #### Snippet
 ```java
@@ -23433,6 +23421,18 @@ in `src/core/src/main/java/org/apache/jmeter/control/LoopController.java`
 public class LoopController extends GenericController implements Serializable, IteratingController, LoopIterationListener {
 
     public static final int INFINITE_LOOP_COUNT = -1; // $NON-NLS-1$
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
+in `src/core/src/main/java/org/apache/jmeter/control/RunTime.java`
+#### Snippet
+```java
+ * Runtime Controller that runs its children until configured Runtime(s) is exceeded
+ */
+public class RunTime extends GenericController implements Serializable {
+
+    private static final long serialVersionUID = 240L;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -23508,18 +23508,6 @@ public class PostThreadGroupGui extends ThreadGroupGui implements ItemListener {
 ```
 
 ### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
-in `src/core/src/main/java/org/apache/jmeter/threads/AbstractThreadGroup.java`
-#### Snippet
-```java
- */
-public abstract class AbstractThreadGroup extends AbstractTestElement
-    implements Serializable, Controller, JMeterThreadMonitor, TestCompilerHelper {
-
-    private static final long serialVersionUID = 240L;
-```
-
-### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `ItemListener`
 in `src/core/src/main/java/org/apache/jmeter/threads/gui/SetupThreadGroupGui.java`
 #### Snippet
@@ -23529,6 +23517,18 @@ in `src/core/src/main/java/org/apache/jmeter/threads/gui/SetupThreadGroupGui.jav
 public class SetupThreadGroupGui extends ThreadGroupGui implements ItemListener {
     private static final long serialVersionUID = 240L;
 
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
+in `src/core/src/main/java/org/apache/jmeter/threads/AbstractThreadGroup.java`
+#### Snippet
+```java
+ */
+public abstract class AbstractThreadGroup extends AbstractTestElement
+    implements Serializable, Controller, JMeterThreadMonitor, TestCompilerHelper {
+
+    private static final long serialVersionUID = 240L;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -23701,18 +23701,6 @@ public class JMSProperty extends AbstractTestElement implements Serializable {
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/HTTPFileArg.java`
-#### Snippet
-```java
- *
- */
-public class HTTPFileArg extends AbstractTestElement implements Serializable {
-
-    private static final long serialVersionUID = 240L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/HTTPArgument.java`
 #### Snippet
 ```java
@@ -23721,6 +23709,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/HTTPArg
 public class HTTPArgument extends Argument implements Serializable {
     private static final String DEFAULT_CONTENT_TYPE = "text/plain";
 
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/HTTPFileArg.java`
+#### Snippet
+```java
+ *
+ */
+public class HTTPFileArg extends AbstractTestElement implements Serializable {
+
+    private static final long serialVersionUID = 240L;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -23761,14 +23761,14 @@ public class ProxyControlGui extends LogicControllerGui implements JMeterGUIComp
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/DNSCacheManager.java`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/Authorization.java`
 #### Snippet
 ```java
- * @since 2.12
+ *
  */
-public class DNSCacheManager extends ConfigTestElement implements TestIterationListener, Serializable, DnsResolver {
+public class Authorization extends AbstractTestElement implements Serializable {
 
-    private static final long serialVersionUID = 2122L;
+    private static final long serialVersionUID = 241L;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -23785,14 +23785,14 @@ public class StaticHost extends AbstractTestElement implements Serializable {
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/Authorization.java`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/DNSCacheManager.java`
 #### Snippet
 ```java
- *
+ * @since 2.12
  */
-public class Authorization extends AbstractTestElement implements Serializable {
+public class DNSCacheManager extends ConfigTestElement implements TestIterationListener, Serializable, DnsResolver {
 
-    private static final long serialVersionUID = 241L;
+    private static final long serialVersionUID = 2122L;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -23809,18 +23809,6 @@ public class Cookie extends AbstractTestElement implements Serializable {
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/HeaderManager.java`
-#### Snippet
-```java
- *
- */
-public class HeaderManager extends ConfigTestElement implements Serializable, Replaceable {
-
-    private static final long serialVersionUID = 240L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CookieManager.java`
 #### Snippet
 ```java
@@ -23829,6 +23817,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/Cook
 public class CookieManager extends ConfigTestElement implements TestStateListener, TestIterationListener, Serializable {
     private static final long serialVersionUID = 234L;
 
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/HeaderManager.java`
+#### Snippet
+```java
+ *
+ */
+public class HeaderManager extends ConfigTestElement implements Serializable, Replaceable {
+
+    private static final long serialVersionUID = 240L;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -23917,30 +23917,6 @@ public class JSR223Sampler extends JSR223TestElement implements Cloneable, Sampl
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
- * Handles HTTP Caching.
- */
-public class CacheManager extends ConfigTestElement implements TestStateListener, TestIterationListener, Serializable {
-
-    private static final long serialVersionUID = 236L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
-in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/config/gui/LDAPArgument.java`
-#### Snippet
-```java
- * author Michael Stover author Mark Walsh
- */
-public class LDAPArgument extends AbstractTestElement implements Serializable {
-
-    private static final long serialVersionUID = 240L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
 in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/config/gui/LDAPArguments.java`
 #### Snippet
 ```java
@@ -23953,14 +23929,14 @@ public class LDAPArguments extends ConfigTestElement implements Serializable {
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/config/gui/LDAPArgument.java`
 #### Snippet
 ```java
- *
+ * author Michael Stover author Mark Walsh
  */
-public class AuthManager extends ConfigTestElement implements TestStateListener, TestIterationListener, Serializable {
-    private static final long serialVersionUID = 235L;
+public class LDAPArgument extends AbstractTestElement implements Serializable {
 
+    private static final long serialVersionUID = 240L;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24012,6 +23988,18 @@ public abstract class RandomTimer extends ConstantTimer implements ModifiableTim
 ```
 
 ### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Cloneable`
+in `src/components/src/main/java/org/apache/jmeter/timers/BSFTimer.java`
+#### Snippet
+```java
+import org.slf4j.LoggerFactory;
+
+public class BSFTimer extends BSFTestElement implements Cloneable, Timer, TestBean {
+    private static final Logger log = LoggerFactory.getLogger(BSFTimer.class);
+
+```
+
+### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
 in `src/components/src/main/java/org/apache/jmeter/timers/UniformRandomTimer.java`
 #### Snippet
@@ -24032,18 +24020,6 @@ in `src/components/src/main/java/org/apache/jmeter/timers/BeanShellTimer.java`
 @TestElementMetadata(labelResource = "displayName")
 public class BeanShellTimer extends BeanShellTestElement implements Cloneable, Timer, TestBean {
     private static final Logger log = LoggerFactory.getLogger(BeanShellTimer.class);
-
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Cloneable`
-in `src/components/src/main/java/org/apache/jmeter/timers/BSFTimer.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public class BSFTimer extends BSFTestElement implements Cloneable, Timer, TestBean {
-    private static final Logger log = LoggerFactory.getLogger(BSFTimer.class);
 
 ```
 
@@ -24072,15 +24048,15 @@ public class SyncTimer extends AbstractTestElement implements Timer, Serializabl
 ```
 
 ### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/control/RandomOrderController.java`
+Redundant interface declaration `Cloneable`
+in `src/components/src/main/java/org/apache/jmeter/timers/poissonarrivals/PreciseThroughputTimer.java`
 #### Snippet
 ```java
- * A controller that runs its children each at most once, but in a random order.
- */
-public class RandomOrderController extends GenericController implements Serializable {
+@GUIMenuSortOrder(3)
+@TestElementMetadata(labelResource = "displayName")
+public class PreciseThroughputTimer extends AbstractTestElement implements Cloneable, Timer, TestStateListener, TestBean, ThroughputProvider, DurationProvider {
+    private static final Logger log = LoggerFactory.getLogger(PreciseThroughputTimer.class);
 
-    private static final long serialVersionUID = 240L;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24097,12 +24073,12 @@ public class InterleaveControl extends GenericController implements Serializable
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/control/OnceOnlyController.java`
+in `src/components/src/main/java/org/apache/jmeter/control/RandomOrderController.java`
 #### Snippet
 ```java
- * Controller to run its children once per cycle.
+ * A controller that runs its children each at most once, but in a random order.
  */
-public class OnceOnlyController extends GenericController implements Serializable, LoopIterationListener {
+public class RandomOrderController extends GenericController implements Serializable {
 
     private static final long serialVersionUID = 240L;
 ```
@@ -24121,6 +24097,18 @@ public class SwitchController extends GenericController implements Serializable 
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
+in `src/components/src/main/java/org/apache/jmeter/control/OnceOnlyController.java`
+#### Snippet
+```java
+ * Controller to run its children once per cycle.
+ */
+public class OnceOnlyController extends GenericController implements Serializable, LoopIterationListener {
+
+    private static final long serialVersionUID = 240L;
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
 in `src/components/src/main/java/org/apache/jmeter/control/RandomController.java`
 #### Snippet
 ```java
@@ -24129,30 +24117,6 @@ in `src/components/src/main/java/org/apache/jmeter/control/RandomController.java
 public class RandomController extends InterleaveControl implements Serializable {
     private static final long serialVersionUID = 240L;
 
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Cloneable`
-in `src/components/src/main/java/org/apache/jmeter/timers/poissonarrivals/PreciseThroughputTimer.java`
-#### Snippet
-```java
-@GUIMenuSortOrder(3)
-@TestElementMetadata(labelResource = "displayName")
-public class PreciseThroughputTimer extends AbstractTestElement implements Cloneable, Timer, TestStateListener, TestBean, ThroughputProvider, DurationProvider {
-    private static final Logger log = LoggerFactory.getLogger(PreciseThroughputTimer.class);
-
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.java`
-#### Snippet
-```java
- */
-@GUIMenuSortOrder(5)
-public class ForeachController extends GenericController implements Serializable, IteratingController {
-
-    private static final Logger log = LoggerFactory.getLogger(ForeachController.class);
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24165,6 +24129,18 @@ public class ThroughputController
         implements Serializable, LoopIterationListener, TestStateListener {
 
     private static final long serialVersionUID = 234L;
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
+in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.java`
+#### Snippet
+```java
+ */
+@GUIMenuSortOrder(5)
+public class ForeachController extends GenericController implements Serializable, IteratingController {
+
+    private static final Logger log = LoggerFactory.getLogger(ForeachController.class);
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24229,6 +24205,18 @@ public class XPath2Extractor
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
+in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java`
+#### Snippet
+```java
+import org.slf4j.LoggerFactory;
+
+public class RegexExtractor extends AbstractScopedTestElement implements PostProcessor, Serializable {
+
+    private static final long serialVersionUID = 242L;
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
 in `src/components/src/main/java/org/apache/jmeter/extractor/XPathExtractor.java`
 #### Snippet
 ```java
@@ -24237,18 +24225,6 @@ public class XPathExtractor extends AbstractScopedTestElement implements
         PostProcessor, Serializable {
     private static final Logger log = LoggerFactory.getLogger(XPathExtractor.class);
 
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Cloneable`
-in `src/components/src/main/java/org/apache/jmeter/modifiers/BeanShellPreProcessor.java`
-#### Snippet
-```java
-@TestElementMetadata(labelResource = "displayName")
-public class BeanShellPreProcessor extends BeanShellTestElement
-    implements Cloneable, PreProcessor, TestBean
-{
-    private static final Logger log = LoggerFactory.getLogger(BeanShellPreProcessor.class);
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24265,6 +24241,42 @@ public class BoundaryExtractor extends AbstractScopedTestElement implements Post
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Cloneable`
+in `src/components/src/main/java/org/apache/jmeter/modifiers/BeanShellPreProcessor.java`
+#### Snippet
+```java
+@TestElementMetadata(labelResource = "displayName")
+public class BeanShellPreProcessor extends BeanShellTestElement
+    implements Cloneable, PreProcessor, TestBean
+{
+    private static final Logger log = LoggerFactory.getLogger(BeanShellPreProcessor.class);
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
+in `src/components/src/main/java/org/apache/jmeter/extractor/json/jmespath/JMESPathExtractor.java`
+#### Snippet
+```java
+ */
+public class JMESPathExtractor extends AbstractScopedTestElement
+        implements Serializable, PostProcessor, TestStateListener {
+
+    private static final long serialVersionUID = 3849270294526207081L;
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
+in `src/components/src/main/java/org/apache/jmeter/modifiers/SampleTimeout.java`
+#### Snippet
+```java
+ * @since 3.0
+ */
+public class SampleTimeout extends AbstractTestElement implements Serializable, ThreadListener, SampleMonitor {
+
+    private static final long serialVersionUID = 2L;
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Cloneable`
 in `src/components/src/main/java/org/apache/jmeter/modifiers/JSR223PreProcessor.java`
 #### Snippet
 ```java
@@ -24273,18 +24285,6 @@ in `src/components/src/main/java/org/apache/jmeter/modifiers/JSR223PreProcessor.
 public class JSR223PreProcessor extends JSR223TestElement implements Cloneable, PreProcessor, TestBean
 {
     private static final Logger log = LoggerFactory.getLogger(JSR223PreProcessor.class);
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/extractor/RegexExtractor.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public class RegexExtractor extends AbstractScopedTestElement implements PostProcessor, Serializable {
-
-    private static final long serialVersionUID = 242L;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24313,30 +24313,6 @@ public class CounterConfig extends AbstractTestElement
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/modifiers/SampleTimeout.java`
-#### Snippet
-```java
- * @since 3.0
- */
-public class SampleTimeout extends AbstractTestElement implements Serializable, ThreadListener, SampleMonitor {
-
-    private static final long serialVersionUID = 2L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/extractor/json/jmespath/JMESPathExtractor.java`
-#### Snippet
-```java
- */
-public class JMESPathExtractor extends AbstractScopedTestElement
-        implements Serializable, PostProcessor, TestStateListener {
-
-    private static final long serialVersionUID = 3849270294526207081L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
 in `src/components/src/main/java/org/apache/jmeter/modifiers/UserParameters.java`
 #### Snippet
 ```java
@@ -24361,18 +24337,6 @@ public class MailerResultCollector extends ResultCollector implements Serializab
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/assertions/DurationAssertion.java`
-#### Snippet
-```java
- *
- */
-public class DurationAssertion extends AbstractScopedAssertion implements Serializable, Assertion {
-    private static final long serialVersionUID = 241L;
-
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
 in `src/components/src/main/java/org/apache/jmeter/assertions/SMIMEAssertionTestElement.java`
 #### Snippet
 ```java
@@ -24381,42 +24345,6 @@ public class SMIMEAssertionTestElement extends AbstractTestElement implements
         Serializable, Assertion {
 
     private static final long serialVersionUID = 1L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/assertions/XPath2Assertion.java`
-#### Snippet
-```java
- *
- */
-public class XPath2Assertion extends AbstractScopedAssertion implements Serializable, Assertion {
-    private static final long serialVersionUID = 241L;
-    // + JMX file attributes
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/assertions/XPathAssertion.java`
-#### Snippet
-```java
- *
- */
-public class XPathAssertion extends AbstractScopedAssertion implements Serializable, Assertion {
-    private static final Logger log = LoggerFactory.getLogger(XPathAssertion.class);
-
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Cloneable`
-in `src/components/src/main/java/org/apache/jmeter/assertions/JSR223Assertion.java`
-#### Snippet
-```java
-@GUIMenuSortOrder(4)
-@TestElementMetadata(labelResource = "displayName")
-public class JSR223Assertion extends JSR223TestElement implements Cloneable, Assertion, TestBean
-{
-    private static final Logger log = LoggerFactory.getLogger(JSR223Assertion.class);
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24433,26 +24361,38 @@ public class JSONPostProcessor
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/assertions/MD5HexAssertion.java`
+in `src/components/src/main/java/org/apache/jmeter/assertions/XPathAssertion.java`
 #### Snippet
 ```java
- * one calculated from the response OR when the expected hex is left empty.</p>
+ *
  */
-public class MD5HexAssertion extends AbstractTestElement implements Serializable, Assertion {
+public class XPathAssertion extends AbstractScopedAssertion implements Serializable, Assertion {
+    private static final Logger log = LoggerFactory.getLogger(XPathAssertion.class);
 
-    private static final long serialVersionUID = 241L;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/assertions/CompareAssertion.java`
+in `src/components/src/main/java/org/apache/jmeter/assertions/DurationAssertion.java`
 #### Snippet
 ```java
+ *
+ */
+public class DurationAssertion extends AbstractScopedAssertion implements Serializable, Assertion {
+    private static final long serialVersionUID = 241L;
 
-@TestElementMetadata(labelResource = "displayName")
-public class CompareAssertion extends AbstractTestElement implements Assertion, TestBean, Serializable,
-        LoopIterationListener {
+```
 
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
+in `src/components/src/main/java/org/apache/jmeter/assertions/XPath2Assertion.java`
+#### Snippet
+```java
+ *
+ */
+public class XPath2Assertion extends AbstractScopedAssertion implements Serializable, Assertion {
+    private static final long serialVersionUID = 241L;
+    // + JMX file attributes
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24481,6 +24421,54 @@ public class HTMLAssertion extends AbstractTestElement implements Serializable, 
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
+in `src/components/src/main/java/org/apache/jmeter/assertions/CompareAssertion.java`
+#### Snippet
+```java
+
+@TestElementMetadata(labelResource = "displayName")
+public class CompareAssertion extends AbstractTestElement implements Assertion, TestBean, Serializable,
+        LoopIterationListener {
+
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Cloneable`
+in `src/components/src/main/java/org/apache/jmeter/assertions/JSR223Assertion.java`
+#### Snippet
+```java
+@GUIMenuSortOrder(4)
+@TestElementMetadata(labelResource = "displayName")
+public class JSR223Assertion extends JSR223TestElement implements Cloneable, Assertion, TestBean
+{
+    private static final Logger log = LoggerFactory.getLogger(JSR223Assertion.class);
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
+in `src/components/src/main/java/org/apache/jmeter/assertions/MD5HexAssertion.java`
+#### Snippet
+```java
+ * one calculated from the response OR when the expected hex is left empty.</p>
+ */
+public class MD5HexAssertion extends AbstractTestElement implements Serializable, Assertion {
+
+    private static final long serialVersionUID = 241L;
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
+in `src/components/src/main/java/org/apache/jmeter/reporters/MailerModel.java`
+#### Snippet
+```java
+ *
+ */
+public class MailerModel extends AbstractTestElement implements Serializable {
+    public enum MailAuthType {
+        SSL,
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
 in `src/components/src/main/java/org/apache/jmeter/assertions/XMLAssertion.java`
 #### Snippet
 ```java
@@ -24489,18 +24477,6 @@ in `src/components/src/main/java/org/apache/jmeter/assertions/XMLAssertion.java`
 public class XMLAssertion extends AbstractTestElement implements Serializable, Assertion, ThreadListener {
     private static final Logger log = LoggerFactory.getLogger(XMLAssertion.class);
 
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Cloneable`
-in `src/components/src/main/java/org/apache/jmeter/assertions/BSFAssertion.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public class BSFAssertion extends BSFTestElement implements Cloneable, Assertion, TestBean
-{
-    private static final Logger log = LoggerFactory.getLogger(BSFAssertion.class);
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24528,6 +24504,18 @@ public class ResponseAssertion extends AbstractScopedAssertion implements Serial
 ```
 
 ### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Cloneable`
+in `src/components/src/main/java/org/apache/jmeter/assertions/BSFAssertion.java`
+#### Snippet
+```java
+import org.slf4j.LoggerFactory;
+
+public class BSFAssertion extends BSFTestElement implements Cloneable, Assertion, TestBean
+{
+    private static final Logger log = LoggerFactory.getLogger(BSFAssertion.class);
+```
+
+### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Serializable`
 in `src/components/src/main/java/org/apache/jmeter/assertions/XMLSchemaAssertion.java`
 #### Snippet
@@ -24537,18 +24525,6 @@ in `src/components/src/main/java/org/apache/jmeter/assertions/XMLSchemaAssertion
 public class XMLSchemaAssertion extends AbstractTestElement implements Serializable, Assertion {
 
     private static final long serialVersionUID = 234L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/reporters/MailerModel.java`
-#### Snippet
-```java
- *
- */
-public class MailerModel extends AbstractTestElement implements Serializable {
-    public enum MailAuthType {
-        SSL,
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24576,15 +24552,15 @@ public class BSFListener extends BSFTestElement
 ```
 
 ### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `ResultRenderer`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsJSON.java`
+Redundant interface declaration `Serializable`
+in `src/components/src/main/java/org/apache/jmeter/assertions/jmespath/JMESPathAssertion.java`
 #### Snippet
 ```java
-import net.minidev.json.parser.ParseException;
-
-public class RenderAsJSON extends SamplerResultTab implements ResultRenderer {
-    private static final String TAB_SEPARATOR = "    "; //$NON-NLS-1$
-
+ * @since 5.2
+ */
+public class JMESPathAssertion extends AbstractTestElement implements Serializable, Assertion, TestStateListener {
+    private static final long serialVersionUID = -6448744108529796508L;
+    private static final Logger log = LoggerFactory.getLogger(JMESPathAssertion.class);
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24600,15 +24576,15 @@ public class JSR223Listener extends JSR223TestElement
 ```
 
 ### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Serializable`
-in `src/components/src/main/java/org/apache/jmeter/assertions/jmespath/JMESPathAssertion.java`
+Redundant interface declaration `ResultRenderer`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsJSON.java`
 #### Snippet
 ```java
- * @since 5.2
- */
-public class JMESPathAssertion extends AbstractTestElement implements Serializable, Assertion, TestStateListener {
-    private static final long serialVersionUID = -6448744108529796508L;
-    private static final Logger log = LoggerFactory.getLogger(JMESPathAssertion.class);
+import net.minidev.json.parser.ParseException;
+
+public class RenderAsJSON extends SamplerResultTab implements ResultRenderer {
+    private static final String TAB_SEPARATOR = "    "; //$NON-NLS-1$
+
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24636,18 +24612,6 @@ public class RenderAsDocument extends SamplerResultTab implements ResultRenderer
 ```
 
 ### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `ResultRenderer`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsHTMLWithEmbedded.java`
-#### Snippet
-```java
-
-public class RenderAsHTMLWithEmbedded extends RenderAsHTML
-    implements ResultRenderer {
-
-    /** {@inheritDoc} */
-```
-
-### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Clearable`
 in `src/components/src/main/java/org/apache/jmeter/visualizers/AssertionVisualizer.java`
 #### Snippet
@@ -24669,6 +24633,30 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderInBrowser.j
 public class RenderInBrowser extends SamplerResultTab implements ResultRenderer {
 
     private JFXPanel jfxPanel;
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `ResultRenderer`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsHTMLWithEmbedded.java`
+#### Snippet
+```java
+
+public class RenderAsHTMLWithEmbedded extends RenderAsHTML
+    implements ResultRenderer {
+
+    /** {@inheritDoc} */
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Clearable`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
+#### Snippet
+```java
+ */
+@TestElementMetadata(labelResource = "view_results_in_table")
+public class TableVisualizer extends AbstractVisualizer implements Clearable {
+
+    private static final long serialVersionUID = 241L;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24697,18 +24685,6 @@ public class ComparisonVisualizer extends AbstractVisualizer implements Clearabl
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Clearable`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/TableVisualizer.java`
-#### Snippet
-```java
- */
-@TestElementMetadata(labelResource = "view_results_in_table")
-public class TableVisualizer extends AbstractVisualizer implements Clearable {
-
-    private static final long serialVersionUID = 241L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Clearable`
 in `src/components/src/main/java/org/apache/jmeter/visualizers/StatVisualizer.java`
 #### Snippet
 ```java
@@ -24717,18 +24693,6 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/StatVisualizer.ja
 public class StatVisualizer extends AbstractVisualizer implements Clearable, ActionListener {
 
     private static final long serialVersionUID = 242L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `ResultRenderer`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsHTML.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public class RenderAsHTML extends SamplerResultTab implements ResultRenderer {
-    private static final Logger log = LoggerFactory.getLogger(RenderAsHTML.class);
-
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24741,42 +24705,6 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/GraphVisualizer.j
 public class GraphVisualizer extends AbstractVisualizer implements ImageVisualizer, ItemListener, Clearable {
 
     private static final long serialVersionUID = 240L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Clearable`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
-#### Snippet
-```java
-
-@TestElementMetadata(labelResource = "graph_resp_time_title")
-public class RespTimeGraphVisualizer extends AbstractVisualizer implements ActionListener, Clearable {
-
-    private static final long serialVersionUID = 281L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Clearable`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/SummaryReport.java`
-#### Snippet
-```java
-@GUIMenuSortOrder(2)
-@TestElementMetadata(labelResource = "summary_report")
-public class SummaryReport extends AbstractVisualizer implements Clearable, ActionListener {
-
-    private static final long serialVersionUID = 241L;
-```
-
-### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `ResultRenderer`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXML.java`
-#### Snippet
-```java
-
-public class RenderAsXML extends SamplerResultTab
-    implements ResultRenderer {
-
-    private static final Logger log = LoggerFactory.getLogger(RenderAsXML.class);
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24801,6 +24729,54 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/MailerVisualizer.
 public class MailerVisualizer extends AbstractVisualizer implements ActionListener, Clearable, ChangeListener {
     private static final long serialVersionUID = 241L;
 
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Clearable`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/SummaryReport.java`
+#### Snippet
+```java
+@GUIMenuSortOrder(2)
+@TestElementMetadata(labelResource = "summary_report")
+public class SummaryReport extends AbstractVisualizer implements Clearable, ActionListener {
+
+    private static final long serialVersionUID = 241L;
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `ResultRenderer`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsHTML.java`
+#### Snippet
+```java
+import org.slf4j.LoggerFactory;
+
+public class RenderAsHTML extends SamplerResultTab implements ResultRenderer {
+    private static final Logger log = LoggerFactory.getLogger(RenderAsHTML.class);
+
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `ResultRenderer`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXML.java`
+#### Snippet
+```java
+
+public class RenderAsXML extends SamplerResultTab
+    implements ResultRenderer {
+
+    private static final Logger log = LoggerFactory.getLogger(RenderAsXML.class);
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Clearable`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
+#### Snippet
+```java
+
+@TestElementMetadata(labelResource = "graph_resp_time_title")
+public class RespTimeGraphVisualizer extends AbstractVisualizer implements ActionListener, Clearable {
+
+    private static final long serialVersionUID = 281L;
 ```
 
 ### RuleId[ruleID=RedundantImplements]
@@ -24829,6 +24805,18 @@ public class SocketOutputStreamPoolFactory
 
 ### RuleId[ruleID=RedundantImplements]
 Redundant interface declaration `Clearable`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+#### Snippet
+```java
+@TestElementMetadata(labelResource = "view_results_tree_title")
+public class ViewResultsFullVisualizer extends AbstractVisualizer
+implements ActionListener, TreeSelectionListener, Clearable, ItemListener {
+
+    private static final long serialVersionUID = 2L;
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Clearable`
 in `src/components/src/main/java/org/apache/jmeter/visualizers/StatGraphVisualizer.java`
 #### Snippet
 ```java
@@ -24840,15 +24828,27 @@ public class StatGraphVisualizer extends AbstractVisualizer implements Clearable
 ```
 
 ### RuleId[ruleID=RedundantImplements]
-Redundant interface declaration `Clearable`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/ViewResultsFullVisualizer.java`
+Redundant interface declaration `Serializable`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
 #### Snippet
 ```java
-@TestElementMetadata(labelResource = "view_results_tree_title")
-public class ViewResultsFullVisualizer extends AbstractVisualizer
-implements ActionListener, TreeSelectionListener, Clearable, ItemListener {
+ * Handles HTTP Caching.
+ */
+public class CacheManager extends ConfigTestElement implements TestStateListener, TestIterationListener, Serializable {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 236L;
+```
+
+### RuleId[ruleID=RedundantImplements]
+Redundant interface declaration `Serializable`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+#### Snippet
+```java
+ *
+ */
+public class AuthManager extends ConfigTestElement implements TestStateListener, TestIterationListener, Serializable {
+    private static final long serialVersionUID = 235L;
+
 ```
 
 ## RuleId[ruleID=InstanceofCatchParameter]
@@ -24979,9 +24979,9 @@ Allocation of zero length array
 in `src/core/src/main/java/org/apache/jmeter/gui/action/SchematicView.java`
 #### Snippet
 ```java
-            return new JMenuItem[]{menuItem};
-        }
-        return new JMenuItem[0];
+    @Override
+    public JMenu[] getTopLevelMenus() {
+        return new JMenu[0];
     }
 
 ```
@@ -24991,9 +24991,9 @@ Allocation of zero length array
 in `src/core/src/main/java/org/apache/jmeter/gui/action/SchematicView.java`
 #### Snippet
 ```java
-    @Override
-    public JMenu[] getTopLevelMenus() {
-        return new JMenu[0];
+            return new JMenuItem[]{menuItem};
+        }
+        return new JMenuItem[0];
     }
 
 ```
@@ -25015,9 +25015,9 @@ Allocation of zero length array
 in `src/core/src/main/java/org/apache/jmeter/gui/action/CompileJSR223TestElements.java`
 #### Snippet
 ```java
-    @Override
-    public JMenu[] getTopLevelMenus() {
-        return new JMenu[0];
+            return new JMenuItem[]{menuItemIC};
+        }
+        return new JMenuItem[0];
     }
 
 ```
@@ -25027,9 +25027,9 @@ Allocation of zero length array
 in `src/core/src/main/java/org/apache/jmeter/gui/action/CompileJSR223TestElements.java`
 #### Snippet
 ```java
-            return new JMenuItem[]{menuItemIC};
-        }
-        return new JMenuItem[0];
+    @Override
+    public JMenu[] getTopLevelMenus() {
+        return new JMenu[0];
     }
 
 ```
@@ -25063,7 +25063,7 @@ Allocation of zero length array
 in `src/core/src/main/java/org/apache/jmeter/util/HttpSSLProtocolSocketFactory.java`
 #### Snippet
 ```java
-            return sslfac.getDefaultCipherSuites();
+            return sslfac.getSupportedCipherSuites();
         } catch (IOException ex) {
             return new String[] {};
         }
@@ -25075,7 +25075,7 @@ Allocation of zero length array
 in `src/core/src/main/java/org/apache/jmeter/util/HttpSSLProtocolSocketFactory.java`
 #### Snippet
 ```java
-            return sslfac.getSupportedCipherSuites();
+            return sslfac.getDefaultCipherSuites();
         } catch (IOException ex) {
             return new String[] {};
         }
@@ -25184,6 +25184,18 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/TestBeanBeanInfo.java`
 #### Snippet
 ```java
     @Override
+    public BeanInfo[] getAdditionalBeanInfo() {
+        return new BeanInfo[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `src/core/src/main/java/org/apache/jmeter/testbeans/TestBeanBeanInfo.java`
+#### Snippet
+```java
+    @Override
     public EventSetDescriptor[] getEventSetDescriptors() {
         return new EventSetDescriptor[0];
     }
@@ -25198,18 +25210,6 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/TestBeanBeanInfo.java`
     @Override
     public MethodDescriptor[] getMethodDescriptors() {
         return new MethodDescriptor[0];
-    }
-
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `src/core/src/main/java/org/apache/jmeter/testbeans/TestBeanBeanInfo.java`
-#### Snippet
-```java
-    @Override
-    public BeanInfo[] getAdditionalBeanInfo() {
-        return new BeanInfo[0];
     }
 
 ```
@@ -25327,11 +25327,11 @@ Allocation of zero length array
 in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableSorter.java`
 #### Snippet
 ```java
-    private Comparator<Row> comparator  = null;
-    private ArrayList<Row>  viewToModel = new ArrayList<>();
-    private int[]           modelToView = new int[0];
+    protected void invalidate() {
+      viewToModel.clear();
+      modelToView = new int[0];
+    }
 
-    private Comparator<Row>  primaryComparator = null;
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -25339,11 +25339,11 @@ Allocation of zero length array
 in `src/jorphan/src/main/java/org/apache/jorphan/gui/ObjectTableSorter.java`
 #### Snippet
 ```java
-    protected void invalidate() {
-      viewToModel.clear();
-      modelToView = new int[0];
-    }
+    private Comparator<Row> comparator  = null;
+    private ArrayList<Row>  viewToModel = new ArrayList<>();
+    private int[]           modelToView = new int[0];
 
+    private Comparator<Row>  primaryComparator = null;
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -25360,14 +25360,14 @@ in `src/jorphan/src/main/java/org/apache/jorphan/reflect/ClassTools.java`
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `src/jorphan/src/main/java/org/apache/jorphan/reflect/Functor.java`
+in `src/jorphan/src/main/java/org/apache/jorphan/util/JOrphanUtils.java`
 #### Snippet
 ```java
-            }
-        } else {
-            _types = new Class[0];
+    public static String[] split(String splittee, String splitChar, boolean truncate) { //NOSONAR
+        if (splittee == null || splitChar == null) {
+            return new String[0];
         }
-        return _types;
+        final String EMPTY_ELEMENT = "";
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -25384,14 +25384,14 @@ in `src/jorphan/src/main/java/org/apache/jorphan/reflect/Functor.java`
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `src/jorphan/src/main/java/org/apache/jorphan/util/JOrphanUtils.java`
+in `src/jorphan/src/main/java/org/apache/jorphan/reflect/Functor.java`
 #### Snippet
 ```java
-    public static String[] split(String splittee, String splitChar, boolean truncate) { //NOSONAR
-        if (splittee == null || splitChar == null) {
-            return new String[0];
+            }
+        } else {
+            _types = new Class[0];
         }
-        final String EMPTY_ELEMENT = "";
+        return _types;
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -25411,11 +25411,11 @@ Allocation of zero length array
 in `src/launcher/src/main/java/org/apache/jmeter/NewDriver.java`
 #### Snippet
 ```java
-            });
-        }
-        return new File[0];
-    }
-
+                Class<?> initialClass = loader.loadClass("org.apache.jmeter.JMeter");// $NON-NLS-1$
+                Object instance = initialClass.getDeclaredConstructor().newInstance();
+                Method startup = initialClass.getMethod("start", new Class[] { new String[0].getClass() });// $NON-NLS-1$
+                startup.invoke(instance, new Object[] { args });
+            } catch(Throwable e){ // NOSONAR We want to log home directory in case of exception
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -25423,11 +25423,11 @@ Allocation of zero length array
 in `src/launcher/src/main/java/org/apache/jmeter/NewDriver.java`
 #### Snippet
 ```java
-                Class<?> initialClass = loader.loadClass("org.apache.jmeter.JMeter");// $NON-NLS-1$
-                Object instance = initialClass.getDeclaredConstructor().newInstance();
-                Method startup = initialClass.getMethod("start", new Class[] { new String[0].getClass() });// $NON-NLS-1$
-                startup.invoke(instance, new Object[] { args });
-            } catch(Throwable e){ // NOSONAR We want to log home directory in case of exception
+            });
+        }
+        return new File[0];
+    }
+
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -25564,18 +25564,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-            org.apache.jmeter.protocol.http.control.Header[] headers, URL url) {
-        CacheEntry entry = getEntry(url.toString(),
-                headers != null ? asHeaders(headers) : new Header[0]);
-        if (log.isDebugEnabled()){
-            log.debug("setHeaders HTTP Method{}(Java) url:{} entry:{}", conn.getRequestMethod(), url.toString(), entry);
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
 #### Snippet
 ```java
@@ -25648,6 +25636,18 @@ class ClassFilter {
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
+in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/control/gui/JUnitTestSamplerGui.java`
+#### Snippet
+```java
+            return list.toArray(new String[list.size()]);
+        }
+        return new String[0];
+    }
+
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
 in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUnitSampler.java`
 #### Snippet
 ```java
@@ -25687,18 +25687,6 @@ Allocation of zero length array
 in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUnitSampler.java`
 #### Snippet
 ```java
-                protectable = () -> {
-                    try {
-                        m.invoke(theClazz, new Object[0]);
-                    } catch (InvocationTargetException e) {
-                        /*
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUnitSampler.java`
-#### Snippet
-```java
             try {
                 if (setUpMethod != null){
                     setUpMethod.invoke(this.testObject,new Object[0]);
@@ -25720,14 +25708,14 @@ in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUn
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/control/gui/JUnitTestSamplerGui.java`
+in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUnitSampler.java`
 #### Snippet
 ```java
-            return list.toArray(new String[list.size()]);
-        }
-        return new String[0];
-    }
-
+                protectable = () -> {
+                    try {
+                        m.invoke(theClazz, new Object[0]);
+                    } catch (InvocationTargetException e) {
+                        /*
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -25776,6 +25764,18 @@ in `src/components/src/main/java/org/apache/jmeter/assertions/MD5HexAssertion.ja
         byte[] md5Result = {};
 
         try {
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+            org.apache.jmeter.protocol.http.control.Header[] headers, URL url) {
+        CacheEntry entry = getEntry(url.toString(),
+                headers != null ? asHeaders(headers) : new Header[0]);
+        if (log.isDebugEnabled()){
+            log.debug("setHeaders HTTP Method{}(Java) url:{} entry:{}", conn.getRequestMethod(), url.toString(), entry);
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -25996,6 +25996,102 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/FileEditor.java`
 ```
 
 ### RuleId[ruleID=ConstantValue]
+Condition `GenericTestBeanCustomizer.notNull(desc)` is always `false`
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TestBeanGUI.java`
+#### Snippet
+```java
+            log.debug("Modify {} to {}", name, value);
+            if (value == null) {
+                if (GenericTestBeanCustomizer.notNull(desc)) { // cannot be null
+                    if (GenericTestBeanCustomizer.noSaveDefault(desc)) {
+                        log.debug("Did not set DEFAULT for {}", name);
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `GenericTestBeanCustomizer.noSaveDefault(desc)` is always `false`
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TestBeanGUI.java`
+#### Snippet
+```java
+                }
+            } else {
+                if (GenericTestBeanCustomizer.noSaveDefault(desc) && value.equals(desc.getValue(GenericTestBeanCustomizer.DEFAULT))) {
+                    log.debug("Did not set {} to the default: {}", name, value);
+                    element.removeProperty(name);
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `GenericTestBeanCustomizer.noSaveDefault(desc) && value.equals(desc.getValue(GenericTestBeanCustomize...` is always `false`
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TestBeanGUI.java`
+#### Snippet
+```java
+                }
+            } else {
+                if (GenericTestBeanCustomizer.noSaveDefault(desc) && value.equals(desc.getValue(GenericTestBeanCustomizer.DEFAULT))) {
+                    log.debug("Did not set {} to the default: {}", name, value);
+                    element.removeProperty(name);
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `notNull(pd)` is always `false`
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
+#### Snippet
+```java
+        final Object deflt = pd.getValue(DEFAULT);
+        if (deflt == null) {
+            if (notNull(pd)) {
+                if (log.isWarnEnabled()) {
+                    log.warn("{} requires a value but does not provide a default.", getDetails(pd));
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `noSaveDefault(pd)` is always `false`
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
+#### Snippet
+```java
+                }
+            }
+            if (noSaveDefault(pd)) {
+                if (log.isWarnEnabled()) {
+                    log.warn("{} specifies DEFAULT_NO_SAVE but does not provide a default.", getDetails(pd));
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `notOther(pd)` is always `false`
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
+#### Snippet
+```java
+            }
+        }
+        if (notOther(pd) && pd.getValue(TAGS) == null && pe.getTags() == null) {
+            if (log.isWarnEnabled()) {
+                log.warn("{} does not have tags but other values are not allowed.", getDetails(pd));
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `notOther(pd) && pd.getValue(TAGS) == null && pe.getTags() == null` is always `false`
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
+#### Snippet
+```java
+            }
+        }
+        if (notOther(pd) && pd.getValue(TAGS) == null && pe.getTags() == null) {
+            if (log.isWarnEnabled()) {
+                log.warn("{} does not have tags but other values are not allowed.", getDetails(pd));
+```
+
+### RuleId[ruleID=ConstantValue]
+Condition `!notNull(pd)` is always `true`
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
+#### Snippet
+```java
+            }
+        }
+        if (!notNull(pd)) {
+            Class<?> propertyType = pd.getPropertyType();
+            if (propertyType.isPrimitive()) {
+```
+
+### RuleId[ruleID=ConstantValue]
 Condition `notNull` is always `false`
 in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
 #### Snippet
@@ -26128,102 +26224,6 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustom
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Condition `notNull(pd)` is always `false`
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
-#### Snippet
-```java
-        final Object deflt = pd.getValue(DEFAULT);
-        if (deflt == null) {
-            if (notNull(pd)) {
-                if (log.isWarnEnabled()) {
-                    log.warn("{} requires a value but does not provide a default.", getDetails(pd));
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `noSaveDefault(pd)` is always `false`
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
-#### Snippet
-```java
-                }
-            }
-            if (noSaveDefault(pd)) {
-                if (log.isWarnEnabled()) {
-                    log.warn("{} specifies DEFAULT_NO_SAVE but does not provide a default.", getDetails(pd));
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `notOther(pd)` is always `false`
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
-#### Snippet
-```java
-            }
-        }
-        if (notOther(pd) && pd.getValue(TAGS) == null && pe.getTags() == null) {
-            if (log.isWarnEnabled()) {
-                log.warn("{} does not have tags but other values are not allowed.", getDetails(pd));
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `notOther(pd) && pd.getValue(TAGS) == null && pe.getTags() == null` is always `false`
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
-#### Snippet
-```java
-            }
-        }
-        if (notOther(pd) && pd.getValue(TAGS) == null && pe.getTags() == null) {
-            if (log.isWarnEnabled()) {
-                log.warn("{} does not have tags but other values are not allowed.", getDetails(pd));
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `!notNull(pd)` is always `true`
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/GenericTestBeanCustomizer.java`
-#### Snippet
-```java
-            }
-        }
-        if (!notNull(pd)) {
-            Class<?> propertyType = pd.getPropertyType();
-            if (propertyType.isPrimitive()) {
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `GenericTestBeanCustomizer.notNull(desc)` is always `false`
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TestBeanGUI.java`
-#### Snippet
-```java
-            log.debug("Modify {} to {}", name, value);
-            if (value == null) {
-                if (GenericTestBeanCustomizer.notNull(desc)) { // cannot be null
-                    if (GenericTestBeanCustomizer.noSaveDefault(desc)) {
-                        log.debug("Did not set DEFAULT for {}", name);
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `GenericTestBeanCustomizer.noSaveDefault(desc)` is always `false`
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TestBeanGUI.java`
-#### Snippet
-```java
-                }
-            } else {
-                if (GenericTestBeanCustomizer.noSaveDefault(desc) && value.equals(desc.getValue(GenericTestBeanCustomizer.DEFAULT))) {
-                    log.debug("Did not set {} to the default: {}", name, value);
-                    element.removeProperty(name);
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `GenericTestBeanCustomizer.noSaveDefault(desc) && value.equals(desc.getValue(GenericTestBeanCustomize...` is always `false`
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TestBeanGUI.java`
-#### Snippet
-```java
-                }
-            } else {
-                if (GenericTestBeanCustomizer.noSaveDefault(desc) && value.equals(desc.getValue(GenericTestBeanCustomizer.DEFAULT))) {
-                    log.debug("Did not set {} to the default: {}", name, value);
-                    element.removeProperty(name);
-```
-
-### RuleId[ruleID=ConstantValue]
 Condition `javaHome != null` is always `true`
 in `src/jorphan/src/main/java/org/apache/jorphan/exec/KeyToolUtils.java`
 #### Snippet
@@ -26233,18 +26233,6 @@ in `src/jorphan/src/main/java/org/apache/jorphan/exec/KeyToolUtils.java`
                 if (javaHome != null) {
                     keytoolPath = new File(new File(javaHome, "bin"), KEYTOOL).getPath(); // $NON-NLS-1$
                     if (!checkKeytool(keytoolPath)) {
-```
-
-### RuleId[ruleID=ConstantValue]
-Result of `currentPos + 1` is always '0'
-in `src/jorphan/src/main/java/org/apache/jorphan/collections/Data.java`
-#### Snippet
-```java
-        data = new HashMap<>();
-        currentPos = -1;
-        size = currentPos + 1;
-    }
-
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -26260,15 +26248,15 @@ in `src/jorphan/src/main/java/org/apache/jorphan/collections/Data.java`
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Value `hasVariable` is always 'true'
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/render/BinaryMessageRenderer.java`
+Result of `currentPos + 1` is always '0'
+in `src/jorphan/src/main/java/org/apache/jorphan/collections/Data.java`
 #### Snippet
 ```java
+        data = new HashMap<>();
+        currentPos = -1;
+        size = currentPos + 1;
+    }
 
-        if (hasVariable) {
-            String stringValue = delegate.getValueFromFile(filename, encoding, hasVariable, cache);
-            try {
-                bytes = stringValue.getBytes(encoding);
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -26293,6 +26281,18 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/render
           readObject = (Serializable) xstream.fromXML(xmlMessage, readObject);
       } catch (Exception e) {
           throw new IllegalStateException("Unable to load object instance from text", e);
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `hasVariable` is always 'true'
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/render/BinaryMessageRenderer.java`
+#### Snippet
+```java
+
+        if (hasVariable) {
+            String stringValue = delegate.getValueFromFile(filename, encoding, hasVariable, cache);
+            try {
+                bytes = stringValue.getBytes(encoding);
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -26452,6 +26452,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
 ```
 
 ### RuleId[ruleID=ConstantValue]
+Condition `client != null` is always `true`
+in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/config/gui/JavaConfigGui.java`
+#### Snippet
+```java
+                    .getDeclaredConstructor().newInstance();
+            // Just to use client
+            return client != null;
+        } catch (Exception ex) {
+            log.error("Error creating class:'{}' in JavaSampler {}"
+```
+
+### RuleId[ruleID=ConstantValue]
 Value `this.hasProxy` is always 'true'
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
 #### Snippet
@@ -26472,30 +26484,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
             return
                 this.hasProxy == other.hasProxy &&
                 this.target.equals(other.target);
-        }
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `client != null` is always `true`
-in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/config/gui/JavaConfigGui.java`
-#### Snippet
-```java
-                    .getDeclaredConstructor().newInstance();
-            // Just to use client
-            return client != null;
-        } catch (Exception ex) {
-            log.error("Error creating class:'{}' in JavaSampler {}"
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `expires` is always 'null'
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-
-        } else if (expires == null) { // No max-age && No expires
-            return calcExpiresDate(lastModified, cacheControl, expires, etag,
-                    url, date);
         }
 ```
 
@@ -26607,6 +26595,18 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/influxdb/
             for (MetricTuple metric : copyMetrics) {
 ```
 
+### RuleId[ruleID=ConstantValue]
+Value `expires` is always 'null'
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+
+        } else if (expires == null) { // No max-age && No expires
+            return calcExpiresDate(lastModified, cacheControl, expires, etag,
+                    url, date);
+        }
+```
+
 ## RuleId[ruleID=MethodOverridesStaticMethod]
 ### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `getDefault()` tries to override a static method of a superclass
@@ -26686,7 +26686,7 @@ String concatenation as argument to `StringBuilder.append()` call
 in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/Utils.java`
 #### Snippet
 ```java
-            sb.append("JMSDestination   ").append(msg.getJMSDestination()).append('\n');
+            }
         } catch (JMSException e) {
             sb.append("\nError: "+e.toString());
         }
@@ -26698,7 +26698,7 @@ String concatenation as argument to `StringBuilder.append()` call
 in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/Utils.java`
 #### Snippet
 ```java
-            }
+            sb.append("JMSDestination   ").append(msg.getJMSDestination()).append('\n');
         } catch (JMSException e) {
             sb.append("\nError: "+e.toString());
         }
@@ -26851,18 +26851,6 @@ in `src/core/src/main/java/org/apache/jmeter/report/processor/CsvFileSampleSourc
 ```
 
 ### RuleId[ruleID=IOResource]
-'OutputStreamWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/core/src/main/java/org/apache/jmeter/services/FileServer.java`
-#### Snippet
-```java
-        } else {
-            @SuppressWarnings("DefaultCharset")
-            final OutputStreamWriter withPlatformEncoding = new OutputStreamWriter(fos);
-            osw = withPlatformEncoding;
-        }
-```
-
-### RuleId[ruleID=IOResource]
 'InputStreamReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `src/core/src/main/java/org/apache/jmeter/services/FileServer.java`
 #### Snippet
@@ -26871,6 +26859,18 @@ in `src/core/src/main/java/org/apache/jmeter/services/FileServer.java`
             @SuppressWarnings("DefaultCharset")
             final InputStreamReader withPlatformEncoding = new InputStreamReader(fis);
             isr = withPlatformEncoding;
+        }
+```
+
+### RuleId[ruleID=IOResource]
+'OutputStreamWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `src/core/src/main/java/org/apache/jmeter/services/FileServer.java`
+#### Snippet
+```java
+        } else {
+            @SuppressWarnings("DefaultCharset")
+            final OutputStreamWriter withPlatformEncoding = new OutputStreamWriter(fos);
+            osw = withPlatformEncoding;
         }
 ```
 
@@ -27047,18 +27047,6 @@ public class TestBeanHelper {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `GuiUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/jorphan/src/main/java/org/apache/jorphan/gui/GuiUtils.java`
-#### Snippet
-```java
-import javax.swing.table.TableColumn;
-
-public final class GuiUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `JFactory` has only 'static' members, and lacks a 'private' constructor
 in `src/jorphan/src/main/java/org/apache/jorphan/gui/JFactory.java`
 #### Snippet
@@ -27068,6 +27056,18 @@ in `src/jorphan/src/main/java/org/apache/jorphan/gui/JFactory.java`
 public class JFactory {
     private static final String SIZE_VARIANT = "JComponent.sizeVariant"; // $NON-NLS-1$
 
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `GuiUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/jorphan/src/main/java/org/apache/jorphan/gui/GuiUtils.java`
+#### Snippet
+```java
+import javax.swing.table.TableColumn;
+
+public final class GuiUtils {
+
+    /**
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -27276,18 +27276,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeModel.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `getImage` may produce `NullPointerException`
-in `src/core/src/main/java/org/apache/jmeter/gui/MainFrame.java`
-#### Snippet
-```java
-        GuiPackage.getInstance().registerAsListener();
-        setTitle(DEFAULT_TITLE);
-        setIconImage(JMeterUtils.getImage("icon-apache.png").getImage());// $NON-NLS-1$
-        setWindowTitle(); // define AWT WM_CLASS string
-        refreshErrorsTimer.start();
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Method invocation `getDocAnchor` may produce `NullPointerException`
 in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeNode.java`
 #### Snippet
@@ -27336,27 +27324,15 @@ in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeNode.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `setEnabled` may produce `NullPointerException`
-in `src/core/src/main/java/org/apache/jmeter/gui/action/EnableComponent.java`
+Method invocation `getImage` may produce `NullPointerException`
+in `src/core/src/main/java/org/apache/jmeter/gui/MainFrame.java`
 #### Snippet
 ```java
-        for (JMeterTreeNode node : nodes) {
-            node.setEnabled(enable);
-            pack.getGui(node.getTestElement()).setEnabled(enable);
-        }
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `setEnabled` may produce `NullPointerException`
-in `src/core/src/main/java/org/apache/jmeter/gui/action/EnableComponent.java`
-#### Snippet
-```java
-            boolean enable = !node.isEnabled();
-            node.setEnabled(enable);
-            pack.getGui(node.getTestElement()).setEnabled(enable);
-        }
-    }
+        GuiPackage.getInstance().registerAsListener();
+        setTitle(DEFAULT_TITLE);
+        setIconImage(JMeterUtils.getImage("icon-apache.png").getImage());// $NON-NLS-1$
+        setWindowTitle(); // define AWT WM_CLASS string
+        refreshErrorsTimer.start();
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -27453,6 +27429,30 @@ in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
                         if (name.startsWith("jmeter") || name.startsWith("jorphan")) {
                             loggerName = PACKAGE_PREFIX + name;
                         }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `setEnabled` may produce `NullPointerException`
+in `src/core/src/main/java/org/apache/jmeter/gui/action/EnableComponent.java`
+#### Snippet
+```java
+        for (JMeterTreeNode node : nodes) {
+            node.setEnabled(enable);
+            pack.getGui(node.getTestElement()).setEnabled(enable);
+        }
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `setEnabled` may produce `NullPointerException`
+in `src/core/src/main/java/org/apache/jmeter/gui/action/EnableComponent.java`
+#### Snippet
+```java
+            boolean enable = !node.isEnabled();
+            node.setEnabled(enable);
+            pack.getGui(node.getTestElement()).setEnabled(enable);
+        }
+    }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -27744,6 +27744,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/parser/Lagar
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
+Method invocation `getTreeNode` may produce `NullPointerException`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/gui/ProxyControlGui.java`
+#### Snippet
+```java
+            log.debug("Change target {} in model {}", targetNodes.getSelectedItem(), model);
+            TreeNodeWrapper nw = (TreeNodeWrapper) targetNodes.getSelectedItem();
+            model.setTarget(nw.getTreeNode());
+            enableRestart();
+        } else if (command.equals(ADD_TO_INCLUDE_FROM_CLIPBOARD)) {
+```
+
+### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/parser/HtmlParsingUtils.java`
 #### Snippet
@@ -27777,18 +27789,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/Http
                 port = Integer.parseInt(value);
             } catch (NumberFormatException ignored) {
                 // Intentionally left blank
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getTreeNode` may produce `NullPointerException`
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/gui/ProxyControlGui.java`
-#### Snippet
-```java
-            log.debug("Change target {} in model {}", targetNodes.getSelectedItem(), model);
-            TreeNodeWrapper nw = (TreeNodeWrapper) targetNodes.getSelectedItem();
-            model.setTarget(nw.getTreeNode());
-            enableRestart();
-        } else if (command.equals(ADD_TO_INCLUDE_FROM_CLIPBOARD)) {
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -27912,15 +27912,15 @@ in `src/components/src/main/java/org/apache/jmeter/assertions/gui/HTMLAssertionG
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `doAction` may produce `NullPointerException`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
+Method invocation `toString` may produce `NullPointerException`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/MailerVisualizer.java`
 #### Snippet
 ```java
-            try {
-                ActionRouter.getInstance().getAction(
-                        ActionNames.SAVE_GRAPHICS,SaveGraphics.class.getName()).doAction(
-                        new ActionEvent(this,event.getID(),ActionNames.SAVE_GRAPHICS));
-            } catch (Exception e) {
+        mailerModel.setPassword(smtpPasswordField.getText());
+        mailerModel.setMailAuthType(
+                authTypeCombo.getSelectedItem().toString());
+        mailerModel.setSuccessLimit(successLimitField.getText());
+        mailerModel.setSuccessSubject(successSubjectField.getText());
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -27960,27 +27960,15 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisu
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Method invocation `toString` may produce `NullPointerException`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/MailerVisualizer.java`
+Method invocation `doAction` may produce `NullPointerException`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/RespTimeGraphVisualizer.java`
 #### Snippet
 ```java
-        mailerModel.setPassword(smtpPasswordField.getText());
-        mailerModel.setMailAuthType(
-                authTypeCombo.getSelectedItem().toString());
-        mailerModel.setSuccessLimit(successLimitField.getText());
-        mailerModel.setSuccessSubject(successSubjectField.getText());
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `trim` may produce `NullPointerException`
-in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/BackendListenerGui.java`
-#### Snippet
-```java
-        if (event.getSource() == classnameCombo) {
-
-            String newClassName = ((String) classnameCombo.getSelectedItem()).trim();
             try {
-                BackendListenerClient client = createBackendListenerClient(newClassName);
+                ActionRouter.getInstance().getAction(
+                        ActionNames.SAVE_GRAPHICS,SaveGraphics.class.getName()).doAction(
+                        new ActionEvent(this,event.getID(),ActionNames.SAVE_GRAPHICS));
+            } catch (Exception e) {
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -27993,6 +27981,18 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/BackendLi
         className = ((String) classnameCombo.getSelectedItem()).trim();
     }
 
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Method invocation `trim` may produce `NullPointerException`
+in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/BackendListenerGui.java`
+#### Snippet
+```java
+        if (event.getSource() == classnameCombo) {
+
+            String newClassName = ((String) classnameCombo.getSelectedItem()).trim();
+            try {
+                BackendListenerClient client = createBackendListenerClient(newClassName);
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -28142,18 +28142,6 @@ in `src/core/src/main/java/org/apache/jmeter/samplers/StatisticalSampleResult.ja
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ComboStringEditor' is still used
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/ComboStringEditor.java`
-#### Snippet
-```java
-
-    @Deprecated // only for use from test code
-    ComboStringEditor() {
-        this(null, false, false);
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'isStartNextThreadLoop' is still used
 in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
 #### Snippet
@@ -28175,6 +28163,18 @@ in `src/core/src/main/java/org/apache/jmeter/testelement/WorkBench.java`
 public class WorkBench extends AbstractTestElement {
 
     private static final long serialVersionUID = 240L;
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'ComboStringEditor' is still used
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/ComboStringEditor.java`
+#### Snippet
+```java
+
+    @Deprecated // only for use from test code
+    ComboStringEditor() {
+        this(null, false, false);
+    }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -28226,30 +28226,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/config/Multi
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'inCache' is still used
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public boolean inCache(URL url) {
-        return entryStillValid(url, getEntry(url.toString(), null));
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'BASIC_DIGEST' is still used
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        BASIC_DIGEST,
-        /**
-         * Basic Auth
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'testFunctors' is still used
 in `src/components/src/main/java/org/apache/jmeter/visualizers/StatVisualizer.java`
 #### Snippet
@@ -28283,6 +28259,30 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/SamplerMe
     public static void setDefaultWindowMode(WindowMode windowMode) {
         globalWindowMode = windowMode;
     }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'inCache' is still used
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public boolean inCache(URL url) {
+        return entryStillValid(url, getEntry(url.toString(), null));
+    }
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'BASIC_DIGEST' is still used
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        BASIC_DIGEST,
+        /**
+         * Basic Auth
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -28373,18 +28373,6 @@ in `src/core/src/main/java/org/apache/jmeter/functions/gui/FunctionHelper.java`
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'value' in a Serializable class
-in `src/core/src/main/java/org/apache/jmeter/testelement/property/ObjectProperty.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1;
-
-    private Object value;
-
-    private Object savedValue;
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'savedValue' in a Serializable class
 in `src/core/src/main/java/org/apache/jmeter/testelement/property/ObjectProperty.java`
 #### Snippet
@@ -28397,6 +28385,18 @@ in `src/core/src/main/java/org/apache/jmeter/testelement/property/ObjectProperty
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'value' in a Serializable class
+in `src/core/src/main/java/org/apache/jmeter/testelement/property/ObjectProperty.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1;
+
+    private Object value;
+
+    private Object savedValue;
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'text' in a Serializable class
 in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/render/RendererFactory.java`
 #### Snippet
@@ -28406,6 +28406,18 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/render
     private final TextMessageRenderer   text   = new TextMessageRenderer();
     @SuppressWarnings("ImmutableEnumChecker")
     private final BinaryMessageRenderer binary = new BinaryMessageRenderer(text);
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'map' in a Serializable class
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/render/RendererFactory.java`
+#### Snippet
+```java
+    private final ObjectMessageRenderer object = new ObjectMessageRenderer(text);
+    @SuppressWarnings("ImmutableEnumChecker")
+    private final MapMessageRenderer    map    = new MapMessageRenderer(text);
+
+    /** Registered renderers **/
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -28430,18 +28442,6 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/render
     private final BinaryMessageRenderer binary = new BinaryMessageRenderer(text);
     @SuppressWarnings("ImmutableEnumChecker")
     private final ObjectMessageRenderer object = new ObjectMessageRenderer(text);
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'map' in a Serializable class
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/render/RendererFactory.java`
-#### Snippet
-```java
-    private final ObjectMessageRenderer object = new ObjectMessageRenderer(text);
-    @SuppressWarnings("ImmutableEnumChecker")
-    private final MapMessageRenderer    map    = new MapMessageRenderer(text);
-
-    /** Registered renderers **/
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -28502,6 +28502,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/curl/BasicCu
         /**
          * @return the map of form data
          */
+        public List<Pair<String,String>> getFormStringData() {
+```
+
+### RuleId[ruleID=MismatchedJavadocCode]
+Method is specified to return map but the return type is list
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/curl/BasicCurlParser.java`
+#### Snippet
+```java
+
+        /**
+         * @return the map of form data
+         */
         public List<Pair<String,ArgumentHolder>> getFormData() {
 ```
 
@@ -28515,18 +28527,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/curl/BasicCu
          * @return the list of DNS server
          */
         public Set<String> getDnsServers() {
-```
-
-### RuleId[ruleID=MismatchedJavadocCode]
-Method is specified to return map but the return type is list
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/curl/BasicCurlParser.java`
-#### Snippet
-```java
-
-        /**
-         * @return the map of form data
-         */
-        public List<Pair<String,String>> getFormStringData() {
 ```
 
 ### RuleId[ruleID=MismatchedJavadocCode]
@@ -28849,18 +28849,6 @@ Unnecessary `toString()` call
 in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/Utils.java`
 #### Snippet
 ```java
-            sb.append("JMSDestination   ").append(msg.getJMSDestination()).append('\n');
-        } catch (JMSException e) {
-            sb.append("\nError: "+e.toString());
-        }
-        return sb;
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/Utils.java`
-#### Snippet
-```java
             objfac = ctx.lookup(factoryName);
         } catch (NoClassDefFoundError e) {
             throw new NamingException("Lookup failed: "+e.toString());
@@ -28882,14 +28870,14 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/Utils.java`
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
 Unnecessary `toString()` call
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/SubscriberSampler.java`
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/Utils.java`
 #### Snippet
 ```java
-            } catch (JMSException e) {
-                String errorCode = Optional.ofNullable(e.getErrorCode()).orElse("");
-                log.warn("Error [{}] {}", errorCode, e.toString(), e);
-
-                handleErrorAndAddTemporize(getIsReconnectErrorCode().test(errorCode));
+            sb.append("JMSDestination   ").append(msg.getJMSDestination()).append('\n');
+        } catch (JMSException e) {
+            sb.append("\nError: "+e.toString());
+        }
+        return sb;
 ```
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
@@ -28902,6 +28890,18 @@ in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/Subscr
                 log.warn("Interrupted {}", ie.toString(), ie);
                 Thread.currentThread().interrupt();
                 interrupted = true;
+```
+
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/SubscriberSampler.java`
+#### Snippet
+```java
+            } catch (JMSException e) {
+                String errorCode = Optional.ofNullable(e.getErrorCode()).orElse("");
+                log.warn("Error [{}] {}", errorCode, e.toString(), e);
+
+                handleErrorAndAddTemporize(getIsReconnectErrorCode().test(errorCode));
 ```
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
@@ -29029,6 +29029,30 @@ Unnecessary `toString()` call
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CookieManager.java`
 #### Snippet
 ```java
+                if (log.isDebugEnabled()) {
+                    log.debug("New Cookie = {} removing matching Cookie {}",
+                            newCookie.toString(), cookie.toString());
+                }
+                iter.remove();
+```
+
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CookieManager.java`
+#### Snippet
+```java
+                if (log.isDebugEnabled()) {
+                    log.debug("New Cookie = {} removing matching Cookie {}",
+                            newCookie.toString(), cookie.toString());
+                }
+                iter.remove();
+```
+
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CookieManager.java`
+#### Snippet
+```java
         if (DELETE_NULL_COOKIES && (null == cv || cv.length()==0)) {
             if (log.isDebugEnabled()) {
                 log.debug("Dropping cookie with null value {}", c.toString());
@@ -29046,30 +29070,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/Cook
                 log.debug("Add cookie to store {}", c.toString());
             }
             getCookies().addItem(c);
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CookieManager.java`
-#### Snippet
-```java
-                if (log.isDebugEnabled()) {
-                    log.debug("New Cookie = {} removing matching Cookie {}",
-                            newCookie.toString(), cookie.toString());
-                }
-                iter.remove();
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CookieManager.java`
-#### Snippet
-```java
-                if (log.isDebugEnabled()) {
-                    log.debug("New Cookie = {} removing matching Cookie {}",
-                            newCookie.toString(), cookie.toString());
-                }
-                iter.remove();
 ```
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
@@ -29158,42 +29158,6 @@ in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/test/JavaTes
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
 Unnecessary `toString()` call
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
-#### Snippet
-```java
-                    StringEntity requestEntity = new StringEntity(postBody.toString(), contentEncoding);
-                    entityEnclosingRequest.setEntity(requestEntity);
-                    postedBody.append(postBody.toString());
-                } else {
-                    // It is a normal post request, with parameter names and values
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-        CacheEntry entry = getEntry(url.toString(), request.getAllHeaders());
-        if (log.isDebugEnabled()){
-            log.debug("setHeaders for HTTP Method:{}(OAH) URL:{} Entry:{}", request.getMethod(), url.toString(), entry);
-        }
-        if (entry != null){
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
-#### Snippet
-```java
-                headers != null ? asHeaders(headers) : new Header[0]);
-        if (log.isDebugEnabled()){
-            log.debug("setHeaders HTTP Method{}(Java) url:{} entry:{}", conn.getRequestMethod(), url.toString(), entry);
-        }
-        if (entry != null){
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
 #### Snippet
 ```java
@@ -29214,6 +29178,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTP
                             res.addSubResult(errorResult(new Exception(url.toString() + " URI can not be normalized", e), new HTTPSampleResult(res)));
                             setParentSampleSuccess(res, false);
                             continue;
+```
+
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPHC4Impl.java`
+#### Snippet
+```java
+                    StringEntity requestEntity = new StringEntity(postBody.toString(), contentEncoding);
+                    entityEnclosingRequest.setEntity(requestEntity);
+                    postedBody.append(postBody.toString());
+                } else {
+                    // It is a normal post request, with parameter names and values
 ```
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
@@ -29242,30 +29218,6 @@ in `src/protocol/native/src/main/java/org/apache/jmeter/protocol/system/SystemSa
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
 Unnecessary `toString()` call
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
-#### Snippet
-```java
-            if (match(authorization,newAuthorization)) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Found the same Authorization object:{}", newAuthorization.toString());
-                }
-                //set true, if found the same one
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/sampler/MongoScriptSampler.java`
-#### Snippet
-```java
-    private void trace(String s) {
-        if(log.isDebugEnabled()) {
-            log.debug(Thread.currentThread().getName() + " (" + getTitle() + " " + s + " " + this.toString());
-        }
-    }
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
 in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUnitSampler.java`
 #### Snippet
 ```java
@@ -29286,6 +29238,18 @@ in `src/protocol/junit/src/main/java/org/apache/jmeter/protocol/java/sampler/JUn
                         buftrace.append( item.toString() );
                         buftrace.append("\n");
                         buftrace.append( "Trace -- ");
+```
+
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `src/protocol/mongodb/src/main/java/org/apache/jmeter/protocol/mongodb/sampler/MongoScriptSampler.java`
+#### Snippet
+```java
+    private void trace(String s) {
+        if(log.isDebugEnabled()) {
+            log.debug(Thread.currentThread().getName() + " (" + getTitle() + " " + s + " " + this.toString());
+        }
+    }
 ```
 
 ### RuleId[ruleID=UnnecessaryToStringCall]
@@ -29334,6 +29298,42 @@ in `src/components/src/main/java/org/apache/jmeter/assertions/BeanShellAssertion
             result.setFailureMessage("BeanShell Jar missing? " + ex.toString());
             response.setStopThread(true); // No point continuing
         } catch (Exception ex) // Mainly for bsh.EvalError
+```
+
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+        CacheEntry entry = getEntry(url.toString(), request.getAllHeaders());
+        if (log.isDebugEnabled()){
+            log.debug("setHeaders for HTTP Method:{}(OAH) URL:{} Entry:{}", request.getMethod(), url.toString(), entry);
+        }
+        if (entry != null){
+```
+
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+                headers != null ? asHeaders(headers) : new Header[0]);
+        if (log.isDebugEnabled()){
+            log.debug("setHeaders HTTP Method{}(Java) url:{} entry:{}", conn.getRequestMethod(), url.toString(), entry);
+        }
+        if (entry != null){
+```
+
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+#### Snippet
+```java
+            if (match(authorization,newAuthorization)) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Found the same Authorization object:{}", newAuthorization.toString());
+                }
+                //set true, if found the same one
 ```
 
 ## RuleId[ruleID=StringEqualsEmptyString]
@@ -29454,35 +29454,35 @@ Qualifier `org.apache.jmeter.testelement` is unnecessary, and can be replaced wi
 in `src/core/src/main/java/org/apache/jmeter/gui/NamePanel.java`
 #### Snippet
 ```java
-    public TestElement createTestElement() {
-        @SuppressWarnings("deprecation")
-        org.apache.jmeter.testelement.WorkBench wb = new org.apache.jmeter.testelement.WorkBench();
-        modifyTestElement(wb);
-        return wb;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.testelement` is unnecessary, and can be replaced with an import
-in `src/core/src/main/java/org/apache/jmeter/gui/NamePanel.java`
-#### Snippet
-```java
-    public TestElement createTestElement() {
-        @SuppressWarnings("deprecation")
-        org.apache.jmeter.testelement.WorkBench wb = new org.apache.jmeter.testelement.WorkBench();
-        modifyTestElement(wb);
-        return wb;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.testelement` is unnecessary, and can be replaced with an import
-in `src/core/src/main/java/org/apache/jmeter/gui/NamePanel.java`
-#### Snippet
-```java
         wb.setProperty(new StringProperty(TestElement.GUI_CLASS, this.getClass().getName()));
         @SuppressWarnings("deprecation")
         String className = org.apache.jmeter.testelement.WorkBench.class.getName();
         wb.setProperty(new StringProperty(TestElement.TEST_CLASS, className));
     }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.testelement` is unnecessary, and can be replaced with an import
+in `src/core/src/main/java/org/apache/jmeter/gui/NamePanel.java`
+#### Snippet
+```java
+    public TestElement createTestElement() {
+        @SuppressWarnings("deprecation")
+        org.apache.jmeter.testelement.WorkBench wb = new org.apache.jmeter.testelement.WorkBench();
+        modifyTestElement(wb);
+        return wb;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.testelement` is unnecessary, and can be replaced with an import
+in `src/core/src/main/java/org/apache/jmeter/gui/NamePanel.java`
+#### Snippet
+```java
+    public TestElement createTestElement() {
+        @SuppressWarnings("deprecation")
+        org.apache.jmeter.testelement.WorkBench wb = new org.apache.jmeter.testelement.WorkBench();
+        modifyTestElement(wb);
+        return wb;
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -29546,54 +29546,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeModel.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.swing` is unnecessary, and can be replaced with an import
-in `src/core/src/main/java/org/apache/jmeter/gui/MainFrame.java`
-#### Snippet
-```java
-    private AtomicInteger errorOrFatal = new AtomicInteger(0);
-
-    private javax.swing.Timer refreshErrorsTimer = new javax.swing.Timer(1000,
-            this::refreshErrors);
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.swing` is unnecessary, and can be replaced with an import
-in `src/core/src/main/java/org/apache/jmeter/gui/MainFrame.java`
-#### Snippet
-```java
-    private AtomicInteger errorOrFatal = new AtomicInteger(0);
-
-    private javax.swing.Timer refreshErrorsTimer = new javax.swing.Timer(1000,
-            this::refreshErrors);
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.swing` is unnecessary, and can be replaced with an import
-in `src/core/src/main/java/org/apache/jmeter/gui/MainFrame.java`
-#### Snippet
-```java
-    private transient ErrorsAndFatalsCounterLogTarget errorsAndFatalsCounterLogTarget;
-
-    private javax.swing.Timer computeTestDurationTimer = new javax.swing.Timer(1000,
-            this::computeTestDuration);
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.swing` is unnecessary, and can be replaced with an import
-in `src/core/src/main/java/org/apache/jmeter/gui/MainFrame.java`
-#### Snippet
-```java
-    private transient ErrorsAndFatalsCounterLogTarget errorsAndFatalsCounterLogTarget;
-
-    private javax.swing.Timer computeTestDurationTimer = new javax.swing.Timer(1000,
-            this::computeTestDuration);
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jorphan.util` is unnecessary, and can be replaced with an import
 in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeNode.java`
 #### Snippet
@@ -29606,15 +29558,51 @@ in `src/core/src/main/java/org/apache/jmeter/gui/tree/JMeterTreeNode.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/gui/action/Help.java`
+Qualifier `javax.swing` is unnecessary, and can be replaced with an import
+in `src/core/src/main/java/org/apache/jmeter/gui/MainFrame.java`
 #### Snippet
 ```java
+    private AtomicInteger errorOrFatal = new AtomicInteger(0);
 
-    /**
-     * @see org.apache.jmeter.gui.action.Command#getActionNames()
-     */
-    @Override
+    private javax.swing.Timer refreshErrorsTimer = new javax.swing.Timer(1000,
+            this::refreshErrors);
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.swing` is unnecessary, and can be replaced with an import
+in `src/core/src/main/java/org/apache/jmeter/gui/MainFrame.java`
+#### Snippet
+```java
+    private AtomicInteger errorOrFatal = new AtomicInteger(0);
+
+    private javax.swing.Timer refreshErrorsTimer = new javax.swing.Timer(1000,
+            this::refreshErrors);
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.swing` is unnecessary, and can be replaced with an import
+in `src/core/src/main/java/org/apache/jmeter/gui/MainFrame.java`
+#### Snippet
+```java
+    private transient ErrorsAndFatalsCounterLogTarget errorsAndFatalsCounterLogTarget;
+
+    private javax.swing.Timer computeTestDurationTimer = new javax.swing.Timer(1000,
+            this::computeTestDuration);
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.swing` is unnecessary, and can be replaced with an import
+in `src/core/src/main/java/org/apache/jmeter/gui/MainFrame.java`
+#### Snippet
+```java
+    private transient ErrorsAndFatalsCounterLogTarget errorsAndFatalsCounterLogTarget;
+
+    private javax.swing.Timer computeTestDurationTimer = new javax.swing.Timer(1000,
+            this::computeTestDuration);
+
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -29631,7 +29619,7 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/Help.java`
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/gui/action/ChangeLanguage.java`
+in `src/core/src/main/java/org/apache/jmeter/gui/action/Help.java`
 #### Snippet
 ```java
 
@@ -29655,24 +29643,12 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/ChangeLanguage.java`
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/gui/action/EnableComponent.java`
+in `src/core/src/main/java/org/apache/jmeter/gui/action/ChangeLanguage.java`
 #### Snippet
 ```java
 
     /**
      * @see org.apache.jmeter.gui.action.Command#getActionNames()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/gui/action/EnableComponent.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.gui.action.Command#doAction(ActionEvent)
      */
     @Override
 ```
@@ -29726,6 +29702,30 @@ in `src/core/src/main/java/org/apache/jmeter/JMeter.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/gui/action/EnableComponent.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.gui.action.Command#getActionNames()
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/gui/action/EnableComponent.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.gui.action.Command#doAction(ActionEvent)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `javax.swing` is unnecessary, and can be replaced with an import
 in `src/core/src/main/java/org/apache/jmeter/gui/action/EditCommand.java`
 #### Snippet
@@ -29735,6 +29735,42 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/EditCommand.java`
         guiPackage.getMainFrame().setMainPanel((javax.swing.JComponent) currentGui);
         guiPackage.getMainFrame().setEditMenu(guiPackage.getTreeListener().getCurrentNode().createPopupMenu());
         TextComponentUI.INSTANCE.resetUndoHistory();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.gui` is unnecessary, and can be replaced with an import
+in `src/core/src/main/java/org/apache/jmeter/gui/util/JMeterMenuBar.java`
+#### Snippet
+```java
+    public void setRunning(boolean running, String host) {
+        log.info("setRunning({}, {})", running, host);
+        if (org.apache.jmeter.gui.MainFrame.LOCAL.equals(host)) {
+            return;
+        }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/gui/action/ZoomInOut.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.gui.action.AbstractActionWithNoRunningTest#doActionAfterCheck(ActionEvent)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/gui/action/ZoomInOut.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.gui.action.Command#getActionNames()
+     */
+    @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -29759,42 +29795,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/SelectTemplatesDialog.ja
                 java.awt.Desktop.getDesktop().browse(e.getURL().toURI());
             } catch (Exception ex) {
                 log.error("Error opening URL in browser: {}", e.getURL());
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/gui/action/ZoomInOut.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.gui.action.Command#getActionNames()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/gui/action/ZoomInOut.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.gui.action.AbstractActionWithNoRunningTest#doActionAfterCheck(ActionEvent)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.gui` is unnecessary, and can be replaced with an import
-in `src/core/src/main/java/org/apache/jmeter/gui/util/JMeterMenuBar.java`
-#### Snippet
-```java
-    public void setRunning(boolean running, String host) {
-        log.info("setRunning({}, {})", running, host);
-        if (org.apache.jmeter.gui.MainFrame.LOCAL.equals(host)) {
-            return;
-        }
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -29846,6 +29846,66 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/OpenLinkAction.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/gui/action/impl/DefaultTreeNodeNamingPolicy.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.gui.action.TreeNodeNamingPolicy#rename(org.apache.jmeter.gui.tree.JMeterTreeNode, org.apache.jmeter.gui.tree.JMeterTreeNode, int)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.gui.tree` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/gui/action/impl/DefaultTreeNodeNamingPolicy.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.gui.action.TreeNodeNamingPolicy#rename(org.apache.jmeter.gui.tree.JMeterTreeNode, org.apache.jmeter.gui.tree.JMeterTreeNode, int)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.gui.tree` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/gui/action/impl/DefaultTreeNodeNamingPolicy.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.gui.action.TreeNodeNamingPolicy#rename(org.apache.jmeter.gui.tree.JMeterTreeNode, org.apache.jmeter.gui.tree.JMeterTreeNode, int)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/gui/action/impl/DefaultTreeNodeNamingPolicy.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.gui.action.TreeNodeNamingPolicy#resetState(org.apache.jmeter.gui.tree.JMeterTreeNode)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.gui.tree` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/gui/action/impl/DefaultTreeNodeNamingPolicy.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.gui.action.TreeNodeNamingPolicy#resetState(org.apache.jmeter.gui.tree.JMeterTreeNode)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.awt` is unnecessary, and can be replaced with an import
 in `src/core/src/main/java/org/apache/jmeter/gui/action/KeyStrokes.java`
 #### Snippet
@@ -29855,66 +29915,6 @@ in `src/core/src/main/java/org/apache/jmeter/gui/action/KeyStrokes.java`
         } catch (java.awt.HeadlessException e) {
             // suppress the error if we are deliberately running headless
             if (!"true".equals(System.getProperty("java.awt.headless"))) { // $NON-NLS-1$ $NON-NLS-2$
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/gui/action/impl/DefaultTreeNodeNamingPolicy.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.gui.action.TreeNodeNamingPolicy#resetState(org.apache.jmeter.gui.tree.JMeterTreeNode)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.gui.tree` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/gui/action/impl/DefaultTreeNodeNamingPolicy.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.gui.action.TreeNodeNamingPolicy#resetState(org.apache.jmeter.gui.tree.JMeterTreeNode)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.gui.action` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/gui/action/impl/DefaultTreeNodeNamingPolicy.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.gui.action.TreeNodeNamingPolicy#rename(org.apache.jmeter.gui.tree.JMeterTreeNode, org.apache.jmeter.gui.tree.JMeterTreeNode, int)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.gui.tree` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/gui/action/impl/DefaultTreeNodeNamingPolicy.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.gui.action.TreeNodeNamingPolicy#rename(org.apache.jmeter.gui.tree.JMeterTreeNode, org.apache.jmeter.gui.tree.JMeterTreeNode, int)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.gui.tree` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/gui/action/impl/DefaultTreeNodeNamingPolicy.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.gui.action.TreeNodeNamingPolicy#rename(org.apache.jmeter.gui.tree.JMeterTreeNode, org.apache.jmeter.gui.tree.JMeterTreeNode, int)
-     */
-    @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -30314,18 +30314,6 @@ in `src/core/src/main/java/org/apache/jmeter/control/gui/AbstractControllerGui.j
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.control` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/control/GenericController.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.control.Controller#isDone()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.control.gui` is unnecessary and can be removed
 in `src/core/src/main/java/org/apache/jmeter/control/gui/TestFragmentControllerGui.java`
 #### Snippet
@@ -30339,62 +30327,14 @@ in `src/core/src/main/java/org/apache/jmeter/control/gui/TestFragmentControllerG
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.control` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/control/TransactionController.java`
+in `src/core/src/main/java/org/apache/jmeter/control/GenericController.java`
 #### Snippet
 ```java
 
     /**
-     * @see org.apache.jmeter.control.GenericController#triggerEndOfLoop()
+     * @see org.apache.jmeter.control.Controller#isDone()
      */
     @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.control` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/control/TransactionController.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.control.Controller#next()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.control` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/control/IfController.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.control.Controller#next()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.testelement` is unnecessary, and can be replaced with an import
-in `src/core/src/main/java/org/apache/jmeter/control/gui/WorkBenchGui.java`
-#### Snippet
-```java
-    public TestElement createTestElement() {
-        @SuppressWarnings("deprecation")
-        org.apache.jmeter.testelement.WorkBench wb = new org.apache.jmeter.testelement.WorkBench();
-        modifyTestElement(wb);
-        return wb;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.testelement` is unnecessary, and can be replaced with an import
-in `src/core/src/main/java/org/apache/jmeter/control/gui/WorkBenchGui.java`
-#### Snippet
-```java
-    public TestElement createTestElement() {
-        @SuppressWarnings("deprecation")
-        org.apache.jmeter.testelement.WorkBench wb = new org.apache.jmeter.testelement.WorkBench();
-        modifyTestElement(wb);
-        return wb;
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -30446,6 +30386,54 @@ in `src/core/src/main/java/org/apache/jmeter/control/gui/WorkBenchGui.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.testelement` is unnecessary, and can be replaced with an import
+in `src/core/src/main/java/org/apache/jmeter/control/gui/WorkBenchGui.java`
+#### Snippet
+```java
+    public TestElement createTestElement() {
+        @SuppressWarnings("deprecation")
+        org.apache.jmeter.testelement.WorkBench wb = new org.apache.jmeter.testelement.WorkBench();
+        modifyTestElement(wb);
+        return wb;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.testelement` is unnecessary, and can be replaced with an import
+in `src/core/src/main/java/org/apache/jmeter/control/gui/WorkBenchGui.java`
+#### Snippet
+```java
+    public TestElement createTestElement() {
+        @SuppressWarnings("deprecation")
+        org.apache.jmeter.testelement.WorkBench wb = new org.apache.jmeter.testelement.WorkBench();
+        modifyTestElement(wb);
+        return wb;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.control` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/control/TransactionController.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.control.Controller#next()
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.control` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/control/TransactionController.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.control.GenericController#triggerEndOfLoop()
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.rmi` is unnecessary, and can be replaced with an import
 in `src/core/src/main/java/org/apache/jmeter/threads/RemoteThreadsListener.java`
 #### Snippet
@@ -30455,6 +30443,18 @@ in `src/core/src/main/java/org/apache/jmeter/threads/RemoteThreadsListener.java`
 public interface RemoteThreadsListener extends java.rmi.Remote {
 
     /**
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.control` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/control/IfController.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.control.Controller#next()
+     */
+    @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -30470,18 +30470,6 @@ in `src/core/src/main/java/org/apache/jmeter/samplers/StandardSampleSender.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.rmi.server` is unnecessary, and can be replaced with an import
-in `src/core/src/main/java/org/apache/jmeter/samplers/RemoteSampleListenerImpl.java`
-#### Snippet
-```java
- * Implementation of remote sampler listener, also supports TestStateListener
- */
-public class RemoteSampleListenerImpl extends java.rmi.server.UnicastRemoteObject
-    implements RemoteSampleListener, SampleListener, TestStateListener {
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.net` is unnecessary, and can be replaced with an import
 in `src/core/src/main/java/org/apache/jmeter/samplers/DiskStoreSampleSender.java`
 #### Snippet
@@ -30491,6 +30479,18 @@ in `src/core/src/main/java/org/apache/jmeter/samplers/DiskStoreSampleSender.java
                         if (err.getCause() instanceof java.net.ConnectException){
                             throw new JMeterError("Could not return sample",err);
                         }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.rmi.server` is unnecessary, and can be replaced with an import
+in `src/core/src/main/java/org/apache/jmeter/samplers/RemoteSampleListenerImpl.java`
+#### Snippet
+```java
+ * Implementation of remote sampler listener, also supports TestStateListener
+ */
+public class RemoteSampleListenerImpl extends java.rmi.server.UnicastRemoteObject
+    implements RemoteSampleListener, SampleListener, TestStateListener {
+
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -30602,18 +30602,6 @@ in `src/core/src/main/java/org/apache/jmeter/reporters/Summariser.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.swing` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/functions/gui/FunctionHelper.java`
-#### Snippet
-```java
-    protected JRootPane createRootPane() {
-        JRootPane rootPane = new JRootPane();
-        javax.swing.Action escapeAction = new AbstractAction("ESCAPE") {
-
-            private static final long serialVersionUID = -4036804004190858925L;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/IntegerPropertyEditor.java`
 #### Snippet
@@ -30623,6 +30611,18 @@ in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/IntegerPropertyEditor
             throw new java.lang.IllegalArgumentException("Unexpected type: "+value.getClass().getName());
         }
     }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.swing` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/functions/gui/FunctionHelper.java`
+#### Snippet
+```java
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        javax.swing.Action escapeAction = new AbstractAction("ESCAPE") {
+
+            private static final long serialVersionUID = -4036804004190858925L;
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -30674,39 +30674,15 @@ in `src/core/src/main/java/org/apache/jmeter/assertions/gui/AbstractAssertionGui
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.gui` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TestBeanGUI.java`
-#### Snippet
-```java
-    /**
-     * {@inheritDoc}}
-     * @see org.apache.jmeter.gui.AbstractJMeterGuiComponent#getDocAnchor()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
+Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
 #### Snippet
 ```java
-     *
-     * @see #getDataType
-     * @see #setDataType(java.lang.String)
-     */
-    public static final String BINARY = "bin"; // $NON-NLS-1$
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
-#### Snippet
-```java
-     *
-     * @see #getDataType
-     * @see #setDataType(java.lang.String)
-     */
-    public static final String TEXT = "text"; // $NON-NLS-1$
+            // is now processed by HTTPSampleResult#getDataEncodingWithDefault
+            final String charsetPrefix = "charset="; // $NON-NLS-1$
+            int cset = ct.toLowerCase(java.util.Locale.ENGLISH).indexOf(charsetPrefix);
+            if (cset >= 0) {
+                String charSet = ct.substring(cset + charsetPrefix.length());
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -30722,15 +30698,39 @@ in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
+Qualifier `java.lang` is unnecessary and can be removed
 in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
 #### Snippet
 ```java
-            // is now processed by HTTPSampleResult#getDataEncodingWithDefault
-            final String charsetPrefix = "charset="; // $NON-NLS-1$
-            int cset = ct.toLowerCase(java.util.Locale.ENGLISH).indexOf(charsetPrefix);
-            if (cset >= 0) {
-                String charSet = ct.substring(cset + charsetPrefix.length());
+     *
+     * @see #getDataType
+     * @see #setDataType(java.lang.String)
+     */
+    public static final String TEXT = "text"; // $NON-NLS-1$
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/samplers/SampleResult.java`
+#### Snippet
+```java
+     *
+     * @see #getDataType
+     * @see #setDataType(java.lang.String)
+     */
+    public static final String BINARY = "bin"; // $NON-NLS-1$
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.gui` is unnecessary and can be removed
+in `src/core/src/main/java/org/apache/jmeter/testbeans/gui/TestBeanGUI.java`
+#### Snippet
+```java
+    /**
+     * {@inheritDoc}}
+     * @see org.apache.jmeter.gui.AbstractJMeterGuiComponent#getDocAnchor()
+     */
+    @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -30827,78 +30827,6 @@ in `src/jorphan/src/main/java/org/apache/jorphan/exec/StreamCopier.java`
      * @see java.lang.Thread#run()
      */
     @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
-in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
-#### Snippet
-```java
-
-    @Override
-    public void log(org.apache.log.Priority priority, String message) {
-        if (priority == org.apache.log.Priority.FATAL_ERROR) {
-            slf4jLogger.error(message);
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
-in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
-#### Snippet
-```java
-    @Override
-    public void log(org.apache.log.Priority priority, String message) {
-        if (priority == org.apache.log.Priority.FATAL_ERROR) {
-            slf4jLogger.error(message);
-        } else if (priority == org.apache.log.Priority.ERROR) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
-in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
-#### Snippet
-```java
-        if (priority == org.apache.log.Priority.FATAL_ERROR) {
-            slf4jLogger.error(message);
-        } else if (priority == org.apache.log.Priority.ERROR) {
-            slf4jLogger.error(message);
-        } else if (priority == org.apache.log.Priority.WARN) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
-in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
-#### Snippet
-```java
-        } else if (priority == org.apache.log.Priority.ERROR) {
-            slf4jLogger.error(message);
-        } else if (priority == org.apache.log.Priority.WARN) {
-            slf4jLogger.warn(message);
-        } else if (priority == org.apache.log.Priority.INFO) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
-in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
-#### Snippet
-```java
-        } else if (priority == org.apache.log.Priority.WARN) {
-            slf4jLogger.warn(message);
-        } else if (priority == org.apache.log.Priority.INFO) {
-            slf4jLogger.info(message);
-        } else if (priority == org.apache.log.Priority.DEBUG) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
-in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
-#### Snippet
-```java
-        } else if (priority == org.apache.log.Priority.INFO) {
-            slf4jLogger.info(message);
-        } else if (priority == org.apache.log.Priority.DEBUG) {
-            slf4jLogger.debug(message);
-        }
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -31047,13 +30975,85 @@ in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
+in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
+#### Snippet
+```java
+
+    @Override
+    public void log(org.apache.log.Priority priority, String message) {
+        if (priority == org.apache.log.Priority.FATAL_ERROR) {
+            slf4jLogger.error(message);
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
+in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
+#### Snippet
+```java
+    @Override
+    public void log(org.apache.log.Priority priority, String message) {
+        if (priority == org.apache.log.Priority.FATAL_ERROR) {
+            slf4jLogger.error(message);
+        } else if (priority == org.apache.log.Priority.ERROR) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
+in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
+#### Snippet
+```java
+        if (priority == org.apache.log.Priority.FATAL_ERROR) {
+            slf4jLogger.error(message);
+        } else if (priority == org.apache.log.Priority.ERROR) {
+            slf4jLogger.error(message);
+        } else if (priority == org.apache.log.Priority.WARN) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
+in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
+#### Snippet
+```java
+        } else if (priority == org.apache.log.Priority.ERROR) {
+            slf4jLogger.error(message);
+        } else if (priority == org.apache.log.Priority.WARN) {
+            slf4jLogger.warn(message);
+        } else if (priority == org.apache.log.Priority.INFO) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
+in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
+#### Snippet
+```java
+        } else if (priority == org.apache.log.Priority.WARN) {
+            slf4jLogger.warn(message);
+        } else if (priority == org.apache.log.Priority.INFO) {
+            slf4jLogger.info(message);
+        } else if (priority == org.apache.log.Priority.DEBUG) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
+in `src/jorphan/src/main/java/org/apache/jorphan/logging/Slf4jLogkitLogger.java`
+#### Snippet
+```java
+        } else if (priority == org.apache.log.Priority.INFO) {
+            slf4jLogger.info(message);
+        } else if (priority == org.apache.log.Priority.DEBUG) {
+            slf4jLogger.debug(message);
+        }
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
 in `src/jorphan/src/main/java/org/apache/jorphan/logging/LoggingManager.java`
 #### Snippet
 ```java
-     * @return Logger
      */
-    public static org.apache.log.Logger getLoggerFor(String category) {
-        return new Slf4jLogkitLogger(LoggerFactory.getLogger(category));
+    @Deprecated
+    public static void setPriority(org.apache.log.Priority priority, String category) {
+        // NOP
     }
 ```
 
@@ -31122,10 +31122,10 @@ Qualifier `org.apache.log` is unnecessary, and can be replaced with an import
 in `src/jorphan/src/main/java/org/apache/jorphan/logging/LoggingManager.java`
 #### Snippet
 ```java
+     * @return Logger
      */
-    @Deprecated
-    public static void setPriority(org.apache.log.Priority priority, String category) {
-        // NOP
+    public static org.apache.log.Logger getLoggerFor(String category) {
+        return new Slf4jLogkitLogger(LoggerFactory.getLogger(category));
     }
 ```
 
@@ -31242,93 +31242,9 @@ Qualifier `java.util` is unnecessary and can be removed
 in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
 #### Snippet
 ```java
+     * Returns a collection of all the sub-trees of the current tree.
      *
-     * @see #add(HashTree)
-     * @see java.util.Map#putAll(Map)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
-#### Snippet
-```java
-     * Returns the number of top-level entries in the HashTree.
-     *
-     * @see java.util.Map#size()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
-#### Snippet
-```java
-     * Returns a hashcode for this HashTree.
-     *
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
-#### Snippet
-```java
-     *            Object to be tested as a key.
-     * @return True if the HashTree contains the key, false otherwise.
-     * @see java.util.Map#containsKey(Object)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
-#### Snippet
-```java
-     *            Object to be tested as a value.
-     * @return True if the HashTree contains the value, false otherwise.
-     * @see java.util.Map#containsValue(Object)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
-#### Snippet
-```java
-     * Returns a Set of all the keys in the top-level of this HashTree.
-     *
-     * @see java.util.Map#keySet()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
-#### Snippet
-```java
-     * Removes the entire branch specified by the given key.
-     *
-     * @see java.util.Map#remove(Object)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
-#### Snippet
-```java
-     * calling {@link #getTree(Object)}.
-     *
-     * @see java.util.Map#get(Object)
+     * @see java.util.Map#values()
      */
     @Override
 ```
@@ -31362,9 +31278,57 @@ Qualifier `java.util` is unnecessary and can be removed
 in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
 #### Snippet
 ```java
-     * Returns a collection of all the sub-trees of the current tree.
+     * Returns a Set of all the keys in the top-level of this HashTree.
      *
-     * @see java.util.Map#values()
+     * @see java.util.Map#keySet()
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
+#### Snippet
+```java
+     * Returns a hashcode for this HashTree.
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
+#### Snippet
+```java
+     *            Object to be tested as a key.
+     * @return True if the HashTree contains the key, false otherwise.
+     * @see java.util.Map#containsKey(Object)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
+#### Snippet
+```java
+     * Removes the entire branch specified by the given key.
+     *
+     * @see java.util.Map#remove(Object)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
+#### Snippet
+```java
+     * Returns the number of top-level entries in the HashTree.
+     *
+     * @see java.util.Map#size()
      */
     @Override
 ```
@@ -31386,11 +31350,59 @@ Qualifier `java.util` is unnecessary and can be removed
 in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
 #### Snippet
 ```java
+     * calling {@link #getTree(Object)}.
+     *
+     * @see java.util.Map#get(Object)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
+#### Snippet
+```java
+     *
+     * @see #add(HashTree)
+     * @see java.util.Map#putAll(Map)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
+#### Snippet
+```java
+     *            Object to be tested as a value.
+     * @return True if the HashTree contains the value, false otherwise.
+     * @see java.util.Map#containsValue(Object)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `src/jorphan/src/main/java/org/apache/jorphan/collections/HashTree.java`
+#### Snippet
+```java
      * Exists to satisfy the Map interface.
      *
      * @see java.util.Map#entrySet()
      */
     @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/launcher/src/main/java/org/apache/jmeter/NewDriver.java`
+#### Snippet
+```java
+    private static final String OS_NAME = System.getProperty("os.name");// $NON-NLS-1$
+
+    private static final String OS_NAME_LC = OS_NAME.toLowerCase(java.util.Locale.ENGLISH);
+
+    private static final String JAVA_CLASS_PATH = "java.class.path";// $NON-NLS-1$
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -31415,18 +31427,6 @@ in `src/launcher/src/main/java/org/apache/jmeter/NewDriver.java`
                 (java.security.PrivilegedAction<DynamicClassLoader>) () ->
                         new DynamicClassLoader(jars.toArray(new URL[jars.size()]))
         );
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/launcher/src/main/java/org/apache/jmeter/NewDriver.java`
-#### Snippet
-```java
-    private static final String OS_NAME = System.getProperty("os.name");// $NON-NLS-1$
-
-    private static final String OS_NAME_LC = OS_NAME.toLowerCase(java.util.Locale.ENGLISH);
-
-    private static final String JAVA_CLASS_PATH = "java.class.path";// $NON-NLS-1$
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -31538,18 +31538,6 @@ in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/Abstra
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.naming` is unnecessary, and can be replaced with an import
-in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
-#### Snippet
-```java
-                        "context.getEnvironment() returned null (should not happen according to javadoc but non compliant implementation can return this)");
-            }
-        } catch (javax.naming.OperationNotSupportedException ex) {
-            // Some JNDI implementation can return this
-            LOGGER.warn("context.getEnvironment() not supported by implementation ");
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.samplers` is unnecessary and can be removed
 in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSampler.java`
 #### Snippet
@@ -31574,6 +31562,18 @@ in `src/protocol/tcp/src/main/java/org/apache/jmeter/protocol/tcp/sampler/TCPSam
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.naming` is unnecessary, and can be replaced with an import
+in `src/protocol/jms/src/main/java/org/apache/jmeter/protocol/jms/sampler/JMSSampler.java`
+#### Snippet
+```java
+                        "context.getEnvironment() returned null (should not happen according to javadoc but non compliant implementation can return this)");
+            }
+        } catch (javax.naming.OperationNotSupportedException ex) {
+            // Some JNDI implementation can return this
+            LOGGER.warn("context.getEnvironment() not supported by implementation ");
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.config` is unnecessary and can be removed
 in `src/protocol/bolt/src/main/java/org/apache/jmeter/protocol/bolt/sampler/BoltSampler.java`
 #### Snippet
@@ -31581,18 +31581,6 @@ in `src/protocol/bolt/src/main/java/org/apache/jmeter/protocol/bolt/sampler/Bolt
 
     /**
      * @see org.apache.jmeter.samplers.AbstractSampler#applies(org.apache.jmeter.config.ConfigTestElement)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.testelement` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/gui/DNSCachePanel.java`
-#### Snippet
-```java
-     * Modifies a given TestElement to mirror the data in the gui components.
-     *
-     * @see org.apache.jmeter.gui.JMeterGUIComponent#modifyTestElement(org.apache.jmeter.testelement.TestElement)
      */
     @Override
 ```
@@ -31610,6 +31598,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/gui/DNSCache
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.testelement` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/gui/DNSCachePanel.java`
+#### Snippet
+```java
+     * Modifies a given TestElement to mirror the data in the gui components.
+     *
+     * @see org.apache.jmeter.gui.JMeterGUIComponent#modifyTestElement(org.apache.jmeter.testelement.TestElement)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/ConversionUtils.java`
 #### Snippet
@@ -31619,30 +31619,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/Convers
             int charSetStartPos = contentType.toLowerCase(java.util.Locale.ENGLISH).indexOf(CHARSET_EQ);
             if (charSetStartPos >= 0) {
                 charSet = contentType.substring(charSetStartPos + CHARSET_EQ_LEN);
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.protocol.http.util.accesslog` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
-#### Snippet
-```java
-     * @param regexp
-     *            list of regular expressions
-     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#includePattern(String[])
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.protocol.http.util.accesslog` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
-#### Snippet
-```java
-     *            list of regular expressions
-     *
-     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#excludePattern(String[])
-     */
-    @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -31665,6 +31641,90 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accessl
      * or not. isFilter( string) has to be called first.
      *
      * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#filter(java.lang.String)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.protocol.http.util.accesslog` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
+#### Snippet
+```java
+     * @param filenames
+     *            list of files to include
+     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#includeFiles(java.lang.String[])
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
+#### Snippet
+```java
+     * @param filenames
+     *            list of files to include
+     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#includeFiles(java.lang.String[])
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.protocol.http.util.accesslog` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
+#### Snippet
+```java
+     * @param filenames
+     *            list of files to exclude
+     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#excludeFiles(java.lang.String[])
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
+#### Snippet
+```java
+     * @param filenames
+     *            list of files to exclude
+     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#excludeFiles(java.lang.String[])
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.protocol.http.util.accesslog` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
+#### Snippet
+```java
+     * will check for period and add it if it isn't present.
+     *
+     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#setReplaceExtension(java.lang.String,
+     *      java.lang.String)
+     */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
+#### Snippet
+```java
+     * will check for period and add it if it isn't present.
+     *
+     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#setReplaceExtension(java.lang.String,
+     *      java.lang.String)
+     */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
+#### Snippet
+```java
+     *
+     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#setReplaceExtension(java.lang.String,
+     *      java.lang.String)
      */
     @Override
 ```
@@ -31686,21 +31746,9 @@ Qualifier `org.apache.jmeter.protocol.http.util.accesslog` is unnecessary and ca
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
 #### Snippet
 ```java
-     * @param filenames
-     *            list of files to exclude
-     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#excludeFiles(java.lang.String[])
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
-#### Snippet
-```java
-     * @param filenames
-     *            list of files to exclude
-     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#excludeFiles(java.lang.String[])
+     *            list of regular expressions
+     *
+     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#excludePattern(String[])
      */
     @Override
 ```
@@ -31710,105 +31758,9 @@ Qualifier `org.apache.jmeter.protocol.http.util.accesslog` is unnecessary and ca
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
 #### Snippet
 ```java
-     * @param filenames
-     *            list of files to include
-     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#includeFiles(java.lang.String[])
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
-#### Snippet
-```java
-     * @param filenames
-     *            list of files to include
-     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#includeFiles(java.lang.String[])
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.protocol.http.util.accesslog` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
-#### Snippet
-```java
-     * will check for period and add it if it isn't present.
-     *
-     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#setReplaceExtension(java.lang.String,
-     *      java.lang.String)
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
-#### Snippet
-```java
-     * will check for period and add it if it isn't present.
-     *
-     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#setReplaceExtension(java.lang.String,
-     *      java.lang.String)
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/util/accesslog/LogFilter.java`
-#### Snippet
-```java
-     *
-     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#setReplaceExtension(java.lang.String,
-     *      java.lang.String)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.protocol.http.proxy` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/AbstractSamplerCreator.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createAndPopulateSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
-     *      java.util.Map, java.util.Map)
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.protocol.http.proxy` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/AbstractSamplerCreator.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createAndPopulateSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
-     *      java.util.Map, java.util.Map)
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/AbstractSamplerCreator.java`
-#### Snippet
-```java
-    /**
-     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createAndPopulateSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
-     *      java.util.Map, java.util.Map)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/AbstractSamplerCreator.java`
-#### Snippet
-```java
-    /**
-     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createAndPopulateSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
-     *      java.util.Map, java.util.Map)
+     * @param regexp
+     *            list of regular expressions
+     * @see org.apache.jmeter.protocol.http.util.accesslog.Filter#includePattern(String[])
      */
     @Override
 ```
@@ -31850,6 +31802,54 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/Abstra
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.protocol.http.proxy` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/AbstractSamplerCreator.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createAndPopulateSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
+     *      java.util.Map, java.util.Map)
+     */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.protocol.http.proxy` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/AbstractSamplerCreator.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createAndPopulateSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
+     *      java.util.Map, java.util.Map)
+     */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/AbstractSamplerCreator.java`
+#### Snippet
+```java
+    /**
+     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createAndPopulateSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
+     *      java.util.Map, java.util.Map)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/AbstractSamplerCreator.java`
+#### Snippet
+```java
+    /**
+     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createAndPopulateSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
+     *      java.util.Map, java.util.Map)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/HttpRequestHdr.java`
 #### Snippet
@@ -31866,18 +31866,6 @@ Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/HttpRequestHdr.java`
 #### Snippet
 ```java
-        }
-        StringTokenizer tz = new StringTokenizer(firstLine);
-        method = getToken(tz).toUpperCase(java.util.Locale.ENGLISH);
-        url = getToken(tz);
-        String version = getToken(tz);
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/HttpRequestHdr.java`
-#### Snippet
-```java
         if(isMultipart(contentType)) {
             // Get the boundary string for the multiparts from the content type
             String boundaryString = contentType.substring(contentType.toLowerCase(java.util.Locale.ENGLISH).indexOf("boundary=") + "boundary=".length());
@@ -31886,15 +31874,15 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/HttpRe
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.protocol.http.parser` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/parser/CssParser.java`
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/HttpRequestHdr.java`
 #### Snippet
 ```java
-
-    /**
-     * @see org.apache.jmeter.protocol.http.parser.LinkExtractorParser#getEmbeddedResourceURLs
-     *      (java.lang.String, byte[], java.net.URL, java.lang.String)
-     */
+        }
+        StringTokenizer tz = new StringTokenizer(firstLine);
+        method = getToken(tz).toUpperCase(java.util.Locale.ENGLISH);
+        url = getToken(tz);
+        String version = getToken(tz);
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -31907,6 +31895,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/ProxyC
                 && org.apache.http.conn.ssl.AbstractVerifier.acceptableCountryWildcard(subject);
     }
 
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.protocol.http.parser` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/parser/CssParser.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.protocol.http.parser.LinkExtractorParser#getEmbeddedResourceURLs
+     *      (java.lang.String, byte[], java.net.URL, java.lang.String)
+     */
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -31974,57 +31974,57 @@ Qualifier `org.apache.jmeter.protocol.http.proxy` is unnecessary and can be remo
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/DefaultSamplerCreator.java`
 #### Snippet
 ```java
+    /**
+     *
+     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
+     *      java.util.Map, java.util.Map)
+     */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.protocol.http.proxy` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/DefaultSamplerCreator.java`
+#### Snippet
+```java
+    /**
+     *
+     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
+     *      java.util.Map, java.util.Map)
+     */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/DefaultSamplerCreator.java`
+#### Snippet
+```java
+     *
+     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
+     *      java.util.Map, java.util.Map)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/DefaultSamplerCreator.java`
+#### Snippet
+```java
+     *
+     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
+     *      java.util.Map, java.util.Map)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.protocol.http.proxy` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/DefaultSamplerCreator.java`
+#### Snippet
+```java
 
     /**
      * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#getManagedContentTypes()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.protocol.http.proxy` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/DefaultSamplerCreator.java`
-#### Snippet
-```java
-    /**
-     *
-     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
-     *      java.util.Map, java.util.Map)
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.protocol.http.proxy` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/DefaultSamplerCreator.java`
-#### Snippet
-```java
-    /**
-     *
-     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
-     *      java.util.Map, java.util.Map)
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/DefaultSamplerCreator.java`
-#### Snippet
-```java
-     *
-     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
-     *      java.util.Map, java.util.Map)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/proxy/DefaultSamplerCreator.java`
-#### Snippet
-```java
-     *
-     * @see org.apache.jmeter.protocol.http.proxy.SamplerCreator#createSampler(org.apache.jmeter.protocol.http.proxy.HttpRequestHdr,
-     *      java.util.Map, java.util.Map)
      */
     @Override
 ```
@@ -32042,18 +32042,6 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/HC4C
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.gui` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/gui/HttpMirrorControlGui.java`
-#### Snippet
-```java
-     * Modifies a given TestElement to mirror the data in the gui components.
-     *
-     * @see org.apache.jmeter.gui.JMeterGUIComponent#modifyTestElement(TestElement)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.protocol.http.control` is unnecessary and can be removed
 in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/gui/RecordController.java`
 #### Snippet
@@ -32063,6 +32051,18 @@ in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/gui/
             if (!(currentNode.getUserObject() instanceof org.apache.jmeter.protocol.http.control.RecordingController)) {
                 Toolkit.getDefaultToolkit().beep();
                 return;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.gui` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/gui/HttpMirrorControlGui.java`
+#### Snippet
+```java
+     * Modifies a given TestElement to mirror the data in the gui components.
+     *
+     * @see org.apache.jmeter.gui.JMeterGUIComponent#modifyTestElement(TestElement)
+     */
+    @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -32199,6 +32199,18 @@ in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/test/SleepTe
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/RequestViewHTTP.java`
+#### Snippet
+```java
+    private String extractBoundary(String contentType) {
+        // Get the boundary string for the multiparts from the content type
+        String boundaryString = contentType.substring(contentType.toLowerCase(java.util.Locale.ENGLISH).indexOf("boundary=") + "boundary=".length());
+        //TODO check in the RFC if other char can be used as separator
+        String[] split = boundaryString.split(";");
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/test/JavaTest.java`
 #### Snippet
 ```java
@@ -32306,18 +32318,6 @@ in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/test/JavaTes
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/visualizers/RequestViewHTTP.java`
-#### Snippet
-```java
-    private String extractBoundary(String contentType) {
-        // Get the boundary string for the multiparts from the content type
-        String boundaryString = contentType.substring(contentType.toLowerCase(java.util.Locale.ENGLISH).indexOf("boundary=") + "boundary=".length());
-        //TODO check in the RFC if other char can be used as separator
-        String[] split = boundaryString.split(";");
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.samplers` is unnecessary and can be removed
 in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JavaSamplerClient.java`
 #### Snippet
@@ -32390,54 +32390,6 @@ in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/Java
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JavaSamplerContext.java`
-#### Snippet
-```java
-     *             if the parameter is not specified or is not an integer
-     *
-     * @see java.lang.Integer#decode(java.lang.String)
-     */
-    public int getIntParameter(String name) throws NumberFormatException {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JavaSamplerContext.java`
-#### Snippet
-```java
-     *             if the parameter is not specified or is not an integer
-     *
-     * @see java.lang.Integer#decode(java.lang.String)
-     */
-    public int getIntParameter(String name) throws NumberFormatException {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JavaSamplerContext.java`
-#### Snippet
-```java
-     *         was not specified
-     *
-     * @see java.lang.Integer#decode(java.lang.String)
-     */
-    public int getIntParameter(String name, int defaultValue) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JavaSamplerContext.java`
-#### Snippet
-```java
-     *         was not specified
-     *
-     * @see java.lang.Integer#decode(java.lang.String)
-     */
-    public int getIntParameter(String name, int defaultValue) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.config` is unnecessary and can be removed
 in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/BSFSampler.java`
 #### Snippet
@@ -32447,6 +32399,54 @@ in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/BSFS
      * @see org.apache.jmeter.samplers.AbstractSampler#applies(org.apache.jmeter.config.ConfigTestElement)
      */
     @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JavaSamplerContext.java`
+#### Snippet
+```java
+     *             if the parameter is not specified or is not an integer
+     *
+     * @see java.lang.Integer#decode(java.lang.String)
+     */
+    public int getIntParameter(String name) throws NumberFormatException {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JavaSamplerContext.java`
+#### Snippet
+```java
+     *             if the parameter is not specified or is not an integer
+     *
+     * @see java.lang.Integer#decode(java.lang.String)
+     */
+    public int getIntParameter(String name) throws NumberFormatException {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JavaSamplerContext.java`
+#### Snippet
+```java
+     *         was not specified
+     *
+     * @see java.lang.Integer#decode(java.lang.String)
+     */
+    public int getIntParameter(String name, int defaultValue) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JavaSamplerContext.java`
+#### Snippet
+```java
+     *         was not specified
+     *
+     * @see java.lang.Integer#decode(java.lang.String)
+     */
+    public int getIntParameter(String name, int defaultValue) {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -32462,20 +32462,44 @@ in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/JSR2
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.http.client.utils` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+Qualifier `org.apache.jmeter.config` is unnecessary and can be removed
+in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/BeanShellSampler.java`
 #### Snippet
 ```java
-        Date expiresDate;
-        try {
-            expiresDate = org.apache.http.client.utils.DateUtils
-                    .parseDate(expires);
-        } catch (IllegalArgumentException e) { // Exception handled by return
+
+    /**
+     * @see org.apache.jmeter.samplers.AbstractSampler#applies(org.apache.jmeter.config.ConfigTestElement)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
+#### Snippet
+```java
+
+    public void setProtocol(String value) {
+        setProperty(PROTOCOL, value.toLowerCase(java.util.Locale.ENGLISH));
+    }
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.samplers` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.samplers.AbstractSampler#applies(org.apache.jmeter.config.ConfigTestElement)
+     */
+    @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.config` is unnecessary and can be removed
-in `src/protocol/java/src/main/java/org/apache/jmeter/protocol/java/sampler/BeanShellSampler.java`
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
 #### Snippet
 ```java
 
@@ -32558,39 +32582,63 @@ in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/sampler/JDBC
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.samplers` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
+Qualifier `org.apache.jmeter.testelement` is unnecessary and can be removed
+in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
 #### Snippet
 ```java
-
     /**
-     * @see org.apache.jmeter.samplers.AbstractSampler#applies(org.apache.jmeter.config.ConfigTestElement)
+     * {@inheritDoc}
+     * @see org.apache.jmeter.testelement.TestStateListener#testEnded(java.lang.String)
      */
     @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.config` is unnecessary and can be removed
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
 #### Snippet
 ```java
-
     /**
-     * @see org.apache.jmeter.samplers.AbstractSampler#applies(org.apache.jmeter.config.ConfigTestElement)
+     * {@inheritDoc}
+     * @see org.apache.jmeter.testelement.TestStateListener#testEnded(java.lang.String)
      */
     @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/sampler/HTTPSamplerBase.java`
+Qualifier `org.apache.jmeter.testelement` is unnecessary and can be removed
+in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
+#### Snippet
+```java
+    /**
+     * {@inheritDoc}
+     * @see org.apache.jmeter.testelement.TestStateListener#testEnded()
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
+#### Snippet
+```java
+     *            ResultSet passed in from a database query
+     * @return a Data object
+     * @throws java.sql.SQLException
+     * @throws UnsupportedEncodingException
+     */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
 #### Snippet
 ```java
 
-    public void setProtocol(String value) {
-        setProperty(PROTOCOL, value.toLowerCase(java.util.Locale.ENGLISH));
-    }
-
+        //Get all fields in java.sql.Types and store the corresponding int values
+        Field[] fields = java.sql.Types.class.getFields();
+        for (Field field : fields) {
+            try {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -32598,11 +32646,11 @@ Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
 #### Snippet
 ```java
-
-    private static int getJdbcType(String jdbcType) throws SQLException {
-        Integer entry = mapJdbcNameToInt.get(jdbcType.toLowerCase(java.util.Locale.ENGLISH));
-        if (entry == null) {
-            try {
+                String name = field.getName();
+                Integer value = (Integer) field.get(null);
+                mapJdbcNameToInt.put(name.toLowerCase(java.util.Locale.ENGLISH), value);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e); // should not happen
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -32630,27 +32678,15 @@ in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBC
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.testelement` is unnecessary and can be removed
-in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
-#### Snippet
-```java
-    /**
-     * {@inheritDoc}
-     * @see org.apache.jmeter.testelement.TestStateListener#testEnded()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.sql` is unnecessary and can be removed
 in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
 #### Snippet
 ```java
-
-        //Get all fields in java.sql.Types and store the corresponding int values
-        Field[] fields = java.sql.Types.class.getFields();
-        for (Field field : fields) {
-            try {
+                    outputs[i]=targetSqlType;
+                } else {
+                    outputs[i]=java.sql.Types.NULL; // can't have an output parameter type null
+                }
+            } catch (NullPointerException e) { // thrown by Derby JDBC (at least) if there are no "?" markers in statement
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -32658,11 +32694,23 @@ Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
 #### Snippet
 ```java
-                String name = field.getName();
-                Integer value = (Integer) field.get(null);
-                mapJdbcNameToInt.put(name.toLowerCase(java.util.Locale.ENGLISH), value);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e); // should not happen
+
+    private static int getJdbcType(String jdbcType) throws SQLException {
+        Integer entry = mapJdbcNameToInt.get(jdbcType.toLowerCase(java.util.Locale.ENGLISH));
+        if (entry == null) {
+            try {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.testelement` is unnecessary and can be removed
+in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
+#### Snippet
+```java
+    /**
+     * {@inheritDoc}
+     * @see org.apache.jmeter.testelement.TestStateListener#testStarted()
+     */
+    @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -32762,66 +32810,6 @@ in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBC
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
-#### Snippet
-```java
-     *            ResultSet passed in from a database query
-     * @return a Data object
-     * @throws java.sql.SQLException
-     * @throws UnsupportedEncodingException
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
-#### Snippet
-```java
-                    outputs[i]=targetSqlType;
-                } else {
-                    outputs[i]=java.sql.Types.NULL; // can't have an output parameter type null
-                }
-            } catch (NullPointerException e) { // thrown by Derby JDBC (at least) if there are no "?" markers in statement
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.testelement` is unnecessary and can be removed
-in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
-#### Snippet
-```java
-    /**
-     * {@inheritDoc}
-     * @see org.apache.jmeter.testelement.TestStateListener#testEnded(java.lang.String)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
-#### Snippet
-```java
-    /**
-     * {@inheritDoc}
-     * @see org.apache.jmeter.testelement.TestStateListener#testEnded(java.lang.String)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.testelement` is unnecessary and can be removed
-in `src/protocol/jdbc/src/main/java/org/apache/jmeter/protocol/jdbc/AbstractJDBCTestElement.java`
-#### Snippet
-```java
-    /**
-     * {@inheritDoc}
-     * @see org.apache.jmeter.testelement.TestStateListener#testStarted()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.samplers` is unnecessary and can be removed
 in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPSampler.java`
 #### Snippet
@@ -32858,20 +32846,8 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/gui/
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/TrustAllSSLSocketFactory.java`
-#### Snippet
-```java
-                    }
-                },
-                        new java.security.SecureRandom());
-        } catch (Exception e) {
-            throw new RuntimeException("Could not create the SSL context",e);
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.samplers` is unnecessary and can be removed
-in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPExtSampler.java`
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/mail/sampler/MailReaderSampler.java`
 #### Snippet
 ```java
 
@@ -32883,24 +32859,12 @@ in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAP
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.config` is unnecessary and can be removed
-in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPExtSampler.java`
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/mail/sampler/MailReaderSampler.java`
 #### Snippet
 ```java
 
     /**
      * @see org.apache.jmeter.samplers.AbstractSampler#applies(org.apache.jmeter.config.ConfigTestElement)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.testelement` is unnecessary and can be removed
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/gui/SmtpSamplerGui.java`
-#### Snippet
-```java
-     * Modifies a given TestElement to mirror the data in the gui components
-     * @param te TestElement for JMeter
-     * @see org.apache.jmeter.gui.JMeterGUIComponent#modifyTestElement(org.apache.jmeter.testelement.TestElement)
      */
     @Override
 ```
@@ -32918,27 +32882,27 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/gui/
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.samplers` is unnecessary and can be removed
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/SmtpSampler.java`
+Qualifier `org.apache.jmeter.testelement` is unnecessary and can be removed
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/gui/SmtpSamplerGui.java`
 #### Snippet
 ```java
-
-    /**
-     * @see org.apache.jmeter.samplers.AbstractSampler#applies(org.apache.jmeter.config.ConfigTestElement)
+     * Modifies a given TestElement to mirror the data in the gui components
+     * @param te TestElement for JMeter
+     * @see org.apache.jmeter.gui.JMeterGUIComponent#modifyTestElement(org.apache.jmeter.testelement.TestElement)
      */
     @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.config` is unnecessary and can be removed
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/SmtpSampler.java`
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/protocol/TrustAllSSLSocketFactory.java`
 #### Snippet
 ```java
-
-    /**
-     * @see org.apache.jmeter.samplers.AbstractSampler#applies(org.apache.jmeter.config.ConfigTestElement)
-     */
-    @Override
+                    }
+                },
+                        new java.security.SecureRandom());
+        } catch (Exception e) {
+            throw new RuntimeException("Could not create the SSL context",e);
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -32955,7 +32919,7 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/Smtp
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.samplers` is unnecessary and can be removed
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/mail/sampler/MailReaderSampler.java`
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/SmtpSampler.java`
 #### Snippet
 ```java
 
@@ -32967,7 +32931,7 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/mail/sampler/Mail
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.config` is unnecessary and can be removed
-in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/mail/sampler/MailReaderSampler.java`
+in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/SmtpSampler.java`
 #### Snippet
 ```java
 
@@ -32979,7 +32943,7 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/mail/sampler/Mail
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.samplers` is unnecessary and can be removed
-in `src/protocol/native/src/main/java/org/apache/jmeter/protocol/system/SystemSampler.java`
+in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPExtSampler.java`
 #### Snippet
 ```java
 
@@ -32991,7 +32955,7 @@ in `src/protocol/native/src/main/java/org/apache/jmeter/protocol/system/SystemSa
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.config` is unnecessary and can be removed
-in `src/protocol/native/src/main/java/org/apache/jmeter/protocol/system/SystemSampler.java`
+in `src/protocol/ldap/src/main/java/org/apache/jmeter/protocol/ldap/sampler/LDAPExtSampler.java`
 #### Snippet
 ```java
 
@@ -33086,15 +33050,27 @@ in `src/protocol/mail/src/main/java/org/apache/jmeter/protocol/smtp/sampler/gui/
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+Qualifier `org.apache.jmeter.samplers` is unnecessary and can be removed
+in `src/protocol/native/src/main/java/org/apache/jmeter/protocol/system/SystemSampler.java`
 #### Snippet
 ```java
-    // Needs to be package protected for Unit test
-    static boolean isSupportedProtocol(URL url) {
-        String protocol = url.getProtocol().toLowerCase(java.util.Locale.ENGLISH);
-        return protocol.equals(HTTPConstants.PROTOCOL_HTTP) || protocol.equals(HTTPConstants.PROTOCOL_HTTPS);
-    }
+
+    /**
+     * @see org.apache.jmeter.samplers.AbstractSampler#applies(org.apache.jmeter.config.ConfigTestElement)
+     */
+    @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.jmeter.config` is unnecessary and can be removed
+in `src/protocol/native/src/main/java/org/apache/jmeter/protocol/system/SystemSampler.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.jmeter.samplers.AbstractSampler#applies(org.apache.jmeter.config.ConfigTestElement)
+     */
+    @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -33194,18 +33170,6 @@ in `src/components/src/main/java/org/apache/jmeter/timers/SyncTimer.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `src/components/src/main/java/org/apache/jmeter/timers/SyncTimer.java`
-#### Snippet
-```java
-         * @throws TimeoutException
-         *             if the specified time elapses
-         * @see java.util.concurrent.CyclicBarrier#await()
-         */
-        public int await(long timeout, TimeUnit timeUnit) throws InterruptedException, BrokenBarrierException, TimeoutException {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `src/components/src/main/java/org/apache/jmeter/timers/SyncTimer.java`
 #### Snippet
@@ -33215,6 +33179,18 @@ in `src/components/src/main/java/org/apache/jmeter/timers/SyncTimer.java`
          * @see java.lang.Object#clone()
          */
         @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `src/components/src/main/java/org/apache/jmeter/timers/SyncTimer.java`
+#### Snippet
+```java
+         * @throws TimeoutException
+         *             if the specified time elapses
+         * @see java.util.concurrent.CyclicBarrier#await()
+         */
+        public int await(long timeout, TimeUnit timeUnit) throws InterruptedException, BrokenBarrierException, TimeoutException {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -33242,6 +33218,18 @@ in `src/components/src/main/java/org/apache/jmeter/control/InterleaveControl.jav
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/components/src/main/java/org/apache/jmeter/control/IncludeController.java`
+#### Snippet
+```java
+     * No-arg constructor
+     *
+     * @see java.lang.Object#Object()
+     */
+    public IncludeController() {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.jmeter.control` is unnecessary and can be removed
 in `src/components/src/main/java/org/apache/jmeter/control/RandomController.java`
 #### Snippet
@@ -33266,15 +33254,15 @@ in `src/components/src/main/java/org/apache/jmeter/control/RandomController.java
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/components/src/main/java/org/apache/jmeter/control/IncludeController.java`
+Qualifier `org.apache.jmeter.control` is unnecessary and can be removed
+in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.java`
 #### Snippet
 ```java
-     * No-arg constructor
-     *
-     * @see java.lang.Object#Object()
+    /**
+     * Reset loopCount to Start index
+     * @see org.apache.jmeter.control.GenericController#initialize()
      */
-    public IncludeController() {
+    @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -33297,18 +33285,6 @@ in `src/components/src/main/java/org/apache/jmeter/control/CriticalSectionContro
      * Called after execution of last child of the controller We release lock
      *
      * @see org.apache.jmeter.control.GenericController#reInitialize()
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.control` is unnecessary and can be removed
-in `src/components/src/main/java/org/apache/jmeter/control/ForeachController.java`
-#### Snippet
-```java
-    /**
-     * Reset loopCount to Start index
-     * @see org.apache.jmeter.control.GenericController#initialize()
      */
     @Override
 ```
@@ -33554,15 +33530,15 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsHTML.java
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.jmeter.visualizers` is unnecessary and can be removed
+Qualifier `org.w3c.dom` is unnecessary, and can be replaced with an import
 in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXML.java`
 #### Snippet
 ```java
-    /**
-     * {@inheritDoc}
-     * @see org.apache.jmeter.visualizers.SamplerResultTab#clearData()
-     */
-    @Override
+        StringWriter sw = new StringWriter();
+        Tidy tidy = XPathUtil.makeTidyParser(true, true, true, sw);
+        org.w3c.dom.Document document = tidy.parseDOM(baIS, null);
+        document.normalize();
+        if (tidy.getParseErrors() > 0) {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -33578,15 +33554,15 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXML.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.w3c.dom` is unnecessary, and can be replaced with an import
+Qualifier `org.apache.jmeter.visualizers` is unnecessary and can be removed
 in `src/components/src/main/java/org/apache/jmeter/visualizers/RenderAsXML.java`
 #### Snippet
 ```java
-        StringWriter sw = new StringWriter();
-        Tidy tidy = XPathUtil.makeTidyParser(true, true, true, sw);
-        org.w3c.dom.Document document = tidy.parseDOM(baIS, null);
-        document.normalize();
-        if (tidy.getParseErrors() > 0) {
+    /**
+     * {@inheritDoc}
+     * @see org.apache.jmeter.visualizers.SamplerResultTab#clearData()
+     */
+    @Override
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -33611,6 +33587,30 @@ in `src/components/src/main/java/org/apache/jmeter/visualizers/backend/graphite/
  * Convenience class for writing bytes to a {@linkplain java.net.Socket}.
  * @since 2.13
  */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.http.client.utils` is unnecessary and can be removed
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/CacheManager.java`
+#### Snippet
+```java
+        Date expiresDate;
+        try {
+            expiresDate = org.apache.http.client.utils.DateUtils
+                    .parseDate(expires);
+        } catch (IllegalArgumentException e) { // Exception handled by return
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/protocol/http/src/main/java/org/apache/jmeter/protocol/http/control/AuthManager.java`
+#### Snippet
+```java
+    // Needs to be package protected for Unit test
+    static boolean isSupportedProtocol(URL url) {
+        String protocol = url.getProtocol().toLowerCase(java.util.Locale.ENGLISH);
+        return protocol.equals(HTTPConstants.PROTOCOL_HTTP) || protocol.equals(HTTPConstants.PROTOCOL_HTTPS);
+    }
 ```
 
 ## RuleId[ruleID=RegExpSingleCharAlternation]
@@ -33644,10 +33644,10 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/launcher/src/main/java/org/apache/jmeter/NewDriver.java`
 #### Snippet
 ```java
-                startup.invoke(instance, new Object[] { args });
-            } catch(Throwable e){ // NOSONAR We want to log home directory in case of exception
-                e.printStackTrace(); // NOSONAR No logger at this step
-                System.err.println("JMeter home directory was detected as: "+JMETER_INSTALLATION_DIRECTORY); // NOSONAR Intentional System.err use
+            File[] libJars = libDir.listFiles((dir, name) -> name.endsWith(".jar"));
+            if (libJars == null) {
+                new Throwable("Could not access " + libDir).printStackTrace(); // NOSONAR No logging here
+                continue;
             }
 ```
 
@@ -33656,10 +33656,10 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/launcher/src/main/java/org/apache/jmeter/NewDriver.java`
 #### Snippet
 ```java
-            File[] libJars = libDir.listFiles((dir, name) -> name.endsWith(".jar"));
-            if (libJars == null) {
-                new Throwable("Could not access " + libDir).printStackTrace(); // NOSONAR No logging here
-                continue;
+                startup.invoke(instance, new Object[] { args });
+            } catch(Throwable e){ // NOSONAR We want to log home directory in case of exception
+                e.printStackTrace(); // NOSONAR No logger at this step
+                System.err.println("JMeter home directory was detected as: "+JMETER_INSTALLATION_DIRECTORY); // NOSONAR Intentional System.err use
             }
 ```
 
