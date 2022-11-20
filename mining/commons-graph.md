@@ -39,6 +39,18 @@ in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
 ```
 
 ### RuleId[ruleID=SuspiciousNameCombination]
+'x' should probably not be assigned to 'y'
+in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
+#### Snippet
+```java
+                    // 9  exchange x <-> y
+                    FibonacciHeapNode<E> pointer = y;
+                    y = x;
+                    x = pointer;
+                }
+```
+
+### RuleId[ruleID=SuspiciousNameCombination]
 'y' should probably not be passed as parameter 'right'
 in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
 #### Snippet
@@ -86,18 +98,6 @@ in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
 
 ```
 
-### RuleId[ruleID=SuspiciousNameCombination]
-'x' should probably not be assigned to 'y'
-in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
-#### Snippet
-```java
-                    // 9  exchange x <-> y
-                    FibonacciHeapNode<E> pointer = y;
-                    y = x;
-                    x = pointer;
-                }
-```
-
 ## RuleId[ruleID=UnnecessarySuperQualifier]
 ### RuleId[ruleID=UnnecessarySuperQualifier]
 Qualifier `super` is unnecessary in this context
@@ -140,9 +140,9 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/commons/graph/export/GraphMLExporter.java`
 #### Snippet
 ```java
-    public GraphMLExporter<V, E> withVertexLabels( Mapper<V, String> vertexLabels )
+    public <N extends Number> GraphMLExporter<V, E> withVertexWeights( Mapper<V, N> vertexWeights )
     {
-        super.addVertexProperty( LABEL, vertexLabels );
+        super.addVertexProperty( WEIGHT, vertexWeights );
         return this;
     }
 ```
@@ -164,9 +164,9 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/commons/graph/export/GraphMLExporter.java`
 #### Snippet
 ```java
-    public <N extends Number> GraphMLExporter<V, E> withVertexWeights( Mapper<V, N> vertexWeights )
+    public GraphMLExporter<V, E> withVertexLabels( Mapper<V, String> vertexLabels )
     {
-        super.addVertexProperty( WEIGHT, vertexWeights );
+        super.addVertexProperty( LABEL, vertexLabels );
         return this;
     }
 ```
@@ -222,6 +222,18 @@ in `src/main/java/org/apache/commons/graph/spanning/ShortestEdges.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.commons.graph` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/graph/shortestpath/PredecessorsList.java`
+#### Snippet
+```java
+
+/**
+ * The predecessor list is a list of vertex of a {@link org.apache.commons.graph.Graph}.
+ * Each vertex' entry contains the index of its predecessor in a path through the graph.
+ *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/graph/export/GraphExportException.java`
 #### Snippet
@@ -245,317 +257,41 @@ in `src/main/java/org/apache/commons/graph/GraphException.java`
     public GraphException( String messagePattern, Object...arguments )
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.commons.graph` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/graph/shortestpath/PredecessorsList.java`
-#### Snippet
-```java
-
-/**
- * The predecessor list is a list of vertex of a {@link org.apache.commons.graph.Graph}.
- * Each vertex' entry contains the index of its predecessor in a path through the graph.
- *
-```
-
 ## RuleId[ruleID=DataFlowIssue]
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
+in `src/main/java/org/apache/commons/graph/coloring/ColoredVertices.java`
 #### Snippet
 ```java
-    public int getDegree( V v )
+    public C getColor( V v )
     {
-        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
-        checkArgument( successors.containsKey( v ),
-                       "Impossible to get the degree of input vertex; %s not contained in this path", v );
+        v = checkNotNull( v, "Impossible to get the color for a null Vertex" );
+
+        return coloredVertices.get( v );
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
+in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
 #### Snippet
 ```java
-    public Iterable<V> getConnectedVertices( V v )
+    boolean hasShortestDistance( V source, V target )
     {
-        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
 
-        if ( target.equals( v ) )
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/flow/DefaultFlowWeightedEdgesBuilder.java`
+in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
 #### Snippet
 ```java
-    public <W, M extends Mapper<WE, W>> FromHeadBuilder<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
     {
-        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
-        return new DefaultFromHeadBuilder<V, WE, W>( graph, weightedEdges );
-    }
-```
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
 
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/flow/DefaultToTailBuilder.java`
-#### Snippet
-```java
-    public <T extends V> MaxFlowAlgorithmSelector<V, WE, W> to( T tail )
-    {
-        tail = checkNotNull( tail, "tail vertex has to be specifies when looking for the max flow" );
-        return new DefaultMaxFlowAlgorithmSelector<V, WE, W>( graph, weightedEdges, head, tail );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, WE, G extends DirectedGraph<V, WE>> FlowWeightedEdgesBuilder<V, WE> findMaxFlow( G graph )
-    {
-        graph = checkNotNull( graph, "Max flow can not be calculated on null graph" );
-        return new DefaultFlowWeightedEdgesBuilder<V, WE>( graph );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends Graph<V, E>> ConnectivityBuilder<V, E> findConnectedComponent( G graph )
-    {
-        graph = checkNotNull( graph, "Connected Component cannot be calculated from a null graph" );
-        return new DefaultConnectivityBuilder<V, E>( graph );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends Graph<V, E>> VisitSourceSelector<V, E, G> visit( G graph )
-    {
-        graph = checkNotNull( graph, "No algorithm can be applied on null graph!" );
-        return new DefaultVisitSourceSelector<V, E, G>( graph );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends Graph<V, E>> NamedExportSelector<V, E> export( G graph )
-    {
-        graph = checkNotNull( graph, "Null graph can not be exported" );
-        return new DefaultExportSelector<V, E>( graph );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E> findStronglyConnectedComponent( G graph )
-    {
-        graph = checkNotNull( graph, "Strongly Connected Component cannot be calculated from a null graph" );
-        return new DefaultSccAlgorithmSelector<V, E>( graph );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE> minimumSpanningTree( G graph )
-    {
-        graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
-        return new DefaultSpanningWeightedEdgeMapperBuilder<V, WE>( graph );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E> coloring( G graph )
-    {
-        graph = checkNotNull( graph, "Coloring can not be calculated on null graph"  );
-        return new DefaultColorsBuilder<V, E>( graph );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, WE, G extends Graph<V, WE>> PathWeightedEdgesBuilder<V, WE> findShortestPath( G graph )
-    {
-        graph = checkNotNull( graph, "Shortest path can not be calculated on null graph" );
-        return new DefaultWeightedEdgesSelector<V, WE>( graph );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <P, TG extends DirectedGraph<P, GameResult>> RankingSelector<P> eloRate( TG tournamentGraph )
-    {
-        tournamentGraph = checkNotNull( tournamentGraph, "ELO ranking can not be applied on null graph!" );
-        return new DefaultRankingSelector<P>( tournamentGraph );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/elo/DefaultRankingSelector.java`
-#### Snippet
-```java
-    public KFactorBuilder<P> wherePlayersAreRankedIn( PlayersRank<P> playersRank )
-    {
-        playersRank = checkNotNull( playersRank, "ELO ranking can not be applied if players can not be ranked!" );
-        return new DefaultKFactorBuilder<P>( tournamentGraph, playersRank );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/connectivity/DefaultConnectivityBuilder.java`
-#### Snippet
-```java
-    public ConnectivityAlgorithmsSelector<V, E> includingVertices( V... vertices )
-    {
-        vertices = checkNotNull( vertices,
-                                 "Graph connectivity cannote be applied on null vertices array, use no-args if you intend specify no vertices" );
-        return new DefaultConnectivityAlgorithmsSelector<V, E>( graph, asList( vertices ) );
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultTargetSourceSelector.java`
-#### Snippet
-```java
-    public <T extends V> ShortestPathAlgorithmSelector<V, WE, W> to( T target )
-    {
-        target = checkNotNull( target, "Shortest path can not be calculated to a null target" );
-        return new DefaultShortestPathAlgorithmSelector<V, WE, W>( graph, weightedEdges, source, target );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultTargetSourceSelector.java`
-#### Snippet
-```java
-    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( WO weightOperations )
-    {
-        weightOperations = checkNotNull( weightOperations, "Belmann-Ford algorithm can not be applied using null weight operations" );
-
-        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/visit/DefaultVisitSourceSelector.java`
-#### Snippet
-```java
-    public <S extends V> VisitAlgorithmsSelector<V, E, G> from( S source )
-    {
-        source = checkNotNull( source, "Impossible to visit input graph %s with null source", graph );
-        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
-        return new DefaultVisitAlgorithmsSelector<V, E, G>( graph, source );
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/builder/DefaultTailVertexConnector.java`
-#### Snippet
-```java
-    public <T extends V> void to( T tail )
-    {
-        tail = checkNotNull( tail, "Null tail vertex not admitted" );
-        graph.addEdge( head, edge, tail );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/spanning/DefaultSpanningWeightedEdgeMapperBuilder.java`
-#### Snippet
-```java
-    public <W> SpanningTreeSourceSelector<V, W, WE> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges )
-    {
-        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
-        return new DefaultSpanningTreeSourceSelector<V, W, WE>( graph, weightedEdges );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/builder/DefaultLinkedConnectionBuilder.java`
-#### Snippet
-```java
-    public G withConnections( GraphConnection<V, E> graphConnection )
-    {
-        graphConnection = checkNotNull( graphConnection, "Input graph cannot be configured with null connections" );
-
-        GraphConnector<V, E> grapher = new DefaultGrapher<V, E>( graph );
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/coloring/DefaultColorsBuilder.java`
-#### Snippet
-```java
-    public <C> ColoringAlgorithmsSelector<V, E, C> withColors( Set<C> colors )
-    {
-        colors = checkNotNull( colors, "Colors set must be not null" );
-        return new DefaultColoringAlgorithmsSelector<V, E, C>( graph, colors );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/builder/DefaultGrapher.java`
-#### Snippet
-```java
-    public <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
-    {
-        arc = checkNotNull( arc, "Null edge not admitted" );
-        return new DefaultHeadVertexConnector<V, E>( graph, arc );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/builder/DefaultGrapher.java`
-#### Snippet
-```java
-    public <N extends V> N addVertex( N node )
-    {
-        node = checkNotNull( node, "Null vertex not admitted" );
-        graph.addVertex( node );
-        return node;
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/visit/DefaultVisitAlgorithmsSelector.java`
-#### Snippet
-```java
-    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
-    {
-        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
-
-        handler.discoverGraph( graph );
+        if ( source.equals( target ) )
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -580,6 +316,30 @@ in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPa
         target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
 
         WeightedPath<V, WE, W> path = paths.get( new VertexPair<V>( source, target ) );
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+#### Snippet
+```java
+    W getShortestDistance( V source, V target )
+    {
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
+
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+#### Snippet
+```java
+    {
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
+
+        if ( source.equals( target ) )
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -656,61 +416,85 @@ in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPa
 
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+in `src/main/java/org/apache/commons/graph/visit/DefaultVisitSourceSelector.java`
 #### Snippet
 ```java
-    W getShortestDistance( V source, V target )
+    public <S extends V> VisitAlgorithmsSelector<V, E, G> from( S source )
     {
-        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
-        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
-
+        source = checkNotNull( source, "Impossible to visit input graph %s with null source", graph );
+        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
+        return new DefaultVisitAlgorithmsSelector<V, E, G>( graph, source );
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultWeightedEdgesSelector.java`
 #### Snippet
 ```java
+    public <W, M extends Mapper<WE, W>> PathSourceSelector<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
     {
-        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
-        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
-
-        if ( source.equals( target ) )
+        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
+        return new DefaultPathSourceSelector<V, WE, W>( graph, weightedEdges );
+    }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+in `src/main/java/org/apache/commons/graph/flow/DefaultToTailBuilder.java`
 #### Snippet
 ```java
-    boolean hasShortestDistance( V source, V target )
+    public <T extends V> MaxFlowAlgorithmSelector<V, WE, W> to( T tail )
     {
-        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
-        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
-
+        tail = checkNotNull( tail, "tail vertex has to be specifies when looking for the max flow" );
+        return new DefaultMaxFlowAlgorithmSelector<V, WE, W>( graph, weightedEdges, head, tail );
+    }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+in `src/main/java/org/apache/commons/graph/flow/DefaultFromHeadBuilder.java`
 #### Snippet
 ```java
+    public <H extends V> ToTailBuilder<V, WE, W> from( H head )
     {
-        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
-        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
-
-        if ( source.equals( target ) )
+        head = checkNotNull( head, "head vertex has to be specifies when looking for the max flow" );
+        return new DefaultToTailBuilder<V, WE, W>( graph, weightedEdges, head );
+    }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/model/RevertedGraph.java`
+in `src/main/java/org/apache/commons/graph/spanning/DefaultSpanningWeightedEdgeMapperBuilder.java`
 #### Snippet
 ```java
-    public RevertedGraph( DirectedGraph<V, E> directedGraph )
+    public <W> SpanningTreeSourceSelector<V, W, WE> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges )
     {
-        directedGraph = checkNotNull( directedGraph, "Adapted DirectedGraph must be not null" );
-        this.directedGraph = directedGraph;
+        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
+        return new DefaultSpanningTreeSourceSelector<V, W, WE>( graph, weightedEdges );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/coloring/DefaultColoringAlgorithmsSelector.java`
+#### Snippet
+```java
+    public ColoredVertices<V, C> applyingBackTrackingAlgorithm( ColoredVertices<V, C> partialColoredVertex )
+    {
+        partialColoredVertex = checkNotNull( partialColoredVertex, "PartialColoredVertex must be not null" );
+
+        final List<V> verticesList = new ArrayList<V>();
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/coloring/DefaultColorsBuilder.java`
+#### Snippet
+```java
+    public <C> ColoringAlgorithmsSelector<V, E, C> withColors( Set<C> colors )
+    {
+        colors = checkNotNull( colors, "Colors set must be not null" );
+        return new DefaultColoringAlgorithmsSelector<V, E, C>( graph, colors );
     }
 ```
 
@@ -740,50 +524,14 @@ in `src/main/java/org/apache/commons/graph/shortestpath/DefaultPathSourceSelecto
 
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/coloring/ColoredVertices.java`
+in `src/main/java/org/apache/commons/graph/spanning/DefaultSpanningTreeSourceSelector.java`
 #### Snippet
 ```java
-    public C getColor( V v )
+    public <S extends V> SpanningTreeAlgorithmSelector<V, W, WE> fromSource( S source )
     {
-        v = checkNotNull( v, "Impossible to get the color for a null Vertex" );
-
-        return coloredVertices.get( v );
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultWeightedEdgesSelector.java`
-#### Snippet
-```java
-    public <W, M extends Mapper<WE, W>> PathSourceSelector<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
-    {
-        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
-        return new DefaultPathSourceSelector<V, WE, W>( graph, weightedEdges );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/flow/DefaultFromHeadBuilder.java`
-#### Snippet
-```java
-    public <H extends V> ToTailBuilder<V, WE, W> from( H head )
-    {
-        head = checkNotNull( head, "head vertex has to be specifies when looking for the max flow" );
-        return new DefaultToTailBuilder<V, WE, W>( graph, weightedEdges, head );
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/coloring/DefaultColoringAlgorithmsSelector.java`
-#### Snippet
-```java
-    public ColoredVertices<V, C> applyingBackTrackingAlgorithm( ColoredVertices<V, C> partialColoredVertex )
-    {
-        partialColoredVertex = checkNotNull( partialColoredVertex, "PartialColoredVertex must be not null" );
-
-        final List<V> verticesList = new ArrayList<V>();
+        source = checkNotNull( source, "Spanning tree cannot be calculated without expressing the source vertex" );
+        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
+        return new DefaultSpanningTreeAlgorithmSelector<V, W, WE>( graph, weightedEdges, source );
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -800,26 +548,38 @@ in `src/main/java/org/apache/commons/graph/builder/DefaultHeadVertexConnector.ja
 
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/spanning/DefaultSpanningTreeSourceSelector.java`
+in `src/main/java/org/apache/commons/graph/connectivity/DefaultConnectivityBuilder.java`
 #### Snippet
 ```java
-    public <S extends V> SpanningTreeAlgorithmSelector<V, W, WE> fromSource( S source )
+    public ConnectivityAlgorithmsSelector<V, E> includingVertices( V... vertices )
     {
-        source = checkNotNull( source, "Spanning tree cannot be calculated without expressing the source vertex" );
-        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
-        return new DefaultSpanningTreeAlgorithmSelector<V, W, WE>( graph, weightedEdges, source );
+        vertices = checkNotNull( vertices,
+                                 "Graph connectivity cannote be applied on null vertices array, use no-args if you intend specify no vertices" );
+        return new DefaultConnectivityAlgorithmsSelector<V, E>( graph, asList( vertices ) );
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultHeuristicBuilder.java`
+in `src/main/java/org/apache/commons/graph/elo/DefaultRankingSelector.java`
 #### Snippet
 ```java
-    public <H extends Heuristic<V, W>> WeightedPath<V, WE, W> withHeuristic( H heuristic )
+    public KFactorBuilder<P> wherePlayersAreRankedIn( PlayersRank<P> playersRank )
     {
-        heuristic = checkNotNull( heuristic, "A* algorithm can not be applied using a null heuristic" );
+        playersRank = checkNotNull( playersRank, "ELO ranking can not be applied if players can not be ranked!" );
+        return new DefaultKFactorBuilder<P>( tournamentGraph, playersRank );
+    }
+```
 
-        // Cost from start along best known path.
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/model/RevertedGraph.java`
+#### Snippet
+```java
+    public RevertedGraph( DirectedGraph<V, E> directedGraph )
+    {
+        directedGraph = checkNotNull( directedGraph, "Adapted DirectedGraph must be not null" );
+        this.directedGraph = directedGraph;
+    }
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -839,6 +599,18 @@ Variable is already assigned to this value
 in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgorithmSelector.java`
 #### Snippet
 ```java
+    public <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W> applyingAStar( WO weightOperations )
+    {
+        weightOperations = checkNotNull( weightOperations, "A* algorithm can not be applied using null weight operations" );
+        return new DefaultHeuristicBuilder<V, WE, W>( graph, weightedEdges, source, target, weightOperations );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgorithmSelector.java`
+#### Snippet
+```java
     public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations )
     {
         weightOperations = checkNotNull( weightOperations, "Dijkstra algorithm can not be applied using null weight operations" );
@@ -848,27 +620,242 @@ in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgor
 
 ### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgorithmSelector.java`
+in `src/main/java/org/apache/commons/graph/builder/DefaultTailVertexConnector.java`
 #### Snippet
 ```java
-    public <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W> applyingAStar( WO weightOperations )
+    public <T extends V> void to( T tail )
     {
-        weightOperations = checkNotNull( weightOperations, "A* algorithm can not be applied using null weight operations" );
-        return new DefaultHeuristicBuilder<V, WE, W>( graph, weightedEdges, source, target, weightOperations );
+        tail = checkNotNull( tail, "Null tail vertex not admitted" );
+        graph.addEdge( head, edge, tail );
     }
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AbstractExporter()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/graph/export/AbstractExporter.java`
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/builder/DefaultLinkedConnectionBuilder.java`
 #### Snippet
 ```java
-    private Writer writer;
-
-    public AbstractExporter( Graph<V, E> graph, String name )
+    public G withConnections( GraphConnection<V, E> graphConnection )
     {
-        this.graph = graph;
+        graphConnection = checkNotNull( graphConnection, "Input graph cannot be configured with null connections" );
+
+        GraphConnector<V, E> grapher = new DefaultGrapher<V, E>( graph );
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
+#### Snippet
+```java
+    public int getDegree( V v )
+    {
+        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
+        checkArgument( successors.containsKey( v ),
+                       "Impossible to get the degree of input vertex; %s not contained in this path", v );
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
+#### Snippet
+```java
+    public Iterable<V> getConnectedVertices( V v )
+    {
+        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
+
+        if ( target.equals( v ) )
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/flow/DefaultFlowWeightedEdgesBuilder.java`
+#### Snippet
+```java
+    public <W, M extends Mapper<WE, W>> FromHeadBuilder<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
+    {
+        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
+        return new DefaultFromHeadBuilder<V, WE, W>( graph, weightedEdges );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/visit/DefaultVisitAlgorithmsSelector.java`
+#### Snippet
+```java
+    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
+    {
+        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
+
+        handler.discoverGraph( graph );
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/builder/DefaultGrapher.java`
+#### Snippet
+```java
+    public <N extends V> N addVertex( N node )
+    {
+        node = checkNotNull( node, "Null vertex not admitted" );
+        graph.addVertex( node );
+        return node;
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/builder/DefaultGrapher.java`
+#### Snippet
+```java
+    public <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
+    {
+        arc = checkNotNull( arc, "Null edge not admitted" );
+        return new DefaultHeadVertexConnector<V, E>( graph, arc );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultHeuristicBuilder.java`
+#### Snippet
+```java
+    public <H extends Heuristic<V, W>> WeightedPath<V, WE, W> withHeuristic( H heuristic )
+    {
+        heuristic = checkNotNull( heuristic, "A* algorithm can not be applied using a null heuristic" );
+
+        // Cost from start along best known path.
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultTargetSourceSelector.java`
+#### Snippet
+```java
+    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( WO weightOperations )
+    {
+        weightOperations = checkNotNull( weightOperations, "Belmann-Ford algorithm can not be applied using null weight operations" );
+
+        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultTargetSourceSelector.java`
+#### Snippet
+```java
+    public <T extends V> ShortestPathAlgorithmSelector<V, WE, W> to( T target )
+    {
+        target = checkNotNull( target, "Shortest path can not be calculated to a null target" );
+        return new DefaultShortestPathAlgorithmSelector<V, WE, W>( graph, weightedEdges, source, target );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E> findStronglyConnectedComponent( G graph )
+    {
+        graph = checkNotNull( graph, "Strongly Connected Component cannot be calculated from a null graph" );
+        return new DefaultSccAlgorithmSelector<V, E>( graph );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE> minimumSpanningTree( G graph )
+    {
+        graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
+        return new DefaultSpanningWeightedEdgeMapperBuilder<V, WE>( graph );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E> coloring( G graph )
+    {
+        graph = checkNotNull( graph, "Coloring can not be calculated on null graph"  );
+        return new DefaultColorsBuilder<V, E>( graph );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, WE, G extends Graph<V, WE>> PathWeightedEdgesBuilder<V, WE> findShortestPath( G graph )
+    {
+        graph = checkNotNull( graph, "Shortest path can not be calculated on null graph" );
+        return new DefaultWeightedEdgesSelector<V, WE>( graph );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <P, TG extends DirectedGraph<P, GameResult>> RankingSelector<P> eloRate( TG tournamentGraph )
+    {
+        tournamentGraph = checkNotNull( tournamentGraph, "ELO ranking can not be applied on null graph!" );
+        return new DefaultRankingSelector<P>( tournamentGraph );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends Graph<V, E>> VisitSourceSelector<V, E, G> visit( G graph )
+    {
+        graph = checkNotNull( graph, "No algorithm can be applied on null graph!" );
+        return new DefaultVisitSourceSelector<V, E, G>( graph );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends Graph<V, E>> ConnectivityBuilder<V, E> findConnectedComponent( G graph )
+    {
+        graph = checkNotNull( graph, "Connected Component cannot be calculated from a null graph" );
+        return new DefaultConnectivityBuilder<V, E>( graph );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends Graph<V, E>> NamedExportSelector<V, E> export( G graph )
+    {
+        graph = checkNotNull( graph, "Null graph can not be exported" );
+        return new DefaultExportSelector<V, E>( graph );
+    }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, WE, G extends DirectedGraph<V, WE>> FlowWeightedEdgesBuilder<V, WE> findMaxFlow( G graph )
+    {
+        graph = checkNotNull( graph, "Max flow can not be calculated on null graph" );
+        return new DefaultFlowWeightedEdgesBuilder<V, WE>( graph );
+    }
 ```
 
 ## RuleId[ruleID=SimplifiableBooleanExpression]
@@ -896,31 +883,20 @@ in `src/main/java/org/apache/commons/graph/scc/KosarajuSharirAlgorithm.java`
                     stack.addLast( w );
 ```
 
+## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `AbstractExporter()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/commons/graph/export/AbstractExporter.java`
+#### Snippet
+```java
+    private Writer writer;
+
+    public AbstractExporter( Graph<V, E> graph, String name )
+    {
+        this.graph = graph;
+```
+
 ## RuleId[ruleID=ObsoleteCollection]
-### RuleId[ruleID=ObsoleteCollection]
-Obsolete collection type `Stack`> used
-in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
-#### Snippet
-```java
-
-        // create a new stack and put root on it
-        Stack<FibonacciHeapNode<E>> stack = new Stack<FibonacciHeapNode<E>>();
-        stack.push( minimumNode );
-
-```
-
-### RuleId[ruleID=ObsoleteCollection]
-Obsolete collection type `Stack`> used
-in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
-#### Snippet
-```java
-
-        // create a new stack and put root on it
-        Stack<FibonacciHeapNode<E>> stack = new Stack<FibonacciHeapNode<E>>();
-        stack.push( minimumNode );
-
-```
-
 ### RuleId[ruleID=ObsoleteCollection]
 Obsolete collection type `Stack` used
 in `src/main/java/org/apache/commons/graph/scc/CheriyanMehlhornGabowAlgorithm.java`
@@ -1005,6 +981,30 @@ in `src/main/java/org/apache/commons/graph/scc/TarjanAlgorithm.java`
         Integer index = 0;
 ```
 
+### RuleId[ruleID=ObsoleteCollection]
+Obsolete collection type `Stack`> used
+in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
+#### Snippet
+```java
+
+        // create a new stack and put root on it
+        Stack<FibonacciHeapNode<E>> stack = new Stack<FibonacciHeapNode<E>>();
+        stack.push( minimumNode );
+
+```
+
+### RuleId[ruleID=ObsoleteCollection]
+Obsolete collection type `Stack`> used
+in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
+#### Snippet
+```java
+
+        // create a new stack and put root on it
+        Stack<FibonacciHeapNode<E>> stack = new Stack<FibonacciHeapNode<E>>();
+        stack.push( minimumNode );
+
+```
+
 ## RuleId[ruleID=EmptyMethod]
 ### RuleId[ruleID=EmptyMethod]
 All implementations of this method are empty
@@ -1044,13 +1044,37 @@ in `src/main/java/org/apache/commons/graph/coloring/UncoloredOrderedVertices.jav
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/graph/export/DefaultExportSelector.java`
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/graph/scc/CheriyanMehlhornGabowAlgorithm.java`
 #### Snippet
 ```java
-    private final Graph<V, E> graph;
+    private int preorderCounter = 0;
 
-    private String name = null;
+    private int sscCounter = 0;
+
+    public CheriyanMehlhornGabowAlgorithm( DirectedGraph<V, E> graph )
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/graph/scc/CheriyanMehlhornGabowAlgorithm.java`
+#### Snippet
+```java
+    private final Stack<V> p = new Stack<V>();
+
+    private int preorderCounter = 0;
+
+    private int sscCounter = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
+#### Snippet
+```java
+     * {@code m(H)} the number of marked nodes in {@code H}.
+     */
+    private int markedNodes = 0;
 
     /**
 ```
@@ -1080,340 +1104,52 @@ in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/graph/export/DefaultExportSelector.java`
 #### Snippet
 ```java
-     * {@code m(H)} the number of marked nodes in {@code H}.
-     */
-    private int markedNodes = 0;
+    private final Graph<V, E> graph;
+
+    private String name = null;
 
     /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/graph/scc/CheriyanMehlhornGabowAlgorithm.java`
-#### Snippet
-```java
-    private final Stack<V> p = new Stack<V>();
-
-    private int preorderCounter = 0;
-
-    private int sscCounter = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/graph/scc/CheriyanMehlhornGabowAlgorithm.java`
-#### Snippet
-```java
-    private int preorderCounter = 0;
-
-    private int sscCounter = 0;
-
-    public CheriyanMehlhornGabowAlgorithm( DirectedGraph<V, E> graph )
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `v`
-in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
+in `src/main/java/org/apache/commons/graph/coloring/ColoredVertices.java`
 #### Snippet
 ```java
-    public int getDegree( V v )
+    public C getColor( V v )
     {
-        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
-        checkArgument( successors.containsKey( v ),
-                       "Impossible to get the degree of input vertex; %s not contained in this path", v );
-```
+        v = checkNotNull( v, "Impossible to get the color for a null Vertex" );
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `v`
-in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
-#### Snippet
-```java
-    public Iterable<V> getConnectedVertices( V v )
-    {
-        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
-
-        if ( target.equals( v ) )
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `weightedEdges`
-in `src/main/java/org/apache/commons/graph/flow/DefaultFlowWeightedEdgesBuilder.java`
-#### Snippet
-```java
-    public <W, M extends Mapper<WE, W>> FromHeadBuilder<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
-    {
-        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
-        return new DefaultFromHeadBuilder<V, WE, W>( graph, weightedEdges );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `tail`
-in `src/main/java/org/apache/commons/graph/flow/DefaultToTailBuilder.java`
-#### Snippet
-```java
-    public <T extends V> MaxFlowAlgorithmSelector<V, WE, W> to( T tail )
-    {
-        tail = checkNotNull( tail, "tail vertex has to be specifies when looking for the max flow" );
-        return new DefaultMaxFlowAlgorithmSelector<V, WE, W>( graph, weightedEdges, head, tail );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `graph`
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, WE, G extends DirectedGraph<V, WE>> FlowWeightedEdgesBuilder<V, WE> findMaxFlow( G graph )
-    {
-        graph = checkNotNull( graph, "Max flow can not be calculated on null graph" );
-        return new DefaultFlowWeightedEdgesBuilder<V, WE>( graph );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `graph`
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends Graph<V, E>> ConnectivityBuilder<V, E> findConnectedComponent( G graph )
-    {
-        graph = checkNotNull( graph, "Connected Component cannot be calculated from a null graph" );
-        return new DefaultConnectivityBuilder<V, E>( graph );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `graph`
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends Graph<V, E>> VisitSourceSelector<V, E, G> visit( G graph )
-    {
-        graph = checkNotNull( graph, "No algorithm can be applied on null graph!" );
-        return new DefaultVisitSourceSelector<V, E, G>( graph );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `graph`
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends Graph<V, E>> NamedExportSelector<V, E> export( G graph )
-    {
-        graph = checkNotNull( graph, "Null graph can not be exported" );
-        return new DefaultExportSelector<V, E>( graph );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `graph`
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E> findStronglyConnectedComponent( G graph )
-    {
-        graph = checkNotNull( graph, "Strongly Connected Component cannot be calculated from a null graph" );
-        return new DefaultSccAlgorithmSelector<V, E>( graph );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `graph`
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE> minimumSpanningTree( G graph )
-    {
-        graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
-        return new DefaultSpanningWeightedEdgeMapperBuilder<V, WE>( graph );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `graph`
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E> coloring( G graph )
-    {
-        graph = checkNotNull( graph, "Coloring can not be calculated on null graph"  );
-        return new DefaultColorsBuilder<V, E>( graph );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `graph`
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, WE, G extends Graph<V, WE>> PathWeightedEdgesBuilder<V, WE> findShortestPath( G graph )
-    {
-        graph = checkNotNull( graph, "Shortest path can not be calculated on null graph" );
-        return new DefaultWeightedEdgesSelector<V, WE>( graph );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `tournamentGraph`
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <P, TG extends DirectedGraph<P, GameResult>> RankingSelector<P> eloRate( TG tournamentGraph )
-    {
-        tournamentGraph = checkNotNull( tournamentGraph, "ELO ranking can not be applied on null graph!" );
-        return new DefaultRankingSelector<P>( tournamentGraph );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `playersRank`
-in `src/main/java/org/apache/commons/graph/elo/DefaultRankingSelector.java`
-#### Snippet
-```java
-    public KFactorBuilder<P> wherePlayersAreRankedIn( PlayersRank<P> playersRank )
-    {
-        playersRank = checkNotNull( playersRank, "ELO ranking can not be applied if players can not be ranked!" );
-        return new DefaultKFactorBuilder<P>( tournamentGraph, playersRank );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `vertices`
-in `src/main/java/org/apache/commons/graph/connectivity/DefaultConnectivityBuilder.java`
-#### Snippet
-```java
-    public ConnectivityAlgorithmsSelector<V, E> includingVertices( V... vertices )
-    {
-        vertices = checkNotNull( vertices,
-                                 "Graph connectivity cannote be applied on null vertices array, use no-args if you intend specify no vertices" );
-        return new DefaultConnectivityAlgorithmsSelector<V, E>( graph, asList( vertices ) );
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `target`
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultTargetSourceSelector.java`
-#### Snippet
-```java
-    public <T extends V> ShortestPathAlgorithmSelector<V, WE, W> to( T target )
-    {
-        target = checkNotNull( target, "Shortest path can not be calculated to a null target" );
-        return new DefaultShortestPathAlgorithmSelector<V, WE, W>( graph, weightedEdges, source, target );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `weightOperations`
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultTargetSourceSelector.java`
-#### Snippet
-```java
-    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( WO weightOperations )
-    {
-        weightOperations = checkNotNull( weightOperations, "Belmann-Ford algorithm can not be applied using null weight operations" );
-
-        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
+        return coloredVertices.get( v );
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `source`
-in `src/main/java/org/apache/commons/graph/visit/DefaultVisitSourceSelector.java`
+in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
 #### Snippet
 ```java
-    public <S extends V> VisitAlgorithmsSelector<V, E, G> from( S source )
+    boolean hasShortestDistance( V source, V target )
     {
-        source = checkNotNull( source, "Impossible to visit input graph %s with null source", graph );
-        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
-        return new DefaultVisitAlgorithmsSelector<V, E, G>( graph, source );
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
+
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `tail`
-in `src/main/java/org/apache/commons/graph/builder/DefaultTailVertexConnector.java`
+Assignment to method parameter `target`
+in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
 #### Snippet
 ```java
-    public <T extends V> void to( T tail )
     {
-        tail = checkNotNull( tail, "Null tail vertex not admitted" );
-        graph.addEdge( head, edge, tail );
-    }
-```
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `weightedEdges`
-in `src/main/java/org/apache/commons/graph/spanning/DefaultSpanningWeightedEdgeMapperBuilder.java`
-#### Snippet
-```java
-    public <W> SpanningTreeSourceSelector<V, W, WE> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges )
-    {
-        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
-        return new DefaultSpanningTreeSourceSelector<V, W, WE>( graph, weightedEdges );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `graphConnection`
-in `src/main/java/org/apache/commons/graph/builder/DefaultLinkedConnectionBuilder.java`
-#### Snippet
-```java
-    public G withConnections( GraphConnection<V, E> graphConnection )
-    {
-        graphConnection = checkNotNull( graphConnection, "Input graph cannot be configured with null connections" );
-
-        GraphConnector<V, E> grapher = new DefaultGrapher<V, E>( graph );
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `colors`
-in `src/main/java/org/apache/commons/graph/coloring/DefaultColorsBuilder.java`
-#### Snippet
-```java
-    public <C> ColoringAlgorithmsSelector<V, E, C> withColors( Set<C> colors )
-    {
-        colors = checkNotNull( colors, "Colors set must be not null" );
-        return new DefaultColoringAlgorithmsSelector<V, E, C>( graph, colors );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `arc`
-in `src/main/java/org/apache/commons/graph/builder/DefaultGrapher.java`
-#### Snippet
-```java
-    public <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
-    {
-        arc = checkNotNull( arc, "Null edge not admitted" );
-        return new DefaultHeadVertexConnector<V, E>( graph, arc );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `node`
-in `src/main/java/org/apache/commons/graph/builder/DefaultGrapher.java`
-#### Snippet
-```java
-    public <N extends V> N addVertex( N node )
-    {
-        node = checkNotNull( node, "Null vertex not admitted" );
-        graph.addVertex( node );
-        return node;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `handler`
-in `src/main/java/org/apache/commons/graph/visit/DefaultVisitAlgorithmsSelector.java`
-#### Snippet
-```java
-    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
-    {
-        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
-
-        handler.discoverGraph( graph );
+        if ( source.equals( target ) )
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -1438,6 +1174,30 @@ in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPa
         target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
 
         WeightedPath<V, WE, W> path = paths.get( new VertexPair<V>( source, target ) );
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `source`
+in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+#### Snippet
+```java
+    W getShortestDistance( V source, V target )
+    {
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
+
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `target`
+in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+#### Snippet
+```java
+    {
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
+
+        if ( source.equals( target ) )
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -1514,61 +1274,97 @@ in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPa
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `source`
-in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+in `src/main/java/org/apache/commons/graph/visit/DefaultVisitSourceSelector.java`
 #### Snippet
 ```java
-    W getShortestDistance( V source, V target )
+    public <S extends V> VisitAlgorithmsSelector<V, E, G> from( S source )
     {
-        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
-        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
+        source = checkNotNull( source, "Impossible to visit input graph %s with null source", graph );
+        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
+        return new DefaultVisitAlgorithmsSelector<V, E, G>( graph, source );
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `weightedEdges`
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultWeightedEdgesSelector.java`
+#### Snippet
+```java
+    public <W, M extends Mapper<WE, W>> PathSourceSelector<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
+    {
+        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
+        return new DefaultPathSourceSelector<V, WE, W>( graph, weightedEdges );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/graph/scc/TarjanAlgorithm.java`
+#### Snippet
+```java
+        vertexMetaInfo.setIndex( index );
+        vertexMetaInfo.setLowLink( index );
+        index++;
+        s.push( vertex );
 
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `target`
-in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+Assignment to method parameter `tail`
+in `src/main/java/org/apache/commons/graph/flow/DefaultToTailBuilder.java`
 #### Snippet
 ```java
+    public <T extends V> MaxFlowAlgorithmSelector<V, WE, W> to( T tail )
     {
-        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
-        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
-
-        if ( source.equals( target ) )
+        tail = checkNotNull( tail, "tail vertex has to be specifies when looking for the max flow" );
+        return new DefaultMaxFlowAlgorithmSelector<V, WE, W>( graph, weightedEdges, head, tail );
+    }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `source`
-in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+Assignment to method parameter `head`
+in `src/main/java/org/apache/commons/graph/flow/DefaultFromHeadBuilder.java`
 #### Snippet
 ```java
-    boolean hasShortestDistance( V source, V target )
+    public <H extends V> ToTailBuilder<V, WE, W> from( H head )
     {
-        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
-        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
-
+        head = checkNotNull( head, "head vertex has to be specifies when looking for the max flow" );
+        return new DefaultToTailBuilder<V, WE, W>( graph, weightedEdges, head );
+    }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `target`
-in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+Assignment to method parameter `weightedEdges`
+in `src/main/java/org/apache/commons/graph/spanning/DefaultSpanningWeightedEdgeMapperBuilder.java`
 #### Snippet
 ```java
+    public <W> SpanningTreeSourceSelector<V, W, WE> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges )
     {
-        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
-        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
-
-        if ( source.equals( target ) )
+        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
+        return new DefaultSpanningTreeSourceSelector<V, W, WE>( graph, weightedEdges );
+    }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `directedGraph`
-in `src/main/java/org/apache/commons/graph/model/RevertedGraph.java`
+Assignment to method parameter `partialColoredVertex`
+in `src/main/java/org/apache/commons/graph/coloring/DefaultColoringAlgorithmsSelector.java`
 #### Snippet
 ```java
-    public RevertedGraph( DirectedGraph<V, E> directedGraph )
+    public ColoredVertices<V, C> applyingBackTrackingAlgorithm( ColoredVertices<V, C> partialColoredVertex )
     {
-        directedGraph = checkNotNull( directedGraph, "Adapted DirectedGraph must be not null" );
-        this.directedGraph = directedGraph;
+        partialColoredVertex = checkNotNull( partialColoredVertex, "PartialColoredVertex must be not null" );
+
+        final List<V> verticesList = new ArrayList<V>();
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `colors`
+in `src/main/java/org/apache/commons/graph/coloring/DefaultColorsBuilder.java`
+#### Snippet
+```java
+    public <C> ColoringAlgorithmsSelector<V, E, C> withColors( Set<C> colors )
+    {
+        colors = checkNotNull( colors, "Colors set must be not null" );
+        return new DefaultColoringAlgorithmsSelector<V, E, C>( graph, colors );
     }
 ```
 
@@ -1597,63 +1393,15 @@ in `src/main/java/org/apache/commons/graph/shortestpath/DefaultPathSourceSelecto
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `v`
-in `src/main/java/org/apache/commons/graph/coloring/ColoredVertices.java`
+Assignment to method parameter `source`
+in `src/main/java/org/apache/commons/graph/spanning/DefaultSpanningTreeSourceSelector.java`
 #### Snippet
 ```java
-    public C getColor( V v )
+    public <S extends V> SpanningTreeAlgorithmSelector<V, W, WE> fromSource( S source )
     {
-        v = checkNotNull( v, "Impossible to get the color for a null Vertex" );
-
-        return coloredVertices.get( v );
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `weightedEdges`
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultWeightedEdgesSelector.java`
-#### Snippet
-```java
-    public <W, M extends Mapper<WE, W>> PathSourceSelector<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
-    {
-        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
-        return new DefaultPathSourceSelector<V, WE, W>( graph, weightedEdges );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `head`
-in `src/main/java/org/apache/commons/graph/flow/DefaultFromHeadBuilder.java`
-#### Snippet
-```java
-    public <H extends V> ToTailBuilder<V, WE, W> from( H head )
-    {
-        head = checkNotNull( head, "head vertex has to be specifies when looking for the max flow" );
-        return new DefaultToTailBuilder<V, WE, W>( graph, weightedEdges, head );
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `partialColoredVertex`
-in `src/main/java/org/apache/commons/graph/coloring/DefaultColoringAlgorithmsSelector.java`
-#### Snippet
-```java
-    public ColoredVertices<V, C> applyingBackTrackingAlgorithm( ColoredVertices<V, C> partialColoredVertex )
-    {
-        partialColoredVertex = checkNotNull( partialColoredVertex, "PartialColoredVertex must be not null" );
-
-        final List<V> verticesList = new ArrayList<V>();
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/graph/scc/TarjanAlgorithm.java`
-#### Snippet
-```java
-        vertexMetaInfo.setIndex( index );
-        vertexMetaInfo.setLowLink( index );
-        index++;
-        s.push( vertex );
-
+        source = checkNotNull( source, "Spanning tree cannot be calculated without expressing the source vertex" );
+        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
+        return new DefaultSpanningTreeAlgorithmSelector<V, W, WE>( graph, weightedEdges, source );
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -1669,15 +1417,171 @@ in `src/main/java/org/apache/commons/graph/builder/DefaultHeadVertexConnector.ja
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `source`
-in `src/main/java/org/apache/commons/graph/spanning/DefaultSpanningTreeSourceSelector.java`
+Assignment to method parameter `vertices`
+in `src/main/java/org/apache/commons/graph/connectivity/DefaultConnectivityBuilder.java`
 #### Snippet
 ```java
-    public <S extends V> SpanningTreeAlgorithmSelector<V, W, WE> fromSource( S source )
+    public ConnectivityAlgorithmsSelector<V, E> includingVertices( V... vertices )
     {
-        source = checkNotNull( source, "Spanning tree cannot be calculated without expressing the source vertex" );
-        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
-        return new DefaultSpanningTreeAlgorithmSelector<V, W, WE>( graph, weightedEdges, source );
+        vertices = checkNotNull( vertices,
+                                 "Graph connectivity cannote be applied on null vertices array, use no-args if you intend specify no vertices" );
+        return new DefaultConnectivityAlgorithmsSelector<V, E>( graph, asList( vertices ) );
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `playersRank`
+in `src/main/java/org/apache/commons/graph/elo/DefaultRankingSelector.java`
+#### Snippet
+```java
+    public KFactorBuilder<P> wherePlayersAreRankedIn( PlayersRank<P> playersRank )
+    {
+        playersRank = checkNotNull( playersRank, "ELO ranking can not be applied if players can not be ranked!" );
+        return new DefaultKFactorBuilder<P>( tournamentGraph, playersRank );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `directedGraph`
+in `src/main/java/org/apache/commons/graph/model/RevertedGraph.java`
+#### Snippet
+```java
+    public RevertedGraph( DirectedGraph<V, E> directedGraph )
+    {
+        directedGraph = checkNotNull( directedGraph, "Adapted DirectedGraph must be not null" );
+        this.directedGraph = directedGraph;
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `weightOperations`
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgorithmSelector.java`
+#### Snippet
+```java
+    public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingBidirectionalDijkstra( WO weightOperations )
+    {
+        weightOperations = checkNotNull( weightOperations, "Bidirectional Dijkstra algorithm can not be applied using null weight operations" );
+
+        final ShortestDistances<V, W> shortestDistancesForward = new ShortestDistances<V, W>( weightOperations );
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `tail`
+in `src/main/java/org/apache/commons/graph/builder/DefaultTailVertexConnector.java`
+#### Snippet
+```java
+    public <T extends V> void to( T tail )
+    {
+        tail = checkNotNull( tail, "Null tail vertex not admitted" );
+        graph.addEdge( head, edge, tail );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `weightOperations`
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgorithmSelector.java`
+#### Snippet
+```java
+    public <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W> applyingAStar( WO weightOperations )
+    {
+        weightOperations = checkNotNull( weightOperations, "A* algorithm can not be applied using null weight operations" );
+        return new DefaultHeuristicBuilder<V, WE, W>( graph, weightedEdges, source, target, weightOperations );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `weightOperations`
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgorithmSelector.java`
+#### Snippet
+```java
+    public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations )
+    {
+        weightOperations = checkNotNull( weightOperations, "Dijkstra algorithm can not be applied using null weight operations" );
+
+        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `graphConnection`
+in `src/main/java/org/apache/commons/graph/builder/DefaultLinkedConnectionBuilder.java`
+#### Snippet
+```java
+    public G withConnections( GraphConnection<V, E> graphConnection )
+    {
+        graphConnection = checkNotNull( graphConnection, "Input graph cannot be configured with null connections" );
+
+        GraphConnector<V, E> grapher = new DefaultGrapher<V, E>( graph );
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `v`
+in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
+#### Snippet
+```java
+    public int getDegree( V v )
+    {
+        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
+        checkArgument( successors.containsKey( v ),
+                       "Impossible to get the degree of input vertex; %s not contained in this path", v );
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `v`
+in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
+#### Snippet
+```java
+    public Iterable<V> getConnectedVertices( V v )
+    {
+        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
+
+        if ( target.equals( v ) )
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `weightedEdges`
+in `src/main/java/org/apache/commons/graph/flow/DefaultFlowWeightedEdgesBuilder.java`
+#### Snippet
+```java
+    public <W, M extends Mapper<WE, W>> FromHeadBuilder<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
+    {
+        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
+        return new DefaultFromHeadBuilder<V, WE, W>( graph, weightedEdges );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `handler`
+in `src/main/java/org/apache/commons/graph/visit/DefaultVisitAlgorithmsSelector.java`
+#### Snippet
+```java
+    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
+    {
+        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
+
+        handler.discoverGraph( graph );
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `node`
+in `src/main/java/org/apache/commons/graph/builder/DefaultGrapher.java`
+#### Snippet
+```java
+    public <N extends V> N addVertex( N node )
+    {
+        node = checkNotNull( node, "Null vertex not admitted" );
+        graph.addVertex( node );
+        return node;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `arc`
+in `src/main/java/org/apache/commons/graph/builder/DefaultGrapher.java`
+#### Snippet
+```java
+    public <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
+    {
+        arc = checkNotNull( arc, "Null edge not admitted" );
+        return new DefaultHeadVertexConnector<V, E>( graph, arc );
+    }
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -1694,37 +1598,133 @@ in `src/main/java/org/apache/commons/graph/shortestpath/DefaultHeuristicBuilder.
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `weightOperations`
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgorithmSelector.java`
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultTargetSourceSelector.java`
 #### Snippet
 ```java
-    public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingBidirectionalDijkstra( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( WO weightOperations )
     {
-        weightOperations = checkNotNull( weightOperations, "Bidirectional Dijkstra algorithm can not be applied using null weight operations" );
-
-        final ShortestDistances<V, W> shortestDistancesForward = new ShortestDistances<V, W>( weightOperations );
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `weightOperations`
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgorithmSelector.java`
-#### Snippet
-```java
-    public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations )
-    {
-        weightOperations = checkNotNull( weightOperations, "Dijkstra algorithm can not be applied using null weight operations" );
+        weightOperations = checkNotNull( weightOperations, "Belmann-Ford algorithm can not be applied using null weight operations" );
 
         final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `weightOperations`
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgorithmSelector.java`
+Assignment to method parameter `target`
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultTargetSourceSelector.java`
 #### Snippet
 ```java
-    public <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W> applyingAStar( WO weightOperations )
+    public <T extends V> ShortestPathAlgorithmSelector<V, WE, W> to( T target )
     {
-        weightOperations = checkNotNull( weightOperations, "A* algorithm can not be applied using null weight operations" );
-        return new DefaultHeuristicBuilder<V, WE, W>( graph, weightedEdges, source, target, weightOperations );
+        target = checkNotNull( target, "Shortest path can not be calculated to a null target" );
+        return new DefaultShortestPathAlgorithmSelector<V, WE, W>( graph, weightedEdges, source, target );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `graph`
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E> findStronglyConnectedComponent( G graph )
+    {
+        graph = checkNotNull( graph, "Strongly Connected Component cannot be calculated from a null graph" );
+        return new DefaultSccAlgorithmSelector<V, E>( graph );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `graph`
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE> minimumSpanningTree( G graph )
+    {
+        graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
+        return new DefaultSpanningWeightedEdgeMapperBuilder<V, WE>( graph );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `graph`
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E> coloring( G graph )
+    {
+        graph = checkNotNull( graph, "Coloring can not be calculated on null graph"  );
+        return new DefaultColorsBuilder<V, E>( graph );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `graph`
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, WE, G extends Graph<V, WE>> PathWeightedEdgesBuilder<V, WE> findShortestPath( G graph )
+    {
+        graph = checkNotNull( graph, "Shortest path can not be calculated on null graph" );
+        return new DefaultWeightedEdgesSelector<V, WE>( graph );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `tournamentGraph`
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <P, TG extends DirectedGraph<P, GameResult>> RankingSelector<P> eloRate( TG tournamentGraph )
+    {
+        tournamentGraph = checkNotNull( tournamentGraph, "ELO ranking can not be applied on null graph!" );
+        return new DefaultRankingSelector<P>( tournamentGraph );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `graph`
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends Graph<V, E>> VisitSourceSelector<V, E, G> visit( G graph )
+    {
+        graph = checkNotNull( graph, "No algorithm can be applied on null graph!" );
+        return new DefaultVisitSourceSelector<V, E, G>( graph );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `graph`
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends Graph<V, E>> ConnectivityBuilder<V, E> findConnectedComponent( G graph )
+    {
+        graph = checkNotNull( graph, "Connected Component cannot be calculated from a null graph" );
+        return new DefaultConnectivityBuilder<V, E>( graph );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `graph`
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends Graph<V, E>> NamedExportSelector<V, E> export( G graph )
+    {
+        graph = checkNotNull( graph, "Null graph can not be exported" );
+        return new DefaultExportSelector<V, E>( graph );
+    }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `graph`
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, WE, G extends DirectedGraph<V, WE>> FlowWeightedEdgesBuilder<V, WE> findMaxFlow( G graph )
+    {
+        graph = checkNotNull( graph, "Max flow can not be calculated on null graph" );
+        return new DefaultFlowWeightedEdgesBuilder<V, WE>( graph );
     }
 ```
 
@@ -1757,26 +1757,14 @@ in `src/main/java/org/apache/commons/graph/SynchronizedGraph.java`
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
+in `src/main/java/org/apache/commons/graph/spanning/ReverseDeleteGraph.java`
 #### Snippet
 ```java
-        if ( target.equals( v ) )
-        {
-            return null;
+            return graph.getVertices( e );
         }
+        return null;
+    }
 
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/graph/weight/primitive/LongWeightBaseOperations.java`
-#### Snippet
-```java
-        if ( s1 == null || s2 == null )
-        {
-            return null;
-        }
-        return s1 + s2;
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -1793,11 +1781,23 @@ in `src/main/java/org/apache/commons/graph/spanning/ReverseDeleteGraph.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/org/apache/commons/graph/spanning/ReverseDeleteGraph.java`
+in `src/main/java/org/apache/commons/graph/spanning/ShortestEdges.java`
 #### Snippet
 ```java
-            return graph.getVertices( e );
+        if ( edge == null )
+        {
+            return null;
         }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/graph/visit/BaseGraphVisitHandler.java`
+#### Snippet
+```java
+    public O onCompleted()
+    {
         return null;
     }
 
@@ -1817,50 +1817,14 @@ in `src/main/java/org/apache/commons/graph/weight/primitive/FloatWeightBaseOpera
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/org/apache/commons/graph/weight/primitive/BigDecimalWeightBaseOperations.java`
+in `src/main/java/org/apache/commons/graph/weight/primitive/IntegerWeightBaseOperations.java`
 #### Snippet
 ```java
         if ( s1 == null || s2 == null )
         {
             return null;
         }
-        return s1.add( s2 );
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/graph/spanning/ShortestEdges.java`
-#### Snippet
-```java
-        if ( edge == null )
-        {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
-#### Snippet
-```java
-        if ( isEmpty() )
-        {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
-#### Snippet
-```java
-        if ( isEmpty() )
-        {
-            return null;
-        }
-
+        return s1 + s2;
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -1889,19 +1853,55 @@ in `src/main/java/org/apache/commons/graph/weight/primitive/BigIntegerWeightBase
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/org/apache/commons/graph/visit/BaseGraphVisitHandler.java`
+in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
 #### Snippet
 ```java
-    public O onCompleted()
-    {
-        return null;
-    }
+        if ( isEmpty() )
+        {
+            return null;
+        }
 
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/org/apache/commons/graph/weight/primitive/IntegerWeightBaseOperations.java`
+in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
+#### Snippet
+```java
+        if ( isEmpty() )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
+#### Snippet
+```java
+        if ( target.equals( v ) )
+        {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/graph/weight/primitive/BigDecimalWeightBaseOperations.java`
+#### Snippet
+```java
+        if ( s1 == null || s2 == null )
+        {
+            return null;
+        }
+        return s1.add( s2 );
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/org/apache/commons/graph/weight/primitive/LongWeightBaseOperations.java`
 #### Snippet
 ```java
         if ( s1 == null || s2 == null )
@@ -1952,162 +1952,6 @@ in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
 ## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super W`
-in `src/main/java/org/apache/commons/graph/spanning/WeightedEdgesComparator.java`
-#### Snippet
-```java
-    private final Mapper<WE, W> weightedEdges;
-
-    public WeightedEdgesComparator( Comparator<W> weightComparator, Mapper<WE, W> weightedEdges )
-    {
-        this.weightComparator = weightComparator;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super WE`
-in `src/main/java/org/apache/commons/graph/spanning/WeightedEdgesComparator.java`
-#### Snippet
-```java
-    private final Mapper<WE, W> weightedEdges;
-
-    public WeightedEdgesComparator( Comparator<W> weightComparator, Mapper<WE, W> weightedEdges )
-    {
-        this.weightComparator = weightComparator;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends W`
-in `src/main/java/org/apache/commons/graph/spanning/WeightedEdgesComparator.java`
-#### Snippet
-```java
-    private final Mapper<WE, W> weightedEdges;
-
-    public WeightedEdgesComparator( Comparator<W> weightComparator, Mapper<WE, W> weightedEdges )
-    {
-        this.weightComparator = weightComparator;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super WE`
-in `src/main/java/org/apache/commons/graph/model/InMemoryWeightedPath.java`
-#### Snippet
-```java
-     * @param weightedEdges
-     */
-    public InMemoryWeightedPath( V start, V target, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
-    {
-        super( start, target );
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends W`
-in `src/main/java/org/apache/commons/graph/model/InMemoryWeightedPath.java`
-#### Snippet
-```java
-     * @param weightedEdges
-     */
-    public InMemoryWeightedPath( V start, V target, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
-    {
-        super( start, target );
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super WE`
-in `src/main/java/org/apache/commons/graph/model/MutableSpanningTree.java`
-#### Snippet
-```java
-     * @param weightedEdges
-     */
-    public MutableSpanningTree( Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
-    {
-        this.weightOperations = weightOperations;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends W`
-in `src/main/java/org/apache/commons/graph/model/MutableSpanningTree.java`
-#### Snippet
-```java
-     * @param weightedEdges
-     */
-    public MutableSpanningTree( Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
-    {
-        this.weightOperations = weightOperations;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends WE`
-in `src/main/java/org/apache/commons/graph/spanning/ReverseDeleteGraph.java`
-#### Snippet
-```java
-    private final Collection<WE> visitedEdge;
-
-    public ReverseDeleteGraph( Graph<V, WE> graph, Collection<WE> sortedEdge, Collection<WE> visitedEdge )
-    {
-        this.graph = graph;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends WE`
-in `src/main/java/org/apache/commons/graph/spanning/ReverseDeleteGraph.java`
-#### Snippet
-```java
-    private final Collection<WE> visitedEdge;
-
-    public ReverseDeleteGraph( Graph<V, WE> graph, Collection<WE> sortedEdge, Collection<WE> visitedEdge )
-    {
-        this.graph = graph;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `src/main/java/org/apache/commons/graph/export/DotExporter.java`
-#### Snippet
-```java
-    }
-
-    private Map<V, Integer> generateVertexIdentifiers( Graph<V, E> graph )
-    {
-        Map<V, Integer> vertexIdentifiers = new HashMap<V, Integer>();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super WE`
-in `src/main/java/org/apache/commons/graph/spanning/SuperVertex.java`
-#### Snippet
-```java
-     * @param weightComparator the comparator used to sort the weighted edges
-     */
-    public SuperVertex( final V source, final Graph<V, WE> graph, final WeightedEdgesComparator<W, WE> weightComparator )
-    {
-        this.graph = graph;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `src/main/java/org/apache/commons/graph/spanning/SuperVertex.java`
-#### Snippet
-```java
-     * @param other the {@link SuperVertex} to be merged into this
-     */
-    public void merge( final SuperVertex<V, W, WE> other )
-    {
-        for ( final V v : other.vertices )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends WE`
-in `src/main/java/org/apache/commons/graph/spanning/SuperVertex.java`
-#### Snippet
-```java
-     * @param other the {@link SuperVertex} to be merged into this
-     */
-    public void merge( final SuperVertex<V, W, WE> other )
-    {
-        for ( final V v : other.vertices )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super W`
 in `src/main/java/org/apache/commons/graph/shortestpath/ShortestDistances.java`
 #### Snippet
 ```java
@@ -2116,198 +1960,6 @@ in `src/main/java/org/apache/commons/graph/shortestpath/ShortestDistances.java`
     public ShortestDistances( OrderedMonoid<W> weightOperations )
     {
         this.weightOperations = weightOperations;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super P`
-in `src/main/java/org/apache/commons/graph/elo/DefaultKFactorBuilder.java`
-#### Snippet
-```java
-
-    public DefaultKFactorBuilder( DirectedGraph<P, GameResult> tournamentGraph,
-                                 PlayersRank<P> playerRanking )
-    {
-        this.tournamentGraph = tournamentGraph;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super WE`
-in `src/main/java/org/apache/commons/graph/flow/DefaultMaxFlowAlgorithmSelector.java`
-#### Snippet
-```java
-        private final Mapper<WE, W> weightedEdges;
-
-        public MapperWrapper( WO weightOperations, Mapper<WE, W> weightedEdges )
-        {
-            this.weightOperations = weightOperations;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends W`
-in `src/main/java/org/apache/commons/graph/flow/DefaultMaxFlowAlgorithmSelector.java`
-#### Snippet
-```java
-        private final Mapper<WE, W> weightedEdges;
-
-        public MapperWrapper( WO weightOperations, Mapper<WE, W> weightedEdges )
-        {
-            this.weightOperations = weightOperations;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
-#### Snippet
-```java
-     *         less than, equal to, or greater than the second
-     */
-    private int compare( FibonacciHeapNode<E> o1, FibonacciHeapNode<E> o2 )
-    {
-        if ( comparator != null )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
-#### Snippet
-```java
-     *         less than, equal to, or greater than the second
-     */
-    private int compare( FibonacciHeapNode<E> o1, FibonacciHeapNode<E> o2 )
-    {
-        if ( comparator != null )
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `src/main/java/org/apache/commons/graph/scc/KosarajuSharirAlgorithm.java`
-#### Snippet
-```java
-     */
-    private void searchRecursive( final DirectedGraph<V, E> g, final V source,
-                                  final Collection<V> coll, final Set<V> visited,
-                                  final boolean forward )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `src/main/java/org/apache/commons/graph/scc/KosarajuSharirAlgorithm.java`
-#### Snippet
-```java
-     */
-    private void searchRecursive( final DirectedGraph<V, E> g, final V source,
-                                  final Collection<V> coll, final Set<V> visited,
-                                  final boolean forward )
-    {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `src/main/java/org/apache/commons/graph/builder/DefaultTailVertexConnector.java`
-#### Snippet
-```java
-    private final V head;
-
-    public DefaultTailVertexConnector( MutableGraph<V, E> graph, E edge, V head )
-    {
-        this.graph = graph;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super E`
-in `src/main/java/org/apache/commons/graph/builder/DefaultTailVertexConnector.java`
-#### Snippet
-```java
-    private final V head;
-
-    public DefaultTailVertexConnector( MutableGraph<V, E> graph, E edge, V head )
-    {
-        this.graph = graph;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `src/main/java/org/apache/commons/graph/connectivity/DefaultConnectivityAlgorithmsSelector.java`
-#### Snippet
-```java
-     * @param includedVertices included vertices
-     */
-    public DefaultConnectivityAlgorithmsSelector( Graph<V, E> graph, Iterable<V> includedVertices )
-    {
-        this.graph = graph;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `src/main/java/org/apache/commons/graph/shortestpath/PredecessorsList.java`
-#### Snippet
-```java
-     * @return the weighted path related to source to target
-     */
-    public WeightedPath<V, WE, W> buildPath( V source, V touch, V target, PredecessorsList<V, WE, W> backwardsList ) {
-        InMemoryWeightedPath<V, WE, W> path = new InMemoryWeightedPath<V, WE, W>( source, target, weightOperations, weightedEdges );
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `src/main/java/org/apache/commons/graph/shortestpath/PredecessorsList.java`
-#### Snippet
-```java
-    private final Map<V, V> predecessors = new HashMap<V, V>();
-
-    public PredecessorsList( Graph<V, WE> graph, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
-    {
-        this.graph = graph;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends WE`
-in `src/main/java/org/apache/commons/graph/shortestpath/PredecessorsList.java`
-#### Snippet
-```java
-    private final Map<V, V> predecessors = new HashMap<V, V>();
-
-    public PredecessorsList( Graph<V, WE> graph, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
-    {
-        this.graph = graph;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `src/main/java/org/apache/commons/graph/visit/DefaultVisitAlgorithmsSelector.java`
-#### Snippet
-```java
-     * @return the result of {@link GraphVisitHandler#onCompleted()}
-     */
-    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
-    {
-        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super E`
-in `src/main/java/org/apache/commons/graph/visit/DefaultVisitAlgorithmsSelector.java`
-#### Snippet
-```java
-     * @return the result of {@link GraphVisitHandler#onCompleted()}
-     */
-    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
-    {
-        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super G`
-in `src/main/java/org/apache/commons/graph/visit/DefaultVisitAlgorithmsSelector.java`
-#### Snippet
-```java
-     * @return the result of {@link GraphVisitHandler#onCompleted()}
-     */
-    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
-    {
-        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2323,27 +1975,27 @@ in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPa
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultPathSourceSelector.java`
+Can generalize to `? extends WE`
+in `src/main/java/org/apache/commons/graph/spanning/ReverseDeleteGraph.java`
 #### Snippet
 ```java
-    }
+    private final Collection<WE> visitedEdge;
 
-    private void pathReconstruction( PredecessorsList<V, WE, W> path,
-                                     V source, V target,
-                                     Map<VertexPair<V>, V> next )
+    public ReverseDeleteGraph( Graph<V, WE> graph, Collection<WE> sortedEdge, Collection<WE> visitedEdge )
+    {
+        this.graph = graph;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultPathSourceSelector.java`
+Can generalize to `? extends WE`
+in `src/main/java/org/apache/commons/graph/spanning/ReverseDeleteGraph.java`
 #### Snippet
 ```java
-    private void pathReconstruction( PredecessorsList<V, WE, W> path,
-                                     V source, V target,
-                                     Map<VertexPair<V>, V> next )
+    private final Collection<WE> visitedEdge;
+
+    public ReverseDeleteGraph( Graph<V, WE> graph, Collection<WE> sortedEdge, Collection<WE> visitedEdge )
     {
-        V k = next.get( new VertexPair<V>( source, target ) );
+        this.graph = graph;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2368,6 +2020,54 @@ in `src/main/java/org/apache/commons/graph/SynchronizedMutableGraph.java`
     public SynchronizedMutableGraph( MutableGraph<V, E> g )
     {
         super( g );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super WE`
+in `src/main/java/org/apache/commons/graph/model/InMemoryWeightedPath.java`
+#### Snippet
+```java
+     * @param weightedEdges
+     */
+    public InMemoryWeightedPath( V start, V target, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
+    {
+        super( start, target );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends W`
+in `src/main/java/org/apache/commons/graph/model/InMemoryWeightedPath.java`
+#### Snippet
+```java
+     * @param weightedEdges
+     */
+    public InMemoryWeightedPath( V start, V target, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
+    {
+        super( start, target );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `src/main/java/org/apache/commons/graph/scc/TarjanAlgorithm.java`
+#### Snippet
+```java
+    private static <V, E> void strongConnect( DirectedGraph<V, E> graph,
+                                                                          V vertex,
+                                                                          Map<V, TarjanVertexMetaInfo> verticesMetaInfo,
+                                                                          Stack<V> s,
+                                                                          Set<V> stronglyConnectedComponent,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `src/main/java/org/apache/commons/graph/scc/TarjanAlgorithm.java`
+#### Snippet
+```java
+                                                                          Map<V, TarjanVertexMetaInfo> verticesMetaInfo,
+                                                                          Stack<V> s,
+                                                                          Set<V> stronglyConnectedComponent,
+                                                                          Integer index )
+    {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -2407,27 +2107,327 @@ in `src/main/java/org/apache/commons/graph/coloring/DefaultColoringAlgorithmsSel
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `src/main/java/org/apache/commons/graph/scc/TarjanAlgorithm.java`
+Can generalize to `? extends V`
+in `src/main/java/org/apache/commons/graph/shortestpath/PredecessorsList.java`
 #### Snippet
 ```java
-    private static <V, E> void strongConnect( DirectedGraph<V, E> graph,
-                                                                          V vertex,
-                                                                          Map<V, TarjanVertexMetaInfo> verticesMetaInfo,
-                                                                          Stack<V> s,
-                                                                          Set<V> stronglyConnectedComponent,
+     * @return the weighted path related to source to target
+     */
+    public WeightedPath<V, WE, W> buildPath( V source, V touch, V target, PredecessorsList<V, WE, W> backwardsList ) {
+        InMemoryWeightedPath<V, WE, W> path = new InMemoryWeightedPath<V, WE, W>( source, target, weightOperations, weightedEdges );
+
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super V`
-in `src/main/java/org/apache/commons/graph/scc/TarjanAlgorithm.java`
+in `src/main/java/org/apache/commons/graph/shortestpath/PredecessorsList.java`
 #### Snippet
 ```java
-                                                                          Map<V, TarjanVertexMetaInfo> verticesMetaInfo,
-                                                                          Stack<V> s,
-                                                                          Set<V> stronglyConnectedComponent,
-                                                                          Integer index )
+    private final Map<V, V> predecessors = new HashMap<V, V>();
+
+    public PredecessorsList( Graph<V, WE> graph, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
     {
+        this.graph = graph;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends WE`
+in `src/main/java/org/apache/commons/graph/shortestpath/PredecessorsList.java`
+#### Snippet
+```java
+    private final Map<V, V> predecessors = new HashMap<V, V>();
+
+    public PredecessorsList( Graph<V, WE> graph, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
+    {
+        this.graph = graph;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super W`
+in `src/main/java/org/apache/commons/graph/spanning/WeightedEdgesComparator.java`
+#### Snippet
+```java
+    private final Mapper<WE, W> weightedEdges;
+
+    public WeightedEdgesComparator( Comparator<W> weightComparator, Mapper<WE, W> weightedEdges )
+    {
+        this.weightComparator = weightComparator;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super WE`
+in `src/main/java/org/apache/commons/graph/spanning/WeightedEdgesComparator.java`
+#### Snippet
+```java
+    private final Mapper<WE, W> weightedEdges;
+
+    public WeightedEdgesComparator( Comparator<W> weightComparator, Mapper<WE, W> weightedEdges )
+    {
+        this.weightComparator = weightComparator;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends W`
+in `src/main/java/org/apache/commons/graph/spanning/WeightedEdgesComparator.java`
+#### Snippet
+```java
+    private final Mapper<WE, W> weightedEdges;
+
+    public WeightedEdgesComparator( Comparator<W> weightComparator, Mapper<WE, W> weightedEdges )
+    {
+        this.weightComparator = weightComparator;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `src/main/java/org/apache/commons/graph/export/DotExporter.java`
+#### Snippet
+```java
+    }
+
+    private Map<V, Integer> generateVertexIdentifiers( Graph<V, E> graph )
+    {
+        Map<V, Integer> vertexIdentifiers = new HashMap<V, Integer>();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `src/main/java/org/apache/commons/graph/spanning/SuperVertex.java`
+#### Snippet
+```java
+     * @param other the {@link SuperVertex} to be merged into this
+     */
+    public void merge( final SuperVertex<V, W, WE> other )
+    {
+        for ( final V v : other.vertices )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends WE`
+in `src/main/java/org/apache/commons/graph/spanning/SuperVertex.java`
+#### Snippet
+```java
+     * @param other the {@link SuperVertex} to be merged into this
+     */
+    public void merge( final SuperVertex<V, W, WE> other )
+    {
+        for ( final V v : other.vertices )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super WE`
+in `src/main/java/org/apache/commons/graph/spanning/SuperVertex.java`
+#### Snippet
+```java
+     * @param weightComparator the comparator used to sort the weighted edges
+     */
+    public SuperVertex( final V source, final Graph<V, WE> graph, final WeightedEdgesComparator<W, WE> weightComparator )
+    {
+        this.graph = graph;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `src/main/java/org/apache/commons/graph/scc/KosarajuSharirAlgorithm.java`
+#### Snippet
+```java
+     */
+    private void searchRecursive( final DirectedGraph<V, E> g, final V source,
+                                  final Collection<V> coll, final Set<V> visited,
+                                  final boolean forward )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `src/main/java/org/apache/commons/graph/scc/KosarajuSharirAlgorithm.java`
+#### Snippet
+```java
+     */
+    private void searchRecursive( final DirectedGraph<V, E> g, final V source,
+                                  final Collection<V> coll, final Set<V> visited,
+                                  final boolean forward )
+    {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super P`
+in `src/main/java/org/apache/commons/graph/elo/DefaultKFactorBuilder.java`
+#### Snippet
+```java
+
+    public DefaultKFactorBuilder( DirectedGraph<P, GameResult> tournamentGraph,
+                                 PlayersRank<P> playerRanking )
+    {
+        this.tournamentGraph = tournamentGraph;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultPathSourceSelector.java`
+#### Snippet
+```java
+    }
+
+    private void pathReconstruction( PredecessorsList<V, WE, W> path,
+                                     V source, V target,
+                                     Map<VertexPair<V>, V> next )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultPathSourceSelector.java`
+#### Snippet
+```java
+    private void pathReconstruction( PredecessorsList<V, WE, W> path,
+                                     V source, V target,
+                                     Map<VertexPair<V>, V> next )
+    {
+        V k = next.get( new VertexPair<V>( source, target ) );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super WE`
+in `src/main/java/org/apache/commons/graph/model/MutableSpanningTree.java`
+#### Snippet
+```java
+     * @param weightedEdges
+     */
+    public MutableSpanningTree( Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
+    {
+        this.weightOperations = weightOperations;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends W`
+in `src/main/java/org/apache/commons/graph/model/MutableSpanningTree.java`
+#### Snippet
+```java
+     * @param weightedEdges
+     */
+    public MutableSpanningTree( Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
+    {
+        this.weightOperations = weightOperations;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `src/main/java/org/apache/commons/graph/connectivity/DefaultConnectivityAlgorithmsSelector.java`
+#### Snippet
+```java
+     * @param includedVertices included vertices
+     */
+    public DefaultConnectivityAlgorithmsSelector( Graph<V, E> graph, Iterable<V> includedVertices )
+    {
+        this.graph = graph;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `src/main/java/org/apache/commons/graph/builder/DefaultTailVertexConnector.java`
+#### Snippet
+```java
+    private final V head;
+
+    public DefaultTailVertexConnector( MutableGraph<V, E> graph, E edge, V head )
+    {
+        this.graph = graph;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super E`
+in `src/main/java/org/apache/commons/graph/builder/DefaultTailVertexConnector.java`
+#### Snippet
+```java
+    private final V head;
+
+    public DefaultTailVertexConnector( MutableGraph<V, E> graph, E edge, V head )
+    {
+        this.graph = graph;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
+#### Snippet
+```java
+     *         less than, equal to, or greater than the second
+     */
+    private int compare( FibonacciHeapNode<E> o1, FibonacciHeapNode<E> o2 )
+    {
+        if ( comparator != null )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends E`
+in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
+#### Snippet
+```java
+     *         less than, equal to, or greater than the second
+     */
+    private int compare( FibonacciHeapNode<E> o1, FibonacciHeapNode<E> o2 )
+    {
+        if ( comparator != null )
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `src/main/java/org/apache/commons/graph/visit/DefaultVisitAlgorithmsSelector.java`
+#### Snippet
+```java
+     * @return the result of {@link GraphVisitHandler#onCompleted()}
+     */
+    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
+    {
+        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super E`
+in `src/main/java/org/apache/commons/graph/visit/DefaultVisitAlgorithmsSelector.java`
+#### Snippet
+```java
+     * @return the result of {@link GraphVisitHandler#onCompleted()}
+     */
+    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
+    {
+        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super G`
+in `src/main/java/org/apache/commons/graph/visit/DefaultVisitAlgorithmsSelector.java`
+#### Snippet
+```java
+     * @return the result of {@link GraphVisitHandler#onCompleted()}
+     */
+    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
+    {
+        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super WE`
+in `src/main/java/org/apache/commons/graph/flow/DefaultMaxFlowAlgorithmSelector.java`
+#### Snippet
+```java
+        private final Mapper<WE, W> weightedEdges;
+
+        public MapperWrapper( WO weightOperations, Mapper<WE, W> weightedEdges )
+        {
+            this.weightOperations = weightOperations;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends W`
+in `src/main/java/org/apache/commons/graph/flow/DefaultMaxFlowAlgorithmSelector.java`
+#### Snippet
+```java
+        private final Mapper<WE, W> weightedEdges;
+
+        public MapperWrapper( WO weightOperations, Mapper<WE, W> weightedEdges )
+        {
+            this.weightOperations = weightOperations;
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
@@ -2445,15 +2445,15 @@ in `src/main/java/org/apache/commons/graph/scc/CheriyanMehlhornGabowAlgorithm.ja
 
 ## RuleId[ruleID=ConstantValue]
 ### RuleId[ruleID=ConstantValue]
-Condition `components.size() == 1` is always `false` when reached
-in `src/main/java/org/apache/commons/graph/spanning/DefaultSpanningTreeAlgorithmSelector.java`
+Condition `lock == null` is always `false` when reached
+in `src/main/java/org/apache/commons/graph/SynchronizedGraph.java`
 #### Snippet
 ```java
-            // if there is no edge anymore for a component, and there is still more than 1 component,
-            // the graph is unconnected
-            checkState( !edges.isEmpty() || components.size() == 1, "unconnected graph" );
-
-            for ( final WE edge : edges )
+        int result = 1;
+        result = prime * result + ( ( g == null ) ? 0 : g.hashCode() );
+        result = prime * result + ( ( lock == null ) ? 0 : lock.hashCode() );
+        return result;
+    }
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -2481,15 +2481,15 @@ in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Condition `lock == null` is always `false` when reached
-in `src/main/java/org/apache/commons/graph/SynchronizedGraph.java`
+Condition `components.size() == 1` is always `false` when reached
+in `src/main/java/org/apache/commons/graph/spanning/DefaultSpanningTreeAlgorithmSelector.java`
 #### Snippet
 ```java
-        int result = 1;
-        result = prime * result + ( ( g == null ) ? 0 : g.hashCode() );
-        result = prime * result + ( ( lock == null ) ? 0 : lock.hashCode() );
-        return result;
-    }
+            // if there is no edge anymore for a component, and there is still more than 1 component,
+            // the graph is unconnected
+            checkState( !edges.isEmpty() || components.size() == 1, "unconnected graph" );
+
+            for ( final WE edge : edges )
 ```
 
 ## RuleId[ruleID=UseBulkOperation]
