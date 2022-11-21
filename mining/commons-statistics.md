@@ -26,7 +26,7 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-21-05-21-01.248.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-21-13-15-52.111.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -47,31 +47,6 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
         final double shape = mu;
         final double scale = omega / mu;
         final SharedStateContinuousSampler sampler =
-```
-
-## RuleId[ruleID=NestedAssignment]
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
-#### Snippet
-```java
-        double m = median;
-        if (Double.isNaN(m)) {
-            median = m = inverseCumulativeProbability(0.5);
-        }
-        return m;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractDiscreteDistribution.java`
-#### Snippet
-```java
-        long m = median;
-        if (m == NO_MEDIAN) {
-            median = m = inverseCumulativeProbability(0.5);
-        }
-        return (int) m;
 ```
 
 ## RuleId[ruleID=ManualMinMaxCalculation]
@@ -98,5 +73,30 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
     private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
     /** The mu parameter of this distribution. */
     private final double mu;
+```
+
+## RuleId[ruleID=NestedAssignment]
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
+#### Snippet
+```java
+        double m = median;
+        if (Double.isNaN(m)) {
+            median = m = inverseCumulativeProbability(0.5);
+        }
+        return m;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractDiscreteDistribution.java`
+#### Snippet
+```java
+        long m = median;
+        if (m == NO_MEDIAN) {
+            median = m = inverseCumulativeProbability(0.5);
+        }
+        return (int) m;
 ```
 
