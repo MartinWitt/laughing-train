@@ -66,13 +66,13 @@ public class JavaPoetPrettyPrinter extends CtScanner implements CtVisitor, Prett
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
-	public String toString() {
-		if (type == null) {
-			return null;
-		}
+	@Override
+	public String printModuleInfo(CtModule ctModule) {
+		return null;
+	}
 
 ```
 
@@ -102,29 +102,17 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
 #### Snippet
 ```java
-	@Override
-	public String printModuleInfo(CtModule ctModule) {
-		return null;
-	}
+	public String toString() {
+		if (type == null) {
+			return null;
+		}
 
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
-#### Snippet
-```java
-		defaultJavaPrettyPrinter.scan(element);
-		//	defaultJavaPrettyPrinter.getContext().currentThis.pop();
-		return defaultJavaPrettyPrinter.getResult().replaceAll("\\$", "\\$\\$");
-	}
-
-```
-
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
@@ -135,6 +123,18 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
 		}
 		field.initializer(result);
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
+#### Snippet
+```java
+		defaultJavaPrettyPrinter.scan(element);
+		//	defaultJavaPrettyPrinter.getContext().currentThis.pop();
+		return defaultJavaPrettyPrinter.getResult().replaceAll("\\$", "\\$\\$");
+	}
+
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
