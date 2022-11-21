@@ -211,15 +211,15 @@ in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Argument `serializeOutput` might be null
+Argument `serializedPayload` might be null
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 #### Snippet
 ```java
-                instanceId,
-                serializeOutput != null ? serializeOutput : "(null)"));
-        TerminateRequest.Builder builder = TerminateRequest.newBuilder().setInstanceId(instanceId).setOutput(StringValue.of(serializeOutput));
-        this.sidecarClient.terminateInstance(builder.build());
-    }
+        if (eventPayload != null) {
+            String serializedPayload = this.dataConverter.serialize(eventPayload);
+            builder.setInput(StringValue.of(serializedPayload));
+        }
+
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -235,15 +235,15 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Argument `serializedPayload` might be null
+Argument `serializeOutput` might be null
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 #### Snippet
 ```java
-        if (eventPayload != null) {
-            String serializedPayload = this.dataConverter.serialize(eventPayload);
-            builder.setInput(StringValue.of(serializedPayload));
-        }
-
+                instanceId,
+                serializeOutput != null ? serializeOutput : "(null)"));
+        TerminateRequest.Builder builder = TerminateRequest.newBuilder().setInstanceId(instanceId).setOutput(StringValue.of(serializeOutput));
+        this.sidecarClient.terminateInstance(builder.build());
+    }
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -426,8 +426,8 @@ Return of `null`
 in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
 #### Snippet
 ```java
-    static Timestamp getTimestampFromInstant(Instant instant) {
-        if (instant == null) {
+    static Instant getInstantFromTimestamp(Timestamp ts) {
+        if (ts == null) {
             return null;
         }
 
@@ -438,8 +438,8 @@ Return of `null`
 in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
 #### Snippet
 ```java
-    static Instant getInstantFromTimestamp(Timestamp ts) {
-        if (ts == null) {
+    static Timestamp getTimestampFromInstant(Instant instant) {
+        if (instant == null) {
             return null;
         }
 
@@ -507,6 +507,18 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcWorkerBuilder.
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`argValue.trim().length() == 0` can be replaced with 'argValue.trim().isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
+#### Snippet
+```java
+    static @Nonnull String throwIfArgumentNullOrWhiteSpace(String argValue, String argName) {
+        throwIfArgumentNull(argValue, argName);
+        if (argValue.trim().length() == 0){
+            throw new IllegalArgumentException("The argument '" + argName + "' was empty or contained only whitespace.");
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `jsonText.length() == 0` can be replaced with 'jsonText.isEmpty()'
 in `client/src/main/java/com/microsoft/durabletask/JacksonDataConverter.java`
 #### Snippet
@@ -527,18 +539,6 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
             NewOrchestrationInstanceOptions options) {
         if (orchestratorName == null || orchestratorName.length() == 0) {
             throw new IllegalArgumentException("A non-empty orchestrator name must be specified.");
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`argValue.trim().length() == 0` can be replaced with 'argValue.trim().isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
-#### Snippet
-```java
-    static @Nonnull String throwIfArgumentNullOrWhiteSpace(String argValue, String argName) {
-        throwIfArgumentNull(argValue, argName);
-        if (argValue.trim().length() == 0){
-            throw new IllegalArgumentException("The argument '" + argName + "' was empty or contained only whitespace.");
         }
 ```
 
@@ -650,20 +650,8 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(String message, List<Exception> exceptions) {
-        super(message);
-        this.exceptions = exceptions;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Exception`
-in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
-#### Snippet
-```java
-    }
-
-    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    CompositeTaskFailedException(Throwable cause, List<Exception> exceptions) {
+        super(cause);
         this.exceptions = exceptions;
 ```
 
@@ -686,6 +674,18 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
+    CompositeTaskFailedException(String message, List<Exception> exceptions) {
+        super(message);
+        this.exceptions = exceptions;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Exception`
+in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
+#### Snippet
+```java
+    }
+
     CompositeTaskFailedException(List<Exception> exceptions) {
         this.exceptions = exceptions;
     }
@@ -698,21 +698,9 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(Throwable cause, List<Exception> exceptions) {
-        super(cause);
+    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
+        super(message, cause, enableSuppression, writableStackTrace);
         this.exceptions = exceptions;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Task`
-in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
-#### Snippet
-```java
-
-        @Override
-        public Task<Task<?>> anyOf(List<Task<?>> tasks) {
-            Helpers.throwIfArgumentNull(tasks, "tasks");
-
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -727,17 +715,29 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 
 ```
 
-## RuleId[ruleID=MissortedModifiers]
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Task`
+in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
 #### Snippet
 ```java
 
-final class Helpers {
+        @Override
+        public Task<Task<?>> anyOf(List<Task<?>> tasks) {
+            Helpers.throwIfArgumentNull(tasks, "tasks");
+
+```
+
+## RuleId[ruleID=MissortedModifiers]
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `static @Nonnull`
+in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
+#### Snippet
+```java
     final static Duration maxDuration = Duration.ofSeconds(Long.MAX_VALUE, 999999999L);
 
     static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
+        if (argValue == null) {
+            throw new IllegalArgumentException("The argument '" + argName + "' was null.");
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -753,14 +753,14 @@ in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `static @Nonnull`
+Missorted modifiers `final static`
 in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
 #### Snippet
 ```java
+
+final class Helpers {
     final static Duration maxDuration = Duration.ofSeconds(Long.MAX_VALUE, 999999999L);
 
     static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
-        if (argValue == null) {
-            throw new IllegalArgumentException("The argument '" + argName + "' was null.");
 ```
 
