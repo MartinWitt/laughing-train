@@ -19,7 +19,7 @@ dependencies {
 	annotationProcessor("io.quarkus:quarkus-panache-common")
 	implementation("io.quarkus:quarkus-smallrye-graphql")
 	implementation("io.quarkus:quarkus-smallrye-graphql-client")
-	implementation 'io.quarkiverse.quinoa:quarkus-quinoa:1.2.2'
+	implementation 'io.quarkiverse.quinoa:quarkus-quinoa:1.2.3'
 	implementation("io.quarkus:quarkus-oidc")
 	implementation("io.quarkus:quarkus-keycloak-authorization")
 	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
