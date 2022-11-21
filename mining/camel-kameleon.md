@@ -80,6 +80,19 @@ import org.apache.camel.kameleon.model.CamelComponent;
 import org.apache.camel.springboot.catalog.SpringBootRuntimeProvider;
 ```
 
+## RuleId[ruleID=SimplifyStreamApiCallChains]
+### RuleId[ruleID=SimplifyStreamApiCallChains]
+Can be replaced with '.values().stream()'
+in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
+#### Snippet
+```java
+        KameletsCatalog catalog = new KameletsCatalog();
+        List<KameletComponent> list = catalog.getKamelets().entrySet().stream()
+                .map(e -> new KameletComponent(
+                        e.getValue().getMetadata().getName(),
+                        e.getValue().getSpec().getDefinition().getTitle(),
+```
+
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -115,19 +128,6 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
             e.printStackTrace();
         }
     }
-```
-
-## RuleId[ruleID=SimplifyStreamApiCallChains]
-### RuleId[ruleID=SimplifyStreamApiCallChains]
-Can be replaced with '.values().stream()'
-in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
-#### Snippet
-```java
-        KameletsCatalog catalog = new KameletsCatalog();
-        List<KameletComponent> list = catalog.getKamelets().entrySet().stream()
-                .map(e -> new KameletComponent(
-                        e.getValue().getMetadata().getName(),
-                        e.getValue().getSpec().getDefinition().getTitle(),
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
@@ -187,6 +187,30 @@ in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
 ```java
+            }
+        } else {
+            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
+            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
+            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
+```
+
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+        } else {
+            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
+            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
+            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
+            String folderName = temp.getAbsolutePath() + "/code-with-quarkus";
+```
+
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
                                           String groupId, String artifactId, String version)
             throws MavenInvocationException, IOException {
         CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
@@ -216,30 +240,6 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
         Plugin mavenCompiler = plugins.stream().filter(p -> p.getArtifactId().equals("maven-compiler-plugin")).findFirst().get();
         Xpp3Dom config = (Xpp3Dom) mavenCompiler.getConfiguration();
         if (config.getChild("source") == null) config.addChild(new Xpp3Dom("source"));
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
-            }
-        } else {
-            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
-            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
-            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
-        } else {
-            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
-            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
-            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
-            String folderName = temp.getAbsolutePath() + "/code-with-quarkus";
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
