@@ -20,7 +20,7 @@ def fixAscNames = { name ->
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `components/http/okHttp/build.gradle`
+in `components/serialization/text/build.gradle`
 #### Snippet
 ```java
 tasks.withType(Sign)*.enabled = mavenCentralPublishingEnabled.toBoolean()
@@ -32,7 +32,7 @@ def fixAscNames = { name ->
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `components/serialization/text/build.gradle`
+in `components/http/okHttp/build.gradle`
 #### Snippet
 ```java
 tasks.withType(Sign)*.enabled = mavenCentralPublishingEnabled.toBoolean()
