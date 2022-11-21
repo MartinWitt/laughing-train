@@ -73,18 +73,6 @@ public class TestUtils {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `TestRunner` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
-#### Snippet
-```java
- * on 23/05/17
- */
-public class TestRunner {
-
-    private static Function<String[], URL[]> arrayStringToArrayUrl = (arrayStr) ->
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Util` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Util.java`
 #### Snippet
@@ -118,6 +106,18 @@ in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
 public class IOUtils {
 	/**
 	 * The default buffer size to use.
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `TestRunner` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
+#### Snippet
+```java
+ * on 23/05/17
+ */
+public class TestRunner {
+
+    private static Function<String[], URL[]> arrayStringToArrayUrl = (arrayStr) ->
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -310,18 +310,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends CtClass`
-in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
-#### Snippet
-```java
-
-	/** compiles the mutants on the fly */
-	public List<Class<?>> compileMutants(List<CtClass> mutants) throws Exception {
-		List<Class<?>> compiledMutants = new ArrayList<>();
-		for (CtClass mutantClass : mutants) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends T`
 in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
 #### Snippet
@@ -331,6 +319,18 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.j
 	public void runTestsOnEachMutantInstance(List<T> mutantInstances) throws Exception {
 		// now we run the mutants against the test class
 		for (T t : mutantInstances) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends CtClass`
+in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
+#### Snippet
+```java
+
+	/** compiles the mutants on the fly */
+	public List<Class<?>> compileMutants(List<CtClass> mutants) throws Exception {
+		List<Class<?>> compiledMutants = new ArrayList<>();
+		for (CtClass mutantClass : mutants) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -435,18 +435,6 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Collector.java`
 
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.createNewFile()` is ignored
-in `src/main/java/fr/inria/gforge/spoon/utils/TestSpoonCompiler.java`
-#### Snippet
-```java
-						+ File.separatorChar + element.getSimpleName()
-						+ DefaultJavaPrettyPrinter.JAVA_FILE_EXTENSION);
-				file.createNewFile();
-
-				// the path must be given relatively to to the working directory
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
 Result of `String.toLowerCase()` is ignored
 in `src/main/java/fr/inria/gforge/spoon/transformation/retry/TestClass.java`
 #### Snippet
@@ -456,6 +444,18 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/retry/TestClass.java`
 		nullObject.toLowerCase();
 	}
 }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `File.createNewFile()` is ignored
+in `src/main/java/fr/inria/gforge/spoon/utils/TestSpoonCompiler.java`
+#### Snippet
+```java
+						+ File.separatorChar + element.getSimpleName()
+						+ DefaultJavaPrettyPrinter.JAVA_FILE_EXTENSION);
+				file.createNewFile();
+
+				// the path must be given relatively to to the working directory
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -569,14 +569,14 @@ in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
 
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
 #### Snippet
 ```java
-	public boolean compile() {
-		File target = compiler.getSourceOutputDirectory();
-		final boolean compile = Main.compile(new String[]{"-1.7 " , "-proc:none", target.toString()}, new PrintWriter(System.out), new PrintWriter(System.out),null);
-		return compile;
-	}
+					while (p.isAlive()) {
+						try {
+							System.out.print((char) p.getInputStream().read());
+						} catch (IOException e) {
+							e.printStackTrace();
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -593,26 +593,26 @@ in `src/main/java/fr/inria/gforge/spoon/analysis/DocProcessor.java`
 
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
+in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
 #### Snippet
 ```java
-	  assertEquals(1, y.m());
-	  
-	  System.out.println("yes y.m()="+y.m());
-  }
-}
+	public boolean compile() {
+		File target = compiler.getSourceOutputDirectory();
+		final boolean compile = Main.compile(new String[]{"-1.7 " , "-proc:none", target.toString()}, new PrintWriter(System.out), new PrintWriter(System.out),null);
+		return compile;
+	}
 ```
 
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
 #### Snippet
 ```java
-
-	public void m(@Bound(min = 2d, max = 8d) int a) {
-		System.out.println("Great method!");
-	}
-
+			// Analyze
+			Map<CtMethod, List<CtLocalVariable>> localVariablesPerTestMethod = analyzer.analyze(ctClass);
+			localVariablesPerTestMethod.keySet().stream().forEach(key -> System.out.println("{"+ key.getParent(CtClass.class).getSimpleName() + "#" + key.getSimpleName() + "=["+ localVariablesPerTestMethod.get(key) +"]"));
+			if (!localVariablesPerTestMethod.isEmpty()) {
+				// Collect
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -629,6 +629,30 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
 
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
+#### Snippet
+```java
+
+	public void m(@Bound(min = 2d, max = 8d) int a) {
+		System.out.println("Great method!");
+	}
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
+#### Snippet
+```java
+	  assertEquals(1, y.m());
+	  
+	  System.out.println("yes y.m()="+y.m());
+  }
+}
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.java`
 #### Snippet
 ```java
@@ -637,30 +661,6 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.
 		System.out.println(testMethod);
 	}
 
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
-#### Snippet
-```java
-					while (p.isAlive()) {
-						try {
-							System.out.print((char) p.getInputStream().read());
-						} catch (IOException e) {
-							e.printStackTrace();
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
-#### Snippet
-```java
-			// Analyze
-			Map<CtMethod, List<CtLocalVariable>> localVariablesPerTestMethod = analyzer.analyze(ctClass);
-			localVariablesPerTestMethod.keySet().stream().forEach(key -> System.out.println("{"+ key.getParent(CtClass.class).getSimpleName() + "#" + key.getSimpleName() + "=["+ localVariablesPerTestMethod.get(key) +"]"));
-			if (!localVariablesPerTestMethod.isEmpty()) {
-				// Collect
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -955,32 +955,19 @@ import spoon.reflect.factory.Factory;
 import java.lang.annotation.Annotation;
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/Spoonerism.java`
-#### Snippet
-```java
-                        return true;
-                    }
-                } while ((current = current.getSuperclass()) != null);
-                return false;
-            }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
-#### Snippet
-```java
-		long count = 0;
-		int n = 0;
-		while (-1 != (n = input.read(buffer))) {
-			output.write(buffer, 0, n);
-			count += n;
-```
-
 ## RuleId[ruleID=ThrowablePrintStackTrace]
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/retry/template/RetryTemplate.java`
+#### Snippet
+```java
+				lastTh = ex;
+				if (_verbose_) {
+					ex.printStackTrace();
+				}
+				try {
+```
+
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/utils/SpoonClassLoader.java`
@@ -1007,38 +994,14 @@ in `src/main/java/fr/inria/gforge/spoon/utils/SpoonClassLoader.java`
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/retry/template/RetryTemplate.java`
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
 #### Snippet
 ```java
-				lastTh = ex;
-				if (_verbose_) {
-					ex.printStackTrace();
-				}
-				try {
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
-#### Snippet
-```java
-            return rs.getString(1);
-        } catch (java.sql.SQLException ex12) {
-            ex12.printStackTrace();
-        } finally {
-            try {
-```
-
-### RuleId[ruleID=ThrowablePrintStackTrace]
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
-#### Snippet
-```java
-                s.close();
-            } catch (Exception ex13) {
-                ex13.printStackTrace();
-            }
-        }
+							System.out.print((char) p.getInputStream().read());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 ```
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
@@ -1067,14 +1030,51 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeT
 
 ### RuleId[ruleID=ThrowablePrintStackTrace]
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
+in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
 #### Snippet
 ```java
-							System.out.print((char) p.getInputStream().read());
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
+            return rs.getString(1);
+        } catch (java.sql.SQLException ex12) {
+            ex12.printStackTrace();
+        } finally {
+            try {
+```
+
+### RuleId[ruleID=ThrowablePrintStackTrace]
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
+#### Snippet
+```java
+                s.close();
+            } catch (Exception ex13) {
+                ex13.printStackTrace();
+            }
+        }
+```
+
+## RuleId[ruleID=NestedAssignment]
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/Spoonerism.java`
+#### Snippet
+```java
+                        return true;
+                    }
+                } while ((current = current.getSuperclass()) != null);
+                return false;
+            }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
+#### Snippet
+```java
+		long count = 0;
+		int n = 0;
+		while (-1 != (n = input.read(buffer))) {
+			output.write(buffer, 0, n);
+			count += n;
 ```
 
 ## RuleId[ruleID=SamePackageImport]
@@ -1113,6 +1113,19 @@ class TestListener extends RunListener {
     private final List<Description> testRun = new ArrayList<>();
     private final List<Failure> testFails = new ArrayList<>();
 
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### RuleId[ruleID=HtmlWrongAttributeValue]
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-21-22-36-47.573.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -1174,19 +1187,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeT
         return null;
     }
 
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### RuleId[ruleID=HtmlWrongAttributeValue]
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-21-08-36-58.444.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
