@@ -86,11 +86,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ### RuleId[ruleID=UnnecessarySemicolon]
@@ -98,11 +98,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -234,6 +234,18 @@ in `src/main/java/gumtree/spoon/builder/jsonsupport/OperationNodePainter.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends NodePainter`
+in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+#### Snippet
+```java
+
+	@SuppressWarnings("unused")
+	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
+
+		JsonObject o = new JsonObject();
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
@@ -255,42 +267,6 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 	public ActionClassifier(MappingStore mappings, List<Action> actions) {
 		clean();
 
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends NodePainter`
-in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
-#### Snippet
-```java
-
-	@SuppressWarnings("unused")
-	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
-
-		JsonObject o = new JsonObject();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	}
-
-	private String toDebugString(List<Operation> ops) {
-		String result = "";
-		for (Operation operation : ops) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
-		return operations.stream() //
-				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -318,6 +294,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+
+	@Override
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
+		return operations.stream() //
+				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Action`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
@@ -327,6 +315,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
 		List<Operation> collect = actions.stream().map(action -> {
 
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	}
+
+	private String toDebugString(List<Operation> ops) {
+		String result = "";
+		for (Operation operation : ops) {
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -535,7 +535,7 @@ public class CtVirtualElement extends CtWrapper<String> {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-20-22-10-12.023.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-21-00-47-33.820.html`
 #### Snippet
 ```java
               <td>0</td>
