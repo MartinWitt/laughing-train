@@ -71,11 +71,11 @@ Redundant default parameter value assignment
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
-			description = "Path to the output file. If no path is provided but the flag is, the result will be stored in flacoco_result.{extension}",
-			arity = "0..1",
-			fallbackValue = ""
-	)
-	String output;
+	Set<String> jacocoExcludes = new HashSet<>();
+
+	@CommandLine.ArgGroup(exclusive = false, multiplicity = "0..1", heading = "\nSetting any of these options will result in test detection being bypassed:\n")
+	Tests tests = new Tests();
+
 ```
 
 ### RuleId[ruleID=DefaultAnnotationParam]
@@ -83,11 +83,11 @@ Redundant default parameter value assignment
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
-	Set<String> jacocoExcludes = new HashSet<>();
-
-	@CommandLine.ArgGroup(exclusive = false, multiplicity = "0..1", heading = "\nSetting any of these options will result in test detection being bypassed:\n")
-	Tests tests = new Tests();
-
+			description = "Path to the output file. If no path is provided but the flag is, the result will be stored in flacoco_result.{extension}",
+			arity = "0..1",
+			fallbackValue = ""
+	)
+	String output;
 ```
 
 ## RuleId[ruleID=UnnecessaryModifier]
@@ -104,18 +104,6 @@ public interface TestDetectionStrategy {
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
-Modifier `private` is redundant for enum constructors
-in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumFormula.java`
-#### Snippet
-```java
-	private final Formula formula;
-
-	private SpectrumFormula(Formula formula) {
-		this.formula = formula;
-	}
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
 in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/formulas/Formula.java`
 #### Snippet
@@ -125,6 +113,18 @@ public interface Formula {
 	public double compute(int nPassingNotExecuting, int nFailingNotExecuting, int nPassingExecuting,
 			int nFailingExecuting);
 }
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `private` is redundant for enum constructors
+in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumFormula.java`
+#### Snippet
+```java
+	private final Formula formula;
+
+	private SpectrumFormula(Formula formula) {
+		this.formula = formula;
+	}
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -167,18 +167,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java`
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.junit` is unnecessary, and can be replaced with an import
-in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
-#### Snippet
-```java
-        try {
-            for (Method method : clazz.getMethods()) {
-                if (method.getAnnotation(org.junit.Test.class) != null && !isIgnoredMethod(clazz, method)) {
-                    testMethods.add(new StringTestMethod(clazz.getCanonicalName(), method.getName()));
-                }
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
 in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
 #### Snippet
@@ -188,6 +176,18 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/f
                 if (method.getAnnotation(org.junit.jupiter.api.Test.class) != null
                         && !isPrivateMethod(method)
                         && !isIgnoredMethod(clazz, method)
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.junit` is unnecessary, and can be replaced with an import
+in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
+#### Snippet
+```java
+        try {
+            for (Method method : clazz.getMethods()) {
+                if (method.getAnnotation(org.junit.Test.class) != null && !isIgnoredMethod(clazz, method)) {
+                    testMethods.add(new StringTestMethod(clazz.getCanonicalName(), method.getName()));
+                }
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -267,15 +267,63 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockLocationsFinder.jav
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `EntryPoint.jUnit5Mode` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
+Assignment to static field `found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
+#### Snippet
+```java
+	public void process(CtType<?> ctType) {
+		List<CtStatement> result = ctType.filterChildren(new SpoonLineFilter(lineNumber)).list();
+		found = filterResult(result);
+	}
+
+```
+
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `SpoonBlockLocationsFinder.fullyQualifiedClassName` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
 #### Snippet
 ```java
 
-		// test-runner needs a flag for JUnit5 tests
-		EntryPoint.jUnit5Mode = true;
+        // Process the source code to find the block of the given stack-trace element
+        SpoonBlockLocationsFinder.fullyQualifiedClassName = element.getClassName();
+        SpoonBlockLocationsFinder.lineNumber = element.getLineNumber();
+        SpoonBlockLocationsFinder.found = null;
+```
 
-		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `SpoonBlockLocationsFinder.lineNumber` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
+#### Snippet
+```java
+        // Process the source code to find the block of the given stack-trace element
+        SpoonBlockLocationsFinder.fullyQualifiedClassName = element.getClassName();
+        SpoonBlockLocationsFinder.lineNumber = element.getLineNumber();
+        SpoonBlockLocationsFinder.found = null;
+        launcher.process();
+```
+
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `SpoonBlockLocationsFinder.found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
+#### Snippet
+```java
+        SpoonBlockLocationsFinder.fullyQualifiedClassName = element.getClassName();
+        SpoonBlockLocationsFinder.lineNumber = element.getLineNumber();
+        SpoonBlockLocationsFinder.found = null;
+        launcher.process();
+
+```
+
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `SpoonBlockLocationsFinder.found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
+#### Snippet
+```java
+
+        // Clean results
+        SpoonBlockLocationsFinder.found = null;
+
+        return locations;
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -351,6 +399,18 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `SpoonLocalizedFaultFinder.fullyQualifiedClassName` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+#### Snippet
+```java
+		for (Location location : original.keySet()) {
+			// Compute location information
+			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
+			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
+			SpoonLocalizedFaultFinder.found = null;
+```
+
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 Assignment to static field `EntryPoint.jUnit5Mode` from instance context
 in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStrategy.java`
 #### Snippet
@@ -387,90 +447,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `EntryPoint.jacocoAgentExcludes` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStrategy.java`
-#### Snippet
-```java
-		}
-		if (!config.getJacocoIncludes().isEmpty()) {
-			EntryPoint.jacocoAgentExcludes =
-					config.getJacocoExcludes().stream().reduce((x, y) -> x + ":" + y).orElse("");
-		}
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
-#### Snippet
-```java
-	public void process(CtType<?> ctType) {
-		List<CtStatement> result = ctType.filterChildren(new SpoonLineFilter(lineNumber)).list();
-		found = filterResult(result);
-	}
-
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `SpoonBlockLocationsFinder.fullyQualifiedClassName` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
-#### Snippet
-```java
-
-        // Process the source code to find the block of the given stack-trace element
-        SpoonBlockLocationsFinder.fullyQualifiedClassName = element.getClassName();
-        SpoonBlockLocationsFinder.lineNumber = element.getLineNumber();
-        SpoonBlockLocationsFinder.found = null;
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `SpoonBlockLocationsFinder.lineNumber` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
-#### Snippet
-```java
-        // Process the source code to find the block of the given stack-trace element
-        SpoonBlockLocationsFinder.fullyQualifiedClassName = element.getClassName();
-        SpoonBlockLocationsFinder.lineNumber = element.getLineNumber();
-        SpoonBlockLocationsFinder.found = null;
-        launcher.process();
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `SpoonBlockLocationsFinder.found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
-#### Snippet
-```java
-        SpoonBlockLocationsFinder.fullyQualifiedClassName = element.getClassName();
-        SpoonBlockLocationsFinder.lineNumber = element.getLineNumber();
-        SpoonBlockLocationsFinder.found = null;
-        launcher.process();
-
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `SpoonBlockLocationsFinder.found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
-#### Snippet
-```java
-
-        // Clean results
-        SpoonBlockLocationsFinder.found = null;
-
-        return locations;
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `SpoonLocalizedFaultFinder.fullyQualifiedClassName` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
-#### Snippet
-```java
-		for (Location location : original.keySet()) {
-			// Compute location information
-			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
-			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
-			SpoonLocalizedFaultFinder.found = null;
-```
-
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 Assignment to static field `SpoonLocalizedFaultFinder.lineNumber` from instance context
 in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
 #### Snippet
@@ -480,6 +456,18 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
 			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
 			SpoonLocalizedFaultFinder.found = null;
 
+```
+
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `EntryPoint.jacocoAgentExcludes` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStrategy.java`
+#### Snippet
+```java
+		}
+		if (!config.getJacocoIncludes().isEmpty()) {
+			EntryPoint.jacocoAgentExcludes =
+					config.getJacocoExcludes().stream().reduce((x, y) -> x + ":" + y).orElse("");
+		}
 ```
 
 ### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -504,6 +492,18 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
 			SpoonLocalizedFaultFinder.found = null;
 		}
 
+```
+
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `EntryPoint.jUnit5Mode` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
+#### Snippet
+```java
+
+		// test-runner needs a flag for JUnit5 tests
+		EntryPoint.jUnit5Mode = true;
+
+		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
 ```
 
 ## RuleId[ruleID=RegExpRedundantEscape]
@@ -557,15 +557,15 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
+Field initialization to `0.0` is redundant
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
 
-	@Option(names = {"--testRunnerJVMArgs"}, description = "JVM args for test-runner's test execution VMs.")
-	String testRunnerJVMArgs = null;
-
 	@Option(names = {"--threshold"}, description = "Threshold for suspiciousness score. Flacoco will only return suspicious results with score >= threshold. Results with a score of 0 are only included if the -includeZeros flag is set.", defaultValue = "0.0")
+	double threshold = 0.0;
+
+	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -593,15 +593,15 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0.0` is redundant
+Field initialization to `null` is redundant
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
 
-	@Option(names = {"--threshold"}, description = "Threshold for suspiciousness score. Flacoco will only return suspicious results with score >= threshold. Results with a score of 0 are only included if the -includeZeros flag is set.", defaultValue = "0.0")
-	double threshold = 0.0;
+	@Option(names = {"--testRunnerJVMArgs"}, description = "JVM args for test-runner's test execution VMs.")
+	String testRunnerJVMArgs = null;
 
-	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
+	@Option(names = {"--threshold"}, description = "Threshold for suspiciousness score. Flacoco will only return suspicious results with score >= threshold. Results with a score of 0 are only included if the -includeZeros flag is set.", defaultValue = "0.0")
 ```
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
@@ -620,7 +620,7 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-20-19-18-10.700.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-21-00-50-31.153.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -756,18 +756,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/TestContext.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends TestContext`
-in `src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageRunner.java`
-#### Snippet
-```java
-	}
-
-	public CoverageMatrix getCoverageMatrix(List<TestContext> testContexts) {
-		// This matrix stores the results: the execution of tests and the coverage of
-		// that execution on each line
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends CtStatement`
 in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
 #### Snippet
@@ -777,6 +765,18 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.jav
 	private CtStatement filterResult(List<CtStatement> list) {
 		CtStatement bestFit = null;
 		SourcePosition curPos = null;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends TestContext`
+in `src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageRunner.java`
+#### Snippet
+```java
+	}
+
+	public CoverageMatrix getCoverageMatrix(List<TestContext> testContexts) {
+		// This matrix stores the results: the execution of tests and the coverage of
+		// that execution on each line
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
