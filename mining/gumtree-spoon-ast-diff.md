@@ -1,7 +1,7 @@
 # gumtree-spoon-ast-diff 
  
 # Bad smells
-I found 51 bad smells with 9 repairable:
+I found 50 bad smells with 9 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | RuleId[ruleID=BoundedWildcard] | 9 | false |
@@ -17,8 +17,8 @@ I found 51 bad smells with 9 repairable:
 | RuleId[ruleID=UnusedAssignment] | 2 | false |
 | RuleId[ruleID=DataFlowIssue] | 1 | false |
 | RuleId[ruleID=StringOperationCanBeSimplified] | 1 | false |
-| RuleId[ruleID=CommentedOutCode] | 1 | false |
 | RuleId[ruleID=DeprecatedIsStillUsed] | 1 | false |
+| RuleId[ruleID=CommentedOutCode] | 1 | false |
 | RuleId[ruleID=KeySetIterationMayUseEntrySet] | 1 | false |
 | RuleId[ruleID=UnnecessaryToStringCall] | 1 | true |
 | RuleId[ruleID=EqualsBetweenInconvertibleTypes] | 1 | false |
@@ -29,7 +29,6 @@ I found 51 bad smells with 9 repairable:
 | RuleId[ruleID=MismatchedCollectionQueryUpdate] | 1 | false |
 | RuleId[ruleID=Convert2Lambda] | 1 | false |
 | RuleId[ruleID=AssignmentToMethodParameter] | 1 | false |
-| RuleId[ruleID=HtmlWrongAttributeValue] | 1 | false |
 ## RuleId[ruleID=UnnecessaryModifier]
 ### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
@@ -86,11 +85,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ### RuleId[ruleID=UnnecessarySemicolon]
@@ -98,11 +97,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -118,19 +117,6 @@ in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 
 ```
 
-## RuleId[ruleID=CommentedOutCode]
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (2 lines)
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-		// 1000 OK
-		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
-		// System.setProperty("gumtree.match.bu.size","10");
-		// System.setProperty("gt.bum.szt", "1000");
-	}
-```
-
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'getNode' is still used
@@ -141,6 +127,19 @@ in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 	@Deprecated
 	public CtElement getNode() {
 		return node;
+	}
+```
+
+## RuleId[ruleID=CommentedOutCode]
+### RuleId[ruleID=CommentedOutCode]
+Commented out code (2 lines)
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+		// 1000 OK
+		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
+		// System.setProperty("gumtree.match.bu.size","10");
+		// System.setProperty("gt.bum.szt", "1000");
 	}
 ```
 
@@ -234,6 +233,18 @@ in `src/main/java/gumtree/spoon/builder/jsonsupport/OperationNodePainter.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends NodePainter`
+in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+#### Snippet
+```java
+
+	@SuppressWarnings("unused")
+	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
+
+		JsonObject o = new JsonObject();
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
@@ -255,18 +266,6 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 	public ActionClassifier(MappingStore mappings, List<Action> actions) {
 		clean();
 
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends NodePainter`
-in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
-#### Snippet
-```java
-
-	@SuppressWarnings("unused")
-	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
-
-		JsonObject o = new JsonObject();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -460,18 +459,6 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `false` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-	private final TreeContext treeContext;
-	private final Stack<Tree> nodes = new Stack<>();
-	boolean nolabel = false;
-
-	TreeScanner(TreeContext treeContext, Tree root) {
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
 ```java
@@ -480,6 +467,18 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 	private boolean includeComments = false;
 
 	public AstComparator() {
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+	private final TreeContext treeContext;
+	private final Stack<Tree> nodes = new Stack<>();
+	boolean nolabel = false;
+
+	TreeScanner(TreeContext treeContext, Tree root) {
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -532,19 +531,6 @@ public class CtVirtualElement extends CtWrapper<String> {
 	protected Collection<?> children;
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### RuleId[ruleID=HtmlWrongAttributeValue]
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-21-12-46-28.225.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
@@ -572,18 +558,6 @@ in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
-#### Snippet
-```java
-	/** returns the new version of the node (only for update) */
-	public CtElement getDstNode() {
-		return null;
-	}
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
 ```java
@@ -591,6 +565,18 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 		if (factory.Type().getAll().size() == 0) {
 			return null;
 		}
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
+#### Snippet
+```java
+	/** returns the new version of the node (only for update) */
+	public CtElement getDstNode() {
+		return null;
+	}
 
 ```
 
@@ -645,18 +631,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 
 ## RuleId[ruleID=UnusedAssignment]
 ### RuleId[ruleID=UnusedAssignment]
-Variable `label` initializer `null` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-		}
-
-		String label = null;
-		String nodeTypeName = getNodeType(element);
-
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `nolabel` initializer `false` is redundant
 in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
@@ -666,5 +640,17 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 	boolean nolabel = false;
 
 	TreeScanner(TreeContext treeContext, Tree root) {
+```
+
+### RuleId[ruleID=UnusedAssignment]
+Variable `label` initializer `null` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+		}
+
+		String label = null;
+		String nodeTypeName = getNodeType(element);
+
 ```
 
