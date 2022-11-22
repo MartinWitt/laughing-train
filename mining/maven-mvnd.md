@@ -43,15 +43,15 @@ I found 361 bad smells with 24 repairable:
 | RuleId[ruleID=EmptyMethod] | 2 | false |
 | RuleId[ruleID=StringEqualsEmptyString] | 2 | false |
 | RuleId[ruleID=AssignmentToLambdaParameter] | 2 | false |
-| RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod] | 1 | false |
 | RuleId[ruleID=CStyleArrayDeclaration] | 1 | false |
+| RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod] | 1 | false |
 | RuleId[ruleID=DuplicateBranchesInSwitch] | 1 | false |
 | RuleId[ruleID=RegExpSimplifiable] | 1 | false |
 | RuleId[ruleID=ReadWriteStringCanBeUsed] | 1 | false |
 | RuleId[ruleID=DefaultAnnotationParam] | 1 | false |
 | RuleId[ruleID=SlowListContainsAll] | 1 | false |
-| RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment] | 1 | false |
 | RuleId[ruleID=InfiniteLoopStatement] | 1 | false |
+| RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment] | 1 | false |
 | RuleId[ruleID=RedundantImplements] | 1 | false |
 | RuleId[ruleID=HtmlWrongAttributeValue] | 1 | false |
 | RuleId[ruleID=InstanceofCatchParameter] | 1 | false |
@@ -92,18 +92,6 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/Environment.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectExecutorService.java`
-#### Snippet
-```java
-
-    static interface ProjectRunnable extends Runnable {
-        public MavenProject getProject();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
 Modifier `static` is redundant for inner interfaces
 in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectExecutorService.java`
 #### Snippet
@@ -113,6 +101,18 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectExecutorService.java`
     static interface ProjectRunnable extends Runnable {
         public MavenProject getProject();
     }
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectExecutorService.java`
+#### Snippet
+```java
+
+    static interface ProjectRunnable extends Runnable {
+        public MavenProject getProject();
+    }
+
 ```
 
 ## RuleId[ruleID=EmptyStatementBody]
@@ -140,19 +140,6 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectExecutorService.java`
     }
 ```
 
-## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-Assignment to static field `INSTANCE` from instance context
-in `daemon/src/main/java/org/mvndaemon/mvnd/builder/SmartBuilder.java`
-#### Snippet
-```java
-    public SmartBuilder(LifecycleModuleBuilder moduleBuilder) {
-        this.moduleBuilder = moduleBuilder;
-        INSTANCE = this;
-    }
-
-```
-
 ## RuleId[ruleID=CStyleArrayDeclaration]
 ### RuleId[ruleID=CStyleArrayDeclaration]
 C-style array declaration of parameter `cbuf`
@@ -164,6 +151,19 @@ in `build-plugin/src/main/java/org/mvndaemon/mvnd/plugin/doc/DocMojo.java`
             public void write(char cbuf[], int off, int len) throws IOException {
                 if (!firstLine) {
                     super.write(cbuf, off, len);
+```
+
+## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+### RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+Assignment to static field `INSTANCE` from instance context
+in `daemon/src/main/java/org/mvndaemon/mvnd/builder/SmartBuilder.java`
+#### Snippet
+```java
+    public SmartBuilder(LifecycleModuleBuilder moduleBuilder) {
+        this.moduleBuilder = moduleBuilder;
+        INSTANCE = this;
+    }
+
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -219,18 +219,6 @@ public class MvndHelpFormatter {
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`sb.length() == 0` can be replaced with 'sb.isEmpty()'
-in `common/src/main/java/org/mvndaemon/mvnd/common/TimeUtils.java`
-#### Snippet
-```java
-            millis %= SECONDS_MILLIS;
-        }
-        if (millis >= ONE_UNIT || sb.length() == 0) {
-            sb.append(millis / ONE_UNIT).append("ms");
-        }
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `variable.length() > 0` can be replaced with '!variable.isEmpty()'
 in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
 #### Snippet
@@ -267,6 +255,18 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`sb.length() == 0` can be replaced with 'sb.isEmpty()'
+in `common/src/main/java/org/mvndaemon/mvnd/common/TimeUtils.java`
+#### Snippet
+```java
+            millis %= SECONDS_MILLIS;
+        }
+        if (millis >= ONE_UNIT || sb.length() == 0) {
+            sb.append(millis / ONE_UNIT).append("ms");
+        }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `sb.length() > 0` can be replaced with '!sb.isEmpty()'
 in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
 #### Snippet
@@ -300,6 +300,19 @@ in `daemon/src/main/java/org/apache/maven/project/CachingProjectBuilder.java`
                     && (dependencyManagement.getDependencies().size() > 0)) {
                 map = new AbstractMap<String, Artifact>() {
                     HashMap<String, Artifact> delegate;
+```
+
+## RuleId[ruleID=ReadWriteStringCanBeUsed]
+### RuleId[ruleID=ReadWriteStringCanBeUsed]
+Can be replaced with 'Files.readString()'
+in `client/src/main/java/org/mvndaemon/mvnd/client/Completion.java`
+#### Snippet
+```java
+        }
+        try {
+            return new String(Files.readAllBytes(bashCompletionPath), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new UncheckedIOException("Could not read " + bashCompletionPath, e);
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
@@ -339,32 +352,7 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
                                         .append('/')
 ```
 
-## RuleId[ruleID=ReadWriteStringCanBeUsed]
-### RuleId[ruleID=ReadWriteStringCanBeUsed]
-Can be replaced with 'Files.readString()'
-in `client/src/main/java/org/mvndaemon/mvnd/client/Completion.java`
-#### Snippet
-```java
-        }
-        try {
-            return new String(Files.readAllBytes(bashCompletionPath), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new UncheckedIOException("Could not read " + bashCompletionPath, e);
-```
-
 ## RuleId[ruleID=BoundedWildcard]
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
-#### Snippet
-```java
-            private final Consumer<String> out;
-
-            private StreamGobbler(InputStream in, Consumer<String> out) {
-                this.in = in;
-                this.out = out;
-```
-
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super String`
 in `common/src/main/java/org/mvndaemon/mvnd/common/BufferHelper.java`
@@ -378,15 +366,51 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/BufferHelper.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super PropertiesBuilder`
+Can generalize to `? super String`
+in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
+#### Snippet
+```java
+            String val,
+            String currentKey,
+            Map<String, String> cycleMap,
+            Map<String, String> configProps,
+            SubstitutionCallback callback,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
+#### Snippet
+```java
+            String val,
+            String currentKey,
+            Map<String, String> cycleMap,
+            Map<String, String> configProps,
+            SubstitutionCallback callback,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
+#### Snippet
+```java
+            private final Consumer<String> out;
+
+            private StreamGobbler(InputStream in, Consumer<String> out) {
+                this.in = in;
+                this.out = out;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super StringBuilder`
 in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonParameters.java`
 #### Snippet
 ```java
-    }
+        final Supplier<String> valueSupplier;
 
-    protected DaemonParameters derive(Consumer<PropertiesBuilder> customizer) {
-        PropertiesBuilder builder = new PropertiesBuilder().putAll(this.properties);
-        customizer.accept(builder);
+        public ValueSource(Function<StringBuilder, StringBuilder> descriptionFunction, Supplier<String> valueSupplier) {
+            this.descriptionFunction = descriptionFunction;
+            this.valueSupplier = valueSupplier;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -414,15 +438,27 @@ in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonParameters.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super StringBuilder`
+Can generalize to `? super PropertiesBuilder`
 in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonParameters.java`
 #### Snippet
 ```java
-        final Supplier<String> valueSupplier;
+    }
 
-        public ValueSource(Function<StringBuilder, StringBuilder> descriptionFunction, Supplier<String> valueSupplier) {
-            this.descriptionFunction = descriptionFunction;
-            this.valueSupplier = valueSupplier;
+    protected DaemonParameters derive(Consumer<PropertiesBuilder> customizer) {
+        PropertiesBuilder builder = new PropertiesBuilder().putAll(this.properties);
+        customizer.accept(builder);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `common/src/main/java/org/mvndaemon/mvnd/common/Environment.java`
+#### Snippet
+```java
+    }
+
+    public void addCommandLineOption(Collection<String> args, String value) {
+        if (!options.isEmpty()) {
+            args.add(options.keySet().iterator().next());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -442,18 +478,6 @@ Can generalize to `? extends DaemonInfo`
 in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
 #### Snippet
 ```java
-
-    private DaemonClientConnection connectToCanceledDaemon(
-            Collection<DaemonInfo> busyDaemons, DaemonCompatibilitySpec constraint) {
-        DaemonClientConnection connection = null;
-        List<DaemonInfo> canceledBusy =
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends DaemonInfo`
-in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
-#### Snippet
-```java
     }
 
     private DaemonClientConnection findConnection(List<DaemonInfo> compatibleDaemons) {
@@ -462,15 +486,99 @@ in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `common/src/main/java/org/mvndaemon/mvnd/common/Environment.java`
+Can generalize to `? extends DaemonInfo`
+in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
+#### Snippet
+```java
+
+    private DaemonClientConnection connectToCanceledDaemon(
+            Collection<DaemonInfo> busyDaemons, DaemonCompatibilitySpec constraint) {
+        DaemonClientConnection connection = null;
+        List<DaemonInfo> canceledBusy =
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super K`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/TimestampCacheFactory.java`
+#### Snippet
+```java
+
+        @Override
+        public void removeIf(BiPredicate<K, V> predicate) {
+            for (Iterator<Map.Entry<K, Record<V>>> iterator = map.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<K, Record<V>> entry = iterator.next();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/TimestampCacheFactory.java`
+#### Snippet
+```java
+
+        @Override
+        public void removeIf(BiPredicate<K, V> predicate) {
+            for (Iterator<Map.Entry<K, Record<V>>> iterator = map.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<K, Record<V>> entry = iterator.next();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MavenProject`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/invalidating/InvalidatingRealmCacheEventSpy.java`
+#### Snippet
+```java
+
+    private boolean shouldEvict(
+            List<MavenProject> projects,
+            InvalidatingProjectArtifactsCache.CacheKey k,
+            InvalidatingProjectArtifactsCache.Record v) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends CacheRecord`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
+#### Snippet
+```java
+     * @param records the {@link CacheRecord}s to stop watching
+     */
+    void remove(List<CacheRecord> records) {
+        for (CacheRecord record : records) {
+            record.invalidate();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super K`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
+#### Snippet
+```java
+
+        @Override
+        public void removeIf(BiPredicate<K, V> predicate) {
+            for (Iterator<Map.Entry<K, V>> iterator = map.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<K, V> entry = iterator.next();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
+#### Snippet
+```java
+
+        @Override
+        public void removeIf(BiPredicate<K, V> predicate) {
+            for (Iterator<Map.Entry<K, V>> iterator = map.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<K, V> entry = iterator.next();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends GcEvent`
+in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonMemoryStatus.java`
 #### Snippet
 ```java
     }
 
-    public void addCommandLineOption(Collection<String> args, String value) {
-        if (!options.isEmpty()) {
-            args.add(options.keySet().iterator().next());
+    private double gcRate(Deque<GcEvent> events) {
+        GcEvent first = events.peekFirst();
+        GcEvent last = events.peekLast();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -498,15 +606,99 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonMemoryStatus.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends GcEvent`
-in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonMemoryStatus.java`
+Can generalize to `? super Message`
+in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/ClientDispatcher.java`
+#### Snippet
+```java
+    private static final Pattern TRAILING_EOLS_PATTERN = Pattern.compile("[\r\n]+$");
+
+    public ClientDispatcher(Collection<Message> queue) {
+        this.queue = queue;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MavenProject`
+in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/ClientDispatcher.java`
 #### Snippet
 ```java
     }
 
-    private double gcRate(Deque<GcEvent> events) {
-        GcEvent first = events.peekFirst();
-        GcEvent last = events.peekLast();
+    static int artifactIdLength90thPercentile(List<MavenProject> projects) {
+        if (projects.size() == 1) {
+            return projects.get(0).getArtifactId().length();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cli/EnvHelper.java`
+#### Snippet
+```java
+    }
+
+    public static void environment(String workingDir, Map<String, String> clientEnv, Consumer<String> log) {
+        Map<String, String> requested = new TreeMap<>(clientEnv);
+        Map<String, String> actual = new TreeMap<>(System.getenv());
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ClassRealmConstituent`
+in `daemon/src/main/java/org/apache/maven/classrealm/MvndClassRealmManager.java`
+#### Snippet
+```java
+    }
+
+    private Set<String> populateRealm(ClassRealm classRealm, List<ClassRealmConstituent> constituents) {
+        Set<String> includedIds = new LinkedHashSet<>();
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ClassRealmManagerDelegate`
+in `daemon/src/main/java/org/apache/maven/classrealm/MvndClassRealmManager.java`
+#### Snippet
+```java
+            Logger logger,
+            PlexusContainer container,
+            List<ClassRealmManagerDelegate> delegates,
+            CoreExportsProvider exports) {
+        this.logger = logger;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Artifact`
+in `daemon/src/main/java/org/apache/maven/classrealm/MvndClassRealmManager.java`
+#### Snippet
+```java
+            List<String> parentImports,
+            Map<String, ClassLoader> foreignImports,
+            List<Artifact> artifacts) {
+        Set<String> artifactIds = new LinkedHashSet<>();
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Map`
+in `daemon/src/main/java/org/mvndaemon/mvnd/timing/BuildTimeEventSpy.java`
+#### Snippet
+```java
+        private final Map.Entry<String, Map<String, Timer>> project;
+
+        Project(Entry<String, Map<String, Timer>> project) {
+            this.project = project;
+        }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Timer`
+in `daemon/src/main/java/org/mvndaemon/mvnd/timing/BuildTimeEventSpy.java`
+#### Snippet
+```java
+        private final Map.Entry<String, Timer> mojo;
+
+        Mojo(Map.Entry<String, Timer> mojo) {
+            this.mojo = mojo;
+        }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -535,146 +727,14 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/Server.java`
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends MavenProject`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/invalidating/InvalidatingRealmCacheEventSpy.java`
-#### Snippet
-```java
-
-    private boolean shouldEvict(
-            List<MavenProject> projects,
-            InvalidatingProjectArtifactsCache.CacheKey k,
-            InvalidatingProjectArtifactsCache.Record v) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
-#### Snippet
-```java
-            String val,
-            String currentKey,
-            Map<String, String> cycleMap,
-            Map<String, String> configProps,
-            SubstitutionCallback callback,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
-#### Snippet
-```java
-            String val,
-            String currentKey,
-            Map<String, String> cycleMap,
-            Map<String, String> configProps,
-            SubstitutionCallback callback,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super K`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/TimestampCacheFactory.java`
-#### Snippet
-```java
-
-        @Override
-        public void removeIf(BiPredicate<K, V> predicate) {
-            for (Iterator<Map.Entry<K, Record<V>>> iterator = map.entrySet().iterator(); iterator.hasNext(); ) {
-                Map.Entry<K, Record<V>> entry = iterator.next();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/TimestampCacheFactory.java`
-#### Snippet
-```java
-
-        @Override
-        public void removeIf(BiPredicate<K, V> predicate) {
-            for (Iterator<Map.Entry<K, Record<V>>> iterator = map.entrySet().iterator(); iterator.hasNext(); ) {
-                Map.Entry<K, Record<V>> entry = iterator.next();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super K`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
-#### Snippet
-```java
-
-        @Override
-        public void removeIf(BiPredicate<K, V> predicate) {
-            for (Iterator<Map.Entry<K, V>> iterator = map.entrySet().iterator(); iterator.hasNext(); ) {
-                Map.Entry<K, V> entry = iterator.next();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
-#### Snippet
-```java
-
-        @Override
-        public void removeIf(BiPredicate<K, V> predicate) {
-            for (Iterator<Map.Entry<K, V>> iterator = map.entrySet().iterator(); iterator.hasNext(); ) {
-                Map.Entry<K, V> entry = iterator.next();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends CacheRecord`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
-#### Snippet
-```java
-     * @param records the {@link CacheRecord}s to stop watching
-     */
-    void remove(List<CacheRecord> records) {
-        for (CacheRecord record : records) {
-            record.invalidate();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Message`
-in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/ClientDispatcher.java`
-#### Snippet
-```java
-    private static final Pattern TRAILING_EOLS_PATTERN = Pattern.compile("[\r\n]+$");
-
-    public ClientDispatcher(Collection<Message> queue) {
-        this.queue = queue;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MavenProject`
-in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/ClientDispatcher.java`
+in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ReactorBuildStats.java`
 #### Snippet
 ```java
     }
 
-    static int artifactIdLength90thPercentile(List<MavenProject> projects) {
-        if (projects.size() == 1) {
-            return projects.get(0).getArtifactId().length();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Map`
-in `daemon/src/main/java/org/mvndaemon/mvnd/timing/BuildTimeEventSpy.java`
-#### Snippet
-```java
-        private final Map.Entry<String, Map<String, Timer>> project;
-
-        Project(Entry<String, Map<String, Timer>> project) {
-            this.project = project;
-        }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Timer`
-in `daemon/src/main/java/org/mvndaemon/mvnd/timing/BuildTimeEventSpy.java`
-#### Snippet
-```java
-        private final Map.Entry<String, Timer> mojo;
-
-        Mojo(Map.Entry<String, Timer> mojo) {
-            this.mojo = mojo;
-        }
+    public static ReactorBuildStats create(Collection<MavenProject> projects) {
+        ImmutableMap.Builder<String, AtomicLong> serviceTimes = ImmutableMap.builder();
+        ImmutableMap.Builder<String, AtomicLong> bottleneckTimes = ImmutableMap.builder();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -687,6 +747,18 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ReactorBuildStats.java`
     public void recordBottlenecks(Set<MavenProject> projects, int degreeOfConcurrency, long durationNanos) {
         // only projects that result in single-threaded builds
         if (projects.size() == 1) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends MavenProject`
+in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ReactorBuildStats.java`
+#### Snippet
+```java
+    }
+
+    public String renderCriticalPath(DependencyGraph<MavenProject> graph) {
+        return renderCriticalPath(graph, ReactorBuildStats::projectGAV);
+    }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -715,66 +787,6 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ReactorBuildStats.java`
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends MavenProject`
-in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ReactorBuildStats.java`
-#### Snippet
-```java
-    }
-
-    public static ReactorBuildStats create(Collection<MavenProject> projects) {
-        ImmutableMap.Builder<String, AtomicLong> serviceTimes = ImmutableMap.builder();
-        ImmutableMap.Builder<String, AtomicLong> bottleneckTimes = ImmutableMap.builder();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MavenProject`
-in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ReactorBuildStats.java`
-#### Snippet
-```java
-    }
-
-    public String renderCriticalPath(DependencyGraph<MavenProject> graph) {
-        return renderCriticalPath(graph, ReactorBuildStats::projectGAV);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClassRealmManagerDelegate`
-in `daemon/src/main/java/org/apache/maven/classrealm/MvndClassRealmManager.java`
-#### Snippet
-```java
-            Logger logger,
-            PlexusContainer container,
-            List<ClassRealmManagerDelegate> delegates,
-            CoreExportsProvider exports) {
-        this.logger = logger;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ClassRealmConstituent`
-in `daemon/src/main/java/org/apache/maven/classrealm/MvndClassRealmManager.java`
-#### Snippet
-```java
-    }
-
-    private Set<String> populateRealm(ClassRealm classRealm, List<ClassRealmConstituent> constituents) {
-        Set<String> includedIds = new LinkedHashSet<>();
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Artifact`
-in `daemon/src/main/java/org/apache/maven/classrealm/MvndClassRealmManager.java`
-#### Snippet
-```java
-            List<String> parentImports,
-            Map<String, ClassLoader> foreignImports,
-            List<Artifact> artifacts) {
-        Set<String> artifactIds = new LinkedHashSet<>();
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MavenProject`
 in `daemon/src/main/java/org/mvndaemon/mvnd/builder/SmartBuilderImpl.java`
 #### Snippet
 ```java
@@ -783,18 +795,6 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/builder/SmartBuilderImpl.java`
     private void submitAll(Set<MavenProject> readyProjects) {
         List<ProjectBuildTask> tasks = new ArrayList<>();
         for (MavenProject project : readyProjects) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cli/EnvHelper.java`
-#### Snippet
-```java
-    }
-
-    public static void environment(String workingDir, Map<String, String> clientEnv, Consumer<String> log) {
-        Map<String, String> requested = new TreeMap<>(clientEnv);
-        Map<String, String> actual = new TreeMap<>(System.getenv());
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -834,18 +834,6 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectComparator.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectComparator.java`
-#### Snippet
-```java
-
-    private static <K> Map<K, Long> calculateWeights(
-            DependencyGraph<K> dependencyGraph, Map<K, Long> serviceTimes, Collection<K> rootProjects) {
-        Map<K, Long> weights = new HashMap<>();
-        for (K rootProject : rootProjects) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends AtomicLong`
 in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectComparator.java`
 #### Snippet
@@ -855,18 +843,6 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectComparator.java`
             Map<String, AtomicLong> serviceTimes, K project, long defaultServiceTime, Function<K, String> toKey) {
         AtomicLong serviceTime = serviceTimes.get(toKey.apply(project));
         return serviceTime != null ? serviceTime.longValue() : defaultServiceTime;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends AtomicLong`
-in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectComparator.java`
-#### Snippet
-```java
-    }
-
-    private static long average(Collection<AtomicLong> values) {
-        return (long)
-                (values.stream().mapToLong(AtomicLong::longValue).average().orElse(1.0d));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -882,15 +858,99 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectComparator.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+Can generalize to `? extends AtomicLong`
+in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectComparator.java`
 #### Snippet
 ```java
     }
 
-    private static <T> List<T> reverse(List<T> list) {
-        List<T> copy = new ArrayList<>(list);
-        Collections.reverse(copy);
+    private static long average(Collection<AtomicLong> values) {
+        return (long)
+                (values.stream().mapToLong(AtomicLong::longValue).average().orElse(1.0d));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `daemon/src/main/java/org/mvndaemon/mvnd/builder/ProjectComparator.java`
+#### Snippet
+```java
+
+    private static <K> Map<K, Long> calculateWeights(
+            DependencyGraph<K> dependencyGraph, Map<K, Long> serviceTimes, Collection<K> rootProjects) {
+        Map<K, Long> weights = new HashMap<>();
+        for (K rootProject : rootProjects) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Message`
+in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
+#### Snippet
+```java
+
+    @Override
+    public void setDaemonDispatch(Consumer<Message> daemonDispatch) {
+        this.daemonDispatch = daemonDispatch;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Message`
+in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
+#### Snippet
+```java
+
+    @Override
+    public void setDaemonReceive(Consumer<Message> daemonReceive) {
+        this.daemonReceive = daemonReceive;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super AttributedString`
+in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
+#### Snippet
+```java
+    }
+
+    private void addStatusLine(final List<AttributedString> lines, int dispLines, final int projectsCount) {
+        if (name != null || buildStatus != null) {
+            AttributedStringBuilder asb = new AttributedStringBuilder();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super AttributedString`
+in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
+#### Snippet
+```java
+    }
+
+    private void addProjectLine(final List<AttributedString> lines, Project prj) {
+        final MojoStartedEvent execution = prj.runningExecution;
+        final AttributedStringBuilder asb = new AttributedStringBuilder();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Message`
+in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
+#### Snippet
+```java
+
+    @Override
+    public void accept(List<Message> entries) {
+        assert "main".equals(Thread.currentThread().getName());
+        for (Message entry : entries) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super String`
+in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+
+    private void logSummary(
+            ExceptionSummary summary, Map<String, String> references, String indent, boolean showErrors) {
+        String referenceKey = "";
+
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -923,22 +983,22 @@ in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 #### Snippet
 ```java
 
-    private void disableOnPresentOption(
-            final CommandLine commandLine, final String option, final Consumer<Boolean> setting) {
-        if (commandLine.hasOption(option)) {
-            setting.accept(false);
+    private void enableOnAbsentOption(
+            final CommandLine commandLine, final char option, final Consumer<Boolean> setting) {
+        if (!commandLine.hasOption(option)) {
+            setting.accept(true);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
+Can generalize to `? extends MavenProject`
 in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 #### Snippet
 ```java
-
-    private void logSummary(
-            ExceptionSummary summary, Map<String, String> references, String indent, boolean showErrors) {
-        String referenceKey = "";
-
+     *                       general and {@code groupId:artifactId} when there is a name clash).
+     */
+    private String getResumeFromSelector(List<MavenProject> mavenProjects, MavenProject failedProject) {
+        for (MavenProject buildProject : mavenProjects) {
+            if (failedProject.getArtifactId().equals(buildProject.getArtifactId())
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -959,130 +1019,22 @@ in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 #### Snippet
 ```java
 
-    private void enableOnAbsentOption(
-            final CommandLine commandLine, final char option, final Consumer<Boolean> setting) {
-        if (!commandLine.hasOption(option)) {
-            setting.accept(true);
+    private void disableOnPresentOption(
+            final CommandLine commandLine, final String option, final Consumer<Boolean> setting) {
+        if (commandLine.hasOption(option)) {
+            setting.accept(false);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends MavenProject`
+Can generalize to `? extends T`
 in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 #### Snippet
 ```java
-     *                       general and {@code groupId:artifactId} when there is a name clash).
-     */
-    private String getResumeFromSelector(List<MavenProject> mavenProjects, MavenProject failedProject) {
-        for (MavenProject buildProject : mavenProjects) {
-            if (failedProject.getArtifactId().equals(buildProject.getArtifactId())
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Message`
-in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
-#### Snippet
-```java
-
-    @Override
-    public void setDaemonDispatch(Consumer<Message> daemonDispatch) {
-        this.daemonDispatch = daemonDispatch;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Message`
-in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
-#### Snippet
-```java
-
-    @Override
-    public void setDaemonReceive(Consumer<Message> daemonReceive) {
-        this.daemonReceive = daemonReceive;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Message`
-in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
-#### Snippet
-```java
-
-    @Override
-    public void accept(List<Message> entries) {
-        assert "main".equals(Thread.currentThread().getName());
-        for (Message entry : entries) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AttributedString`
-in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
-#### Snippet
-```java
     }
 
-    private void addProjectLine(final List<AttributedString> lines, Project prj) {
-        final MojoStartedEvent execution = prj.runningExecution;
-        final AttributedStringBuilder asb = new AttributedStringBuilder();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AttributedString`
-in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
-#### Snippet
-```java
-    }
-
-    private void addStatusLine(final List<AttributedString> lines, int dispLines, final int projectsCount) {
-        if (name != null || buildStatus != null) {
-            AttributedStringBuilder asb = new AttributedStringBuilder();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `daemon/src/main/java/org/mvndaemon/mvnd/builder/DependencyGraph.java`
-#### Snippet
-```java
-        }
-
-        List<K> ensembleWithChildrenOf(List<K> list, K node) {
-            final List<K> result = Stream.concat(
-                            list.stream().filter(k -> !Objects.equals(k, node)),
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `daemon/src/main/java/org/mvndaemon/mvnd/builder/DependencyGraph.java`
-#### Snippet
-```java
-    }
-
-    public DependencyGraph(List<K> projects, Map<K, List<K>> upstreams, Map<K, List<K>> downstreams) {
-        this.projects = projects;
-        this.upstreams = upstreams;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends List`
-in `daemon/src/main/java/org/mvndaemon/mvnd/builder/DependencyGraph.java`
-#### Snippet
-```java
-    }
-
-    public DependencyGraph(List<K> projects, Map<K, List<K>> upstreams, Map<K, List<K>> downstreams) {
-        this.projects = projects;
-        this.upstreams = upstreams;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super K`
-in `daemon/src/main/java/org/mvndaemon/mvnd/builder/DependencyGraph.java`
-#### Snippet
-```java
-    }
-
-    public void store(Function<K, String> toString, Appendable w) {
-        getProjects().forEach(k -> {
-            try {
+    private static <T> List<T> reverse(List<T> list) {
+        List<T> copy = new ArrayList<>(list);
+        Collections.reverse(copy);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1110,6 +1062,54 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/builder/DependencyGraph.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super K`
+in `daemon/src/main/java/org/mvndaemon/mvnd/builder/DependencyGraph.java`
+#### Snippet
+```java
+    }
+
+    public void store(Function<K, String> toString, Appendable w) {
+        getProjects().forEach(k -> {
+            try {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`
+in `daemon/src/main/java/org/mvndaemon/mvnd/builder/DependencyGraph.java`
+#### Snippet
+```java
+    }
+
+    public DependencyGraph(List<K> projects, Map<K, List<K>> upstreams, Map<K, List<K>> downstreams) {
+        this.projects = projects;
+        this.upstreams = upstreams;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends List`
+in `daemon/src/main/java/org/mvndaemon/mvnd/builder/DependencyGraph.java`
+#### Snippet
+```java
+    }
+
+    public DependencyGraph(List<K> projects, Map<K, List<K>> upstreams, Map<K, List<K>> downstreams) {
+        this.projects = projects;
+        this.upstreams = upstreams;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends K`
+in `daemon/src/main/java/org/mvndaemon/mvnd/builder/DependencyGraph.java`
+#### Snippet
+```java
+        }
+
+        List<K> ensembleWithChildrenOf(List<K> list, K node) {
+            final List<K> result = Stream.concat(
+                            list.stream().filter(k -> !Objects.equals(k, node)),
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends MavenProject`
 in `daemon/src/main/java/org/apache/maven/project/CachingProjectBuilder.java`
 #### Snippet
@@ -1131,6 +1131,30 @@ in `daemon/src/main/java/org/apache/maven/project/CachingProjectBuilder.java`
             List<InterimResult> interimResults,
             Map<File, MavenProject> projectIndex,
             File pomFile,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends File`
+in `daemon/src/main/java/org/apache/maven/project/CachingProjectBuilder.java`
+#### Snippet
+```java
+            List<InterimResult> interimResults,
+            Map<File, MavenProject> projectIndex,
+            List<File> pomFiles,
+            Set<File> aggregatorFiles,
+            boolean root,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Profile`
+in `daemon/src/main/java/org/apache/maven/project/CachingProjectBuilder.java`
+#### Snippet
+```java
+    }
+
+    private List<String> getProfileIds(List<Profile> profiles) {
+        return profiles.stream().map(Profile::getId).collect(Collectors.toList());
+    }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1169,31 +1193,19 @@ in `daemon/src/main/java/org/apache/maven/project/CachingProjectBuilder.java`
             Map<File, Boolean> profilesXmls,
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Profile`
-in `daemon/src/main/java/org/apache/maven/project/CachingProjectBuilder.java`
-#### Snippet
-```java
-    }
-
-    private List<String> getProfileIds(List<Profile> profiles) {
-        return profiles.stream().map(Profile::getId).collect(Collectors.toList());
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends File`
-in `daemon/src/main/java/org/apache/maven/project/CachingProjectBuilder.java`
-#### Snippet
-```java
-            List<InterimResult> interimResults,
-            Map<File, MavenProject> projectIndex,
-            List<File> pomFiles,
-            Set<File> aggregatorFiles,
-            boolean root,
-```
-
 ## RuleId[ruleID=IgnoreResultOfCall]
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `File.delete()` is ignored
+in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
+#### Snippet
+```java
+                if (!lckFile.exists()) {
+                    try {
+                        nativeLibFile.delete();
+                    } catch (SecurityException e) {
+                        System.err.println("Failed to delete old native lib" + e.getMessage());
+```
+
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `File.setReadable()` is ignored
 in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
@@ -1230,31 +1242,7 @@ in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
             // Check whether the contents are properly copied from the resource folder
 ```
 
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.delete()` is ignored
-in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
-#### Snippet
-```java
-                if (!lckFile.exists()) {
-                    try {
-                        nativeLibFile.delete();
-                    } catch (SecurityException e) {
-                        System.err.println("Failed to delete old native lib" + e.getMessage());
-```
-
 ## RuleId[ruleID=ThrowablePrintedToSystemOut]
-### RuleId[ruleID=ThrowablePrintedToSystemOut]
-'Throwable' argument `e` to 'System.err.println()' call
-in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
-#### Snippet
-```java
-                System.err.println("Failed to load native library:" + libPath.getName() + ". osinfo: "
-                        + OSInfo.getNativeLibFolderPathForCurrentOS());
-                System.err.println(e);
-                return false;
-            }
-```
-
 ### RuleId[ruleID=ThrowablePrintedToSystemOut]
 'Throwable' argument `e` to 'System.err.println()' call
 in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
@@ -1265,6 +1253,18 @@ in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
             System.err.println(e);
         }
         return version;
+```
+
+### RuleId[ruleID=ThrowablePrintedToSystemOut]
+'Throwable' argument `e` to 'System.err.println()' call
+in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
+#### Snippet
+```java
+                System.err.println("Failed to load native library:" + libPath.getName() + ". osinfo: "
+                        + OSInfo.getNativeLibFolderPathForCurrentOS());
+                System.err.println(e);
+                return false;
+            }
 ```
 
 ### RuleId[ruleID=ThrowablePrintedToSystemOut]
@@ -1379,19 +1379,6 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonCompatibilitySpec.java`
 
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`b = b << 1` could be simplified to 'b \<\<= 1'
-in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonRegistry.java`
-#### Snippet
-```java
-        long b = min;
-        while (b < a) {
-            b = b << 1;
-        }
-        return b;
-```
-
 ## RuleId[ruleID=InfiniteLoopStatement]
 ### RuleId[ruleID=InfiniteLoopStatement]
 `while` statement cannot complete without throwing an exception
@@ -1405,6 +1392,19 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/Server.java`
                     client(socket);
 ```
 
+## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+`b = b << 1` could be simplified to 'b \<\<= 1'
+in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonRegistry.java`
+#### Snippet
+```java
+        long b = min;
+        while (b < a) {
+            b = b << 1;
+        }
+        return b;
+```
+
 ## RuleId[ruleID=NestedAssignment]
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
@@ -1416,18 +1416,6 @@ in `native/src/main/java/org/mvndaemon/mvnd/nativ/OSInfo.java`
         while ((readLen = in.read(buf, 0, buf.length)) >= 0) {
             b.write(buf, 0, readLen);
         }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `common/src/main/java/org/mvndaemon/mvnd/common/IoUtils.java`
-#### Snippet
-```java
-            int len = 0;
-            char[] buf = new char[bufSize];
-            while ((len = in.read(buf)) >= 0) {
-                result.append(buf, 0, len);
-            }
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -1452,6 +1440,18 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
                     while (!cancelled && (line = r.readLine()) != null) {
                         out.accept(line);
                     }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `common/src/main/java/org/mvndaemon/mvnd/common/IoUtils.java`
+#### Snippet
+```java
+            int len = 0;
+            char[] buf = new char[bufSize];
+            while ((len = in.read(buf)) >= 0) {
+                result.append(buf, 0, len);
+            }
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -1517,18 +1517,6 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/builder/DependencyGraph.java`
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `nativeLibrarySourceUrl` is accessed in both synchronized and unsynchronized contexts
-in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
-#### Snippet
-```java
-    private static boolean loaded = false;
-    private static String nativeLibraryPath;
-    private static String nativeLibrarySourceUrl;
-
-    /**
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `nativeLibraryPath` is accessed in both synchronized and unsynchronized contexts
 in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
 #### Snippet
@@ -1538,6 +1526,18 @@ in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
     private static String nativeLibraryPath;
     private static String nativeLibrarySourceUrl;
 
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `nativeLibrarySourceUrl` is accessed in both synchronized and unsynchronized contexts
+in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
+#### Snippet
+```java
+    private static boolean loaded = false;
+    private static String nativeLibraryPath;
+    private static String nativeLibrarySourceUrl;
+
+    /**
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -1639,18 +1639,6 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
-#### Snippet
-```java
-    private int doneProjects = 0;
-    private String buildStatus;
-    private boolean displayDone = false;
-    private boolean noBuffering;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
 in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
 #### Snippet
@@ -1660,6 +1648,18 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
     private int doneProjects = 0;
     private String buildStatus;
     private boolean displayDone = false;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `false` is redundant
+in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
+#### Snippet
+```java
+    private int doneProjects = 0;
+    private String buildStatus;
+    private boolean displayDone = false;
+    private boolean noBuffering;
+
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -1678,7 +1678,7 @@ public class DaemonPrompter extends AbstractInputHandler implements Prompter, In
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-22-21-17-58.100.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-22-21-25-57.038.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1850,6 +1850,18 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/TimestampCacheFactory.jav
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
+Variable `linesPerProject` initializer `0` is redundant
+in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
+#### Snippet
+```java
+    private String threadsFormat;
+
+    private int linesPerProject = 0;
+    private int doneProjects = 0;
+    private String buildStatus;
+```
+
+### RuleId[ruleID=UnusedAssignment]
 Variable `executionRequestPopulator` initializer `null` is redundant
 in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 #### Snippet
@@ -1874,18 +1886,6 @@ in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
-Variable `linesPerProject` initializer `0` is redundant
-in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
-#### Snippet
-```java
-    private String threadsFormat;
-
-    private int linesPerProject = 0;
-    private int doneProjects = 0;
-    private String buildStatus;
-```
-
-### RuleId[ruleID=UnusedAssignment]
 Variable `result` initializer `null` is redundant
 in `daemon/src/main/java/org/apache/maven/project/CachingProjectBuilder.java`
 #### Snippet
@@ -1897,19 +1897,44 @@ in `daemon/src/main/java/org/apache/maven/project/CachingProjectBuilder.java`
                     result = new DefaultProjectBuildingResult(e.getModelId(), interimResult.pomFile, e.getProblems());
 ```
 
-## RuleId[ruleID=ConstantValue]
-### RuleId[ruleID=ConstantValue]
-Value `exception` is always 'null'
-in `client/src/main/java/org/mvndaemon/mvnd/client/DefaultClient.java`
+## RuleId[ruleID=OptionalGetWithoutIsPresent]
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`Optional.get()` without 'isPresent()' check
+in `common/src/main/java/org/mvndaemon/mvnd/common/Environment.java`
 #### Snippet
 ```java
-                                        args)
-                                .toString(),
-                        exception);
-            }
-            return this;
+                            .filter(arg::startsWith)
+                            .max(Comparator.comparing(String::length))
+                            .get();
+                    value = arg.substring(opt.length());
+                    if (value.isEmpty()) {
 ```
 
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`Optional::get` without 'isPresent()' check
+in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
+#### Snippet
+```java
+                .values()
+                .stream()
+                .map(Optional::get)
+                .collect(Collectors.toList());
+        for (DaemonStopEvent stopEvent : recentStopEvents) {
+```
+
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`OptionalDouble.getAsDouble()` without 'isPresent()' check
+in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonMemoryStatus.java`
+#### Snippet
+```java
+
+    private double averageUsage(Collection<GcEvent> events) {
+        return events.stream().mapToLong(e -> e.usage.getUsed()).average().getAsDouble();
+    }
+}
+```
+
+## RuleId[ruleID=ConstantValue]
 ### RuleId[ruleID=ConstantValue]
 Condition `idx < variable.length()` is always `true` when reached
 in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
@@ -1920,6 +1945,18 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
         if (idx >= 0 && idx < variable.length()) {
             op = variable.substring(idx);
             variable = variable.substring(0, idx);
+```
+
+### RuleId[ruleID=ConstantValue]
+Value `exception` is always 'null'
+in `client/src/main/java/org/mvndaemon/mvnd/client/DefaultClient.java`
+#### Snippet
+```java
+                                        args)
+                                .toString(),
+                        exception);
+            }
+            return this;
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -1970,68 +2007,7 @@ in `daemon/src/main/java/org/apache/maven/project/CachingProjectBuilder.java`
                     poolBuilder)) {
 ```
 
-## RuleId[ruleID=OptionalGetWithoutIsPresent]
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional::get` without 'isPresent()' check
-in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
-#### Snippet
-```java
-                .values()
-                .stream()
-                .map(Optional::get)
-                .collect(Collectors.toList());
-        for (DaemonStopEvent stopEvent : recentStopEvents) {
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `common/src/main/java/org/mvndaemon/mvnd/common/Environment.java`
-#### Snippet
-```java
-                            .filter(arg::startsWith)
-                            .max(Comparator.comparing(String::length))
-                            .get();
-                    value = arg.substring(opt.length());
-                    if (value.isEmpty()) {
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`OptionalDouble.getAsDouble()` without 'isPresent()' check
-in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonMemoryStatus.java`
-#### Snippet
-```java
-
-    private double averageUsage(Collection<GcEvent> events) {
-        return events.stream().mapToLong(e -> e.usage.getUsed()).average().getAsDouble();
-    }
-}
-```
-
 ## RuleId[ruleID=MethodOverridesStaticMethod]
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `read()` tries to override a static method of a superclass
-in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
-#### Snippet
-```java
-        final String message;
-
-        public static Message read(DataInputStream input) throws IOException {
-            String projectId = Message.readUTF(input);
-            String uid = Message.readUTF(input);
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `read()` tries to override a static method of a superclass
-in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
-#### Snippet
-```java
-        final int exitCode;
-
-        public static Message read(DataInputStream input) throws IOException {
-            int exitCode = input.readInt();
-            return new BuildFinished(exitCode);
-```
-
 ### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `read()` tries to override a static method of a superclass
 in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
@@ -2073,18 +2049,6 @@ Method `read()` tries to override a static method of a superclass
 in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
 #### Snippet
 ```java
-        final int artifactIdDisplayLength;
-
-        public static BuildStarted read(DataInputStream input) throws IOException {
-            final String projectId = readUTF(input);
-            final int projectCount = input.readInt();
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `read()` tries to override a static method of a superclass
-in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
-#### Snippet
-```java
         final String executionId;
 
         public static MojoStartedEvent read(DataInputStream input) throws IOException {
@@ -2097,11 +2061,47 @@ Method `read()` tries to override a static method of a superclass
 in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
 #### Snippet
 ```java
+        final int artifactIdDisplayLength;
+
+        public static BuildStarted read(DataInputStream input) throws IOException {
+            final String projectId = readUTF(input);
+            final int projectCount = input.readInt();
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `read()` tries to override a static method of a superclass
+in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
+#### Snippet
+```java
+        final String message;
+
+        public static Message read(DataInputStream input) throws IOException {
+            String projectId = Message.readUTF(input);
+            String uid = Message.readUTF(input);
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `read()` tries to override a static method of a superclass
+in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
+#### Snippet
+```java
         final String stackTrace;
 
         public static Message read(DataInputStream input) throws IOException {
             String message = readUTF(input);
             String className = readUTF(input);
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `read()` tries to override a static method of a superclass
+in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
+#### Snippet
+```java
+        final int exitCode;
+
+        public static Message read(DataInputStream input) throws IOException {
+            int exitCode = input.readInt();
+            return new BuildFinished(exitCode);
 ```
 
 ## RuleId[ruleID=IOResource]
@@ -2191,18 +2191,6 @@ public class CLibrary {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Completion` has only 'static' members, and lacks a 'private' constructor
-in `client/src/main/java/org/mvndaemon/mvnd/client/Completion.java`
-#### Snippet
-```java
-import java.nio.file.Path;
-
-public class Completion {
-
-    public static String getCompletion(String shell, DaemonParameters daemonParameters) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `OSInfo` has only 'static' members, and lacks a 'private' constructor
 in `native/src/main/java/org/mvndaemon/mvnd/nativ/OSInfo.java`
 #### Snippet
@@ -2215,39 +2203,27 @@ public class OSInfo {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ProcessHelper` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/mvndaemon/mvnd/common/ProcessHelper.java`
+Class `BufferHelper` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/mvndaemon/mvnd/common/BufferHelper.java`
 #### Snippet
 ```java
-package org.mvndaemon.mvnd.common;
+ * https://github.com/classgraph/classgraph/blob/latest/src/main/java/nonapi/io/github/classgraph/utils/FileUtils.java#L543
+ */
+public class BufferHelper {
 
-public class ProcessHelper {
-
-    public static void killChildrenProcesses() {}
+    private static boolean PRE_JAVA_9 =
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SocketHelper` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/mvndaemon/mvnd/common/SocketHelper.java`
+Class `Completion` has only 'static' members, and lacks a 'private' constructor
+in `client/src/main/java/org/mvndaemon/mvnd/client/Completion.java`
 #### Snippet
 ```java
-import java.nio.channels.SocketChannel;
+import java.nio.file.Path;
 
-public class SocketHelper {
+public class Completion {
 
-    public static SocketChannel openUnixSocket() throws IOException {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `IoUtils` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/mvndaemon/mvnd/common/IoUtils.java`
-#### Snippet
-```java
-import java.nio.charset.StandardCharsets;
-
-public class IoUtils {
-    public static String readResource(ClassLoader cl, String resourcePath) {
-        final StringBuilder result = new StringBuilder();
+    public static String getCompletion(String shell, DaemonParameters daemonParameters) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -2263,6 +2239,42 @@ public class MvndNativeLoader {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ProcessHelper` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/mvndaemon/mvnd/common/ProcessHelper.java`
+#### Snippet
+```java
+package org.mvndaemon.mvnd.common;
+
+public class ProcessHelper {
+
+    public static void killChildrenProcesses() {}
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `IoUtils` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/mvndaemon/mvnd/common/IoUtils.java`
+#### Snippet
+```java
+import java.nio.charset.StandardCharsets;
+
+public class IoUtils {
+    public static String readResource(ClassLoader cl, String resourcePath) {
+        final StringBuilder result = new StringBuilder();
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `SocketHelper` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/mvndaemon/mvnd/common/SocketHelper.java`
+#### Snippet
+```java
+import java.nio.channels.SocketChannel;
+
+public class SocketHelper {
+
+    public static SocketChannel openUnixSocket() throws IOException {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `MavenDaemon` has only 'static' members, and lacks a 'private' constructor
 in `common/src/main/java/org/mvndaemon/mvnd/common/MavenDaemon.java`
 #### Snippet
@@ -2272,18 +2284,6 @@ import java.util.stream.Stream;
 public class MavenDaemon {
 
     public static void main(String[] args) throws Exception {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `BufferHelper` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/mvndaemon/mvnd/common/BufferHelper.java`
-#### Snippet
-```java
- * https://github.com/classgraph/classgraph/blob/latest/src/main/java/nonapi/io/github/classgraph/utils/FileUtils.java#L543
- */
-public class BufferHelper {
-
-    private static boolean PRE_JAVA_9 =
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -2311,15 +2311,15 @@ public class BufferCaster {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Holder` has only 'static' members, and lacks a 'private' constructor
-in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/Connection.java`
+Class `AgentHelper` has only 'static' members, and lacks a 'private' constructor
+in `helper/src/main/java/org/mvndaemon/mvnd/pump/AgentHelper.java`
 #### Snippet
 ```java
-    <T extends Message> T request(Message request, Class<T> responseType, Predicate<T> matcher);
+import java.io.PrintStream;
 
-    class Holder {
-        static Connection CURRENT;
-    }
+public class AgentHelper {
+
+    public static void pump(InputStream stream, PrintStream out) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -2335,6 +2335,18 @@ public class MvndHelpFormatter {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Holder` has only 'static' members, and lacks a 'private' constructor
+in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/Connection.java`
+#### Snippet
+```java
+    <T extends Message> T request(Message request, Class<T> responseType, Predicate<T> matcher);
+
+    class Holder {
+        static Connection CURRENT;
+    }
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `DaemonExpiration` has only 'static' members, and lacks a 'private' constructor
 in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonExpiration.java`
 #### Snippet
@@ -2344,18 +2356,6 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonExpiration.java`
 public class DaemonExpiration {
 
     public interface DaemonExpirationStrategy {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `AgentHelper` has only 'static' members, and lacks a 'private' constructor
-in `helper/src/main/java/org/mvndaemon/mvnd/pump/AgentHelper.java`
-#### Snippet
-```java
-import java.io.PrintStream;
-
-public class AgentHelper {
-
-    public static void pump(InputStream stream, PrintStream out) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -2382,32 +2382,7 @@ class ProjectComparator {
     public static Comparator<MavenProject> create(DependencyGraph<MavenProject> graph) {
 ```
 
-## RuleId[ruleID=UnnecessarySemicolon]
-### RuleId[ruleID=UnnecessarySemicolon]
-Unnecessary semicolon `;`
-in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonExpirationStatus.java`
-#### Snippet
-```java
-    QUIET_EXPIRE,
-    GRACEFUL_EXPIRE,
-    IMMEDIATE_EXPIRE;
-}
-
-```
-
 ## RuleId[ruleID=DataFlowIssue]
-### RuleId[ruleID=DataFlowIssue]
-Argument `cl.getResourceAsStream(resourcePath)` might be null
-in `common/src/main/java/org/mvndaemon/mvnd/common/IoUtils.java`
-#### Snippet
-```java
-        final int bufSize = 1024;
-        try (Reader in = new BufferedReader(
-                new InputStreamReader(cl.getResourceAsStream(resourcePath), StandardCharsets.UTF_8), bufSize)) {
-            int len = 0;
-            char[] buf = new char[bufSize];
-```
-
 ### RuleId[ruleID=DataFlowIssue]
 Argument `in` might be null
 in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
@@ -2430,6 +2405,18 @@ in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
                         .toExternalForm();
                 return true;
             }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Argument `cl.getResourceAsStream(resourcePath)` might be null
+in `common/src/main/java/org/mvndaemon/mvnd/common/IoUtils.java`
+#### Snippet
+```java
+        final int bufSize = 1024;
+        try (Reader in = new BufferedReader(
+                new InputStreamReader(cl.getResourceAsStream(resourcePath), StandardCharsets.UTF_8), bufSize)) {
+            int len = 0;
+            char[] buf = new char[bufSize];
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -2468,43 +2455,20 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/plugin/CliMavenPluginManager.java`
                     PrintStream ps = new PrintStream(os);
 ```
 
+## RuleId[ruleID=UnnecessarySemicolon]
+### RuleId[ruleID=UnnecessarySemicolon]
+Unnecessary semicolon `;`
+in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonExpirationStatus.java`
+#### Snippet
+```java
+    QUIET_EXPIRE,
+    GRACEFUL_EXPIRE,
+    IMMEDIATE_EXPIRE;
+}
+
+```
+
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
-### RuleId[ruleID=SimplifyStreamApiCallChains]
-Can be replaced with 'String.join'
-in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
-#### Snippet
-```java
-            final int exitCode = ps.waitFor(1000);
-            if (exitCode != 0) {
-                LOGGER.warn(Stream.of(cmd).collect(Collectors.joining(" ")) + " exited with " + exitCode + ":\n"
-                        + output.stream().collect(Collectors.joining("\n")));
-            }
-```
-
-### RuleId[ruleID=SimplifyStreamApiCallChains]
-Can be replaced with 'String.join'
-in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
-#### Snippet
-```java
-            if (exitCode != 0) {
-                LOGGER.warn(Stream.of(cmd).collect(Collectors.joining(" ")) + " exited with " + exitCode + ":\n"
-                        + output.stream().collect(Collectors.joining("\n")));
-            }
-        } catch (IOException e) {
-```
-
-### RuleId[ruleID=SimplifyStreamApiCallChains]
-Can be replaced with 'String.join'
-in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
-#### Snippet
-```java
-            }
-        } catch (IOException e) {
-            LOGGER.warn("Could not execute " + Stream.of(cmd).collect(Collectors.joining(" ")));
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-```
-
 ### RuleId[ruleID=SimplifyStreamApiCallChains]
 Can be replaced with 'String.join'
 in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
@@ -2614,6 +2578,42 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
 ```
 
 ### RuleId[ruleID=SimplifyStreamApiCallChains]
+Can be replaced with 'String.join'
+in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
+#### Snippet
+```java
+            final int exitCode = ps.waitFor(1000);
+            if (exitCode != 0) {
+                LOGGER.warn(Stream.of(cmd).collect(Collectors.joining(" ")) + " exited with " + exitCode + ":\n"
+                        + output.stream().collect(Collectors.joining("\n")));
+            }
+```
+
+### RuleId[ruleID=SimplifyStreamApiCallChains]
+Can be replaced with 'String.join'
+in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
+#### Snippet
+```java
+            if (exitCode != 0) {
+                LOGGER.warn(Stream.of(cmd).collect(Collectors.joining(" ")) + " exited with " + exitCode + ":\n"
+                        + output.stream().collect(Collectors.joining("\n")));
+            }
+        } catch (IOException e) {
+```
+
+### RuleId[ruleID=SimplifyStreamApiCallChains]
+Can be replaced with 'String.join'
+in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
+#### Snippet
+```java
+            }
+        } catch (IOException e) {
+            LOGGER.warn("Could not execute " + Stream.of(cmd).collect(Collectors.joining(" ")));
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+```
+
+### RuleId[ruleID=SimplifyStreamApiCallChains]
 'collect(toList())' can be replaced with 'toList()'
 in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
 #### Snippet
@@ -2671,18 +2671,6 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/SocketFamily.java`
 #### Snippet
 ```java
 
-    public SocketChannel openSocket() throws IOException {
-        switch (this) {
-            case inet:
-                return SocketChannel.open();
-```
-
-### RuleId[ruleID=EnhancedSwitchMigration]
-Switch statement can be replaced with enhanced 'switch'
-in `common/src/main/java/org/mvndaemon/mvnd/common/SocketFamily.java`
-#### Snippet
-```java
-
     public ServerSocketChannel openServerSocket() throws IOException {
         switch (this) {
             case inet:
@@ -2695,10 +2683,34 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/SocketFamily.java`
 #### Snippet
 ```java
 
+    public SocketChannel openSocket() throws IOException {
+        switch (this) {
+            case inet:
+                return SocketChannel.open();
+```
+
+### RuleId[ruleID=EnhancedSwitchMigration]
+Switch statement can be replaced with enhanced 'switch'
+in `common/src/main/java/org/mvndaemon/mvnd/common/SocketFamily.java`
+#### Snippet
+```java
+
     public static String toString(SocketAddress address) {
         switch (familyOf(address)) {
             case inet:
                 InetSocketAddress isa = (InetSocketAddress) address;
+```
+
+### RuleId[ruleID=EnhancedSwitchMigration]
+Switch statement can be replaced with enhanced 'switch'
+in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
+#### Snippet
+```java
+        @Override
+        public String toString() {
+            switch (type) {
+                case KEEP_ALIVE:
+                    return "KeepAlive";
 ```
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
@@ -2735,18 +2747,6 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
         switch (type) {
             case BUILD_REQUEST:
                 return BuildRequest.read(input);
-```
-
-### RuleId[ruleID=EnhancedSwitchMigration]
-Switch statement can be replaced with enhanced 'switch'
-in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
-#### Snippet
-```java
-        @Override
-        public String toString() {
-            switch (type) {
-                case KEEP_ALIVE:
-                    return "KeepAlive";
 ```
 
 ### RuleId[ruleID=EnhancedSwitchMigration]
@@ -2987,23 +2987,11 @@ Uses of `System.err` should probably be replaced with more robust logging
 in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
 #### Snippet
 ```java
-                return true;
-            } catch (UnsatisfiedLinkError e) {
-                System.err.println("Failed to load native library:" + libPath.getName() + ". osinfo: "
-                        + OSInfo.getNativeLibFolderPathForCurrentOS());
-                System.err.println(e);
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.err` should probably be replaced with more robust logging
-in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
-#### Snippet
-```java
-                System.err.println("Failed to load native library:" + libPath.getName() + ". osinfo: "
-                        + OSInfo.getNativeLibFolderPathForCurrentOS());
-                System.err.println(e);
-                return false;
-            }
+                        nativeLibFile.delete();
+                    } catch (SecurityException e) {
+                        System.err.println("Failed to delete old native lib" + e.getMessage());
+                    }
+                }
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -3035,11 +3023,23 @@ Uses of `System.err` should probably be replaced with more robust logging
 in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
 #### Snippet
 ```java
-                        nativeLibFile.delete();
-                    } catch (SecurityException e) {
-                        System.err.println("Failed to delete old native lib" + e.getMessage());
-                    }
-                }
+                return true;
+            } catch (UnsatisfiedLinkError e) {
+                System.err.println("Failed to load native library:" + libPath.getName() + ". osinfo: "
+                        + OSInfo.getNativeLibFolderPathForCurrentOS());
+                System.err.println(e);
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.err` should probably be replaced with more robust logging
+in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
+#### Snippet
+```java
+                System.err.println("Failed to load native library:" + libPath.getName() + ". osinfo: "
+                        + OSInfo.getNativeLibFolderPathForCurrentOS());
+                System.err.println(e);
+                return false;
+            }
 ```
 
 ### RuleId[ruleID=SystemOutErr]
@@ -3080,30 +3080,6 @@ in `agent/src/main/java/org/mvndaemon/mvnd/agent/Agent.java`
 
 ### RuleId[ruleID=SystemOutErr]
 Uses of `System.out` should probably be replaced with more robust logging
-in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
-#### Snippet
-```java
-        MavenExecutionResult result = maven.execute(request);
-
-        LoggingOutputStream.forceFlush(System.out);
-        LoggingOutputStream.forceFlush(System.err);
-
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.err` should probably be replaced with more robust logging
-in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
-#### Snippet
-```java
-
-        LoggingOutputStream.forceFlush(System.out);
-        LoggingOutputStream.forceFlush(System.err);
-
-        eventSpyDispatcher.onEvent(result);
-```
-
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.out` should probably be replaced with more robust logging
 in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
 #### Snippet
 ```java
@@ -3126,7 +3102,43 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
             }
 ```
 
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.out` should probably be replaced with more robust logging
+in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+        MavenExecutionResult result = maven.execute(request);
+
+        LoggingOutputStream.forceFlush(System.out);
+        LoggingOutputStream.forceFlush(System.err);
+
+```
+
+### RuleId[ruleID=SystemOutErr]
+Uses of `System.err` should probably be replaced with more robust logging
+in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+
+        LoggingOutputStream.forceFlush(System.out);
+        LoggingOutputStream.forceFlush(System.err);
+
+        eventSpyDispatcher.onEvent(result);
+```
+
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `native/src/main/java/org/mvndaemon/mvnd/nativ/OSInfo.java`
+#### Snippet
+```java
+
+    static String translateArchNameToFolderName(String archName) {
+        return archName.replaceAll("\\W", "");
+    }
+}
+```
+
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `native/src/main/java/org/mvndaemon/mvnd/nativ/OSInfo.java`
@@ -3141,14 +3153,14 @@ in `native/src/main/java/org/mvndaemon/mvnd/nativ/OSInfo.java`
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `native/src/main/java/org/mvndaemon/mvnd/nativ/OSInfo.java`
+in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
 #### Snippet
 ```java
 
-    static String translateArchNameToFolderName(String archName) {
-        return archName.replaceAll("\\W", "");
-    }
-}
+    private static String unescape(String val) {
+        val = val.replaceAll("\\" + MARKER, "\\$");
+        int escape = val.indexOf(ESCAPE_CHAR);
+        while (escape >= 0 && escape < val.length() - 1) {
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -3212,15 +3224,15 @@ in `build-plugin/src/main/java/org/mvndaemon/mvnd/plugin/doc/DocMojo.java`
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 #### Snippet
 ```java
+        }
 
-    private static String unescape(String val) {
-        val = val.replaceAll("\\" + MARKER, "\\$");
-        int escape = val.indexOf(ESCAPE_CHAR);
-        while (escape >= 0 && escape < val.length() - 1) {
+        String[] lines = msg.split("(\r\n)|(\r)|(\n)");
+        String currentColor = "";
+
 ```
 
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -3233,18 +3245,6 @@ in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
                 for (String arg : new String(Files.readAllBytes(configFile.toPath())).split("\\s+")) {
                     if (!arg.isEmpty()) {
                         args.add(arg);
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
-#### Snippet
-```java
-        }
-
-        String[] lines = msg.split("(\r\n)|(\r)|(\n)");
-        String currentColor = "";
-
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -3457,15 +3457,15 @@ in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 
 ## RuleId[ruleID=Convert2Lambda]
 ### RuleId[ruleID=Convert2Lambda]
-Anonymous new Runnable() can be replaced with lambda
-in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
+Anonymous new PrivilegedAction() can be replaced with lambda
+in `common/src/main/java/org/mvndaemon/mvnd/common/BufferHelper.java`
 #### Snippet
 ```java
-            stdOut.start();
 
-            this.shutDownHook = new Thread(new Runnable() {
-                @Override
-                public void run() {
+    static {
+        AccessController.doPrivileged(new PrivilegedAction<Object>() {
+            @Override
+            public Object run() {
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
@@ -3481,138 +3481,18 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/BufferHelper.java`
 ```
 
 ### RuleId[ruleID=Convert2Lambda]
-Anonymous new PrivilegedAction() can be replaced with lambda
-in `common/src/main/java/org/mvndaemon/mvnd/common/BufferHelper.java`
+Anonymous new Runnable() can be replaced with lambda
+in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
 #### Snippet
 ```java
+            stdOut.start();
 
-    static {
-        AccessController.doPrivileged(new PrivilegedAction<Object>() {
-            @Override
-            public Object run() {
+            this.shutDownHook = new Thread(new Runnable() {
+                @Override
+                public void run() {
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `kb`
-in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
-#### Snippet
-```java
-        int unit = 1;
-        while (kb >= KB && unit < UNITS.length() - 1) {
-            kb /= KB;
-            unit++;
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `timeoutMs`
-in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
-#### Snippet
-```java
-            final long deadline = System.currentTimeMillis() + timeoutMs;
-            final boolean timeouted = !process.waitFor(timeoutMs, TimeUnit.MILLISECONDS);
-            timeoutMs = Math.max(0, deadline - System.currentTimeMillis());
-            stdOut.join(timeoutMs);
-            stdOut.assertSuccess();
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `bytes`
-in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
-#### Snippet
-```java
-        int unit = 0;
-        while (bytes >= KB && unit < UNITS.length() - 1) {
-            bytes /= KB;
-            unit++;
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `millis`
-in `common/src/main/java/org/mvndaemon/mvnd/common/TimeUtils.java`
-#### Snippet
-```java
-        if (millis >= DAYS_MILLIS) {
-            sb.append(millis / DAYS_MILLIS).append("d");
-            millis %= DAYS_MILLIS;
-        }
-        if (millis >= HOURS_MILLIS) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `millis`
-in `common/src/main/java/org/mvndaemon/mvnd/common/TimeUtils.java`
-#### Snippet
-```java
-        if (millis >= HOURS_MILLIS) {
-            sb.append(millis / HOURS_MILLIS).append("h");
-            millis %= HOURS_MILLIS;
-        }
-        if (millis >= MINUTES_MILLIS) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `millis`
-in `common/src/main/java/org/mvndaemon/mvnd/common/TimeUtils.java`
-#### Snippet
-```java
-        if (millis >= MINUTES_MILLIS) {
-            sb.append(millis / MINUTES_MILLIS).append("m");
-            millis %= MINUTES_MILLIS;
-        }
-        if (millis >= SECONDS_MILLIS) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `millis`
-in `common/src/main/java/org/mvndaemon/mvnd/common/TimeUtils.java`
-#### Snippet
-```java
-        if (millis >= SECONDS_MILLIS) {
-            sb.append(millis / SECONDS_MILLIS).append("s");
-            millis %= SECONDS_MILLIS;
-        }
-        if (millis >= ONE_UNIT || sb.length() == 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `result`
-in `common/src/main/java/org/mvndaemon/mvnd/common/Environment.java`
-#### Snippet
-```java
-        if (path.matches("\\\\cygdrive\\\\[a-z]\\\\.*")) {
-            String s = path.substring("\\cygdrive\\".length());
-            result = s.substring(0, 1).toUpperCase(Locale.ENGLISH) + ":" + s.substring(1);
-        }
-        return result;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `nextLineEnd`
-in `daemon/src/main/java/org/apache/maven/cli/MvndHelpFormatter.java`
-#### Snippet
-```java
-
-                } else {
-                    nextLineEnd = stringBuilder.length() + lineLength;
-                    stringBuilder.append(System.lineSeparator()).append(indent).append(token);
-                }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `pattern`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/invalidating/InvalidatingRealmCacheEventSpy.java`
-#### Snippet
-```java
-    private static PathMatcher getPathMatcher(String pattern) {
-        if (!pattern.startsWith("glob:") && !pattern.startsWith("regex:")) {
-            pattern = "glob:" + pattern;
-        }
-        return FileSystems.getDefault().getPathMatcher(pattern);
-```
-
 ### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `cycleMap`
 in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
@@ -3674,6 +3554,42 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `timeoutMs`
+in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
+#### Snippet
+```java
+            final long deadline = System.currentTimeMillis() + timeoutMs;
+            final boolean timeouted = !process.waitFor(timeoutMs, TimeUnit.MILLISECONDS);
+            timeoutMs = Math.max(0, deadline - System.currentTimeMillis());
+            stdOut.join(timeoutMs);
+            stdOut.assertSuccess();
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `kb`
+in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
+#### Snippet
+```java
+        int unit = 1;
+        while (kb >= KB && unit < UNITS.length() - 1) {
+            kb /= KB;
+            unit++;
+        }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `bytes`
+in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
+#### Snippet
+```java
+        int unit = 0;
+        while (bytes >= KB && unit < UNITS.length() - 1) {
+            bytes /= KB;
+            unit++;
+        }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `str`
 in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonRegistry.java`
 #### Snippet
@@ -3695,6 +3611,90 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonRegistry.java`
                 str = str.substring(0, str.length() - 12) + "?";
                 buf = str.getBytes(StandardCharsets.UTF_8);
             }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `millis`
+in `common/src/main/java/org/mvndaemon/mvnd/common/TimeUtils.java`
+#### Snippet
+```java
+        if (millis >= DAYS_MILLIS) {
+            sb.append(millis / DAYS_MILLIS).append("d");
+            millis %= DAYS_MILLIS;
+        }
+        if (millis >= HOURS_MILLIS) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `millis`
+in `common/src/main/java/org/mvndaemon/mvnd/common/TimeUtils.java`
+#### Snippet
+```java
+        if (millis >= HOURS_MILLIS) {
+            sb.append(millis / HOURS_MILLIS).append("h");
+            millis %= HOURS_MILLIS;
+        }
+        if (millis >= MINUTES_MILLIS) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `millis`
+in `common/src/main/java/org/mvndaemon/mvnd/common/TimeUtils.java`
+#### Snippet
+```java
+        if (millis >= MINUTES_MILLIS) {
+            sb.append(millis / MINUTES_MILLIS).append("m");
+            millis %= MINUTES_MILLIS;
+        }
+        if (millis >= SECONDS_MILLIS) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `millis`
+in `common/src/main/java/org/mvndaemon/mvnd/common/TimeUtils.java`
+#### Snippet
+```java
+        if (millis >= SECONDS_MILLIS) {
+            sb.append(millis / SECONDS_MILLIS).append("s");
+            millis %= SECONDS_MILLIS;
+        }
+        if (millis >= ONE_UNIT || sb.length() == 0) {
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `nextLineEnd`
+in `daemon/src/main/java/org/apache/maven/cli/MvndHelpFormatter.java`
+#### Snippet
+```java
+
+                } else {
+                    nextLineEnd = stringBuilder.length() + lineLength;
+                    stringBuilder.append(System.lineSeparator()).append(indent).append(token);
+                }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `result`
+in `common/src/main/java/org/mvndaemon/mvnd/common/Environment.java`
+#### Snippet
+```java
+        if (path.matches("\\\\cygdrive\\\\[a-z]\\\\.*")) {
+            String s = path.substring("\\cygdrive\\".length());
+            result = s.substring(0, 1).toUpperCase(Locale.ENGLISH) + ":" + s.substring(1);
+        }
+        return result;
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `pattern`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/invalidating/InvalidatingRealmCacheEventSpy.java`
+#### Snippet
+```java
+    private static PathMatcher getPathMatcher(String pattern) {
+        if (!pattern.startsWith("glob:") && !pattern.startsWith("regex:")) {
+            pattern = "glob:" + pattern;
+        }
+        return FileSystems.getDefault().getPathMatcher(pattern);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -3823,18 +3823,6 @@ Synchronization on local variable `records`
 in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
 #### Snippet
 ```java
-        record.getDependencyPaths().forEach(p -> {
-            final List<CacheRecord> records = recordsByPath.computeIfAbsent(p, k -> new ArrayList<>());
-            synchronized (records) {
-                records.add(record);
-                registrationsByDir.compute(p.getParent(), this::register);
-```
-
-### RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
-Synchronization on local variable `records`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
-#### Snippet
-```java
                     final List<CacheRecord> records = recordsByPath.remove(path);
                     if (records != null) {
                         synchronized (records) {
@@ -3854,17 +3842,29 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.
                                     remove(records);
 ```
 
+### RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
+Synchronization on local variable `records`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
+#### Snippet
+```java
+        record.getDependencyPaths().forEach(p -> {
+            final List<CacheRecord> records = recordsByPath.computeIfAbsent(p, k -> new ArrayList<>());
+            synchronized (records) {
+                records.add(record);
+                registrationsByDir.compute(p.getParent(), this::register);
+```
+
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `common/src/main/java/org/mvndaemon/mvnd/common/SocketFamily.java`
+in `common/src/main/java/org/mvndaemon/mvnd/common/BufferHelper.java`
 #### Snippet
 ```java
-            return new InetSocketAddress(InetAddress.getLoopbackAddress(), 0);
-        } else {
-            return null;
-        }
-    }
+            public Object run() {
+                lookupCleanMethodPrivileged();
+                return null;
+            }
+        });
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3893,14 +3893,38 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `common/src/main/java/org/mvndaemon/mvnd/common/BufferHelper.java`
+in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonRegistry.java`
 #### Snippet
 ```java
-            public Object run() {
-                lookupCleanMethodPrivileged();
-                return null;
+        int sz = buffer.getShort();
+        if (sz == -1) {
+            return null;
+        }
+        if (sz < -1 || sz > 1024) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `common/src/main/java/org/mvndaemon/mvnd/common/SocketFamily.java`
+#### Snippet
+```java
+            return new InetSocketAddress(InetAddress.getLoopbackAddress(), 0);
+        } else {
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonConnection.java`
+#### Snippet
+```java
+                LOGGER.debug("Discarding EOFException: {}", e.toString(), e);
             }
-        });
+            return null;
+        } catch (IOException e) {
+            throw new DaemonException.RecoverableMessageIOException(
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3925,6 +3949,54 @@ in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonParameters.java`
             return result == null ? null : Paths.get(result);
         }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
+#### Snippet
+```java
+        int len = input.readInt();
+        if (len == -1) {
+            return null;
+        }
+        final char[] chars = new char[len];
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
+#### Snippet
+```java
+        int type = input.read();
+        if (type < 0) {
+            return null;
+        }
+        switch (type) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `client/src/main/java/org/mvndaemon/mvnd/client/DefaultClient.java`
+#### Snippet
+```java
+        Duration purgeLogPeriod = parameters.purgeLogPeriod();
+        if (!Files.isDirectory(storage) || !TimeUtils.isPositive(purgeLogPeriod)) {
+            return null;
+        }
+        String date = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `client/src/main/java/org/mvndaemon/mvnd/client/DefaultClient.java`
+#### Snippet
+```java
+        }
+        if (exceptions.isEmpty() && deleted.isEmpty()) {
+            return null;
+        }
+        String logMessage;
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3965,38 +4037,62 @@ in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonConnection.java`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/TimestampCacheFactory.java`
 #### Snippet
 ```java
-                LOGGER.debug("Discarding EOFException: {}", e.toString(), e);
-            }
-            return null;
-        } catch (IOException e) {
-            throw new DaemonException.RecoverableMessageIOException(
+                return v;
+            });
+            return record != null ? record.record : null;
+        }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `client/src/main/java/org/mvndaemon/mvnd/client/DefaultClient.java`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/invalidating/InvalidatingProjectArtifactsCache.java`
 #### Snippet
 ```java
-        Duration purgeLogPeriod = parameters.purgeLogPeriod();
-        if (!Files.isDirectory(storage) || !TimeUtils.isPositive(purgeLogPeriod)) {
-            return null;
+            return r.record;
         }
-        String date = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        return null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `client/src/main/java/org/mvndaemon/mvnd/client/DefaultClient.java`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
 #### Snippet
 ```java
-        }
-        if (exceptions.isEmpty() && deleted.isEmpty()) {
+            } catch (NoSuchFileException e) {
+                // we allow this exception in case of a missing reactor artifact
+                return null;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
+#### Snippet
+```java
+        if (value == null) {
+            LOG.debug("Already stopped watching path {}", key);
             return null;
-        }
-        String logMessage;
+        } else {
+            final int cnt = value.count.decrementAndGet();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
+#### Snippet
+```java
+                LOG.debug("Unwatching path {}", key);
+                value.watchKey.cancel();
+                return null;
+            } else {
+                LOG.debug("Still " + cnt + " watchers for path {}", key);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -4073,102 +4169,6 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonMemoryStatus.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/invalidating/InvalidatingProjectArtifactsCache.java`
-#### Snippet
-```java
-            return r.record;
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonRegistry.java`
-#### Snippet
-```java
-        int sz = buffer.getShort();
-        if (sz == -1) {
-            return null;
-        }
-        if (sz < -1 || sz > 1024) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/TimestampCacheFactory.java`
-#### Snippet
-```java
-                return v;
-            });
-            return record != null ? record.record : null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
-#### Snippet
-```java
-        if (value == null) {
-            LOG.debug("Already stopped watching path {}", key);
-            return null;
-        } else {
-            final int cnt = value.count.decrementAndGet();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
-#### Snippet
-```java
-                LOG.debug("Unwatching path {}", key);
-                value.watchKey.cancel();
-                return null;
-            } else {
-                LOG.debug("Still " + cnt + " watchers for path {}", key);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.java`
-#### Snippet
-```java
-            } catch (NoSuchFileException e) {
-                // we allow this exception in case of a missing reactor artifact
-                return null;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
-#### Snippet
-```java
-        int type = input.read();
-        if (type < 0) {
-            return null;
-        }
-        switch (type) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
-#### Snippet
-```java
-        int len = input.readInt();
-        if (len == -1) {
-            return null;
-        }
-        final char[] chars = new char[len];
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/ClientDispatcher.java`
 #### Snippet
 ```java
@@ -4193,14 +4193,26 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLogger.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
 #### Snippet
 ```java
-    static File resolveFile(File file, String workingDirectory) {
-        if (file == null) {
+    private AttributedString formatFailures() {
+        if (failures.isEmpty()) {
             return null;
-        } else if (file.isAbsolute()) {
-            return file;
+        }
+        AttributedStringBuilder asb = new AttributedStringBuilder();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
+#### Snippet
+```java
+                this.transfers.getOrDefault(projectId, Collections.emptyMap()).values();
+        if (transfers.isEmpty()) {
+            return null;
+        }
+        TransferEvent event = transfers.iterator().next();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -4213,6 +4225,18 @@ in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
             return null;
         }
     }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+    static File resolveFile(File file, String workingDirectory) {
+        if (file == null) {
+            return null;
+        } else if (file.isAbsolute()) {
+            return file;
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -4239,43 +4263,7 @@ in `daemon/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 
 ```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
-#### Snippet
-```java
-                this.transfers.getOrDefault(projectId, Collections.emptyMap()).values();
-        if (transfers.isEmpty()) {
-            return null;
-        }
-        TransferEvent event = transfers.iterator().next();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
-#### Snippet
-```java
-    private AttributedString formatFailures() {
-        if (failures.isEmpty()) {
-            return null;
-        }
-        AttributedStringBuilder asb = new AttributedStringBuilder();
-```
-
 ## RuleId[ruleID=AssignmentToLambdaParameter]
-### RuleId[ruleID=AssignmentToLambdaParameter]
-Assignment to lambda parameter `v`
-in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/TimestampCacheFactory.java`
-#### Snippet
-```java
-                    }
-                    v.record.invalidate();
-                    v = null;
-                }
-                return v;
-```
-
 ### RuleId[ruleID=AssignmentToLambdaParameter]
 Assignment to lambda parameter `v`
 in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/TimestampCacheFactory.java`
@@ -4286,6 +4274,18 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/TimestampCacheFactory.jav
                             v = null;
                         }
                         return new Record<>(mappingFunction.apply(k));
+```
+
+### RuleId[ruleID=AssignmentToLambdaParameter]
+Assignment to lambda parameter `v`
+in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/TimestampCacheFactory.java`
+#### Snippet
+```java
+                    }
+                    v.record.invalidate();
+                    v = null;
+                }
+                return v;
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -4367,18 +4367,6 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
 #### Snippet
 ```java
-            }
-            try {
-                sleep(50L);
-            } catch (InterruptedException e) {
-                throw new DaemonException.InterruptedException(e);
-```
-
-### RuleId[ruleID=BusyWait]
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
-#### Snippet
-```java
             while (connection == null && System.currentTimeMillis() - start < CANCELED_WAIT_TIMEOUT) {
                 try {
                     sleep(200);
@@ -4386,19 +4374,19 @@ in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
                 } catch (InterruptedException e) {
 ```
 
-## RuleId[ruleID=ClassCanBeRecord]
-### RuleId[ruleID=ClassCanBeRecord]
-Class can be a record
-in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonStopEvent.java`
+### RuleId[ruleID=BusyWait]
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
 #### Snippet
 ```java
- * https://github.com/gradle/gradle/blob/v5.6.2/subprojects/launcher/src/main/java/org/gradle/launcher/daemon/registry/DaemonStopEvent.java
- */
-public class DaemonStopEvent implements Serializable {
-
-    private final String daemonId;
+            }
+            try {
+                sleep(50L);
+            } catch (InterruptedException e) {
+                throw new DaemonException.InterruptedException(e);
 ```
 
+## RuleId[ruleID=ClassCanBeRecord]
 ### RuleId[ruleID=ClassCanBeRecord]
 Class can be a record
 in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonCompatibilitySpec.java`
@@ -4409,6 +4397,18 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonCompatibilitySpec.java`
 public class DaemonCompatibilitySpec {
 
     private final Path javaHome;
+```
+
+### RuleId[ruleID=ClassCanBeRecord]
+Class can be a record
+in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonStopEvent.java`
+#### Snippet
+```java
+ * https://github.com/gradle/gradle/blob/v5.6.2/subprojects/launcher/src/main/java/org/gradle/launcher/daemon/registry/DaemonStopEvent.java
+ */
+public class DaemonStopEvent implements Serializable {
+
+    private final String daemonId;
 ```
 
 ### RuleId[ruleID=ClassCanBeRecord]
