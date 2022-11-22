@@ -69,6 +69,18 @@ in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`propOptions.trim().length() > 0` can be replaced with '!propOptions.trim().isEmpty()'
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    private List<Options> handleOptions(final Set<String> modesSet, final String propOptions) {
+        final List<Options> optionsList = new ArrayList<Options>();
+        if (propOptions != null && propOptions.trim().length() > 0) {
+
+            final String[] options = propOptions.trim().split("\\|");
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `prop.trim().length() > 0` can be replaced with '!prop.trim().isEmpty()'
 in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
 #### Snippet
@@ -90,18 +102,6 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
         if (this.runModes.size() > 0) {
             logger.info("Active run modes: {}", this.runModes);
         } else {
-```
-
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`propOptions.trim().length() > 0` can be replaced with '!propOptions.trim().isEmpty()'
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    private List<Options> handleOptions(final Set<String> modesSet, final String propOptions) {
-        final List<Options> optionsList = new ArrayList<Options>();
-        if (propOptions != null && propOptions.trim().length() > 0) {
-
-            final String[] options = propOptions.trim().split("\\|");
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -161,7 +161,7 @@ in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 ```java
 
     /**
-     * @see org.apache.felix.shell.Command#getShortDescription()
+     * @see org.apache.felix.shell.Command#getName()
      */
     @Override
 ```
@@ -221,45 +221,9 @@ in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 ```java
 
     /**
-     * @see org.apache.felix.shell.Command#getName()
+     * @see org.apache.felix.shell.Command#getShortDescription()
      */
     @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getAbsolutePathWithinSlingHome(String) */
-    @Override
-    public String getAbsolutePathWithinSlingHome(final String relativePath) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingDescription() */
-    @Override
-    public String getSlingDescription() {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHomePath() */
-    @Override
-    public String getSlingHomePath() {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -272,6 +236,18 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
      * @see org.apache.sling.settings.SlingSettingsService#getSlingName()
      */
     @Override
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHomePath() */
+    @Override
+    public String getSlingHomePath() {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -311,6 +287,42 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingDescription() */
+    @Override
+    public String getSlingDescription() {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getAbsolutePathWithinSlingHome(String) */
+    @Override
+    public String getAbsolutePathWithinSlingHome(final String relativePath) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
+#### Snippet
+```java
+    /**
+     * Print out the servlet filter chains.
+     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
+     */
+    public void printConfiguration(PrintWriter pw) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
 #### Snippet
@@ -332,18 +344,6 @@ in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
      * @see org.apache.felix.webconsole.ModeAwareConfigurationPrinter#printConfiguration(java.io.PrintWriter, java.lang.String)
      */
     public void printConfiguration(PrintWriter printWriter, String mode) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
-#### Snippet
-```java
-    /**
-     * Print out the servlet filter chains.
-     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
-     */
-    public void printConfiguration(PrintWriter pw) {
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
