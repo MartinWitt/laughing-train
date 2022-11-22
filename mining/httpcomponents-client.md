@@ -56,24 +56,6 @@ I found 854 bad smells with 20 repairable:
 | RuleId[ruleID=EqualsWhichDoesntCheckParameterClass] | 1 | false |
 ## RuleId[ruleID=EnumSwitchStatementWhichMissesCases]
 ### RuleId[ruleID=EnumSwitchStatementWhichMissesCases]
-`switch (redirect.connControl) { case KEEP_ALIVE: respons...` statement on enum type 'org.apache.hc.client5.testing.redirect.Redirect.ConnControl' misses case 'PROTOCOL_DEFAULT'
-in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/classic/RedirectingDecorator.java`
-#### Snippet
-```java
-                    response.addHeader(new BasicHeader(HttpHeaders.LOCATION, redirect.location));
-                }
-                switch (redirect.connControl) {
-                    case KEEP_ALIVE:
-                        response.addHeader(new BasicHeader(HttpHeaders.CONNECTION, HeaderElements.KEEP_ALIVE));
-                        break;
-                    case CLOSE:
-                        response.addHeader(new BasicHeader(HttpHeaders.CONNECTION, HeaderElements.CLOSE));
-                }
-                responseTrigger.submitResponse(response);
-            } else {
-```
-
-### RuleId[ruleID=EnumSwitchStatementWhichMissesCases]
 `switch (redirect.connControl) { case KEEP_ALIVE: response.addHeader(new ...` statement on enum type 'org.apache.hc.client5.testing.redirect.Redirect.ConnControl' misses case 'PROTOCOL_DEFAULT'
 in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/async/RedirectingAsyncDecorator.java`
 #### Snippet
@@ -89,6 +71,24 @@ in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/async/Redire
         }
         return response;
     }
+```
+
+### RuleId[ruleID=EnumSwitchStatementWhichMissesCases]
+`switch (redirect.connControl) { case KEEP_ALIVE: respons...` statement on enum type 'org.apache.hc.client5.testing.redirect.Redirect.ConnControl' misses case 'PROTOCOL_DEFAULT'
+in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/classic/RedirectingDecorator.java`
+#### Snippet
+```java
+                    response.addHeader(new BasicHeader(HttpHeaders.LOCATION, redirect.location));
+                }
+                switch (redirect.connControl) {
+                    case KEEP_ALIVE:
+                        response.addHeader(new BasicHeader(HttpHeaders.CONNECTION, HeaderElements.KEEP_ALIVE));
+                        break;
+                    case CLOSE:
+                        response.addHeader(new BasicHeader(HttpHeaders.CONNECTION, HeaderElements.CLOSE));
+                }
+                responseTrigger.submitResponse(response);
+            } else {
 ```
 
 ## RuleId[ruleID=PointlessArithmeticExpression]
@@ -144,18 +144,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImp
 
 ## RuleId[ruleID=RegExpRedundantEscape]
 ### RuleId[ruleID=RegExpRedundantEscape]
-Redundant character escape `\\-` in RegExp
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/LaxMaxAgeHandler.java`
-#### Snippet
-```java
-    public static final LaxMaxAgeHandler INSTANCE = new LaxMaxAgeHandler();
-
-    private final static Pattern MAX_AGE_PATTERN = Pattern.compile("^\\-?[0-9]+$");
-
-    public LaxMaxAgeHandler() {
-```
-
-### RuleId[ruleID=RegExpRedundantEscape]
 Redundant character escape `\\:` in RegExp
 in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/WarningValue.java`
 #### Snippet
@@ -165,6 +153,18 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/Warnin
     private static final String HOSTPORT = "(" + HOST + ")(\\:" + PORT + ")?";
     private static final Pattern HOSTPORT_PATTERN = Pattern.compile(HOSTPORT);
 
+```
+
+### RuleId[ruleID=RegExpRedundantEscape]
+Redundant character escape `\\-` in RegExp
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/LaxMaxAgeHandler.java`
+#### Snippet
+```java
+    public static final LaxMaxAgeHandler INSTANCE = new LaxMaxAgeHandler();
+
+    private final static Pattern MAX_AGE_PATTERN = Pattern.compile("^\\-?[0-9]+$");
+
+    public LaxMaxAgeHandler() {
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -182,75 +182,15 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsPr
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder builder` can be replaced with 'String'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/config/ConnectionConfig.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("[");
-        builder.append("connectTimeout=").append(connectTimeout);
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
 `StringBuilder buffer` can be replaced with 'String'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicClientCookie.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MimeField.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         final StringBuilder buffer = new StringBuilder();
-        buffer.append("[name: ");
         buffer.append(this.name);
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder builder` can be replaced with 'String'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestBuilder.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("ClassicRequestBuilder [method=");
-        builder.append(getMethod());
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder buffer` can be replaced with 'String'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/NTUserPrincipal.java`
-#### Snippet
-```java
-        }
-        if (this.domain != null && !this.domain.isEmpty()) {
-            final StringBuilder buffer = new StringBuilder();
-            buffer.append(this.domain);
-            buffer.append('\\');
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder builder` can be replaced with 'String'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/KerberosConfig.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("[");
-        builder.append("stripPort=").append(stripPort);
-```
-
-### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder buffer` can be replaced with 'String'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/NTCredentials.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder buffer = new StringBuilder();
-        buffer.append("[principal: ");
-        buffer.append(this.principal);
+        buffer.append(": ");
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -266,15 +206,27 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/BasicUserPrincipal
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder sb` can be replaced with 'String'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpUriRequestBase.java`
+`StringBuilder buffer` can be replaced with 'String'
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/NTCredentials.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append(getMethod()).append(" ").append(getRequestUri());
-        return sb.toString();
+        final StringBuilder buffer = new StringBuilder();
+        buffer.append("[principal: ");
+        buffer.append(this.principal);
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder builder` can be replaced with 'String'
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheConfig.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("[maxObjectSize=").append(this.maxObjectSize)
+                .append(", maxCacheEntries=").append(this.maxCacheEntries)
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -302,15 +254,39 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/FutureRequ
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder sb` can be replaced with 'String'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/RequestEntityProxy.java`
+`StringBuilder buffer` can be replaced with 'String'
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicClientCookie.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("RequestEntityProxy{");
-        sb.append(original);
-        sb.append('}');
+        final StringBuilder buffer = new StringBuilder();
+        buffer.append("[name: ");
+        buffer.append(this.name);
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder builder` can be replaced with 'String'
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/KerberosConfig.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("[");
+        builder.append("stripPort=").append(stripPort);
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder buffer` can be replaced with 'String'
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/NTUserPrincipal.java`
+#### Snippet
+```java
+        }
+        if (this.domain != null && !this.domain.isEmpty()) {
+            final StringBuilder buffer = new StringBuilder();
+            buffer.append(this.domain);
+            buffer.append('\\');
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -327,14 +303,38 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRes
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
 `StringBuilder builder` can be replaced with 'String'
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheConfig.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestBuilder.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("[maxObjectSize=").append(this.maxObjectSize)
-                .append(", maxCacheEntries=").append(this.maxCacheEntries)
+        builder.append("ClassicRequestBuilder [method=");
+        builder.append(getMethod());
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder builder` can be replaced with 'String'
+in `httpclient5/src/main/java/org/apache/hc/client5/http/config/ConnectionConfig.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("[");
+        builder.append("connectTimeout=").append(connectTimeout);
+```
+
+### RuleId[ruleID=StringBufferReplaceableByString]
+`StringBuilder sb` can be replaced with 'String'
+in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpUriRequestBase.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append(getMethod()).append(" ").append(getRequestUri());
+        return sb.toString();
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -350,15 +350,15 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/config/TlsConfig.java`
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
-`StringBuilder buffer` can be replaced with 'String'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MimeField.java`
+`StringBuilder sb` can be replaced with 'String'
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/RequestEntityProxy.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
-        final StringBuilder buffer = new StringBuilder();
-        buffer.append(this.name);
-        buffer.append(": ");
+        final StringBuilder sb = new StringBuilder("RequestEntityProxy{");
+        sb.append(original);
+        sb.append('}');
 ```
 
 ### RuleId[ruleID=StringBufferReplaceableByString]
@@ -371,6 +371,19 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/config/RequestConfig.ja
         final StringBuilder builder = new StringBuilder();
         builder.append("[");
         builder.append("expectContinueEnabled=").append(expectContinueEnabled);
+```
+
+## RuleId[ruleID=ManualMinMaxCalculation]
+### RuleId[ruleID=ManualMinMaxCalculation]
+Can be replaced with 'Math.max()' call
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheValidityPolicy.java`
+#### Snippet
+```java
+                hdrAge = MAX_AGE.toSeconds();
+            }
+            ageValue = (hdrAge > ageValue) ? hdrAge : ageValue;
+        }
+        return ageValue;
 ```
 
 ## RuleId[ruleID=TrivialStringConcatenation]
@@ -396,19 +409,6 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/Cached
                 response.setHeader(HeaderConstants.AGE, "" + age.toSeconds());
             }
         }
-```
-
-## RuleId[ruleID=ManualMinMaxCalculation]
-### RuleId[ruleID=ManualMinMaxCalculation]
-Can be replaced with 'Math.max()' call
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheValidityPolicy.java`
-#### Snippet
-```java
-                hdrAge = MAX_AGE.toSeconds();
-            }
-            ageValue = (hdrAge > ageValue) ? hdrAge : ageValue;
-        }
-        return ageValue;
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -438,102 +438,6 @@ public abstract class AbstractBinResponseConsumer<T> extends AbstractBinDataCons
 
 ## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AsyncConnectionEndpoint`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/nio/AsyncClientConnectionManager.java`
-#### Snippet
-```java
-            Object attachment,
-            HttpContext context,
-            FutureCallback<AsyncConnectionEndpoint> callback) {
-        upgrade(endpoint, attachment, context);
-        if (callback != null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super IOSession`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalH2ConnPool.java`
-#### Snippet
-```java
-            final HttpHost endpoint,
-            final Timeout connectTimeout,
-            final FutureCallback<IOSession> callback) {
-        final ConnectionConfig connectionConfig = resolveConnectionConfig(endpoint);
-        return connPool.getSession(
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ManagedAsyncClientConnection`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/nio/AsyncClientConnectionOperator.java`
-#### Snippet
-```java
-            Object attachment,
-            HttpContext context,
-            FutureCallback<ManagedAsyncClientConnection> callback) {
-        upgrade(conn, host, attachment, context);
-        if (callback != null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AsyncExecRuntime`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalHttpAsyncExecRuntime.java`
-#### Snippet
-```java
-            final Object object,
-            final HttpClientContext context,
-            final FutureCallback<AsyncExecRuntime> callback) {
-        if (endpointRef.get() == null) {
-            state = object;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AsyncExecRuntime`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalHttpAsyncExecRuntime.java`
-#### Snippet
-```java
-    public Cancellable connectEndpoint(
-            final HttpClientContext context,
-            final FutureCallback<AsyncExecRuntime> callback) {
-        final AsyncConnectionEndpoint endpoint = ensureValid();
-        if (endpoint.isConnected()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AsyncExecRuntime`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalHttpAsyncExecRuntime.java`
-#### Snippet
-```java
-
-    @Override
-    public void upgradeTls(final HttpClientContext context, final FutureCallback<AsyncExecRuntime> callback) {
-        final AsyncConnectionEndpoint endpoint = ensureValid();
-        if (log.isDebugEnabled()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ConditionalRequestBuilder.java`
-#### Snippet
-```java
-    private final Factory<T, T> messageCopier;
-
-    ConditionalRequestBuilder(final Factory<T, T> messageCopier) {
-        this.messageCopier = messageCopier;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ConditionalRequestBuilder.java`
-#### Snippet
-```java
-    private final Factory<T, T> messageCopier;
-
-    ConditionalRequestBuilder(final Factory<T, T> messageCopier) {
-        this.messageCopier = messageCopier;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super SSLEngine`
 in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DefaultClientTlsStrategy.java`
 #### Snippet
@@ -543,30 +447,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DefaultClientTlsStr
             final Factory<SSLEngine, TlsDetails> tlsDetailsFactory) {
         super(sslContext, supportedProtocols, supportedCipherSuites, sslBufferManagement, hostnameVerifier);
         this.tlsDetailsFactory = tlsDetailsFactory;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AsyncExecChainHandler`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingH2AsyncClientBuilder.java`
-#### Snippet
-```java
-
-    @Override
-    protected void customizeExecChain(final NamedElementChain<AsyncExecChainHandler> execChainDefinition) {
-        final CacheConfig config = this.cacheConfig != null ? this.cacheConfig : CacheConfig.DEFAULT;
-        // We copy the instance fields to avoid changing them, and rename to avoid accidental use of the wrong version
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/IgnoreCompleteExceptionFutureCallback.java`
-#### Snippet
-```java
-    private static final Logger LOG = LoggerFactory.getLogger(IgnoreCompleteExceptionFutureCallback.class);
-
-    public IgnoreCompleteExceptionFutureCallback(final FutureCallback<T> callback) {
-        super();
-        this.callback = callback;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -582,303 +462,15 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/Cachin
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpRequestTaskCallable.java`
-#### Snippet
-```java
-            final ClassicHttpRequest request,
-            final HttpContext context,
-            final HttpClientResponseHandler<V> responseHandler,
-            final FutureCallback<V> callback,
-            final FutureRequestExecutionMetrics metrics) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpRequestTaskCallable.java`
-#### Snippet
-```java
-            final HttpContext context,
-            final HttpClientResponseHandler<V> responseHandler,
-            final FutureCallback<V> callback,
-            final FutureRequestExecutionMetrics metrics) {
-        this.httpclient = httpClient;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super HttpRequest`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AsyncCachingExec.java`
-#### Snippet
-```java
-            final RequestProtocolCompliance requestCompliance,
-            final DefaultAsyncCacheRevalidator cacheRevalidator,
-            final ConditionalRequestBuilder<HttpRequest> conditionalRequestBuilder,
-            final CacheConfig config) {
-        super(validityPolicy, responseCachingPolicy, responseGenerator, cacheableRequestPolicy,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends AuthScope`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsMatcher.java`
-#### Snippet
-```java
-     *
-     */
-    static Credentials matchCredentials(final Map<AuthScope, Credentials> map, final AuthScope authScope) {
-        // see if we get a direct hit
-        Credentials creds = map.get(authScope);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Credentials`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsMatcher.java`
-#### Snippet
-```java
-     *
-     */
-    static Credentials matchCredentials(final Map<AuthScope, Credentials> map, final AuthScope authScope) {
-        // see if we get a direct hit
-        Credentials creds = map.get(authScope);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Boolean`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
-#### Snippet
-```java
-    @Override
-    public Cancellable flushCacheEntriesFor(
-            final HttpHost host, final HttpRequest request, final FutureCallback<Boolean> callback) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Flush cache entries: {}; {}", host, new RequestLine(request));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Boolean`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
-#### Snippet
-```java
-    @Override
-    public Cancellable reuseVariantEntryFor(
-            final HttpHost host, final HttpRequest request, final Variant variant, final FutureCallback<Boolean> callback) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Re-use variant entry: {}; {} / {}", host, new RequestLine(request), variant);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Boolean`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
-#### Snippet
-```java
-            final HttpRequest req,
-            final HttpCacheEntry entry,
-            final FutureCallback<Boolean> callback) {
-        final String variantKey = cacheKeyGenerator.generateVariantKey(req, entry);
-        final String variantCacheKey = cacheKeyGenerator.generateKey(host, req, entry);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super HttpCacheEntry`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
+Can generalize to `? super AsyncExecChainHandler`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingHttpAsyncClientBuilder.java`
 #### Snippet
 ```java
 
     @Override
-    public Cancellable getCacheEntry(final HttpHost host, final HttpRequest request, final FutureCallback<HttpCacheEntry> callback) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Get cache entry: {}; {}", host, new RequestLine(request));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Boolean`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
-#### Snippet
-```java
-            final String cacheKey,
-            final HttpCacheEntry entry,
-            final FutureCallback<Boolean> callback) {
-        return storage.putEntry(cacheKey, entry, new FutureCallback<Boolean>() {
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super HttpCacheEntry`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
-#### Snippet
-```java
-            final Instant requestSent,
-            final Instant responseReceived,
-            final FutureCallback<HttpCacheEntry> callback) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Update cache entry: {}; {}", host, new RequestLine(request));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Map`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
-#### Snippet
-```java
-    @Override
-    public Cancellable getVariantCacheEntriesWithEtags(
-            final HttpHost host, final HttpRequest request, final FutureCallback<Map<String, Variant>> callback) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Get variant cache entries: {}; {}", host, new RequestLine(request));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super HttpCacheEntry`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
-#### Snippet
-```java
-            final Instant requestSent,
-            final Instant responseReceived,
-            final FutureCallback<HttpCacheEntry> callback) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Create cache entry: {}; {}", host, new RequestLine(request));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super HttpCacheEntry`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
-#### Snippet
-```java
-            final Instant requestSent,
-            final Instant responseReceived,
-            final FutureCallback<HttpCacheEntry> callback) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Update variant cache entry: {}; {} / {}", host, new RequestLine(request), variant);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super HttpRoute`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/ConnPoolSupport.java`
-#### Snippet
-```java
-            final HttpRoute route,
-            final Object state,
-            final ConnPoolControl<HttpRoute> connPool) {
-        final StringBuilder buf = new StringBuilder();
-        buf.append("[route: ").append(route).append("]");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends InputStreamFactory`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ContentCompressionExec.java`
-#### Snippet
-```java
-    public ContentCompressionExec(
-            final List<String> acceptEncoding,
-            final Lookup<InputStreamFactory> decoderRegistry,
-            final boolean ignoreUnknown) {
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/memcached/MemcachedHttpAsyncCacheStorage.java`
-#### Snippet
-```java
-    }
-
-    private <T> Cancellable operation(final OperationFuture<T> operationFuture, final FutureCallback<T> callback) {
-        operationFuture.addListener(future -> {
-            try {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/memcached/MemcachedHttpAsyncCacheStorage.java`
-#### Snippet
-```java
-    }
-
-    private <T> Cancellable operation(final OperationFuture<T> operationFuture, final FutureCallback<T> callback) {
-        operationFuture.addListener(future -> {
-            try {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Boolean`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/memcached/MemcachedHttpAsyncCacheStorage.java`
-#### Snippet
-```java
-    @Override
-    protected Cancellable updateCAS(
-            final String storageKey, final CASValue<Object> casValue, final byte[] storageObject, final FutureCallback<Boolean> callback) {
-        return operation(client.asyncCAS(storageKey, casValue.getCas(), storageObject), new FutureCallback<CASResponse>() {
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Map`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/memcached/MemcachedHttpAsyncCacheStorage.java`
-#### Snippet
-```java
-
-    @Override
-    protected Cancellable bulkRestore(final Collection<String> storageKeys, final FutureCallback<Map<String, byte[]>> callback) {
-        final BulkFuture<Map<String, Object>> future = client.asyncGetBulk(storageKeys);
-        future.addListener(future1 -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AsyncExecRuntime`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/AsyncExecRuntime.java`
-#### Snippet
-```java
-     */
-    default void upgradeTls(HttpClientContext context,
-                            FutureCallback<AsyncExecRuntime> callback) {
-        upgradeTls(context);
-        if (callback != null) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Proxy`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/routing/SystemDefaultRoutePlanner.java`
-#### Snippet
-```java
-    }
-
-    private Proxy chooseProxy(final List<Proxy> proxies) {
-        Proxy result = null;
-        // check the list for one we can use
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Header`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/ResponseProcessCookies.java`
-#### Snippet
-```java
-    private void processCookies(
-            final String exchangeId,
-            final Iterator<Header> iterator,
-            final CookieSpec cookieSpec,
-            final CookieOrigin cookieOrigin,
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Cookie`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
-#### Snippet
-```java
-
-    @Override
-    public List<Header> formatCookies(final List<Cookie> cookies) {
-        Args.notEmpty(cookies, "List of cookies");
-        final List<? extends Cookie> sortedCookies;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super URI`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/DefaultAsyncCacheInvalidator.java`
-#### Snippet
-```java
-            final URI requestUri,
-            final URI uri,
-            final Resolver<URI, String> cacheKeyResolver,
-            final HttpAsyncCacheStorage storage) {
-        final URI resolvedUri = uri != null ? URIUtils.resolve(requestUri, uri) : null;
+    protected void customizeExecChain(final NamedElementChain<AsyncExecChainHandler> execChainDefinition) {
+        final CacheConfig config = this.cacheConfig != null ? this.cacheConfig : CacheConfig.DEFAULT;
+        // We copy the instance fields to avoid changing them, and rename to avoid accidental use of the wrong version
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -931,50 +523,62 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/Defaul
 
 ### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super URI`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/DefaultCacheInvalidator.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/DefaultAsyncCacheInvalidator.java`
 #### Snippet
 ```java
             final URI requestUri,
             final URI uri,
             final Resolver<URI, String> cacheKeyResolver,
-            final HttpCacheStorage storage) {
-        if (uri != null && isSameHost(requestUri, uri)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super URI`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/DefaultCacheInvalidator.java`
-#### Snippet
-```java
-            final URI requestUri,
-            final URI uri,
-            final Resolver<URI, String> cacheKeyResolver,
-            final HttpCacheStorage storage) {
+            final HttpAsyncCacheStorage storage) {
         final URI resolvedUri = uri != null ? URIUtils.resolve(requestUri, uri) : null;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super URI`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/DefaultCacheInvalidator.java`
-#### Snippet
-```java
-            final URI location,
-            final HttpCacheStorage storage,
-            final Resolver<URI, String> cacheKeyResolver) {
-        final String cacheKey = cacheKeyResolver.resolve(location);
-        final HttpCacheEntry entry = getEntry(storage, cacheKey);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Map`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
+Can generalize to `? extends Cookie`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
 #### Snippet
 ```java
 
     @Override
-    public Cancellable getEntries(final Collection<String> keys, final FutureCallback<Map<String, HttpCacheEntry>> callback) {
-        Args.notNull(keys, "Key");
-        Args.notNull(callback, "Callback");
+    public List<Header> formatCookies(final List<Cookie> cookies) {
+        Args.notEmpty(cookies, "List of cookies");
+        final List<? extends Cookie> sortedCookies;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends V`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpRequestTaskCallable.java`
+#### Snippet
+```java
+            final ClassicHttpRequest request,
+            final HttpContext context,
+            final HttpClientResponseHandler<V> responseHandler,
+            final FutureCallback<V> callback,
+            final FutureRequestExecutionMetrics metrics) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super V`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpRequestTaskCallable.java`
+#### Snippet
+```java
+            final HttpContext context,
+            final HttpClientResponseHandler<V> responseHandler,
+            final FutureCallback<V> callback,
+            final FutureRequestExecutionMetrics metrics) {
+        this.httpclient = httpClient;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends HeaderElement`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/RequestProtocolCompliance.java`
+#### Snippet
+```java
+    }
+
+    private String buildHeaderFromElements(final List<HeaderElement> outElts) {
+        final StringBuilder newHdr = new StringBuilder();
+        boolean first = true;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -982,11 +586,11 @@ Can generalize to `? super Boolean`
 in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
 #### Snippet
 ```java
-
     @Override
-    public Cancellable removeEntry(final String key, final FutureCallback<Boolean> callback) {
+    public Cancellable updateEntry(
+            final String key, final HttpCacheCASOperation casOperation, final FutureCallback<Boolean> callback) {
         Args.notEmpty(key, "Key");
-        Args.notNull(callback, "Callback");
+        Args.notNull(casOperation, "CAS operation");
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1006,11 +610,23 @@ Can generalize to `? super Boolean`
 in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
 #### Snippet
 ```java
+
     @Override
-    public Cancellable updateEntry(
-            final String key, final HttpCacheCASOperation casOperation, final FutureCallback<Boolean> callback) {
+    public Cancellable removeEntry(final String key, final FutureCallback<Boolean> callback) {
         Args.notEmpty(key, "Key");
-        Args.notNull(casOperation, "CAS operation");
+        Args.notNull(callback, "Callback");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Map`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
+#### Snippet
+```java
+
+    @Override
+    public Cancellable getEntries(final Collection<String> keys, final FutureCallback<Map<String, HttpCacheEntry>> callback) {
+        Args.notNull(keys, "Key");
+        Args.notNull(callback, "Callback");
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1026,39 +642,135 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCa
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super HttpRequest`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AsyncCachingExec.java`
+#### Snippet
+```java
+            final RequestProtocolCompliance requestCompliance,
+            final DefaultAsyncCacheRevalidator cacheRevalidator,
+            final ConditionalRequestBuilder<HttpRequest> conditionalRequestBuilder,
+            final CacheConfig config) {
+        super(validityPolicy, responseCachingPolicy, responseGenerator, cacheableRequestPolicy,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super AsyncConnectionEndpoint`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/nio/AsyncClientConnectionManager.java`
+#### Snippet
+```java
+            Object attachment,
+            HttpContext context,
+            FutureCallback<AsyncConnectionEndpoint> callback) {
+        upgrade(endpoint, attachment, context);
+        if (callback != null) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super URI`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/DefaultCacheInvalidator.java`
+#### Snippet
+```java
+            final URI location,
+            final HttpCacheStorage storage,
+            final Resolver<URI, String> cacheKeyResolver) {
+        final String cacheKey = cacheKeyResolver.resolve(location);
+        final HttpCacheEntry entry = getEntry(storage, cacheKey);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super URI`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/DefaultCacheInvalidator.java`
+#### Snippet
+```java
+            final URI requestUri,
+            final URI uri,
+            final Resolver<URI, String> cacheKeyResolver,
+            final HttpCacheStorage storage) {
+        final URI resolvedUri = uri != null ? URIUtils.resolve(requestUri, uri) : null;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super URI`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/DefaultCacheInvalidator.java`
+#### Snippet
+```java
+            final URI requestUri,
+            final URI uri,
+            final Resolver<URI, String> cacheKeyResolver,
+            final HttpCacheStorage storage) {
+        if (uri != null && isSameHost(requestUri, uri)) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super T`
-in `httpclient5-fluent/src/main/java/org/apache/hc/client5/http/fluent/Async.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/IgnoreCompleteExceptionFutureCallback.java`
 #### Snippet
 ```java
+    private static final Logger LOG = LoggerFactory.getLogger(IgnoreCompleteExceptionFutureCallback.class);
 
-        ExecRunnable(
-                final BasicFuture<T> future,
-                final Request request,
-                final Executor executor,
+    public IgnoreCompleteExceptionFutureCallback(final FutureCallback<T> callback) {
+        super();
+        this.callback = callback;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `httpclient5-fluent/src/main/java/org/apache/hc/client5/http/fluent/Async.java`
+Can generalize to `? super AsyncExecRuntime`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalHttpAsyncExecRuntime.java`
 #### Snippet
 ```java
-                final Request request,
-                final Executor executor,
-                final HttpClientResponseHandler<T> handler) {
-            super();
-            this.future = future;
+
+    @Override
+    public void upgradeTls(final HttpClientContext context, final FutureCallback<AsyncExecRuntime> callback) {
+        final AsyncConnectionEndpoint endpoint = ensureValid();
+        if (log.isDebugEnabled()) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends HeaderElement`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/RequestProtocolCompliance.java`
+Can generalize to `? super AsyncExecRuntime`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalHttpAsyncExecRuntime.java`
 #### Snippet
 ```java
-    }
+    public Cancellable connectEndpoint(
+            final HttpClientContext context,
+            final FutureCallback<AsyncExecRuntime> callback) {
+        final AsyncConnectionEndpoint endpoint = ensureValid();
+        if (endpoint.isConnected()) {
+```
 
-    private String buildHeaderFromElements(final List<HeaderElement> outElts) {
-        final StringBuilder newHdr = new StringBuilder();
-        boolean first = true;
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super AsyncExecRuntime`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalHttpAsyncExecRuntime.java`
+#### Snippet
+```java
+            final Object object,
+            final HttpClientContext context,
+            final FutureCallback<AsyncExecRuntime> callback) {
+        if (endpointRef.get() == null) {
+            state = object;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends InputStreamFactory`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ContentCompressionExec.java`
+#### Snippet
+```java
+    public ContentCompressionExec(
+            final List<String> acceptEncoding,
+            final Lookup<InputStreamFactory> decoderRegistry,
+            final boolean ignoreUnknown) {
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super AsyncExecRuntime`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/AsyncExecRuntime.java`
+#### Snippet
+```java
+     */
+    default void upgradeTls(HttpClientContext context,
+                            FutureCallback<AsyncExecRuntime> callback) {
+        upgradeTls(context);
+        if (callback != null) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1086,8 +798,152 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/Abstra
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Proxy`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/routing/SystemDefaultRoutePlanner.java`
+#### Snippet
+```java
+    }
+
+    private Proxy chooseProxy(final List<Proxy> proxies) {
+        Proxy result = null;
+        // check the list for one we can use
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `httpclient5-fluent/src/main/java/org/apache/hc/client5/http/fluent/Async.java`
+#### Snippet
+```java
+
+        ExecRunnable(
+                final BasicFuture<T> future,
+                final Request request,
+                final Executor executor,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `httpclient5-fluent/src/main/java/org/apache/hc/client5/http/fluent/Async.java`
+#### Snippet
+```java
+                final Request request,
+                final Executor executor,
+                final HttpClientResponseHandler<T> handler) {
+            super();
+            this.future = future;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends AuthScope`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsMatcher.java`
+#### Snippet
+```java
+     *
+     */
+    static Credentials matchCredentials(final Map<AuthScope, Credentials> map, final AuthScope authScope) {
+        // see if we get a direct hit
+        Credentials creds = map.get(authScope);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Credentials`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsMatcher.java`
+#### Snippet
+```java
+     *
+     */
+    static Credentials matchCredentials(final Map<AuthScope, Credentials> map, final AuthScope authScope) {
+        // see if we get a direct hit
+        Credentials creds = map.get(authScope);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Header`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/ResponseProcessCookies.java`
+#### Snippet
+```java
+    private void processCookies(
+            final String exchangeId,
+            final Iterator<Header> iterator,
+            final CookieSpec cookieSpec,
+            final CookieOrigin cookieOrigin,
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super HttpRoute`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/ConnPoolSupport.java`
+#### Snippet
+```java
+            final HttpRoute route,
+            final Object state,
+            final ConnPoolControl<HttpRoute> connPool) {
+        final StringBuilder buf = new StringBuilder();
+        buf.append("[route: ").append(route).append("]");
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super ManagedAsyncClientConnection`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/DefaultAsyncClientConnectionOperator.java`
+#### Snippet
+```java
+            final Object attachment,
+            final HttpContext context,
+            final FutureCallback<ManagedAsyncClientConnection> callback) {
+        final TlsStrategy tlsStrategy = tlsStrategyLookup != null ? tlsStrategyLookup.lookup(host.getSchemeName()) : null;
+        if (tlsStrategy != null) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ConditionalRequestBuilder.java`
+#### Snippet
+```java
+    private final Factory<T, T> messageCopier;
+
+    ConditionalRequestBuilder(final Factory<T, T> messageCopier) {
+        this.messageCopier = messageCopier;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ConditionalRequestBuilder.java`
+#### Snippet
+```java
+    private final Factory<T, T> messageCopier;
+
+    ConditionalRequestBuilder(final Factory<T, T> messageCopier) {
+        this.messageCopier = messageCopier;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super AsyncExecRuntime`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalH2AsyncExecRuntime.java`
+#### Snippet
+```java
+    public Cancellable connectEndpoint(
+            final HttpClientContext context,
+            final FutureCallback<AsyncExecRuntime> callback) {
+        final Endpoint endpoint = ensureValid();
+        if (endpoint.session.isOpen()) {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super AsyncExecRuntime`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalH2AsyncExecRuntime.java`
+#### Snippet
+```java
+            final Object object,
+            final HttpClientContext context,
+            final FutureCallback<AsyncExecRuntime> callback) {
+        if (sessionRef.get() == null) {
+            final HttpHost target = route.getTargetHost();
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super AsyncExecChainHandler`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingHttpAsyncClientBuilder.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingH2AsyncClientBuilder.java`
 #### Snippet
 ```java
 
@@ -1110,39 +966,183 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/AIMDBackof
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super IOSession`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalH2ConnPool.java`
+#### Snippet
+```java
+            final HttpHost endpoint,
+            final Timeout connectTimeout,
+            final FutureCallback<IOSession> callback) {
+        final ConnectionConfig connectionConfig = resolveConnectionConfig(endpoint);
+        return connPool.getSession(
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super ManagedAsyncClientConnection`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/DefaultAsyncClientConnectionOperator.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/nio/AsyncClientConnectionOperator.java`
 #### Snippet
 ```java
-            final Object attachment,
-            final HttpContext context,
-            final FutureCallback<ManagedAsyncClientConnection> callback) {
-        final TlsStrategy tlsStrategy = tlsStrategyLookup != null ? tlsStrategyLookup.lookup(host.getSchemeName()) : null;
-        if (tlsStrategy != null) {
+            Object attachment,
+            HttpContext context,
+            FutureCallback<ManagedAsyncClientConnection> callback) {
+        upgrade(conn, host, attachment, context);
+        if (callback != null) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AsyncExecRuntime`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalH2AsyncExecRuntime.java`
+Can generalize to `? super Map`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/memcached/MemcachedHttpAsyncCacheStorage.java`
 #### Snippet
 ```java
-            final Object object,
-            final HttpClientContext context,
-            final FutureCallback<AsyncExecRuntime> callback) {
-        if (sessionRef.get() == null) {
-            final HttpHost target = route.getTargetHost();
+
+    @Override
+    protected Cancellable bulkRestore(final Collection<String> storageKeys, final FutureCallback<Map<String, byte[]>> callback) {
+        final BulkFuture<Map<String, Object>> future = client.asyncGetBulk(storageKeys);
+        future.addListener(future1 -> {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super AsyncExecRuntime`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalH2AsyncExecRuntime.java`
+Can generalize to `? super Boolean`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/memcached/MemcachedHttpAsyncCacheStorage.java`
 #### Snippet
 ```java
-    public Cancellable connectEndpoint(
-            final HttpClientContext context,
-            final FutureCallback<AsyncExecRuntime> callback) {
-        final Endpoint endpoint = ensureValid();
-        if (endpoint.session.isOpen()) {
+    @Override
+    protected Cancellable updateCAS(
+            final String storageKey, final CASValue<Object> casValue, final byte[] storageObject, final FutureCallback<Boolean> callback) {
+        return operation(client.asyncCAS(storageKey, casValue.getCas(), storageObject), new FutureCallback<CASResponse>() {
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/memcached/MemcachedHttpAsyncCacheStorage.java`
+#### Snippet
+```java
+    }
+
+    private <T> Cancellable operation(final OperationFuture<T> operationFuture, final FutureCallback<T> callback) {
+        operationFuture.addListener(future -> {
+            try {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/memcached/MemcachedHttpAsyncCacheStorage.java`
+#### Snippet
+```java
+    }
+
+    private <T> Cancellable operation(final OperationFuture<T> operationFuture, final FutureCallback<T> callback) {
+        operationFuture.addListener(future -> {
+            try {
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Map`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
+#### Snippet
+```java
+    @Override
+    public Cancellable getVariantCacheEntriesWithEtags(
+            final HttpHost host, final HttpRequest request, final FutureCallback<Map<String, Variant>> callback) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Get variant cache entries: {}; {}", host, new RequestLine(request));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super HttpCacheEntry`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
+#### Snippet
+```java
+            final Instant requestSent,
+            final Instant responseReceived,
+            final FutureCallback<HttpCacheEntry> callback) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Create cache entry: {}; {}", host, new RequestLine(request));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Boolean`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
+#### Snippet
+```java
+            final String cacheKey,
+            final HttpCacheEntry entry,
+            final FutureCallback<Boolean> callback) {
+        return storage.putEntry(cacheKey, entry, new FutureCallback<Boolean>() {
+
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super HttpCacheEntry`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
+#### Snippet
+```java
+            final Instant requestSent,
+            final Instant responseReceived,
+            final FutureCallback<HttpCacheEntry> callback) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Update cache entry: {}; {}", host, new RequestLine(request));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super HttpCacheEntry`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
+#### Snippet
+```java
+
+    @Override
+    public Cancellable getCacheEntry(final HttpHost host, final HttpRequest request, final FutureCallback<HttpCacheEntry> callback) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Get cache entry: {}; {}", host, new RequestLine(request));
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Boolean`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
+#### Snippet
+```java
+            final HttpRequest req,
+            final HttpCacheEntry entry,
+            final FutureCallback<Boolean> callback) {
+        final String variantKey = cacheKeyGenerator.generateVariantKey(req, entry);
+        final String variantCacheKey = cacheKeyGenerator.generateKey(host, req, entry);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super HttpCacheEntry`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
+#### Snippet
+```java
+            final Instant requestSent,
+            final Instant responseReceived,
+            final FutureCallback<HttpCacheEntry> callback) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Update variant cache entry: {}; {} / {}", host, new RequestLine(request), variant);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Boolean`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
+#### Snippet
+```java
+    @Override
+    public Cancellable reuseVariantEntryFor(
+            final HttpHost host, final HttpRequest request, final Variant variant, final FutureCallback<Boolean> callback) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Re-use variant entry: {}; {} / {}", host, new RequestLine(request), variant);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super Boolean`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpAsyncCache.java`
+#### Snippet
+```java
+    @Override
+    public Cancellable flushCacheEntriesFor(
+            final HttpHost host, final HttpRequest request, final FutureCallback<Boolean> callback) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Flush cache entries: {}; {}", host, new RequestLine(request));
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1160,78 +1160,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/PoolingAsyncCl
 ## RuleId[ruleID=MissortedModifiers]
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DistinguishedNameParser.java`
-#### Snippet
-```java
-final class DistinguishedNameParser {
-
-    public final static DistinguishedNameParser INSTANCE = new DistinguishedNameParser();
-
-    private static final BitSet EQUAL_OR_COMMA_OR_PLUS      = Tokenizer.INIT_BITSET('=', ',', '+');
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/AuthChallengeParser.java`
-#### Snippet
-```java
-
-    private final static char BLANK            = ' ';
-    private final static char COMMA_CHAR       = ',';
-    private final static char EQUAL_CHAR       = '=';
-
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/AuthChallengeParser.java`
-#### Snippet
-```java
-    private final static char BLANK            = ' ';
-    private final static char COMMA_CHAR       = ',';
-    private final static char EQUAL_CHAR       = '=';
-
-    // IMPORTANT!
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/AuthChallengeParser.java`
-#### Snippet
-```java
-    private final Tokenizer tokenParser = Tokenizer.INSTANCE;
-
-    private final static char BLANK            = ' ';
-    private final static char COMMA_CHAR       = ',';
-    private final static char EQUAL_CHAR       = '=';
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final private`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
-#### Snippet
-```java
-        private final Cipher rc4;
-        final Mode mode;
-        final private boolean isConnection;
-        int sequenceNumber;
-
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5-fluent/src/main/java/org/apache/hc/client5/http/fluent/Executor.java`
-#### Snippet
-```java
-public class Executor {
-
-    final static CloseableHttpClient CLIENT;
-
-    static {
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
 in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartEntityBuilder.java`
 #### Snippet
 ```java
@@ -1240,126 +1168,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartEn
     private final static char[] MULTIPART_CHARS =
             "-_1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     .toCharArray();
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/classic/RandomHandler.java`
-#### Snippet
-```java
-
-        /** The range from which to generate random data. */
-        private final static byte[] RANGE = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-                .getBytes(StandardCharsets.US_ASCII);
-
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/LaxMaxAgeHandler.java`
-#### Snippet
-```java
-    public static final LaxMaxAgeHandler INSTANCE = new LaxMaxAgeHandler();
-
-    private final static Pattern MAX_AGE_PATTERN = Pattern.compile("^\\-?[0-9]+$");
-
-    public LaxMaxAgeHandler() {
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ResponseCachingPolicy.java`
-#### Snippet
-```java
-    };
-
-    private final static Set<Integer> CACHEABLE_STATUS_CODES =
-            new HashSet<>(Arrays.asList(HttpStatus.SC_OK,
-                    HttpStatus.SC_NON_AUTHORITATIVE_INFORMATION,
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpOptions.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    public final static String METHOD_NAME = "OPTIONS";
-
-    /**
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpTrace.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    public final static String METHOD_NAME = "TRACE";
-
-    /**
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpDelete.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    public final static String METHOD_NAME = "DELETE";
-
-
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpHead.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    public final static String METHOD_NAME = "HEAD";
-
-    /**
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpPost.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    public final static String METHOD_NAME = "POST";
-
-    /**
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/schedule/ImmediateSchedulingStrategy.java`
-#### Snippet
-```java
-public class ImmediateSchedulingStrategy implements SchedulingStrategy {
-
-    public final static ImmediateSchedulingStrategy INSTANCE = new ImmediateSchedulingStrategy();
-
-    @Override
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpPatch.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    public final static String METHOD_NAME = "PATCH";
-
-    /**
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -1376,42 +1184,6 @@ public class CachingExecBase {
 
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Operations.java`
-#### Snippet
-```java
-public final class Operations {
-
-    private final static Cancellable NOOP_CANCELLABLE = () -> false;
-
-    /**
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpPut.java`
-#### Snippet
-```java
-
-    private static final long serialVersionUID = 1L;
-    public final static String METHOD_NAME = "PUT";
-
-    /**
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/async/AsyncRandomHandler.java`
-#### Snippet
-```java
-
-        /** The range from which to generate random data. */
-        private final static byte[] RANGE = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-                .getBytes(StandardCharsets.US_ASCII);
-
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
 #### Snippet
 ```java
@@ -1427,11 +1199,35 @@ Missorted modifiers `final static`
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
 #### Snippet
 ```java
+
+    private final static char PARAM_DELIMITER  = ';';
+    private final static char COMMA_CHAR       = ',';
+    private final static char EQUAL_CHAR       = '=';
+    private final static char DQUOTE_CHAR      = '"';
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
+#### Snippet
+```java
     private final static char PARAM_DELIMITER  = ';';
     private final static char COMMA_CHAR       = ',';
     private final static char EQUAL_CHAR       = '=';
     private final static char DQUOTE_CHAR      = '"';
     private final static char ESCAPE_CHAR      = '\\';
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
+#### Snippet
+```java
+    private final static char COMMA_CHAR       = ',';
+    private final static char EQUAL_CHAR       = '=';
+    private final static char DQUOTE_CHAR      = '"';
+    private final static char ESCAPE_CHAR      = '\\';
+
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -1448,38 +1244,26 @@ public class RFC6265CookieSpec implements CookieSpec {
 
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/schedule/ImmediateSchedulingStrategy.java`
 #### Snippet
 ```java
-    private final static char COMMA_CHAR       = ',';
-    private final static char EQUAL_CHAR       = '=';
-    private final static char DQUOTE_CHAR      = '"';
-    private final static char ESCAPE_CHAR      = '\\';
+public class ImmediateSchedulingStrategy implements SchedulingStrategy {
 
+    public final static ImmediateSchedulingStrategy INSTANCE = new ImmediateSchedulingStrategy();
+
+    @Override
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DistinguishedNameParser.java`
 #### Snippet
 ```java
+final class DistinguishedNameParser {
 
-    private final static char PARAM_DELIMITER  = ';';
-    private final static char COMMA_CHAR       = ',';
-    private final static char EQUAL_CHAR       = '=';
-    private final static char DQUOTE_CHAR      = '"';
-```
+    public final static DistinguishedNameParser INSTANCE = new DistinguishedNameParser();
 
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheConfig.java`
-#### Snippet
-```java
-    /** Default setting for 303 caching
-     */
-    public final static boolean DEFAULT_303_CACHING_ENABLED = false;
-
-    /** Default setting to allow weak tags on PUT/DELETE methods
+    private static final BitSet EQUAL_OR_COMMA_OR_PLUS      = Tokenizer.INIT_BITSET('=', ',', '+');
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -1492,30 +1276,6 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheC
     public final static boolean DEFAULT_HEURISTIC_CACHING_ENABLED = false;
 
     /** Default coefficient used to heuristically determine freshness
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheConfig.java`
-#### Snippet
-```java
-     * freshness heuristically.
-     */
-    public final static TimeValue DEFAULT_HEURISTIC_LIFETIME = TimeValue.ZERO_MILLISECONDS;
-
-    /** Default number of worker threads to allow for background revalidations
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `final static`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheConfig.java`
-#### Snippet
-```java
-     * cached, in bytes.
-     */
-    public final static int DEFAULT_MAX_OBJECT_SIZE_BYTES = 8192;
-
-    /** Default setting for the maximum number of cache entries
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -1547,11 +1307,35 @@ Missorted modifiers `final static`
 in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheConfig.java`
 #### Snippet
 ```java
+     * freshness heuristically.
+     */
+    public final static TimeValue DEFAULT_HEURISTIC_LIFETIME = TimeValue.ZERO_MILLISECONDS;
+
+    /** Default number of worker threads to allow for background revalidations
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheConfig.java`
+#### Snippet
+```java
     /** Default setting to allow weak tags on PUT/DELETE methods
      */
     public final static boolean DEFAULT_WEAK_ETAG_ON_PUTDELETE_ALLOWED = false;
 
     /** Default setting for heuristic caching
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheConfig.java`
+#### Snippet
+```java
+     * cached, in bytes.
+     */
+    public final static int DEFAULT_MAX_OBJECT_SIZE_BYTES = 8192;
+
+    /** Default setting for the maximum number of cache entries
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -1568,6 +1352,18 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheC
 
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final static`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheConfig.java`
+#### Snippet
+```java
+    /** Default setting for 303 caching
+     */
+    public final static boolean DEFAULT_303_CACHING_ENABLED = false;
+
+    /** Default setting to allow weak tags on PUT/DELETE methods
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/LoggingIOSessionDecorator.java`
 #### Snippet
 ```java
@@ -1580,6 +1376,138 @@ final class LoggingIOSessionDecorator implements Decorator<IOSession> {
 
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpHead.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    public final static String METHOD_NAME = "HEAD";
+
+    /**
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Operations.java`
+#### Snippet
+```java
+public final class Operations {
+
+    private final static Cancellable NOOP_CANCELLABLE = () -> false;
+
+    /**
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpPut.java`
+#### Snippet
+```java
+
+    private static final long serialVersionUID = 1L;
+    public final static String METHOD_NAME = "PUT";
+
+    /**
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpTrace.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    public final static String METHOD_NAME = "TRACE";
+
+    /**
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpPatch.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    public final static String METHOD_NAME = "PATCH";
+
+    /**
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/LaxMaxAgeHandler.java`
+#### Snippet
+```java
+    public static final LaxMaxAgeHandler INSTANCE = new LaxMaxAgeHandler();
+
+    private final static Pattern MAX_AGE_PATTERN = Pattern.compile("^\\-?[0-9]+$");
+
+    public LaxMaxAgeHandler() {
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/classic/RandomHandler.java`
+#### Snippet
+```java
+
+        /** The range from which to generate random data. */
+        private final static byte[] RANGE = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                .getBytes(StandardCharsets.US_ASCII);
+
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/async/AsyncRandomHandler.java`
+#### Snippet
+```java
+
+        /** The range from which to generate random data. */
+        private final static byte[] RANGE = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                .getBytes(StandardCharsets.US_ASCII);
+
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/AuthChallengeParser.java`
+#### Snippet
+```java
+    private final static char BLANK            = ' ';
+    private final static char COMMA_CHAR       = ',';
+    private final static char EQUAL_CHAR       = '=';
+
+    // IMPORTANT!
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/AuthChallengeParser.java`
+#### Snippet
+```java
+    private final Tokenizer tokenParser = Tokenizer.INSTANCE;
+
+    private final static char BLANK            = ' ';
+    private final static char COMMA_CHAR       = ',';
+    private final static char EQUAL_CHAR       = '=';
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/AuthChallengeParser.java`
+#### Snippet
+```java
+
+    private final static char BLANK            = ' ';
+    private final static char COMMA_CHAR       = ',';
+    private final static char EQUAL_CHAR       = '=';
+
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
 in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpGet.java`
 #### Snippet
 ```java
@@ -1588,6 +1516,54 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpGet
     public final static String METHOD_NAME = "GET";
 
     /**
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpPost.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    public final static String METHOD_NAME = "POST";
+
+    /**
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ResponseCachingPolicy.java`
+#### Snippet
+```java
+    };
+
+    private final static Set<Integer> CACHEABLE_STATUS_CODES =
+            new HashSet<>(Arrays.asList(HttpStatus.SC_OK,
+                    HttpStatus.SC_NON_AUTHORITATIVE_INFORMATION,
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpDelete.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    public final static String METHOD_NAME = "DELETE";
+
+
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final private`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+#### Snippet
+```java
+        private final Cipher rc4;
+        final Mode mode;
+        final private boolean isConnection;
+        int sequenceNumber;
+
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -1607,6 +1583,18 @@ Missorted modifiers `final static`
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/LaxExpiresHandler.java`
 #### Snippet
 ```java
+    private final static Pattern DAY_OF_MONTH_PATTERN = Pattern.compile(
+            "^([0-9]{1,2})([^0-9].*)?$");
+    private final static Pattern MONTH_PATTERN = Pattern.compile(
+            "^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)(.*)?$", Pattern.CASE_INSENSITIVE);
+    private final static Pattern YEAR_PATTERN = Pattern.compile(
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/LaxExpiresHandler.java`
+#### Snippet
+```java
     private final static Pattern TIME_PATTERN = Pattern.compile(
             "^([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})([^0-9].*)?$");
     private final static Pattern DAY_OF_MONTH_PATTERN = Pattern.compile(
@@ -1628,14 +1616,14 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/LaxExpiresH
 
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final static`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/LaxExpiresHandler.java`
+in `httpclient5-fluent/src/main/java/org/apache/hc/client5/http/fluent/Executor.java`
 #### Snippet
 ```java
-    private final static Pattern DAY_OF_MONTH_PATTERN = Pattern.compile(
-            "^([0-9]{1,2})([^0-9].*)?$");
-    private final static Pattern MONTH_PATTERN = Pattern.compile(
-            "^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)(.*)?$", Pattern.CASE_INSENSITIVE);
-    private final static Pattern YEAR_PATTERN = Pattern.compile(
+public class Executor {
+
+    final static CloseableHttpClient CLIENT;
+
+    static {
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -1650,329 +1638,197 @@ abstract class InternalAbstractHttpAsyncClient extends AbstractHttpAsyncClientBa
     private static final Logger LOG = LoggerFactory.getLogger(InternalAbstractHttpAsyncClient.class);
 ```
 
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `final static`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpOptions.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    public final static String METHOD_NAME = "OPTIONS";
+
+    /**
+```
+
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieOrigin.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/FileResourceFactory.java`
 #### Snippet
 ```java
-        Args.notBlank(host, "Host");
-        Args.notNegative(port, "Port");
-        Args.notNull(path, "Path");
-        this.host = host.toLowerCase(Locale.ROOT);
-        this.port = port;
+            final String requestId,
+            final byte[] content, final int off, final int len) throws ResourceIOException {
+        Args.notNull(requestId, "Request id");
+        final File file = generateUniqueCacheFile(requestId);
+        try (FileOutputStream outStream = new FileOutputStream(file)) {
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ContextBuilder.java`
-#### Snippet
-```java
-
-    public ContextBuilder preemptiveBasicAuth(final HttpHost host, final UsernamePasswordCredentials credentials) {
-        Args.notNull(host, "HTTP host");
-        final BasicScheme authScheme = new BasicScheme(StandardCharsets.UTF_8);
-        authScheme.initPreemptive(credentials);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ContextBuilder.java`
-#### Snippet
-```java
-
-    public ContextBuilder preemptiveAuth(final HttpHost host, final AuthScheme authScheme) {
-        Args.notNull(host, "HTTP host");
-        if (authSchemeMap == null) {
-            authSchemeMap = new HashMap<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcherLoader.java`
-#### Snippet
-```java
-
-    public static PublicSuffixMatcher load(final File file) throws IOException {
-        Args.notNull(file, "File");
-        try (InputStream in = new FileInputStream(file)) {
-            return load(in);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcherLoader.java`
-#### Snippet
-```java
-
-    public static PublicSuffixMatcher load(final URL url) throws IOException {
-        Args.notNull(url, "URL");
-        try (InputStream in = url.openStream()) {
-            return load(in);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncPushConsumerRegistry.java`
-#### Snippet
-```java
-
-    public AsyncPushConsumer get(final HttpRequest request) {
-        Args.notNull(request, "Request");
-        final URIAuthority authority = request.getAuthority();
-        final String key = authority != null ? authority.getHostName().toLowerCase(Locale.ROOT) : null;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncPushConsumerRegistry.java`
-#### Snippet
-```java
-    public void register(final String hostname, final String uriPattern, final Supplier<AsyncPushConsumer> supplier) {
-        Args.notBlank(uriPattern, "URI pattern");
-        Args.notNull(supplier, "Supplier");
-        if (hostname == null) {
-            primary.register(uriPattern, supplier);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-win/src/main/java/org/apache/hc/client5/http/impl/win/WindowsNegotiateScheme.java`
-#### Snippet
-```java
-            final AuthChallenge authChallenge,
-            final HttpContext context) throws MalformedChallengeException {
-        Args.notNull(authChallenge, "AuthChallenge");
-        challengeType = authChallenge.getChallengeType();
-        challenge = authChallenge.getValue();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
-#### Snippet
-```java
-            final HttpContext context) throws AuthenticationException {
-
-        Args.notNull(host, "Auth host");
-        Args.notNull(credentialsProvider, "CredentialsProvider");
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
-#### Snippet
-```java
-
-        Args.notNull(host, "Auth host");
-        Args.notNull(credentialsProvider, "CredentialsProvider");
-
-        final Credentials credentials = credentialsProvider.getCredentials(
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
-#### Snippet
-```java
-            final HttpRequest request,
-            final HttpContext context) throws AuthenticationException {
-        Args.notNull(host, "HTTP host");
-        Args.notNull(request, "HTTP request");
-        switch (state) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
-#### Snippet
-```java
-            final HttpContext context) throws AuthenticationException {
-        Args.notNull(host, "HTTP host");
-        Args.notNull(request, "HTTP request");
-        switch (state) {
-        case UNINITIATED:
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
-#### Snippet
-```java
-            final AuthChallenge authChallenge,
-            final HttpContext context) throws MalformedChallengeException {
-        Args.notNull(authChallenge, "AuthChallenge");
-
-        this.challenge = authChallenge.getValue() != null ? authChallenge.getValue() : NO_TOKEN;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/GzipCompressingEntity.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/FileResourceFactory.java`
 #### Snippet
 ```java
     @Override
-    public void writeTo(final OutputStream outStream) throws IOException {
-        Args.notNull(outStream, "Output stream");
-        final GZIPOutputStream gzip = new GZIPOutputStream(outStream);
-        super.writeTo(gzip);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/DecompressingEntity.java`
-#### Snippet
-```java
-    @Override
-    public void writeTo(final OutputStream outStream) throws IOException {
-        Args.notNull(outStream, "Output stream");
-        try (InputStream inStream = getContent()) {
-            final byte[] buffer = new byte[BUFFER_SIZE];
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
-#### Snippet
-```java
-     */
-    public static String formatDate(final Instant instant, final DateTimeFormatter dateTimeFormatter) {
-        Args.notNull(instant, "Instant");
-        Args.notNull(dateTimeFormatter, "DateTimeFormatter");
-        return dateTimeFormatter.format(instant.atZone(GMT_ID));
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
-#### Snippet
-```java
-    public static String formatDate(final Instant instant, final DateTimeFormatter dateTimeFormatter) {
-        Args.notNull(instant, "Instant");
-        Args.notNull(dateTimeFormatter, "DateTimeFormatter");
-        return dateTimeFormatter.format(instant.atZone(GMT_ID));
+    public Resource generate(final String requestId, final byte[] content) throws ResourceIOException {
+        Args.notNull(content, "Content");
+        return generate(requestId, content, 0, content.length);
     }
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractContentBody.java`
 #### Snippet
 ```java
-    @Deprecated
-    public static String formatDate(final Date date, final String pattern) {
-        Args.notNull(date, "Date");
-        Args.notNull(pattern, "Pattern");
-        return DateTimeFormatter.ofPattern(pattern).format(toInstant(date).atZone(GMT_ID));
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
-#### Snippet
-```java
-    public static String formatDate(final Date date, final String pattern) {
-        Args.notNull(date, "Date");
-        Args.notNull(pattern, "Pattern");
-        return DateTimeFormatter.ofPattern(pattern).format(toInstant(date).atZone(GMT_ID));
+    public AbstractContentBody(final ContentType contentType) {
+        super();
+        Args.notNull(contentType, "Content type");
+        this.contentType = contentType;
     }
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
-#### Snippet
-```java
-     */
-    public static Instant parseDate(final String dateValue, final DateTimeFormatter... dateFormatters) {
-        Args.notNull(dateValue, "Date value");
-        String v = dateValue;
-        // trim single quotes around date if present
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/LoggingIOSession.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicDomainHandler.java`
 #### Snippet
 ```java
     @Override
-    public void upgrade(final IOEventHandler handler) {
-        Args.notNull(handler, "Protocol handler");
-        if (log.isDebugEnabled()) {
-            log.debug("{} protocol upgrade {}", session, handler.getClass());
+    public boolean match(final Cookie cookie, final CookieOrigin origin) {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        final String host = origin.getHost();
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheRevalidatorBase.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicDomainHandler.java`
 #### Snippet
 ```java
-            @Override
-            public void awaitTermination(final Timeout timeout) throws InterruptedException {
-                Args.notNull(timeout, "Timeout");
-                executorService.awaitTermination(timeout.getDuration(), timeout.getTimeUnit());
-            }
+    public boolean match(final Cookie cookie, final CookieOrigin origin) {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        final String host = origin.getHost();
+        String domain = cookie.getDomain();
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheRevalidatorBase.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicDomainHandler.java`
 #### Snippet
 ```java
+    public void validate(final Cookie cookie, final CookieOrigin origin)
+            throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        // Validate the cookies domain attribute.  NOTE:  Domains without
+```
 
-    public void awaitTermination(final Timeout timeout) throws InterruptedException {
-        Args.notNull(timeout, "Timeout");
-        scheduledExecutor.awaitTermination(timeout);
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicDomainHandler.java`
+#### Snippet
+```java
+            throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        // Validate the cookies domain attribute.  NOTE:  Domains without
+        // any dots are allowed to support hosts on private LANs that don't
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicDomainHandler.java`
+#### Snippet
+```java
+    public void parse(final SetCookie cookie, final String value)
+            throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        if (TextUtils.isBlank(value)) {
+            throw new MalformedCookieException("Blank or null value for domain attribute");
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractMultipartFormat.java`
+#### Snippet
+```java
+    public AbstractMultipartFormat(final Charset charset, final String boundary) {
+        super();
+        Args.notNull(boundary, "Multipart boundary");
+        this.charset = charset != null ? charset : StandardCharsets.ISO_8859_1;
+        this.boundary = boundary;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ResourceReference.java`
+#### Snippet
+```java
+    public ResourceReference(final HttpCacheEntry entry, final ReferenceQueue<HttpCacheEntry> q) {
+        super(entry, q);
+        Args.notNull(entry.getResource(), "Resource");
+        this.resource = entry.getResource();
     }
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheRevalidatorBase.java`
-#### Snippet
-```java
-            @Override
-            public ScheduledFuture<?> schedule(final Runnable command, final TimeValue timeValue) throws RejectedExecutionException {
-                Args.notNull(command, "Runnable");
-                Args.notNull(timeValue, "Time value");
-                return executorService.schedule(command, timeValue.getDuration(), timeValue.getTimeUnit());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheRevalidatorBase.java`
-#### Snippet
-```java
-            public ScheduledFuture<?> schedule(final Runnable command, final TimeValue timeValue) throws RejectedExecutionException {
-                Args.notNull(command, "Runnable");
-                Args.notNull(timeValue, "Time value");
-                return executorService.schedule(command, timeValue.getDuration(), timeValue.getTimeUnit());
-            }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/StringBody.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/CookieSpecBase.java`
 #### Snippet
 ```java
     @Override
-    public void writeTo(final OutputStream out) throws IOException {
-        Args.notNull(out, "Output stream");
-        out.write(this.content);
-    }
+    public boolean match(final Cookie cookie, final CookieOrigin origin) {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        for (final CookieAttributeHandler handler: getAttribHandlers()) {
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/StringBody.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/CookieSpecBase.java`
 #### Snippet
 ```java
-    public StringBody(final String text, final ContentType contentType) {
-        super(contentType);
-        Args.notNull(text, "Text");
-        final Charset charset = contentType.getCharset();
-        this.content = text.getBytes(charset != null ? charset : StandardCharsets.US_ASCII);
+    public boolean match(final Cookie cookie, final CookieOrigin origin) {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        for (final CookieAttributeHandler handler: getAttribHandlers()) {
+            if (!handler.match(cookie, origin)) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/CookieSpecBase.java`
+#### Snippet
+```java
+    public void validate(final Cookie cookie, final CookieOrigin origin)
+            throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        for (final CookieAttributeHandler handler: getAttribHandlers()) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/CookieSpecBase.java`
+#### Snippet
+```java
+            throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        for (final CookieAttributeHandler handler: getAttribHandlers()) {
+            handler.validate(cookie, origin);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicHttpOnlyHandler.java`
+#### Snippet
+```java
+    public void parse(final SetCookie cookie, final String value)
+            throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        cookie.setHttpOnly(true);
+    }
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -2013,326 +1869,26 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocket
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FileBody.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartEntityBuilder.java`
 #### Snippet
 ```java
-    public FileBody(final File file, final ContentType contentType, final String filename) {
-        super(contentType);
-        Args.notNull(file, "File");
-        this.file = file;
-        this.filename = filename == null ? file.getName() : filename;
+
+    public MultipartEntityBuilder addPart(final String name, final ContentBody contentBody) {
+        Args.notNull(name, "Name");
+        Args.notNull(contentBody, "Content body");
+        return addPart(FormBodyPartBuilder.create(name, contentBody).build());
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FileBody.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartEntityBuilder.java`
 #### Snippet
 ```java
-    @Override
-    public void writeTo(final OutputStream out) throws IOException {
-        Args.notNull(out, "Output stream");
-        try (InputStream in = new FileInputStream(this.file)) {
-            final byte[] tmp = new byte[4096];
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/MinimalHttpAsyncClient.java`
-#### Snippet
-```java
-            final HttpContext context,
-            final FutureCallback<AsyncClientEndpoint> callback) {
-        Args.notNull(host, "Host");
-        Args.notNull(context, "HTTP context");
-        final BasicFuture<AsyncClientEndpoint> future = new BasicFuture<>(callback);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/MinimalHttpAsyncClient.java`
-#### Snippet
-```java
-            final FutureCallback<AsyncClientEndpoint> callback) {
-        Args.notNull(host, "Host");
-        Args.notNull(context, "HTTP context");
-        final BasicFuture<AsyncClientEndpoint> future = new BasicFuture<>(callback);
-        if (!isRunning()) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsProviderBuilder.java`
-#### Snippet
-```java
-
-    public CredentialsProviderBuilder add(final AuthScope authScope, final String username, final char[] password) {
-        Args.notNull(authScope, "Host");
-        credMap.put(authScope, new UsernamePasswordCredentials(username, password));
-        return this;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsProviderBuilder.java`
-#### Snippet
-```java
-
-    public CredentialsProviderBuilder add(final HttpHost httpHost, final Credentials credentials) {
-        Args.notNull(httpHost, "Host");
-        credMap.put(new AuthScope(httpHost), credentials);
-        return this;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsProviderBuilder.java`
-#### Snippet
-```java
-
-    public CredentialsProviderBuilder add(final AuthScope authScope, final Credentials credentials) {
-        Args.notNull(authScope, "Host");
-        credMap.put(authScope, credentials);
-        return this;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsProviderBuilder.java`
-#### Snippet
-```java
-
-    public CredentialsProviderBuilder add(final HttpHost httpHost, final String username, final char[] password) {
-        Args.notNull(httpHost, "Host");
-        credMap.put(new AuthScope(httpHost), new UsernamePasswordCredentials(username, password));
-        return this;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HeapResourceFactory.java`
-#### Snippet
-```java
-            final String requestId,
-            final Resource resource) throws ResourceIOException {
-        Args.notNull(resource, "Resource");
-        return new HeapResource(resource.get());
+    public MultipartEntityBuilder addPart(final String name, final ContentBody contentBody) {
+        Args.notNull(name, "Name");
+        Args.notNull(contentBody, "Content body");
+        return addPart(FormBodyPartBuilder.create(name, contentBody).build());
     }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncHttpRequestRetryExec.java`
-#### Snippet
-```java
-
-    public AsyncHttpRequestRetryExec(final HttpRequestRetryStrategy retryStrategy) {
-        Args.notNull(retryStrategy, "retryStrategy");
-        this.retryStrategy = retryStrategy;
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final HttpAsyncClientBuilder addRequestInterceptorFirst(final HttpRequestInterceptor interceptor) {
-        Args.notNull(interceptor, "Interceptor");
-        if (requestInterceptors == null) {
-            requestInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
-#### Snippet
-```java
-        Args.notBlank(existing, "Existing");
-        Args.notBlank(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final HttpAsyncClientBuilder addExecInterceptorLast(final String name, final AsyncExecChainHandler interceptor) {
-        Args.notNull(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
-#### Snippet
-```java
-    public final HttpAsyncClientBuilder addExecInterceptorLast(final String name, final AsyncExecChainHandler interceptor) {
-        Args.notNull(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final HttpAsyncClientBuilder addExecInterceptorFirst(final String name, final AsyncExecChainHandler interceptor) {
-        Args.notNull(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
-#### Snippet
-```java
-    public final HttpAsyncClientBuilder addExecInterceptorFirst(final String name, final AsyncExecChainHandler interceptor) {
-        Args.notNull(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final HttpAsyncClientBuilder addResponseInterceptorFirst(final HttpResponseInterceptor interceptor) {
-        Args.notNull(interceptor, "Interceptor");
-        if (responseInterceptors == null) {
-            responseInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final HttpAsyncClientBuilder addResponseInterceptorLast(final HttpResponseInterceptor interceptor) {
-        Args.notNull(interceptor, "Interceptor");
-        if (responseInterceptors == null) {
-            responseInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
-#### Snippet
-```java
-        Args.notBlank(existing, "Existing");
-        Args.notBlank(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final HttpAsyncClientBuilder addRequestInterceptorLast(final HttpRequestInterceptor interceptor) {
-        Args.notNull(interceptor, "Interceptor");
-        if (requestInterceptors == null) {
-            requestInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
-#### Snippet
-```java
-    public final HttpAsyncClientBuilder replaceExecInterceptor(final String existing, final AsyncExecChainHandler interceptor) {
-        Args.notBlank(existing, "Existing");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicSecureHandler.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final Cookie cookie, final CookieOrigin origin) {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        return !cookie.isSecure() || origin.isSecure();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicSecureHandler.java`
-#### Snippet
-```java
-    public boolean match(final Cookie cookie, final CookieOrigin origin) {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        return !cookie.isSecure() || origin.isSecure();
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicSecureHandler.java`
-#### Snippet
-```java
-    public void parse(final SetCookie cookie, final String value)
-            throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        cookie.setSecure(true);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicClientCookie.java`
-#### Snippet
-```java
-    public BasicClientCookie(final String name, final String value) {
-        super();
-        Args.notNull(name, "Name");
-        this.name = name;
-        this.attribs = new HashMap<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicClientCookie.java`
-#### Snippet
-```java
-    @Override
-    public boolean isExpired(final Instant instant) {
-        Args.notNull(instant, "Instant");
-        return (cookieExpiryDate != null
-                && cookieExpiryDate.compareTo(instant) <= 0);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicClientCookie.java`
-#### Snippet
-```java
-    @Override
-    public boolean isExpired(final Date date) {
-        Args.notNull(date, "Date");
-        return (cookieExpiryDate != null
-            && cookieExpiryDate.compareTo(DateUtils.toInstant(date)) <= 0);
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -2349,314 +1905,86 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartEn
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartEntityBuilder.java`
-#### Snippet
-```java
-
-    public MultipartEntityBuilder addPart(final String name, final ContentBody contentBody) {
-        Args.notNull(name, "Name");
-        Args.notNull(contentBody, "Content body");
-        return addPart(FormBodyPartBuilder.create(name, contentBody).build());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartEntityBuilder.java`
-#### Snippet
-```java
-    public MultipartEntityBuilder addPart(final String name, final ContentBody contentBody) {
-        Args.notNull(name, "Name");
-        Args.notNull(contentBody, "Content body");
-        return addPart(FormBodyPartBuilder.create(name, contentBody).build());
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicExpiresHandler.java`
-#### Snippet
-```java
-    @Deprecated
-    public BasicExpiresHandler(final String[] datePatterns) {
-        Args.notNull(datePatterns, "Array of date patterns");
-        this.datePatterns = new DateTimeFormatter[datePatterns.length];
-        for (int i = 0; i < datePatterns.length; i++) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicExpiresHandler.java`
-#### Snippet
-```java
-    public void parse(final SetCookie cookie, final String value)
-            throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        if (value == null) {
-            throw new MalformedCookieException("Missing value for 'expires' attribute");
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPartBuilder.java`
-#### Snippet
-```java
-
-    public FormBodyPartBuilder removeFields(final String name) {
-        Args.notNull(name, "Field name");
-        this.header.removeFields(name);
-        return this;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPartBuilder.java`
-#### Snippet
-```java
-
-    public FormBodyPartBuilder addField(final String name, final String value) {
-        Args.notNull(name, "Field name");
-        this.header.addField(new MimeField(name, value));
-        return this;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPartBuilder.java`
-#### Snippet
-```java
-
-    public FormBodyPartBuilder setField(final String name, final String value) {
-        Args.notNull(name, "Field name");
-        this.header.setField(new MimeField(name, value));
-        return this;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPartBuilder.java`
-#### Snippet
-```java
-     */
-    public FormBodyPartBuilder addField(final String name, final String value, final List<NameValuePair> parameters) {
-        Args.notNull(name, "Field name");
-        this.header.addField(new MimeField(name, value, parameters));
-        return this;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestBuilder.java`
-#### Snippet
-```java
-     */
-    public static SimpleRequestBuilder copy(final HttpRequest request) {
-        Args.notNull(request, "HTTP request");
-        final SimpleRequestBuilder builder = new SimpleRequestBuilder(request.getMethod());
-        builder.digest(request);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestBuilder.java`
-#### Snippet
-```java
-     */
-    public static SimpleRequestBuilder copy(final SimpleHttpRequest request) {
-        Args.notNull(request, "HTTP request");
-        final SimpleRequestBuilder builder = new SimpleRequestBuilder(request.getMethod());
-        builder.digest(request);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestBuilder.java`
-#### Snippet
-```java
-
-    public static SimpleRequestBuilder create(final Method method) {
-        Args.notNull(method, "HTTP method");
-        return new SimpleRequestBuilder(method);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/NTUserPrincipal.java`
-#### Snippet
-```java
-            final String username) {
-        super();
-        Args.notNull(username, "User name");
-        this.username = username;
-        if (domain != null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractMultipartFormat.java`
-#### Snippet
-```java
-    public AbstractMultipartFormat(final Charset charset, final String boundary) {
-        super();
-        Args.notNull(boundary, "Multipart boundary");
-        this.charset = charset != null ? charset : StandardCharsets.ISO_8859_1;
-        this.boundary = boundary;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/LaxMaxAgeHandler.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
 #### Snippet
 ```java
     @Override
-    public void parse(final SetCookie cookie, final String value) throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        if (TextUtils.isBlank(value)) {
-            return;
+    public Map<String, HttpCacheEntry> getEntries(final Collection<String> keys) throws ResourceIOException {
+        Args.notNull(keys, "Key");
+        final Map<String, HttpCacheEntry> resultMap = new HashMap<>(keys.size());
+        for (final String key: keys) {
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/AuthScope.java`
-#### Snippet
-```java
-            final String realm,
-            final String schemeName) {
-        Args.notNull(origin, "Host");
-        this.protocol = origin.getSchemeName().toLowerCase(Locale.ROOT);
-        this.host = origin.getHostName().toLowerCase(Locale.ROOT);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/AuthScope.java`
-#### Snippet
-```java
-    public AuthScope(final AuthScope authScope) {
-        super();
-        Args.notNull(authScope, "Scope");
-        this.protocol = authScope.getProtocol();
-        this.host = authScope.getHost();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPart.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
 #### Snippet
 ```java
     @Override
-    public void addField(final String name, final String value) {
-        Args.notNull(name, "Field name");
-        super.addField(name, value);
-    }
+    public void putEntry(final String url, final HttpCacheEntry entry) throws ResourceIOException {
+        Args.notNull(url, "URL");
+        Args.notNull(entry, "Cache entry");
+        ensureValidState();
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPart.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
 #### Snippet
 ```java
-    FormBodyPart(final String name, final ContentBody body, final Header header) {
-        super(body, header);
-        Args.notNull(name, "Name");
-        Args.notNull(body, "Body");
-        this.name = name;
+    public void putEntry(final String url, final HttpCacheEntry entry) throws ResourceIOException {
+        Args.notNull(url, "URL");
+        Args.notNull(entry, "Cache entry");
+        ensureValidState();
+        synchronized (this) {
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPart.java`
-#### Snippet
-```java
-        super(body, header);
-        Args.notNull(name, "Name");
-        Args.notNull(body, "Body");
-        this.name = name;
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/InputStreamBody.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
 #### Snippet
 ```java
     @Override
-    public void writeTo(final OutputStream out) throws IOException {
-        Args.notNull(out, "Output stream");
-        try {
-            final byte[] tmp = new byte[4096];
+    public void removeEntry(final String url) throws ResourceIOException {
+        Args.notNull(url, "URL");
+        ensureValidState();
+        synchronized (this) {
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/InputStreamBody.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
 #### Snippet
 ```java
-    public InputStreamBody(final InputStream in, final ContentType contentType, final String filename, final long contentLength) {
-        super(contentType);
-        Args.notNull(in, "Input stream");
-        this.in = in;
-        this.filename = filename;
+    @Override
+    public HttpCacheEntry getEntry(final String url) throws ResourceIOException {
+        Args.notNull(url, "URL");
+        ensureValidState();
+        synchronized (this) {
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartPartBuilder.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
 #### Snippet
 ```java
-
-    public MultipartPartBuilder addHeader(final String name, final String value) {
-        Args.notNull(name, "Header name");
-        this.header.addField(new MimeField(name, value));
-        return this;
+            final String url,
+            final HttpCacheCASOperation casOperation) throws ResourceIOException {
+        Args.notNull(url, "URL");
+        Args.notNull(casOperation, "CAS operation");
+        ensureValidState();
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartPartBuilder.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
 #### Snippet
 ```java
-
-    public MultipartPartBuilder addHeader(final String name, final String value, final List<NameValuePair> parameters) {
-        Args.notNull(name, "Header name");
-        this.header.addField(new MimeField(name, value, parameters));
-        return this;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartPartBuilder.java`
-#### Snippet
-```java
-
-    public MultipartPartBuilder setHeader(final String name, final String value) {
-        Args.notNull(name, "Header name");
-        this.header.setField(new MimeField(name, value));
-        return this;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartPartBuilder.java`
-#### Snippet
-```java
-
-    public MultipartPartBuilder removeHeaders(final String name) {
-        Args.notNull(name, "Header name");
-        this.header.removeFields(name);
-        return this;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/NTCredentials.java`
-#### Snippet
-```java
-            final String netbiosDomain) {
-        super();
-        Args.notNull(userName, "User name");
-        this.principal = new NTUserPrincipal(domain, userName);
-        this.password = password;
+            final HttpCacheCASOperation casOperation) throws ResourceIOException {
+        Args.notNull(url, "URL");
+        Args.notNull(casOperation, "CAS operation");
+        ensureValidState();
+        synchronized (this) {
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -2709,43 +2037,139 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncConnect
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AsyncCachingExec.java`
-#### Snippet
-```java
-            final AsyncExecChain chain,
-            final AsyncExecCallback asyncExecCallback) throws HttpException, IOException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(scope, "Scope");
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AsyncCachingExec.java`
-#### Snippet
-```java
-            final AsyncExecCallback asyncExecCallback) throws HttpException, IOException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(scope, "Scope");
-
-        final HttpRoute route = scope.route;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CombinedEntity.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FileBody.java`
 #### Snippet
 ```java
     @Override
-    public void writeTo(final OutputStream outStream) throws IOException {
-        Args.notNull(outStream, "Output stream");
-        try (InputStream inStream = getContent()) {
-            int l;
+    public void writeTo(final OutputStream out) throws IOException {
+        Args.notNull(out, "Output stream");
+        try (InputStream in = new FileInputStream(this.file)) {
+            final byte[] tmp = new byte[4096];
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ConnectExec.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FileBody.java`
+#### Snippet
+```java
+    public FileBody(final File file, final ContentType contentType, final String filename) {
+        super(contentType);
+        Args.notNull(file, "File");
+        this.file = file;
+        this.filename = filename == null ? file.getName() : filename;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/StringBody.java`
+#### Snippet
+```java
+    @Override
+    public void writeTo(final OutputStream out) throws IOException {
+        Args.notNull(out, "Output stream");
+        out.write(this.content);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/StringBody.java`
+#### Snippet
+```java
+    public StringBody(final String text, final ContentType contentType) {
+        super(contentType);
+        Args.notNull(text, "Text");
+        final Charset charset = contentType.getCharset();
+        this.content = text.getBytes(charset != null ? charset : StandardCharsets.US_ASCII);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/PublicSuffixDomainFilter.java`
+#### Snippet
+```java
+    public static CommonCookieAttributeHandler decorate(
+            final CommonCookieAttributeHandler handler, final PublicSuffixMatcher publicSuffixMatcher) {
+        Args.notNull(handler, "Cookie attribute handler");
+        return publicSuffixMatcher != null ? new PublicSuffixDomainFilter(handler, publicSuffixMatcher) : handler;
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/PublicSuffixDomainFilter.java`
+#### Snippet
+```java
+    public PublicSuffixDomainFilter(
+            final CommonCookieAttributeHandler handler, final PublicSuffixList suffixList) {
+        Args.notNull(handler, "Cookie handler");
+        Args.notNull(suffixList, "Public suffix list");
+        this.handler = handler;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/PublicSuffixDomainFilter.java`
+#### Snippet
+```java
+            final CommonCookieAttributeHandler handler, final PublicSuffixList suffixList) {
+        Args.notNull(handler, "Cookie handler");
+        Args.notNull(suffixList, "Public suffix list");
+        this.handler = handler;
+        this.publicSuffixMatcher = new PublicSuffixMatcher(suffixList.getRules(), suffixList.getExceptions());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/BasicUserPrincipal.java`
+#### Snippet
+```java
+    public BasicUserPrincipal(final String username) {
+        super();
+        Args.notNull(username, "User name");
+        this.username = username;
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
+#### Snippet
+```java
+     */
+    public static URI normalize(final URI requestUri) throws URISyntaxException {
+        Args.notNull(requestUri, "URI");
+        final URIBuilder builder = new URIBuilder(requestUri.isAbsolute() ? URIUtils.resolve(BASE_URI, requestUri) : requestUri) ;
+        if (builder.getHost() != null) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
+#### Snippet
+```java
+     */
+    public static String getRequestUri(final HttpRequest request, final HttpHost target) {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(target, "Target");
+        final StringBuilder buf = new StringBuilder();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
+#### Snippet
+```java
+    public static String getRequestUri(final HttpRequest request, final HttpHost target) {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(target, "Target");
+        final StringBuilder buf = new StringBuilder();
+        final URIAuthority authority = request.getAuthority();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingExec.java`
 #### Snippet
 ```java
             final ExecChain.Scope scope,
@@ -2757,122 +2181,542 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ConnectExe
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ConnectExec.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingExec.java`
 #### Snippet
 ```java
             final ExecChain chain) throws IOException, HttpException {
         Args.notNull(request, "HTTP request");
         Args.notNull(scope, "Scope");
 
-        final String exchangeId = scope.exchangeId;
+        final HttpRoute route = scope.route;
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ConnectExec.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/UsernamePasswordCredentials.java`
 #### Snippet
 ```java
-            final SchemePortResolver schemePortResolver,
-            final boolean authCachingDisabled) {
-        Args.notNull(reuseStrategy, "Connection reuse strategy");
-        Args.notNull(proxyHttpProcessor, "Proxy HTTP processor");
-        Args.notNull(proxyAuthStrategy, "Proxy authentication strategy");
+    public UsernamePasswordCredentials(final String userName, final char[] password) {
+        super();
+        Args.notNull(userName, "Username");
+        this.principal = new BasicUserPrincipal(userName);
+        this.password = password;
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ConnectExec.java`
-#### Snippet
-```java
-            final boolean authCachingDisabled) {
-        Args.notNull(reuseStrategy, "Connection reuse strategy");
-        Args.notNull(proxyHttpProcessor, "Proxy HTTP processor");
-        Args.notNull(proxyAuthStrategy, "Proxy authentication strategy");
-        this.reuseStrategy = reuseStrategy;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ConnectExec.java`
-#### Snippet
-```java
-        Args.notNull(reuseStrategy, "Connection reuse strategy");
-        Args.notNull(proxyHttpProcessor, "Proxy HTTP processor");
-        Args.notNull(proxyAuthStrategy, "Proxy authentication strategy");
-        this.reuseStrategy = reuseStrategy;
-        this.proxyHttpProcessor = proxyHttpProcessor;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/HttpRoute.java`
-#### Snippet
-```java
-    private HttpRoute(final HttpHost targetHost, final InetAddress local, final List<HttpHost> proxies,
-                     final boolean secure, final TunnelType tunnelled, final LayerType layered) {
-        Args.notNull(targetHost, "Target host");
-        Args.notNegative(targetHost.getPort(), "Target port");
-        this.targetHost = targetHost;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingCacheStorage.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
 #### Snippet
 ```java
     @Override
-    public final Map<String, HttpCacheEntry> getEntries(final Collection<String> keys) throws ResourceIOException {
-        Args.notNull(keys, "Storage keys");
-        final List<String> storageKeys = new ArrayList<>(keys.size());
-        for (final String key: keys) {
+    public final boolean match(final Cookie cookie, final CookieOrigin origin) {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        for (final CookieAttributeHandler handler: this.attribHandlers) {
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicCredentialsProvider.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
 #### Snippet
 ```java
-            final AuthScope authScope,
-            final Credentials credentials) {
-        Args.notNull(authScope, "Authentication scope");
-        credMap.put(authScope, credentials);
+    public final boolean match(final Cookie cookie, final CookieOrigin origin) {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        for (final CookieAttributeHandler handler: this.attribHandlers) {
+            if (!handler.match(cookie, origin)) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
+#### Snippet
+```java
+    public final void validate(final Cookie cookie, final CookieOrigin origin)
+            throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        for (final CookieAttributeHandler handler: this.attribHandlers) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
+#### Snippet
+```java
+            throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        for (final CookieAttributeHandler handler: this.attribHandlers) {
+            handler.validate(cookie, origin);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
+#### Snippet
+```java
+    @Override
+    public final List<Cookie> parse(final Header header, final CookieOrigin origin) throws MalformedCookieException {
+        Args.notNull(header, "Header");
+        Args.notNull(origin, "Cookie origin");
+        if (!header.getName().equalsIgnoreCase("Set-Cookie")) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
+#### Snippet
+```java
+    public final List<Cookie> parse(final Header header, final CookieOrigin origin) throws MalformedCookieException {
+        Args.notNull(header, "Header");
+        Args.notNull(origin, "Cookie origin");
+        if (!header.getName().equalsIgnoreCase("Set-Cookie")) {
+            throw new MalformedCookieException("Unrecognized cookie header: '" + header + "'");
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HeapResourceFactory.java`
+#### Snippet
+```java
+            final String requestId,
+            final Resource resource) throws ResourceIOException {
+        Args.notNull(resource, "Resource");
+        return new HeapResource(resource.get());
     }
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestExpectContinue.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/AuthScope.java`
 #### Snippet
 ```java
-    public void process(final HttpRequest request, final EntityDetails entity, final HttpContext context)
-            throws HttpException, IOException {
-        Args.notNull(request, "HTTP request");
-
-        if (!request.containsHeader(HttpHeaders.EXPECT)) {
+            final String realm,
+            final String schemeName) {
+        Args.notNull(origin, "Host");
+        this.protocol = origin.getSchemeName().toLowerCase(Locale.ROOT);
+        this.host = origin.getHostName().toLowerCase(Locale.ROOT);
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicMaxAgeHandler.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/AuthScope.java`
+#### Snippet
+```java
+    public AuthScope(final AuthScope authScope) {
+        super();
+        Args.notNull(authScope, "Scope");
+        this.protocol = authScope.getProtocol();
+        this.host = authScope.getHost();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/GzipCompressingEntity.java`
+#### Snippet
+```java
+    @Override
+    public void writeTo(final OutputStream outStream) throws IOException {
+        Args.notNull(outStream, "Output stream");
+        final GZIPOutputStream gzip = new GZIPOutputStream(outStream);
+        super.writeTo(gzip);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicExpiresHandler.java`
 #### Snippet
 ```java
     public void parse(final SetCookie cookie, final String value)
             throws MalformedCookieException {
         Args.notNull(cookie, "Cookie");
         if (value == null) {
-            throw new MalformedCookieException("Missing value for 'max-age' attribute");
+            throw new MalformedCookieException("Missing value for 'expires' attribute");
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpCacheStorage.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicExpiresHandler.java`
+#### Snippet
+```java
+    @Deprecated
+    public BasicExpiresHandler(final String[] datePatterns) {
+        Args.notNull(datePatterns, "Array of date patterns");
+        this.datePatterns = new DateTimeFormatter[datePatterns.length];
+        for (int i = 0; i < datePatterns.length; i++) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncPushConsumerRegistry.java`
+#### Snippet
+```java
+
+    public AsyncPushConsumer get(final HttpRequest request) {
+        Args.notNull(request, "Request");
+        final URIAuthority authority = request.getAuthority();
+        final String key = authority != null ? authority.getHostName().toLowerCase(Locale.ROOT) : null;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncPushConsumerRegistry.java`
+#### Snippet
+```java
+    public void register(final String hostname, final String uriPattern, final Supplier<AsyncPushConsumer> supplier) {
+        Args.notBlank(uriPattern, "URI pattern");
+        Args.notNull(supplier, "Supplier");
+        if (hostname == null) {
+            primary.register(uriPattern, supplier);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/MainClientExec.java`
+#### Snippet
+```java
+            final ExecChain.Scope scope,
+            final ExecChain chain) throws IOException, HttpException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(scope, "Scope");
+        final String exchangeId = scope.exchangeId;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/MainClientExec.java`
+#### Snippet
+```java
+            final ExecChain chain) throws IOException, HttpException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(scope, "Scope");
+        final String exchangeId = scope.exchangeId;
+        final HttpRoute route = scope.route;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/NTCredentials.java`
+#### Snippet
+```java
+            final String netbiosDomain) {
+        super();
+        Args.notNull(userName, "User name");
+        this.principal = new NTUserPrincipal(domain, userName);
+        this.password = password;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheConfig.java`
+#### Snippet
+```java
+
+    public static Builder copy(final CacheConfig config) {
+        Args.notNull(config, "Cache config");
+        return new Builder()
+            .setMaxObjectSize(config.getMaxObjectSize())
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/InputStreamBody.java`
 #### Snippet
 ```java
     @Override
-    public Map<String, HttpCacheEntry> getEntries(final Collection<String> keys) throws ResourceIOException {
-        Args.notNull(keys, "Key");
-        final Map<String, HttpCacheEntry> resultMap = new HashMap<>(keys.size());
-        for (final String key: keys) {
+    public void writeTo(final OutputStream out) throws IOException {
+        Args.notNull(out, "Output stream");
+        try {
+            final byte[] tmp = new byte[4096];
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/InputStreamBody.java`
+#### Snippet
+```java
+    public InputStreamBody(final InputStream in, final ContentType contentType, final String filename, final long contentLength) {
+        super(contentType);
+        Args.notNull(in, "Input stream");
+        this.in = in;
+        this.filename = filename;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
+#### Snippet
+```java
+            final HttpContext context,
+            final FutureCallback<SimpleHttpResponse> callback) {
+        Args.notNull(request, "Request");
+        return execute(SimpleRequestProducer.create(request), SimpleResponseConsumer.create(), context, callback);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
+#### Snippet
+```java
+            final HttpContext context,
+            final FutureCallback<T> callback) {
+        Args.notNull(requestProducer, "Request producer");
+        Args.notNull(responseConsumer, "Response consumer");
+        return doExecute(target, requestProducer, responseConsumer, pushHandlerFactory, context, callback);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
+#### Snippet
+```java
+            final FutureCallback<T> callback) {
+        Args.notNull(requestProducer, "Request producer");
+        Args.notNull(responseConsumer, "Response consumer");
+        return doExecute(target, requestProducer, responseConsumer, pushHandlerFactory, context, callback);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
+#### Snippet
+```java
+            final HttpContext context,
+            final FutureCallback<T> callback) {
+        Args.notNull(requestProducer, "Request producer");
+        Args.notNull(responseConsumer, "Response consumer");
+        return execute(requestProducer, responseConsumer, null, context, callback);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
+#### Snippet
+```java
+            final FutureCallback<T> callback) {
+        Args.notNull(requestProducer, "Request producer");
+        Args.notNull(responseConsumer, "Response consumer");
+        return execute(requestProducer, responseConsumer, null, context, callback);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
+#### Snippet
+```java
+            final AsyncResponseConsumer<T> responseConsumer,
+            final FutureCallback<T> callback) {
+        Args.notNull(requestProducer, "Request producer");
+        Args.notNull(responseConsumer, "Response consumer");
+        return execute(requestProducer, responseConsumer, HttpClientContext.create(), callback);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
+#### Snippet
+```java
+            final FutureCallback<T> callback) {
+        Args.notNull(requestProducer, "Request producer");
+        Args.notNull(responseConsumer, "Response consumer");
+        return execute(requestProducer, responseConsumer, HttpClientContext.create(), callback);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
+#### Snippet
+```java
+            final HttpContext context,
+            final FutureCallback<T> callback) {
+        Args.notNull(requestProducer, "Request producer");
+        Args.notNull(responseConsumer, "Response consumer");
+        return doExecute(null, requestProducer, responseConsumer, pushHandlerFactory, context, callback);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
+#### Snippet
+```java
+            final FutureCallback<T> callback) {
+        Args.notNull(requestProducer, "Request producer");
+        Args.notNull(responseConsumer, "Response consumer");
+        return doExecute(null, requestProducer, responseConsumer, pushHandlerFactory, context, callback);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/FileResource.java`
+#### Snippet
+```java
+    public FileResource(final File file) {
+        super();
+        Args.notNull(file, "File");
+        this.fileRef = new AtomicReference<>(file);
+        this.len = file.length();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `File.delete()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/FileResource.java`
+#### Snippet
+```java
+        final File file = this.fileRef.getAndSet(null);
+        if (file != null) {
+            file.delete();
+        }
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicPathHandler.java`
+#### Snippet
+```java
+    @Override
+    public boolean match(final Cookie cookie, final CookieOrigin origin) {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        return pathMatch(origin.getPath(), cookie.getPath());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicPathHandler.java`
+#### Snippet
+```java
+    public boolean match(final Cookie cookie, final CookieOrigin origin) {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        return pathMatch(origin.getPath(), cookie.getPath());
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicPathHandler.java`
+#### Snippet
+```java
+    public void parse(
+            final SetCookie cookie, final String value) throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        cookie.setPath(!TextUtils.isBlank(value) ? value : "/");
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPart.java`
+#### Snippet
+```java
+    @Override
+    public void addField(final String name, final String value) {
+        Args.notNull(name, "Field name");
+        super.addField(name, value);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPart.java`
+#### Snippet
+```java
+    FormBodyPart(final String name, final ContentBody body, final Header header) {
+        super(body, header);
+        Args.notNull(name, "Name");
+        Args.notNull(body, "Body");
+        this.name = name;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPart.java`
+#### Snippet
+```java
+        super(body, header);
+        Args.notNull(name, "Name");
+        Args.notNull(body, "Body");
+        this.name = name;
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/LoggingIOSession.java`
+#### Snippet
+```java
+    @Override
+    public void upgrade(final IOEventHandler handler) {
+        Args.notNull(handler, "Protocol handler");
+        if (log.isDebugEnabled()) {
+            log.debug("{} protocol upgrade {}", session, handler.getClass());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicClientCookie.java`
+#### Snippet
+```java
+    @Override
+    public boolean isExpired(final Date date) {
+        Args.notNull(date, "Date");
+        return (cookieExpiryDate != null
+            && cookieExpiryDate.compareTo(DateUtils.toInstant(date)) <= 0);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicClientCookie.java`
+#### Snippet
+```java
+    @Override
+    public boolean isExpired(final Instant instant) {
+        Args.notNull(instant, "Instant");
+        return (cookieExpiryDate != null
+                && cookieExpiryDate.compareTo(instant) <= 0);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicClientCookie.java`
+#### Snippet
+```java
+    public BasicClientCookie(final String name, final String value) {
+        super();
+        Args.notNull(name, "Name");
+        this.name = name;
+        this.attribs = new HashMap<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcherLoader.java`
+#### Snippet
+```java
+
+    public static PublicSuffixMatcher load(final URL url) throws IOException {
+        Args.notNull(url, "URL");
+        try (InputStream in = url.openStream()) {
+            return load(in);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcherLoader.java`
+#### Snippet
+```java
+
+    public static PublicSuffixMatcher load(final File file) throws IOException {
+        Args.notNull(file, "File");
+        try (InputStream in = new FileInputStream(file)) {
+            return load(in);
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -2937,506 +2781,26 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultRedirectStr
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ResourceReference.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ContextBuilder.java`
 #### Snippet
 ```java
-    public ResourceReference(final HttpCacheEntry entry, final ReferenceQueue<HttpCacheEntry> q) {
-        super(entry, q);
-        Args.notNull(entry.getResource(), "Resource");
-        this.resource = entry.getResource();
-    }
-```
 
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/BasicUserPrincipal.java`
-#### Snippet
-```java
-    public BasicUserPrincipal(final String username) {
-        super();
-        Args.notNull(username, "User name");
-        this.username = username;
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/InternalExecRuntime.java`
-#### Snippet
-```java
-    public void acquireEndpoint(
-            final String id, final HttpRoute route, final Object object, final HttpClientContext context) throws IOException {
-        Args.notNull(route, "Route");
-        if (endpointRef.get() == null) {
-            final RequestConfig requestConfig = context.getRequestConfig();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicAuthCache.java`
-#### Snippet
-```java
-    @Override
-    public void remove(final HttpHost host, final String pathPrefix) {
+    public ContextBuilder preemptiveBasicAuth(final HttpHost host, final UsernamePasswordCredentials credentials) {
         Args.notNull(host, "HTTP host");
-        this.map.remove(key(host.getSchemeName(), host, pathPrefix));
-    }
+        final BasicScheme authScheme = new BasicScheme(StandardCharsets.UTF_8);
+        authScheme.initPreemptive(credentials);
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicAuthCache.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ContextBuilder.java`
 #### Snippet
 ```java
-    @Override
-    public AuthScheme get(final HttpHost host, final String pathPrefix) {
+
+    public ContextBuilder preemptiveAuth(final HttpHost host, final AuthScheme authScheme) {
         Args.notNull(host, "HTTP host");
-        final byte[] bytes = this.map.get(key(host.getSchemeName(), host, pathPrefix));
-        if (bytes != null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicAuthCache.java`
-#### Snippet
-```java
-    @Override
-    public void put(final HttpHost host, final String pathPrefix, final AuthScheme authScheme) {
-        Args.notNull(host, "HTTP host");
-        if (authScheme == null) {
-            return;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpOptions.java`
-#### Snippet
-```java
-
-    public Set<String> getAllowedMethods(final HttpResponse response) {
-        Args.notNull(response, "HTTP response");
-
-        final Iterator<HeaderElement> it = MessageSupport.iterate(response, "Allow");
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
-#### Snippet
-```java
-            final AsyncResponseConsumer<T> responseConsumer,
-            final FutureCallback<T> callback) {
-        Args.notNull(requestProducer, "Request producer");
-        Args.notNull(responseConsumer, "Response consumer");
-        return execute(requestProducer, responseConsumer, HttpClientContext.create(), callback);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
-#### Snippet
-```java
-            final FutureCallback<T> callback) {
-        Args.notNull(requestProducer, "Request producer");
-        Args.notNull(responseConsumer, "Response consumer");
-        return execute(requestProducer, responseConsumer, HttpClientContext.create(), callback);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
-#### Snippet
-```java
-            final HttpContext context,
-            final FutureCallback<T> callback) {
-        Args.notNull(requestProducer, "Request producer");
-        Args.notNull(responseConsumer, "Response consumer");
-        return doExecute(target, requestProducer, responseConsumer, pushHandlerFactory, context, callback);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
-#### Snippet
-```java
-            final FutureCallback<T> callback) {
-        Args.notNull(requestProducer, "Request producer");
-        Args.notNull(responseConsumer, "Response consumer");
-        return doExecute(target, requestProducer, responseConsumer, pushHandlerFactory, context, callback);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
-#### Snippet
-```java
-            final HttpContext context,
-            final FutureCallback<T> callback) {
-        Args.notNull(requestProducer, "Request producer");
-        Args.notNull(responseConsumer, "Response consumer");
-        return doExecute(null, requestProducer, responseConsumer, pushHandlerFactory, context, callback);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
-#### Snippet
-```java
-            final FutureCallback<T> callback) {
-        Args.notNull(requestProducer, "Request producer");
-        Args.notNull(responseConsumer, "Response consumer");
-        return doExecute(null, requestProducer, responseConsumer, pushHandlerFactory, context, callback);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
-#### Snippet
-```java
-            final HttpContext context,
-            final FutureCallback<T> callback) {
-        Args.notNull(requestProducer, "Request producer");
-        Args.notNull(responseConsumer, "Response consumer");
-        return execute(requestProducer, responseConsumer, null, context, callback);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
-#### Snippet
-```java
-            final FutureCallback<T> callback) {
-        Args.notNull(requestProducer, "Request producer");
-        Args.notNull(responseConsumer, "Response consumer");
-        return execute(requestProducer, responseConsumer, null, context, callback);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/CloseableHttpAsyncClient.java`
-#### Snippet
-```java
-            final HttpContext context,
-            final FutureCallback<SimpleHttpResponse> callback) {
-        Args.notNull(request, "Request");
-        return execute(SimpleRequestProducer.create(request), SimpleResponseConsumer.create(), context, callback);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/InternalHttpClient.java`
-#### Snippet
-```java
-            final ClassicHttpRequest request,
-            final HttpContext context) throws IOException {
-        Args.notNull(request, "HTTP request");
-        try {
-            final HttpClientContext localcontext = HttpClientContext.adapt(
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
-#### Snippet
-```java
-    public final H2AsyncClientBuilder replaceExecInterceptor(final String existing, final AsyncExecChainHandler interceptor) {
-        Args.notBlank(existing, "Existing");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final H2AsyncClientBuilder addExecInterceptorFirst(final String name, final AsyncExecChainHandler interceptor) {
-        Args.notNull(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
-#### Snippet
-```java
-    public final H2AsyncClientBuilder addExecInterceptorFirst(final String name, final AsyncExecChainHandler interceptor) {
-        Args.notNull(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final H2AsyncClientBuilder addExecInterceptorLast(final String name, final AsyncExecChainHandler interceptor) {
-        Args.notNull(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
-#### Snippet
-```java
-    public final H2AsyncClientBuilder addExecInterceptorLast(final String name, final AsyncExecChainHandler interceptor) {
-        Args.notNull(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final H2AsyncClientBuilder addResponseInterceptorFirst(final HttpResponseInterceptor interceptor) {
-        Args.notNull(interceptor, "Interceptor");
-        if (responseInterceptors == null) {
-            responseInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
-#### Snippet
-```java
-        Args.notBlank(existing, "Existing");
-        Args.notBlank(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final H2AsyncClientBuilder addRequestInterceptorLast(final HttpRequestInterceptor interceptor) {
-        Args.notNull(interceptor, "Interceptor");
-        if (requestInterceptors == null) {
-            requestInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
-#### Snippet
-```java
-        Args.notBlank(existing, "Existing");
-        Args.notBlank(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final H2AsyncClientBuilder addRequestInterceptorFirst(final HttpRequestInterceptor interceptor) {
-        Args.notNull(interceptor, "Interceptor");
-        if (requestInterceptors == null) {
-            requestInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final H2AsyncClientBuilder addResponseInterceptorLast(final HttpResponseInterceptor interceptor) {
-        Args.notNull(interceptor, "Interceptor");
-        if (responseInterceptors == null) {
-            responseInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ContentCompressionExec.java`
-#### Snippet
-```java
-            final ExecChain.Scope scope,
-            final ExecChain chain) throws IOException, HttpException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(scope, "Scope");
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ContentCompressionExec.java`
-#### Snippet
-```java
-            final ExecChain chain) throws IOException, HttpException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(scope, "Scope");
-
-        final HttpClientContext clientContext = scope.clientContext;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/MinimalHttpClient.java`
-#### Snippet
-```java
-            final ClassicHttpRequest request,
-            final HttpContext context) throws IOException {
-        Args.notNull(target, "Target host");
-        Args.notNull(request, "HTTP request");
-        if (request.getScheme() == null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/MinimalHttpClient.java`
-#### Snippet
-```java
-            final HttpContext context) throws IOException {
-        Args.notNull(target, "Target host");
-        Args.notNull(request, "HTTP request");
-        if (request.getScheme() == null) {
-            request.setScheme(target.getSchemeName());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
-#### Snippet
-```java
-     */
-    public static URI normalize(final URI requestUri) throws URISyntaxException {
-        Args.notNull(requestUri, "URI");
-        final URIBuilder builder = new URIBuilder(requestUri.isAbsolute() ? URIUtils.resolve(BASE_URI, requestUri) : requestUri) ;
-        if (builder.getHost() != null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
-#### Snippet
-```java
-     */
-    public static String getRequestUri(final HttpRequest request, final HttpHost target) {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(target, "Target");
-        final StringBuilder buf = new StringBuilder();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
-#### Snippet
-```java
-    public static String getRequestUri(final HttpRequest request, final HttpHost target) {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(target, "Target");
-        final StringBuilder buf = new StringBuilder();
-        final URIAuthority authority = request.getAuthority();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestAddCookies.java`
-#### Snippet
-```java
-    public void process(final HttpRequest request, final EntityDetails entity, final HttpContext context)
-            throws HttpException, IOException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(context, "HTTP context");
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestAddCookies.java`
-#### Snippet
-```java
-            throws HttpException, IOException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(context, "HTTP context");
-
-        final String method = request.getMethod();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultConnectionKeepAliveStrategy.java`
-#### Snippet
-```java
-    @Override
-    public TimeValue getKeepAliveDuration(final HttpResponse response, final HttpContext context) {
-        Args.notNull(response, "HTTP response");
-        final Iterator<HeaderElement> it = MessageSupport.iterate(response, HeaderElements.KEEP_ALIVE);
-        while (it.hasNext()) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ProtocolExec.java`
-#### Snippet
-```java
-            final ExecChain.Scope scope,
-            final ExecChain chain) throws IOException, HttpException {
-        Args.notNull(userRequest, "HTTP request");
-        Args.notNull(scope, "Scope");
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ProtocolExec.java`
-#### Snippet
-```java
-            final ExecChain chain) throws IOException, HttpException {
-        Args.notNull(userRequest, "HTTP request");
-        Args.notNull(scope, "Scope");
-
-        if (Method.CONNECT.isSame(userRequest.getMethod())) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestAuthCache.java`
-#### Snippet
-```java
-    public void process(final HttpRequest request, final EntityDetails entity, final HttpContext context)
-            throws HttpException, IOException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(context, "HTTP context");
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestAuthCache.java`
-#### Snippet
-```java
-            throws HttpException, IOException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(context, "HTTP context");
-
-        final HttpClientContext clientContext = HttpClientContext.adapt(context);
+        if (authSchemeMap == null) {
+            authSchemeMap = new HashMap<>();
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -3472,7 +2836,7 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultHttpRequest
             final HttpContext context) {
         Args.notNull(response, "response");
 
-        final Header header = response.getFirstHeader(HttpHeaders.RETRY_AFTER);
+        return execCount <= this.maxRetries && retriableCodes.contains(response.getCode());
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -3484,612 +2848,108 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultHttpRequest
             final HttpContext context) {
         Args.notNull(response, "response");
 
-        return execCount <= this.maxRetries && retriableCodes.contains(response.getCode());
+        final Header header = response.getFirstHeader(HttpHeaders.RETRY_AFTER);
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/IdleConnectionEvictor.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieOrigin.java`
 #### Snippet
 ```java
-    public IdleConnectionEvictor(final ConnPoolControl<?> connectionManager, final ThreadFactory threadFactory,
-                                 final TimeValue sleepTime, final TimeValue maxIdleTime) {
-        Args.notNull(connectionManager, "Connection manager");
-        this.threadFactory = threadFactory != null ? threadFactory : new DefaultThreadFactory("idle-connection-evictor", true);
-        final TimeValue localSleepTime = sleepTime != null ? sleepTime : TimeValue.ofSeconds(5);
+        Args.notBlank(host, "Host");
+        Args.notNegative(port, "Port");
+        Args.notNull(path, "Path");
+        this.host = host.toLowerCase(Locale.ROOT);
+        this.port = port;
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheRevalidatorBase.java`
 #### Snippet
 ```java
-
-    public void output(final ByteBuffer b) {
-        Args.notNull(b, "Output");
-        if (b.hasArray()) {
-            output(b.array(), b.arrayOffset() + b.position(), b.remaining());
+            @Override
+            public void awaitTermination(final Timeout timeout) throws InterruptedException {
+                Args.notNull(timeout, "Timeout");
+                executorService.awaitTermination(timeout.getDuration(), timeout.getTimeUnit());
+            }
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheRevalidatorBase.java`
+#### Snippet
+```java
+            @Override
+            public ScheduledFuture<?> schedule(final Runnable command, final TimeValue timeValue) throws RejectedExecutionException {
+                Args.notNull(command, "Runnable");
+                Args.notNull(timeValue, "Time value");
+                return executorService.schedule(command, timeValue.getDuration(), timeValue.getTimeUnit());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheRevalidatorBase.java`
+#### Snippet
+```java
+            public ScheduledFuture<?> schedule(final Runnable command, final TimeValue timeValue) throws RejectedExecutionException {
+                Args.notNull(command, "Runnable");
+                Args.notNull(timeValue, "Time value");
+                return executorService.schedule(command, timeValue.getDuration(), timeValue.getTimeUnit());
+            }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheRevalidatorBase.java`
 #### Snippet
 ```java
 
-    public void input(final byte[] b) {
-        Args.notNull(b, "Input");
-        input(b, 0, b.length);
+    public void awaitTermination(final Timeout timeout) throws InterruptedException {
+        Args.notNull(timeout, "Timeout");
+        scheduledExecutor.awaitTermination(timeout);
     }
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ConnectExec.java`
 #### Snippet
 ```java
-
-    public void output(final byte[] b, final int pos, final int off) {
-        Args.notNull(b, "Output");
-        wire(">> ", b, pos, off);
-    }
+            final SchemePortResolver schemePortResolver,
+            final boolean authCachingDisabled) {
+        Args.notNull(reuseStrategy, "Connection reuse strategy");
+        Args.notNull(proxyHttpProcessor, "Proxy HTTP processor");
+        Args.notNull(proxyAuthStrategy, "Proxy authentication strategy");
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ConnectExec.java`
 #### Snippet
 ```java
-
-    public void input(final byte[] b, final int pos, final int off) {
-        Args.notNull(b, "Input");
-        wire("<< ", b, pos, off);
-    }
+            final boolean authCachingDisabled) {
+        Args.notNull(reuseStrategy, "Connection reuse strategy");
+        Args.notNull(proxyHttpProcessor, "Proxy HTTP processor");
+        Args.notNull(proxyAuthStrategy, "Proxy authentication strategy");
+        this.reuseStrategy = reuseStrategy;
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ConnectExec.java`
 #### Snippet
 ```java
-
-    public void input(final String s) {
-        Args.notNull(s, "Input");
-        input(s.getBytes());
-    }
+        Args.notNull(reuseStrategy, "Connection reuse strategy");
+        Args.notNull(proxyHttpProcessor, "Proxy HTTP processor");
+        Args.notNull(proxyAuthStrategy, "Proxy authentication strategy");
+        this.reuseStrategy = reuseStrategy;
+        this.proxyHttpProcessor = proxyHttpProcessor;
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
-#### Snippet
-```java
-
-    public void output(final byte[] b) {
-        Args.notNull(b, "Output");
-        output(b, 0, b.length);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
-#### Snippet
-```java
-
-    public void output(final String s) {
-        Args.notNull(s, "Output");
-        output(s.getBytes());
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
-#### Snippet
-```java
-
-    public void input(final ByteBuffer b) {
-        Args.notNull(b, "Input");
-        if (b.hasArray()) {
-            input(b.array(), b.arrayOffset() + b.position(), b.remaining());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ProxyClient.java`
-#### Snippet
-```java
-            final HttpHost target,
-            final Credentials credentials) throws IOException, HttpException {
-        Args.notNull(proxy, "Proxy host");
-        Args.notNull(target, "Target host");
-        Args.notNull(credentials, "Credentials");
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ProxyClient.java`
-#### Snippet
-```java
-            final Credentials credentials) throws IOException, HttpException {
-        Args.notNull(proxy, "Proxy host");
-        Args.notNull(target, "Target host");
-        Args.notNull(credentials, "Credentials");
-        HttpHost host = target;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ProxyClient.java`
-#### Snippet
-```java
-        Args.notNull(proxy, "Proxy host");
-        Args.notNull(target, "Target host");
-        Args.notNull(credentials, "Credentials");
-        HttpHost host = target;
-        if (host.getPort() <= 0) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/routing/BasicRouteDirector.java`
-#### Snippet
-```java
-    @Override
-    public int nextStep(final RouteInfo plan, final RouteInfo fact) {
-        Args.notNull(plan, "Planned route");
-
-        int step = UNREACHABLE;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/CloseableHttpClient.java`
-#### Snippet
-```java
-            final ClassicHttpRequest request,
-            final HttpContext context) throws IOException {
-        Args.notNull(request, "HTTP request");
-        return doExecute(determineTarget(request), request, context);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/CloseableHttpClient.java`
-#### Snippet
-```java
-            final HttpContext context,
-            final HttpClientResponseHandler<? extends T> responseHandler) throws IOException {
-        Args.notNull(responseHandler, "Response handler");
-
-        try (final ClassicHttpResponse response = doExecute(target, request, context)) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/HttpClientContext.java`
-#### Snippet
-```java
-
-    public static HttpClientContext adapt(final HttpContext context) {
-        Args.notNull(context, "HTTP context");
-        if (context instanceof HttpClientContext) {
-            return (HttpClientContext) context;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/AuthExchange.java`
-#### Snippet
-```java
-     */
-    public void select(final AuthScheme authScheme) {
-        Args.notNull(authScheme, "Auth scheme");
-        this.authScheme = authScheme;
-        this.authOptions = null;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultSchemePortResolver.java`
-#### Snippet
-```java
-    @Override
-    public int resolve(final String scheme, final NamedEndpoint endpoint) {
-        Args.notNull(endpoint, "Endpoint");
-        final int port = endpoint.getPort();
-        if (port > 0) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultSchemePortResolver.java`
-#### Snippet
-```java
-    @Override
-    public int resolve(final HttpHost host) {
-        Args.notNull(host, "HTTP host");
-        return resolve(host.getSchemeName(), host);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
-#### Snippet
-```java
-
-    public synchronized void closeIdle(final TimeValue idleTime) {
-        Args.notNull(idleTime, "Idle time");
-        if (isClosed()) {
-            return;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
-#### Snippet
-```java
-    @Override
-    public synchronized void connect(final ConnectionEndpoint endpoint, final TimeValue timeout, final HttpContext context) throws IOException {
-        Args.notNull(endpoint, "Endpoint");
-
-        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
-#### Snippet
-```java
-            final ConnectionEndpoint endpoint,
-            final HttpContext context) throws IOException {
-        Args.notNull(endpoint, "Endpoint");
-        Args.notNull(route, "HTTP route");
-        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
-#### Snippet
-```java
-            final HttpContext context) throws IOException {
-        Args.notNull(endpoint, "Endpoint");
-        Args.notNull(route, "HTTP route");
-        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
-        this.connectionOperator.upgrade(
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
-#### Snippet
-```java
-    @Override
-    public synchronized void release(final ConnectionEndpoint endpoint, final Object state, final TimeValue keepAlive) {
-        Args.notNull(endpoint, "Managed endpoint");
-        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
-        final ManagedHttpClientConnection conn = internalEndpoint.detach();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
-#### Snippet
-```java
-                final HttpRequestExecutor requestExecutor,
-                final HttpContext context) throws IOException, HttpException {
-            Args.notNull(request, "HTTP request");
-            Args.notNull(requestExecutor, "Request executor");
-            if (LOG.isDebugEnabled()) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
-#### Snippet
-```java
-                final HttpContext context) throws IOException, HttpException {
-            Args.notNull(request, "HTTP request");
-            Args.notNull(requestExecutor, "Request executor");
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("{} Executing exchange {}", id, exchangeId);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestDefaultHeaders.java`
-#### Snippet
-```java
-    public void process(final HttpRequest request, final EntityDetails entity, final HttpContext context)
-            throws HttpException, IOException {
-        Args.notNull(request, "HTTP request");
-
-        final String method = request.getMethod();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/ResponseProcessCookies.java`
-#### Snippet
-```java
-    public void process(final HttpResponse response, final EntityDetails entity, final HttpContext context)
-            throws HttpException, IOException {
-        Args.notNull(response, "HTTP request");
-        Args.notNull(context, "HTTP context");
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/ResponseProcessCookies.java`
-#### Snippet
-```java
-            throws HttpException, IOException {
-        Args.notNull(response, "HTTP request");
-        Args.notNull(context, "HTTP context");
-
-        final HttpClientContext clientContext = HttpClientContext.adapt(context);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/BackoffStrategyExec.java`
-#### Snippet
-```java
-            final BackoffManager backoffManager) {
-        super();
-        Args.notNull(connectionBackoffStrategy, "Connection backoff strategy");
-        Args.notNull(backoffManager, "Backoff manager");
-        this.connectionBackoffStrategy = connectionBackoffStrategy;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/BackoffStrategyExec.java`
-#### Snippet
-```java
-        super();
-        Args.notNull(connectionBackoffStrategy, "Connection backoff strategy");
-        Args.notNull(backoffManager, "Backoff manager");
-        this.connectionBackoffStrategy = connectionBackoffStrategy;
-        this.backoffManager = backoffManager;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/BackoffStrategyExec.java`
-#### Snippet
-```java
-            final ExecChain.Scope scope,
-            final ExecChain chain) throws IOException, HttpException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(scope, "Scope");
-        final HttpRoute route = scope.route;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/BackoffStrategyExec.java`
-#### Snippet
-```java
-            final ExecChain chain) throws IOException, HttpException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(scope, "Scope");
-        final HttpRoute route = scope.route;
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleResponseBuilder.java`
-#### Snippet
-```java
-
-    public static SimpleResponseBuilder copy(final SimpleHttpResponse response) {
-        Args.notNull(response, "HTTP response");
-        final SimpleResponseBuilder builder = new SimpleResponseBuilder(response.getCode());
-        builder.digest(response);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
-#### Snippet
-```java
-    @Override
-    public final List<Cookie> parse(final Header header, final CookieOrigin origin) throws MalformedCookieException {
-        Args.notNull(header, "Header");
-        Args.notNull(origin, "Cookie origin");
-        if (!header.getName().equalsIgnoreCase("Set-Cookie")) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
-#### Snippet
-```java
-    public final List<Cookie> parse(final Header header, final CookieOrigin origin) throws MalformedCookieException {
-        Args.notNull(header, "Header");
-        Args.notNull(origin, "Cookie origin");
-        if (!header.getName().equalsIgnoreCase("Set-Cookie")) {
-            throw new MalformedCookieException("Unrecognized cookie header: '" + header + "'");
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
-#### Snippet
-```java
-    @Override
-    public final boolean match(final Cookie cookie, final CookieOrigin origin) {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        for (final CookieAttributeHandler handler: this.attribHandlers) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
-#### Snippet
-```java
-    public final boolean match(final Cookie cookie, final CookieOrigin origin) {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        for (final CookieAttributeHandler handler: this.attribHandlers) {
-            if (!handler.match(cookie, origin)) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
-#### Snippet
-```java
-    public final void validate(final Cookie cookie, final CookieOrigin origin)
-            throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        for (final CookieAttributeHandler handler: this.attribHandlers) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpec.java`
-#### Snippet
-```java
-            throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        for (final CookieAttributeHandler handler: this.attribHandlers) {
-            handler.validate(cookie, origin);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultAuthenticationStrategy.java`
-#### Snippet
-```java
-            final Map<String, AuthChallenge> challenges,
-            final HttpContext context) {
-        Args.notNull(challengeType, "ChallengeType");
-        Args.notNull(challenges, "Map of auth challenges");
-        Args.notNull(context, "HTTP context");
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultAuthenticationStrategy.java`
-#### Snippet
-```java
-            final HttpContext context) {
-        Args.notNull(challengeType, "ChallengeType");
-        Args.notNull(challenges, "Map of auth challenges");
-        Args.notNull(context, "HTTP context");
-        final HttpClientContext clientContext = HttpClientContext.adapt(context);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultAuthenticationStrategy.java`
-#### Snippet
-```java
-        Args.notNull(challengeType, "ChallengeType");
-        Args.notNull(challenges, "Map of auth challenges");
-        Args.notNull(context, "HTTP context");
-        final HttpClientContext clientContext = HttpClientContext.adapt(context);
-        final String exchangeId = clientContext.getExchangeId();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestProducer.java`
-#### Snippet
-```java
-
-    public static SimpleRequestProducer create(final SimpleHttpRequest request) {
-        Args.notNull(request, "Request");
-        final SimpleBody body = request.getBody();
-        final AsyncEntityProducer entityProducer;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicHttpOnlyHandler.java`
-#### Snippet
-```java
-    public void parse(final SetCookie cookie, final String value)
-            throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        cookie.setHttpOnly(true);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/PublicSuffixDomainFilter.java`
-#### Snippet
-```java
-    public PublicSuffixDomainFilter(
-            final CommonCookieAttributeHandler handler, final PublicSuffixList suffixList) {
-        Args.notNull(handler, "Cookie handler");
-        Args.notNull(suffixList, "Public suffix list");
-        this.handler = handler;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/PublicSuffixDomainFilter.java`
-#### Snippet
-```java
-            final CommonCookieAttributeHandler handler, final PublicSuffixList suffixList) {
-        Args.notNull(handler, "Cookie handler");
-        Args.notNull(suffixList, "Public suffix list");
-        this.handler = handler;
-        this.publicSuffixMatcher = new PublicSuffixMatcher(suffixList.getRules(), suffixList.getExceptions());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/PublicSuffixDomainFilter.java`
-#### Snippet
-```java
-    public static CommonCookieAttributeHandler decorate(
-            final CommonCookieAttributeHandler handler, final PublicSuffixMatcher publicSuffixMatcher) {
-        Args.notNull(handler, "Cookie attribute handler");
-        return publicSuffixMatcher != null ? new PublicSuffixDomainFilter(handler, publicSuffixMatcher) : handler;
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/RedirectExec.java`
-#### Snippet
-```java
-            final RedirectStrategy redirectStrategy) {
-        super();
-        Args.notNull(routePlanner, "HTTP route planner");
-        Args.notNull(redirectStrategy, "HTTP redirect strategy");
-        this.routePlanner = routePlanner;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/RedirectExec.java`
-#### Snippet
-```java
-        super();
-        Args.notNull(routePlanner, "HTTP route planner");
-        Args.notNull(redirectStrategy, "HTTP redirect strategy");
-        this.routePlanner = routePlanner;
-        this.redirectStrategy = redirectStrategy;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/RedirectExec.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ConnectExec.java`
 #### Snippet
 ```java
             final ExecChain.Scope scope,
@@ -4101,578 +2961,14 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/RedirectEx
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/RedirectExec.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ConnectExec.java`
 #### Snippet
 ```java
             final ExecChain chain) throws IOException, HttpException {
         Args.notNull(request, "HTTP request");
         Args.notNull(scope, "Scope");
 
-        final HttpClientContext context = scope.clientContext;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpResponse.java`
-#### Snippet
-```java
-
-    public static SimpleHttpResponse copy(final HttpResponse original) {
-        Args.notNull(original, "HTTP response");
-        final SimpleHttpResponse copy = new SimpleHttpResponse(original.getCode());
-        copy.setVersion(original.getVersion());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicScheme.java`
-#### Snippet
-```java
-            final HttpContext context) throws AuthenticationException {
-
-        Args.notNull(host, "Auth host");
-        Args.notNull(credentialsProvider, "CredentialsProvider");
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicScheme.java`
-#### Snippet
-```java
-
-        Args.notNull(host, "Auth host");
-        Args.notNull(credentialsProvider, "CredentialsProvider");
-
-        final AuthScope authScope = new AuthScope(host, getRealm(), getName());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMScheme.java`
-#### Snippet
-```java
-            final HttpContext context) throws AuthenticationException {
-
-        Args.notNull(host, "Auth host");
-        Args.notNull(credentialsProvider, "CredentialsProvider");
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMScheme.java`
-#### Snippet
-```java
-
-        Args.notNull(host, "Auth host");
-        Args.notNull(credentialsProvider, "CredentialsProvider");
-
-        final AuthScope authScope = new AuthScope(host, null, getName());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMScheme.java`
-#### Snippet
-```java
-            final AuthChallenge authChallenge,
-            final HttpContext context) throws MalformedChallengeException {
-        Args.notNull(authChallenge, "AuthChallenge");
-
-        this.challenge = authChallenge.getValue();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMScheme.java`
-#### Snippet
-```java
-    public NTLMScheme(final NTLMEngine engine) {
-        super();
-        Args.notNull(engine, "NTLM engine");
-        this.engine = engine;
-        this.state = State.UNINITIATED;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final HttpClientBuilder addRequestInterceptorLast(final HttpRequestInterceptor interceptor) {
-        Args.notNull(interceptor, "Interceptor");
-        if (requestInterceptors == null) {
-            requestInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final HttpClientBuilder addResponseInterceptorLast(final HttpResponseInterceptor interceptor) {
-        Args.notNull(interceptor, "Interceptor");
-        if (responseInterceptors == null) {
-            responseInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final HttpClientBuilder addRequestInterceptorFirst(final HttpRequestInterceptor interceptor) {
-        Args.notNull(interceptor, "Interceptor");
-        if (requestInterceptors == null) {
-            requestInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
-#### Snippet
-```java
-        Args.notBlank(existing, "Existing");
-        Args.notBlank(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final HttpClientBuilder addResponseInterceptorFirst(final HttpResponseInterceptor interceptor) {
-        Args.notNull(interceptor, "Interceptor");
-        if (responseInterceptors == null) {
-            responseInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final HttpClientBuilder addExecInterceptorLast(final String name, final ExecChainHandler interceptor) {
-        Args.notNull(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
-#### Snippet
-```java
-    public final HttpClientBuilder addExecInterceptorLast(final String name, final ExecChainHandler interceptor) {
-        Args.notNull(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
-#### Snippet
-```java
-     */
-    public final HttpClientBuilder addExecInterceptorFirst(final String name, final ExecChainHandler interceptor) {
-        Args.notNull(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
-#### Snippet
-```java
-    public final HttpClientBuilder addExecInterceptorFirst(final String name, final ExecChainHandler interceptor) {
-        Args.notNull(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
-#### Snippet
-```java
-    public final HttpClientBuilder replaceExecInterceptor(final String existing, final ExecChainHandler interceptor) {
-        Args.notBlank(existing, "Existing");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
-#### Snippet
-```java
-        Args.notBlank(existing, "Existing");
-        Args.notBlank(name, "Name");
-        Args.notNull(interceptor, "Interceptor");
-        if (execInterceptors == null) {
-            execInterceptors = new LinkedList<>();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleBody.java`
-#### Snippet
-```java
-
-    static SimpleBody create(final String body, final ContentType contentType) {
-        Args.notNull(body, "Body");
-        if (body.length() > 2048) {
-            return new SimpleBody(null, body, contentType);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleBody.java`
-#### Snippet
-```java
-
-    static SimpleBody create(final byte[] body, final ContentType contentType) {
-        Args.notNull(body, "Body");
-        return new SimpleBody(body, null, contentType);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpRequest.java`
-#### Snippet
-```java
-    @Deprecated
-    public static SimpleHttpRequest copy(final HttpRequest original) {
-        Args.notNull(original, "HTTP request");
-        final SimpleHttpRequest copy = new SimpleHttpRequest(original.getMethod(), original.getRequestUri());
-        copy.setVersion(original.getVersion());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicDomainHandler.java`
-#### Snippet
-```java
-    public void parse(final SetCookie cookie, final String value)
-            throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        if (TextUtils.isBlank(value)) {
-            throw new MalformedCookieException("Blank or null value for domain attribute");
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicDomainHandler.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final Cookie cookie, final CookieOrigin origin) {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        final String host = origin.getHost();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicDomainHandler.java`
-#### Snippet
-```java
-    public boolean match(final Cookie cookie, final CookieOrigin origin) {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        final String host = origin.getHost();
-        String domain = cookie.getDomain();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicDomainHandler.java`
-#### Snippet
-```java
-    public void validate(final Cookie cookie, final CookieOrigin origin)
-            throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        // Validate the cookies domain attribute.  NOTE:  Domains without
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicDomainHandler.java`
-#### Snippet
-```java
-            throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        // Validate the cookies domain attribute.  NOTE:  Domains without
-        // any dots are allowed to support hosts on private LANs that don't
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheConfig.java`
-#### Snippet
-```java
-
-    public static Builder copy(final CacheConfig config) {
-        Args.notNull(config, "Cache config");
-        return new Builder()
-            .setMaxObjectSize(config.getMaxObjectSize())
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingExec.java`
-#### Snippet
-```java
-            final ExecChain.Scope scope,
-            final ExecChain chain) throws IOException, HttpException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(scope, "Scope");
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingExec.java`
-#### Snippet
-```java
-            final ExecChain chain) throws IOException, HttpException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(scope, "Scope");
-
-        final HttpRoute route = scope.route;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `File.delete()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/FileResource.java`
-#### Snippet
-```java
-        final File file = this.fileRef.getAndSet(null);
-        if (file != null) {
-            file.delete();
-        }
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/FileResource.java`
-#### Snippet
-```java
-    public FileResource(final File file) {
-        super();
-        Args.notNull(file, "File");
-        this.fileRef = new AtomicReference<>(file);
-        this.len = file.length();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/schedule/ConcurrentCountMap.java`
-#### Snippet
-```java
-
-    public int getCount(final T identifier) {
-        Args.notNull(identifier, "Identifier");
-        final AtomicInteger count = map.get(identifier);
-        return count != null ? count.get() : 0;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/schedule/ConcurrentCountMap.java`
-#### Snippet
-```java
-
-    public int increaseCount(final T identifier) {
-        Args.notNull(identifier, "Identifier");
-        final AtomicInteger count = get(identifier);
-        return count.incrementAndGet();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/schedule/ConcurrentCountMap.java`
-#### Snippet
-```java
-
-    public void resetCount(final T identifier) {
-        Args.notNull(identifier, "Identifier");
-        map.remove(identifier);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicPathHandler.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final Cookie cookie, final CookieOrigin origin) {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        return pathMatch(origin.getPath(), cookie.getPath());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicPathHandler.java`
-#### Snippet
-```java
-    public boolean match(final Cookie cookie, final CookieOrigin origin) {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        return pathMatch(origin.getPath(), cookie.getPath());
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicPathHandler.java`
-#### Snippet
-```java
-    public void parse(
-            final SetCookie cookie, final String value) throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        cookie.setPath(!TextUtils.isBlank(value) ? value : "/");
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultHttpClientConnectionOperator.java`
-#### Snippet
-```java
-            final DnsResolver dnsResolver) {
-        super();
-        Args.notNull(socketFactoryRegistry, "Socket factory registry");
-        this.socketFactoryRegistry = socketFactoryRegistry;
-        this.schemePortResolver = schemePortResolver != null ? schemePortResolver :
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultHttpClientConnectionOperator.java`
-#### Snippet
-```java
-            final Object attachment,
-            final HttpContext context) throws IOException {
-        Args.notNull(conn, "Connection");
-        Args.notNull(host, "Host");
-        Args.notNull(socketConfig, "Socket config");
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultHttpClientConnectionOperator.java`
-#### Snippet
-```java
-            final HttpContext context) throws IOException {
-        Args.notNull(conn, "Connection");
-        Args.notNull(host, "Host");
-        Args.notNull(socketConfig, "Socket config");
-        Args.notNull(context, "Context");
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultHttpClientConnectionOperator.java`
-#### Snippet
-```java
-        Args.notNull(conn, "Connection");
-        Args.notNull(host, "Host");
-        Args.notNull(socketConfig, "Socket config");
-        Args.notNull(context, "Context");
-        final Lookup<ConnectionSocketFactory> registry = getSocketFactoryRegistry(context);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultHttpClientConnectionOperator.java`
-#### Snippet
-```java
-        Args.notNull(host, "Host");
-        Args.notNull(socketConfig, "Socket config");
-        Args.notNull(context, "Context");
-        final Lookup<ConnectionSocketFactory> registry = getSocketFactoryRegistry(context);
-        final ConnectionSocketFactory sf = registry.lookup(host.getSchemeName());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
-#### Snippet
-```java
-    @Override
-    public Cancellable getEntries(final Collection<String> keys, final FutureCallback<Map<String, HttpCacheEntry>> callback) {
-        Args.notNull(keys, "Key");
-        Args.notNull(callback, "Callback");
-        try {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
-#### Snippet
-```java
-    public Cancellable getEntries(final Collection<String> keys, final FutureCallback<Map<String, HttpCacheEntry>> callback) {
-        Args.notNull(keys, "Key");
-        Args.notNull(callback, "Callback");
-        try {
-            callback.completed(cacheStorage.getEntries(keys));
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
-#### Snippet
-```java
-    public Cancellable removeEntry(final String key, final FutureCallback<Boolean> callback) {
-        Args.notEmpty(key, "Key");
-        Args.notNull(callback, "Callback");
-        try {
-            cacheStorage.removeEntry(key);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
-#### Snippet
-```java
-    public Cancellable putEntry(final String key, final HttpCacheEntry entry, final FutureCallback<Boolean> callback) {
-        Args.notEmpty(key, "Key");
-        Args.notNull(entry, "Cache entry");
-        Args.notNull(callback, "Callback");
-        try {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
-#### Snippet
-```java
-        Args.notEmpty(key, "Key");
-        Args.notNull(entry, "Cache entry");
-        Args.notNull(callback, "Callback");
-        try {
-            cacheStorage.putEntry(key, entry);
+        final String exchangeId = scope.exchangeId;
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -4704,6 +3000,66 @@ Result of `Args.notNull()` is ignored
 in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
 #### Snippet
 ```java
+    public Cancellable putEntry(final String key, final HttpCacheEntry entry, final FutureCallback<Boolean> callback) {
+        Args.notEmpty(key, "Key");
+        Args.notNull(entry, "Cache entry");
+        Args.notNull(callback, "Callback");
+        try {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
+#### Snippet
+```java
+        Args.notEmpty(key, "Key");
+        Args.notNull(entry, "Cache entry");
+        Args.notNull(callback, "Callback");
+        try {
+            cacheStorage.putEntry(key, entry);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
+#### Snippet
+```java
+    public Cancellable removeEntry(final String key, final FutureCallback<Boolean> callback) {
+        Args.notEmpty(key, "Key");
+        Args.notNull(callback, "Callback");
+        try {
+            cacheStorage.removeEntry(key);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
+#### Snippet
+```java
+    @Override
+    public Cancellable getEntries(final Collection<String> keys, final FutureCallback<Map<String, HttpCacheEntry>> callback) {
+        Args.notNull(keys, "Key");
+        Args.notNull(callback, "Callback");
+        try {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
+#### Snippet
+```java
+    public Cancellable getEntries(final Collection<String> keys, final FutureCallback<Map<String, HttpCacheEntry>> callback) {
+        Args.notNull(keys, "Key");
+        Args.notNull(callback, "Callback");
+        try {
+            callback.completed(cacheStorage.getEntries(keys));
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCacheStorageAdaptor.java`
+#### Snippet
+```java
     public Cancellable getEntry(final String key, final FutureCallback<HttpCacheEntry> callback) {
         Args.notEmpty(key, "Key");
         Args.notNull(callback, "Callback");
@@ -4713,566 +3069,14 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpAsyncCa
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractContentBody.java`
-#### Snippet
-```java
-    public AbstractContentBody(final ContentType contentType) {
-        super();
-        Args.notNull(contentType, "Content type");
-        this.contentType = contentType;
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/MultihomeConnectionInitiator.java`
-#### Snippet
-```java
-            final Object attachment,
-            final FutureCallback<IOSession> callback) {
-        Args.notNull(remoteEndpoint, "Remote endpoint");
-        return sessionRequester.connect(connectionInitiator, remoteEndpoint, localAddress, connectTimeout, attachment, callback);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/MultihomeConnectionInitiator.java`
-#### Snippet
-```java
-            final Object attachment,
-            final FutureCallback<IOSession> callback) {
-        Args.notNull(remoteEndpoint, "Remote endpoint");
-        return sessionRequester.connect(connectionInitiator, remoteEndpoint, remoteAddress, localAddress, connectTimeout, attachment, callback);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/UsernamePasswordCredentials.java`
-#### Snippet
-```java
-    public UsernamePasswordCredentials(final String userName, final char[] password) {
-        super();
-        Args.notNull(userName, "Username");
-        this.principal = new BasicUserPrincipal(userName);
-        this.password = password;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
-#### Snippet
-```java
-     */
-    public static URI resolve(final URI baseURI, final URI reference) {
-        Args.notNull(baseURI, "Base URI");
-        Args.notNull(reference, "Reference URI");
-        final String s = reference.toASCIIString();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
-#### Snippet
-```java
-    public static URI resolve(final URI baseURI, final URI reference) {
-        Args.notNull(baseURI, "Base URI");
-        Args.notNull(reference, "Reference URI");
-        final String s = reference.toASCIIString();
-        if (s.startsWith("?")) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
-#### Snippet
-```java
-            final HttpHost target,
-            final boolean dropFragment) throws URISyntaxException {
-        Args.notNull(uri, "URI");
-        if (uri.isOpaque()) {
-            return uri;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
-#### Snippet
-```java
-            final HttpHost target,
-            final List<URI> redirects) throws URISyntaxException {
-        Args.notNull(originalURI, "Request URI");
-        final URIBuilder uribuilder;
-        if (redirects == null || redirects.isEmpty()) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static URI rewriteURI(final URI uri) throws URISyntaxException {
-        Args.notNull(uri, "URI");
-        if (uri.isOpaque()) {
-            return uri;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpRequestRetryExec.java`
-#### Snippet
-```java
-    public HttpRequestRetryExec(
-            final HttpRequestRetryStrategy retryStrategy) {
-         Args.notNull(retryStrategy, "retryStrategy");
-         this.retryStrategy = retryStrategy;
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpRequestRetryExec.java`
-#### Snippet
-```java
-            final Scope scope,
-            final ExecChain chain) throws IOException, HttpException {
-        Args.notNull(request, "request");
-        Args.notNull(scope, "scope");
-        final String exchangeId = scope.exchangeId;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpRequestRetryExec.java`
-#### Snippet
-```java
-            final ExecChain chain) throws IOException, HttpException {
-        Args.notNull(request, "request");
-        Args.notNull(scope, "scope");
-        final String exchangeId = scope.exchangeId;
-        final HttpRoute route = scope.route;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-    @Override
-    public final Cancellable removeEntry(final String key, final FutureCallback<Boolean> callback) {
-        Args.notNull(key, "Storage key");
-        Args.notNull(callback, "Callback");
-        try {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-    public final Cancellable removeEntry(final String key, final FutureCallback<Boolean> callback) {
-        Args.notNull(key, "Storage key");
-        Args.notNull(callback, "Callback");
-        try {
-            final String storageKey = digestToStorageKey(key);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-    @Override
-    public final Cancellable getEntry(final String key, final FutureCallback<HttpCacheEntry> callback) {
-        Args.notNull(key, "Storage key");
-        Args.notNull(callback, "Callback");
-        try {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-    public final Cancellable getEntry(final String key, final FutureCallback<HttpCacheEntry> callback) {
-        Args.notNull(key, "Storage key");
-        Args.notNull(callback, "Callback");
-        try {
-            final String storageKey = digestToStorageKey(key);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-    public final Cancellable updateEntry(
-            final String key, final HttpCacheCASOperation casOperation, final FutureCallback<Boolean> callback) {
-        Args.notNull(key, "Storage key");
-        Args.notNull(casOperation, "CAS operation");
-        Args.notNull(callback, "Callback");
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-            final String key, final HttpCacheCASOperation casOperation, final FutureCallback<Boolean> callback) {
-        Args.notNull(key, "Storage key");
-        Args.notNull(casOperation, "CAS operation");
-        Args.notNull(callback, "Callback");
-        final ComplexCancellable complexCancellable = new ComplexCancellable();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-        Args.notNull(key, "Storage key");
-        Args.notNull(casOperation, "CAS operation");
-        Args.notNull(callback, "Callback");
-        final ComplexCancellable complexCancellable = new ComplexCancellable();
-        final AtomicInteger count = new AtomicInteger(0);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-    public final Cancellable putEntry(
-            final String key, final HttpCacheEntry entry, final FutureCallback<Boolean> callback) {
-        Args.notNull(key, "Storage key");
-        Args.notNull(callback, "Callback");
-        try {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-            final String key, final HttpCacheEntry entry, final FutureCallback<Boolean> callback) {
-        Args.notNull(key, "Storage key");
-        Args.notNull(callback, "Callback");
-        try {
-            final String storageKey = digestToStorageKey(key);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-    @Override
-    public final Cancellable getEntries(final Collection<String> keys, final FutureCallback<Map<String, HttpCacheEntry>> callback) {
-        Args.notNull(keys, "Storage keys");
-        Args.notNull(callback, "Callback");
-        try {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-    public final Cancellable getEntries(final Collection<String> keys, final FutureCallback<Map<String, HttpCacheEntry>> callback) {
-        Args.notNull(keys, "Storage keys");
-        Args.notNull(callback, "Callback");
-        try {
-            final List<String> storageKeys = new ArrayList<>(keys.size());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/MainClientExec.java`
-#### Snippet
-```java
-            final ExecChain.Scope scope,
-            final ExecChain chain) throws IOException, HttpException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(scope, "Scope");
-        final String exchangeId = scope.exchangeId;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/MainClientExec.java`
-#### Snippet
-```java
-            final ExecChain chain) throws IOException, HttpException {
-        Args.notNull(request, "HTTP request");
-        Args.notNull(scope, "Scope");
-        final String exchangeId = scope.exchangeId;
-        final HttpRoute route = scope.route;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/SystemDefaultCredentialsProvider.java`
-#### Snippet
-```java
-    @Override
-    public Credentials getCredentials(final AuthScope authScope, final HttpContext context) {
-        Args.notNull(authScope, "Auth scope");
-        final Credentials localcreds = internal.getCredentials(authScope, context);
-        if (localcreds != null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/FileResourceFactory.java`
-#### Snippet
-```java
-    @Override
-    public Resource generate(final String requestId, final byte[] content) throws ResourceIOException {
-        Args.notNull(content, "Content");
-        return generate(requestId, content, 0, content.length);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/FileResourceFactory.java`
-#### Snippet
-```java
-            final String requestId,
-            final byte[] content, final int off, final int len) throws ResourceIOException {
-        Args.notNull(requestId, "Request id");
-        final File file = generateUniqueCacheFile(requestId);
-        try (FileOutputStream outStream = new FileOutputStream(file)) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestClientConnControl.java`
-#### Snippet
-```java
-    public void process(final HttpRequest request, final EntityDetails entity, final HttpContext context)
-            throws HttpException, IOException {
-        Args.notNull(request, "HTTP request");
-
-        final String method = request.getMethod();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/InMemoryDnsResolver.java`
-#### Snippet
-```java
-     */
-    public void add(final String host, final InetAddress... ips) {
-        Args.notNull(host, "Host name");
-        Args.notNull(ips, "Array of IP addresses");
-        dnsMap.put(host, ips);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/InMemoryDnsResolver.java`
-#### Snippet
-```java
-    public void add(final String host, final InetAddress... ips) {
-        Args.notNull(host, "Host name");
-        Args.notNull(ips, "Array of IP addresses");
-        dnsMap.put(host, ips);
-    }
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/CookieSpecBase.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final Cookie cookie, final CookieOrigin origin) {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        for (final CookieAttributeHandler handler: getAttribHandlers()) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/CookieSpecBase.java`
-#### Snippet
-```java
-    public boolean match(final Cookie cookie, final CookieOrigin origin) {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        for (final CookieAttributeHandler handler: getAttribHandlers()) {
-            if (!handler.match(cookie, origin)) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/CookieSpecBase.java`
-#### Snippet
-```java
-    public void validate(final Cookie cookie, final CookieOrigin origin)
-            throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        for (final CookieAttributeHandler handler: getAttribHandlers()) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/CookieSpecBase.java`
-#### Snippet
-```java
-            throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        Args.notNull(origin, "Cookie origin");
-        for (final CookieAttributeHandler handler: getAttribHandlers()) {
-            handler.validate(cookie, origin);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
-#### Snippet
-```java
-
-    public void initPreemptive(final Credentials credentials, final String cnonce, final String realm) {
-        Args.notNull(credentials, "Credentials");
-        this.username = credentials.getUserPrincipal().getName();
-        this.password = credentials.getPassword();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
-#### Snippet
-```java
-            final HttpContext context) throws AuthenticationException {
-
-        Args.notNull(request, "HTTP request");
-        if (this.paramMap.get("realm") == null) {
-            throw new AuthenticationException("missing realm");
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
-#### Snippet
-```java
-            final HttpContext context) throws AuthenticationException {
-
-        Args.notNull(host, "Auth host");
-        Args.notNull(credentialsProvider, "CredentialsProvider");
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
-#### Snippet
-```java
-
-        Args.notNull(host, "Auth host");
-        Args.notNull(credentialsProvider, "CredentialsProvider");
-
-        final AuthScope authScope = new AuthScope(host, getRealm(), getName());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
+in `httpclient5-win/src/main/java/org/apache/hc/client5/http/impl/win/WindowsNegotiateScheme.java`
 #### Snippet
 ```java
             final AuthChallenge authChallenge,
             final HttpContext context) throws MalformedChallengeException {
         Args.notNull(authChallenge, "AuthChallenge");
-        this.paramMap.clear();
-        final List<NameValuePair> params = authChallenge.getParams();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/LaxExpiresHandler.java`
-#### Snippet
-```java
-    @Override
-    public void parse(final SetCookie cookie, final String value) throws MalformedCookieException {
-        Args.notNull(cookie, "Cookie");
-        if (TextUtils.isBlank(value)) {
-            return;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/RouteTracker.java`
-#### Snippet
-```java
-     */
-    public void connectProxy(final HttpHost proxy, final boolean secure) {
-        Args.notNull(proxy, "Proxy host");
-        Asserts.check(!this.connected, "Already connected");
-        this.connected  = true;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/RouteTracker.java`
-#### Snippet
-```java
-     */
-    public void tunnelProxy(final HttpHost proxy, final boolean secure) {
-        Args.notNull(proxy, "Proxy host");
-        Asserts.check(this.connected, "No tunnel unless connected");
-        Asserts.notNull(this.proxyChain, "No tunnel without proxy");
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/RouteTracker.java`
-#### Snippet
-```java
-     */
-    public RouteTracker(final HttpHost target, final InetAddress local) {
-        Args.notNull(target, "Target host");
-        this.targetHost   = target;
-        this.localAddress = local;
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
-#### Snippet
-```java
-    public PublicSuffixMatcher(
-            final DomainType domainType, final Collection<String> rules, final Collection<String> exceptions) {
-        Args.notNull(domainType,  "Domain type");
-        Args.notNull(rules,  "Domain suffix rules");
-        this.rules = new ConcurrentHashMap<>(rules.size());
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
-#### Snippet
-```java
-            final DomainType domainType, final Collection<String> rules, final Collection<String> exceptions) {
-        Args.notNull(domainType,  "Domain type");
-        Args.notNull(rules,  "Domain suffix rules");
-        this.rules = new ConcurrentHashMap<>(rules.size());
-        for (final String rule: rules) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
-#### Snippet
-```java
-     */
-    public PublicSuffixMatcher(final Collection<PublicSuffixList> lists) {
-        Args.notNull(lists,  "Domain suffix lists");
-        this.rules = new ConcurrentHashMap<>();
-        this.exceptions = new ConcurrentHashMap<>();
+        challengeType = authChallenge.getChallengeType();
+        challenge = authChallenge.getValue();
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -5349,86 +3153,1310 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpCacheEn
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncHttpRequestRetryExec.java`
 #### Snippet
 ```java
-            final String url,
-            final HttpCacheCASOperation casOperation) throws ResourceIOException {
-        Args.notNull(url, "URL");
+
+    public AsyncHttpRequestRetryExec(final HttpRequestRetryStrategy retryStrategy) {
+        Args.notNull(retryStrategy, "retryStrategy");
+        this.retryStrategy = retryStrategy;
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicMaxAgeHandler.java`
+#### Snippet
+```java
+    public void parse(final SetCookie cookie, final String value)
+            throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        if (value == null) {
+            throw new MalformedCookieException("Missing value for 'max-age' attribute");
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/LaxMaxAgeHandler.java`
+#### Snippet
+```java
+    @Override
+    public void parse(final SetCookie cookie, final String value) throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        if (TextUtils.isBlank(value)) {
+            return;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicAuthCache.java`
+#### Snippet
+```java
+    @Override
+    public AuthScheme get(final HttpHost host, final String pathPrefix) {
+        Args.notNull(host, "HTTP host");
+        final byte[] bytes = this.map.get(key(host.getSchemeName(), host, pathPrefix));
+        if (bytes != null) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicAuthCache.java`
+#### Snippet
+```java
+    @Override
+    public void put(final HttpHost host, final String pathPrefix, final AuthScheme authScheme) {
+        Args.notNull(host, "HTTP host");
+        if (authScheme == null) {
+            return;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicAuthCache.java`
+#### Snippet
+```java
+    @Override
+    public void remove(final HttpHost host, final String pathPrefix) {
+        Args.notNull(host, "HTTP host");
+        this.map.remove(key(host.getSchemeName(), host, pathPrefix));
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/InternalExecRuntime.java`
+#### Snippet
+```java
+    public void acquireEndpoint(
+            final String id, final HttpRoute route, final Object object, final HttpClientContext context) throws IOException {
+        Args.notNull(route, "Route");
+        if (endpointRef.get() == null) {
+            final RequestConfig requestConfig = context.getRequestConfig();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
+#### Snippet
+```java
+     */
+    public static Instant parseDate(final String dateValue, final DateTimeFormatter... dateFormatters) {
+        Args.notNull(dateValue, "Date value");
+        String v = dateValue;
+        // trim single quotes around date if present
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    public static String formatDate(final Date date, final String pattern) {
+        Args.notNull(date, "Date");
+        Args.notNull(pattern, "Pattern");
+        return DateTimeFormatter.ofPattern(pattern).format(toInstant(date).atZone(GMT_ID));
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
+#### Snippet
+```java
+    public static String formatDate(final Date date, final String pattern) {
+        Args.notNull(date, "Date");
+        Args.notNull(pattern, "Pattern");
+        return DateTimeFormatter.ofPattern(pattern).format(toInstant(date).atZone(GMT_ID));
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
+#### Snippet
+```java
+     */
+    public static String formatDate(final Instant instant, final DateTimeFormatter dateTimeFormatter) {
+        Args.notNull(instant, "Instant");
+        Args.notNull(dateTimeFormatter, "DateTimeFormatter");
+        return dateTimeFormatter.format(instant.atZone(GMT_ID));
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
+#### Snippet
+```java
+    public static String formatDate(final Instant instant, final DateTimeFormatter dateTimeFormatter) {
+        Args.notNull(instant, "Instant");
+        Args.notNull(dateTimeFormatter, "DateTimeFormatter");
+        return dateTimeFormatter.format(instant.atZone(GMT_ID));
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/InternalHttpClient.java`
+#### Snippet
+```java
+            final ClassicHttpRequest request,
+            final HttpContext context) throws IOException {
+        Args.notNull(request, "HTTP request");
+        try {
+            final HttpClientContext localcontext = HttpClientContext.adapt(
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AsyncCachingExec.java`
+#### Snippet
+```java
+            final AsyncExecChain chain,
+            final AsyncExecCallback asyncExecCallback) throws HttpException, IOException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(scope, "Scope");
+
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AsyncCachingExec.java`
+#### Snippet
+```java
+            final AsyncExecCallback asyncExecCallback) throws HttpException, IOException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(scope, "Scope");
+
+        final HttpRoute route = scope.route;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/RedirectExec.java`
+#### Snippet
+```java
+            final ExecChain.Scope scope,
+            final ExecChain chain) throws IOException, HttpException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(scope, "Scope");
+
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/RedirectExec.java`
+#### Snippet
+```java
+            final ExecChain chain) throws IOException, HttpException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(scope, "Scope");
+
+        final HttpClientContext context = scope.clientContext;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/RedirectExec.java`
+#### Snippet
+```java
+            final RedirectStrategy redirectStrategy) {
+        super();
+        Args.notNull(routePlanner, "HTTP route planner");
+        Args.notNull(redirectStrategy, "HTTP redirect strategy");
+        this.routePlanner = routePlanner;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/RedirectExec.java`
+#### Snippet
+```java
+        super();
+        Args.notNull(routePlanner, "HTTP route planner");
+        Args.notNull(redirectStrategy, "HTTP redirect strategy");
+        this.routePlanner = routePlanner;
+        this.redirectStrategy = redirectStrategy;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/HttpClientContext.java`
+#### Snippet
+```java
+
+    public static HttpClientContext adapt(final HttpContext context) {
+        Args.notNull(context, "HTTP context");
+        if (context instanceof HttpClientContext) {
+            return (HttpClientContext) context;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/NTUserPrincipal.java`
+#### Snippet
+```java
+            final String username) {
+        super();
+        Args.notNull(username, "User name");
+        this.username = username;
+        if (domain != null) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicCredentialsProvider.java`
+#### Snippet
+```java
+            final AuthScope authScope,
+            final Credentials credentials) {
+        Args.notNull(authScope, "Authentication scope");
+        credMap.put(authScope, credentials);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPartBuilder.java`
+#### Snippet
+```java
+
+    public FormBodyPartBuilder setField(final String name, final String value) {
+        Args.notNull(name, "Field name");
+        this.header.setField(new MimeField(name, value));
+        return this;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPartBuilder.java`
+#### Snippet
+```java
+
+    public FormBodyPartBuilder addField(final String name, final String value) {
+        Args.notNull(name, "Field name");
+        this.header.addField(new MimeField(name, value));
+        return this;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPartBuilder.java`
+#### Snippet
+```java
+
+    public FormBodyPartBuilder removeFields(final String name) {
+        Args.notNull(name, "Field name");
+        this.header.removeFields(name);
+        return this;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPartBuilder.java`
+#### Snippet
+```java
+     */
+    public FormBodyPartBuilder addField(final String name, final String value, final List<NameValuePair> parameters) {
+        Args.notNull(name, "Field name");
+        this.header.addField(new MimeField(name, value, parameters));
+        return this;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicSecureHandler.java`
+#### Snippet
+```java
+    @Override
+    public boolean match(final Cookie cookie, final CookieOrigin origin) {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        return !cookie.isSecure() || origin.isSecure();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicSecureHandler.java`
+#### Snippet
+```java
+    public boolean match(final Cookie cookie, final CookieOrigin origin) {
+        Args.notNull(cookie, "Cookie");
+        Args.notNull(origin, "Cookie origin");
+        return !cookie.isSecure() || origin.isSecure();
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicSecureHandler.java`
+#### Snippet
+```java
+    public void parse(final SetCookie cookie, final String value)
+            throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        cookie.setSecure(true);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartPartBuilder.java`
+#### Snippet
+```java
+
+    public MultipartPartBuilder addHeader(final String name, final String value) {
+        Args.notNull(name, "Header name");
+        this.header.addField(new MimeField(name, value));
+        return this;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartPartBuilder.java`
+#### Snippet
+```java
+
+    public MultipartPartBuilder removeHeaders(final String name) {
+        Args.notNull(name, "Header name");
+        this.header.removeFields(name);
+        return this;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartPartBuilder.java`
+#### Snippet
+```java
+
+    public MultipartPartBuilder setHeader(final String name, final String value) {
+        Args.notNull(name, "Header name");
+        this.header.setField(new MimeField(name, value));
+        return this;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartPartBuilder.java`
+#### Snippet
+```java
+
+    public MultipartPartBuilder addHeader(final String name, final String value, final List<NameValuePair> parameters) {
+        Args.notNull(name, "Header name");
+        this.header.addField(new MimeField(name, value, parameters));
+        return this;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/schedule/ConcurrentCountMap.java`
+#### Snippet
+```java
+
+    public int increaseCount(final T identifier) {
+        Args.notNull(identifier, "Identifier");
+        final AtomicInteger count = get(identifier);
+        return count.incrementAndGet();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/schedule/ConcurrentCountMap.java`
+#### Snippet
+```java
+
+    public void resetCount(final T identifier) {
+        Args.notNull(identifier, "Identifier");
+        map.remove(identifier);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/schedule/ConcurrentCountMap.java`
+#### Snippet
+```java
+
+    public int getCount(final T identifier) {
+        Args.notNull(identifier, "Identifier");
+        final AtomicInteger count = map.get(identifier);
+        return count != null ? count.get() : 0;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ContentCompressionExec.java`
+#### Snippet
+```java
+            final ExecChain.Scope scope,
+            final ExecChain chain) throws IOException, HttpException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(scope, "Scope");
+
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ContentCompressionExec.java`
+#### Snippet
+```java
+            final ExecChain chain) throws IOException, HttpException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(scope, "Scope");
+
+        final HttpClientContext clientContext = scope.clientContext;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/HttpRoute.java`
+#### Snippet
+```java
+    private HttpRoute(final HttpHost targetHost, final InetAddress local, final List<HttpHost> proxies,
+                     final boolean secure, final TunnelType tunnelled, final LayerType layered) {
+        Args.notNull(targetHost, "Target host");
+        Args.notNegative(targetHost.getPort(), "Target port");
+        this.targetHost = targetHost;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleBody.java`
+#### Snippet
+```java
+
+    static SimpleBody create(final String body, final ContentType contentType) {
+        Args.notNull(body, "Body");
+        if (body.length() > 2048) {
+            return new SimpleBody(null, body, contentType);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleBody.java`
+#### Snippet
+```java
+
+    static SimpleBody create(final byte[] body, final ContentType contentType) {
+        Args.notNull(body, "Body");
+        return new SimpleBody(body, null, contentType);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+#### Snippet
+```java
+    @Override
+    public final Cancellable getEntry(final String key, final FutureCallback<HttpCacheEntry> callback) {
+        Args.notNull(key, "Storage key");
+        Args.notNull(callback, "Callback");
+        try {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+#### Snippet
+```java
+    public final Cancellable getEntry(final String key, final FutureCallback<HttpCacheEntry> callback) {
+        Args.notNull(key, "Storage key");
+        Args.notNull(callback, "Callback");
+        try {
+            final String storageKey = digestToStorageKey(key);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+#### Snippet
+```java
+    @Override
+    public final Cancellable removeEntry(final String key, final FutureCallback<Boolean> callback) {
+        Args.notNull(key, "Storage key");
+        Args.notNull(callback, "Callback");
+        try {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+#### Snippet
+```java
+    public final Cancellable removeEntry(final String key, final FutureCallback<Boolean> callback) {
+        Args.notNull(key, "Storage key");
+        Args.notNull(callback, "Callback");
+        try {
+            final String storageKey = digestToStorageKey(key);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+#### Snippet
+```java
+    @Override
+    public final Cancellable getEntries(final Collection<String> keys, final FutureCallback<Map<String, HttpCacheEntry>> callback) {
+        Args.notNull(keys, "Storage keys");
+        Args.notNull(callback, "Callback");
+        try {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+#### Snippet
+```java
+    public final Cancellable getEntries(final Collection<String> keys, final FutureCallback<Map<String, HttpCacheEntry>> callback) {
+        Args.notNull(keys, "Storage keys");
+        Args.notNull(callback, "Callback");
+        try {
+            final List<String> storageKeys = new ArrayList<>(keys.size());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+#### Snippet
+```java
+    public final Cancellable putEntry(
+            final String key, final HttpCacheEntry entry, final FutureCallback<Boolean> callback) {
+        Args.notNull(key, "Storage key");
+        Args.notNull(callback, "Callback");
+        try {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+#### Snippet
+```java
+            final String key, final HttpCacheEntry entry, final FutureCallback<Boolean> callback) {
+        Args.notNull(key, "Storage key");
+        Args.notNull(callback, "Callback");
+        try {
+            final String storageKey = digestToStorageKey(key);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+#### Snippet
+```java
+    public final Cancellable updateEntry(
+            final String key, final HttpCacheCASOperation casOperation, final FutureCallback<Boolean> callback) {
+        Args.notNull(key, "Storage key");
         Args.notNull(casOperation, "CAS operation");
-        ensureValidState();
+        Args.notNull(callback, "Callback");
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
 #### Snippet
 ```java
-            final HttpCacheCASOperation casOperation) throws ResourceIOException {
-        Args.notNull(url, "URL");
+            final String key, final HttpCacheCASOperation casOperation, final FutureCallback<Boolean> callback) {
+        Args.notNull(key, "Storage key");
         Args.notNull(casOperation, "CAS operation");
-        ensureValidState();
-        synchronized (this) {
+        Args.notNull(callback, "Callback");
+        final ComplexCancellable complexCancellable = new ComplexCancellable();
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+#### Snippet
+```java
+        Args.notNull(key, "Storage key");
+        Args.notNull(casOperation, "CAS operation");
+        Args.notNull(callback, "Callback");
+        final ComplexCancellable complexCancellable = new ComplexCancellable();
+        final AtomicInteger count = new AtomicInteger(0);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultHttpClientConnectionOperator.java`
+#### Snippet
+```java
+            final DnsResolver dnsResolver) {
+        super();
+        Args.notNull(socketFactoryRegistry, "Socket factory registry");
+        this.socketFactoryRegistry = socketFactoryRegistry;
+        this.schemePortResolver = schemePortResolver != null ? schemePortResolver :
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultHttpClientConnectionOperator.java`
+#### Snippet
+```java
+            final Object attachment,
+            final HttpContext context) throws IOException {
+        Args.notNull(conn, "Connection");
+        Args.notNull(host, "Host");
+        Args.notNull(socketConfig, "Socket config");
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultHttpClientConnectionOperator.java`
+#### Snippet
+```java
+            final HttpContext context) throws IOException {
+        Args.notNull(conn, "Connection");
+        Args.notNull(host, "Host");
+        Args.notNull(socketConfig, "Socket config");
+        Args.notNull(context, "Context");
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultHttpClientConnectionOperator.java`
+#### Snippet
+```java
+        Args.notNull(conn, "Connection");
+        Args.notNull(host, "Host");
+        Args.notNull(socketConfig, "Socket config");
+        Args.notNull(context, "Context");
+        final Lookup<ConnectionSocketFactory> registry = getSocketFactoryRegistry(context);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultHttpClientConnectionOperator.java`
+#### Snippet
+```java
+        Args.notNull(host, "Host");
+        Args.notNull(socketConfig, "Socket config");
+        Args.notNull(context, "Context");
+        final Lookup<ConnectionSocketFactory> registry = getSocketFactoryRegistry(context);
+        final ConnectionSocketFactory sf = registry.lookup(host.getSchemeName());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+        Args.notBlank(existing, "Existing");
+        Args.notBlank(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final H2AsyncClientBuilder addRequestInterceptorFirst(final HttpRequestInterceptor interceptor) {
+        Args.notNull(interceptor, "Interceptor");
+        if (requestInterceptors == null) {
+            requestInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final H2AsyncClientBuilder addResponseInterceptorLast(final HttpResponseInterceptor interceptor) {
+        Args.notNull(interceptor, "Interceptor");
+        if (responseInterceptors == null) {
+            responseInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final H2AsyncClientBuilder addRequestInterceptorLast(final HttpRequestInterceptor interceptor) {
+        Args.notNull(interceptor, "Interceptor");
+        if (requestInterceptors == null) {
+            requestInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final H2AsyncClientBuilder addExecInterceptorLast(final String name, final AsyncExecChainHandler interceptor) {
+        Args.notNull(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+    public final H2AsyncClientBuilder addExecInterceptorLast(final String name, final AsyncExecChainHandler interceptor) {
+        Args.notNull(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+        Args.notBlank(existing, "Existing");
+        Args.notBlank(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final H2AsyncClientBuilder addResponseInterceptorFirst(final HttpResponseInterceptor interceptor) {
+        Args.notNull(interceptor, "Interceptor");
+        if (responseInterceptors == null) {
+            responseInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final H2AsyncClientBuilder addExecInterceptorFirst(final String name, final AsyncExecChainHandler interceptor) {
+        Args.notNull(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+    public final H2AsyncClientBuilder addExecInterceptorFirst(final String name, final AsyncExecChainHandler interceptor) {
+        Args.notNull(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+    public final H2AsyncClientBuilder replaceExecInterceptor(final String existing, final AsyncExecChainHandler interceptor) {
+        Args.notBlank(existing, "Existing");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+    public final HttpClientBuilder replaceExecInterceptor(final String existing, final ExecChainHandler interceptor) {
+        Args.notBlank(existing, "Existing");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final HttpClientBuilder addRequestInterceptorLast(final HttpRequestInterceptor interceptor) {
+        Args.notNull(interceptor, "Interceptor");
+        if (requestInterceptors == null) {
+            requestInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+        Args.notBlank(existing, "Existing");
+        Args.notBlank(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final HttpClientBuilder addResponseInterceptorFirst(final HttpResponseInterceptor interceptor) {
+        Args.notNull(interceptor, "Interceptor");
+        if (responseInterceptors == null) {
+            responseInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final HttpClientBuilder addExecInterceptorFirst(final String name, final ExecChainHandler interceptor) {
+        Args.notNull(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+    public final HttpClientBuilder addExecInterceptorFirst(final String name, final ExecChainHandler interceptor) {
+        Args.notNull(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final HttpClientBuilder addExecInterceptorLast(final String name, final ExecChainHandler interceptor) {
+        Args.notNull(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+    public final HttpClientBuilder addExecInterceptorLast(final String name, final ExecChainHandler interceptor) {
+        Args.notNull(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final HttpClientBuilder addRequestInterceptorFirst(final HttpRequestInterceptor interceptor) {
+        Args.notNull(interceptor, "Interceptor");
+        if (requestInterceptors == null) {
+            requestInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+        Args.notBlank(existing, "Existing");
+        Args.notBlank(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final HttpClientBuilder addResponseInterceptorLast(final HttpResponseInterceptor interceptor) {
+        Args.notNull(interceptor, "Interceptor");
+        if (responseInterceptors == null) {
+            responseInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/MinimalHttpAsyncClient.java`
+#### Snippet
+```java
+            final HttpContext context,
+            final FutureCallback<AsyncClientEndpoint> callback) {
+        Args.notNull(host, "Host");
+        Args.notNull(context, "HTTP context");
+        final BasicFuture<AsyncClientEndpoint> future = new BasicFuture<>(callback);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/MinimalHttpAsyncClient.java`
+#### Snippet
+```java
+            final FutureCallback<AsyncClientEndpoint> callback) {
+        Args.notNull(host, "Host");
+        Args.notNull(context, "HTTP context");
+        final BasicFuture<AsyncClientEndpoint> future = new BasicFuture<>(callback);
+        if (!isRunning()) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleResponseBuilder.java`
+#### Snippet
+```java
+
+    public static SimpleResponseBuilder copy(final SimpleHttpResponse response) {
+        Args.notNull(response, "HTTP response");
+        final SimpleResponseBuilder builder = new SimpleResponseBuilder(response.getCode());
+        builder.digest(response);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestBuilder.java`
+#### Snippet
+```java
+
+    public static SimpleRequestBuilder create(final Method method) {
+        Args.notNull(method, "HTTP method");
+        return new SimpleRequestBuilder(method);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestBuilder.java`
+#### Snippet
+```java
+     */
+    public static SimpleRequestBuilder copy(final HttpRequest request) {
+        Args.notNull(request, "HTTP request");
+        final SimpleRequestBuilder builder = new SimpleRequestBuilder(request.getMethod());
+        builder.digest(request);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestBuilder.java`
+#### Snippet
+```java
+     */
+    public static SimpleRequestBuilder copy(final SimpleHttpRequest request) {
+        Args.notNull(request, "HTTP request");
+        final SimpleRequestBuilder builder = new SimpleRequestBuilder(request.getMethod());
+        builder.digest(request);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestDefaultHeaders.java`
+#### Snippet
+```java
+    public void process(final HttpRequest request, final EntityDetails entity, final HttpContext context)
+            throws HttpException, IOException {
+        Args.notNull(request, "HTTP request");
+
+        final String method = request.getMethod();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestAddCookies.java`
+#### Snippet
+```java
+    public void process(final HttpRequest request, final EntityDetails entity, final HttpContext context)
+            throws HttpException, IOException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(context, "HTTP context");
+
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestAddCookies.java`
+#### Snippet
+```java
+            throws HttpException, IOException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(context, "HTTP context");
+
+        final String method = request.getMethod();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestExpectContinue.java`
+#### Snippet
+```java
+    public void process(final HttpRequest request, final EntityDetails entity, final HttpContext context)
+            throws HttpException, IOException {
+        Args.notNull(request, "HTTP request");
+
+        if (!request.containsHeader(HttpHeaders.EXPECT)) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/routing/BasicRouteDirector.java`
 #### Snippet
 ```java
     @Override
-    public Map<String, HttpCacheEntry> getEntries(final Collection<String> keys) throws ResourceIOException {
-        Args.notNull(keys, "Key");
-        final Map<String, HttpCacheEntry> resultMap = new HashMap<>(keys.size());
-        for (final String key: keys) {
+    public int nextStep(final RouteInfo plan, final RouteInfo fact) {
+        Args.notNull(plan, "Planned route");
+
+        int step = UNREACHABLE;
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultConnectionKeepAliveStrategy.java`
 #### Snippet
 ```java
     @Override
-    public HttpCacheEntry getEntry(final String url) throws ResourceIOException {
-        Args.notNull(url, "URL");
-        ensureValidState();
-        synchronized (this) {
+    public TimeValue getKeepAliveDuration(final HttpResponse response, final HttpContext context) {
+        Args.notNull(response, "HTTP response");
+        final Iterator<HeaderElement> it = MessageSupport.iterate(response, HeaderElements.KEEP_ALIVE);
+        while (it.hasNext()) {
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicScheme.java`
+#### Snippet
+```java
+            final HttpContext context) throws AuthenticationException {
+
+        Args.notNull(host, "Auth host");
+        Args.notNull(credentialsProvider, "CredentialsProvider");
+
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicScheme.java`
+#### Snippet
+```java
+
+        Args.notNull(host, "Auth host");
+        Args.notNull(credentialsProvider, "CredentialsProvider");
+
+        final AuthScope authScope = new AuthScope(host, getRealm(), getName());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
+#### Snippet
+```java
+            final ConnectionEndpoint endpoint,
+            final HttpContext context) throws IOException {
+        Args.notNull(endpoint, "Endpoint");
+        Args.notNull(route, "HTTP route");
+        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
+#### Snippet
+```java
+            final HttpContext context) throws IOException {
+        Args.notNull(endpoint, "Endpoint");
+        Args.notNull(route, "HTTP route");
+        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
+        this.connectionOperator.upgrade(
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
+#### Snippet
+```java
+
+    public synchronized void closeIdle(final TimeValue idleTime) {
+        Args.notNull(idleTime, "Idle time");
+        if (isClosed()) {
+            return;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
 #### Snippet
 ```java
     @Override
-    public void putEntry(final String url, final HttpCacheEntry entry) throws ResourceIOException {
-        Args.notNull(url, "URL");
-        Args.notNull(entry, "Cache entry");
-        ensureValidState();
+    public synchronized void release(final ConnectionEndpoint endpoint, final Object state, final TimeValue keepAlive) {
+        Args.notNull(endpoint, "Managed endpoint");
+        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
+        final ManagedHttpClientConnection conn = internalEndpoint.detach();
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
-#### Snippet
-```java
-    public void putEntry(final String url, final HttpCacheEntry entry) throws ResourceIOException {
-        Args.notNull(url, "URL");
-        Args.notNull(entry, "Cache entry");
-        ensureValidState();
-        synchronized (this) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
 #### Snippet
 ```java
     @Override
-    public void removeEntry(final String url) throws ResourceIOException {
-        Args.notNull(url, "URL");
-        ensureValidState();
-        synchronized (this) {
+    public synchronized void connect(final ConnectionEndpoint endpoint, final TimeValue timeout, final HttpContext context) throws IOException {
+        Args.notNull(endpoint, "Endpoint");
+
+        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
+#### Snippet
+```java
+                final HttpRequestExecutor requestExecutor,
+                final HttpContext context) throws IOException, HttpException {
+            Args.notNull(request, "HTTP request");
+            Args.notNull(requestExecutor, "Request executor");
+            if (LOG.isDebugEnabled()) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
+#### Snippet
+```java
+                final HttpContext context) throws IOException, HttpException {
+            Args.notNull(request, "HTTP request");
+            Args.notNull(requestExecutor, "Request executor");
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("{} Executing exchange {}", id, exchangeId);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/MinimalHttpClient.java`
+#### Snippet
+```java
+            final ClassicHttpRequest request,
+            final HttpContext context) throws IOException {
+        Args.notNull(target, "Target host");
+        Args.notNull(request, "HTTP request");
+        if (request.getScheme() == null) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/MinimalHttpClient.java`
+#### Snippet
+```java
+            final HttpContext context) throws IOException {
+        Args.notNull(target, "Target host");
+        Args.notNull(request, "HTTP request");
+        if (request.getScheme() == null) {
+            request.setScheme(target.getSchemeName());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestProducer.java`
+#### Snippet
+```java
+
+    public static SimpleRequestProducer create(final SimpleHttpRequest request) {
+        Args.notNull(request, "Request");
+        final SimpleBody body = request.getBody();
+        final AsyncEntityProducer entityProducer;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/ResponseProcessCookies.java`
+#### Snippet
+```java
+    public void process(final HttpResponse response, final EntityDetails entity, final HttpContext context)
+            throws HttpException, IOException {
+        Args.notNull(response, "HTTP request");
+        Args.notNull(context, "HTTP context");
+
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/ResponseProcessCookies.java`
+#### Snippet
+```java
+            throws HttpException, IOException {
+        Args.notNull(response, "HTTP request");
+        Args.notNull(context, "HTTP context");
+
+        final HttpClientContext clientContext = HttpClientContext.adapt(context);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpResponse.java`
+#### Snippet
+```java
+
+    public static SimpleHttpResponse copy(final HttpResponse original) {
+        Args.notNull(original, "HTTP response");
+        final SimpleHttpResponse copy = new SimpleHttpResponse(original.getCode());
+        copy.setVersion(original.getVersion());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ProxyClient.java`
+#### Snippet
+```java
+            final HttpHost target,
+            final Credentials credentials) throws IOException, HttpException {
+        Args.notNull(proxy, "Proxy host");
+        Args.notNull(target, "Target host");
+        Args.notNull(credentials, "Credentials");
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ProxyClient.java`
+#### Snippet
+```java
+            final Credentials credentials) throws IOException, HttpException {
+        Args.notNull(proxy, "Proxy host");
+        Args.notNull(target, "Target host");
+        Args.notNull(credentials, "Credentials");
+        HttpHost host = target;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ProxyClient.java`
+#### Snippet
+```java
+        Args.notNull(proxy, "Proxy host");
+        Args.notNull(target, "Target host");
+        Args.notNull(credentials, "Credentials");
+        HttpHost host = target;
+        if (host.getPort() <= 0) {
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -5457,50 +4485,842 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/DefaultAsyncCl
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/PoolingHttpClientConnectionManager.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CombinedEntity.java`
 #### Snippet
 ```java
     @Override
-    public void closeIdle(final TimeValue idleTime) {
-        Args.notNull(idleTime, "Idle time");
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Closing connections idle longer than {}", idleTime);
+    public void writeTo(final OutputStream outStream) throws IOException {
+        Args.notNull(outStream, "Output stream");
+        try (InputStream inStream = getContent()) {
+            int l;
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/PoolingHttpClientConnectionManager.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsProviderBuilder.java`
 #### Snippet
 ```java
-    @Override
-    public void connect(final ConnectionEndpoint endpoint, final TimeValue timeout, final HttpContext context) throws IOException {
-        Args.notNull(endpoint, "Managed endpoint");
-        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
-        if (internalEndpoint.isConnected()) {
+
+    public CredentialsProviderBuilder add(final HttpHost httpHost, final String username, final char[] password) {
+        Args.notNull(httpHost, "Host");
+        credMap.put(new AuthScope(httpHost), new UsernamePasswordCredentials(username, password));
+        return this;
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/PoolingHttpClientConnectionManager.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsProviderBuilder.java`
 #### Snippet
 ```java
-    @Override
-    public void upgrade(final ConnectionEndpoint endpoint, final HttpContext context) throws IOException {
-        Args.notNull(endpoint, "Managed endpoint");
-        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
-        final PoolEntry<HttpRoute, ManagedHttpClientConnection> poolEntry = internalEndpoint.getValidatedPoolEntry();
+
+    public CredentialsProviderBuilder add(final HttpHost httpHost, final Credentials credentials) {
+        Args.notNull(httpHost, "Host");
+        credMap.put(new AuthScope(httpHost), credentials);
+        return this;
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/PoolingHttpClientConnectionManager.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsProviderBuilder.java`
 #### Snippet
 ```java
-            public synchronized ConnectionEndpoint get(
-                    final Timeout timeout) throws InterruptedException, ExecutionException, TimeoutException {
-                Args.notNull(timeout, "Operation timeout");
-                if (this.endpoint != null) {
-                    return this.endpoint;
+
+    public CredentialsProviderBuilder add(final AuthScope authScope, final String username, final char[] password) {
+        Args.notNull(authScope, "Host");
+        credMap.put(authScope, new UsernamePasswordCredentials(username, password));
+        return this;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsProviderBuilder.java`
+#### Snippet
+```java
+
+    public CredentialsProviderBuilder add(final AuthScope authScope, final Credentials credentials) {
+        Args.notNull(authScope, "Host");
+        credMap.put(authScope, credentials);
+        return this;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultSchemePortResolver.java`
+#### Snippet
+```java
+    @Override
+    public int resolve(final String scheme, final NamedEndpoint endpoint) {
+        Args.notNull(endpoint, "Endpoint");
+        final int port = endpoint.getPort();
+        if (port > 0) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultSchemePortResolver.java`
+#### Snippet
+```java
+    @Override
+    public int resolve(final HttpHost host) {
+        Args.notNull(host, "HTTP host");
+        return resolve(host.getSchemeName(), host);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/MultihomeConnectionInitiator.java`
+#### Snippet
+```java
+            final Object attachment,
+            final FutureCallback<IOSession> callback) {
+        Args.notNull(remoteEndpoint, "Remote endpoint");
+        return sessionRequester.connect(connectionInitiator, remoteEndpoint, remoteAddress, localAddress, connectTimeout, attachment, callback);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/MultihomeConnectionInitiator.java`
+#### Snippet
+```java
+            final Object attachment,
+            final FutureCallback<IOSession> callback) {
+        Args.notNull(remoteEndpoint, "Remote endpoint");
+        return sessionRequester.connect(connectionInitiator, remoteEndpoint, localAddress, connectTimeout, attachment, callback);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
+#### Snippet
+```java
+     */
+    public static URI resolve(final URI baseURI, final URI reference) {
+        Args.notNull(baseURI, "Base URI");
+        Args.notNull(reference, "Reference URI");
+        final String s = reference.toASCIIString();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
+#### Snippet
+```java
+    public static URI resolve(final URI baseURI, final URI reference) {
+        Args.notNull(baseURI, "Base URI");
+        Args.notNull(reference, "Reference URI");
+        final String s = reference.toASCIIString();
+        if (s.startsWith("?")) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
+#### Snippet
+```java
+            final HttpHost target,
+            final boolean dropFragment) throws URISyntaxException {
+        Args.notNull(uri, "URI");
+        if (uri.isOpaque()) {
+            return uri;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
+#### Snippet
+```java
+            final HttpHost target,
+            final List<URI> redirects) throws URISyntaxException {
+        Args.notNull(originalURI, "Request URI");
+        final URIBuilder uribuilder;
+        if (redirects == null || redirects.isEmpty()) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    public static URI rewriteURI(final URI uri) throws URISyntaxException {
+        Args.notNull(uri, "URI");
+        if (uri.isOpaque()) {
+            return uri;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/CloseableHttpClient.java`
+#### Snippet
+```java
+            final HttpContext context,
+            final HttpClientResponseHandler<? extends T> responseHandler) throws IOException {
+        Args.notNull(responseHandler, "Response handler");
+
+        try (final ClassicHttpResponse response = doExecute(target, request, context)) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/CloseableHttpClient.java`
+#### Snippet
+```java
+            final ClassicHttpRequest request,
+            final HttpContext context) throws IOException {
+        Args.notNull(request, "HTTP request");
+        return doExecute(determineTarget(request), request, context);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ProtocolExec.java`
+#### Snippet
+```java
+            final ExecChain.Scope scope,
+            final ExecChain chain) throws IOException, HttpException {
+        Args.notNull(userRequest, "HTTP request");
+        Args.notNull(scope, "Scope");
+
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ProtocolExec.java`
+#### Snippet
+```java
+            final ExecChain chain) throws IOException, HttpException {
+        Args.notNull(userRequest, "HTTP request");
+        Args.notNull(scope, "Scope");
+
+        if (Method.CONNECT.isSame(userRequest.getMethod())) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
+#### Snippet
+```java
+            final HttpRequest request,
+            final HttpContext context) throws AuthenticationException {
+        Args.notNull(host, "HTTP host");
+        Args.notNull(request, "HTTP request");
+        switch (state) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
+#### Snippet
+```java
+            final HttpContext context) throws AuthenticationException {
+        Args.notNull(host, "HTTP host");
+        Args.notNull(request, "HTTP request");
+        switch (state) {
+        case UNINITIATED:
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
+#### Snippet
+```java
+            final AuthChallenge authChallenge,
+            final HttpContext context) throws MalformedChallengeException {
+        Args.notNull(authChallenge, "AuthChallenge");
+
+        this.challenge = authChallenge.getValue() != null ? authChallenge.getValue() : NO_TOKEN;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
+#### Snippet
+```java
+            final HttpContext context) throws AuthenticationException {
+
+        Args.notNull(host, "Auth host");
+        Args.notNull(credentialsProvider, "CredentialsProvider");
+
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
+#### Snippet
+```java
+
+        Args.notNull(host, "Auth host");
+        Args.notNull(credentialsProvider, "CredentialsProvider");
+
+        final Credentials credentials = credentialsProvider.getCredentials(
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
+#### Snippet
+```java
+            final AuthChallenge authChallenge,
+            final HttpContext context) throws MalformedChallengeException {
+        Args.notNull(authChallenge, "AuthChallenge");
+        this.paramMap.clear();
+        final List<NameValuePair> params = authChallenge.getParams();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
+#### Snippet
+```java
+            final HttpContext context) throws AuthenticationException {
+
+        Args.notNull(host, "Auth host");
+        Args.notNull(credentialsProvider, "CredentialsProvider");
+
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
+#### Snippet
+```java
+
+        Args.notNull(host, "Auth host");
+        Args.notNull(credentialsProvider, "CredentialsProvider");
+
+        final AuthScope authScope = new AuthScope(host, getRealm(), getName());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
+#### Snippet
+```java
+
+    public void initPreemptive(final Credentials credentials, final String cnonce, final String realm) {
+        Args.notNull(credentials, "Credentials");
+        this.username = credentials.getUserPrincipal().getName();
+        this.password = credentials.getPassword();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
+#### Snippet
+```java
+            final HttpContext context) throws AuthenticationException {
+
+        Args.notNull(request, "HTTP request");
+        if (this.paramMap.get("realm") == null) {
+            throw new AuthenticationException("missing realm");
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/InMemoryDnsResolver.java`
+#### Snippet
+```java
+     */
+    public void add(final String host, final InetAddress... ips) {
+        Args.notNull(host, "Host name");
+        Args.notNull(ips, "Array of IP addresses");
+        dnsMap.put(host, ips);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/InMemoryDnsResolver.java`
+#### Snippet
+```java
+    public void add(final String host, final InetAddress... ips) {
+        Args.notNull(host, "Host name");
+        Args.notNull(ips, "Array of IP addresses");
+        dnsMap.put(host, ips);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/RouteTracker.java`
+#### Snippet
+```java
+     */
+    public void connectProxy(final HttpHost proxy, final boolean secure) {
+        Args.notNull(proxy, "Proxy host");
+        Asserts.check(!this.connected, "Already connected");
+        this.connected  = true;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/RouteTracker.java`
+#### Snippet
+```java
+     */
+    public void tunnelProxy(final HttpHost proxy, final boolean secure) {
+        Args.notNull(proxy, "Proxy host");
+        Asserts.check(this.connected, "No tunnel unless connected");
+        Asserts.notNull(this.proxyChain, "No tunnel without proxy");
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/RouteTracker.java`
+#### Snippet
+```java
+     */
+    public RouteTracker(final HttpHost target, final InetAddress local) {
+        Args.notNull(target, "Target host");
+        this.targetHost   = target;
+        this.localAddress = local;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/BackoffStrategyExec.java`
+#### Snippet
+```java
+            final ExecChain.Scope scope,
+            final ExecChain chain) throws IOException, HttpException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(scope, "Scope");
+        final HttpRoute route = scope.route;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/BackoffStrategyExec.java`
+#### Snippet
+```java
+            final ExecChain chain) throws IOException, HttpException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(scope, "Scope");
+        final HttpRoute route = scope.route;
+
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/BackoffStrategyExec.java`
+#### Snippet
+```java
+            final BackoffManager backoffManager) {
+        super();
+        Args.notNull(connectionBackoffStrategy, "Connection backoff strategy");
+        Args.notNull(backoffManager, "Backoff manager");
+        this.connectionBackoffStrategy = connectionBackoffStrategy;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/BackoffStrategyExec.java`
+#### Snippet
+```java
+        super();
+        Args.notNull(connectionBackoffStrategy, "Connection backoff strategy");
+        Args.notNull(backoffManager, "Backoff manager");
+        this.connectionBackoffStrategy = connectionBackoffStrategy;
+        this.backoffManager = backoffManager;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpRequest.java`
+#### Snippet
+```java
+    @Deprecated
+    public static SimpleHttpRequest copy(final HttpRequest original) {
+        Args.notNull(original, "HTTP request");
+        final SimpleHttpRequest copy = new SimpleHttpRequest(original.getMethod(), original.getRequestUri());
+        copy.setVersion(original.getVersion());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/AuthExchange.java`
+#### Snippet
+```java
+     */
+    public void select(final AuthScheme authScheme) {
+        Args.notNull(authScheme, "Auth scheme");
+        this.authScheme = authScheme;
+        this.authOptions = null;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultAuthenticationStrategy.java`
+#### Snippet
+```java
+            final Map<String, AuthChallenge> challenges,
+            final HttpContext context) {
+        Args.notNull(challengeType, "ChallengeType");
+        Args.notNull(challenges, "Map of auth challenges");
+        Args.notNull(context, "HTTP context");
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultAuthenticationStrategy.java`
+#### Snippet
+```java
+            final HttpContext context) {
+        Args.notNull(challengeType, "ChallengeType");
+        Args.notNull(challenges, "Map of auth challenges");
+        Args.notNull(context, "HTTP context");
+        final HttpClientContext clientContext = HttpClientContext.adapt(context);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultAuthenticationStrategy.java`
+#### Snippet
+```java
+        Args.notNull(challengeType, "ChallengeType");
+        Args.notNull(challenges, "Map of auth challenges");
+        Args.notNull(context, "HTTP context");
+        final HttpClientContext clientContext = HttpClientContext.adapt(context);
+        final String exchangeId = clientContext.getExchangeId();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestAuthCache.java`
+#### Snippet
+```java
+    public void process(final HttpRequest request, final EntityDetails entity, final HttpContext context)
+            throws HttpException, IOException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(context, "HTTP context");
+
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestAuthCache.java`
+#### Snippet
+```java
+            throws HttpException, IOException {
+        Args.notNull(request, "HTTP request");
+        Args.notNull(context, "HTTP context");
+
+        final HttpClientContext clientContext = HttpClientContext.adapt(context);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/DecompressingEntity.java`
+#### Snippet
+```java
+    @Override
+    public void writeTo(final OutputStream outStream) throws IOException {
+        Args.notNull(outStream, "Output stream");
+        try (InputStream inStream = getContent()) {
+            final byte[] buffer = new byte[BUFFER_SIZE];
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RequestClientConnControl.java`
+#### Snippet
+```java
+    public void process(final HttpRequest request, final EntityDetails entity, final HttpContext context)
+            throws HttpException, IOException {
+        Args.notNull(request, "HTTP request");
+
+        final String method = request.getMethod();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMScheme.java`
+#### Snippet
+```java
+    public NTLMScheme(final NTLMEngine engine) {
+        super();
+        Args.notNull(engine, "NTLM engine");
+        this.engine = engine;
+        this.state = State.UNINITIATED;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMScheme.java`
+#### Snippet
+```java
+            final AuthChallenge authChallenge,
+            final HttpContext context) throws MalformedChallengeException {
+        Args.notNull(authChallenge, "AuthChallenge");
+
+        this.challenge = authChallenge.getValue();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMScheme.java`
+#### Snippet
+```java
+            final HttpContext context) throws AuthenticationException {
+
+        Args.notNull(host, "Auth host");
+        Args.notNull(credentialsProvider, "CredentialsProvider");
+
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMScheme.java`
+#### Snippet
+```java
+
+        Args.notNull(host, "Auth host");
+        Args.notNull(credentialsProvider, "CredentialsProvider");
+
+        final AuthScope authScope = new AuthScope(host, null, getName());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
+#### Snippet
+```java
+     */
+    public PublicSuffixMatcher(final Collection<PublicSuffixList> lists) {
+        Args.notNull(lists,  "Domain suffix lists");
+        this.rules = new ConcurrentHashMap<>();
+        this.exceptions = new ConcurrentHashMap<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
+#### Snippet
+```java
+    public PublicSuffixMatcher(
+            final DomainType domainType, final Collection<String> rules, final Collection<String> exceptions) {
+        Args.notNull(domainType,  "Domain type");
+        Args.notNull(rules,  "Domain suffix rules");
+        this.rules = new ConcurrentHashMap<>(rules.size());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
+#### Snippet
+```java
+            final DomainType domainType, final Collection<String> rules, final Collection<String> exceptions) {
+        Args.notNull(domainType,  "Domain type");
+        Args.notNull(rules,  "Domain suffix rules");
+        this.rules = new ConcurrentHashMap<>(rules.size());
+        for (final String rule: rules) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpRequestRetryExec.java`
+#### Snippet
+```java
+    public HttpRequestRetryExec(
+            final HttpRequestRetryStrategy retryStrategy) {
+         Args.notNull(retryStrategy, "retryStrategy");
+         this.retryStrategy = retryStrategy;
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpRequestRetryExec.java`
+#### Snippet
+```java
+            final Scope scope,
+            final ExecChain chain) throws IOException, HttpException {
+        Args.notNull(request, "request");
+        Args.notNull(scope, "scope");
+        final String exchangeId = scope.exchangeId;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpRequestRetryExec.java`
+#### Snippet
+```java
+            final ExecChain chain) throws IOException, HttpException {
+        Args.notNull(request, "request");
+        Args.notNull(scope, "scope");
+        final String exchangeId = scope.exchangeId;
+        final HttpRoute route = scope.route;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/IdleConnectionEvictor.java`
+#### Snippet
+```java
+    public IdleConnectionEvictor(final ConnPoolControl<?> connectionManager, final ThreadFactory threadFactory,
+                                 final TimeValue sleepTime, final TimeValue maxIdleTime) {
+        Args.notNull(connectionManager, "Connection manager");
+        this.threadFactory = threadFactory != null ? threadFactory : new DefaultThreadFactory("idle-connection-evictor", true);
+        final TimeValue localSleepTime = sleepTime != null ? sleepTime : TimeValue.ofSeconds(5);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpCacheStorage.java`
+#### Snippet
+```java
+    @Override
+    public Map<String, HttpCacheEntry> getEntries(final Collection<String> keys) throws ResourceIOException {
+        Args.notNull(keys, "Key");
+        final Map<String, HttpCacheEntry> resultMap = new HashMap<>(keys.size());
+        for (final String key: keys) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/SystemDefaultCredentialsProvider.java`
+#### Snippet
+```java
+    @Override
+    public Credentials getCredentials(final AuthScope authScope, final HttpContext context) {
+        Args.notNull(authScope, "Auth scope");
+        final Credentials localcreds = internal.getCredentials(authScope, context);
+        if (localcreds != null) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/LaxExpiresHandler.java`
+#### Snippet
+```java
+    @Override
+    public void parse(final SetCookie cookie, final String value) throws MalformedCookieException {
+        Args.notNull(cookie, "Cookie");
+        if (TextUtils.isBlank(value)) {
+            return;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpOptions.java`
+#### Snippet
+```java
+
+    public Set<String> getAllowedMethods(final HttpResponse response) {
+        Args.notNull(response, "HTTP response");
+
+        final Iterator<HeaderElement> it = MessageSupport.iterate(response, "Allow");
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+#### Snippet
+```java
+
+    public void output(final byte[] b) {
+        Args.notNull(b, "Output");
+        output(b, 0, b.length);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+#### Snippet
+```java
+
+    public void output(final ByteBuffer b) {
+        Args.notNull(b, "Output");
+        if (b.hasArray()) {
+            output(b.array(), b.arrayOffset() + b.position(), b.remaining());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+#### Snippet
+```java
+
+    public void input(final ByteBuffer b) {
+        Args.notNull(b, "Input");
+        if (b.hasArray()) {
+            input(b.array(), b.arrayOffset() + b.position(), b.remaining());
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+#### Snippet
+```java
+
+    public void output(final byte[] b, final int pos, final int off) {
+        Args.notNull(b, "Output");
+        wire(">> ", b, pos, off);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+#### Snippet
+```java
+
+    public void output(final String s) {
+        Args.notNull(s, "Output");
+        output(s.getBytes());
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+#### Snippet
+```java
+
+    public void input(final byte[] b) {
+        Args.notNull(b, "Input");
+        input(b, 0, b.length);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+#### Snippet
+```java
+
+    public void input(final byte[] b, final int pos, final int off) {
+        Args.notNull(b, "Input");
+        wire("<< ", b, pos, off);
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
+#### Snippet
+```java
+
+    public void input(final String s) {
+        Args.notNull(s, "Input");
+        input(s.getBytes());
+    }
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingCacheStorage.java`
+#### Snippet
+```java
+    @Override
+    public final Map<String, HttpCacheEntry> getEntries(final Collection<String> keys) throws ResourceIOException {
+        Args.notNull(keys, "Storage keys");
+        final List<String> storageKeys = new ArrayList<>(keys.size());
+        for (final String key: keys) {
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -5553,6 +5373,186 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/PoolingHttpClie
 
 ### RuleId[ruleID=IgnoreResultOfCall]
 Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/PoolingHttpClientConnectionManager.java`
+#### Snippet
+```java
+    @Override
+    public void upgrade(final ConnectionEndpoint endpoint, final HttpContext context) throws IOException {
+        Args.notNull(endpoint, "Managed endpoint");
+        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
+        final PoolEntry<HttpRoute, ManagedHttpClientConnection> poolEntry = internalEndpoint.getValidatedPoolEntry();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/PoolingHttpClientConnectionManager.java`
+#### Snippet
+```java
+    @Override
+    public void closeIdle(final TimeValue idleTime) {
+        Args.notNull(idleTime, "Idle time");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Closing connections idle longer than {}", idleTime);
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/PoolingHttpClientConnectionManager.java`
+#### Snippet
+```java
+    @Override
+    public void connect(final ConnectionEndpoint endpoint, final TimeValue timeout, final HttpContext context) throws IOException {
+        Args.notNull(endpoint, "Managed endpoint");
+        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
+        if (internalEndpoint.isConnected()) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/PoolingHttpClientConnectionManager.java`
+#### Snippet
+```java
+            public synchronized ConnectionEndpoint get(
+                    final Timeout timeout) throws InterruptedException, ExecutionException, TimeoutException {
+                Args.notNull(timeout, "Operation timeout");
+                if (this.endpoint != null) {
+                    return this.endpoint;
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
+#### Snippet
+```java
+    public final HttpAsyncClientBuilder replaceExecInterceptor(final String existing, final AsyncExecChainHandler interceptor) {
+        Args.notBlank(existing, "Existing");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final HttpAsyncClientBuilder addRequestInterceptorLast(final HttpRequestInterceptor interceptor) {
+        Args.notNull(interceptor, "Interceptor");
+        if (requestInterceptors == null) {
+            requestInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
+#### Snippet
+```java
+        Args.notBlank(existing, "Existing");
+        Args.notBlank(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final HttpAsyncClientBuilder addExecInterceptorLast(final String name, final AsyncExecChainHandler interceptor) {
+        Args.notNull(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
+#### Snippet
+```java
+    public final HttpAsyncClientBuilder addExecInterceptorLast(final String name, final AsyncExecChainHandler interceptor) {
+        Args.notNull(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final HttpAsyncClientBuilder addExecInterceptorFirst(final String name, final AsyncExecChainHandler interceptor) {
+        Args.notNull(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
+#### Snippet
+```java
+    public final HttpAsyncClientBuilder addExecInterceptorFirst(final String name, final AsyncExecChainHandler interceptor) {
+        Args.notNull(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final HttpAsyncClientBuilder addResponseInterceptorLast(final HttpResponseInterceptor interceptor) {
+        Args.notNull(interceptor, "Interceptor");
+        if (responseInterceptors == null) {
+            responseInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final HttpAsyncClientBuilder addRequestInterceptorFirst(final HttpRequestInterceptor interceptor) {
+        Args.notNull(interceptor, "Interceptor");
+        if (requestInterceptors == null) {
+            requestInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
+#### Snippet
+```java
+     */
+    public final HttpAsyncClientBuilder addResponseInterceptorFirst(final HttpResponseInterceptor interceptor) {
+        Args.notNull(interceptor, "Interceptor");
+        if (responseInterceptors == null) {
+            responseInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClientBuilder.java`
+#### Snippet
+```java
+        Args.notBlank(existing, "Existing");
+        Args.notBlank(name, "Name");
+        Args.notNull(interceptor, "Interceptor");
+        if (execInterceptors == null) {
+            execInterceptors = new LinkedList<>();
+```
+
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/PoolingAsyncClientConnectionManager.java`
 #### Snippet
 ```java
@@ -5561,30 +5561,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/PoolingAsyncCl
         Args.notNull(endpoint, "Managed endpoint");
         final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
         final PoolEntry<HttpRoute, ManagedAsyncClientConnection> poolEntry = internalEndpoint.getValidatedPoolEntry();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/PoolingAsyncClientConnectionManager.java`
-#### Snippet
-```java
-            final HttpContext context,
-            final FutureCallback<AsyncConnectionEndpoint> callback) {
-        Args.notNull(endpoint, "Endpoint");
-        Args.notNull(connectionInitiator, "Connection initiator");
-        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Args.notNull()` is ignored
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/PoolingAsyncClientConnectionManager.java`
-#### Snippet
-```java
-            final FutureCallback<AsyncConnectionEndpoint> callback) {
-        Args.notNull(endpoint, "Endpoint");
-        Args.notNull(connectionInitiator, "Connection initiator");
-        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
-        final ComplexFuture<AsyncConnectionEndpoint> resultFuture = new ComplexFuture<>(callback);
 ```
 
 ### RuleId[ruleID=IgnoreResultOfCall]
@@ -5611,19 +5587,31 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/PoolingAsyncCl
         if (entry == null) {
 ```
 
-## RuleId[ruleID=UnnecessaryUnboxing]
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/PoolingAsyncClientConnectionManager.java`
 #### Snippet
 ```java
-        Type1Message(final String domain, final String host, final Integer flags) {
-            super();
-            this.flags = ((flags == null)?getDefaultFlags(): flags.intValue());
-
-            // See HTTPCLIENT-1662
+            final HttpContext context,
+            final FutureCallback<AsyncConnectionEndpoint> callback) {
+        Args.notNull(endpoint, "Endpoint");
+        Args.notNull(connectionInitiator, "Connection initiator");
+        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
 ```
 
+### RuleId[ruleID=IgnoreResultOfCall]
+Result of `Args.notNull()` is ignored
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/PoolingAsyncClientConnectionManager.java`
+#### Snippet
+```java
+            final FutureCallback<AsyncConnectionEndpoint> callback) {
+        Args.notNull(endpoint, "Endpoint");
+        Args.notNull(connectionInitiator, "Connection initiator");
+        final InternalConnectionEndpoint internalEndpoint = cast(endpoint);
+        final ComplexFuture<AsyncConnectionEndpoint> resultFuture = new ComplexFuture<>(callback);
+```
+
+## RuleId[ruleID=UnnecessaryUnboxing]
 ### RuleId[ruleID=UnnecessaryUnboxing]
 Unnecessary unboxing
 in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/ConscryptClientTlsStrategy.java`
@@ -5650,6 +5638,18 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/Defaul
 
 ### RuleId[ruleID=UnnecessaryUnboxing]
 Unnecessary unboxing
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+#### Snippet
+```java
+                                @Override
+                                public void completed(final Boolean result) {
+                                    if (result.booleanValue()) {
+                                        callback.completed(result);
+                                    } else {
+```
+
+### RuleId[ruleID=UnnecessaryUnboxing]
+Unnecessary unboxing
 in `httpclient5-fluent/src/main/java/org/apache/hc/client5/http/fluent/Request.java`
 #### Snippet
 ```java
@@ -5662,27 +5662,27 @@ in `httpclient5-fluent/src/main/java/org/apache/hc/client5/http/fluent/Request.j
 
 ### RuleId[ruleID=UnnecessaryUnboxing]
 Unnecessary unboxing
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
 #### Snippet
 ```java
-                                @Override
-                                public void completed(final Boolean result) {
-                                    if (result.booleanValue()) {
-                                        callback.completed(result);
-                                    } else {
+        Type1Message(final String domain, final String host, final Integer flags) {
+            super();
+            this.flags = ((flags == null)?getDefaultFlags(): flags.intValue());
+
+            // See HTTPCLIENT-1662
 ```
 
 ## RuleId[ruleID=RedundantMethodOverride]
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `digest()` only delegates to its super method
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestBuilder.java`
+Method `validate()` is identical to its super method
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpecFactory.java`
 #### Snippet
 ```java
-
-    @Override
-    protected void digest(final HttpRequest request) {
-        super.digest(request);
-    }
+                                    new BasicPathHandler() {
+                                        @Override
+                                        public void validate(
+                                                final Cookie cookie,
+                                                final CookieOrigin origin) throws MalformedCookieException {
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
@@ -5698,15 +5698,15 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/BasicHttpC
 ```
 
 ### RuleId[ruleID=RedundantMethodOverride]
-Method `validate()` is identical to its super method
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpecFactory.java`
+Method `digest()` only delegates to its super method
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestBuilder.java`
 #### Snippet
 ```java
-                                    new BasicPathHandler() {
-                                        @Override
-                                        public void validate(
-                                                final Cookie cookie,
-                                                final CookieOrigin origin) throws MalformedCookieException {
+
+    @Override
+    protected void digest(final HttpRequest request) {
+        super.digest(request);
+    }
 ```
 
 ## RuleId[ruleID=UnnecessarySuperQualifier]
@@ -5774,138 +5774,6 @@ in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/classic/Rand
 ## RuleId[ruleID=NestedAssignment]
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixListParser.java`
-#### Snippet
-```java
-        List<String> exceptions = null;
-        String line;
-        while ((line = r.readLine()) != null) {
-            if (line.isEmpty()) {
-                continue;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixListParser.java`
-#### Snippet
-```java
-
-        String line;
-        while ((line = r.readLine()) != null) {
-            if (line.isEmpty()) {
-                continue;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/DecompressingEntity.java`
-#### Snippet
-```java
-            final byte[] buffer = new byte[BUFFER_SIZE];
-            int l;
-            while ((l = inStream.read(buffer)) != -1) {
-                outStream.write(buffer, 0, l);
-            }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FileBody.java`
-#### Snippet
-```java
-            final byte[] tmp = new byte[4096];
-            int l;
-            while ((l = in.read(tmp)) != -1) {
-                out.write(tmp, 0, l);
-            }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/InputStreamBody.java`
-#### Snippet
-```java
-            final byte[] tmp = new byte[4096];
-            int l;
-            while ((l = this.in.read(tmp)) != -1) {
-                out.write(tmp, 0, l);
-            }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CombinedEntity.java`
-#### Snippet
-```java
-            int l;
-            final byte[] tmp = new byte[2048];
-            while ((l = inStream.read(tmp)) != -1) {
-                outStream.write(tmp, 0, l);
-            }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpByteArrayCacheEntrySerializer.java`
-#### Snippet
-```java
-        final byte[] buf = new byte[BUFFER_SIZE];
-        int lastBytesRead;
-        while ((lastBytesRead = srcBuf.read(buf, src)) != -1) {
-            dest.write(buf, 0, lastBytesRead);
-        }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/InternalHttpClient.java`
-#### Snippet
-```java
-        if (this.closeables != null) {
-            Closeable closeable;
-            while ((closeable = this.closeables.poll()) != null) {
-                try {
-                    if (closeable instanceof ModalCloseable) {
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/WarningValue.java`
-#### Snippet
-```java
-
-    WarningValue(final String s, final int offs) {
-        this.offs = this.init_offs = offs;
-        this.src = s;
-        consumeWarnValue();
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingExec.java`
-#### Snippet
-```java
-            long total = 0;
-            int l;
-            while ((l = inStream.read(tmp)) != -1) {
-                buf.append(tmp, 0, l);
-                total += l;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/FileResource.java`
-#### Snippet
-```java
-            final byte[] tmp = new byte[2048];
-            int len;
-            while ((len = in.read(tmp)) != -1) {
-                buf.append(tmp, 0, len);
-            }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
 in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/FileResourceFactory.java`
 #### Snippet
 ```java
@@ -5942,6 +5810,138 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/Manage
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/WarningValue.java`
+#### Snippet
+```java
+
+    WarningValue(final String s, final int offs) {
+        this.offs = this.init_offs = offs;
+        this.src = s;
+        consumeWarnValue();
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FileBody.java`
+#### Snippet
+```java
+            final byte[] tmp = new byte[4096];
+            int l;
+            while ((l = in.read(tmp)) != -1) {
+                out.write(tmp, 0, l);
+            }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpByteArrayCacheEntrySerializer.java`
+#### Snippet
+```java
+        final byte[] buf = new byte[BUFFER_SIZE];
+        int lastBytesRead;
+        while ((lastBytesRead = srcBuf.read(buf, src)) != -1) {
+            dest.write(buf, 0, lastBytesRead);
+        }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingExec.java`
+#### Snippet
+```java
+            long total = 0;
+            int l;
+            while ((l = inStream.read(tmp)) != -1) {
+                buf.append(tmp, 0, l);
+                total += l;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/InputStreamBody.java`
+#### Snippet
+```java
+            final byte[] tmp = new byte[4096];
+            int l;
+            while ((l = this.in.read(tmp)) != -1) {
+                out.write(tmp, 0, l);
+            }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/FileResource.java`
+#### Snippet
+```java
+            final byte[] tmp = new byte[2048];
+            int len;
+            while ((len = in.read(tmp)) != -1) {
+                buf.append(tmp, 0, len);
+            }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/InternalHttpClient.java`
+#### Snippet
+```java
+        if (this.closeables != null) {
+            Closeable closeable;
+            while ((closeable = this.closeables.poll()) != null) {
+                try {
+                    if (closeable instanceof ModalCloseable) {
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CombinedEntity.java`
+#### Snippet
+```java
+            int l;
+            final byte[] tmp = new byte[2048];
+            while ((l = inStream.read(tmp)) != -1) {
+                outStream.write(tmp, 0, l);
+            }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/DecompressingEntity.java`
+#### Snippet
+```java
+            final byte[] buffer = new byte[BUFFER_SIZE];
+            int l;
+            while ((l = inStream.read(buffer)) != -1) {
+                outStream.write(buffer, 0, l);
+            }
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixListParser.java`
+#### Snippet
+```java
+        List<String> exceptions = null;
+        String line;
+        while ((line = r.readLine()) != null) {
+            if (line.isEmpty()) {
+                continue;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixListParser.java`
+#### Snippet
+```java
+
+        String line;
+        while ((line = r.readLine()) != null) {
+            if (line.isEmpty()) {
+                continue;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalAbstractHttpAsyncClient.java`
 #### Snippet
 ```java
@@ -5966,18 +5966,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClient
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `route` is accessed in both synchronized and unsynchronized contexts
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
-#### Snippet
-```java
-
-    private ManagedHttpClientConnection conn;
-    private HttpRoute route;
-    private Object state;
-    private long created;
-```
-
-### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 Field `state` is accessed in both synchronized and unsynchronized contexts
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
 #### Snippet
@@ -5990,15 +5978,27 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClient
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `coolDown` is accessed in both synchronized and unsynchronized contexts
+Field `route` is accessed in both synchronized and unsynchronized contexts
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/BasicHttpClientConnectionManager.java`
+#### Snippet
+```java
+
+    private ManagedHttpClientConnection conn;
+    private HttpRoute route;
+    private Object state;
+    private long created;
+```
+
+### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+Field `backoffFactor` is accessed in both synchronized and unsynchronized contexts
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/AIMDBackoffManager.java`
 #### Snippet
 ```java
-    private final Map<HttpRoute, Long> lastRouteProbes;
     private final Map<HttpRoute, Long> lastRouteBackoffs;
     private TimeValue coolDown = TimeValue.ofSeconds(5L);
     private double backoffFactor = 0.5;
     private int cap = 2; // Per RFC 2616 sec 8.1.4
+
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -6014,15 +6014,15 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/AIMDBackof
 ```
 
 ### RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-Field `backoffFactor` is accessed in both synchronized and unsynchronized contexts
+Field `coolDown` is accessed in both synchronized and unsynchronized contexts
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/AIMDBackoffManager.java`
 #### Snippet
 ```java
+    private final Map<HttpRoute, Long> lastRouteProbes;
     private final Map<HttpRoute, Long> lastRouteBackoffs;
     private TimeValue coolDown = TimeValue.ofSeconds(5L);
     private double backoffFactor = 0.5;
     private int cap = 2; // Per RFC 2616 sec 8.1.4
-
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -6150,26 +6150,26 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpReques
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/WarningValue.java`
 #### Snippet
 ```java
-            return gssContext.initSecContext(input, 0, input.length);
-        } else {
-            return gssContext.initSecContext(new byte[] {}, 0, 0);
+            }
         }
+        final WarningValue[] wvs = {};
+        return out.toArray(wvs);
     }
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpCacheEntry.java`
 #### Snippet
 ```java
-                // This likely means we couldn't find the MD4 hash algorithm -
-                // fail back to just using LM
-                ntResp = new byte[0];
-                lmResp = gen.getLMResponse();
-                if ((type2Flags & FLAG_REQUEST_LAN_MANAGER_KEY) != 0) {
+    public Header[] getHeaders(final String name) {
+        if (REQUEST_METHOD_HEADER_NAME.equalsIgnoreCase(name)) {
+            return new Header[0];
+        }
+        return responseHeaders.getHeaders(name);
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -6198,18 +6198,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/ByteArrayBuilder.
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/WarningValue.java`
-#### Snippet
-```java
-            }
-        }
-        final WarningValue[] wvs = {};
-        return out.toArray(wvs);
-    }
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
 in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/classic/EchoHandler.java`
 #### Snippet
 ```java
@@ -6222,14 +6210,14 @@ in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/classic/Echo
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/SystemDefaultCredentialsProvider.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
 #### Snippet
 ```java
-
-                return new PasswordAuthentication(proxyUser,
-                        proxyPassword != null ? proxyPassword.toCharArray() : new char[] {});
-            }
-        } catch (final NumberFormatException ex) {
+            return gssContext.initSecContext(input, 0, input.length);
+        } else {
+            return gssContext.initSecContext(new byte[] {}, 0, 0);
+        }
+    }
 ```
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -6246,29 +6234,29 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ResponseEn
 
 ### RuleId[ruleID=ZeroLengthArrayInitialization]
 Allocation of zero length array
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpCacheEntry.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
 #### Snippet
 ```java
-    public Header[] getHeaders(final String name) {
-        if (REQUEST_METHOD_HEADER_NAME.equalsIgnoreCase(name)) {
-            return new Header[0];
-        }
-        return responseHeaders.getHeaders(name);
+                // This likely means we couldn't find the MD4 hash algorithm -
+                // fail back to just using LM
+                ntResp = new byte[0];
+                lmResp = gen.getLMResponse();
+                if ((type2Flags & FLAG_REQUEST_LAN_MANAGER_KEY) != 0) {
+```
+
+### RuleId[ruleID=ZeroLengthArrayInitialization]
+Allocation of zero length array
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/SystemDefaultCredentialsProvider.java`
+#### Snippet
+```java
+
+                return new PasswordAuthentication(proxyUser,
+                        proxyPassword != null ? proxyPassword.toCharArray() : new char[] {});
+            }
+        } catch (final NumberFormatException ex) {
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on a class may have unforeseen side-effects
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcherLoader.java`
-#### Snippet
-```java
-    public static PublicSuffixMatcher getDefault() {
-        if (DEFAULT_INSTANCE == null) {
-            synchronized (PublicSuffixMatcherLoader.class) {
-                if (DEFAULT_INSTANCE == null){
-                    final URL url = PublicSuffixMatcherLoader.class.getResource(
-```
-
 ### RuleId[ruleID=SynchronizeOnThis]
 Lock operations on 'this' may have unforeseen side-effects
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/IgnoreCookieSpecFactory.java`
@@ -6283,50 +6271,14 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/IgnoreCooki
 
 ### RuleId[ruleID=SynchronizeOnThis]
 Lock operations on 'this' may have unforeseen side-effects
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpecFactory.java`
-#### Snippet
-```java
-    public CookieSpec create(final HttpContext context) {
-        if (cookieSpec == null) {
-            synchronized (this) {
-                if (cookieSpec == null) {
-                    switch (this.compatibilityLevel) {
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
 in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
 #### Snippet
 ```java
-    public void close() {
+    public void shutdown() {
         if (compareAndSet()) {
             synchronized (this) {
-                ResourceReference ref;
-                while ((ref = (ResourceReference) this.morque.poll()) != null) {
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
-#### Snippet
-```java
-        Args.notNull(casOperation, "CAS operation");
-        ensureValidState();
-        synchronized (this) {
-            final HttpCacheEntry existing = this.entries.get(url);
-            final HttpCacheEntry updated = casOperation.execute(existing);
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
-#### Snippet
-```java
-        Args.notNull(url, "URL");
-        ensureValidState();
-        synchronized (this) {
-            return this.entries.get(url);
-        }
+                this.entries.clear();
+                for (final ResourceReference ref: this.resources) {
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -6346,11 +6298,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
 #### Snippet
 ```java
-        Args.notNull(url, "URL");
-        ensureValidState();
-        synchronized (this) {
-            // Cannot deallocate the associated resources immediately as the
-            // cache entry may still be in use
+    public void close() {
+        if (compareAndSet()) {
+            synchronized (this) {
+                ResourceReference ref;
+                while ((ref = (ResourceReference) this.morque.poll()) != null) {
 ```
 
 ### RuleId[ruleID=SynchronizeOnThis]
@@ -6370,38 +6322,62 @@ Lock operations on 'this' may have unforeseen side-effects
 in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
 #### Snippet
 ```java
-    public void shutdown() {
-        if (compareAndSet()) {
-            synchronized (this) {
-                this.entries.clear();
-                for (final ResourceReference ref: this.resources) {
+        Args.notNull(url, "URL");
+        ensureValidState();
+        synchronized (this) {
+            // Cannot deallocate the associated resources immediately as the
+            // cache entry may still be in use
 ```
 
-## RuleId[ruleID=UnusedAssignment]
-### RuleId[ruleID=UnusedAssignment]
-The value `unknown2.length` assigned to `offset` is never used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+### RuleId[ruleID=SynchronizeOnThis]
+Lock operations on 'this' may have unforeseen side-effects
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
 #### Snippet
 ```java
-        offset += targetInformation.length;
-        System.arraycopy(unknown2, 0, blob, offset, unknown2.length);
-        offset += unknown2.length;
-        return blob;
-    }
-```
-
-### RuleId[ruleID=UnusedAssignment]
-The value `transferAmt` assigned to `curBufferPos` is never used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
-#### Snippet
-```java
-                System.arraycopy(input, inputIndex, dataBuffer, curBufferPos, transferAmt);
-                count += transferAmt;
-                curBufferPos += transferAmt;
-            }
+        Args.notNull(url, "URL");
+        ensureValidState();
+        synchronized (this) {
+            return this.entries.get(url);
         }
 ```
 
+### RuleId[ruleID=SynchronizeOnThis]
+Lock operations on 'this' may have unforeseen side-effects
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ManagedHttpCacheStorage.java`
+#### Snippet
+```java
+        Args.notNull(casOperation, "CAS operation");
+        ensureValidState();
+        synchronized (this) {
+            final HttpCacheEntry existing = this.entries.get(url);
+            final HttpCacheEntry updated = casOperation.execute(existing);
+```
+
+### RuleId[ruleID=SynchronizeOnThis]
+Lock operations on 'this' may have unforeseen side-effects
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/RFC6265CookieSpecFactory.java`
+#### Snippet
+```java
+    public CookieSpec create(final HttpContext context) {
+        if (cookieSpec == null) {
+            synchronized (this) {
+                if (cookieSpec == null) {
+                    switch (this.compatibilityLevel) {
+```
+
+### RuleId[ruleID=SynchronizeOnThis]
+Lock operations on a class may have unforeseen side-effects
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcherLoader.java`
+#### Snippet
+```java
+    public static PublicSuffixMatcher getDefault() {
+        if (DEFAULT_INSTANCE == null) {
+            synchronized (PublicSuffixMatcherLoader.class) {
+                if (DEFAULT_INSTANCE == null){
+                    final URL url = PublicSuffixMatcherLoader.class.getResource(
+```
+
+## RuleId[ruleID=UnusedAssignment]
 ### RuleId[ruleID=UnusedAssignment]
 Variable `step` initializer `UNREACHABLE` is redundant
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/routing/BasicRouteDirector.java`
@@ -6426,15 +6402,39 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/RouteTracker.java`
             result = this.proxyChain[hop];
 ```
 
-## RuleId[ruleID=ConstantValue]
-### RuleId[ruleID=ConstantValue]
-Value `returnString` is always 'null'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/NTCredentials.java`
+### RuleId[ruleID=UnusedAssignment]
+The value `transferAmt` assigned to `curBufferPos` is never used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
 #### Snippet
 ```java
-    private static String convertDomain(final String domain) {
-        final String returnString = stripDotSuffix(domain);
-        return returnString == null ? returnString : returnString.toUpperCase(Locale.ROOT);
+                System.arraycopy(input, inputIndex, dataBuffer, curBufferPos, transferAmt);
+                count += transferAmt;
+                curBufferPos += transferAmt;
+            }
+        }
+```
+
+### RuleId[ruleID=UnusedAssignment]
+The value `unknown2.length` assigned to `offset` is never used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+#### Snippet
+```java
+        offset += targetInformation.length;
+        System.arraycopy(unknown2, 0, blob, offset, unknown2.length);
+        offset += unknown2.length;
+        return blob;
+    }
+```
+
+## RuleId[ruleID=ConstantValue]
+### RuleId[ruleID=ConstantValue]
+Condition `(int) c >=0` is always `true` when reached
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/WarningValue.java`
+#### Snippet
+```java
+     */
+    private boolean isControl(final char c) {
+        return ((int) c == 127 || ((int) c >=0 && (int) c <= 31));
     }
 
 ```
@@ -6452,27 +6452,15 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/Warnin
 ```
 
 ### RuleId[ruleID=ConstantValue]
-Condition `(int) c >=0` is always `true` when reached
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/WarningValue.java`
+Value `returnString` is always 'null'
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/NTCredentials.java`
 #### Snippet
 ```java
-     */
-    private boolean isControl(final char c) {
-        return ((int) c == 127 || ((int) c >=0 && (int) c <= 31));
+    private static String convertDomain(final String domain) {
+        final String returnString = stripDotSuffix(domain);
+        return returnString == null ? returnString : returnString.toUpperCase(Locale.ROOT);
     }
 
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `result` is always 'true'
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-                                public void completed(final Boolean result) {
-                                    if (result.booleanValue()) {
-                                        callback.completed(result);
-                                    } else {
-                                        if (!complexCancellable.isCancelled()) {
 ```
 
 ### RuleId[ruleID=ConstantValue]
@@ -6487,19 +6475,19 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DefaultHostnameVeri
         try {
 ```
 
-## RuleId[ruleID=MethodOverridesStaticMethod]
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `create()` tries to override a static method of a superclass
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingH2AsyncClientBuilder.java`
+### RuleId[ruleID=ConstantValue]
+Value `result` is always 'true'
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
 #### Snippet
 ```java
-    private boolean deleteCache;
-
-    public static CachingH2AsyncClientBuilder create() {
-        return new CachingH2AsyncClientBuilder();
-    }
+                                public void completed(final Boolean result) {
+                                    if (result.booleanValue()) {
+                                        callback.completed(result);
+                                    } else {
+                                        if (!complexCancellable.isCancelled()) {
 ```
 
+## RuleId[ruleID=MethodOverridesStaticMethod]
 ### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `create()` tries to override a static method of a superclass
 in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingHttpClientBuilder.java`
@@ -6509,6 +6497,18 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/Cachin
 
     public static CachingHttpClientBuilder create() {
         return new CachingHttpClientBuilder();
+    }
+```
+
+### RuleId[ruleID=MethodOverridesStaticMethod]
+Method `create()` tries to override a static method of a superclass
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingHttpAsyncClientBuilder.java`
+#### Snippet
+```java
+    private boolean deleteCache;
+
+    public static CachingHttpAsyncClientBuilder create() {
+        return new CachingHttpAsyncClientBuilder();
     }
 ```
 
@@ -6562,17 +6562,29 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/HttpClientCont
 
 ### RuleId[ruleID=MethodOverridesStaticMethod]
 Method `create()` tries to override a static method of a superclass
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingHttpAsyncClientBuilder.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingH2AsyncClientBuilder.java`
 #### Snippet
 ```java
     private boolean deleteCache;
 
-    public static CachingHttpAsyncClientBuilder create() {
-        return new CachingHttpAsyncClientBuilder();
+    public static CachingH2AsyncClientBuilder create() {
+        return new CachingH2AsyncClientBuilder();
     }
 ```
 
 ## RuleId[ruleID=IOResource]
+### RuleId[ruleID=IOResource]
+'IdleConnectionEvictor' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+        }
+        if (evictIdleConnections) {
+            final IdleConnectionEvictor connectionEvictor = new IdleConnectionEvictor(connPool,
+                    maxIdleTime != null ? maxIdleTime : TimeValue.ofSeconds(30L));
+            closeablesCopy.add(connectionEvictor::shutdown);
+```
+
 ### RuleId[ruleID=IOResource]
 'BufferedReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixListParser.java`
@@ -6597,19 +6609,43 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixListPar
         String line;
 ```
 
-### RuleId[ruleID=IOResource]
-'IdleConnectionEvictor' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `MimeConsts` has only 'static' members, and lacks a 'private' constructor
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MimeConsts.java`
 #### Snippet
 ```java
-        }
-        if (evictIdleConnections) {
-            final IdleConnectionEvictor connectionEvictor = new IdleConnectionEvictor(connPool,
-                    maxIdleTime != null ? maxIdleTime : TimeValue.ofSeconds(30L));
-            closeablesCopy.add(connectionEvictor::shutdown);
+package org.apache.hc.client5.http.entity.mime;
+
+final class MimeConsts {
+
+    public static final String CONTENT_TYPE          = "Content-Type";
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `HttpCacheSupport` has only 'static' members, and lacks a 'private' constructor
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
+#### Snippet
+```java
+ * @since 5.0
+ */
+public final class HttpCacheSupport {
+
+    private static final URI BASE_URI = URI.create("http://example.com/");
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `HttpsSupport` has only 'static' members, and lacks a 'private' constructor
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/HttpsSupport.java`
+#### Snippet
+```java
+ * @since 5.0
+ */
+public final class HttpsSupport {
+
+    private static String[] split(final String s) {
+```
+
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `PublicSuffixMatcherLoader` has only 'static' members, and lacks a 'private' constructor
 in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcherLoader.java`
@@ -6623,6 +6659,18 @@ public final class PublicSuffixMatcherLoader {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `Operations` has only 'static' members, and lacks a 'private' constructor
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Operations.java`
+#### Snippet
+```java
+ * @since 5.0
+ */
+public final class Operations {
+
+    private final static Cancellable NOOP_CANCELLABLE = () -> false;
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `ConnectExceptionSupport` has only 'static' members, and lacks a 'private' constructor
 in `httpclient5/src/main/java/org/apache/hc/client5/http/ConnectExceptionSupport.java`
 #### Snippet
@@ -6632,90 +6680,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/ConnectExceptionSupport
 public final class ConnectExceptionSupport {
 
     public static ConnectTimeoutException createConnectTimeoutException(
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `BasicHttpRequests` has only 'static' members, and lacks a 'private' constructor
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/BasicHttpRequests.java`
-#### Snippet
-```java
- */
-@Deprecated
-public final class BasicHttpRequests {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `DateSupport` has only 'static' members, and lacks a 'private' constructor
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/DateSupport.java`
-#### Snippet
-```java
- */
-@Internal
-public final class DateSupport {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `HttpHeader` has only 'static' members, and lacks a 'private' constructor
-in `httpclient5-fluent/src/main/java/org/apache/hc/client5/http/fluent/HttpHeader.java`
-#### Snippet
-```java
-package org.apache.hc.client5.http.fluent;
-
-class HttpHeader {
-
-    public static final String CONTENT_LENGTH = "Content-Length";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CredentialsMatcher` has only 'static' members, and lacks a 'private' constructor
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsMatcher.java`
-#### Snippet
-```java
-import org.apache.hc.client5.http.auth.Credentials;
-
-final class CredentialsMatcher {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ExecSupport` has only 'static' members, and lacks a 'private' constructor
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/ExecSupport.java`
-#### Snippet
-```java
- */
-@Internal
-public final class ExecSupport {
-
-    private static final PrefixedIncrementingId INCREMENTING_ID = new PrefixedIncrementingId("ex-");
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `RoutingSupport` has only 'static' members, and lacks a 'private' constructor
-in `httpclient5/src/main/java/org/apache/hc/client5/http/routing/RoutingSupport.java`
-#### Snippet
-```java
-import org.apache.hc.core5.net.URIAuthority;
-
-public final class RoutingSupport {
-
-    public static HttpHost determineHost(final HttpRequest request) throws HttpException {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ConnPoolSupport` has only 'static' members, and lacks a 'private' constructor
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/ConnPoolSupport.java`
-#### Snippet
-```java
- */
-@Internal
-public final class ConnPoolSupport {
-
-    public static String getId(final Object object) {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -6743,27 +6707,99 @@ public final class RequestSupport {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `HttpCacheSupport` has only 'static' members, and lacks a 'private' constructor
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
+Class `ExecSupport` has only 'static' members, and lacks a 'private' constructor
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/ExecSupport.java`
 #### Snippet
 ```java
- * @since 5.0
  */
-public final class HttpCacheSupport {
+@Internal
+public final class ExecSupport {
 
-    private static final URI BASE_URI = URI.create("http://example.com/");
+    private static final PrefixedIncrementingId INCREMENTING_ID = new PrefixedIncrementingId("ex-");
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Operations` has only 'static' members, and lacks a 'private' constructor
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Operations.java`
+Class `HeaderConstants` has only 'static' members, and lacks a 'private' constructor
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HeaderConstants.java`
 #### Snippet
 ```java
- * @since 5.0
+ * @since 4.1
  */
-public final class Operations {
+public class HeaderConstants {
 
-    private final static Cancellable NOOP_CANCELLABLE = () -> false;
+    public static final String GET_METHOD = "GET";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `CredentialsMatcher` has only 'static' members, and lacks a 'private' constructor
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/CredentialsMatcher.java`
+#### Snippet
+```java
+import org.apache.hc.client5.http.auth.Credentials;
+
+final class CredentialsMatcher {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `BasicHttpRequests` has only 'static' members, and lacks a 'private' constructor
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/BasicHttpRequests.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public final class BasicHttpRequests {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `HttpHeader` has only 'static' members, and lacks a 'private' constructor
+in `httpclient5-fluent/src/main/java/org/apache/hc/client5/http/fluent/HttpHeader.java`
+#### Snippet
+```java
+package org.apache.hc.client5.http.fluent;
+
+class HttpHeader {
+
+    public static final String CONTENT_LENGTH = "Content-Length";
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ConnPoolSupport` has only 'static' members, and lacks a 'private' constructor
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/ConnPoolSupport.java`
+#### Snippet
+```java
+ */
+@Internal
+public final class ConnPoolSupport {
+
+    public static String getId(final Object object) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `RoutingSupport` has only 'static' members, and lacks a 'private' constructor
+in `httpclient5/src/main/java/org/apache/hc/client5/http/routing/RoutingSupport.java`
+#### Snippet
+```java
+import org.apache.hc.core5.net.URIAuthority;
+
+public final class RoutingSupport {
+
+    public static HttpHost determineHost(final HttpRequest request) throws HttpException {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `DateSupport` has only 'static' members, and lacks a 'private' constructor
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/DateSupport.java`
+#### Snippet
+```java
+ */
+@Internal
+public final class DateSupport {
+
+    /**
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -6779,30 +6815,6 @@ public final class SimpleHttpRequests {
 ```
 
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MimeConsts` has only 'static' members, and lacks a 'private' constructor
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MimeConsts.java`
-#### Snippet
-```java
-package org.apache.hc.client5.http.entity.mime;
-
-final class MimeConsts {
-
-    public static final String CONTENT_TYPE          = "Content-Type";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `HttpsSupport` has only 'static' members, and lacks a 'private' constructor
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/HttpsSupport.java`
-#### Snippet
-```java
- * @since 5.0
- */
-public final class HttpsSupport {
-
-    private static String[] split(final String s) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `AuthSchemeSupport` has only 'static' members, and lacks a 'private' constructor
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/AuthSchemeSupport.java`
 #### Snippet
@@ -6814,19 +6826,19 @@ public class AuthSchemeSupport {
     public static Charset parseCharset(
 ```
 
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `HeaderConstants` has only 'static' members, and lacks a 'private' constructor
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HeaderConstants.java`
+## RuleId[ruleID=DataFlowIssue]
+### RuleId[ruleID=DataFlowIssue]
+Argument `body.getBodyBytes()` might be null
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingExec.java`
 #### Snippet
 ```java
- * @since 4.1
- */
-public class HeaderConstants {
-
-    public static final String GET_METHOD = "GET";
+                response.setEntity(new StringEntity(body.getBodyText(), contentType, contentEncoding, false));
+            } else {
+                response.setEntity(new ByteArrayEntity(body.getBodyBytes(), contentType, contentEncoding, false));
+            }
+        }
 ```
 
-## RuleId[ruleID=DataFlowIssue]
 ### RuleId[ruleID=DataFlowIssue]
 Method invocation `getHopCount` may produce `NullPointerException`
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ConnectExec.java`
@@ -6853,18 +6865,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleReq
 
 ### RuleId[ruleID=DataFlowIssue]
 Argument `body.getBodyBytes()` might be null
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingExec.java`
-#### Snippet
-```java
-                response.setEntity(new StringEntity(body.getBodyText(), contentType, contentEncoding, false));
-            } else {
-                response.setEntity(new ByteArrayEntity(body.getBodyBytes(), contentType, contentEncoding, false));
-            }
-        }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `body.getBodyBytes()` might be null
 in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/async/AbstractSimpleServerExchangeHandler.java`
 #### Snippet
 ```java
@@ -6887,32 +6887,31 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/PoolingHttpClie
                 if (LOG.isDebugEnabled()) {
 ```
 
-## RuleId[ruleID=MethodOverloadsParentMethod]
-### RuleId[ruleID=MethodOverloadsParentMethod]
-Method `digest()` overloads a compatible method of a superclass, when overriding might have been intended
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestBuilder.java`
-#### Snippet
-```java
-    }
-
-    protected void digest(final SimpleHttpRequest request) {
-        super.digest(request);
-        setBody(request.getBody());
-```
-
-### RuleId[ruleID=MethodOverloadsParentMethod]
-Method `digest()` overloads a compatible method of a superclass, when overriding might have been intended
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleResponseBuilder.java`
-#### Snippet
-```java
-    }
-
-    protected void digest(final SimpleHttpResponse response) {
-        super.digest(response);
-        setBody(response.getBody());
-```
-
 ## RuleId[ruleID=DeprecatedIsStillUsed]
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'tlsDetailsFactory' is still used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DefaultClientTlsStrategy.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    private Factory<SSLEngine, TlsDetails> tlsDetailsFactory;
+
+    /**
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'tlsDetailsFactory' is still used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/ClientTlsStrategyBuilder.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    private Factory<SSLEngine, TlsDetails> tlsDetailsFactory;
+    private boolean systemProperties;
+
+```
+
 ### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'setExpiryDate' is still used
 in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/SetCookie.java`
@@ -6921,6 +6920,66 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/SetCookie.java`
      */
     @Deprecated
     void setExpiryDate (Date expiryDate);
+
+    /**
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'createMinimal' is still used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClients.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static MinimalHttpAsyncClient createMinimal(
+            final HttpVersionPolicy versionPolicy,
+            final H2Config h2Config,
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'createMinimal' is still used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClients.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static MinimalHttpAsyncClient createMinimal(
+            final HttpVersionPolicy versionPolicy,
+            final H2Config h2Config,
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'clearExpired' is still used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieStore.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    boolean clearExpired(Date date);
+
+    /**
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'tlsConfig' is still used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalHttpAsyncExecRuntime.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    private final TlsConfig tlsConfig;
+    private final AtomicReference<AsyncConnectionEndpoint> endpointRef;
+    private volatile boolean reusable;
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'isExpired' is still used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/Cookie.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    boolean isExpired(final Date date);
 
     /**
 ```
@@ -6938,75 +6997,15 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/Cookie.java`
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'isExpired' is still used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/Cookie.java`
+Deprecated member 'getProxy' is still used
+in `httpclient5/src/main/java/org/apache/hc/client5/http/config/RequestConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    boolean isExpired(final Date date);
-
-    /**
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'clearExpired' is still used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieStore.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    boolean clearExpired(Date date);
-
-    /**
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'createMinimal' is still used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClients.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static MinimalHttpAsyncClient createMinimal(
-            final HttpVersionPolicy versionPolicy,
-            final H2Config h2Config,
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'createMinimal' is still used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncClients.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static MinimalHttpAsyncClient createMinimal(
-            final HttpVersionPolicy versionPolicy,
-            final H2Config h2Config,
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'tlsConfig' is still used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalHttpAsyncExecRuntime.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    private final TlsConfig tlsConfig;
-    private final AtomicReference<AsyncConnectionEndpoint> endpointRef;
-    private volatile boolean reusable;
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'tlsDetailsFactory' is still used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DefaultClientTlsStrategy.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    private Factory<SSLEngine, TlsDetails> tlsDetailsFactory;
-
-    /**
+    public HttpHost getProxy() {
+        return proxy;
+    }
 ```
 
 ### RuleId[ruleID=DeprecatedIsStillUsed]
@@ -7021,28 +7020,29 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/HttpAsyncCli
     private boolean connManagerShared;
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'tlsDetailsFactory' is still used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/ClientTlsStrategyBuilder.java`
+## RuleId[ruleID=MethodOverloadsParentMethod]
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `digest()` overloads a compatible method of a superclass, when overriding might have been intended
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleResponseBuilder.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    private Factory<SSLEngine, TlsDetails> tlsDetailsFactory;
-    private boolean systemProperties;
+    }
 
+    protected void digest(final SimpleHttpResponse response) {
+        super.digest(response);
+        setBody(response.getBody());
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getProxy' is still used
-in `httpclient5/src/main/java/org/apache/hc/client5/http/config/RequestConfig.java`
+### RuleId[ruleID=MethodOverloadsParentMethod]
+Method `digest()` overloads a compatible method of a superclass, when overriding might have been intended
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleRequestBuilder.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    public HttpHost getProxy() {
-        return proxy;
     }
+
+    protected void digest(final SimpleHttpRequest request) {
+        super.digest(request);
+        setBody(request.getBody());
 ```
 
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
@@ -7071,18 +7071,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/LoggingInputStr
 ```
 
 ### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `mark()` overrides synchronized method
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/DeflateInputStream.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void mark(final int readLimit) {
-        sourceStream.mark(readLimit);
-    }
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
 Unsynchronized method `reset()` overrides synchronized method
 in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/DeflateInputStream.java`
 #### Snippet
@@ -7094,31 +7082,19 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/DeflateInputStre
     }
 ```
 
+### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+Unsynchronized method `mark()` overrides synchronized method
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/DeflateInputStream.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void mark(final int readLimit) {
+        sourceStream.mark(readLimit);
+    }
+```
+
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'requestConfig' in a Serializable class
-in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpUriRequestBase.java`
-#### Snippet
-```java
-
-    private final AtomicMarkableReference<Cancellable> cancellableRef;
-    private RequestConfig requestConfig;
-
-    public HttpUriRequestBase(final String method, final URI requestUri) {
-```
-
-### RuleId[ruleID=NonSerializableFieldInSerializableClass]
-Non-serializable field 'cancellableRef' in a Serializable class
-in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpUriRequestBase.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    private final AtomicMarkableReference<Cancellable> cancellableRef;
-    private RequestConfig requestConfig;
-
-```
-
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'requestConfig' in a Serializable class
 in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/ConfigurableHttpRequest.java`
@@ -7141,6 +7117,30 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHtt
     private SimpleBody body;
 
     public SimpleHttpResponse(final int code) {
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'cancellableRef' in a Serializable class
+in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpUriRequestBase.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    private final AtomicMarkableReference<Cancellable> cancellableRef;
+    private RequestConfig requestConfig;
+
+```
+
+### RuleId[ruleID=NonSerializableFieldInSerializableClass]
+Non-serializable field 'requestConfig' in a Serializable class
+in `httpclient5/src/main/java/org/apache/hc/client5/http/classic/methods/HttpUriRequestBase.java`
+#### Snippet
+```java
+
+    private final AtomicMarkableReference<Cancellable> cancellableRef;
+    private RequestConfig requestConfig;
+
+    public HttpUriRequestBase(final String method, final URI requestUri) {
 ```
 
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -7219,30 +7219,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/BasicCookieStore
 
 ## RuleId[ruleID=AssignmentToForLoopParameter]
 ### RuleId[ruleID=AssignmentToForLoopParameter]
-Assignment to for-loop parameter `j`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/Hex.java`
-#### Snippet
-```java
-        // two characters form the hex value.
-        for (int i = dataOffset, j = outOffset; i < dataOffset + dataLen; i++) {
-            out[j++] = toDigits[(0xF0 & data[i]) >>> 4];
-            out[j++] = toDigits[0x0F & data[i]];
-        }
-```
-
-### RuleId[ruleID=AssignmentToForLoopParameter]
-Assignment to for-loop parameter `j`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/Hex.java`
-#### Snippet
-```java
-        for (int i = dataOffset, j = outOffset; i < dataOffset + dataLen; i++) {
-            out[j++] = toDigits[(0xF0 & data[i]) >>> 4];
-            out[j++] = toDigits[0x0F & data[i]];
-        }
-    }
-```
-
-### RuleId[ruleID=AssignmentToForLoopParameter]
 Assignment to for-loop parameter `i`
 in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/HttpRFC7578Multipart.java`
 #### Snippet
@@ -7264,6 +7240,30 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/HttpRFC7578
                     final int l = digit16(bytes[++i]);
                     buffer.append((char) ((u << 4) + l));
                 } else {
+```
+
+### RuleId[ruleID=AssignmentToForLoopParameter]
+Assignment to for-loop parameter `j`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/Hex.java`
+#### Snippet
+```java
+        // two characters form the hex value.
+        for (int i = dataOffset, j = outOffset; i < dataOffset + dataLen; i++) {
+            out[j++] = toDigits[(0xF0 & data[i]) >>> 4];
+            out[j++] = toDigits[0x0F & data[i]];
+        }
+```
+
+### RuleId[ruleID=AssignmentToForLoopParameter]
+Assignment to for-loop parameter `j`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/Hex.java`
+#### Snippet
+```java
+        for (int i = dataOffset, j = outOffset; i < dataOffset + dataLen; i++) {
+            out[j++] = toDigits[(0xF0 & data[i]) >>> 4];
+            out[j++] = toDigits[0x0F & data[i]];
+        }
+    }
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
@@ -7432,9 +7432,9 @@ Comparison of compare method result with specific constant
 in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheValidityPolicy.java`
 #### Snippet
 ```java
-
-    public boolean isResponseFresh(final HttpCacheEntry entry, final Instant now) {
-        return getCurrentAge(entry, now).compareTo(getFreshnessLifetime(entry)) == -1;
+    public boolean isResponseHeuristicallyFresh(final HttpCacheEntry entry,
+            final Instant now, final float coefficient, final TimeValue defaultLifetime) {
+        return getCurrentAge(entry, now).compareTo(getHeuristicFreshnessLifetime(entry, coefficient, defaultLifetime)) == -1;
     }
 
 ```
@@ -7444,9 +7444,9 @@ Comparison of compare method result with specific constant
 in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheValidityPolicy.java`
 #### Snippet
 ```java
-    public boolean isResponseHeuristicallyFresh(final HttpCacheEntry entry,
-            final Instant now, final float coefficient, final TimeValue defaultLifetime) {
-        return getCurrentAge(entry, now).compareTo(getHeuristicFreshnessLifetime(entry, coefficient, defaultLifetime)) == -1;
+
+    public boolean isResponseFresh(final HttpCacheEntry entry, final Instant now) {
+        return getCurrentAge(entry, now).compareTo(getFreshnessLifetime(entry)) == -1;
     }
 
 ```
@@ -7467,18 +7467,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/Wire.java`
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ResponseCachingPolicy.java`
-#### Snippet
-```java
-        if (it.hasNext()) {
-            final HeaderElement elt = it.next();
-            final String proto = elt.toString().split("\\s")[0];
-            if (proto.contains("/")) {
-                return proto.equals("HTTP/1.0");
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/HttpsSupport.java`
 #### Snippet
 ```java
@@ -7489,211 +7477,19 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/HttpsSupport.java`
 
 ```
 
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ResponseCachingPolicy.java`
+#### Snippet
+```java
+        if (it.hasNext()) {
+            final HeaderElement elt = it.next();
+            final String proto = elt.toString().split("\\s")[0];
+            if (proto.contains("/")) {
+                return proto.equals("HTTP/1.0");
+```
+
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.cookie` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CommonCookieAttributeHandler.java`
-#### Snippet
-```java
-
-/**
- * Extension of {@link org.apache.hc.client5.http.cookie.CookieAttributeHandler} intended
- * to handle one specific common attribute whose name is returned with
- * {@link #getAttributeName()} method.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/InputStreamFactory.java`
-#### Snippet
-```java
-
-/**
- * Factory for decorated {@link java.io.InputStream}s.
- *
- * @since 4.4
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.impl.classic` is unnecessary and can be removed
-in `httpclient5-win/src/main/java/org/apache/hc/client5/http/impl/win/WinHttpClients.java`
-#### Snippet
-```java
-
-/**
- * Factory methods for {@link org.apache.hc.client5.http.impl.classic.CloseableHttpClient} instances configured to use integrated
- * Windows authentication by default.
- *
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieStore.java`
-#### Snippet
-```java
-    /**
-     * Removes all of {@link Cookie}s in this store that have expired by
-     * the specified {@link java.util.Date}.
-     *
-     * @return true if any cookies were purged.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.cookie` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieAttributeHandler.java`
-#### Snippet
-```java
-   * submitted) with the corresponding cookie attribute.
-   *
-   * @param cookie {@link org.apache.hc.client5.http.cookie.Cookie} to match
-   * @param origin the cookie source to match against
-   * @return {@code true} if the match is successful; {@code false} otherwise
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.cookie` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieAttributeHandler.java`
-#### Snippet
-```java
-  /**
-   * Parse the given cookie attribute value and processChallenge the corresponding
-   * {@link org.apache.hc.client5.http.cookie.Cookie} property.
-   *
-   * @param cookie {@link org.apache.hc.client5.http.cookie.Cookie} to be updated
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.cookie` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieAttributeHandler.java`
-#### Snippet
-```java
-   * {@link org.apache.hc.client5.http.cookie.Cookie} property.
-   *
-   * @param cookie {@link org.apache.hc.client5.http.cookie.Cookie} to be updated
-   * @param value cookie attribute value from the cookie response header
-   * @throws MalformedCookieException if cookie parsing fails for this attribute
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.cookie` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieAttributeHandler.java`
-#### Snippet
-```java
-   * Performs cookie validation for the given attribute value.
-   *
-   * @param cookie {@link org.apache.hc.client5.http.cookie.Cookie} to validate
-   * @param origin the cookie source to validate against
-   * @throws MalformedCookieException if cookie validation fails for this attribute
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixListParser.java`
-#### Snippet
-```java
-     *
-     * @param reader the data reader. The caller is responsible for closing the reader.
-     * @throws java.io.IOException on error while reading from list
-     *
-     * @since 4.5
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixListParser.java`
-#### Snippet
-```java
-     *
-     * @param reader the data reader. The caller is responsible for closing the reader.
-     * @throws java.io.IOException on error while reading from list
-     */
-    public PublicSuffixList parse(final Reader reader) throws IOException {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactoryBuilder.java`
-#### Snippet
-```java
-
-    public SSLConnectionSocketFactory build() {
-        final javax.net.ssl.SSLSocketFactory socketFactory;
-        if (sslContext != null) {
-            socketFactory = sslContext.getSocketFactory();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactoryBuilder.java`
-#### Snippet
-```java
-        } else {
-            if (systemProperties) {
-                socketFactory = (javax.net.ssl.SSLSocketFactory) javax.net.ssl.SSLSocketFactory.getDefault();
-            } else {
-                socketFactory = SSLContexts.createDefault().getSocketFactory();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactoryBuilder.java`
-#### Snippet
-```java
-        } else {
-            if (systemProperties) {
-                socketFactory = (javax.net.ssl.SSLSocketFactory) javax.net.ssl.SSLSocketFactory.getDefault();
-            } else {
-                socketFactory = SSLContexts.createDefault().getSocketFactory();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.core5.http` is unnecessary and can be removed
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ConditionalRequestBuilder.java`
-#### Snippet
-```java
-    /**
-     * When a {@link HttpCacheEntry} does not exist for a specific
-     * {@link org.apache.hc.core5.http.HttpRequest} we attempt to see if an existing
-     * {@link HttpCacheEntry} is appropriate by building a conditional
-     * {@link org.apache.hc.core5.http.HttpRequest} using the variants' ETag values.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.core5.http` is unnecessary and can be removed
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ConditionalRequestBuilder.java`
-#### Snippet
-```java
-     * {@link org.apache.hc.core5.http.HttpRequest} we attempt to see if an existing
-     * {@link HttpCacheEntry} is appropriate by building a conditional
-     * {@link org.apache.hc.core5.http.HttpRequest} using the variants' ETag values.
-     * If no such values exist, the request is unmodified
-     *
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.core5.http` is unnecessary and can be removed
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ConditionalRequestBuilder.java`
-#### Snippet
-```java
-    /**
-     * When a {@link HttpCacheEntry} is stale but 'might' be used as a response
-     * to an {@link org.apache.hc.core5.http.HttpRequest} we will attempt to revalidate
-     * the entry with the origin.  Build the origin {@link org.apache.hc.core5.http.HttpRequest}
-     * here and return it.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.core5.http` is unnecessary and can be removed
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ConditionalRequestBuilder.java`
-#### Snippet
-```java
-     * When a {@link HttpCacheEntry} is stale but 'might' be used as a response
-     * to an {@link org.apache.hc.core5.http.HttpRequest} we will attempt to revalidate
-     * the entry with the origin.  Build the origin {@link org.apache.hc.core5.http.HttpRequest}
-     * here and return it.
-     *
-```
-
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `org.apache.hc.client5.http.entity.mime` is unnecessary and can be removed
 in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/ByteArrayBody.java`
@@ -7704,42 +7500,6 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/ByteArrayBo
  * @see org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
  *
  * @since 4.1
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.entity.mime` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/StringBody.java`
-#### Snippet
-```java
- * Text body part backed by a byte array.
- *
- * @see org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
- *
- * @since 4.0
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.net.ssl` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactory.java`
-#### Snippet
-```java
-     *
-     * The default implementation is a no-op, but could be overridden to, e.g.,
-     * call {@link javax.net.ssl.SSLSocket#setEnabledCipherSuites(String[])}.
-     * @throws IOException may be thrown if overridden
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactory.java`
-#### Snippet
-```java
-     */
-    public SSLConnectionSocketFactory(
-            final javax.net.ssl.SSLSocketFactory socketFactory,
-            final HostnameVerifier hostnameVerifier) {
-        this(socketFactory, null, null, hostnameVerifier);
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -7759,35 +7519,59 @@ Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
 in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactory.java`
 #### Snippet
 ```java
-    public static SSLConnectionSocketFactory getSystemSocketFactory() throws SSLInitializationException {
-        return new SSLConnectionSocketFactory(
-                (javax.net.ssl.SSLSocketFactory) javax.net.ssl.SSLSocketFactory.getDefault(),
-                HttpsSupport.getSystemProtocols(),
-                HttpsSupport.getSystemCipherSuits(),
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactory.java`
-#### Snippet
-```java
-    public static SSLConnectionSocketFactory getSystemSocketFactory() throws SSLInitializationException {
-        return new SSLConnectionSocketFactory(
-                (javax.net.ssl.SSLSocketFactory) javax.net.ssl.SSLSocketFactory.getDefault(),
-                HttpsSupport.getSystemProtocols(),
-                HttpsSupport.getSystemCipherSuits(),
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactory.java`
-#### Snippet
-```java
     }
 
     private final javax.net.ssl.SSLSocketFactory socketFactory;
     private final HostnameVerifier hostnameVerifier;
     private final String[] supportedProtocols;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactory.java`
+#### Snippet
+```java
+     */
+    public SSLConnectionSocketFactory(
+            final javax.net.ssl.SSLSocketFactory socketFactory,
+            final HostnameVerifier hostnameVerifier) {
+        this(socketFactory, null, null, hostnameVerifier);
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactory.java`
+#### Snippet
+```java
+    public static SSLConnectionSocketFactory getSystemSocketFactory() throws SSLInitializationException {
+        return new SSLConnectionSocketFactory(
+                (javax.net.ssl.SSLSocketFactory) javax.net.ssl.SSLSocketFactory.getDefault(),
+                HttpsSupport.getSystemProtocols(),
+                HttpsSupport.getSystemCipherSuits(),
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactory.java`
+#### Snippet
+```java
+    public static SSLConnectionSocketFactory getSystemSocketFactory() throws SSLInitializationException {
+        return new SSLConnectionSocketFactory(
+                (javax.net.ssl.SSLSocketFactory) javax.net.ssl.SSLSocketFactory.getDefault(),
+                HttpsSupport.getSystemProtocols(),
+                HttpsSupport.getSystemCipherSuits(),
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.net.ssl` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactory.java`
+#### Snippet
+```java
+     *
+     * The default implementation is a no-op, but could be overridden to, e.g.,
+     * call {@link javax.net.ssl.SSLSocket#setEnabledCipherSuites(String[])}.
+     * @throws IOException may be thrown if overridden
+     */
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -7803,183 +7587,15 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FileBody.ja
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/BasicCookieStore.java`
+Qualifier `org.apache.hc.client5.http.entity.mime` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/StringBody.java`
 #### Snippet
 ```java
-    /**
-     * Removes all of {@link Cookie cookies} in this HTTP state
-     * that have expired by the specified {@link java.util.Date date}.
-     *
-     * @return true if any cookies were purged.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * {@link #setText(String)},
-     * {@link #setBinary(byte[])},
-     * {@link #setStream(java.io.InputStream)} ,
-     * {@link #setSerializable(java.io.Serializable)} ,
-     * {@link #setFile(java.io.File)} methods.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * {@link #setBinary(byte[])},
-     * {@link #setStream(java.io.InputStream)} ,
-     * {@link #setSerializable(java.io.Serializable)} ,
-     * {@link #setFile(java.io.File)} methods.
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * {@link #setStream(java.io.InputStream)} ,
-     * {@link #setSerializable(java.io.Serializable)} ,
-     * {@link #setFile(java.io.File)} methods.
-     */
-    public EntityBuilder setParameters(final List<NameValuePair> parameters) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * Sets entity content as a byte array. This method is mutually exclusive with
-     * {@link #setText(String)},
-     * {@link #setStream(java.io.InputStream)} ,
-     * {@link #setSerializable(java.io.Serializable)} ,
-     * {@link #setParameters(java.util.List)},
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * {@link #setText(String)},
-     * {@link #setStream(java.io.InputStream)} ,
-     * {@link #setSerializable(java.io.Serializable)} ,
-     * {@link #setParameters(java.util.List)},
-     * {@link #setParameters(NameValuePair...)}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * {@link #setStream(java.io.InputStream)} ,
-     * {@link #setSerializable(java.io.Serializable)} ,
-     * {@link #setParameters(java.util.List)},
-     * {@link #setParameters(NameValuePair...)}
-     * {@link #setFile(java.io.File)} methods.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * {@link #setParameters(java.util.List)},
-     * {@link #setParameters(NameValuePair...)}
-     * {@link #setFile(java.io.File)} methods.
-     */
-    public EntityBuilder setBinary(final byte[] binary) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * Sets entity content as a string. This method is mutually exclusive with
-     * {@link #setBinary(byte[])},
-     * {@link #setStream(java.io.InputStream)} ,
-     * {@link #setSerializable(java.io.Serializable)} ,
-     * {@link #setParameters(java.util.List)},
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * {@link #setBinary(byte[])},
-     * {@link #setStream(java.io.InputStream)} ,
-     * {@link #setSerializable(java.io.Serializable)} ,
-     * {@link #setParameters(java.util.List)},
-     * {@link #setParameters(NameValuePair...)}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * {@link #setStream(java.io.InputStream)} ,
-     * {@link #setSerializable(java.io.Serializable)} ,
-     * {@link #setParameters(java.util.List)},
-     * {@link #setParameters(NameValuePair...)}
-     * {@link #setFile(java.io.File)} methods.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * {@link #setParameters(java.util.List)},
-     * {@link #setParameters(NameValuePair...)}
-     * {@link #setFile(java.io.File)} methods.
-     */
-    public EntityBuilder setText(final String text) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * {@link #setText(String)},
-     * {@link #setBinary(byte[])},
-     * {@link #setStream(java.io.InputStream)} ,
-     * {@link #setSerializable(java.io.Serializable)} ,
-     * {@link #setFile(java.io.File)} methods.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * {@link #setBinary(byte[])},
-     * {@link #setStream(java.io.InputStream)} ,
-     * {@link #setSerializable(java.io.Serializable)} ,
-     * {@link #setFile(java.io.File)} methods.
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
-#### Snippet
-```java
-     * {@link #setStream(java.io.InputStream)} ,
-     * {@link #setSerializable(java.io.Serializable)} ,
-     * {@link #setFile(java.io.File)} methods.
-     */
-    public EntityBuilder setParameters(final NameValuePair... parameters) {
+ * Text body part backed by a byte array.
+ *
+ * @see org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
+ *
+ * @since 4.0
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -7988,22 +7604,22 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.ja
 #### Snippet
 ```java
     /**
-     * Returns entity content as a {@link InputStream} if set using
-     * {@link #setStream(java.io.InputStream)} method.
+     * Returns entity content as a {@link File} if set using
+     * {@link #setFile(java.io.File)} method.
      */
-    public InputStream getStream() {
+    public File getFile() {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
+Qualifier `java.io` is unnecessary and can be removed
 in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
 #### Snippet
 ```java
     /**
-     * Returns entity content as a parameter list if set using
-     * {@link #setParameters(java.util.List)} or
-     * {@link #setParameters(NameValuePair...)} methods.
+     * Returns entity content as a {@link Serializable} if set using
+     * {@link #setSerializable(java.io.Serializable)} method.
      */
+    public Serializable getSerializable() {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -8095,11 +7711,11 @@ Qualifier `java.io` is unnecessary and can be removed
 in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
 #### Snippet
 ```java
-    /**
-     * Returns entity content as a {@link File} if set using
-     * {@link #setFile(java.io.File)} method.
-     */
-    public File getFile() {
+     * Sets entity content as a string. This method is mutually exclusive with
+     * {@link #setBinary(byte[])},
+     * {@link #setStream(java.io.InputStream)} ,
+     * {@link #setSerializable(java.io.Serializable)} ,
+     * {@link #setParameters(java.util.List)},
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -8107,11 +7723,71 @@ Qualifier `java.io` is unnecessary and can be removed
 in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
 #### Snippet
 ```java
-    /**
-     * Returns entity content as a {@link Serializable} if set using
-     * {@link #setSerializable(java.io.Serializable)} method.
+     * {@link #setBinary(byte[])},
+     * {@link #setStream(java.io.InputStream)} ,
+     * {@link #setSerializable(java.io.Serializable)} ,
+     * {@link #setParameters(java.util.List)},
+     * {@link #setParameters(NameValuePair...)}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
+#### Snippet
+```java
+     * {@link #setStream(java.io.InputStream)} ,
+     * {@link #setSerializable(java.io.Serializable)} ,
+     * {@link #setParameters(java.util.List)},
+     * {@link #setParameters(NameValuePair...)}
+     * {@link #setFile(java.io.File)} methods.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
+#### Snippet
+```java
+     * {@link #setParameters(java.util.List)},
+     * {@link #setParameters(NameValuePair...)}
+     * {@link #setFile(java.io.File)} methods.
      */
-    public Serializable getSerializable() {
+    public EntityBuilder setText(final String text) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
+#### Snippet
+```java
+     * {@link #setText(String)},
+     * {@link #setBinary(byte[])},
+     * {@link #setStream(java.io.InputStream)} ,
+     * {@link #setSerializable(java.io.Serializable)} ,
+     * {@link #setFile(java.io.File)} methods.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
+#### Snippet
+```java
+     * {@link #setBinary(byte[])},
+     * {@link #setStream(java.io.InputStream)} ,
+     * {@link #setSerializable(java.io.Serializable)} ,
+     * {@link #setFile(java.io.File)} methods.
+     */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
+#### Snippet
+```java
+     * {@link #setStream(java.io.InputStream)} ,
+     * {@link #setSerializable(java.io.Serializable)} ,
+     * {@link #setFile(java.io.File)} methods.
+     */
+    public EntityBuilder setParameters(final NameValuePair... parameters) {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -8151,6 +7827,18 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.ja
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
+#### Snippet
+```java
+    /**
+     * Returns entity content as a parameter list if set using
+     * {@link #setParameters(java.util.List)} or
+     * {@link #setParameters(NameValuePair...)} methods.
+     */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `java.io` is unnecessary and can be removed
 in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
 #### Snippet
@@ -8187,39 +7875,171 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.ja
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
 #### Snippet
 ```java
-    private static final java.security.SecureRandom RND_GEN;
-    static {
-        java.security.SecureRandom rnd = null;
-        try {
-            rnd = java.security.SecureRandom.getInstance("SHA1PRNG");
+     * {@link #setText(String)},
+     * {@link #setBinary(byte[])},
+     * {@link #setStream(java.io.InputStream)} ,
+     * {@link #setSerializable(java.io.Serializable)} ,
+     * {@link #setFile(java.io.File)} methods.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
 #### Snippet
 ```java
-        java.security.SecureRandom rnd = null;
-        try {
-            rnd = java.security.SecureRandom.getInstance("SHA1PRNG");
-        } catch (final Exception ignore) {
-            // ignore
+     * {@link #setBinary(byte[])},
+     * {@link #setStream(java.io.InputStream)} ,
+     * {@link #setSerializable(java.io.Serializable)} ,
+     * {@link #setFile(java.io.File)} methods.
+     */
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
+#### Snippet
+```java
+     * {@link #setStream(java.io.InputStream)} ,
+     * {@link #setSerializable(java.io.Serializable)} ,
+     * {@link #setFile(java.io.File)} methods.
+     */
+    public EntityBuilder setParameters(final List<NameValuePair> parameters) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
+#### Snippet
+```java
+    /**
+     * Returns entity content as a {@link InputStream} if set using
+     * {@link #setStream(java.io.InputStream)} method.
+     */
+    public InputStream getStream() {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
+#### Snippet
+```java
+     * Sets entity content as a byte array. This method is mutually exclusive with
+     * {@link #setText(String)},
+     * {@link #setStream(java.io.InputStream)} ,
+     * {@link #setSerializable(java.io.Serializable)} ,
+     * {@link #setParameters(java.util.List)},
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
+#### Snippet
+```java
+     * {@link #setText(String)},
+     * {@link #setStream(java.io.InputStream)} ,
+     * {@link #setSerializable(java.io.Serializable)} ,
+     * {@link #setParameters(java.util.List)},
+     * {@link #setParameters(NameValuePair...)}
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.util` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
+#### Snippet
+```java
+     * {@link #setStream(java.io.InputStream)} ,
+     * {@link #setSerializable(java.io.Serializable)} ,
+     * {@link #setParameters(java.util.List)},
+     * {@link #setParameters(NameValuePair...)}
+     * {@link #setFile(java.io.File)} methods.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/EntityBuilder.java`
+#### Snippet
+```java
+     * {@link #setParameters(java.util.List)},
+     * {@link #setParameters(NameValuePair...)}
+     * {@link #setFile(java.io.File)} methods.
+     */
+    public EntityBuilder setBinary(final byte[] binary) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.client5.http.impl` is unnecessary, and can be replaced with an import
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ClassicRequestCopier.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public final class ClassicRequestCopier implements org.apache.hc.client5.http.impl.MessageCopier<ClassicHttpRequest> {
+
+    public static final ClassicRequestCopier INSTANCE = new ClassicRequestCopier();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/InputStreamFactory.java`
 #### Snippet
 ```java
 
-    /** Secure random generator */
-    private static final java.security.SecureRandom RND_GEN;
-    static {
-        java.security.SecureRandom rnd = null;
+/**
+ * Factory for decorated {@link java.io.InputStream}s.
+ *
+ * @since 4.4
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.client5.http.entity.mime` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/InputStreamBody.java`
+#### Snippet
+```java
+ * Binary body part backed by an input stream.
+ *
+ * @see org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
+ *
+ * @since 4.0
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactoryBuilder.java`
+#### Snippet
+```java
+
+    public SSLConnectionSocketFactory build() {
+        final javax.net.ssl.SSLSocketFactory socketFactory;
+        if (sslContext != null) {
+            socketFactory = sslContext.getSocketFactory();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactoryBuilder.java`
+#### Snippet
+```java
+        } else {
+            if (systemProperties) {
+                socketFactory = (javax.net.ssl.SSLSocketFactory) javax.net.ssl.SSLSocketFactory.getDefault();
+            } else {
+                socketFactory = SSLContexts.createDefault().getSocketFactory();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `javax.net.ssl` is unnecessary, and can be replaced with an import
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactoryBuilder.java`
+#### Snippet
+```java
+        } else {
+            if (systemProperties) {
+                socketFactory = (javax.net.ssl.SSLSocketFactory) javax.net.ssl.SSLSocketFactory.getDefault();
+            } else {
+                socketFactory = SSLContexts.createDefault().getSocketFactory();
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -8259,27 +8079,27 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/BasicClient
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.entity.mime` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPartBuilder.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieStore.java`
+#### Snippet
+```java
+    /**
+     * Removes all of {@link Cookie}s in this store that have expired by
+     * the specified {@link java.util.Date}.
+     *
+     * @return true if any cookies were purged.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.client5.http.cookie` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CommonCookieAttributeHandler.java`
 #### Snippet
 ```java
 
 /**
- * Builder for individual {@link org.apache.hc.client5.http.entity.mime.FormBodyPart}s.
- *
- * @since 4.4
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.entity.mime` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/InputStreamBody.java`
-#### Snippet
-```java
- * Binary body part backed by an input stream.
- *
- * @see org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
- *
- * @since 4.0
+ * Extension of {@link org.apache.hc.client5.http.cookie.CookieAttributeHandler} intended
+ * to handle one specific common attribute whose name is returned with
+ * {@link #getAttributeName()} method.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -8307,38 +8127,26 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicAuthCach
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.net` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RedirectLocations.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/BasicCookieStore.java`
 #### Snippet
 ```java
-
-/**
- * This class represents a collection of {@link java.net.URI}s used
- * as redirect locations.
- *
+    /**
+     * Removes all of {@link Cookie cookies} in this HTTP state
+     * that have expired by the specified {@link java.util.Date date}.
+     *
+     * @return true if any cookies were purged.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.impl` is unnecessary, and can be replaced with an import
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ClassicRequestCopier.java`
-#### Snippet
-```java
- */
-@Deprecated
-public final class ClassicRequestCopier implements org.apache.hc.client5.http.impl.MessageCopier<ClassicHttpRequest> {
-
-    public static final ClassicRequestCopier INSTANCE = new ClassicRequestCopier();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
+Qualifier `org.apache.hc.client5.http.config` is unnecessary and can be removed
 in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/HttpClientContext.java`
 #### Snippet
 ```java
 
     /**
-     * Attribute name of a {@link java.lang.String} object that represents the ID of the
-     * current message exchange.
+     * Attribute name of a {@link org.apache.hc.client5.http.config.RequestConfig} object that
+     * represents the actual request configuration.
      */
 ```
 
@@ -8367,26 +8175,14 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/HttpClientCont
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.config` is unnecessary and can be removed
+Qualifier `java.lang` is unnecessary and can be removed
 in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/HttpClientContext.java`
 #### Snippet
 ```java
 
     /**
-     * Attribute name of a {@link org.apache.hc.client5.http.config.RequestConfig} object that
-     * represents the actual request configuration.
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.cookie` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/HttpClientContext.java`
-#### Snippet
-```java
-
-    /**
-     * Attribute name of a {@link org.apache.hc.client5.http.cookie.CookieOrigin}
-     * object that represents the actual details of the origin server.
+     * Attribute name of a {@link java.lang.String} object that represents the ID of the
+     * current message exchange.
      */
 ```
 
@@ -8410,7 +8206,7 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/HttpClientCont
 
     /**
      * Attribute name of a {@link org.apache.hc.core5.http.config.Lookup} object that represents
-     * the actual {@link AuthSchemeFactory} registry.
+     * the actual {@link CookieSpecFactory} registry.
      */
 ```
 
@@ -8422,7 +8218,67 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/HttpClientCont
 
     /**
      * Attribute name of a {@link org.apache.hc.core5.http.config.Lookup} object that represents
-     * the actual {@link CookieSpecFactory} registry.
+     * the actual {@link AuthSchemeFactory} registry.
+     */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.client5.http.cookie` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/HttpClientContext.java`
+#### Snippet
+```java
+
+    /**
+     * Attribute name of a {@link org.apache.hc.client5.http.cookie.CookieOrigin}
+     * object that represents the actual details of the origin server.
+     */
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.client5.http.entity.mime` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/FormBodyPartBuilder.java`
+#### Snippet
+```java
+
+/**
+ * Builder for individual {@link org.apache.hc.client5.http.entity.mime.FormBodyPart}s.
+ *
+ * @since 4.4
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.net` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/protocol/RedirectLocations.java`
+#### Snippet
+```java
+
+/**
+ * This class represents a collection of {@link java.net.URI}s used
+ * as redirect locations.
+ *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.client5.http.routing` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+     * <p>
+     * Please note this value can be overridden by the {@link #setRoutePlanner(
+     *   org.apache.hc.client5.http.routing.HttpRoutePlanner)} method.
+     */
+    public final HttpClientBuilder setProxy(final HttpHost proxy) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.client5.http.entity` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Assigns a map of {@link org.apache.hc.client5.http.entity.InputStreamFactory}s
+     * to be used for automatic content decompression.
      */
 ```
 
@@ -8451,27 +8307,171 @@ public final class SimpleRequestProducer extends BasicRequestProducer {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.routing` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+Qualifier `org.apache.hc.core5.http` is unnecessary and can be removed
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ConditionalRequestBuilder.java`
 #### Snippet
 ```java
-     * <p>
-     * Please note this value can be overridden by the {@link #setRoutePlanner(
-     *   org.apache.hc.client5.http.routing.HttpRoutePlanner)} method.
-     */
-    public final HttpClientBuilder setProxy(final HttpHost proxy) {
+    /**
+     * When a {@link HttpCacheEntry} does not exist for a specific
+     * {@link org.apache.hc.core5.http.HttpRequest} we attempt to see if an existing
+     * {@link HttpCacheEntry} is appropriate by building a conditional
+     * {@link org.apache.hc.core5.http.HttpRequest} using the variants' ETag values.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.hc.client5.http.entity` is unnecessary and can be removed
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/HttpClientBuilder.java`
+Qualifier `org.apache.hc.core5.http` is unnecessary and can be removed
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ConditionalRequestBuilder.java`
+#### Snippet
+```java
+     * {@link org.apache.hc.core5.http.HttpRequest} we attempt to see if an existing
+     * {@link HttpCacheEntry} is appropriate by building a conditional
+     * {@link org.apache.hc.core5.http.HttpRequest} using the variants' ETag values.
+     * If no such values exist, the request is unmodified
+     *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.core5.http` is unnecessary and can be removed
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ConditionalRequestBuilder.java`
+#### Snippet
+```java
+    /**
+     * When a {@link HttpCacheEntry} is stale but 'might' be used as a response
+     * to an {@link org.apache.hc.core5.http.HttpRequest} we will attempt to revalidate
+     * the entry with the origin.  Build the origin {@link org.apache.hc.core5.http.HttpRequest}
+     * here and return it.
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.core5.http` is unnecessary and can be removed
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ConditionalRequestBuilder.java`
+#### Snippet
+```java
+     * When a {@link HttpCacheEntry} is stale but 'might' be used as a response
+     * to an {@link org.apache.hc.core5.http.HttpRequest} we will attempt to revalidate
+     * the entry with the origin.  Build the origin {@link org.apache.hc.core5.http.HttpRequest}
+     * here and return it.
+     *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.client5.http.impl.classic` is unnecessary and can be removed
+in `httpclient5-win/src/main/java/org/apache/hc/client5/http/impl/win/WinHttpClients.java`
 #### Snippet
 ```java
 
-    /**
-     * Assigns a map of {@link org.apache.hc.client5.http.entity.InputStreamFactory}s
-     * to be used for automatic content decompression.
+/**
+ * Factory methods for {@link org.apache.hc.client5.http.impl.classic.CloseableHttpClient} instances configured to use integrated
+ * Windows authentication by default.
+ *
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+#### Snippet
+```java
+    private static final java.security.SecureRandom RND_GEN;
+    static {
+        java.security.SecureRandom rnd = null;
+        try {
+            rnd = java.security.SecureRandom.getInstance("SHA1PRNG");
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+#### Snippet
+```java
+        java.security.SecureRandom rnd = null;
+        try {
+            rnd = java.security.SecureRandom.getInstance("SHA1PRNG");
+        } catch (final Exception ignore) {
+            // ignore
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+#### Snippet
+```java
+
+    /** Secure random generator */
+    private static final java.security.SecureRandom RND_GEN;
+    static {
+        java.security.SecureRandom rnd = null;
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixListParser.java`
+#### Snippet
+```java
+     *
+     * @param reader the data reader. The caller is responsible for closing the reader.
+     * @throws java.io.IOException on error while reading from list
+     *
+     * @since 4.5
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixListParser.java`
+#### Snippet
+```java
+     *
+     * @param reader the data reader. The caller is responsible for closing the reader.
+     * @throws java.io.IOException on error while reading from list
      */
+    public PublicSuffixList parse(final Reader reader) throws IOException {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.client5.http.cookie` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieAttributeHandler.java`
+#### Snippet
+```java
+   * submitted) with the corresponding cookie attribute.
+   *
+   * @param cookie {@link org.apache.hc.client5.http.cookie.Cookie} to match
+   * @param origin the cookie source to match against
+   * @return {@code true} if the match is successful; {@code false} otherwise
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.client5.http.cookie` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieAttributeHandler.java`
+#### Snippet
+```java
+  /**
+   * Parse the given cookie attribute value and processChallenge the corresponding
+   * {@link org.apache.hc.client5.http.cookie.Cookie} property.
+   *
+   * @param cookie {@link org.apache.hc.client5.http.cookie.Cookie} to be updated
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.client5.http.cookie` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieAttributeHandler.java`
+#### Snippet
+```java
+   * {@link org.apache.hc.client5.http.cookie.Cookie} property.
+   *
+   * @param cookie {@link org.apache.hc.client5.http.cookie.Cookie} to be updated
+   * @param value cookie attribute value from the cookie response header
+   * @throws MalformedCookieException if cookie parsing fails for this attribute
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `org.apache.hc.client5.http.cookie` is unnecessary and can be removed
+in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/CookieAttributeHandler.java`
+#### Snippet
+```java
+   * Performs cookie validation for the given attribute value.
+   *
+   * @param cookie {@link org.apache.hc.client5.http.cookie.Cookie} to validate
+   * @param origin the cookie source to validate against
+   * @throws MalformedCookieException if cookie validation fails for this attribute
 ```
 
 ## RuleId[ruleID=ArrayObjectsEquals]
@@ -8489,15 +8489,15 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/RouteTracker.java`
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AbstractMultipartFormat()` of an abstract class should not be declared 'public'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractMultipartFormat.java`
+Constructor `AbstractContentBody()` of an abstract class should not be declared 'public'
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractContentBody.java`
 #### Snippet
 ```java
-    }
-
-    public AbstractMultipartFormat(final String boundary) {
-        this(null, boundary);
-    }
+     * @since 4.3
+     */
+    public AbstractContentBody(final ContentType contentType) {
+        super();
+        Args.notNull(contentType, "Content type");
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -8513,50 +8513,26 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractMul
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AbstractSerializingCacheStorage()` of an abstract class should not be declared 'public'
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingCacheStorage.java`
-#### Snippet
-```java
-    private final HttpCacheEntrySerializer<T> serializer;
-
-    public AbstractSerializingCacheStorage(final int maxUpdateRetries, final HttpCacheEntrySerializer<T> serializer) {
-        this.maxUpdateRetries = Args.notNegative(maxUpdateRetries, "Max retries");
-        this.serializer = Args.notNull(serializer, "Cache entry serializer");
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AbstractCookieSpec()` of an abstract class should not be declared 'public'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/AbstractCookieSpec.java`
-#### Snippet
-```java
-     * Default constructor
-     * */
-    public AbstractCookieSpec() {
-        super();
-        this.attribHandlerMap = new ConcurrentHashMap<>(10);
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AbstractContentBody()` of an abstract class should not be declared 'public'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractContentBody.java`
-#### Snippet
-```java
-     * @since 4.3
-     */
-    public AbstractContentBody(final ContentType contentType) {
-        super();
-        Args.notNull(contentType, "Content type");
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AbstractBinaryAsyncCacheStorage()` of an abstract class should not be declared 'public'
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractBinaryAsyncCacheStorage.java`
+Constructor `AbstractMultipartFormat()` of an abstract class should not be declared 'public'
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractMultipartFormat.java`
 #### Snippet
 ```java
     }
 
-    public AbstractBinaryAsyncCacheStorage(final int maxUpdateRetries) {
-        super(maxUpdateRetries, ByteArrayCacheEntrySerializer.INSTANCE);
+    public AbstractMultipartFormat(final String boundary) {
+        this(null, boundary);
+    }
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `CookieSpecBase()` of an abstract class should not be declared 'public'
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/CookieSpecBase.java`
+#### Snippet
+```java
+public abstract class CookieSpecBase extends AbstractCookieSpec {
+
+    public CookieSpecBase() {
+        super();
     }
 ```
 
@@ -8573,25 +8549,13 @@ public abstract class AbstractBinaryAsyncCacheStorage<CAS> extends AbstractSeria
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AbstractSerializingAsyncCacheStorage()` of an abstract class should not be declared 'public'
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
-#### Snippet
-```java
-    private final HttpCacheEntrySerializer<T> serializer;
-
-    public AbstractSerializingAsyncCacheStorage(final int maxUpdateRetries, final HttpCacheEntrySerializer<T> serializer) {
-        this.maxUpdateRetries = Args.notNegative(maxUpdateRetries, "Max retries");
-        this.serializer = Args.notNull(serializer, "Cache entry serializer");
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AbstractBinaryCacheStorage()` of an abstract class should not be declared 'public'
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractBinaryCacheStorage.java`
+Constructor `AbstractBinaryAsyncCacheStorage()` of an abstract class should not be declared 'public'
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractBinaryAsyncCacheStorage.java`
 #### Snippet
 ```java
     }
 
-    public AbstractBinaryCacheStorage(final int maxUpdateRetries) {
+    public AbstractBinaryAsyncCacheStorage(final int maxUpdateRetries) {
         super(maxUpdateRetries, ByteArrayCacheEntrySerializer.INSTANCE);
     }
 ```
@@ -8609,15 +8573,51 @@ public abstract class AbstractBinaryCacheStorage<CAS> extends AbstractSerializin
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `CookieSpecBase()` of an abstract class should not be declared 'public'
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/CookieSpecBase.java`
+Constructor `AbstractBinaryCacheStorage()` of an abstract class should not be declared 'public'
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractBinaryCacheStorage.java`
 #### Snippet
 ```java
-public abstract class CookieSpecBase extends AbstractCookieSpec {
-
-    public CookieSpecBase() {
-        super();
     }
+
+    public AbstractBinaryCacheStorage(final int maxUpdateRetries) {
+        super(maxUpdateRetries, ByteArrayCacheEntrySerializer.INSTANCE);
+    }
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `AbstractSerializingAsyncCacheStorage()` of an abstract class should not be declared 'public'
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingAsyncCacheStorage.java`
+#### Snippet
+```java
+    private final HttpCacheEntrySerializer<T> serializer;
+
+    public AbstractSerializingAsyncCacheStorage(final int maxUpdateRetries, final HttpCacheEntrySerializer<T> serializer) {
+        this.maxUpdateRetries = Args.notNegative(maxUpdateRetries, "Max retries");
+        this.serializer = Args.notNull(serializer, "Cache entry serializer");
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `AbstractCookieSpec()` of an abstract class should not be declared 'public'
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/cookie/AbstractCookieSpec.java`
+#### Snippet
+```java
+     * Default constructor
+     * */
+    public AbstractCookieSpec() {
+        super();
+        this.attribHandlerMap = new ConcurrentHashMap<>(10);
+```
+
+### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+Constructor `AbstractSerializingCacheStorage()` of an abstract class should not be declared 'public'
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingCacheStorage.java`
+#### Snippet
+```java
+    private final HttpCacheEntrySerializer<T> serializer;
+
+    public AbstractSerializingCacheStorage(final int maxUpdateRetries, final HttpCacheEntrySerializer<T> serializer) {
+        this.maxUpdateRetries = Args.notNegative(maxUpdateRetries, "Max retries");
+        this.serializer = Args.notNull(serializer, "Cache entry serializer");
 ```
 
 ## RuleId[ruleID=UnnecessaryContinue]
@@ -8661,1130 +8661,14 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImp
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/Cookie.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractContentBody.java`
 #### Snippet
 ```java
-    default Instant getExpiryInstant() {
-        final Date date = getExpiryDate();
-        return date != null ? Instant.ofEpochMilli(date.getTime()) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/Cookie.java`
-#### Snippet
-```java
-     * Returns creation time of the cookie.
-     */
-    default Instant getCreationInstant() { return null;  }
-
-    /**
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncPushConsumerRegistry.java`
-#### Snippet
-```java
-        final UriPatternMatcher<Supplier<AsyncPushConsumer>> patternMatcher = getPatternMatcher(key);
-        if (patternMatcher == null) {
-            return null;
-        }
-        String path = request.getPath();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncPushConsumerRegistry.java`
-#### Snippet
-```java
-        }
-        final Supplier<AsyncPushConsumer> supplier = patternMatcher.lookup(path);
-        return supplier != null ? supplier.get() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-win/src/main/java/org/apache/hc/client5/http/impl/win/WindowsNegotiateScheme.java`
-#### Snippet
-```java
-    @Override
-    public String getRealm() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/AuthCacheKeeper.java`
-#### Snippet
-```java
-            }
+            return mimeType.substring(i + 1);
         }
         return null;
     }
 
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DistinguishedNameParser.java`
-#### Snippet
-```java
-    List<NameValuePair> parse(final String s) {
-        if (s == null) {
-            return null;
-        }
-        final CharArrayBuffer buffer = new CharArrayBuffer(s.length());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
-#### Snippet
-```java
-    @Override
-    public Principal getPrincipal() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
-#### Snippet
-```java
-    @Override
-    public String getRealm() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncRedirectExec.java`
-#### Snippet
-```java
-                        LOG.debug("{} redirecting to '{}' via {}", exchangeId, state.redirectURI, currentRoute);
-                    }
-                    return null;
-                }
-                return asyncExecCallback.handleResponse(response, entityDetails);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DnsUtils.java`
-#### Snippet
-```java
-    public static String normalize(final String s) {
-        if (s == null) {
-            return null;
-        }
-        int pos = 0;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/DecompressingEntity.java`
-#### Snippet
-```java
-    public String getContentEncoding() {
-        /* Content encoding is now 'identity' */
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
-#### Snippet
-```java
-     */
-    public static Instant toInstant(final Date date) {
-        return date != null ? Instant.ofEpochMilli(date.getTime()) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
-#### Snippet
-```java
-     */
-    public static Date toDate(final Instant instant) {
-        return instant != null ? new Date(instant.toEpochMilli()) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
-#### Snippet
-```java
-     */
-    public static LocalDateTime toUTC(final Instant instant) {
-        return instant != null ? instant.atZone(ZoneOffset.UTC).toLocalDateTime() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
-#### Snippet
-```java
-    public static Instant parseStandardDate(final MessageHeaders headers, final String headerName) {
-        if (headers == null) {
-            return null;
-        }
-        final Header header = headers.getFirstHeader(headerName);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
-#### Snippet
-```java
-        final Header header = headers.getFirstHeader(headerName);
-        if (header == null) {
-            return null;
-        }
-        return parseStandardDate(header.getValue());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/AuthChallengeParser.java`
-#### Snippet
-```java
-            tokenParser.skipWhiteSpace(buffer, cursor);
-            if (cursor.atEnd()) {
-                return null;
-            }
-            final String token = parseToken(buffer, cursor);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/ByteArrayBody.java`
-#### Snippet
-```java
-    @Override
-    public String getCharset() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DefaultClientTlsStrategy.java`
-#### Snippet
-```java
-    @SuppressWarnings("deprecated")
-    TlsDetails createTlsDetails(final SSLEngine sslEngine) {
-        return tlsDetailsFactory != null ? tlsDetailsFactory.create(sslEngine) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/StringBody.java`
-#### Snippet
-```java
-    @Override
-    public String getFilename() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactory.java`
-#### Snippet
-```java
-                AccessController.doPrivileged((PrivilegedExceptionAction<Object>) () -> {
-                    sock.connect(remoteAddress, Timeout.defaultsToDisabled(connectTimeout).toMillisecondsIntBound());
-                    return null;
-                });
-            } catch (final PrivilegedActionException e) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/SingleCredentialsProvider.java`
-#### Snippet
-```java
-    @Override
-    public Credentials getCredentials(final AuthScope authScope, final HttpContext context) {
-        return this.authScope.match(authScope) >= 0 ? credentials : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractMultipartFormat.java`
-#### Snippet
-```java
-    static CharSequence stripLineBreaks(final CharSequence s) {
-        if (s == null) {
-            return null;
-        }
-        boolean requiresRewrite = false;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/AuthScope.java`
-#### Snippet
-```java
-
-    private String toNullSafeLowerCase(final String str) {
-        return str != null ? str.toLowerCase(Locale.ROOT) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ByteArrayCacheEntrySerializer.java`
-#### Snippet
-```java
-    public byte[] serialize(final HttpCacheStorageEntry cacheEntry) throws ResourceIOException {
-        if (cacheEntry == null) {
-            return null;
-        }
-        final ByteArrayOutputStream buf = new ByteArrayOutputStream();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ByteArrayCacheEntrySerializer.java`
-#### Snippet
-```java
-    public HttpCacheStorageEntry deserialize(final byte[] serializedObject) throws ResourceIOException {
-        if (serializedObject == null) {
-            return null;
-        }
-        try (final ObjectInputStream ois = new RestrictedObjectInputStream(new ByteArrayInputStream(serializedObject))) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/NTCredentials.java`
-#### Snippet
-```java
-    private static String stripDotSuffix(final String value) {
-        if (value == null) {
-            return null;
-        }
-        final int index = value.indexOf('.');
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncConnectExec.java`
-#### Snippet
-```java
-                if (needAuthentication(proxyAuthExchange, proxy, response, clientContext)) {
-                    state.challenged = true;
-                    return null;
-                }
-                state.challenged = false;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncConnectExec.java`
-#### Snippet
-```java
-                    return asyncExecCallback.handleResponse(response, entityDetails);
-                }
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AsyncCachingExec.java`
-#### Snippet
-```java
-                final HttpResponse response,
-                final EntityDetails entityDetails) throws HttpException, IOException {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/HttpRoute.java`
-#### Snippet
-```java
-
-    public InetSocketAddress getLocalSocketAddress() {
-        return this.localAddress != null ? new InetSocketAddress(this.localAddress, 0) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/HttpRoute.java`
-#### Snippet
-```java
-    @Override
-    public HttpHost getProxyHost() {
-        return proxyChain != null && !this.proxyChain.isEmpty() ? this.proxyChain.get(0) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncProtocolExec.java`
-#### Snippet
-```java
-                        clientContext)) {
-                    challenged.set(true);
-                    return null;
-                }
-                challenged.set(false);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingCacheStorage.java`
-#### Snippet
-```java
-        final T storageObject = restore(storageKey);
-        if (storageObject == null) {
-            return null;
-        }
-        final HttpCacheStorageEntry entry = serializer.deserialize(storageObject);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingCacheStorage.java`
-#### Snippet
-```java
-            return entry.getContent();
-        } else {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/socket/PlainConnectionSocketFactory.java`
-#### Snippet
-```java
-                AccessController.doPrivileged((PrivilegedExceptionAction<Object>) () -> {
-                    sock.connect(remoteAddress, TimeValue.isPositive(connectTimeout) ? connectTimeout.toMillisecondsIntBound() : 0);
-                    return null;
-                });
-            } catch (final PrivilegedActionException e) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpByteArrayCacheEntrySerializer.java`
-#### Snippet
-```java
-        final Header header = response.getFirstHeader(name);
-        if (header == null) {
-            return null;
-        }
-        response.removeHeader(header);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/ConscryptClientTlsStrategy.java`
-#### Snippet
-```java
-            return new TlsDetails(sslEngine.getSession(), Conscrypt.getApplicationProtocol(sslEngine));
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicAuthCache.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/NoopUserTokenHandler.java`
-#### Snippet
-```java
-    @Override
-    public Object getUserToken(final HttpRoute route, final HttpContext context) {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/routing/RoutingSupport.java`
-#### Snippet
-```java
-    public static HttpHost determineHost(final HttpRequest request) throws HttpException {
-        if (request == null) {
-            return null;
-        }
-        final URIAuthority authority = request.getAuthority();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/routing/RoutingSupport.java`
-#### Snippet
-```java
-        } catch (final URISyntaxException ignore) {
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/routing/RoutingSupport.java`
-#### Snippet
-```java
-    public static HttpHost normalize(final HttpHost host, final SchemePortResolver schemePortResolver) {
-        if (host == null) {
-            return null;
-        }
-        if (host.getPort() < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/ConnPoolSupport.java`
-#### Snippet
-```java
-    public static String getId(final Object object) {
-        if (object == null) {
-            return null;
-        }
-        return object instanceof Identifiable
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
-#### Snippet
-```java
-
-        final MultihomeConnectionInitiator connectionInitiator = new MultihomeConnectionInitiator(ioReactor, dnsResolver);
-        final InternalH2ConnPool connPool = new InternalH2ConnPool(connectionInitiator, host -> null, tlsStrategyCopy);
-        connPool.setConnectionConfigResolver(connectionConfigResolver);
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/memcached/MemcachedHttpAsyncCacheStorage.java`
-#### Snippet
-```java
-    private byte[] castAsByteArray(final Object storageObject) throws ResourceIOException {
-        if (storageObject == null) {
-            return null;
-        }
-        if (storageObject instanceof byte[]) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
-#### Snippet
-```java
-    public static URI normalizeQuetly(final String requestUri) {
-        if (requestUri == null) {
-            return null;
-        }
-        try {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
-#### Snippet
-```java
-            return normalize(new URI(requestUri));
-        } catch (final URISyntaxException ex) {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
-#### Snippet
-```java
-    public static URI normalizeQuietly(final String requestUri) {
-        if (requestUri == null) {
-            return null;
-        }
-        try {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
-#### Snippet
-```java
-            return normalize(new URI(requestUri));
-        } catch (final URISyntaxException ex) {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/memcached/MemcachedHttpCacheStorage.java`
-#### Snippet
-```java
-    private byte[] castAsByteArray(final Object storageObject) throws ResourceIOException {
-        if (storageObject == null) {
-            return null;
-        }
-        if (storageObject instanceof byte[]) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/CloseableHttpResponse.java`
-#### Snippet
-```java
-    static CloseableHttpResponse adapt(final ClassicHttpResponse response) {
-        if (response == null) {
-            return null;
-        }
-        return response instanceof CloseableHttpResponse
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultUserTokenHandler.java`
-#### Snippet
-```java
-            return scheme.getPrincipal();
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultUserTokenHandler.java`
-#### Snippet
-```java
-            return sslSession.getLocalPrincipal();
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/RequestCopier.java`
-#### Snippet
-```java
-    public HttpRequest copy(final HttpRequest original) {
-        if (original == null) {
-            return null;
-        }
-        final BasicHttpRequest copy = new BasicHttpRequest(original.getMethod(), null, original.getPath());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/LenientHttpResponseParser.java`
-#### Snippet
-```java
-                LOG.debug("Garbage in response: {}", buffer);
-            }
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ClassicRequestCopier.java`
-#### Snippet
-```java
-    public ClassicHttpRequest copy(final ClassicHttpRequest original) {
-        if (original == null) {
-            return null;
-        }
-        final BasicClassicHttpRequest copy = new BasicClassicHttpRequest(original.getMethod(), null, original.getPath());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/routing/SystemDefaultRoutePlanner.java`
-#### Snippet
-```java
-        if (proxySelectorInstance == null) {
-            //The proxy selector can be "unset", so we must be able to deal with a null selector
-            return null;
-        }
-        final List<Proxy> proxies = proxySelectorInstance.select(targetURI);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/KerberosCredentials.java`
-#### Snippet
-```java
-    @Override
-    public char[] getPassword() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/KerberosCredentials.java`
-#### Snippet
-```java
-    @Override
-    public Principal getUserPrincipal() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingExecBase.java`
-#### Snippet
-```java
-            return responseGenerator.getErrorForRequest(fatalError.get(0));
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheInvalidatorBase.java`
-#### Snippet
-```java
-        final Header h = response.getFirstHeader(headerName);
-        if (h == null) {
-            return null;
-        }
-        final URI locationUri = HttpCacheSupport.normalizeQuietly(h.getValue());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/DefaultManagedAsyncClientConnection.java`
-#### Snippet
-```java
-    @Override
-    public TlsDetails getTlsDetails() {
-        return ioSession instanceof TransportSecurityLayer ? ((TransportSecurityLayer) ioSession).getTlsDetails() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/DefaultManagedAsyncClientConnection.java`
-#### Snippet
-```java
-    public SSLSession getSSLSession() {
-        final TlsDetails tlsDetails = getTlsDetails();
-        return tlsDetails != null ? tlsDetails.getSSLSession() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/DefaultManagedAsyncClientConnection.java`
-#### Snippet
-```java
-            return ((HttpConnection) handler).getEndpointDetails();
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/routing/DefaultRoutePlanner.java`
-#### Snippet
-```java
-            final HttpHost firstHop,
-            final HttpContext context) throws HttpException {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/routing/DefaultRoutePlanner.java`
-#### Snippet
-```java
-            final HttpHost target,
-            final HttpContext context) throws HttpException {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartFormEntity.java`
-#### Snippet
-```java
-    @Override
-    public Set<String> getTrailerNames() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartFormEntity.java`
-#### Snippet
-```java
-    @Override
-    public Supplier<List<? extends Header>> getTrailers() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartFormEntity.java`
-#### Snippet
-```java
-    @Override
-    public String getContentType() {
-        return this.contentType != null ? this.contentType.toString() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartFormEntity.java`
-#### Snippet
-```java
-    @Override
-    public String getContentEncoding() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpResponse.java`
-#### Snippet
-```java
-
-    public ContentType getContentType() {
-        return body != null ? body.getContentType() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpResponse.java`
-#### Snippet
-```java
-
-    public String getBodyText() {
-        return body != null ? body.getBodyText() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpResponse.java`
-#### Snippet
-```java
-
-    public byte[] getBodyBytes() {
-        return body != null ? body.getBodyBytes() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicScheme.java`
-#### Snippet
-```java
-    @Override
-    public Principal getPrincipal() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMScheme.java`
-#### Snippet
-```java
-    @Override
-    public Principal getPrincipal() {
-        return this.credentials != null ? this.credentials.getUserPrincipal() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMScheme.java`
-#### Snippet
-```java
-    @Override
-    public String getRealm() {
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/SystemDefaultDnsResolver.java`
-#### Snippet
-```java
-    public String resolveCanonicalHostname(final String host) throws UnknownHostException {
-        if (host == null) {
-            return null;
-        }
-        final InetAddress in = InetAddress.getByName(host);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleBody.java`
-#### Snippet
-```java
-            return bodyAsText.getBytes(charset != null ? charset : StandardCharsets.US_ASCII);
-        } else {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/async/RedirectingAsyncDecorator.java`
-#### Snippet
-```java
-        try {
-            final URI requestURI = request.getUri();
-            return redirectResolver != null ? redirectResolver.resolve(requestURI) : null;
-        } catch (final URISyntaxException ex) {
-            throw new ProtocolException(ex.getMessage(), ex);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/HttpRFC7578Multipart.java`
-#### Snippet
-```java
-        public byte[] decode(final byte[] bytes) {
-            if (bytes == null) {
-                return null;
-            }
-            final ByteArrayBuffer buffer = new ByteArrayBuffer(bytes.length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/HttpRFC7578Multipart.java`
-#### Snippet
-```java
-        public byte[] encode(final byte[] bytes) {
-            if (bytes == null) {
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpRequest.java`
-#### Snippet
-```java
-
-    public byte[] getBodyBytes() {
-        return body != null ? body.getBodyBytes() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpRequest.java`
-#### Snippet
-```java
-
-    public String getBodyText() {
-        return body != null ? body.getBodyText() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpRequest.java`
-#### Snippet
-```java
-
-    public ContentType getContentType() {
-        return body != null ? body.getContentType() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/HttpsSupport.java`
-#### Snippet
-```java
-    private static String[] split(final String s) {
-        if (TextUtils.isBlank(s)) {
-            return null;
-        }
-        return s.split(" *, *");
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/DefaultCacheInvalidator.java`
-#### Snippet
-```java
-                LOG.warn("Unable to get cache entry with key {}", cacheKey, ex);
-            }
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingExec.java`
-#### Snippet
-```java
-    private static ClassicHttpResponse convert(final SimpleHttpResponse cacheResponse, final ExecChain.Scope scope) {
-        if (cacheResponse == null) {
-            return null;
-        }
-        final ClassicHttpResponse response = new BasicClassicHttpResponse(cacheResponse.getCode(), cacheResponse.getReasonPhrase());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpCache.java`
-#### Snippet
-```java
-                LOG.warn("I/O error retrieving cache entry with key {}", cacheKey);
-            }
-            return null;
-        }
-        if (root == null) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpCache.java`
-#### Snippet
-```java
-        }
-        if (root == null) {
-            return null;
-        }
-        if (!root.hasVariants()) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpCache.java`
-#### Snippet
-```java
-        final String variantCacheKey = root.getVariantMap().get(variantKey);
-        if (variantCacheKey == null) {
-            return null;
-        }
-        try {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpCache.java`
-#### Snippet
-```java
-                LOG.warn("I/O error retrieving cache entry with key {}", variantCacheKey);
-            }
-            return null;
-        }
-    }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -9801,14 +8685,14 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractCon
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractContentBody.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/AbstractMultipartFormat.java`
 #### Snippet
 ```java
-            return mimeType.substring(i + 1);
+    static CharSequence stripLineBreaks(final CharSequence s) {
+        if (s == null) {
+            return null;
         }
-        return null;
-    }
-
+        boolean requiresRewrite = false;
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -9849,19 +8733,415 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/Header.java
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DefaultClientTlsStrategy.java`
 #### Snippet
 ```java
-    public static HttpHost extractHost(final URI uri) {
-        if (uri == null) {
-            return null;
-        }
-        final URIBuilder uriBuilder = new URIBuilder(uri);
+    @SuppressWarnings("deprecated")
+    TlsDetails createTlsDetails(final SSLEngine sslEngine) {
+        return tlsDetailsFactory != null ? tlsDetailsFactory.create(sslEngine) : null;
+    }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/ByteArrayBody.java`
+#### Snippet
+```java
+    @Override
+    public String getCharset() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/SSLConnectionSocketFactory.java`
+#### Snippet
+```java
+                AccessController.doPrivileged((PrivilegedExceptionAction<Object>) () -> {
+                    sock.connect(remoteAddress, Timeout.defaultsToDisabled(connectTimeout).toMillisecondsIntBound());
+                    return null;
+                });
+            } catch (final PrivilegedActionException e) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartFormEntity.java`
+#### Snippet
+```java
+    @Override
+    public Supplier<List<? extends Header>> getTrailers() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartFormEntity.java`
+#### Snippet
+```java
+    @Override
+    public String getContentType() {
+        return this.contentType != null ? this.contentType.toString() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartFormEntity.java`
+#### Snippet
+```java
+    @Override
+    public Set<String> getTrailerNames() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/MultipartFormEntity.java`
+#### Snippet
+```java
+    @Override
+    public String getContentEncoding() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ByteArrayCacheEntrySerializer.java`
+#### Snippet
+```java
+    public byte[] serialize(final HttpCacheStorageEntry cacheEntry) throws ResourceIOException {
+        if (cacheEntry == null) {
+            return null;
+        }
+        final ByteArrayOutputStream buf = new ByteArrayOutputStream();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/ByteArrayCacheEntrySerializer.java`
+#### Snippet
+```java
+    public HttpCacheStorageEntry deserialize(final byte[] serializedObject) throws ResourceIOException {
+        if (serializedObject == null) {
+            return null;
+        }
+        try (final ObjectInputStream ois = new RestrictedObjectInputStream(new ByteArrayInputStream(serializedObject))) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CacheInvalidatorBase.java`
+#### Snippet
+```java
+        final Header h = response.getFirstHeader(headerName);
+        if (h == null) {
+            return null;
+        }
+        final URI locationUri = HttpCacheSupport.normalizeQuietly(h.getValue());
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncRedirectExec.java`
+#### Snippet
+```java
+                        LOG.debug("{} redirecting to '{}' via {}", exchangeId, state.redirectURI, currentRoute);
+                    }
+                    return null;
+                }
+                return asyncExecCallback.handleResponse(response, entityDetails);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncProtocolExec.java`
+#### Snippet
+```java
+                        clientContext)) {
+                    challenged.set(true);
+                    return null;
+                }
+                challenged.set(false);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncConnectExec.java`
+#### Snippet
+```java
+                if (needAuthentication(proxyAuthExchange, proxy, response, clientContext)) {
+                    state.challenged = true;
+                    return null;
+                }
+                state.challenged = false;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncConnectExec.java`
+#### Snippet
+```java
+                    return asyncExecCallback.handleResponse(response, entityDetails);
+                }
+                return null;
+            }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/StringBody.java`
+#### Snippet
+```java
+    @Override
+    public String getFilename() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpByteArrayCacheEntrySerializer.java`
+#### Snippet
+```java
+        final Header header = response.getFirstHeader(name);
+        if (header == null) {
+            return null;
+        }
+        response.removeHeader(header);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
+#### Snippet
+```java
+    public static URI normalizeQuietly(final String requestUri) {
+        if (requestUri == null) {
+            return null;
+        }
+        try {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
+#### Snippet
+```java
+            return normalize(new URI(requestUri));
+        } catch (final URISyntaxException ex) {
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
+#### Snippet
+```java
+    public static URI normalizeQuetly(final String requestUri) {
+        if (requestUri == null) {
+            return null;
+        }
+        try {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/HttpCacheSupport.java`
+#### Snippet
+```java
+            return normalize(new URI(requestUri));
+        } catch (final URISyntaxException ex) {
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingExecBase.java`
+#### Snippet
+```java
+            return responseGenerator.getErrorForRequest(fatalError.get(0));
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/ConscryptClientTlsStrategy.java`
+#### Snippet
+```java
+            return new TlsDetails(sslEngine.getSession(), Conscrypt.getApplicationProtocol(sslEngine));
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/KerberosCredentials.java`
+#### Snippet
+```java
+    @Override
+    public char[] getPassword() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/KerberosCredentials.java`
+#### Snippet
+```java
+    @Override
+    public Principal getUserPrincipal() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/CachingExec.java`
+#### Snippet
+```java
+    private static ClassicHttpResponse convert(final SimpleHttpResponse cacheResponse, final ExecChain.Scope scope) {
+        if (cacheResponse == null) {
+            return null;
+        }
+        final ClassicHttpResponse response = new BasicClassicHttpResponse(cacheResponse.getCode(), cacheResponse.getReasonPhrase());
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/socket/PlainConnectionSocketFactory.java`
+#### Snippet
+```java
+                AccessController.doPrivileged((PrivilegedExceptionAction<Object>) () -> {
+                    sock.connect(remoteAddress, TimeValue.isPositive(connectTimeout) ? connectTimeout.toMillisecondsIntBound() : 0);
+                    return null;
+                });
+            } catch (final PrivilegedActionException e) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/AuthScope.java`
+#### Snippet
+```java
+
+    private String toNullSafeLowerCase(final String str) {
+        return str != null ? str.toLowerCase(Locale.ROOT) : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncPushConsumerRegistry.java`
+#### Snippet
+```java
+        final UriPatternMatcher<Supplier<AsyncPushConsumer>> patternMatcher = getPatternMatcher(key);
+        if (patternMatcher == null) {
+            return null;
+        }
+        String path = request.getPath();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/AsyncPushConsumerRegistry.java`
+#### Snippet
+```java
+        }
+        final Supplier<AsyncPushConsumer> supplier = patternMatcher.lookup(path);
+        return supplier != null ? supplier.get() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/ClassicRequestCopier.java`
+#### Snippet
+```java
+    public ClassicHttpRequest copy(final ClassicHttpRequest original) {
+        if (original == null) {
+            return null;
+        }
+        final BasicClassicHttpRequest copy = new BasicClassicHttpRequest(original.getMethod(), null, original.getPath());
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/memcached/MemcachedHttpCacheStorage.java`
+#### Snippet
+```java
+    private byte[] castAsByteArray(final Object storageObject) throws ResourceIOException {
+        if (storageObject == null) {
+            return null;
+        }
+        if (storageObject instanceof byte[]) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DistinguishedNameParser.java`
+#### Snippet
+```java
+    List<NameValuePair> parse(final String s) {
+        if (s == null) {
+            return null;
+        }
+        final CharArrayBuffer buffer = new CharArrayBuffer(s.length());
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/auth/NTCredentials.java`
+#### Snippet
+```java
+    private static String stripDotSuffix(final String value) {
+        if (value == null) {
+            return null;
+        }
+        final int index = value.indexOf('.');
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DefaultHostnameVerifier.java`
+#### Snippet
+```java
+    static String extractCN(final String subjectPrincipal) throws SSLException {
+        if (subjectPrincipal == null) {
+            return null;
+        }
+        final List<NameValuePair> attributes = DistinguishedNameParser.INSTANCE.parse(subjectPrincipal);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DefaultHostnameVerifier.java`
 #### Snippet
 ```java
             }
@@ -9873,26 +9153,38 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/config/TlsConfig.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/HttpRFC7578Multipart.java`
 #### Snippet
 ```java
-     */
-    public String[] getSupportedProtocols() {
-        return supportedProtocols != null ? supportedProtocols.clone() : null;
-    }
+        public byte[] decode(final byte[] bytes) {
+            if (bytes == null) {
+                return null;
+            }
+            final ByteArrayBuffer buffer = new ByteArrayBuffer(bytes.length);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/mime/HttpRFC7578Multipart.java`
+#### Snippet
+```java
+        public byte[] encode(final byte[] bytes) {
+            if (bytes == null) {
+                return null;
+            }
 
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/config/TlsConfig.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/HttpsSupport.java`
 #### Snippet
 ```java
-     */
-    public String[] getSupportedCipherSuites() {
-        return supportedCipherSuites != null ? supportedCipherSuites.clone() : null;
-    }
-
+    private static String[] split(final String s) {
+        if (TextUtils.isBlank(s)) {
+            return null;
+        }
+        return s.split(" *, *");
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -9929,18 +9221,6 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/Reques
         return null;
     }
 
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/RequestProtocolCompliance.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -9993,19 +9273,43 @@ in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/Reques
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DefaultHostnameVerifier.java`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/RequestProtocolCompliance.java`
 #### Snippet
 ```java
-    static String extractCN(final String subjectPrincipal) throws SSLException {
-        if (subjectPrincipal == null) {
-            return null;
+            }
         }
-        final List<NameValuePair> attributes = DistinguishedNameParser.INSTANCE.parse(subjectPrincipal);
+        return null;
+    }
+}
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DefaultHostnameVerifier.java`
+in `httpclient5-win/src/main/java/org/apache/hc/client5/http/impl/win/WindowsNegotiateScheme.java`
+#### Snippet
+```java
+    @Override
+    public String getRealm() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpCacheEntry.java`
+#### Snippet
+```java
+    public Header getFirstHeader(final String name) {
+        if (REQUEST_METHOD_HEADER_NAME.equalsIgnoreCase(name)) {
+            return null;
+        }
+        return responseHeaders.getFirstHeader(name);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicAuthCache.java`
 #### Snippet
 ```java
             }
@@ -10017,14 +9321,266 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/ssl/DefaultHostnameVeri
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/MinimalH2AsyncClient.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultUserTokenHandler.java`
 #### Snippet
 ```java
-                threadFactory);
-        this.connectionInitiator = new MultihomeConnectionInitiator(getConnectionInitiator(), dnsResolver);
-        this.connPool = new InternalH2ConnPool(this.connectionInitiator, object -> null, tlsStrategy);
+            return scheme.getPrincipal();
+        }
+        return null;
     }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/DefaultUserTokenHandler.java`
+#### Snippet
+```java
+            return sslSession.getLocalPrincipal();
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
+#### Snippet
+```java
+     */
+    public static Instant toInstant(final Date date) {
+        return date != null ? Instant.ofEpochMilli(date.getTime()) : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
+#### Snippet
+```java
+     */
+    public static LocalDateTime toUTC(final Instant instant) {
+        return instant != null ? instant.atZone(ZoneOffset.UTC).toLocalDateTime() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
+#### Snippet
+```java
+    public static Instant parseStandardDate(final MessageHeaders headers, final String headerName) {
+        if (headers == null) {
+            return null;
+        }
+        final Header header = headers.getFirstHeader(headerName);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
+#### Snippet
+```java
+        final Header header = headers.getFirstHeader(headerName);
+        if (header == null) {
+            return null;
+        }
+        return parseStandardDate(header.getValue());
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DateUtils.java`
+#### Snippet
+```java
+     */
+    public static Date toDate(final Instant instant) {
+        return instant != null ? new Date(instant.toEpochMilli()) : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AsyncCachingExec.java`
+#### Snippet
+```java
+                final HttpResponse response,
+                final EntityDetails entityDetails) throws HttpException, IOException {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/DefaultCacheInvalidator.java`
+#### Snippet
+```java
+                LOG.warn("Unable to get cache entry with key {}", cacheKey, ex);
+            }
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpCache.java`
+#### Snippet
+```java
+                LOG.warn("I/O error retrieving cache entry with key {}", cacheKey);
+            }
+            return null;
+        }
+        if (root == null) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpCache.java`
+#### Snippet
+```java
+        }
+        if (root == null) {
+            return null;
+        }
+        if (!root.hasVariants()) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpCache.java`
+#### Snippet
+```java
+        final String variantCacheKey = root.getVariantMap().get(variantKey);
+        if (variantCacheKey == null) {
+            return null;
+        }
+        try {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/BasicHttpCache.java`
+#### Snippet
+```java
+                LOG.warn("I/O error retrieving cache entry with key {}", variantCacheKey);
+            }
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/HttpRoute.java`
+#### Snippet
+```java
+    @Override
+    public HttpHost getProxyHost() {
+        return proxyChain != null && !this.proxyChain.isEmpty() ? this.proxyChain.get(0) : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/HttpRoute.java`
+#### Snippet
+```java
+
+    public InetSocketAddress getLocalSocketAddress() {
+        return this.localAddress != null ? new InetSocketAddress(this.localAddress, 0) : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/SystemDefaultDnsResolver.java`
+#### Snippet
+```java
+    public String resolveCanonicalHostname(final String host) throws UnknownHostException {
+        if (host == null) {
+            return null;
+        }
+        final InetAddress in = InetAddress.getByName(host);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/async/RedirectingAsyncDecorator.java`
+#### Snippet
+```java
+        try {
+            final URI requestURI = request.getUri();
+            return redirectResolver != null ? redirectResolver.resolve(requestURI) : null;
+        } catch (final URISyntaxException ex) {
+            throw new ProtocolException(ex.getMessage(), ex);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/DefaultManagedAsyncClientConnection.java`
+#### Snippet
+```java
+    @Override
+    public TlsDetails getTlsDetails() {
+        return ioSession instanceof TransportSecurityLayer ? ((TransportSecurityLayer) ioSession).getTlsDetails() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/DefaultManagedAsyncClientConnection.java`
+#### Snippet
+```java
+    public SSLSession getSSLSession() {
+        final TlsDetails tlsDetails = getTlsDetails();
+        return tlsDetails != null ? tlsDetails.getSSLSession() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/nio/DefaultManagedAsyncClientConnection.java`
+#### Snippet
+```java
+            return ((HttpConnection) handler).getEndpointDetails();
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleBody.java`
+#### Snippet
+```java
+            return bodyAsText.getBytes(charset != null ? charset : StandardCharsets.US_ASCII);
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -10041,7 +9597,223 @@ in `httpclient5-testing/src/main/java/org/apache/hc/client5/testing/auth/BasicAu
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/SystemDefaultCredentialsProvider.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/H2AsyncClientBuilder.java`
+#### Snippet
+```java
+
+        final MultihomeConnectionInitiator connectionInitiator = new MultihomeConnectionInitiator(ioReactor, dnsResolver);
+        final InternalH2ConnPool connPool = new InternalH2ConnPool(connectionInitiator, host -> null, tlsStrategyCopy);
+        connPool.setConnectionConfigResolver(connectionConfigResolver);
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/SingleCredentialsProvider.java`
+#### Snippet
+```java
+    @Override
+    public Credentials getCredentials(final AuthScope authScope, final HttpContext context) {
+        return this.authScope.match(authScope) >= 0 ? credentials : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/routing/DefaultRoutePlanner.java`
+#### Snippet
+```java
+            final HttpHost firstHop,
+            final HttpContext context) throws HttpException {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/routing/DefaultRoutePlanner.java`
+#### Snippet
+```java
+            final HttpHost target,
+            final HttpContext context) throws HttpException {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/routing/SystemDefaultRoutePlanner.java`
+#### Snippet
+```java
+        if (proxySelectorInstance == null) {
+            //The proxy selector can be "unset", so we must be able to deal with a null selector
+            return null;
+        }
+        final List<Proxy> proxies = proxySelectorInstance.select(targetURI);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/Base64.java`
+#### Snippet
+```java
+    public byte[] decode(final String base64) {
+        if (null == base64) {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/Base64.java`
+#### Snippet
+```java
+    public static String encodeBase64String(final byte[] bytes) {
+        if (null == bytes) {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/Base64.java`
+#### Snippet
+```java
+    public byte[] decode(final byte[] base64) {
+        if (null == base64) {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/Base64.java`
+#### Snippet
+```java
+    public byte[] encode(final byte[] value) {
+        if (null == value) {
+            return null;
+        }
+        return getEncoder().encode(value);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/BasicScheme.java`
+#### Snippet
+```java
+    @Override
+    public Principal getPrincipal() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultManagedHttpClientConnection.java`
+#### Snippet
+```java
+    public Socket getSocket() {
+        final SocketHolder socketHolder = getSocketHolder();
+        return socketHolder != null ? socketHolder.getSocket() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultManagedHttpClientConnection.java`
+#### Snippet
+```java
+            return ((SSLSocket) socket).getSession();
+        } else {
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/AuthChallengeParser.java`
+#### Snippet
+```java
+            tokenParser.skipWhiteSpace(buffer, cursor);
+            if (cursor.atEnd()) {
+                return null;
+            }
+            final String token = parseToken(buffer, cursor);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/NoopUserTokenHandler.java`
+#### Snippet
+```java
+    @Override
+    public Object getUserToken(final HttpRoute route, final HttpContext context) {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpResponse.java`
+#### Snippet
+```java
+
+    public String getBodyText() {
+        return body != null ? body.getBodyText() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpResponse.java`
+#### Snippet
+```java
+
+    public ContentType getContentType() {
+        return body != null ? body.getContentType() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpResponse.java`
+#### Snippet
+```java
+
+    public byte[] getBodyBytes() {
+        return body != null ? body.getBodyBytes() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/ConnPoolSupport.java`
+#### Snippet
+```java
+    public static String getId(final Object object) {
+        if (object == null) {
+            return null;
+        }
+        return object instanceof Identifiable
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/AuthCacheKeeper.java`
 #### Snippet
 ```java
             }
@@ -10049,6 +9821,378 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/SystemDefault
         return null;
     }
 
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/AbstractHttpClientResponseHandler.java`
+#### Snippet
+```java
+            throw new HttpResponseException(response.getCode(), response.getReasonPhrase());
+        }
+        return entity == null ? null : handleEntity(entity);
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/RequestCopier.java`
+#### Snippet
+```java
+    public HttpRequest copy(final HttpRequest original) {
+        if (original == null) {
+            return null;
+        }
+        final BasicHttpRequest copy = new BasicHttpRequest(original.getMethod(), null, original.getPath());
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
+#### Snippet
+```java
+    public static HttpHost extractHost(final URI uri) {
+        if (uri == null) {
+            return null;
+        }
+        final URIBuilder uriBuilder = new URIBuilder(uri);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/URIUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/Cookie.java`
+#### Snippet
+```java
+     * Returns creation time of the cookie.
+     */
+    default Instant getCreationInstant() { return null;  }
+
+    /**
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/cookie/Cookie.java`
+#### Snippet
+```java
+    default Instant getExpiryInstant() {
+        final Date date = getExpiryDate();
+        return date != null ? Instant.ofEpochMilli(date.getTime()) : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/CloseableHttpResponse.java`
+#### Snippet
+```java
+    static CloseableHttpResponse adapt(final ClassicHttpResponse response) {
+        if (response == null) {
+            return null;
+        }
+        return response instanceof CloseableHttpResponse
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/config/TlsConfig.java`
+#### Snippet
+```java
+     */
+    public String[] getSupportedProtocols() {
+        return supportedProtocols != null ? supportedProtocols.clone() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/config/TlsConfig.java`
+#### Snippet
+```java
+     */
+    public String[] getSupportedCipherSuites() {
+        return supportedCipherSuites != null ? supportedCipherSuites.clone() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/routing/RoutingSupport.java`
+#### Snippet
+```java
+    public static HttpHost determineHost(final HttpRequest request) throws HttpException {
+        if (request == null) {
+            return null;
+        }
+        final URIAuthority authority = request.getAuthority();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/routing/RoutingSupport.java`
+#### Snippet
+```java
+        } catch (final URISyntaxException ignore) {
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/routing/RoutingSupport.java`
+#### Snippet
+```java
+    public static HttpHost normalize(final HttpHost host, final SchemePortResolver schemePortResolver) {
+        if (host == null) {
+            return null;
+        }
+        if (host.getPort() < 0) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
+#### Snippet
+```java
+    @Override
+    public Principal getPrincipal() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/GGSSchemeBase.java`
+#### Snippet
+```java
+    @Override
+    public String getRealm() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
+#### Snippet
+```java
+    @Override
+    public Principal getPrincipal() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
+#### Snippet
+```java
+
+    String getA1() {
+        return a1 != null ? new String(a1, StandardCharsets.US_ASCII) : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
+#### Snippet
+```java
+
+    String getA2() {
+        return a2 != null ? new String(a2, StandardCharsets.US_ASCII) : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/RouteTracker.java`
+#### Snippet
+```java
+    public HttpRoute toRoute() {
+        return !this.connected ?
+            null : new HttpRoute(this.targetHost, this.localAddress,
+                                 this.proxyChain, this.secure,
+                                 this.tunnelled, this.layered);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/RouteTracker.java`
+#### Snippet
+```java
+    @Override
+    public HttpHost getProxyHost() {
+        return (this.proxyChain == null) ? null : this.proxyChain[0];
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpRequest.java`
+#### Snippet
+```java
+
+    public byte[] getBodyBytes() {
+        return body != null ? body.getBodyBytes() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpRequest.java`
+#### Snippet
+```java
+
+    public ContentType getContentType() {
+        return body != null ? body.getContentType() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/async/methods/SimpleHttpRequest.java`
+#### Snippet
+```java
+
+    public String getBodyText() {
+        return body != null ? body.getBodyText() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/DnsUtils.java`
+#### Snippet
+```java
+    public static String normalize(final String s) {
+        if (s == null) {
+            return null;
+        }
+        int pos = 0;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/entity/DecompressingEntity.java`
+#### Snippet
+```java
+    public String getContentEncoding() {
+        /* Content encoding is now 'identity' */
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMScheme.java`
+#### Snippet
+```java
+    @Override
+    public Principal getPrincipal() {
+        return this.credentials != null ? this.credentials.getUserPrincipal() : null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMScheme.java`
+#### Snippet
+```java
+    @Override
+    public String getRealm() {
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
+#### Snippet
+```java
+    private static DomainType findEntry(final Map<String, DomainType> map, final String rule) {
+        if (map == null) {
+            return null;
+        }
+        return map.get(rule);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
+#### Snippet
+```java
+    public String getDomainRoot(final String domain, final DomainType expectedType) {
+        if (domain == null) {
+            return null;
+        }
+        if (domain.startsWith(".")) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
+#### Snippet
+```java
+        }
+        if (domain.startsWith(".")) {
+            return null;
+        }
+        String segment = DnsUtils.normalize(domain);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
+#### Snippet
+```java
+
+        // If we did have expectations apparently there was no match
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/LenientHttpResponseParser.java`
+#### Snippet
+```java
+                LOG.debug("Garbage in response: {}", buffer);
+            }
+            return null;
+        }
+    }
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -10101,206 +10245,14 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/SystemDefault
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/classic/AbstractHttpClientResponseHandler.java`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/SystemDefaultCredentialsProvider.java`
 #### Snippet
 ```java
-            throw new HttpResponseException(response.getCode(), response.getReasonPhrase());
+            }
         }
-        return entity == null ? null : handleEntity(entity);
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/Base64.java`
-#### Snippet
-```java
-    public byte[] decode(final String base64) {
-        if (null == base64) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/Base64.java`
-#### Snippet
-```java
-    public byte[] encode(final byte[] value) {
-        if (null == value) {
-            return null;
-        }
-        return getEncoder().encode(value);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/Base64.java`
-#### Snippet
-```java
-    public static String encodeBase64String(final byte[] bytes) {
-        if (null == bytes) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/utils/Base64.java`
-#### Snippet
-```java
-    public byte[] decode(final byte[] base64) {
-        if (null == base64) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
-#### Snippet
-```java
-
-    String getA1() {
-        return a1 != null ? new String(a1, StandardCharsets.US_ASCII) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
-#### Snippet
-```java
-
-    String getA2() {
-        return a2 != null ? new String(a2, StandardCharsets.US_ASCII) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/DigestScheme.java`
-#### Snippet
-```java
-    @Override
-    public Principal getPrincipal() {
         return null;
     }
 
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultManagedHttpClientConnection.java`
-#### Snippet
-```java
-            return ((SSLSocket) socket).getSession();
-        } else {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/io/DefaultManagedHttpClientConnection.java`
-#### Snippet
-```java
-    public Socket getSocket() {
-        final SocketHolder socketHolder = getSocketHolder();
-        return socketHolder != null ? socketHolder.getSocket() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/RouteTracker.java`
-#### Snippet
-```java
-    @Override
-    public HttpHost getProxyHost() {
-        return (this.proxyChain == null) ? null : this.proxyChain[0];
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/RouteTracker.java`
-#### Snippet
-```java
-    public HttpRoute toRoute() {
-        return !this.connected ?
-            null : new HttpRoute(this.targetHost, this.localAddress,
-                                 this.proxyChain, this.secure,
-                                 this.tunnelled, this.layered);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
-#### Snippet
-```java
-    public String getDomainRoot(final String domain, final DomainType expectedType) {
-        if (domain == null) {
-            return null;
-        }
-        if (domain.startsWith(".")) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
-#### Snippet
-```java
-        }
-        if (domain.startsWith(".")) {
-            return null;
-        }
-        String segment = DnsUtils.normalize(domain);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
-#### Snippet
-```java
-
-        // If we did have expectations apparently there was no match
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5/src/main/java/org/apache/hc/client5/http/psl/PublicSuffixMatcher.java`
-#### Snippet
-```java
-    private static DomainType findEntry(final Map<String, DomainType> map, final String rule) {
-        if (map == null) {
-            return null;
-        }
-        return map.get(rule);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/cache/HttpCacheEntry.java`
-#### Snippet
-```java
-    public Header getFirstHeader(final String name) {
-        if (REQUEST_METHOD_HEADER_NAME.equalsIgnoreCase(name)) {
-            return null;
-        }
-        return responseHeaders.getFirstHeader(name);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -10315,31 +10267,55 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/InternalAbst
 
 ```
 
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/async/MinimalH2AsyncClient.java`
+#### Snippet
+```java
+                threadFactory);
+        this.connectionInitiator = new MultihomeConnectionInitiator(getConnectionInitiator(), dnsResolver);
+        this.connPool = new InternalH2ConnPool(this.connectionInitiator, object -> null, tlsStrategy);
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingCacheStorage.java`
+#### Snippet
+```java
+        final T storageObject = restore(storageKey);
+        if (storageObject == null) {
+            return null;
+        }
+        final HttpCacheStorageEntry entry = serializer.deserialize(storageObject);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/AbstractSerializingCacheStorage.java`
+#### Snippet
+```java
+            return entry.getContent();
+        } else {
+            return null;
+        }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `httpclient5-cache/src/main/java/org/apache/hc/client5/http/impl/cache/memcached/MemcachedHttpAsyncCacheStorage.java`
+#### Snippet
+```java
+    private byte[] castAsByteArray(final Object storageObject) throws ResourceIOException {
+        if (storageObject == null) {
+            return null;
+        }
+        if (storageObject instanceof byte[]) {
+```
+
 ## RuleId[ruleID=UnnecessaryLocalVariable]
-### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `unqualifiedHost` is redundant
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
-#### Snippet
-```java
-
-            // All host name manipulations now take place in the credentials
-            final String unqualifiedHost = host;
-            // All domain name manipulations now take place in the credentials
-            final String unqualifiedDomain = domain;
-```
-
-### RuleId[ruleID=UnnecessaryLocalVariable]
-Local variable `unqualifiedDomain` is redundant
-in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
-#### Snippet
-```java
-            final String unqualifiedHost = host;
-            // All domain name manipulations now take place in the credentials
-            final String unqualifiedDomain = domain;
-
-            byte[] responseTargetInformation = targetInformation;
-```
-
 ### RuleId[ruleID=UnnecessaryLocalVariable]
 Local variable `unqualifiedHost` is redundant
 in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
@@ -10362,6 +10338,30 @@ in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImp
             final String unqualifiedDomain = domain;
 
             hostBytes = unqualifiedHost != null ?
+```
+
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `unqualifiedHost` is redundant
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+#### Snippet
+```java
+
+            // All host name manipulations now take place in the credentials
+            final String unqualifiedHost = host;
+            // All domain name manipulations now take place in the credentials
+            final String unqualifiedDomain = domain;
+```
+
+### RuleId[ruleID=UnnecessaryLocalVariable]
+Local variable `unqualifiedDomain` is redundant
+in `httpclient5/src/main/java/org/apache/hc/client5/http/impl/auth/NTLMEngineImpl.java`
+#### Snippet
+```java
+            final String unqualifiedHost = host;
+            // All domain name manipulations now take place in the credentials
+            final String unqualifiedDomain = domain;
+
+            byte[] responseTargetInformation = targetInformation;
 ```
 
 ## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
