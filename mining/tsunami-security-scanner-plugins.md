@@ -129,30 +129,6 @@ version = '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `google/detectors/rce/vbulletin/cve201916759/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Tsunami detector VulnDetector plugin for vBulletin pre-auth remote code execution vulnerability (CVE-2019-16759).'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/rce/vbulletin/cve201916759/build.gradle`
-#### Snippet
-```java
-
-description = 'Tsunami detector VulnDetector plugin for vBulletin pre-auth remote code execution vulnerability (CVE-2019-16759).'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
 in `google/detectors/rce/tomcat/ghostcat/build.gradle`
 #### Snippet
 ```java
@@ -170,30 +146,6 @@ in `google/detectors/rce/tomcat/ghostcat/build.gradle`
 ```java
 
 description = 'Tsunami Ghostcat detector plugin.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/rce/weblogic/cve202014883/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Tsunami WebLogic Admin Console RCE VulnDetector plugin.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/rce/weblogic/cve202014883/build.gradle`
-#### Snippet
-```java
-
-description = 'Tsunami WebLogic Admin Console RCE VulnDetector plugin.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -225,23 +177,47 @@ version = '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `google/detectors/rce/cve20121823/build.gradle`
+in `google/detectors/rce/weblogic/cve202014883/build.gradle`
 #### Snippet
 ```java
 }
 
-description = 'CVE-2012-1823 Tsunami detector plugin.'
+description = 'Tsunami WebLogic Admin Console RCE VulnDetector plugin.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 ```
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `google/detectors/rce/cve20121823/build.gradle`
+in `google/detectors/rce/weblogic/cve202014883/build.gradle`
 #### Snippet
 ```java
 
-description = 'CVE-2012-1823 Tsunami detector plugin.'
+description = 'Tsunami WebLogic Admin Console RCE VulnDetector plugin.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/rce/vbulletin/cve201916759/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'Tsunami detector VulnDetector plugin for vBulletin pre-auth remote code execution vulnerability (CVE-2019-16759).'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/rce/vbulletin/cve201916759/build.gradle`
+#### Snippet
+```java
+
+description = 'Tsunami detector VulnDetector plugin for vBulletin pre-auth remote code execution vulnerability (CVE-2019-16759).'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -261,35 +237,35 @@ version = '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `google/detectors/rce/cve20196340/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Tsunami CVE-2019-6340 VulnDetector plugin.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/rce/cve20196340/build.gradle`
-#### Snippet
-```java
-
-description = 'Tsunami CVE-2019-6340 VulnDetector plugin.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
 in `google/detectors/rce/confluence/cve202226134/build.gradle`
 #### Snippet
 ```java
 
 description = 'Tsunami Confluence CVE-2022-26134 RCE VulnDetector plugin.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/rce/cve20121823/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'CVE-2012-1823 Tsunami detector plugin.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/rce/cve20121823/build.gradle`
+#### Snippet
+```java
+
+description = 'CVE-2012-1823 Tsunami detector plugin.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -333,6 +309,18 @@ version = '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
+in `google/detectors/rce/cve20175638/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'Tsunami detector plugin for Apache Struts Command Injection via Content-Type header (CVE-2017-5638).'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
 in `google/detectors/rce/cve20187600/build.gradle`
 #### Snippet
 ```java
@@ -345,23 +333,35 @@ version = '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `google/detectors/rce/cve202121972/build.gradle`
+in `google/detectors/rce/cve20175638/build.gradle`
+#### Snippet
+```java
+
+description = 'Tsunami detector plugin for Apache Struts Command Injection via Content-Type header (CVE-2017-5638).'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/rce/cve20196340/build.gradle`
 #### Snippet
 ```java
 }
 
-description = 'Tsunami CVE-2021-21972 VulnDetector plugin.'
+description = 'Tsunami CVE-2019-6340 VulnDetector plugin.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 ```
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `google/detectors/rce/cve202121972/build.gradle`
+in `google/detectors/rce/cve20196340/build.gradle`
 #### Snippet
 ```java
 
-description = 'Tsunami CVE-2021-21972 VulnDetector plugin.'
+description = 'Tsunami CVE-2019-6340 VulnDetector plugin.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -393,47 +393,23 @@ version = '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `google/detectors/rce/cve20175638/build.gradle`
+in `google/detectors/rce/cve202121972/build.gradle`
 #### Snippet
 ```java
 }
 
-description = 'Tsunami detector plugin for Apache Struts Command Injection via Content-Type header (CVE-2017-5638).'
+description = 'Tsunami CVE-2021-21972 VulnDetector plugin.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 ```
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `google/detectors/rce/cve20175638/build.gradle`
+in `google/detectors/rce/cve202121972/build.gradle`
 #### Snippet
 ```java
 
-description = 'Tsunami detector plugin for Apache Struts Command Injection via Content-Type header (CVE-2017-5638).'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/rce/cve20171000353/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Tsunami example Jenkins CLI Unauthenticated RCE detector plugin.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/rce/cve20171000353/build.gradle`
-#### Snippet
-```java
-
-description = 'Tsunami example Jenkins CLI Unauthenticated RCE detector plugin.'
+description = 'Tsunami CVE-2021-21972 VulnDetector plugin.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -465,30 +441,6 @@ version = '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `google/detectors/rce/liferay_portal/cve20207961/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Tsunami detector for Liferay Portal RCE (CVE-2020-7961).'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/rce/liferay_portal/cve20207961/build.gradle`
-#### Snippet
-```java
-
-description = 'Tsunami detector for Liferay Portal RCE (CVE-2020-7961).'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
 in `google/detectors/rce/solr_cve201917558/build.gradle`
 #### Snippet
 ```java
@@ -513,23 +465,47 @@ version = '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `google/detectors/exposedui/hadoop/yarn/build.gradle`
+in `google/detectors/rce/liferay_portal/cve20207961/build.gradle`
 #### Snippet
 ```java
 }
 
-description = 'Tsunami VulnDetector plugin for exposed Hadoop Yarn API.'
+description = 'Tsunami detector for Liferay Portal RCE (CVE-2020-7961).'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 ```
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `google/detectors/exposedui/hadoop/yarn/build.gradle`
+in `google/detectors/rce/liferay_portal/cve20207961/build.gradle`
 #### Snippet
 ```java
 
-description = 'Tsunami VulnDetector plugin for exposed Hadoop Yarn API.'
+description = 'Tsunami detector for Liferay Portal RCE (CVE-2020-7961).'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/rce/cve20171000353/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'Tsunami example Jenkins CLI Unauthenticated RCE detector plugin.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/rce/cve20171000353/build.gradle`
+#### Snippet
+```java
+
+description = 'Tsunami example Jenkins CLI Unauthenticated RCE detector plugin.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -554,6 +530,30 @@ in `google/detectors/exposedui/spring/build.gradle`
 ```java
 
 description = 'Tsunami VulnDetector plugin for exposed Spring Boot Actuator endpoints.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/exposedui/hadoop/yarn/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'Tsunami VulnDetector plugin for exposed Hadoop Yarn API.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/exposedui/hadoop/yarn/build.gradle`
+#### Snippet
+```java
+
+description = 'Tsunami VulnDetector plugin for exposed Hadoop Yarn API.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -645,6 +645,18 @@ version = '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
+in `google/detectors/exposedui/wordpress/build.gradle`
+#### Snippet
+```java
+
+description = 'Tsunami VulnDetector plugin for exposed WordPress installation page.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
 in `google/detectors/exposedui/kubernetes/build.gradle`
 #### Snippet
 ```java
@@ -662,18 +674,6 @@ in `google/detectors/exposedui/kubernetes/build.gradle`
 ```java
 
 description = 'Tsunami Kubernetes API Exposed VulnDetector plugin.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/exposedui/wordpress/build.gradle`
-#### Snippet
-```java
-
-description = 'Tsunami VulnDetector plugin for exposed WordPress installation page.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -777,30 +777,6 @@ version = '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `google/detectors/credentials/cve20177615/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Tsunami detector plugin for MantisBT authentication bypass (CVE-2017-7615).'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/credentials/cve20177615/build.gradle`
-#### Snippet
-```java
-
-description = 'Tsunami detector plugin for MantisBT authentication bypass (CVE-2017-7615).'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
 in `google/detectors/directorytraversal/cve20213223/build.gradle`
 #### Snippet
 ```java
@@ -818,54 +794,6 @@ in `google/detectors/directorytraversal/cve20213223/build.gradle`
 ```java
 
 description = 'Tsunami NodeRedDashboard DirectoryTraversal VulnDetector plugin.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/directorytraversal/generic_path_traversal_detector/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Generic Path Traversal Tsunami VulnDetector plugin.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/directorytraversal/generic_path_traversal_detector/build.gradle`
-#### Snippet
-```java
-
-description = 'Generic Path Traversal Tsunami VulnDetector plugin.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/directorytraversal/cve202017519/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'CVE-2020-17519 Tsunami VulnDetector plugin.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `google/detectors/directorytraversal/cve202017519/build.gradle`
-#### Snippet
-```java
-
-description = 'CVE-2020-17519 Tsunami VulnDetector plugin.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -897,6 +825,78 @@ version = '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
+in `google/detectors/credentials/cve20177615/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'Tsunami detector plugin for MantisBT authentication bypass (CVE-2017-7615).'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/credentials/cve20177615/build.gradle`
+#### Snippet
+```java
+
+description = 'Tsunami detector plugin for MantisBT authentication bypass (CVE-2017-7615).'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/directorytraversal/cve202017519/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'CVE-2020-17519 Tsunami VulnDetector plugin.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/directorytraversal/cve202017519/build.gradle`
+#### Snippet
+```java
+
+description = 'CVE-2020-17519 Tsunami VulnDetector plugin.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/directorytraversal/generic_path_traversal_detector/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'Generic Path Traversal Tsunami VulnDetector plugin.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `google/detectors/directorytraversal/generic_path_traversal_detector/build.gradle`
+#### Snippet
+```java
+
+description = 'Generic Path Traversal Tsunami VulnDetector plugin.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
 in `google/fingerprinters/web/build.gradle`
 #### Snippet
 ```java
@@ -914,78 +914,6 @@ in `google/fingerprinters/web/build.gradle`
 ```java
 
 description = 'Tsunami web application fingerprinter.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `govtech/detectors/cves/cve_2020_3452/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Tsunami VulnDetector plugin for CVE-2020-3452.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `govtech/detectors/cves/cve_2020_3452/build.gradle`
-#### Snippet
-```java
-
-description = 'Tsunami VulnDetector plugin for CVE-2020-3452.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `examples/example_calling_command/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Tsunami example VulnDetector plugin that calls external command.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `examples/example_calling_command/build.gradle`
-#### Snippet
-```java
-
-description = 'Tsunami example VulnDetector plugin that calls external command.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `examples/example_payload_framework_vuln_detector/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Tsunami example VulnDetector plugin with payload generator.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `examples/example_payload_framework_vuln_detector/build.gradle`
-#### Snippet
-```java
-
-description = 'Tsunami example VulnDetector plugin with payload generator.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -1017,23 +945,71 @@ version = '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `facebook/detectors/rce/cisco_smi/build.gradle`
+in `examples/example_calling_command/build.gradle`
 #### Snippet
 ```java
 }
 
-description = 'Tsunami VulnDetector plugin for Cisco SMI.'
+description = 'Tsunami example VulnDetector plugin that calls external command.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 ```
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `facebook/detectors/rce/cisco_smi/build.gradle`
+in `examples/example_calling_command/build.gradle`
 #### Snippet
 ```java
 
-description = 'Tsunami VulnDetector plugin for Cisco SMI.'
+description = 'Tsunami example VulnDetector plugin that calls external command.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `govtech/detectors/cves/cve_2020_3452/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'Tsunami VulnDetector plugin for CVE-2020-3452.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `govtech/detectors/cves/cve_2020_3452/build.gradle`
+#### Snippet
+```java
+
+description = 'Tsunami VulnDetector plugin for CVE-2020-3452.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `examples/example_payload_framework_vuln_detector/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'Tsunami example VulnDetector plugin with payload generator.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `examples/example_payload_framework_vuln_detector/build.gradle`
+#### Snippet
+```java
+
+description = 'Tsunami example VulnDetector plugin with payload generator.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -1082,6 +1058,30 @@ in `community/detectors/rce/cve202135464/build.gradle`
 ```java
 
 description = 'CVE-2021-35464 Tsunami VulnDetector plugin.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `facebook/detectors/rce/cisco_smi/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'Tsunami VulnDetector plugin for Cisco SMI.'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `facebook/detectors/rce/cisco_smi/build.gradle`
+#### Snippet
+```java
+
+description = 'Tsunami VulnDetector plugin for Cisco SMI.'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -1107,6 +1107,18 @@ in `community/detectors/nacos_cve_2021_29441/build.gradle`
 }
 
 description = 'Tsunami CVE-2021-29441 VulnDetector plugin.'
+group 'com.google.tsunami'
+version '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `community/detectors/gitlab_cve_2021_22205/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'Tsunami CVE-2021-22205 VulnDetector plugin.'
 group 'com.google.tsunami'
 version '0.0.1-SNAPSHOT'
 ```
@@ -1149,6 +1161,30 @@ version '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
+in `community/detectors/confluence_cve_2021_26084/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'Atlassian Confluence RCE via Pre-Auth OGNL Injection'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `community/detectors/confluence_cve_2021_26084/build.gradle`
+#### Snippet
+```java
+
+description = 'Atlassian Confluence RCE via Pre-Auth OGNL Injection'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
 in `community/detectors/apache_apisix_cve_2022_24112/build.gradle`
 #### Snippet
 ```java
@@ -1166,42 +1202,6 @@ in `community/detectors/apache_apisix_cve_2022_24112/build.gradle`
 ```java
 
 description = 'Tsunami Apache APISIX RCE (CVE-2022-24112) VulnDetector plugin.'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `community/detectors/confluence_cve_2021_26084/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Atlassian Confluence RCE via Pre-Auth OGNL Injection'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `community/detectors/gitlab_cve_2021_22205/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Tsunami CVE-2021-22205 VulnDetector plugin.'
-group 'com.google.tsunami'
-version '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `community/detectors/confluence_cve_2021_26084/build.gradle`
-#### Snippet
-```java
-
-description = 'Atlassian Confluence RCE via Pre-Auth OGNL Injection'
 group = 'com.google.tsunami'
 version = '0.0.1-SNAPSHOT'
 
@@ -1221,6 +1221,30 @@ version '0.0.1-SNAPSHOT'
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
+in `community/detectors/apache_solr_arbitrary_file_reading/build.gradle`
+#### Snippet
+```java
+}
+
+description = 'Apache Solr RemoteStreaming Arbitrary File Reading and SSRF Detector'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `community/detectors/apache_solr_arbitrary_file_reading/build.gradle`
+#### Snippet
+```java
+
+description = 'Apache Solr RemoteStreaming Arbitrary File Reading and SSRF Detector'
+group = 'com.google.tsunami'
+version = '0.0.1-SNAPSHOT'
+
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
 in `community/detectors/spring_cloud_gateway_cve_2022_22947/build.gradle`
 #### Snippet
 ```java
@@ -1229,30 +1253,6 @@ in `community/detectors/spring_cloud_gateway_cve_2022_22947/build.gradle`
 description = 'Tsunami CVE-2022-22947 VulnDetector plugin.'
 group 'com.google.tsunami'
 version '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `community/detectors/apache_solr_arbitrary_file_reading/build.gradle`
-#### Snippet
-```java
-}
-
-description = 'Apache Solr RemoteStreaming Arbitrary File Reading and SSRF Detector'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
-in `community/detectors/apache_solr_arbitrary_file_reading/build.gradle`
-#### Snippet
-```java
-
-description = 'Apache Solr RemoteStreaming Arbitrary File Reading and SSRF Detector'
-group = 'com.google.tsunami'
-version = '0.0.1-SNAPSHOT'
-
 ```
 
 ## RuleId[ruleID=HtmlWrongAttributeValue]
