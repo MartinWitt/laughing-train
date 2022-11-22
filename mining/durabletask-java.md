@@ -211,15 +211,15 @@ in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Argument `serializeOutput` might be null
+Argument `serializedPayload` might be null
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 #### Snippet
 ```java
-                instanceId,
-                serializeOutput != null ? serializeOutput : "(null)"));
-        TerminateRequest.Builder builder = TerminateRequest.newBuilder().setInstanceId(instanceId).setOutput(StringValue.of(serializeOutput));
-        this.sidecarClient.terminateInstance(builder.build());
-    }
+        if (eventPayload != null) {
+            String serializedPayload = this.dataConverter.serialize(eventPayload);
+            builder.setInput(StringValue.of(serializedPayload));
+        }
+
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -235,15 +235,15 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Argument `serializedPayload` might be null
+Argument `serializeOutput` might be null
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 #### Snippet
 ```java
-        if (eventPayload != null) {
-            String serializedPayload = this.dataConverter.serialize(eventPayload);
-            builder.setInput(StringValue.of(serializedPayload));
-        }
-
+                instanceId,
+                serializeOutput != null ? serializeOutput : "(null)"));
+        TerminateRequest.Builder builder = TerminateRequest.newBuilder().setInstanceId(instanceId).setOutput(StringValue.of(serializeOutput));
+        this.sidecarClient.terminateInstance(builder.build());
+    }
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -399,30 +399,6 @@ public class TaskFailedException extends RuntimeException {
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
-#### Snippet
-```java
-    static Timestamp getTimestampFromInstant(Instant instant) {
-        if (instant == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
-#### Snippet
-```java
-    static Instant getInstantFromTimestamp(Timestamp ts) {
-        if (ts == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
 in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
 #### Snippet
 ```java
@@ -442,6 +418,30 @@ in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
 
         return null;
     }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
+#### Snippet
+```java
+    static Timestamp getTimestampFromInstant(Instant instant) {
+        if (instant == null) {
+            return null;
+        }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
+#### Snippet
+```java
+    static Instant getInstantFromTimestamp(Timestamp ts) {
+        if (ts == null) {
+            return null;
+        }
 
 ```
 
@@ -662,8 +662,20 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(Throwable cause, List<Exception> exceptions) {
-        super(cause);
+    CompositeTaskFailedException(List<Exception> exceptions) {
+        this.exceptions = exceptions;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Exception`
+in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
+#### Snippet
+```java
+    }
+
+    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
+        super(message, cause, enableSuppression, writableStackTrace);
         this.exceptions = exceptions;
 ```
 
@@ -686,21 +698,9 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    CompositeTaskFailedException(Throwable cause, List<Exception> exceptions) {
+        super(cause);
         this.exceptions = exceptions;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Exception`
-in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
-#### Snippet
-```java
-    }
-
-    CompositeTaskFailedException(List<Exception> exceptions) {
-        this.exceptions = exceptions;
-    }
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
