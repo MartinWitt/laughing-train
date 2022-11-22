@@ -34,8 +34,8 @@ I found 291 bad smells with 26 repairable:
 | RuleId[ruleID=MismatchedCollectionQueryUpdate] | 2 | false |
 | RuleId[ruleID=StringEquality] | 1 | false |
 | RuleId[ruleID=UnnecessarySemicolon] | 1 | false |
-| RuleId[ruleID=FinalPrivateMethod] | 1 | false |
 | RuleId[ruleID=NonSerializableFieldInSerializableClass] | 1 | false |
+| RuleId[ruleID=FinalPrivateMethod] | 1 | false |
 | RuleId[ruleID=UnnecessaryUnboxing] | 1 | false |
 | RuleId[ruleID=ConditionCoveredByFurtherCondition] | 1 | false |
 | RuleId[ruleID=UNUSED_IMPORT] | 1 | false |
@@ -46,30 +46,6 @@ I found 291 bad smells with 26 repairable:
 | RuleId[ruleID=EqualsWhichDoesntCheckParameterClass] | 1 | false |
 | RuleId[ruleID=ConstantValue] | 1 | false |
 ## RuleId[ruleID=IOResource]
-### RuleId[ruleID=IOResource]
-'JsonReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `metrics/src/main/java/com/google/gson/metrics/CollectionsDeserializationBenchmark.java`
-#### Snippet
-```java
-    for (int i=0; i<reps; ++i) {
-      StringReader reader = new StringReader(json);
-      JsonReader jr = new JsonReader(reader);
-      jr.beginArray();
-      List<BagOfPrimitives> bags = new ArrayList<>();
-```
-
-### RuleId[ruleID=IOResource]
-'JsonReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `metrics/src/main/java/com/google/gson/metrics/CollectionsDeserializationBenchmark.java`
-#### Snippet
-```java
-    for (int i=0; i<reps; ++i) {
-      StringReader reader = new StringReader(json);
-      JsonReader jr = new JsonReader(reader);
-      jr.beginArray();
-      List<BagOfPrimitives> bags = new ArrayList<>();
-```
-
 ### RuleId[ruleID=IOResource]
 'JsonReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `metrics/src/main/java/com/google/gson/metrics/BagOfPrimitivesDeserializationBenchmark.java`
@@ -94,6 +70,30 @@ in `metrics/src/main/java/com/google/gson/metrics/BagOfPrimitivesDeserialization
       BagOfPrimitives bag = new BagOfPrimitives();
 ```
 
+### RuleId[ruleID=IOResource]
+'JsonReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `metrics/src/main/java/com/google/gson/metrics/CollectionsDeserializationBenchmark.java`
+#### Snippet
+```java
+    for (int i=0; i<reps; ++i) {
+      StringReader reader = new StringReader(json);
+      JsonReader jr = new JsonReader(reader);
+      jr.beginArray();
+      List<BagOfPrimitives> bags = new ArrayList<>();
+```
+
+### RuleId[ruleID=IOResource]
+'JsonReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `metrics/src/main/java/com/google/gson/metrics/CollectionsDeserializationBenchmark.java`
+#### Snippet
+```java
+    for (int i=0; i<reps; ++i) {
+      StringReader reader = new StringReader(json);
+      JsonReader jr = new JsonReader(reader);
+      jr.beginArray();
+      List<BagOfPrimitives> bags = new ArrayList<>();
+```
+
 ## RuleId[ruleID=StringEquality]
 ### RuleId[ruleID=StringEquality]
 String values are compared using `==`, not 'equals()'
@@ -110,12 +110,71 @@ in `gson/src/main/java/com/google/gson/internal/LazilyParsedNumber.java`
 ## RuleId[ruleID=UnnecessaryModifier]
 ### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/JsonSerializationContext.java`
+in `extras/src/main/java/com/google/gson/interceptors/JsonPostDeserializer.java`
 #### Snippet
 ```java
-   * @return a tree of {@link JsonElement}s corresponding to the serialized form of {@code src}.
+   * This method is called by Gson after the object has been deserialized from Json.
    */
-  public JsonElement serialize(Object src, Type typeOfSrc);
+  public void postDeserialize(T object);
+}
+
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `gson/src/main/java/com/google/gson/FieldNamingStrategy.java`
+#### Snippet
+```java
+   * @since 1.3
+   */
+  public String translateName(Field f);
+}
+
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `gson/src/main/java/com/google/gson/JsonDeserializationContext.java`
+#### Snippet
+```java
+   * @throws JsonParseException if the parse tree does not contain expected data.
+   */
+  public <T> T deserialize(JsonElement json, Type typeOfT) throws JsonParseException;
+}
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `extras/src/main/java/com/google/gson/interceptors/Intercept.java`
+#### Snippet
+```java
+   */
+  @SuppressWarnings("rawtypes")
+  public Class<? extends JsonPostDeserializer> postDeserialize();
+}
+
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `gson/src/main/java/com/google/gson/JsonDeserializer.java`
+#### Snippet
+```java
+   * @throws JsonParseException if json is not in the expected format of {@code typeofT}
+   */
+  public T deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException;
+}
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `gson/src/main/java/com/google/gson/ToNumberStrategy.java`
+#### Snippet
+```java
+   * @return number read from the JSON reader.
+   */
+  public Number readNumber(JsonReader in) throws IOException;
 }
 
 ```
@@ -134,24 +193,36 @@ in `gson/src/main/java/com/google/gson/JsonSerializationContext.java`
 
 ### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
-in `extras/src/main/java/com/google/gson/interceptors/Intercept.java`
+in `gson/src/main/java/com/google/gson/JsonSerializationContext.java`
 #### Snippet
 ```java
+   * @return a tree of {@link JsonElement}s corresponding to the serialized form of {@code src}.
    */
-  @SuppressWarnings("rawtypes")
-  public Class<? extends JsonPostDeserializer> postDeserialize();
+  public JsonElement serialize(Object src, Type typeOfSrc);
 }
 
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
-in `extras/src/main/java/com/google/gson/interceptors/JsonPostDeserializer.java`
+in `gson/src/main/java/com/google/gson/InstanceCreator.java`
 #### Snippet
 ```java
-   * This method is called by Gson after the object has been deserialized from Json.
+   * @return a default object instance of type T.
    */
-  public void postDeserialize(T object);
+  public T createInstance(Type type);
+}
+
+```
+
+### RuleId[ruleID=UnnecessaryModifier]
+Modifier `public` is redundant for interface members
+in `gson/src/main/java/com/google/gson/JsonSerializer.java`
+#### Snippet
+```java
+   * @return a JsonElement corresponding to the specified object.
+   */
+  public JsonElement serialize(T src, Type typeOfSrc, JsonSerializationContext context);
 }
 
 ```
@@ -174,9 +245,9 @@ in `gson/src/main/java/com/google/gson/annotations/Expose.java`
 ```java
    * @since 1.4
    */
-  public boolean deserialize() default true;
-}
+  public boolean serialize() default true;
 
+  /**
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
@@ -186,68 +257,9 @@ in `gson/src/main/java/com/google/gson/annotations/Expose.java`
 ```java
    * @since 1.4
    */
-  public boolean serialize() default true;
-
-  /**
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/JsonDeserializationContext.java`
-#### Snippet
-```java
-   * @throws JsonParseException if the parse tree does not contain expected data.
-   */
-  public <T> T deserialize(JsonElement json, Type typeOfT) throws JsonParseException;
-}
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/JsonSerializer.java`
-#### Snippet
-```java
-   * @return a JsonElement corresponding to the specified object.
-   */
-  public JsonElement serialize(T src, Type typeOfSrc, JsonSerializationContext context);
+  public boolean deserialize() default true;
 }
 
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/JsonDeserializer.java`
-#### Snippet
-```java
-   * @throws JsonParseException if json is not in the expected format of {@code typeofT}
-   */
-  public T deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-      throws JsonParseException;
-}
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `private` is redundant for enum constructors
-in `metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java`
-#### Snippet
-```java
-    private final TypeReference<?> jacksonType;
-
-    private Document(TypeToken<?> typeToken, TypeReference<?> typeReference) {
-      this.gsonType = typeToken;
-      this.jacksonType = typeReference;
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/ExclusionStrategy.java`
-#### Snippet
-```java
-   * @return true if the field should be ignored; otherwise false
-   */
-  public boolean shouldSkipField(FieldAttributes f);
-
-  /**
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
@@ -264,38 +276,26 @@ in `gson/src/main/java/com/google/gson/ExclusionStrategy.java`
 
 ### RuleId[ruleID=UnnecessaryModifier]
 Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/InstanceCreator.java`
+in `gson/src/main/java/com/google/gson/ExclusionStrategy.java`
 #### Snippet
 ```java
-   * @return a default object instance of type T.
+   * @return true if the field should be ignored; otherwise false
    */
-  public T createInstance(Type type);
-}
+  public boolean shouldSkipField(FieldAttributes f);
 
+  /**
 ```
 
 ### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/ToNumberStrategy.java`
+Modifier `private` is redundant for enum constructors
+in `metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java`
 #### Snippet
 ```java
-   * @return number read from the JSON reader.
-   */
-  public Number readNumber(JsonReader in) throws IOException;
-}
+    private final TypeReference<?> jacksonType;
 
-```
-
-### RuleId[ruleID=UnnecessaryModifier]
-Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/FieldNamingStrategy.java`
-#### Snippet
-```java
-   * @since 1.3
-   */
-  public String translateName(Field f);
-}
-
+    private Document(TypeToken<?> typeToken, TypeReference<?> typeReference) {
+      this.gsonType = typeToken;
+      this.jacksonType = typeReference;
 ```
 
 ## RuleId[ruleID=MagicConstant]
@@ -321,67 +321,6 @@ in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
       return new GregorianCalendar(year, month, dayOfMonth, hourOfDay, minute, second);
     }
 
-```
-
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `PreJava9DateFormatProvider` has only 'static' members, and lacks a 'private' constructor
-in `gson/src/main/java/com/google/gson/internal/PreJava9DateFormatProvider.java`
-#### Snippet
-```java
- * Provides DateFormats for US locale with patterns which were the default ones before Java 9.
- */
-public class PreJava9DateFormatProvider {
-
-  /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ISO8601Utils` has only 'static' members, and lacks a 'private' constructor
-in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
-#### Snippet
-```java
-//Date parsing code from Jackson databind ISO8601Utils.java
-// https://github.com/FasterXML/jackson-databind/blob/master/src/main/java/com/fasterxml/jackson/databind/util/ISO8601Utils.java
-public class ISO8601Utils
-{
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `NonUploadingCaliperRunner` has only 'static' members, and lacks a 'private' constructor
-in `metrics/src/main/java/com/google/gson/metrics/NonUploadingCaliperRunner.java`
-#### Snippet
-```java
-import com.google.caliper.runner.CaliperMain;
-
-class NonUploadingCaliperRunner {
-  private static String[] concat(String first, String... others) {
-    if (others.length == 0) {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `JsonScope` has only 'static' members, and lacks a 'private' constructor
-in `gson/src/main/java/com/google/gson/stream/JsonScope.java`
-#### Snippet
-```java
- * @since 1.6
- */
-final class JsonScope {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `RawCollectionsExample` has only 'static' members, and lacks a 'private' constructor
-in `extras/src/main/java/com/google/gson/extras/examples/rawcollections/RawCollectionsExample.java`
-#### Snippet
-```java
-import com.google.gson.JsonParser;
-
-public class RawCollectionsExample {
-  static class Event {
-    private String name;
 ```
 
 ## RuleId[ruleID=MarkedForRemoval]
@@ -433,6 +372,67 @@ in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
             Field[] fields = classOfT.getDeclaredFields();
 ```
 
+## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `NonUploadingCaliperRunner` has only 'static' members, and lacks a 'private' constructor
+in `metrics/src/main/java/com/google/gson/metrics/NonUploadingCaliperRunner.java`
+#### Snippet
+```java
+import com.google.caliper.runner.CaliperMain;
+
+class NonUploadingCaliperRunner {
+  private static String[] concat(String first, String... others) {
+    if (others.length == 0) {
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `PreJava9DateFormatProvider` has only 'static' members, and lacks a 'private' constructor
+in `gson/src/main/java/com/google/gson/internal/PreJava9DateFormatProvider.java`
+#### Snippet
+```java
+ * Provides DateFormats for US locale with patterns which were the default ones before Java 9.
+ */
+public class PreJava9DateFormatProvider {
+
+  /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `ISO8601Utils` has only 'static' members, and lacks a 'private' constructor
+in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
+#### Snippet
+```java
+//Date parsing code from Jackson databind ISO8601Utils.java
+// https://github.com/FasterXML/jackson-databind/blob/master/src/main/java/com/fasterxml/jackson/databind/util/ISO8601Utils.java
+public class ISO8601Utils
+{
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `JsonScope` has only 'static' members, and lacks a 'private' constructor
+in `gson/src/main/java/com/google/gson/stream/JsonScope.java`
+#### Snippet
+```java
+ * @since 1.6
+ */
+final class JsonScope {
+
+    /**
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `RawCollectionsExample` has only 'static' members, and lacks a 'private' constructor
+in `extras/src/main/java/com/google/gson/extras/examples/rawcollections/RawCollectionsExample.java`
+#### Snippet
+```java
+import com.google.gson.JsonParser;
+
+public class RawCollectionsExample {
+  static class Event {
+    private String name;
+```
+
 ## RuleId[ruleID=UnnecessarySemicolon]
 ### RuleId[ruleID=UnnecessarySemicolon]
 Unnecessary semicolon `;`
@@ -448,6 +448,18 @@ in `proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java`
 
 ## RuleId[ruleID=DataFlowIssue]
 ### RuleId[ruleID=DataFlowIssue]
+Variable is already assigned to this value
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapper.java`
+#### Snippet
+```java
+        // The user registered a type adapter for Base class, so we prefer it over the
+        // reflective type adapter for the runtime type
+        chosen = delegate;
+      } else {
+        // Use the type adapter for runtime type
+```
+
+### RuleId[ruleID=DataFlowIssue]
 Casting `current` to `Map` may produce `ClassCastException`
 in `gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java`
 #### Snippet
@@ -460,15 +472,15 @@ in `gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Variable is already assigned to this value
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapper.java`
+Argument `nearest.key` might be null
+in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
 #### Snippet
 ```java
-        // The user registered a type adapter for Base class, so we prefer it over the
-        // reflective type adapter for the runtime type
-        chosen = delegate;
-      } else {
-        // Use the type adapter for runtime type
+      while (true) {
+        comparison = (comparableKey != null)
+            ? comparableKey.compareTo(nearest.key)
+            : comparator.compare(key, nearest.key);
+
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
@@ -508,18 +520,6 @@ in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
 ```
 
 ### RuleId[ruleID=DataFlowIssue]
-Argument `nearest.key` might be null
-in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
-#### Snippet
-```java
-      while (true) {
-        comparison = (comparableKey != null)
-            ? comparableKey.compareTo(nearest.key)
-            : comparator.compare(key, nearest.key);
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
 Variable is already assigned to this value
 in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
 #### Snippet
@@ -528,18 +528,6 @@ in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
         }
         toResolve = original;
         break;
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Casting `current` to `JsonObject` may produce `ClassCastException`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-            ((JsonArray) current).add(value);
-          } else {
-            ((JsonObject) current).add(name, value);
-          }
 
 ```
 
@@ -565,6 +553,18 @@ in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
         return new Locale(language, country, variant);
       }
     }
+```
+
+### RuleId[ruleID=DataFlowIssue]
+Casting `current` to `JsonObject` may produce `ClassCastException`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
+#### Snippet
+```java
+            ((JsonArray) current).add(value);
+          } else {
+            ((JsonObject) current).add(name, value);
+          }
+
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -607,18 +607,6 @@ in `gson/src/main/java/com/google/gson/internal/UnsafeAllocator.java`
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### RuleId[ruleID=DeprecatedIsStillUsed]
 Deprecated member 'getAsCharacter' is still used
-in `gson/src/main/java/com/google/gson/JsonElement.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public char getAsCharacter() {
-    throw new UnsupportedOperationException(getClass().getSimpleName());
-  }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getAsCharacter' is still used
 in `gson/src/main/java/com/google/gson/JsonPrimitive.java`
 #### Snippet
 ```java
@@ -627,6 +615,18 @@ in `gson/src/main/java/com/google/gson/JsonPrimitive.java`
   public char getAsCharacter() {
     String s = getAsString();
     if (s.isEmpty()) {
+```
+
+### RuleId[ruleID=DeprecatedIsStillUsed]
+Deprecated member 'getAsCharacter' is still used
+in `gson/src/main/java/com/google/gson/JsonElement.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public char getAsCharacter() {
+    throw new UnsupportedOperationException(getClass().getSimpleName());
+  }
 ```
 
 ## RuleId[ruleID=JavaReflectionMemberAccess]
@@ -666,19 +666,6 @@ in `gson/src/main/java/com/google/gson/internal/UnsafeAllocator.java`
       return new UnsafeAllocator() {
 ```
 
-## RuleId[ruleID=FinalPrivateMethod]
-### RuleId[ruleID=FinalPrivateMethod]
-'private' method declared `final`
-in `gson/src/main/java/com/google/gson/internal/bind/DefaultDateTypeAdapter.java`
-#### Snippet
-```java
-    protected abstract T deserialize(Date date);
-
-    private final TypeAdapterFactory createFactory(DefaultDateTypeAdapter<T> adapter) {
-      return TypeAdapters.newFactory(dateClass, adapter);
-    }
-```
-
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### RuleId[ruleID=NonSerializableFieldInSerializableClass]
 Non-serializable field 'gsonType' in a Serializable class
@@ -692,19 +679,20 @@ in `metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java`
 
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### RuleId[ruleID=SizeReplaceableByIsEmpty]
-`members.size() == 0` can be replaced with 'members.isEmpty()'
-in `gson/src/main/java/com/google/gson/JsonObject.java`
+## RuleId[ruleID=FinalPrivateMethod]
+### RuleId[ruleID=FinalPrivateMethod]
+'private' method declared `final`
+in `gson/src/main/java/com/google/gson/internal/bind/DefaultDateTypeAdapter.java`
 #### Snippet
 ```java
-   */
-  public boolean isEmpty() {
-    return members.size() == 0;
-  }
+    protected abstract T deserialize(Date date);
 
+    private final TypeAdapterFactory createFactory(DefaultDateTypeAdapter<T> adapter) {
+      return TypeAdapters.newFactory(dateClass, adapter);
+    }
 ```
 
+## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
 `translation.length() != 0` can be replaced with '!translation.isEmpty()'
 in `gson/src/main/java/com/google/gson/FieldNamingPolicy.java`
@@ -715,6 +703,18 @@ in `gson/src/main/java/com/google/gson/FieldNamingPolicy.java`
       if (Character.isUpperCase(character) && translation.length() != 0) {
         translation.append(separator);
       }
+```
+
+### RuleId[ruleID=SizeReplaceableByIsEmpty]
+`members.size() == 0` can be replaced with 'members.isEmpty()'
+in `gson/src/main/java/com/google/gson/JsonObject.java`
+#### Snippet
+```java
+   */
+  public boolean isEmpty() {
+    return members.size() == 0;
+  }
+
 ```
 
 ### RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -780,43 +780,6 @@ in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
         } else if (last == NUMBER_CHAR_DECIMAL) {
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `gson/src/main/java/com/google/gson/reflect/TypeToken.java`
-#### Snippet
-```java
-    }
-    exceptionMessage.append("but got: ").append(token.getClass().getName())
-        .append(", for type token: ").append(token.toString()).append('.');
-
-    return new AssertionError(exceptionMessage.toString());
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
-#### Snippet
-```java
-              return set;
-            } else {
-              throw new JsonIOException("Invalid EnumSet type: " + type.toString());
-            }
-          } else {
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
-#### Snippet
-```java
-              return map;
-            } else {
-              throw new JsonIOException("Invalid EnumMap type: " + type.toString());
-            }
-          } else {
-```
-
 ## RuleId[ruleID=AssignmentToForLoopParameter]
 ### RuleId[ruleID=AssignmentToForLoopParameter]
 Assignment to for-loop parameter `i`
@@ -842,65 +805,54 @@ in `gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java`
           if (pathNames[i] != null) {
 ```
 
+## RuleId[ruleID=UnnecessaryToStringCall]
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `gson/src/main/java/com/google/gson/reflect/TypeToken.java`
+#### Snippet
+```java
+    }
+    exceptionMessage.append("but got: ").append(token.getClass().getName())
+        .append(", for type token: ").append(token.toString()).append('.');
+
+    return new AssertionError(exceptionMessage.toString());
+```
+
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
+#### Snippet
+```java
+              return map;
+            } else {
+              throw new JsonIOException("Invalid EnumMap type: " + type.toString());
+            }
+          } else {
+```
+
+### RuleId[ruleID=UnnecessaryToStringCall]
+Unnecessary `toString()` call
+in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
+#### Snippet
+```java
+              return set;
+            } else {
+              throw new JsonIOException("Invalid EnumSet type: " + type.toString());
+            }
+          } else {
+```
+
 ## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java`
+Can generalize to `? super TypeAdapterFactory`
+in `gson/src/main/java/com/google/gson/GsonBuilder.java`
 #### Snippet
 ```java
-  @SuppressWarnings("unchecked") // this is not safe; requires that user has specified correct adapter class for @JsonAdapter
-  @Override
-  public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> targetType) {
-    Class<? super T> rawType = targetType.getRawType();
-    JsonAdapter annotation = rawType.getAnnotation(JsonAdapter.class);
-```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java`
-#### Snippet
-```java
-  private volatile TypeAdapter<T> delegate;
-
-  public TreeTypeAdapter(JsonSerializer<T> serializer, JsonDeserializer<T> deserializer,
-      Gson gson, TypeToken<T> typeToken, TypeAdapterFactory skipPast, boolean nullSafe) {
-    this.serializer = serializer;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java`
-#### Snippet
-```java
-  private volatile TypeAdapter<T> delegate;
-
-  public TreeTypeAdapter(JsonSerializer<T> serializer, JsonDeserializer<T> deserializer,
-      Gson gson, TypeToken<T> typeToken, TypeAdapterFactory skipPast, boolean nullSafe) {
-    this.serializer = serializer;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ReflectionAccessFilter`
-in `gson/src/main/java/com/google/gson/internal/ReflectionAccessFilterHelper.java`
-#### Snippet
-```java
-   * the list of filters is empty or all returned {@code INDECISIVE}.
-   */
-  public static FilterResult getFilterResult(List<ReflectionAccessFilter> reflectionFilters, Class<?> c) {
-    for (ReflectionAccessFilter filter : reflectionFilters) {
-      FilterResult result = filter.check(c);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends InstanceCreator`
-in `extras/src/main/java/com/google/gson/graph/GraphAdapterBuilder.java`
-#### Snippet
-```java
-    private final ThreadLocal<Graph> graphThreadLocal = new ThreadLocal<>();
-
-    Factory(Map<Type, InstanceCreator<?>> instanceCreators) {
-      this.instanceCreators = instanceCreators;
-    }
+  private void addTypeAdaptersForDate(String datePattern, int dateStyle, int timeStyle,
+      List<TypeAdapterFactory> factories) {
+    TypeAdapterFactory dateAdapterFactory;
+    boolean sqlTypesSupported = SqlTypesSupport.SUPPORTS_SQL_TYPES;
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -928,15 +880,39 @@ in `proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super TypeAdapterFactory`
-in `gson/src/main/java/com/google/gson/GsonBuilder.java`
+Can generalize to `? extends InstanceCreator`
+in `extras/src/main/java/com/google/gson/graph/GraphAdapterBuilder.java`
 #### Snippet
 ```java
+    private final ThreadLocal<Graph> graphThreadLocal = new ThreadLocal<>();
 
-  private void addTypeAdaptersForDate(String datePattern, int dateStyle, int timeStyle,
-      List<TypeAdapterFactory> factories) {
-    TypeAdapterFactory dateAdapterFactory;
-    boolean sqlTypesSupported = SqlTypesSupport.SUPPORTS_SQL_TYPES;
+    Factory(Map<Type, InstanceCreator<?>> instanceCreators) {
+      this.instanceCreators = instanceCreators;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java`
+#### Snippet
+```java
+  @SuppressWarnings("unchecked") // this is not safe; requires that user has specified correct adapter class for @JsonAdapter
+  @Override
+  public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> targetType) {
+    Class<? super T> rawType = targetType.getRawType();
+    JsonAdapter annotation = rawType.getAnnotation(JsonAdapter.class);
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends ReflectionAccessFilter`
+in `gson/src/main/java/com/google/gson/internal/ReflectionAccessFilterHelper.java`
+#### Snippet
+```java
+   * the list of filters is empty or all returned {@code INDECISIVE}.
+   */
+  public static FilterResult getFilterResult(List<ReflectionAccessFilter> reflectionFilters, Class<?> c) {
+    for (ReflectionAccessFilter filter : reflectionFilters) {
+      FilterResult result = filter.check(c);
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -952,6 +928,30 @@ in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super T`
+in `gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java`
+#### Snippet
+```java
+  private volatile TypeAdapter<T> delegate;
+
+  public TreeTypeAdapter(JsonSerializer<T> serializer, JsonDeserializer<T> deserializer,
+      Gson gson, TypeToken<T> typeToken, TypeAdapterFactory skipPast, boolean nullSafe) {
+    this.serializer = serializer;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java`
+#### Snippet
+```java
+  private volatile TypeAdapter<T> delegate;
+
+  public TreeTypeAdapter(JsonSerializer<T> serializer, JsonDeserializer<T> deserializer,
+      Gson gson, TypeToken<T> typeToken, TypeAdapterFactory skipPast, boolean nullSafe) {
+    this.serializer = serializer;
+```
+
+### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? super TypeVariable`
 in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
 #### Snippet
@@ -964,27 +964,15 @@ in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java`
+Can generalize to `? super T2`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
-    private final ObjectConstructor<T> constructor;
-
-    FieldReflectionAdapter(ObjectConstructor<T> constructor, Map<String, BoundField> boundFields) {
-      super(boundFields);
-      this.constructor = constructor;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends BoundField`
-in `gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java`
-#### Snippet
-```java
-    final Map<String, BoundField> boundFields;
-
-    Adapter(Map<String, BoundField> boundFields) {
-      this.boundFields = boundFields;
-    }
+    return new TypeAdapterFactory() {
+      @SuppressWarnings("unchecked")
+      @Override public <T2> TypeAdapter<T2> create(Gson gson, TypeToken<T2> typeToken) {
+        final Class<? super T2> requestedType = typeToken.getRawType();
+        if (!clazz.isAssignableFrom(requestedType)) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -997,18 +985,6 @@ in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
       @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
         Class<? super T> rawType = typeToken.getRawType();
         return (rawType == unboxed || rawType == boxed) ? (TypeAdapter<T>) typeAdapter : null;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T2`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-    return new TypeAdapterFactory() {
-      @SuppressWarnings("unchecked")
-      @Override public <T2> TypeAdapter<T2> create(Gson gson, TypeToken<T2> typeToken) {
-        final Class<? super T2> requestedType = typeToken.getRawType();
-        if (!clazz.isAssignableFrom(requestedType)) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -1035,6 +1011,30 @@ in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
       if (!Enum.class.isAssignableFrom(rawType) || rawType == Enum.class) {
 ```
 
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends BoundField`
+in `gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java`
+#### Snippet
+```java
+    final Map<String, BoundField> boundFields;
+
+    Adapter(Map<String, BoundField> boundFields) {
+      this.boundFields = boundFields;
+    }
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends T`
+in `gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java`
+#### Snippet
+```java
+    private final ObjectConstructor<T> constructor;
+
+    FieldReflectionAdapter(ObjectConstructor<T> constructor, Map<String, BoundField> boundFields) {
+      super(boundFields);
+      this.constructor = constructor;
+```
+
 ## RuleId[ruleID=MissortedModifiers]
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `final static`
@@ -1046,18 +1046,6 @@ in `extras/src/main/java/com/google/gson/typeadapters/PostConstructAdapterFactor
     final static class PostConstructAdapter<T> extends TypeAdapter<T> {
         private final TypeAdapter<T> delegate;
         private final Method method;
-```
-
-### RuleId[ruleID=MissortedModifiers]
-Missorted modifiers `static abstract`
-in `gson/src/main/java/com/google/gson/internal/ReflectionAccessFilterHelper.java`
-#### Snippet
-```java
-  }
-
-  private static abstract class AccessChecker {
-    public static final AccessChecker INSTANCE;
-    static {
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -1074,14 +1062,14 @@ in `gson/src/main/java/com/google/gson/internal/bind/DefaultDateTypeAdapter.java
 
 ### RuleId[ruleID=MissortedModifiers]
 Missorted modifiers `static abstract`
-in `gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java`
+in `gson/src/main/java/com/google/gson/internal/ReflectionAccessFilterHelper.java`
 #### Snippet
 ```java
   }
 
-  static abstract class BoundField {
-    final String name;
-    /** Name of the underlying field */
+  private static abstract class AccessChecker {
+    public static final AccessChecker INSTANCE;
+    static {
 ```
 
 ### RuleId[ruleID=MissortedModifiers]
@@ -1094,6 +1082,18 @@ in `gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactor
   public static abstract class Adapter<T, A> extends TypeAdapter<T> {
     final Map<String, BoundField> boundFields;
 
+```
+
+### RuleId[ruleID=MissortedModifiers]
+Missorted modifiers `static abstract`
+in `gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java`
+#### Snippet
+```java
+  }
+
+  static abstract class BoundField {
+    final String name;
+    /** Name of the underlying field */
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -1200,50 +1200,26 @@ in `gson/src/main/java/com/google/gson/internal/JavaVersion.java`
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `com.google.gson` is unnecessary and can be removed
-in `gson/src/main/java/com/google/gson/TypeAdapterFactory.java`
+in `gson/src/main/java/com/google/gson/FieldNamingPolicy.java`
 #### Snippet
 ```java
- *
- * <p>As with type adapters, factories must be <i>registered</i> with a {@link
- * com.google.gson.GsonBuilder} for them to take effect: <pre>   {@code
- *
- *  GsonBuilder builder = new GsonBuilder();
+/**
+ * An enumeration that defines a few standard naming conventions for JSON field names.
+ * This enumeration should be used in conjunction with {@link com.google.gson.GsonBuilder}
+ * to configure a {@link com.google.gson.Gson} instance to properly translate Java field
+ * names into the desired JSON field names.
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `com.google.gson` is unnecessary and can be removed
-in `gson/src/main/java/com/google/gson/JsonSerializer.java`
+in `gson/src/main/java/com/google/gson/FieldNamingPolicy.java`
 #### Snippet
 ```java
- * Interface representing a custom serializer for JSON. You should write a custom serializer, if
- * you are not happy with the default serialization done by Gson. You will also need to register
- * this serializer through {@link com.google.gson.GsonBuilder#registerTypeAdapter(Type, Object)}.
+ * An enumeration that defines a few standard naming conventions for JSON field names.
+ * This enumeration should be used in conjunction with {@link com.google.gson.GsonBuilder}
+ * to configure a {@link com.google.gson.Gson} instance to properly translate Java field
+ * names into the desired JSON field names.
  *
- * <p>Let us look at example where defining a serializer will be useful. The {@code Id} class
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.protobuf` is unnecessary, and can be replaced with an import
-in `proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java`
-#### Snippet
-```java
-  }
-
-  private static final com.google.protobuf.Descriptors.FieldDescriptor.Type ENUM_TYPE =
-      com.google.protobuf.Descriptors.FieldDescriptor.Type.ENUM;
-
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.protobuf` is unnecessary, and can be replaced with an import
-in `proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java`
-#### Snippet
-```java
-
-  private static final com.google.protobuf.Descriptors.FieldDescriptor.Type ENUM_TYPE =
-      com.google.protobuf.Descriptors.FieldDescriptor.Type.ENUM;
-
-  private static final ConcurrentMap<String, ConcurrentMap<Class<?>, Method>> mapOfMapOfMethods =
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -1283,6 +1259,54 @@ in `gson/src/main/java/com/google/gson/GsonBuilder.java`
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.protobuf` is unnecessary, and can be replaced with an import
+in `proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java`
+#### Snippet
+```java
+  }
+
+  private static final com.google.protobuf.Descriptors.FieldDescriptor.Type ENUM_TYPE =
+      com.google.protobuf.Descriptors.FieldDescriptor.Type.ENUM;
+
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.protobuf` is unnecessary, and can be replaced with an import
+in `proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java`
+#### Snippet
+```java
+
+  private static final com.google.protobuf.Descriptors.FieldDescriptor.Type ENUM_TYPE =
+      com.google.protobuf.Descriptors.FieldDescriptor.Type.ENUM;
+
+  private static final ConcurrentMap<String, ConcurrentMap<Class<?>, Method>> mapOfMapOfMethods =
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.gson` is unnecessary and can be removed
+in `gson/src/main/java/com/google/gson/JsonSerializer.java`
+#### Snippet
+```java
+ * Interface representing a custom serializer for JSON. You should write a custom serializer, if
+ * you are not happy with the default serialization done by Gson. You will also need to register
+ * this serializer through {@link com.google.gson.GsonBuilder#registerTypeAdapter(Type, Object)}.
+ *
+ * <p>Let us look at example where defining a serializer will be useful. The {@code Id} class
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.gson` is unnecessary and can be removed
+in `gson/src/main/java/com/google/gson/TypeAdapterFactory.java`
+#### Snippet
+```java
+ *
+ * <p>As with type adapters, factories must be <i>registered</i> with a {@link
+ * com.google.gson.GsonBuilder} for them to take effect: <pre>   {@code
+ *
+ *  GsonBuilder builder = new GsonBuilder();
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
 Qualifier `com.google.gson.stream` is unnecessary, and can be replaced with an import
 in `metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java`
 #### Snippet
@@ -1291,7 +1315,7 @@ in `metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java`
     public void parse(char[] data, Document document) throws Exception {
       com.google.gson.stream.JsonReader jsonReader
           = new com.google.gson.stream.JsonReader(new CharArrayReader(data));
-      jsonReader.skipValue();
+      readToken(jsonReader);
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -1302,7 +1326,7 @@ in `metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java`
     public void parse(char[] data, Document document) throws Exception {
       com.google.gson.stream.JsonReader jsonReader
           = new com.google.gson.stream.JsonReader(new CharArrayReader(data));
-      jsonReader.skipValue();
+      readToken(jsonReader);
       jsonReader.close();
 ```
 
@@ -1327,7 +1351,7 @@ in `metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java`
     public void parse(char[] data, Document document) throws Exception {
       com.google.gson.stream.JsonReader jsonReader
           = new com.google.gson.stream.JsonReader(new CharArrayReader(data));
-      readToken(jsonReader);
+      jsonReader.skipValue();
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -1338,44 +1362,8 @@ in `metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java`
     public void parse(char[] data, Document document) throws Exception {
       com.google.gson.stream.JsonReader jsonReader
           = new com.google.gson.stream.JsonReader(new CharArrayReader(data));
-      readToken(jsonReader);
+      jsonReader.skipValue();
       jsonReader.close();
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.gson` is unnecessary and can be removed
-in `gson/src/main/java/com/google/gson/FieldNamingPolicy.java`
-#### Snippet
-```java
-/**
- * An enumeration that defines a few standard naming conventions for JSON field names.
- * This enumeration should be used in conjunction with {@link com.google.gson.GsonBuilder}
- * to configure a {@link com.google.gson.Gson} instance to properly translate Java field
- * names into the desired JSON field names.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.gson` is unnecessary and can be removed
-in `gson/src/main/java/com/google/gson/FieldNamingPolicy.java`
-#### Snippet
-```java
- * An enumeration that defines a few standard naming conventions for JSON field names.
- * This enumeration should be used in conjunction with {@link com.google.gson.GsonBuilder}
- * to configure a {@link com.google.gson.Gson} instance to properly translate Java field
- * names into the desired JSON field names.
- *
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
-#### Snippet
-```java
-   * {@code componentType}.
-   *
-   * @return a {@link java.io.Serializable serializable} generic array type.
-   */
-  public static GenericArrayType arrayOf(Type componentType) {
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -1395,11 +1383,35 @@ Qualifier `java.io` is unnecessary and can be removed
 in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
 #### Snippet
 ```java
+   * {@code componentType}.
+   *
+   * @return a {@link java.io.Serializable serializable} generic array type.
+   */
+  public static GenericArrayType arrayOf(Type componentType) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `java.io` is unnecessary and can be removed
+in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
+#### Snippet
+```java
    * Returns a type that is functionally equal but not necessarily equal
    * according to {@link Object#equals(Object) Object.equals()}. The returned
    * type is {@link java.io.Serializable}.
    */
   public static Type canonicalize(Type type) {
+```
+
+### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+Qualifier `com.google.gson.reflect` is unnecessary and can be removed
+in `gson/src/main/java/com/google/gson/Gson.java`
+#### Snippet
+```java
+   * @param src the object for which JSON representation is to be created
+   * @param typeOfSrc The specific genericized type of src. You can obtain
+   * this type by using the {@link com.google.gson.reflect.TypeToken} class. For example,
+   * to get the type for {@code Collection<Foo>}, you should use:
+   * <pre>
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -1436,18 +1448,6 @@ in `gson/src/main/java/com/google/gson/Gson.java`
    *   <li>The default Date format is same as {@link java.text.DateFormat#DEFAULT}. This format
    *   ignores the millisecond portion of the date during serialization. You can change
    *   this by invoking {@link GsonBuilder#setDateFormat(int)} or
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `com.google.gson.reflect` is unnecessary and can be removed
-in `gson/src/main/java/com/google/gson/Gson.java`
-#### Snippet
-```java
-   * @param src the object for which JSON representation is to be created
-   * @param typeOfSrc The specific genericized type of src. You can obtain
-   * this type by using the {@link com.google.gson.reflect.TypeToken} class. For example,
-   * to get the type for {@code Collection<Foo>}, you should use:
-   * <pre>
 ```
 
 ### RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -1598,114 +1598,6 @@ in `extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
-#### Snippet
-```java
-
-            // extract year
-            int year = parseInt(date, offset, offset += 4);
-            if (checkOffset(date, offset, '-')) {
-                offset += 1;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
-#### Snippet
-```java
-
-            // extract month
-            int month = parseInt(date, offset, offset += 2);
-            if (checkOffset(date, offset, '-')) {
-                offset += 1;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
-#### Snippet
-```java
-
-            // extract day
-            int day = parseInt(date, offset, offset += 2);
-            // default time value
-            int hour = 0;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
-#### Snippet
-```java
-
-                // extract hours, minutes, seconds and milliseconds
-                hour = parseInt(date, offset += 1, offset += 2);
-                if (checkOffset(date, offset, ':')) {
-                    offset += 1;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
-#### Snippet
-```java
-
-                // extract hours, minutes, seconds and milliseconds
-                hour = parseInt(date, offset += 1, offset += 2);
-                if (checkOffset(date, offset, ':')) {
-                    offset += 1;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
-#### Snippet
-```java
-                }
-
-                minutes = parseInt(date, offset, offset += 2);
-                if (checkOffset(date, offset, ':')) {
-                    offset += 1;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
-#### Snippet
-```java
-                    char c = date.charAt(offset);
-                    if (c != 'Z' && c != '+' && c != '-') {
-                        seconds = parseInt(date, offset, offset += 2);
-                        if (seconds > 59 && seconds < 63) seconds = 59; // truncate up to 3 leap seconds
-                        // milliseconds can be optional in the format
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `gson/src/main/java/com/google/gson/internal/Excluder.java`
-#### Snippet
-```java
-        return d != null
-            ? d
-            : (delegate = gson.getDelegateAdapter(Excluder.this, type));
-      }
-    };
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java`
-#### Snippet
-```java
-    return d != null
-        ? d
-        : (delegate = gson.getDelegateAdapter(skipPast, typeToken));
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
 in `extras/src/main/java/com/google/gson/graph/GraphAdapterBuilder.java`
 #### Snippet
 ```java
@@ -1718,14 +1610,14 @@ in `extras/src/main/java/com/google/gson/graph/GraphAdapterBuilder.java`
 
 ### RuleId[ruleID=NestedAssignment]
 Result of assignment expression used
-in `metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java`
+in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
 #### Snippet
 ```java
-      StringWriter writer = new StringWriter();
-      int count;
-      while ((count = reader.read(buffer)) != -1) {
-        writer.write(buffer, 0, count);
-      }
+    // We've found the keyword followed either by EOF or by a non-literal character.
+    pos += length;
+    return peeked = peeking;
+  }
+
 ```
 
 ### RuleId[ruleID=NestedAssignment]
@@ -1901,18 +1793,6 @@ Result of assignment expression used
 in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
 #### Snippet
 ```java
-    pos = 0;
-    int total;
-    while ((total = in.read(buffer, limit, buffer.length - limit)) != -1) {
-      limit += total;
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
-#### Snippet
-```java
       peekedLong = negative ? value : -value;
       pos += i;
       return peeked = PEEKED_LONG;
@@ -1937,10 +1817,106 @@ Result of assignment expression used
 in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
 #### Snippet
 ```java
-    // We've found the keyword followed either by EOF or by a non-literal character.
-    pos += length;
-    return peeked = peeking;
-  }
+    pos = 0;
+    int total;
+    while ((total = in.read(buffer, limit, buffer.length - limit)) != -1) {
+      limit += total;
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
+#### Snippet
+```java
+
+            // extract year
+            int year = parseInt(date, offset, offset += 4);
+            if (checkOffset(date, offset, '-')) {
+                offset += 1;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
+#### Snippet
+```java
+
+            // extract month
+            int month = parseInt(date, offset, offset += 2);
+            if (checkOffset(date, offset, '-')) {
+                offset += 1;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
+#### Snippet
+```java
+
+            // extract day
+            int day = parseInt(date, offset, offset += 2);
+            // default time value
+            int hour = 0;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
+#### Snippet
+```java
+
+                // extract hours, minutes, seconds and milliseconds
+                hour = parseInt(date, offset += 1, offset += 2);
+                if (checkOffset(date, offset, ':')) {
+                    offset += 1;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
+#### Snippet
+```java
+
+                // extract hours, minutes, seconds and milliseconds
+                hour = parseInt(date, offset += 1, offset += 2);
+                if (checkOffset(date, offset, ':')) {
+                    offset += 1;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
+#### Snippet
+```java
+                }
+
+                minutes = parseInt(date, offset, offset += 2);
+                if (checkOffset(date, offset, ':')) {
+                    offset += 1;
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
+#### Snippet
+```java
+                    char c = date.charAt(offset);
+                    if (c != 'Z' && c != '+' && c != '-') {
+                        seconds = parseInt(date, offset, offset += 2);
+                        if (seconds > 59 && seconds < 63) seconds = 59; // truncate up to 3 leap seconds
+                        // milliseconds can be optional in the format
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
+#### Snippet
+```java
+      }
+      next = e.next;
+      return lastReturned = e;
+    }
 
 ```
 
@@ -1952,6 +1928,18 @@ in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
     // Clear iteration order
     Node<K, V> header = this.header;
     header.next = header.prev = header;
+  }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
+#### Snippet
+```java
+  @Override public Set<K> keySet() {
+    KeySet result = keySet;
+    return result != null ? result : (keySet = new KeySet());
   }
 
 ```
@@ -1973,35 +1961,47 @@ Result of assignment expression used
 in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
 #### Snippet
 ```java
-  @Override public Set<K> keySet() {
-    KeySet result = keySet;
-    return result != null ? result : (keySet = new KeySet());
-  }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
-#### Snippet
-```java
-      }
-      next = e.next;
-      return lastReturned = e;
-    }
-
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
-#### Snippet
-```java
   @Override public Set<Entry<K, V>> entrySet() {
     EntrySet result = entrySet;
     return result != null ? result : (entrySet = new EntrySet());
   }
 
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java`
+#### Snippet
+```java
+    return d != null
+        ? d
+        : (delegate = gson.getDelegateAdapter(skipPast, typeToken));
+  }
+
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `gson/src/main/java/com/google/gson/internal/Excluder.java`
+#### Snippet
+```java
+        return d != null
+            ? d
+            : (delegate = gson.getDelegateAdapter(Excluder.this, type));
+      }
+    };
+```
+
+### RuleId[ruleID=NestedAssignment]
+Result of assignment expression used
+in `metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java`
+#### Snippet
+```java
+      StringWriter writer = new StringWriter();
+      int count;
+      while ((count = reader.read(buffer)) != -1) {
+        writer.write(buffer, 0, count);
+      }
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -2057,42 +2057,6 @@ in `metrics/src/main/java/com/google/gson/metrics/CollectionsDeserializationBenc
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
-in `gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java`
-#### Snippet
-```java
-   */
-  private Object[] stack = new Object[32];
-  private int stackSize = 0;
-
-  /*
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `gson/src/main/java/com/google/gson/stream/JsonWriter.java`
-#### Snippet
-```java
-
-  private int[] stack = new int[32];
-  private int stackSize = 0;
-  {
-    push(EMPTY_DOCUMENT);
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
-#### Snippet
-```java
-  private final char[] buffer = new char[BUFFER_SIZE];
-  private int pos = 0;
-  private int limit = 0;
-
-  private int lineNumber = 0;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
 in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
 #### Snippet
 ```java
@@ -2100,18 +2064,6 @@ in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
   private final char[] buffer = new char[BUFFER_SIZE];
   private int pos = 0;
   private int limit = 0;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
-#### Snippet
-```java
-  private int limit = 0;
-
-  private int lineNumber = 0;
-  private int lineStart = 0;
 
 ```
 
@@ -2132,6 +2084,18 @@ Field initialization to `0` is redundant
 in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
 #### Snippet
 ```java
+
+  private int lineNumber = 0;
+  private int lineStart = 0;
+
+  int peeked = PEEKED_NONE;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
+#### Snippet
+```java
    */
   private int[] stack = new int[32];
   private int stackSize = 0;
@@ -2144,11 +2108,35 @@ Field initialization to `0` is redundant
 in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
 #### Snippet
 ```java
+  private final char[] buffer = new char[BUFFER_SIZE];
+  private int pos = 0;
+  private int limit = 0;
+
+  private int lineNumber = 0;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
+#### Snippet
+```java
+  private int limit = 0;
 
   private int lineNumber = 0;
   private int lineStart = 0;
 
-  int peeked = PEEKED_NONE;
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `0` is redundant
+in `gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java`
+#### Snippet
+```java
+   */
+  private Object[] stack = new Object[32];
+  private int stackSize = 0;
+
+  /*
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
@@ -2164,6 +2152,18 @@ in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
+Field initialization to `null` is redundant
+in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
+#### Snippet
+```java
+  private abstract class LinkedTreeMapIterator<T> implements Iterator<T> {
+    Node<K, V> next = header.next;
+    Node<K, V> lastReturned = null;
+    int expectedModCount = modCount;
+
+```
+
+### RuleId[ruleID=RedundantFieldInitialization]
 Field initialization to `0` is redundant
 in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
 #### Snippet
@@ -2176,28 +2176,28 @@ in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
 ```
 
 ### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
+Field initialization to `0` is redundant
+in `gson/src/main/java/com/google/gson/stream/JsonWriter.java`
 #### Snippet
 ```java
-  private abstract class LinkedTreeMapIterator<T> implements Iterator<T> {
-    Node<K, V> next = header.next;
-    Node<K, V> lastReturned = null;
-    int expectedModCount = modCount;
 
+  private int[] stack = new int[32];
+  private int stackSize = 0;
+  {
+    push(EMPTY_DOCUMENT);
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `element`
-in `gson/src/main/java/com/google/gson/JsonArray.java`
+Assignment to method parameter `type`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapper.java`
 #### Snippet
 ```java
-  public void add(JsonElement element) {
-    if (element == null) {
-      element = JsonNull.INSTANCE;
+  private static Type getRuntimeTypeIfMoreSpecific(Type type, Object value) {
+    if (value != null && (type instanceof Class<?> || type instanceof TypeVariable<?>)) {
+      type = value.getClass();
     }
-    elements.add(element);
+    return type;
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -2213,15 +2213,15 @@ in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapp
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `type`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapper.java`
+Assignment to method parameter `element`
+in `gson/src/main/java/com/google/gson/JsonArray.java`
 #### Snippet
 ```java
-  private static Type getRuntimeTypeIfMoreSpecific(Type type, Object value) {
-    if (value != null && (type instanceof Class<?> || type instanceof TypeVariable<?>)) {
-      type = value.getClass();
+  public void add(JsonElement element) {
+    if (element == null) {
+      element = JsonNull.INSTANCE;
     }
-    return type;
+    elements.add(element);
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -2237,18 +2237,6 @@ in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `context`
-in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
-#### Snippet
-```java
-      // Currently the JLS only permits one bound for wildcards so using first bound is safe
-      assert bounds.length == 1;
-      context = bounds[0];
-    }
-    checkArgument(supertype.isAssignableFrom(contextRawType));
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
 Assignment to method parameter `rawType`
 in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
 #### Snippet
@@ -2258,6 +2246,18 @@ in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
         rawType = rawSupertype;
       }
     }
+```
+
+### RuleId[ruleID=AssignmentToMethodParameter]
+Assignment to method parameter `context`
+in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
+#### Snippet
+```java
+      // Currently the JLS only permits one bound for wildcards so using first bound is safe
+      assert bounds.length == 1;
+      context = bounds[0];
+    }
+    checkArgument(supertype.isAssignableFrom(contextRawType));
 ```
 
 ### RuleId[ruleID=AssignmentToMethodParameter]
@@ -2395,7 +2395,7 @@ in `gson/src/main/java/com/google/gson/Gson.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-22-09-24-22.834.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-22-12-09-41.800.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -2408,278 +2408,26 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-22-09-24-22.834.
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/NumberTypeAdapter.java`
+in `gson/src/main/java/com/google/gson/internal/sql/SqlDateTypeAdapter.java`
 #### Snippet
 ```java
-    case NULL:
+    @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
+      return typeToken.getRawType() == java.sql.Date.class
+          ? (TypeAdapter<T>) new SqlDateTypeAdapter() : null;
+    }
+  };
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/sql/SqlDateTypeAdapter.java`
+#### Snippet
+```java
+    if (in.peek() == JsonToken.NULL) {
       in.nextNull();
       return null;
-    case NUMBER:
-    case STRING:
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/NumberTypeAdapter.java`
-#### Snippet
-```java
-      @SuppressWarnings("unchecked")
-      @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-        return type.getRawType() == Number.class ? (TypeAdapter<T>) adapter : null;
-      }
-    };
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `extras/src/main/java/com/google/gson/typeadapters/PostConstructAdapterFactory.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
     }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/reflect/ReflectionHelper.java`
-#### Snippet
-```java
-    try {
-      constructor.setAccessible(true);
-      return null;
-    } catch (Exception exception) {
-      return "Failed making constructor '" + constructorToString(constructor) + "' accessible;"
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java`
-#### Snippet
-```java
-      case NULL:
-        in.nextNull();
-        return null;
-      default:
-        String date = in.nextString();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java`
-#### Snippet
-```java
-  public <R> TypeAdapter<R> create(Gson gson, TypeToken<R> type) {
-    if (type == null) {
-      return null;
-    }
-    Class<?> rawType = type.getRawType();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java`
-#### Snippet
-```java
-        recognizeSubtypes ? baseType.isAssignableFrom(rawType) : baseType.equals(rawType);
-    if (!handle) {
-      return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java`
-#### Snippet
-```java
-    JsonAdapter annotation = rawType.getAnnotation(JsonAdapter.class);
-    if (annotation == null) {
-      return null;
-    }
-    return (TypeAdapter<T>) getTypeAdapter(constructorConstructor, gson, targetType, annotation);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/Excluder.java`
-#### Snippet
-```java
-        if (skipDeserialize) {
-          in.skipValue();
-          return null;
-        }
-        return delegate().read(in);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/Excluder.java`
-#### Snippet
-```java
-
-    if (!skipSerialize && !skipDeserialize) {
-      return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/MapTypeAdapterFactory.java`
-#### Snippet
-```java
-      if (peek == JsonToken.NULL) {
-        in.nextNull();
-        return null;
-      }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/MapTypeAdapterFactory.java`
-#### Snippet
-```java
-    Class<? super T> rawType = typeToken.getRawType();
-    if (!Map.class.isAssignableFrom(rawType)) {
-      return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/sql/SqlTimestampTypeAdapter.java`
-#### Snippet
-```java
-        return (TypeAdapter<T>) new SqlTimestampTypeAdapter(dateTypeAdapter);
-      } else {
-        return null;
-      }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/sql/SqlTimestampTypeAdapter.java`
-#### Snippet
-```java
-  public Timestamp read(JsonReader in) throws IOException {
-    Date date = dateTypeAdapter.read(in);
-    return date != null ? new Timestamp(date.getTime()) : null;
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `extras/src/main/java/com/google/gson/interceptors/InterceptorFactory.java`
-#### Snippet
-```java
-    Intercept intercept = type.getRawType().getAnnotation(Intercept.class);
-    if (intercept == null) {
-      return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java`
-#### Snippet
-```java
-        return new LinkedTreeMap<>();
-      default:
-        return null;
-    }
-  }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java`
-#### Snippet
-```java
-          return (TypeAdapter<T>) new ObjectTypeAdapter(gson, toNumberStrategy);
-        }
-        return null;
-      }
-    };
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java`
-#### Snippet
-```java
-      case NULL:
-        in.nextNull();
-        return null;
-      default:
-        // When read(JsonReader) is called with JsonReader in invalid state
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java`
-#### Snippet
-```java
-    JsonElement value = Streams.parse(in);
-    if (nullSafe && value.isJsonNull()) {
-      return null;
-    }
-    return deserializer.deserialize(value, typeToken.getType(), context);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java`
-#### Snippet
-```java
-          ? new TreeTypeAdapter<>((JsonSerializer<T>) serializer,
-              (JsonDeserializer<T>) deserializer, gson, type, this)
-          : null;
-    }
-  }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `extras/src/main/java/com/google/gson/graph/GraphAdapterBuilder.java`
-#### Snippet
-```java
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-      if (!instanceCreators.containsKey(type.getType())) {
-        return null;
-      }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `extras/src/main/java/com/google/gson/graph/GraphAdapterBuilder.java`
-#### Snippet
-```java
-          if (in.peek() == JsonToken.NULL) {
-            in.nextNull();
-            return null;
-          }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/TypeAdapter.java`
-#### Snippet
-```java
-        if (reader.peek() == JsonToken.NULL) {
-          reader.nextNull();
-          return null;
-        }
-        return TypeAdapter.this.read(reader);
+    String s = in.nextString();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2708,6 +2456,186 @@ in `gson/src/main/java/com/google/gson/internal/bind/CollectionTypeAdapterFactor
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `gson/src/main/java/com/google/gson/internal/sql/SqlTimestampTypeAdapter.java`
+#### Snippet
+```java
+  public Timestamp read(JsonReader in) throws IOException {
+    Date date = dateTypeAdapter.read(in);
+    return date != null ? new Timestamp(date.getTime()) : null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/sql/SqlTimestampTypeAdapter.java`
+#### Snippet
+```java
+        return (TypeAdapter<T>) new SqlTimestampTypeAdapter(dateTypeAdapter);
+      } else {
+        return null;
+      }
+    }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/DateTypeAdapter.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked") // we use a runtime check to make sure the 'T's equal
+    @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
+      return typeToken.getRawType() == Date.class ? (TypeAdapter<T>) new DateTypeAdapter() : null;
+    }
+  };
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/DateTypeAdapter.java`
+#### Snippet
+```java
+    if (in.peek() == JsonToken.NULL) {
+      in.nextNull();
+      return null;
+    }
+    return deserializeToDate(in);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `extras/src/main/java/com/google/gson/typeadapters/PostConstructAdapterFactory.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java`
+#### Snippet
+```java
+  public <R> TypeAdapter<R> create(Gson gson, TypeToken<R> type) {
+    if (type == null) {
+      return null;
+    }
+    Class<?> rawType = type.getRawType();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java`
+#### Snippet
+```java
+        recognizeSubtypes ? baseType.isAssignableFrom(rawType) : baseType.equals(rawType);
+    if (!handle) {
+      return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `extras/src/main/java/com/google/gson/interceptors/InterceptorFactory.java`
+#### Snippet
+```java
+    Intercept intercept = type.getRawType().getAnnotation(Intercept.class);
+    if (intercept == null) {
+      return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java`
+#### Snippet
+```java
+      case NULL:
+        in.nextNull();
+        return null;
+      default:
+        String date = in.nextString();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/MapTypeAdapterFactory.java`
+#### Snippet
+```java
+    Class<? super T> rawType = typeToken.getRawType();
+    if (!Map.class.isAssignableFrom(rawType)) {
+      return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/MapTypeAdapterFactory.java`
+#### Snippet
+```java
+      if (peek == JsonToken.NULL) {
+        in.nextNull();
+        return null;
+      }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java`
+#### Snippet
+```java
+        return new LinkedTreeMap<>();
+      default:
+        return null;
+    }
+  }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java`
+#### Snippet
+```java
+      case NULL:
+        in.nextNull();
+        return null;
+      default:
+        // When read(JsonReader) is called with JsonReader in invalid state
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java`
+#### Snippet
+```java
+          return (TypeAdapter<T>) new ObjectTypeAdapter(gson, toNumberStrategy);
+        }
+        return null;
+      }
+    };
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/sql/SqlTimeTypeAdapter.java`
+#### Snippet
+```java
+    if (in.peek() == JsonToken.NULL) {
+      in.nextNull();
+      return null;
+    }
+    String s = in.nextString();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `gson/src/main/java/com/google/gson/internal/sql/SqlTimeTypeAdapter.java`
 #### Snippet
 ```java
@@ -2716,42 +2644,6 @@ in `gson/src/main/java/com/google/gson/internal/sql/SqlTimeTypeAdapter.java`
       return typeToken.getRawType() == Time.class ? (TypeAdapter<T>) new SqlTimeTypeAdapter() : null;
     }
   };
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/sql/SqlTimeTypeAdapter.java`
-#### Snippet
-```java
-    if (in.peek() == JsonToken.NULL) {
-      in.nextNull();
-      return null;
-    }
-    String s = in.nextString();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/sql/SqlDateTypeAdapter.java`
-#### Snippet
-```java
-    @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-      return typeToken.getRawType() == java.sql.Date.class
-          ? (TypeAdapter<T>) new SqlDateTypeAdapter() : null;
-    }
-  };
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/sql/SqlDateTypeAdapter.java`
-#### Snippet
-```java
-    if (in.peek() == JsonToken.NULL) {
-      in.nextNull();
-      return null;
-    }
-    String s = in.nextString();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2792,62 +2684,74 @@ in `gson/src/main/java/com/google/gson/internal/bind/DefaultDateTypeAdapter.java
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/DateTypeAdapter.java`
+in `extras/src/main/java/com/google/gson/graph/GraphAdapterBuilder.java`
 #### Snippet
 ```java
-    if (in.peek() == JsonToken.NULL) {
+          if (in.peek() == JsonToken.NULL) {
+            in.nextNull();
+            return null;
+          }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `extras/src/main/java/com/google/gson/graph/GraphAdapterBuilder.java`
+#### Snippet
+```java
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+      if (!instanceCreators.containsKey(type.getType())) {
+        return null;
+      }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/NumberTypeAdapter.java`
+#### Snippet
+```java
+      @SuppressWarnings("unchecked")
+      @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+        return type.getRawType() == Number.class ? (TypeAdapter<T>) adapter : null;
+      }
+    };
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/NumberTypeAdapter.java`
+#### Snippet
+```java
+    case NULL:
       in.nextNull();
       return null;
-    }
-    return deserializeToDate(in);
+    case NUMBER:
+    case STRING:
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/DateTypeAdapter.java`
+in `gson/src/main/java/com/google/gson/internal/reflect/ReflectionHelper.java`
 #### Snippet
 ```java
-    @SuppressWarnings("unchecked") // we use a runtime check to make sure the 'T's equal
-    @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-      return typeToken.getRawType() == Date.class ? (TypeAdapter<T>) new DateTypeAdapter() : null;
-    }
-  };
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
-#### Snippet
-```java
-  @Override public V get(Object key) {
-    Node<K, V> node = findByObject(key);
-    return node != null ? node.value : null;
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
-#### Snippet
-```java
-  Node<K, V> findByObject(Object key) {
     try {
-      return key != null ? find((K) key, false) : null;
-    } catch (ClassCastException e) {
+      constructor.setAccessible(true);
       return null;
+    } catch (Exception exception) {
+      return "Failed making constructor '" + constructorToString(constructor) + "' accessible;"
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
+in `gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java`
 #### Snippet
 ```java
-      return key != null ? find((K) key, false) : null;
-    } catch (ClassCastException e) {
+    JsonAdapter annotation = rawType.getAnnotation(JsonAdapter.class);
+    if (annotation == null) {
       return null;
     }
-  }
+    return (TypeAdapter<T>) getTypeAdapter(constructorConstructor, gson, targetType, annotation);
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2879,6 +2783,18 @@ Return of `null`
 in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
 #### Snippet
 ```java
+  @Override public V get(Object key) {
+    Node<K, V> node = findByObject(key);
+    return node != null ? node.value : null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
+#### Snippet
+```java
     Node<K, V> mine = findByObject(entry.getKey());
     boolean valuesEqual = mine != null && equal(mine.value, entry.getValue());
     return valuesEqual ? mine : null;
@@ -2888,14 +2804,26 @@ in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
+in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
 #### Snippet
 ```java
+  Node<K, V> findByObject(Object key) {
+    try {
+      return key != null ? find((K) key, false) : null;
+    } catch (ClassCastException e) {
+      return null;
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
+#### Snippet
+```java
+      return key != null ? find((K) key, false) : null;
+    } catch (ClassCastException e) {
+      return null;
     }
-
-    return null;
   }
-
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2905,18 +2833,6 @@ in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
 ```java
     }
 
-    return null;
-  }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
-#### Snippet
-```java
-          + "or a TypeAdapter for this type. Class name: " + c.getName();
-    }
     return null;
   }
 
@@ -2948,6 +2864,90 @@ in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
+in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
+#### Snippet
+```java
+          + "or a TypeAdapter for this type. Class name: " + c.getName();
+    }
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
+#### Snippet
+```java
+    }
+
+    return null;
+  }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java`
+#### Snippet
+```java
+          ? new TreeTypeAdapter<>((JsonSerializer<T>) serializer,
+              (JsonDeserializer<T>) deserializer, gson, type, this)
+          : null;
+    }
+  }
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java`
+#### Snippet
+```java
+    JsonElement value = Streams.parse(in);
+    if (nullSafe && value.isJsonNull()) {
+      return null;
+    }
+    return deserializer.deserialize(value, typeToken.getType(), context);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/Excluder.java`
+#### Snippet
+```java
+
+    if (!skipSerialize && !skipDeserialize) {
+      return null;
+    }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/Excluder.java`
+#### Snippet
+```java
+        if (skipDeserialize) {
+          in.skipValue();
+          return null;
+        }
+        return delegate().read(in);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/TypeAdapter.java`
+#### Snippet
+```java
+        if (reader.peek() == JsonToken.NULL) {
+          reader.nextNull();
+          return null;
+        }
+        return TypeAdapter.this.read(reader);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
 in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
 #### Snippet
 ```java
@@ -2960,26 +2960,50 @@ in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
       if (in.peek() == JsonToken.NULL) {
         in.nextNull();
         return null;
       }
-
+      // regrettably, this should have included both the host name and the host address
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
+      if (in.peek() == JsonToken.NULL) {
+        in.nextNull();
+        return null;
+      }
+      try {
+```
 
-    if (!Object.class.isAssignableFrom(raw)) {
-      return null; // it's a primitive!
-    }
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
+#### Snippet
+```java
+      try {
+        String nextString = in.nextString();
+        return "null".equals(nextString) ? null : new URI(nextString);
+      } catch (URISyntaxException e) {
+        throw new JsonIOException(e);
+```
 
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
+#### Snippet
+```java
+      if (in.peek() == JsonToken.NULL) {
+        in.nextNull();
+        return null;
+      }
+      return Boolean.valueOf(in.nextString());
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -2992,90 +3016,6 @@ in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
         return typeToken.getRawType() == type ? (TypeAdapter<T>) typeAdapter : null;
       }
       @Override public String toString() {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      if (in.peek() == JsonToken.NULL) {
-        in.nextNull();
-        return null;
-      }
-      return new StringBuffer(in.nextString());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      if (in.peek() == JsonToken.NULL) {
-        in.nextNull();
-        return null;
-      }
-      return in.nextDouble();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      if (in.peek() == JsonToken.NULL) {
-        in.nextNull();
-        return  null;
-      }
-      in.beginObject();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      if (in.peek() == JsonToken.NULL) {
-        in.nextNull();
-        return null;
-      }
-      String s = in.nextString();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      if (peek == JsonToken.NULL) {
-        in.nextNull();
-        return null;
-      } else if (peek == JsonToken.STRING) {
-        // support strings for compatibility with GSON 1.7
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      if (in.peek() == JsonToken.NULL) {
-        in.nextNull();
-        return null;
-      }
-      String str = in.nextString();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      if (in.peek() == JsonToken.NULL) {
-        in.nextNull();
-        return null;
-      }
-      return (float) in.nextDouble();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3111,7 +3051,19 @@ in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
         in.nextNull();
         return null;
       }
-      return new LazilyParsedNumber(in.nextString());
+      String locale = in.nextString();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
+#### Snippet
+```java
+      if (in.peek() == JsonToken.NULL) {
+        in.nextNull();
+        return null;
+      }
+      return new StringBuilder(in.nextString());
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3135,54 +3087,6 @@ in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
         in.nextNull();
         return null;
       }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      @SuppressWarnings("unchecked") // we use a runtime check to make sure the 'T's equal
-      @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-        return typeToken.equals(type) ? (TypeAdapter<T>) typeAdapter : null;
-      }
-    };
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      if (peek == JsonToken.NULL) {
-        in.nextNull();
-        return null;
-      }
-      /* coerce booleans to strings for backwards compatibility */
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      if (in.peek() == JsonToken.NULL) {
-        in.nextNull();
-        return null;
-      }
-      // regrettably, this should have included both the host name and the host address
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      if (in.peek() == JsonToken.NULL) {
-        in.nextNull();
-        return null;
-      }
       try {
 ```
 
@@ -3191,11 +3095,59 @@ Return of `null`
 in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
+      Class<? super T> rawType = typeToken.getRawType();
+      if (!Enum.class.isAssignableFrom(rawType) || rawType == Enum.class) {
+        return null;
+      }
+      if (!rawType.isEnum()) {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
+#### Snippet
+```java
+      if (in.peek() == JsonToken.NULL) {
+        in.nextNull();
+        return  null;
+      }
+      in.beginObject();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
+#### Snippet
+```java
       if (in.peek() == JsonToken.NULL) {
         in.nextNull();
         return null;
       }
-      String locale = in.nextString();
+      String s = in.nextString();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
+#### Snippet
+```java
+      @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
+        Class<? super T> rawType = typeToken.getRawType();
+        return (rawType == unboxed || rawType == boxed) ? (TypeAdapter<T>) typeAdapter : null;
+      }
+      @Override public String toString() {
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
+#### Snippet
+```java
+      if (in.peek() == JsonToken.NULL) {
+        in.nextNull();
+        return null;
+      }
+      String str = in.nextString();
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3239,47 +3191,11 @@ Return of `null`
 in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
-        final Class<? super T2> requestedType = typeToken.getRawType();
-        if (!clazz.isAssignableFrom(requestedType)) {
-          return null;
-        }
-        return (TypeAdapter<T2>) new TypeAdapter<T1>() {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-        Class<? super T> rawType = typeToken.getRawType();
-        return (rawType == base || rawType == sub) ? (TypeAdapter<T>) typeAdapter : null;
-      }
-      @Override public String toString() {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      Class<? super T> rawType = typeToken.getRawType();
-      if (!Enum.class.isAssignableFrom(rawType) || rawType == Enum.class) {
-        return null;
-      }
-      if (!rawType.isEnum()) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
       if (in.peek() == JsonToken.NULL) {
         in.nextNull();
         return null;
       }
-      return Boolean.valueOf(in.nextString());
+      try {
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3287,11 +3203,11 @@ Return of `null`
 in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
-      @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-        Class<? super T> rawType = typeToken.getRawType();
-        return (rawType == unboxed || rawType == boxed) ? (TypeAdapter<T>) typeAdapter : null;
+      if (peek == JsonToken.NULL) {
+        in.nextNull();
+        return null;
       }
-      @Override public String toString() {
+      /* coerce booleans to strings for backwards compatibility */
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3311,11 +3227,11 @@ Return of `null`
 in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
-      if (in.peek() == JsonToken.NULL) {
-        in.nextNull();
-        return null;
-      }
-      try {
+        final Class<? super T2> requestedType = typeToken.getRawType();
+        if (!clazz.isAssignableFrom(requestedType)) {
+          return null;
+        }
+        return (TypeAdapter<T2>) new TypeAdapter<T1>() {
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3323,23 +3239,11 @@ Return of `null`
 in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
-      try {
-        String nextString = in.nextString();
-        return "null".equals(nextString) ? null : new URI(nextString);
-      } catch (URISyntaxException e) {
-        throw new JsonIOException(e);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-      if (in.peek() == JsonToken.NULL) {
+      if (peek == JsonToken.NULL) {
         in.nextNull();
         return null;
-      }
-      try {
+      } else if (peek == JsonToken.STRING) {
+        // support strings for compatibility with GSON 1.7
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3351,55 +3255,103 @@ in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
         in.nextNull();
         return null;
       }
-      return new StringBuilder(in.nextString());
+      return in.nextDouble();
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `gson/src/main/java/com/google/gson/Gson.java`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
-        if (in.peek() == JsonToken.NULL) {
-          in.nextNull();
-          return null;
-        }
-        return (float) in.nextDouble();
+      if (in.peek() == JsonToken.NULL) {
+        in.nextNull();
+        return null;
+      }
+      return new StringBuffer(in.nextString());
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `gson/src/main/java/com/google/gson/Gson.java`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
-        if (in.peek() == JsonToken.NULL) {
-          in.nextNull();
-          return null;
-        }
-        return in.nextLong();
+      @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
+        Class<? super T> rawType = typeToken.getRawType();
+        return (rawType == base || rawType == sub) ? (TypeAdapter<T>) typeAdapter : null;
+      }
+      @Override public String toString() {
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `gson/src/main/java/com/google/gson/Gson.java`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
-        if (in.peek() == JsonToken.NULL) {
-          in.nextNull();
-          return null;
-        }
-        return in.nextDouble();
+      @SuppressWarnings("unchecked") // we use a runtime check to make sure the 'T's equal
+      @Override public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
+        return typeToken.equals(type) ? (TypeAdapter<T>) typeAdapter : null;
+      }
+    };
 ```
 
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
-in `gson/src/main/java/com/google/gson/Gson.java`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
-  public <T> T fromJson(JsonElement json, TypeToken<T> typeOfT) throws JsonSyntaxException {
-    if (json == null) {
-      return null;
+      if (in.peek() == JsonToken.NULL) {
+        in.nextNull();
+        return null;
+      }
+      return new LazilyParsedNumber(in.nextString());
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
+#### Snippet
+```java
+      if (in.peek() == JsonToken.NULL) {
+        in.nextNull();
+        return null;
+      }
+      return (float) in.nextDouble();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
+#### Snippet
+```java
+      if (in.peek() == JsonToken.NULL) {
+        in.nextNull();
+        return null;
+      }
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java`
+#### Snippet
+```java
+
+    if (!Object.class.isAssignableFrom(raw)) {
+      return null; // it's a primitive!
     }
-    return fromJson(new JsonTreeReader(json), typeOfT);
+
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java`
+#### Snippet
+```java
+      if (in.peek() == JsonToken.NULL) {
+        in.nextNull();
+        return null;
+      }
+
 ```
 
 ### RuleId[ruleID=ReturnNull]
@@ -3424,6 +3376,54 @@ in `gson/src/main/java/com/google/gson/Gson.java`
       return null;
     }
     StringReader reader = new StringReader(json);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/Gson.java`
+#### Snippet
+```java
+        if (in.peek() == JsonToken.NULL) {
+          in.nextNull();
+          return null;
+        }
+        return in.nextLong();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/Gson.java`
+#### Snippet
+```java
+  public <T> T fromJson(JsonElement json, TypeToken<T> typeOfT) throws JsonSyntaxException {
+    if (json == null) {
+      return null;
+    }
+    return fromJson(new JsonTreeReader(json), typeOfT);
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/Gson.java`
+#### Snippet
+```java
+        if (in.peek() == JsonToken.NULL) {
+          in.nextNull();
+          return null;
+        }
+        return in.nextDouble();
+```
+
+### RuleId[ruleID=ReturnNull]
+Return of `null`
+in `gson/src/main/java/com/google/gson/Gson.java`
+#### Snippet
+```java
+        if (in.peek() == JsonToken.NULL) {
+          in.nextNull();
+          return null;
+        }
+        return (float) in.nextDouble();
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -3455,30 +3455,6 @@ in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 ## RuleId[ruleID=SynchronizeOnThis]
 ### RuleId[ruleID=SynchronizeOnThis]
 Lock operations on 'this' may have unforeseen side-effects
-in `gson/src/main/java/com/google/gson/internal/sql/SqlTimeTypeAdapter.java`
-#### Snippet
-```java
-    String s = in.nextString();
-    try {
-      synchronized (this) {
-        Date date = format.parse(s);
-        return new Time(date.getTime());
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `gson/src/main/java/com/google/gson/internal/sql/SqlTimeTypeAdapter.java`
-#### Snippet
-```java
-    }
-    String timeString;
-    synchronized (this) {
-      timeString = format.format(value);
-    }
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
 in `gson/src/main/java/com/google/gson/internal/sql/SqlDateTypeAdapter.java`
 #### Snippet
 ```java
@@ -3501,6 +3477,30 @@ in `gson/src/main/java/com/google/gson/internal/sql/SqlDateTypeAdapter.java`
       }
 ```
 
+### RuleId[ruleID=SynchronizeOnThis]
+Lock operations on 'this' may have unforeseen side-effects
+in `gson/src/main/java/com/google/gson/internal/sql/SqlTimeTypeAdapter.java`
+#### Snippet
+```java
+    }
+    String timeString;
+    synchronized (this) {
+      timeString = format.format(value);
+    }
+```
+
+### RuleId[ruleID=SynchronizeOnThis]
+Lock operations on 'this' may have unforeseen side-effects
+in `gson/src/main/java/com/google/gson/internal/sql/SqlTimeTypeAdapter.java`
+#### Snippet
+```java
+    String s = in.nextString();
+    try {
+      synchronized (this) {
+        Date date = format.parse(s);
+        return new Time(date.getTime());
+```
+
 ## RuleId[ruleID=PointlessBooleanExpression]
 ### RuleId[ruleID=PointlessBooleanExpression]
 `false==negative` can be simplified to '!negative'
@@ -3512,19 +3512,6 @@ in `gson/src/main/java/com/google/gson/stream/JsonReader.java`
     if (last == NUMBER_CHAR_DIGIT && fitsInLong && (value != Long.MIN_VALUE || negative) && (value!=0 || false==negative)) {
       peekedLong = negative ? value : -value;
       pos += i;
-```
-
-## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-`equals()` should check the class of its parameter
-in `gson/src/main/java/com/google/gson/internal/NonNullElementWrapperList.java`
-#### Snippet
-```java
-  }
-
-  @Override public boolean equals(Object o) {
-    return delegate.equals(o);
-  }
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
@@ -3562,6 +3549,19 @@ in `gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java`
             TimeZone timezone = null;
             char timezoneIndicator = date.charAt(offset);
 
+```
+
+## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
+### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
+`equals()` should check the class of its parameter
+in `gson/src/main/java/com/google/gson/internal/NonNullElementWrapperList.java`
+#### Snippet
+```java
+  }
+
+  @Override public boolean equals(Object o) {
+    return delegate.equals(o);
+  }
 ```
 
 ## RuleId[ruleID=ConstantValue]
