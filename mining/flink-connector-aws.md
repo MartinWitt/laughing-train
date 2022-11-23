@@ -25,18 +25,6 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/t
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `DynamoDbConfigConstants` has only 'static' members, and lacks a 'private' constructor
-in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbConfigConstants.java`
-#### Snippet
-```java
-/** Defaults for {@link DynamoDbSinkWriter}. */
-@PublicEvolving
-public class DynamoDbConfigConstants {
-
-    public static final String BASE_DYNAMODB_USER_AGENT_PREFIX_FORMAT =
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `DynamoDbSerializationUtil` has only 'static' members, and lacks a 'private' constructor
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/util/DynamoDbSerializationUtil.java`
 #### Snippet
@@ -46,6 +34,18 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/u
 public class DynamoDbSerializationUtil {
 
     public static void serializeWriteRequest(
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `DynamoDbConfigConstants` has only 'static' members, and lacks a 'private' constructor
+in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbConfigConstants.java`
+#### Snippet
+```java
+/** Defaults for {@link DynamoDbSinkWriter}. */
+@PublicEvolving
+public class DynamoDbConfigConstants {
+
+    public static final String BASE_DYNAMODB_USER_AGENT_PREFIX_FORMAT =
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
