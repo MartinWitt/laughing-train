@@ -82,7 +82,7 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public Map<Integer, Integer> getLineNumberMapping() {
+	public String printPackageInfo(CtPackage ctPackage) {
 		return null;
 	}
 
@@ -94,7 +94,7 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public String printPackageInfo(CtPackage ctPackage) {
+	public Map<Integer, Integer> getLineNumberMapping() {
 		return null;
 	}
 
@@ -115,18 +115,6 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
-#### Snippet
-```java
-		defaultJavaPrettyPrinter.scan(element);
-		//	defaultJavaPrettyPrinter.getContext().currentThis.pop();
-		return defaultJavaPrettyPrinter.getResult().replaceAll("\\$", "\\$\\$");
-	}
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
@@ -135,6 +123,18 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
 		}
 		field.initializer(result);
+```
+
+### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
+#### Snippet
+```java
+		defaultJavaPrettyPrinter.scan(element);
+		//	defaultJavaPrettyPrinter.getContext().currentThis.pop();
+		return defaultJavaPrettyPrinter.getResult().replaceAll("\\$", "\\$\\$");
+	}
+
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
