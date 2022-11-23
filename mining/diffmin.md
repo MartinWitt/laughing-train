@@ -52,7 +52,7 @@ in `src/main/java/com/diffmin/Main.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### RuleId[ruleID=HtmlWrongAttributeValue]
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-23-05-06-50.598.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-23-05-09-14.469.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -154,6 +154,30 @@ Can generalize to `? extends CtElement`
 in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
+
+    /** Apply the update patch. */
+    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
+        CtElement prevNode = updatePatch.getFirst();
+        CtElement newNode = updatePatch.getSecond();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+
+    /** Apply the update patch. */
+    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
+        CtElement prevNode = updatePatch.getFirst();
+        CtElement newNode = updatePatch.getSecond();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
     /** Apply all the patches generated. */
     public static void applyPatch(
             List<CtElement> deletePatches,
@@ -183,30 +207,6 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
             List<Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>>> movePatches) {
         deletePatches.forEach(PatchApplication::performDeletion);
         updatePatches.forEach(PatchApplication::performUpdating);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-
-    /** Apply the update patch. */
-    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
-        CtElement prevNode = updatePatch.getFirst();
-        CtElement newNode = updatePatch.getSecond();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-
-    /** Apply the update patch. */
-    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
-        CtElement prevNode = updatePatch.getFirst();
-        CtElement newNode = updatePatch.getSecond();
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
