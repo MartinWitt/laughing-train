@@ -187,30 +187,6 @@ in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
 ```java
-                                          String groupId, String artifactId, String version)
-            throws MavenInvocationException, IOException {
-        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
-        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
-
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
-            throws MavenInvocationException, IOException {
-        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
-        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
-
-        Properties properties = new Properties();
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
         Model model = reader.read(new FileReader(pom));
         List<Plugin> plugins = model.getBuild().getPlugins();
         Plugin mavenCompiler = plugins.stream().filter(p -> p.getArtifactId().equals("maven-compiler-plugin")).findFirst().get();
@@ -240,6 +216,30 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
             String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
             generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
             String folderName = temp.getAbsolutePath() + "/code-with-quarkus";
+```
+
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+                                          String groupId, String artifactId, String version)
+            throws MavenInvocationException, IOException {
+        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
+        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
+
+```
+
+### RuleId[ruleID=OptionalGetWithoutIsPresent]
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+            throws MavenInvocationException, IOException {
+        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
+        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
+
+        Properties properties = new Properties();
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
