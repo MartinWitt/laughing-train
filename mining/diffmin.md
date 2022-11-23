@@ -1,13 +1,12 @@
 # diffmin 
  
 # Bad smells
-I found 17 bad smells with 0 repairable:
+I found 16 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | RuleId[ruleID=BoundedWildcard] | 10 | false |
 | RuleId[ruleID=SystemOutErr] | 2 | false |
 | RuleId[ruleID=AssignmentToMethodParameter] | 1 | false |
-| RuleId[ruleID=HtmlWrongAttributeValue] | 1 | false |
 | RuleId[ruleID=UtilityClassWithoutPrivateConstructor] | 1 | false |
 | RuleId[ruleID=SetReplaceableByEnumSet] | 1 | false |
 | RuleId[ruleID=OptionalGetWithoutIsPresent] | 1 | false |
@@ -49,19 +48,6 @@ in `src/main/java/com/diffmin/Main.java`
     }
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### RuleId[ruleID=HtmlWrongAttributeValue]
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-23-00-38-04.446.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `Main` has only 'static' members, and lacks a 'private' constructor
@@ -90,18 +76,6 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Operation`
-in `src/main/java/com/diffmin/patch/PatchGeneration.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    private boolean isRootOperation(Operation<?> operation, List<Operation> rootOperations) {
-        // assuming that insert, delete, and move root operations are correctly computed by
-        // gumtree-spoon-ast-diff
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends Pair`
 in `src/main/java/com/diffmin/SpoonMapping.java`
 #### Snippet
@@ -111,6 +85,42 @@ in `src/main/java/com/diffmin/SpoonMapping.java`
     private void inferAdditionalMappings(List<Pair<CtElement, CtElement>> matches) {
         while (!matches.isEmpty()) {
             List<Pair<CtElement, CtElement>> newMatches = new ArrayList<>();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+
+    private static void performMovement(
+            Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>> movePatch) {
+        CtElement toBeDeleted = movePatch.getFirst();
+        ImmutableTriple<Integer, CtElement, CtElement> toBeInserted = movePatch.getSecond();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+
+    /** Apply the update patch. */
+    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
+        CtElement prevNode = updatePatch.getFirst();
+        CtElement newNode = updatePatch.getSecond();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+
+    /** Apply the update patch. */
+    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
+        CtElement prevNode = updatePatch.getFirst();
+        CtElement newNode = updatePatch.getSecond();
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -154,42 +164,6 @@ Can generalize to `? extends CtElement`
 in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
-
-    /** Apply the update patch. */
-    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
-        CtElement prevNode = updatePatch.getFirst();
-        CtElement newNode = updatePatch.getSecond();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-
-    /** Apply the update patch. */
-    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
-        CtElement prevNode = updatePatch.getFirst();
-        CtElement newNode = updatePatch.getSecond();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-
-    private static void performMovement(
-            Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>> movePatch) {
-        CtElement toBeDeleted = movePatch.getFirst();
-        ImmutableTriple<Integer, CtElement, CtElement> toBeInserted = movePatch.getSecond();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
     @SuppressWarnings("unchecked")
     private static void performInsertion(
             ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
@@ -207,6 +181,18 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
             ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
         int where = insertPatch.left;
         CtElement toBeInserted = insertPatch.middle;
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends Operation`
+in `src/main/java/com/diffmin/patch/PatchGeneration.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    private boolean isRootOperation(Operation<?> operation, List<Operation> rootOperations) {
+        // assuming that insert, delete, and move root operations are correctly computed by
+        // gumtree-spoon-ast-diff
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
