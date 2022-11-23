@@ -25,18 +25,6 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/t
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `DynamoDbSerializationUtil` has only 'static' members, and lacks a 'private' constructor
-in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/util/DynamoDbSerializationUtil.java`
-#### Snippet
-```java
- */
-@Internal
-public class DynamoDbSerializationUtil {
-
-    public static void serializeWriteRequest(
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 Class `DynamoDbConfigConstants` has only 'static' members, and lacks a 'private' constructor
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbConfigConstants.java`
 #### Snippet
@@ -46,6 +34,18 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/s
 public class DynamoDbConfigConstants {
 
     public static final String BASE_DYNAMODB_USER_AGENT_PREFIX_FORMAT =
+```
+
+### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+Class `DynamoDbSerializationUtil` has only 'static' members, and lacks a 'private' constructor
+in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/util/DynamoDbSerializationUtil.java`
+#### Snippet
+```java
+ */
+@Internal
+public class DynamoDbSerializationUtil {
+
+    public static void serializeWriteRequest(
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -79,11 +79,11 @@ Can generalize to `? super List`
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
 #### Snippet
 ```java
-            Throwable err,
-            List<DynamoDbWriteRequest> requestEntries,
-            Consumer<List<DynamoDbWriteRequest>> requestResult) {
-        LOG.warn(
-                "DynamoDB Sink failed to persist and will retry {} entries.",
+
+    private void handlePartiallyUnprocessedRequest(
+            BatchWriteItemResponse response, Consumer<List<DynamoDbWriteRequest>> requestResult) {
+        List<DynamoDbWriteRequest> unprocessed = new ArrayList<>();
+
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -91,11 +91,11 @@ Can generalize to `? super List`
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
 #### Snippet
 ```java
-
-    private void handlePartiallyUnprocessedRequest(
-            BatchWriteItemResponse response, Consumer<List<DynamoDbWriteRequest>> requestResult) {
-        List<DynamoDbWriteRequest> unprocessed = new ArrayList<>();
-
+            Throwable err,
+            List<DynamoDbWriteRequest> requestEntries,
+            Consumer<List<DynamoDbWriteRequest>> requestResult) {
+        LOG.warn(
+                "DynamoDB Sink failed to persist and will retry {} entries.",
 ```
 
 ## RuleId[ruleID=UseOfPropertiesAsHashtable]
