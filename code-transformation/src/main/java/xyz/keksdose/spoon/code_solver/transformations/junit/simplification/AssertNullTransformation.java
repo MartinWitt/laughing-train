@@ -1,6 +1,7 @@
 package xyz.keksdose.spoon.code_solver.transformations.junit.simplification;
 
 import java.util.List;
+import javax.annotation.Nullable;
 import spoon.reflect.code.BinaryOperatorKind;
 import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtExpression;
@@ -48,17 +49,17 @@ public class AssertNullTransformation extends TransformationProcessor<CtInvocati
         }
     }
 
+    @Nullable
     private CtExpression<?> findTestingExpression(CtBinaryOperator<?> binaryOperator) {
         CtExpression<?> left = binaryOperator.getLeftHandOperand();
         CtExpression<?> right = binaryOperator.getRightHandOperand();
-        CtExpression<?> check = null;
         if (isNullType(left)) {
-            check = right;
+            return right;
         }
         if (isNullType(right)) {
-            check = left;
+            return left;
         }
-        return check;
+        return null;
     }
 
     private void adjustImports(CtInvocation<?> element) {

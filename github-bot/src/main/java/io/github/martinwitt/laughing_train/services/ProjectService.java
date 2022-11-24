@@ -30,7 +30,7 @@ public class ProjectService {
     @Inject
     Vertx vertx;
 
-    @ConsumeEvent(value = ServiceAdresses.PROJECT_REQUEST, blocking = true)
+    @ConsumeEvent(value = ServiceAddresses.PROJECT_REQUEST, blocking = true)
     public ProjectResult handleProjectRequest(ProjectRequest request) throws IOException {
         logger.atInfo().log("Received project request %s", request);
         if (request instanceof ProjectRequest.WithUrl url) {

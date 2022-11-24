@@ -1,16 +1,10 @@
-package io.github.martinwitt.laughing_train.persistence;
+package io.github.martinwitt.laughing_train.domain.entity;
 
-import com.google.common.flogger.FluentLogger;
-import io.quarkus.mongodb.panache.PanacheMongoEntity;
-import io.quarkus.mongodb.panache.common.MongoEntity;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
-@MongoEntity(database = "Laughing-Train")
-public class ProjectConfig extends PanacheMongoEntity implements Serializable {
+public class ProjectConfig implements Serializable {
 
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private String sourceFolder;
     private String projectUrl;
 
@@ -29,11 +23,6 @@ public class ProjectConfig extends PanacheMongoEntity implements Serializable {
 
     public ProjectConfig() {
         sourceFolder = ".";
-    }
-
-    public static List<ProjectConfig> findByProjectUrl(String projectUrl) {
-        logger.atInfo().log("Searching for project config for %s", projectUrl);
-        return find("projectUrl", projectUrl).list();
     }
 
     /**
@@ -69,5 +58,29 @@ public class ProjectConfig extends PanacheMongoEntity implements Serializable {
     @Override
     public String toString() {
         return "ProjectConfig [sourceFolder=" + sourceFolder + ", projectUrl=" + projectUrl + "]";
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sourceFolder, projectUrl);
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof ProjectConfig config) {
+            return Objects.equals(sourceFolder, config.sourceFolder) && Objects.equals(projectUrl, config.projectUrl);
+        }
+        return false;
     }
 }

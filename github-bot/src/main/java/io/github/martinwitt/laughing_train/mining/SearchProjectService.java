@@ -1,7 +1,9 @@
 package io.github.martinwitt.laughing_train.mining;
 
-import io.github.martinwitt.laughing_train.persistence.Project;
-import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
+import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
+import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
+import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.logging.Log;
 import io.smallrye.health.api.AsyncHealthCheck;
@@ -27,6 +29,12 @@ public class SearchProjectService {
     @ConfigProperty(name = "mining.github.search.orgs")
     List<String> orgs;
 
+    @Inject
+    ProjectRepository projectRepository;
+
+    @Inject
+    ProjectConfigRepository projectConfigRepository;
+
     private final Random random = new Random();
     private final MeterRegistry registry;
 
@@ -40,21 +48,55 @@ public class SearchProjectService {
      * @return {@link Uni} of {@link Project}
      */
     public Uni<Project> searchProjectOnGithub() {
-        var repo = findRandomRepositoryOnGithub();
-        if (repo == null) {
-            return Uni.createFrom().nullItem();
-        }
-        if (!Project.findByProjectName(repo.getName()).isEmpty()) {
-            return Uni.createFrom()
-                    .item(Project.findByProjectName(repo.getName()).get(0));
-        }
-        Project project = new Project(repo.getName(), repo.getHtmlUrl().toString());
-        project.persist();
-        ProjectConfig.ofProjectUrl(repo.getHtmlUrl().toString()).persistOrUpdate();
-        return Uni.createFrom().item(project);
+        return Uni.createFrom()
+                .item(findRandomRepositoryOnGithub())
+                .onItem()
+                .ifNull()
+                .failWith(() -> new RuntimeException("No project found on github"))
+                .invoke(project -> registry.counter("mining.github.search", "status", "success")
+                        .increment())
+                .flatMap(this::getProjectIfExisting)
+                .invoke(this::persistProject)
+                .invoke(this::persistProjectConfigIfMissing);
+    }
+    /**
+     * This searches for the repository in the database and returns it if it exists.
+     * @param ghRepo  the repository to search for
+     * @return the repository if it exists, null otherwise
+     */
+    private Uni<Project> getProjectIfExisting(GHRepository ghRepo) {
+        return projectRepository
+                .findByProjectName(ghRepo.getName())
+                .<Project>flatMap(v -> v.isEmpty()
+                        ? Uni.createFrom().<Project>nullItem()
+                        : Uni.createFrom().item(v.get(0)));
+    }
+
+    private Uni<Project> persistProject(Project project) {
+        return projectRepository.findByProjectUrl(project.getProjectUrl()).flatMap(list -> {
+            if (list.isEmpty()) {
+                return projectRepository.create(project);
+            } else {
+                return Uni.createFrom().item(project);
+            }
+        });
+    }
+
+    private Uni<Project> persistProjectConfigIfMissing(Project project) {
+        String projectUrl = project.getProjectUrl();
+        return projectConfigRepository.findByProjectUrl(projectUrl).flatMap(list -> {
+            if (list.isEmpty()) {
+                return projectConfigRepository
+                        .create(ProjectConfig.ofProjectUrl(projectUrl))
+                        .replaceWith(project);
+            } else {
+                return Uni.createFrom().item(project);
+            }
+        });
     }
 
     private @Nullable GHRepository findRandomRepositoryOnGithub() {
+
         try {
             GitHub github = GitHub.connectAnonymously();
             var repos = github.searchRepositories()

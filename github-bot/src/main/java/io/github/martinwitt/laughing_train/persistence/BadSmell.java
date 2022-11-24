@@ -1,54 +1,25 @@
 package io.github.martinwitt.laughing_train.persistence;
 
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
-import io.quarkus.mongodb.panache.PanacheMongoEntity;
-import io.quarkus.mongodb.panache.common.MongoEntity;
-import java.util.List;
 import java.util.Objects;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
-@MongoEntity(database = "Laughing-Train")
-public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
+public class BadSmell implements AnalyzerResult {
 
-    public String analyzer;
-    public String identifier;
-    public String ruleID;
-    public String filePath;
-    public String message;
-    public String messageMarkdown;
-    public String snippet;
-    public String projectName;
-    public String projectUrl;
-    public String commitHash;
-    public Position position;
-
-    public static List<BadSmell> findByRuleID(RuleId ruleID) {
-        return list("ruleID", ruleID.ruleID());
-    }
-
-    public static List<BadSmell> findByProjectName(String projectName) {
-        return list("projectName", projectName);
-    }
-
-    public static List<BadSmell> findByProjectUrl(String projectUrl) {
-        return list("projectUrl", projectUrl);
-    }
-
-    public static List<BadSmell> findByCommitHash(String commitHash) {
-        return list("commitHash", commitHash);
-    }
-
-    public static List<BadSmell> findByIdentifier(String identifier) {
-        return list("identifier", identifier);
-    }
-
-    public BadSmell() {
-        // default constructor for mongodb
-    }
+    private String analyzer;
+    private String identifier;
+    private String ruleID;
+    private String filePath;
+    private String message;
+    private String messageMarkdown;
+    private String snippet;
+    private String projectName;
+    private String projectUrl;
+    private String commitHash;
+    private Position position;
 
     public BadSmell(AnalyzerResult result, String projectName, String projectUrl, String commitHash) {
-        this();
         this.position = result.position();
         this.ruleID = result.ruleID().ruleID();
         this.filePath = result.filePath();
@@ -156,5 +127,25 @@ public class BadSmell extends PanacheMongoEntity implements AnalyzerResult {
      */
     public String getIdentifier() {
         return identifier;
+    }
+
+    /**
+     * @return the projectName
+     */
+    public String getProjectName() {
+        return projectName;
+    }
+
+    /**
+     * @return the projectUrl
+     */
+    public String getProjectUrl() {
+        return projectUrl;
+    }
+    /**
+     * @return the commitHash
+     */
+    public String getCommitHash() {
+        return commitHash;
     }
 }

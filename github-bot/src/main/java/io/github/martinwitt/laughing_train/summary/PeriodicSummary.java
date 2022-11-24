@@ -8,7 +8,7 @@ import io.github.martinwitt.laughing_train.data.FindPullRequestResult;
 import io.github.martinwitt.laughing_train.data.GitHubState;
 import io.github.martinwitt.laughing_train.data.Issue;
 import io.github.martinwitt.laughing_train.data.PullRequest;
-import io.github.martinwitt.laughing_train.services.ServiceAdresses;
+import io.github.martinwitt.laughing_train.services.ServiceAddresses;
 import io.quarkus.scheduler.Scheduled;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.unchecked.Unchecked;
@@ -35,7 +35,7 @@ public class PeriodicSummary {
 
     @Scheduled(every = "2h", delay = 10, delayUnit = TimeUnit.MINUTES)
     public void createSummary() {
-        eventBus.<FindIssueResult>request(ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST, "message")
+        eventBus.<FindIssueResult>request(ServiceAddresses.FIND_SUMMARY_ISSUE_REQUEST, "message")
                 .subscribe()
                 .with(
                         v -> {
@@ -77,7 +77,7 @@ public class PeriodicSummary {
     private void updateContent(Uni<Issue> issue) {
         logger.atInfo().log("Updating summary issue");
         eventBus.<FindPullRequestResult>request(
-                        ServiceAdresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
+                        ServiceAddresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
                 .subscribe()
                 .with(
                         result -> {
