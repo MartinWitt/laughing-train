@@ -124,7 +124,7 @@ public class DataBaseMigration {
                         .findByProjectUrl(project.getProjectUrl())
                         .invoke(projectConfig -> {
                             if (projectConfig.isEmpty()) {
-                                projectConfigRepository.save(new ProjectConfig(project.getProjectUrl()));
+                                projectConfigRepository.save(ProjectConfig.ofProjectUrl(project.getProjectUrl()));
                             }
                         })
                         .subscribe()

@@ -15,9 +15,6 @@ public class ProjectConfigConverter implements DaoConverter<ProjectConfig, Proje
 
     @Override
     public ProjectConfig convertToEntity(ProjectConfigDao dao) {
-        ProjectConfig entity = new ProjectConfig();
-        entity.setProjectUrl(dao.getProjectUrl());
-        entity.setSourceFolder(dao.getSourceFolder());
-        return entity;
+        return new ProjectConfig(dao.getSourceFolder(), dao.getProjectUrl());
     }
 }

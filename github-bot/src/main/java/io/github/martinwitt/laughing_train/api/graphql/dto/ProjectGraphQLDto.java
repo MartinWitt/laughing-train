@@ -11,9 +11,8 @@ public class ProjectGraphQLDto {
     private String projectUrl;
     private List<String> commitHashes;
 
-    public ProjectGraphQLDto() {
-        // pojo constructor
-    }
+    @SuppressWarnings("NullAway")
+    public ProjectGraphQLDto() {}
 
     public ProjectGraphQLDto(Project project) {
         this.projectName = project.getProjectName();

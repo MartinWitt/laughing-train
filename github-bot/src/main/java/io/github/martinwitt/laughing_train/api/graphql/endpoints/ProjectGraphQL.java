@@ -113,11 +113,11 @@ public class ProjectGraphQL {
                     }
                 });
     }
-
-    @Mutation
+    // Disable for now
+    // @Mutation
     @Authenticated
     @Description("Sets the project config for a project")
-    public Uni<ProjectConfigGraphQLDto> setProjectConfig(ProjectConfig projectConfig) {
+    public Uni<ProjectConfigGraphQLDto> setProjectConfig(ProjectConfigGraphQLDto projectConfig) {
 
         String projectUrl = projectConfig.getProjectUrl();
         return projectConfigService
@@ -128,7 +128,8 @@ public class ProjectGraphQL {
                                 .create(ProjectConfig.ofProjectUrl(projectUrl))
                                 .map(ProjectConfigGraphQLDto::new);
                     } else {
-                        return projectConfigRepository.save(projectConfig).map(ProjectConfigGraphQLDto::new);
+                        ProjectConfig config = new ProjectConfig(projectConfig.getSourceFolder(), projectUrl);
+                        return projectConfigRepository.save(config).map(ProjectConfigGraphQLDto::new);
                     }
                 });
     }

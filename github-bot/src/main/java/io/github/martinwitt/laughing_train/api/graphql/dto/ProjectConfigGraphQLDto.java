@@ -8,9 +8,8 @@ public class ProjectConfigGraphQLDto {
     private String sourceFolder;
     private String projectUrl;
 
-    public ProjectConfigGraphQLDto() {
-        // pojo constructor
-    }
+    @SuppressWarnings("NullAway")
+    public ProjectConfigGraphQLDto() {}
 
     public ProjectConfigGraphQLDto(ProjectConfig projectConfig) {
         this.sourceFolder = projectConfig.getSourceFolder();
