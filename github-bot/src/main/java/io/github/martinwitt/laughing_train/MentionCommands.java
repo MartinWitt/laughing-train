@@ -6,7 +6,7 @@ import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.services.QodanaService;
-import io.github.martinwitt.laughing_train.services.ServiceAdresses;
+import io.github.martinwitt.laughing_train.services.ServiceAddresses;
 import io.quarkiverse.githubapp.event.IssueComment;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
@@ -64,7 +64,7 @@ public class MentionCommands {
         }
         if (comment.contains("@laughing-train list")) {
             eventBus.<ProjectResult>request(
-                            ServiceAdresses.PROJECT_REQUEST,
+                            ServiceAddresses.PROJECT_REQUEST,
                             new ProjectRequest.WithUrl(GitHubUtils.getTransportUrl(issueComment)),
                             new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)))
                     .onComplete(v -> runQodanaOnRepo(issueComment, v));
@@ -80,10 +80,11 @@ public class MentionCommands {
         }
     }
 
-    private void runQodanaOnRepo(GHEventPayload.IssueComment issueComment, AsyncResult<Message<ProjectResult>> v) {
+    private void runQodanaOnRepo(
+            GHEventPayload.IssueComment issueComment, AsyncResult<? extends Message<ProjectResult>> v) {
         if (v.succeeded() && v.result().body() instanceof ProjectResult.Success success) {
             vertx.executeBlocking(project -> eventBus.<QodanaResult>request(
-                    ServiceAdresses.QODANA_ANALYZER_REQUEST,
+                    ServiceAddresses.QODANA_ANALYZER_REQUEST,
                     new AnalyzerRequest.WithProject(success.project()),
                     new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
                     new ListCommandHandler(issueComment)));

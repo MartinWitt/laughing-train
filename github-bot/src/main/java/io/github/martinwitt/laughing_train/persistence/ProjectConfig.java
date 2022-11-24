@@ -63,4 +63,28 @@ public class ProjectConfig implements Serializable {
     public String toString() {
         return "ProjectConfig [sourceFolder=" + sourceFolder + ", projectUrl=" + projectUrl + "]";
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sourceFolder, projectUrl);
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof ProjectConfig config) {
+            return Objects.equals(sourceFolder, config.sourceFolder) && Objects.equals(projectUrl, config.projectUrl);
+        }
+        return false;
+    }
 }

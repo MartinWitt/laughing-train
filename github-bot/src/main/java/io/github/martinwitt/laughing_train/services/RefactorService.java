@@ -99,13 +99,11 @@ public class RefactorService {
                     return Uni.createFrom().item(list.get(0));
                 })
                 .subscribe()
-                .with(config -> {
-                    eventBus.<ProjectResult>request(
-                            ServiceAdresses.PROJECT_REQUEST,
-                            new ProjectRequest.WithUrl(projectUrl),
-                            new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
-                            result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells, config)));
-                });
+                .with(config -> eventBus.<ProjectResult>request(
+                        ServiceAddresses.PROJECT_REQUEST,
+                        new ProjectRequest.WithUrl(projectUrl),
+                        new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
+                        result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells, config))));
     }
 
     private Promise<String> createPullRequest(

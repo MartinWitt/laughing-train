@@ -65,7 +65,11 @@ public class SearchProjectService {
      * @return the repository if it exists, null otherwise
      */
     private Uni<Project> getProjectIfExisting(GHRepository ghRepo) {
-        return projectRepository.findByProjectName(ghRepo.getName()).map(v -> v.isEmpty() ? null : v.get(0));
+        return projectRepository
+                .findByProjectName(ghRepo.getName())
+                .<Project>flatMap(v -> v.isEmpty()
+                        ? Uni.createFrom().<Project>nullItem()
+                        : Uni.createFrom().item(v.get(0)));
     }
 
     private Uni<Project> persistProject(Project project) {

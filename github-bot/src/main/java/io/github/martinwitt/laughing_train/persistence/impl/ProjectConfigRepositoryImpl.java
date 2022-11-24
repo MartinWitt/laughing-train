@@ -27,7 +27,7 @@ public class ProjectConfigRepositoryImpl
 
     @Override
     public Uni<ProjectConfig> create(ProjectConfig projectConfig) {
-        return findByProjectUrl(projectConfig.getProjectUrl()).log().<ProjectConfig>flatMap(list -> {
+        return findByProjectUrl(projectConfig.getProjectUrl()).flatMap(list -> {
             if (list.isEmpty()) {
                 return persist(projectConfig);
             } else {
@@ -37,7 +37,7 @@ public class ProjectConfigRepositoryImpl
     }
 
     @Override
-    public Uni<ProjectConfig> update(ProjectConfig projectConfig) {
+    public Uni<ProjectConfig> save(ProjectConfig projectConfig) {
         return update(projectConfig);
     }
 }

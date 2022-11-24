@@ -1,11 +1,12 @@
 package io.github.martinwitt.laughing_train.persistence.impl;
 
+import static org.assertj.core.api.Assertions.*;
+
 import com.github.javafaker.Faker;
 import io.github.martinwitt.laughing_train.persistence.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
-import java.util.List;
 import javax.inject.Inject;
 import org.junit.jupiter.api.Test;
 
@@ -53,12 +54,14 @@ public class ProjectRepositoryImplTest {
                 .withSubscriber(UniAssertSubscriber.create())
                 .awaitItem()
                 .assertItem(project);
-        projectRepository
-                .findByProjectUrl(project.getProjectUrl())
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .assertItem(List.of(project));
+        assertThat(projectRepository
+                        .findByProjectUrl(project.getProjectUrl())
+                        .subscribe()
+                        .withSubscriber(UniAssertSubscriber.create())
+                        .awaitItem()
+                        .getItem())
+                .hasSize(1)
+                .allMatch(v -> v.getProjectUrl().equals(project.getProjectUrl()));
     }
 
     private Project createMockProject() {

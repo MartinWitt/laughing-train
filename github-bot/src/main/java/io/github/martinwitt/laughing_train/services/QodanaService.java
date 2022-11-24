@@ -84,7 +84,7 @@ public class QodanaService {
         return analyzer.runQodana(dir);
     }
 
-    @ConsumeEvent(value = ServiceAdresses.QODANA_ANALYZER_REQUEST, blocking = true)
+    @ConsumeEvent(value = ServiceAddresses.QODANA_ANALYZER_REQUEST, blocking = true)
     public QodanaResult analyze(AnalyzerRequest request) {
         logger.atInfo().log("Received request %s", request);
         try {
@@ -120,7 +120,7 @@ public class QodanaService {
     }
 
     private void publishResults(QodanaResult result) {
-        eventBus.publish(ServiceAdresses.QODANA_ANALYZER_RESPONSE, result);
+        eventBus.publish(ServiceAddresses.QODANA_ANALYZER_RESPONSE, result);
     }
 
     private QodanaResult invokeQodana(AnalyzerRequest.WithProject project, ProjectConfig projectConfig) {

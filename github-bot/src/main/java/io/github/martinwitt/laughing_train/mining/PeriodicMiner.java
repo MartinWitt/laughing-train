@@ -7,7 +7,7 @@ import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.persistence.Project;
-import io.github.martinwitt.laughing_train.services.ServiceAdresses;
+import io.github.martinwitt.laughing_train.services.ServiceAddresses;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Uni;
@@ -68,7 +68,7 @@ public class PeriodicMiner {
     }
 
     void mine(@Observes StartupEvent event) {
-        // vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> mineRandomRepo());
+        vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> mineRandomRepo());
     }
 
     private void mineRandomRepo() {
@@ -110,7 +110,7 @@ public class PeriodicMiner {
 
     private Uni<Message<ProjectResult>> checkoutProject(Project project) {
         return eventBus.<ProjectResult>request(
-                ServiceAdresses.PROJECT_REQUEST,
+                ServiceAddresses.PROJECT_REQUEST,
                 new ProjectRequest.WithUrl(project.getProjectUrl()),
                 new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)));
     }
@@ -118,7 +118,7 @@ public class PeriodicMiner {
     private Uni<Message<QodanaResult>> analyzeProject(Message<ProjectResult> message) {
         if (message.body() instanceof ProjectResult.Success project) {
             return eventBus.<QodanaResult>request(
-                    ServiceAdresses.QODANA_ANALYZER_REQUEST,
+                    ServiceAddresses.QODANA_ANALYZER_REQUEST,
                     new AnalyzerRequest.WithProject(project.project()),
                     new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)));
         } else {

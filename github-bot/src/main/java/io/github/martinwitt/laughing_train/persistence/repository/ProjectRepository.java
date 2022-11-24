@@ -6,19 +6,19 @@ import java.util.List;
 
 public interface ProjectRepository {
 
-    public Uni<List<Project>> findByProjectName(String projectName);
+    Uni<List<Project>> findByProjectName(String projectName);
 
-    public Uni<Boolean> existsByProjectName(String projectName);
+    Uni<Boolean> existsByProjectName(String projectName);
 
-    public Uni<Long> deleteByProjectName(String projectName);
+    Uni<Long> deleteByProjectName(String projectName);
 
-    public Uni<List<Project>> findByProjectUrl(String projectUrl);
+    Uni<List<Project>> findByProjectUrl(String projectUrl);
 
-    public Uni<Boolean> existsByProjectUrl(String projectUrl);
+    Uni<Boolean> existsByProjectUrl(String projectUrl);
 
-    public Uni<Long> deleteByProjectUrl(String projectUrl);
+    Uni<Long> deleteByProjectUrl(String projectUrl);
 
-    public Uni<Project> create(Project project);
+    Uni<Project> create(Project project);
 
-    public Uni<Project> update(Project project);
+    Uni<Project> save(Project project);
 }

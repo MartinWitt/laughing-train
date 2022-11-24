@@ -90,29 +90,31 @@ public class DataBaseMigration {
                                 "https://github.com/assertj/assertj",
                                 "assertj-core")
                         .entrySet())
-                .invoke(v -> {
-                    {
-                        projectConfigRepository
-                                .findByProjectUrl(v.getKey())
-                                .map(list -> list.get(0))
-                                .invoke(projectConfig -> {
-                                    projectConfig.setSourceFolder(v.getValue());
-                                    projectConfigRepository.update(projectConfig);
-                                });
-                    }
-                })
+                .invoke(v -> projectConfigRepository
+                        .findByProjectUrl(v.getKey())
+                        .map(list -> list.get(0))
+                        .invoke(projectConfig -> {
+                            projectConfig.setSourceFolder(v.getValue());
+                            projectConfigRepository.save(projectConfig);
+                        })
+                        .subscribe()
+                        .with(item -> logger.atInfo().log("Updated project config for %s", item.getProjectUrl())))
                 .subscribe()
-                .with(v -> logger.atInfo().log("Updated project config for %s", v.getKey()));
+                .with(v -> logger.atFinest().log("Updated project config"));
     }
 
     private void createConfigsIfMissing() {
-        Project.<Project>streamAll().forEach(project -> {
-            projectConfigRepository.existsByProjectUrl(project.projectUrl).invoke(exists -> {
-                if (!exists) {
-                    projectConfigRepository.create(new ProjectConfig(project.getProjectUrl()));
-                }
-            });
-        });
+        Project.<Project>streamAll().forEach(project -> projectConfigRepository
+                .existsByProjectUrl(project.projectUrl)
+                .invoke(exists -> {
+                    if (!exists) {
+                        projectConfigRepository
+                                .create(new ProjectConfig(project.getProjectUrl()))
+                                .subscribe()
+                                .with(v ->
+                                        logger.atFine().log("Created project config for %s", project.getProjectUrl()));
+                    }
+                }));
     }
 
     private void removeBadSmellsWithWrongIdentifier() {

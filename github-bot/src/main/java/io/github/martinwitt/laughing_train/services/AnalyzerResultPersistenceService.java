@@ -10,7 +10,7 @@ import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 @ApplicationScoped
 public class AnalyzerResultPersistenceService {
 
-    @ConsumeEvent(value = ServiceAdresses.QODANA_ANALYZER_RESPONSE, blocking = true)
+    @ConsumeEvent(value = ServiceAddresses.QODANA_ANALYZER_RESPONSE, blocking = true)
     void persistResults(QodanaResult result) {
         if (result instanceof QodanaResult.Success success) {
             Project project = success.project();

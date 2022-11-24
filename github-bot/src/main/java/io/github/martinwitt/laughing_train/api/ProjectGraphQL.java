@@ -126,7 +126,7 @@ public class ProjectGraphQL {
                     if (list.isEmpty()) {
                         return projectConfigRepository.create(ProjectConfig.ofProjectUrl(projectUrl));
                     } else {
-                        return projectConfigRepository.update(projectConfig);
+                        return projectConfigRepository.save(projectConfig);
                     }
                 });
     }

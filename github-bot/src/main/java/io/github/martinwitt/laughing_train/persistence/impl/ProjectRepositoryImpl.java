@@ -36,7 +36,7 @@ public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanache
     }
 
     @Override
-    public Uni<Project> update(Project project) {
+    public Uni<Project> save(Project project) {
         return update(project);
     }
 

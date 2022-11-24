@@ -4,7 +4,6 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
 import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
-import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
@@ -17,7 +16,6 @@ public class ProjectConfigService {
     @Inject
     ProjectConfigRepository projectConfigRepository;
 
-    @ConsumeEvent(value = ServiceAdresses.PROJECT_CONFIG_REQUEST, blocking = true)
     public Uni<List<ProjectConfig>> getConfig(FindProjectConfigRequest request) {
         if (request instanceof FindProjectConfigRequest.ByProjectUrl byProjectUrl) {
             return projectConfigRepository.findByProjectUrl(byProjectUrl.projectUrl());

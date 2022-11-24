@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface BadSmellRepository {
 
-    public List<BadSmell> findByRuleID(RuleId ruleID);
+    List<BadSmell> findByRuleID(RuleId ruleID);
 
-    public List<BadSmell> findByProjectName(String projectName);
+    List<BadSmell> findByProjectName(String projectName);
 
-    public List<BadSmell> findByProjectUrl(String projectUrl);
+    List<BadSmell> findByProjectUrl(String projectUrl);
 
-    public List<BadSmell> findByCommitHash(String commitHash);
+    List<BadSmell> findByCommitHash(String commitHash);
 
-    public List<BadSmell> findByIdentifier(String identifier);
+    List<BadSmell> findByIdentifier(String identifier);
 }

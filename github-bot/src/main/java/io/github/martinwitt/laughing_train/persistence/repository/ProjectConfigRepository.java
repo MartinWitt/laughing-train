@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface ProjectConfigRepository {
 
-    public Uni<List<ProjectConfig>> findByProjectUrl(String projectUrl);
+    Uni<List<ProjectConfig>> findByProjectUrl(String projectUrl);
 
-    public Uni<Boolean> existsByProjectUrl(String projectUrl);
+    Uni<Boolean> existsByProjectUrl(String projectUrl);
 
-    public Uni<Long> deleteByProjectUrl(String projectUrl);
+    Uni<Long> deleteByProjectUrl(String projectUrl);
 
-    public Uni<ProjectConfig> create(ProjectConfig projectConfig);
+    Uni<ProjectConfig> create(ProjectConfig projectConfig);
 
-    public Uni<ProjectConfig> update(ProjectConfig projectConfig);
+    Uni<ProjectConfig> save(ProjectConfig projectConfig);
 }

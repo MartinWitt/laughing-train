@@ -23,7 +23,7 @@ public class IssueRequestService {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @ConsumeEvent(value = ServiceAdresses.FIND_ISSUE_REQUEST, blocking = true)
+    @ConsumeEvent(value = ServiceAddresses.FIND_ISSUE_REQUEST, blocking = true)
     public Uni<FindPullRequestResult> findPullRequests(FindIssueRequest request) {
         logger.atFine().log("Got request %s", request);
         if (request instanceof FindIssueRequest.WithUserName userName) {
@@ -72,7 +72,7 @@ public class IssueRequestService {
         return Enum.valueOf(GitHubState.class, state.name());
     }
 
-    @ConsumeEvent(value = ServiceAdresses.FIND_SUMMARY_ISSUE_REQUEST, blocking = true)
+    @ConsumeEvent(value = ServiceAddresses.FIND_SUMMARY_ISSUE_REQUEST, blocking = true)
     public Uni<FindIssueResult> getSummaryIssue(String ignored) {
         logger.atFine().log("Finding summary issue");
         return findSummaryIssue();
