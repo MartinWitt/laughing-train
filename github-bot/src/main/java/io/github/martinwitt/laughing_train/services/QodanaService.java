@@ -123,7 +123,7 @@ public class QodanaService {
                 })
                 .emitOn(Infrastructure.getDefaultExecutor())
                 .map(config -> invokeQodana(project, config))
-                .invoke(v -> publishResults(v))
+                .invoke(this::publishResults)
                 .onFailure()
                 .recoverWithItem(e -> new QodanaResult.Failure(Strings.nullToEmpty(e.getMessage())));
     }
