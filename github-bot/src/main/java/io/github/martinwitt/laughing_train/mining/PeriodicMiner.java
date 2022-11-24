@@ -68,7 +68,7 @@ public class PeriodicMiner {
     }
 
     void mine(@Observes StartupEvent event) {
-        vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> mineRandomRepo());
+        // vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> mineRandomRepo());
     }
 
     private void mineRandomRepo() {
@@ -103,7 +103,7 @@ public class PeriodicMiner {
                         },
                         e -> {
                             registry.counter("qodana.failure").increment();
-                            logger.atInfo().log("Failed mining" + e.getMessage());
+                            logger.atInfo().log("Failed mining " + e.getMessage());
                             mineRandomRepo();
                         });
     }

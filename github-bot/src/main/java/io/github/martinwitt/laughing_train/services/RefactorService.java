@@ -7,7 +7,6 @@ import io.github.martinwitt.laughing_train.ChangelogPrinter;
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.GitHubUtils;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
-import io.github.martinwitt.laughing_train.data.FindProjectConfigResult;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
@@ -91,32 +90,22 @@ public class RefactorService {
 
         var projectConfig = projectConfigService.getConfig(new FindProjectConfigRequest.ByProjectUrl(projectUrl));
         logger.atInfo().log("Found %s config ", projectConfig);
-        if (projectConfig instanceof FindProjectConfigResult.NotFound) {
-            logger.atWarning().log("No config found for project %s", projectUrl);
-            return;
-        }
-        if (projectConfig instanceof FindProjectConfigResult.MultipleResults results) {
-            if (results.projectConfigs().size() > 1) {
-                logger.atWarning().log("Multiple configs found for project %s", projectUrl);
-                return;
-            } else {
-                ProjectConfig config = results.projectConfigs().get(0);
-                eventBus.<ProjectResult>request(
-                        ServiceAdresses.PROJECT_REQUEST,
-                        new ProjectRequest.WithUrl(projectUrl),
-                        new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
-                        result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells, config)));
-            }
-        }
-        if (projectConfig instanceof FindProjectConfigResult.SingleResult results) {
-            ProjectConfig config = results.projectConfig();
-
-            eventBus.<ProjectResult>request(
-                    ServiceAdresses.PROJECT_REQUEST,
-                    new ProjectRequest.WithUrl(projectUrl),
-                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
-                    result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells, config)));
-        }
+        projectConfig
+                .<ProjectConfig>flatMap(list -> {
+                    if (list.isEmpty()) {
+                        logger.atWarning().log("No config found for %s", projectUrl);
+                        return Uni.createFrom().failure(new RuntimeException("No config found for " + projectUrl));
+                    }
+                    return Uni.createFrom().item(list.get(0));
+                })
+                .subscribe()
+                .with(config -> {
+                    eventBus.<ProjectResult>request(
+                            ServiceAdresses.PROJECT_REQUEST,
+                            new ProjectRequest.WithUrl(projectUrl),
+                            new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
+                            result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells, config)));
+                });
     }
 
     private Promise<String> createPullRequest(

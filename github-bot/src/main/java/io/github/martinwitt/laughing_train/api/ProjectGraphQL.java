@@ -8,12 +8,14 @@ import static com.mongodb.client.model.Sorts.ascending;
 
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
-import io.github.martinwitt.laughing_train.data.FindProjectConfigResult;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.Project;
 import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
+import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
+import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.ProjectConfigService;
 import io.quarkus.security.Authenticated;
+import io.smallrye.mutiny.Uni;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -34,6 +36,12 @@ public class ProjectGraphQL {
 
     @Inject
     ProjectConfigService projectConfigService;
+
+    @Inject
+    ProjectRepository projectRepository;
+
+    @Inject
+    ProjectConfigRepository projectConfigRepository;
 
     @Query("getProjects")
     @Description("Gets all projects from the database")
@@ -64,13 +72,16 @@ public class ProjectGraphQL {
     @Mutation("addProject")
     @Authenticated
     @Description("Adds a project to the database")
-    public Project addProject(String projectUrl, String projectName) {
-        Project project = new Project(projectName, projectUrl);
-        if (ProjectConfig.findByProjectUrl(projectUrl).isEmpty()) {
-            ProjectConfig.ofProjectUrl(projectUrl).persistOrUpdate();
-        }
-        project.persistOrUpdate();
-        return project;
+    public Uni<Project> addProject(String projectUrl, String projectName) {
+        return projectConfigRepository
+                .existsByProjectUrl(projectUrl)
+                .invoke(exist -> {
+                    if (exist) {
+                        projectConfigRepository.create(ProjectConfig.ofProjectUrl(projectUrl));
+                    }
+                })
+                .replaceWith(new Project(projectName, projectUrl))
+                .invoke(project -> projectRepository.create(project));
     }
 
     @Mutation("deleteProject")
@@ -91,27 +102,32 @@ public class ProjectGraphQL {
 
     @Query("getProjectConfig")
     @Description("Gets the project config for a project")
-    public ProjectConfig getProjectConfig(String projectUrl) {
-        var result = projectConfigService.getConfig(new FindProjectConfigRequest.ByProjectUrl(projectUrl));
-        if (result instanceof FindProjectConfigResult.SingleResult singleResult) {
-            return singleResult.projectConfig();
-        } else {
-            return ProjectConfig.ofProjectUrl(projectUrl);
-        }
+    public Uni<ProjectConfig> getProjectConfig(String projectUrl) {
+        return projectConfigService
+                .getConfig(new FindProjectConfigRequest.ByProjectUrl(projectUrl))
+                .flatMap(list -> {
+                    if (list.isEmpty()) {
+                        return projectConfigRepository.create(ProjectConfig.ofProjectUrl(projectUrl));
+                    } else {
+                        return Uni.createFrom().item(list.get(0));
+                    }
+                });
     }
 
     @Mutation
     @Authenticated
     @Description("Sets the project config for a project")
-    public ProjectConfig setProjectConfig(ProjectConfig projectConfig) {
-        var result = projectConfigService.getConfig(
-                new FindProjectConfigRequest.ByProjectUrl(projectConfig.getProjectUrl()));
-        if (result instanceof FindProjectConfigResult.SingleResult singleResult) {
-            singleResult.projectConfig().update(projectConfig);
-            return singleResult.projectConfig();
-        } else {
-            projectConfig.persist();
-            return projectConfig;
-        }
+    public Uni<ProjectConfig> setProjectConfig(ProjectConfig projectConfig) {
+
+        String projectUrl = projectConfig.getProjectUrl();
+        return projectConfigService
+                .getConfig(new FindProjectConfigRequest.ByProjectUrl(projectUrl))
+                .flatMap(list -> {
+                    if (list.isEmpty()) {
+                        return projectConfigRepository.create(ProjectConfig.ofProjectUrl(projectUrl));
+                    } else {
+                        return projectConfigRepository.update(projectConfig);
+                    }
+                });
     }
 }

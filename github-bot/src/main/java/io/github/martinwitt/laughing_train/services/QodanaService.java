@@ -112,8 +112,11 @@ public class QodanaService {
     }
 
     private FindProjectConfigResult getProjectConfig(WithProject item) {
-        return projectConfigService.getConfig(
-                new FindProjectConfigRequest.ByProjectUrl(item.project().url()));
+        return new FindProjectConfigResult.MultipleResults(projectConfigService
+                .getConfig(
+                        new FindProjectConfigRequest.ByProjectUrl(item.project().url()))
+                .await()
+                .indefinitely());
     }
 
     private void publishResults(QodanaResult result) {

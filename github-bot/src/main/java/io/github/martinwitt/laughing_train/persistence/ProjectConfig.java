@@ -1,14 +1,12 @@
 package io.github.martinwitt.laughing_train.persistence;
 
 import com.google.common.flogger.FluentLogger;
-import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 @MongoEntity(database = "Laughing-Train")
-public class ProjectConfig extends PanacheMongoEntity implements Serializable {
+public class ProjectConfig implements Serializable {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private String sourceFolder;
@@ -29,11 +27,6 @@ public class ProjectConfig extends PanacheMongoEntity implements Serializable {
 
     public ProjectConfig() {
         sourceFolder = ".";
-    }
-
-    public static List<ProjectConfig> findByProjectUrl(String projectUrl) {
-        logger.atInfo().log("Searching for project config for %s", projectUrl);
-        return find("projectUrl", projectUrl).list();
     }
 
     /**

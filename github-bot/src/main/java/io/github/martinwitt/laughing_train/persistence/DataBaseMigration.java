@@ -4,8 +4,10 @@ import com.google.common.flogger.FluentLogger;
 import com.google.errorprone.annotations.Var;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
+import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
 import io.quarkus.runtime.StartupEvent;
+import io.smallrye.mutiny.Multi;
 import io.vertx.core.Vertx;
 import java.util.ArrayList;
 import java.util.Map;
@@ -25,15 +27,18 @@ public class DataBaseMigration {
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     @Inject
+    ProjectConfigRepository projectConfigRepository;
+
+    @Inject
     Vertx vertx;
     /**
      * This method is called by the quarkus framework to migrate the database.
      */
     public void onStart(@Observes StartupEvent event) {
-        checkPeroidic();
+        checkPeriodic();
     }
 
-    public void checkPeroidic() {
+    public void checkPeriodic() {
         vertx.setPeriodic(TimeUnit.MINUTES.toMillis(30), id -> vertx.executeBlocking(v -> migrateDataBase()));
         vertx.setPeriodic(TimeUnit.MINUTES.toMillis(5), id -> vertx.executeBlocking(v -> removeDuplicatedBadSmells()));
     }
@@ -76,29 +81,37 @@ public class DataBaseMigration {
     }
 
     private void setDefaultSourceFolders() {
-        Map.of(
-                        "https://github.com/google/guava",
-                        "guava",
-                        "https://github.com/INRIA/spoon",
-                        "src/main/java",
-                        "https://github.com/assertj/assertj",
-                        "assertj-core")
-                .forEach((k, v) -> {
-                    var list = ProjectConfig.findByProjectUrl(k);
-                    if (list.size() == 1) {
-                        var config = list.get(0);
-                        config.setSourceFolder(v);
-                        config.update();
+        Multi.createFrom()
+                .iterable(Map.of(
+                                "https://github.com/google/guava",
+                                "guava",
+                                "https://github.com/INRIA/spoon",
+                                "src/main/java",
+                                "https://github.com/assertj/assertj",
+                                "assertj-core")
+                        .entrySet())
+                .invoke(v -> {
+                    {
+                        projectConfigRepository
+                                .findByProjectUrl(v.getKey())
+                                .map(list -> list.get(0))
+                                .invoke(projectConfig -> {
+                                    projectConfig.setSourceFolder(v.getValue());
+                                    projectConfigRepository.update(projectConfig);
+                                });
                     }
-                });
+                })
+                .subscribe()
+                .with(v -> logger.atInfo().log("Updated project config for %s", v.getKey()));
     }
 
     private void createConfigsIfMissing() {
         Project.<Project>streamAll().forEach(project -> {
-            if (ProjectConfig.findByProjectUrl(project.getProjectUrl()).isEmpty()) {
-                var config = new ProjectConfig(project.getProjectUrl());
-                config.persist();
-            }
+            projectConfigRepository.existsByProjectUrl(project.projectUrl).invoke(exists -> {
+                if (!exists) {
+                    projectConfigRepository.create(new ProjectConfig(project.getProjectUrl()));
+                }
+            });
         });
     }
 
