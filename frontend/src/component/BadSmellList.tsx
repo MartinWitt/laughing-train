@@ -30,11 +30,11 @@ export default function BadSmellList(project: Project) {
   if (loading) {
     return <CircularProgress />
   }
-  function setBadSmellFilterForRuleID(ruleID: string) {
-    if (badSmellFilter.includes(ruleID)) {
-      setBadSmellFilter(badSmellFilter.filter((id: string) => id !== ruleID));
+  function setBadSmellFilterForRuleID(ruleID2: string) {
+    if (badSmellFilter.includes(ruleID2)) {
+      setBadSmellFilter(badSmellFilter.filter((ruleID: string) => ruleID !== ruleID2));
     } else {
-      setBadSmellFilter([...badSmellFilter, ruleID]);
+      setBadSmellFilter([...badSmellFilter, ruleID2]);
     }
   }
   return (
