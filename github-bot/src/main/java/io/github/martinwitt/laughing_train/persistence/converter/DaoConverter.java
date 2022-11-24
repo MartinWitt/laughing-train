@@ -8,5 +8,4 @@ interface DaoConverter<T, U> {
     U convertToDao(T entity);
 
     T convertToEntity(U dao);
-
 }

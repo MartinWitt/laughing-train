@@ -107,7 +107,7 @@ public class RefactorService {
     }
 
     private Promise<String> createPullRequest(
-            AsyncResult<Message<ProjectResult>> message, List<BadSmell> badSmells, ProjectConfig config) {
+            AsyncResult<? extends Message<ProjectResult>> message, List<? extends BadSmell> badSmells, ProjectConfig config) {
         if (message.failed()) {
             logger.atSevere().withCause(message.cause()).log("Failed to get project");
             return Promise.promise();

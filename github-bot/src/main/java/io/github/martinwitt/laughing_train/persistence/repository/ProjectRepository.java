@@ -1,10 +1,12 @@
 package io.github.martinwitt.laughing_train.persistence.repository;
 
-import io.github.martinwitt.laughing_train.persistence.Project;
+import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.smallrye.mutiny.Uni;
 import java.util.List;
 
 public interface ProjectRepository {
+
+    Uni<List<Project>> getAll();
 
     Uni<List<Project>> findByProjectName(String projectName);
 

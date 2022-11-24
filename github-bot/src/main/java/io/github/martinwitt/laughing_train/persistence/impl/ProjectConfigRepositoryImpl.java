@@ -13,9 +13,13 @@ import javax.enterprise.context.ApplicationScoped;
 public class ProjectConfigRepositoryImpl
         implements ProjectConfigRepository, ReactivePanacheMongoRepository<ProjectConfigDao> {
 
-            private static ProjectConfigConverter projectConfigConverter = new ProjectConfigConverter();
+    private static ProjectConfigConverter projectConfigConverter = new ProjectConfigConverter();
+
     public Uni<List<ProjectConfig>> findByProjectUrl(String projectUrl) {
-        return find("projectUrl", projectUrl).stream().map(projectConfigConverter::convertToEntity).collect().asList();
+        return find("projectUrl", projectUrl).stream()
+                .map(projectConfigConverter::convertToEntity)
+                .collect()
+                .asList();
     }
 
     @Override
@@ -32,7 +36,8 @@ public class ProjectConfigRepositoryImpl
     public Uni<ProjectConfig> create(ProjectConfig projectConfig) {
         return findByProjectUrl(projectConfig.getProjectUrl()).flatMap(list -> {
             if (list.isEmpty()) {
-                return persist(projectConfigConverter.convertToDao(projectConfig)).map(projectConfigConverter::convertToEntity);
+                return persist(projectConfigConverter.convertToDao(projectConfig))
+                        .map(projectConfigConverter::convertToEntity);
             } else {
                 return Uni.createFrom().item(list.get(0));
             }

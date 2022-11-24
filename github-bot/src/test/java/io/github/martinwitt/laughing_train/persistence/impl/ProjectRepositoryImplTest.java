@@ -3,7 +3,7 @@ package io.github.martinwitt.laughing_train.persistence.impl;
 import static org.assertj.core.api.Assertions.*;
 
 import com.github.javafaker.Faker;
-import io.github.martinwitt.laughing_train.persistence.Project;
+import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;

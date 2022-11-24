@@ -1,6 +1,8 @@
 package io.github.martinwitt.laughing_train.persistence.impl;
 
-import io.github.martinwitt.laughing_train.persistence.Project;
+import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.persistence.converter.ProjectDaoConverter;
+import io.github.martinwitt.laughing_train.persistence.dao.ProjectDao;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.mongodb.panache.reactive.ReactivePanacheMongoRepository;
 import io.smallrye.mutiny.Uni;
@@ -8,10 +10,15 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanacheMongoRepository<Project> {
+public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanacheMongoRepository<ProjectDao> {
+
+    private ProjectDaoConverter projectDaoConverter = new ProjectDaoConverter();
 
     public Uni<List<Project>> findByProjectName(String projectName) {
-        return list("projectName", projectName);
+        return find("projectName", projectName).stream()
+                .map(projectDaoConverter::convertToEntity)
+                .collect()
+                .asList();
     }
 
     @Override
@@ -28,7 +35,7 @@ public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanache
     public Uni<Project> create(Project project) {
         return findByProjectUrl(project.getProjectUrl()).log().<Project>flatMap(list -> {
             if (list.isEmpty()) {
-                return persist(project);
+                return persist(projectDaoConverter.convertToDao(project)).map(projectDaoConverter::convertToEntity);
             } else {
                 return Uni.createFrom().item(list.get(0));
             }
@@ -37,7 +44,7 @@ public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanache
 
     @Override
     public Uni<Project> save(Project project) {
-        return update(project);
+        return update(projectDaoConverter.convertToDao(project)).map(projectDaoConverter::convertToEntity);
     }
 
     @Override
@@ -52,6 +59,14 @@ public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanache
 
     @Override
     public Uni<List<Project>> findByProjectUrl(String projectUrl) {
-        return list("projectUrl", projectUrl);
+        return find("projectUrl", projectUrl).stream()
+                .map(projectDaoConverter::convertToEntity)
+                .collect()
+                .asList();
+    }
+
+    @Override
+    public Uni<List<Project>> getAll() {
+        return streamAll().map(projectDaoConverter::convertToEntity).collect().asList();
     }
 }

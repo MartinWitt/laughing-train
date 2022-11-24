@@ -1,17 +1,14 @@
-package io.github.martinwitt.laughing_train.persistence;
+package io.github.martinwitt.laughing_train.domain.entity;
 
-import io.quarkus.mongodb.panache.PanacheMongoEntity;
-import io.quarkus.mongodb.panache.common.MongoEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@MongoEntity(database = "Laughing-Train")
-public class Project extends PanacheMongoEntity implements Serializable {
+public class Project implements Serializable {
 
-    public String projectName;
-    public String projectUrl;
-    public List<String> commitHashes;
+    private String projectName;
+    private String projectUrl;
+    private List<String> commitHashes;
 
     public Project(String projectName, String projectUrl) {
         this.projectName = projectName;
@@ -37,10 +34,6 @@ public class Project extends PanacheMongoEntity implements Serializable {
         return projectUrl;
     }
 
-    public static List<Project> findByProjectName(String projectName) {
-        return list("projectName", projectName);
-    }
-
     /**
      * @param commitHash the commitHash to add
      */
@@ -48,6 +41,10 @@ public class Project extends PanacheMongoEntity implements Serializable {
         if (!commitHashes.contains(commitHash)) {
             commitHashes.add(commitHash);
         }
+    }
+
+    public boolean removeCommitHash(String commitHash) {
+        return commitHashes.remove(commitHash);
     }
 
     /**

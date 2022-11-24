@@ -1,7 +1,7 @@
 package io.github.martinwitt.laughing_train.mining;
 
+import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
-import io.github.martinwitt.laughing_train.persistence.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -73,7 +73,7 @@ public class SearchProjectService {
     }
 
     private Uni<Project> persistProject(Project project) {
-        return projectRepository.findByProjectUrl(project.projectUrl).flatMap(list -> {
+        return projectRepository.findByProjectUrl(project.getProjectUrl()).flatMap(list -> {
             if (list.isEmpty()) {
                 return projectRepository.create(project);
             } else {
@@ -83,10 +83,11 @@ public class SearchProjectService {
     }
 
     private Uni<Project> persistProjectConfigIfMissing(Project project) {
-        return projectConfigRepository.findByProjectUrl(project.projectUrl).flatMap(list -> {
+        String projectUrl = project.getProjectUrl();
+        return projectConfigRepository.findByProjectUrl(projectUrl).flatMap(list -> {
             if (list.isEmpty()) {
                 return projectConfigRepository
-                        .create(ProjectConfig.ofProjectUrl(project.projectUrl))
+                        .create(ProjectConfig.ofProjectUrl(projectUrl))
                         .replaceWith(project);
             } else {
                 return Uni.createFrom().item(project);

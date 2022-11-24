@@ -21,4 +21,3 @@ public class ProjectConfigConverter implements DaoConverter<ProjectConfig, Proje
         return entity;
     }
 }
-
