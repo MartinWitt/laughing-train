@@ -1,14 +1,10 @@
-package io.github.martinwitt.laughing_train.persistence;
+package io.github.martinwitt.laughing_train.domain.entity;
 
-import com.google.common.flogger.FluentLogger;
-import io.quarkus.mongodb.panache.common.MongoEntity;
 import java.io.Serializable;
 import java.util.Objects;
 
-@MongoEntity(database = "Laughing-Train")
 public class ProjectConfig implements Serializable {
 
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private String sourceFolder;
     private String projectUrl;
 

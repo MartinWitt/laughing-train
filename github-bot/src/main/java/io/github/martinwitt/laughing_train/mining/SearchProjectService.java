@@ -1,7 +1,7 @@
 package io.github.martinwitt.laughing_train.mining;
 
+import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.Project;
-import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.micrometer.core.instrument.MeterRegistry;

@@ -1,6 +1,6 @@
 package io.github.martinwitt.laughing_train.persistence.repository;
 
-import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
+import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.smallrye.mutiny.Uni;
 import java.util.List;
 

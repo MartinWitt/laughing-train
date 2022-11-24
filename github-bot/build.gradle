@@ -25,6 +25,7 @@ dependencies {
 	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
 	testImplementation 'com.github.javafaker:javafaker:1.0.2'
+	implementation project(":application")
 }
 
 group 'io.github.martinwitt'

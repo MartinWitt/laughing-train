@@ -2,7 +2,7 @@ package io.github.martinwitt.laughing_train.services;
 
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
-import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
+import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.smallrye.mutiny.Uni;
 import java.util.List;
