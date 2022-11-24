@@ -49,7 +49,10 @@ public class BadSmellGraphQLTest {
                 .toUni()
                 .subscribe()
                 .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem();
+                .awaitItem()
+                .getItem()
+                .await()
+                .indefinitely();
 
         Document document = document(Operation.operation(
                 OperationType.QUERY,
@@ -98,13 +101,15 @@ public class BadSmellGraphQLTest {
                 .create(project)
                 .subscribe()
                 .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem();
+                .awaitItem()
+                .getItem();
         project.addCommitHash("aaaa");
         projectRepository
                 .save(project)
                 .subscribe()
                 .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem();
+                .awaitItem()
+                .getItem();
         ;
         assertTrue(client.executeSync(
                         """

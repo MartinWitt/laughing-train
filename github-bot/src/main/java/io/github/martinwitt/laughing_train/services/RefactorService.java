@@ -71,7 +71,7 @@ public class RefactorService {
     @Inject
     ProjectConfigService projectConfigService;
 
-    public Uni<String> refactor(List<BadSmell> badSmells) {
+    public Uni<String> refactor(List<? extends BadSmell> badSmells) {
         logger.atInfo().log("Refactoring %d bad smells", badSmells.size());
         var badSmellByAnalyzer = badSmells.stream().collect(Collectors.groupingBy(BadSmell::getAnalyzer));
         for (var entry : badSmellByAnalyzer.entrySet()) {

@@ -2,6 +2,7 @@ package io.github.martinwitt.laughing_train.persistence.dao;
 
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
+import org.bson.types.ObjectId;
 
 @MongoEntity(database = "Laughing-Train", collection = "ProjectConfig")
 public class ProjectConfigDao extends PanacheMongoEntity {
@@ -10,16 +11,10 @@ public class ProjectConfigDao extends PanacheMongoEntity {
     private String projectUrl;
 
     public ProjectConfigDao() {
+        id = new ObjectId();
         // for JPA
     }
-    /**
-     * @param sourceFolder
-     * @param projectUrl
-     */
-    public ProjectConfigDao(String sourceFolder, String projectUrl) {
-        this.sourceFolder = sourceFolder;
-        this.projectUrl = projectUrl;
-    }
+
     /**
      * @return the sourceFolder
      */

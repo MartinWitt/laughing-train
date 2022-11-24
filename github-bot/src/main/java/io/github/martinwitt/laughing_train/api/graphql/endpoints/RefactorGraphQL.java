@@ -1,4 +1,4 @@
-package io.github.martinwitt.laughing_train.api;
+package io.github.martinwitt.laughing_train.api.graphql.endpoints;
 
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;

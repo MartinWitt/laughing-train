@@ -52,29 +52,26 @@ public class Project implements Serializable {
     }
 
     /** (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+     * @see Object#hashCode()
      */
-    
     @Override
     public int hashCode() {
         return Objects.hash(projectName, projectUrl, commitHashes);
     }
 
     /** (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @see Object#equals(Object)
      */
-    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
         if (obj instanceof Project project) {
-        return Objects.equals(projectName, project.projectName) && Objects.equals(projectUrl, project.projectUrl)
-                && Objects.equals(commitHashes, project.commitHashes);
+            return Objects.equals(projectName, project.projectName)
+                    && Objects.equals(projectUrl, project.projectUrl)
+                    && Objects.equals(commitHashes, project.commitHashes);
         }
         return false;
     }
-
-    
 }

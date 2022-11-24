@@ -5,21 +5,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.javafaker.Faker;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
+import io.github.martinwitt.laughing_train.persistence.impl.BadSmellRepositoryImpl;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.utils.Contract;
 import io.github.martinwitt.laughing_train.utils.TestAnalyzerResult;
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
+import java.util.Random;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.junit.jupiter.api.Test;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 @QuarkusTest
-public class DatabaseTest {
+class DatabaseTest {
 
     @Inject
     BadSmellRepository badSmellRepository;
+
+    @Inject
+    BadSmellRepositoryImpl badSmellRepositoryImpl;
 
     private static Faker faker = new Faker();
 
@@ -50,7 +55,7 @@ public class DatabaseTest {
     }
 
     @Test
-    @Contract("Multple BadSmells can be inserted into the database")
+    @Contract("Multiple BadSmells can be inserted into the database")
     void insertMultipleBadSmell() {
         cleanDB();
         badSmellRepository
@@ -73,21 +78,25 @@ public class DatabaseTest {
     }
 
     /**
-     * Cleans the databse before each test.
+     * Cleans the database before each test.
      */
     private void cleanDB() {
-        badSmellRepository
-                .getAll()
-                .map(badSmell -> badSmellRepository.deleteByIdentifier(badSmell.getIdentifier()))
-                .toUni()
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem();
+        badSmellRepositoryImpl.deleteAll().await().indefinitely();
     }
 
     private BadSmell createWithMessage(String ruleID) {
+        Random random = new Random();
         TestAnalyzerResult testAnalyzerResult = new TestAnalyzerResult(
-                new RuleId(ruleID), faker.file().fileName(), new Position(0, 0, 0, 0, 0, 0), "test");
+                new RuleId(ruleID),
+                faker.file().fileName(),
+                new Position(
+                        random.nextInt(),
+                        random.nextInt(),
+                        random.nextInt(),
+                        random.nextInt(),
+                        random.nextInt(),
+                        random.nextInt()),
+                "test");
         return new BadSmell(testAnalyzerResult, "test", "test", "test");
     }
 }
