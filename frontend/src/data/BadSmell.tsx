@@ -2,7 +2,6 @@ import { Position } from "./Position"
 
 export type BadSmell = {
   identifier: string
-  id: string
   name: string
   messageMarkdown: string
   snippet: string

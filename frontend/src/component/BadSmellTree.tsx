@@ -93,7 +93,7 @@ function CodeBlocks(params: BadSmell[], setSelected: (selected: string) => void)
             <Stack spacing={2} direction='column' alignItems={"center"}>
               {params.map((badSmell) => {
                 return (
-                  <Card key={badSmell.id} sx={{
+                  <Card key={badSmell.identifier} sx={{
                     alignItems: "center",
                     justifyContent: "center",
                     alignContent: "center",
