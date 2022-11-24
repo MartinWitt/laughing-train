@@ -8,7 +8,7 @@ import io.github.martinwitt.laughing_train.data.AnalyzerRequest.WithProject;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
-import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
+import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.health.api.AsyncHealthCheck;
 import io.smallrye.mutiny.Uni;
@@ -84,7 +84,7 @@ public class QodanaService {
         return analyzer.runQodana(dir);
     }
 
-    @ConsumeEvent(value = ServiceAdresses.QODANA_ANALYZER_REQUEST, blocking = true)
+    @ConsumeEvent(value = ServiceAddresses.QODANA_ANALYZER_REQUEST, blocking = true)
     public QodanaResult analyze(AnalyzerRequest request) {
         logger.atInfo().log("Received request %s", request);
         try {
@@ -112,12 +112,15 @@ public class QodanaService {
     }
 
     private FindProjectConfigResult getProjectConfig(WithProject item) {
-        return projectConfigService.getConfig(
-                new FindProjectConfigRequest.ByProjectUrl(item.project().url()));
+        return new FindProjectConfigResult.MultipleResults(projectConfigService
+                .getConfig(
+                        new FindProjectConfigRequest.ByProjectUrl(item.project().url()))
+                .await()
+                .indefinitely());
     }
 
     private void publishResults(QodanaResult result) {
-        eventBus.publish(ServiceAdresses.QODANA_ANALYZER_RESPONSE, result);
+        eventBus.publish(ServiceAddresses.QODANA_ANALYZER_RESPONSE, result);
     }
 
     private QodanaResult invokeQodana(AnalyzerRequest.WithProject project, ProjectConfig projectConfig) {

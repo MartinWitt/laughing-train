@@ -1,13 +1,13 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import com.google.common.flogger.FluentLogger;
-import com.mongodb.client.model.Aggregates;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
-import io.github.martinwitt.laughing_train.persistence.Project;
-import io.github.martinwitt.laughing_train.services.ServiceAdresses;
+import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
+import io.github.martinwitt.laughing_train.services.ServiceAddresses;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Uni;
@@ -44,6 +44,9 @@ public class PeriodicMiner {
     @Inject
     SearchProjectService searchProjectService;
 
+    @Inject
+    ProjectRepository projectRepository;
+
     private final MeterRegistry registry;
 
     private final Random random = new Random();
@@ -61,10 +64,7 @@ public class PeriodicMiner {
     }
 
     private Uni<Project> getKnownProject() {
-        return Uni.createFrom()
-                .item(Project.<Project>mongoCollection()
-                        .aggregate(List.of(Aggregates.sample(1)))
-                        .first());
+        return projectRepository.getAll().map(list -> list.get(random.nextInt(list.size())));
     }
 
     void mine(@Observes StartupEvent event) {
@@ -103,14 +103,14 @@ public class PeriodicMiner {
                         },
                         e -> {
                             registry.counter("qodana.failure").increment();
-                            logger.atInfo().log("Failed mining" + e.getMessage());
+                            logger.atInfo().log("Failed mining " + e.getMessage());
                             mineRandomRepo();
                         });
     }
 
     private Uni<Message<ProjectResult>> checkoutProject(Project project) {
         return eventBus.<ProjectResult>request(
-                ServiceAdresses.PROJECT_REQUEST,
+                ServiceAddresses.PROJECT_REQUEST,
                 new ProjectRequest.WithUrl(project.getProjectUrl()),
                 new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)));
     }
@@ -118,7 +118,7 @@ public class PeriodicMiner {
     private Uni<Message<QodanaResult>> analyzeProject(Message<ProjectResult> message) {
         if (message.body() instanceof ProjectResult.Success project) {
             return eventBus.<QodanaResult>request(
-                    ServiceAdresses.QODANA_ANALYZER_REQUEST,
+                    ServiceAddresses.QODANA_ANALYZER_REQUEST,
                     new AnalyzerRequest.WithProject(project.project()),
                     new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)));
         } else {
@@ -130,17 +130,23 @@ public class PeriodicMiner {
     private void addOrUpdateCommitHash(Message<ProjectResult> projectResult) {
         if (projectResult.body() instanceof ProjectResult.Success project) {
             String name = project.project().name();
-            List<Project> query = Project.findByProjectName(name);
             String commitHash = project.project().commitHash();
-            if (hasSingleResult(query)) {
-                query.get(0).addCommitHash(commitHash);
-                query.get(0).persistOrUpdate();
-            } else {
-                String url = project.project().url();
-                var newProject = new Project(name, url);
-                newProject.addCommitHash(commitHash);
-                newProject.persistOrUpdate();
-            }
+            projectRepository
+                    .findByProjectName(name)
+                    .invoke(list -> {
+                        if (hasSingleResult(list)) {
+                            Project queryResult = list.get(0);
+                            queryResult.addCommitHash(commitHash);
+                            projectRepository.save(queryResult);
+                        } else {
+                            String url = project.project().url();
+                            var newProject = new Project(name, url);
+                            newProject.addCommitHash(commitHash);
+                            projectRepository.save(newProject);
+                        }
+                    })
+                    .subscribe()
+                    .with(v -> logger.atInfo().log("Added commit hash %s to project %s", commitHash, name));
         }
     }
 

@@ -1,6 +1,6 @@
 package io.github.martinwitt.laughing_train.data;
 
-import io.github.martinwitt.laughing_train.persistence.ProjectConfig;
+import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import java.io.Serializable;
 import java.util.List;
 
