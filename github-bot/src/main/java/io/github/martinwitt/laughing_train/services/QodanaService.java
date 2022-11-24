@@ -12,6 +12,7 @@ import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.health.api.AsyncHealthCheck;
 import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.infrastructure.Infrastructure;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
 import java.io.Closeable;
@@ -120,6 +121,7 @@ public class QodanaService {
                         return Uni.createFrom().item(list.get(0));
                     }
                 })
+                .emitOn(Infrastructure.getDefaultExecutor())
                 .map(config -> invokeQodana(project, config))
                 .invoke(v -> publishResults(v))
                 .onFailure()
