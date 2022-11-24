@@ -71,7 +71,7 @@ public class RefactorService {
     @Inject
     ProjectConfigService projectConfigService;
 
-    public void refactor(List<BadSmell> badSmells) {
+    public Uni<String> refactor(List<BadSmell> badSmells) {
         logger.atInfo().log("Refactoring %d bad smells", badSmells.size());
         var badSmellByAnalyzer = badSmells.stream().collect(Collectors.groupingBy(BadSmell::getAnalyzer));
         for (var entry : badSmellByAnalyzer.entrySet()) {
@@ -83,10 +83,11 @@ public class RefactorService {
             }
             logger.atInfo().log("Refactoring");
         }
+        return Uni.createFrom().item("See log for details");
     }
 
-    private void refactorQodana(List<BadSmell> badSmells) {
-        String projectUrl = badSmells.get(0).projectUrl;
+    private void refactorQodana(List<? extends BadSmell> badSmells) {
+        String projectUrl = badSmells.get(0).getProjectUrl();
 
         var projectConfig = projectConfigService.getConfig(new FindProjectConfigRequest.ByProjectUrl(projectUrl));
         logger.atInfo().log("Found %s config ", projectConfig);
@@ -107,7 +108,9 @@ public class RefactorService {
     }
 
     private Promise<String> createPullRequest(
-            AsyncResult<? extends Message<ProjectResult>> message, List<? extends BadSmell> badSmells, ProjectConfig config) {
+            AsyncResult<? extends Message<ProjectResult>> message,
+            List<? extends BadSmell> badSmells,
+            ProjectConfig config) {
         if (message.failed()) {
             logger.atSevere().withCause(message.cause()).log("Failed to get project");
             return Promise.promise();

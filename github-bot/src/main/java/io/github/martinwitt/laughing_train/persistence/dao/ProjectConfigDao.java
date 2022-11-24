@@ -1,9 +1,10 @@
 package io.github.martinwitt.laughing_train.persistence.dao;
 
+import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
 
-@MongoEntity(database = "Laughing-Train")
-public class ProjectConfigDao {
+@MongoEntity(database = "Laughing-Train", collection = "ProjectConfig")
+public class ProjectConfigDao extends PanacheMongoEntity {
 
     private String sourceFolder;
     private String projectUrl;

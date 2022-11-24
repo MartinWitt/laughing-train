@@ -3,6 +3,7 @@ package io.github.martinwitt.laughing_train.domain.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Project implements Serializable {
 
@@ -14,10 +15,6 @@ public class Project implements Serializable {
         this.projectName = projectName;
         this.projectUrl = projectUrl;
         commitHashes = new ArrayList<>();
-    }
-
-    public Project() {
-        // default constructor for mongodb
     }
 
     /**
@@ -53,4 +50,31 @@ public class Project implements Serializable {
     public List<String> getCommitHashes() {
         return commitHashes;
     }
+
+    /** (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(projectName, projectUrl, commitHashes);
+    }
+
+    /** (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Project project) {
+        return Objects.equals(projectName, project.projectName) && Objects.equals(projectUrl, project.projectUrl)
+                && Objects.equals(commitHashes, project.commitHashes);
+        }
+        return false;
+    }
+
+    
 }

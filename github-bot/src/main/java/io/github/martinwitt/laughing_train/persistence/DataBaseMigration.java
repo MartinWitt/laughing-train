@@ -1,12 +1,11 @@
 package io.github.martinwitt.laughing_train.persistence;
 
 import com.google.common.flogger.FluentLogger;
-import com.mongodb.client.model.Filters;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
+import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
-import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
 import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Multi;
 import io.vertx.core.Vertx;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class is used to migrate the database to the latest version.
@@ -32,6 +30,9 @@ public class DataBaseMigration {
 
     @Inject
     ProjectRepository projectRepository;
+
+    @Inject
+    BadSmellRepository badSmellRepository;
 
     @Inject
     Vertx vertx;
@@ -50,9 +51,6 @@ public class DataBaseMigration {
     private void migrateDataBase() {
         logger.atInfo().log("Migrating database");
         createConfigsIfMissing();
-        removeBadSmellsWithoutPosition();
-        removeBadSmellsWithoutIdentifier();
-        removeBadSmellsWithWrongIdentifier();
         setDefaultSourceFolders();
         removeBadSmellsWithMissingProject();
         removeProjectHashesWithoutResults();
@@ -77,18 +75,21 @@ public class DataBaseMigration {
     private void removeDuplicatedBadSmells() {
         projectRepository
                 .getAll()
-                .<Project>map(list -> list.get(new Random().nextInt(list.size())))
-                .map(project -> BadSmell.findByProjectUrl(project.getProjectUrl()))
+                .map(list -> list.get(new Random().nextInt(list.size())))
+                .flatMap(project -> badSmellRepository.findByProjectUrl(project.getProjectUrl()))
                 .map(badSmells -> badSmells.stream().collect(Collectors.groupingBy(BadSmell::getIdentifier)))
                 .onItem()
                 .transformToMulti(badSmells -> Multi.createFrom().iterable(badSmells.entrySet()))
                 .select()
                 .where(entry -> entry.getValue().size() > 1)
                 .invoke(v -> logger.atInfo().log("Found duplicated bad smells for %s", v.getKey()))
-                .invoke(v -> v.getValue().stream().skip(1).forEach(BadSmell::delete))
+                .map(v -> v.getValue().stream().skip(1).toList())
+                .<BadSmell>flatMap(badSmells -> Multi.createFrom().iterable(badSmells))
+                .map(badSmell -> badSmellRepository.deleteByIdentifier(badSmell.getIdentifier()))
+                .collect()
+                .with(Collectors.summarizingLong(v -> v.await().indefinitely()))
                 .subscribe()
-                .with(v -> logger.atInfo().log(
-                        "Removed %d bad smells for %s", v.getValue().size() - 1, v.getKey()));
+                .with(v -> logger.atInfo().log("Removed %d bad smells", v.getSum()));
     }
 
     private void setDefaultSourceFolders() {
@@ -132,34 +133,6 @@ public class DataBaseMigration {
                 .with(v -> logger.atFinest().log("Updated project config"));
     }
 
-    private void removeBadSmellsWithWrongIdentifier() {
-        BadSmell.<BadSmell>findAll().stream()
-                .filter(v -> v.identifier.contains("--"))
-                .map(v -> {
-                    v.identifier = v.identifier.replace("--", "-");
-                    return v;
-                })
-                .forEach(v -> v.update());
-        BadSmell.<BadSmell>findAll().stream()
-                .filter(v -> {
-                    String hashPart = StringUtils.substringAfterLast(v.identifier, "-");
-                    if (hashPart == null) {
-                        return true;
-                    }
-                    return hashPart.equals(v.commitHash);
-                })
-                .forEach(PanacheMongoEntityBase::delete);
-        BadSmell.<BadSmell>findAll().stream()
-                .filter(v -> v.getIdentifier().contains("["))
-                .forEach(PanacheMongoEntityBase::delete);
-    }
-
-    private void removeBadSmellsWithoutIdentifier() {
-        BadSmell.mongoCollection()
-                .find(Filters.not(Filters.exists("identifier")))
-                .forEach(PanacheMongoEntityBase::delete);
-    }
-
     private void removeProjectHashesWithoutResults() {
         projectRepository
                 .getAll()
@@ -173,18 +146,15 @@ public class DataBaseMigration {
     private Multi<String> findEmptyCommitHashes(Project project) {
         return Multi.createFrom()
                 .iterable(project.getCommitHashes().stream()
-                        .filter(hash -> !BadSmell.findByCommitHash(hash).isEmpty())
+                        .filter(hash -> !badSmellRepository
+                                .findByCommitHash(hash)
+                                .await()
+                                .indefinitely()
+                                .isEmpty())
                         .collect(Collectors.toList()));
     }
 
     private void removeCommitHash(Project project, String hash) {
         project.removeCommitHash(hash);
-    }
-
-    private void removeBadSmellsWithoutPosition() {
-        BadSmell.mongoCollection()
-                .find(Filters.not(Filters.exists("position")))
-                .forEach(PanacheMongoEntityBase::delete);
-        ;
     }
 }

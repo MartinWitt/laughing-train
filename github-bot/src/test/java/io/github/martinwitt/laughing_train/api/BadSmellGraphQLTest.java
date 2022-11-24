@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
+import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.utils.TestAnalyzerResult;
 import io.quarkus.test.junit.QuarkusTest;
@@ -17,11 +18,10 @@ import io.smallrye.graphql.client.core.Operation;
 import io.smallrye.graphql.client.core.OperationType;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClientBuilder;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import java.util.regex.Pattern;
-
 import javax.inject.Inject;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
@@ -34,14 +34,23 @@ public class BadSmellGraphQLTest {
     @Inject
     ProjectRepository projectRepository;
 
+    @Inject
+    BadSmellRepository badSmellRepository;
+
     @Test
     void testGetAllBadSmells() throws Exception {
         client = DynamicGraphQLClientBuilder.newBuilder()
                 // .url("http://89.58.49.108:8080/graphql")
                 .url("http://localhost:8081/graphql")
                 .build();
-        createWithMessage("UnnecessaryLocalVariable").persist();
-        createWithMessage("UnnecessaryLocalVariable").persist();
+        Multi.createFrom()
+                .items(createWithMessage("UnnecessaryLocalVariable"), createWithMessage("UnnecessaryLocalVariable"))
+                .map(badSmell -> badSmellRepository.save(badSmell))
+                .toUni()
+                .subscribe()
+                .withSubscriber(UniAssertSubscriber.create())
+                .awaitItem();
+
         Document document = document(Operation.operation(
                 OperationType.QUERY,
                 field("byRuleID", Argument.args(Argument.arg("ruleID", "UnnecessaryLocalVariable")), field("ruleID"))));
