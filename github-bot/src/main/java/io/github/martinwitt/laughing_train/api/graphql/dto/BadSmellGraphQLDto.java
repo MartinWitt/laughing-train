@@ -17,9 +17,8 @@ public class BadSmellGraphQLDto {
     private String filePath;
     private Position position;
 
-    public BadSmellGraphQLDto() {
-        // pojo constructor
-    }
+    @SuppressWarnings("NullAway")
+    public BadSmellGraphQLDto() {}
 
     public BadSmellGraphQLDto(BadSmell badSmell) {
         this.identifier = badSmell.getIdentifier();

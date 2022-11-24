@@ -5,6 +5,7 @@ import io.quarkus.mongodb.panache.common.MongoEntity;
 import org.bson.types.ObjectId;
 
 @MongoEntity(database = "Laughing-Train", collection = "ProjectConfig")
+@SuppressWarnings("NullAway")
 public class ProjectConfigDao extends PanacheMongoEntity {
 
     private String sourceFolder;

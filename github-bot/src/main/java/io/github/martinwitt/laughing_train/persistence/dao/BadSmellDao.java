@@ -5,6 +5,7 @@ import io.quarkus.mongodb.panache.common.MongoEntity;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 @MongoEntity(database = "Laughing-Train", collection = "BadSmell")
+@SuppressWarnings("NullAway")
 public class BadSmellDao extends PanacheMongoEntity {
 
     private String analyzer;

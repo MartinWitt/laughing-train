@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.services;
 
+import com.google.common.base.Strings;
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.Constants;
@@ -94,7 +95,7 @@ public class QodanaService {
                 return new QodanaResult.Failure("Unknown request type");
             }
         } catch (Exception e) {
-            return new QodanaResult.Failure(e.getMessage());
+            return new QodanaResult.Failure(Strings.nullToEmpty(e.getMessage()));
         }
     }
 
@@ -132,7 +133,7 @@ public class QodanaService {
                             project.project()))
                     .get();
         } catch (Exception e) {
-            return new QodanaResult.Failure(e.getMessage());
+            return new QodanaResult.Failure(Strings.nullToEmpty(e.getMessage()));
         }
     }
 
@@ -146,6 +147,7 @@ public class QodanaService {
 
     @ApplicationScoped
     static class ThreadPoolManager {
+        @SuppressWarnings("NullAway")
         ExecutorService service;
 
         @PostConstruct

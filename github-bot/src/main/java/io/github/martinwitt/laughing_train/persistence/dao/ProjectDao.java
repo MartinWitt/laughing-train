@@ -6,6 +6,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 @MongoEntity(database = "Laughing-Train", collection = "Project")
+@SuppressWarnings("NullAway")
 public class ProjectDao extends PanacheMongoEntity {
 
     private String projectName;

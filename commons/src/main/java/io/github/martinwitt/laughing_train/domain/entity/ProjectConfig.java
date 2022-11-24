@@ -17,14 +17,6 @@ public class ProjectConfig implements Serializable {
         return new ProjectConfig(".", projectUrl);
     }
 
-    public ProjectConfig(String projectUrl) {
-        this(".", projectUrl);
-    }
-
-    public ProjectConfig() {
-        sourceFolder = ".";
-    }
-
     /**
      * @param sourceFolder the sourceFolder to set
      */

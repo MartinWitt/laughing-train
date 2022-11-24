@@ -12,8 +12,8 @@ public class Project implements Serializable {
     private List<String> commitHashes;
 
     public Project(String projectName, String projectUrl) {
-        this.projectName = projectName;
-        this.projectUrl = projectUrl;
+        this.projectName = Objects.requireNonNull(projectName);
+        this.projectUrl = Objects.requireNonNull(projectUrl);
         commitHashes = new ArrayList<>();
     }
 

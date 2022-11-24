@@ -26,6 +26,7 @@ import org.kohsuke.github.GitHub;
  */
 @ApplicationScoped
 public class SearchProjectService {
+    @SuppressWarnings("NullAway")
     @ConfigProperty(name = "mining.github.search.orgs")
     List<String> orgs;
 
@@ -68,7 +69,7 @@ public class SearchProjectService {
         return projectRepository
                 .findByProjectName(ghRepo.getName())
                 .<Project>flatMap(v -> v.isEmpty()
-                        ? Uni.createFrom().<Project>nullItem()
+                        ? Uni.createFrom().nothing()
                         : Uni.createFrom().item(v.get(0)));
     }
 

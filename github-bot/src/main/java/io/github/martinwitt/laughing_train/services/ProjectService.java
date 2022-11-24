@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.services;
 
+import com.google.common.base.Strings;
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.Project;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
@@ -67,7 +68,7 @@ public class ProjectService {
             return new ProjectResult.Success(new Project(repoName, url.url(), dir.toFile(), ".", commitHash));
         } else {
             git.close();
-            return new ProjectResult.Error(error.getMessage());
+            return new ProjectResult.Error(Strings.nullToEmpty(error.getMessage()));
         }
     }
 

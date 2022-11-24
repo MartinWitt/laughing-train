@@ -19,6 +19,7 @@ dependencies {
 	implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.4.5'
 	errorprone("com.google.errorprone:error_prone_core:2.16")
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
+	annotationProcessor "com.uber.nullaway:nullaway:+"
 }
 testing {
     suites {
@@ -59,6 +60,12 @@ tasks.withType(JavaCompile).configureEach {
 		options.errorprone.enabled = true
     options.errorprone.allDisabledChecksAsWarnings = false // change it to true to enable
 		options.errorprone.enable("Var")
+		  if (!name.toLowerCase().contains("test")) {
+    		options.errorprone {
+      		check("NullAway")
+					option("NullAway:AnnotatedPackages", "io.github.martinwitt.laughing_train")
+    }
+  }
 }
 compileJava {
 	options.encoding = 'UTF-8'
