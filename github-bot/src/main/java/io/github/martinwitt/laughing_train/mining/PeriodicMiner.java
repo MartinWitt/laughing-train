@@ -7,6 +7,7 @@ import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
+import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.github.martinwitt.laughing_train.services.ServiceAddresses;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.runtime.StartupEvent;
@@ -46,6 +47,9 @@ public class PeriodicMiner {
 
     @Inject
     ProjectRepository projectRepository;
+
+    @Inject
+    QodanaService qodanaService;
 
     private final MeterRegistry registry;
 
@@ -87,7 +91,7 @@ public class PeriodicMiner {
                 .subscribe()
                 .with(
                         v -> {
-                            if (v.body() instanceof QodanaResult.Success success) {
+                            if (v instanceof QodanaResult.Success success) {
                                 if (success.result().isEmpty()) {
                                     registry.counter("qodana.failure").increment();
                                 } else {
@@ -115,12 +119,10 @@ public class PeriodicMiner {
                 new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)));
     }
 
-    private Uni<Message<QodanaResult>> analyzeProject(Message<ProjectResult> message) {
+    private Uni<QodanaResult> analyzeProject(Message<ProjectResult> message) {
         if (message.body() instanceof ProjectResult.Success project) {
-            return eventBus.<QodanaResult>request(
-                    ServiceAddresses.QODANA_ANALYZER_REQUEST,
-                    new AnalyzerRequest.WithProject(project.project()),
-                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)));
+            return qodanaService.analyzeUni(new AnalyzerRequest.WithProject(project.project()));
+
         } else {
             logger.atWarning().log("Mining periodic %s failed", message);
             return Uni.createFrom().failure(new IllegalStateException("No project found"));
@@ -154,8 +156,8 @@ public class PeriodicMiner {
         return query.size() == 1;
     }
 
-    private Uni<Void> saveQodanaResults(Message<QodanaResult> message) {
-        if (message.body() instanceof QodanaResult.Success success) {
+    private Uni<Void> saveQodanaResults(QodanaResult message) {
+        if (message instanceof QodanaResult.Success success) {
             return success.project()
                     .runInContext(() -> {
                         try {

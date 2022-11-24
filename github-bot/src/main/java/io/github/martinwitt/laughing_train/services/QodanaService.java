@@ -7,7 +7,6 @@ import io.github.martinwitt.laughing_train.Constants;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest.WithProject;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
-import io.github.martinwitt.laughing_train.data.FindProjectConfigResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.quarkus.vertx.ConsumeEvent;
@@ -90,7 +89,7 @@ public class QodanaService {
         logger.atInfo().log("Received request %s", request);
         try {
             if (request instanceof AnalyzerRequest.WithProject project) {
-                return runQodanaWithConfig(project);
+                return runQodanaWithConfig(project).await().indefinitely();
             } else {
                 return new QodanaResult.Failure("Unknown request type");
             }
@@ -99,25 +98,37 @@ public class QodanaService {
         }
     }
 
-    private QodanaResult runQodanaWithConfig(AnalyzerRequest.WithProject project) {
-        var projectConfig = getProjectConfig(project);
-        if (projectConfig instanceof FindProjectConfigResult.SingleResult found) {
-            var qodanaResult = invokeQodana(project, found.projectConfig());
-            if (qodanaResult instanceof QodanaResult.Success success) {
-                publishResults(success);
+    public Uni<QodanaResult> analyzeUni(AnalyzerRequest request) {
+        logger.atInfo().log("Received request %s", request);
+        try {
+            if (request instanceof AnalyzerRequest.WithProject project) {
+                return runQodanaWithConfig(project);
+            } else {
+                return Uni.createFrom().item(new QodanaResult.Failure("Unknown request type"));
             }
-            return qodanaResult;
-        } else {
-            return new QodanaResult.Failure("No config found");
+        } catch (Exception e) {
+            return Uni.createFrom().item(new QodanaResult.Failure(Strings.nullToEmpty(e.getMessage())));
         }
     }
 
-    private FindProjectConfigResult getProjectConfig(WithProject item) {
-        return new FindProjectConfigResult.MultipleResults(projectConfigService
-                .getConfig(
-                        new FindProjectConfigRequest.ByProjectUrl(item.project().url()))
-                .await()
-                .indefinitely());
+    private Uni<QodanaResult> runQodanaWithConfig(AnalyzerRequest.WithProject project) {
+        return getProjectConfig(project)
+                .flatMap(list -> {
+                    if (list.isEmpty()) {
+                        return Uni.createFrom().failure(new RuntimeException("No config found"));
+                    } else {
+                        return Uni.createFrom().item(list.get(0));
+                    }
+                })
+                .map(config -> invokeQodana(project, config))
+                .invoke(v -> publishResults(v))
+                .onFailure()
+                .recoverWithItem(e -> new QodanaResult.Failure(Strings.nullToEmpty(e.getMessage())));
+    }
+
+    private Uni<List<ProjectConfig>> getProjectConfig(WithProject item) {
+        return projectConfigService.getConfig(
+                new FindProjectConfigRequest.ByProjectUrl(item.project().url()));
     }
 
     private void publishResults(QodanaResult result) {
