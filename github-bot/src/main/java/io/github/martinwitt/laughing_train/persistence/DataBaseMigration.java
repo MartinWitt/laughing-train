@@ -85,11 +85,13 @@ public class DataBaseMigration {
                 .invoke(v -> logger.atInfo().log("Found duplicated bad smells for %s", v.getKey()))
                 .map(v -> v.getValue().stream().skip(1).toList())
                 .<BadSmell>flatMap(badSmells -> Multi.createFrom().iterable(badSmells))
-                .map(badSmell -> badSmellRepository.deleteByIdentifier(badSmell.getIdentifier()))
+                .onItem()
+                .transformToUniAndConcatenate(
+                        badSmell -> badSmellRepository.deleteByIdentifier(badSmell.getIdentifier()))
                 .collect()
-                .with(Collectors.summarizingLong(v -> v.await().indefinitely()))
+                .with(Collectors.counting())
                 .subscribe()
-                .with(v -> logger.atInfo().log("Removed %d bad smells", v.getSum()));
+                .with(v -> logger.atInfo().log("Removed %d bad smells", v));
     }
 
     private void setDefaultSourceFolders() {
