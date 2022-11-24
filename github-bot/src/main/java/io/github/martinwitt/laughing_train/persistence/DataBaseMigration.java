@@ -8,6 +8,7 @@ import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigR
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.infrastructure.Infrastructure;
 import io.vertx.core.Vertx;
 import java.util.Map;
 import java.util.Random;
@@ -75,6 +76,7 @@ public class DataBaseMigration {
     private void removeDuplicatedBadSmells() {
         projectRepository
                 .getAll()
+                .emitOn(Infrastructure.getDefaultExecutor())
                 .map(list -> list.get(new Random().nextInt(list.size())))
                 .flatMap(project -> badSmellRepository.findByProjectUrl(project.getProjectUrl()))
                 .map(badSmells -> badSmells.stream().collect(Collectors.groupingBy(BadSmell::getIdentifier)))
