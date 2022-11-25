@@ -33,7 +33,7 @@ public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanache
 
     @Override
     public Uni<Project> create(Project project) {
-        return findByProjectUrl(project.getProjectUrl()).log().<Project>flatMap(list -> {
+        return findByProjectUrl(project.getProjectUrl()).<Project>flatMap(list -> {
             if (list.isEmpty()) {
                 return persist(projectDaoConverter.convertToDao(project)).map(projectDaoConverter::convertToEntity);
             } else {

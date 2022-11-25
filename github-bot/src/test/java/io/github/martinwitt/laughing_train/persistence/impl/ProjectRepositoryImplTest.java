@@ -11,6 +11,7 @@ import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
@@ -20,6 +21,7 @@ public class ProjectRepositoryImplTest {
 
     private Faker faker = new Faker();
 
+    @Order(3)
     @Test
     void testCreate() {
         Project project = createMockProject();
@@ -31,6 +33,7 @@ public class ProjectRepositoryImplTest {
                 .assertItem(project);
     }
 
+    @Order(2)
     @Test
     void testDeleteByProjectUrl() {
         Project project = createMockProject();
@@ -49,6 +52,7 @@ public class ProjectRepositoryImplTest {
         assertThat(projectRepository.getAll().await().indefinitely()).isEmpty();
     }
 
+    @Order(1)
     @Test
     void testFindByProjectUrl() {
         Project project = createMockProject();

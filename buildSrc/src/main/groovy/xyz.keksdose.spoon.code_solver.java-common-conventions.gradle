@@ -72,7 +72,11 @@ java {
 		languageVersion.set(JavaLanguageVersion.of(17))
 	}
 }
-
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
 compileTestJava {
 	options.encoding = 'UTF-8'
 }
