@@ -23,8 +23,6 @@ public class CommitBuilder {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    public CommitBuilder() {}
-
     public static void refactorRepo(
             String path, String sourceFiles, String file, BiFunction<String, String, Changelog> transformation) {
         ConfigStore config = new ConfigStore();
@@ -103,5 +101,9 @@ public class CommitBuilder {
             }
         }
         return sb.toString();
+    }
+
+    private CommitBuilder() {
+        // UtilityClass
     }
 }

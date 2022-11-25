@@ -138,4 +138,8 @@ public class JunitHelper {
     public static <T> CtTypeReference<T> getJunit5TestReference(Factory factory) {
         return factory.createReference("org.junit.jupiter.api.Test");
     }
+
+    private JunitHelper() {
+        // UtilityClass
+    }
 }
