@@ -111,17 +111,17 @@ public class DataBaseMigration {
                                 "https://github.com/assertj/assertj",
                                 "assertj-core")
                         .entrySet())
-                .invoke(v -> projectConfigRepository
+                .map(v -> projectConfigRepository
                         .findByProjectUrl(v.getKey())
                         .map(list -> list.get(0))
                         .invoke(projectConfig -> {
                             projectConfig.setSourceFolder(v.getValue());
                             projectConfigRepository.save(projectConfig);
-                        })
-                        .subscribe()
-                        .with(item -> logger.atInfo().log("Updated project config for %s", item.getProjectUrl())))
+                        }))
+                .collect()
+                .with(Collectors.toList())
                 .subscribe()
-                .with(v -> logger.atFinest().log("Updated project config"));
+                .with(v -> logger.atInfo().log("Updated %s project configs", v.size()));
     }
 
     private void createConfigsIfMissing() {
