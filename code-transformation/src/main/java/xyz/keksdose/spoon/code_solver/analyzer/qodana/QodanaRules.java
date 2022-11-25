@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Function;
 import xyz.keksdose.spoon.code_solver.analyzer.AnalyzerRule;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.AbstractRefactoring;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.CodeBlock2Expr;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.InnerClassMayBeStatic;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.MethodMayBeStatic;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.NonProtectedConstructorInAbstractClass;
@@ -46,7 +47,8 @@ public enum QodanaRules implements AnalyzerRule {
             "ToArrayCallWithZeroLengthArrayArgument", ToArrayCallWithZeroLengthArrayArgument::new),
     UNUSED_LABEL("UnusedLabel", UnusedLabel::new),
     UTILITY_CLASS_WITHOUT_PRIVATE_CONSTRUCTOR(
-            "UtilityClassWithoutPrivateConstructor", UtilityClassWithoutPrivateConstructor::new);
+            "UtilityClassWithoutPrivateConstructor", UtilityClassWithoutPrivateConstructor::new),
+    CODE_BLOCK_2_EXPR("CodeBlock2Expr", CodeBlock2Expr::new);
 
     private final RuleId ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
