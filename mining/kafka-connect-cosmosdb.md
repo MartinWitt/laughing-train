@@ -312,19 +312,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/JsonToStruct.java`
             case STRUCT:
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### RuleId[ruleID=HtmlWrongAttributeValue]
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-25-08-01-27.703.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=ReturnNull]
 ### RuleId[ruleID=ReturnNull]
 Return of `null`
@@ -372,6 +359,19 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
         return null;
     }
 
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### RuleId[ruleID=HtmlWrongAttributeValue]
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-25-08-20-06.283.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -500,18 +500,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/PointWriter.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends SinkOperationFailedResponse`
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
-#### Snippet
-```java
-     * @param failedResponses the kafka record that failed to write
-     */
-    private void sendToDlqIfConfigured(List<SinkOperationFailedResponse> failedResponses) {
-        if (context != null && context.errantRecordReporter() != null) {
-            for (SinkOperationFailedResponse sinkRecordResponse : failedResponses) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
 Can generalize to `? extends SinkRecord`
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
 #### Snippet
@@ -524,27 +512,15 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super SourceRecord`
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
+Can generalize to `? extends SinkOperationFailedResponse`
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
 #### Snippet
 ```java
-
-    @SuppressWarnings("squid:S135") // while loop needs multiple breaks
-    private void fillRecords(List<SourceRecord> records, String topic) throws InterruptedException {
-        Long bufferSize = config.getTaskBufferSize();
-        Long batchSize = config.getTaskBatchSize();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends JsonNode`
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
-#### Snippet
-```java
-    }
-
-    protected void handleCosmosDbChanges(List<JsonNode> docs)  {
-        for (JsonNode document : docs) {
-            // Blocks for each transfer till it is processed by the poll method.
+     * @param failedResponses the kafka record that failed to write
+     */
+    private void sendToDlqIfConfigured(List<SinkOperationFailedResponse> failedResponses) {
+        if (context != null && context.errantRecordReporter() != null) {
+            for (SinkOperationFailedResponse sinkRecordResponse : failedResponses) {
 ```
 
 ### RuleId[ruleID=BoundedWildcard]
@@ -571,6 +547,30 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
         String key = connectorConfigs.get(CosmosDBSinkConfig.COSMOS_CONN_KEY_CONF);
 ```
 
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? super SourceRecord`
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("squid:S135") // while loop needs multiple breaks
+    private void fillRecords(List<SourceRecord> records, String topic) throws InterruptedException {
+        Long bufferSize = config.getTaskBufferSize();
+        Long batchSize = config.getTaskBatchSize();
+```
+
+### RuleId[ruleID=BoundedWildcard]
+Can generalize to `? extends JsonNode`
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
+#### Snippet
+```java
+    }
+
+    protected void handleCosmosDbChanges(List<JsonNode> docs)  {
+        for (JsonNode document : docs) {
+            // Blocks for each transfer till it is processed by the poll method.
+```
+
 ## RuleId[ruleID=UnusedAssignment]
 ### RuleId[ruleID=UnusedAssignment]
 The value changed at `groupOrder++` is never used
@@ -586,18 +586,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/ProvidedInConf
 
 ### RuleId[ruleID=UnusedAssignment]
 The value changed at `groupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
-#### Snippet
-```java
-                ID_STRATEGY_DOC,
-                groupName,
-                groupOrder++,
-                Width.MEDIUM,
-                TEMPLATE_CONFIG_DISPLAY
-```
-
-### RuleId[ruleID=UnusedAssignment]
-The value changed at `groupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/KafkaMetadataStrategyConfig.java`
 #### Snippet
 ```java
@@ -606,6 +594,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/KafkaMetadataS
                 groupOrder++,
                 ConfigDef.Width.MEDIUM,
                 DELIMITER_CONFIG_DISPLAY
+```
+
+### RuleId[ruleID=UnusedAssignment]
+The value changed at `groupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
+#### Snippet
+```java
+                ID_STRATEGY_DOC,
+                groupName,
+                groupOrder++,
+                Width.MEDIUM,
+                TEMPLATE_CONFIG_DISPLAY
 ```
 
 ### RuleId[ruleID=UnusedAssignment]
