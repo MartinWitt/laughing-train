@@ -298,4 +298,8 @@ public class PullRequest {
         }
         return sb.toString();
     }
+
+    private PullRequest() {
+        // UtilityClass
+    }
 }
