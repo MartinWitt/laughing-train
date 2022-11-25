@@ -48,13 +48,11 @@ public class ProjectConfigRepositoryImpl
     public Uni<ProjectConfig> save(ProjectConfig projectConfig) {
         return find("projectUrl", projectConfig.getProjectUrl()).list().flatMap(list -> {
             if (list.isEmpty()) {
-                System.out.println("Creating project " + projectConfig.getProjectUrl());
                 return persist(projectConfigConverter.convertToDao(projectConfig))
                         .map(projectConfigConverter::convertToEntity);
             } else {
                 var dao = projectConfigConverter.convertToDao(projectConfig);
                 dao.id = list.get(0).id;
-                System.out.println("Updating project " + dao.id);
                 return update(dao).map(projectConfigConverter::convertToEntity);
             }
         });
