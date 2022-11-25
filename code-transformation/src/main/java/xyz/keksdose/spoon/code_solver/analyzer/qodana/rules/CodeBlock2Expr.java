@@ -51,7 +51,9 @@ public class CodeBlock2Expr extends AbstractRefactoring {
             return;
         }
         for (CtLambda lambda : findMatchingElements(type)) {
-            if (lambda.getBody() != null && lambda.getBody().getStatements().size() == 1) {
+            if (lambda.getBody() != null
+                    && lambda.getBody().getStatements().size() == 1
+                    && lambda.getExpression() == null) {
                 CtExpression<?> statement = ((CtReturn) lambda.getBody().getStatement(0)).getReturnedExpression();
                 lambda.setBody(null);
                 lambda.setExpression(statement);
