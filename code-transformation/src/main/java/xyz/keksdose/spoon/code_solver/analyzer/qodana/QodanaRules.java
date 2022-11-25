@@ -47,7 +47,6 @@ public enum QodanaRules implements AnalyzerRule {
     UNUSED_LABEL("UnusedLabel", UnusedLabel::new),
     UTILITY_CLASS_WITHOUT_PRIVATE_CONSTRUCTOR(
             "UtilityClassWithoutPrivateConstructor", UtilityClassWithoutPrivateConstructor::new);
-    ;
 
     private final RuleId ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
