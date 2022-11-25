@@ -20,24 +20,24 @@ dependencies {
 
 ### RuleId[ruleID=GroovyUnusedAssignment]
 Assignment is not used
-in `msgraph-mail/java/app/build.gradle`
-#### Snippet
-```java
-}
-
-archivesBaseName = 'app'
-
-dependencies {
-```
-
-### RuleId[ruleID=GroovyUnusedAssignment]
-Assignment is not used
 in `msgraph-mail/java/utilities/build.gradle`
 #### Snippet
 ```java
 }
 
 archivesBaseName = 'utilities'
+
+dependencies {
+```
+
+### RuleId[ruleID=GroovyUnusedAssignment]
+Assignment is not used
+in `msgraph-mail/java/app/build.gradle`
+#### Snippet
+```java
+}
+
+archivesBaseName = 'app'
 
 dependencies {
 ```
