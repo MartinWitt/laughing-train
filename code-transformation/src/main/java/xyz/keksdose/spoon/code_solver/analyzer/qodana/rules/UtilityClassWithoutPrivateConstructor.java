@@ -44,22 +44,23 @@ public class UtilityClassWithoutPrivateConstructor extends AbstractRefactoring {
         if (!isSameType(type, Path.of(result.filePath()))) {
             return;
         }
-        var constructors = type.getElements(new TypeFilter<>(CtConstructor.class));
-        for (var constructor : constructors) {
-            if (constructor.isImplicit() && type instanceof CtClass<?> clazz) {
-                clazz.addConstructor(createConstructor(constructor, clazz));
-                String message = "Added private constructor to utility class %s.".formatted(clazz.getQualifiedName());
-                String messageMarkdown =
-                        "Added private constructor to utility class `%s`.".formatted(clazz.getQualifiedName());
-                listener.setChanged(
-                        type,
-                        new Change(BAD_SMELL, MarkdownString.fromMarkdown(message, messageMarkdown), type, result));
-            }
+        List<CtConstructor<?>> constructors = type.getElements(new TypeFilter<>(CtConstructor.class));
+        if (allConstructorsAreImplicit(constructors) && type instanceof CtClass<?> clazz) {
+            clazz.addConstructor(createConstructor(clazz));
+            String message = "Added private constructor to utility class %s.".formatted(clazz.getQualifiedName());
+            String messageMarkdown =
+                    "Added private constructor to utility class `%s`.".formatted(clazz.getQualifiedName());
+            listener.setChanged(
+                    type, new Change(BAD_SMELL, MarkdownString.fromMarkdown(message, messageMarkdown), type, result));
         }
     }
 
-    private <T> CtConstructor<T> createConstructor(CtConstructor<?> constructor, CtClass<?> clazz) {
-        Factory factory = constructor.getFactory();
+    private boolean allConstructorsAreImplicit(List<CtConstructor<?>> constructors) {
+        return constructors.stream().allMatch(CtConstructor::isImplicit);
+    }
+
+    private <T> CtConstructor<T> createConstructor(CtClass<?> clazz) {
+        Factory factory = clazz.getFactory();
         CtConstructor<T> newConstructor =
                 factory.createConstructor(clazz, Set.of(ModifierKind.PRIVATE), new ArrayList<>(), new HashSet<>());
         CtBlock<?> body = factory.createBlock();
