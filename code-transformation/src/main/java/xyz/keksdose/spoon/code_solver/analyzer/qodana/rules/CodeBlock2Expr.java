@@ -79,6 +79,6 @@ public class CodeBlock2Expr extends AbstractRefactoring {
     }
 
     private Position toStartLinePosition(Position position) {
-        return new Position(position.startLine() - 2, position.startLine() + 2, 0, 0, 0, 0);
+        return new Position(position.startLine() - 1, position.startLine() + 1, 0, 0, 0, 0);
     }
 }

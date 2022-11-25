@@ -75,7 +75,7 @@ public class PositionScanner extends EarlyTerminatingScanner<List<CtElement>> {
     }
 
     private boolean isBeforeEndLine(CtElement element) {
-        return element.getPosition().getLine() <= endLine || endLine == 0;
+        return element.getPosition().getLine() <= endLine;
     }
 
     private boolean isAfterStartLine(CtElement element) {
