@@ -45,14 +45,39 @@ public class UtilityClassWithoutPrivateConstructor extends AbstractRefactoring {
             return;
         }
         List<CtConstructor<?>> constructors = type.getElements(new TypeFilter<>(CtConstructor.class));
-        if (allConstructorsAreImplicit(constructors) && type instanceof CtClass<?> clazz) {
-            clazz.addConstructor(createConstructor(clazz));
-            String message = "Added private constructor to utility class %s.".formatted(clazz.getQualifiedName());
-            String messageMarkdown =
-                    "Added private constructor to utility class `%s`.".formatted(clazz.getQualifiedName());
-            listener.setChanged(
-                    type, new Change(BAD_SMELL, MarkdownString.fromMarkdown(message, messageMarkdown), type, result));
+        if (type instanceof CtClass<?> clazz) {
+            if (allConstructorsAreImplicit(constructors)) {
+                clazz.addTypeMemberAt(0, createConstructor(clazz));
+                String message = "Added private constructor to utility class %s.".formatted(clazz.getQualifiedName());
+                String messageMarkdown =
+                        "Added private constructor to utility class `%s`.".formatted(clazz.getQualifiedName());
+                listener.setChanged(
+                        type,
+                        new Change(BAD_SMELL, MarkdownString.fromMarkdown(message, messageMarkdown), type, result));
+            } else {
+                if (singlePublicEmptyConstructor(type)) {
+                    CtConstructor<?> constructor = constructors.get(0);
+                    type.removeTypeMember(constructor);
+                    clazz.addTypeMemberAt(0, createConstructor(clazz));
+                    String message =
+                            "Added private constructor to utility class %s.".formatted(clazz.getQualifiedName());
+                    String messageMarkdown =
+                            "Added private constructor to utility class `%s`.".formatted(clazz.getQualifiedName());
+                    listener.setChanged(
+                            type,
+                            new Change(BAD_SMELL, MarkdownString.fromMarkdown(message, messageMarkdown), type, result));
+                }
+            }
         }
+    }
+
+    private boolean singlePublicEmptyConstructor(CtType<?> type) {
+        List<CtConstructor<?>> constructors = type.getElements(new TypeFilter<>(CtConstructor.class));
+        return constructors.size() == 1
+                && constructors.get(0).getParameters().isEmpty()
+                && constructors.get(0).getModifiers().contains(ModifierKind.PUBLIC)
+                && constructors.get(0).getBody() != null
+                && constructors.get(0).getBody().getStatements().isEmpty();
     }
 
     private boolean allConstructorsAreImplicit(List<? extends CtConstructor<?>> constructors) {
