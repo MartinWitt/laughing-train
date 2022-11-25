@@ -46,12 +46,10 @@ public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanache
     public Uni<Project> save(Project project) {
         return find("projectUrl", project.getProjectUrl()).list().flatMap(list -> {
             if (list.isEmpty()) {
-                System.out.println("Creating project " + project.getProjectUrl());
                 return persist(projectDaoConverter.convertToDao(project)).map(projectDaoConverter::convertToEntity);
             } else {
                 var dao = projectDaoConverter.convertToDao(project);
                 dao.id = list.get(0).id;
-                System.out.println("Updating project " + dao.id);
                 return update(dao).map(projectDaoConverter::convertToEntity);
             }
         });
