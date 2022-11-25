@@ -69,9 +69,11 @@ public class DataBaseMigration {
                 .transformToMulti(Multi.createFrom()::iterable)
                 .filter(project -> project.getCommitHashes().isEmpty()
                         || project.getProjectUrl().endsWith(".git"))
-                .invoke(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
+                .map(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
+                .collect()
+                .with(Collectors.counting())
                 .subscribe()
-                .with(project -> logger.atInfo().log("Removing project %s", project.getProjectUrl()));
+                .with(project -> logger.atInfo().log("Removing projects %s", project));
     }
 
     private void removeDuplicatedBadSmells() {
