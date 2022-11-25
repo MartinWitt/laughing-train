@@ -55,7 +55,7 @@ public class UtilityClassWithoutPrivateConstructor extends AbstractRefactoring {
         }
     }
 
-    private boolean allConstructorsAreImplicit(List<CtConstructor<?>> constructors) {
+    private boolean allConstructorsAreImplicit(List<? extends CtConstructor<?>> constructors) {
         return constructors.stream().allMatch(CtConstructor::isImplicit);
     }
 
