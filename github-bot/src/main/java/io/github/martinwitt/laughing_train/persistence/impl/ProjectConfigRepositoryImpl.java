@@ -46,15 +46,14 @@ public class ProjectConfigRepositoryImpl
 
     @Override
     public Uni<ProjectConfig> save(ProjectConfig projectConfig) {
-        return findByProjectUrl(projectConfig.getProjectUrl()).flatMap(list -> {
+        return find("projectUrl", projectConfig.getProjectUrl()).list().flatMap(list -> {
             if (list.isEmpty()) {
                 return persist(projectConfigConverter.convertToDao(projectConfig))
                         .map(projectConfigConverter::convertToEntity);
             } else {
                 var dao = projectConfigConverter.convertToDao(projectConfig);
-                dao.id = projectConfigConverter.convertToDao(list.get(0)).id;
-                return update(projectConfigConverter.convertToDao(projectConfig))
-                        .map(projectConfigConverter::convertToEntity);
+                dao.id = list.get(0).id;
+                return update(dao).map(projectConfigConverter::convertToEntity);
             }
         });
     }

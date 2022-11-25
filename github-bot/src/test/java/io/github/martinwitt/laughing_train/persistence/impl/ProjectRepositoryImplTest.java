@@ -6,8 +6,11 @@ import com.github.javafaker.Faker;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.test.junit.QuarkusTest;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import javax.inject.Inject;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
@@ -30,6 +33,7 @@ public class ProjectRepositoryImplTest {
 
     @Test
     void testDeleteByProjectUrl() {
+        assertThat(projectRepository.getAll().await().indefinitely()).isEmpty();
         Project project = createMockProject();
         projectRepository
                 .create(project)
@@ -42,7 +46,15 @@ public class ProjectRepositoryImplTest {
                 .subscribe()
                 .withSubscriber(UniAssertSubscriber.create())
                 .awaitItem()
-                .assertItem(1L);
+                .assertItem(1L)
+                .getItem();
+        assertThat(projectRepository
+                        .findByProjectUrl(project.getProjectUrl())
+                        .subscribe()
+                        .withSubscriber(UniAssertSubscriber.create())
+                        .awaitItem()
+                        .getItem())
+                .isEmpty();
     }
 
     @Test
@@ -66,5 +78,20 @@ public class ProjectRepositoryImplTest {
 
     private Project createMockProject() {
         return new Project(faker.name().name(), faker.internet().url());
+    }
+
+    @BeforeEach
+    @AfterEach
+    void setUp() {
+        projectRepository
+                .getAll()
+                .onItem()
+                .transformToMulti(Multi.createFrom()::iterable)
+                .onItem()
+                .transformToUniAndMerge(v -> projectRepository.deleteByProjectUrl(v.getProjectUrl()))
+                .toUni()
+                .await()
+                .indefinitely();
+        assertThat(projectRepository.getAll().await().indefinitely()).isEmpty();
     }
 }

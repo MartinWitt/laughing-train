@@ -77,6 +77,29 @@ class DatabaseTest {
         assertEquals(2, list.size());
     }
 
+    @Test
+    @Contract("A bad smell can be deleted from the database")
+    void insertAndDeleteBadSmell() {
+        cleanDB();
+        var badSmell = createWithMessage("PointLessBoolean");
+        badSmellRepository
+                .save(badSmell)
+                .subscribe()
+                .withSubscriber(UniAssertSubscriber.create())
+                .awaitItem();
+        badSmellRepository
+                .deleteByIdentifier(badSmell.getIdentifier())
+                .subscribe()
+                .withSubscriber(UniAssertSubscriber.create())
+                .awaitItem();
+        assertThat(badSmellRepository
+                        .findByIdentifier(badSmell.getIdentifier())
+                        .subscribe()
+                        .withSubscriber(UniAssertSubscriber.create())
+                        .awaitItem()
+                        .getItem())
+                .isEmpty();
+    }
     /**
      * Cleans the database before each test.
      */

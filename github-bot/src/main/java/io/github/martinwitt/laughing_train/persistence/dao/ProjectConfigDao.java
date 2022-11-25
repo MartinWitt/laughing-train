@@ -7,12 +7,11 @@ import org.bson.types.ObjectId;
 @MongoEntity(database = "Laughing-Train", collection = "ProjectConfig")
 @SuppressWarnings("NullAway")
 public class ProjectConfigDao extends PanacheMongoEntity {
-
+    public ObjectId id;
     private String sourceFolder;
     private String projectUrl;
 
     public ProjectConfigDao() {
-        id = new ObjectId();
         // for JPA
     }
 

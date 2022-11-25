@@ -67,7 +67,16 @@ compileJava {
 	options.compilerArgs << '-parameters'	
 	options.compilerArgs += ["--enable-preview"]
 }
-
+java {
+	toolchain {
+		languageVersion.set(JavaLanguageVersion.of(17))
+	}
+}
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
 compileTestJava {
 	options.encoding = 'UTF-8'
 }

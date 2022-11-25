@@ -33,7 +33,7 @@ public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanache
 
     @Override
     public Uni<Project> create(Project project) {
-        return findByProjectUrl(project.getProjectUrl()).log().<Project>flatMap(list -> {
+        return findByProjectUrl(project.getProjectUrl()).<Project>flatMap(list -> {
             if (list.isEmpty()) {
                 return persist(projectDaoConverter.convertToDao(project)).map(projectDaoConverter::convertToEntity);
             } else {
@@ -44,13 +44,13 @@ public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanache
 
     @Override
     public Uni<Project> save(Project project) {
-        return findByProjectUrl(project.getProjectUrl()).flatMap(list -> {
+        return find("projectUrl", project.getProjectUrl()).list().flatMap(list -> {
             if (list.isEmpty()) {
                 return persist(projectDaoConverter.convertToDao(project)).map(projectDaoConverter::convertToEntity);
             } else {
                 var dao = projectDaoConverter.convertToDao(project);
-                dao.id = projectDaoConverter.convertToDao(list.get(0)).id;
-                return update(projectDaoConverter.convertToDao(project)).map(projectDaoConverter::convertToEntity);
+                dao.id = list.get(0).id;
+                return update(dao).map(projectDaoConverter::convertToEntity);
             }
         });
     }
