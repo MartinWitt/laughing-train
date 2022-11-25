@@ -52,7 +52,7 @@ public class DataBaseMigration {
                 TimeUnit.MINUTES.toMillis(2),
                 TimeUnit.MINUTES.toMillis(10),
                 id -> vertx.executeBlocking(v -> migrateDataBase()));
-        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(5), id -> vertx.executeBlocking(v -> removeDuplicatedBadSmells()));
+        vertx.setPeriodic(TimeUnit.SECONDS.toMillis(30), id -> vertx.executeBlocking(v -> removeDuplicatedBadSmells()));
     }
 
     private void migrateDataBase() {
@@ -84,6 +84,8 @@ public class DataBaseMigration {
                 .getAll()
                 .emitOn(Infrastructure.getDefaultExecutor())
                 .map(list -> list.get(RANDOM.nextInt(list.size())))
+                .invoke(project ->
+                        logger.atInfo().log("Removing duplicated bad smells for project %s", project.getProjectUrl()))
                 .flatMap(project -> badSmellRepository.findByProjectUrl(project.getProjectUrl()))
                 .map(badSmells -> badSmells.stream().collect(Collectors.groupingBy(BadSmell::getIdentifier)))
                 .onItem()
@@ -129,17 +131,15 @@ public class DataBaseMigration {
                 .getAll()
                 .onItem()
                 .transformToMulti(Multi.createFrom()::iterable)
-                .invoke(project -> projectConfigRepository
+                .select()
+                .when(project -> projectConfigRepository
                         .findByProjectUrl(project.getProjectUrl())
-                        .invoke(projectConfig -> {
-                            if (projectConfig.isEmpty()) {
-                                projectConfigRepository.save(ProjectConfig.ofProjectUrl(project.getProjectUrl()));
-                            }
-                        })
-                        .subscribe()
-                        .with(item -> logger.atInfo().log("Updated project config for %s", project.getProjectName())))
+                        .map(List::isEmpty))
+                .map(v -> projectConfigRepository.create(ProjectConfig.ofProjectUrl(v.getProjectUrl())))
+                .collect()
+                .with(Collectors.counting())
                 .subscribe()
-                .with(v -> logger.atInfo().log("Updated project config"));
+                .with(v -> logger.atInfo().log("Updated project configs %s", v));
     }
 
     private void removeProjectHashesWithoutResults() {
@@ -171,6 +171,7 @@ public class DataBaseMigration {
                 .onItem()
                 .transformToMulti(Multi.createFrom()::iterable)
                 .filter(project -> project.getCommitHashes().isEmpty())
+                .invoke(project -> projectRepository.deleteByProjectName(project.getProjectName()))
                 .map(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
                 .collect()
                 .with(Collectors.counting())
