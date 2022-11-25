@@ -8,6 +8,7 @@ import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigR
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.infrastructure.Infrastructure;
 import io.vertx.core.Vertx;
 import java.util.List;
@@ -171,6 +172,7 @@ public class DataBaseMigration {
                 .onItem()
                 .transformToMulti(Multi.createFrom()::iterable)
                 .filter(project -> project.getCommitHashes().isEmpty())
+                .invoke(project -> logger.atInfo().log("Removing project %s", project.getProjectUrl()))
                 .invoke(project -> projectRepository.deleteByProjectName(project.getProjectName()))
                 .map(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
                 .collect()
