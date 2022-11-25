@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import org.apache.commons.io.FileUtils;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
@@ -121,11 +122,22 @@ public class PeriodicMiner {
 
     private Uni<QodanaResult> analyzeProject(Message<ProjectResult> message) {
         if (message.body() instanceof ProjectResult.Success project) {
-            return qodanaService.analyzeUni(new AnalyzerRequest.WithProject(project.project()));
+            return qodanaService
+                    .analyzeUni(new AnalyzerRequest.WithProject(project.project()))
+                    .invoke(ignore -> tryDeleteProject(project));
 
         } else {
             logger.atWarning().log("Mining periodic %s failed", message);
             return Uni.createFrom().failure(new IllegalStateException("No project found"));
+        }
+    }
+
+    private void tryDeleteProject(ProjectResult.Success project) {
+        try {
+            FileUtils.deleteDirectory(project.project().folder());
+        } catch (IOException e) {
+            logger.atWarning().log(
+                    "Failed to delete project " + project.project().folder());
         }
     }
 

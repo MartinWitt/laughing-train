@@ -164,8 +164,10 @@ public class DataBaseMigration {
                 .onItem()
                 .transformToMulti(Multi.createFrom()::iterable)
                 .filter(project -> project.getCommitHashes().isEmpty())
-                .invoke(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
+                .map(project -> projectRepository
+                        .deleteByProjectUrl(project.getProjectUrl())
+                        .invoke(v -> logger.atInfo().log("Removing project %s", project.getProjectUrl())))
                 .subscribe()
-                .with(project -> logger.atInfo().log("Removing project %s", project.getProjectUrl()));
+                .with(v -> logger.atInfo().log("Removed projects without hashes"));
     }
 }
