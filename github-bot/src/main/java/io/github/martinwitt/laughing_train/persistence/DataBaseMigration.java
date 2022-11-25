@@ -10,6 +10,7 @@ import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.infrastructure.Infrastructure;
 import io.vertx.core.Vertx;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +24,8 @@ import javax.inject.Inject;
  */
 @ApplicationScoped
 public class DataBaseMigration {
+
+    private static final Random RANDOM = new Random();
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
@@ -45,7 +48,7 @@ public class DataBaseMigration {
     }
 
     public void checkPeriodic() {
-        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(30), id -> vertx.executeBlocking(v -> migrateDataBase()));
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(10), id -> vertx.executeBlocking(v -> migrateDataBase()));
         vertx.setPeriodic(TimeUnit.MINUTES.toMillis(5), id -> vertx.executeBlocking(v -> removeDuplicatedBadSmells()));
     }
 
@@ -55,7 +58,7 @@ public class DataBaseMigration {
         setDefaultSourceFolders();
         removeBadSmellsWithMissingProject();
         removeProjectHashesWithoutResults();
-
+        removeProjectsWithOutHashes();
         logger.atInfo().log("Finished migrating database");
     }
 
@@ -66,25 +69,22 @@ public class DataBaseMigration {
                 .transformToMulti(Multi.createFrom()::iterable)
                 .filter(project -> project.getCommitHashes().isEmpty()
                         || project.getProjectUrl().endsWith(".git"))
+                .invoke(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
                 .subscribe()
-                .with(project -> {
-                    logger.atInfo().log("Removing project %s", project.getProjectUrl());
-                    projectRepository.deleteByProjectUrl(project.getProjectUrl());
-                });
+                .with(project -> logger.atInfo().log("Removing project %s", project.getProjectUrl()));
     }
 
     private void removeDuplicatedBadSmells() {
         projectRepository
                 .getAll()
                 .emitOn(Infrastructure.getDefaultExecutor())
-                .map(list -> list.get(new Random().nextInt(list.size())))
+                .map(list -> list.get(RANDOM.nextInt(list.size())))
                 .flatMap(project -> badSmellRepository.findByProjectUrl(project.getProjectUrl()))
                 .map(badSmells -> badSmells.stream().collect(Collectors.groupingBy(BadSmell::getIdentifier)))
                 .onItem()
                 .transformToMulti(badSmells -> Multi.createFrom().iterable(badSmells.entrySet()))
                 .select()
                 .where(entry -> entry.getValue().size() > 1)
-                .invoke(v -> logger.atInfo().log("Found duplicated bad smells for %s", v.getKey()))
                 .map(v -> v.getValue().stream().skip(1).toList())
                 .<BadSmell>flatMap(badSmells -> Multi.createFrom().iterable(badSmells))
                 .onItem()
@@ -134,31 +134,38 @@ public class DataBaseMigration {
                         .subscribe()
                         .with(item -> logger.atInfo().log("Updated project config for %s", project.getProjectName())))
                 .subscribe()
-                .with(v -> logger.atFinest().log("Updated project config"));
+                .with(v -> logger.atInfo().log("Updated project config"));
     }
 
     private void removeProjectHashesWithoutResults() {
         projectRepository
                 .getAll()
                 .onItem()
-                .transformToMulti(Multi.createFrom()::iterable)
-                .map(project -> findEmptyCommitHashes(project).invoke(hash -> removeCommitHash(project, hash)))
+                .<Project>transformToMulti(Multi.createFrom()::iterable)
+                .invoke(this::removeEmptyCommitHashes)
                 .subscribe()
-                .with(v -> logger.atFinest().log("Updated project config"));
+                .with(v -> logger.atInfo().log("Removed empty commit hashes"));
     }
 
-    private Multi<String> findEmptyCommitHashes(Project project) {
-        return Multi.createFrom()
-                .iterable(project.getCommitHashes().stream()
-                        .filter(hash -> !badSmellRepository
-                                .findByCommitHash(hash)
-                                .await()
-                                .indefinitely()
-                                .isEmpty())
-                        .collect(Collectors.toList()));
+    private void removeEmptyCommitHashes(Project project) {
+        Multi.createFrom()
+                .iterable(project.getCommitHashes())
+                .select()
+                .when(hash -> badSmellRepository.findByCommitHash(hash).map(List::isEmpty))
+                .invoke(project::removeCommitHash)
+                .subscribe()
+                .with(hash ->
+                        logger.atInfo().log("Removing commit hash %s from project %s", hash, project.getProjectUrl()));
     }
 
-    private void removeCommitHash(Project project, String hash) {
-        project.removeCommitHash(hash);
+    private void removeProjectsWithOutHashes() {
+        projectRepository
+                .getAll()
+                .onItem()
+                .transformToMulti(Multi.createFrom()::iterable)
+                .filter(project -> project.getCommitHashes().isEmpty())
+                .invoke(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
+                .subscribe()
+                .with(project -> logger.atInfo().log("Removing project %s", project.getProjectUrl()));
     }
 }
