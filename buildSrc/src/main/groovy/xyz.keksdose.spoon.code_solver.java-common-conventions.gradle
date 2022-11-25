@@ -30,11 +30,6 @@ testing {
         }
     }
 }
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
-}
 
 spotless {
 	format 'misc', {
@@ -69,7 +64,8 @@ tasks.withType(JavaCompile).configureEach {
 }
 compileJava {
 	options.encoding = 'UTF-8'
-	options.compilerArgs << '-parameters'
+	options.compilerArgs << '-parameters'	
+	options.compilerArgs += ["--enable-preview"]
 }
 
 compileTestJava {
