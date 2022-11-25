@@ -10,6 +10,7 @@ import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +34,7 @@ public class ProjectRepositoryImplTest {
 
     @Test
     void testDeleteByProjectUrl() {
+        assertThat(projectRepository.getAll().await().indefinitely()).isEmpty();
         Project project = createMockProject();
         projectRepository
                 .create(project)
@@ -47,7 +49,13 @@ public class ProjectRepositoryImplTest {
                 .awaitItem()
                 .assertItem(1L)
                 .getItem();
-        assertThat(projectRepository.getAll().await().indefinitely()).isEmpty();
+        assertThat(projectRepository
+                        .findByProjectUrl(project.getProjectUrl())
+                        .subscribe()
+                        .withSubscriber(UniAssertSubscriber.create())
+                        .awaitItem()
+                        .getItem())
+                .isEmpty();
     }
 
     @Test
@@ -74,6 +82,7 @@ public class ProjectRepositoryImplTest {
     }
 
     @BeforeEach
+    @AfterEach
     void setUp() {
         assertThat(Multi.createFrom()
                         .iterable(projectRepository.getAll().await().indefinitely())
@@ -84,6 +93,6 @@ public class ProjectRepositoryImplTest {
                         .withSubscriber(UniAssertSubscriber.create())
                         .awaitItem()
                         .getItem())
-                .isPositive();
+                .isNotNegative();
     }
 }

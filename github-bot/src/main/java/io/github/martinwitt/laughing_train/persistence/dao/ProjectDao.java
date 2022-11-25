@@ -3,7 +3,6 @@ package io.github.martinwitt.laughing_train.persistence.dao;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
 import java.util.List;
-import org.bson.types.ObjectId;
 
 @MongoEntity(database = "Laughing-Train", collection = "Project")
 @SuppressWarnings("NullAway")
@@ -14,7 +13,6 @@ public class ProjectDao extends PanacheMongoEntity {
     private List<String> commitHashes;
 
     public ProjectDao() {
-        id = new ObjectId();
         // for JPA
     }
 
