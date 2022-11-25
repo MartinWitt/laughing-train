@@ -66,8 +66,20 @@ public class PositionScanner extends EarlyTerminatingScanner<List<CtElement>> {
                 && matchesEndcolumn(element)
                 && matchesSourceEnd(element)) {
             getResult().add(element);
+        } else {
+            if (hasValidPosition(element) && isAfterStartLine(element) && isBeforeEndLine(element)) {
+                getResult().add(element);
+            }
         }
         super.onElement(role, element);
+    }
+
+    private boolean isBeforeEndLine(CtElement element) {
+        return element.getPosition().getLine() <= endLine;
+    }
+
+    private boolean isAfterStartLine(CtElement element) {
+        return element.getPosition().getLine() >= startLine;
     }
 
     private boolean matchesSourceEnd(CtElement element) {
