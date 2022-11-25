@@ -46,4 +46,8 @@ public class PrinterCreation {
         env.setPreserveLineNumbers(false);
         return () -> new ImportAwareSniperPrinter(env);
     }
+
+    private PrinterCreation() {
+        // UtilityClass
+    }
 }
