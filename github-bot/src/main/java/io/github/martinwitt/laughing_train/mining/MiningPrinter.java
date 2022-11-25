@@ -30,8 +30,8 @@ public class MiningPrinter {
         List<RuleId> ruleIds = config.getRules().keySet().stream()
                 .map(QodanaRules::getRuleId)
                 .distinct()
+                .sorted(Comparator.comparing(RuleId::ruleID))
                 .collect(Collectors.toList());
-        Collections.sort(ruleIds, Comparator.comparing(RuleId::ruleID));
         long fixableRules =
                 results.stream().filter(v -> ruleIds.contains(v.ruleID())).count();
         sb.append("\n# Bad smells\n");
