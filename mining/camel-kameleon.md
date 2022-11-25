@@ -4,20 +4,20 @@
 I found 23 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RuleId[ruleID=OptionalGetWithoutIsPresent] | 5 | false |
-| RuleId[ruleID=ComparatorResultComparison] | 4 | false |
-| RuleId[ruleID=ThrowablePrintStackTrace] | 3 | false |
-| RuleId[ruleID=SystemOutErr] | 2 | false |
-| RuleId[ruleID=NonProtectedConstructorInAbstractClass] | 2 | true |
-| RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern] | 1 | false |
-| RuleId[ruleID=DataFlowIssue] | 1 | false |
-| RuleId[ruleID=UNUSED_IMPORT] | 1 | false |
-| RuleId[ruleID=SimplifyStreamApiCallChains] | 1 | false |
-| RuleId[ruleID=InnerClassMayBeStatic] | 1 | true |
-| RuleId[ruleID=SamePackageImport] | 1 | false |
-| RuleId[ruleID=Convert2MethodRef] | 1 | false |
+| OptionalGetWithoutIsPresent | 5 | false |
+| ComparatorResultComparison | 4 | false |
+| ThrowablePrintStackTrace | 3 | false |
+| SystemOutErr | 2 | false |
+| NonProtectedConstructorInAbstractClass | 2 | true |
+| DynamicRegexReplaceableByCompiledPattern | 1 | false |
+| DataFlowIssue | 1 | false |
+| UNUSED_IMPORT | 1 | false |
+| SimplifyStreamApiCallChains | 1 | false |
+| InnerClassMayBeStatic | 1 | true |
+| SamePackageImport | 1 | false |
+| Convert2MethodRef | 1 | false |
 ## RuleId[ruleID=SystemOutErr]
-### RuleId[ruleID=SystemOutErr]
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/camel/kameleon/generator/RestDslGeneratorService.java`
 #### Snippet
@@ -29,7 +29,7 @@ in `src/main/java/org/apache/camel/kameleon/generator/RestDslGeneratorService.ja
         final JsonNode node = filename.endsWith("json") ? readNodeFromJson(openapi) : readNodeFromYaml(openapi);
 ```
 
-### RuleId[ruleID=SystemOutErr]
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/camel/kameleon/generator/RestDslGeneratorService.java`
 #### Snippet
@@ -42,7 +42,7 @@ in `src/main/java/org/apache/camel/kameleon/generator/RestDslGeneratorService.ja
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
 #### Snippet
@@ -55,7 +55,7 @@ in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.ja
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Argument `inputStream` might be null
 in `src/main/java/org/apache/camel/kameleon/config/ConfigurationResource.java`
 #### Snippet
@@ -68,7 +68,7 @@ in `src/main/java/org/apache/camel/kameleon/config/ConfigurationResource.java`
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
-### RuleId[ruleID=UNUSED_IMPORT]
+### UNUSED_IMPORT
 Unused import `import org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider;`
 in `src/main/java/org/apache/camel/kameleon/component/SpringBootComponentService.java`
 #### Snippet
@@ -81,7 +81,7 @@ import org.apache.camel.springboot.catalog.SpringBootRuntimeProvider;
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
-### RuleId[ruleID=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
 Can be replaced with '.values().stream()'
 in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
 #### Snippet
@@ -94,7 +94,7 @@ in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.ja
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
-### RuleId[ruleID=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/org/apache/camel/kameleon/config/ConfigurationResource.java`
 #### Snippet
@@ -106,7 +106,7 @@ in `src/main/java/org/apache/camel/kameleon/config/ConfigurationResource.java`
         }
 ```
 
-### RuleId[ruleID=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
@@ -118,7 +118,7 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
                 }
 ```
 
-### RuleId[ruleID=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
@@ -131,7 +131,7 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
-### RuleId[ruleID=InnerClassMayBeStatic]
+### InnerClassMayBeStatic
 Inner class `WarmupRequest` may be 'static'
 in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
 #### Snippet
@@ -144,7 +144,7 @@ in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
 ```
 
 ## RuleId[ruleID=SamePackageImport]
-### RuleId[ruleID=SamePackageImport]
+### SamePackageImport
 Unnecessary import from the same package `import org.apache.camel.kameleon.model.CamelType;`
 in `src/main/java/org/apache/camel/kameleon/model/KameleonConfiguration.java`
 #### Snippet
@@ -157,7 +157,7 @@ public class KameleonConfiguration {
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
 Constructor `AbstractComponent()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 #### Snippet
@@ -169,7 +169,7 @@ in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 
 ```
 
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
 Constructor `AbstractComponent()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 #### Snippet
@@ -182,55 +182,7 @@ in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
-            }
-        } else {
-            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
-            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
-            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
-        } else {
-            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
-            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
-            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
-            String folderName = temp.getAbsolutePath() + "/code-with-quarkus";
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
-                                          String groupId, String artifactId, String version)
-            throws MavenInvocationException, IOException {
-        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
-        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
-
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
-            throws MavenInvocationException, IOException {
-        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
-        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
-
-        Properties properties = new Properties();
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
@@ -242,8 +194,56 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
         if (config.getChild("source") == null) config.addChild(new Xpp3Dom("source"));
 ```
 
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+                                          String groupId, String artifactId, String version)
+            throws MavenInvocationException, IOException {
+        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
+        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+            throws MavenInvocationException, IOException {
+        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
+        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
+
+        Properties properties = new Properties();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+            }
+        } else {
+            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
+            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
+            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+        } else {
+            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
+            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
+            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
+            String folderName = temp.getAbsolutePath() + "/code-with-quarkus";
+```
+
 ## RuleId[ruleID=Convert2MethodRef]
-### RuleId[ruleID=Convert2MethodRef]
+### Convert2MethodRef
 Lambda can be replaced with method reference
 in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
 #### Snippet
@@ -256,7 +256,7 @@ in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
 ```
 
 ## RuleId[ruleID=ComparatorResultComparison]
-### RuleId[ruleID=ComparatorResultComparison]
+### ComparatorResultComparison
 Comparison of compare method result with specific constant
 in `src/main/java/org/apache/camel/kameleon/component/ClassicComponentService.java`
 #### Snippet
@@ -268,7 +268,7 @@ in `src/main/java/org/apache/camel/kameleon/component/ClassicComponentService.ja
             }
 ```
 
-### RuleId[ruleID=ComparatorResultComparison]
+### ComparatorResultComparison
 Comparison of compare method result with specific constant
 in `src/main/java/org/apache/camel/kameleon/component/ClassicComponentService.java`
 #### Snippet
@@ -280,7 +280,7 @@ in `src/main/java/org/apache/camel/kameleon/component/ClassicComponentService.ja
             }
 ```
 
-### RuleId[ruleID=ComparatorResultComparison]
+### ComparatorResultComparison
 Comparison of compare method result with specific constant
 in `src/main/java/org/apache/camel/kameleon/component/ClassicComponentService.java`
 #### Snippet
@@ -292,7 +292,7 @@ in `src/main/java/org/apache/camel/kameleon/component/ClassicComponentService.ja
             }
 ```
 
-### RuleId[ruleID=ComparatorResultComparison]
+### ComparatorResultComparison
 Comparison of compare method result with specific constant
 in `src/main/java/org/apache/camel/kameleon/component/ClassicComponentService.java`
 #### Snippet
