@@ -143,8 +143,10 @@ public class DataBaseMigration {
                 .onItem()
                 .<Project>transformToMulti(Multi.createFrom()::iterable)
                 .invoke(this::removeEmptyCommitHashes)
+                .collect()
+                .with(Collectors.counting())
                 .subscribe()
-                .with(v -> logger.atInfo().log("Removed empty commit hashes"));
+                .with(v -> logger.atInfo().log("Removed %s empty commit hashes", v));
     }
 
     private void removeEmptyCommitHashes(Project project) {
@@ -166,8 +168,10 @@ public class DataBaseMigration {
                 .filter(project -> project.getCommitHashes().isEmpty())
                 .map(project -> projectRepository
                         .deleteByProjectUrl(project.getProjectUrl())
-                        .invoke(v -> logger.atInfo().log("Removing project %s", project.getProjectUrl())))
+                        .invoke(v -> logger.atInfo().log("Removing project %s number %s", project.getProjectUrl(), v)))
+                .collect()
+                .with(Collectors.counting())
                 .subscribe()
-                .with(v -> logger.atInfo().log("Removed projects without hashes"));
+                .with(v -> logger.atInfo().log("Removed %s projects without hashes", v));
     }
 }
