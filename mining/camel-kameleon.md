@@ -162,11 +162,11 @@ Constructor `AbstractComponent()` of an abstract class should not be declared 'p
 in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 #### Snippet
 ```java
+    protected List<String> labels;
+
+    public AbstractComponent() {
     }
 
-    public AbstractComponent(String name, String title, String description, String supportLevel, List<String> labels) {
-        this.name = name;
-        this.title = title;
 ```
 
 ### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -174,11 +174,11 @@ Constructor `AbstractComponent()` of an abstract class should not be declared 'p
 in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 #### Snippet
 ```java
-    protected List<String> labels;
-
-    public AbstractComponent() {
     }
 
+    public AbstractComponent(String name, String title, String description, String supportLevel, List<String> labels) {
+        this.name = name;
+        this.title = title;
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
