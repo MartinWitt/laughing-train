@@ -9,6 +9,7 @@ import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtComment;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtConstructor;
+import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.factory.Factory;
@@ -47,7 +48,7 @@ public class UtilityClassWithoutPrivateConstructor extends AbstractRefactoring {
         List<CtConstructor<?>> constructors = type.getElements(new TypeFilter<>(CtConstructor.class));
         if (type instanceof CtClass<?> clazz) {
             if (allConstructorsAreImplicit(constructors)) {
-                clazz.addTypeMemberAt(0, createConstructor(clazz));
+                createConstructor(clazz);
                 String message = "Added private constructor to utility class %s.".formatted(clazz.getQualifiedName());
                 String messageMarkdown =
                         "Added private constructor to utility class `%s`.".formatted(clazz.getQualifiedName());
@@ -58,7 +59,7 @@ public class UtilityClassWithoutPrivateConstructor extends AbstractRefactoring {
                 if (singlePublicEmptyConstructor(type)) {
                     CtConstructor<?> constructor = constructors.get(0);
                     type.removeTypeMember(constructor);
-                    clazz.addTypeMemberAt(0, createConstructor(clazz));
+                    createConstructor(clazz);
                     String message =
                             "Added private constructor to utility class %s.".formatted(clazz.getQualifiedName());
                     String messageMarkdown =
@@ -77,7 +78,7 @@ public class UtilityClassWithoutPrivateConstructor extends AbstractRefactoring {
                 && constructors.get(0).getParameters().isEmpty()
                 && constructors.get(0).getModifiers().contains(ModifierKind.PUBLIC)
                 && constructors.get(0).getBody() != null
-                && constructors.get(0).getBody().getStatements().isEmpty();
+                && constructors.get(0).getBody().getStatements().stream().allMatch(CtElement::isImplicit);
     }
 
     private boolean allConstructorsAreImplicit(List<? extends CtConstructor<?>> constructors) {
@@ -95,7 +96,7 @@ public class UtilityClassWithoutPrivateConstructor extends AbstractRefactoring {
         return newConstructor;
     }
 
-    private <T> CtComment createBodyComment(Factory factory) {
+    private CtComment createBodyComment(Factory factory) {
         return factory.createInlineComment("UtilityClass");
     }
 
