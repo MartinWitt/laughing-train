@@ -8,7 +8,6 @@ import io.github.martinwitt.laughing_train.persistence.repository.ProjectReposit
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
-import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -84,15 +83,15 @@ public class ProjectRepositoryImplTest {
     @BeforeEach
     @AfterEach
     void setUp() {
-        assertThat(Multi.createFrom()
-                        .iterable(projectRepository.getAll().await().indefinitely())
-                        .map(v -> projectRepository.deleteByProjectUrl(v.getProjectUrl()))
-                        .collect()
-                        .with(Collectors.counting())
-                        .subscribe()
-                        .withSubscriber(UniAssertSubscriber.create())
-                        .awaitItem()
-                        .getItem())
-                .isNotNegative();
+        projectRepository
+                .getAll()
+                .onItem()
+                .transformToMulti(Multi.createFrom()::iterable)
+                .onItem()
+                .transformToUniAndMerge(v -> projectRepository.deleteByProjectUrl(v.getProjectUrl()))
+                .toUni()
+                .await()
+                .indefinitely();
+        assertThat(projectRepository.getAll().await().indefinitely()).isEmpty();
     }
 }
