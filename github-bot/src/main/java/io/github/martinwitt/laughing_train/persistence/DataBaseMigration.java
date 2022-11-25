@@ -48,7 +48,7 @@ public class DataBaseMigration {
     }
 
     public void checkPeriodic() {
-        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(10), id -> vertx.executeBlocking(v -> migrateDataBase()));
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(3), id -> vertx.executeBlocking(v -> migrateDataBase()));
         vertx.setPeriodic(TimeUnit.MINUTES.toMillis(5), id -> vertx.executeBlocking(v -> removeDuplicatedBadSmells()));
     }
 
@@ -168,9 +168,7 @@ public class DataBaseMigration {
                 .onItem()
                 .transformToMulti(Multi.createFrom()::iterable)
                 .filter(project -> project.getCommitHashes().isEmpty())
-                .map(project -> projectRepository
-                        .deleteByProjectUrl(project.getProjectUrl())
-                        .invoke(v -> logger.atInfo().log("Removing project %s number %s", project.getProjectUrl(), v)))
+                .map(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
                 .collect()
                 .with(Collectors.counting())
                 .subscribe()

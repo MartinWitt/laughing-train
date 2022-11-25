@@ -43,6 +43,7 @@ public class ProjectRepositoryImplTest {
                 .withSubscriber(UniAssertSubscriber.create())
                 .awaitItem()
                 .assertItem(1L);
+        assertThat(projectRepository.getAll().await().indefinitely()).isEmpty();
     }
 
     @Test
