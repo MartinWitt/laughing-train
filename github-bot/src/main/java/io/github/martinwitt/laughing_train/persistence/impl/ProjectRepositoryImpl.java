@@ -7,6 +7,7 @@ import io.github.martinwitt.laughing_train.persistence.repository.ProjectReposit
 import io.quarkus.mongodb.panache.reactive.ReactivePanacheMongoRepository;
 import io.smallrye.mutiny.Uni;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -57,12 +58,19 @@ public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanache
 
     @Override
     public Uni<Long> deleteByProjectName(String projectName) {
-        return delete("projectName", projectName);
+        return find("projectName", projectName).stream()
+                .invoke(project -> delete(project))
+                .collect()
+                .with(Collectors.counting());
     }
 
     @Override
     public Uni<Long> deleteByProjectUrl(String projectUrl) {
-        return delete("projectUrl", projectUrl);
+
+        return find("projectUrl", projectUrl).stream()
+                .invoke(project -> delete(project))
+                .collect()
+                .with(Collectors.counting());
     }
 
     @Override
