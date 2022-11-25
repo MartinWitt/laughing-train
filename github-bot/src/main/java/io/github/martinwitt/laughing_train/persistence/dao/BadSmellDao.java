@@ -2,12 +2,13 @@ package io.github.martinwitt.laughing_train.persistence.dao;
 
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
+import org.bson.types.ObjectId;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 @MongoEntity(database = "Laughing-Train", collection = "BadSmell")
 @SuppressWarnings("NullAway")
 public class BadSmellDao extends PanacheMongoEntity {
-
+    public ObjectId id;
     private String analyzer;
     private String identifier;
     private String ruleID;

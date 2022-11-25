@@ -2,11 +2,12 @@ package io.github.martinwitt.laughing_train.persistence.dao;
 
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
+import org.bson.types.ObjectId;
 
 @MongoEntity(database = "Laughing-Train", collection = "ProjectConfig")
 @SuppressWarnings("NullAway")
 public class ProjectConfigDao extends PanacheMongoEntity {
-
+    public ObjectId id;
     private String sourceFolder;
     private String projectUrl;
 
