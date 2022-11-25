@@ -4,9 +4,9 @@
 I found 2 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RuleId[ruleID=UnnecessaryModifier] | 2 | true |
+| UnnecessaryModifier | 2 | true |
 ## RuleId[ruleID=UnnecessaryModifier]
-### RuleId[ruleID=UnnecessaryModifier]
+### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `src/main/java/org/apache/sling/commons/permissions/PermissionsService.java`
 #### Snippet
@@ -18,7 +18,7 @@ in `src/main/java/org/apache/sling/commons/permissions/PermissionsService.java`
 }
 ```
 
-### RuleId[ruleID=UnnecessaryModifier]
+### UnnecessaryModifier
 Modifier `abstract` is redundant for interface methods
 in `src/main/java/org/apache/sling/commons/permissions/PermissionsService.java`
 #### Snippet
