@@ -48,7 +48,10 @@ public class DataBaseMigration {
     }
 
     public void checkPeriodic() {
-        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(3), id -> vertx.executeBlocking(v -> migrateDataBase()));
+        vertx.setPeriodic(
+                TimeUnit.MINUTES.toMillis(2),
+                TimeUnit.MINUTES.toMillis(10),
+                id -> vertx.executeBlocking(v -> migrateDataBase()));
         vertx.setPeriodic(TimeUnit.MINUTES.toMillis(5), id -> vertx.executeBlocking(v -> removeDuplicatedBadSmells()));
     }
 
