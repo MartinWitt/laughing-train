@@ -6,8 +6,11 @@ import com.github.javafaker.Faker;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.test.junit.QuarkusTest;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
@@ -67,5 +70,17 @@ public class ProjectRepositoryImplTest {
 
     private Project createMockProject() {
         return new Project(faker.name().name(), faker.internet().url());
+    }
+
+    @BeforeEach
+    void setUp() {
+        Multi.createFrom()
+                .iterable(projectRepository.getAll().await().indefinitely())
+                .map(v -> projectRepository.deleteByProjectUrl(v.getProjectUrl()))
+                .collect()
+                .with(Collectors.counting())
+                .subscribe()
+                .withSubscriber(UniAssertSubscriber.create())
+                .awaitItem();
     }
 }
