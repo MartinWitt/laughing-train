@@ -21,6 +21,7 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryReturn;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryToStringCall;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedImport;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedLabel;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UtilityClassWithoutPrivateConstructor;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
@@ -44,7 +45,8 @@ public enum QodanaRules implements AnalyzerRule {
     TO_ARRAY_CALL_WITH_ZERO_LENGTH_ARRAY_ARGUMENT(
             "ToArrayCallWithZeroLengthArrayArgument", ToArrayCallWithZeroLengthArrayArgument::new),
     UNUSED_LABEL("UnusedLabel", UnusedLabel::new),
-    ;
+    UTILITY_CLASS_WITHOUT_PRIVATE_CONSTRUCTOR(
+            "UtilityClassWithoutPrivateConstructor", UtilityClassWithoutPrivateConstructor::new);
 
     private final RuleId ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
