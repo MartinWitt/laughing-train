@@ -66,23 +66,11 @@ public class JavaPoetPrettyPrinter extends CtScanner implements CtVisitor, Prett
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
-#### Snippet
-```java
-	public String toString() {
-		if (type == null) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public String printModuleInfo(CtModule ctModule) {
+	public String printPackageInfo(CtPackage ctPackage) {
 		return null;
 	}
 
@@ -106,9 +94,21 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public String printPackageInfo(CtPackage ctPackage) {
+	public String printModuleInfo(CtModule ctModule) {
 		return null;
 	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
+#### Snippet
+```java
+	public String toString() {
+		if (type == null) {
+			return null;
+		}
 
 ```
 
