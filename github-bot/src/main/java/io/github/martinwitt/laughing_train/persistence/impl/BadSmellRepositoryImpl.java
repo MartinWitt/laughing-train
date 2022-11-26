@@ -1,20 +1,24 @@
 package io.github.martinwitt.laughing_train.persistence.impl;
 
+import java.util.List;
+import java.util.stream.Stream;
+
+import javax.enterprise.context.ApplicationScoped;
+
+import com.google.common.flogger.FluentLogger;
+
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.converter.BadSmellDaoConverter;
 import io.github.martinwitt.laughing_train.persistence.dao.BadSmellDao;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
-import java.util.List;
-import java.util.stream.Stream;
-import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class BadSmellRepositoryImpl implements BadSmellRepository, PanacheMongoRepository<BadSmellDao> {
 
     private static final BadSmellDaoConverter badSmellConverter = new BadSmellDaoConverter();
-
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     public List<BadSmell> findByRuleID(RuleId ruleID) {
         return find("ruleID", ruleID.ruleID()).stream()
                 .map(badSmellConverter::convertToEntity)
@@ -56,10 +60,7 @@ public class BadSmellRepositoryImpl implements BadSmellRepository, PanacheMongoR
         if (list.isEmpty()) {
             persist(badSmellConverter.convertToDao(badSmell));
         } else {
-            var dao = badSmellConverter.convertToDao(badSmell);
-            dao.id = list.get(0).id;
-            update(dao);
-            update(badSmellConverter.convertToDao(badSmell));
+            logger.atSevere().log("BadSmell already exists: %s", badSmell);
         }
         return badSmell;
     }
