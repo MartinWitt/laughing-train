@@ -1,40 +1,27 @@
 # junit-pioneer 
  
 # Bad smells
-I found 67 bad smells with 2 repairable:
+I found 67 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RuleId[ruleID=UnnecessaryFullyQualifiedName] | 17 | false |
-| RuleId[ruleID=BoundedWildcard] | 17 | false |
-| RuleId[ruleID=UnstableApiUsage] | 11 | false |
-| RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern] | 4 | false |
-| RuleId[ruleID=SystemOutErr] | 3 | false |
-| RuleId[ruleID=MarkedForRemoval] | 3 | false |
-| RuleId[ruleID=AssignmentToMethodParameter] | 2 | false |
-| RuleId[ruleID=RedundantSuppression] | 2 | false |
-| RuleId[ruleID=NonStrictComparisonCanBeEquality] | 1 | true |
-| RuleId[ruleID=OptionalUsedAsFieldOrParameterType] | 1 | false |
-| RuleId[ruleID=RedundantMethodOverride] | 1 | false |
-| RuleId[ruleID=UtilityClassWithoutPrivateConstructor] | 1 | false |
-| RuleId[ruleID=RedundantClassCall] | 1 | false |
-| RuleId[ruleID=NonProtectedConstructorInAbstractClass] | 1 | true |
-| RuleId[ruleID=DeprecatedIsStillUsed] | 1 | false |
-| RuleId[ruleID=RedundantImplements] | 1 | false |
-## RuleId[ruleID=NonStrictComparisonCanBeEquality]
-### RuleId[ruleID=NonStrictComparisonCanBeEquality]
-Can be replaced with equality
-in `src/main/java/org/junitpioneer/jupiter/CartesianEnumArgumentsProvider.java`
-#### Snippet
-```java
-			Class<?>[] parameterTypes = method.getParameterTypes();
-
-			if (parameterTypes.length <= 0)
-				throw new PreconditionViolationException(
-					"Test method must declare at least one parameter: " + method.toGenericString());
-```
-
+| UnnecessaryFullyQualifiedName | 17 | false |
+| BoundedWildcard | 17 | false |
+| UnstableApiUsage | 11 | false |
+| DynamicRegexReplaceableByCompiledPattern | 4 | false |
+| SystemOutErr | 3 | false |
+| MarkedForRemoval | 3 | false |
+| AssignmentToMethodParameter | 2 | false |
+| RedundantSuppression | 2 | false |
+| OptionalUsedAsFieldOrParameterType | 1 | false |
+| NonStrictComparisonCanBeEquality | 1 | true |
+| RedundantMethodOverride | 1 | false |
+| UtilityClassWithoutPrivateConstructor | 1 | true |
+| RedundantClassCall | 1 | false |
+| NonProtectedConstructorInAbstractClass | 1 | true |
+| DeprecatedIsStillUsed | 1 | false |
+| RedundantImplements | 1 | false |
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+### OptionalUsedAsFieldOrParameterType
 `Optional`> used as type for parameter 'type'
 in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
 #### Snippet
@@ -46,8 +33,21 @@ in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
 		if (!type.isPresent())
 ```
 
+## RuleId[ruleID=NonStrictComparisonCanBeEquality]
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `src/main/java/org/junitpioneer/jupiter/CartesianEnumArgumentsProvider.java`
+#### Snippet
+```java
+			Class<?>[] parameterTypes = method.getParameterTypes();
+
+			if (parameterTypes.length <= 0)
+				throw new PreconditionViolationException(
+					"Test method must declare at least one parameter: " + method.toGenericString());
+```
+
 ## RuleId[ruleID=SystemOutErr]
-### RuleId[ruleID=SystemOutErr]
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableExtension.java`
 #### Snippet
@@ -59,7 +59,7 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableExtension.java`
 
 ```
 
-### RuleId[ruleID=SystemOutErr]
+### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -71,7 +71,7 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 
 ```
 
-### RuleId[ruleID=SystemOutErr]
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -84,7 +84,7 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 ```
 
 ## RuleId[ruleID=RedundantMethodOverride]
-### RuleId[ruleID=RedundantMethodOverride]
+### RedundantMethodOverride
 Method `read()` only delegates to its super method
 in `src/main/java/org/junitpioneer/jupiter/StdIn.java`
 #### Snippet
@@ -97,7 +97,7 @@ in `src/main/java/org/junitpioneer/jupiter/StdIn.java`
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
 Class `JsonConverterProvider` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/junitpioneer/jupiter/json/JsonConverterProvider.java`
 #### Snippet
@@ -110,7 +110,7 @@ class JsonConverterProvider {
 ```
 
 ## RuleId[ruleID=MarkedForRemoval]
-### RuleId[ruleID=MarkedForRemoval]
+### MarkedForRemoval
 'java.lang.SecurityManager' is deprecated and marked for removal
 in `src/main/java/org/junitpioneer/jupiter/ClearEnvironmentVariable.java`
 #### Snippet
@@ -122,19 +122,7 @@ in `src/main/java/org/junitpioneer/jupiter/ClearEnvironmentVariable.java`
  * Java versions. Be aware that this is a fragile solution and consider finding a
 ```
 
-### RuleId[ruleID=MarkedForRemoval]
-'java.lang.SecurityManager' is deprecated and marked for removal
-in `src/main/java/org/junitpioneer/jupiter/SetEnvironmentVariable.java`
-#### Snippet
-```java
- *
- * <p>WARNING: Java considers environment variables to be immutable, so this extension
- * uses reflection to change them. This requires that the {@link SecurityManager}
- * allows modifications and can potentially break on different operating systems and
- * Java versions. Be aware that this is a fragile solution and consider finding a
-```
-
-### RuleId[ruleID=MarkedForRemoval]
+### MarkedForRemoval
 'java.lang.SecurityManager' is deprecated and marked for removal
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
@@ -146,8 +134,20 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 class EnvironmentVariableUtils {
 ```
 
+### MarkedForRemoval
+'java.lang.SecurityManager' is deprecated and marked for removal
+in `src/main/java/org/junitpioneer/jupiter/SetEnvironmentVariable.java`
+#### Snippet
+```java
+ *
+ * <p>WARNING: Java considers environment variables to be immutable, so this extension
+ * uses reflection to change them. This requires that the {@link SecurityManager}
+ * allows modifications and can potentially break on different operating systems and
+ * Java versions. Be aware that this is a fragile solution and consider finding a
+```
+
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/junitpioneer/internal/TestNameFormatter.java`
 #### Snippet
@@ -159,7 +159,7 @@ in `src/main/java/org/junitpioneer/internal/TestNameFormatter.java`
 
 ```
 
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/junitpioneer/internal/TestNameFormatter.java`
 #### Snippet
@@ -171,7 +171,7 @@ in `src/main/java/org/junitpioneer/internal/TestNameFormatter.java`
 		if (result.contains(ARGUMENTS_PLACEHOLDER)) {
 ```
 
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/junitpioneer/internal/TestNameFormatter.java`
 #### Snippet
@@ -183,7 +183,7 @@ in `src/main/java/org/junitpioneer/internal/TestNameFormatter.java`
 
 ```
 
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/junitpioneer/jupiter/ReportEntryExtension.java`
 #### Snippet
@@ -196,31 +196,7 @@ in `src/main/java/org/junitpioneer/jupiter/ReportEntryExtension.java`
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
-#### Snippet
-```java
-
-/**
- * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
- *
- * Once Pioneer baselines against Java 17, this will be a record.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
-#### Snippet
-```java
-	 * Constructor with all attributes.
-	 *
-	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
-	 * @param tests List of all tests, annotated with the issueId
-	 */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
@@ -232,7 +208,31 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 	 * @return IssueId the test belongs to
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
+#### Snippet
+```java
+	 * Constructor with all attributes.
+	 *
+	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
+	 * @param tests List of all tests, annotated with the issueId
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
+#### Snippet
+```java
+
+/**
+ * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
+ *
+ * Once Pioneer baselines against Java 17, this will be a record.
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util.stream` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 #### Snippet
@@ -244,7 +244,7 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 	 * @param arguments the objects that should be passed to the parameter
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 #### Snippet
@@ -256,7 +256,7 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 	 * The passed argument does not have to be an instance of {@link java.util.Set Set}.
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 #### Snippet
@@ -268,7 +268,7 @@ in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 	 * @param clazz the class or interface in which to find the method; never {@code null}
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/params/DisableIfDisplayName.java`
 #### Snippet
@@ -280,7 +280,7 @@ in `src/main/java/org/junitpioneer/jupiter/params/DisableIfDisplayName.java`
 	 * @return test case display name regular expressions
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
 #### Snippet
@@ -292,7 +292,7 @@ in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
 	 *
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
 #### Snippet
@@ -304,19 +304,7 @@ in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
 	 * <p>You may use {@link java.text.MessageFormat} patterns
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
-		 * Creates a single set of distinct objects (according to
-		 * {@link Object#equals(Object)}) for a CartesianProductTest
-		 * from the elements of the passed {@link java.util.Collection}.
-		 *
-		 * The passed argument does not have to be an instance of {@link java.util.Set}.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util.stream` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
@@ -328,7 +316,7 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 		 * @param entries the objects we want to include in a single set
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
@@ -340,19 +328,19 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
  * @deprecated has been superseded by CartesianTest, scheduled to be removed in 2.0
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/ReportEntry.java`
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
 ```java
-	/**
-	 * Specifies when the extension should publish the report entry.
-	 * Defaults to {@link org.junitpioneer.jupiter.ReportEntry.PublishCondition#ALWAYS ALWAYS}.
-	 * @see PublishCondition
-	 */
+		 * Creates a single set of distinct objects (according to
+		 * {@link Object#equals(Object)}) for a CartesianProductTest
+		 * from the elements of the passed {@link java.util.Collection}.
+		 *
+		 * The passed argument does not have to be an instance of {@link java.util.Set}.
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary, and can be replaced with an import
 in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
 #### Snippet
@@ -364,7 +352,19 @@ class RangeSourceArgumentsProvider<N extends Number & Comparable<N>> implements 
 	// Once the CartesianAnnotationConsumer is removed we can make this provider stateless.
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/ReportEntry.java`
+#### Snippet
+```java
+	/**
+	 * Specifies when the extension should publish the report entry.
+	 * Defaults to {@link org.junitpioneer.jupiter.ReportEntry.PublishCondition#ALWAYS ALWAYS}.
+	 * @see PublishCondition
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter.cartesian` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 #### Snippet
@@ -376,7 +376,7 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#ARGUMENTS_PLACEHOLDER}
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter.cartesian` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 #### Snippet
@@ -388,7 +388,7 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 	 * - <code>{0}</code>, <code>{1}</code>, etc.: an individual argument (0-based)
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter.cartesian` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 #### Snippet
@@ -401,7 +401,7 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 ```
 
 ## RuleId[ruleID=RedundantClassCall]
-### RuleId[ruleID=RedundantClassCall]
+### RedundantClassCall
 Redundant call to `isInstance()`
 in `src/main/java/org/junitpioneer/jupiter/ExpectedToFailExtension.java`
 #### Snippet
@@ -414,7 +414,7 @@ in `src/main/java/org/junitpioneer/jupiter/ExpectedToFailExtension.java`
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
 Constructor `StdOutputStream()` of an abstract class should not be declared 'public'
 in `src/main/java/org/junitpioneer/jupiter/StdOutputStream.java`
 #### Snippet
@@ -427,7 +427,7 @@ in `src/main/java/org/junitpioneer/jupiter/StdOutputStream.java`
 ```
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
-### RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
 Deprecated member 'CartesianAnnotationConsumer' is still used
 in `src/main/java/org/junitpioneer/jupiter/CartesianAnnotationConsumer.java`
 #### Snippet
@@ -440,7 +440,7 @@ public interface CartesianAnnotationConsumer<A extends Annotation> extends Consu
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `methodFactoryName`
 in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianFactoryArgumentsProvider.java`
 #### Snippet
@@ -452,7 +452,7 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianFactoryArgumentsPr
 			return methodFactoryName.substring(methodFactoryName.indexOf('#') + 1);
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `factoryMethodName`
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTestExtension.java`
 #### Snippet
@@ -465,7 +465,7 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTestExtension.java`
 ```
 
 ## RuleId[ruleID=RedundantImplements]
-### RuleId[ruleID=RedundantImplements]
+### RedundantImplements
 Redundant interface declaration `Extension`
 in `src/main/java/org/junitpioneer/jupiter/ExpectedToFailExtension.java`
 #### Snippet
@@ -478,43 +478,7 @@ class ExpectedToFailExtension implements Extension, InvocationInterceptor {
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends DisableIfTestFails`
-in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
-#### Snippet
-```java
-
-	private static Stream<Configuration> createConfigurationFor(ExtensionContext context,
-			List<DisableIfTestFails> annotations) {
-		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
-		if (annotations.isEmpty())
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Map`
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
-#### Snippet
-```java
-	 * Works on Windows
-	 */
-	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
-			throws ReflectiveOperationException {
-		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Map`
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
-#### Snippet
-```java
-	 * Works on Linux and OSX
-	 */
-	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
-			throws ReflectiveOperationException {
-		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
-```
-
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
 Can generalize to `? extends List`
 in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 #### Snippet
@@ -526,19 +490,43 @@ in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 		if (lists.isEmpty()) {
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+### BoundedWildcard
+Can generalize to `? super Map`
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
-	}
-
-	private void setEntries(Map<K, V> entriesToSet) {
-		entriesToSet.forEach(this::setEntry);
-	}
+	 * Works on Linux and OSX
+	 */
+	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
+			throws ReflectiveOperationException {
+		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
 ```
 
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? super Map`
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
+#### Snippet
+```java
+	 * Works on Windows
+	 */
+	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
+			throws ReflectiveOperationException {
+		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+```
+
+### BoundedWildcard
+Can generalize to `? extends DisableIfTestFails`
+in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
+#### Snippet
+```java
+
+	private static Stream<Configuration> createConfigurationFor(ExtensionContext context,
+			List<DisableIfTestFails> annotations) {
+		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
+		if (annotations.isEmpty())
+```
+
+### BoundedWildcard
 Can generalize to `? extends Source`
 in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
 #### Snippet
@@ -550,43 +538,7 @@ in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArguments
 		this.dataLocation = dataLocation;
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-	}
-
-	private void setEntries(Map<K, V> entriesToSet) {
-		entriesToSet.forEach(this::setEntry);
-	}
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
 Can generalize to `? extends K`
 in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 #### Snippet
@@ -598,7 +550,55 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 	}
 ```
 
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+	}
+
+	private void setEntries(Map<K, V> entriesToSet) {
+		entriesToSet.forEach(this::setEntry);
+	}
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+	}
+
+	private void setEntries(Map<K, V> entriesToSet) {
+		entriesToSet.forEach(this::setEntry);
+	}
+```
+
+### BoundedWildcard
 Can generalize to `? extends N`
 in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
 #### Snippet
@@ -610,7 +610,7 @@ in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.j
 	}
 ```
 
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 #### Snippet
@@ -622,7 +622,7 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 				this.selector = selector;
 ```
 
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
 Can generalize to `? super Set`
 in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 #### Snippet
@@ -634,7 +634,7 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 				this.selector = selector;
 ```
 
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
 Can generalize to `? extends ReentrantLock`
 in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 #### Snippet
@@ -646,7 +646,7 @@ in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 		try {
 ```
 
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
 Can generalize to `? extends Shared`
 in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 #### Snippet
@@ -658,7 +658,7 @@ in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 		List<Shared> sortedAnnotations = sharedAnnotations.stream().sorted(comparing(Shared::name)).collect(toList());
 ```
 
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
 #### Snippet
@@ -670,7 +670,7 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
 			this.selector = selector;
 ```
 
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
 Can generalize to `? super Set`
 in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
 #### Snippet
@@ -683,7 +683,7 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianEnumSource.java`
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
-### RuleId[ruleID=RedundantSuppression]
+### RedundantSuppression
 Redundant suppression
 in `src/main/java/org/junitpioneer/jupiter/DefaultLocaleExtension.java`
 #### Snippet
@@ -695,7 +695,7 @@ in `src/main/java/org/junitpioneer/jupiter/DefaultLocaleExtension.java`
 		String country = annotation.country();
 ```
 
-### RuleId[ruleID=RedundantSuppression]
+### RedundantSuppression
 Redundant suppression
 in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianArgumentsSource.java`
 #### Snippet
@@ -708,7 +708,7 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianArgumentsSource.ja
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'org.gradle.api.plugins.jvm.JvmTestSuite' is marked unstable with @Incubating
 in `build.gradle.kts`
 #### Snippet
@@ -720,7 +720,7 @@ in `build.gradle.kts`
 			}
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'useJUnitJupiter()' is declared in unstable interface 'org.gradle.api.plugins.jvm.JvmTestSuite' marked with @Incubating
 in `build.gradle.kts`
 #### Snippet
@@ -732,7 +732,7 @@ in `build.gradle.kts`
 
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'org.gradle.api.plugins.jvm.JvmTestSuite' is marked unstable with @Incubating
 in `build.gradle.kts`
 #### Snippet
@@ -744,7 +744,7 @@ in `build.gradle.kts`
 					implementation(project(project.path))
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'dependencies(org.gradle.api.Action)' is declared in unstable interface 'org.gradle.api.plugins.jvm.JvmTestSuite' marked with @Incubating
 in `build.gradle.kts`
 #### Snippet
@@ -756,7 +756,7 @@ in `build.gradle.kts`
 					implementation("com.google.jimfs:jimfs:1.2")
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'implementation(java.lang.Object)' is declared in unstable interface 'org.gradle.api.plugins.jvm.JvmComponentDependencies' marked with @Incubating
 in `build.gradle.kts`
 #### Snippet
@@ -768,7 +768,7 @@ in `build.gradle.kts`
 					implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'implementation(java.lang.Object)' is declared in unstable interface 'org.gradle.api.plugins.jvm.JvmComponentDependencies' marked with @Incubating
 in `build.gradle.kts`
 #### Snippet
@@ -780,7 +780,7 @@ in `build.gradle.kts`
 					implementation("org.assertj:assertj-core:3.22.0")
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'implementation(java.lang.Object)' is declared in unstable interface 'org.gradle.api.plugins.jvm.JvmComponentDependencies' marked with @Incubating
 in `build.gradle.kts`
 #### Snippet
@@ -792,7 +792,7 @@ in `build.gradle.kts`
 				}
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'implementation(java.lang.Object)' is declared in unstable interface 'org.gradle.api.plugins.jvm.JvmComponentDependencies' marked with @Incubating
 in `build.gradle.kts`
 #### Snippet
@@ -804,7 +804,7 @@ in `build.gradle.kts`
 
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'sources(org.gradle.api.Action)' is declared in unstable interface 'org.gradle.api.plugins.jvm.JvmTestSuite' marked with @Incubating
 in `build.gradle.kts`
 #### Snippet
@@ -816,7 +816,7 @@ in `build.gradle.kts`
 						srcDir("src/demo/java")
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'getTestTask()' is declared in unstable interface 'org.gradle.api.plugins.jvm.JvmTestSuiteTarget' marked with @Incubating
 in `build.gradle.kts`
 #### Snippet
@@ -828,7 +828,7 @@ in `build.gradle.kts`
 							filter {
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'getSuites()' is declared in unstable interface 'org.gradle.testing.base.TestingExtension' marked with @Incubating
 in `build.gradle.kts`
 #### Snippet
