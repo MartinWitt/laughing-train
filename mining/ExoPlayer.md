@@ -4,9 +4,9 @@
 I found 1 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RuleId[ruleID=HtmlWrongAttributeValue] | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 ## RuleId[ruleID=HtmlWrongAttributeValue]
-### RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
 Wrong attribute value
 in `docs/_includes/extensions/bilibili.html`
 #### Snippet
