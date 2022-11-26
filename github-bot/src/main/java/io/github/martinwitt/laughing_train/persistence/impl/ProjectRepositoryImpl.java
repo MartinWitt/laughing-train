@@ -4,6 +4,7 @@ import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.converter.ProjectDaoConverter;
 import io.github.martinwitt.laughing_train.persistence.dao.ProjectDao;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
+import io.quarkus.logging.Log;
 import io.quarkus.mongodb.panache.reactive.ReactivePanacheMongoRepository;
 import io.smallrye.mutiny.Uni;
 import java.util.List;
@@ -46,10 +47,14 @@ public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanache
     public Uni<Project> save(Project project) {
         return find("projectUrl", project.getProjectUrl()).list().flatMap(list -> {
             if (list.isEmpty()) {
+                Log.info("Project not found, creating new one" + project.getProjectUrl());
                 return persist(projectDaoConverter.convertToDao(project)).map(projectDaoConverter::convertToEntity);
             } else {
+                Log.info("Project found, updating" + project.getProjectUrl() + " "
+                        + list.get(0).getProjectUrl());
                 var dao = projectDaoConverter.convertToDao(project);
                 dao.id = list.get(0).id;
+                Log.info("Project found, updating" + project.getProjectUrl() + " " + dao.id);
                 return update(dao).map(projectDaoConverter::convertToEntity);
             }
         });

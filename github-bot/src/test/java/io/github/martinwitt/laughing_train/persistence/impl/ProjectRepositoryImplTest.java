@@ -80,6 +80,33 @@ public class ProjectRepositoryImplTest {
         return new Project(faker.name().name(), faker.internet().url());
     }
 
+    @Test
+    void addCommitHashTest() {
+        Project project = createMockProject();
+        projectRepository
+                .create(project)
+                .subscribe()
+                .withSubscriber(UniAssertSubscriber.create())
+                .awaitItem()
+                .assertItem(project);
+        project.addCommitHash(faker.lorem().characters(10));
+        projectRepository
+                .save(project)
+                .subscribe()
+                .withSubscriber(UniAssertSubscriber.create())
+                .awaitItem()
+                .assertItem(project);
+        assertThat(projectRepository
+                        .findByProjectUrl(project.getProjectUrl())
+                        .subscribe()
+                        .withSubscriber(UniAssertSubscriber.create())
+                        .awaitItem()
+                        .getItem())
+                .hasSize(1)
+                .allMatch(v ->
+                        v.getCommitHashes().contains(project.getCommitHashes().get(0)));
+    }
+
     @BeforeEach
     @AfterEach
     void setUp() {

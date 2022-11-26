@@ -52,7 +52,7 @@ public class DataBaseMigration {
                 TimeUnit.MINUTES.toMillis(2),
                 TimeUnit.MINUTES.toMillis(10),
                 id -> vertx.executeBlocking(v -> migrateDataBase()));
-        vertx.setPeriodic(TimeUnit.SECONDS.toMillis(30), id -> vertx.executeBlocking(v -> removeDuplicatedBadSmells()));
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(5), id -> vertx.executeBlocking(v -> removeDuplicatedBadSmells()));
     }
 
     private void migrateDataBase() {
@@ -72,7 +72,10 @@ public class DataBaseMigration {
                 .transformToMulti(Multi.createFrom()::iterable)
                 .filter(project -> project.getCommitHashes().isEmpty()
                         || project.getProjectUrl().endsWith(".git"))
-                .map(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
+                .map(project -> projectRepository
+                        .deleteByProjectUrl(project.getProjectUrl())
+                        .subscribe()
+                        .with(v -> logger.atInfo().log("Deleted project %s", project.getProjectUrl())))
                 .collect()
                 .with(Collectors.counting())
                 .subscribe()

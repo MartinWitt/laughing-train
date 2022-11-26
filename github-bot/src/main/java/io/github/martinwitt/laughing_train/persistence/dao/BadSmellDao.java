@@ -8,7 +8,7 @@ import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 @MongoEntity(database = "Laughing-Train", collection = "BadSmell")
 @SuppressWarnings("NullAway")
 public class BadSmellDao extends PanacheMongoEntity {
-    public ObjectId id;
+    public ObjectId id = new ObjectId();
     private String analyzer;
     private String identifier;
     private String ruleID;

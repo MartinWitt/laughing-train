@@ -8,7 +8,7 @@ import org.bson.types.ObjectId;
 @MongoEntity(database = "Laughing-Train", collection = "Project")
 @SuppressWarnings("NullAway")
 public class ProjectDao extends PanacheMongoEntity {
-    public ObjectId id;
+    public ObjectId id = new ObjectId();
     private String projectName;
     private String projectUrl;
     private List<String> commitHashes;
