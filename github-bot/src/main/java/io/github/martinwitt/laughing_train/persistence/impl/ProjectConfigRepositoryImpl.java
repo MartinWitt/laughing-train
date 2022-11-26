@@ -4,57 +4,55 @@ import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.converter.ProjectConfigConverter;
 import io.github.martinwitt.laughing_train.persistence.dao.ProjectConfigDao;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
-import io.quarkus.mongodb.panache.reactive.ReactivePanacheMongoRepository;
-import io.smallrye.mutiny.Uni;
+import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class ProjectConfigRepositoryImpl
-        implements ProjectConfigRepository, ReactivePanacheMongoRepository<ProjectConfigDao> {
+public class ProjectConfigRepositoryImpl implements ProjectConfigRepository, PanacheMongoRepository<ProjectConfigDao> {
 
     private static ProjectConfigConverter projectConfigConverter = new ProjectConfigConverter();
 
-    public Uni<List<ProjectConfig>> findByProjectUrl(String projectUrl) {
+    public List<ProjectConfig> findByProjectUrl(String projectUrl) {
         return find("projectUrl", projectUrl).stream()
                 .map(projectConfigConverter::convertToEntity)
-                .collect()
-                .asList();
+                .toList();
     }
 
     @Override
-    public Uni<Boolean> existsByProjectUrl(String projectUrl) {
-        return findByProjectUrl(projectUrl).map(projects -> !projects.isEmpty());
+    public boolean existsByProjectUrl(String projectUrl) {
+        return findByProjectUrl(projectUrl).isEmpty();
     }
 
     @Override
-    public Uni<Long> deleteByProjectUrl(String projectUrl) {
+    public long deleteByProjectUrl(String projectUrl) {
         return delete("projectUrl", projectUrl);
     }
 
     @Override
-    public Uni<ProjectConfig> create(ProjectConfig projectConfig) {
-        return findByProjectUrl(projectConfig.getProjectUrl()).flatMap(list -> {
-            if (list.isEmpty()) {
-                return persist(projectConfigConverter.convertToDao(projectConfig))
-                        .map(projectConfigConverter::convertToEntity);
-            } else {
-                return Uni.createFrom().item(list.get(0));
-            }
-        });
+    public ProjectConfig create(ProjectConfig projectConfig) {
+
+        var list = findByProjectUrl(projectConfig.getProjectUrl());
+        if (list.isEmpty()) {
+            persist(projectConfigConverter.convertToDao(projectConfig));
+            return projectConfig;
+        } else {
+            return list.get(0);
+        }
     }
 
     @Override
-    public Uni<ProjectConfig> save(ProjectConfig projectConfig) {
-        return find("projectUrl", projectConfig.getProjectUrl()).list().flatMap(list -> {
-            if (list.isEmpty()) {
-                return persist(projectConfigConverter.convertToDao(projectConfig))
-                        .map(projectConfigConverter::convertToEntity);
-            } else {
-                var dao = projectConfigConverter.convertToDao(projectConfig);
-                dao.id = list.get(0).id;
-                return update(dao).map(projectConfigConverter::convertToEntity);
-            }
-        });
+    public ProjectConfig save(ProjectConfig projectConfig) {
+
+        var list = find("projectUrl", projectConfig.getProjectUrl()).list();
+        if (list.isEmpty()) {
+            persist(projectConfigConverter.convertToDao(projectConfig));
+            return projectConfig;
+        } else {
+            var dao = projectConfigConverter.convertToDao(projectConfig);
+            dao.id = list.get(0).id;
+            update(dao);
+            return projectConfig;
+        }
     }
 }

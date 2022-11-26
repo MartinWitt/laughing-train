@@ -5,71 +5,64 @@ import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.converter.BadSmellDaoConverter;
 import io.github.martinwitt.laughing_train.persistence.dao.BadSmellDao;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
-import io.quarkus.mongodb.panache.reactive.ReactivePanacheMongoRepository;
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.Uni;
+import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import java.util.List;
+import java.util.stream.Stream;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class BadSmellRepositoryImpl implements BadSmellRepository, ReactivePanacheMongoRepository<BadSmellDao> {
+public class BadSmellRepositoryImpl implements BadSmellRepository, PanacheMongoRepository<BadSmellDao> {
 
     private static final BadSmellDaoConverter badSmellConverter = new BadSmellDaoConverter();
 
-    public Uni<List<BadSmell>> findByRuleID(RuleId ruleID) {
+    public List<BadSmell> findByRuleID(RuleId ruleID) {
         return find("ruleID", ruleID.ruleID()).stream()
                 .map(badSmellConverter::convertToEntity)
-                .collect()
-                .asList();
+                .toList();
     }
 
-    public Uni<List<BadSmell>> findByProjectName(String projectName) {
+    public List<BadSmell> findByProjectName(String projectName) {
         return find("projectName", projectName).stream()
                 .map(badSmellConverter::convertToEntity)
-                .collect()
-                .asList();
+                .toList();
     }
 
-    public Uni<List<BadSmell>> findByProjectUrl(String projectUrl) {
+    public List<BadSmell> findByProjectUrl(String projectUrl) {
         return find("projectUrl", projectUrl).stream()
                 .map(badSmellConverter::convertToEntity)
-                .collect()
-                .asList();
+                .toList();
     }
 
-    public Uni<List<BadSmell>> findByCommitHash(String commitHash) {
+    public List<BadSmell> findByCommitHash(String commitHash) {
         return find("commitHash", commitHash).stream()
                 .map(badSmellConverter::convertToEntity)
-                .collect()
-                .asList();
+                .toList();
     }
 
-    public Uni<List<BadSmell>> findByIdentifier(String identifier) {
+    public List<BadSmell> findByIdentifier(String identifier) {
         return find("identifier", identifier).stream()
                 .map(badSmellConverter::convertToEntity)
-                .collect()
-                .asList();
+                .toList();
     }
 
     @Override
-    public Uni<Long> deleteByIdentifier(String identifier) {
+    public long deleteByIdentifier(String identifier) {
         return delete("identifier", identifier);
     }
 
     @Override
-    public Uni<BadSmell> save(BadSmell badSmell) {
-        return findByIdentifier(badSmell.getIdentifier()).flatMap(list -> {
-            if (list.isEmpty()) {
-                return persist(badSmellConverter.convertToDao(badSmell)).map(badSmellConverter::convertToEntity);
-            } else {
-                // 2 bad smells with same identifier should be the same no reason to update
-                return Uni.createFrom().item(badSmell);
-            }
-        });
+    public BadSmell save(BadSmell badSmell) {
+        var list = findByIdentifier(badSmell.getIdentifier());
+        if (list.isEmpty()) {
+            persist(badSmellConverter.convertToDao(badSmell));
+        } else {
+            update(badSmellConverter.convertToDao(badSmell));
+        }
+        return badSmell;
     }
 
     @Override
-    public Multi<BadSmell> getAll() {
+    public Stream<BadSmell> getAll() {
         return streamAll().map(badSmellConverter::convertToEntity);
     }
 }

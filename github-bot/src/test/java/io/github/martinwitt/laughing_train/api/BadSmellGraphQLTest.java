@@ -18,8 +18,6 @@ import io.smallrye.graphql.client.core.Operation;
 import io.smallrye.graphql.client.core.OperationType;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClientBuilder;
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
 import org.junit.jupiter.api.Disabled;
@@ -43,16 +41,8 @@ public class BadSmellGraphQLTest {
                 // .url("http://89.58.49.108:8080/graphql")
                 .url("http://localhost:8081/graphql")
                 .build();
-        Multi.createFrom()
-                .items(createWithMessage("UnnecessaryLocalVariable"), createWithMessage("UnnecessaryLocalVariable"))
-                .map(badSmell -> badSmellRepository.save(badSmell))
-                .toUni()
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .getItem()
-                .await()
-                .indefinitely();
+        badSmellRepository.save(createWithMessage("UnnecessaryLocalVariable"));
+        badSmellRepository.save(createWithMessage("UnnecessaryLocalVariable"));
 
         Document document = document(Operation.operation(
                 OperationType.QUERY,
@@ -97,20 +87,10 @@ public class BadSmellGraphQLTest {
                 .url("http://localhost:8081/graphql")
                 .build();
         Project project = new Project("aaa", "bbb");
-        projectRepository
-                .create(project)
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .getItem();
+        projectRepository.create(project);
         project.addCommitHash("aaaa");
-        projectRepository
-                .save(project)
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .getItem();
-        ;
+        projectRepository.save(project);
+
         assertTrue(client.executeSync(
                         """
                         query getProjects {

@@ -10,10 +10,7 @@ import io.github.martinwitt.laughing_train.persistence.repository.BadSmellReposi
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.runtime.StartupEvent;
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.infrastructure.Infrastructure;
 import io.vertx.core.Vertx;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -70,8 +67,6 @@ public class DataBaseMigration {
     private void migrateDataBase() {
         logger.atInfo().log("Migrating database");
         createConfigsIfMissing();
-        setDefaultSourceFolders();
-        removeBadSmellsWithMissingProject();
         removeProjectHashesWithoutResults();
         removeProjectsWithOutHashes();
         removeBadSmellsWithWrongIdentifier();
@@ -80,163 +75,73 @@ public class DataBaseMigration {
         logger.atInfo().log("Finished migrating database");
     }
 
-    private void removeBadSmellsWithMissingProject() {
-        projectRepository
-                .getAll()
-                .onItem()
-                .transformToMulti(Multi.createFrom()::iterable)
+    private void removeProjectsWithOutHashes() {
+        long value = projectRepository.getAll().stream()
                 .filter(project -> project.getCommitHashes().isEmpty()
                         || project.getProjectUrl().endsWith(".git"))
-                .map(project -> projectRepository
-                        .deleteByProjectUrl(project.getProjectUrl())
-                        .subscribe()
-                        .with(v -> logger.atInfo().log("Deleted project %s", project.getProjectUrl())))
-                .collect()
-                .with(Collectors.counting())
-                .subscribe()
-                .with(project -> logger.atInfo().log("Removing projects %s", project));
+                .map(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
+                .collect(Collectors.counting());
+        logger.atInfo().log("Removed %d projects without commit hashes", value);
     }
 
     private void removeDuplicatedBadSmells() {
-        projectRepository
-                .getAll()
-                .emitOn(Infrastructure.getDefaultExecutor())
-                .map(list -> list.get(RANDOM.nextInt(list.size())))
-                .invoke(project ->
-                        logger.atInfo().log("Removing duplicated bad smells for project %s", project.getProjectUrl()))
-                .flatMap(project -> badSmellRepository.findByProjectUrl(project.getProjectUrl()))
-                .map(badSmells -> badSmells.stream().collect(Collectors.groupingBy(BadSmell::getIdentifier)))
-                .onItem()
-                .transformToMulti(badSmells -> Multi.createFrom().iterable(badSmells.entrySet()))
-                .select()
-                .where(entry -> entry.getValue().size() > 1)
-                .map(v -> v.getValue().stream().skip(1).toList())
-                .<BadSmell>flatMap(badSmells -> Multi.createFrom().iterable(badSmells))
-                .onItem()
-                .transformToUniAndConcatenate(
-                        badSmell -> badSmellRepository.deleteByIdentifier(badSmell.getIdentifier()))
-                .collect()
-                .with(Collectors.counting())
-                .subscribe()
-                .with(v -> logger.atInfo().log("Removed %d bad smells", v));
-    }
-
-    private void setDefaultSourceFolders() {
-        Multi.createFrom()
-                .iterable(Map.of(
-                                "https://github.com/google/guava",
-                                "guava",
-                                "https://github.com/INRIA/spoon",
-                                "src/main/java",
-                                "https://github.com/assertj/assertj",
-                                "assertj-core")
-                        .entrySet())
-                .map(v -> projectConfigRepository
-                        .findByProjectUrl(v.getKey())
-                        .map(list -> list.get(0))
-                        .invoke(projectConfig -> {
-                            projectConfig.setSourceFolder(v.getValue());
-                            projectConfigRepository.save(projectConfig);
-                        }))
-                .collect()
-                .with(Collectors.toList())
-                .subscribe()
-                .with(v -> logger.atInfo().log("Updated %s project configs", v.size()));
+        badSmellRepository.getAll().collect(Collectors.groupingBy(BadSmell::getIdentifier)).entrySet().stream()
+                .filter(entry -> entry.getValue().size() > 1)
+                .peek(entry -> logger.atInfo().log(
+                        "Found %d bad smells with identifier %s",
+                        entry.getValue().size(), entry.getKey()))
+                .map(Map.Entry::getValue)
+                .flatMap(Collection::stream)
+                .forEach(badSmell -> badSmellRepository.deleteByIdentifier(badSmell.getIdentifier()));
     }
 
     private void createConfigsIfMissing() {
-        projectRepository
-                .getAll()
-                .onItem()
-                .transformToMulti(Multi.createFrom()::iterable)
-                .select()
-                .when(project -> projectConfigRepository
-                        .findByProjectUrl(project.getProjectUrl())
-                        .map(List::isEmpty))
-                .map(v -> projectConfigRepository.create(ProjectConfig.ofProjectUrl(v.getProjectUrl())))
-                .collect()
-                .with(Collectors.counting())
-                .subscribe()
-                .with(v -> logger.atInfo().log("Updated project configs %s", v));
+        long value = projectRepository.getAll().stream()
+                .map(Project::getProjectUrl)
+                .filter(projectUrl ->
+                        projectConfigRepository.findByProjectUrl(projectUrl).isEmpty())
+                .map(v -> projectConfigRepository.create(ProjectConfig.ofProjectUrl(v)))
+                .collect(Collectors.counting());
+        logger.atInfo().log("Created %d project configs", value);
     }
 
     private void removeProjectHashesWithoutResults() {
-        projectRepository
-                .getAll()
-                .onItem()
-                .<Project>transformToMulti(Multi.createFrom()::iterable)
-                .invoke(this::removeEmptyCommitHashes)
-                .collect()
-                .with(Collectors.counting())
-                .subscribe()
-                .with(v -> logger.atInfo().log("Removed %s empty commit hashes", v));
-    }
-
-    private void removeEmptyCommitHashes(Project project) {
-        Multi.createFrom()
-                .iterable(project.getCommitHashes())
-                .select()
-                .when(hash -> badSmellRepository.findByCommitHash(hash).map(List::isEmpty))
-                .invoke(project::removeCommitHash)
-                .subscribe()
-                .with(hash ->
-                        logger.atInfo().log("Removing commit hash %s from project %s", hash, project.getProjectUrl()));
-    }
-
-    private void removeProjectsWithOutHashes() {
-        projectRepository
-                .getAll()
-                .onItem()
-                .transformToMulti(Multi.createFrom()::iterable)
-                .filter(project -> project.getCommitHashes().isEmpty())
-                .invoke(project -> logger.atInfo().log("Removing project %s", project.getProjectUrl()))
-                .invoke(project -> projectRepository.deleteByProjectName(project.getProjectName()))
-                .map(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
-                .collect()
-                .with(Collectors.counting())
-                .subscribe()
-                .with(v -> logger.atInfo().log("Removed %s projects without hashes", v));
+        for (Project project : projectRepository.getAll()) {
+            List<String> commitHashes = project.getCommitHashes();
+            for (String commitHash : commitHashes) {
+                if (badSmellRepository.findByCommitHash(commitHash).isEmpty()) {
+                    project.removeCommitHash(commitHash);
+                }
+            }
+            projectRepository.save(project);
+        }
     }
 
     private void removeBadSmellsWithWrongIdentifier() {
         Pattern pattern = Pattern.compile("--\\d+$");
-        badSmellRepositoryImpl
-                .mongoCollection()
-                .deleteMany(Filters.regex("identifier", pattern))
-                .subscribe()
-                .with(v -> logger.atInfo().log("Removed %s bad smells with wrong identifier", v));
+        var result = badSmellRepositoryImpl.mongoCollection().deleteMany(Filters.regex("identifier", pattern));
+        logger.atInfo().log("Removed %d bad smells with wrong identifier", result.getDeletedCount());
     }
 
     private void removeDuplicatedProjects() {
-        projectRepository
-                .getAll()
-                .toMulti()
-                .collect()
-                .with(Collectors.flatMapping(Collection::stream, Collectors.toList()))
-                .map(v -> v.stream().collect(Collectors.groupingBy(Project::getProjectUrl)))
-                .invoke(v -> v.entrySet().removeIf(list -> list.getValue().size() == 1))
-                .map(list -> list.keySet().stream()
-                        .map(project -> projectRepository.deleteByProjectUrl(project))
-                        .toList())
-                .subscribe()
-                .with(v -> logger.atInfo().log("Removed %s duplicated projects", v));
+        projectRepository.getAll().stream().collect(Collectors.groupingBy(Project::getProjectUrl)).entrySet().stream()
+                .filter(entry -> entry.getValue().size() > 1)
+                .peek(entry -> logger.atInfo().log(
+                        "Found %d projects with url %s", entry.getValue().size(), entry.getKey()))
+                .map(Map.Entry::getValue)
+                .flatMap(Collection::stream)
+                .forEach(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()));
     }
 
     private void removeBadSmellsWithoutProjectHash() {
         badSmellRepository
                 .getAll()
-                .emitOn(Infrastructure.getDefaultExecutor())
-                .select()
-                .when(v -> projectRepositoryImpl
+                .filter(v -> !projectRepositoryImpl
                         .mongoCollection()
                         .find(Filters.in("commitHashes", v.getCommitHash()))
-                        .collect()
-                        .asList()
-                        .map(List::isEmpty))
-                .map(v -> badSmellRepository.deleteByIdentifier(v.getIdentifier()).invoke(s -> logger.atInfo().log("Removing bad smell %s", v.getIdentifier())))
-                .collect()
-                .with(Collectors.counting())
-                .subscribe()
-                .with(v -> logger.atInfo().log("Removed %s bad smells without project hash", v));
+                        .iterator()
+                        .hasNext())
+                .map(BadSmell::getIdentifier)
+                .forEach(badSmellRepository::deleteByIdentifier);
     }
 }

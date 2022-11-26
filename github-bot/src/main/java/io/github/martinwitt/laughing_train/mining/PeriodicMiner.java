@@ -69,7 +69,8 @@ public class PeriodicMiner {
     }
 
     private Uni<Project> getKnownProject() {
-        return projectRepository.getAll().map(list -> list.get(random.nextInt(list.size())));
+        var list = projectRepository.getAll();
+        return Uni.createFrom().item(list.get(random.nextInt(list.size())));
     }
 
     void mine(@Observes StartupEvent event) {
@@ -145,29 +146,16 @@ public class PeriodicMiner {
         if (projectResult.body() instanceof ProjectResult.Success project) {
             String name = project.project().name();
             String commitHash = project.project().commitHash();
-            projectRepository
-                    .findByProjectName(name)
-                    .map(list -> {
-                        if (hasSingleResult(list)) {
-                            logger.atInfo().log("Updating commit hash for %s", name);
-                            Project queryResult = list.get(0);
-                            queryResult.addCommitHash(commitHash);
-                            return projectRepository.save(queryResult);
-                        } else {
-                            logger.atInfo().log("Adding new project %s", name);
-                            String url = project.project().url();
-                            var newProject = new Project(name, url);
-                            newProject.addCommitHash(commitHash);
-                            return projectRepository.save(newProject);
-                        }
-                    })
-                    .subscribe()
-                    .with(v -> logger.atInfo().log("Added commit hash %s to project %s", commitHash, name));
+            var list = projectRepository.findByProjectName(name);
+            if (list.isEmpty()) {
+                projectRepository.create(new Project(name, project.project().url()));
+            } else {
+                logger.atInfo().log("Updating commit hash for %s", name);
+                var oldProject = list.get(0);
+                oldProject.addCommitHash(commitHash);
+                projectRepository.save(oldProject);
+            }
         }
-    }
-
-    private boolean hasSingleResult(List<Project> query) {
-        return query.size() == 1;
     }
 
     private Uni<Void> saveQodanaResults(QodanaResult message) {

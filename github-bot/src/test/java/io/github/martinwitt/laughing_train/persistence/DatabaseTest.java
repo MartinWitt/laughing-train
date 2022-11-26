@@ -10,9 +10,7 @@ import io.github.martinwitt.laughing_train.persistence.repository.BadSmellReposi
 import io.github.martinwitt.laughing_train.utils.Contract;
 import io.github.martinwitt.laughing_train.utils.TestAnalyzerResult;
 import io.quarkus.test.junit.QuarkusTest;
-import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import java.util.Random;
-import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.junit.jupiter.api.Test;
 import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
@@ -32,49 +30,23 @@ class DatabaseTest {
     @Contract("A database can be queried for a ruleID")
     void createASingleBadSmell() {
         cleanDB();
-        badSmellRepository
-                .save(createWithMessage("PointLessBoolean"))
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem();
-        assertThat(badSmellRepository
-                        .getAll()
-                        .collect()
-                        .with(Collectors.counting())
-                        .await()
-                        .indefinitely())
-                .isEqualTo(1);
+        badSmellRepository.save(createWithMessage("PointLessBoolean"));
+        assertThat(badSmellRepository.getAll().toList()).isEqualTo(1);
         // assertThat(badSmell.id).isNotNull();)
-        var list = badSmellRepository
-                .findByRuleID(new RuleId("PointLessBoolean"))
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .getItem();
-        assertEquals(1, list.size());
+        assertEquals(
+                1,
+                badSmellRepository.findByRuleID(new RuleId("PointLessBoolean")).size());
     }
 
     @Test
     @Contract("Multiple BadSmells can be inserted into the database")
     void insertMultipleBadSmell() {
         cleanDB();
-        badSmellRepository
-                .save(createWithMessage("PointLessBoolean"))
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem();
-        badSmellRepository
-                .save(createWithMessage("PointLessBoolean"))
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem();
-        var list = badSmellRepository
-                .findByRuleID(new RuleId("PointLessBoolean"))
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .getItem();
-        assertEquals(2, list.size());
+        badSmellRepository.save(createWithMessage("PointLessBoolean"));
+        badSmellRepository.save(createWithMessage("PointLessBoolean"));
+        assertEquals(
+                2,
+                badSmellRepository.findByRuleID(new RuleId("PointLessBoolean")).size());
     }
 
     @Test
@@ -82,29 +54,17 @@ class DatabaseTest {
     void insertAndDeleteBadSmell() {
         cleanDB();
         var badSmell = createWithMessage("PointLessBoolean");
-        badSmellRepository
-                .save(badSmell)
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem();
-        badSmellRepository
-                .deleteByIdentifier(badSmell.getIdentifier())
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem();
-        assertThat(badSmellRepository
-                        .findByIdentifier(badSmell.getIdentifier())
-                        .subscribe()
-                        .withSubscriber(UniAssertSubscriber.create())
-                        .awaitItem()
-                        .getItem())
+        badSmellRepository.save(badSmell);
+        badSmellRepository.deleteByIdentifier(badSmell.getIdentifier());
+
+        assertThat(badSmellRepository.findByIdentifier(badSmell.getIdentifier()))
                 .isEmpty();
     }
     /**
      * Cleans the database before each test.
      */
     private void cleanDB() {
-        badSmellRepositoryImpl.deleteAll().await().indefinitely();
+        badSmellRepositoryImpl.deleteAll();
     }
 
     private BadSmell createWithMessage(String ruleID) {

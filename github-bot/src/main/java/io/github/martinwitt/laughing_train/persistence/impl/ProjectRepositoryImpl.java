@@ -5,82 +5,78 @@ import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.converter.ProjectDaoConverter;
 import io.github.martinwitt.laughing_train.persistence.dao.ProjectDao;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
-import io.quarkus.mongodb.panache.reactive.ReactivePanacheMongoRepository;
-import io.smallrye.mutiny.Uni;
+import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class ProjectRepositoryImpl implements ProjectRepository, ReactivePanacheMongoRepository<ProjectDao> {
+public class ProjectRepositoryImpl implements ProjectRepository, PanacheMongoRepository<ProjectDao> {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private ProjectDaoConverter projectDaoConverter = new ProjectDaoConverter();
 
-    public Uni<List<Project>> findByProjectName(String projectName) {
+    public List<Project> findByProjectName(String projectName) {
         return find("projectName", projectName).stream()
                 .map(projectDaoConverter::convertToEntity)
-                .collect()
-                .asList();
+                .toList();
     }
 
     @Override
-    public Uni<Boolean> existsByProjectName(String projectName) {
-        return findByProjectName(projectName).map(projects -> !projects.isEmpty());
+    public boolean existsByProjectName(String projectName) {
+        return findByProjectName(projectName).isEmpty();
     }
 
     @Override
-    public Uni<Boolean> existsByProjectUrl(String projectUrl) {
-        return findByProjectUrl(projectUrl).map(projects -> !projects.isEmpty());
+    public boolean existsByProjectUrl(String projectUrl) {
+        return findByProjectUrl(projectUrl).isEmpty();
     }
 
     @Override
-    public Uni<Project> create(Project project) {
-        return findByProjectUrl(project.getProjectUrl()).<Project>flatMap(list -> {
-            if (list.isEmpty()) {
-                return persist(projectDaoConverter.convertToDao(project)).map(projectDaoConverter::convertToEntity);
-            } else {
-                return Uni.createFrom().item(list.get(0));
-            }
-        });
+    public Project create(Project project) {
+        var list = findByProjectUrl(project.getProjectUrl());
+        if (list.isEmpty()) {
+            persist(projectDaoConverter.convertToDao(project));
+            return project;
+        } else {
+            return list.get(0);
+        }
     }
 
     @Override
-    public Uni<Project> save(Project project) {
-        return find("projectUrl", project.getProjectUrl()).list().flatMap(list -> {
-            if (list.isEmpty()) {
-                logger.atInfo().log("Project not found, creating new one" + project.getProjectUrl());
-                return persist(projectDaoConverter.convertToDao(project)).map(projectDaoConverter::convertToEntity);
-            } else {
-                logger.atInfo().log("Project found, updating" + project.getProjectUrl() + " "
-                        + list.get(0).getProjectUrl());
-                var dao = projectDaoConverter.convertToDao(project);
-                dao.id = list.get(0).id;
-                logger.atInfo().log("Project found, updating" + project.getProjectUrl() + " " + dao.id);
-                return update(dao).map(projectDaoConverter::convertToEntity);
-            }
-        });
+    public Project save(Project project) {
+        var list = find("projectUrl", project.getProjectUrl()).list();
+        if (list.isEmpty()) {
+            persist(projectDaoConverter.convertToDao(project));
+            return project;
+        } else {
+            logger.atInfo().log("Project already exists, updating %s", project);
+            var dao = projectDaoConverter.convertToDao(project);
+            dao.id = list.get(0).id;
+            update(dao);
+            logger.atInfo().log("Project updated %s", this.findById(dao.id));
+            return project;
+        }
     }
 
     @Override
-    public Uni<Long> deleteByProjectName(String projectName) {
+    public long deleteByProjectName(String projectName) {
         return delete("projectName", projectName);
     }
 
     @Override
-    public Uni<Long> deleteByProjectUrl(String projectUrl) {
+    public long deleteByProjectUrl(String projectUrl) {
         return delete("projectUrl", projectUrl);
     }
 
     @Override
-    public Uni<List<Project>> findByProjectUrl(String projectUrl) {
+    public List<Project> findByProjectUrl(String projectUrl) {
         return find("projectUrl", projectUrl).stream()
                 .map(projectDaoConverter::convertToEntity)
-                .collect()
-                .asList();
+                .toList();
     }
 
     @Override
-    public Uni<List<Project>> getAll() {
-        return streamAll().map(projectDaoConverter::convertToEntity).collect().asList();
+    public List<Project> getAll() {
+        return streamAll().map(projectDaoConverter::convertToEntity).toList();
     }
 }

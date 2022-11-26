@@ -6,8 +6,6 @@ import com.github.javafaker.Faker;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.test.junit.QuarkusTest;
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import javax.inject.Inject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,55 +21,27 @@ public class ProjectRepositoryImplTest {
     @Test
     void testCreate() {
         Project project = createMockProject();
-        projectRepository
-                .create(project)
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .assertItem(project);
+        assertThat(projectRepository.create(project)).isEqualTo(project);
     }
 
     @Test
     void testDeleteByProjectUrl() {
-        assertThat(projectRepository.getAll().await().indefinitely()).isEmpty();
+        assertThat(projectRepository.getAll()).isEmpty();
         Project project = createMockProject();
-        projectRepository
-                .create(project)
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .assertItem(project);
-        projectRepository
-                .deleteByProjectUrl(project.getProjectUrl())
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .assertItem(1L)
-                .getItem();
-        assertThat(projectRepository
-                        .findByProjectUrl(project.getProjectUrl())
-                        .subscribe()
-                        .withSubscriber(UniAssertSubscriber.create())
-                        .awaitItem()
-                        .getItem())
-                .isEmpty();
+        projectRepository.create(project);
+        assertThat(projectRepository.getAll()).isNotEmpty();
+        assertThat(projectRepository.deleteByProjectUrl(project.getProjectUrl()))
+                .isEqualTo(1);
+
+        assertThat(projectRepository.findByProjectUrl(project.getProjectUrl())).isEmpty();
     }
 
     @Test
     void testFindByProjectUrl() {
         Project project = createMockProject();
-        projectRepository
-                .create(project)
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .assertItem(project);
-        assertThat(projectRepository
-                        .findByProjectUrl(project.getProjectUrl())
-                        .subscribe()
-                        .withSubscriber(UniAssertSubscriber.create())
-                        .awaitItem()
-                        .getItem())
+        projectRepository.create(project);
+
+        assertThat(projectRepository.findByProjectUrl(project.getProjectUrl()))
                 .hasSize(1)
                 .allMatch(v -> v.getProjectUrl().equals(project.getProjectUrl()));
     }
@@ -83,25 +53,12 @@ public class ProjectRepositoryImplTest {
     @Test
     void addCommitHashTest() {
         Project project = createMockProject();
-        projectRepository
-                .create(project)
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .assertItem(project);
+        assertThat(projectRepository.create(project)).isEqualTo(project);
+        ;
         project.addCommitHash(faker.lorem().characters(10));
-        projectRepository
-                .save(project)
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .assertItem(project);
-        assertThat(projectRepository
-                        .findByProjectUrl(project.getProjectUrl())
-                        .subscribe()
-                        .withSubscriber(UniAssertSubscriber.create())
-                        .awaitItem()
-                        .getItem())
+        projectRepository.save(project);
+
+        assertThat(projectRepository.findByProjectUrl(project.getProjectUrl()))
                 .hasSize(1)
                 .allMatch(v ->
                         v.getCommitHashes().contains(project.getCommitHashes().get(0)));
@@ -110,15 +67,7 @@ public class ProjectRepositoryImplTest {
     @BeforeEach
     @AfterEach
     void setUp() {
-        projectRepository
-                .getAll()
-                .onItem()
-                .transformToMulti(Multi.createFrom()::iterable)
-                .onItem()
-                .transformToUniAndMerge(v -> projectRepository.deleteByProjectUrl(v.getProjectUrl()))
-                .toUni()
-                .await()
-                .indefinitely();
-        assertThat(projectRepository.getAll().await().indefinitely()).isEmpty();
+        projectRepository.getAll().forEach(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()));
+        assertThat(projectRepository.getAll()).isEmpty();
     }
 }

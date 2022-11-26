@@ -66,34 +66,37 @@ public class SearchProjectService {
      * @return the repository if it exists, null otherwise
      */
     private Uni<Project> getProjectIfExisting(GHRepository ghRepo) {
-        return projectRepository
-                .findByProjectName(ghRepo.getName())
+        return Uni.createFrom()
+                .item(projectRepository.findByProjectName(ghRepo.getName()))
                 .<Project>flatMap(v -> v.isEmpty()
                         ? Uni.createFrom().nothing()
                         : Uni.createFrom().item(v.get(0)));
     }
 
     private Uni<Project> persistProject(Project project) {
-        return projectRepository.findByProjectUrl(project.getProjectUrl()).flatMap(list -> {
-            if (list.isEmpty()) {
-                return projectRepository.create(project);
-            } else {
-                return Uni.createFrom().item(project);
-            }
-        });
+        return Uni.createFrom()
+                .item(projectRepository.findByProjectUrl(project.getProjectUrl()))
+                .flatMap(list -> {
+                    if (list.isEmpty()) {
+                        return Uni.createFrom().item(projectRepository.create(project));
+                    } else {
+                        return Uni.createFrom().item(project);
+                    }
+                });
     }
 
     private Uni<Project> persistProjectConfigIfMissing(Project project) {
         String projectUrl = project.getProjectUrl();
-        return projectConfigRepository.findByProjectUrl(projectUrl).flatMap(list -> {
-            if (list.isEmpty()) {
-                return projectConfigRepository
-                        .create(ProjectConfig.ofProjectUrl(projectUrl))
-                        .replaceWith(project);
-            } else {
-                return Uni.createFrom().item(project);
-            }
-        });
+        return Uni.createFrom()
+                .item(projectConfigRepository.findByProjectUrl(projectUrl))
+                .flatMap(list -> {
+                    if (list.isEmpty()) {
+                        projectConfigRepository.create(ProjectConfig.ofProjectUrl(projectUrl));
+                        return Uni.createFrom().item(project);
+                    } else {
+                        return Uni.createFrom().item(project);
+                    }
+                });
     }
 
     private @Nullable GHRepository findRandomRepositoryOnGithub() {
