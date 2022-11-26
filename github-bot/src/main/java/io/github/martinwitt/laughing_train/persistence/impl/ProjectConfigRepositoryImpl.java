@@ -43,7 +43,6 @@ public class ProjectConfigRepositoryImpl implements ProjectConfigRepository, Pan
 
     @Override
     public ProjectConfig save(ProjectConfig projectConfig) {
-
         var list = find("projectUrl", projectConfig.getProjectUrl()).list();
         if (list.isEmpty()) {
             persist(projectConfigConverter.convertToDao(projectConfig));

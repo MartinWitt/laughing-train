@@ -52,10 +52,13 @@ public class BadSmellRepositoryImpl implements BadSmellRepository, PanacheMongoR
 
     @Override
     public BadSmell save(BadSmell badSmell) {
-        var list = findByIdentifier(badSmell.getIdentifier());
+        var list = find("identifier", badSmell.getIdentifier()).list();
         if (list.isEmpty()) {
             persist(badSmellConverter.convertToDao(badSmell));
         } else {
+            var dao = badSmellConverter.convertToDao(badSmell);
+            dao.id = list.get(0).id;
+            update(dao);
             update(badSmellConverter.convertToDao(badSmell));
         }
         return badSmell;

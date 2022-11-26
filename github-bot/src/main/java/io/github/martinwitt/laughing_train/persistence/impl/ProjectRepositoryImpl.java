@@ -53,7 +53,9 @@ public class ProjectRepositoryImpl implements ProjectRepository, PanacheMongoRep
             var dao = projectDaoConverter.convertToDao(project);
             dao.id = list.get(0).id;
             update(dao);
-            logger.atInfo().log("Project updated %s", this.findById(dao.id));
+            logger.atInfo().log(
+                    "Project updated %s",
+                    find("projectUrl", project.getProjectUrl()).firstResult());
             return project;
         }
     }
