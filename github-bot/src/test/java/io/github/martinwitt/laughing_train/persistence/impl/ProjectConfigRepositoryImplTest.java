@@ -6,7 +6,6 @@ import com.github.javafaker.Faker;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.quarkus.test.junit.QuarkusTest;
-import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import javax.inject.Inject;
 import org.junit.jupiter.api.Test;
 
@@ -20,49 +19,26 @@ class ProjectConfigRepositoryImplTest {
     @Test
     void testCreate() {
         ProjectConfig config = createMockProjectConfig();
-        UniAssertSubscriber<ProjectConfig> subscriber = UniAssertSubscriber.create();
-        projectConfigRepository.create(config).subscribe().withSubscriber(subscriber);
-        subscriber.awaitItem().assertItem(config);
+        assertThat(projectConfigRepository.create(config)).isEqualTo(config);
     }
 
     @Test
     void testDeleteByProjectUrl() {
         ProjectConfig config = createMockProjectConfig();
-        UniAssertSubscriber<ProjectConfig> subscriber = UniAssertSubscriber.create();
-        projectConfigRepository.create(config).subscribe().withSubscriber(subscriber);
-        subscriber.awaitItem().assertItem(config);
-        UniAssertSubscriber<Long> subscriber2 = UniAssertSubscriber.create();
-        projectConfigRepository
-                .deleteByProjectUrl(config.getProjectUrl())
-                .subscribe()
-                .withSubscriber(subscriber2);
-        subscriber2.awaitItem().assertItem(1L);
+        projectConfigRepository.create(config);
+        assertThat(projectConfigRepository.deleteByProjectUrl(config.getProjectUrl()))
+                .isEqualTo(1);
     }
 
     @Test
     void insertKeepsDataUnique() {
         ProjectConfig config = createMockProjectConfig();
-        projectConfigRepository
-                .create(config)
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .assertItem(config);
-        projectConfigRepository
-                .create(config)
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem()
-                .assertItem(config);
-        projectConfigRepository
-                .findByProjectUrl(config.getProjectUrl())
-                .subscribe()
-                .withSubscriber(UniAssertSubscriber.create())
-                .awaitItem();
-        assertThat(projectConfigRepository
-                        .findByProjectUrl(config.getProjectUrl())
-                        .await()
-                        .indefinitely())
+        projectConfigRepository.create(config);
+
+        projectConfigRepository.create(config);
+
+        projectConfigRepository.findByProjectUrl(config.getProjectUrl());
+        assertThat(projectConfigRepository.findByProjectUrl(config.getProjectUrl()))
                 .hasSize(1);
     }
 

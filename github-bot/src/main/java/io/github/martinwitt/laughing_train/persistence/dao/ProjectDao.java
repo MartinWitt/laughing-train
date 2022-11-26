@@ -3,12 +3,10 @@ package io.github.martinwitt.laughing_train.persistence.dao;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
 import java.util.List;
-import org.bson.types.ObjectId;
 
 @MongoEntity(database = "Laughing-Train", collection = "Project")
 @SuppressWarnings("NullAway")
 public class ProjectDao extends PanacheMongoEntity {
-    public ObjectId id;
     private String projectName;
     private String projectUrl;
     private List<String> commitHashes;
@@ -57,5 +55,13 @@ public class ProjectDao extends PanacheMongoEntity {
      */
     public void setCommitHashes(List<String> commitHashes) {
         this.commitHashes = commitHashes;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + " projectName='"
+                + getProjectName() + "'" + ", projectUrl='"
+                + getProjectUrl() + "'" + ", commitHashes='"
+                + getCommitHashes() + "'" + "}";
     }
 }

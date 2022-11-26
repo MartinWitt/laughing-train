@@ -4,12 +4,8 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.services.RefactorService;
 import io.quarkus.security.Authenticated;
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.Uni;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import org.eclipse.microprofile.graphql.Description;
@@ -39,14 +35,11 @@ public class RefactorGraphQL {
     @Mutation
     @Description("Refactoring the given bad smells")
     @Authenticated
-    public Uni<String> refactor(List<String> badSmellIdentifier) {
-
-        return Multi.createFrom()
-                .items(badSmellIdentifier.stream())
-                .onItem()
-                .transformToUniAndConcatenate(badSmellRepository::findByIdentifier)
-                .collect()
-                .with(Collectors.flatMapping(Collection::stream, Collectors.toList()))
-                .<String>flatMap(badSmells -> refactorService.refactor(badSmells));
+    public String refactor(List<String> badSmellIdentifier) {
+        badSmellIdentifier.stream().map(badSmellRepository::findByIdentifier).forEach(badSmell -> {
+            logger.atInfo().log("Refactoring %s", badSmell);
+            refactorService.refactor(badSmell);
+        });
+        return "Refactoring done";
     }
 }

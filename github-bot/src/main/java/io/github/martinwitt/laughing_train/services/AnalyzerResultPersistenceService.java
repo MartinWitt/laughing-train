@@ -25,7 +25,7 @@ public class AnalyzerResultPersistenceService {
             Multi.createFrom()
                     .iterable(success.result())
                     .map(badSmell -> new BadSmell(badSmell, project.name(), project.url(), project.commitHash()))
-                    .invoke(badSmellRepository::save)
+                    .map(badSmellRepository::save)
                     .collect()
                     .with(Collectors.counting())
                     .subscribe()

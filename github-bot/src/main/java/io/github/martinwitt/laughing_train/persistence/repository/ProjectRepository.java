@@ -1,26 +1,25 @@
 package io.github.martinwitt.laughing_train.persistence.repository;
 
 import io.github.martinwitt.laughing_train.domain.entity.Project;
-import io.smallrye.mutiny.Uni;
 import java.util.List;
 
 public interface ProjectRepository {
 
-    Uni<List<Project>> getAll();
+    List<Project> getAll();
 
-    Uni<List<Project>> findByProjectName(String projectName);
+    List<Project> findByProjectName(String projectName);
 
-    Uni<Boolean> existsByProjectName(String projectName);
+    boolean existsByProjectName(String projectName);
 
-    Uni<Long> deleteByProjectName(String projectName);
+    long deleteByProjectName(String projectName);
 
-    Uni<List<Project>> findByProjectUrl(String projectUrl);
+    List<Project> findByProjectUrl(String projectUrl);
 
-    Uni<Boolean> existsByProjectUrl(String projectUrl);
+    boolean existsByProjectUrl(String projectUrl);
 
-    Uni<Long> deleteByProjectUrl(String projectUrl);
+    long deleteByProjectUrl(String projectUrl);
 
-    Uni<Project> create(Project project);
+    Project create(Project project);
 
-    Uni<Project> save(Project project);
+    Project save(Project project);
 }
