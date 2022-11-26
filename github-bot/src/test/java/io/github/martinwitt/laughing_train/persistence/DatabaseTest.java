@@ -31,7 +31,7 @@ class DatabaseTest {
     void createASingleBadSmell() {
         cleanDB();
         badSmellRepository.save(createWithMessage("PointLessBoolean"));
-        assertThat(badSmellRepository.getAll().toList()).isEqualTo(1);
+        assertThat(badSmellRepository.getAll().toList()).hasSize(1);
         // assertThat(badSmell.id).isNotNull();)
         assertEquals(
                 1,

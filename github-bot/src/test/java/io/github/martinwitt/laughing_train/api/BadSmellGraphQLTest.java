@@ -4,6 +4,7 @@ import static io.smallrye.graphql.client.core.Document.document;
 import static io.smallrye.graphql.client.core.Field.field;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.github.javafaker.Faker;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
@@ -28,6 +29,7 @@ import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 public class BadSmellGraphQLTest {
 
     DynamicGraphQLClient client;
+    private Faker faker = new Faker();
 
     @Inject
     ProjectRepository projectRepository;
@@ -55,7 +57,7 @@ public class BadSmellGraphQLTest {
         RuleId ruleId = new RuleId(ruleID);
         TestAnalyzerResult testAnalyzerResult =
                 new TestAnalyzerResult(ruleId, "filePath", new Position(0, 0, 0, 0, 0, 0), "test");
-        return new BadSmell(testAnalyzerResult, "test", "test", "test");
+        return new BadSmell(testAnalyzerResult, "test", "test", faker.random().hex(20));
     }
 
     @Test
