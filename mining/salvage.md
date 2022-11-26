@@ -4,15 +4,15 @@
 I found 31 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RuleId[ruleID=DataFlowIssue] | 13 | false |
-| RuleId[ruleID=UnstableApiUsage] | 13 | false |
-| RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern] | 1 | false |
-| RuleId[ruleID=UnnecessarySemicolon] | 1 | false |
-| RuleId[ruleID=BusyWait] | 1 | false |
-| RuleId[ruleID=BoundedWildcard] | 1 | false |
-| RuleId[ruleID=RedundantSuppression] | 1 | false |
+| DataFlowIssue | 13 | false |
+| UnstableApiUsage | 13 | false |
+| DynamicRegexReplaceableByCompiledPattern | 1 | false |
+| UnnecessarySemicolon | 1 | false |
+| BusyWait | 1 | false |
+| BoundedWildcard | 1 | false |
+| RedundantSuppression | 1 | false |
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 #### Snippet
@@ -25,7 +25,7 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
-### RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
 Unnecessary semicolon `;`
 in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 #### Snippet
@@ -38,7 +38,7 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Unboxing of `state.getRestarting()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -50,7 +50,7 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 				Thread.sleep(RETRY_DELAY);
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Unboxing of `inspect.getState().getRestarting()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -62,7 +62,7 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 		
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Unboxing of `state.getRestarting()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -74,7 +74,7 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 		}
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Unboxing of `state.getRunning()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -86,7 +86,7 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 			log.debug("running preperation command '{}' on container {}", command, container.id());
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Unboxing of `state.getPaused()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -98,7 +98,7 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 			log.debug("running preperation command '{}' on container {}", command, container.id());
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Unboxing of `state.getRunning()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -110,7 +110,7 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 						throw new IllegalStateException("container '" + container.id() + "' is paused, cannot stop");
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Unboxing of `state.getPaused()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -122,7 +122,7 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 					}
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Unboxing of `state.getRunning()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -134,7 +134,7 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 					docker.pauseContainerCmd(container.id()).exec();
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Unboxing of `state.getPaused()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -146,7 +146,7 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 					docker.pauseContainerCmd(container.id()).exec();
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Method invocation `keySet` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
 #### Snippet
@@ -158,7 +158,7 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
 				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Argument `config.getEnv()` might be null
 in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
 #### Snippet
@@ -170,7 +170,7 @@ in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
 				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 #### Snippet
@@ -182,7 +182,7 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 		// parse user or fall back to container user
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Dereference of `container.getMounts()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 #### Snippet
@@ -195,7 +195,7 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 ```
 
 ## RuleId[ruleID=BusyWait]
-### RuleId[ruleID=BusyWait]
+### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 #### Snippet
@@ -208,7 +208,7 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
 Can generalize to `? super Frame`
 in `src/main/java/de/chrisliebaer/salvage/entity/FrameCallback.java`
 #### Snippet
@@ -221,7 +221,7 @@ in `src/main/java/de/chrisliebaer/salvage/entity/FrameCallback.java`
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
-### RuleId[ruleID=RedundantSuppression]
+### RedundantSuppression
 Redundant suppression
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -234,7 +234,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'com.google.common.graph.Traverser' is marked unstable with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -246,7 +246,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 			var current = unvisited.remove(0);
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'forGraph(com.google.common.graph.SuccessorsFunction)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -258,7 +258,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 			var current = unvisited.remove(0);
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -270,7 +270,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 			var current = unvisited.remove(0);
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'com.google.common.graph.SuccessorsFunction' is marked unstable with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -282,7 +282,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 			var current = unvisited.remove(0);
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'depthFirstPostOrder(N)' is declared in unstable class 'com.google.common.graph.Traverser' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -294,7 +294,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 				unvisited.remove(node);
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -306,7 +306,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'com.google.common.graph.GraphBuilder' is marked unstable with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -318,7 +318,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		// in project mode, nodes of same project will be connected via project node to force same group (in other modes, traversal will ignore edge)
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'undirected()' is declared in unstable class 'com.google.common.graph.GraphBuilder' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -330,7 +330,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		// in project mode, nodes of same project will be connected via project node to force same group (in other modes, traversal will ignore edge)
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'immutable()' is declared in unstable class 'com.google.common.graph.GraphBuilder' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -342,7 +342,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		// in project mode, nodes of same project will be connected via project node to force same group (in other modes, traversal will ignore edge)
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'putEdge(N, N)' is declared in unstable class 'com.google.common.graph.ImmutableGraph' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -354,7 +354,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'putEdge(N, N)' is declared in unstable class 'com.google.common.graph.ImmutableGraph' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -366,7 +366,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		}
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'addNode(N)' is declared in unstable class 'com.google.common.graph.ImmutableGraph' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
@@ -378,7 +378,7 @@ in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 		return builder.build();
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'build()' is declared in unstable class 'com.google.common.graph.ImmutableGraph' marked with @Beta
 in `src/main/java/de/chrisliebaer/salvage/grouping/BackupGrouping.java`
 #### Snippet
