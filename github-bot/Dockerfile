@@ -3,29 +3,7 @@
 FROM curlimages/curl AS downloader
 ARG RUN_JAVA_VERSION=1.3.8
 RUN curl https://repo1.maven.org/maven2/io/fabric8/run-java-sh/${RUN_JAVA_VERSION}/run-java-sh-${RUN_JAVA_VERSION}-sh.sh -o /tmp/run-java.sh
-RUN 
-# Disable sandboxing
-# Without this opam fails to compile OCaml for some reason. We don't need sandboxing inside a Docker container anyway.
-RUN opam init --reinit --bare --disable-sandboxing --yes --auto-setup
-
-# Download the latest Infer from git
-RUN cd / && \
-  git clone --depth 1 https://github.com/facebook/infer/
-
-# Build opam deps first, then infer. This way if any step fails we
-# don't lose the significant amount of work done in the previous
-# steps.
-RUN cd /infer && ./build-infer.sh java --only-setup-opam
-RUN cd /infer && ./build-infer.sh java
-# Install infer
-ENV PATH /infer/bin:${PATH}
-# Generate a release
-RUN cd /infer && \
-  make install-with-libs \
-  BUILD_MODE=opt \
-  PATCHELF=patchelf \
-  DESTDIR="/infer-release" \
-  libdir_relative_to_bindir="../lib"
+# install gradle
 ENV GRADLE_VERSION 7.6.
 RUN set -o errexit -o nounset \
   && echo "Downloading Gradle" \
@@ -39,12 +17,9 @@ RUN set -o errexit -o nounset \
   \
   && echo "Testing Gradle installation" \
   && gradle --version
-
 # Set Gradle in the environment variables
-ENV GRADLE_HOME /opt/gradle-4.5.1
-ENV PATH $PATH:/opt/gradle-4.5.1/bin
-# Get the infer release
-COPY --from=compilator /infer-release/usr/local /infer
+ENV GRADLE_HOME /opt/gradle-${GRADLE_VERSION}
+ENV PATH $PATH:/opt/gradle-${GRADLE_VERSION}/bin
 
 # Downloading and installing Maven
 # 1- Define a constant with the version of maven you want to install
@@ -64,19 +39,34 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && echo "Downlaoding maven" \
   && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
   \
-  && echo "Checking download hash" \
-  && echo "${SHA}  /tmp/apache-maven.tar.gz" | sha512sum -c - \
-  \
   && echo "Unziping maven" \
   && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
   \
   && echo "Cleaning and setting links" \
   && rm -f /tmp/apache-maven.tar.gz \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
-
 # 6- Define environmental variables required by Maven, like Maven_Home directory and where the maven repo is located
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+
+# install infer
+RUN 
+# Disable sandboxing
+# Without this opam fails to compile OCaml for some reason. We don't need sandboxing inside a Docker container anyway.
+RUN opam init --reinit --bare --disable-sandboxing --yes --auto-setup
+
+# Download the latest Infer from git
+RUN cd / && \
+  git clone --depth 1 https://github.com/facebook/infer/
+
+# Build opam deps first, then infer. This way if any step fails we
+# don't lose the significant amount of work done in the previous
+# steps.
+RUN cd /infer && ./build-infer.sh java --only-setup-opam
+RUN cd /infer && ./build-infer.sh java
+# Install infer
+ENV PATH /infer/bin:${PATH}
+
 # FROM eclipse-temurin:11-jdk-alpine
 FROM eclipse-temurin:19-jdk-alpine
 
